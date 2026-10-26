@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Shape grid</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f5f1e8;font-family:Helvetica,Arial,sans-serif;color:#111}
+.grid{position:absolute;left:520px;top:0;width:760px;height:900px;display:grid;grid-template-columns:repeat(4,190px);grid-template-rows:repeat(5,180px)}
+.grid i{display:block;position:relative;overflow:hidden}
+.q1{background:#111}.q1::after{content:"";position:absolute;left:0;top:0;width:190px;height:180px;background:#ff5a36;border-radius:0 0 100% 0}
+.q2{background:#2f5bff;border-radius:50% 50% 0 0}.q3{background:#ffd23f;clip-path:polygon(0 100%,50% 0,100% 100%)}.q4{background:#f5f1e8}.q4::after{content:"";position:absolute;left:35px;top:30px;width:120px;height:120px;border-radius:50%;border:18px solid #111}
+.q5{background:#ff5a36;border-radius:0 0 0 100%}.q6{background:#111;clip-path:polygon(0 0,100% 0,0 100%)}.q7{background:repeating-linear-gradient(90deg,#111 0 10px,#f5f1e8 10px 20px)}.q8{background:#2f5bff}.q8::after{content:"";position:absolute;left:45px;top:40px;width:100px;height:100px;background:#ffd23f;transform:rotate(45deg)}
+.q9{background:#ffd23f;border-radius:50%}.q10{background:#f5f1e8;border-radius:0}.q10::after{content:"";position:absolute;left:0;top:90px;width:190px;height:90px;background:#ff5a36;border-radius:95px 95px 0 0}.q11{background:#111;border-radius:0 100% 0 0}.q12{background:radial-gradient(circle,#111 3px,transparent 3.5px) 0 0/19px 18px}
+.q13{background:#2f5bff;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}.q14{background:#ff5a36}.q14::after{content:"";position:absolute;left:0;top:0;width:95px;height:180px;background:#111}.q15{background:#f5f1e8;border:18px solid #2f5bff;border-radius:50%}.q16{background:#ffd23f;border-radius:100% 0 0 0}
+.q17{background:repeating-linear-gradient(45deg,#ff5a36 0 12px,#f5f1e8 12px 24px)}.q18{background:#111;border-radius:50% 0 50% 0}.q19{background:#2f5bff;border-radius:0 0 50% 50%}.q20{background:#f5f1e8}
+.logo{position:absolute;left:60px;top:44px;font:800 22px Helvetica;letter-spacing:-0.5px}
+.nav{position:absolute;left:60px;top:90px;display:flex;gap:26px;font:500 14px Helvetica;color:#555}
+.head{position:absolute;left:60px;top:250px;width:860px;font:italic 400 128px/0.9 Georgia,serif;letter-spacing:-4px;color:#fff;mix-blend-mode:difference;z-index:2}
+.copy{position:absolute;left:60px;top:620px;width:380px;font:400 17px/1.6 Helvetica;color:#333}
+.btn{position:absolute;left:60px;top:760px;padding:16px 30px;border:2px solid #111;border-radius:999px;font:700 15px Helvetica}
+.ast{position:absolute;left:380px;top:120px;font:400 150px/1 Helvetica;color:#ff5a36;transform:rotate(18deg)}
+</style></head><body>
+<div class="grid" data-r="shape-grid" data-must><i class="q1"></i><i class="q2"></i><i class="q3"></i><i class="q4"></i><i class="q5"></i><i class="q6"></i><i class="q7"></i><i class="q8"></i><i class="q9"></i><i class="q10"></i><i class="q11"></i><i class="q12"></i><i class="q13"></i><i class="q14"></i><i class="q15"></i><i class="q16"></i><i class="q17"></i><i class="q18"></i><i class="q19"></i><i class="q20"></i></div>
+<div class="logo" data-r="logo">Modul/ar</div>
+<div class="nav" data-r="nav"><span>Index</span><span>Systems</span><span>Type</span><span>Contact</span></div>
+<div class="ast" data-r="asterisk">✱</div>
+<h1 class="head" data-r="headline" data-must>Shapes that speak in grids</h1>
+<p class="copy" data-r="copy">A studio for identity systems built from twenty forms, four colours and one strict module.</p>
+<div class="btn" data-r="cta">See the system →</div>
+</body></html>

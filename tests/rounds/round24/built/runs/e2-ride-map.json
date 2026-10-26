@@ -1,0 +1,483 @@
+{
+  "id": "e2-ride-map",
+  "at": "2026-10-26T07:59:52.797Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6597343971994372,
+    "overallV2": 0.6597343971994372,
+    "overallV1": 0.650497734725769,
+    "colour": 0.9722817750231103,
+    "structure": 0.7610027397766428,
+    "structureStrict": 0.7499623535904101,
+    "colourAligned": 0.9722817750231103,
+    "structureAligned": 0.7610027397766428,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8960259788561442
+    },
+    "layout": 0.8415679983597948,
+    "layoutV1": 0.8415679983597948,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      470,
+      148,
+      73,
+      17
+    ],
+    [
+      1,
+      640,
+      540,
+      85,
+      20
+    ],
+    [
+      1,
+      880,
+      600,
+      62,
+      20
+    ],
+    [
+      0,
+      533,
+      331,
+      14,
+      14
+    ],
+    [
+      0,
+      1090,
+      128,
+      20,
+      20
+    ],
+    [
+      0,
+      757,
+      243,
+      34,
+      33
+    ],
+    [
+      0,
+      904,
+      193,
+      88,
+      26
+    ],
+    [
+      0,
+      27,
+      27,
+      393,
+      114
+    ],
+    [
+      9,
+      43,
+      43,
+      361,
+      23
+    ],
+    [
+      10,
+      43,
+      47,
+      10,
+      10
+    ],
+    [
+      10,
+      65,
+      43,
+      152,
+      23
+    ],
+    [
+      9,
+      48,
+      74,
+      1,
+      20
+    ],
+    [
+      9,
+      43,
+      102,
+      361,
+      23
+    ],
+    [
+      14,
+      43,
+      106,
+      10,
+      10
+    ],
+    [
+      14,
+      65,
+      102,
+      130,
+      23
+    ],
+    [
+      0,
+      1216,
+      28,
+      37,
+      81
+    ],
+    [
+      17,
+      1216,
+      28,
+      37,
+      41
+    ],
+    [
+      17,
+      1216,
+      69,
+      37,
+      40
+    ],
+    [
+      0,
+      24,
+      400,
+      400,
+      364
+    ],
+    [
+      20,
+      42,
+      418,
+      364,
+      30
+    ],
+    [
+      20,
+      42,
+      453,
+      364,
+      60
+    ],
+    [
+      20,
+      54,
+      465,
+      56,
+      36
+    ],
+    [
+      20,
+      124,
+      466,
+      207,
+      24
+    ],
+    [
+      20,
+      199,
+      469,
+      55,
+      14
+    ],
+    [
+      20,
+      345,
+      474,
+      49,
+      24
+    ],
+    [
+      20,
+      124,
+      486,
+      115,
+      18
+    ],
+    [
+      20,
+      54,
+      531,
+      56,
+      36
+    ],
+    [
+      20,
+      124,
+      532,
+      207,
+      24
+    ],
+    [
+      20,
+      345,
+      540,
+      49,
+      24
+    ],
+    [
+      20,
+      124,
+      552,
+      115,
+      18
+    ],
+    [
+      20,
+      54,
+      597,
+      56,
+      36
+    ],
+    [
+      20,
+      124,
+      598,
+      216,
+      24
+    ],
+    [
+      20,
+      354,
+      606,
+      40,
+      24
+    ],
+    [
+      20,
+      124,
+      618,
+      115,
+      18
+    ],
+    [
+      20,
+      42,
+      653,
+      364,
+      29
+    ],
+    [
+      20,
+      42,
+      666,
+      103,
+      16
+    ],
+    [
+      20,
+      356,
+      666,
+      50,
+      16
+    ],
+    [
+      20,
+      42,
+      694,
+      364,
+      52
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "overlap",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "bleed"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 65159,
+    "output": 45225,
+    "cacheRead": 400313
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 28754,
+      "output": 8128,
+      "cacheRead": 133160,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 78971
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 59604,
+      "output": 27467,
+      "cacheRead": 256000,
+      "toolCalls": 4,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 341906
+    }
+  ],
+  "reading": "This is a ride-hailing map screen: a full-screen map background with street/park labels, several status markers/pins scattered on the map (a current-location dot, a blue-bordered location marker, a tilted directional marker, and a black 'ETA' badge reading '4 min away'), a top-left address card, a top-right zoom control, and a large bottom 'Choose a ride' panel listing three ride options (Standard/Comfort/Share) with prices, a payment row, and a confirm button, all fully specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Full-screen map view as the page background. Whole page: cream (#eef0e9, plainly not white) background, Helvetica typeface, near-black body text throughout. Ove"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        533,
+        331,
+        14,
+        14
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a small solid near-black circular marker on the map, exactly 22x22px (w-[22px] h-[22px], border-radius 50%, not smaller), marking a point of interest or cur"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1093,
+        131,
+        14,
+        14
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a small dot/marker on the map with a vivid blue fill and a thick white border, marking a location (e.g., current-position indicator) on the map."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        761,
+        248,
+        27,
+        22
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a small near-black square marker/icon on the map, tilted 30° clockwise, indicating a directional marker (e.g., a vehicle heading indicator)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        904,
+        193,
+        81,
+        20
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a small pill/badge on the map with exact near-black (#111111) background fill and white (#ffffff) text reading '4 min away'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        27,
+        393,
+        114
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a white rounded card near the top-left of the map containing address text: 'Ferry Terminal, Pier 3' and 'Elm Green Library' (e.g., pickup and destination lo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1216,
+        28,
+        37,
+        81
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a white rounded zoom control in the top-right corner of the map with a '+' button and a '−' button for zooming in/out."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        403,
+        394,
+        358
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a single floating 'Choose a ride' panel, 400x364px positioned at (24,400), #ffffff fill, 16px rounded corners, box-shadow: rgba(0,0,0,0.13) 0px 8px 24px 0px"
+    }
+  ],
+  "rejected": []
+}

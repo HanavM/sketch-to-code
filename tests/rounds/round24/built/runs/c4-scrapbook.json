@@ -1,0 +1,498 @@
+{
+  "id": "c4-scrapbook",
+  "at": "2026-10-26T07:38:20.996Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8277349617799459,
+    "overallV2": 0.8277349617799459,
+    "overallV1": 0.7519591004093051,
+    "colour": 0.979240246581036,
+    "structure": 0.9110188571887157,
+    "structureStrict": 0.8084711344215275,
+    "colourAligned": 0.979240246581036,
+    "structureAligned": 0.9110188571887157,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9384415033611715
+    },
+    "layout": 0.7731155940346935,
+    "layoutV1": 0.7731155940346935,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      95
+    ],
+    [
+      1,
+      74,
+      40,
+      90,
+      39
+    ],
+    [
+      1,
+      881,
+      48,
+      325,
+      24
+    ],
+    [
+      3,
+      881,
+      48,
+      35,
+      24
+    ],
+    [
+      3,
+      948,
+      48,
+      73,
+      24
+    ],
+    [
+      3,
+      1053,
+      48,
+      72,
+      24
+    ],
+    [
+      3,
+      1157,
+      48,
+      49,
+      24
+    ],
+    [
+      0,
+      0,
+      179,
+      458,
+      200
+    ],
+    [
+      8,
+      74,
+      179,
+      384,
+      67
+    ],
+    [
+      8,
+      74,
+      246,
+      384,
+      67
+    ],
+    [
+      8,
+      74,
+      312,
+      384,
+      67
+    ],
+    [
+      0,
+      0,
+      416,
+      392,
+      86
+    ],
+    [
+      0,
+      74,
+      576,
+      191,
+      48
+    ],
+    [
+      0,
+      440,
+      600,
+      240,
+      140
+    ],
+    [
+      14,
+      440,
+      600,
+      240,
+      140
+    ],
+    [
+      15,
+      450,
+      615,
+      190,
+      95
+    ],
+    [
+      15,
+      622,
+      692,
+      24,
+      26
+    ],
+    [
+      0,
+      544,
+      92,
+      340,
+      319
+    ],
+    [
+      18,
+      559,
+      108,
+      305,
+      251
+    ],
+    [
+      18,
+      572,
+      324,
+      312,
+      88
+    ],
+    [
+      0,
+      845,
+      158,
+      319,
+      388
+    ],
+    [
+      21,
+      863,
+      173,
+      285,
+      323
+    ],
+    [
+      21,
+      845,
+      472,
+      291,
+      74
+    ],
+    [
+      0,
+      673,
+      442,
+      342,
+      291
+    ],
+    [
+      24,
+      690,
+      456,
+      311,
+      225
+    ],
+    [
+      24,
+      673,
+      665,
+      330,
+      67
+    ],
+    [
+      0,
+      638,
+      84,
+      124,
+      58
+    ],
+    [
+      0,
+      928,
+      142,
+      124,
+      50
+    ],
+    [
+      0,
+      995,
+      555,
+      210,
+      200
+    ],
+    [
+      29,
+      1015,
+      566,
+      175,
+      108
+    ],
+    [
+      0,
+      295,
+      655,
+      221,
+      221
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 47733,
+    "output": 28130,
+    "cacheRead": 157393
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46335,
+      "output": 15818,
+      "cacheRead": 143254,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 175170
+    }
+  ],
+  "reading": "This sketch lays out a full marketing landing page for a scrapbook app called roamlog: a top nav bar, a big three-line headline, an intro paragraph, a dark 'Start a scrapbook' CTA button with a hard offset shadow, a hand-drawn SVG route doodle, three rotated white photo cards with gradient-filled 'photos' and italic captions ('Lisbon, day 2', 'the sun hike', 'ferry home'), two pieces of translucent yellow sticky tape crossing two of the cards, a sticky-note-style card with handwritten-style orange text about pastéis, and a dashed orange badge card reading 'PRINTED & BOUND IN 5 DAYS'. The whole page is to be cream with navy Helvetica text per the typed site-wide note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        55,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar spanning the page width: bold italic 26px Georgia serif logo 'roamlog' on the left, followed by nav links in order 'Trips', 'Templates', 'Pri"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 68
+        }
+      ],
+      "region": [
+        78,
+        170,
+        423,
+        223
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica-heavy tight-set headline (line-height ~0.98) reading exactly 'Keep the trip,' / 'not just the' / 'photos' on three fixed lines that never wrap, w"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        74,
+        430,
+        392,
+        58
+      ],
+      "paths": [],
+      "instruction": "Serif intro paragraph text: 'Drop in pictures, tickets and scribbles; roamlog lays them out into a book you can hold.' per typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        563,
+        179,
+        42
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Primary CTA button, dark navy (#2b2622) fill with cream (#f3ede3) text reading 'Start a scrapbook', with a hard solid opaque orange drop shadow offset 4px down-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        444,
+        603,
+        233,
+        133
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Decorative inline SVG route-doodle (dashed curved line ending in an arrowhead), reproduced verbatim from the provided SVG markup, 240x140px, position absolute w"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        547,
+        95,
+        334,
+        313
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Floating white (#ffffff) photo card, 340x319px, position absolute top-left at 544,92, square corners, soft lifted box-shadow, rotated -7deg about its centre; co"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        848,
+        161,
+        312,
+        381
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Floating white (#ffffff) photo card, 319x388px, position absolute top-left at 845,158, square corners, soft lifted box-shadow, rotated 5deg about its centre; co"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        676,
+        445,
+        336,
+        285
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Floating white (#ffffff) photo card, 342x291px, position absolute top-left at 673,442, square corners, soft lifted box-shadow, rotated 3deg about its centre; co"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        642,
+        87,
+        116,
+        51
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Translucent soft-yellow (#f7d97a at 60% opacity) sticky-tape strip, 120x34px, top-left at 640,96 before rotation, rotated -12deg about its centre, with 2px dash"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        932,
+        145,
+        117,
+        43
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Translucent soft-yellow (#f7d97a at 60% opacity) sticky-tape strip, 120x34px, top-left at 930,150 before rotation, rotated 8deg about its centre, with 2px dashe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        998,
+        558,
+        203,
+        193
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Floating sticky-note-style card, 210x200px, position absolute top-left at 995,555, otherwise empty except soft-yellow 22px text tilted -3deg in the top-left cor"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        317,
+        678,
+        175,
+        175
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Floating badge card, 182x182px, position absolute top-left at 314,674, with a 3px dashed #e2603f outline tilted -14deg and text in the same #e2603f reading 'PRI"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

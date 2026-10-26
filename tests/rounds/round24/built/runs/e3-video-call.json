@@ -1,0 +1,642 @@
+{
+  "id": "e3-video-call",
+  "at": "2026-10-26T08:05:51.739Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8415580462932635,
+    "overallV2": 0.8415580462932635,
+    "overallV1": 0.8205376440717917,
+    "colour": 0.8804624963631712,
+    "structure": 0.7790617412477383,
+    "structureStrict": 0.7294657152077244,
+    "colourAligned": 0.8804624963631712,
+    "structureAligned": 0.7790617412477383,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6953544860527937
+    },
+    "layout": 0.9881098233550603,
+    "layoutV1": 0.8881323877068559,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      171,
+      18,
+      59,
+      22
+    ],
+    [
+      0,
+      24,
+      20,
+      133,
+      18
+    ],
+    [
+      0,
+      823,
+      21,
+      101,
+      16
+    ],
+    [
+      0,
+      24,
+      60,
+      620,
+      420
+    ],
+    [
+      0,
+      24,
+      60,
+      620,
+      36
+    ],
+    [
+      0,
+      36,
+      73,
+      10,
+      10
+    ],
+    [
+      0,
+      52,
+      73,
+      10,
+      10
+    ],
+    [
+      0,
+      68,
+      73,
+      10,
+      10
+    ],
+    [
+      0,
+      54,
+      124,
+      560,
+      34
+    ],
+    [
+      0,
+      54,
+      174,
+      560,
+      220
+    ],
+    [
+      0,
+      169,
+      207,
+      99,
+      185
+    ],
+    [
+      0,
+      400,
+      239,
+      99,
+      153
+    ],
+    [
+      0,
+      54,
+      261,
+      99,
+      131
+    ],
+    [
+      0,
+      284,
+      294,
+      99,
+      98
+    ],
+    [
+      0,
+      515,
+      327,
+      99,
+      65
+    ],
+    [
+      0,
+      660,
+      60,
+      260,
+      200
+    ],
+    [
+      16,
+      676,
+      78,
+      71,
+      22
+    ],
+    [
+      16,
+      676,
+      110,
+      228,
+      30
+    ],
+    [
+      0,
+      660,
+      280,
+      260,
+      200
+    ],
+    [
+      19,
+      660,
+      280,
+      260,
+      164
+    ],
+    [
+      19,
+      676,
+      445,
+      76,
+      21
+    ],
+    [
+      19,
+      880,
+      292,
+      28,
+      28
+    ],
+    [
+      0,
+      24,
+      500,
+      290,
+      280
+    ],
+    [
+      23,
+      40,
+      518,
+      66,
+      22
+    ],
+    [
+      23,
+      40,
+      550,
+      258,
+      30
+    ],
+    [
+      0,
+      334,
+      500,
+      290,
+      280
+    ],
+    [
+      26,
+      334,
+      500,
+      290,
+      244
+    ],
+    [
+      26,
+      350,
+      745,
+      89,
+      21
+    ],
+    [
+      26,
+      584,
+      512,
+      28,
+      28
+    ],
+    [
+      0,
+      644,
+      500,
+      276,
+      130
+    ],
+    [
+      0,
+      760,
+      650,
+      160,
+      120
+    ],
+    [
+      0,
+      4,
+      813,
+      932,
+      48
+    ],
+    [
+      32,
+      259,
+      810,
+      56,
+      54
+    ],
+    [
+      32,
+      331,
+      810,
+      64,
+      54
+    ],
+    [
+      32,
+      410,
+      810,
+      57,
+      54
+    ],
+    [
+      32,
+      483,
+      810,
+      56,
+      54
+    ],
+    [
+      32,
+      555,
+      810,
+      56,
+      54
+    ],
+    [
+      32,
+      627,
+      810,
+      54,
+      54
+    ],
+    [
+      0,
+      940,
+      0,
+      340,
+      900
+    ],
+    [
+      39,
+      941,
+      0,
+      339,
+      56
+    ],
+    [
+      39,
+      941,
+      0,
+      170,
+      55
+    ],
+    [
+      39,
+      1111,
+      0,
+      170,
+      55
+    ],
+    [
+      39,
+      959,
+      69,
+      71,
+      15
+    ],
+    [
+      39,
+      1036,
+      70,
+      30,
+      13
+    ],
+    [
+      39,
+      959,
+      88,
+      303,
+      20
+    ],
+    [
+      39,
+      959,
+      133,
+      54,
+      15
+    ],
+    [
+      39,
+      1019,
+      134,
+      30,
+      13
+    ],
+    [
+      39,
+      959,
+      152,
+      303,
+      41
+    ],
+    [
+      39,
+      1018,
+      221,
+      217,
+      36
+    ],
+    [
+      39,
+      959,
+      232,
+      24,
+      15
+    ],
+    [
+      39,
+      989,
+      233,
+      30,
+      13
+    ],
+    [
+      39,
+      959,
+      282,
+      60,
+      15
+    ],
+    [
+      39,
+      1025,
+      283,
+      30,
+      13
+    ],
+    [
+      39,
+      959,
+      301,
+      303,
+      20
+    ],
+    [
+      39,
+      957,
+      836,
+      308,
+      46
+    ],
+    [
+      39,
+      1225,
+      842,
+      34,
+      34
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "call-header",
+      "iou": 0.9997743564820439,
+      "parts": 3,
+      "rect": {
+        "x": 24,
+        "y": 18,
+        "w": 900.203125,
+        "h": 22
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "hard-shadow"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 49878,
+    "output": 27911,
+    "cacheRead": 312643
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47676,
+      "output": 15628,
+      "cacheRead": 148829,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 157734
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 11102,
+      "output": 4807,
+      "cacheRead": 150408,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 61469
+    }
+  ],
+  "reading": "A video-call interface sketch: a header bar with a REC badge, title and meeting stats; a large pipeline/analytics chart panel; a row and grid of participant video tiles (some plain, some with gradients and a close button, one '+2 more' overflow tile, one plain gradient placeholder tile); a bottom stepper/control bar with six round icon buttons; and a right-hand People/Chat side panel with a message list and input. The whole page should use a near-black background with Helvetica type and pale grey text, per the run-wide note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        28,
+        25,
+        892,
+        9
+      ],
+      "paths": [],
+      "instruction": "Header bar with three live-text parts, none invented, none left out, each kept on one line (nowrap) with min-width sizing: a 59x22 REC badge at 171,18 with #3b1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        63,
+        614,
+        414
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A single 620x420px white panel ('Pipeline by region' analytics card), 14px rounded, fixed top-left at 24,60 (fixed size/place, does not grow or push content bel"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        664,
+        63,
+        253,
+        193
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A white participant task card, 260x200px, 14px rounded, fixed top-left at 660,60. Contains a small 12px bold tag reading 'Priya Rao' (pale grey text on black #0"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        663,
+        283,
+        253,
+        194
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A participant video tile, 260x200px, fixed top-left at 660,280 (20px below the card above, which ends at y=260). Deep green (#164e63) to dark teal (#082f49) gra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        28,
+        503,
+        282,
+        274
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A white participant task card, 290x280px, 14px rounded, fixed top-left at 24,500 (20px below the card above, which ends at y=480). Contains a small 12px bold ta"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        337,
+        503,
+        284,
+        274
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A participant video tile, 290x280px, fixed top-left at 334,500 (20px below the card above, which ends at y=480). Deep green (#14532d) to dark teal (#052e16) gra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        648,
+        503,
+        268,
+        124
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "An overflow card, 276x130px, fixed top-left at 644,500 (20px below the card above, which ends at y=480), containing dark grey text reading '+2 more'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        764,
+        653,
+        153,
+        113
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A plain gradient placeholder tile, 160x120px, 12px rounded corners, fixed top-left at 760,650 (20px below the card above, which ends at y=630). Dark grey (#3341"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        813,
+        932,
+        48
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A bottom control stepper: a single row of 6 filled pill buttons, each 54px tall with border-radius 999px, left to right: microphone '🎙' (#2d2f34 fill, #f3f4f6 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        3,
+        334,
+        893
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A single 340x900px side panel at 940,0, #202124 fill, a People/Chat panel with its parts inside (each live text, one-line nowrap, min-width): a 339x56 header st"
+    }
+  ],
+  "rejected": [
+    "add action with neither container nor strokes"
+  ]
+}

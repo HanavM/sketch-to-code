@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Video call</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#18191c;font-family:Helvetica,Arial,sans-serif;color:#f3f4f6;font-size:14px}
+.top{position:absolute;left:24px;top:18px;width:900px;display:flex;align-items:center;gap:14px}.top b{font-size:16px}.top .rec{display:flex;align-items:center;gap:6px;background:#3b1d1d;color:#fca5a5;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700}.top .rec::before{content:"";width:8px;height:8px;border-radius:50%;background:#ef4444}.top .tm{color:#9ca3af;margin-left:auto}
+.share{position:absolute;left:24px;top:60px;width:620px;height:420px;border-radius:14px;background:#fff;overflow:hidden;color:#111}
+.share .bar{height:36px;background:#f3f4f6;display:flex;align-items:center;gap:6px;padding:0 12px}.share .bar i{width:10px;height:10px;border-radius:50%;background:#d1d5db}
+.share h2{font:800 30px Helvetica;margin:28px 30px 16px}.share .ch{margin:0 30px;height:220px;display:flex;align-items:flex-end;gap:16px;border-bottom:2px solid #e5e7eb}.share .ch i{flex:1;background:#6366f1;border-radius:6px 6px 0 0}
+.tile{position:absolute;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.tile .face{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 34px Helvetica;color:#fff}
+.tile .nm{position:absolute;left:10px;bottom:10px;background:#0009;border-radius:6px;padding:4px 8px;font-size:12px;display:flex;align-items:center;gap:6px}
+.tile .mu{position:absolute;right:10px;top:10px;width:28px;height:28px;border-radius:50%;background:#ef4444;display:flex;align-items:center;justify-content:center;font-size:13px}
+.tile.spk{box-shadow:inset 0 0 0 3px #22c55e}
+.ctrl{position:absolute;left:0;top:810px;width:940px;display:flex;justify-content:center;gap:14px}.ctrl i{width:54px;height:54px;border-radius:50%;background:#2d2f34;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:20px}.ctrl i.off{background:#ef4444}.ctrl i.end{width:84px;border-radius:27px;background:#dc2626}
+.panel{position:absolute;left:940px;top:0;width:340px;height:900px;background:#202124;border-left:1px solid #2d2f34}
+.ptabs{display:flex;height:56px;border-bottom:1px solid #2d2f34}.ptabs span{flex:1;display:flex;align-items:center;justify-content:center;color:#9ca3af}.ptabs span.on{color:#fff;font-weight:700;box-shadow:inset 0 -2px 0 #8ab4f8}
+.cm{padding:12px 18px}.cm b{font-size:13px}.cm small{color:#9ca3af;margin-left:6px}.cm p{margin-top:4px;line-height:1.45;color:#d1d5db}
+.cm.me p{background:#8ab4f8;color:#111;border-radius:12px 12px 2px 12px;padding:8px 12px;display:inline-block}
+.inp{position:absolute;left:16px;bottom:18px;width:308px;height:46px;border-radius:23px;background:#2d2f34;color:#9ca3af;padding:14px 18px}.inp b{position:absolute;right:6px;top:6px;width:34px;height:34px;border-radius:50%;background:#8ab4f8}
+.self{position:absolute;left:760px;top:650px;width:160px;height:120px;border-radius:12px;background:linear-gradient(135deg,#334155,#0f172a);border:2px solid #475569}
+</style></head><body>
+<div class="top" data-r="call-header"><b>Q4 planning sync</b><span class="rec">REC</span><span class="tm">32:18 · 6 people</span></div>
+<div class="share" data-r="screen-share" data-must><div class="bar"><i></i><i></i><i></i></div><h2>Pipeline by region</h2><div class="ch"><i style="height:60%"></i><i style="height:85%;background:#22c55e"></i><i style="height:45%"></i><i style="height:70%"></i><i style="height:30%"></i></div></div>
+<div class="tile spk" data-r="tile-speaker" data-must style="left:660px;top:60px;width:260px;height:200px;background:linear-gradient(160deg,#3f3d56,#1f1d36)"><div class="face" style="background:#a855f7">PR</div><div class="nm">Priya Rao</div></div>
+<div class="tile" data-r="tile-2" style="left:660px;top:280px;width:260px;height:200px;background:linear-gradient(160deg,#164e63,#082f49)"><div class="face" style="background:#06b6d4">JO</div><div class="nm">Jonas Ortiz</div><div class="mu">✕</div></div>
+<div class="tile" data-r="tile-3" style="left:24px;top:500px;width:290px;height:280px;background:linear-gradient(160deg,#422006,#1c1917)"><div class="face" style="background:#f59e0b">MK</div><div class="nm">Mei Kato</div></div>
+<div class="tile" data-r="tile-4" style="left:334px;top:500px;width:290px;height:280px;background:linear-gradient(160deg,#14532d,#052e16)"><div class="face" style="background:#22c55e">AD</div><div class="nm">Ade Danjuma</div><div class="mu">✕</div></div>
+<div class="tile" data-r="tile-5" style="left:644px;top:500px;width:276px;height:130px;background:#2d2f34"><div class="nm">+2 more</div></div>
+<div class="self" data-r="self-view"></div>
+<div class="ctrl" data-r="controls" data-must><i>🎙</i><i class="off">⊘</i><i>⇪</i><i>☺</i><i>⋯</i><i class="end">✆</i></div>
+<div class="panel" data-r="chat-panel" data-must><div class="ptabs"><span>People (6)</span><span class="on">Chat</span></div>
+<div class="cm"><b>Jonas Ortiz</b><small>10:02</small><p>Can we zoom into EMEA next?</p></div>
+<div class="cm"><b>Mei Kato</b><small>10:03</small><p>EMEA is up 22% QoQ, mostly from the Berlin team.</p></div>
+<div class="cm me"><b>You</b><small>10:04</small><p>Sharing the regional sheet now</p></div>
+<div class="cm"><b>Priya Rao</b><small>10:05</small><p>Great, let's park APAC for Thursday.</p></div>
+<div class="inp">Send a message<b></b></div></div>
+</body></html>

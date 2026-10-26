@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Glitch signal</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#070708;font-family:Helvetica,Arial,sans-serif;color:#f5f5f5}
+.noise{position:absolute;left:0;top:300px;width:1280px;height:26px;background:repeating-linear-gradient(90deg,#ffffff22 0 3px,#0000 3px 7px,#ff2bd633 7px 9px,#0000 9px 15px)}
+.g{position:absolute;left:80px;top:180px;font:900 190px/0.9 Helvetica;letter-spacing:-8px;text-transform:uppercase}
+.g::before,.g::after{content:attr(data-t);position:absolute;left:0;top:0}
+.g::before{color:#ff2bd6;transform:translate(-6px,0);clip-path:inset(0 0 55% 0);mix-blend-mode:screen}
+.g::after{color:#16f2ff;transform:translate(7px,3px);clip-path:inset(45% 0 0 0);mix-blend-mode:screen}
+.rec{position:absolute;left:80px;top:60px;display:flex;align-items:center;gap:12px;font:700 18px "Courier New",monospace}.rec i{width:16px;height:16px;border-radius:50%;background:#ff2a2a;box-shadow:0 0 12px #ff2a2a}
+.ts{position:absolute;right:80px;top:60px;font:700 18px "Courier New",monospace;color:#16f2ff}
+.mq{position:absolute;left:0;width:1280px;height:56px;display:flex;align-items:center;gap:36px;white-space:nowrap;font:800 24px Helvetica;letter-spacing:3px;text-transform:uppercase}
+.m1{top:600px;background:#ff2bd6;color:#070708;transform:translateX(-80px)}.m2{top:656px;border-top:1px solid #333;border-bottom:1px solid #333;color:#16f2ff;transform:translateX(-10px)}
+.ringw{position:absolute;left:960px;top:330px;width:220px;height:220px}
+.ringw b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;font:800 44px Helvetica}.ringw b small{font:700 12px "Courier New",monospace;letter-spacing:2px;color:#999}
+.sp{position:absolute;left:1120px;top:760px;width:80px;height:80px;border-radius:50%;background:conic-gradient(#16f2ff,#ff2bd6,#16f2ff00 75%);-webkit-mask:radial-gradient(circle,#0000 28px,#000 29px)}
+.p{position:absolute;left:80px;top:770px;width:520px;font:400 17px/1.6 Helvetica;color:#bdbdbd}
+.btn{position:absolute;left:660px;top:775px;padding:16px 28px;border:2px solid #16f2ff;color:#16f2ff;font:700 15px "Courier New",monospace;letter-spacing:2px;box-shadow:4px 4px 0 #ff2bd6}
+</style></head><body>
+<div class="rec" data-r="rec-badge"><i></i>REC ● LIVE</div>
+<div class="ts" data-r="timestamp">CH-04  02:14:59:12</div>
+<div class="noise" data-r="noise-band"></div>
+<h1 class="g" data-t="Lost Signal" data-r="headline" data-must>Lost Signal</h1>
+<div class="ringw" data-r="progress-ring" data-must><svg width="220" height="220" viewBox="0 0 220 220"><circle cx="110" cy="110" r="94" fill="none" stroke="#222" stroke-width="14"/><circle cx="110" cy="110" r="94" fill="none" stroke="#16f2ff" stroke-width="14" stroke-dasharray="443 591" stroke-linecap="round" transform="rotate(-90 110 110)"/></svg><b>75%<small>DECODED</small></b></div>
+<div class="mq m1" data-r="marquee-pink" data-must><span>broadcast</span><span>✕</span><span>interference</span><span>✕</span><span>broadcast</span><span>✕</span><span>interference</span><span>✕</span><span>broadcast</span></div>
+<div class="mq m2" data-r="marquee-cyan"><span>fri 22:00 · warehouse 9</span><span>/</span><span>fri 22:00 · warehouse 9</span><span>/</span><span>fri 22:00 · warehouse 9</span></div>
+<p class="p" data-r="copy">An audiovisual night of broken broadcasts, tape loops and modular noise. Six acts, one signal, no phones on the floor.</p>
+<div class="btn" data-r="cta">TUNE IN →</div>
+<div class="sp" data-r="spinner"></div>
+</body></html>

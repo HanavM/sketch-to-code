@@ -1,0 +1,572 @@
+{
+  "id": "c3-shape-grid",
+  "at": "2026-10-26T07:32:22.927Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6849970928955047,
+    "overallV2": 0.6849970928955047,
+    "overallV1": 0.6363392621935211,
+    "colour": 0.9210371678528926,
+    "structure": 0.741342427941733,
+    "structureStrict": 0.6467935724959839,
+    "colourAligned": 0.9210371678528926,
+    "structureAligned": 0.741342427941733,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.775550024006533
+    },
+    "layout": 0.6925349081415259,
+    "layoutV1": 0.6925349081415259,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      520,
+      0,
+      760,
+      900
+    ],
+    [
+      1,
+      520,
+      0,
+      190,
+      180
+    ],
+    [
+      2,
+      520,
+      0,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      0,
+      190,
+      180
+    ],
+    [
+      4,
+      710,
+      85,
+      190,
+      95
+    ],
+    [
+      1,
+      900,
+      0,
+      190,
+      180
+    ],
+    [
+      6,
+      900,
+      0,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      0,
+      190,
+      180
+    ],
+    [
+      8,
+      1090,
+      0,
+      190,
+      180
+    ],
+    [
+      1,
+      520,
+      180,
+      190,
+      180
+    ],
+    [
+      10,
+      520,
+      180,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      180,
+      190,
+      180
+    ],
+    [
+      12,
+      710,
+      180,
+      190,
+      180
+    ],
+    [
+      1,
+      900,
+      180,
+      190,
+      180
+    ],
+    [
+      14,
+      900,
+      180,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      180,
+      190,
+      180
+    ],
+    [
+      16,
+      1090,
+      180,
+      190,
+      180
+    ],
+    [
+      1,
+      520,
+      360,
+      190,
+      180
+    ],
+    [
+      18,
+      540,
+      375,
+      150,
+      150
+    ],
+    [
+      1,
+      710,
+      360,
+      190,
+      180
+    ],
+    [
+      20,
+      710,
+      360,
+      190,
+      180
+    ],
+    [
+      1,
+      900,
+      360,
+      190,
+      180
+    ],
+    [
+      22,
+      900,
+      360,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      360,
+      190,
+      180
+    ],
+    [
+      1,
+      520,
+      540,
+      190,
+      180
+    ],
+    [
+      25,
+      520,
+      540,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      540,
+      190,
+      180
+    ],
+    [
+      27,
+      710,
+      540,
+      190,
+      180
+    ],
+    [
+      1,
+      900,
+      540,
+      190,
+      180
+    ],
+    [
+      29,
+      920,
+      555,
+      150,
+      150
+    ],
+    [
+      1,
+      1090,
+      540,
+      190,
+      180
+    ],
+    [
+      31,
+      1090,
+      540,
+      190,
+      180
+    ],
+    [
+      1,
+      520,
+      720,
+      190,
+      180
+    ],
+    [
+      33,
+      520,
+      720,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      720,
+      190,
+      180
+    ],
+    [
+      35,
+      710,
+      720,
+      190,
+      180
+    ],
+    [
+      1,
+      900,
+      720,
+      190,
+      180
+    ],
+    [
+      37,
+      900,
+      720,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      720,
+      190,
+      180
+    ],
+    [
+      39,
+      1090,
+      720,
+      190,
+      180
+    ],
+    [
+      0,
+      64,
+      53,
+      92,
+      33
+    ],
+    [
+      0,
+      60,
+      90,
+      34,
+      21
+    ],
+    [
+      0,
+      120,
+      90,
+      54,
+      21
+    ],
+    [
+      0,
+      200,
+      90,
+      30,
+      21
+    ],
+    [
+      0,
+      256,
+      90,
+      48,
+      21
+    ],
+    [
+      0,
+      341,
+      81,
+      209,
+      196
+    ],
+    [
+      0,
+      60,
+      250,
+      849,
+      230
+    ],
+    [
+      47,
+      60,
+      250,
+      849,
+      115
+    ],
+    [
+      47,
+      60,
+      365,
+      849,
+      115
+    ],
+    [
+      0,
+      64,
+      620,
+      372,
+      54
+    ],
+    [
+      0,
+      63,
+      763,
+      185,
+      46
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8888888888888888,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 35038,
+    "output": 21585,
+    "cacheRead": 163107
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42201,
+      "output": 15932,
+      "cacheRead": 151740,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 159493
+    }
+  ],
+  "reading": "A full hero/landing section: a decorative full-page grid of 20 flat-colour geometric tiles sits behind everything; over it sit a bold logo wordmark, a four-item nav, a giant tilted orange asterisk glyph, a huge two-line italic headline that inverts colour over the grid, a short paragraph of body copy, and a bordered pill call-to-action button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        3,
+        754,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Full-page decorative grid, 4 columns x 5 rows of flat-colour geometric shape tiles (CSS grid, 190x180px cells, no gaps, no borders), 760x900px positioned at 520"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        53,
+        80,
+        8
+      ],
+      "paths": [],
+      "instruction": "Logo wordmark text \"Modul/ar\", set at 22px (a large lead line, not small body text), about 88px wide on one line, bold (font-weight 800), near the top-left of t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        94,
+        237,
+        9
+      ],
+      "paths": [],
+      "instruction": "Navigation row with four separate live-text parts, each its own element, nothing invented or left out, each kept on a single line (white-space nowrap, min-width"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 150
+        }
+      ],
+      "region": [
+        368,
+        105,
+        149,
+        180
+      ],
+      "paths": [],
+      "instruction": "Single large character \"✱\" (U+2731) typed as live text (never an SVG, path or drawn squiggle), tilted 18° clockwise, giant Helvetica regular weight (not bold), "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 104
+        }
+      ],
+      "region": [
+        68,
+        250,
+        774,
+        230
+      ],
+      "paths": [],
+      "instruction": "Giant headline, live text, Georgia italic serif, regular weight (not bold), tight letter spacing (-4px) and tight line-height (0.9), white colour that colour-in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        620,
+        372,
+        54
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text: \"A studio for identity systems built from twenty forms, four colours and one strict module.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        763,
+        185,
+        46
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Pill-shaped button/label with a 2px near-black border, bold text reading \"See the system →\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,578 @@
+{
+  "id": "c1-letterpress-poster",
+  "at": "2026-10-26T07:18:42.080Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8197975734867105,
+    "overallV2": 0.8197975734867105,
+    "overallV1": 0.7687506956418493,
+    "colour": 0.959529035878116,
+    "structure": 0.8901824433309742,
+    "structureStrict": 0.791972307967248,
+    "colourAligned": 0.959529035878116,
+    "structureAligned": 0.8901824433309742,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.944415725704535
+    },
+    "layout": 0.7441161665323025,
+    "layoutV1": 0.7441161665323025,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      950
+    ],
+    [
+      0,
+      60,
+      36,
+      167,
+      20
+    ],
+    [
+      0,
+      403,
+      36,
+      49,
+      20
+    ],
+    [
+      0,
+      628,
+      36,
+      114,
+      20
+    ],
+    [
+      0,
+      917,
+      36,
+      80,
+      20
+    ],
+    [
+      0,
+      1172,
+      36,
+      48,
+      20
+    ],
+    [
+      0,
+      1111,
+      265,
+      57,
+      304
+    ],
+    [
+      0,
+      42,
+      112,
+      788,
+      410
+    ],
+    [
+      7,
+      42,
+      112,
+      788,
+      205
+    ],
+    [
+      7,
+      42,
+      317,
+      788,
+      205
+    ],
+    [
+      0,
+      52,
+      120,
+      788,
+      410
+    ],
+    [
+      10,
+      52,
+      120,
+      788,
+      205
+    ],
+    [
+      10,
+      52,
+      325,
+      788,
+      205
+    ],
+    [
+      0,
+      66,
+      134,
+      788,
+      410
+    ],
+    [
+      13,
+      66,
+      134,
+      788,
+      205
+    ],
+    [
+      13,
+      66,
+      339,
+      788,
+      205
+    ],
+    [
+      0,
+      -60,
+      487,
+      1400,
+      218
+    ],
+    [
+      16,
+      -59,
+      505,
+      1321,
+      189
+    ],
+    [
+      0,
+      60,
+      690,
+      412,
+      109
+    ],
+    [
+      18,
+      60,
+      690,
+      420,
+      20
+    ],
+    [
+      18,
+      60,
+      723,
+      399,
+      77
+    ],
+    [
+      0,
+      640,
+      680,
+      260,
+      150
+    ],
+    [
+      21,
+      663,
+      699,
+      214,
+      64
+    ],
+    [
+      21,
+      663,
+      775,
+      214,
+      21
+    ],
+    [
+      0,
+      940,
+      630,
+      237,
+      237
+    ],
+    [
+      24,
+      1007,
+      701,
+      104,
+      96
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      950
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.9,
+    "kept": [
+      "bleed",
+      "blend",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [
+      "vertical-type"
+    ],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 57288,
+    "output": 26050,
+    "cacheRead": 271052
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 61616,
+      "output": 17877,
+      "cacheRead": 256901,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Read src/main.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 194645
+    }
+  ],
+  "reading": "A vintage letterpress-style landing page: a top nav bar with 5 label links, a huge three-layer 'PRESS WEEK' headline (blue multiply pass, red pass, hollow outline pass), a vertical italic 'hand-set since 1974' label, a tilted near-black ticker band reading 'OPEN STUDIO WOOD TYPE LIVE PRINTING...', an event copy row ('THREE DAYS OF INK' + paragraph), a bordered date/info box ('14–16' / 'NOVEMBER · FREE ENTRY'), a tilted red '50 YEARS OF INK' stamp circle, all sitting on a warm paper background with a fine dot-grain overlay on top of everything.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top nav bar built from the wavy line, split into 5 real text elements, each on one line (white-space nowrap, min-width not fixed-width), all 13px bold #1d1a16, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s4",
+        "s6",
+        "s8",
+        "s10",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s4",
+            "s9",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 101
+        },
+        {
+          "strokes": [
+            "s12"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        1,
+        387,
+        1207,
+        314
+      ],
+      "paths": [],
+      "instruction": "First (bottom) of 3 stacked giant headline passes: ink-like (multiply blend, darkens what it overlaps rather than covering it) giant Helvetica (font-weight 900,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s4",
+        "s6",
+        "s8",
+        "s10",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s4",
+            "s9",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 101
+        },
+        {
+          "strokes": [
+            "s12"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        1,
+        387,
+        1207,
+        314
+      ],
+      "paths": [],
+      "instruction": "Second of 3 stacked giant headline passes: giant Helvetica (font-weight 900, round-bowled, live text not an SVG path) heavy uppercase tight-set (line-height 0.8"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s4",
+        "s6",
+        "s8",
+        "s10",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s4",
+            "s9",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 101
+        },
+        {
+          "strokes": [
+            "s12"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        1,
+        387,
+        1207,
+        314
+      ],
+      "paths": [],
+      "instruction": "Third (top) of 3 stacked giant headline passes: giant Helvetica (font-weight 900, round-bowled, live text not an SVG path) heavy uppercase tight-set (line-heigh"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 38
+        }
+      ],
+      "region": [
+        1168,
+        265,
+        43,
+        46
+      ],
+      "paths": [],
+      "instruction": "Small vertical label near the top-right of the hero: big italic serif blue 'hand-set since 1974'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s8",
+        "s10",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s12"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        1,
+        387,
+        1207,
+        314
+      ],
+      "paths": [],
+      "instruction": "Diagonal ticker band across the page: tilted 6° anticlockwise, bleeding off both left and right page edges (one 1400px-wide line, position absolute, left -60px,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s13",
+        "s14",
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14",
+            "s15"
+          ],
+          "lines": 3,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        64,
+        690,
+        412,
+        78
+      ],
+      "paths": [],
+      "instruction": "Event copy row starting at 60,690: first bold #1d1a16 text '...ters and leave with ink on your hands.', plus two further parts on the same area: 420x15 at 60,69"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s16",
+        "s17"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s16",
+            "s17"
+          ],
+          "lines": 2,
+          "fontPx": 68
+        }
+      ],
+      "region": [
+        648,
+        680,
+        234,
+        150
+      ],
+      "paths": [],
+      "instruction": "Event date/info box, 260x150px at 640,680 with a 3px #1d1a16 border on all four sides: huge Helvetica heavy tight-set (line-height 1) 64px '14–16', then on its "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        945,
+        635,
+        228,
+        228
+      ],
+      "paths": [
+        "s18"
+      ],
+      "instruction": "Tilted 12° clockwise vivid red stamp circle, 200px across, overlapping the nearby content as a badge, with text '50 YEARS OF INK' in #efe6d2 (warm paper, not pa"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

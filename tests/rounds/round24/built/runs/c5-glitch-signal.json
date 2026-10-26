@@ -1,0 +1,446 @@
+{
+  "id": "c5-glitch-signal",
+  "at": "2026-10-26T07:44:07.423Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9012366177480909,
+    "overallV2": 0.8925019716281354,
+    "overallV1": 0.845876704266438,
+    "colour": 0.9601048584745043,
+    "structure": 0.8926216445656345,
+    "structureStrict": 0.7635951517942042,
+    "colourAligned": 0.9639188962681587,
+    "structureAligned": 0.912538044617948,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.7546569713244481
+    },
+    "layout": 0.824626728528288,
+    "layoutV1": 0.824626728528288,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      84,
+      66,
+      136,
+      22
+    ],
+    [
+      0,
+      1020,
+      66,
+      184,
+      22
+    ],
+    [
+      0,
+      88,
+      170,
+      1189,
+      190
+    ],
+    [
+      0,
+      4,
+      303,
+      1273,
+      20
+    ],
+    [
+      4,
+      3,
+      302,
+      1274,
+      21
+    ],
+    [
+      0,
+      963,
+      333,
+      213,
+      213
+    ],
+    [
+      6,
+      963,
+      333,
+      213,
+      213
+    ],
+    [
+      7,
+      999,
+      369,
+      141,
+      141
+    ],
+    [
+      0,
+      1,
+      603,
+      1194,
+      50
+    ],
+    [
+      9,
+      33,
+      616,
+      106,
+      24
+    ],
+    [
+      9,
+      179,
+      616,
+      14,
+      24
+    ],
+    [
+      9,
+      233,
+      616,
+      129,
+      24
+    ],
+    [
+      9,
+      402,
+      616,
+      14,
+      24
+    ],
+    [
+      9,
+      456,
+      616,
+      106,
+      24
+    ],
+    [
+      9,
+      602,
+      616,
+      14,
+      24
+    ],
+    [
+      9,
+      655,
+      616,
+      129,
+      24
+    ],
+    [
+      9,
+      825,
+      616,
+      14,
+      24
+    ],
+    [
+      0,
+      0,
+      659,
+      1280,
+      50
+    ],
+    [
+      18,
+      0,
+      665,
+      321,
+      39
+    ],
+    [
+      18,
+      337,
+      665,
+      7,
+      39
+    ],
+    [
+      18,
+      361,
+      665,
+      342,
+      39
+    ],
+    [
+      18,
+      719,
+      665,
+      7,
+      39
+    ],
+    [
+      18,
+      742,
+      665,
+      368,
+      39
+    ],
+    [
+      0,
+      84,
+      770,
+      512,
+      54
+    ],
+    [
+      0,
+      662,
+      776,
+      159,
+      53
+    ],
+    [
+      0,
+      1120,
+      760,
+      80,
+      80
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "mask",
+      "mono",
+      "overlap",
+      "uppercase-display"
+    ],
+    "missing": [
+      "bleed",
+      "hard-shadow",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 39622,
+    "output": 24605,
+    "cacheRead": 257409
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37980,
+      "output": 13342,
+      "cacheRead": 123147,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/DividerLine.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 155056
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 17602,
+      "output": 7436,
+      "cacheRead": 131178,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 92688
+    }
+  ],
+  "reading": "A dark event-promo hero page: top lead lines for a recording indicator and timecode, a giant \"LOST SIGNAL\" heading with a divider underneath, a cyan donut chart, a pink link bar, a cyan schedule list bleeding off the left edge, a two-line descriptive paragraph, an outlined \"TUNE IN →\" button, and a small circular gradient badge, all per the user's detailed typed styling notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        66,
+        128,
+        8
+      ],
+      "paths": [],
+      "instruction": "Top-left lead line reading \"REC ● LIVE\", set in monospace, bold (font-weight 700), 18px, about 136px wide on one line."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        1020,
+        66,
+        176,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top-right lead line reading \"CH-04 02:14:59:12\", set in monospace, bold (font-weight 700), 18px, about 184px wide on one line, text colour cyan #16f2ff (not the"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        303,
+        1273,
+        20
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Thin full-width horizontal divider/rule line sitting just below the hero heading, spanning the page width as drawn."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 194
+        }
+      ],
+      "region": [
+        88,
+        149,
+        1070,
+        233
+      ],
+      "paths": [],
+      "instruction": "Giant hero heading reading \"LOST SIGNAL\" in Helvetica heavy, uppercase, tight letter-spacing, 190px type size, about 1189px wide (no larger)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        333,
+        213,
+        213
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Donut chart widget (thick ring with hollow middle) sitting on a near-black track, showing cyan filled to 75%."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        603,
+        1194,
+        50
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Pink (#ff2bd6) navigation bar, 56px tall, spanning the page width, containing the links: BROADCAST, ✕, INTERFERENCE, ✕, BROADCAST, ✕, INTERFERENCE, ✕. Link text"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        659,
+        1265,
+        50
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A list bleeding off the left page edge with entries: \"fri 22:00 ·\"…, \"/\", \"fri 22:00 ·\"…, \"/\", plus one more similar entry; text colour cyan (#16f2ff), not the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        84,
+        770,
+        512,
+        54
+      ],
+      "paths": [],
+      "instruction": "Two-line body paragraph, 17px Helvetica, light grey (#bdbdbd), about 520px wide, positioned near top-left (80,770), with the exact copy: \"An audiovisual night o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        662,
+        776,
+        155,
+        51
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Outlined button reading \"TUNE IN →\", 159x53px, square corners (border-radius 0, not a pill), cyan (#16f2ff) border and text."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1124,
+        763,
+        73,
+        73
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "80x80px circular element at (1120,760), border-radius 50%, filled with conic-gradient(#16f2ff, #ff2bd6, transparent 75%); edges softly faded via a radial-gradie"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
