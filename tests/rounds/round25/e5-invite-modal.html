@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Invite modal</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fafafa;font-family:Helvetica,Arial,sans-serif;color:#18181b;font-size:14px}
+.side{position:absolute;left:0;top:0;width:248px;height:900px;background:#fff;border-right:1px solid #e4e4e7;padding:18px 14px}.side .ws{display:flex;align-items:center;gap:10px;font-weight:700;padding:8px;border:1px solid #e4e4e7;border-radius:8px;margin-bottom:18px}.side .ws i{width:26px;height:26px;border-radius:6px;background:#16a34a}
+.side .r{padding:8px 10px;border-radius:6px;color:#52525b}.side .r.on{background:#f4f4f5;color:#18181b;font-weight:600}.side h6{font:600 11px Helvetica;color:#a1a1aa;letter-spacing:1px;padding:16px 10px 6px}
+.main{position:absolute;left:248px;top:0;width:1032px;padding:32px 48px}
+.main h1{font:700 26px Helvetica}.main .sub{color:#71717a;margin-top:6px}
+.tabs{display:flex;gap:24px;border-bottom:1px solid #e4e4e7;margin-top:22px}.tabs span{padding:10px 0;color:#71717a}.tabs span.on{color:#18181b;font-weight:600;box-shadow:inset 0 -2px 0 #18181b}
+.tbar{display:flex;gap:10px;margin-top:20px}.tbar .s{width:300px;padding:9px 12px;border:1px solid #e4e4e7;border-radius:8px;color:#a1a1aa;background:#fff}.tbar .b{margin-left:auto;padding:9px 16px;border-radius:8px;background:#18181b;color:#fff;font-weight:600}
+table{width:100%;border-collapse:collapse;margin-top:14px;background:#fff;border:1px solid #e4e4e7}th{text-align:left;font:500 12px Helvetica;color:#71717a;padding:10px 16px;border-bottom:1px solid #e4e4e7;background:#fafafa}td{padding:12px 16px;border-bottom:1px solid #f4f4f5}
+td .p{display:flex;align-items:center;gap:10px}td .p i{width:32px;height:32px;border-radius:50%}td .p small{display:block;color:#71717a}
+.rl{padding:3px 8px;border-radius:999px;font-size:12px;font-weight:600;background:#f4f4f5}
+.veil{position:absolute;inset:0;background:#09090b66;backdrop-filter:blur(3px)}
+.modal{position:absolute;left:390px;top:150px;width:500px;background:#fff;border-radius:14px;box-shadow:0 24px 60px #09090b4d;overflow:hidden}
+.modal .mh{padding:22px 24px 0;position:relative}.modal .mh h2{font:700 19px Helvetica}.modal .mh p{color:#71717a;margin-top:6px}.modal .mh b{position:absolute;right:20px;top:18px;width:28px;height:28px;border-radius:6px;text-align:center;line-height:28px;color:#71717a}
+.fld{margin:18px 24px 0}.fld label{display:block;font-weight:600;font-size:13px;margin-bottom:6px}
+.tok{border:2px solid #16a34a;border-radius:8px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;box-shadow:0 0 0 4px #16a34a26}.tok span{display:flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:4px 8px;font-size:13px}.tok span.bad{background:#fef2f2;border-color:#fecaca;color:#b91c1c}.tok em{font-style:normal;color:#a1a1aa;padding:4px}
+.err{color:#b91c1c;font-size:12px;margin-top:6px}
+.roles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.roles div{border:1px solid #e4e4e7;border-radius:10px;padding:12px}.roles div b{display:block;font-size:13px}.roles div small{color:#71717a;font-size:12px;line-height:1.35;display:block;margin-top:4px}.roles div.on{border:2px solid #16a34a;background:#f0fdf4}
+.sw{display:flex;align-items:center;gap:12px;margin:18px 24px 0}.sw i{width:40px;height:22px;border-radius:11px;background:#16a34a;position:relative}.sw i::after{content:"";position:absolute;right:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff}
+.mf{margin-top:22px;padding:16px 24px;background:#fafafa;border-top:1px solid #e4e4e7;display:flex;gap:10px;align-items:center}.mf .lk{color:#16a34a;font-weight:600;margin-right:auto}.mf .c{padding:9px 16px;border:1px solid #e4e4e7;border-radius:8px;background:#fff;font-weight:600}.mf .ok{padding:9px 16px;border-radius:8px;background:#16a34a;color:#fff;font-weight:700}
+</style></head><body>
+<div class="side" data-r="sidebar"><div class="ws"><i></i>Fernwood Labs</div><div class="r">Overview</div><div class="r">Projects</div><div class="r">Billing</div><h6>SETTINGS</h6><div class="r">General</div><div class="r on">Members</div><div class="r">Integrations</div><div class="r">Security</div></div>
+<div class="main" data-r="members-page" data-must><h1>Members</h1><p class="sub">Manage who can see and edit projects in Fernwood Labs.</p><div class="tabs"><span class="on">Members (8)</span><span>Pending (2)</span><span>Groups</span></div>
+<div class="tbar"><span class="s">Filter by name or email</span><span class="b">Invite people</span></div>
+<table><tr><th>Name</th><th>Role</th><th>Last active</th><th></th></tr>
+<tr><td><div class="p"><i style="background:#f59e0b"></i><div>Ines Duarte<small>ines@fernwood.io</small></div></div></td><td><span class="rl">Owner</span></td><td>Now</td><td>⋯</td></tr>
+<tr><td><div class="p"><i style="background:#3b82f6"></i><div>Oskar Lind<small>oskar@fernwood.io</small></div></div></td><td><span class="rl">Admin</span></td><td>2 h ago</td><td>⋯</td></tr>
+<tr><td><div class="p"><i style="background:#ec4899"></i><div>Rhea Patel<small>rhea@fernwood.io</small></div></div></td><td><span class="rl">Editor</span></td><td>Yesterday</td><td>⋯</td></tr>
+<tr><td><div class="p"><i style="background:#14b8a6"></i><div>Sam Okafor<small>sam@fernwood.io</small></div></div></td><td><span class="rl">Viewer</span></td><td>Oct 20</td><td>⋯</td></tr>
+<tr><td><div class="p"><i style="background:#8b5cf6"></i><div>Yuki Mori<small>yuki@fernwood.io</small></div></div></td><td><span class="rl">Editor</span></td><td>Oct 18</td><td>⋯</td></tr></table></div>
+<div class="veil" data-r="backdrop" data-must></div>
+<div class="modal" data-r="invite-modal" data-must><div class="mh"><h2>Invite people to Fernwood Labs</h2><p>They'll get an email with a link to join.</p><b>✕</b></div>
+<div class="fld"><label>Email addresses</label><div class="tok"><span>mara@studio.co ✕</span><span>leo@studio.co ✕</span><span class="bad">ben@studio ✕</span><em>Add more…</em></div><div class="err">ben@studio is not a valid email address</div></div>
+<div class="fld"><label>Role</label><div class="roles"><div><b>Viewer</b><small>Can view and comment</small></div><div class="on"><b>Editor</b><small>Can edit all projects</small></div><div><b>Admin</b><small>Can manage members</small></div></div></div>
+<div class="sw"><i></i>Add to the #general project automatically</div>
+<div class="mf"><span class="lk">🔗 Copy invite link</span><span class="c">Cancel</span><span class="ok">Send 2 invites</span></div></div>
+</body></html>

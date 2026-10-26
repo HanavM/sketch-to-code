@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Neon diner</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:radial-gradient(ellipse 900px 500px at 50% 0,#3b1048,#12061a 70%);font-family:Helvetica,Arial,sans-serif;color:#fff}
+.floor{position:absolute;left:-400px;top:560px;width:2080px;height:700px;background:repeating-conic-gradient(#f5f0e6 0 25%,#1b0c22 0 50%) 0 0/120px 120px;transform:perspective(600px) rotateX(62deg);transform-origin:50% 0}
+.fade{position:absolute;left:0;top:560px;width:1280px;height:340px;background:linear-gradient(#12061a,#12061a00 60%)}
+.sign{position:absolute;left:0;top:70px;width:1280px;text-align:center;font:400 italic 150px/1 Georgia,serif;color:#ffe3f6;text-shadow:0 0 6px #fff,0 0 18px #ff3ec8,0 0 40px #ff3ec8,0 0 80px #ff3ec8}
+.sub{position:absolute;left:0;top:240px;width:1280px;text-align:center;font:800 26px Helvetica;letter-spacing:18px;color:#c9fbff;text-shadow:0 0 6px #22e6ff,0 0 20px #22e6ff}
+.tube{position:absolute;left:340px;top:300px;width:600px;height:6px;border-radius:3px;background:#ffd84d;box-shadow:0 0 10px #ffd84d,0 0 30px #ffb300}
+.board{position:absolute;left:90px;top:350px;width:420px;height:300px;background:#0b0b0b;border:10px solid #6b3a1e;border-radius:6px;padding:20px 26px;box-shadow:0 30px 60px #000a;font:700 18px "Courier New",monospace}
+.board h3{font:800 16px Helvetica;letter-spacing:4px;color:#ffd84d;text-align:center;margin-bottom:14px}
+.board p{display:flex;align-items:baseline;gap:6px;margin:9px 0;color:#f5f0e6}.board p i{flex:1;border-bottom:3px dotted #f5f0e655}.board p b{color:#ffd84d}
+.burst{position:absolute;left:1000px;top:330px;width:200px;height:200px;background:#ffd84d;clip-path:polygon(50% 0,61% 20%,82% 10%,80% 32%,100% 38%,86% 54%,98% 72%,76% 74%,72% 96%,54% 84%,36% 100%,30% 78%,8% 80%,16% 60%,0 46%,20% 36%,14% 14%,36% 20%);transform:rotate(-10deg);display:flex;align-items:center;justify-content:center;text-align:center;color:#c2185b;font:900 26px/1 Helvetica}
+.chrome{position:absolute;left:560px;top:350px;width:400px;font:900 64px/0.95 Helvetica;letter-spacing:-2px;text-transform:uppercase;background:linear-gradient(#ffffff,#9aa4b5 48%,#2b2f3a 50%,#c7d0de 80%,#ffffff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hrs{position:absolute;left:560px;top:488px;font:400 17px/1.6 Helvetica;color:#e8d9f0;width:380px}
+.btn{position:absolute;left:960px;top:560px;background:#12061a;padding:16px 30px;border:3px solid #22e6ff;border-radius:999px;color:#c9fbff;font:800 16px Helvetica;letter-spacing:2px;box-shadow:0 0 14px #22e6ff,inset 0 0 14px #22e6ff}
+.stools{position:absolute;top:700px;width:90px;height:24px;border-radius:50%;background:#e0245e;box-shadow:0 8px 0 #8a0f3a}
+</style></head><body>
+<div class="floor" data-r="checker-floor" data-must></div><div class="fade"></div>
+<div class="sign" data-r="neon-sign" data-must>Moonlite</div>
+<div class="sub" data-r="neon-sub">OPEN ALL NIGHT</div>
+<div class="tube" data-r="neon-tube"></div>
+<div class="board" data-r="menu-board" data-must><h3>TONIGHT'S MENU</h3><p>Stack of pancakes<i></i><b>6.50</b></p><p>Patty melt<i></i><b>9.25</b></p><p>Cherry pie<i></i><b>4.75</b></p><p>Malted shake<i></i><b>5.00</b></p><p>Bottomless coffee<i></i><b>2.00</b></p></div>
+<div class="chrome" data-r="chrome-type" data-must>Eat late, stay later</div>
+<p class="hrs" data-r="hours">Route 9, exit 14. Pie fresh at midnight, jukebox free after two.</p>
+<div class="btn" data-r="cta">BOOK A BOOTH</div>
+<div class="burst" data-r="starburst" data-must>NEW<br>PIE!</div>
+<div class="stools" data-r="stools" style="left:250px"></div><div class="stools" style="left:420px"></div><div class="stools" style="left:820px"></div><div class="stools" style="left:990px"></div>
+</body></html>

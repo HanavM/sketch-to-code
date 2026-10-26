@@ -285,7 +285,7 @@
    ],
    [
     "planet",
-    "small 46px glowing vivid cyan dot (exactly 46x46px: w-[46px] h-[46px], border-radius 50%, not smaller)"
+    "small 46px glowing vivid cyan dot (exactly 46x46px: w-[46px] h-[46px], border-radius 50%, not smaller); a coloured GLOW round it (light spilling out, soft): exactly box-shadow: rgba(34, 211, 238, 0.7) 0px 0px 30px 8px"
    ],
    [
     "tag",
@@ -301,7 +301,7 @@
    ],
    [
     "cta",
-    "vivid purple #7c3aed (left) to vivid dark pink #db2777 (right) gradient glowing button \"Request access\""
+    "vivid purple #7c3aed (left) to vivid dark pink #db2777 (right) gradient glowing button \"Request access\"; a coloured GLOW round it (light spilling out, soft): exactly box-shadow: rgba(219, 39, 119, 0.6) 0px 0px 40px 0px"
    ]
   ]
  },

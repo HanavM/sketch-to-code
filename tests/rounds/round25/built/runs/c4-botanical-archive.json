@@ -1,0 +1,546 @@
+{
+  "id": "c4-botanical-archive",
+  "at": "2026-10-26T13:01:59.407Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8461097283000075,
+    "overallV2": 0.8461097283000075,
+    "overallV1": 0.7832242071015323,
+    "colour": 0.9848949041806541,
+    "structure": 0.8860833394717877,
+    "structureStrict": 0.8125674783020626,
+    "colourAligned": 0.9848949041806541,
+    "structureAligned": 0.8860833394717877,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8629337900869637
+    },
+    "layout": 0.9281303262854631,
+    "layoutV1": 0.8170192151743519,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      74,
+      38,
+      1132,
+      39
+    ],
+    [
+      1,
+      74,
+      38,
+      116,
+      39
+    ],
+    [
+      1,
+      912,
+      46,
+      294,
+      24
+    ],
+    [
+      3,
+      912,
+      46,
+      73,
+      24
+    ],
+    [
+      3,
+      1025,
+      46,
+      38,
+      24
+    ],
+    [
+      3,
+      1103,
+      46,
+      30,
+      24
+    ],
+    [
+      3,
+      1173,
+      46,
+      33,
+      24
+    ],
+    [
+      0,
+      78,
+      130,
+      615,
+      176
+    ],
+    [
+      8,
+      78,
+      122,
+      284,
+      103
+    ],
+    [
+      8,
+      362,
+      122,
+      215,
+      103
+    ],
+    [
+      8,
+      577,
+      122,
+      20,
+      103
+    ],
+    [
+      8,
+      78,
+      210,
+      606,
+      103
+    ],
+    [
+      0,
+      330,
+      300,
+      260,
+      22
+    ],
+    [
+      13,
+      332,
+      306,
+      256,
+      12
+    ],
+    [
+      0,
+      70,
+      350,
+      430,
+      86
+    ],
+    [
+      0,
+      70,
+      520,
+      470,
+      37
+    ],
+    [
+      16,
+      70,
+      526,
+      142,
+      24
+    ],
+    [
+      0,
+      70,
+      533,
+      34,
+      12
+    ],
+    [
+      0,
+      70,
+      557,
+      470,
+      37
+    ],
+    [
+      19,
+      70,
+      563,
+      124,
+      24
+    ],
+    [
+      0,
+      70,
+      570,
+      34,
+      12
+    ],
+    [
+      0,
+      70,
+      594,
+      470,
+      37
+    ],
+    [
+      22,
+      70,
+      600,
+      153,
+      24
+    ],
+    [
+      0,
+      70,
+      607,
+      34,
+      12
+    ],
+    [
+      0,
+      70,
+      631,
+      470,
+      37
+    ],
+    [
+      25,
+      70,
+      637,
+      91,
+      24
+    ],
+    [
+      0,
+      70,
+      644,
+      34,
+      12
+    ],
+    [
+      0,
+      611,
+      324,
+      267,
+      353
+    ],
+    [
+      28,
+      626,
+      338,
+      234,
+      241
+    ],
+    [
+      28,
+      624,
+      567,
+      255,
+      109
+    ],
+    [
+      30,
+      670,
+      603,
+      163,
+      38
+    ],
+    [
+      0,
+      888,
+      292,
+      273,
+      357
+    ],
+    [
+      32,
+      909,
+      307,
+      238,
+      245
+    ],
+    [
+      32,
+      888,
+      535,
+      256,
+      113
+    ],
+    [
+      34,
+      952,
+      572,
+      129,
+      39
+    ],
+    [
+      0,
+      1063,
+      114,
+      133,
+      133
+    ],
+    [
+      36,
+      1102,
+      147,
+      56,
+      66
+    ],
+    [
+      0,
+      74,
+      824,
+      172,
+      38
+    ],
+    [
+      38,
+      104,
+      831,
+      113,
+      24
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "index-list",
+      "iou": 1,
+      "parts": 8,
+      "rect": {
+        "x": 70,
+        "y": 520,
+        "w": 470,
+        "h": 148
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "gradient",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "mask"
+    ],
+    "extra": [
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 43798,
+    "output": 26912,
+    "cacheRead": 219828
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 41003,
+      "output": 13633,
+      "cacheRead": 169882,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/vite.config.ts",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 149859
+    }
+  ],
+  "reading": "A sketch for a herbarium/archive landing page: a cream background with soft colour glows, a top nav with an italic 'Herbarium' logo and four links, a large two-line serif headline with one italic coloured word, a wavy decorative SVG divider, a three-line descriptive paragraph, a four-row catalogue list (each row a label+count line with a small roman-numeral tag), two tilted photo cards with gradient 'pictures' and italic captions, a circular 'Est. 1898 Uppsala' badge, and a dark teal CTA button reading 'Open the drawers'.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        47,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: italic 26px Georgia serif logo text 'Herbarium' on the left, then nav links in order: Collections, Plates, Visit, Shop."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        78,
+        130,
+        558,
+        175
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif headline, regular weight, tight-set, line-height 0.95, set in exactly two lines that never rewrap (white-space: nowrap, width ~615px, no nar"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        334,
+        303,
+        253,
+        15
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Decorative wavy divider line reproduced exactly as this inline SVG, no border/box/background around it, 260x22px positioned absolute at page coordinates 330,300"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        74,
+        350,
+        422,
+        87
+      ],
+      "paths": [],
+      "instruction": "Body copy, 18px Georgia, dark grey (#3c4a36), 3 lines, 430px wide, top-left at page 70,350, exact quoted text: \"Twelve thousand sheets of dried plants, scanned "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13",
+            "s14"
+          ],
+          "lines": 8,
+          "fontPx": 12
+        }
+      ],
+      "region": [
+        74,
+        520,
+        462,
+        148
+      ],
+      "paths": [],
+      "instruction": "A catalogue list of 4 rows, each built from two real elements (8 total, nothing invented): a 470x37 row with a 1px #23301f 20%-opacity bottom border containing "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        615,
+        327,
+        260,
+        346
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "A tilted photo card: 250x340px #fffdf6 card, position absolute top-left 620,330, square corners, box-shadow rgba(35,48,31,0.15) 0 14px 30px 0, rotated -3deg abo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        891,
+        295,
+        266,
+        350
+      ],
+      "paths": [
+        "s16"
+      ],
+      "instruction": "A tilted photo card: 250x340px #fffdf6 card, position absolute top-left 900,300, square corners, box-shadow rgba(35,48,31,0.15) 0 14px 30px 0, rotated 4deg abou"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1064,
+        114,
+        133,
+        132
+      ],
+      "paths": [
+        "s17"
+      ],
+      "instruction": "A grey outline circular badge with a second 2px grey outline ring offset 6px out (outline + outline-offset, white gap between), containing 17px #5a7a3a text, 14"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        824,
+        172,
+        38
+      ],
+      "paths": [
+        "s18"
+      ],
+      "instruction": "A dark teal (#23301f) button block with cream (#f4f0e4) text reading 'Open the drawers'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cloud drive</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:14px}
+.side{position:absolute;left:0;top:0;width:232px;height:900px;background:#fff;border-right:1px solid #e2e8f0;padding:20px 14px}
+.logo{display:flex;align-items:center;gap:10px;font:800 18px Helvetica;margin-bottom:20px}.logo i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#38bdf8,#6366f1)}
+.new{display:block;text-align:center;padding:11px;border-radius:10px;background:#0f172a;color:#fff;font-weight:700;margin-bottom:16px}
+.side .r{padding:9px 12px;border-radius:8px;color:#475569;display:flex;gap:10px}.side .r.on{background:#eef2ff;color:#4338ca;font-weight:700}
+.stor{position:absolute;left:14px;bottom:24px;width:204px;font-size:12px;color:#64748b}.stor .m{height:8px;border-radius:4px;background:#e2e8f0;margin:8px 0;overflow:hidden;display:flex}.stor .m i{height:8px}
+.top{position:absolute;left:232px;top:0;width:1048px;height:64px;border-bottom:1px solid #e2e8f0;background:#fff;display:flex;align-items:center;padding:0 28px;gap:14px}
+.top .s{width:420px;height:38px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;padding:11px 14px;color:#94a3b8}.top .av{margin-left:auto;width:34px;height:34px;border-radius:50%;background:#f472b6}
+.crumb{position:absolute;left:260px;top:88px;font:700 20px Helvetica;display:flex;gap:10px;color:#94a3b8}.crumb b{color:#0f172a}
+.vw{position:absolute;left:1100px;top:84px;display:flex;border:1px solid #e2e8f0;border-radius:8px;background:#fff}.vw span{padding:7px 12px;color:#64748b}.vw span.on{background:#eef2ff;color:#4338ca;font-weight:700}
+.sel{position:absolute;left:260px;top:134px;width:992px;height:44px;border-radius:10px;background:#4338ca;color:#fff;display:flex;align-items:center;gap:22px;padding:0 18px;font-weight:600}.sel span:first-child{margin-right:auto}
+.grid{position:absolute;left:260px;top:198px;width:992px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.fi{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;position:relative}.fi .th{height:118px;display:flex;align-items:center;justify-content:center;font:800 22px Helvetica;color:#fff}.fi b{display:block;padding:10px 12px 2px;font-size:13px}.fi small{display:block;padding:0 12px 12px;color:#94a3b8;font-size:12px}
+.fi .ck{position:absolute;left:10px;top:10px;width:20px;height:20px;border-radius:6px;border:2px solid #fff;background:#ffffff55}.fi.on{outline:3px solid #4338ca}.fi.on .ck{background:#4338ca;border-color:#4338ca}
+.menu{position:absolute;left:840px;top:330px;width:220px;background:#fff;border-radius:12px;box-shadow:0 12px 40px #0f172a33,0 0 0 1px #e2e8f0;padding:6px}.menu div{padding:9px 12px;border-radius:8px;display:flex;justify-content:space-between}.menu div small{color:#94a3b8}.menu div.hv{background:#f1f5f9}.menu hr{border:none;border-top:1px solid #e2e8f0;margin:6px 0}.menu .del{color:#dc2626}
+.toast{position:absolute;left:900px;top:780px;width:352px;background:#0f172a;color:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 10px 30px #0f172a55}.toast b{display:flex;justify-content:space-between}.toast b small{color:#94a3b8;font-weight:400}.toast .p{height:6px;border-radius:3px;background:#334155;margin-top:10px}.toast .p i{display:block;width:64%;height:6px;border-radius:3px;background:#38bdf8}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><div class="logo"><i></i>Stash</div><span class="new">+ New</span><div class="r on">My files</div><div class="r">Shared with me</div><div class="r">Recent</div><div class="r">Starred</div><div class="r">Trash</div>
+<div class="stor" data-r="storage"><b style="color:#0f172a">Storage</b><div class="m"><i style="width:38%;background:#6366f1"></i><i style="width:20%;background:#38bdf8"></i><i style="width:12%;background:#f472b6"></i></div>70.4 GB of 100 GB used</div></div>
+<div class="top" data-r="topbar"><div class="s">Search files and folders</div><i class="av"></i></div>
+<div class="crumb" data-r="breadcrumb"><span>My files</span><span>›</span><span>Clients</span><span>›</span><b>Northwind rebrand</b></div>
+<div class="vw" data-r="view-toggle"><span class="on">▦ Grid</span><span>☰ List</span></div>
+<div class="sel" data-r="selection-bar" data-must><span>2 selected</span><span>Share</span><span>Download</span><span>Move</span><span>✕</span></div>
+<div class="grid" data-r="file-grid" data-must>
+<div class="fi on"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#f97316,#ef4444)">PDF</div><b>Brand book v2.pdf</b><small>24 MB · Lena</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#a78bfa,#6366f1)">FIG</div><b>Logo explorations.fig</b><small>112 MB · You</small></div>
+<div class="fi on"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#34d399,#059669)">XLS</div><b>Budget 2027.xlsx</b><small>840 KB · Tom</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#38bdf8,#0ea5e9)">MP4</div><b>Launch teaser.mp4</b><small>1.2 GB · Maya</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)">ZIP</div><b>Fonts.zip</b><small>8 MB · You</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#f472b6,#db2777)">PNG</div><b>Moodboard.png</b><small>6 MB · Lena</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#94a3b8,#475569)">DOC</div><b>Interview notes.docx</b><small>96 KB · You</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#2dd4bf,#0d9488)">KEY</div><b>Pitch deck.key</b><small>54 MB · Tom</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#fb7185,#e11d48)">AI</div><b>Icons set.ai</b><small>18 MB · Maya</small></div>
+<div class="fi"><i class="ck"></i><div class="th" style="background:linear-gradient(135deg,#c084fc,#9333ea)">SVG</div><b>Pattern tile.svg</b><small>220 KB · You</small></div></div>
+<div class="menu" data-r="context-menu" data-must><div>Open</div><div class="hv">Share<small>⌘S</small></div><div>Rename<small>F2</small></div><div>Make a copy</div><hr><div>Move to…</div><div class="del">Delete<small>⌫</small></div></div>
+<div class="toast" data-r="upload-toast" data-must><b>Uploading 3 files<small>64%</small></b><div class="p"><i></i></div></div>
+</body></html>
