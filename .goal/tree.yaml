@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 24 is at 87% (up from 85%): the checkout page now has its step circles, coloured product pictures and pay button, and the letterpress poster its overprint and ribbon stars. Fixing the task database and scrapbook next."
 round: 24
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 87]
-lock: null
+lock: {by: n242, until: "2026-10-26T12:12Z"}
 asks: []
 handled:
   - "2026-10-25 14:55 INBOX: agent is pushed every step again (tree, now, round, round_scores, LOG, lock released); n114-n225 LOG lines and nodes are on agent."
