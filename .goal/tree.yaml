@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 24 is at 91% (up from 88%): the video call now matches its target almost exactly, the ride map has its trip box right, and the scrapbook has its ruled paper and tilted note. Next: the task database, now the weakest page."
 round: 24
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91]
-lock: null
+lock: {by: "run n244", until: "2026-10-26T13:16Z"}
 asks: []
 handled:
   - "2026-10-25 14:55 INBOX: agent is pushed every step again (tree, now, round, round_scores, LOG, lock released); n114-n225 LOG lines and nodes are on agent."
