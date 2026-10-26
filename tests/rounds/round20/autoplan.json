@@ -93,7 +93,7 @@
    ],
    [
     "sticker",
-    "tilted 12° anticlockwise gently bobbing up and down 3px dashed #1a1a1a outline (dashes, not a solid line), its words in the SAME #1a1a1a as the outline (NOT the page's text colour) vivid yellow circle with \"FREE ENTRY\", 3px solid near-black outline, flat, no shadow, 150px across, the words centred in 2 lines (wrapping inside the circle, 24px type); ONE 178x178px card, position absolute with its top-left at page 456,546 (its own place on the page, a sibling of the other blocks, NOT inside any of them; where it crosses the blue-square it sits ON TOP (z-index above), partly over its edge, never moved onto it)"
+    "tilted 12° anticlockwise gently bobbing up and down ROUND (border-radius 50%, a circle 150px across, NEVER a square) 3px dashed #1a1a1a outline (dashes, not a solid line), its words in the SAME #1a1a1a as the outline (NOT the page's text colour) vivid yellow circle with \"FREE ENTRY\", 3px solid near-black outline, flat, no shadow, 150px across, the words centred in 2 lines (wrapping inside the circle, 24px type); ONE 178x178px card, position absolute with its top-left at page 456,546 (its own place on the page, a sibling of the other blocks, NOT inside any of them; where it crosses the blue-square it sits ON TOP (z-index above), partly over its edge, never moved onto it)"
    ],
    [
     "tape",

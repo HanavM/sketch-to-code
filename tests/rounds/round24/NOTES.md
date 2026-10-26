@@ -111,3 +111,25 @@ Round 24: **85%** over 10 (84.7). Vitest: same 2 env failures; typecheck clean.
 | e5 checkout flow | 74% | **89%** | stepper circles, gradient thumbnails, green discount row, pay button; first run 78 (step labels small) |
 
 Round 24: **87%** over 10 (87.0). Vitest: same 2 env failures; typecheck clean.
+
+## n242: task database and scrapbook (2026-10-26, ~253k billed)
+
+- e1 status pills paint a 7px dot of their text colour with ::before: never seen, built without. A table pill with such a
+  dot now says "and dot", and the dot's size, paint and gap are said once after the rows. A table avatar with no letters
+  now says it is a plain circle with NO initials (built with invented "A", "L"). A short lighter count after a bold group
+  title ("▾ Design" + grey regular "3") is said apart (was built bold black, run into the title).
+- e1 sidebar: rows were said 28px apart but the gaps are not even (more room after the brand row and above each heading),
+  so the build packed them. A brand-led side nav now says each line's text top from the nav's top.
+- c4 sticky note: its #fff27a fill was said as a colour word before "22px text", so the build painted the WORDS yellow on
+  no paper. A lone block of copy on a filled box (100px+ tall, not a marquee) now says its ink, italic/serif, and that the
+  box itself is filled edge to edge at its own size. A round dashed outline (border-radius 50%) now says ROUND (the stamp
+  was built square). A word ringed by a hand-drawn SVG laid over it (the "photos" ellipse) is said verbatim, placed on the
+  word's own span (never said before; lost).
+- Re-planned rounds 1-23: round stamps and rings on 6 pages (r9, r12, r13, r17, r20, r23) now say ROUND (not re-run).
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e1 task database | 78% | **83%** | status dots, plain avatars, grey counts, sidebar spacing right; first run 77 (table ~10px low, Filter/Sort outlined) |
+| c4 scrapbook | 83% | **86%** | yellow sticky note, circled "photos", round stamp; note not tilted, stamp words small, ruled-paper lines still lost |
+
+Round 24: **88%** over 10 (87.8). Vitest: same 2 env failures; typecheck clean.
