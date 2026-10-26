@@ -639,7 +639,7 @@
    ],
    [
     "topbar",
-    "the region itself is ONE 1060x64px top bar element at 220,0 (its own wrapper, #ffffff fill, a 1px #e6e8ee rule along its BOTTOM edge only (border-bottom, no other border), exactly 64px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; white card \"My files › Clients › Harbour Hall\", lines \"🔍 Search files\", \"▦ ☰\""
+    "a top bar 64px tall at the very top, starting at x 220 (to the RIGHT of the left column, which runs up to the page top beside it; NOT over it), 1060px wide, #ffffff fill, a 1px #e6e8ee line under it (position absolute at 220,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: 16px #8a90a0 \"My files ›\" at x 24; 16px #8a90a0 \"Clients ›\" at x 92; 13px #8a90a0 \"🔍 Search files\" on a #f1f3f7 320x38px 10px-rounded box at x 626; 13px #1f2430 \"▦ ☰\" in a 74x33px 8px-rounded box with a 1px #e6e8ee border, no fill (its parts spread inside it: \"▦\", \"☰\"; \"▦\" is the SELECTED segment: a #e8efff filled block edge to edge in the box height with #2563eb text, the others no fill) at x 962 (pushed to the far right)"
    ],
    [
     "section-title",

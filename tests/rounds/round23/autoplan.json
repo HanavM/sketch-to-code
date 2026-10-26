@@ -317,7 +317,7 @@
    ],
    [
     "nav",
-    "bold 22px \"Orbit\" first, then links: Journal, Studio, Shop; \"Orbit\" sit together at the left, \"Journal\", \"Studio\", \"Shop\" pushed to the far right (882px gap)"
+    "bold italic 22px Georgia serif \"Orbit\" first, then links: Journal, Studio, Shop; \"Orbit\" sit together at the left, \"Journal\", \"Studio\", \"Shop\" pushed to the far right (882px gap)"
    ],
    [
     "headline",
@@ -329,7 +329,7 @@
    ],
    [
     "signup",
-    "white card bar, grey text \"you@domain.com Subscribe\"; its text #9a9486 (grey, NOT the page's near-black text)"
+    "a one-line FIELD 460x60px at 80,640, pill (fully round ends), #ffffff fill, no border, box-shadow: #1d1b1614 0px 8px 24px 0px (it floats softly), its parts vertically centred: placeholder 15px #9a9486 \"you@domain.com\" at its left (24px in); INSIDE it at its RIGHT end (6px from its right edge) a SOLID #1d1b16 filled 116x48px pill (fully round ends) button with bold 14px #ffffff \"Subscribe\" centred in it (the button's own dark fill, NOT bare words, NOT a link)"
    ],
    [
     "note",
@@ -353,7 +353,7 @@
    ],
    [
     "grain",
-    "a 1280x900px block at 0,0 drawn as a CONTOUR MAP: many thin concentric black ring lines on a see-through ground, rings spreading out to the edges and cut off by them (NOT a smooth gradient, NOT a photo, NOT a backdrop, no picture); exactly: background: repeating-radial-gradient(circle at 20% 30%, transparent 0px, transparent 2px, transparent 2px, transparent 3px); nothing else in it, in front of the \"Slow news for fast\"… heading"
+    "a 1280x900px block at 0,0 drawn as a CONTOUR MAP: many thin concentric black ring lines on a see-through ground, rings spreading out to the edges and cut off by them (NOT a smooth gradient, NOT a photo, NOT a backdrop, no picture); exactly: background: repeating-radial-gradient(circle at 20% 30%, transparent 0px, transparent 2px, rgba(29, 27, 22, 0.03) 2px, rgba(29, 27, 22, 0.03) 3px) (its ring colour only 3% opaque: a barely visible texture, keep that alpha exactly, NOT solid lines); nothing else in it, in front of the \"Slow news for fast\"… heading"
    ]
   ]
  },
@@ -947,7 +947,7 @@
    ],
    [
     "top-bar",
-    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e5e7eb rule along its BOTTOM edge only (border-bottom, no other border), exactly 56px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; white card \"Invoices / INV-2026-0418\", lines deep rust orange \"Draft\", \"Preview\", \"Download PDF\", a #2563eb filled 114x35px button (8px rounded) with a 1px #2563eb border, bold #ffffff text \"Send invoice\"; each word in its own colour: \"Invoices / INV-2026-0418\" #6b7280, \"Draft\" #92400e, \"Preview\" #1f2937, \"Download PDF\" #1f2937, \"Send invoice\" #ffffff"
+    "a top bar 56px tall across the whole page at the very top, #ffffff fill, a 1px #e5e7eb line under it (position absolute at 0,0, laid OVER the page top: it pushes nothing down, every other region keeps its own page x,y); only these parts in it, NO other heading or title invented: left to right, each at its own x from the bar's left, all vertically centred in the bar: 13px #6b7280 \"Invoices / INV-2026-0418\" (its words \"INV-2026-0418\" in #1f2937, the rest #6b7280) at x 24; bold 12px #92400e \"Draft\" on a #fef3c7 48x20px pill at x 184; bold 13px #1f2937 \"Preview\" on a #ffffff 83x35px 8px-rounded box with a 1px #d1d5db border (an outlined button) at x 905; bold 13px #1f2937 \"Download PDF\" on a #ffffff 126x35px 8px-rounded box with a 1px #d1d5db border (an outlined button) at x 1002; bold 13px #ffffff \"Send invoice\" on a #2563eb 114x35px 8px-rounded box at x 1142 (pushed to the far right)"
    ],
    [
     "invoice-paper",
@@ -959,7 +959,7 @@
    ],
    [
     "settings-panel",
-    "3 separate result cards stacked down the column, each 340px wide, heights as said per card, #ffffff, 1px #e5e7eb border, 12px rounded, 16px apart (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): card 1 at page y 84, 340x270px: bold 14px #1f2937 \"Payment\" at 19,19; a 302x38px field box at 19,47: 1px #d1d5db border on all four sides, 8px rounded, no fill (its words below sit inside it); 13px #1f2937 \"Bank transfer (SEPA)\" at 32,59; 13px #1f2937 \"▾\" at 301,59; a 302x38px field box at 19,95: 1px #d1d5db border on all four sides, 8px rounded, no fill (its words below sit inside it); 13px #1f2937 \"EUR · Euro\" at 32,107; 13px #1f2937 \"▾\" at 301,107; 13px #1f2937 \"Accept card payments\" at 19,154; a 36x20px 10px-rounded toggle track #2563eb at 285,151 with a 16px round #ffffff knob inside it at its RIGHT (on) end, 18px in, 2px down; 13px #1f2937 \"Late fee reminders\" at 19,190; a 36x20px 10px-rounded toggle track #d1d5db at 285,187 with a 16px round #ffffff knob inside it at its LEFT (off) end, 2px in, 2px down; 13px #1f2937 \"Attach timesheet\" at 19,226; a 36x20px 10px-rounded toggle track #2563eb at 285,223 with a 16px round #ffffff knob inside it at its RIGHT (on) end, 18px in, 2px down. card 2 at page y 370, 340x94px: bold 14px #1f2937 \"Accent colour\" at 19,19; a 28x28px round dot #2563eb at 19,47, ringed (box-shadow: #ffffff 0px 0px 0px 2px, #2563eb 0px 0px 0px 4px: the selected one); a 28x28px round dot #7c3aed at 55,47; a 28x28px round dot #db2777 at 91,47; a 28x28px round dot #059669 at 127,47; a 28x28px round dot #111827 at 163,47. card 3 at page y 480, 340x203px: bold 14px #1f2937 \"Activity\" at 19,19; 13px #1f2937 \"Draft saved\" at 41,47, with a 10px round #2563eb dot before it at 23,51 and a 2x28px #e5e7eb line under the dot at 27,63 (a timeline stem); 11px #9ca3af \"Today, 14:12 · you\" at 41,67; 13px #1f2937 \"Line item edited\" at 41,93, with a 10px round #f59e0b dot before it at 23,97 and a 2x28px #e5e7eb line under the dot at 27,109 (a timeline stem); 11px #9ca3af \"Today, 14:09 · you\" at 41,112; 13px #1f2937 \"Created from quote\"… at 41,138, with a 10px round #16a34a dot before it at 23,142 and a 2x28px #e5e7eb line under the dot at 27,154 (a timeline stem); 11px #9ca3af \"Yesterday, 17:40\" at 41,158"
+    "3 separate result cards stacked down the column, each 340px wide, heights as said per card, #ffffff, 1px #e5e7eb border, 12px rounded, 16px apart (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): card 1 at page y 84, 340x270px: bold 14px #1f2937 \"Payment\" at 19,19; a 302x38px field box at 19,47: 1px #d1d5db border on all four sides, 8px rounded, no fill (its words below sit inside it); 13px #1f2937 \"Bank transfer (SEPA)\" at 32,59; 13px #1f2937 \"▾\" at 301,59; a 302x38px field box at 19,95: 1px #d1d5db border on all four sides, 8px rounded, no fill (its words below sit inside it); 13px #1f2937 \"EUR · Euro\" at 32,107; 13px #1f2937 \"▾\" at 301,107; 13px #1f2937 \"Accept card payments\" at 19,154; a 36x20px 10px-rounded toggle track #2563eb at 285,151 with a 16px round #ffffff knob inside it at its RIGHT (on) end, 18px in, 2px down; 13px #1f2937 \"Late fee reminders\" at 19,190; a 36x20px 10px-rounded toggle track #d1d5db at 285,187 with a 16px round #ffffff knob inside it at its LEFT (off) end, 2px in, 2px down; 13px #1f2937 \"Attach timesheet\" at 19,226; a 36x20px 10px-rounded toggle track #2563eb at 285,223 with a 16px round #ffffff knob inside it at its RIGHT (on) end, 18px in, 2px down. card 2 at page y 370, 340x94px: bold 14px #1f2937 \"Accent colour\" at 19,19; a 28x28px round dot #2563eb at 19,47, ringed (box-shadow: #ffffff 0px 0px 0px 2px, #2563eb 0px 0px 0px 4px: the selected one); a 28x28px round dot #7c3aed at 55,47; a 28x28px round dot #db2777 at 91,47; a 28x28px round dot #059669 at 127,47; a 28x28px round dot #111827 at 163,47. card 3 at page y 480, 340x203px: bold 14px #1f2937 \"Activity\" at 19,19; 13px #1f2937 \"Draft saved\" at 41,47, with a 10px round #2563eb dot before it at 23,51 and a 2x28px #e5e7eb line under the dot at 27,63 (a timeline stem); 11px #9ca3af \"Today, 14:12 · you\" at 41,67; 13px #1f2937 \"Line item edited\" at 41,93, with a 10px round #f59e0b dot before it at 23,97 and a 2x28px #e5e7eb line under the dot at 27,109 (a timeline stem); 11px #9ca3af \"Today, 14:09 · you\" at 41,112; 13px #1f2937 \"Created from quote Q-0391\" at 41,138, with a 10px round #16a34a dot before it at 23,142 and a 2x28px #e5e7eb line under the dot at 27,154 (a timeline stem); 11px #9ca3af \"Yesterday, 17:40\" at 41,158"
    ]
   ]
  }

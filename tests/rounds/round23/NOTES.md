@@ -115,3 +115,20 @@ empty chart); c5 a rounded bezel with ring box-shadows and an inset glow, repeat
   - a tab row above a table is said before it, with the active tab's inset underline.
   - Still off: the pair header was built over the timeframes (run noise, its note unchanged); order form fields built as bare lines.
 - Round 23: **89%** over 10 (89.3). Vitest same 2 env failures; typecheck clean.
+
+## n237: top-bar buttons and pill, signup field button, nav lead face, faint grain (2026-10-26, ~357k billed)
+
+- e5 invoice editor **83 → 84%** (colour 99, structure 91, layout 92). Planner:
+  - a top bar whose note listed its boxed buttons and filled pill as bare `lines` ("Draft", "Preview", "Download PDF")
+    is now said part by part (the Draft pill fill and both outlined buttons built right);
+  - a filled bar part that also has a border of another colour says that border (an outlined white button).
+  - result-card words are quoted up to 40 letters ('Created from quote Q-0391' was cut at 20 and built with an invented number).
+  - First run 80 (bar right, stamp and invented activity line off), second 84 kept. Still off: company name lines lost, stamp built filled.
+- c3 orbit badge **84 → 91%** (colour 99, structure 97, layout 84). Planner:
+  - a one-line field whose only child is a filled worded button at its right end is said as a FIELD with its pill
+    shape, shadow, placeholder and the solid button inside (Subscribe was built as bare grey words);
+  - a nav lead in its own face says italic and serif ('Orbit' italic Georgia built upright sans);
+  - a contour/grain texture keeps its faint alpha (3% ink said as 'transparent').
+  - Still off: circular text built small and repeated.
+- Re-planned rounds 1-22: r14 e4, r15 e2, r19 e3 top bars and r15 card words change. Live r15 e2 90 → 93, r19 e3 85 → 90.
+- Round 23: **90%** over 10 (90.1). Vitest same 2 env failures; typecheck clean.
