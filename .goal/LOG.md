@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-26T18:45Z | n249 r26 constellation, turned tag, video preview, sliders, playhead | Observatory 82 to 94, poster 82 to 88, video editor 86 to 98. Round 26 91. ~360k.
 2026-10-26T18:20Z | n248 r26 checkbox matrix, synth panel, diamond badge, step-card shadows | Permissions 49 to 78, synth 80 to 94, origami 82 to 92. Round 26 88. ~357k.
 2026-10-26T17:05Z | n247 round 26 written and built live; sky, glow, ring, glass fixes planned | Ten harder pages first look 83; permissions grid 49, synth 80 weakest; phone screens 97. ~1.00M.
 2026-10-26T15:30Z | n246 r25 unread dots, ellipsis previews, inline chips, leaders, menu, meter, toast | Specimen 82 to 89, botanical 85 to 94, email 79 to 88, drive 81 to 86. Round 25 90. ~526k.
