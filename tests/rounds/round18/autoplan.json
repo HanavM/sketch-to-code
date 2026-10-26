@@ -224,6 +224,14 @@
     "whole page: light grey #bfe6ff (top) to cream #fde2f3 (bottom) gradient page, Helvetica type, deep indigo text"
    ],
    [
+    "cloud",
+    "a plain white (#ffffff) CLOUD: one textless div exactly 160x50px with its top-left at 120,110 (position absolute), fully rounded ends (border-radius 999px), opacity 0.9, NO words, NO border, NO shadow, NOT a button, NOT a link, nothing inside; it drifts: animation drift 40s linear infinite with @keyframes drift { 0% { transform: translateX(-200px); } 100% { transform: translateX(1400px); } } (its resting place is the one above)"
+   ],
+   [
+    "cloud-small",
+    "a plain white (#ffffff) CLOUD: one textless div exactly 160x50px with its top-left at 840,60 (position absolute), fully rounded ends (border-radius 999px), opacity 0.9, NO words, NO border, NO shadow, NOT a button, NOT a link, nothing inside; it drifts: animation drift 40s linear infinite with @keyframes drift { 0% { transform: translateX(-200px); } 100% { transform: translateX(1400px); } } (its resting place is the one above)"
+   ],
+   [
     "nav",
     "nav bar list: \"◆ Blocktown\", \"Features · Cities ·\"…, \"Sign in\"; these are 3 SEPARATE items on one line 1140px wide at 70,44, pushed apart (display flex, justify-content: space-between; never run together as one line of text): \"◆ Blocktown\" at the far left, \"Features · Cities · Pricing\" in the middle, \"Sign in\" at the far right"
    ],
@@ -659,7 +667,7 @@
    ],
    [
     "minimap",
-    "image"
+    "box"
    ],
    [
     "autocomplete",
@@ -697,7 +705,7 @@
    ],
    [
     "minimap",
-    "faded to 60% opacity (see-through) big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #3a3d41 0px 2px, transparent 2px 4px)): 2px dark grey then 2px clear (see-through), over and over block"
+    "a code MINIMAP strip: one textless div exactly 90x480px at 1178,57 (position absolute), NO words, NOT a list, NOT an outline panel: painted only by fine horizontal lines, background: repeating-linear-gradient(#3a3d41 0px, #3a3d41 2px, transparent 2px, transparent 4px) exactly, opacity 0.6; a 90x110px #797979 (rgba(121, 121, 121, 0.25)) see-through block over it 40px from its top (the visible range, a ::after)"
    ],
    [
     "autocomplete",

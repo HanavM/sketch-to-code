@@ -329,7 +329,7 @@
    ],
    [
     "minimap",
-    "image"
+    "box"
    ],
    [
     "terminal-panel",
@@ -351,7 +351,7 @@
    ],
    [
     "explorer",
-    "near-black block \"EXPLORER · WEBHOOKS\" a tree list, these 9 lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): \"▾ src\", \"retry.ts\" indented 16px (row highlighted #37373d), \"send.ts\" indented 16px, \"types.ts\" indented 16px, \"▾ test\", \"retry.test.ts\" indented 16px, \"package.json\", \"tsconfig.json\", \"README.md\"; rows exactly 24px apart (24px tall, 13px type: tight, not roomier), first line 10px below the panel's top"
+    "a FILE TREE panel 240x878px at 48,0, filled #252526 (NOT grouped links, no sub-headings), 13px type: a 11px bold letter-spacing 1px \"EXPLORER · WEBHOOKS\" label at its top, 16px in, then 9 rows, one per line, each exactly 24px tall, #cccccc text unless said, each row's text indented by its own left padding (px from the panel's left): \"▾ src\" at 24px; \"retry.ts\" at 40px in #ffffff (SELECTED: a full-width #37373d row); \"send.ts\" at 40px; \"types.ts\" at 40px; \"▾ test\" at 24px; \"retry.test.ts\" at 40px; \"package.json\" at 24px; \"tsconfig.json\" at 24px; \"README.md\" at 24px; a trailing letter (M, U) stays at the end of its row's text, in the row's colour"
    ],
    [
     "editor-tabs",
@@ -363,7 +363,7 @@
    ],
    [
     "minimap",
-    "faded to 60% opacity (see-through) big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #3c3c3c 0px 3px, transparent 3px 7px)): 3px dark grey then 4px clear (see-through), over and over block"
+    "a code MINIMAP strip: one textless div exactly 88x520px at 1180,44 (position absolute), NO words, NOT a list, NOT an outline panel: painted only by fine horizontal lines, background: repeating-linear-gradient(#3c3c3c 0px, #3c3c3c 3px, transparent 3px, transparent 7px) exactly, opacity 0.6"
    ],
    [
     "terminal-panel",

@@ -209,6 +209,10 @@ Rules:
     page y by its own absolute top or padding-top on the page wrapper, never a
     margin-top on the wrapper's first flow child: that margin collapses through a
     wrapper with no padding or border and pushes the whole page, bar included, down;
+  any page wrapper that holds absolutely placed parts AND flow children → give the
+    wrapper display: flow-root (Tailwind flow-root), so a margin-top on its first
+    flow child stays inside it; otherwise that margin collapses through the wrapper
+    and moves the wrapper, and every absolute part placed in it, down by that much;
   colour-inverting where it crosses what is under it → white text with
     mix-blend-mode: difference, and it must blend with the REAL page under it:
     never put the blending text inside an 'isolate' (isolation: isolate), z-index,

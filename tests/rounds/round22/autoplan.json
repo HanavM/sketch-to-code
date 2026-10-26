@@ -150,6 +150,14 @@
     "\"▲ Blocktown\"; set at 20px (a large lead line, NOT small body text), about 126px wide on one line; set BOLD (font-weight 800), NOT regular"
    ],
    [
+    "cloud-1",
+    "a plain white (#ffffff) CLOUD: one textless div exactly 180x44px with its top-left at 620,90 (position absolute), fully rounded ends (border-radius 999px), opacity 0.9, NO words, NO border, NO shadow, NOT a button, NOT a link, nothing inside; it drifts: animation drift 9s ease-in-out infinite with @keyframes drift { 100% { transform: translateX(60px); } } (its resting place is the one above)"
+   ],
+   [
+    "cloud-2",
+    "a plain white (#ffffff) CLOUD: one textless div exactly 120x44px with its top-left at 980,150 (position absolute), fully rounded ends (border-radius 999px), opacity 0.9, NO words, NO border, NO shadow, NOT a button, NOT a link, nothing inside; it drifts: animation drift 9s ease-in-out infinite with @keyframes drift { 100% { transform: translateX(60px); } } (its resting place is the one above)"
+   ],
+   [
     "iso-scene",
     "an ISOMETRIC CITY of solid 3D blocks in real CSS 3D (each block shows a lit top and two darker sides), NOT a flat drawing, NOT an SVG, NOT empty; whatever wraps the scene has NO fill, NO border, NO shadow (transparent: the page shows all round the turned plane, never a dark or coloured box behind it): ONE 600x600px plane div with its top-left at 560,180 (position absolute), transform: rotateX(55deg) rotateZ(-45deg); transform-style: preserve-3d; NO perspective anywhere (flat isometric, parallel edges). Inside the plane, all absolutely placed in plane px (left, top, width, height): first the flat ground layers in this order: 600x600px at 0,0 filled #9ad17a, box-shadow: #6fa856 0px 0px 0px 24px (a solid rim round it); 40x600px at 270,0 filled #555555. Then exactly 3 blocks, each a div at its own left/top in the plane with transform-style: preserve-3d and NO fill of its own, holding 3 absolutely placed face divs (backface visible) that build the box: block 1 (160x160px footprint at 60,60, standing 180px tall): 160x160px at 0,0 in the block, #ffd166, transform-origin: 80px 80px, transform: translateZ(180px); 160x180px at 0,-20 in the block, #e0a93c, transform-origin: center bottom, transform: rotateX(-90deg); 180x160px at -20,0 in the block, #c78f22, transform-origin: right center, transform: rotateY(90deg). block 2 (200x120px footprint at 300,80, standing 90px tall): 200x120px at 0,0 in the block, #ef476f, transform-origin: 100px 60px, transform: translateZ(90px); 200x90px at 0,30 in the block, #c9375a, transform-origin: center bottom, transform: rotateX(-90deg); 90x120px at 110,0 in the block, #a82847, transform-origin: right center, transform: rotateY(90deg). block 3 (120x200px footprint at 120,340, standing 260px tall): 120x200px at 0,0 in the block, #118ab2, transform-origin: 60px 100px, transform: translateZ(260px); 120x260px at 0,-60 in the block, #0d6f8f, transform-origin: center bottom, transform: rotateX(-90deg); 260x200px at -140,0 in the block, #095670, transform-origin: right center, transform: rotateY(90deg)"
    ],
@@ -167,11 +175,11 @@
    ],
    [
     "tag-1",
-    "13px \"Library · 4 floors\"; set BOLD (font-weight 700), NOT regular"
+    "13px \"Library · 4 floors\"; it is a floating LABEL CHIP, NOT bare words: a solid #ffffff 131x31px box with its top-left at page 720,300 (position absolute, on top of what is under it), padding 8px 14px, 8px rounded, a soft drop shadow (0px 6px 18px rgba(0, 0, 0, 0.13)), #22223b text; set BOLD (font-weight 700), NOT regular"
    ],
    [
     "tag-2",
-    "13px \"Tower B · 12 floors\"; set BOLD (font-weight 700), NOT regular"
+    "13px \"Tower B · 12 floors\"; it is a floating LABEL CHIP, NOT bare words: a solid #ffffff 144x31px box with its top-left at page 1010,420 (position absolute, on top of what is under it), padding 8px 14px, 8px rounded, a soft drop shadow (0px 6px 18px rgba(0, 0, 0, 0.13)), #22223b text; set BOLD (font-weight 700), NOT regular"
    ]
   ]
  },
@@ -721,15 +729,15 @@
    ],
    [
     "title-bar",
-    "dark grey \"parser.ts — sketch-to-code\""
+    "dark grey \"parser.ts — sketch-to-code\"; at its left, before the words, 3 small round dots (12px circles, 8px apart, the first 14px in): #ff5f57, #febc2e, #28c840; the words centred in the bar"
    ],
    [
     "activity-bar",
-    "dark grey"
+    "dark grey (#333333) icon strip 48x844px (no picture, no words): 4 small OUTLINED rounded squares (24x24px, 2px border, 5px rounded, NO fill) stacked down it, centred across it, the first 24px below its top, 14px apart; borders the first #ffffff (the active one), the rest #858585"
    ],
    [
     "file-tree",
-    "near-black block side nav, no box: 2 groups, each a small bold heading over its own links, one link per line (every link said, none invented, none moved to another group): \"EXPLORER\": \"▾ sketch-to-code\", \"▾ src\", \"TS parser.ts\"; \"TS lexer.ts M\": \"TS index.ts\", \"TS ast.ts  U\", \"▸ tests\", \"▸ node_modules\", \"{} package.json\", \"ⓘ README.md\"; \"TS parser.ts\" highlighted (dark grey row, bold #ffffff text); rows exactly 22px apart (22px tall, tight; not roomier), first heading 8px below the nav's top; the nav column is 240px wide"
+    "a FILE TREE panel 240x844px at 48,34, filled #252526 (NOT grouped links, no sub-headings), 13px type: a 11px bold letter-spacing 1px \"EXPLORER\" label at its top, 16px in, then 10 rows, one per line, each exactly 22px tall, #cccccc text unless said, each row's text indented by its own left padding (px from the panel's left): \"▾ sketch-to-code\" at 10px; \"▾ src\" at 22px; \"TS parser.ts\" at 34px in #ffffff (SELECTED: a full-width #37373d row); \"TS lexer.ts M\" at 34px in #e2c08d; \"TS index.ts\" at 34px; \"TS ast.ts U\" at 34px in #73c991; \"▸ tests\" at 22px; \"▸ node_modules\" at 22px; \"{} package.json\" at 22px; \"ⓘ README.md\" at 22px; a trailing letter (M, U) stays at the end of its row's text, in the row's colour"
    ],
    [
     "tabs",
@@ -741,11 +749,15 @@
    ],
    [
     "code",
-    "a box-drawing frame as live 14px mono #cccccc text in a <pre> (white-space: pre, line-height 21px) at 288,94, NOT a bordered div, NOT a picture; exactly these lines: \"1\" / \"2\" / \"3\" / \"4\" / \"5\" / \"6\" / \"7\" / \"8\" / \"9\" / \"10\" / \"11\" / \"12\" / \"13\" / \"14\" / \"15\" / \"16\" / \"17\" / \"18\" / \"19\" / \"20\" / \"21\" / \"22\" / \"23import { Token, lex } from './lexer'\" / \"import type { Block, Node } from './ast'\" / \"\" / \"// Parse one block: a heading line and its indented children.\" / \"export function parseBlock(src: string, depth = 0): Block {\" / \"  const tokens: Token[] = lex(src)\" / \"  const children: Node[] = []\" / \"  let i = 0\" / \"  while (i < tokens.length) {\" / \"    const t = tokens[i++]\" / \"    if (t.kind === 'indent' && t.level > depth) {\" / \"      children.push(parseBlock(t.body, depth + 1))\" / \"    } else if (t.kind === 'text') {\" / \"      children.push({ type: 'text', value: t.value })\" / \"    }\" / \"  }\" / \"  return { type: 'block', depth, children }\" / \"}\" / \"\" / \"export const MAX_DEPTH = 12\", its top 94px from the page top, 24px below the top of the \"src › parser.ts › parseBlock\" line above it (that line's text sits above this text, never on the same line or over it)"
+    "a CODE EDITOR pane of live 14px monospace text (white-space: pre, line-height 21px) at 288,94, 860x500px, NOT a picture, NOT a bordered box: a line-number gutter: the numbers 1 to 23, one per line, RIGHT-aligned in a 56px column at the pane's left, #6e7681 (dim), on the same 21px lines as the code; the code itself starts 76px in from the pane's left (the numbers are NEVER part of the code text, never run into line 1); a current-line highlight: a 860x21px #2a2d2e band behind line 8 (147px down the pane), under the text; SYNTAX COLOURS (each run in its own <span> colour, the rest #cccccc; NOT all one grey): #569cd6 for \"import\", \"from\", \"import type\", \"export function\", \"const\", \"let\", \"while\", \"if\", \"else if\" and the like; #9cdcfe for \"Token\", \"lex\", \"src\", \"depth\", \"tokens\", \"children\", \"i\", \"length\", \"t\" and the like; #ce9178 for \"'./lexer'\", \"'./ast'\", \"'indent'\", \"'text'\", \"'block'\"; #4ec9b0 for \"Block\", \"Node\", \"string\", \"Token\"; #6a9955 for \"// Parse one block: a heading line and its indented children.\"; #dcdcaa for \"parseBlock\", \"lex\", \"push\"; #b5cea8 for \"0\", \"1\", \"12\"; exactly these 20 lines, in order: \"import { Token, lex } from './lexer'\" / \"import type { Block, Node } from './ast'\" / \"\" / \"// Parse one block: a heading line and its indented children.\" / \"export function parseBlock(src: string, depth = 0): Block {\" / \"  const tokens: Token[] = lex(src)\" / \"  const children: Node[] = []\" / \"  let i = 0\" / \"  while (i < tokens.length) {\" / \"    const t = tokens[i++]\" / \"    if (t.kind === 'indent' && t.level > depth) {\" / \"      children.push(parseBlock(t.body, depth + 1))\" / \"    } else if (t.kind === 'text') {\" / \"      children.push({ type: 'text', value: t.value })\" / \"    }\" / \"  }\" / \"  return { type: 'block', depth, children }\" / \"}\" / \"\" / \"export const MAX_DEPTH = 12\", its top 94px from the page top, 24px below the top of the \"src › parser.ts › parseBlock\" line above it (that line's text sits above this text, never on the same line or over it)"
+   ],
+   [
+    "minimap",
+    "a code MINIMAP strip: one textless div exactly 100x500px at 1168,94 (position absolute), NO words, NOT a list, NOT an outline panel: painted only by fine horizontal lines, background: repeating-linear-gradient(#ffffff17 0px, #ffffff17 2px, transparent 2px, transparent 5px) exactly, opacity 0.8; a 100x90px #ffffff (rgba(255, 255, 255, 0.08)) see-through block over it 30px from its top (the visible range, a ::after)"
    ],
    [
     "terminal",
-    "a box-drawing frame as live 13px mono #cccccc text in a <pre> (white-space: pre, line-height 20px) at 288,600, NOT a bordered div, NOT a picture; exactly these lines: \"PROBLEMSOUTPUTTERMINALPORTS$ npm test\" / \" ✓ tests/lexer.test.ts (14)\" / \" ✓ tests/parser.test.ts (22)\" / \" ✗ tests/depth.test.ts (1 failed)\" / \"   expected depth 12, received 13\" / \"Tests  36 passed | 1 failed\" / \"$ ▌\""
+    "a TERMINAL pane of live 13px monospace text (white-space: pre, line-height 20px) at 288,600, 992x278px, filled #1e1e1e, a 1px #444444 rule along its top edge only, 18px left padding, NOT a picture: along its top a 34px tab row (its own flex row, NOT part of the text lines): 11px sans-serif letter-spacing 1px words \"PROBLEMS\", \"OUTPUT\", \"TERMINAL\", \"PORTS\" as SEPARATE items 22px apart (never run together into one word), #969696; \"TERMINAL\" is the selected tab: #e7e7e7 with a 2px #e7e7e7 underline; the text lines start under this row; SYNTAX COLOURS (each run in its own <span> colour, the rest #cccccc; NOT all one grey): #73c991 for \"✓\", \"Tests  36 passed\"; #f14c4c for \"✗\", \"1 failed\"; exactly these 7 lines, in order: \"$ npm test\" / \" ✓ tests/lexer.test.ts (14)\" / \" ✓ tests/parser.test.ts (22)\" / \" ✗ tests/depth.test.ts (1 failed)\" / \"   expected depth 12, received 13\" / \"Tests  36 passed | 1 failed\" / \"$ ▌\""
    ],
    [
     "status-bar",

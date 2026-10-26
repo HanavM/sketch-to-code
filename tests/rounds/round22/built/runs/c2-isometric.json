@@ -1,24 +1,24 @@
 {
   "id": "c2-isometric",
-  "at": "2026-10-25T20:36:23.899Z",
+  "at": "2026-10-26T00:52:55.420Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8658151066176178,
-    "overallV2": 0.8658151066176178,
-    "overallV1": 0.779512482402033,
-    "colour": 0.9914031489470496,
-    "structure": 0.9401625421266764,
-    "structureStrict": 0.8387260477647072,
-    "colourAligned": 0.9914031489470496,
-    "structureAligned": 0.9401625421266764,
+    "overall": 0.9143621501755371,
+    "overallV2": 0.9143621501755371,
+    "overallV1": 0.8426565628273843,
+    "colour": 0.9946099590723768,
+    "structure": 0.9713136823975814,
+    "structureStrict": 0.887033934558244,
+    "colourAligned": 0.9946099590723768,
+    "structureAligned": 0.9713136823975814,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9345916095264172
+      "r": 0.9450387630843718
     },
-    "layout": 0.7714587820767549,
-    "layoutV1": 0.7714587820767549,
+    "layout": 0.8266435031528737,
+    "layoutV1": 0.8266435031528737,
     "layoutVersion": 2
   },
   "boxes": [
@@ -32,63 +32,189 @@
     [
       0,
       68,
-      47,
-      126,
+      41,
+      125,
+      30
+    ],
+    [
+      1,
+      68,
+      41,
+      20,
+      30
+    ],
+    [
+      1,
+      92,
+      41,
+      101,
       30
     ],
     [
       0,
-      623,
-      91,
-      175,
-      40
+      572,
+      90,
+      180,
+      44
     ],
     [
       0,
-      983,
-      153,
-      115,
-      40
+      932,
+      150,
+      120,
+      44
+    ],
+    [
+      0,
+      436,
+      237,
+      849,
+      487
+    ],
+    [
+      6,
+      436,
+      237,
+      849,
+      487
+    ],
+    [
+      6,
+      627,
+      354,
+      453,
+      260
+    ],
+    [
+      6,
+      521,
+      415,
+      226,
+      130
+    ],
+    [
+      9,
+      521,
+      268,
+      226,
+      130
+    ],
+    [
+      9,
+      634,
+      333,
+      113,
+      212
+    ],
+    [
+      9,
+      634,
+      268,
+      113,
+      212
+    ],
+    [
+      6,
+      704,
+      310,
+      226,
+      130
+    ],
+    [
+      13,
+      704,
+      236,
+      226,
+      130
+    ],
+    [
+      13,
+      789,
+      285,
+      141,
+      155
+    ],
+    [
+      13,
+      846,
+      236,
+      85,
+      122
+    ],
+    [
+      6,
+      761,
+      521,
+      226,
+      130
+    ],
+    [
+      17,
+      761,
+      308,
+      226,
+      130
+    ],
+    [
+      17,
+      902,
+      389,
+      85,
+      262
+    ],
+    [
+      17,
+      846,
+      308,
+      141,
+      294
+    ],
+    [
+      0,
+      720,
+      300,
+      131,
+      31
+    ],
+    [
+      0,
+      1010,
+      420,
+      144,
+      31
     ],
     [
       0,
       72,
       170,
       454,
-      222
+      223
     ],
     [
-      4,
-      72,
-      170,
-      454,
-      222
-    ],
-    [
-      5,
+      23,
       72,
       170,
       454,
       74
     ],
     [
-      5,
+      23,
       72,
       244,
       454,
       74
     ],
     [
-      7,
+      25,
       72,
-      239,
-      226,
-      84
+      238,
+      227,
+      85
     ],
     [
-      5,
+      23,
       72,
-      318,
+      319,
       454,
       74
     ],
@@ -101,196 +227,67 @@
     ],
     [
       0,
-      66,
+      68,
       564,
-      155,
-      44
-    ],
-    [
-      0,
-      439,
-      240,
-      839,
-      481
-    ],
-    [
-      12,
-      436,
-      237,
-      849,
-      487
-    ],
-    [
-      13,
-      436,
-      237,
-      849,
-      487
-    ],
-    [
-      13,
-      627,
-      354,
-      453,
-      260
-    ],
-    [
-      13,
-      521,
-      415,
-      226,
-      130
-    ],
-    [
-      16,
-      521,
-      268,
-      226,
-      130
-    ],
-    [
-      16,
-      634,
-      333,
-      113,
-      212
-    ],
-    [
-      16,
-      634,
-      268,
-      113,
-      212
-    ],
-    [
-      13,
-      704,
-      310,
-      226,
-      130
-    ],
-    [
-      20,
-      704,
-      236,
-      226,
-      130
-    ],
-    [
-      20,
-      789,
-      285,
-      141,
-      155
-    ],
-    [
-      20,
-      846,
-      236,
-      85,
-      122
-    ],
-    [
-      13,
-      761,
-      521,
-      226,
-      130
-    ],
-    [
-      24,
-      761,
-      308,
-      226,
-      130
-    ],
-    [
-      24,
-      902,
-      389,
-      85,
-      262
-    ],
-    [
-      24,
-      846,
-      308,
-      141,
-      294
-    ],
-    [
-      0,
-      724,
-      311,
-      103,
-      20
-    ],
-    [
-      0,
-      1014,
-      432,
-      116,
-      20
+      151,
+      43
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.6,
+    "recall": 1,
     "kept": [
       "3d",
       "hard-shadow",
-      "overlap"
-    ],
-    "missing": [
       "motion",
+      "overlap",
       "soft-shadow"
     ],
+    "missing": [],
     "extra": [
       "gradient"
     ]
   },
   "tokens": {
-    "input": 46845,
-    "output": 32199,
-    "cacheRead": 447934
+    "input": 57368,
+    "output": 41185,
+    "cacheRead": 371678
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 48682,
-      "output": 19821,
-      "cacheRead": 146801,
+      "billed": 31891,
+      "output": 10273,
+      "cacheRead": 162312,
       "toolCalls": 7,
       "tools": [
         "Glob",
         "Read src/App.tsx",
         "Glob",
         "Read src/index.css",
-        "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 210131
+      "ms": 103104
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 10926,
-      "output": 4400,
-      "cacheRead": 289311,
-      "toolCalls": 5,
+      "billed": 43082,
+      "output": 20768,
+      "cacheRead": 183458,
+      "toolCalls": 3,
       "tools": [
         "Read src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx",
+        "Read src/index.css",
         "Edit src/App.tsx"
       ],
-      "ms": 41316
+      "ms": 261515
     }
   ],
-  "reading": "This is a hero section for a city-planning product: a bold logo top-left, two small nav-style rectangle buttons, a huge isometric 3D city scene built from stacked blocks, a tight 3-line headline with one coloured word, a grey descriptive paragraph, a dark 'Start building' CTA button with a hard pink shadow, and two small bold labels ('Library · 4 floors' and 'Tower B · 12 floors') captioning two of the city buildings, all set on a page-wide sky-to-sand gradient background.",
+  "reading": "A hero section sketch: logo wordmark, two drifting cloud shapes, a large isometric city scene with two floating label chips, a tight three-line headline, a paragraph, and a CTA button with a hard pink shadow, all sitting over a page-wide blue-to-yellow gradient background.",
   "actions": [
     {
       "kind": "add",
@@ -305,7 +302,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Logo/lead text '▲ Blocktown' at the top-left, set large at 20px (a lead line, not small body text), about 126px wide on one line, font-weight 800 (bold)."
+      "instruction": "Logo wordmark 'Blocktown' with a triangle mark, set at 20px (a large lead line, NOT small body text), about 126px wide on one line; BOLD (font-weight 800), NOT "
     },
     {
       "kind": "add",
@@ -314,14 +311,28 @@
       "region": [
         624,
         93,
-        473,
-        98
+        173,
+        38
       ],
       "paths": [
-        "s1",
+        "s1"
+      ],
+      "instruction": "Plain white (#ffffff) CLOUD: one textless div exactly 180x44px with its top-left at 620,90 (position absolute), fully rounded ends (border-radius 999px), opacit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        984,
+        153,
+        113,
+        38
+      ],
+      "paths": [
         "s2"
       ],
-      "instruction": "Two small rectangular nav/link button placeholders positioned above the hero image area. No wording was specified; add plausible short nav labels fitting a city"
+      "instruction": "Plain white (#ffffff) CLOUD: one textless div exactly 120x44px with its top-left at 980,150 (position absolute), fully rounded ends (border-radius 999px), opaci"
     },
     {
       "kind": "add",
@@ -336,7 +347,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Build an isometric city scene made of real CSS 3D (not a flat drawing, not an SVG), lit top faces and two darker side faces per block, the wrapping scene elemen"
+      "instruction": "An ISOMETRIC CITY of solid 3D blocks in real CSS 3D (each block shows a lit top and two darker sides), NOT a flat drawing, NOT an SVG, NOT empty; whatever wraps"
     },
     {
       "kind": "add",
@@ -363,7 +374,7 @@
         223
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy headline, letters set tight (line-height 0.98), exactly 3 lines that must keep these breaks and never rewrap: 'Plan a city in' / 'blocks, n"
+      "instruction": "Huge Helvetica heavy tight-set headline, line-height 0.98, exactly 3 lines: 'Plan a city in' / 'blocks, not' / 'spreadsheets' (keep these breaks; each line stay"
     },
     {
       "kind": "add",
@@ -390,7 +401,7 @@
         84
       ],
       "paths": [],
-      "instruction": "Descriptive paragraph in dark grey #4a4e69 (not the page's default dark navy text): 'Drag towers, roads and parks onto a live isometric map. Zoning rules check "
+      "instruction": "Dark grey paragraph text: 'Drag towers, roads and parks onto a live isometric map. Zoning rules check themselves as you build.'; text color #4a4e69 (dark grey, "
     },
     {
       "kind": "add",
@@ -405,7 +416,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "CTA button: dark navy fill, white text 'Start building', with a hard solid opaque pink shadow offset 6px down-right, no blur."
+      "instruction": "Button: dark navy fill, white text 'Start building', with a hard solid opaque pink shadow offset 6px down-right, no blur; text color #ffffff (white, NOT the pag"
     },
     {
       "kind": "add",
@@ -420,7 +431,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Small caption label near the first (yellow) block in the isometric city scene: 13px bold (font-weight 700) text 'Library · 4 floors'."
+      "instruction": "13px 'Library - 4 floors' floating LABEL CHIP (NOT bare words): a solid #ffffff 131x31px box with its top-left at page 720,300 (position absolute, on top of the"
     },
     {
       "kind": "add",
@@ -435,10 +446,10 @@
         8
       ],
       "paths": [],
-      "instruction": "Small caption label near another block in the isometric city scene: 13px bold (font-weight 700) text 'Tower B · 12 floors'."
+      "instruction": "13px 'Tower B - 12 floors' floating LABEL CHIP (NOT bare words): a solid #ffffff 144x31px box with its top-left at page 1010,420 (position absolute, on top of t"
     }
   ],
   "rejected": [
-    "design action with neither container nor strokes"
+    "add action with neither container nor strokes"
   ]
 }

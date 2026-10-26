@@ -134,3 +134,31 @@ keeps its circle, misregistered type says its offset shadow.
 - Still off: drop cap set in the serif (target Helvetica heavy), photo gradient a little warm, stamp words thin.
 - Re-planned rounds 1-21: no note changes.
 - Round 22: **89%** over 10 (89.2). Vitest same 2 env failures; typecheck clean.
+
+## n231: code editor panes and the isometric town's clouds and tags (2026-10-26, ~337k billed)
+
+- e4 code editor **86 → 95%** (colour 99, structure 94, layout 92; regions 9/9). Five gaps closed in the planner:
+  - a monospace pre pane with syntax-coloured runs was read as a box-drawing frame: the gutter numbers ran into line 1
+    and every token colour, the current-line band and the terminal's PROBLEMS / OUTPUT / TERMINAL / PORTS tabs were lost.
+    A code pane now says its line-number gutter (range, width, alignment, ink), where the code starts, the current-line
+    band, each syntax colour with the words it paints, and a tab row on top as separate items with the selected one
+    underlined; a terminal pane says its top rule and its green / red runs.
+  - the explorer's yellow "TS lexer.ts  M" row (a different colour from its neighbours) was read as a group heading, so
+    the tree became two link groups. A file tree (6+ stacked one-line rows at 2+ indents, with ▾ ▸) is now said row by row
+    with each row's text x, own colour and the selected row.
+  - activity-bar icons are outlined squares with no fill, so they were never seen as icons: now said with ring colours.
+  - the minimap (fine repeating lines and a see-through range block) had no note and was built as an invented OUTLINE
+    list; a narrow tall block painted only by repeating lines is now a minimap with its CSS and range block.
+  - the title bar's three window dots are said before its words.
+- c2 isometric town **87 → 91%** (colour 99, structure 97, layout 83; regions 9/9). The two drifting white clouds had no
+  note and were built as outlined "Features" / "Pricing" buttons; a textless, borderless pill is now said as a cloud with
+  box, place, opacity and its drift keyframes. The "Library · 4 floors" / "Tower B · 12 floors" tags were said only by
+  type and built as bare words; a short one-line text with its own fill, rounding and soft shadow is now a floating label
+  chip with box, place, padding and shadow.
+- First c2 run 58 (n231try picture): clouds and chips right, but the logo's margin-top collapsed through the page
+  wrapper and pushed every absolute part 47px down. Codegen rule (run2.ts): a page wrapper holding absolute parts and
+  flow children is display: flow-root. Second run 91.
+- Still off: gutter stops at 20 (target numbers to 23), "(1 failed)" inside a white line built red, status bar's right
+  group not pushed right; Tower B chip wraps onto two lines.
+- Re-planned rounds 1-21: r11 e1 tree and minimap, r18 two clouds (had no note) and minimap change.
+- Round 22: **91%** over 10 (90.6). Vitest same 2 env failures; typecheck clean.

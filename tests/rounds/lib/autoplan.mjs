@@ -377,6 +377,61 @@ export function factsInPage() {
         const b0 = el.querySelector('b,strong'); const bc = b0 && getComputedStyle(b0)
         return { lines, chipFill: bc ? rgba(bc.backgroundColor) : null, chipInk: bc ? rgba(bc.color) : null, px: Math.round(parseFloat(cs.fontSize)), lh: Math.round(parseFloat(cs.lineHeight) || 0) }
       })(),
+      // n231: a monospace pre pane with syntax-coloured runs, a line-number gutter, a current-line band or a tab row
+      // on top (round 22 e4 code and terminal: read as a box-drawing frame, gutter numbers run into line 1, every
+      // token colour, the current-line band and the PROBLEMS/OUTPUT/TERMINAL tabs lost)
+      codePane: (() => {
+        if (!/pre/.test(cs.whiteSpace) || !/mono|menlo|consolas|courier/i.test(cs.fontFamily) || el.querySelector('[data-r]')) return null
+        const R = el.getBoundingClientRect(), hex = (c) => c ? `${c.r},${c.g},${c.b}` : ''
+        const ink0 = rgba(cs.color)
+        const kids = [...el.children]
+        const gutterEl = kids.find((k) => /^[\d\s]+$/.test(k.textContent) && (k.textContent.match(/\d+/g) || []).length >= 5)
+        const g = gutterEl && (() => { const c = getComputedStyle(gutterEl), b = gutterEl.getBoundingClientRect(); const n = gutterEl.textContent.match(/\d+/g); return { x: Math.round(b.left - R.left), w: Math.round(b.width), right: c.textAlign === 'right', ink: rgba(c.color), first: n[0], last: n[n.length - 1] } })()
+        const bandEl = kids.find((k) => !(k.textContent || '').trim() && rgba(getComputedStyle(k).backgroundColor)?.a > 0.3 && k.getBoundingClientRect().height <= 30)
+        const band = bandEl && (() => { const b = bandEl.getBoundingClientRect(); return { y: Math.round(b.top - R.top), h: Math.round(b.height), w: Math.round(b.width), fill: rgba(getComputedStyle(bandEl).backgroundColor) } })()
+        const headEl = kids.find((k) => k !== gutterEl && /flex/.test(getComputedStyle(k).display) && k.children.length >= 2 && [...k.children].every((q) => (q.textContent || '').trim().length <= 16))
+        const head = headEl && (() => { const c = getComputedStyle(headEl), b = headEl.getBoundingClientRect(); const items = [...headEl.children].map((q) => { const s = getComputedStyle(q); return { t: q.textContent.trim(), ink: rgba(s.color), on: s.boxShadow !== 'none' || parseFloat(s.borderBottomWidth) >= 1 } }); return { h: Math.round(b.height), gap: Math.round(parseFloat(c.columnGap) || parseFloat(c.gap) || 0), px: Math.round(parseFloat(c.fontSize)), spacing: parseFloat(c.letterSpacing) || 0, sans: !/mono|menlo|consolas|courier/i.test(c.fontFamily), items } })()
+        const textEl = kids.find((k) => k !== gutterEl && k !== bandEl && k !== headEl && (k.textContent || '').trim()) ?? null
+        const textX = textEl && textEl !== el ? Math.round(textEl.getBoundingClientRect().left - R.left) : null
+        // syntax colours: every coloured run's ink -> the distinct words in it, in order of first use
+        const runs = new Map()
+        for (const s of el.querySelectorAll('span')) {
+          if (s === headEl || headEl?.contains(s) || s.children.length) continue
+          const c = rgba(getComputedStyle(s).color), t = (s.textContent || '').trim()
+          if (!c || !t || hex(c) === hex(ink0)) continue
+          const k = hex(c); if (!runs.has(k)) runs.set(k, { c, words: [] })
+          const w = runs.get(k).words; if (!w.includes(t)) w.push(t)
+        }
+        if (runs.size < 2 && !g && !head) return null
+        // the pane's own lines, without the gutter numbers or the tab row
+        const lines = (textEl && textEl !== el && gutterEl ? textEl.textContent : [...el.childNodes].filter((n) => n !== headEl && n !== gutterEl && n !== bandEl).map((n) => n.textContent).join('')).replace(/^\n+|\n+$/g, '').split('\n')
+        return { gutter: g, band, head, textX, ink: ink0, colours: [...runs.values()], lines, padL: Math.round(parseFloat(cs.paddingLeft) || 0), topRule: parseFloat(cs.borderTopWidth) >= 1 && rgba(cs.borderTopColor)?.a > 0.3 ? { w: Math.round(parseFloat(cs.borderTopWidth)), c: rgba(cs.borderTopColor) } : null, fill: rgba(cs.backgroundColor)?.a > 0.5 ? rgba(cs.backgroundColor) : null }
+      })(),
+      // n231: a file tree: 6+ one-line rows, indented to 2+ depths by their own left padding, some in their own colour
+      // (round 22 e4 explorer: the yellow 'TS lexer.ts  M' row was read as a group heading, git colours lost)
+      treeRows: (() => {
+        if (el.querySelector('[data-r]')) return null
+        const rows = [...el.children].filter((k) => getComputedStyle(k).display !== 'none' && (k.textContent || '').trim())
+        if (rows.length < 6) return null
+        const R = el.getBoundingClientRect()
+        const tx = (k) => { const rg = document.createRange(); rg.selectNodeContents(k); const q = [...rg.getClientRects()].filter((z) => z.width > 1); return q.length ? Math.min(...q.map((z) => z.left)) : k.getBoundingClientRect().left }
+        const info = rows.map((k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return { t: (k.innerText || '').replace(/[ \t]+$/, '').trim(), pad: Math.round(tx(k) - R.left), ink: rgba(c.color), fill: rgba(c.backgroundColor)?.a > 0.05 ? rgba(c.backgroundColor) : null, bold: Number(c.fontWeight) >= 600, px: Math.round(parseFloat(c.fontSize)), sp: parseFloat(c.letterSpacing) || 0, h: Math.round(b.height), y: Math.round(b.top - R.top), one: b.height <= parseFloat(c.lineHeight || '0') * 1.5 || b.height <= 30 } })
+        if (!info.every((r, i) => r.one && r.t.length <= 40 && !r.t.includes('\n') && (!i || r.y >= info[i - 1].y + info[i - 1].h * 0.8))) return null
+        const body = info.filter((r, i) => !(i === 0 && !/[▾▸▼►]/.test(r.t) && (r.bold || r.sp >= 0.5 || r.px !== info[1].px)))
+        const pads = [...new Set(body.map((r) => r.pad))].sort((a, b) => a - b)
+        if (pads.length < 2 || pads.some((p, i) => i && p - pads[i - 1] < 8) || !/[▾▸▼►]/.test(body.map((r) => r.t).join(''))) return null
+        const edge = ['Right', 'Left'].find((sd) => parseFloat(cs[`border${sd}Width`]) >= 1 && rgba(cs[`border${sd}Color`])?.a > 0.3)
+        return { head: body.length < info.length ? info[0] : null, rows: body, lh: info[1].h, ink: rgba(cs.color), mono: /mono|menlo|consolas|courier/i.test(cs.fontFamily), px: Math.round(parseFloat(cs.fontSize)), edge: edge ? { side: edge.toLowerCase(), w: Math.round(parseFloat(cs[`border${edge}Width`])), c: rgba(cs[`border${edge}Color`]) } : null }
+      })(),
+      // n231: a bar that opens with 2-4 small filled round dots before its words (round 22 e4 window title bar: the red,
+      // amber and green lights were never said)
+      leadDots: (() => {
+        const ks = [...el.children], ds = []
+        for (const k of ks) { const b = k.getBoundingClientRect(), c = getComputedStyle(k); if ((k.textContent || '').trim() || b.width < 6 || b.width > 20 || Math.abs(b.width - b.height) > 1 || parseFloat(c.borderTopLeftRadius) < b.width * 0.4 || !(rgba(c.backgroundColor)?.a > 0.5)) break; ds.push({ c: rgba(c.backgroundColor), px: Math.round(b.width), x: Math.round(b.left - el.getBoundingClientRect().left) }) }
+        return ds.length >= 2 && ds.length <= 4 && ks.length > ds.length ? ds : null
+      })(),
+      // n231: a plain filled ::after box inside (round 22 e4 minimap's visible-range block)
+      afterBox: (() => { const a = getComputedStyle(el, '::after'); if (!a.content || a.content === 'none' || !(rgba(a.backgroundColor)?.a > 0.02)) return null; return { x: Math.round(parseFloat(a.left) || 0), y: Math.round(parseFloat(a.top) || 0), w: Math.round(parseFloat(a.width) || 0), h: Math.round(parseFloat(a.height) || 0), fill: rgba(a.backgroundColor) } })(),
       // n136: preformatted box-drawing text (round 10 c3 ASCII frame, dropped)
       preText: /pre/.test(cs.whiteSpace) && /[┌└│─╔║═+|]/.test(el.textContent) ? el.textContent.replace(/^\n+|\n+$/g, '') : null,
       // n136: a window's title bar (a ruled strip on top with ring dots and a title at the right)
@@ -1692,12 +1747,14 @@ export function factsInPage() {
       iconKids: (() => {
         if (kids.length < 2 || kids.length > 8 || txt(el)) return null
         const bs = kids.map((k) => k.getBoundingClientRect())
-        const ok = kids.every((k, i) => !k.children.length && bs[i].width >= 12 && bs[i].width <= 64 && Math.abs(bs[i].width - bs[i].height) <= 3 && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05)
+        // n231: outlined (unfilled) icon squares count too (round 22 e4 activity bar: four 2px-ringed squares, said 'dark grey', built empty)
+        const ring = (k) => { const c = getComputedStyle(k); return parseFloat(c.borderTopWidth) >= 1.5 && rgba(c.borderTopColor)?.a > 0.3 ? { w: Math.round(parseFloat(c.borderTopWidth)), c: rgba(c.borderTopColor) } : null }
+        const ok = kids.every((k, i) => !k.children.length && bs[i].width >= 12 && bs[i].width <= 64 && Math.abs(bs[i].width - bs[i].height) <= 3 && (rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 || ring(k)))
         if (!ok) return null
         const vert = bs[1].top - bs[0].top > Math.abs(bs[1].left - bs[0].left)
         const r = parseFloat(getComputedStyle(kids[0]).borderTopLeftRadius)
         return { px: Math.round(bs[0].width), vert, round: r >= bs[0].width * 0.4, radius: Math.round(r), gap: Math.round(vert ? bs[1].top - bs[0].bottom : bs[1].left - bs[0].right),
-          fills: kids.map((k) => rgba(getComputedStyle(k).backgroundColor)), faint: kids.map((k) => Number(getComputedStyle(k).opacity) < 0.6 || rgba(getComputedStyle(k).backgroundColor).a < 0.6) }
+          rings: kids.map(ring), first: Math.round(bs[0].top - el.getBoundingClientRect().top), cx: Math.round(bs[0].left + bs[0].width / 2 - el.getBoundingClientRect().left), fills: kids.map((k) => rgba(getComputedStyle(k).backgroundColor)), faint: kids.map((k) => Number(getComputedStyle(k).opacity) < 0.6 || rgba(getComputedStyle(k).backgroundColor).a < 0.6) }
       })(),
       // a stepper: each item leads with a small round numbered circle (round 4 e3 said 'links: 1Cart, 2Shipping')
       stepper: (() => {
@@ -3452,6 +3509,24 @@ function round10Note(f) {
     const K = f.cursorKid
     return { kind: 'heading', note: `${Math.round(f.font.size)}px ${f.font.weight >= 600 ? 'bold ' : ''}${faceName(f.font.family) || 'monospace'} (font-family ${f.font.family.split(',')[0].replace(/"/g, '')}, monospace) ${hexOf(f.colour)} ${quote(f.text, 24)} as LIVE TEXT on one line at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (NOT a picture, NOT a box)${glowT.length ? `, glowing (text-shadow: ${glowT.map((s) => `0 0 ${Math.round(s.blur)}px ${hexOf(s.c)}${s.c?.a < 1 ? ` at ${Math.round(s.c.a * 100)}%` : ''}`).join(', ')})` : ''}; right after the last letter on the same line a solid ${hexOf(K.c)} block cursor ${K.w}x${K.h}px${K.blink ? ' that blinks (keyframes: opacity 0 at 50%, 1s steps(1) infinite)' : ''}` }
   }
+  const P = f.codePane
+  if (P && !f.regionKids.length) {
+    const X = Math.round(f.rect.x), Y = Math.round(f.rect.y), lh = Math.round(f.font.lineHeight), px = Math.round(f.font.size)
+    const face = faceName(f.font.family) || 'monospace'
+    const parts = []
+    if (P.head) {
+      const H = P.head, on = H.items.find((i) => i.on)
+      parts.push(`along its top a ${H.h}px tab row (its own flex row, NOT part of the text lines): ${H.px}px ${H.sans ? 'sans-serif ' : ''}${H.spacing >= 0.5 ? `letter-spacing ${Math.round(H.spacing)}px ` : ''}words ${H.items.map((i) => quote(i.t, 16)).join(', ')} as SEPARATE items ${H.gap}px apart (never run together into one word), ${hexOf(H.items.find((i) => !i.on)?.ink ?? H.items[0].ink)}${on ? `; ${quote(on.t, 16)} is the selected tab: ${hexOf(on.ink)} with a 2px ${hexOf(on.ink)} underline` : ''}; the text lines start under this row`)
+    }
+    if (P.gutter) {
+      const G = P.gutter
+      parts.push(`a line-number gutter: the numbers ${G.first} to ${G.last}, one per line, ${G.right ? 'RIGHT-aligned in' : 'in'} a ${G.w}px column at the pane's left, ${hexOf(G.ink)} (dim), on the same ${lh}px lines as the code; the code itself starts ${P.textX ?? G.w + 16}px in from the pane's left (the numbers are NEVER part of the code text, never run into line 1)`)
+    }
+    if (P.band) parts.push(`a current-line highlight: a ${P.band.w}x${P.band.h}px ${hexOf(P.band.fill)} band behind line ${Math.round(P.band.y / lh) + 1} (${P.band.y}px down the pane), under the text`)
+    const cols = P.colours.map((c) => `${hexOf(c.c)} for ${c.words.slice(0, 9).map((w) => quote(w, 80)).join(', ')}${c.words.length > 9 ? ' and the like' : ''}`)
+    if (cols.length) parts.push(`SYNTAX COLOURS (each run in its own <span> colour, the rest ${hexOf(P.ink)}; NOT all one grey): ${cols.join('; ')}`)
+    return { kind: 'text', note: `a ${P.gutter ? 'CODE EDITOR pane' : 'TERMINAL pane'} of live ${px}px ${face} text (white-space: pre, line-height ${lh}px) at ${X},${Y}, ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px${P.fill ? `, filled ${hexOf(P.fill)}` : ''}${P.topRule ? `, a ${P.topRule.w}px ${hexOf(P.topRule.c)} rule along its top edge only` : ''}${P.padL ? `, ${P.padL}px left padding` : ''}, NOT a picture${P.topRule ? '' : ', NOT a bordered box'}: ${parts.join('; ')}; exactly these ${P.lines.length} lines, in order: ${P.lines.map((l) => `"${l}"`).join(' / ')}` }
+  }
   if (f.preText && !f.regionKids.length) {
     return { kind: 'text', note: `a box-drawing frame as live ${Math.round(f.font.size)}px ${faceName(f.font.family) || 'mono'} ${hexOf(f.colour)} text in a <pre> (white-space: pre, line-height ${Math.round(f.font.lineHeight)}px) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, NOT a bordered div, NOT a picture; exactly these lines: ${f.preText.split('\n').map((l) => `"${l}"`).join(' / ')}` }
   }
@@ -3641,6 +3716,13 @@ function sheetNote(G) {
 function decide(f, page, marked, said = new Set()) {
   const SG = f.sheetGrid
   if (SG) return { kind: 'box', note: sheetNote(SG) }
+  // n231: a file tree said row by row with its indents and colours
+  const TR = f.treeRows
+  if (TR) {
+    const base = hexOf(TR.ink)
+    const row = (r) => `${quote(r.t, 40)} at ${r.pad}px${hexOf(r.ink) !== base ? ` in ${hexOf(r.ink)}` : ''}${r.fill ? ` (SELECTED: a full-width ${hexOf(r.fill)} row${r.bold ? ', bold' : ''})` : ''}`
+    return { kind: 'box', note: `a FILE TREE panel ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${visible(f.bg) ? `, filled ${hexOf(f.bg)}` : ''}${TR.edge ? `, a ${TR.edge.w}px ${hexOf(TR.edge.c)} rule along its ${TR.edge.side.toUpperCase()} edge only` : ''} (NOT grouped links, no sub-headings), ${TR.px}px ${TR.mono ? 'MONOSPACE ' : ''}type: ${TR.head ? `a ${TR.head.px}px ${TR.head.bold ? 'bold ' : ''}${TR.head.sp >= 0.5 ? `letter-spacing ${Math.round(TR.head.sp)}px ` : ''}${quote(TR.head.t, 24)} label at its top, ${TR.head.pad}px in, then ` : ''}${TR.rows.length} rows, one per line, each exactly ${TR.lh}px tall, ${base} text unless said, each row's text indented by its own left padding (px from the panel's left): ${TR.rows.map(row).join('; ')}; a trailing letter (M, U) stays at the end of its row's text, in the row's colour` }
+  }
   // n152: a grid of call tiles said tile by tile (round 13 e4: one filled button and a list were built)
   const VT = f.callTiles
   if (VT) {
@@ -3881,6 +3963,16 @@ function decideRest(f, page, marked, said) {
   // (round 16 c3 'Est. 1962' badge: said 'outline circle', built hollow over the dark disc, its words lost)
   if (d?.kind === 'circle' && d.note && f.text && f.text.length <= 40 && visible(f.bg) && f.bg.a > 0.9 && !d.note.includes(`${hexOf(f.bg)} fill`) && page.bg && dist(f.bg, page.bg) < 12) {
     d.note += `; the circle is FILLED solid ${hexOf(f.bg)} (opaque, it covers whatever is under it, NOT hollow), its words ${f.font.style === 'italic' ? 'italic ' : ''}${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${hexOf(f.colour)} in ${f.font.family.split(',')[0].replace(/["']/g, '')}, clearly readable, centred`
+  }
+  // n231: a short one-line text with its own solid fill, rounding and a soft shadow is a floating label CHIP (round 22
+  // c2 'Library · 4 floors' tags said only by type, built as bare words on the town)
+  if (d?.kind === 'text' && d.note && f.text && f.text.length <= 40 && f.textLines === 1 && visible(f.bg) && f.bg.a > 0.9 && f.radius >= 3 && h0 <= 48 && w0 <= 320 && f.shadows?.some((x) => !x.clear && x.blur >= 4) && !/chip|label|pill/.test(d.note)) {
+    const sh = f.shadows.find((x) => !x.clear && x.blur >= 4)
+    d.note += `; it is a floating LABEL CHIP, NOT bare words: a solid ${hexOf(f.bg)} ${Math.round(w0)}x${Math.round(h0)}px box with its top-left at page ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, on top of what is under it), padding ${f.ownLook?.pad ?? '8px 14px'}, ${Math.round(f.radius)}px rounded, a soft drop shadow (${Math.round(sh.x)}px ${Math.round(sh.y)}px ${Math.round(sh.blur)}px ${sh.c ? `rgba(${sh.c.r}, ${sh.c.g}, ${sh.c.b}, ${Math.round(sh.c.a * 100) / 100})` : 'rgba(0, 0, 0, 0.13)'}), ${hexOf(f.colour)} text`
+  }
+  if (d?.note && f.leadDots && !/dots? /.test(d.note)) {
+    const D = f.leadDots
+    d.note += `; at its left, before the words, ${D.length} small round dots (${D[0].px}px circles, ${D[1].x - D[0].x - D[0].px}px apart, the first ${D[0].x}px in): ${D.map((x) => hexOf(x.c)).join(', ')}; the words centred in the bar`
   }
   // a marked button with unmarked buttons beside it in the row: the note names the whole row, in order
   if (d.kind === 'button' && f.rowMates && d.note) {
@@ -4426,7 +4518,25 @@ function decideOne(f, page, marked, said) {
     const d = f.iconKids, names = d.fills.map((c, i) => `${d.faint[i] ? 'faint ' : ''}${colourName(c)} ${hexOf(c)}`)
     const cols = names.every((n) => n === names[0]) ? `all ${names[0]}` : names.slice(1).every((n) => n === names[1]) ? `first ${names[0]}, the rest ${names[1]}` : names.join(', ')
     const tile = d.round ? 'round dots' : d.radius >= 4 ? 'rounded squares' : 'squares'
+    // n231: outlined icon squares say their ring colours, not a fill (round 22 e4 activity bar)
+    if (d.rings?.every(Boolean) && d.fills.every((c) => !c || c.a <= 0.05)) {
+      const rc = d.rings.map((r) => hexOf(r.c)), rcs = rc.every((c) => c === rc[0]) ? `all ${rc[0]}` : rc.slice(1).every((c) => c === rc[1]) ? `the first ${rc[0]} (the active one), the rest ${rc[1]}` : rc.join(', ')
+      return { kind: 'box', note: withFx(`${colourName(f.bg)} (${hexOf(f.bg)}) icon strip ${Math.round(w)}x${Math.round(h)}px (no picture, no words): ${d.fills.length} small OUTLINED ${tile} (${d.px}x${d.px}px, ${d.rings[0].w}px border, ${d.radius}px rounded, NO fill) ${d.vert ? `stacked down it, centred across it, the first ${d.first}px below its top` : 'in a row'}, ${d.gap}px apart; borders ${rcs}`) }
+    }
     return { kind: 'box', note: withFx(`${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} (${hexOf(f.bg)}) block (no picture), ${d.fills.length} small ${tile} (${d.px}px) ${d.vert ? 'stacked down from its top' : 'in a row'} ${d.gap}px apart: ${cols}`) }
+  }
+  // n231: a textless pill with no parts and no border is a cloud / soft blob, not a button (round 22 c2: two white
+  // drifting clouds had no note and were built as outlined 'Features' / 'Pricing' nav buttons)
+  if (!f.text && visible(f.bg) && f.bg.a > 0.5 && !grad && !f.kidCount && !f.regionKids.length && !bordered && h >= 16 && h <= 80 && w >= h * 1.8 && w <= 400 && f.radius >= h / 2 - 1) {
+    const op = f.opacity < 0.98 ? `, opacity ${Math.round(f.opacity * 100) / 100}` : ''
+    const mv = f.ownAnim ? `; it drifts: animation ${f.ownAnim.css}${f.ownAnim.kf ? ` with ${f.ownAnim.kf}` : ''} (its resting place is the one above)` : ''
+    return { kind: 'box', note: `a plain ${colourName(f.bg)} (${hexOf(f.bg)}) CLOUD: one textless div exactly ${Math.round(w)}x${Math.round(h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute), fully rounded ends (border-radius 999px)${op}, NO words, NO border, NO shadow, NOT a button, NOT a link, nothing inside${mv}` }
+  }
+  // n231: a textless block painted only by fine repeating lines is a code minimap (round 22 e4: no note, built as an
+  // invented 'OUTLINE' list)
+  if (!f.text && !f.kidCount && !f.regionKids.length && /^repeating-linear-gradient/.test((f.bgImage ?? '').trim()) && h >= w * 2 && w <= 200) {
+    const A = f.afterBox
+    return { kind: 'box', note: `a code MINIMAP strip: one textless div exactly ${Math.round(w)}x${Math.round(h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute), NO words, NOT a list, NOT an outline panel: painted only by fine horizontal lines, background: ${cssHex(f.bgImage.replace(/\s+/g, ' ').trim())} exactly${f.opacity < 0.98 ? `, opacity ${Math.round(f.opacity * 100) / 100}` : ''}${A ? `; a ${A.w}x${A.h}px ${hexOf(A.fill)} (rgba(${A.fill.r}, ${A.fill.g}, ${A.fill.b}, ${Math.round(A.fill.a * 100) / 100})) see-through block over it ${A.y}px from its top (the visible range, a ::after)` : ''}` }
   }
   // a thin textless filled bar is a placeholder line, not copy (round 8 e3: a grey 420x12 bar built as a sentence)
   if (!f.text && visible(f.bg) && !grad && !f.regionKids.length && w >= 60 && h >= 8 && h <= 20 && f.radius >= 2 && w >= h * 8 && !f.kidCount) return { kind: 'box', note: withFx(`a plain ${hexOf(f.bg)} bar exactly ${Math.round(w)}x${Math.round(h)}px${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''} at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: a skeleton placeholder line, NO words, NOT text, nothing inside`) }
