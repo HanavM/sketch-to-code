@@ -75,3 +75,26 @@ count); no card-grid takeovers in old rounds.
 Round 25: **87%** over 10 (86.9: c1 82, c2 91, c3 90, c4 85, c5 90, e1 79, e2 93, e3 81, e4 88, e5 90).
 Next weakest: e1 email list column width and unread dots (79), e3 grid placement (81), c1 weight list and metric
 labels (82, fixed in the plan, not re-run), c4 index leaders (85).
+
+## n246: planner fixes and live re-runs (2026-10-26, ~526k billed)
+
+Fixes (planner, zero tokens):
+
+- A small round dot painted by an absolute `::before`/`::after` on a row is said as its own part, painted over the row (e1 unread dots were lost).
+- A one-line text with `text-overflow: ellipsis` says a FIXED width with overflow hidden (e1 previews were built at min-width and ran into the reading pane).
+- A chip set inline at the start of a text line says it is that line's first child, and where the words start after it.
+- A body paragraph that wraps says its line count and exact line-height (e1 mail body was built looser and pushed the attachments down).
+- A name, a dotted leader (an empty flex: 1 span) and a number say all three in one row (c4 index rows were run together as "Ferns & mosses 1,204").
+- A meter of 2+ coloured segments says each segment (e3 storage), a toast title with its percentage pushed right says both ends, a floating menu with a divider says its box, place, shadow, rows, shortcuts, hovered row and divider (was a "grouped list" with invented group rows), a bar whose four short actions sit at the right says so, and a large one-line lead text says its place.
+
+Re-planned rounds 1-25: changes are the new dots, ellipsis widths, line-heights, four-link navs pushed right (r2, r20, r22, r23, r24) and the r19 context menu; nothing else moved.
+
+| page | before | now | what is still off |
+|---|---|---|---|
+| c1 type specimen | 82% | **89%** | x-height line missed |
+| c4 botanical archive | 85% | **94%** | near-identical; plates, leaders right |
+| e1 email client | 79% | **88%** | dots, chips, ellipses right (one earlier re-run scored 49 on loose body spacing, before the line-height fix) |
+| e3 cloud drive | 81% | **86%** | storage, menu, toast, bar right; top bar avatar lost |
+
+Round 25: **90%** over 10 (89.9: c1 89, c2 91, c3 90, c4 94, c5 90, e1 88, e2 93, e3 86, e4 88, e5 90).
+Next weakest: e3 (86), e1 and e4 (88). c5 sleeve ring and hard shadow still unsaid. Vitest same 2 env failures; typecheck clean.

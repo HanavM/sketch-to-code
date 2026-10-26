@@ -1,24 +1,24 @@
 {
   "id": "c1-type-specimen",
-  "at": "2026-10-26T12:31:58.367Z",
+  "at": "2026-10-26T14:35:16.232Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8163109499655369,
-    "overallV2": 0.8163109499655369,
-    "overallV1": 0.7776756404593725,
-    "colour": 0.9774126066921218,
-    "structure": 0.8340539144141372,
-    "structureStrict": 0.760051790050695,
-    "colourAligned": 0.9774126066921218,
-    "structureAligned": 0.8340539144141372,
+    "overall": 0.8898778345374956,
+    "overallV2": 0.8898778345374956,
+    "overallV1": 0.8685604685181365,
+    "colour": 0.9881312170788298,
+    "structure": 0.8978314772410939,
+    "structureStrict": 0.8570001653807883,
+    "colourAligned": 0.9881312170788298,
+    "structureAligned": 0.8978314772410939,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9604098990279889
+      "r": 0.9795423670547649
     },
-    "layout": 0.8053898540991496,
-    "layoutV1": 0.8053898540991496,
+    "layout": 0.8784566644639127,
+    "layoutV1": 0.8784566644639127,
     "layoutVersion": 2
   },
   "boxes": [
@@ -41,20 +41,20 @@
       60,
       36,
       1160,
-      29
+      33
     ],
     [
       2,
       60,
       36,
-      204,
+      203,
       20
     ],
     [
       2,
-      581,
+      582,
       36,
-      274,
+      273,
       20
     ],
     [
@@ -62,482 +62,6 @@
       1173,
       36,
       47,
-      20
-    ],
-    [
-      0,
-      0,
-      302,
-      1280,
-      1
-    ],
-    [
-      0,
-      60,
-      305,
-      94,
-      17
-    ],
-    [
-      0,
-      690,
-      110,
-      30,
-      420
-    ],
-    [
-      0,
-      760,
-      100,
-      460,
-      261
-    ],
-    [
-      9,
-      760,
-      100,
-      460,
-      198
-    ],
-    [
-      9,
-      760,
-      316,
-      460,
-      45
-    ],
-    [
-      0,
-      764,
-      332,
-      452,
-      66
-    ],
-    [
-      12,
-      764,
-      332,
-      102,
-      66
-    ],
-    [
-      13,
-      764,
-      332,
-      102,
-      45
-    ],
-    [
-      13,
-      764,
-      381,
-      102,
-      17
-    ],
-    [
-      12,
-      875,
-      332,
-      105,
-      66
-    ],
-    [
-      16,
-      875,
-      332,
-      105,
-      45
-    ],
-    [
-      16,
-      875,
-      381,
-      105,
-      17
-    ],
-    [
-      12,
-      989,
-      332,
-      62,
-      66
-    ],
-    [
-      19,
-      989,
-      332,
-      62,
-      45
-    ],
-    [
-      19,
-      989,
-      381,
-      62,
-      17
-    ],
-    [
-      12,
-      1060,
-      332,
-      67,
-      66
-    ],
-    [
-      22,
-      1060,
-      332,
-      67,
-      45
-    ],
-    [
-      22,
-      1060,
-      381,
-      67,
-      17
-    ],
-    [
-      12,
-      1136,
-      332,
-      80,
-      66
-    ],
-    [
-      25,
-      1136,
-      332,
-      80,
-      45
-    ],
-    [
-      25,
-      1136,
-      381,
-      80,
-      17
-    ],
-    [
-      0,
-      60,
-      600,
-      697,
-      175
-    ],
-    [
-      28,
-      61,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      119,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      177,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      235,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      293,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      351,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      409,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      467,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      525,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      583,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      641,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      699,
-      602,
-      58,
-      58
-    ],
-    [
-      28,
-      61,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      119,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      177,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      235,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      293,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      351,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      409,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      467,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      525,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      583,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      641,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      699,
-      660,
-      58,
-      58
-    ],
-    [
-      28,
-      61,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      119,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      177,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      235,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      293,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      351,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      409,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      467,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      525,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      583,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      641,
-      718,
-      58,
-      58
-    ],
-    [
-      28,
-      699,
-      718,
-      58,
-      58
-    ],
-    [
-      0,
-      800,
-      600,
-      414,
-      170
-    ],
-    [
-      65,
-      824,
-      624,
-      135,
-      18
-    ],
-    [
-      65,
-      820,
-      640,
-      256,
-      104
-    ],
-    [
-      0,
-      1069,
-      509,
-      142,
-      142
-    ],
-    [
-      68,
-      1108,
-      555,
-      64,
-      50
-    ],
-    [
-      0,
-      60,
-      840,
-      1160,
-      33
-    ],
-    [
-      70,
-      60,
-      853,
-      113,
-      20
-    ],
-    [
-      70,
-      528,
-      853,
-      238,
-      20
-    ],
-    [
-      70,
-      1121,
-      853,
-      99,
       20
     ],
     [
@@ -553,6 +77,482 @@
       84,
       535,
       460
+    ],
+    [
+      0,
+      40,
+      300,
+      620,
+      1
+    ],
+    [
+      0,
+      40,
+      308,
+      620,
+      17
+    ],
+    [
+      0,
+      690,
+      110,
+      30,
+      420
+    ],
+    [
+      0,
+      760,
+      100,
+      460,
+      160
+    ],
+    [
+      11,
+      760,
+      100,
+      460,
+      97
+    ],
+    [
+      11,
+      760,
+      215,
+      460,
+      45
+    ],
+    [
+      0,
+      760,
+      330,
+      460,
+      235
+    ],
+    [
+      14,
+      760,
+      330,
+      460,
+      47
+    ],
+    [
+      15,
+      760,
+      330,
+      98,
+      45
+    ],
+    [
+      15,
+      1200,
+      352,
+      20,
+      17
+    ],
+    [
+      14,
+      760,
+      377,
+      460,
+      47
+    ],
+    [
+      18,
+      760,
+      377,
+      95,
+      45
+    ],
+    [
+      18,
+      1200,
+      399,
+      20,
+      17
+    ],
+    [
+      14,
+      760,
+      424,
+      460,
+      47
+    ],
+    [
+      21,
+      760,
+      424,
+      63,
+      45
+    ],
+    [
+      21,
+      1194,
+      446,
+      26,
+      17
+    ],
+    [
+      14,
+      760,
+      471,
+      460,
+      47
+    ],
+    [
+      24,
+      760,
+      471,
+      60,
+      45
+    ],
+    [
+      24,
+      1200,
+      493,
+      20,
+      17
+    ],
+    [
+      14,
+      760,
+      518,
+      460,
+      47
+    ],
+    [
+      27,
+      760,
+      518,
+      73,
+      45
+    ],
+    [
+      27,
+      1200,
+      540,
+      20,
+      17
+    ],
+    [
+      0,
+      60,
+      600,
+      697,
+      175
+    ],
+    [
+      30,
+      61,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      119,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      177,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      235,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      293,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      351,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      409,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      467,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      525,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      583,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      641,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      699,
+      602,
+      58,
+      58
+    ],
+    [
+      30,
+      61,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      119,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      177,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      235,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      293,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      351,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      409,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      467,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      525,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      583,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      641,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      699,
+      660,
+      58,
+      58
+    ],
+    [
+      30,
+      61,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      119,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      177,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      235,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      293,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      351,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      409,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      467,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      525,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      583,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      641,
+      718,
+      58,
+      58
+    ],
+    [
+      30,
+      699,
+      718,
+      58,
+      58
+    ],
+    [
+      0,
+      803,
+      603,
+      414,
+      168
+    ],
+    [
+      67,
+      835,
+      631,
+      129,
+      20
+    ],
+    [
+      67,
+      820,
+      663,
+      256,
+      104
+    ],
+    [
+      0,
+      1069,
+      509,
+      142,
+      142
+    ],
+    [
+      70,
+      1108,
+      555,
+      64,
+      50
+    ],
+    [
+      0,
+      60,
+      840,
+      1160,
+      33
+    ],
+    [
+      72,
+      60,
+      853,
+      113,
+      20
+    ],
+    [
+      72,
+      482,
+      853,
+      331,
+      20
+    ],
+    [
+      72,
+      1121,
+      853,
+      99,
+      20
     ]
   ],
   "groupMatched": [],
@@ -572,30 +572,30 @@
     "extra": []
   },
   "tokens": {
-    "input": 67670,
-    "output": 33094,
-    "cacheRead": 239200
+    "input": 61642,
+    "output": 24768,
+    "cacheRead": 170506
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 60281,
-      "output": 16123,
-      "cacheRead": 222964,
+      "billed": 64064,
+      "output": 17002,
+      "cacheRead": 154046,
       "toolCalls": 6,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
         "Glob",
         "Read src/index.css",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 167963
+      "ms": 162647
     }
   ],
-  "reading": "This is a type-specimen landing page for a serif typeface (\"Halden Serif\"). It has a faint full-page grid background, a top utility bar with three spread-out labels, a giant two-layer \"Aa\" wordmark (solid black under a red-orange outline copy) with an x-height guide line and label, a code-style vertical minimap stripe, a heading+paragraph specimen blurb with a row of 5 weight/style stats beneath it, a glyph-grid panel, a dark kerning/'AVoid' display block, a tilted \"Free for students\" circular badge, and a footer row with three spread items.",
+  "reading": "This is a full type-specimen landing page: a faint full-page grid background, a thin top code-style meta line, two stacked giant 'Aa' wordmarks (solid black under a red-orange outlined copy) with a dashed x-height rule and label, a mono-line code 'minimap' strip, an italic serif heading with intro copy, a weight-specimen list of five rows, a 36-cell glyph grid panel, a dark kerning/AVoid showcase block with a tilted red-orange 'Free for students' badge circle, and a thin-rule footer row with three spaced items.",
   "actions": [
     {
       "kind": "add",
@@ -610,7 +610,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Whole page: cream (#f2efe6, plainly not white) background, Helvetica type, near-black text throughout. Add one 1280x900px div at 0,0 (position absolute), no fil"
+      "instruction": "Add one 1280x900 absolutely-positioned div at 0,0, no fill of its own, covering the whole page behind everything: a grid of thin lines (NOT a filled box, NOT da"
     },
     {
       "kind": "add",
@@ -625,7 +625,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "A thick rule under a mono 13px code line, near-black code color. The line is 1160px wide, positioned at 60,36, laid out as 3 separate items pushed apart (displa"
+      "instruction": "Add a 1160px-wide flex row at 60,36 (justify-content: space-between) with a thick rule beneath it, holding three separate near-black monospace 13px items that n"
     },
     {
       "kind": "add",
@@ -640,7 +640,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Giant Georgia serif, heavy, tight-set letters \"Aa\" at 460px type size, about 522px wide (no larger), absolutely placed with its box's top-left at 40,70 and the "
+      "instruction": "Add a giant Georgia serif, heavy, tight-set 'Aa' wordmark, 460px type size, about 522px wide (no larger), absolutely positioned with box top-left at 40,70 and f"
     },
     {
       "kind": "add",
@@ -655,7 +655,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Giant Georgia serif, heavy, tight-set letters \"Aa\", hollow/outlined red-orange, 460px type size, about 522px wide (no larger), absolutely placed with its box's "
+      "instruction": "Add a second giant Georgia serif, heavy, tight-set 'Aa' wordmark, 460px type size, about 522px wide (no larger), absolutely positioned with box top-left at 62,8"
     },
     {
       "kind": "add",
@@ -670,7 +670,7 @@
         9
       ],
       "paths": [],
-      "instruction": "A full-width dashed 1px red-orange line across the page (a section divider, not a box or input), with 0px of gap under it a bold 11px red-orange capitals, wide "
+      "instruction": "Add a 620px-long dashed 1px red-orange (#ff4d1c) section-divider line starting at x=40, y=300 (not a box or input), with bold 11px red-orange capitals, wide let"
     },
     {
       "kind": "add",
@@ -685,7 +685,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "A code MINIMAP strip: one textless div, exactly 30x420px, positioned absolute at 690,110. No words, not a list, not an outline panel — painted only by fine hori"
+      "instruction": "Add a textless code 'minimap' strip: a div exactly 30x420px at 690,110, absolutely positioned, no words, not a list, not an outline panel — painted only by fine"
     },
     {
       "kind": "add",
@@ -716,7 +716,7 @@
         180
       ],
       "paths": [],
-      "instruction": "Heading, 44px italic (font-style: italic), color #141414: \"A bookish serif with sharp, ink-trap elbows\". 18px below it, 15px body copy in color #3d3d3d: \"Drawn "
+      "instruction": "Add a text block 460px wide at top-left 760,100: a 44px Georgia serif, regular weight, italic, #141414 heading 'A bookish serif with sharp, ink-trap elbows', fo"
     },
     {
       "kind": "add",
@@ -741,7 +741,7 @@
         48
       ],
       "paths": [],
-      "instruction": "Below the heading/paragraph block, 5 stats laid out side by side in one row (not separate cards), each a big number/label over a small caption: 30px #141414 \"Ha"
+      "instruction": "Add a weight-specimen list of 5 rows stacked top to bottom, each row 460px wide x 47px tall (flex, justify-content: space-between, align-items: baseline, 1px #1"
     },
     {
       "kind": "add",
@@ -756,7 +756,7 @@
       "paths": [
         "s13"
       ],
-      "instruction": "A single panel 697x175px at 60,600, no fill, with a 1px #141414 rule along its top edge only (no other border). Every one-line text part inside stays on one lin"
+      "instruction": "Add a glyph grid panel: one 697x175px container at 60,600, no fill, a 1px #141414 rule along its top edge only. Inside it, 36 individual 58x58 cells (min-width,"
     },
     {
       "kind": "add",
@@ -771,7 +771,7 @@
       "paths": [
         "s14"
       ],
-      "instruction": "A near-black (exactly #141414) block containing cream text \"KERNING · AV −80\" in color #ff4d1c, and a word \"AVoid\" in color #f2efe6 — each word its own colour a"
+      "instruction": "Add a near-black (#141414) showcase block containing two differently-colored text items: 'KERNING · AV −80' in #ff4d1c, and a big 104px Georgia serif #f2efe6 'A"
     },
     {
       "kind": "add",
@@ -786,7 +786,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "A circular badge, tilted 12° clockwise, vivid red-orange fill, containing white (#ffffff, not the page's near-black text) centered text, 15px type, exactly 2 li"
+      "instruction": "Add a vivid red-orange circular badge tilted 12° clockwise with white (#ffffff) centered text in two lines (a <br> between them, no other breaks): 'Free for' / "
     },
     {
       "kind": "add",
@@ -801,7 +801,7 @@
       "paths": [
         "s16"
       ],
-      "instruction": "A row 1160px wide at 60,840 with only a 1px #141414 rule along its top edge (not a box: no border on other sides, no fill), text sitting 12px under the rule. Th"
+      "instruction": "Add a 1160px-wide footer row at 60,840 with only a 1px #141414 rule along its top edge (no other border, no fill), text 12px under the rule, three separate item"
     }
   ],
   "rejected": []

@@ -269,7 +269,7 @@
    ],
    [
     "logo",
-    "\"Modul/ar\"; set at 22px (a large lead line, NOT small body text), about 88px wide on one line; set BOLD (font-weight 800), NOT regular"
+    "\"Modul/ar\"; set at 22px (a large lead line, NOT small body text), about 88px wide on one line, its top-left at 60,44 (page px; keep that place, the parts under it start where they are said); set BOLD (font-weight 800), NOT regular"
    ],
    [
     "nav",
@@ -359,7 +359,7 @@
    ],
    [
     "nav",
-    "bold italic 26px Georgia serif \"roamlog\" first, then links: Trips, Templates, Print shop, Sign in"
+    "bold italic 26px Georgia serif \"roamlog\" first, then links: Trips, Templates, Print shop, Sign in; \"roamlog\" sit together at the left, \"Trips\", \"Templates\", \"Print shop\", \"Sign in\" pushed to the far right (746px gap)"
    ],
    [
     "headline",
@@ -465,11 +465,11 @@
    ],
    [
     "rec-badge",
-    "mono \"REC ● LIVE\"; set at 18px (a large lead line, NOT small body text), about 136px wide on one line; set BOLD (font-weight 700), NOT regular"
+    "mono \"REC ● LIVE\"; set at 18px (a large lead line, NOT small body text), about 136px wide on one line, its top-left at 80,60 (page px; keep that place, the parts under it start where they are said); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "timestamp",
-    "mono cyan \"CH-04 02:14:59:12\"; its text #16f2ff (cyan, NOT the page's off-white text); set at 18px (a large lead line, NOT small body text), about 184px wide on one line; set BOLD (font-weight 700), NOT regular"
+    "mono cyan \"CH-04 02:14:59:12\"; its text #16f2ff (cyan, NOT the page's off-white text); set at 18px (a large lead line, NOT small body text), about 184px wide on one line, its top-left at 1016,60 (page px; keep that place, the parts under it start where they are said); set BOLD (font-weight 700), NOT regular"
    ],
    [
     "headline",
@@ -727,7 +727,7 @@
    ],
    [
     "chat-panel",
-    "the region itself is ONE 340x900px panel at 940,0, #202124 fill, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); near-black block \"People (6) Chat\" grey lines \"You10:04\" / \"Sharing the regional sheet now\" list: \"Jonas Ortiz\" 10:02, \"Mei Kato\" 10:03, \"Priya Rao\" 10:05, grey (#9ca3af) \"Send a message\" (pinned to the card's bottom: its bottom edge 18px above the card's bottom edge, 308px wide, centred; empty space above it); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 17 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 339x56 at 941,0 1px #2d2f34 border on the bottom only; 170x55 at 941,0 14px #9ca3af \"People (6)\"; 170x55 at 1111,0 inset ring (box-shadow: #8ab4f8 0px -2px 0px 0px inset): 14px bold #ffffff \"Chat\"; 71x15 at 959,69 13px bold #f3f4f6 \"Jonas Ortiz\"; 29x13 at 1036,70 12px #9ca3af \"10:02\"; 303x20 at 959,88 14px #d1d5db \"Can we zoom into EMEA next?\"; 54x15 at 959,133 13px bold #f3f4f6 \"Mei Kato\"; 29x13 at 1019,134 12px #9ca3af \"10:03\"; 303x41 at 959,152 14px #d1d5db \"EMEA is up 22% QoQ, mostly from the Berlin team.\"; 217x36 at 1018,221 #8ab4f8 fill, 12px rounded, padding-left 12px (its text starts at x 1030): 14px #111111 \"Sharing the regional sheet now\"; 24x15 at 959,232 13px bold #f3f4f6 \"You\"; 29x13 at 989,233 12px #9ca3af \"10:04\"; 60x15 at 959,282 13px bold #f3f4f6 \"Priya Rao\"; 29x13 at 1025,283 12px #9ca3af \"10:05\"; 303x20 at 959,301 14px #d1d5db \"Great, let's park APAC for Thursday.\"; 308x46 at 957,836 #2d2f34 fill, pill ends, padding-left 18px (its text starts at x 975): 14px #9ca3af \"Send a message\"; 34x34 at 1225,842 #8ab4f8 fill, a circle, EMPTY (no icon, no emoji, no picture inside); the card exactly 340x900px, its top-left at 940,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "the region itself is ONE 340x900px panel at 940,0, #202124 fill, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); near-black block \"People (6) Chat\" grey lines \"You10:04\" / \"Sharing the regional sheet now\" list: \"Jonas Ortiz\" 10:02, \"Mei Kato\" 10:03, \"Priya Rao\" 10:05, grey (#9ca3af) \"Send a message\" (pinned to the card's bottom: its bottom edge 18px above the card's bottom edge, 308px wide, centred; empty space above it); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 17 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 339x56 at 941,0 1px #2d2f34 border on the bottom only; 170x55 at 941,0 14px #9ca3af \"People (6)\"; 170x55 at 1111,0 inset ring (box-shadow: #8ab4f8 0px -2px 0px 0px inset): 14px bold #ffffff \"Chat\"; 71x15 at 959,69 13px bold #f3f4f6 \"Jonas Ortiz\"; 29x13 at 1036,70 12px #9ca3af \"10:02\"; 303x20 at 959,88 14px #d1d5db \"Can we zoom into EMEA next?\"; 54x15 at 959,133 13px bold #f3f4f6 \"Mei Kato\"; 29x13 at 1019,134 12px #9ca3af \"10:03\"; 303x41 at 959,152 14px #d1d5db \"EMEA is up 22% QoQ, mostly from the Berlin team.\" wrapping onto 2 lines within its 303px width, line-height exactly 20px; 217x36 at 1018,221 #8ab4f8 fill, 12px rounded, padding-left 12px (its text starts at x 1030): 14px #111111 \"Sharing the regional sheet now\"; 24x15 at 959,232 13px bold #f3f4f6 \"You\"; 29x13 at 989,233 12px #9ca3af \"10:04\"; 60x15 at 959,282 13px bold #f3f4f6 \"Priya Rao\"; 29x13 at 1025,283 12px #9ca3af \"10:05\"; 303x20 at 959,301 14px #d1d5db \"Great, let's park APAC for Thursday.\"; 308x46 at 957,836 #2d2f34 fill, pill ends, padding-left 18px (its text starts at x 975): 14px #9ca3af \"Send a message\"; 34x34 at 1225,842 #8ab4f8 fill, a circle, EMPTY (no icon, no emoji, no picture inside); the card exactly 340x900px, its top-left at 940,0 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ]
   ]
  },

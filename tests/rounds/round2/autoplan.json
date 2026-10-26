@@ -325,7 +325,7 @@
    ],
    [
     "logo",
-    "brown \"SUNDAE\"; its text #7c2d12 (brown, NOT the page's black text); set at 26px (a large lead line, NOT small body text), about 116px wide on one line"
+    "brown \"SUNDAE\"; its text #7c2d12 (brown, NOT the page's black text); set at 26px (a large lead line, NOT small body text), about 116px wide on one line, its top-left at 64,48 (page px; keep that place, the parts under it start where they are said)"
    ],
    [
     "headline",
@@ -505,7 +505,7 @@
   "notes": [
    [
     "nav",
-    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #e4e4e7 rule along its BOTTOM edge only (border-bottom, no other border), exactly 64px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; bold 20px \"Lumen\" first, then links: New, Lamps, Sale, Cart (2)"
+    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #e4e4e7 rule along its BOTTOM edge only (border-bottom, no other border), exactly 64px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; bold 20px \"Lumen\" first, then links: New, Lamps, Sale, Cart (2); \"Lumen\" sit together at the left, \"New\", \"Lamps\", \"Sale\", \"Cart (2)\" pushed to the far right (883px gap)"
    ],
    [
     "filters",

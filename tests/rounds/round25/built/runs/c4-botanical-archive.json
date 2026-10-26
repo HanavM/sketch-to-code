@@ -1,24 +1,24 @@
 {
   "id": "c4-botanical-archive",
-  "at": "2026-10-26T13:01:59.407Z",
+  "at": "2026-10-26T14:58:39.422Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8461097283000075,
-    "overallV2": 0.8461097283000075,
-    "overallV1": 0.7832242071015323,
-    "colour": 0.9848949041806541,
-    "structure": 0.8860833394717877,
-    "structureStrict": 0.8125674783020626,
-    "colourAligned": 0.9848949041806541,
-    "structureAligned": 0.8860833394717877,
+    "overall": 0.9355308775733266,
+    "overallV2": 0.9355308775733266,
+    "overallV1": 0.8679521784717181,
+    "colour": 0.9934740217859415,
+    "structure": 0.968678707533568,
+    "structureStrict": 0.8896763208712317,
+    "colourAligned": 0.9934740217859415,
+    "structureAligned": 0.968678707533568,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8629337900869637
+      "r": 0.9595905939488932
     },
-    "layout": 0.9281303262854631,
-    "layoutV1": 0.8170192151743519,
+    "layout": 0.9246492513413165,
+    "layoutV1": 0.9246492513413165,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,91 +27,84 @@
       0,
       0,
       1280,
-      900
+      940
     ],
     [
       0,
       74,
-      38,
+      40,
       1132,
       39
     ],
     [
       1,
       74,
-      38,
+      40,
       116,
       39
     ],
     [
       1,
-      912,
-      46,
-      294,
-      24
+      935,
+      48,
+      271,
+      23
     ],
     [
       3,
-      912,
-      46,
-      73,
-      24
+      935,
+      48,
+      68,
+      23
     ],
     [
       3,
-      1025,
-      46,
-      38,
-      24
+      1039,
+      48,
+      36,
+      23
     ],
     [
       3,
-      1103,
-      46,
-      30,
-      24
+      1111,
+      48,
+      28,
+      23
     ],
     [
       3,
-      1173,
-      46,
-      33,
-      24
+      1175,
+      48,
+      31,
+      23
     ],
     [
       0,
       78,
       130,
       615,
-      176
+      177
     ],
     [
       8,
       78,
-      122,
-      284,
-      103
+      130,
+      615,
+      88
     ],
     [
-      8,
-      362,
+      9,
+      363,
       122,
-      215,
-      103
-    ],
-    [
-      8,
-      577,
-      122,
-      20,
+      216,
       103
     ],
     [
       8,
       78,
-      210,
-      606,
-      103
+      218,
+      615,
+      88
     ],
     [
       0,
@@ -121,7 +114,7 @@
       22
     ],
     [
-      13,
+      12,
       332,
       306,
       256,
@@ -139,84 +132,147 @@
       70,
       520,
       470,
+      148
+    ],
+    [
+      15,
+      70,
+      520,
+      470,
       37
     ],
     [
       16,
       70,
-      526,
-      142,
+      525,
+      34,
+      17
+    ],
+    [
+      16,
+      114,
+      520,
+      102,
       24
     ],
     [
-      0,
-      70,
-      533,
-      34,
-      12
+      16,
+      226,
+      535,
+      268,
+      1
     ],
     [
-      0,
+      16,
+      504,
+      520,
+      36,
+      24
+    ],
+    [
+      15,
       70,
       557,
       470,
       37
     ],
     [
-      19,
+      21,
       70,
-      563,
-      124,
+      562,
+      34,
+      17
+    ],
+    [
+      21,
+      114,
+      557,
+      96,
       24
     ],
     [
-      0,
-      70,
-      570,
-      34,
-      12
+      21,
+      220,
+      572,
+      286,
+      1
     ],
     [
-      0,
+      21,
+      516,
+      557,
+      24,
+      24
+    ],
+    [
+      15,
       70,
       594,
       470,
       37
     ],
     [
-      22,
+      26,
       70,
-      600,
-      153,
+      599,
+      34,
+      17
+    ],
+    [
+      26,
+      114,
+      594,
+      113,
       24
     ],
     [
-      0,
-      70,
-      607,
-      34,
-      12
+      26,
+      237,
+      609,
+      257,
+      1
     ],
     [
-      0,
+      26,
+      504,
+      594,
+      36,
+      24
+    ],
+    [
+      15,
       70,
       631,
       470,
       37
     ],
     [
-      25,
+      31,
       70,
-      637,
-      91,
+      636,
+      34,
+      17
+    ],
+    [
+      31,
+      114,
+      631,
+      63,
       24
     ],
     [
-      0,
-      70,
-      644,
-      34,
-      12
+      31,
+      187,
+      646,
+      319,
+      1
+    ],
+    [
+      31,
+      516,
+      631,
+      24,
+      24
     ],
     [
       0,
@@ -226,25 +282,67 @@
       353
     ],
     [
-      28,
+      36,
+      611,
+      324,
+      267,
+      353
+    ],
+    [
+      37,
+      610,
+      324,
+      269,
+      353
+    ],
+    [
+      36,
       626,
       338,
       234,
       241
     ],
     [
-      28,
-      624,
-      567,
-      255,
-      109
+      39,
+      678,
+      356,
+      130,
+      206
     ],
     [
-      30,
-      670,
-      603,
+      40,
+      737,
+      365,
+      11,
+      190
+    ],
+    [
+      40,
+      685,
+      391,
+      113,
+      99
+    ],
+    [
+      36,
+      638,
+      571,
+      165,
+      61
+    ],
+    [
+      43,
+      638,
+      571,
       163,
       38
+    ],
+    [
+      43,
+      640,
+      607,
+      163,
+      25
     ],
     [
       0,
@@ -254,111 +352,158 @@
       357
     ],
     [
-      32,
+      46,
+      888,
+      292,
+      273,
+      357
+    ],
+    [
+      47,
+      888,
+      292,
+      274,
+      358
+    ],
+    [
+      46,
       909,
       307,
       238,
       245
     ],
     [
-      32,
-      888,
-      535,
-      256,
-      113
+      49,
+      951,
+      324,
+      154,
+      209
     ],
     [
-      34,
-      952,
-      572,
+      50,
+      1020,
+      419,
+      10,
+      108
+    ],
+    [
+      50,
+      988,
+      348,
+      85,
+      85
+    ],
+    [
+      50,
+      974,
+      369,
+      56,
+      56
+    ],
+    [
+      50,
+      1030,
+      373,
+      56,
+      56
+    ],
+    [
+      50,
+      1020,
+      385,
+      21,
+      21
+    ],
+    [
+      46,
+      905,
+      536,
+      130,
+      61
+    ],
+    [
+      56,
+      907,
+      536,
       129,
       39
     ],
     [
-      0,
-      1063,
-      114,
-      133,
-      133
+      56,
+      905,
+      572,
+      128,
+      25
     ],
     [
-      36,
-      1102,
-      147,
-      56,
-      66
+      0,
+      1064,
+      114,
+      136,
+      136
+    ],
+    [
+      59,
+      1065,
+      144,
+      134,
+      77
     ],
     [
       0,
       74,
       824,
-      172,
-      38
-    ],
-    [
-      38,
-      104,
-      831,
-      113,
-      24
+      169,
+      44
     ]
   ],
-  "groupMatched": [
-    {
-      "role": "index-list",
-      "iou": 1,
-      "parts": 8,
-      "rect": {
-        "x": 70,
-        "y": 520,
-        "w": 470,
-        "h": 148
-      }
-    }
-  ],
+  "groupMatched": [],
   "effects": {
-    "recall": 0.8571428571428571,
+    "recall": 1,
     "kept": [
       "gradient",
       "italic",
+      "mask",
       "overlap",
       "serif",
       "soft-shadow",
       "tilt"
     ],
-    "missing": [
-      "mask"
-    ],
+    "missing": [],
     "extra": [
       "stripes-or-layers"
     ]
   },
   "tokens": {
-    "input": 43798,
-    "output": 26912,
-    "cacheRead": 219828
+    "input": 62390,
+    "output": 37995,
+    "cacheRead": 294735
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 41003,
-      "output": 13633,
-      "cacheRead": 169882,
-      "toolCalls": 7,
+      "billed": 67481,
+      "output": 25233,
+      "cacheRead": 258214,
+      "toolCalls": 11,
       "tools": [
         "Glob",
-        "Glob",
+        "Read components/FernSpecimen.tsx",
+        "Read components/PoppyFlower.tsx",
         "Read src/App.tsx",
-        "Read src/index.css",
-        "Read s2c-bench-app/vite.config.ts",
         "Read src/main.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Edit components/FernSpecimen.tsx",
+        "Edit components/PoppyFlower.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 149859
+      "ms": 277471
     }
   ],
-  "reading": "A sketch for a herbarium/archive landing page: a cream background with soft colour glows, a top nav with an italic 'Herbarium' logo and four links, a large two-line serif headline with one italic coloured word, a wavy decorative SVG divider, a three-line descriptive paragraph, a four-row catalogue list (each row a label+count line with a small roman-numeral tag), two tilted photo cards with gradient 'pictures' and italic captions, a circular 'Est. 1898 Uppsala' badge, and a dark teal CTA button reading 'Open the drawers'.",
+  "reading": "This is a full landing-page sketch for a herbarium/plates site: a nav bar, a big two-line headline with a wavy divider, an intro paragraph, a 4-row dotted index list, two tilted 'specimen card' plates (fern and poppy), a circular 'Est. 1898 Uppsala' badge, and a dark CTA button — all on a cream page with soft colour glows per the typed note.",
   "actions": [
     {
       "kind": "add",
@@ -373,7 +518,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Top navigation bar: italic 26px Georgia serif logo text 'Herbarium' on the left, then nav links in order: Collections, Plates, Visit, Shop."
+      "instruction": "Nav bar: italic 26px Georgia serif wordmark 'Herbarium' first, then nav links 'Collections', 'Plates', 'Visit', 'Shop'."
     },
     {
       "kind": "add",
@@ -398,10 +543,10 @@
         175
       ],
       "paths": [],
-      "instruction": "Giant Georgia serif headline, regular weight, tight-set, line-height 0.95, set in exactly two lines that never rewrap (white-space: nowrap, width ~615px, no nar"
+      "instruction": "Giant Georgia serif headline, regular weight (not bold), tight-set with line-height 0.95, set in exactly 2 lines that keep their breaks and never rewrap (white-"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -413,7 +558,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Decorative wavy divider line reproduced exactly as this inline SVG, no border/box/background around it, 260x22px positioned absolute at page coordinates 330,300"
+      "instruction": "Decorative wavy divider rendered as an exact inline SVG (no border, outline, frame, box or background around it — only the path itself shows), 260x22px, positio"
     },
     {
       "kind": "add",
@@ -440,7 +585,7 @@
         87
       ],
       "paths": [],
-      "instruction": "Body copy, 18px Georgia, dark grey (#3c4a36), 3 lines, 430px wide, top-left at page 70,350, exact quoted text: \"Twelve thousand sheets of dried plants, scanned "
+      "instruction": "Body copy, 18px Georgia, dark grey (#3c4a36), set in 3 lines, 430px wide, positioned with top-left at 70,350. Exact quoted text, nothing invented: 'Twelve thous"
     },
     {
       "kind": "add",
@@ -477,7 +622,7 @@
         148
       ],
       "paths": [],
-      "instruction": "A catalogue list of 4 rows, each built from two real elements (8 total, nothing invented): a 470x37 row with a 1px #23301f 20%-opacity bottom border containing "
+      "instruction": "A 4-row index list of plant categories, each row a flex row (align-items baseline, gap 10px) with a 1px #23301f 20%-opacity bottom border: row order is a small "
     },
     {
       "kind": "add",
@@ -492,7 +637,7 @@
       "paths": [
         "s15"
       ],
-      "instruction": "A tilted photo card: 250x340px #fffdf6 card, position absolute top-left 620,330, square corners, box-shadow rgba(35,48,31,0.15) 0 14px 30px 0, rotated -3deg abo"
+      "instruction": "A tilted specimen 'plate' card: 250x340px #fffdf6 card, position absolute top-left 620,330 (before rotation), square corners, top edge scalloped via mask (radia"
     },
     {
       "kind": "add",
@@ -507,7 +652,7 @@
       "paths": [
         "s16"
       ],
-      "instruction": "A tilted photo card: 250x340px #fffdf6 card, position absolute top-left 900,300, square corners, box-shadow rgba(35,48,31,0.15) 0 14px 30px 0, rotated 4deg abou"
+      "instruction": "A second tilted specimen 'plate' card: 250x340px #fffdf6 card, position absolute top-left 900,300 (before rotation), square corners, scalloped top edge (same ma"
     },
     {
       "kind": "add",
@@ -522,7 +667,7 @@
       "paths": [
         "s17"
       ],
-      "instruction": "A grey outline circular badge with a second 2px grey outline ring offset 6px out (outline + outline-offset, white gap between), containing 17px #5a7a3a text, 14"
+      "instruction": "A round badge: grey outline circle with a second 2px grey outline ring offset 6px out (white gap between, like outline-offset), showing it is the selected item."
     },
     {
       "kind": "add",
@@ -537,7 +682,7 @@
       "paths": [
         "s18"
       ],
-      "instruction": "A dark teal (#23301f) button block with cream (#f4f0e4) text reading 'Open the drawers'."
+      "instruction": "A solid dark teal (#23301f) button with cream (#f4f0e4) text reading 'Open the drawers'."
     }
   ],
   "rejected": [

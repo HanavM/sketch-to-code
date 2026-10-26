@@ -241,7 +241,7 @@
    ],
    [
     "glass-hero",
-    "the region itself is ONE 620x460px panel at 120,180, FROSTED GLASS (a see-through card, NOT bare, NOT solid): fill rgba(255, 255, 255, 0.08), backdrop-filter: blur(24px), the colours under it showing through, a 1px see-through rgba(255, 255, 255, 0.23) border, 28px rounded, box-shadow: rgba(0, 0, 0, 0.4) 0px 20px 60px 0px (it floats over what is under it), with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 522x131 at 169,229 64px bold #ffffff \"Light you can work inside\" set on exactly 2 lines (line-height 65px; it WRAPS, never forced onto one line); 460x56 at 169,382 18px #ffffff at 80% \"Aurora is a calm workspace that bends around your focus. No tabs, no noise, just the next thing.\"; 186x50 at 169,467 #ffffff fill, pill ends, padding-left 30px (its text starts at x 199): 16px bold #0b0820 \"Get early access\""
+    "the region itself is ONE 620x460px panel at 120,180, FROSTED GLASS (a see-through card, NOT bare, NOT solid): fill rgba(255, 255, 255, 0.08), backdrop-filter: blur(24px), the colours under it showing through, a 1px see-through rgba(255, 255, 255, 0.23) border, 28px rounded, box-shadow: rgba(0, 0, 0, 0.4) 0px 20px 60px 0px (it floats over what is under it), with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out): 522x131 at 169,229 64px bold #ffffff \"Light you can work inside\" set on exactly 2 lines (line-height 65px; it WRAPS, never forced onto one line); 460x56 at 169,382 18px #ffffff at 80% \"Aurora is a calm workspace that bends around your focus. No tabs, no noise, just the next thing.\" wrapping onto 2 lines within its 460px width, line-height exactly 28px; 186x50 at 169,467 #ffffff fill, pill ends, padding-left 30px (its text starts at x 199): 16px bold #0b0820 \"Get early access\""
    ],
    [
     "stat-card",
@@ -593,7 +593,7 @@
   "notes": [
    [
     "nav",
-    "the region itself is ONE 1280x60px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e5e5 rule along its BOTTOM edge only (border-bottom, no other border), exactly 60px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; 20px \"Stride\" first, then links: Men, Women, Sale, 🔍; a 1px #e5e5e5 rule along the bar's bottom edge across its full 1280px width (border-bottom), with 22px tall items whose text sits at their top (padding-bottom under the words), so the selected underline lies on that rule; set BOLD (font-weight 600), NOT regular"
+    "the region itself is ONE 1280x60px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e5e5 rule along its BOTTOM edge only (border-bottom, no other border), exactly 60px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; 20px \"Stride\" first, then links: Men, Women, Sale, 🔍; \"Stride\" sit together at the left, \"Men\", \"Women\", \"Sale\", \"🔍\" pushed to the far right (869px gap); a 1px #e5e5e5 rule along the bar's bottom edge across its full 1280px width (border-bottom), with 22px tall items whose text sits at their top (padding-bottom under the words), so the selected underline lies on that rule; set BOLD (font-weight 600), NOT regular"
    ],
    [
     "breadcrumb",

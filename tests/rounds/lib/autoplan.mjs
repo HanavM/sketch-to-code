@@ -1294,7 +1294,8 @@ export function factsInPage() {
         const ab = av?.getBoundingClientRect()
         return {
           tag: tag ? { t: t(tag), fill: fl(tag), ink: rgba(getComputedStyle(tag).color), px: Math.round(parseFloat(getComputedStyle(tag).fontSize)) } : null,
-          title: { t: t(title), bold: Number(tc.fontWeight) >= 600 }, strike,
+          // n246: a title with a child pushed to its right end (round 25 e3 toast 'Uploading 3 files' ... '64%': built run together)
+          title: { t: t(title), bold: Number(tc.fontWeight) >= 600, end: (() => { const lc = title.lastElementChild; if (!lc || !t(lc) || tc.display !== 'flex' || !/space-between|flex-end/.test(tc.justifyContent)) return null; const own = [...title.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim(); const lcs = getComputedStyle(lc); return own ? { own, t: t(lc), ink: rgba(lcs.color), bold: Number(lcs.fontWeight) >= 600 } : null })() }, strike,
           av: av ? { fill: fl(av), px: Math.round(ab.width), corner: `${ab.top + ab.height / 2 > r.top + r.height / 2 ? 'bottom' : 'top'}-${ab.left + ab.width / 2 > r.left + r.width / 2 ? 'right' : 'left'}` } : null,
           bar: bar ? { pct: Math.round(bar.children[0].getBoundingClientRect().width / bar.getBoundingClientRect().width * 100), fill: fl(bar.children[0]), track: fl(bar), h: Math.round(bar.getBoundingClientRect().height), w: Math.round(bar.getBoundingClientRect().width), gap: Math.round(bar.getBoundingClientRect().top - title.getBoundingClientRect().bottom), inner: Math.round(r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - parseFloat(cs.borderLeftWidth) - parseFloat(cs.borderRightWidth)) } : null,
           opacity: parseFloat(cs.opacity),
@@ -1779,6 +1780,15 @@ export function factsInPage() {
               out.push({ x: Math.round(b.left + (parseFloat(pb.left) || 0)), y: Math.round(b.top + (parseFloat(pb.top) || 0)), w: Math.round(pw || 20), h: Math.round(b.height), t: lab.trim(), px: Math.round(parseFloat(pb.fontSize)), bold: Number(pb.fontWeight) >= 600, wt: Number(pb.fontWeight), it: false, ink: rgba(pb.color), mono: /mono|courier|consolas/i.test(pb.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100, ra: pb.textAlign === 'right' || pb.textAlign === 'end' })
             }
           }
+          // n246: a small round dot painted by an absolute ::before/::after on a row (round 25 e1 unread dots: lost)
+          for (const w of ['::before', '::after']) {
+            const pd = getComputedStyle(k, w)
+            if (!pd.content || pd.content === 'none' || !/^["']{2}$/.test(pd.content) || pd.position !== 'absolute') continue
+            const dw = parseFloat(pd.width) || 0, dh = parseFloat(pd.height) || 0, df = rgba(pd.backgroundColor)
+            if (!(dw >= 4 && dw <= 14 && Math.abs(dw - dh) <= 1 && df && df.a > 0.3 && parseFloat(pd.borderTopLeftRadius) >= dw / 2 - 0.5)) continue
+            if (pd.left === 'auto' || pd.top === 'auto') continue
+            out.push({ x: Math.round(b.left + parseFloat(pd.left)), y: Math.round(b.top + parseFloat(pd.top)), w: Math.round(dw), h: Math.round(dh), t: null, di: out.length + 1.5, fill: df, img: null, radius: 999, border: null, ring: null, inset: null, op: 100, pdot: w })
+          }
           // n221: a paint-less line of spaced-out icon glyphs with a filled inline-block button set among them (round 21 e4
           // transport '⤮ ⏮ (❚❚) ⏭ ↻', letter-spacing 22px: said as one centred 640px line plus the button laid over it, built
           // bunched, prev and next lost) says each glyph as its own part at its own x
@@ -1837,6 +1847,19 @@ export function factsInPage() {
             // plain 158x157 text box)
             stroke: own && parseFloat(s.webkitTextStrokeWidth) > 0 && (rgba(s.color)?.a ?? 1) < 0.05 ? { px: parseFloat(s.webkitTextStrokeWidth), c: rgba(s.webkitTextStrokeColor) } : null,
             clipIn: /^inset\(/.test(s.clipPath) ? s.clipPath : null,
+            // n246: a dotted leader between a name and its number (round 25 c4 index: the empty flex:1 <i> leader lost, words run together)
+            leader: own ? (() => {
+              if (!/flex/.test(s.display)) return null
+              const L = [...k.children].find((c) => !(c.textContent || '').trim() && getComputedStyle(c).flexGrow >= 1 && parseFloat(getComputedStyle(c).borderBottomWidth) >= 1)
+              if (!L) return null
+              const tn = [...k.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim()), li = [...k.childNodes].indexOf(L)
+              const before = tn.filter((n) => [...k.childNodes].indexOf(n) < li).map((n) => n.textContent.trim()).join(' '), after = tn.filter((n) => [...k.childNodes].indexOf(n) > li).map((n) => n.textContent.trim()).join(' ')
+              if (!before || !after) return null
+              const ls = getComputedStyle(L)
+              return { before, after, style: ls.borderBottomStyle, c: rgba(ls.borderBottomColor), gap: Math.round(parseFloat(s.columnGap) || 0) }
+            })() : null,
+            // n246: a one-line text cut off with an ellipsis (round 25 e1 previews: built at min-width, running into the next pane)
+            ell: own && s.textOverflow === 'ellipsis' && /hidden|clip/.test(s.overflowX) && s.whiteSpace === 'nowrap',
             tpath: k.tagName === 'textPath' ? (() => {
               const sv = k.closest('svg'), sb = sv.getBoundingClientRect(), vb = sv.viewBox?.baseVal, sc = vb && vb.width ? sb.width / vb.width : 1
               const pa = document.getElementById((k.getAttribute('href') || k.getAttribute('xlink:href') || '').replace('#', ''))
@@ -1904,7 +1927,9 @@ export function factsInPage() {
             const big = t.parentElement && [...t.parentElement.children].find((k) => txt(k) && parseFloat(getComputedStyle(k).fontSize) >= 28)
             const many = sibs.length >= 3 ? { n: sibs.length, pcts: sibs.map((k) => Math.round(k.firstElementChild.getBoundingClientRect().width / k.getBoundingClientRect().width * 100)), h: Math.round(a.height), w: Math.round(a.width), gap: Math.round(sibs[1].getBoundingClientRect().top - sibs[0].getBoundingClientRect().bottom), x: Math.round(a.left), y: Math.round(sibs[0].getBoundingClientRect().top), rad: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius) || 0),
               big: big ? { t: txt(big), px: Math.round(parseFloat(getComputedStyle(big).fontSize)), bold: Number(getComputedStyle(big).fontWeight) >= 600, x: Math.round(big.getBoundingClientRect().left), y: Math.round(big.getBoundingClientRect().top) } : null } : null
-            return { pct: Math.round(b.width / a.width * 100), fill: rgba(getComputedStyle(u).backgroundColor), track: rgba(getComputedStyle(t).backgroundColor), lines: (el.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), many }
+            // n246: a meter of 2+ coloured segments side by side (round 25 e3 storage: said one indigo fill)
+            const segs = t.children.length >= 2 && [...t.children].every((k) => !txt(k) && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 && Math.abs(k.getBoundingClientRect().top - b.top) <= 1) ? [...t.children].map((k) => ({ pct: Math.round(k.getBoundingClientRect().width / a.width * 100), c: rgba(getComputedStyle(k).backgroundColor) })) : null
+            return { pct: Math.round(b.width / a.width * 100), fill: rgba(getComputedStyle(u).backgroundColor), track: rgba(getComputedStyle(t).backgroundColor), lines: (el.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), many, segs: segs && new Set(segs.map((x) => `${x.c.r},${x.c.g},${x.c.b}`)).size >= 2 ? segs : null, h: Math.round(a.height), rad: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius) || 0) }
           }
         }
         return null
@@ -2822,7 +2847,24 @@ export function factsInPage() {
         const sm = [...heroEl.querySelectorAll('small,p,span')].filter((g) => txt(g) && !g.contains(h)).map((g) => ({ t: txt(g), px: Math.round(parseFloat(getComputedStyle(g).fontSize)), ink: rgba(getComputedStyle(g).color), bold: Number(getComputedStyle(g).fontWeight) >= 600, above: g.getBoundingClientRect().top < h.getBoundingClientRect().top }))
         return { h: txt(h), px: Math.round(parseFloat(hc.fontSize)), weight: Number(hc.fontWeight), ink: rgba(hc.color), x: Math.round(h.getBoundingClientRect().left - ob.left), y: Math.round(hb.top - ob.top), hH: Math.round(hb.height), cover: cb ? { w: Math.round(cb.width), h: Math.round(cb.height), x: Math.round(cb.left - ob.left), y: Math.round(cb.top - ob.top), bg: cc.backgroundImage !== 'none' ? cc.backgroundImage : cc.backgroundColor, rad: cc.borderTopLeftRadius } : null, small: sm }
       })() : null
-      return { type: 'list', order, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, headBar, onInk, onRad, onRadR, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, someDots: swatches.some(Boolean) && !swatches.every(Boolean) ? swatches : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, counts: counts.some(Boolean) ? counts : null, mids: rep.map((k) => { let g = k.previousElementSibling; while (g && !rep.includes(g) && !txt(g)) g = g.previousElementSibling; return g && !rep.includes(g) && rep.indexOf(k) > 0 && txt(g).length <= 30 ? { t: txt(g), ink: rgba(getComputedStyle(g).color), rule: /flex/.test(getComputedStyle(g).display) && getComputedStyle(g, '::before').content !== 'none' } : null }), switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+      // n246: a floating menu (round 25 e3 context menu: said as a 'grouped list' with group and column-head rows, its divider and place lost)
+      const menu = (() => {
+        const ms = getComputedStyle(el); if (!/absolute|fixed/.test(ms.position) || ms.boxShadow === 'none') return null
+        const ks = [...el.children]; if (ks.length < 4 || ks.length > 14) return null
+        const rows = [], divs = []
+        for (const k of ks) {
+          const kb = k.getBoundingClientRect(), t0 = txt(k)
+          if (!t0) { const ks2 = getComputedStyle(k); if (kb.height <= 14 && (parseFloat(ks2.borderTopWidth) >= 1 || rgba(ks2.backgroundColor)?.a > 0.1)) { divs.push(rows.length); continue } return null }
+          if (k.children.length > 1 || kb.height > 48) return null
+          const sm = k.firstElementChild, ks2 = getComputedStyle(k)
+          const own = [...k.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
+          rows.push({ t: own || t0, right: sm && txt(sm) ? { t: txt(sm), ink: rgba(getComputedStyle(sm).color) } : null, ink: rgba(ks2.color), fill: filled(k), h: Math.round(kb.height) })
+        }
+        if (rows.length < 4 || !divs.length && !rows.some((r0) => r0.right)) return null
+        const mb = el.getBoundingClientRect()
+        return { w: Math.round(mb.width), h: Math.round(mb.height), x: Math.round(mb.left + scrollX), y: Math.round(mb.top + scrollY), rad: Math.round(parseFloat(ms.borderTopLeftRadius) || 0), pad: Math.round(parseFloat(ms.paddingTop) || 0), fill: filled(el), shadow: ms.boxShadow, rows, divs, divC: (() => { const d0 = ks.find((k) => !txt(k)); return d0 ? rgba(getComputedStyle(d0).borderTopColor) : null })(), px: Math.round(parseFloat(getComputedStyle(ks.find((k) => txt(k))).fontSize)) }
+      })()
+      return { type: 'list', menu, order, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, headBar, onInk, onRad, onRadR, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, someDots: swatches.some(Boolean) && !swatches.every(Boolean) ? swatches : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, counts: counts.some(Boolean) ? counts : null, mids: rep.map((k) => { let g = k.previousElementSibling; while (g && !rep.includes(g) && !txt(g)) g = g.previousElementSibling; return g && !rep.includes(g) && rep.indexOf(k) > 0 && txt(g).length <= 30 ? { t: txt(g), ink: rgba(getComputedStyle(g).color), rule: /flex/.test(getComputedStyle(g).display) && getComputedStyle(g, '::before').content !== 'none' } : null }), switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
         groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) { const ic = [...k.children].find((q) => !txt(q) && q.getBoundingClientRect().width >= 10 && q.getBoundingClientRect().width <= 32 && rgba(getComputedStyle(q).backgroundColor)?.a > 0.5); const kc = getComputedStyle(k); gs.push({ h: txt(k), items: [], icon: ic ? { d: Math.round(ic.getBoundingClientRect().width), fill: rgba(getComputedStyle(ic).backgroundColor), rad: Math.round(parseFloat(getComputedStyle(ic).borderTopLeftRadius) || 0) } : null, px: Math.round(parseFloat(kc.fontSize)), bold: Number(kc.fontWeight) >= 600, ink: rgba(kc.color) }) } } return gs.length >= 2 && gs.every((g) => g.items.length) ? gs : null })(),
@@ -3636,6 +3678,11 @@ function denseNote(d) {
         const ink0 = t.rows.find((r) => !r.fill)?.ink
         return `${pic}${sel ? 'a data table' : 'a task table'} (rows, NOT tabs): ${hs}exactly ${t.rows.length} rows, each ${t.h}px tall${t.mono ? `, ${t.mono.px}px monospace ${ink0 ? `${hexOf(ink0)} ` : ''}text` : ''}${colSay}, in EXACTLY this order top to bottom${sel ? ' (every row its own real data, never invented or repeated; a word followed by a colour is set in that colour)' : ' (group rows sit between their task rows; never gather the groups together)'}, cells left to right: ${t.rows.map((r) => `${r.cells.map((c) => cs(c, r)).join(' | ')}${rowFill(r)}`).join('; ')}${t.rule ? `; a thin ${hexOf(t.rule)} line under every row` : ''}; empty below the last row`
       }
+      if (d.menu) {
+        const M = d.menu, ink0 = M.rows[0].ink
+        const row = (o, i) => `${M.divs.includes(i) ? `a 1px ${M.divC ? hexOf(M.divC) : 'grey'} DIVIDER line across the menu (an <hr>, its own element), then ` : ''}${quote(o.t, 30)}${o.ink && hexOf(o.ink) !== hexOf(ink0) ? ` in ${hexOf(o.ink)}` : ''}${o.right ? ` with ${o.right.ink ? `${hexOf(o.right.ink)} ` : ''}${quote(o.right.t, 8)} at the row's far right end (justify-content: space-between)` : ''}${o.fill ? ` (the hovered row: ${hexOf(o.fill)} fill across it, rounded)` : ''}`
+        return `a FLOATING MENU ${M.w}x${M.h}px at ${M.x},${M.y} (position absolute, over what is under it; ${M.fill ? `${hexOf(M.fill)} fill` : 'white'}, ${M.rad}px rounded, box-shadow: ${M.shadow}, padding ${M.pad}px), ${M.rows.length} menu rows each about ${M.rows[0].h}px tall, ${M.px}px ${hexOf(ink0)} text, top to bottom: ${M.rows.map(row).join('; ')}`
+      }
       if (d.grouped) {
         const g = d.grouped
         const say = (o) => `${quote(o.t, 40)}${o.fill ? ` (group row: ${o.bold ? 'bold, ' : ''}${hexOf(o.fill)} fill across the whole row)` : o.right ? ` (${o.px}px ${hexOf(o.ink)}${o.bold ? ' bold' : ''}, ${quote(o.right, 16)} at the row's right end: a column head row)` : ''}${o.dot ? ` with a ${o.dot.px}px ${hexOf(o.dot.c)} ${o.dot.round ? 'round' : 'square'} dot at the right end` : ''}`
@@ -3886,7 +3933,7 @@ function partsNote(P, f) {
     // over the bars)
     const bar = p.t && p.h <= 2 * p.px && P.filter((q) => !q.t && q.fill && q.h <= 14 && q.w >= 0.3 * p.w && q.x > p.x + 4 && q.x + q.w <= p.x + p.w + 1 && q.y >= p.y - 2 && q.y + q.h <= p.y + p.h + 2).sort((a, b) => b.w - a.w)[0]
     const tk = p.t ? p.t.split(/\s+/) : []
-    const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${p.face ? `${p.face === 'sans' ? 'Helvetica/Arial sans-serif (NOT the page serif)' : 'serif (NOT the page sans)'} ` : ''}${hx(p.ink)} "${p.caps ? p.t.toUpperCase() : p.t}"${p.caps ? ' (ALL CAPITALS: text-transform: uppercase)' : ''}${p.ls >= 1 ? ` with letter-spacing ${p.ls}px (its letters spaced out, NOT set tight)` : ''}${p.tar && p.nl >= 2 ? ' (its lines RIGHT-aligned: text-align: right)' : ''}${p.px >= 20 && p.nl >= 2 && p.nl <= 4 ? ` set on exactly ${p.nl} lines (line-height ${p.lh}px; it WRAPS, never forced onto one line)` : ''}${p.runs?.length ? ` (ONE element, its words in this order; inside it ${p.runs.map((r) => `"${r.t}" in an inline span ${[r.it ? 'italic' : '', r.bold ? 'bold' : '', r.mono ? 'monospace' : '', r.ink && p.ink && dist(r.ink, p.ink) > 20 ? hx(r.ink) : ''].filter(Boolean).join(' ') || 'styled'}`).join(', ')}, IN PLACE in the line, NOT placed apart)` : ''}${p.cap ? `; opening on a DROP CAP: its first letter "${p.cap.letter}" ${p.cap.px}px ${hx(p.cap.ink)}, floated left and sinking about ${Math.max(2, Math.round(p.cap.px * 0.8 / (p.px * 1.6)) + 1)} lines into the text (::first-letter, float: left)` : ''}${p.wrap ? `; ${p.wrap.name ? `the ${p.wrap.name} (${p.wrap.w}x${p.wrap.h})` : `a ${p.wrap.w}x${p.wrap.h} block`} sits INSIDE this text at its top ${p.wrap.side}, float: ${p.wrap.side}${p.wrap.round ? ', shape-outside: circle(50%)' : ''}, and the lines WRAP round it (shorter beside it), never running under or over it` : ''}`) : ''
+    const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${p.face ? `${p.face === 'sans' ? 'Helvetica/Arial sans-serif (NOT the page serif)' : 'serif (NOT the page sans)'} ` : ''}${hx(p.ink)} "${p.caps ? p.t.toUpperCase() : p.t}"${p.caps ? ' (ALL CAPITALS: text-transform: uppercase)' : ''}${p.ls >= 1 ? ` with letter-spacing ${p.ls}px (its letters spaced out, NOT set tight)` : ''}${p.tar && p.nl >= 2 ? ' (its lines RIGHT-aligned: text-align: right)' : ''}${p.px >= 20 && p.nl >= 2 && p.nl <= 4 ? ` set on exactly ${p.nl} lines (line-height ${p.lh}px; it WRAPS, never forced onto one line)` : ''}${p.px < 20 && p.nl >= 2 && p.nl <= 6 && p.lh && p.t.length >= 20 && p.t.length * p.px * 0.5 >= p.w && p.h >= 1.6 * p.lh ? ` wrapping onto ${p.nl} lines within its ${p.w}px width, line-height exactly ${p.lh}px` : ''}${p.runs?.length ? ` (ONE element, its words in this order; inside it ${p.runs.map((r) => `"${r.t}" in an inline span ${[r.it ? 'italic' : '', r.bold ? 'bold' : '', r.mono ? 'monospace' : '', r.ink && p.ink && dist(r.ink, p.ink) > 20 ? hx(r.ink) : ''].filter(Boolean).join(' ') || 'styled'}`).join(', ')}, IN PLACE in the line, NOT placed apart)` : ''}${p.cap ? `; opening on a DROP CAP: its first letter "${p.cap.letter}" ${p.cap.px}px ${hx(p.cap.ink)}, floated left and sinking about ${Math.max(2, Math.round(p.cap.px * 0.8 / (p.px * 1.6)) + 1)} lines into the text (::first-letter, float: left)` : ''}${p.wrap ? `; ${p.wrap.name ? `the ${p.wrap.name} (${p.wrap.w}x${p.wrap.h})` : `a ${p.wrap.w}x${p.wrap.h} block`} sits INSIDE this text at its top ${p.wrap.side}, float: ${p.wrap.side}${p.wrap.round ? ', shape-outside: circle(50%)' : ''}, and the lines WRAP round it (shorter beside it), never running under or over it` : ''}`) : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
     // n187: a struck title (round 18 e1 Done cards: <s> text built plain and wrapped)
     if (p.strike) paint.push(`STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap)`)
@@ -3903,6 +3950,19 @@ function partsNote(P, f) {
       const ln = lead ? (lead.radius >= 999 || lead.radius >= lead.w / 2 ? 'dot' : 'icon') : ''
       paint.push(lead ? `padding-left ${p.padL}px, then the ${lead.w}x${lead.h}px ${ln} at x ${lead.x} FIRST IN THE ROW (a flex row: ${ln}, then ${p.tx - lead.x - lead.w}px gap, then the words), so its text starts at x ${p.tx}, AFTER the ${ln}, never under it; the ${ln} and any small part listed right after it on the same line are this row's OWN CHILDREN, inside it at their listed x (one element per row, none laid loose, no empty row added)` : `padding-left ${p.padL}px (its text starts at x ${p.x + p.padL}${gut ? ', AFTER the gutter number, never over it' : ''})`)
     }
+    // n246: a name, a dotted leader filling the row, then its number at the right end
+    if (p.leader) {
+      const Lx = p.leader, lead0 = p.tx != null && p.tx - p.x >= 12 ? P.find((q) => q !== p && q.t && q.x >= p.x - 1 && q.x < p.tx && q.y >= p.y - 2 && q.y + q.h <= p.y + p.h + 2) : null
+      paint.push(`ONE flex row (align-items baseline${Lx.gap ? `, gap ${Lx.gap}px` : ''}): ${lead0 ? `FIRST its "${lead0.t}" (the ${lead0.w}x${lead0.h} part at ${lead0.x},${lead0.y}, a child inside this row), then ` : ''}"${Lx.before}", then a ${Lx.style === 'dotted' ? 'DOTTED' : Lx.style === 'dashed' ? 'DASHED' : 'thin'} LEADER line (an empty span, flex: 1, 1px ${Lx.style} ${hx(Lx.c)} border-bottom) stretching across the gap, then "${Lx.after}" at the row's far RIGHT end; the name and the number are NEVER run together`)
+    }
+    // n246: an ellipsis line has a FIXED width (round 25 e1 previews built at min-width, running into the reading pane)
+    if (p.ell) paint.push(`FIXED width ${p.w}px (width, NOT min-width), one line, overflow hidden, text-overflow: ellipsis: its words are cut off with "…" at the box's right edge, NEVER running past it`)
+    // n246: a chip set inline at the start of a text line (round 25 e1 label chips said at the preview's x, built over its words)
+    if (p.t && !(p.padL >= 8) && p.tx != null && p.tx - p.x >= 12) {
+      const chip = P.find((q) => q !== p && q.t && (q.fill || q.border) && q.w <= 120 && q.h <= p.h + 2 && Math.abs(q.x - p.x) <= 3 && q.y >= p.y - 3 && q.y + q.h <= p.y + p.h + 3)
+      if (chip) paint.push(`a line that OPENS with the "${chip.t}" chip: that ${chip.w}x${chip.h} part at ${chip.x},${chip.y} is this line's FIRST CHILD (an inline-block span inside it), then ${p.tx - chip.x - chip.w}px gap, then the words from x ${p.tx}, AFTER the chip, never under or over it`)
+    }
+    if (p.pdot) paint.push(`a ${p.pdot} dot of the row it sits in (position absolute, content "")`)
     if (p.vert) paint.push(`VERTICAL text (writing-mode: vertical-rl${p.vert === 'up' ? '; transform: rotate(180deg), so it reads bottom to top' : ', reading top to bottom'}; NOT horizontal, the box is tall and narrow)`)
     if (p.clip) paint.push(`a line ${p.w}px long inside a ${p.clip.w}px tile that CLIPS it (the tile has overflow: hidden and white-space: nowrap): only its first ${p.clip.shown}px show, cut off at the tile's edge, never spilling past the tile`)
     if (p.anim) { kfs.add(p.anim.kf); paint.push(`animated: animation ${p.anim.name} ${p.anim.dur} ${p.anim.timing}${p.anim.iter === 'infinite' ? ' infinite' : ''}${p.anim.delay && p.anim.delay !== '0s' ? ` delay ${p.anim.delay}` : ''}${/scale|rotate/.test(p.anim.kf ?? '') && p.anim.origin ? `, transform-origin ${p.anim.origin}` : ''}`) }
@@ -3968,7 +4028,7 @@ function partsNote(P, f) {
   // built touching: 'TableBoardTimelineCalendar')
   const rowRun = (() => { const tp = [...P].filter((q) => q.t && q.t.length <= 16 && !q.fill && !q.tpath).sort((a2, b2) => a2.x - b2.x); for (const q of tp) { const run = [q]; for (;;) { const last = run[run.length - 1]; const nx = tp.find((r) => Math.abs(r.y - q.y) <= 2 && Math.abs(r.h - q.h) <= 2 && r.x > last.x + last.w && r.x - (last.x + last.w) <= 40); if (!nx) break; run.push(nx) } if (run.length >= 3) { const gs = run.slice(1).map((r, i) => r.x - (run[i].x + run[i].w)); if (gs.every((g) => g >= 8 && Math.abs(g - gs[0]) <= 2)) return { run, gap: Math.round(gs.reduce((a2, b2) => a2 + b2, 0) / gs.length) } } } return null })()
   const gapSay = rowRun ? `the ${rowRun.run.length} parts ${rowRun.run.map((q) => `"${q.t}"`).join(', ')} sit side by side in one row with exactly ${rowRun.gap}px of empty space between one and the next (flex gap ${rowRun.gap}px; NEVER touching, never run together); ` : ''
-  return `${band}${bars}${gapSay}part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${order.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
+  return `${band}${bars}${gapSay}part by part (page px: size, then top-left x,y; each part its own real element with live text, all ${order.length} of them, nothing invented, nothing left out${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? '; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)' + (P.some((p) => p.ell) ? ', except the ones said FIXED width with an ellipsis' : '') : ''}): ${listed}${keys.length ? `; the animations, defined exactly as: ${keys.join(' ')}` : ''}`
 }
 // n149: a spreadsheet grid said cell by cell
 function sheetNote(G) {
@@ -4250,7 +4310,7 @@ function decideRest(f, page, marked, said) {
   // n240: a one-line small text set inside a padded full-width box says its size and where its words start (round 24 e1
   // description 14px under the title, said as just 'grey text', built ~18px)
   if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 11 && f.font.size <= 16 && !/\d+px/.test(d.note) && f.shown?.y != null && (f.inset?.l >= 16 || f.inset?.t >= 16)) d.note += `; set at ${Math.round(f.font.size)}px (small body text, font-size exactly ${Math.round(f.font.size)}px, NOT larger), one line, its words' top-left at ${f.shown.x},${f.shown.y} (${padBox(f)})`
-  if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 18 && !/\d+px/.test(d.note)) d.note += `; set at ${Math.round(f.font.size)}px (a large lead line, NOT small body text), about ${Math.round(w0)}px wide on one line`
+  if (d?.note && d.kind === 'text' && f.textLines === 1 && f.font?.size >= 18 && !/\d+px/.test(d.note)) d.note += `; set at ${Math.round(f.font.size)}px (a large lead line, NOT small body text), about ${Math.round(w0)}px wide on one line${f.rect && f.rect.y > 40 && f.rect.x > 0 && w0 <= 700 ? `, its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (page px; keep that place, the parts under it start where they are said)` : ''}`
   // n152: a bare table on the page says it has no card (round 13 e5 comparison table built inside a white card)
   if (d?.note && /^(?:".*" as a small bold heading, then a )?table, every body row/.test(d.note) && !visible(f.bg) && !(f.border.w >= 1 && visible(f.border.colour)) && !f.radius && w0 >= 600) {
     d.note += `; the table sits straight on the page, NOT in a card: no fill, no outer border, no rounded corners, no shadow, no padding around it; ${Math.round(w0)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}`
@@ -4798,7 +4858,7 @@ function decideOne(f, page, marked, said) {
     const T = f.taskCard
     const parts = [
       T.tag ? `small ${T.tag.px}px bold tag ${quote(T.tag.t)} (${colourName(T.tag.ink)} text on a ${T.tag.fill.r + T.tag.fill.g + T.tag.fill.b > 600 ? `pale ${colourName(T.tag.ink)} tint` : colourName(T.tag.fill)} ${hexOf(T.tag.fill)}, 4px rounded) at the top left` : null,
-      `${T.title.bold ? 'semibold ' : ''}title ${quote(T.title.t, 60)}${T.tag ? ' under it' : ''}${T.strike ? ', struck through (line-through)' : ''}`,
+      T.title.end ? `a title row (display flex, justify-content: space-between): ${T.title.bold ? 'semibold ' : ''}${quote(T.title.end.own, 50)} at the LEFT and ${T.title.end.bold ? '' : 'regular (not bold) '}${hexOf(T.title.end.ink)} ${quote(T.title.end.t, 12)} at the far RIGHT end of the same line (two separate spans, never run together)${T.tag ? ' under the tag' : ''}` : `${T.title.bold ? 'semibold ' : ''}title ${quote(T.title.t, 60)}${T.tag ? ' under it' : ''}${T.strike ? ', struck through (line-through)' : ''}`,
       T.bar ? `a thin ${T.bar.h}px ${colourName(T.bar.fill)} (${hexOf(T.bar.fill)}) progress bar ${T.bar.pct}% full on a ${colourName(T.bar.track)} (${hexOf(T.bar.track)}) track under the title${T.bar.w && T.bar.inner && T.bar.w < T.bar.inner - 16 ? ` (the track is a ${T.bar.w}px wide (w-[${T.bar.w}px]), ${T.bar.h}px tall rounded strip at the card's left, ${Math.max(0, T.bar.gap)}px under the title, NOT the card's full width and not at its foot; the grey track shows past the ${T.bar.pct}% green fill)` : ''}` : null,
       T.av ? `a ${T.av.px}px round ${colourName(T.av.fill)} avatar dot (no letter; a full circle ${T.av.px}x${T.av.px}px, never squashed into a bar) in the ${T.av.corner} corner` : null,
     ].filter(Boolean)
@@ -5068,6 +5128,7 @@ function decideOne(f, page, marked, said) {
   if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
     const p = f.progress
     if (p.many) { const m = p.many; return { kind: 'box', note: `${m.big ? `a big ${m.big.px}px ${m.big.bold ? 'bold ' : ''}${quote(m.big.t, 8)} at ${m.big.x},${m.big.y} on the left, and to its right ` : ''}${m.n} SEPARATE thin bars stacked (a rating breakdown, NOT one bar), each ${m.w}x${m.h}px, ${m.rad}px rounded, ${m.gap}px apart, the first at ${m.x},${m.y}: a ${hexOf(p.track)} track each, filled ${hexOf(p.fill)} from the left to ${m.pcts.map((x) => `${x}%`).join(', ')} top to bottom` } }
+    if (p.segs) return { kind: 'box', note: `${p.lines.length ? `${quote(p.lines[0], 30)}, ` : ''}a ${p.h}px ${p.rad}px-rounded meter on a ${hexOf(p.track)} track (overflow hidden) filled by ${p.segs.length} SEPARATE coloured segments side by side from the left, in this order: ${p.segs.map((x) => `${x.pct}% ${hexOf(x.c)}`).join(', ')} (one flex row of ${p.segs.length} bars, NOT one single fill), the rest of the track empty${p.lines[1] ? `; small grey ${quote(p.lines[1], 40)} under` : ''}` }
     return { kind: 'box', note: `${p.lines.length ? `${quote(p.lines[0], 30)}, ` : ''}thin progress bar ${p.pct}% filled ${colourName(p.fill)} on a ${colourName(p.track)} track${p.lines[1] ? `, small grey ${quote(p.lines[1], 40)} under` : ''}` }
   }
   // a breadcrumb trail: said, or the build drops it (round 4 e4)
@@ -5283,7 +5344,7 @@ function decideOne(f, page, marked, said) {
       P.seg && !on ? `; ${P.seg.items.join(' / ')} is one ${P.seg.bordered ? 'outlined ' : ''}switch with ${quote(P.seg.t)} selected (${colourName(P.seg.fill)} fill, ${colourName(P.seg.ink)} text)` : '',
       P.dot ? `; ${quote(P.dot.t)} sits in a ${P.dot.px}px round ${colourName(P.dot.fill)} circle, ${colourName(P.dot.ink)} number` : '',
     ].join('') : ''
-    const Sp = f.kidSplit, split = Sp && Sp.right.length <= 3 ? `; ${Sp.left.map((x) => quote(x, 20)).join(', ')} sit together at the left, ${Sp.right.map((x) => quote(x, 24)).join(', ')} pushed to the far right (${Sp.gap}px gap)` : ''
+    const Sp = f.kidSplit, split = Sp && (Sp.right.length <= 3 || (Sp.right.length === 4 && Sp.right.every((x) => x.length <= 10))) ? `; ${Sp.left.map((x) => quote(x, 20)).join(', ')} sit together at the left, ${Sp.right.map((x) => quote(x, 24)).join(', ')} pushed to the far right (${Sp.gap}px gap)` : ''
     if (f.kidSteps) {
       const S = f.kidSteps, cur = S.items.findIndex((x) => x.bold)
       if (S.marks) {

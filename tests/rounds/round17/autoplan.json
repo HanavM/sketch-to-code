@@ -421,7 +421,7 @@
    ],
    [
     "intro",
-    "grey text \"Everything your edge network is doing, live.\"; its text #a1a1aa (grey, NOT the page's pale grey text); set at 22px (a large lead line, NOT small body text), about 424px wide on one line"
+    "grey text \"Everything your edge network is doing, live.\"; its text #a1a1aa (grey, NOT the page's pale grey text); set at 22px (a large lead line, NOT small body text), about 424px wide on one line, its top-left at 40,92 (page px; keep that place, the parts under it start where they are said)"
    ],
    [
     "bento",
@@ -575,7 +575,7 @@
    ],
    [
     "canvas",
-    "an invisible frame 760x852px at 240,48 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 87x12 at 390,118 11px #777777 \"Welcome / mobile\"; 390x640 at 390,138 #ffffff fill; 350x220 at 410,198 linear-gradient(135deg, #ff7a59, #ffc46b), 16px rounded; 300x60 at 410,438 26px bold #1e1e1e \"Plan trips with friends, not spreadsheets\" set on exactly 2 lines (line-height 30px; it WRAPS, never forced onto one line); 330x39 at 410,513 13px #666666 \"Share one itinerary, vote on places, and split costs as you go.\"; 350x50 at 410,698 #1e1e1e fill, 12px rounded: 14px bold #ffffff \"Get started\"; 55x16 at 531,754 #0d99ff fill, 3px rounded: 11px #ffffff \"350 × 50\"; 53x26 at 880,858 #ffffff fill, 6px rounded, padding-left 10px (its text starts at x 890): 12px #1e1e1e \"64% ▾\""
+    "an invisible frame 760x852px at 240,48 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 8 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 87x12 at 390,118 11px #777777 \"Welcome / mobile\"; 390x640 at 390,138 #ffffff fill; 350x220 at 410,198 linear-gradient(135deg, #ff7a59, #ffc46b), 16px rounded; 300x60 at 410,438 26px bold #1e1e1e \"Plan trips with friends, not spreadsheets\" set on exactly 2 lines (line-height 30px; it WRAPS, never forced onto one line); 330x39 at 410,513 13px #666666 \"Share one itinerary, vote on places, and split costs as you go.\" wrapping onto 2 lines within its 330px width, line-height exactly 20px; 350x50 at 410,698 #1e1e1e fill, 12px rounded: 14px bold #ffffff \"Get started\"; 55x16 at 531,754 #0d99ff fill, 3px rounded: 11px #ffffff \"350 × 50\"; 53x26 at 880,858 #ffffff fill, 6px rounded, padding-left 10px (its text starts at x 890): 12px #1e1e1e \"64% ▾\""
    ],
    [
     "selection",
