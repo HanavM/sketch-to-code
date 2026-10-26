@@ -2964,7 +2964,10 @@ export function factsInPage() {
   }).filter((q) => q && !q.shadow && !q.rad)
   // n173: a dot grain painted by body::after over everything (round 17 c2 riso: lost, built plain cream)
   const grainDots = (() => { for (const w of ['::after', '::before']) { const c = getComputedStyle(document.body, w); if (!c.content || c.content === 'none' || c.position !== 'absolute' && c.position !== 'fixed') continue; if (!/radial-gradient/.test(c.backgroundImage) || !/^[\d.]+px/.test(c.backgroundSize)) continue; return { img: c.backgroundImage, size: c.backgroundSize } } return null })()
-  return { body: { ...fact(document.body), grain, grainDots, blobs, sides }, regions: [...document.querySelectorAll('[data-r]')].map((el) => ({ ...fact(el), ...r11(el) })) }
+  // n243: ruled paper lines painted by body::before / ::after with a repeating linear gradient (round 24 c4 scrapbook:
+  // faint blue rules every 32px lost, built plain cream)
+  const ruledPage = (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(document.body, w); if (!c.content || c.content === 'none' || c.position !== 'absolute' && c.position !== 'fixed') continue; if (!/^repeating-linear-gradient/.test(c.backgroundImage)) continue; return { img: c.backgroundImage, pseudo: w } } return null })()
+  return { body: { ...fact(document.body), grain, grainDots, blobs, sides, ruledPage }, regions: [...document.querySelectorAll('[data-r]')].map((el) => ({ ...fact(el), ...r11(el) })) }
 }
 
 // ---------------------------------------------------------------- naming
@@ -3820,6 +3823,10 @@ function partsNote(P, f) {
     if (p.ring) paint.push(`${p.ring.px}px ${hx(p.ring.c)} outline ring`)
     if (p.inset) paint.push(`inset ring (box-shadow: ${imgW(p.inset)})`)
     if (p.radius) paint.push(p.radius >= Math.min(p.w, p.h) / 2 - 1 ? (Math.abs(p.w - p.h) <= 2 ? 'a circle' : 'pill ends') : `${p.radius}px rounded`)
+    // n243: a small square marker beside round ones says it is square (round 24 e2 trip box end marker)
+    else if (!p.t && p.fill && p.w <= 16 && Math.abs(p.w - p.h) <= 1 && p.w >= 6) paint.push('a small SQUARE (square corners, NOT a circle)')
+    // n243: a wordless filled thumb is empty (round 24 e2 ride thumbs: built with invented car icons)
+    if (!p.t && p.fill && !p.img && p.w >= 24 && p.h >= 24 && p.w * p.h <= 6000 && Math.max(p.w, p.h) <= 2.5 * Math.min(p.w, p.h) && !(p.radius >= p.h / 2 - 1 && p.w > 1.4 * p.h)) paint.push('EMPTY (no icon, no emoji, no picture inside)')
     if (p.poly) paint.push(`CUT to a polygon: clip-path: ${p.poly} (${/^polygon\(0(?:px|%)? 100%, 50% 0(?:px|%)?, 100% 100%\)$/.test(p.poly) ? 'a TRIANGLE pointing up' : 'a slanted, non-rectangular shape'}, NOT a plain rectangle)`)
     // n143: a weight other than 400 / 700 is said as its number, italic said (round 11 c3 weight ladder: Thin 100 built
     // regular, Black 900 built upright bold)
@@ -5055,6 +5062,13 @@ function decideOne(f, page, marked, said) {
     const fills = new Set(kl.map((k) => (k.fill?.a > 0.05 ? hexOf(k.fill) : 'none')))
     if (!mixed && !lead && kl.length === f.kidCount && kl.length >= 3 && kl.every((k) => k.fill?.a > 0.05 && k.radius >= k.h / 2 - 2) && fills.size >= 2) {
       const sep = (f.ownText ?? '').replace(/\s+/g, '')[0]
+      // n243: a row of round icon buttons (round 24 e3 call controls: said as a stepper, built on an invented dark bar
+      // across the page with the wide end-call pill squashed round) says each button's box, the gap and that nothing is behind
+      const gs = kl.every((k) => k.left != null) ? kl.slice(1).map((k, i) => Math.round(k.left - kl[i].right)) : []
+      if (!sep && kl.every((k) => [...k.t].length <= 2) && gs.length && gs.every((g) => Math.abs(g - gs[0]) <= 2) && !(f.bg && visible(f.bg)) && !(f.border?.w >= 1)) {
+        const R = f.rect
+        return { kind: 'box', note: `a row of ${kl.length} round icon buttons and NOTHING behind them (no bar, no panel, no fill, no border: the page colour shows between and around them), the row centred in the ${Math.round(R.w)}px span from x ${Math.round(R.x)} at y ${Math.round(R.y)}, the buttons ${gs[0]}px apart, left to right: ${kl.map((k) => `${quote(k.t)} ${Math.round(k.w)}x${Math.round(k.h)} ${Math.abs(k.w - k.h) <= 2 ? 'circle' : `pill (${Math.round(k.w)}px WIDE, border-radius ${Math.round(k.h / 2)}px)`}, ${hexOf(k.fill)} fill, ${hexOf(k.ink)} sign centred`).join('; ')}` }
+      }
       return { kind: 'box', note: `a stepper: ${kl.length} filled pills in one row${sep ? `, a small grey "${sep}" between each pair` : ''}, each ${Math.round(kl[0].h)}px tall (border-radius 999px), left to right: ${kl.map((k) => `${quote(k.t)} ${k.fill.a < 0.5 ? `SEE-THROUGH glass fill (background: rgba(${k.fill.r}, ${k.fill.g}, ${k.fill.b}, ${Math.round(k.fill.a * 100) / 100}), only ${Math.round(k.fill.a * 100)}% strong, so the page shows through; NOT solid white)${k.bw >= 1 && k.bc ? `, a ${k.bw}px ${hexOf(k.bc)}${k.bc.a < 0.95 ? ` at ${Math.round(k.bc.a * 100)}%` : ''} outline` : ''}` : `${hexOf(k.fill)} fill`}, ${k.bold ? 'bold ' : ''}${hexOf(k.ink)} text`).join('; ')}` }
     }
     // n216: a row of like filled pills (tags) says the pill and its fill; round 21 c2's see-through white tags were
@@ -5272,7 +5286,7 @@ function decideOne(f, page, marked, said) {
     // one block of copy with no parts (a pull quote on a yellow tile: round 5 c5, said with no copy)
     // ...in the top-left corner of a tall box when it sits there, or the build drops it low (round 6 c5 quote)
     const loneCorner = !f.centred && h >= 160 && f.inset && f.textTop != null && f.textTop - f.rect.y <= f.inset.t + 12 ? `, in the top-left corner (${Math.round(f.inset.l)}px in, ${Math.round(f.inset.t)}px down), the rest of the box empty` : ''
-    const lone = !f.regionKids.length && f.kidCount === 0 && (f.text.length > 40 || (f.text.length > 24 && !f.vertical && f.font.size >= 20 && f.font.weight >= 600)) && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${fill && !frosted && !f.motion && !f.bleeds && h >= 100 && f.colour?.a > 0.5 ? `${f.font.style === 'italic' ? 'italic ' : ''}${isSerif(f.font.family) ? 'serif ' : ''}${hexOf(f.colour)} ` : ''}text ${quote(f.text, 140)}${loneCorner}${fill && !frosted && !f.motion && !f.bleeds && h >= 100 && f.colour?.a > 0.5 ? `; the BOX itself is filled ${hexOf(f.bg)} edge to edge (a solid ${f.layoutBox?.w ?? Math.round(w)}x${f.layoutBox?.h ?? Math.round(h)}px paper note; that colour is the fill, NOT the text's ink)` : ''}` : null
+    const lone = !f.regionKids.length && f.kidCount === 0 && (f.text.length > 40 || (f.text.length > 24 && !f.vertical && f.font.size >= 20 && f.font.weight >= 600)) && f.text.length <= 140 ? `${f.font.weight >= 600 ? 'bold ' : ''}${Math.round(f.font.size)}px ${fill && !frosted && !f.motion && !f.bleeds && h >= 100 && f.colour?.a > 0.5 ? `${f.font.style === 'italic' ? 'italic ' : ''}${isSerif(f.font.family) ? 'serif ' : ''}${hexOf(f.colour)} ` : ''}text ${quote(f.text, 140)}${loneCorner}${fill && !frosted && !f.motion && !f.bleeds && h >= 100 && f.colour?.a > 0.5 ? `; the BOX itself is filled ${hexOf(f.bg)} edge to edge (a solid ${f.layoutBox?.w ?? Math.round(w)}x${f.layoutBox?.h ?? Math.round(h)}px paper note; that colour is the fill, NOT the text's ink)${Math.abs(f.turn ?? f.rotate ?? 0) >= 1 && f.el ? `; transform: rotate(${f.turn ?? f.rotate}deg) on the note itself, turned about its centre (TILTED ${Math.abs(f.turn ?? f.rotate)}° ${(f.turn ?? f.rotate) > 0 ? 'clockwise' : 'anticlockwise'}, NOT level), its untransformed top-left at ${f.el.x},${f.el.y}; any 'card exactly' size below is its turned bounds, not a reason to keep it straight` : ''}` : ''}` : null
     // a picture painted by ::before over a card's copy (round 6 e1 featured card: square and body line unsaid)
     const pp = f.pseudoPic && !f.regionKids.length ? f.pseudoPic : null
     const ppLines = pp ? f.setLines.map((t) => t.trim()).filter(Boolean).map((t) => { const k = kb.find((x) => x.t === t); return k ? `${k.s >= 20 ? `big ${k.s}px ` : ''}${k.bold ? 'bold ' : ''}${k.ink && f.colour && dist(k.ink, f.colour) > 60 ? `${colourName(k.ink)} ` : ''}${quote(t, 60)}` : `text ${quote(t, 110)}` }) : []
@@ -5413,7 +5427,7 @@ function pageNote(b) {
   // (round 5 e4); it is said as off-white
   const nearWhite = visible(b.bg) && dist(b.bg, { r: 255, g: 255, b: 255 }) >= 6 && dist(b.bg, { r: 255, g: 255, b: 255 }) < 12
   const plain = (!visible(b.bg) || (dist(b.bg, { r: 255, g: 255, b: 255 }) < 12 && !nearWhite)) && !/gradient|url/.test(b.bgImage) && !isSerif(b.font.family) && !isMono(b.font.family)
-  if (plain && !b.grain && !b.grainDots && !b.blobs?.length) return null
+  if (plain && !b.grain && !b.grainDots && !b.ruledPage && !b.blobs?.length) return null
   const grad = gradientWords(b)
   // soft glows over a dark page (a mesh: round 6 c4 said as a 3-stop page gradient, base colour lost)
   const gl = b.glows && b.glows.length >= 2 && visible(b.bg) ? glowWords(b) : null
@@ -5426,6 +5440,7 @@ function pageNote(b) {
   // n158: a dot grid printed over the page colour (round 15 c2: the 24px dot paper lost, built plain cream)
   const dotTile = /^radial-gradient/.test(b.bgImage ?? '') && (b.bgSize ?? '').match(/^([\d.]+)px/)
   if (dotTile && +dotTile[1] <= 60) w.push(`a fine DOT GRID over the whole page (small ${hexOf(parse((b.bgImage.match(/rgba?\([^)]+\)/) || ['rgb(0,0,0)'])[0]))} dots every ${Math.round(+dotTile[1])}px; exactly: background-image: ${cssHex(b.bgImage)}; background-size: ${b.bgSize}; on top of the page colour)`)
+  if (b.ruledPage) w.push(`faint RULED PAPER lines across the whole page (one overlay div: position absolute, inset 0, pointer-events none, FIRST in the page so everything sits on top of it; painted exactly background: ${cssKeep(b.ruledPage.img)}; NOT plain, NOT a grid)`)
   if (gridLines(b)) w.push('faint grid lines')
   if (isSerif(b.font.family)) w.push(`${faceName(b.font.family) ?? 'serif'} type`); else if (isMono(b.font.family)) w.push('mono type')
   else if (faceName(b.font.family)) w.push(`${faceName(b.font.family)} type`)
@@ -5995,7 +6010,14 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     }
     // n181: a region left with no note at all is said part by part even with 1-2 parts (round 18 e1 collapsed lane
     // '▸ Growth 6 issues · collapsed': unsaid, an invented 'Load more issues' row built in its place)
-    if ((P.length < 3 && !(d && !d.note && P.some((p) => p.t))) || P.length > 100) return
+    // n243: a video-call tile (round 24 e3: gradient tiles with a centred round initials face and a dark name chip at the
+    // bottom-left read as 'white task card' or a gradient block 'JO': faces, chips and fills lost; '+2 more' tile, only
+    // a chip on a grey fill, built as a white card) is said as its own panel and every part in place
+    const R7 = f.rect, tileFill = /gradient/.test(f.bgImage ?? '') || (visible(f.bg) && f.bg.a > 0.9)
+    const faceP = (p) => p.t && p.t.length <= 3 && p.fill?.a > 0.5 && p.w >= 40 && Math.abs(p.w - p.h) <= 2 && p.radius >= p.w / 2 - 1
+    const cornerChip = (p) => p.t && p.fill?.a > 0.2 && p.h <= 32 && p.x - R7.x <= 20 && R7.y + R7.h - (p.y + p.h) <= 20 && p.w < R7.w * 0.7
+    const chipTile = d.kind && !f.regionKids.length && P.length >= 1 && P.length <= 5 && tileFill && R7.w * R7.h >= 20000 && R7.w * R7.h < 0.2 * 1280 * 900 && (P.some(faceP) || P.some(cornerChip)) && !/part by part/.test(d.note ?? '')
+    if ((P.length < 3 && !chipTile && !(d && !d.note && P.some((p) => p.t))) || P.length > 100) return
     const weak = !d.note || /^(picture with|list:|links:|field ")/.test(d.note) || /^[a-z ,-]*text list:/.test(d.note)
     const stripesOnly = /repeating stripes/.test(d.note ?? '') && P.length >= 10
     const frame = !d.kind && f.regionKids.length && P.filter((p) => p.t).length >= 3
@@ -6080,12 +6102,16 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // words, so 'vague' (5+) passed it by and its card's label pill was lost)
     const unsaidDots = d.kind && d.note && !f.regionKids.length && !weak && !vague && P.filter((p) => !p.t && p.fill?.a > 0.5 && p.w * p.h <= 4000).length >= 1 && P.filter((p) => !p.t && (p.fill || p.img)).length >= 2 && P.filter((p) => p.t).length >= 3 && P.filter((p) => p.t).length < 5 &&
       !/#[0-9a-f]{6}|circle|pill|chip|avatar|part by part/i.test(own) && P.filter((p) => !p.t && p.fill?.a > 0.5).every((p) => !own.includes(hexOf(p.fill)))
+    // n243: a short words-only note over a card with 2+ small wordless markers beside filled text fields (round 24 e2
+    // trip box 'white block "Ferry Terminal, Pier 3", text "Elm Green Library"': built with invented Pickup /
+    // Destination labels, the grey field fills, start dot, end square and joining line lost)
+    const markers = d.kind && d.note && !f.regionKids.length && P.length <= 12 && P.filter((p) => !p.t && p.fill?.a > 0.5 && p.w * p.h <= 400).length >= 2 && P.filter((p) => p.t && p.fill?.a > 0.02).length >= 2 && !/\d+px|#[0-9a-f]{6}|part by part/i.test(own)
     // n229: a frosted glass card said by its words only (round 22 c3 hero: headline built 48px on wide lines; stat card's
     // figure centred, target left): said as its glass panel and its parts, each at its size and place
     const glassBare = d.kind && d.note && !f.regionKids.length && /frosted glass/.test(d.note) && !/\d+px|part by part/.test(d.note) && P.filter((p) => p.t).length >= 2 && f.rect.w * f.rect.h >= 36000
     // n198: a ruled grid background with blocks laid over it (round 20 e1 week grid: events and hour labels lost)
     const ruled = /^a ruled grid of thin lines/.test(d.note ?? '') && P.length >= 3
-    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !ruled && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered && !mute && !unsaidDots && !glassBare) return
+    if (!(weak && (d.kind || !f.regionKids.length)) && !stripesOnly && !ruled && !frame && !thin && !bare && !vague && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !cardLoose && !layered && !mute && !unsaidDots && !glassBare && !chipTile && !markers) return
     // n229: a turned panel (round 22 c3 Focus mode chip: rotate(-3deg), said at its turned bounds with no turn, built
     // straight); its parts are said where they sit before the turn, so they turn with it
     const R0 = f.rect, spin = Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.layoutBox?.w && f.el && !f.regionKids.length
@@ -6107,10 +6133,10 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // unsaid, built see-through over the map)
     const shadowCard = visible(f.bg) && f.bg.a > 0.9 && f.shadow && f.shadow !== 'none' && !/inset/.test(f.shadow) && R.w * R.h >= 20000
     // n228: 36000, not 40000 (round 22 e1 engineering review column 296x135: its grey panel lost, the card on the page)
-    const panelPaint = !frame && ((R.w * R.h >= 36000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic || shadowCard)
+    const panelPaint = !frame && (chipTile || (R.w * R.h >= 36000 && ((visible(f.bg) && f.bg.a > 0.9 && dist(f.bg, body.bg) >= 8) || edge)) || topRule || bgPic || shadowCard)
     const glass = (f.backdrop || (visible(f.bg) && f.bg.a > 0.03 && f.bg.a <= 0.9)) && f.bg && f.bg.a > 0.03 && f.bg.a <= 0.9
     const rgbaS = (c) => `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})`
-    const panel = panelPaint && !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`) ? `the region itself is ONE ${spin ? `${f.layoutBox.w}x${f.layoutBox.h}px panel, position absolute with its top-left at ${f.el.x},${f.el.y} page px before its turn, transform: rotate(${f.turn || f.rotate}deg) on this panel (TILTED ${Math.abs(f.turn || f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}, NOT straight; its parts turn WITH it, and the part places below are page px before the turn)` : `${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}`}${glass ? `, FROSTED GLASS (a see-through card, NOT bare, NOT solid): fill ${rgbaS(f.bg)}${f.backdrop ? `, backdrop-filter: blur(${f.backdropPx || 20}px)` : ''}, the colours under it showing through` : visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${f.border.colour.a < 0.95 ? `see-through ${rgbaS(f.border.colour)}` : hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.archTop ? `, border-radius ${Math.round(f.radius)}px ${Math.round(f.radius)}px 0 0 (an ARCH: ROUND TOP, straight sides, SQUARE bottom corners, NOT a pill)` : f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}${f.archTop ? ', overflow hidden (the panes are clipped to the arch)' : ''}${f.shadow && f.shadow !== 'none' && !floating ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })} (it floats over what is under it)` : ''}, with its parts inside it${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? ' (every one-line text part stays on ONE line: white-space nowrap, never wrapping)' : ''}; ` : ''
+    const panel = panelPaint && (chipTile || !(d.note ?? '').includes(`${Math.round(R.w)}x${Math.round(R.h)}`)) ? `the region itself is ONE ${spin ? `${f.layoutBox.w}x${f.layoutBox.h}px panel, position absolute with its top-left at ${f.el.x},${f.el.y} page px before its turn, transform: rotate(${f.turn || f.rotate}deg) on this panel (TILTED ${Math.abs(f.turn || f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}, NOT straight; its parts turn WITH it, and the part places below are page px before the turn)` : `${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)}`}${glass ? `, FROSTED GLASS (a see-through card, NOT bare, NOT solid): fill ${rgbaS(f.bg)}${f.backdrop ? `, backdrop-filter: blur(${f.backdropPx || 20}px)` : ''}, the colours under it showing through` : chipTile && /gradient/.test(f.bgImage ?? '') ? `, background: ${cssHex(f.bgImage)} exactly (a smooth gradient over the whole tile, NOT white, NOT one flat colour), overflow hidden` : visible(f.bg) && f.bg.a > 0.9 ? `, ${hexOf(f.bg)} fill` : ', no fill'}${bgPic ? ` with over it background-image: ${f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })} exactly (hard stops: a thin straight line across the panel)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? (f.border.bottom >= 1 && f.border.left >= 1 ? `, a ${Math.round(f.border.w)}px ${f.border.colour.a < 0.95 ? `see-through ${rgbaS(f.border.colour)}` : hexOf(f.border.colour)} border` : `, a ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} rule along its TOP edge only (no other border)`) : ''}${f.archTop ? `, border-radius ${Math.round(f.radius)}px ${Math.round(f.radius)}px 0 0 (an ARCH: ROUND TOP, straight sides, SQUARE bottom corners, NOT a pill)` : f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}${f.archTop ? ', overflow hidden (the panes are clipped to the arch)' : ''}${f.shadow && f.shadow !== 'none' && !floating ? `, box-shadow: ${f.shadow.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : m })} ${/inset/.test(f.shadow) ? '(an INNER ring just inside its edge, over its own fill)' : '(it floats over what is under it)'}` : ''}, with its parts inside it${P.some((p) => p.t && p.px && p.h < p.px * 2.2 && !(p.px >= 20 && p.nl >= 2)) ? ' (every one-line text part stays on ONE line: white-space nowrap, never wrapping)' : ''}; ` : ''
     // n159: a list with a coloured rule down its left edge only says that rule (round 15 c1 index: orange rule lost)
     const leftRule = !panel && !(f.border?.w >= 1) && f.border?.left >= 1 && visible(f.border.leftColour) && !(d.note ?? '').includes('LEFT edge') ? `the region has a ${Math.round(f.border.left)}px ${hexOf(f.border.leftColour)} rule down its LEFT edge only (border-left, no other border${visible(f.bg) ? '' : ', no fill'}), ${Math.round(R.h)}px tall at x ${Math.round(R.x)} from y ${Math.round(R.y)}, its parts to the right of that rule; ` : ''
     // n164: a wide row ruled above AND below says both rules and their style (round 16 c3 menu row: double rules lost)
@@ -6120,7 +6146,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const terr = f.terrazzo && panel ? `over that fill, edge to edge, a TERRAZZO layer: one absolute div (inset 0, no text) with exactly background-image: ${f.terrazzo.img.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })}; background-size: ${f.terrazzo.size} (it REPEATS: small dots of ${f.terrazzo.n} colours scattered over the ${hexOf(f.bg)} fill, the fill showing between them; NOT big discs, NOT on the page colour); every part below sits over it, ` : ''
     // n222: a row ruled along its bottom only (round 21 e5 tabs said part by part: the 1px rule under the tabs lost)
     const underRule = P.some((p) => p.inset) && R.y > 2 && !panel && !leftRule && !twoRules && !(f.border?.w >= 1) && !(f.border?.left >= 1) && f.border?.bottom >= 1 && visible(f.border.bottomColour) && R.w >= 300 && R.h <= 80 && !(!weak && /bottom (edge|only)/.test(d.note ?? '')) ? `the region is a ${Math.round(R.w)}x${Math.round(R.h)}px row at ${Math.round(R.x)},${Math.round(R.y)} with a ${Math.round(f.border.bottom)}px ${hexOf(f.border.bottomColour)} rule along its BOTTOM edge only, its full width (border-bottom, no other border${visible(f.bg) ? '' : ', no fill'}), its parts inside it; ` : ''
-    const keep = `${panel}${terr}${leftRule}${twoRules}${underRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered && !glassBare ? `${d.note}; ` : ''}`
+    const keep = `${panel}${terr}${leftRule}${twoRules}${underRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered && !glassBare && !chipTile && !markers ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''

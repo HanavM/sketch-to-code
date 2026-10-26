@@ -705,7 +705,7 @@
    ],
    [
     "controls",
-    "a stepper: 6 filled pills in one row, each 48px tall (border-radius 999px), left to right: \"🎤\" #ea4335 fill, #e8eaed text; \"📷\" #3c4043 fill, #e8eaed text; \"✋\" #3c4043 fill, #e8eaed text; \"⬆\" #3c4043 fill, #e8eaed text; \"⋮\" #3c4043 fill, #e8eaed text; \"✆\" #ea4335 fill, #e8eaed text"
+    "a row of 6 round icon buttons and NOTHING behind them (no bar, no panel, no fill, no border: the page colour shows between and around them), the row centred in the 1280px span from x 0 at y 808, the buttons 12px apart, left to right: \"🎤\" 48x48 circle, #ea4335 fill, #e8eaed sign centred; \"📷\" 48x48 circle, #3c4043 fill, #e8eaed sign centred; \"✋\" 48x48 circle, #3c4043 fill, #e8eaed sign centred; \"⬆\" 48x48 circle, #3c4043 fill, #e8eaed sign centred; \"⋮\" 48x48 circle, #3c4043 fill, #e8eaed sign centred; \"✆\" 72x48 pill (72px WIDE, border-radius 24px), #ea4335 fill, #e8eaed sign centred"
    ]
   ]
  },

@@ -133,3 +133,31 @@ Round 24: **87%** over 10 (87.0). Vitest: same 2 env failures; typecheck clean.
 | c4 scrapbook | 83% | **86%** | yellow sticky note, circled "photos", round stamp; note not tilted, stamp words small, ruled-paper lines still lost |
 
 Round 24: **88%** over 10 (87.8). Vitest: same 2 env failures; typecheck clean.
+
+## n243: video call, ride map and scrapbook (2026-10-26, ~290k billed)
+
+- e3 video tiles: a tile with a gradient fill, a centred round initials face and a dark name chip at its bottom-left was
+  read as a "white task card" (the chip as its tag, the face as its title) or as a gradient block "JO": faces lost, two
+  tiles built white, chips at the top. Such a tile (and the "+2 more" tile, only a chip on a grey fill) is now said as its
+  own panel with its exact background CSS, 14px rounding and inner speaker ring, then every part in place: the 96px face
+  circle with its fill and 34px letters, the see-through name chip, the red mute button.
+- e3 call controls: six round icon buttons were said as "a stepper of pills" and built on an invented dark bar across the
+  page with the wide end-call pill squashed round. A row of 1-2 letter filled buttons with even gaps and no paint behind
+  them now says each button's box (54x54 circle, 84x54 pill), the gap, the span it is centred in, and NOTHING behind.
+- e2 trip box: two grey filled fields beside a start dot, a joining line and an end square were said as "white block"
+  plus two words (built with invented Pickup / Destination labels). A short words-only note over 2+ small wordless markers
+  beside filled text fields is now said part by part; a small square marker says SQUARE; a small wordless filled thumb
+  says EMPTY (the ride thumbs were built with invented car icons; toggles and tall bars are left out of that).
+- c4 page: faint blue ruled lines are painted by body::before with a repeating gradient: never seen. A ruled body
+  pseudo-layer is now said in the whole-page note with its exact CSS. The sticky note (lone copy on a filled box) now says
+  its rotate() and untransformed place (it was built level).
+- Re-planned rounds 1-23: EMPTY reaches 43 notes on 17 rounds; r13 e4 call controls, r18 c5 ruled page and tilted lede,
+  r12 e1 square marker, r23 c4 ring tile (now exact conic gradient) change. Not re-run.
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e3 video call | 84% | **100%** | gradient tiles, round faces, name chips, speaker ring, icon row with no bar; first try |
+| e2 ride map | 84% | **93%** | trip box fields, dot, line and square; empty thumbs; start pin lacks its white ring |
+| c4 scrapbook | 86% | **92%** | ruled paper lines, tilted sticky note; stamp words still small |
+
+Round 24: **91%** over 10 (91.1). Vitest: same 2 env failures; typecheck clean.
