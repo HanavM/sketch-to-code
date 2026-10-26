@@ -85,15 +85,15 @@
    ],
    [
     "marquee-1",
-    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 150px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0) giant Helvetica heavy tight-set letters \"NOISE NOISE NOISE NOISE NOISE\""
+    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 150px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0; it turns about its own CENTRE (transform-origin: center, never top left), so its middle stays at 700,225 after the tilt) giant Helvetica heavy tight-set letters \"NOISE NOISE NOISE NOISE NOISE\""
    ],
    [
     "marquee-2",
-    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 330px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0) giant Helvetica heavy tight-set letters hollow outlined near-black \"MORE MORE MORE MORE MORE MORE\"; the word \"MORE MORE MORE MORE\"… is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 3px #111111), same size and weight as the rest"
+    "tilted 8° anticlockwise scrolling marquee bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 330px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0; it turns about its own CENTRE (transform-origin: center, never top left), so its middle stays at 700,405 after the tilt) giant Helvetica heavy tight-set letters hollow outlined near-black \"MORE MORE MORE MORE MORE MORE\"; the word \"MORE MORE MORE MORE\"… is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 3px #111111), same size and weight as the rest"
    ],
    [
     "marquee-3",
-    "tilted 8° anticlockwise scrolling marquee on a SOLID near-black #111111 ribbon (the band itself filled #111111 edge to edge, 170px thick, the words centred in it, its letters yellow #e8ff3a, NOT the band colour) bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 520px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0) giant Helvetica heavy tight-set letters yellow on a near-black (#111111) band (the band itself 1800x170px before the tilt (height: 170px, only 170px thick; the tilt alone makes its outline 419px tall), filled near-black edge to edge) \"THREE DAYS · 40 ACTS · ONE FIELD ·\""
+    "tilted 8° anticlockwise scrolling marquee on a SOLID near-black #111111 ribbon (the band itself filled #111111 edge to edge, 170px thick, the words centred in it, its letters yellow #e8ff3a, NOT the band colour) bleeding off the left and right page edges (one 1800px-wide line, position absolute, left -200px, top 520px BEFORE the tilt, so it starts 200px off the LEFT edge and ends 320px past the right; no letter starts at x 0; it turns about its own CENTRE (transform-origin: center, never top left), so its middle stays at 700,605 after the tilt) giant Helvetica heavy tight-set letters yellow on a near-black (#111111) band (the band itself 1800x170px before the tilt (height: 170px, only 170px thick; the tilt alone makes its outline 419px tall), filled near-black edge to edge) \"THREE DAYS · 40 ACTS · ONE FIELD ·\""
    ],
    [
     "spinning-badge",

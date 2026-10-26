@@ -328,6 +328,14 @@ export function factsInPage() {
         return /(?<!hue-)rotate\(/.test(kf) ? 'spinning' : /translate/.test(kf) ? 'scrolling' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'fading' : 'moving'
       })(),
       vertical: /^vertical/.test(cs.writingMode),
+      // n241: a sign drawn after each item by ::after (round 24 c1 ribbon's red '✺' stars between the words: lost)
+      kidSep: (() => {
+        const ks = [...el.children]; if (ks.length < 3) return null
+        const ps = ks.map((k) => getComputedStyle(k, '::after')), c0 = ps[0].content
+        if (!c0 || c0 === 'none' || !/^".{1,2}"$/u.test(c0) || !ps.every((p) => p.content === c0)) return null
+        const kc = getComputedStyle(ks[0])
+        return { sign: c0.slice(1, -1), ink: rgba(ps[0].color), diff: ps[0].color !== kc.color, ml: Math.round(parseFloat(ps[0].marginLeft) || 0), gap: Math.round(parseFloat(cs.columnGap) || 0), px: Math.round(parseFloat(ps[0].fontSize)) }
+      })(),
       // n133: the vertical words' own extent in the box (round 9 c5 title built short and low)
       vSpan: /^vertical/.test(cs.writingMode) ? (() => { const rg = document.createRange(); rg.selectNodeContents(el); const q = [...rg.getClientRects()].filter((z) => z.width > 1 && z.height > 1); return q.length ? { top: Math.round(Math.min(...q.map((z) => z.top))), bottom: Math.round(Math.max(...q.map((z) => z.bottom))) } : null })() : null,
       // n133: a row with only a rule along its top and two ends spread apart (round 9 c5 byline built as a bordered box)
@@ -940,9 +948,18 @@ export function factsInPage() {
         const steps = kids.filter((k) => t(k))
         if (rules.length < 2 || steps.length < 3 || rules.length + steps.length !== kids.length) return null
         if (!kids.every((k, i) => i === 0 || (!t(k)) !== (!t(kids[i - 1])))) return null
-        const st = steps.map((k) => { const c = getComputedStyle(k); return { t: t(k), ink: rgba(c.color), bold: Number(c.fontWeight) >= 600 } })
+        // n241: each step's own round marker (round 24 e5: green filled check circles and outlined number circles
+        // were said as bare '✓ Cart' / '3 Payment' text and built as plain words)
+        const markOf = (k) => {
+          const m = k.firstElementChild; if (!m || m.children.length) return null
+          const b = m.getBoundingClientRect(), mc = getComputedStyle(m)
+          if (b.width < 12 || b.width > 44 || Math.abs(b.width - b.height) > 2) return null
+          const bw = parseFloat(mc.borderTopWidth) || 0, f = rgba(mc.backgroundColor)
+          return { px: Math.round(b.width), round: parseFloat(mc.borderTopLeftRadius) >= b.width * 0.4, fill: f?.a > 0.05 ? f : null, border: bw >= 1 ? { px: Math.round(bw), c: rgba(mc.borderTopColor) } : null, ink: rgba(mc.color), sign: t(m), sPx: Math.round(parseFloat(mc.fontSize)), sBold: Number(mc.fontWeight) >= 600 }
+        }
+        const st = steps.map((k) => { const c = getComputedStyle(k), mk = markOf(k), label = mk ? t(k).slice(mk.sign.length).trim() : t(k); return { t: t(k), label, mark: mk, px: Math.round(parseFloat(c.fontSize)), gap: mk ? Math.round(parseFloat(c.columnGap) || parseFloat(c.gap) || 0) : 0, ink: rgba(c.color), bold: Number(c.fontWeight) >= 600 } })
         const b0 = rules[0].getBoundingClientRect()
-        return { items: st, line: { w: Math.round(b0.width), h: Math.round(b0.height), fill: rgba(getComputedStyle(rules[0]).backgroundColor) } }
+        return { items: st, marks: st.every((x) => x.mark), rules: rules.map((r) => rgba(getComputedStyle(r).backgroundColor)), line: { w: Math.round(b0.width), h: Math.round(b0.height), m: Math.round(parseFloat(getComputedStyle(rules[0]).marginLeft) || 0), fill: rgba(getComputedStyle(rules[0]).backgroundColor) } }
       })(),
       // a lead item set apart from a uniform row: bold, bigger or another colour (round 5 e5 green bold
       // 'Budget 2027' title said as one more menu link, built black)
@@ -2672,7 +2689,7 @@ export function factsInPage() {
         const t = k.firstElementChild; if (!t || t.children.length !== 1) return null
         const e = t.firstElementChild, b = t.getBoundingClientRect(), eb = e.getBoundingClientRect()
         return !e.children.length && /^\d+$/.test(txt(e)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && eb.width <= 32 && parseFloat(getComputedStyle(e).borderTopLeftRadius) >= eb.width * 0.4 && eb.right >= b.right - 4 && eb.top <= b.top + 4
-          ? { qty: txt(e), px: Math.round(b.width), fill: filled(t), radius: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius)), badge: filled(e) } : null
+          ? { qty: txt(e), px: Math.round(b.width), fill: filled(t), bg: /gradient/.test(getComputedStyle(t).backgroundImage) ? getComputedStyle(t).backgroundImage : null, radius: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius)), badge: filled(e) } : null
       }
       const badges = rep.map(badgeOf)
       if (badges.every(Boolean)) {
@@ -2688,14 +2705,19 @@ export function factsInPage() {
           const ai = amt ? rgba(getComputedStyle(amt).color) : null, ri = rgba(c.color)
           const amtInk = ai && ri && Math.hypot(ai.r - ri.r, ai.g - ri.g, ai.b - ri.b) > 40 ? rgba(getComputedStyle(amt).color) : null
           const note = !field && !k.children.length && filled(k) && txt(k).split(' ').length >= 5 ? { fill: filled(k), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), h: Math.round(k.getBoundingClientRect().height), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)) } : null
-          return { t: txt(k), field: field ? txt(field) : null, fieldLook: fc ? { style: fc.borderTopStyle, bc: rgba(fc.borderTopColor), fill: filled(field), ink: rgba(fc.color), bold: Number(fc.fontWeight) >= 700, h: Math.round(field.getBoundingClientRect().height) } : null, button: button ? { t: txt(button), fill: filled(button), ink: rgba(getComputedStyle(button).color) } : null, ruled: parseFloat(c.borderTopWidth) >= 1, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 700, amtInk, note }
+          // n241: a filled one-line block under the rows is the pay BUTTON (round 24 e5 pale 'Pay $289.44': said as a
+          // grey label/amount row, built as words); a lone centred line is a small caption, not a row
+          const kb = k.getBoundingClientRect()
+          const btn = !field && !note && !k.children.length && filled(k) && kb.height >= 32 && txt(k).split(' ').length <= 4 ? { w: Math.round(kb.width), h: Math.round(kb.height), fill: filled(k), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), mt: Math.round(parseFloat(c.marginTop) || 0) } : null
+          const cap = !field && !note && !btn && !k.children.length && c.textAlign === 'center' ? { px: Math.round(parseFloat(c.fontSize)), ink: rgba(c.color) } : null
+          return { t: txt(k), btn, cap, ink: rgba(c.color), field: field ? txt(field) : null, fieldLook: fc ? { style: fc.borderTopStyle, bc: rgba(fc.borderTopColor), fill: filled(field), ink: rgba(fc.color), bold: Number(fc.fontWeight) >= 700, h: Math.round(field.getBoundingClientRect().height) } : null, button: button ? { t: txt(button), fill: filled(button), ink: rgba(getComputedStyle(button).color) } : null, ruled: parseFloat(c.borderTopWidth) >= 1, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 700, amtInk, note }
         })
         // where the first row starts, and that nothing sits above it (round 6 e4: a heading was invented and rows began at the top)
         const top = Math.round(rep[0].getBoundingClientRect().top - el.getBoundingClientRect().top)
         const above = kids.some((k) => !rep.includes(k) && txt(k) && k.getBoundingClientRect().top < rep[0].getBoundingClientRect().top)
         const headEl = above ? kids.find((k) => !rep.includes(k) && txt(k) && k.getBoundingClientRect().top < rep[0].getBoundingClientRect().top) : null
         const heading = headEl ? { t: txt(headEl), px: Math.round(parseFloat(getComputedStyle(headEl).fontSize)), bold: Number(getComputedStyle(headEl).fontWeight) >= 600, gap: Math.round(rep[0].getBoundingClientRect().top - headEl.getBoundingClientRect().bottom) } : null
-        return { type: 'order', heading, items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, fill: badges[i].fill, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after, top: !above && top >= 60 ? top : null }
+        return { type: 'order', heading, items: rep.map((k, i) => { const ls = lines(k); return { qty: badges[i].qty, fill: badges[i].fill, bg: badges[i].bg, name: ls[0], sub: ls.length >= 3 ? ls.slice(1, -1).join(' ') : null, price: ls.length >= 2 ? ls[ls.length - 1] : null } }), thumb: badges[0], after, top: !above && top >= 60 ? top : null }
       }
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
@@ -3177,7 +3199,7 @@ function effectWords(f) {
   // a small vertical label says its type size: 'vertical' alone was built ~9px on a 15px target (round 6 c2)
   if (f.vertical) w.push(f.font.size <= 24 && f.rect.h >= 120 && !visible(f.bg) ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg (transform: rotate(180deg)) so it reads bottom to top, its first letter at the BOTTOM' : ''}), ${Math.round(f.font.size)}px letters, the line about ${Math.round(f.rect.h)}px long`
     // n133: a giant vertical title says its size, its turn and where its words run (round 9 c5 built short and low)
-    : f.font.size >= 60 && f.vSpan ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg so it reads bottom to top' : ''}), ${Math.round(f.font.size)}px letters on ONE line (white-space: nowrap; one single column, NEVER wrapped onto a second column), its column ${Math.round(f.rect.w)}px wide at x ${Math.round(f.rect.x)}, ${Math.round(f.rect.h)}px tall from top ${Math.round(f.rect.y)}; the letters run from y ${f.vSpan.top} down to y ${f.vSpan.bottom} (${f.vSpan.bottom - f.vSpan.top}px long, no shorter)`
+    : f.font.size > 24 && f.vSpan ? `vertical (writing-mode: vertical-rl${Math.abs(f.rotate) === 180 ? ', turned 180deg so it reads bottom to top' : ''}), ${Math.round(f.font.size)}px letters${f.font.size < 60 && f.colour?.a > 0.5 ? ` in exactly ${hexOf(f.colour)}` : ''} on ONE line (white-space: nowrap; one single column, NEVER wrapped onto a second column), its column ${Math.round(f.rect.w)}px wide at x ${Math.round(f.rect.x)}, ${Math.round(f.rect.h)}px tall from top ${Math.round(f.rect.y)}; the letters run from y ${f.vSpan.top} down to y ${f.vSpan.bottom} (${f.vSpan.bottom - f.vSpan.top}px long, no shorter)`
     : 'vertical')
   // with its angles: a bare 'tilted back' built three cards at one made-up angle (round 6 c1)
   else if (f.tilt3d) w.push(`tilted back in 3D perspective${f.rot3d ? ` (${[f.rot3d.y ? `rotateY(${f.rot3d.y}deg)` : '', f.rot3d.x ? `rotateX(${f.rot3d.x}deg)` : ''].filter(Boolean).join(' ')})` : ''}`)
@@ -3216,7 +3238,7 @@ function effectWords(f) {
   // one edge: say how far past it the block starts ('off the left edge' alone built at x=0, round 2 c2)
   const past = f.bleeds !== 'left and right' && f.bleedPx >= 16 ? ` (${f.bleeds === 'right' ? 'runs' : 'starts'} ${f.bleedPx}px past it)` : ''
   const B0 = f.box0
-  const both = f.bleeds === 'left and right' && B0?.abs && B0.x < -4 && B0.x + B0.w > 1284 ? ` (one ${B0.w}px-wide line, position absolute, left ${B0.x}px, top ${B0.y}px BEFORE the tilt, so it starts ${-B0.x}px off the LEFT edge and ends ${B0.x + B0.w - 1280}px past the right; no letter starts at x 0)` : ''
+  const both = f.bleeds === 'left and right' && B0?.abs && B0.x < -4 && B0.x + B0.w > 1284 ? ` (one ${B0.w}px-wide line, position absolute, left ${B0.x}px, top ${B0.y}px BEFORE the tilt, so it starts ${-B0.x}px off the LEFT edge and ends ${B0.x + B0.w - 1280}px past the right; no letter starts at x 0${turn >= 1.5 && B0.h ? `; it turns about its own CENTRE (transform-origin: center, never top left), so its middle stays at ${Math.round(B0.x + B0.w / 2)},${Math.round(B0.y + B0.h / 2)} after the tilt` : ''})` : ''
   if (f.bleeds) w.push(`bleeding off the ${f.bleeds} page edge${f.bleeds === 'left and right' ? 's' : ''}${past}${both}`)
   return w
 }
@@ -3361,12 +3383,17 @@ function denseNote(d) {
     case 'order': {
       const t = d.thumb
       const fl = (L) => L ? ` (${L.h}px tall, ${L.style === 'solid' ? '' : `${L.style.toUpperCase()} `}1px ${hexOf(L.bc)} border${L.fill ? `, ${hexOf(L.fill)} fill` : ''}, ${L.bold ? 'bold ' : ''}${hexOf(L.ink)} text)` : ''
+      // n241: a row whose whole ink differs from the usual rows (round 24 e5 green 'WELCOME10 −$28.70': built grey)
+      const rws = d.after.filter((x) => !x.field && !x.note && !x.btn && !x.cap && x.px < 20 && x.ink)
+      const rowInk = (x) => x.ink && rws.length >= 3 && !x.btn && !x.cap && x.px < 20 && rws.filter((y) => dist(y.ink, x.ink) <= 20).length * 2 < rws.length
       const aft = d.after.map((x) => x.field ? `a bordered field ${quote(x.field, 24)}${fl(x.fieldLook)}${x.button ? ` with a ${colourName(x.button.fill)} (${hexOf(x.button.fill)}) button ${quote(x.button.t)} right of it` : ''}`
         : x.note ? `a ${hexOf(x.note.fill)} filled box${x.note.rad ? `, ${x.note.rad}px rounded` : ''}, about ${x.note.h}px tall, holding the whole note word for word in ${x.note.px}px ${colourName(x.note.ink)} (NOT a label/amount row): ${quote(x.t, 160)}`
-        : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : 'grey '}row ${quote(x.t, 40)} (label left, amount right${x.amtInk ? `, the amount in ${colourName(x.amtInk)} ${hexOf(x.amtInk)}` : ''})`)
+        : x.btn ? `a full-width ${x.btn.w}x${x.btn.h}px FILLED button (a real element, ${hexOf(x.btn.fill)} fill, ${x.btn.rad}px rounded${x.btn.mt ? `, ${x.btn.mt}px under the row above` : ''}) with ${x.btn.bold ? 'bold ' : ''}${x.btn.px}px ${hexOf(x.btn.ink)} ${quote(x.t, 40)} centred in it (NOT a label/amount row)`
+        : x.cap ? `a small ${x.cap.px}px ${hexOf(x.cap.ink)} line ${quote(x.t, 60)} CENTRED under it (one line, not a label/amount row)`
+        : `${x.ruled ? 'a thin line, then ' : ''}${x.px >= 20 ? `big ${x.bold ? 'bold ' : ''}` : rowInk(x) ? '' : 'grey '}row ${quote(x.t, 40)} (label left, amount right${rowInk(x) ? `, the WHOLE row, label and amount, in ${colourName(x.ink)} ${hexOf(x.ink)}` : ''}${x.amtInk ? `, the amount in ${colourName(x.amtInk)} ${hexOf(x.amtInk)}` : ''})`)
       // n148: pictures of different colours say each one (round 12 e4: green, sand, lilac all built green)
       const mixed = d.items.some((x) => x.fill && t.fill && dist(x.fill, t.fill) > 20)
-      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}${d.heading ? `, headed ${d.heading.px}px ${d.heading.bold ? 'bold ' : ''}${quote(d.heading.t, 32)} at its top (keep it), the first row ${d.heading.gap}px under it` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.fill ? mixed ? 'solid colour (each its own, given per row, plainly darker than the panel) ' : `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}${mixed && x.fill ? `, picture ${hexOf(x.fill)}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
+      return `order summary${d.top ? `, no heading, first row starts ${d.top}px below the panel top` : ''}${d.heading ? `, headed ${d.heading.px}px ${d.heading.bold ? 'bold ' : ''}${quote(d.heading.t, 32)} at its top (keep it), the first row ${d.heading.gap}px under it` : ''}: ${d.items.length} item rows, each a ${t.px}px ${t.bg ? 'gradient (each its own, given per row, copied exactly, NEVER grey) ' : t.fill ? mixed ? 'solid colour (each its own, given per row, plainly darker than the panel) ' : `solid ${colourName(t.fill)} (${hexOf(t.fill)}, plainly darker than the panel) ` : ''}rounded square picture with a small round ${t.badge ? `${colourName(t.badge)} ` : ''}quantity badge (white number) on its top-right corner, then bold name with a small grey line under it, bold price at the right: ${d.items.map((x) => `${quote(x.name, 28)}${x.sub ? ` / ${quote(x.sub, 24)}` : ''} badge ${x.qty}${x.price ? `, ${x.price}` : ''}${x.bg ? `, picture exactly background: ${x.bg.replace(/rgb\((\d+), (\d+), (\d+)\)/g, (_, r, g, b) => hexOf({ r: +r, g: +g, b: +b }))}` : mixed && x.fill ? `, picture ${hexOf(x.fill)}` : ''}`).join('; ')}${aft.length ? `; then ${aft.join('; ')}` : ''}`
     }
     case 'reader': return `opened message${d.tools.length ? `: a row of ${d.toolsBordered ? 'small outlined ' : ''}buttons ${d.tools.map((t) => quote(t)).join(', ')} at the top` : ''}; big bold ${d.titlePx}px title ${quote(d.title, 48)}; a ${d.av.px}px round ${colourName(d.av.fill)} avatar left of ${d.sender.length ? `bold ${quote(d.sender[0], 24)}${d.sender[1] ? ` with grey ${quote(d.sender[1], 32)} under it` : ''}` : 'the sender'}; then ${d.bodyPx}px body text, lines: ${d.body.map((t) => quote(t, 160)).join(' / ')}${d.att ? `; then ${/" and "/.test(d.att) ? 'side by side small bordered rounded attachment chips' : 'a bordered rounded attachment box'} ${quote(d.att, 80)}` : ''}`
     case 'week': return `week grid, 7 day columns under the day heads, thin hour lines ${d.hours[0]} to ${d.hours[1]} down the left${d.hourPx ? `, each hour row exactly ${d.hourPx}px tall` : ''}; event cards placed by day and time${d.edge ? ' (pale fill, darker left edge, bold title then time)' : ''}: ${d.events.map((e) => `${e.edge ? `pale ${colourName(e.edge).replace(/^(dark|deep) /, "")}` : colourName(e.fill)} ${quote(e.text, 40)} on ${e.days}, ${e.from} to ${e.to}`).join('; ')}`
@@ -4138,7 +4165,7 @@ function decideRest(f, page, marked, said) {
   const d = C && d0?.note && !/chip/.test(d0.note) ? { ...d0, note: `${d0.note.replace(new RegExp(`\\s*["“]${C.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["”]\\s*$`), '')}; ${C.round && C.w >= 80 ? `ON THIS disc itself (a child of THIS ${Math.round(w0)}x${Math.round(h0)}px block, NOT of any other block it touches or sits behind) a ROUND LABEL disc ${C.w}px across, ${Math.abs(C.x + C.w / 2 - w0 / 2) <= 4 && Math.abs(C.y + C.h / 2 - h0 / 2) <= 4 ? 'dead CENTRE of this disc (it turns with it), ' : ''}its top-left at ${C.x},${C.y} inside this disc (its centre at page ${Math.round(f.rect.x + C.x + C.w / 2)},${Math.round(f.rect.y + C.y + C.h / 2)}), holding` : 'ON it (inside the block, not under it) '}${C.round && C.w >= 80 ? '' : `a small caption chip at ${C.x},${C.y} in the block:`} ${C.px}px ${C.bold ? 'bold ' : ''}${C.sans ? 'sans-serif ' : ''}${C.mono ? 'monospace ' : ''}${C.spaced ? 'widely spaced ' : ''}${hexOf(C.ink)} ${quote(C.t.replace(/\n/g, ' / '), 40)}${/\n/.test(C.t) ? ` (${C.t.split('\n').length} lines: ${C.t.split('\n').map((l) => quote(l, 20)).join(' over ')}, every line shown: a <br> between the lines, NEVER run together onto one line)` : ''} on a solid ${hexOf(C.fill)} ${C.w}x${C.h}px ${C.round ? 'ROUND label (border-radius 50%: a disc, NOT a square), its text centred' : 'label'}` } : d0
   // n147: its own ink when it is far from the page's (round 12 c4: the page note says white text; the subcopy and the
   // nav's left word are near-black on the yellow panel and were built white), each word's when the row mixes inks
-  if (d?.note && f.text && f.colour?.a > 0.5 && page.colour && !/part by part/.test(d.note)) {
+  if (d?.note && f.text && f.colour?.a > 0.5 && page.colour && !/part by part|each step a MARKER/.test(d.note)) {
     const kinks = (f.kidBoxes ?? []).filter((k) => k.ink?.a > 0.5)
     const mixed = kinks.length >= 2 && kinks.length <= 6 && kinks.every((k) => k.t.length <= 30) && kinks.some((k) => dist(k.ink, kinks[0].ink) > 60)
     if (mixed) d.note += `; each word in its own colour: ${kinks.map((k) => `${quote(k.t, 30)} ${hexOf(k.ink)}`).join(', ')}`
@@ -5150,6 +5177,13 @@ function decideOne(f, page, marked, said) {
     const Sp = f.kidSplit, split = Sp && Sp.right.length <= 3 ? `; ${Sp.left.map((x) => quote(x, 20)).join(', ')} sit together at the left, ${Sp.right.map((x) => quote(x, 24)).join(', ')} pushed to the far right (${Sp.gap}px gap)` : ''
     if (f.kidSteps) {
       const S = f.kidSteps, cur = S.items.findIndex((x) => x.bold)
+      if (S.marks) {
+        // n241: a round marker before each label, said with its exact paint; each joining line its own colour
+        const mk = (m) => `a ${m.px}px ${m.round ? 'circle' : 'square'} (${m.fill ? `${hexOf(m.fill)} fill` : 'no fill'}${m.border ? `, ${m.border.px}px ${hexOf(m.border.c)} border` : ''}) with ${m.sBold ? 'bold ' : ''}${m.sPx}px ${hexOf(m.ink)} ${quote(m.sign)} centred in it`
+        const said = S.items.map((x, i) => `${mk(x.mark)}, then ${x.gap ? `${x.gap}px on ` : ''}${x.px}px ${x.bold ? 'bold ' : ''}${hexOf(x.ink)} ${quote(x.label)}`)
+        const joins = S.rules.map((c, i) => `${quote(S.items[i].label)} to ${quote(S.items[i + 1].label)} ${hexOf(c)}`)
+        return { kind: fill || bordered ? 'box' : 'text', note: `progress steps in one row (vertically centred), each step a MARKER then its label (the marker is a real element, never a bare sign in the text): ${said.join(' — ')}; between each pair a ${S.line.h}px-thin line stretching to fill the gap (flex 1${S.line.m ? `, ${S.line.m}px clear of each step` : ''}), each its own colour: ${joins.join(', ')}` }
+      }
       const said = S.items.map((x, i) => `${quote(x.t)} (${[[x.bold ? 'bold' : null, colourName(x.ink)].filter(Boolean).join(' '), i === cur ? 'current step' : null].filter(Boolean).join(', ')})`)
       return { kind: fill || bordered ? 'box' : 'text', note: `progress steps in one row, each pair joined by a short ${S.line.w}px ${S.line.h}px-thin ${colourName(S.line.fill)} line: ${said.join(' — ')}` }
     }
@@ -5836,6 +5870,16 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const i = same.indexOf(f), d = out.get(f.role)
     const nth = ['first', 'second', 'third', 'fourth'][i] ?? `${i + 1}th`
     d.note = `${d.note}, the ${nth} of ${same.length} separate stacked lines of the same word (it repeats; build each line)`
+    // n241: copies laid over each other on nearly the same spot (round 24 c1 letterpress: red fill, a hollow outline and a
+    // blue multiplied copy; the blue was built UNDER the red, so the purple overprint was lost): say each copy's exact
+    // paint and its paint order, later copies on top
+    const over = same.every((g) => Math.abs(g.rect.x - same[0].rect.x) <= 40 && Math.abs(g.rect.y - same[0].rect.y) <= 40)
+    if (over && same.length >= 2 && same.length <= 4) {
+      const po = [...same].sort((a, b) => regions.indexOf(a) - regions.indexOf(b)), k = po.indexOf(f)
+      d.note = d.note.replace(/, the \w+ of \d+ separate stacked lines of the same word \(it repeats; build each line\)$/, `, one of ${same.length} copies of the same word (build each)`)
+      const ink = f.stroke >= 1 && (!f.colour || f.colour.a <= 0.05) ? `transparent letters with -webkit-text-stroke ${Math.round(f.stroke)}px ${hexOf(f.strokeColour)}` : `color ${hexOf(f.colour)}`
+      d.note += `; these copies lie OVER each other, offset only a few px, each its own absolutely placed element: this one exactly ${ink}${f.blend ? `, mix-blend-mode ${f.blend}` : ''}${f.opacity < 0.98 ? `, opacity ${Math.round(f.opacity * 100) / 100}` : ''}; paint order ${k + 1} of ${po.length} (${k === po.length - 1 ? 'LAST in the page, on TOP of the other copies' : k === 0 ? 'FIRST, under the other copies' : 'over the first copy, under the last'})`
+    }
   }
   // a picture placeholder with another mark drawn on top of it (a dark reel card with a play
   // circle) is a backdrop: drawn as a filled box, since an X'd picture box crosses out what sits
@@ -6346,6 +6390,11 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // as one flat line over the logo; the target stacks three turned words centred down the left edge)
     const vs = (f.parts ?? []).filter((q) => q.t && q.vert)
     if (vs.length && !/vertical|turned|rotate/i.test(d.note)) add.push(`its words are VERTICAL, each its own element (writing-mode: vertical-rl${vs[0].vert === 'up' ? '; transform: rotate(180deg), reading bottom to top' : ', reading top to bottom'}; NOT one horizontal line), each at its own page box: ${vs.map((q) => `${quote(q.t, 30)} ${q.w}x${q.h} at ${q.x},${q.y}`).join(', ')}`)
+    // n241: a sign drawn after each item (round 24 c1 ribbon stars '✺' in red between the words: built without them)
+    const KS = f.kidSep
+    // n241: a round block ringed by inset box-shadows (round 24 c1 seal: paper ring inside the red disc, lost)
+    if (/inset/.test(f.shadow ?? '') && f.shadow.split(/,(?![^(]*\))/).every((x) => /0px 0px 0px [\d.]+px inset/.test(x)) && (d.kind === 'circle' || f.radius >= Math.min(f.rect.w, f.rect.h) / 2 - 2) && !/box-shadow/.test(d.note)) add.push(`its inner ring(s) drawn exactly box-shadow: ${cssHex(f.shadow)} (rings inside the circle's edge, keep them)`)
+    if (KS && f.kidTexts?.length >= 3 && !d.note.includes(KS.sign)) add.push(`the ${f.kidTexts.length} items are separate spans ${KS.gap ? `${KS.gap}px apart` : 'in a row'}${f.font?.size ? `, ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'extra-bold (font-weight 800)' : f.font.weight >= 600 ? 'bold' : ''}${f.font.spacing >= 1 ? `, letter-spacing ${Math.round(f.font.spacing)}px` : ''}` : ''}, and AFTER EACH item a ${KS.diff ? `${colourName(KS.ink)} ${hexOf(KS.ink)} ` : ''}${quote(KS.sign)} sign${KS.ml ? ` ${KS.ml}px after its words (margin-left ${KS.ml}px)` : ''}: ${f.kidTexts.map((t) => `${quote(t, 24)} ${KS.sign}`).join(' ')} (the signs are real characters, never left out)`)
     if (add.length) d.note += `; ${add.join('; ')}`
   })
   // n189: an app pane (a full-width top bar, a sidebar, a list or reading column) whose only paint is one rule on its

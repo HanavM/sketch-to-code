@@ -85,3 +85,29 @@ Round 24: **81%** over 10 (80.6). Vitest: same 2 env failures; typecheck clean.
 | e1 task database | 60% | **78%** | brand row with icon, title and description at size, tabs spaced, rows 37px; sidebar rows tighter than target, status dots lost, avatars gained invented initials |
 
 Round 24: **85%** over 10 (84.7). Vitest: same 2 env failures; typecheck clean.
+
+## n241: checkout flow and letterpress poster (2026-10-26, ~380k billed)
+
+- e5 stepper: each step is a round marker then its label, but the steps rule said "✓ Cart", "3 Payment" as bare words
+  (built as plain text). Each marker is now said with its size and exact paint (filled green circle with a white check,
+  outlined indigo or grey number circles), the label's size and ink, and each joining line its own colour.
+- e5 order summary: thumbnails are gradients (said with no paint, built grey): each now says its exact gradient. The
+  pale filled "Pay $289.44" block was said as a grey label/amount row (lost): a filled one-line block under the rows is a
+  FILLED button with box, paint and centred words; a lone centred line is a small caption; a row whose whole ink differs
+  from the other rows (green WELCOME10) says so.
+- c1 headline: three copies of one word laid over each other were said "first/second/third of 3 stacked lines" by height,
+  so the blue multiplied copy was built UNDER the red (no purple overprint). Copies on nearly the same spot now say their
+  exact paint (colour, text-stroke, blend, opacity) and their paint order, the last on top.
+- c1 ribbon: the red "✺" after each word (an ::after) was never seen: a sign drawn after each item is now said, with
+  its colour, margin, item gap, type size and weight. A tilted band bleeding off both edges says it turns about its own
+  centre (built turned about its top-left, ~70px high). A 25-59px vertical label now says its column, run and exact ink
+  (was only "vertical"). A disc ringed by spread-only inset box-shadows says them verbatim (seal ring lost).
+- Re-planned rounds 1-23: the ribbon-centre line reaches 7 pages (r3, r7, r16, r17, r19, r20); r16 stepper and r20
+  overprint copies change (not re-run).
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c1 letterpress poster | 82% | **89%** | blue overprint on top, red stars in the ribbon, ribbon in place, seal ring, em dash; first two runs 65 and 66 (an invented tagline, ribbon turned about its corner); the kept run hit the time limit after the page was built, so its token count is undercounted; info line still garbled by an old note bug, date wraps |
+| e5 checkout flow | 74% | **89%** | stepper circles, gradient thumbnails, green discount row, pay button; first run 78 (step labels small) |
+
+Round 24: **87%** over 10 (87.0). Vitest: same 2 env failures; typecheck clean.

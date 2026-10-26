@@ -77,11 +77,11 @@
    ],
    [
     "headline",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant heavy uppercase lines set tight (line-height 0.82) blue \"PRINT CLUB NIGHT\", set in exactly 3 lines: \"PRINT\" / \"CLUB\" / \"NIGHT\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 529px wide), 170px type, the text box's top-left at 50,90 (top-[90px]; the first line starts there, not lower), the first of 2 separate stacked lines of the same word (it repeats; build each line)"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant heavy uppercase lines set tight (line-height 0.82) blue \"PRINT CLUB NIGHT\", set in exactly 3 lines: \"PRINT\" / \"CLUB\" / \"NIGHT\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 529px wide), 170px type, the text box's top-left at 50,90 (top-[90px]; the first line starts there, not lower), one of 2 copies of the same word (build each); these copies lie OVER each other, offset only a few px, each its own absolutely placed element: this one exactly color #2f5bff, mix-blend-mode multiply; paint order 1 of 2 (FIRST, under the other copies)"
    ],
    [
     "headline-shadow",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant heavy uppercase lines set tight (line-height 0.82) pink \"PRINT CLUB NIGHT\", set in exactly 3 lines: \"PRINT\" / \"CLUB\" / \"NIGHT\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 529px wide), 170px type, the text box's top-left at 58,97 (top-[97px]; the first line starts there, not lower), the second of 2 separate stacked lines of the same word (it repeats; build each line)"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant heavy uppercase lines set tight (line-height 0.82) pink \"PRINT CLUB NIGHT\", set in exactly 3 lines: \"PRINT\" / \"CLUB\" / \"NIGHT\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 529px wide), 170px type, the text box's top-left at 58,97 (top-[97px]; the first line starts there, not lower), one of 2 copies of the same word (build each); these copies lie OVER each other, offset only a few px, each its own absolutely placed element: this one exactly color #ff48b0, mix-blend-mode multiply; paint order 2 of 2 (LAST in the page, on TOP of the other copies)"
    ],
    [
     "date",

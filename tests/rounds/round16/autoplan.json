@@ -719,7 +719,7 @@
    ],
    [
     "stepper",
-    "progress steps in one row, each pair joined by a short 82px 2px-thin indigo line: \"✓ Cart\" (grey) — \"2 Shipping\" (bold dark navy, current step) — \"3 Payment\" (grey) — \"4 Review\" (grey); each word in its own colour: \"✓ Cart\" #697386, \"2 Shipping\" #1a1f36, \"3 Payment\" #697386, \"4 Review\" #697386"
+    "progress steps in one row (vertically centred), each step a MARKER then its label (the marker is a real element, never a bare sign in the text): a 26px circle (#635bff fill, 2px #635bff border) with 12px #ffffff \"✓\" centred in it, then 8px on 14px #697386 \"Cart\" — a 26px circle (no fill, 2px #635bff border) with bold 12px #635bff \"2\" centred in it, then 8px on 14px bold #1a1f36 \"Shipping\" — a 26px circle (no fill, 2px #c1c9d2 border) with 12px #697386 \"3\" centred in it, then 8px on 14px #697386 \"Payment\" — a 26px circle (no fill, 2px #c1c9d2 border) with 12px #697386 \"4\" centred in it, then 8px on 14px #697386 \"Review\"; between each pair a 2px-thin line stretching to fill the gap (flex 1, 12px clear of each step), each its own colour: \"Cart\" to \"Shipping\" #635bff, \"Shipping\" to \"Payment\" #c1c9d2, \"Payment\" to \"Review\" #c1c9d2"
    ],
    [
     "shipping-form",
