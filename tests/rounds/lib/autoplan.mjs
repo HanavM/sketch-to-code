@@ -70,6 +70,13 @@ export function factsInPage() {
       kidTexts: kids.map((k) => (k.innerText || '').replace(/\s+/g, ' ').trim()).filter(Boolean),
       kidCount: kids.length,
       regionKids,
+      // n234: a bordered field with a small filled button pinned in its corner (round 23 e3 composer: said as bare
+      // placeholder words, box and send button lost)
+      cornerBtn: (() => { if (kids.length !== 1 || !ownText) return null; const k = kids[0], kc = getComputedStyle(k), b = k.getBoundingClientRect(); if ((k.innerText || '').trim() || !(rgba(kc.backgroundColor)?.a > 0.5) || b.width < 16 || b.width > 56 || Math.abs(b.width - b.height) > 6 || kc.position !== 'absolute') return null
+        return { w: Math.round(b.width), h: Math.round(b.height), fill: rgba(kc.backgroundColor), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), right: Math.round(r.right - b.right), bottom: Math.round(r.bottom - b.bottom) } })(),
+      // n234: a line of words with a thin rule drawn by ::before and ::after on each side (round 23 e3 'Today' divider:
+      // said as bare grey words, the rules lost)
+      sideRules: (() => { if (!/flex/.test(cs.display) || kids.length || !ownText || ownText.length > 30) return null; const a = getComputedStyle(el, '::before'), z = getComputedStyle(el, '::after'); if (a.content === 'none' || z.content === 'none') return null; const f = rgba(a.backgroundColor); const h = parseFloat(a.height) || 0; return f?.a > 0.3 && h >= 1 && h <= 3 && a.flexGrow === '1' ? { h: Math.round(h), fill: f, gap: Math.round(parseFloat(cs.columnGap) || 0) } : null })(),
       // n199: the region's own first part, set before its sub-regions (round 20 e1 sidebar '＋ New event' button above the
       // month: said only as its words, built under the calendar list)
       leadKid: (() => { const k0 = kids[0]; if (!k0 || k0.dataset?.r || k0.querySelector('[data-r]') || !regionKids.length) return null; const t = (k0.innerText || '').replace(/\s+/g, ' ').trim(); if (!t || t.length > 30) return null; const c = getComputedStyle(k0), b = k0.getBoundingClientRect(); return { t, x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), fill: rgba(c.backgroundColor), ink: rgba(c.color), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, radius: Math.round(parseFloat(c.borderTopLeftRadius) || 0), shadow: c.boxShadow !== 'none' } })(),
@@ -1076,6 +1083,19 @@ export function factsInPage() {
       })(),
       // n152: a grid of big same-size filled tiles, each a round letter disc in the middle and a name tag in a corner
       // (round 13 e4 video call: the 2x2 tiles said as one filled button and a list, built as one tile and three rows)
+      // n234: a narrow column of like filled tiles with a letter or sign each (round 23 e3 workspace rail: said as a
+      // bar of words, the tiles lost)
+      tileRail: (() => {
+        if (kids.length < 3 || kids.length > 10 || el.querySelector('[data-r]')) return null
+        const pr = el.getBoundingClientRect()
+        if (pr.width > 120 || pr.height < 300) return null
+        const ts = kids.map((k) => ({ k, b: k.getBoundingClientRect(), c: getComputedStyle(k) }))
+        const b0 = ts[0].b
+        if (!ts.every(({ b, k, c }) => b.width >= 24 && b.width <= 64 && Math.abs(b.width - b.height) <= 4 && Math.abs(b.width - b0.width) <= 2 && rgba(c.backgroundColor)?.a > 0.5 && (k.innerText || '').trim().length <= 2)) return null
+        if (!ts.every(({ b }, i) => i === 0 || b.top >= ts[i - 1].b.bottom) || !ts.every(({ k }) => (k.innerText || '').trim())) return null
+        return { x: Math.round(pr.left), y: Math.round(pr.top), w: Math.round(pr.width), h: Math.round(pr.height), fill: rgba(cs.backgroundColor), px: Math.round(b0.width), gap: ts.length >= 2 ? Math.round(ts[1].b.top - ts[0].b.bottom) : 0, top: Math.round(b0.top - pr.top), left: Math.round(b0.left - pr.left),
+          tiles: ts.map(({ k, c }) => ({ t: (k.innerText || '').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600 })) }
+      })(),
       callTiles: (() => {
         if (kids.length < 4 || kids.length > 9 || el.querySelector('[data-r]')) return null
         const pr = el.getBoundingClientRect()
@@ -1288,11 +1308,20 @@ export function factsInPage() {
         const o = el.getBoundingClientRect()
         const cardish = (k) => { const c = getComputedStyle(k), b = k.getBoundingClientRect(); return (rgba(c.backgroundColor)?.a > 0.5 || parseFloat(c.borderTopWidth) >= 1) && b.height >= 60 && (b.width >= o.width * 0.8 || (b.width >= o.width * 0.25 && c.position === 'absolute')) && k.querySelectorAll('*').length >= 6 }
         if (!kids.every(cardish)) return null
-        const leafs = (k) => [...k.querySelectorAll('*')].filter((x) => { const b = x.getBoundingClientRect(); if (b.width < 2) return false; const own = [...x.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); const solid = !x.children.length && (rgba(getComputedStyle(x).backgroundColor)?.a > 0.5 || (/gradient/.test(getComputedStyle(x).backgroundImage) && b.height >= 40)); return own || solid })
+        const leafs = (k) => [...k.querySelectorAll('*')].filter((x) => { const b = x.getBoundingClientRect(); if (b.width < 2) return false; const own = [...x.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()); const solid = !x.children.length && (rgba(getComputedStyle(x).backgroundColor)?.a > 0.5 || (/gradient/.test(getComputedStyle(x).backgroundImage) && b.height >= 40)); // n234: a bordered box holding words (a select field) is a part of its own (round 23 e5: built unbordered)
+          const boxed = x.children.length && !own && parseFloat(getComputedStyle(x).borderTopWidth) >= 1 && parseFloat(getComputedStyle(x).borderLeftWidth) >= 1 && b.width >= 60 && b.height >= 20 && b.height <= 80 && (x.innerText || '').trim()
+          return own || solid || boxed })
+        // n234: what ::before/::after hang on a part: a toggle's knob, a timeline dot and its stem line (round 23 e5: lost)
+        const pseudo = (x, which) => { const pc = getComputedStyle(x, which); if (!pc.content || pc.content === 'none' || pc.position !== 'absolute') return null; const w = parseFloat(pc.width) || 0, h = parseFloat(pc.height) || 0, f = rgba(pc.backgroundColor); if (!(f?.a > 0.5) || w < 1 || h < 1) return null; return { w: Math.round(w), h: Math.round(h), l: Math.round(parseFloat(pc.left) || 0), t: Math.round(parseFloat(pc.top) || 0), fill: f, round: parseFloat(pc.borderTopLeftRadius) >= w / 2 - 1 } }
         const desc = (k) => { const kb = k.getBoundingClientRect()
           const parts = leafs(k).map((x) => { const c = getComputedStyle(x), b = x.getBoundingClientRect(); const own = [...x.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim()).filter(Boolean).join(' / ')
             const bf = getComputedStyle(x, '::before'); const rule = bf.content && bf.content !== 'none' && parseFloat(bf.borderTopWidth) >= 1 ? { px: parseFloat(bf.borderTopWidth), c: rgba(bf.borderTopColor), top: Math.round(parseFloat(bf.top) || 0) } : null
-            return { t: own || null, x: Math.round(b.left - kb.left), y: Math.round(b.top - kb.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), fill: rgba(c.backgroundColor)?.a > 0.5 ? rgba(c.backgroundColor) : null, img: !own && /gradient/.test(c.backgroundImage) ? c.backgroundImage : null, outline: parseFloat(c.borderTopWidth) >= 1 && own ? rgba(c.borderTopColor) : null, round: parseFloat(c.borderTopLeftRadius) >= b.width / 2 - 1, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), rule } })
+            return { t: own || null, x: Math.round(b.left - kb.left), y: Math.round(b.top - kb.top), w: Math.round(b.width), h: Math.round(b.height), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), fill: rgba(c.backgroundColor)?.a > 0.5 ? rgba(c.backgroundColor) : null, img: !own && /gradient/.test(c.backgroundImage) ? c.backgroundImage : null, outline: parseFloat(c.borderTopWidth) >= 1 && own ? rgba(c.borderTopColor) : null, round: parseFloat(c.borderTopLeftRadius) >= b.width / 2 - 1, rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), rule,
+              box: !own && x.children.length && parseFloat(c.borderTopWidth) >= 1 ? { px: Math.round(parseFloat(c.borderTopWidth)), c: rgba(c.borderTopColor) } : null,
+              knob: !own && !x.children.length ? pseudo(x, '::after') : null,
+              ring: c.boxShadow && c.boxShadow !== 'none' && !own ? c.boxShadow : null,
+              pad: own && !(rgba(c.backgroundColor)?.a > 0.5) && !(parseFloat(c.borderTopWidth) >= 1) ? Math.round(parseFloat(c.paddingLeft) || 0) : 0,
+              mark: own ? pseudo(x, '::before') : null, stem: own ? pseudo(x, '::after') : null } })
           const kc = getComputedStyle(k); return { y: Math.round(kb.top), x: Math.round(kb.left), w: Math.round(kb.width), h: Math.round(kb.height), border: parseFloat(kc.borderTopWidth) >= 1 ? { px: parseFloat(kc.borderTopWidth), c: rgba(kc.borderTopColor) } : null, fill: rgba(getComputedStyle(k).backgroundColor), radius: Math.round(parseFloat(getComputedStyle(k).borderTopLeftRadius) || 0), parts } }
         return { cards: kids.map(desc) }
       })(),
@@ -2522,7 +2551,9 @@ export function factsInPage() {
       const swatchOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(), gc = getComputedStyle(d); const r = parseFloat(gc.borderTopLeftRadius) || 0; return filled(d) && b.width >= 6 && b.width <= 12 && Math.abs(b.width - b.height) <= 1 && !(parseFloat(gc.borderTopWidth) >= 1) && b.left < k.getBoundingClientRect().left + 40 ? { c: filled(d), px: Math.round(b.width), round: r >= b.width * 0.4, rad: Math.round(r) } : null }
       const swatches = rep.map(swatchOf)
       // a square picture leading each item (an order line's product thumbnail, round 4 e3: dropped)
-      const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), bg: /gradient/.test(getComputedStyle(d).backgroundImage) ? getComputedStyle(d).backgroundImage : null, px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4, rad: Math.round(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0) } : null }
+      const thumbOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => !txt(g) && !g.children.length); if (!d) return null; const b = d.getBoundingClientRect(); return (filled(d) || /gradient|url/.test(getComputedStyle(d).backgroundImage)) && b.width >= 36 && b.width <= 120 && Math.abs(b.width - b.height) <= b.width * 0.2 && b.left < k.getBoundingClientRect().left + 24 ? { fill: filled(d), bg: /gradient/.test(getComputedStyle(d).backgroundImage) ? getComputedStyle(d).backgroundImage : null, px: Math.round(b.width), round: parseFloat(getComputedStyle(d).borderTopLeftRadius) >= b.width * 0.4, rad: Math.round(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0),
+        // n234: a small presence dot hung on the thumb by ::after (round 23 e3 online dots: lost)
+        dot: (() => { const pc = getComputedStyle(d, '::after'); if (!pc.content || pc.content === 'none') return null; const w = parseFloat(pc.width) || 0, f = rgba(pc.backgroundColor); return f?.a > 0.5 && w >= 6 && w <= 18 ? { px: Math.round(w), fill: f, ring: parseFloat(pc.borderTopWidth) >= 1 ? { px: Math.round(parseFloat(pc.borderTopWidth)), c: rgba(pc.borderTopColor) } : null, br: parseFloat(pc.right) <= 4 && parseFloat(pc.bottom) <= 4 } : null })() } : null }
       // a toggle switch on the right of each row (round 5 e4: on/off states unsaid)
       const switchOf = (k) => { const d = [...k.querySelectorAll('*')].find((g) => { const b = g.getBoundingClientRect(); return !txt(g) && b.width >= 30 && b.width <= 70 && b.height >= 16 && b.height <= 40 && b.width > b.height * 1.3 && parseFloat(getComputedStyle(g).borderTopLeftRadius) >= b.height / 2 - 1 }); return d ? filled(d) : null }
       const switches = rep.map(switchOf)
@@ -2573,7 +2604,7 @@ export function factsInPage() {
       // the highlighted item's coloured left edge (round 6 e3 selected mail row)
       const onEdge = odd.length === 1 && parseFloat(getComputedStyle(odd[0]).borderLeftWidth) >= 3 ? rgba(getComputedStyle(odd[0]).borderLeftColor) : null
       // a filled lead button over the list (round 8 e1 '✎ Compose', lavender, was built white)
-      const headLook = head && filled(head) ? (() => { const c = getComputedStyle(head); return { fill: filled(head), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), radR: Math.round(parseFloat(c.borderTopRightRadius) || 0), w: Math.round(head.getBoundingClientRect().width), h: Math.round(head.getBoundingClientRect().height), bold: Number(c.fontWeight) >= 600 } })() : null
+      const headLook = head && filled(head) ? (() => { const c = getComputedStyle(head); return { fill: filled(head), ink: rgba(c.color), rad: Math.round(parseFloat(c.borderTopLeftRadius) || 0), radR: Math.round(parseFloat(c.borderTopRightRadius) || 0), w: Math.round(head.getBoundingClientRect().width), h: Math.round(head.getBoundingClientRect().height), bold: Number(c.fontWeight) >= 600, border: parseFloat(c.borderTopWidth) >= 1 && parseFloat(c.borderLeftWidth) >= 1 ? { px: Math.round(parseFloat(c.borderTopWidth)), c: rgba(c.borderTopColor) } : null, ink2: rgba(c.color), m: Math.round(parseFloat(c.marginLeft) || 0) } })() : null
       // n207: a list head that is its own strip with a rule under it (round 20 e2 thread panel 'Thread ✕': built as a
       // 48px bar with the ✕ pushed to the far right)
       const headBar = head && !filled(head) ? (() => { const c = getComputedStyle(head), b = head.getBoundingClientRect(); return parseFloat(c.borderBottomWidth) >= 1 && b.height >= 36 && b.height <= 90 ? { w: Math.round(b.width), h: Math.round(b.height), rule: rgba(c.borderBottomColor), px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, padX: Math.round(parseFloat(c.paddingLeft) || 0) } : null })() : null
@@ -3369,8 +3400,15 @@ function denseNote(d) {
         const shape = t.round ? 'round' : t.rad >= 3 ? `${t.rad}px rounded square` : 'square'
         const hb = d.headBar
         const headStrip = d.head && hb ? `a ${hb.w}x${hb.h}px header strip across the panel's top (its own element, a 1px ${hexOf(hb.rule)} rule under it) holding ${hb.px}px ${hb.bold ? 'bold ' : ''}${quote(d.head, 20)} at its left (${hb.padX}px in), vertically centred, ONE text: its last sign sits right after the word, NOT pushed to the far right; then under the strip a ` : ''
-        const item = (p, i) => `${mid(i)}${many ? `${lookSay(d.thumbs[i])} ${mixRound && d.thumbs[i].round ? 'ROUND (a circle)' : shape} thumbnail, ` : ''}${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? d.items.some((q) => q.length >= 2 && q[q.length - 1].length > 16) ? ` bold, then the line ${quote(p[p.length - 1], 90)} under the name (wrapping, NOT at the right)` : `, ${p[p.length - 1]} right` : ''}`
-        return `${headStrip || (d.head ? `${quote(d.head, 20)} ` : '')}list of ${d.items.length} items, each with a ${t.px}px ${!many && t.fill ? `${colourName(t.fill)} ` : ''}${shape} thumbnail left${many ? ' (each its own colour or gradient, painted exactly as said)' : ''}${before.length ? `; first, between the heading and the items, ${before.map(chipSay).join('; ')}` : ''}: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn && !before.includes(x)).map((x) => x.chips ? chipSay(x) : `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
+        // n234: a count pill at the row's right is not the line under the name; a presence dot on the thumb is said
+        // (round 23 e3: '4' and '12' said as the preview lines, previews and green dots lost)
+        const cnt = (i) => d.counts?.[i] && d.items[i][d.items[i].length - 1] === d.counts[i].t ? d.counts[i] : null
+        const dotSay = (i) => { const x = d.thumbs[i].dot; return x ? ` with a ${x.px}px ${hexOf(x.fill)} presence dot${x.ring ? ` (${x.ring.px}px ${hexOf(x.ring.c)} ring)` : ''} on its ${x.br ? 'bottom-right' : 'edge'}` : '' }
+        const item = (p0, i) => { const c = cnt(i), p = c ? p0.slice(0, -1) : p0; return `${item0(p, i).replace(/ thumbnail, /, ` thumbnail${dotSay(i)}, `)}${c ? `, and at the row's far RIGHT a small ${hexOf(c.fill)} count pill (${c.rad}px rounded, bold ${hexOf(c.ink)} ${quote(c.t)})` : ''}` }
+        const hl = d.headLook
+        const searchSay = hl?.border && d.head ? `a ${hl.w}x${hl.h}px search field (${hexOf(hl.fill)} fill, ${hl.border.px}px ${hexOf(hl.border.c)} border, ${hl.rad}px rounded, ${hl.m}px in from the panel's edges) holding grey ${hexOf(hl.ink2)} placeholder ${quote(d.head, 30)}; then ` : ''
+        const item0 = (p, i) => `${mid(i)}${many ? `${lookSay(d.thumbs[i])} ${mixRound && d.thumbs[i].round ? 'ROUND (a circle)' : shape} thumbnail, ` : ''}${quote(p[0], 28)}${p.length >= 2 && p[1] === d.smalls?.[i] ? ` small grey ${quote(p[1], 20)} under it` : ''}${p.length >= 2 && p[p.length - 1] !== d.smalls?.[i] ? d.items.some((q) => q.length >= 2 && q[q.length - 1].length > 16) ? ` bold, then the line ${quote(p[p.length - 1], 90)} under the name (wrapping, NOT at the right)` : `, ${p[p.length - 1]} right` : ''}`
+        return `${headStrip || searchSay || (d.head ? `${quote(d.head, 20)} ` : '')}list of ${d.items.length} items, each with a ${t.px}px ${!many && t.fill ? `${colourName(t.fill)} ` : ''}${shape} thumbnail left${many ? ' (each its own colour or gradient, painted exactly as said)' : ''}${before.length ? `; first, between the heading and the items, ${before.map(chipSay).join('; ')}` : ''}: ${d.items.map(item).join('; ')}; then ${(d.extra ?? []).filter((x) => !x.btn && !before.includes(x)).map((x) => x.chips ? chipSay(x) : `${x.big ? 'big ' : ''}${quote(x.t)}`).join(', ')}${(d.extra ?? []).filter((x) => x.btn).map((x) => `, ${x.fill ? `${colourName(x.fill)} ` : 'outline '}button ${quote(x.t)}`).join('')}`.replace(/; then $/, '')
       }
       // links each with a small grey line under (round 6 e1 mega-menu columns: sublines said for one item only)
       if (d.stacked && d.items.length >= 2 && d.items.length <= 8 && d.items.every((p, i) => p.length === 2 && d.smalls?.[i] === p[1])) {
@@ -3738,6 +3776,13 @@ function decide(f, page, marked, said = new Set()) {
     const row = (r) => r.headRow ? `then a ${r.px}px ${r.bold ? 'bold ' : ''}section heading ${quote(r.t, 30)} at ${r.pad}px (${r.h}px tall${r.mt ? `, ${r.mt}px space above it` : ''}${r.rule ? `, a 1px ${hexOf(r.rule)} rule under it across the panel` : ''}), in its place between the rows` : `${quote(r.t, 40)} at ${r.pad}px${hexOf(r.ink) !== base ? ` in ${hexOf(r.ink)}` : ''}${r.fill ? ` (SELECTED: a full-width ${hexOf(r.fill)} row${r.bold ? ', bold' : ''})` : ''}`
     return { kind: 'box', note: `a FILE TREE panel ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${visible(f.bg) ? `, filled ${hexOf(f.bg)}` : ''}${TR.edge ? `, a ${TR.edge.w}px ${hexOf(TR.edge.c)} rule along its ${TR.edge.side.toUpperCase()} edge only` : ''} (NOT grouped links${TR.rows.some((r) => r.headRow) ? '' : ', no sub-headings'}), ${TR.px}px ${TR.mono ? 'MONOSPACE ' : ''}type: ${TR.head ? `a ${TR.head.px}px ${TR.head.bold ? 'bold ' : ''}${TR.head.sp >= 0.5 ? `letter-spacing ${Math.round(TR.head.sp)}px ` : ''}${quote(TR.head.t, 24)} label at its top, ${TR.head.pad}px in${TR.head.rule ? ` (${TR.head.h}px tall, a 1px ${hexOf(TR.head.rule)} rule under it across the panel)` : ''}, then ` : ''}${TR.rows.filter((r) => !r.headRow).length} rows, one per line, each exactly ${TR.lh}px tall, ${base} text unless said, each row's text indented by its own left padding (px from the panel's left): ${TR.rows.map(row).join('; ')}${TR.rows.some((r) => /\s[A-Z]$/.test(r.t)) ? "; a trailing letter (M, U) stays at the end of its row's text, in the row's colour" : ''}` }
   }
+  // n234: a rail of tiles said tile by tile
+  const TL = f.tileRail
+  if (TL) {
+    const rads = TL.tiles.map((t) => t.rad), base = rads.sort((a, b) => rads.filter((x) => x === b).length - rads.filter((x) => x === a).length)[0], t0 = { rad: base }
+    const one = (t, i) => `tile ${i + 1}: ${hexOf(t.fill)}${t.fill.a < 0.95 ? ` at ${Math.round(t.fill.a * 100)}%` : ''} fill${t.rad !== t0.rad ? `, ${t.rad}px rounded` : ''}, ${t.bold ? 'bold ' : ''}${t.px}px ${hexOf(t.ink)} ${quote(t.t)} centred in it`
+    return { kind: 'box', note: `a ${TL.w}x${TL.h}px rail at ${TL.x},${TL.y}${visible(TL.fill) ? `, ${hexOf(TL.fill)} fill` : ''}, holding a column of ${TL.tiles.length} separate square TILES (NOT bare words, NOT links): each ${TL.px}x${TL.px}px, ${t0.rad}px rounded, filled, ${TL.gap}px apart, the first ${TL.top}px from the top, centred across the rail (${TL.left}px in): ${TL.tiles.map(one).join('; ')}` }
+  }
   // n152: a grid of call tiles said tile by tile (round 13 e4: one filled button and a list were built)
   const VT = f.callTiles
   if (VT) {
@@ -3772,6 +3817,9 @@ function decide(f, page, marked, said = new Set()) {
 }
 // n158: a line of text set inside its own bordered box (round 15 c2 caption: said as 'serif "..."', built borderless)
 function boxedLine(f, d) {
+  // n234: a divider word between two rules; a bordered field with a corner button
+  if (d && f.sideRules && !/rule/.test(d.note ?? '')) d = { ...d, note: `${d.note}; a DAY DIVIDER across its ${Math.round(f.rect.w)}px row at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: the words centred, with a ${f.sideRules.h}px ${hexOf(f.sideRules.fill)} rule filling the space on EACH side of them (${f.sideRules.gap}px gap to the words; flex rules via ::before/::after)` }
+  if (d && f.cornerBtn && !/border|button/.test(d.note ?? '') && f.border.w >= 1 && visible(f.border.colour)) { const B = f.cornerBtn; return { ...d, note: `${d.note}; set INSIDE a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px text field at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${Math.round(f.border.w)}px ${hexOf(f.border.colour)} border on all four sides, ${f.radius ? `${Math.round(f.radius)}px rounded, ` : ''}the placeholder at its top-left${f.ownLook?.pad ? ` (padding ${f.ownLook.pad})` : ''}; a ${B.w}x${B.h}px ${hexOf(B.fill)} filled send button (${B.rad}px rounded, no words) pinned ${B.right}px from its right and ${B.bottom}px from its bottom` } }
   if (!d || !/^(heading|text)$/.test(d.kind ?? '') || /border|outline|boxed|box around|band|block filled/i.test(d.note ?? '')) return d
   const B = f.border
   if (!(B.w >= 1 && B.bottom >= 1 && B.left >= 1 && visible(B.colour)) || f.text.length < 12 || f.rect.w < 120 || f.kidCount > 1) return d
@@ -4208,15 +4256,20 @@ function decideOne(f, page, marked, said) {
   // n131: result cards part by part (flight rows)
   if (f.resultCards) {
     const R = f.resultCards, c0 = R.cards[0]
-    const part = (p) => p.t ? `${p.bold ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 20)}${p.fill ? ` on a ${hexOf(p.fill)} ${p.rad}px-rounded ${p.w}x${p.h}px fill` : p.outline ? ` in a ${p.w}x${p.h}px ${p.rad}px-rounded box with a 1px ${hexOf(p.outline)} border` : ''} at ${p.x},${p.y}${p.rule ? ` (the route line: a ${p.rule.px}px ${hexOf(p.rule.c)} line ${p.w}px wide at y ${p.y + p.rule.top}, ${/ \/ /.test(p.t) ? `${quote(p.t.split(' / ')[0], 12)} centred just above it and ${quote(p.t.split(' / ').slice(1).join(' '), 14)} centred just below it` : 'the text centred over it'})` : ''}`
+    // n234: a bordered field box, a toggle's knob, a timeline dot and stem, a ringed swatch, words set in by padding
+    const mk = (p) => `${p.mark ? `, with a ${p.mark.w}px ${p.mark.round ? 'round ' : ''}${hexOf(p.mark.fill)} dot before it at ${p.x + p.mark.l},${p.y + p.mark.t}` : ''}${p.mark && p.stem ? ` and a ${p.stem.w}x${p.stem.h}px ${hexOf(p.stem.fill)} line under the dot at ${p.x + p.stem.l},${p.y + p.stem.t} (a timeline stem)` : ''}`
+    const part = (p) => p.box ? `a ${p.w}x${p.h}px field box at ${p.x},${p.y}: ${p.box.px}px ${hexOf(p.box.c)} border on all four sides, ${p.rad}px rounded, ${p.fill ? `${hexOf(p.fill)} fill` : 'no fill'} (its words below sit inside it)`
+      : p.t ? `${p.bold ? 'bold ' : ''}${p.px}px ${hexOf(p.ink)} ${quote(p.t, 20)}${p.fill ? ` on a ${hexOf(p.fill)} ${p.rad}px-rounded ${p.w}x${p.h}px fill` : p.outline ? ` in a ${p.w}x${p.h}px ${p.rad}px-rounded box with a 1px ${hexOf(p.outline)} border` : ''} at ${p.x + (p.pad >= 6 ? p.pad : 0)},${p.y}${mk(p)}${p.rule ? ` (the route line: a ${p.rule.px}px ${hexOf(p.rule.c)} line ${p.w}px wide at y ${p.y + p.rule.top}, ${/ \/ /.test(p.t) ? `${quote(p.t.split(' / ')[0], 12)} centred just above it and ${quote(p.t.split(' / ').slice(1).join(' '), 14)} centred just below it` : 'the text centred over it'})` : ''}`
       // n161: a gradient photo stand-in inside a card (round 15 e3 hotel photos: lost)
       : p.img ? `a ${p.w}x${p.h}px photo area${p.rad ? ` (${p.rad}px rounded)` : ''} painted ${p.img.replace(/rgba?\([^)]+\)/g, (m) => hexOf(parse(m)))} (plain CSS, no picture, no X) at ${p.x},${p.y}`
-      : `a ${p.w}x${p.h}px ${p.round ? 'round dot' : `${p.rad}px-rounded solid square`} ${hexOf(p.fill)} at ${p.x},${p.y}`
+      : `a ${p.w}x${p.h}px ${p.round ? 'round dot' : p.knob ? `${p.rad}px-rounded toggle track` : `${p.rad}px-rounded solid square`} ${hexOf(p.fill)} at ${p.x},${p.y}${p.knob ? ` with a ${p.knob.w}px ${p.knob.round ? 'round ' : ''}${hexOf(p.knob.fill)} knob inside it at its ${p.knob.l + p.knob.w / 2 > p.w / 2 ? 'RIGHT (on)' : 'LEFT (off)'} end, ${p.knob.l}px in, ${p.knob.t}px down` : ''}${p.ring ? `, ringed (box-shadow: ${cssHex(p.ring)}: the selected one)` : ''}`
     const cards = R.cards.map((c, i) => `card ${i + 1} at page y ${c.y}: ${c.parts.map(part).join('; ')}`).join('. ')
     const side = R.cards.length >= 2 && Math.abs(R.cards[1].y - R.cards[0].y) <= 4
     const look = (c) => `${c.fill?.a > 0.05 ? hexOf(c.fill) : 'no fill'}${c.border ? `, ${c.border.px}px ${hexOf(c.border.c)} border` : ''}`
-    const cards2 = R.cards.map((c, i) => `card ${i + 1} at page ${side ? `x ${c.x}` : `y ${c.y}`}${look(c) !== look(c0) ? ` (${look(c)}, unlike the others)` : ''}: ${c.parts.map(part).join('; ')}`).join('. ')
-    return { kind: 'box', note: `${R.cards.length} separate ${side ? 'cards side by side' : 'result cards stacked down the column'}, each ${c0.w}x${c0.h}px, ${look(c0)}, ${c0.radius}px rounded, ${R.cards.length >= 2 ? `${side ? R.cards[1].x - R.cards[0].x - c0.w : R.cards[1].y - R.cards[0].y - c0.h}px apart` : ''} (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): ${cards2}` }
+    // n234: cards of different heights each say their own (round 23 e5 settings: all said 270px tall, activity cut off)
+    const sameH = R.cards.every((c) => Math.abs(c.h - c0.h) <= 4)
+    const cards2 = R.cards.map((c, i) => `card ${i + 1} at page ${side ? `x ${c.x}` : `y ${c.y}`}${sameH ? '' : `, ${c.w}x${c.h}px`}${look(c) !== look(c0) ? ` (${look(c)}, unlike the others)` : ''}: ${c.parts.map(part).join('; ')}`).join('. ')
+    return { kind: 'box', note: `${R.cards.length} separate ${side ? 'cards side by side' : 'result cards stacked down the column'}, ${sameH ? `each ${c0.w}x${c0.h}px` : `each ${c0.w}px wide, heights as said per card`}, ${look(c0)}, ${c0.radius}px rounded, ${R.cards.length >= 2 ? `${side ? R.cards[1].x - R.cards[0].x - c0.w : R.cards[1].y - R.cards[0].y - c0.h}px apart` : ''} (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): ${cards2}` }
   }
   if (f.meters) {
     const M = f.meters

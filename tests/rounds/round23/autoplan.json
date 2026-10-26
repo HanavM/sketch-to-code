@@ -779,11 +779,11 @@
   "notes": [
    [
     "workspace-rail",
-    "deep indigo bar \"A D M +\"; each word in its own colour: \"A\" #1e1b4b, \"D\" #ffffff, \"M\" #ffffff, \"+\" #ffffff"
+    "a 72x900px rail at 0,0, #1e1b4b fill, holding a column of 4 separate square TILES (NOT bare words, NOT links): each 44x44px, 14px rounded, filled, 12px apart, the first 16px from the top, centred across the rail (14px in): tile 1: #ffffff fill, 12px rounded, bold 16px #1e1b4b \"A\" centred in it; tile 2: #312e81 fill, bold 16px #ffffff \"D\" centred in it; tile 3: #312e81 fill, bold 16px #ffffff \"M\" centred in it; tile 4: #312e81 fill, bold 16px #ffffff \"+\" centred in it"
    ],
    [
     "conversation-list",
-    "pale grey card \"Search messages\" list of 6 items, each with a 40px round thumbnail left (each its own colour or gradient, painted exactly as said): #f59e0b round thumbnail, \"# launch-week\" bold, then the line \"4\" under the name (wrapping, NOT at the right); #10b981 round thumbnail, \"Diego Ramos\" bold, then the line \"Can you check the build?\" under the name (wrapping, NOT at the right); #ec4899 round thumbnail, \"# design-crit\" bold, then the line \"12\" under the name (wrapping, NOT at the right); #6366f1 round thumbnail, \"Sam Okafor\" bold, then the line \"thanks! 🙏\" under the name (wrapping, NOT at the right); #0ea5e9 round thumbnail, \"# infra-alerts\" bold, then the line \"bot: p95 back under 200ms\" under the name (wrapping, NOT at the right); #84cc16 round thumbnail, \"Mei Lin\" bold, then the line \"See you at 3\" under the name (wrapping, NOT at the right)"
+    "pale grey card; a 267x36px search field (#ffffff fill, 1px #e5e7eb border, 8px rounded, 16px in from the panel's edges) holding grey #9ca3af placeholder \"Search messages\"; then list of 6 items, each with a 40px round thumbnail left (each its own colour or gradient, painted exactly as said): #f59e0b round thumbnail with a 12px #22c55e presence dot (2px #f9fafb ring) on its bottom-right, \"# launch-week\" bold, then the line \"Priya: final copy is in the doc\" under the name (wrapping, NOT at the right), and at the row's far RIGHT a small #4f46e5 count pill (10px rounded, bold #ffffff \"4\"); #10b981 round thumbnail with a 12px #22c55e presence dot (2px #f9fafb ring) on its bottom-right, \"Diego Ramos\" bold, then the line \"Can you check the build?\" under the name (wrapping, NOT at the right); #ec4899 round thumbnail, \"# design-crit\" bold, then the line \"Lena shared 3 files\" under the name (wrapping, NOT at the right), and at the row's far RIGHT a small #4f46e5 count pill (10px rounded, bold #ffffff \"12\"); #6366f1 round thumbnail, \"Sam Okafor\" bold, then the line \"thanks! 🙏\" under the name (wrapping, NOT at the right); #0ea5e9 round thumbnail with a 12px #22c55e presence dot (2px #f9fafb ring) on its bottom-right, \"# infra-alerts\" bold, then the line \"bot: p95 back under 200ms\" under the name (wrapping, NOT at the right); #84cc16 round thumbnail, \"Mei Lin\" bold, then the line \"See you at 3\" under the name (wrapping, NOT at the right)"
    ],
    [
     "channel",
@@ -795,7 +795,7 @@
    ],
    [
     "day-divider",
-    "grey text \"Today\"; its text #9ca3af (grey, NOT the page's dark navy text)"
+    "grey text \"Today\"; its text #9ca3af (grey, NOT the page's dark navy text); a DAY DIVIDER across its 560px row at 372,250: the words centred, with a 1px #e5e7eb rule filling the space on EACH side of them (10px gap to the words; flex rules via ::before/::after)"
    ],
    [
     "message-2",
@@ -815,7 +815,7 @@
    ],
    [
     "composer",
-    "\"Message #launch-week\"; its text #9ca3af (grey, NOT the page's dark navy text)"
+    "\"Message #launch-week\"; its text #9ca3af (grey, NOT the page's dark navy text); set INSIDE a 520x80px text field at 392,800: 1px #d1d5db border on all four sides, 12px rounded, the placeholder at its top-left (padding 12px 14px); a 34x34px #4f46e5 filled send button (8px rounded, no words) pinned 11px from its right and 11px from its bottom"
    ],
    [
     "thread-panel",
@@ -959,7 +959,7 @@
    ],
    [
     "settings-panel",
-    "3 separate result cards stacked down the column, each 340x270px, #ffffff, 1px #e5e7eb border, 12px rounded, 16px apart (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): card 1 at page y 84: bold 14px #1f2937 \"Payment\" at 19,19; 13px #1f2937 \"Bank transfer (SEPA)\" at 32,59; 13px #1f2937 \"▾\" at 301,59; 13px #1f2937 \"EUR · Euro\" at 32,107; 13px #1f2937 \"▾\" at 301,107; 13px #1f2937 \"Accept card payments\" at 19,154; a 36x20px 10px-rounded solid square #2563eb at 285,151; 13px #1f2937 \"Late fee reminders\" at 19,190; a 36x20px 10px-rounded solid square #d1d5db at 285,187; 13px #1f2937 \"Attach timesheet\" at 19,226; a 36x20px 10px-rounded solid square #2563eb at 285,223. card 2 at page y 370: bold 14px #1f2937 \"Accent colour\" at 19,19; a 28x28px round dot #2563eb at 19,47; a 28x28px round dot #7c3aed at 55,47; a 28x28px round dot #db2777 at 91,47; a 28x28px round dot #059669 at 127,47; a 28x28px round dot #111827 at 163,47. card 3 at page y 480: bold 14px #1f2937 \"Activity\" at 19,19; 13px #1f2937 \"Draft saved\" at 19,47; 11px #9ca3af \"Today, 14:12 · you\" at 41,67; 13px #1f2937 \"Line item edited\" at 19,93; 11px #9ca3af \"Today, 14:09 · you\" at 41,112; 13px #1f2937 \"Created from quote\"… at 19,138; 11px #9ca3af \"Yesterday, 17:40\" at 41,158"
+    "3 separate result cards stacked down the column, each 340px wide, heights as said per card, #ffffff, 1px #e5e7eb border, 12px rounded, 16px apart (cards, NOT text lines; parts at card px, a negative y sits over the card's top edge): card 1 at page y 84, 340x270px: bold 14px #1f2937 \"Payment\" at 19,19; a 302x38px field box at 19,47: 1px #d1d5db border on all four sides, 8px rounded, no fill (its words below sit inside it); 13px #1f2937 \"Bank transfer (SEPA)\" at 32,59; 13px #1f2937 \"▾\" at 301,59; a 302x38px field box at 19,95: 1px #d1d5db border on all four sides, 8px rounded, no fill (its words below sit inside it); 13px #1f2937 \"EUR · Euro\" at 32,107; 13px #1f2937 \"▾\" at 301,107; 13px #1f2937 \"Accept card payments\" at 19,154; a 36x20px 10px-rounded toggle track #2563eb at 285,151 with a 16px round #ffffff knob inside it at its RIGHT (on) end, 18px in, 2px down; 13px #1f2937 \"Late fee reminders\" at 19,190; a 36x20px 10px-rounded toggle track #d1d5db at 285,187 with a 16px round #ffffff knob inside it at its LEFT (off) end, 2px in, 2px down; 13px #1f2937 \"Attach timesheet\" at 19,226; a 36x20px 10px-rounded toggle track #2563eb at 285,223 with a 16px round #ffffff knob inside it at its RIGHT (on) end, 18px in, 2px down. card 2 at page y 370, 340x94px: bold 14px #1f2937 \"Accent colour\" at 19,19; a 28x28px round dot #2563eb at 19,47, ringed (box-shadow: #ffffff 0px 0px 0px 2px, #2563eb 0px 0px 0px 4px: the selected one); a 28x28px round dot #7c3aed at 55,47; a 28x28px round dot #db2777 at 91,47; a 28x28px round dot #059669 at 127,47; a 28x28px round dot #111827 at 163,47. card 3 at page y 480, 340x203px: bold 14px #1f2937 \"Activity\" at 19,19; 13px #1f2937 \"Draft saved\" at 41,47, with a 10px round #2563eb dot before it at 23,51 and a 2x28px #e5e7eb line under the dot at 27,63 (a timeline stem); 11px #9ca3af \"Today, 14:12 · you\" at 41,67; 13px #1f2937 \"Line item edited\" at 41,93, with a 10px round #f59e0b dot before it at 23,97 and a 2x28px #e5e7eb line under the dot at 27,109 (a timeline stem); 11px #9ca3af \"Today, 14:09 · you\" at 41,112; 13px #1f2937 \"Created from quote\"… at 41,138, with a 10px round #16a34a dot before it at 23,142 and a 2x28px #e5e7eb line under the dot at 27,154 (a timeline stem); 11px #9ca3af \"Yesterday, 17:40\" at 41,158"
    ]
   ]
  }

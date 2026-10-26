@@ -555,7 +555,7 @@
   "notes": [
    [
     "workspace-rail",
-    "dark plum bar \"A\", lines a #5d2c5e filled 38x38px button (9px rounded), bold #ffffff text \"B\", a #5d2c5e filled 38x38px button (9px rounded), bold #ffffff text \"+\", all at the top of the panel, empty below; each word in its own colour: \"A\" #3f0e40, \"B\" #ffffff, \"+\" #ffffff; this panel is FLAT: #3f0e40 fill from the very top to the very bottom of the page at the left edge, 68px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)"
+    "a 68x900px rail at 0,0, #3f0e40 fill, holding a column of 3 separate square TILES (NOT bare words, NOT links): each 38x38px, 9px rounded, filled, 12px apart, the first 14px from the top, centred across the rail (15px in): tile 1: #ffffff fill, bold 14px #3f0e40 \"A\" centred in it; tile 2: #5d2c5e fill, bold 14px #ffffff \"B\" centred in it; tile 3: #5d2c5e fill, bold 14px #ffffff \"+\" centred in it"
    ],
    [
     "sidebar",

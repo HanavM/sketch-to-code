@@ -60,3 +60,24 @@ empty chart); c5 a rounded bezel with ring box-shadows and an inset glow, repeat
   timeframes and price axis missed as regions, order book depth bars and the positions tabs lost.
 - Re-planned rounds 1-22: only r11 e1 explorer changes (the M/U tail dropped, it had no such row).
 - Round 23: **85%** over 10 (84.6). Vitest same 2 env failures (1459); typecheck clean.
+
+## n234: chat rail, list badges, composer; invoice settings cards (2026-10-26, ~194k billed)
+
+- e3 chat threads **74 → 87%** (colour 99, structure 96, layout 77; regions 10/11, message-2 missed). Planner:
+  - a narrow column of like filled square tiles, each with a letter or sign, is now a RAIL OF TILES said tile by tile
+    (fill, ink, rounding, gap, first-tile inset); it was a "bar of words" and the tiles were lost. Only rails whose
+    tiles all hold text (icon-only rails keep the old "small rounded squares" wording).
+  - a thumbnail list row with a filled count pill at its right no longer reads the count as the line under the name
+    (previews "Priya: final copy..." were lost, "4" and "12" set as sublines); the pill is said at the far right and a
+    ::after presence dot on a thumb is said with its ring.
+  - a bordered list head is a search field (size, fill, border, rounding, inset) with its placeholder.
+  - a bordered text field with one small filled corner child says its box and the send button's place; a flex line with
+    ::before/::after rules says them as a day divider. Composer and send button built; the invented extra message gone.
+- e5 invoice editor **74 → 83%** (colour 99, structure 90, layout 92; regions 4/4). Result cards:
+  - cards of different heights each say their own (all were said 270px, activity card cut off);
+  - a bordered box holding words is a field-box part (selects built bordered);
+  - a toggle track says its ::after knob and which end it sits at; a ringed swatch says its box-shadow;
+  - a text part with a ::before dot and ::after stem says both (timeline dots built) and its text x after padding.
+  - Still off: the top bar's Preview and Download PDF built as bare words (unbordered), Draft pill fill lost.
+- Re-planned rounds 1-22: only r9 e3 composer and r12 e3 rail change.
+- Round 23: **87%** over 10 (86.8). Vitest same 2 env failures (1459); typecheck clean.
