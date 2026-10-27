@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-27T16:52Z | n268 round 30 written and built live untuned (ten harder pages) | Six built pages 79%; c3, e2, e4 blank from mid-build page reload, bench now waits. ~0.73M.
 2026-10-27T14:40Z | n267 r29 clouds over gradient, no invented frame, comment card, sheet tab box; c2 numerals re-run | Brutal grid 85 to 98, spreadsheet 83 to 89, iso city 89 to 90. Round 29 93. ~266k.
 2026-10-27T13:35Z | n266 r29 spreadsheet column widths; brutal grid barcode box, lime heading, bold list | Spreadsheet 70 to 83, brutal grid 81 to 85. Round 29 91. ~173k.
 2026-10-27T12:19Z | n265 r29 riso discs, ruled band, lineup, ticket notches; deco arch, sunburst, fan, cards; order form | Riso festival 73 to 92, deco cinema 90 to 96, trading 93. Round 29 90. ~424k.
