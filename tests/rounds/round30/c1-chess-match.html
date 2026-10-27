@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Chess match</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#141414;font-family:Helvetica,Arial,sans-serif;color:#f1ede4}
+.sky{position:absolute;inset:0;background:radial-gradient(ellipse 900px 420px at 50% 40%,#3b2f24,#141414 70%)}
+.board{position:absolute;left:190px;top:430px;width:900px;height:900px;background:repeating-conic-gradient(#e9dfc9 0 25%,#2a2522 0 50%) 0 0/112.5px 112.5px;transform:perspective(700px) rotateX(62deg);transform-origin:50% 0;box-shadow:0 0 0 10px #6b4a2b}
+.knight{position:absolute;left:470px;top:150px;font:400 360px/1 'Segoe UI Symbol','DejaVu Sans',serif;color:#f1ede4;text-shadow:18px 22px 0 #0008}
+.vs{position:absolute;left:56px;top:120px;width:360px;font:900 120px/0.86 Helvetica;letter-spacing:-6px;text-transform:uppercase}.vs span{display:block;color:transparent;-webkit-text-stroke:2px #e0a43a}
+.right{position:absolute;right:56px;top:140px;width:300px;text-align:right;font:900 120px/0.86 Helvetica;letter-spacing:-6px}
+.date{position:absolute;left:56px;top:520px;writing-mode:vertical-rl;transform:rotate(180deg);font:700 14px Helvetica;letter-spacing:10px;color:#e0a43a}
+.clock{position:absolute;left:1000px;top:470px;width:220px;height:110px;background:#e0a43a;border-radius:14px;color:#141414;display:flex;align-items:center;justify-content:space-around;font:700 34px 'Courier New',monospace;box-shadow:0 12px 0 #7a5418}
+.clock i{width:2px;height:70px;background:#141414}
+.nav{position:absolute;left:56px;top:36px;right:56px;display:flex;gap:36px;font:700 13px Helvetica;letter-spacing:4px}.nav b{margin-right:auto;font-size:16px}
+.cta{position:absolute;left:56px;top:780px;padding:18px 34px;border:2px solid #f1ede4;border-radius:40px;font:700 16px Helvetica;letter-spacing:3px;background:#141414cc}
+</style></head><body>
+<div class="sky" data-r="backdrop"></div>
+<div class="board" data-r="perspective-board" data-must></div>
+<div class="nav" data-r="nav"><b>GAMBIT/26</b><span>PLAYERS</span><span>TICKETS</span><span>STREAM</span></div>
+<h1 class="vs" data-r="left-name" data-must>ORLOV<span>VS</span></h1>
+<h2 class="right" data-r="right-name" data-must>KANE</h2>
+<div class="knight" data-r="knight" data-must>♞</div>
+<div class="date" data-r="side-date">12—14 NOV · OSLO</div>
+<div class="clock" data-r="chess-clock" data-must><span>14:52</span><i></i><span>09:07</span></div>
+<div class="cta" data-r="ticket-button">WATCH LIVE →</div>
+</body></html>

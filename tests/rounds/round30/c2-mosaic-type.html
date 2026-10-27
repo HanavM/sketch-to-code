@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mosaic type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fbf6ee;font-family:Helvetica,Arial,sans-serif;color:#1d1a2f}
+.dots{position:absolute;right:0;top:0;width:520px;height:900px;background:radial-gradient(#1d1a2f 2px,#0000 2.5px) 0 0/22px 22px;-webkit-mask:linear-gradient(90deg,#0000,#000);mask:linear-gradient(90deg,#0000,#000)}
+.tiles{position:absolute;left:70px;top:150px;width:760px;display:grid;grid-template-columns:repeat(4,180px);gap:12px}
+.tiles div{height:180px;display:flex;align-items:center;justify-content:center;font:900 150px/1 Helvetica;border-radius:18px}
+.t1{background:#ff5a36;color:#fbf6ee;transform:rotate(-6deg)}.t2{background:#1d1a2f;color:#ffd23f;border-radius:50%!important}.t3{background:#ffd23f;color:#1d1a2f;transform:rotate(8deg) translateY(20px)}.t4{background:#3a86ff;color:#fbf6ee;clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+.t5{background:#fbf6ee;color:#ff5a36;border:6px solid #1d1a2f}.t6{background:#8338ec;color:#fbf6ee;transform:rotate(-10deg)}.t7{background:#1d1a2f;color:#fbf6ee;border-radius:90px 18px 90px 18px!important}.t8{background:#ff5a36;color:#1d1a2f;transform:translateY(-16px)}
+.blurb{position:absolute;left:880px;top:180px;width:330px;font:400 19px/1.55 Georgia,serif}
+.blurb b{display:block;font:700 13px Helvetica;letter-spacing:4px;margin-bottom:16px;color:#ff5a36}
+.sq{position:absolute;left:880px;top:440px;width:300px;height:300px;border:3px solid #1d1a2f;border-radius:50%}
+.sq::after{content:"";position:absolute;left:60px;top:60px;width:174px;height:174px;background:#ffd23f;transform:rotate(45deg)}
+.btn{position:absolute;left:70px;top:770px;padding:18px 30px;background:#1d1a2f;color:#fbf6ee;font:700 16px Helvetica;border-radius:12px;box-shadow:6px 6px 0 #ff5a36}
+.nav{position:absolute;left:70px;top:44px;right:70px;display:flex;gap:30px;font:700 15px Helvetica}.nav b{margin-right:auto;font-size:20px}
+</style></head><body>
+<div class="dots" data-r="dot-fade"></div>
+<div class="nav" data-r="nav"><b>tile.type</b><span>Fonts</span><span>Play</span><span>Shop</span></div>
+<div class="tiles" data-r="letter-tiles" data-must><div class="t1">P</div><div class="t2">L</div><div class="t3">A</div><div class="t4">Y</div><div class="t5">F</div><div class="t6">U</div><div class="t7">L</div><div class="t8">!</div></div>
+<p class="blurb" data-r="blurb" data-must><b>VARIABLE MOSAIC</b>A display family built from tiles. Every letter is a shape, every shape is a letter. Mix them, turn them, break the grid.</p>
+<div class="sq" data-r="circle-diamond"></div>
+<div class="btn" data-r="try-button" data-must>Try the playground</div>
+</body></html>

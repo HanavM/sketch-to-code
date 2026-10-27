@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Inventory</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4f5f7;font-family:Inter,Helvetica,Arial,sans-serif;color:#1d2433;font-size:13px}
+.side{position:absolute;left:0;top:0;width:220px;height:900px;background:#fff;border-right:1px solid #e2e5ea;padding:20px 14px}.side b{display:block;font-size:17px;margin:0 8px 24px}.side div{padding:9px 10px;border-radius:7px;margin-bottom:4px;color:#4b5468}.side .on{background:#eef2ff;color:#3b4fd8;font-weight:600}
+.main{position:absolute;left:220px;top:0;right:0;height:900px;padding:24px 28px}
+.main h1{font-size:22px}.kpis{display:flex;gap:16px;margin-top:18px}.kpis div{flex:1;background:#fff;border:1px solid #e2e5ea;border-radius:10px;padding:16px}.kpis small{color:#6b7385}.kpis b{display:block;font-size:24px;margin-top:6px}
+.tbl{margin-top:20px;background:#fff;border:1px solid #e2e5ea;border-radius:10px}.tbl div{display:grid;grid-template-columns:60px 280px 140px 260px 1fr;align-items:center;padding:0 16px;height:50px;border-bottom:1px solid #eef0f3}.tbl .hd{height:38px;font-size:12px;color:#6b7385;font-weight:600}
+.th{width:36px;height:36px;border-radius:8px;background:#e7e9ee}.lvl{height:8px;background:#eef0f3;border-radius:4px;width:200px}.lvl i{display:block;height:100%;border-radius:4px}
+.dim{position:absolute;inset:0;background:#0f172acc;backdrop-filter:blur(2px)}
+.modal{position:absolute;left:390px;top:130px;width:500px;height:600px;background:#fff;border-radius:16px;box-shadow:0 30px 60px #0006;padding:24px}
+.modal h2{font-size:18px}.modal .x{position:absolute;right:20px;top:20px;width:30px;height:30px;border-radius:8px;background:#f1f3f6;text-align:center;line-height:30px;font-size:16px}
+.cam{margin-top:18px;height:240px;border-radius:12px;background:#1d2433;position:relative;overflow:hidden}
+.cam .frame{position:absolute;left:100px;top:50px;width:252px;height:140px;border:3px solid #22c55e;border-radius:10px}
+.cam .code{position:absolute;left:126px;top:80px;width:200px;height:80px;background:repeating-linear-gradient(90deg,#fff 0 3px,#0000 3px 6px,#fff 6px 7px,#0000 7px 11px)}
+.cam .laser{position:absolute;left:100px;top:118px;width:252px;height:2px;background:#ef4444;box-shadow:0 0 10px #ef4444}
+.found{margin-top:16px;display:flex;gap:14px;align-items:center;padding:14px;border:1px solid #bbf7d0;background:#f0fdf4;border-radius:10px}.found .th{width:48px;height:48px}.found small{display:block;color:#6b7385;margin-top:3px}
+.qty{margin-top:16px;display:flex;align-items:center;gap:0}.qty span{width:44px;height:40px;border:1px solid #d5d9e0;text-align:center;line-height:38px;font-size:18px}.qty b{width:80px;height:40px;border-top:1px solid #d5d9e0;border-bottom:1px solid #d5d9e0;text-align:center;line-height:38px;font-size:16px}.qty span:first-child{border-radius:8px 0 0 8px}.qty span:last-of-type{border-radius:0 8px 8px 0}
+.qty em{margin-left:16px;font-style:normal;color:#6b7385}
+.mb{position:absolute;left:24px;right:24px;bottom:24px;display:flex;gap:10px;justify-content:flex-end}.mb span{padding:11px 20px;border-radius:8px;border:1px solid #d5d9e0;font-weight:600}.mb .p{background:#3b4fd8;color:#fff;border-color:#3b4fd8}
+</style></head><body>
+<div class="side" data-r="sidebar"><b>Stockroom</b><div>Overview</div><div class="on">Inventory</div><div>Orders</div><div>Suppliers</div><div>Reports</div></div>
+<div class="main" data-r="inventory-page"><h1>Inventory</h1>
+<div class="kpis" data-r="kpis"><div><small>Total SKUs</small><b>1,284</b></div><div><small>Low stock</small><b style="color:#d97706">37</b></div><div><small>Out of stock</small><b style="color:#dc2626">9</b></div><div><small>Value</small><b>$412k</b></div></div>
+<div class="tbl" data-r="stock-table"><div class="hd"><span></span><span>Item</span><span>SKU</span><span>Level</span><span>On hand</span></div>
+<div><i class="th"></i><span>Ceramic mug, sand</span><span>MUG-014</span><span class="lvl"><i style="width:80%;background:#22c55e"></i></span><span>412</span></div>
+<div><i class="th"></i><span>Linen tote, olive</span><span>TOT-221</span><span class="lvl"><i style="width:22%;background:#f59e0b"></i></span><span>38</span></div>
+<div><i class="th"></i><span>Oak coaster set</span><span>COA-003</span><span class="lvl"><i style="width:4%;background:#ef4444"></i></span><span>2</span></div>
+<div><i class="th"></i><span>Glass carafe 1L</span><span>CAR-110</span><span class="lvl"><i style="width:60%;background:#22c55e"></i></span><span>188</span></div>
+<div><i class="th"></i><span>Wool throw, rust</span><span>THR-052</span><span class="lvl"><i style="width:35%;background:#f59e0b"></i></span><span>61</span></div>
+<div><i class="th"></i><span>Stoneware bowl</span><span>BWL-019</span><span class="lvl"><i style="width:72%;background:#22c55e"></i></span><span>240</span></div>
+</div></div>
+<div class="dim" data-r="dim-overlay" data-must></div>
+<div class="modal" data-r="scan-modal" data-must><h2>Scan to restock</h2><span class="x">×</span>
+<div class="cam" data-r="camera-view" data-must><div class="code"></div><div class="frame"></div><div class="laser"></div></div>
+<div class="found" data-r="found-item"><i class="th"></i><div><b>Oak coaster set</b><small>COA-003 · 2 on hand · Shelf B4</small></div></div>
+<div class="qty" data-r="qty-stepper"><span>−</span><b>24</b><span>+</span><em>units to add</em></div>
+<div class="mb"><span>Cancel</span><span class="p">Add 24 to stock</span></div></div>
+</body></html>

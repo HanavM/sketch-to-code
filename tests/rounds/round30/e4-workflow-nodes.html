@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Workflow editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f5f6f8;font-family:Inter,Helvetica,Arial,sans-serif;color:#1e2430;font-size:12px}
+.top{position:absolute;left:0;top:0;width:1280px;height:56px;background:#fff;border-bottom:1px solid #e3e6eb;display:flex;align-items:center;gap:12px;padding:0 20px}.top b{font-size:15px}.top .sv{color:#16a34a}.top .run{margin-left:auto;padding:8px 16px;background:#ff6d3a;color:#fff;border-radius:8px;font-weight:700}.top .tg{padding:4px 10px;border-radius:12px;background:#eef0f3}
+.lib{position:absolute;left:0;top:56px;width:220px;height:844px;background:#fff;border-right:1px solid #e3e6eb;padding:16px}
+.lib input{width:100%;height:32px;border:1px solid #d6dae1;border-radius:7px;padding:0 10px;font:12px Inter,Helvetica}.lib h4{margin:18px 0 8px;font-size:11px;color:#8a91a0;letter-spacing:1px}
+.lib div{display:flex;align-items:center;gap:10px;padding:8px;border-radius:7px;margin-bottom:2px}.lib div i{width:24px;height:24px;border-radius:6px}
+.canvas{position:absolute;left:220px;top:56px;width:780px;height:844px;background:radial-gradient(#cfd4dc 1px,#0000 1.4px) 0 0/20px 20px}
+.n{position:absolute;width:190px;background:#fff;border:1px solid #d6dae1;border-radius:10px;box-shadow:0 2px 6px #0000000f}
+.n .hd{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #eef0f3;font-weight:700;font-size:13px}.n .hd i{width:22px;height:22px;border-radius:6px}
+.n .bd{padding:10px 12px;color:#6b7385;line-height:1.6}
+.n.sel{border:2px solid #ff6d3a;box-shadow:0 0 0 4px #ff6d3a33}
+.p{position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #7a8394}
+.ins{position:absolute;left:1000px;top:56px;width:280px;height:844px;background:#fff;border-left:1px solid #e3e6eb;padding:18px}
+.ins h3{font-size:15px}.ins label{display:block;margin:16px 0 6px;color:#6b7385;font-weight:600}.ins .f{height:34px;border:1px solid #d6dae1;border-radius:7px;padding:9px 10px}
+.ins .code{height:120px;background:#1e2430;color:#a5d6ff;border-radius:7px;padding:10px;font:12px/1.6 'Courier New',monospace}
+.ins .tgl{display:flex;justify-content:space-between;align-items:center;margin-top:18px}.ins .tgl i{width:36px;height:20px;border-radius:10px;background:#ff6d3a;position:relative}.ins .tgl i::after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.mm{position:absolute;left:820px;top:770px;width:160px;height:110px;background:#fff;border:1px solid #d6dae1;border-radius:8px}.mm i{position:absolute;background:#cfd4dc;border-radius:2px}.mm .v{position:absolute;left:20px;top:14px;width:110px;height:70px;border:2px solid #ff6d3a;border-radius:4px}
+.zoom{position:absolute;left:240px;top:840px;display:flex;background:#fff;border:1px solid #d6dae1;border-radius:8px}.zoom span{padding:7px 12px;border-right:1px solid #d6dae1}.zoom span:last-child{border:0}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>Lead enrichment</b><span class="tg">Draft</span><span class="sv">● Saved</span><span class="run">▶ Test workflow</span></div>
+<div class="lib" data-r="node-library"><input value="Search nodes"><h4>TRIGGERS</h4><div><i style="background:#fde68a"></i>Webhook</div><div><i style="background:#fde68a"></i>Schedule</div><h4>ACTIONS</h4><div><i style="background:#bfdbfe"></i>HTTP request</div><div><i style="background:#c7d2fe"></i>AI agent</div><div><i style="background:#bbf7d0"></i>Google Sheets</div><div><i style="background:#fecaca"></i>Send email</div><h4>LOGIC</h4><div><i style="background:#e9d5ff"></i>If / else</div><div><i style="background:#e9d5ff"></i>Merge</div></div>
+<div class="canvas" data-r="node-canvas" data-must>
+<svg width="780" height="844" style="position:absolute;left:0;top:0" fill="none" stroke="#7a8394" stroke-width="2"><path d="M226 186 C 280 186, 270 316, 324 316"/><path d="M520 316 C 570 316, 560 196, 604 196"/><path d="M520 316 C 570 316, 560 486, 604 486" stroke-dasharray="6 5"/><path d="M710 260 C 710 600, 420 560, 420 620" /></svg>
+<div class="n" data-r="webhook-node" style="left:36px;top:150px"><div class="hd"><i style="background:#fde68a"></i>New lead</div><div class="bd">Webhook · POST<br>/hooks/leads</div></div>
+<div class="n sel" data-r="agent-node" data-must style="left:330px;top:270px"><div class="hd"><i style="background:#c7d2fe"></i>Score with AI</div><div class="bd">Model: claude<br>Prompt: rate fit 1–10</div></div>
+<div class="n" data-r="if-node" style="left:610px;top:150px;width:170px"><div class="hd"><i style="background:#e9d5ff"></i>Score ≥ 7?</div><div class="bd">true → Slack</div></div>
+<div class="n" style="left:610px;top:440px;width:170px"><div class="hd"><i style="background:#bbf7d0"></i>Add to Sheet</div><div class="bd">Leads · append</div></div>
+<div class="n" style="left:330px;top:620px"><div class="hd"><i style="background:#fecaca"></i>Email sales</div><div class="bd">to: sales@acme.co</div></div>
+<i class="p" style="left:220px;top:180px"></i><i class="p" style="left:318px;top:310px"></i><i class="p" style="left:514px;top:310px;border-color:#ff6d3a"></i><i class="p" style="left:598px;top:190px"></i><i class="p" style="left:598px;top:480px"></i><i class="p" style="left:414px;top:614px"></i>
+<div class="mm" data-r="minimap" style="left:600px;top:714px"><i style="left:14px;top:30px;width:26px;height:14px"></i><i style="left:58px;top:50px;width:26px;height:14px;background:#ff6d3a"></i><i style="left:104px;top:30px;width:26px;height:14px"></i><i style="left:104px;top:70px;width:26px;height:14px"></i><i style="left:58px;top:88px;width:26px;height:14px"></i><span class="v"></span></div>
+<div class="zoom" data-r="zoom-controls" style="left:20px;top:790px"><span>−</span><span>100%</span><span>+</span><span>Fit</span></div>
+</div>
+<div class="ins" data-r="inspector" data-must><h3>Score with AI</h3><label>Model</label><div class="f">claude-sonnet ▾</div><label>System prompt</label><div class="code">Rate this lead's fit<br>from 1 to 10 using<br>{{company.size}} and<br>{{role}}. Reply JSON.</div><label>Output field</label><div class="f">score</div><div class="tgl"><b>Retry on failure</b><i></i></div></div>
+</body></html>
