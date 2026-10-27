@@ -484,12 +484,21 @@ export function factsInPage() {
           const mc = getComputedStyle(m), mb = m.getBoundingClientRect(), kb = k.getBoundingClientRect()
           if (mb.width > 40 || mb.width < 12 || Math.abs(mb.width - mb.height) > 2 || parseFloat(mc.borderTopLeftRadius) < mb.width / 2 - 1) return null
           const rest = [...k.children].slice(1).map((q) => ({ t: (q.innerText || '').trim(), px: Math.round(parseFloat(getComputedStyle(q).fontSize)), w: Number(getComputedStyle(q).fontWeight) || 400, c: rgba(getComputedStyle(q).color) })).filter((q) => q.t)
+          // n261: the row's own words (a text node after the marker: round 28 c4 legend 'Red line' was never said) and a
+          // last word pushed to the row's right end on the marker's line (a key list, not a stepper)
+          const kc0 = getComputedStyle(k)
+          const ownW = [...k.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim()
+          if (ownW) rest.unshift({ t: ownW, px: Math.round(parseFloat(kc0.fontSize)), w: Number(kc0.fontWeight) || 400, c: rgba(kc0.color), own: true })
+          const lastK = [...k.children].slice(1).filter((q) => (q.innerText || '').trim()).pop()
+          const lb = lastK?.getBoundingClientRect()
+          const pushR = ownW && lastK && lb.left - kb.left > kb.width * 0.5 && Math.abs((lb.top + lb.bottom) / 2 - (mb.top + mb.bottom) / 2) <= 6 ? { end: Math.round(kb.right - lb.right) } : null
+          const rowRule = parseFloat(kc0.borderBottomWidth) >= 1 ? { px: Math.round(parseFloat(kc0.borderBottomWidth)), c: rgba(kc0.borderBottomColor) } : null
           const a = getComputedStyle(k, '::after')
           const con = a.content && a.content !== 'none' && rgba(a.backgroundColor)?.a > 0.1 ? { c: rgba(a.backgroundColor), w: Math.round(parseFloat(a.width)), h: Math.round(parseFloat(a.height)) } : null
-          return { left: mb.left - kb.left <= 10, kx: Math.round(kb.left), kr: Math.round(kb.right - mb.right), kt: Math.round(mb.top - kb.top), t: (m.innerText || '').trim(), d: Math.round(mb.width), fill: rgba(mc.backgroundColor), bc: rgba(mc.borderTopColor), bw: parseFloat(mc.borderTopWidth) || 0, ink: rgba(mc.color), x: Math.round(mb.left), y: Math.round(mb.top), rest, con, top: Math.round(kb.top) }
+          return { pushR, rowRule, rowH: Math.round(kb.height), rowW: Math.round(kb.width), left: mb.left - kb.left <= 10, kx: Math.round(kb.left), kr: Math.round(kb.right - mb.right), kt: Math.round(mb.top - kb.top), t: (m.innerText || '').trim(), d: Math.round(mb.width), fill: rgba(mc.backgroundColor), bc: rgba(mc.borderTopColor), bw: parseFloat(mc.borderTopWidth) || 0, ink: rgba(mc.color), x: Math.round(mb.left), y: Math.round(mb.top), rest, con, top: Math.round(kb.top) }
         })
         const ok = st.filter(Boolean)
-        if (ok.length < 3 || !ok.every((q) => q.rest.length)) return null
+        if (ok.length < 3 || !ok.every((q) => q.rest.some((r) => !r.own))) return null
         const column = ok.every((q, i) => !i || (Math.abs(q.kx - ok[0].kx) <= 4 && q.top > ok[i - 1].top))
         if (column && ok.every((q) => q.left)) return { radio: false, steps: ok }
         // n139: side-by-side option cards with a radio circle in a corner (round 10 e5 plan cards: circles lost)
@@ -703,7 +712,12 @@ export function factsInPage() {
         const kb = k.getBoundingClientRect(), eb = el.getBoundingClientRect()
         const lines = (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean)
         const corner = s.position === 'absolute' && kb.right >= eb.right - 8 && kb.top <= eb.top + eb.height / 2 ? { y: Math.round(kb.top - eb.top), right: s.textAlign === 'right' || s.textAlign === 'end', spacing: parseFloat(s.letterSpacing) || 0 } : null
-        return { t: k.innerText.replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(s.fontSize)), mono: /mono|courier/i.test(s.fontFamily), bold: +s.fontWeight >= 600, corner, lines: lines.length >= 2 && lines.length <= 5 ? lines : null }
+        // n261: the big type's own wrapped lines, the block's width and the small line's ink, spacing and gap (round 28
+        // c4 'Every line, one map.' in a 340px block wraps to 3 lines; said as one run it was built in 4, the small line
+        // dark and tight under it)
+        const own = (() => { const out = []; for (const n of el.childNodes) { if (n.nodeType !== 3 || !n.textContent.trim()) continue; const words = n.textContent.split(/(\s+)/); let off = 0; for (const w of words) { if (w.trim()) { const r = document.createRange(); r.setStart(n, off); r.setEnd(n, off + w.length); const rc = r.getClientRects()[0]; if (rc) { const L = out.find((l) => Math.abs(l.y - rc.top) < big * 0.3); if (L) L.t += ' ' + w; else out.push({ y: rc.top, t: w }) } } off += w.length } } return out })()
+        const lastBig = (() => { const r = document.createRange(); r.selectNodeContents(el); const rs = [...r.getClientRects()].filter((x) => x.height >= big * 0.6); return rs.length ? Math.max(...rs.map((x) => x.bottom)) : null })()
+        return { t: k.innerText.replace(/\s+/g, ' ').trim(), px: Math.round(parseFloat(s.fontSize)), mono: /mono|courier/i.test(s.fontFamily), bold: +s.fontWeight >= 600, corner, lines: lines.length >= 2 && lines.length <= 5 ? lines : null, ink: rgba(s.color), spacing: parseFloat(s.letterSpacing) || 0, gap: lastBig != null && !corner ? Math.round(kb.top - lastBig) : null, headLines: own.length >= 2 && own.length <= 5 ? own.map((l) => l.t) : null, boxW: Math.round(eb.width), headSpacing: parseFloat(cs.letterSpacing) || 0 }
       })(),
       // n130: a bento tile that is more than a box: a punched hole showing the page, a clipped notch corner, icon task rows,
       // a giant gradient-clipped word (round 9 c3: hole and task list built as grey photos, notch on all four corners)
@@ -3077,7 +3091,16 @@ export function factsInPage() {
       // above the folders) make the whole list said in page order with each line's indent
       const inside = extra.length && kids.some((k) => !rep.includes(k) && txt(k) && (rep[0].compareDocumentPosition(k) & 4) && (k.compareDocumentPosition(rep[rep.length - 1]) & 4))
       const ox = el.getBoundingClientRect().left
-      const order = inside && kids.filter((k) => k !== head && txt(k)).every((k) => !k.children.length) ? kids.filter((k) => k !== head && txt(k) && txt(k).length <= 40 && !k.children.length).map((k) => ({ t: txt(k), ind: Math.round(k.getBoundingClientRect().left - ox + parseFloat(getComputedStyle(k).paddingLeft)), fill: filled(k), ink: rgba(getComputedStyle(k).color) })) : null
+      // n261: a schema tree whose child rows carry one right-hand type word (<em>int</em>; round 28 e1: said as a flat
+      // list, built with no indent, sans type, and the head in capitals) keeps page order, each row's own words, its
+      // indent and its right word; the rows' mono face, the group rows' weight and the highlight band are said too
+      const leafOne = (k) => k.children.length === 1 && !k.children[0].children.length && txt(k.children[0]) && txt(k.children[0]).length <= 14 && [...k.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && !filled(k.children[0]) && k.children[0].getBoundingClientRect().left - k.getBoundingClientRect().left > k.getBoundingClientRect().width / 2
+      const order = inside && kids.filter((k) => k !== head && txt(k)).every((k) => !k.children.length || leafOne(k)) ? kids.filter((k) => k !== head && txt(k) && txt(k).length <= 40 && (!k.children.length || leafOne(k))).map((k) => {
+        const own = leafOne(k) ? [...k.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim() : txt(k)
+        const g = leafOne(k) ? k.children[0] : null, gc = g ? getComputedStyle(g) : null, kb = k.getBoundingClientRect(), kc = getComputedStyle(k)
+        return { t: own, ind: Math.round(kb.left - ox + parseFloat(kc.paddingLeft)), fill: filled(k), ink: rgba(kc.color), bold: Number(kc.fontWeight) >= 600, mono: /mono|courier|consolas|menlo/i.test(kc.fontFamily), px: Math.round(parseFloat(kc.fontSize)), rad: Math.round(parseFloat(kc.borderTopLeftRadius) || 0), bx: Math.round(kb.left - ox), bw: Math.round(kb.width), right: g ? { t: txt(g), ink: rgba(gc.color), end: Math.round(kb.right - g.getBoundingClientRect().right + (parseFloat(gc.paddingRight) || 0)), far: g.getBoundingClientRect().left - kb.left > kb.width / 2 } : null }
+      }) : null
+      const orderHead = order && head && !filled(head) ? (() => { const c = getComputedStyle(head); return { px: Math.round(parseFloat(c.fontSize)), ink: rgba(c.color), ls: parseFloat(c.letterSpacing) || 0, upper: c.textTransform === 'uppercase', bold: Number(c.fontWeight) >= 600 } })() : null
       // n147: a grouped list (round 12 e2 Gantt task list): group rows (bold, own fill) sit BETWEEN task rows that carry
       // an owner dot, under a column-head row. Said as a head button plus a list, the groups were built above all the
       // tasks. Every row said in page order, each with its look, when the rows share one height.
@@ -3132,7 +3155,7 @@ export function factsInPage() {
         const mb = el.getBoundingClientRect()
         return { w: Math.round(mb.width), h: Math.round(mb.height), x: Math.round(mb.left + scrollX), y: Math.round(mb.top + scrollY), rad: Math.round(parseFloat(ms.borderTopLeftRadius) || 0), pad: Math.round(parseFloat(ms.paddingTop) || 0), fill: filled(el), shadow: ms.boxShadow, rows, divs, divC: (() => { const d0 = ks.find((k) => !txt(k)); return d0 ? rgba(getComputedStyle(d0).borderTopColor) : null })(), px: Math.round(parseFloat(getComputedStyle(ks.find((k) => txt(k))).fontSize)) }
       })()
-      return { type: 'list', menu, order, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, headBar, onInk, onRad, onRadR, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, someDots: swatches.some(Boolean) && !swatches.every(Boolean) ? swatches : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, counts: counts.some(Boolean) ? counts : null, mids: rep.map((k) => { let g = k.previousElementSibling; while (g && !rep.includes(g) && !txt(g)) g = g.previousElementSibling; return g && !rep.includes(g) && rep.indexOf(k) > 0 && txt(g).length <= 30 ? { t: txt(g), ink: rgba(getComputedStyle(g).color), rule: /flex/.test(getComputedStyle(g).display) && getComputedStyle(g, '::before').content !== 'none' } : null }), switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
+      return { type: 'list', menu, order, orderHead, grouped, gtable, hero, groupedH, pic, head: head ? txt(head) : null, headLook, headBar, onInk, onRad, onRadR, items: rep.map(parts), bold: rep.map(boldFirst), bold2: rep.map((k) => { const w = [...k.querySelectorAll('*')].filter((g) => !g.children.length && txt(g))[1]; return w ? parseFloat(getComputedStyle(w).fontWeight) >= 600 : false }), on, onFill: odd.length === 1 ? filled(odd[0]) : null, onEdge, extra, dots: dots.every(Boolean) ? dots : null, someDots: swatches.some(Boolean) && !swatches.every(Boolean) ? swatches : null, stacked: rep.every((k, i) => i === 0 || k.getBoundingClientRect().top >= rep[i - 1].getBoundingClientRect().bottom - 2), thumbs: thumbs.every(Boolean) ? thumbs : null, counts: counts.some(Boolean) ? counts : null, mids: rep.map((k) => { let g = k.previousElementSibling; while (g && !rep.includes(g) && !txt(g)) g = g.previousElementSibling; return g && !rep.includes(g) && rep.indexOf(k) > 0 && txt(g).length <= 30 ? { t: txt(g), ink: rgba(getComputedStyle(g).color), rule: /flex/.test(getComputedStyle(g).display) && getComputedStyle(g, '::before').content !== 'none' } : null }), switches: switches.every(Boolean) ? switches : null, smalls: rep.map((k) => { const sm = [...k.querySelectorAll('small')].map(txt); return sm.length === 1 ? sm[0] : null }), inks: rep.map((k) => rgba(getComputedStyle(k).color)), weights: rep.map((k) => Number(getComputedStyle(k).fontWeight)), px: Math.round(parseFloat(getComputedStyle(rep[0]).fontSize)),
         // items under their own small headings, in page order (round 8 e5 docs nav: 'GETTING STARTED ... 5 more' became
         // invented items under the wrong headings)
         groups: (() => { const par = rep[0].parentElement; if (!rep.every((k) => k.parentElement === par)) return null; const gs = []; for (const k of par.children) { if (rep.includes(k)) { if (!gs.length) return null; gs[gs.length - 1].items.push(rep.indexOf(k)) } else if (txt(k) && !k.dataset?.r && !k.querySelector('[data-r]') && txt(k).length <= 32) { const ic = [...k.children].find((q) => !txt(q) && q.getBoundingClientRect().width >= 10 && q.getBoundingClientRect().width <= 32 && rgba(getComputedStyle(q).backgroundColor)?.a > 0.5); const kc = getComputedStyle(k); gs.push({ h: txt(k), items: [], icon: ic ? { d: Math.round(ic.getBoundingClientRect().width), fill: rgba(getComputedStyle(ic).backgroundColor), rad: Math.round(parseFloat(getComputedStyle(ic).borderTopLeftRadius) || 0) } : null, px: Math.round(parseFloat(kc.fontSize)), bold: Number(kc.fontWeight) >= 600, ink: rgba(kc.color) }) } } return gs.length >= 2 && gs.every((g, i) => g.items.length || (i === 0 && g.icon && gs.length >= 3)) ? gs : null })(),
@@ -3980,7 +4003,17 @@ function denseNote(d) {
       }
       if (d.order && d.order.length >= 5 && d.order.length <= 30) {
         const i0 = Math.min(...d.order.map((o) => o.ind))
-        return `${pic}${headSay}a tree list, these ${d.order.length} lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): ${d.order.map((o) => `${quote(o.t, 30)}${o.ind - i0 >= 4 ? ` indented ${o.ind - i0}px` : ''}${o.fill ? ` (row highlighted ${hexOf(o.fill)})` : ''}`).join(', ')}${d.navLook?.pitch && d.stacked && d.navLook.pitch <= d.navLook.rowH + 6 ? `; rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall, ${d.px}px type: tight, not roomier)${d.navLook.first != null ? `, first line ${d.navLook.first}px below the panel's top` : ''}` : ''}`
+        // n261: rich tree rows (right-hand type words, mono face, bold group rows; round 28 e1 schema tree)
+        const rich = d.order.some((o) => o.right)
+        if (!rich) return `${pic}${headSay}a tree list, these ${d.order.length} lines in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): ${d.order.map((o) => `${quote(o.t, 30)}${o.ind - i0 >= 4 ? ` indented ${o.ind - i0}px` : ''}${o.fill ? ` (row highlighted ${hexOf(o.fill)})` : ''}`).join(', ')}${d.navLook?.pitch && d.stacked && d.navLook.pitch <= d.navLook.rowH + 6 ? `; rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall, ${d.px}px type: tight, not roomier)${d.navLook.first != null ? `, first line ${d.navLook.first}px below the panel's top` : ''}` : ''}`
+        const oh = d.orderHead
+        const hSay = d.head ? `${quote(d.head, 30)} as its small heading${oh ? ` (${oh.px}px ${hexOf(oh.ink)}${oh.bold ? ' bold' : ''}${oh.ls >= 0.5 ? `, letter-spacing ${Math.round(oh.ls * 10) / 10}px` : ''}, ${oh.upper ? 'in capitals' : 'written in EXACTLY this case, not uppercased'})` : ''}, then ` : ''
+        const allMono = d.order.every((o) => o.mono), px0 = d.order[0].px
+        const rInks = [...new Set(d.order.filter((o) => o.right).map((o) => hexOf(o.right.ink)))]
+        const end0 = d.order.find((o) => o.right)?.right.end ?? 0
+        const on = d.order.find((o) => o.fill)
+        const grp = d.order.filter((o) => o.bold && !o.right)
+        return `${pic}${hSay}a TREE list, these ${d.order.length} rows in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): ${d.order.map((o) => `${quote(o.t, 30)}${o.bold ? ' bold' : ''}${o.ind - i0 >= 4 ? ` indented ${o.ind - i0}px` : ''}${o.right ? ` with ${quote(o.right.t, 14)} at the row's right end` : ''}${o.fill ? ' (highlighted)' : ''}`).join(', ')}; every row ${px0}px ${allMono ? 'MONOSPACE (ui-monospace, Menlo) ' : ''}type, its words starting ${i0}px in from the panel's left${grp.length ? `, the ${grp.length} bold group rows at that left edge with their ▾/▸ marks and the other rows indented under them` : ''}; each right-hand word ${rInks.join('/')} (pale, not bold), pushed to the row's right end${end0 >= 2 ? ` ${end0}px in from it` : ''} (float right)${on ? `; the highlighted row ${quote(on.t, 30)} is a ${on.bw}px wide band from ${on.bx}px in from the panel's left, ${hexOf(on.fill)} fill${on.rad ? `, ${on.rad}px rounded` : ''}, its words ${hexOf(on.ink)}` : ''}${d.navLook?.pitch && d.stacked && d.navLook.pitch <= d.navLook.rowH + 6 ? `; rows exactly ${d.navLook.pitch}px apart (${d.navLook.rowH}px tall: tight, not roomier)${d.navLook.first != null ? `, first row ${d.navLook.first}px below the panel's top` : ''}` : ''}`
       }
       // n219: a small caps heading that sits between list rows is said in its place (round 21 e1: LABELS sat after
       // Drafts, was said before the whole list and built at the top); rows with their own colour dot say it
@@ -4162,6 +4195,12 @@ function round10Extra(f, d) {
   if (S && f.stepRail.radio) {
     const hx = (c) => (c && c.a > 0.05 ? hexOf(c) : 'no fill')
     note += `; each option card has its own ${S[0].d}px radio circle (border-radius 50%) in its top-right corner, ${S[0].kr}px in from the right and ${S[0].kt}px down: ${S.map((q) => `${quote(q.rest[0].t, 20)} ${hx(q.fill)} with a ${q.bw}px ${hexOf(q.bc)} ring`).join(', ')} (the thick ring is the chosen one)`
+  } else if (S && S.every((q) => q.pushR && q.rest.length === 2)) {
+    // n261: a key list (round 28 c4 line legend: said as a vertical stepper with the line names lost)
+    const hx = (c) => (c && c.a > 0.05 ? hexOf(c) : null)
+    const gap = S.length >= 2 ? S[1].top - S[0].top : null
+    note = `a KEY LIST ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, no box round it: ${S.length} rows, each ${S[0].rowW}x${S[0].rowH}px${gap ? `, exactly ${gap}px apart` : ''}${S[0].rowRule ? `, each with a ${S[0].rowRule.px}px ${hexOf(S[0].rowRule.c)} rule along its bottom (border-bottom)` : ''}; each row ONE line (a flex row, items centred): a ${S[0].d}px round marker (border-radius 50%) at its left holding its number, then the name, then a note pushed to the row's right end${S[0].pushR.end >= 2 ? ` ${S[0].pushR.end}px in` : ''} (margin-left auto; same line, NOT under the name): ` +
+      S.map((q) => `${hx(q.fill) ? `${hx(q.fill)} marker` : 'marker'} holding ${hx(q.ink)} ${quote(q.t || ' ')}, ${q.rest[0].px}px${q.rest[0].w >= 600 ? ' bold' : ''} ${hexOf(q.rest[0].c)} ${quote(q.rest[0].t, 40)}, right: ${q.rest[1].px}px${q.rest[1].w >= 600 ? ' bold' : ''} ${hexOf(q.rest[1].c)} ${quote(q.rest[1].t, 40)}`).join('; ')
   } else if (S) {
     const hx = (c) => (c && c.a > 0.05 ? hexOf(c) : null)
     const lead = f.kidTexts.filter((t) => !S.some((q) => q.rest.some((r) => r.t === t) || t.includes(q.rest[0].t)))[0]
@@ -5723,7 +5762,9 @@ function decideOne(f, page, marked, said) {
       // a tall filled cell with the type in its top-left corner: say where, or the build centres it
       // (round 6 c5 '£4' price block built centred in its yellow cell)
       const corner = fill && !f.centred && h >= 120 && f.inset ? `; both lines sit in the top-left corner of the block, ${Math.round(f.inset.l)}px in from its left and ${Math.round(f.inset.t)}px down from its top, left-aligned (not centred), the rest of the block empty` : ''
-      return { kind: 'heading', note: withFx(`${tw.join(' ')} ${Math.round(f.font.size)}px ${quote(head, 60)}${ckSay}, ${small}${corner}`.trim()) }
+      const wrapSay = sk.headLines && !sk.corner ? ` set in EXACTLY ${sk.headLines.length} lines, broken as ${sk.headLines.map((l) => `"${l}"`).join(' / ')} (a ${sk.boxW}px wide block${sk.headSpacing <= -0.5 ? `, letter-spacing ${Math.round(sk.headSpacing * 10) / 10}px` : ''}; never ${sk.headLines.length + 1} lines)` : ''
+      const smallLook = !sk.corner && (sk.spacing >= 1 || sk.gap >= 8 || (sk.ink && dist(sk.ink, f.colour) > 40)) ? ` (${[sk.ink && dist(sk.ink, f.colour) > 40 ? `${hexOf(sk.ink)}` : null, sk.spacing >= 1 ? `letter-spacing ${Math.round(sk.spacing)}px, spaced capitals` : null, sk.gap >= 8 ? `${sk.gap}px below the big type's last line` : null].filter(Boolean).join(', ')})` : ''
+      return { kind: 'heading', note: withFx(`${tw.join(' ')} ${Math.round(f.font.size)}px ${quote(head, 60)}${wrapSay}${ckSay}, ${smallLook ? small.replace(/(".*?")( \(small)/, `$1${smallLook}$2`) : small}${corner}`.trim()) }
     }
     // a display line's own breaks and a giant word's width: builds rewrapped a 2-line headline into 3
     // (round 6 c3) and set a 260px word ~1.1x too wide (round 6 c2)
@@ -6972,6 +7013,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     if (k === 'heading' && f.circleText?.arch) return [f.role, k, { fontPx: f.circleText.size, lines: 1 }]
     if (k === 'heading' && f.overprint) return [f.role, k, { fontPx: f.overprint.px, lines: f.overprint.t.split('\n').length }]
     if (k === 'heading' && f.letterWave) return [f.role, k, { fontPx: Math.max(...f.letterWave.letters.map((l) => l.px)), lines: 1 }]
+    // n261: big type with a small line under it is drawn with the big type's own line count (round 28 c4: 4 drawn for 3)
+    if (k === 'heading' && f.subKid?.headLines && !f.subKid.corner) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.subKid.headLines.length, ...(unionOf.has(f.role) ? { union: unionOf.get(f.role) } : {}) }]
     if (k === 'heading' && f.textLines >= 1) return [f.role, k, { fontPx: Math.round(f.font.size), lines: f.textLines, ...(unionOf.has(f.role) ? { union: unionOf.get(f.role) } : {}) }]
     // a paragraph of 2+ lines is drawn line by line at its real spacing (round 3 c3: 2 lines at 28px
     // were drawn 24px apart, read as 16px type, built as one small line)

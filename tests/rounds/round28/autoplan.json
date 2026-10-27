@@ -392,7 +392,7 @@
     "heading",
     {
      "fontPx": 88,
-     "lines": 4
+     "lines": 3
     }
    ],
    [
@@ -423,7 +423,7 @@
    ],
    [
     "headline",
-    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.88) 88px \"Every line, one map.\", then on its own line under it a small 15px bold line \"NETWORK 2026 · ZONES 1–4\" (small, not part of the big type)"
+    "giant Helvetica heavy tight-set letters lines set tight (line-height 0.88) 88px \"Every line, one map.\" set in EXACTLY 3 lines, broken as \"Every\" / \"line, one\" / \"map.\" (a 340px wide block, letter-spacing -3px; never 4 lines), then on its own line under it a small 15px bold line \"NETWORK 2026 · ZONES 1–4\" (#666666, letter-spacing 4px, spaced capitals, 9px below the big type's last line) (small, not part of the big type)"
    ],
    [
     "metro-map",
@@ -431,7 +431,7 @@
    ],
    [
     "line-legend",
-    "step indicator in a row (no box around it): 28px red circle with grey 1 then grey \"Red line every 3 min\", 28px green circle with grey 2 then grey \"Green line every 4\"…, 28px blue circle with grey 3 then grey \"Blue line every 5\"…, 28px amber circle with grey 4 then grey \"Yellow line every 6\"… 320x160px at 48,470; under it a VERTICAL STEPPER of 4 steps exactly 40px apart, each step a 28px round marker (border-radius 50%) at the left with its title and grey sub-line to its right, built as real elements (NOT a plain list, NOT grey dots): step 1 marker at 48,476 filled #e1251b holding #ffffff \"1\", then 13px #666666 \"every 3 min\"; step 2 marker at 48,516 filled #0a7f3f holding #ffffff \"2\", then 13px #666666 \"every 4 min\"; step 3 marker at 48,556 filled #1f5fbf holding #ffffff \"3\", then 13px #666666 \"every 5 min\"; step 4 marker at 48,596 filled #f2a900 holding #ffffff \"4\", then 13px #666666 \"every 6 min\""
+    "a KEY LIST 320x160px at 48,470, no box round it: 4 rows, each 320x40px, exactly 40px apart, each with a 1px #dddddd rule along its bottom (border-bottom); each row ONE line (a flex row, items centred): a 28px round marker (border-radius 50%) at its left holding its number, then the name, then a note pushed to the row's right end (margin-left auto; same line, NOT under the name): #e1251b marker holding #ffffff \"1\", 16px bold #111111 \"Red line\", right: 13px #666666 \"every 3 min\"; #0a7f3f marker holding #ffffff \"2\", 16px bold #111111 \"Green line\", right: 13px #666666 \"every 4 min\"; #1f5fbf marker holding #ffffff \"3\", 16px bold #111111 \"Blue line\", right: 13px #666666 \"every 5 min\"; #f2a900 marker holding #ffffff \"4\", 16px bold #111111 \"Yellow line\", right: 13px #666666 \"every 6 min\""
    ],
    [
     "fare-box",
@@ -571,7 +571,7 @@
    ],
    [
     "schema-tree",
-    "the region itself is ONE 250x848px column element at 0,52 (its own wrapper, #ffffff fill, a 1px #e1e4ea rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; white card \"SCHEMA · analytics\" \"▾ orders\" \"▾ customers\" list: \"id\" int, \"customer_id\" int, \"total\" numeric, \"created_at\" timestamp, \"id\" int, \"country\" text, \"plan\" text; \"customer_id\" highlighted (#e8f0fe rounded fill, #1b5fd9 text); then under the list, in this order: \"▸ events\", \"▸ refunds\"; list rows exactly 26px apart (26px tall, 12px type: tight, not roomier), first line 22px below the panel's top"
+    "the region itself is ONE 250x848px column element at 0,52 (its own wrapper, #ffffff fill, a 1px #e1e4ea rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; white card \"SCHEMA · analytics\" as its small heading (11px #7a8396 bold, letter-spacing 1px, written in EXACTLY this case, not uppercased), then a TREE list, these 11 rows in EXACTLY this order top to bottom (one per row, nothing moved up or grouped): \"▾ orders\" bold, \"id\" indented 16px with \"int\" at the row's right end, \"customer_id\" indented 16px with \"int\" at the row's right end (highlighted), \"total\" indented 16px with \"numeric\" at the row's right end, \"created_at\" indented 16px with \"timestamp\" at the row's right end, \"▾ customers\" bold, \"id\" indented 16px with \"int\" at the row's right end, \"country\" indented 16px with \"text\" at the row's right end, \"plan\" indented 16px with \"text\" at the row's right end, \"▸ events\" bold, \"▸ refunds\" bold; every row 12px MONOSPACE (ui-monospace, Menlo) type, its words starting 14px in from the panel's left, the 4 bold group rows at that left edge with their ▾/▸ marks and the other rows indented under them; each right-hand word #9aa3b5 (pale, not bold), pushed to the row's right end 6px in from it (float right); the highlighted row \"customer_id\" is a 221px wide band from 14px in from the panel's left, #e8f0fe fill, 4px rounded, its words #1b5fd9; rows exactly 26px apart (26px tall: tight, not roomier), first row 22px below the panel's top"
    ],
    [
     "sql-editor",

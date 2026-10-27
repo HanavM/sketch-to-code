@@ -176,3 +176,29 @@ Round 28 now **92%** (c1 94, c2 89, c3 92, c4 89, c5 96, e1 88, e2 90, e3 92, e4
 ~10 marks, ~1,330 words, 62 s draw, 73 s read, 259 s build, ~96k tokens a page, no repair turns. Vitest same 2 env
 failures (1460 tests); typecheck clean.
 Next: e1 schema tree indent and mono rows (88), c4 metro poster (89); then round 29.
+
+## n261: schema tree rows, wrapped headline lines, key-list legend (~0.15M billed)
+
+Planner fixes (each a rule, not a page patch):
+
+- A tree list whose child rows carry one pale word at their right end (a schema's column types) keeps page order and
+  says each row's indent and right word, the rows' mono face, the bold group rows, the highlight band's width and
+  inset, and the small heading's exact case and spacing (e1: built with no indent, sans type, heading in capitals).
+- Big type with a small line under it says its own wrapped lines word for word and its block width and spacing, and
+  is drawn with that many lines (c4: "Every / line, one / map." was drawn as 4 lines and built in 4); the small line
+  says its ink, spacing and gap.
+- A row of round numbered markers whose name sits on the marker's line with a note pushed to the right end is a KEY
+  LIST, not a vertical stepper: each row's name (a bare text node, never said before), right note, row height and
+  bottom rule (c4 legend: names lost, notes built under the markers).
+
+Re-planned rounds 1-27: spaced small lines under big type on r12 and r24 (not re-run).
+
+| page | before | re-run | what changed |
+|---|---|---|---|
+| e1 query builder | 88% | **89%** | schema tree mono, indented, types at the right, heading case kept |
+| c4 metro poster | 89% | **95%** | headline in 3 lines, spaced grey sub-line, legend rows with names, notes and rules |
+
+Round 28 now **92%** (c1 94, c2 89, c3 92, c4 95, c5 96, e1 89, e2 90, e3 92, e4 89, e5 97). Ease: e1 9 marks,
+~1,980 words, 67 s draw, 129 s read, 315 s build, ~104k tokens; c4 8 marks, ~500 words, 39 s draw, 39 s read, 168 s
+build, ~45k tokens; no repair turns. Vitest same 2 env failures (1460 tests); typecheck clean.
+Next: c4 logo ring and badge type sizes, e4 river curve; then round 29.
