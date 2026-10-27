@@ -4,7 +4,7 @@ now: "Hand-sketching the baseline pages from screenshots only: 5 of 10 done, ave
 round: 0
 round_scores: []
 round_medians: []   # per round: {round, strokes, words, minutes}
-lock: null
+lock: {by: n6-run, until: "2026-10-28T01:23Z"}
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
