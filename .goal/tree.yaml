@@ -1,9 +1,9 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 27 is up to 91%: the perfume bottle, meal planner and tarot pages all reached 90-93% after six fixes to how drawings are described. Next I fix the claim form's total row and file chips and lift the film festival page, then start round 28."
+now: "Round 27 holds at 91%: the claim form total row and file chips and the film festival frames, dates and ticket are now right. Next I write round 28, ten pages harder than round 27."
 round: 27
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90, 93, 91]
-lock: {by: n255-run, until: '2026-10-27T03:45Z'}
+lock: null
 round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn, words typed, draw/read/build seconds, billed tokens, repair turns
   - {round: 1, likeness: 66, marks: 8, words: 238, draw_s: null, read_s: null, build_s: 116, tokens: 39901, fixes: 0}
   - {round: 2, likeness: 48, marks: 9, words: 268, draw_s: null, read_s: null, build_s: 96, tokens: 42686, fixes: 0}
@@ -31,7 +31,7 @@ round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn,
   - {round: 24, likeness: 92, marks: 11, words: 1055, draw_s: null, read_s: null, build_s: 203, tokens: 81623, fixes: 0}
   - {round: 25, likeness: 90, marks: 11, words: 1270, draw_s: null, read_s: null, build_s: 228, tokens: 88814, fixes: 0}
   - {round: 26, likeness: 93, marks: 11, words: 1126, draw_s: null, read_s: null, build_s: 324, tokens: 108065, fixes: 0}
-  - {round: 27, likeness: 91, marks: 14, words: 1200, draw_s: 82, read_s: 89, build_s: 325, tokens: 119697, fixes: 0}
+  - {round: 27, likeness: 91, marks: 14, words: 1213, draw_s: 79, read_s: 102, build_s: 343, tokens: 126417, fixes: 0.2}
 asks: []
 handled:
   - "2026-10-26 15:49 INBOX: ease, efficiency and speed now logged every page and round: run digests record marks, notes, words, draw/read/run time; tests/rounds/EASE.md and round_ease: give likeness, marks, words, draw s, read s, build s, tokens and repair turns per page and round (n253)."
@@ -39,6 +39,8 @@ handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n255 (0061351 on try/n3-vocabulary): live re-runs e4 83 to 84 (Est. payout now a TOTAL row, file chips filled with no outline; one repair turn), c4 86 to 88 (film frames 200x140 with gaps, dates right-aligned, ticket dashed tear line and notches; laurel built as a grey box, model reused a component). Planner: closing total rows under label/value lists; filled small-radius chips; parts in turned panels said by un-turned size (r20 c3 bar 39px to 8px, r22 c3 chip); upright tickets said whole; right-aligned multi-line display blocks. Re-planned rounds 1-26: r4, r19, r20, r22 change (not re-run). Round 27 91 (91.2). Vitest same 2 env failures; typecheck clean. Fresh container: npm ci, build, /tmp/pwb symlinks 1243 as 1234."
+  - "Token ledger: 2026-10-27 n255 live r27 c4 + e4 ~256k billed (no cap set)."
   - "n254 (012d537 on try/n3-vocabulary): live re-runs c2 81 to 90 (neck now a small 52x24 band: small square-cornered painted blocks say size and place), c1 87 to 91 (n251 notes), e2 85 to 80 then 93 (shopping list labels from their own span, struck-through done rows, count line; donut centre text 1,840; week pager words), e4 84 to 83 then 83 (summary values bold and whole, dropzone sentence with inline link, ::after radio rings all built; payout total row said as tabs and file chips still off). Re-planned rounds 1-26: r3, r7, r10, r14, r17, r23 notes change (not re-run). Round 27 91 (90.9). Ease r27: 14 marks, ~1,200 words, 82 s draw, 89 s read, 325 s build, ~120k tokens, no repair turns. Vitest same 2 env failures; typecheck clean. Fresh container: npm ci, build, /tmp/pwb symlinks 1243 as 1234."
   - "Token ledger: 2026-10-27 n254 live r27 c2 + e4 ~329k, c1 + e2 + e4 ~309k, e2 ~130k billed (plus one c2 start stopped before codegen; no cap set)."
   - "n253 (65db261 on try/n3-vocabulary): live re-runs e3 74 to 93 (conic gauge, see-through chart), e1 91 to 93 (slider labels), c4 79 to 84 then 86 (laurel verbatim; sprocket bands after new rule), c2 76 to 71 then 81 (pink see-through bottle, table band, pink mist after new rules; neck said with no size, built as a big tan box). Planner: hard-stop page gradient says HARD EDGE + exact CSS; blurred glows say exact hex (c2 mist was peach); panel ::before/::after striped bands said with size, place, paint. Re-planned rounds 1-26: 4 hard-edge pages, 7 glow hexes (not re-run). Ease logging: run.mjs digests gain ease {marks, captured, notes, words, drawMs, readingMs, runMs}; tests/rounds/ease.mjs writes EASE.md. Finding: words typed per page grew ~240 (r1) to ~1,100+ (r18 on); r27 ~14 marks, ~80 s drawing, ~90 s to reading, ~300 s build, ~114k tokens, no repair turns. Round 27 89 (88.8). Vitest same 2 env failures; typecheck clean."
@@ -837,4 +839,5 @@ nodes:
   - {id: n252, parent: n251, kind: step, title: 'Free first, ~400k live: re-run r27 c3 clay (25), c5 wheel, e5 hex pods, e1 crop box, e3 gauge, c2 bottle, c1 tarot on the n251 notes; fix what is still off', status: done, branch: try/n3-vocabulary, result: 'Clay 25 to 91, wheel 94, photo editor 91, cluster map 95. Round 27 86. Four planner fixes.'}
   - {id: n253, parent: n252, kind: step, title: 'Free first, ~400k live: re-run r27 e3 smart home (74), c2 perfume glass (76), c4 film festival (79) on the n251 notes, and e1 on the n252 slider and handle notes; fix what is still off', status: done, branch: try/n3-vocabulary, result: 'Smart home 74 to 93, film festival 86, perfume 81, photo editor 93. Round 27 89. Ease now logged.'}
   - {id: n254, parent: n253, kind: step, title: 'Free first, ~400k live: r27 c2 neck said with no size (built a big tan box), e4 claim form (84), e2 meal planner (85), c1 tarot (87); fix, re-run; then round 28', status: done, branch: try/n3-vocabulary, result: 'Perfume 90, tarot 91, meal planner 93, claim form 83. Six planner fixes. Round 27 91.'}
-  - {id: n255, parent: n254, kind: step, title: 'Free first, ~300k live: r27 e4 payout total row said as tabs and outlined file chips (83), c4 film festival (86); fix, re-run; then round 28 (ten pages harder than round 27)', status: open, branch: try/n3-vocabulary, result: null}
+  - {id: n255, parent: n254, kind: step, title: 'Free first, ~300k live: r27 e4 payout total row said as tabs and outlined file chips (83), c4 film festival (86); fix, re-run; then round 28 (ten pages harder than round 27)', status: done, branch: try/n3-vocabulary, result: 'Claim form 83 to 84 (total row, filled chips), film festival 86 to 88 (frames, dates, ticket). Round 27 at 91.'}
+  - {id: n256, parent: n255, kind: step, title: 'Round 28: write ten pages harder than round 27 (5 creative, 5 everyday), build all live first untuned, fix the worst gaps', status: open, branch: try/n3-vocabulary, result: null}
