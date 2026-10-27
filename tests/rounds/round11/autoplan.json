@@ -289,7 +289,7 @@
    ],
    [
     "sun",
-    "a 220px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ffb703 55%, #fb8500 100%) so it looks lit from above; absolutely placed, top-left at 860,110, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+    "a 220px solid sphere ringed round its edge by box-shadow: #ffb70340 0px 0px 0px 30px, #ffb7031f 0px 0px 0px 60px exactly (a 30px #ffb703 at 25% (see-through) band, then a 30px #ffb703 at 12% (see-through) RING outside it; hard edges, no blur) (border-radius 50%), fully opaque, painted with a radial-gradient(circle at center, #ffb703 55%, #fb8500 100%) so it looks lit from above; absolutely placed, top-left at 860,110, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
    ],
    [
     "paper-layers",

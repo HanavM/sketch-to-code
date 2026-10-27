@@ -513,7 +513,7 @@
    ],
    [
     "price-badge",
-    "a SUNBURST: 30 sharp straight rays fanning out from one centre, alternating red-orange #e8522a and transparent (the page shows through), each ray 6deg wide (like a starburst / pinwheel of thin pie slices), on ONE 178x178px block at 1066,586, border-radius 50% (a round disc of rays), painted with exactly background: radial-gradient(circle, #e8522a 60%, transparent 61%), repeating-conic-gradient(#e8522a 0deg, #e8522a 6deg, transparent 6deg, transparent 12deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur; centred on the disc, its words in #ffffff heavy type, each on its own line: \"ONLY €24\" (36px for the big line); the whole badge turned with transform: rotate(-12deg)"
+    "a SUNBURST: 30 sharp straight rays fanning out from one centre, alternating red-orange #e8522a and transparent (the page shows through), each ray 6deg wide, 60 slices round the whole disc (like a starburst / pinwheel of thin pie slices), on ONE 178x178px block at 1066,586, border-radius 50% (a round disc of rays), painted with exactly background: radial-gradient(circle, #e8522a 60%, transparent 61%), repeating-conic-gradient(#e8522a 0deg, #e8522a 6deg, transparent 6deg, transparent 12deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur; centred on the disc, its words in #ffffff heavy type, each on its own line: \"ONLY €24\" (36px for the big line); the whole badge turned with transform: rotate(-12deg)"
    ],
    [
     "crate-row",

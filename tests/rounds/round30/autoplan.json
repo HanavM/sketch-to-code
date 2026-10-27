@@ -379,15 +379,31 @@
    ],
    [
     "month-ring",
-    "heading",
-    {
-     "fontPx": 14,
-     "lines": 7
-    }
+    "box"
    ],
    [
     "needle",
-    "box"
+    "shape",
+    {
+     "poly": [
+      [
+       0,
+       0.02
+      ],
+      [
+       0.986,
+       1
+      ],
+      [
+       1,
+       0.98
+      ],
+      [
+       0.014,
+       0
+      ]
+     ]
+    }
    ],
    [
     "sun",
@@ -429,7 +445,7 @@
    ],
    [
     "year-wheel",
-    "a SUNBURST: 6 sharp straight rays fanning out from one centre, alternating warm paper #e7d6b4 and cream #f3ead8, each ray 30deg wide (like a starburst / pinwheel of thin pie slices), on ONE 720x720px block at 520,90, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#e7d6b4 0deg, #e7d6b4 30deg, #f3ead8 30deg, #f3ead8 60deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur; it sits BEHIND the 4x300px near-black #2b2118 block at 878,150: that block covers the part of it it overlaps (this one is set FIRST, lower z-index; it only peeks out past its edge, NEVER painted over it)"
+    "a SUNBURST: 6 sharp straight rays fanning out from one centre, alternating warm paper #e7d6b4 and cream #f3ead8, each ray 30deg wide, 12 slices round the whole disc (like a starburst / pinwheel of thin pie slices), on ONE 720x720px block at 520,90, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#e7d6b4 0deg, #e7d6b4 30deg, #f3ead8 30deg, #f3ead8 60deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, with a 2px solid #2b2118 outline round its edge (border; the drawn ring IS this outline), no blur; it sits BEHIND the 4x300px near-black #2b2118 block at 878,150: that block covers the part of it it overlaps (this one is set FIRST, lower z-index; it only peeks out past its edge, NEVER painted over it)"
    ],
    [
     "inner-ring",
@@ -437,15 +453,15 @@
    ],
    [
     "month-ring",
-    "the word \"JANFEBMARAPRMAYJUNJULAUGSEPOCT\"… set on an ARC (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at page 880,450 (position absolute) holding 12 letter spans, each position absolute at left -20px, top -16px, 40x16px, text-align center, 14px bold #2b2118, transform-origin 20px 8px (the anchor point, 16px below the letter), each turned by its own transform: \"JAN\" rotate(0deg), \"FEB\" rotate(30deg), \"MAR\" rotate(60deg), \"APR\" rotate(90deg), \"MAY\" rotate(120deg), \"JUN\" rotate(150deg), \"JUL\" rotate(180deg), \"AUG\" rotate(210deg), \"SEP\" rotate(240deg), \"OCT\" rotate(270deg), \"NOV\" rotate(300deg), \"DEC\" rotate(330deg)"
+    "12 short LABELS set evenly ROUND A CIRCLE (like the numbers on a clock dial; NOT a straight row, NOT links, NOT one word): ONE zero-size anchor div at page 880,450 (position absolute; the circle's centre) holding 12 spans, each position absolute at left -20px, top -8px, 40x16px, text-align center, 14px bold #2b2118, letter-spacing 4px, transform-origin 20px 8px (the span's own centre, ON the anchor), each with its own transform exactly (turn first, then push 320px out along that turn, so each label sits 320px from the centre and leans with the circle): \"JAN\" rotate(0deg) translateY(-320px), \"FEB\" rotate(30deg) translateY(-320px), \"MAR\" rotate(60deg) translateY(-320px), \"APR\" rotate(90deg) translateY(-320px), \"MAY\" rotate(120deg) translateY(-320px), \"JUN\" rotate(150deg) translateY(-320px), \"JUL\" rotate(180deg) translateY(-320px), \"AUG\" rotate(210deg) translateY(-320px), \"SEP\" rotate(240deg) translateY(-320px), \"OCT\" rotate(270deg) translateY(-320px), \"NOV\" rotate(300deg) translateY(-320px), \"DEC\" rotate(330deg) translateY(-320px)"
    ],
    [
     "needle",
-    "a THIN vertical line (a playhead), NOT a bar or block: ONE 4x300px div, position absolute with its top-left at 879,448 page px, background #2b2118, laid OVER everything it crosses (highest z-index); its head is a 20x20px ::before (position absolute, left -8px, top -6px), background #b33a2a, a circle"
+    "a THIN straight line TURNED like a clock hand or dial NEEDLE (NOT upright, NOT a flag, NOT a bar or block): ONE 4x300px div, position absolute with its top-left at 878,150 page px BEFORE the turn, 2px rounded, transform-origin 2px 300px (its BOTTOM end: the pivot, which stays put), transform: rotate(130deg) (so it points clockwise 130° from straight up, its tip ending 230px across and 193px down from the pivot at page 880,450), background #2b2118, laid OVER the disc and rings it crosses; its round head at the TIP (the turned end, it turns with the line) is a 20x20px ::after (position absolute, left -8px, top -6px), background #b33a2a, a circle"
    ],
    [
     "sun",
-    "a 200px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 35%, #ffd36b 0%, #e2761b 100%) so it looks lit from the top left; absolutely placed, top-left at 780,350, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+    "a 200px solid sphere ringed round its edge by box-shadow: #f3ead8 0px 0px 0px 14px, #e2761b 0px 0px 0px 16px exactly (a 14px #f3ead8 band, then a thin 2px #e2761b RING outside it; hard edges, no blur) (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 35%, #ffd36b 0%, #e2761b 100%) so it looks lit from the top left; absolutely placed, top-left at 780,350, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
    ],
    [
     "headline",

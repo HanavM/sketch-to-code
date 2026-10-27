@@ -28,6 +28,8 @@ describe('typed fills', () => {
     expect(fillClaims(TABLE_NOTE)).toEqual([{ kind: 'header', hex: '#f3f4f6' }])
     expect(fillClaims(BAR_NOTE)).toEqual([{ kind: 'quoted', hex: '#1e3a8a', noun: 'bar', copy: '3 selected' }])
     expect(fillClaims('whole page: pale grey (#f9fafb, plainly not white) page, Helvetica type')).toEqual([{ kind: 'page', hex: '#f9fafb' }])
+    // the hex before 'label text' is the words' ink, not the button's fill (round 30 c5)
+    expect(fillClaims('a button bar with a near-black (#2b2118) fill and cream (#f3ead8) label text reading "ORDER THE 2027 DIAL".')).toEqual([])
     expect(fillClaims('whole page: deep indigo (#1e1b4b) page with soft colour glows')).toEqual([])
     // a card's quote that is really a table cell is not the card's own copy
     expect(fillClaims('a white (#ffffff) card 1200px wide, header row "Name"')).toEqual([])

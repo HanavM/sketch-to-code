@@ -58,6 +58,9 @@ export function fillClaims(text: string): FillClaim[] {
     if (/#[0-9a-f]{3,6}\b/i.test(m[3]!)) continue
     // "card 1200px wide ... header row ... "Name"": the quote is a table cell, not the card's own words
     if (/\b(?:header|row|column|table|list|grid)\b/i.test(m[3]!)) continue
+    // "cream (#f3ead8) label text reading "ORDER"": the hex is the words' ink, not a fill (round 30 c5: the repair
+    // turn painted a near-black button cream, so its cream words vanished)
+    if (/^\s*(?:text|type|lettering|letters|words|copy|ink|font)\b/i.test(m[3]!)) continue
     push({ kind: 'quoted', hex: norm(m[1]!), noun: m[2]!.toLowerCase(), copy: m[4]!.trim() })
   }
   for (const m of text.matchAll(QUOTED_ON)) {

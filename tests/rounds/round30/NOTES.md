@@ -131,3 +131,26 @@ r21 (not re-run); perspective floors (r6, r11) and the r26 skewed band unchanged
 Round 30 over all ten: **86%** (c1 86, c2 94, c3 89, c4 80, c5 77, e1 87, e2 89, e3 90, e4 84, e5 87).
 
 Next: c5 labels round a circle and needle (77); c4 conic wheel under a masked ring (80); e4 SVG wires (84).
+
+## n273: labels round a circle, a turned needle, ring shadows, a fill check misreading text ink (2026-10-27, ~260k billed)
+
+Cause of c5 77%: the twelve month labels (each span turned, then pushed 320px out: rotate(N) translateY(-320px)) matched
+the round-16 arc-title rule, which kept only the rotate, so they were said as one garbled word turning about the
+centre; the needle (rotate(130deg) about its foot) was said as an upright line at its turned bounds and built as a red
+flag; the wheel's 2px outline was said as "no outline"; the sun's two hard spread shadows (a cream gap, an orange ring)
+were unsaid.
+Fix (planner rules, not a page patch): labels each turned then pushed out are LABELS ROUND A CIRCLE with each exact
+transform, size, origin and letter-spacing; a turned thin line is a NEEDLE said with its box before the turn, its
+pivot, the exact rotate and where its tip lands, and it is drawn as one thin pen line pivot to tip (a box mark over its
+turned bounds became a filled slab scaffold in the second run); a sunburst keeps its border; hard spread-only
+box-shadows round a ball are said as rings (see-through ones keep their alpha). Pipeline: the typed-fill check took
+"cream (#f3ead8) label text reading ..." as the button's fill, so the repair turn painted the near-black button cream
+and its words vanished; a hex followed by text/type/words/ink is now the words' colour, not a fill (unit test added).
+
+Live: first run 87% (wheel, labels, needle, sun ring right; button cream on cream from the fill check), second 81%
+(button right; needle built from a box-shaped scaffold as a slab), third **92%** after the needle is drawn as a line
+(everything right; moons and nav rule close). 12 marks, ~770 words, 54 s drawing, 291 s run, ~74k tokens, no repair turn.
+Re-planned rounds 1-29: ring shadows on r11, sunburst slice counts and outlines r16 r19 r24 r25 r29 (not re-run).
+Round 30 over all ten: **88%** (c1 86, c2 94, c3 89, c4 80, c5 92, e1 87, e2 89, e3 90, e4 84, e5 87).
+
+Next: c4 conic wheel under a masked ring (80); e4 SVG bezier wires (84); c3 mask hard edge, badge inner ring.

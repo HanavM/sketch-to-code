@@ -209,7 +209,7 @@
    ],
    [
     "sunburst",
-    "a SUNBURST: 24 sharp straight rays fanning out from one centre, alternating bright orange #f0a33a and soft yellow #f6d58e, each ray 7.5deg wide (like a starburst / pinwheel of thin pie slices), on ONE 1000x1000px block at 140,-100, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#f0a33a 0deg, #f0a33a 7.5deg, #f6d58e 7.5deg, #f6d58e 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur; it sits BEHIND the 400x400px dark brown #5a1e0e block at 440,200: that block covers the part of it it overlaps (this one is set FIRST, lower z-index; it only peeks out past its edge, NEVER painted over it)"
+    "a SUNBURST: 24 sharp straight rays fanning out from one centre, alternating bright orange #f0a33a and soft yellow #f6d58e, each ray 7.5deg wide, 48 slices round the whole disc (like a starburst / pinwheel of thin pie slices), on ONE 1000x1000px block at 140,-100, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(#f0a33a 0deg, #f0a33a 7.5deg, #f6d58e 7.5deg, #f6d58e 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur; it sits BEHIND the 400x400px dark brown #5a1e0e block at 440,200: that block covers the part of it it overlaps (this one is set FIRST, lower z-index; it only peeks out past its edge, NEVER painted over it)"
    ],
    [
     "disc",

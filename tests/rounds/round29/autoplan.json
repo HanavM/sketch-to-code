@@ -403,7 +403,7 @@
    ],
    [
     "sunburst",
-    "a SUNBURST: 45 sharp straight rays fanning out from one centre, alternating dark teal #1c2e28 and near-black #0f1a17, each ray 4deg wide (like a starburst / pinwheel of thin pie slices), on ONE 600x1000px block at 340,-260, square corners (NOT rounded, NOT a disc); the rays all meet at 50% across and 100% down the block (page 640,740, the middle of its BOTTOM edge) and fan out from there UPWARD like a rising sun, NOT from the block's centre, opacity 0.9, painted with exactly background: repeating-conic-gradient(at 50% 100%, #1c2e28 0deg, #1c2e28 4deg, #0f1a17 4deg, #0f1a17 8deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur"
+    "a SUNBURST: 45 sharp straight rays fanning out from one centre, alternating dark teal #1c2e28 and near-black #0f1a17, each ray 4deg wide, 90 slices round the whole disc (like a starburst / pinwheel of thin pie slices), on ONE 600x1000px block at 340,-260, square corners (NOT rounded, NOT a disc); the rays all meet at 50% across and 100% down the block (page 640,740, the middle of its BOTTOM edge) and fan out from there UPWARD like a rising sun, NOT from the block's centre, opacity 0.9, painted with exactly background: repeating-conic-gradient(at 50% 100%, #1c2e28 0deg, #1c2e28 4deg, #0f1a17 4deg, #0f1a17 8deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur"
    ],
    [
     "left-column",
@@ -423,7 +423,7 @@
    ],
    [
     "fan",
-    "a HALF-DISC FAN SUNBURST: 30 sharp straight rays fanning out from one centre, alternating bright orange #c9a24a and transparent (the page shows through), each ray 6deg wide (like a starburst / pinwheel of thin pie slices), on ONE 160x80px block at 560,150, border-radius 80px 80px 0 0 (a HALF disc: round top, FLAT bottom; NOT a full circle); the rays all meet at 50% across and 100% down the block (page 640,230, the middle of its BOTTOM edge) and fan out from there UPWARD like a rising sun, NOT from the block's centre, painted with exactly background: repeating-conic-gradient(from -90deg at 50% 100%, #c9a24a 0deg, #c9a24a 6deg, transparent 6deg, transparent 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur"
+    "a HALF-DISC FAN SUNBURST: 30 sharp straight rays fanning out from one centre, alternating bright orange #c9a24a and transparent (the page shows through), each ray 6deg wide, 60 slices round the whole disc (like a starburst / pinwheel of thin pie slices), on ONE 160x80px block at 560,150, border-radius 80px 80px 0 0 (a HALF disc: round top, FLAT bottom; NOT a full circle); the rays all meet at 50% across and 100% down the block (page 640,230, the middle of its BOTTOM edge) and fan out from there UPWARD like a rising sun, NOT from the block's centre, painted with exactly background: repeating-conic-gradient(from -90deg at 50% 100%, #c9a24a 0deg, #c9a24a 6deg, transparent 6deg, transparent 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur"
    ],
    [
     "headline",
