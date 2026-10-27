@@ -487,6 +487,7 @@ while (queue.length) {
       await page.waitForTimeout(200)
     }
     row.drawMs = Date.now() - drawStart
+    { const ns = notesFor(spec, WORDS); row.notesSent = ns.length; row.wordsSent = ns.reduce((a, n) => a + String(n.text).split(/\s+/).filter(Boolean).length, 0) }
     // Two different counts, both reported, because they answer different
     // questions. `strokes` is what a person DREW — the number this benchmark is
     // trying to drive down. `captured` is what the system ended up with, which
@@ -585,6 +586,7 @@ while (queue.length) {
       if (ready || readFailed) break
       await page.waitForTimeout(250)
     }
+    if (ready) row.readingMs = Date.now() - runStart // how long until the reading shows (ease: speed)
     const statusNow = () => safeEval(page, () => document.getElementById('s2c-overlay-host')
       ?.shadowRoot?.getElementById('status')?.textContent ?? '')
     if (READ_ONLY) {
@@ -788,6 +790,8 @@ function writeRunDigest(appDir, dir, id, row) {
     tokens: row.tokens ? { input: row.tokens.input, output: row.tokens.output, cacheRead: row.tokens.cacheRead } : null,
     // per codegen turn: build vs repair rounds, tool calls (null before n27)
     sends: readRunRecord(appDir)?.sends ?? null,
+    // ease and speed (INBOX 2026-10-26 15:49): what a person drew and typed, and how long each stage took
+    ease: { marks: row.strokes ?? null, captured: row.captured ?? null, notes: row.notesSent ?? null, words: row.wordsSent ?? null, drawMs: row.drawMs ?? null, readingMs: row.readingMs ?? null, runMs: row.runMs ?? null },
     reading: interp.reading,
     actions: (interp.actions ?? []).map((a) => ({
       kind: a.kind,

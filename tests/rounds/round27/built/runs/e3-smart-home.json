@@ -1,24 +1,24 @@
 {
   "id": "e3-smart-home",
-  "at": "2026-10-26T22:06:47.869Z",
+  "at": "2026-10-27T00:23:21.721Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7427314911719656,
-    "overallV2": 0.7427314911719656,
-    "overallV1": 0.7042688585666753,
-    "colour": 0.9580997177760545,
-    "structure": 0.8539803193501225,
-    "structureStrict": 0.7955396078165079,
-    "colourAligned": 0.9580997177760545,
-    "structureAligned": 0.8539803193501225,
+    "overall": 0.9280714508935126,
+    "overallV2": 0.9280714508935126,
+    "overallV1": 0.8993811631786643,
+    "colour": 0.9934725844059107,
+    "structure": 0.9388569239148717,
+    "structureStrict": 0.8952644624896173,
+    "colourAligned": 0.9934725844059107,
+    "structureAligned": 0.9388569239148717,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8910297014826001
+      "r": 0.9905501656326781
     },
-    "layout": 0.8785418046394763,
-    "layoutV1": 0.656550103394663,
+    "layout": 0.9591446984839558,
+    "layoutV1": 0.7371529972391424,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,516 +27,474 @@
       0,
       0,
       1280,
-      920
+      900
     ],
     [
       0,
-      0,
-      0,
-      1280,
-      920
-    ],
-    [
-      1,
       44,
       28,
       1192,
       40
     ],
     [
-      2,
+      1,
       44,
       29,
       72,
       39
     ],
     [
-      2,
+      1,
       1022,
       31,
       214,
       34
     ],
     [
-      4,
+      3,
       1022,
       31,
       119,
       34
     ],
     [
-      4,
+      3,
       1153,
       32,
       83,
       33
     ],
     [
-      1,
+      0,
       40,
       90,
       110,
       35
     ],
     [
-      7,
-      58,
-      98,
-      74,
-      20
-    ],
-    [
-      1,
+      0,
       160,
       90,
       84,
       35
     ],
     [
-      9,
-      178,
-      98,
-      48,
-      20
-    ],
-    [
-      1,
+      0,
       254,
       90,
       93,
       35
     ],
     [
-      11,
-      272,
-      98,
-      57,
-      20
-    ],
-    [
-      1,
+      0,
       357,
       90,
       73,
       35
     ],
     [
-      13,
-      375,
-      98,
-      37,
-      20
-    ],
-    [
-      1,
+      0,
       440,
       90,
       82,
       35
     ],
     [
-      15,
-      458,
-      98,
-      46,
-      20
-    ],
-    [
-      1,
+      0,
       40,
       150,
       400,
       420
     ],
     [
-      17,
-      64,
-      174,
-      352,
-      46
+      11,
+      40,
+      150,
+      400,
+      48
     ],
     [
-      18,
+      12,
       64,
       174,
-      352,
+      58,
       24
     ],
     [
-      18,
-      64,
-      202,
-      352,
+      12,
+      283,
+      174,
+      133,
       18
     ],
     [
-      17,
-      64,
-      220,
-      352,
-      290
-    ],
-    [
-      21,
+      11,
       110,
-      235,
+      240,
       260,
       260
     ],
     [
-      22,
+      15,
       132,
-      257,
+      262,
       216,
       216
     ],
     [
-      23,
-      198,
-      326,
-      84,
-      54
+      16,
+      202,
+      336,
+      75,
+      48
     ],
     [
-      23,
+      16,
       210,
       384,
       60,
       20
     ],
     [
-      22,
-      349,
-      308,
+      11,
+      343,
+      299,
       26,
       26
     ],
     [
-      17,
-      64,
-      510,
-      352,
-      36
+      11,
+      40,
+      519,
+      400,
+      28
     ],
     [
-      27,
-      64,
-      510,
-      82,
-      36
+      20,
+      139,
+      519,
+      52,
+      28
     ],
     [
-      27,
-      154,
-      510,
-      82,
-      36
+      20,
+      215,
+      523,
+      29,
+      20
     ],
     [
-      27,
-      244,
-      510,
-      82,
-      36
+      20,
+      268,
+      523,
+      30,
+      20
     ],
     [
-      27,
-      334,
-      510,
-      82,
-      36
+      20,
+      322,
+      523,
+      19,
+      20
     ],
     [
-      1,
+      0,
       464,
       150,
       242,
       130
     ],
     [
-      1,
-      722,
-      150,
-      242,
-      130
-    ],
-    [
-      1,
+      25,
       482,
       168,
       36,
       36
     ],
     [
-      1,
+      25,
       644,
       168,
       46,
       26
     ],
     [
-      1,
-      740,
-      168,
-      36,
-      36
-    ],
-    [
-      1,
-      902,
-      168,
-      46,
-      26
-    ],
-    [
-      1,
+      25,
       482,
       218,
       206,
       23
     ],
     [
-      1,
-      740,
-      218,
-      206,
-      23
-    ],
-    [
-      1,
+      25,
       482,
       237,
       59,
       17
     ],
     [
-      1,
+      0,
+      722,
+      150,
+      242,
+      130
+    ],
+    [
+      30,
+      740,
+      168,
+      36,
+      36
+    ],
+    [
+      30,
+      902,
+      168,
+      46,
+      26
+    ],
+    [
+      30,
+      740,
+      218,
+      206,
+      23
+    ],
+    [
+      30,
       740,
       237,
       14,
       17
     ],
     [
-      1,
+      0,
       464,
       296,
       242,
       130
     ],
     [
-      1,
-      722,
-      296,
-      242,
-      130
-    ],
-    [
-      1,
+      35,
       482,
       314,
       36,
       36
     ],
     [
-      1,
+      35,
       644,
       314,
       46,
       26
     ],
     [
-      1,
-      740,
-      314,
-      36,
-      36
-    ],
-    [
-      1,
-      902,
-      314,
-      46,
-      26
-    ],
-    [
-      1,
+      35,
       482,
       364,
       206,
       23
     ],
     [
-      1,
-      740,
-      364,
-      206,
-      23
-    ],
-    [
-      1,
+      35,
       482,
       383,
       99,
       17
     ],
     [
-      1,
+      0,
+      722,
+      296,
+      242,
+      130
+    ],
+    [
+      40,
+      740,
+      314,
+      36,
+      36
+    ],
+    [
+      40,
+      902,
+      314,
+      46,
+      26
+    ],
+    [
+      40,
+      740,
+      364,
+      206,
+      23
+    ],
+    [
+      40,
       740,
       383,
       34,
       17
     ],
     [
-      1,
+      0,
       988,
       150,
       252,
       276
     ],
     [
-      1,
+      45,
       1002,
       164,
-      224,
+      76,
       23
     ],
     [
-      1,
+      45,
       1002,
       191,
       224,
       190
     ],
     [
-      54,
+      47,
       1012,
       201,
-      47,
-      21
+      31,
+      190
     ],
     [
-      1,
-      988,
+      0,
+      992,
       450,
-      252,
-      120
+      246,
+      118
     ],
     [
-      56,
+      49,
       1012,
-      478,
-      204,
+      470,
+      206,
       24
     ],
     [
-      56,
+      49,
       1012,
-      512,
-      89,
-      30
+      513,
+      98,
+      36
     ],
     [
-      1,
-      40,
-      596,
+      0,
+      44,
+      597,
       1200,
       276
     ],
     [
-      1,
+      52,
       62,
       616,
       95,
       23
     ],
     [
-      1,
-      62,
-      666,
+      52,
+      66,
+      667,
       1156,
       180
     ],
     [
-      61,
-      62,
-      689,
+      54,
+      66,
+      690,
       1156,
       147
     ],
     [
-      61,
-      362,
-      735,
+      54,
+      66,
+      690,
+      1156,
+      127
+    ],
+    [
+      54,
+      366,
+      736,
       560,
       101
     ],
     [
-      1,
+      52,
       933,
       616,
       281,
-      52
+      50
     ],
     [
-      64,
+      58,
       933,
       616,
       83,
-      52
+      50
     ],
     [
-      65,
+      59,
       933,
       616,
       83,
       33
     ],
     [
-      65,
+      59,
       933,
-      651,
+      649,
       83,
       17
     ],
     [
-      64,
+      58,
       1046,
       616,
       83,
-      52
+      50
     ],
     [
-      68,
+      62,
       1046,
       616,
       83,
       33
     ],
     [
-      68,
+      62,
       1046,
-      651,
+      649,
       83,
       17
     ],
     [
-      64,
+      58,
       1159,
       616,
       55,
-      52
+      50
     ],
     [
-      71,
+      65,
       1159,
       616,
       55,
       33
     ],
     [
-      71,
+      65,
       1159,
-      651,
+      649,
       55,
       17
     ]
@@ -556,7 +514,7 @@
     {
       "role": "device-cards",
       "iou": 1,
-      "parts": 20,
+      "parts": 4,
       "rect": {
         "x": 464,
         "y": 150,
@@ -573,37 +531,38 @@
       "soft-shadow"
     ],
     "missing": [],
-    "extra": []
+    "extra": [
+      "vertical-type"
+    ]
   },
   "tokens": {
-    "input": 56041,
-    "output": 29183,
-    "cacheRead": 354912
+    "input": 57128,
+    "output": 37340,
+    "cacheRead": 291972
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 63554,
-      "output": 21067,
-      "cacheRead": 340373,
-      "toolCalls": 10,
+      "billed": 59689,
+      "output": 20225,
+      "cacheRead": 225086,
+      "toolCalls": 9,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
         "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
         "Glob",
-        "Read src/App.tsx"
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
       ],
-      "ms": 233895
+      "ms": 223920
     }
   ],
-  "reading": "This sketches a smart-home dashboard: a header with a 'Home' title plus two pill buttons on the right, a row of 5 filled pill nav tabs (Living room selected), a climate card with a circular dial/donut gauge, a 2x2 grid of device toggle cards (ceiling light, floor lamp, speaker, blinds), a front-door camera card, a gradient 'Movie night' scene card, and a full-width 'Energy today' stacked-area chart card, all on a pale-grey page with navy Helvetica text.",
+  "reading": "The sketch lays out a smart-home dashboard: a header row with a 'Home' title and two pill buttons (weather, 'All on: 7'), a row of 5 filter buttons ('Living room' selected plus Kitchen/Bedroom/Office/Garden), a large climate panel with a circular gauge ring and a knob dot, a 2x2 grid of device cards (Ceiling light, Floor lamp, Speaker, Blinds), a front-door camera panel, a gradient 'Movie night' scene card, and a wide stacked-area energy chart card at the bottom. Typed notes supply exact colors, sizes, copy and even inline SVG markup for most pieces, which take precedence over the rough ink shapes.",
   "actions": [
     {
       "kind": "add",
@@ -628,7 +587,7 @@
         40
       ],
       "paths": [],
-      "instruction": "Header row: 26px 'Home' heading sits at the far left. To its far right (857px gap) sit two FILLED pill buttons (not outlined, not plain text): '☀ 14° outside' ("
+      "instruction": "Header row: 26px 'Home' heading at the left. To its far right (857px gap) two FILLED pill buttons with white (#ffffff) fill, no border, bold #1d2433 text: a 119"
     },
     {
       "kind": "add",
@@ -643,7 +602,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Row of 5 nav/filter pill buttons, each its own element with live text: 'Living room' 110x35 at 40,90, #1d2433 fill, 12px rounded corners, padding-left 18px (tex"
+      "instruction": "Filter button row with 5 separate pill buttons, each its own element with live text: 110x35 at 40,90 #1d2433 fill, 12px rounded, padding-left 18px, 13px bold #f"
     },
     {
       "kind": "add",
@@ -660,7 +619,7 @@
         "s4",
         "s5"
       ],
-      "instruction": "Climate panel: one 400x420px white (#ffffff) card at 40,150, position absolute, full height kept at 420px, 24px rounded corners. Inside it: a 260px donut/gauge "
+      "instruction": "Climate panel: one 400x420px white (#ffffff) rounded (24px) card at 40,150, position absolute, full 420px height always kept. Inside it: a 260px gauge ring (not"
     },
     {
       "kind": "add",
@@ -693,7 +652,7 @@
         276
       ],
       "paths": [],
-      "instruction": "A 2x2 grid of device toggle cards. Top row: 242x130 card at 464,150, #1d2433 fill, 20px rounded, containing a 36x36 #ffb547 icon swatch (10px rounded, empty) at"
+      "instruction": "A 2x2 grid of device cards (20 parts total, nothing invented/left out, each its own live-text element, one-line text kept on one line with min-width): Row 1 - 2"
     },
     {
       "kind": "add",
@@ -708,7 +667,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Front door camera panel: one 252x276px #ffffff card at 988,150, 20px rounded, containing: 15px bold #1d2433 title 'Front door' at 1002,164 (nowrap); a 224x190 i"
+      "instruction": "Front-door camera panel: one 252x276px white (#ffffff) rounded (20px) panel at 988,150. Inside: 224x17 at 1002,164 15px bold #1d2433 'Front door' title; a 224x1"
     },
     {
       "kind": "add",
@@ -723,7 +682,7 @@
       "paths": [
         "s13"
       ],
-      "instruction": "Scene card with a vivid indigo #6a5cff (top-left) to vivid purple #b25cff (bottom-right) gradient background, titled 'Movie night' with a 'Run scene' action; al"
+      "instruction": "A scene card with a vivid indigo (#6a5cff, top-left) to vivid purple (#b25cff, bottom-right) gradient background, bold heading 'Movie night' and action text 'Ru"
     },
     {
       "kind": "add",
@@ -738,7 +697,7 @@
       "paths": [
         "s14"
       ],
-      "instruction": "Energy chart card: white (#ffffff) 1200x276px card, 24px rounded, with small bold title 'Energy today' top left. Contains a STACKED AREA chart (overlapping fill"
+      "instruction": "Energy chart card: white (#ffffff) 1200x276px card, 24px rounded, small bold title 'Energy today' top-left. Contains a STACKED AREA chart (overlapping filled hi"
     }
   ],
   "rejected": [

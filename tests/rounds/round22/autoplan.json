@@ -225,15 +225,15 @@
    ],
    [
     "blob-violet",
-    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 460x460px with its top-left at 80,120 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge) big vivid purple circle"
+    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 460x460px with its top-left at 80,120 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge, its colour exactly #7b2ff7) big vivid purple circle"
    ],
    [
     "blob-cyan",
-    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 520x420px with its top-left at 620,40 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge) vivid cyan"
+    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 520x420px with its top-left at 620,40 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge, its colour exactly #00d4ff) vivid cyan"
    ],
    [
     "blob-pink",
-    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 480x360px with its top-left at 460,520 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge) vivid pink"
+    "slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving) soft blurred (filter: blur(70px)), its box 480x360px with its top-left at 460,520 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(70px) }, never a bare hue-rotate that drops the blur; a soft cloud of colour with no hard edge, its colour exactly #ff2fb3) vivid pink"
    ],
    [
     "glass-nav",

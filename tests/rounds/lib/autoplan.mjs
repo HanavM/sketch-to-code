@@ -1951,6 +1951,9 @@ export function factsInPage() {
       pseudoShape: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!c.content || c.content === 'none' || !(pw > 120 && ph > 120) || pw >= r.width * 0.9) continue; const fl = rgba(c.backgroundColor); if (!(fl?.a > 0.3)) continue; const mt = c.transform.match(/matrix\(([^)]*)\)/); const v = mt ? mt[1].split(',').map(Number) : null; return { w: Math.round(pw), h: Math.round(ph), fill: fl, radius: c.borderRadius, x: Math.round(parseFloat(c.left) || 0), y: Math.round(parseFloat(c.top) || 0), turn: v ? Math.round(Math.atan2(v[1], v[0]) * 180 / Math.PI) : 0, shadow: c.boxShadow !== 'none' ? c.boxShadow : null } } return null })(),
       // n187: a striped overlay painted by ::before/::after over the whole block (round 18 c4 photo: repeating-linear-gradient
       // scan lines, multiply-blended, never said)
+      // n253: thin striped bands along a panel's top and bottom from ::before/::after (round 27 c4 film strip sprocket
+      // holes: 14px repeating stripes 8px in from each edge, unsaid, built as a plain black strip)
+      pseudoBands: (() => { const out = []; for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); if (!c.content || c.content === 'none' || c.position !== 'absolute' || !/repeating-linear-gradient/.test(c.backgroundImage)) continue; const pw = parseFloat(c.width), ph = parseFloat(c.height); if (!(pw >= el.offsetWidth * 0.9 && ph >= 2 && ph <= el.offsetHeight * 0.4)) continue; out.push({ w, h: Math.round(ph), top: c.top, bottom: c.bottom, img: c.backgroundImage }) } return out.length ? out : null })(),
       pseudoLines: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); if (!c.content || c.content === 'none' || !/repeating-(linear|radial)-gradient/.test(c.backgroundImage)) continue; if (!(parseFloat(c.width) >= r.width * 0.9 && parseFloat(c.height) >= r.height * 0.9)) continue; return { w, img: c.backgroundImage, blend: c.mixBlendMode !== 'normal' ? c.mixBlendMode : null } } return null })(),
       // a 2px+ outline ring round the block (a selected thumbnail, round 7 e4)
       ring: (() => { const ow = parseFloat(cs.outlineWidth) || 0; return ow >= 2 && cs.outlineStyle !== 'none' ? { w: Math.round(ow), off: Math.round(parseFloat(cs.outlineOffset) || 0), colour: rgba(cs.outlineColor) } : null })(),
@@ -3436,7 +3439,7 @@ function effectWords(f) {
     : /multiply|darken|color-burn/.test(f.blend) ? 'ink-like (multiply blend: darkens what it overlaps, never covers it)'
     : /screen|lighten|color-dodge/.test(f.blend) ? 'light-like (screen blend: brightens what it overlaps)' : `${f.blend} blend over what is under it`)
   // n226: a big textless blurred glow says its box and blur (round 22 c3 aurora blobs: pink built 300px right and low)
-  if (f.blur >= 30 && !(f.text ?? '').trim() && f.layoutBox?.w >= 150) w.push(`soft blurred (filter: blur(${Math.round(f.blur)}px)), its box ${f.layoutBox.w}x${f.layoutBox.h}px with its top-left at ${f.layoutBox.x ?? Math.round(f.rect.x)},${f.layoutBox.y ?? Math.round(f.rect.y)} before the blur (${f.radiusPct >= 45 ? 'a ROUND glow: border-radius 50%, never a square or a rounded square' : 'a square glow'}; the blur stays on ALWAYS: filter: blur(${Math.round(f.blur)}px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off${/hue-rotate/.test(f.motion ?? '') ? `; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(${Math.round(f.blur)}px) }, never a bare hue-rotate that drops the blur` : ''}; a soft cloud of colour with no hard edge)`)
+  if (f.blur >= 30 && !(f.text ?? '').trim() && f.layoutBox?.w >= 150) w.push(`soft blurred (filter: blur(${Math.round(f.blur)}px)), its box ${f.layoutBox.w}x${f.layoutBox.h}px with its top-left at ${f.layoutBox.x ?? Math.round(f.rect.x)},${f.layoutBox.y ?? Math.round(f.rect.y)} before the blur (${f.radiusPct >= 45 ? 'a ROUND glow: border-radius 50%, never a square or a rounded square' : 'a square glow'}; the blur stays on ALWAYS: filter: blur(${Math.round(f.blur)}px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off${/hue-rotate/.test(f.motion ?? '') ? `; the hue keyframes keep it too, e.g. to { filter: hue-rotate(60deg) blur(${Math.round(f.blur)}px) }, never a bare hue-rotate that drops the blur` : ''}; a soft cloud of colour with no hard edge${visible(f.bg) ? `, its colour exactly ${hexOf({ ...f.bg, a: 1 })}` : ''})`)
   else if (f.blur >= 10) w.push('soft blurred')
   // a dashed outline (round 9 c4 stamp: said 'outline circle', dashes lost)
   const RR = f.rowRules
@@ -5754,6 +5757,12 @@ function rhythmWords(r) {
   return `; tight spacing: ${w.join(', ')}; the whole form is ${r.h}px tall top to bottom`
 }
 
+// two stops at the same place with clearly different colours: a hard edge in a linear gradient
+function hardStop(img) {
+  const st = [...String(img).matchAll(/(rgba?\([^)]+\))\s+([\d.]+)(%|px)/g)].map((m) => ({ c: parse(m[1]), at: parseFloat(m[2]) + m[3] }))
+  return st.some((x, i) => i && x.at === st[i - 1].at && x.c && st[i - 1].c && dist(x.c, st[i - 1].c) >= 12)
+}
+
 function pageNote(b) {
   const w = []
   // a cool pale grey (#f9fafb) is close to white yet a build on white loses it (round 4 e3)
@@ -5768,6 +5777,9 @@ function pageNote(b) {
   if (gl) w.push(`${gl.replace(/ block\b/, ` (${hexOf(b.bg)}) page`)} (big soft radial glows fading into the base colour)`)
   // n163: a radial glow page said exactly (round 16 c5: the blue glow behind the phone lost)
   else if (grad && /^radial-gradient/.test(b.bgImage ?? '') && !/^\d/.test(b.bgSize ?? '')) w.push(`${grad} page (a soft radial GLOW; exactly background: ${cssHex(b.bgImage)})`)
+  // n253: a page gradient with a hard stop (round 27 c2: '#ead2cc 62%, #d9b8b0 62%', a darker table band under the
+  // bottle) was said as a smooth two-colour blend and built without the band: say its exact CSS
+  else if (grad && /^linear-gradient/.test(b.bgImage ?? '') && hardStop(b.bgImage)) w.push(`${grad} page with a HARD EDGE where the colour jumps (a flat band, NOT a smooth blend; exactly background: ${cssHex(b.bgImage)})`)
   else if (grad) w.push(`${grad} page`)
   // a warm off-white (#f4f1ea) said bare was built plain white (round 6 c2): its hex goes with it
   else if (visible(b.bg)) w.push(`${nearWhite && colourName(b.bg) === 'white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : colourName(b.bg) === 'off-white' ? `off-white (${hexOf(b.bg)}, plainly not white)` : hexOf(b.bg) === '#ffffff' ? colourName(b.bg) : Math.min(parse(b.bg).r, parse(b.bg).g, parse(b.bg).b) >= 225 ? `${colourName(b.bg)} (${hexOf(b.bg)}, plainly not white)` : `${colourName(b.bg)} (${hexOf(b.bg)})`} page`)
@@ -6508,7 +6520,9 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const terr = f.terrazzo && panel ? `over that fill, edge to edge, a TERRAZZO layer: one absolute div (inset 0, no text) with exactly background-image: ${f.terrazzo.img.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return c && c.a < 0.05 ? 'transparent' : hexOf(c) })}; background-size: ${f.terrazzo.size} (it REPEATS: small dots of ${f.terrazzo.n} colours scattered over the ${hexOf(f.bg)} fill, the fill showing between them; NOT big discs, NOT on the page colour); every part below sits over it, ` : ''
     // n222: a row ruled along its bottom only (round 21 e5 tabs said part by part: the 1px rule under the tabs lost)
     const underRule = P.some((p) => p.inset) && R.y > 2 && !panel && !leftRule && !twoRules && !(f.border?.w >= 1) && !(f.border?.left >= 1) && f.border?.bottom >= 1 && visible(f.border.bottomColour) && R.w >= 300 && R.h <= 80 && !(!weak && /bottom (edge|only)/.test(d.note ?? '')) ? `the region is a ${Math.round(R.w)}x${Math.round(R.h)}px row at ${Math.round(R.x)},${Math.round(R.y)} with a ${Math.round(f.border.bottom)}px ${hexOf(f.border.bottomColour)} rule along its BOTTOM edge only, its full width (border-bottom, no other border${visible(f.bg) ? '' : ', no fill'}), its parts inside it; ` : ''
-    const keep = `${picTwo && !panel ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)} (NOT a photo, NOT an <img>), painted exactly background: ${cssHex(f.bgImage)}${f.radius >= 1 ? `, ${Math.round(f.radius)}px rounded` : ''}, its parts placed inside it (position absolute); ` : ''}${panel}${terr}${leftRule}${twoRules}${underRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered && !glassBare && !chipTile && !markers ? `${d.note}; ` : ''}`
+    // n253: striped bands along the panel's edges (film strip sprocket holes) said with their exact paint
+    const bands = panel && f.pseudoBands ? `along its edges ${f.pseudoBands.length} thin STRIPED bands painted by pseudo-elements (position absolute, full width, they turn with the panel): ${f.pseudoBands.map((b) => `its ${b.w} ${b.h}px tall, ${b.top !== 'auto' ? `top: ${b.top}` : `bottom: ${b.bottom}`}, background: ${cssHex(b.img)}`).join('; ')} (a row of small holes, NOT solid, NOT left out); ` : ''
+    const keep = `${picTwo && !panel ? `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px panel at ${Math.round(R.x)},${Math.round(R.y)} (NOT a photo, NOT an <img>), painted exactly background: ${cssHex(f.bgImage)}${f.radius >= 1 ? `, ${Math.round(f.radius)}px rounded` : ''}, its parts placed inside it (position absolute); ` : ''}${panel}${bands}${terr}${leftRule}${twoRules}${underRule}${lift}${d.note && !weak && !fields && !unpainted && !stats && !floating && !mixed && !unsaidPaint && !bgPic && !layered && !glassBare && !chipTile && !markers ? `${d.note}; ` : ''}`
     // n148: a small grey label lying inside a field's box is a floating label (round 12 e4: built above the field)
     const inside = fields && P.some((p) => p.t && !p.border && P.some((b) => fieldBox(b) && p.x >= b.x && p.y >= b.y && p.y + p.h <= b.y + b.h))
     const fl = inside ? '; each small grey field label lies INSIDE its bordered field box at its top-left, the value under it in the same box (floating labels, NOT above the field); fields sharing a top sit side by side in one row' : ''

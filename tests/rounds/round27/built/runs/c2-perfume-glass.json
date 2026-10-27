@@ -1,24 +1,24 @@
 {
   "id": "c2-perfume-glass",
-  "at": "2026-10-26T21:20:44.175Z",
+  "at": "2026-10-27T00:33:40.077Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7616805350497066,
-    "overallV2": 0.7616805350497066,
-    "overallV1": 0.677597257754647,
-    "colour": 0.9622436302848039,
-    "structure": 0.9093915060986068,
-    "structureStrict": 0.8301173057044072,
-    "colourAligned": 0.9622436302848039,
-    "structureAligned": 0.9093915060986068,
+    "overall": 0.8057163597506982,
+    "overallV2": 0.8057163597506982,
+    "overallV1": 0.6933451827074597,
+    "colour": 0.9747941100678189,
+    "structure": 0.9356950027651746,
+    "structureStrict": 0.8297508067962437,
+    "colourAligned": 0.9747941100678189,
+    "structureAligned": 0.9356950027651746,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8443671259182518
+      "r": 0.8237953282232019
     },
-    "layout": 0.7627032114410532,
-    "layoutV1": 0.6377292380836158,
+    "layout": 0.7377944167873435,
+    "layoutV1": 0.612820443429906,
     "layoutVersion": 2
   },
   "boxes": [
@@ -28,13 +28,6 @@
       0,
       1280,
       900
-    ],
-    [
-      0,
-      760,
-      330,
-      300,
-      300
     ],
     [
       0,
@@ -87,6 +80,27 @@
     ],
     [
       0,
+      760,
+      330,
+      300,
+      300
+    ],
+    [
+      0,
+      523,
+      143,
+      414,
+      413
+    ],
+    [
+      0,
+      677,
+      150,
+      88,
+      96
+    ],
+    [
+      0,
       600,
       268,
       240,
@@ -94,36 +108,8 @@
     ],
     [
       0,
-      604,
-      271,
-      233,
-      284
-    ],
-    [
-      10,
-      630,
-      294,
-      6,
-      233
-    ],
-    [
-      0,
-      698,
-      250,
-      44,
-      16
-    ],
-    [
-      0,
-      680,
-      153,
-      88,
-      96
-    ],
-    [
-      0,
-      660,
-      380,
+      675,
+      379,
       120,
       70
     ],
@@ -199,8 +185,8 @@
     ],
     [
       0,
-      60,
-      780,
+      62,
+      782,
       260,
       54
     ],
@@ -252,35 +238,90 @@
     "extra": []
   },
   "tokens": {
-    "input": 60437,
-    "output": 37291,
-    "cacheRead": 204241
+    "input": 72083,
+    "output": 34120,
+    "cacheRead": 393338
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 57277,
-      "output": 19859,
-      "cacheRead": 189310,
-      "toolCalls": 7,
+      "billed": 71743,
+      "output": 19738,
+      "cacheRead": 378250,
+      "toolCalls": 8,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
         "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
+        "Glob",
         "Write src/App.tsx"
       ],
-      "ms": 222261
+      "ms": 215594
     }
   ],
-  "reading": "This is a perfume hero page: a top navbar (ROSÉE logo + FRAGRANCE/ATELIERS/GIFTS links), a giant two-part headline \"ROSE nuit\", a gradient-paneled product graphic with a buy button, a fragrance description and notes breakdown (TOP/HEART/BASE), an ADD TO BAG button and a price — all sitting on a cream-to-pink gradient page with a subtle grain texture overlay and a soft blurred glow, exactly per the detailed typed specs.",
+  "ease": {
+    "marks": 20,
+    "captured": 20,
+    "notes": 14,
+    "words": 955,
+    "drawMs": 84207,
+    "readingMs": 127566,
+    "runMs": 344530
+  },
+  "reading": "A full perfume-brand hero page: a hard-edge cream-to-pink gradient background with a faint grain overlay, a nav bar (ROSÉE + FRAGRANCE/ATELIERS/GIFTS), a giant 'ROSE nuit' Didot headline, a glass-bottle illustration built from layered gradient tiles with an off-white label button and a soft peach blur behind it, serif body copy, a three-row fragrance-notes list, an 'ADD TO BAG' button and a '€145' price.",
   "actions": [
     {
       "kind": "design",
       "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        554
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s9"
+      ],
+      "instruction": "Add a fine grain texture layer over the whole background (1280x558px), on top of the colour fields but under the type, with no fill of its own and pointer-event"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s15",
+        "s16"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s15",
+            "s16",
+            "s17"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        964,
+        630,
+        252,
+        36
+      ],
+      "paths": [],
+      "instruction": "Add a soft blurred round glow (border-radius 50%, never a square), 300x300px box with top-left at 760,330 before blur, filter: blur(70px) set directly on the el"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
       "textSize": [],
       "region": [
         3,
@@ -291,28 +332,12 @@
       "paths": [
         "s0"
       ],
-      "instruction": "A fine grain texture layer over everything under it, sized 1280x558px, no fill of its own, pointer-events none, sitting on top of the colour fields but under th"
+      "instruction": "Add a header nav row: 'ROSÉE' at left (120x26 at 60,40, 22px regular NOT bold serif NOT the page sans, #3a2420, letter-spacing 10px), then links pushed to the f"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s3"
-      ],
-      "textSize": [],
-      "region": [
-        64,
-        49,
-        1152,
-        9
-      ],
-      "paths": [],
-      "instruction": "Top navbar, 4 separate live-text elements, each on one line (nowrap, min-width not fixed width): \"ROSÉE\" at 120x26 top-left 60,40, 22px regular (not bold) serif"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s4",
-        "s5"
+        "s4"
       ],
       "textSize": [
         {
@@ -321,7 +346,25 @@
           ],
           "lines": 1,
           "fontPx": 178
-        },
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        552
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a giant Didot serif headline 'ROSE', regular weight (not bold), wide-spaced letters (letter-spacing 30px), 150px type size, about 503px wide (no larger)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
         {
           "strokes": [
             "s5"
@@ -331,18 +374,36 @@
         }
       ],
       "region": [
-        68,
-        165,
-        1080,
-        462
+        3,
+        3,
+        1274,
+        623
       ],
       "paths": [
+        "s0",
         "s2"
       ],
-      "instruction": "Giant two-part hero headline: \"ROSE\" in giant Didot serif, regular weight (not bold), wide-spaced letters (letter-spacing 30px), 150px type, about 503px wide (n"
+      "instruction": "Add a giant Didot italic serif word 'nuit' in pink, regular weight (not bold), 150px type size, about 233px wide (no larger), sitting alongside 'ROSE'."
     },
     {
       "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        554
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s7"
+      ],
+      "instruction": "Add a small 88x96px tile with 10px rounded corners, filled with a brown (#8a5a3c) to peach (#e0b07e, stop at 40%, fully opaque) to brown (#8a5a3c) gradient, lef"
+    },
+    {
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -355,25 +416,45 @@
         "s1",
         "s7",
         "s8",
-        "s9",
-        "s10"
+        "s9"
       ],
-      "instruction": "Product hero graphic built from plain-paint gradient tiles (no picture, no icon, no X, no text baked into the paint): (1) an 88x96px tile with 10px rounded corn"
+      "instruction": "Fill this bottle-neck shape with a peach (#c9a07a) to warm paper (#f1d6b6, stop at 50%, fully opaque) to peach (#c9a07a) gradient, left to right."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        554
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s9",
+        "s11"
+      ],
+      "instruction": "Fill this bottle body shape (240x290px, 26px rounded corners) with a pale pink (#f7c6c0 at 80% opacity) to cream (#fdeae6, stop at 30%, 67% opacity) to peach (#"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        662,
-        381,
-        116,
-        67
+        3,
+        3,
+        1274,
+        554
       ],
       "paths": [
+        "s0",
+        "s1",
+        "s9",
         "s11"
       ],
-      "instruction": "Off-white button labelled \"ROSÉE EAU DE PARFUM\", 120x70px, square corners (border-radius 0, not a pill), exactly #fbf2ee fill with #3a2420 text, sitting on the "
+      "instruction": "Add an off-white label/button reading 'ROSÉE EAU DE PARFUM', exactly 120x70px, #fbf2ee fill, #3a2420 text, square corners (border-radius 0, not a pill)."
     },
     {
       "kind": "add",
@@ -400,7 +481,7 @@
         78
       ],
       "paths": [],
-      "instruction": "Serif body copy: \"Damask rose at dusk, a thread of smoke, and something sweet you can't quite place. Made in Grasse, 50 ml.\""
+      "instruction": "Add serif body copy: \"Damask rose at dusk, a thread of smoke, and something sweet you can't quite place. Made in Grasse, 50 ml.\""
     },
     {
       "kind": "add",
@@ -427,33 +508,7 @@
         82
       ],
       "paths": [],
-      "instruction": "Fragrance notes list, 9 live-text parts, each on one line (nowrap, min-width not fixed): row 1 — 1px #3a2420 20%-opacity bottom border, 260x27 at 960,620; \"TOP\""
-    },
-    {
-      "kind": "design",
-      "textMarks": [
-        "s15",
-        "s16"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s15",
-            "s16",
-            "s17"
-          ],
-          "lines": 3,
-          "fontPx": 18
-        }
-      ],
-      "region": [
-        964,
-        630,
-        252,
-        36
-      ],
-      "paths": [],
-      "instruction": "A big soft peach glow: 300x300px box with top-left at 760,330 (before blur), round (border-radius 50%, never square), filter: blur(70px) set on the element's ow"
+      "instruction": "Add a three-row fragrance-notes list, each row with a bottom border (1px #3a2420 at 20% opacity) and a label/value pair, all 9 parts present as live text, 12px "
     },
     {
       "kind": "add",
@@ -468,7 +523,7 @@
       "paths": [
         "s18"
       ],
-      "instruction": "Dark brown button labelled \"ADD TO BAG\", 260x54px, square corners (border-radius 0, not a pill), exactly #3a2420 fill with #fbf2ee (off-white) text."
+      "instruction": "Add a dark brown button reading 'ADD TO BAG', 260x54px, #3a2420 fill, #fbf2ee text (off-white, not the page's dark brown text), square corners (border-radius 0,"
     },
     {
       "kind": "add",
@@ -483,7 +538,7 @@
       "paths": [
         "s19"
       ],
-      "instruction": "Serif price \"€145\" set at 22px as a large lead line (not small body text), about 44px wide on one line, top-left at 350,794."
+      "instruction": "Add serif price text '€145' at 22px (a large lead line, not small body text), about 44px wide on one line, top-left at 350,794."
     }
   ],
   "rejected": [

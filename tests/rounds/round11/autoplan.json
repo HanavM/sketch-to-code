@@ -215,7 +215,7 @@
   "notes": [
    [
     "*",
-    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6) gradient down to 55% (the edge at y 495px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid dark grey (#2d2a4a) below it to the bottom (linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%)) page, Helvetica type, dark grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 340x60px at 790,560 dark grey #2d2a4a at 50% circle/ellipse (border-radius 50%) blurred (filter: blur(14px))"
+    "whole page: cream (#ffe8d6) to pale pink (#ffd3b6) gradient down to 55% (the edge at y 495px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid dark grey (#2d2a4a) below it to the bottom (linear-gradient(#ffe8d6 0%, #ffd3b6 55%, #2d2a4a 55%)) page with a HARD EDGE where the colour jumps (a flat band, NOT a smooth blend; exactly background: linear-gradient(#ffe8d6 0px, #ffd3b6 55%, #2d2a4a 55%)), Helvetica type, dark grey text, behind everything (under all content, position absolute) 1 soft blurred shape, each its own div: 340x60px at 790,560 dark grey #2d2a4a at 50% circle/ellipse (border-radius 50%) blurred (filter: blur(14px))"
    ],
    [
     "perspective-floor",

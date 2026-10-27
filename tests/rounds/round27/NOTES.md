@@ -76,3 +76,26 @@ Fixes (planner):
 
 Re-planned rounds 1-26: only r26 e1 inspector sliders gain their labels. Vitest same 2 env failures (1460); typecheck clean.
 Still weakest: e3 smart home 74, c2 perfume glass 76, c4 film festival 79 (their n251 fixes not yet run live).
+
+## n253: live re-runs of the weakest pages, three planner fixes, and ease logging (2026-10-27, ~584k billed)
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e3 smart home | 74% | **93%** | thermostat built as a coloured conic gauge with its knob; energy chart see-through with stroked tops |
+| e1 photo editor | 91% | **93%** | slider names and values right (n252 notes); corner handles still thin |
+| c4 film festival | 79% | 84%, then **86%** | laurel SVG verbatim; second run (new band rule) got the sprocket holes |
+| c2 perfume glass | 76% | 71%, then **81%** | first run: bottle gold, no table band; second run (new rules): pink see-through bottle, table band, pink mist; neck built as a big tan box behind the bottle |
+
+Round 27: **89%** over 10 (88.8; first look 75).
+
+Fixes (planner):
+- A page gradient with a hard stop says HARD EDGE and its exact CSS (c2 table band; also 4 pages in earlier rounds).
+- A blurred glow says its exact colour (c2 mist #f3a7b5 was 'peach'; 7 glows in earlier rounds gain their hex).
+- A panel's thin striped ::before/::after bands are said with size, place and exact paint (c4 sprocket holes).
+
+Ease logging (Hanav's note): every run digest now records marks drawn, notes and words typed, drawing time, time until the
+reading shows, and run time; `node tests/rounds/ease.mjs` writes tests/rounds/EASE.md with likeness, marks, words, draw s,
+read s, build s, tokens and fixes per page and per round. Round 27: 14 marks, ~1,170 words, ~80 s to draw, ~90 s to read,
+~300 s to build, ~114k tokens per page, no repair turns. Words typed per page grew from ~240 (round 1) to ~1,100+.
+
+Still off: c2 neck (said with no size), e4 claim form 84, e2 meal planner 85, c1 tarot 87.

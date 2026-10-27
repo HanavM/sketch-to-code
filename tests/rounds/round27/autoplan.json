@@ -191,7 +191,7 @@
   "notes": [
    [
     "*",
-    "whole page: cream #f6e9e4 (top) to pale pink #e8cfc8 (bottom) gradient page, Helvetica type, dark brown text"
+    "whole page: cream #f6e9e4 (top) to pale pink #e8cfc8 (bottom) gradient page with a HARD EDGE where the colour jumps (a flat band, NOT a smooth blend; exactly background: linear-gradient(#f6e9e4 0px, #ead2cc 62%, #d9b8b0 62%, #e8cfc8 100%)), Helvetica type, dark brown text"
    ],
    [
     "vertical-rules",
@@ -199,7 +199,7 @@
    ],
    [
     "mist-pink",
-    "soft blurred (filter: blur(70px)), its box 300x300px with its top-left at 760,330 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; a soft cloud of colour with no hard edge) faded to 55% opacity (see-through) big peach circle"
+    "soft blurred (filter: blur(70px)), its box 300x300px with its top-left at 760,330 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(70px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; a soft cloud of colour with no hard edge, its colour exactly #f3a7b5) faded to 55% opacity (see-through) big peach circle"
    ],
    [
     "nav",
@@ -467,7 +467,7 @@
    ],
    [
     "film-strip",
-    "the region itself is ONE 1500x200px panel, position absolute with its top-left at -80,540 page px before its turn, transform: rotate(-6deg) on this panel (TILTED 6° anticlockwise, NOT straight; its parts turn WITH it, and the part places below are page px before the turn), #141414 fill, with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 214x160 at 43,560 linear-gradient(160deg, #f2b632, #e23b2e), 4px rounded; 214x160 at 259,560 linear-gradient(160deg, #3d6b8e, #141414), 4px rounded; 214x160 at 476,560 linear-gradient(200deg, #e8d5b0, #8a5a3c), 4px rounded; 214x160 at 692,560 linear-gradient(160deg, #6a8f5a, #1d3320), 4px rounded; 214x160 at 907,560 linear-gradient(120deg, #e23b2e, #3a0a14), 4px rounded; 214x160 at 1123,560 linear-gradient(160deg, #c9c3b8, #4a4640), 4px rounded"
+    "the region itself is ONE 1500x200px panel, position absolute with its top-left at -80,540 page px before its turn, transform: rotate(-6deg) on this panel (TILTED 6° anticlockwise, NOT straight; its parts turn WITH it, and the part places below are page px before the turn), #141414 fill, with its parts inside it; along its edges 2 thin STRIPED bands painted by pseudo-elements (position absolute, full width, they turn with the panel): its ::before 14px tall, top: 8px, background: repeating-linear-gradient(90deg, #f1e7d0 0px, #f1e7d0 16px, transparent 16px, transparent 34px); its ::after 14px tall, top: 178px, background: repeating-linear-gradient(90deg, #f1e7d0 0px, #f1e7d0 16px, transparent 16px, transparent 34px) (a row of small holes, NOT solid, NOT left out); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 214x160 at 43,560 linear-gradient(160deg, #f2b632, #e23b2e), 4px rounded; 214x160 at 259,560 linear-gradient(160deg, #3d6b8e, #141414), 4px rounded; 214x160 at 476,560 linear-gradient(200deg, #e8d5b0, #8a5a3c), 4px rounded; 214x160 at 692,560 linear-gradient(160deg, #6a8f5a, #1d3320), 4px rounded; 214x160 at 907,560 linear-gradient(120deg, #e23b2e, #3a0a14), 4px rounded; 214x160 at 1123,560 linear-gradient(160deg, #c9c3b8, #4a4640), 4px rounded"
    ],
    [
     "copy",

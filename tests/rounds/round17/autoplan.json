@@ -269,7 +269,7 @@
   "notes": [
    [
     "*",
-    "whole page: black (#12002b) to deep purple (#3b0a5c) to pink (#ff2e88) gradient down to 62% (the edge at y 558px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid black (#12002b) below it to the bottom (linear-gradient(#12002b 0%, #3b0a5c 45%, #ff2e88 62%, #12002b 62%)) page, Helvetica type, white text"
+    "whole page: black (#12002b) to deep purple (#3b0a5c) to pink (#ff2e88) gradient down to 62% (the edge at y 558px: the page is exactly 900px tall, height 100vh, NOT stretched by its content), then a HARD straight edge (no blend) and solid black (#12002b) below it to the bottom (linear-gradient(#12002b 0%, #3b0a5c 45%, #ff2e88 62%, #12002b 62%)) page with a HARD EDGE where the colour jumps (a flat band, NOT a smooth blend; exactly background: linear-gradient(#12002b 0%, #3b0a5c 45%, #ff2e88 62%, #12002b 62%)), Helvetica type, white text"
    ],
    [
     "striped-sun",
