@@ -77,3 +77,21 @@ Re-planned rounds 1-28: only round 21 c4's -90° numeral note gains its rotate()
 
 Still open: c2 barcode fills its whole cell and the lime heading came out mono; c5 waves flat and the jellyfish a pill not a dome;
 c4 arch double line, inner arch, sunburst; c1 offset discs and ticket notches; e5 candle SVG and 'null' card fill; e1 status chips.
+
+## n264: planner fixes, re-run live (2026-10-27, ~284k billed)
+
+| page | was | now | marks | words | draw s | run s | tokens | what changed |
+|---|---|---|---|---|---|---|---|---|
+| e5 trading desk | 89% | **95%** | 5 | 2,121 | 80 | 276 | 102k | candlesticks, volume bars and the moving-average line drawn (SVG handed over); timeframe tabs, price axis and last-price tag kept; order book no longer said 'null (#000000)' |
+| e1 spreadsheet | 74% | 70% | 11 | ~1,330 | 79 | 300 | 85k + 97k | status chips now filled rounded pills (were plain text); first re-run 65% (chips made rows taller), second 70% with the chip height said; by eye closer than the 74% build, the layout part of the score (75%) is held down by small column shifts |
+
+Round 29 now **87%** (87.4: c1 73, c2 81, c3 89, c4 90, c5 93, e1 70, e2 93, e3 95, e4 95, e5 95).
+
+Planner rules (each a rule, not a page patch):
+- A pane painted as a line grid that holds words or a drawing keeps them: the grid is said as its background only (the r29 e5 candle pane was said 'a grid, nothing inside', throwing away tabs, candles and axis).
+- A chart drawing inside a pane (12+ rects/lines, 8+ filled bars, no text, up to 5,000 characters) is one of its parts, its SVG copied verbatim at its place.
+- An unfilled stacked-area chart card says it has no fill (was 'null (#000000)').
+- A spreadsheet cell whose words sit in a filled rounded span is a status CHIP: fill, rounding, padding, size and exact height, so the row keeps its height.
+Re-planned rounds 1-28: no notes change.
+
+Still open: e5 order form (segmented Buy/Sell, boxed inputs, diamond slider simplified) and ticker labels overlapping; e1 tab underline and sum box; c4 arch double line, inner arch, sunburst; c1 offset discs and ticket notches; c2 barcode and mono lime heading; c5 waves and jellyfish dome.

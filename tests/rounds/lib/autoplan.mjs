@@ -1321,7 +1321,12 @@ export function factsInPage() {
         const cell = (c) => {
           const cs = getComputedStyle(c), b = c.querySelector('b,strong'), t = (c.innerText || '').trim()
           const ol = parseFloat(cs.outlineWidth) >= 1 && cs.outlineStyle !== 'none' ? { w: parseFloat(cs.outlineWidth), c: rgba(cs.outlineColor) } : null
-          return { t, bold: Number((b ? getComputedStyle(b) : cs).fontWeight) >= 600, ink: rgba((b ? getComputedStyle(b) : cs).color), fill: col(c), right: cs.textAlign === 'right' || cs.textAlign === 'end', ol }
+          // n264: a cell whose words sit in a filled rounded span is a status CHIP (round 29 e1 'On track' / 'At risk': said as
+          // plain cell text, built as plain text)
+          const sp = c.children.length === 1 && c.firstElementChild.tagName === 'SPAN' && (c.firstElementChild.innerText || '').trim() === t ? c.firstElementChild : null
+          const spS = sp ? getComputedStyle(sp) : null
+          const chip = sp && col(sp) && parseFloat(spS.borderTopLeftRadius) >= 4 ? { fill: col(sp), ink: rgba(spS.color), px: Math.round(parseFloat(spS.fontSize)), rad: Math.round(parseFloat(spS.borderTopLeftRadius)), padX: Math.round(parseFloat(spS.paddingLeft)), padY: Math.round(parseFloat(spS.paddingTop)), h: Math.round(sp.getBoundingClientRect().height) } : null
+          return { t, bold: Number((b ? getComputedStyle(b) : cs).fontWeight) >= 600, ink: rgba((b ? getComputedStyle(b) : cs).color), fill: col(c), right: cs.textAlign === 'right' || cs.textAlign === 'end', ol, chip }
         }
         const body = rows.slice(1).map((r) => [...r.cells].slice(1).map(cell))
         const bc = getComputedStyle(rows[1].cells[1])
@@ -1928,6 +1933,14 @@ export function factsInPage() {
             if (sh.length && sh.length <= 4 && src.length <= 900 && b.width * b.height <= 40000 && sh.every((q) => /^(polyline|path|line)$/i.test(q.tagName) && (getComputedStyle(q).fill === 'none' || rgba(getComputedStyle(q).fill)?.a < 0.05) && rgba(getComputedStyle(q).stroke)?.a > 0.05)) {
               preDone.push(k)
               out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: null, svg: src, px: 0, bold: false, ink: null, mono: false, fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
+              continue
+            }
+            // n264: a chart drawing inside a pane (round 29 e5 candlesticks: 20 wicks, 40 bodies and volume bars plus a
+            // moving-average line; the pane was said as 'a grid, nothing inside') is one of its parts, copied verbatim too
+            const filled = sh.filter((q) => q.tagName.toLowerCase() === 'rect' && rgba(getComputedStyle(q).fill)?.a > 0.05)
+            if (sh.length >= 12 && filled.length >= 8 && src.length <= 5000 && sh.every((q) => /^(rect|line|polyline|path)$/i.test(q.tagName))) {
+              preDone.push(k)
+              out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: null, svg: src, chart: true, px: 0, bold: false, ink: null, mono: false, fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
               continue
             }
           }
@@ -4271,6 +4284,7 @@ function partsNote(P, f) {
     // regular, Black 900 built upright bold)
     const wtSay = p.wt && ![400, 700].includes(p.wt) && (p.wt <= 300 || p.wt >= 800 || p.px >= 20) ? `font-weight ${p.wt} ` : p.bold ? 'bold ' : p.px >= 20 ? 'regular (NOT bold) ' : ''
     // n260: a small line drawing (a sparkline) handed over verbatim
+    if (p.svg && p.chart) return `${p.w}x${p.h} at ${p.x},${p.y}: a CHART DRAWING (candlesticks, volume bars and a curve, NOT a photo, NOT left out, drawn UNDER the other parts here), this inline SVG copied VERBATIM, position absolute at that spot: ${p.svg}`
     if (p.svg) return `${p.w}x${p.h} at ${p.x},${p.y}: a small LINE DRAWING (a sparkline: a thin line, no fill, no axes, no frame round it), this inline SVG copied VERBATIM, position absolute at that spot: ${p.svg}`
     // n145: a pre block said line by line, coloured words in place (round 11 e1 terminal output scrambled)
     if (p.pre) return `${p.w}x${p.h} at ${p.x},${p.y}${p.fill ? ` ${hx(p.fill)} fill` : ''}: ONE pre block (white-space: pre, ${p.px}px ${p.mono ? 'monospace' : ''} ${hx(p.ink)} text, line-height ${p.pre.lh}px, padding ${p.pre.padT}px ${p.pre.padL}px) of ${p.pre.lines.length} lines in EXACTLY this order, each line ONE row written as one run of text, leading spaces kept, the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned): ${p.pre.lines.map((l, i) => `${i + 1} \`${l.text}\`${l.runs.length ? ` [${l.runs.map((r) => `${JSON.stringify(r.t)} ${hexOf(r.c)}`).join(', ')}]` : ''}`).join('; ')}`
@@ -4396,6 +4410,7 @@ function sheetNote(G) {
     else if (c.t && !/^[-−(]?[£$€]?[\d.,]+%?\)?$/.test(c.t) && (() => { const col = G.body.map((r) => r[j]).filter((x) => x?.t); return col.filter((x) => x.right).length >= Math.max(2, col.length / 2) })()) bits.push('LEFT-aligned (a word, NOT right like the numbers under it)')
     if (c.fill) bits.push(`${hexOf(c.fill)} fill`)
     if (c.ol) bits.push(`ACTIVE CELL: ${c.ol.w}px ${hexOf(c.ol.c)} outline drawn inside the cell`)
+    if (c.chip) bits.push(`a status CHIP: the words in an inline-block span with ${hexOf(c.chip.fill)} fill, ${c.chip.rad}px rounded, padding ${c.chip.padY}px ${c.chip.padX}px, ${c.chip.px}px${c.chip.ink && base && dist(c.chip.ink, base) > 30 ? ` ${hexOf(c.chip.ink)}` : ''} text, the chip exactly ${c.chip.h}px tall (line-height ${c.chip.h - 2 * c.chip.padY}px) so the row stays exactly ${G.rowH}px (the cell itself unfilled; the chip NEVER makes its row taller)`)
     return `${L} ${c.t ? quote(c.t, 24) : '(no words)'}${bits.length ? ` (${bits.join(', ')})` : ''}`
   }
   const rows = G.body.map((r, i) => { const cs = r.map(one).filter(Boolean); return cs.length ? `row ${i + 1}: ${cs.join(' | ')}` : null })
@@ -5103,6 +5118,7 @@ function decideOne(f, page, marked, said) {
   }
 
   // n154: a card holding a stacked area chart, said as its exact SVG paths (round 14 e4 built bars)
+  // n264: an unfilled card says so (round 29 e5 order book was said 'null (#000000)')
   if (f.areaSvg && !f.regionKids.length) {
     const A = f.areaSvg
     const head = f.kidTexts[0] ?? ''
@@ -5112,7 +5128,7 @@ function decideOne(f, page, marked, said) {
     const fa = (p) => (p.fill?.a ?? 1) * (p.fop ?? 1)
     const path = (p) => `<path d="${p.d}" fill="${p.fill && p.fill.a > 0.004 ? hexOf(p.fill) : 'none'}"${p.fill && fa(p) < 0.97 ? ` fill-opacity="${+fa(p).toFixed(2)}"` : ''}${p.stroke && p.stroke.a > 0.05 && p.sw >= 1 ? ` stroke="${hexOf(p.stroke)}" stroke-width="${+p.sw.toFixed(1)}"` : ''}${p.op < 0.99 ? ` opacity="${+p.op.toFixed(2)}"` : ''}/>`
     const line = (l) => `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${hexOf(l.c)}"/>`
-    return { kind: 'box', note: withFx(`${colourName(f.bg)} (${hexOf(f.bg)}) chart card ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded${bordered ? `, 1px ${hexOf(f.border.colour)} border` : ''}; small bold title ${quote(head, 40)} top left${lg}; the chart is a STACKED AREA chart (overlapping filled hills, NOT bars, NOT a bar chart, NOT lines only): an inline <svg width="${A.w}" height="${A.h}"> placed ${A.x}px from the card's left and ${A.y}px from its top, holding exactly these shapes, back to front: ${A.paths.map(path).join(' ')}${A.lines.length ? ` ${A.lines.map(line).join(' ')}` : ''}`) }
+    return { kind: 'box', note: withFx(`${f.bg && f.bg.a > 0.05 ? `${colourName(f.bg)} (${hexOf(f.bg)})` : 'unfilled (NO fill of its own: the page colour shows through; never black, never a card colour)'} chart card ${Math.round(w)}x${Math.round(h)}px, ${Math.round(f.radius)}px rounded${bordered ? `, 1px ${hexOf(f.border.colour)} border` : ''}; small bold title ${quote(head, 40)} top left${lg}; the chart is a STACKED AREA chart (overlapping filled hills, NOT bars, NOT a bar chart, NOT lines only): an inline <svg width="${A.w}" height="${A.h}"> placed ${A.x}px from the card's left and ${A.y}px from its top, holding exactly these shapes, back to front: ${A.paths.map(path).join(' ')}${A.lines.length ? ` ${A.lines.map(line).join(' ')}` : ''}`) }
   }
   // n154: a glyph tile grid, said tile by tile (round 14 c5 built it as one white word)
   if (f.glyphTiles && !f.regionKids.length) {
@@ -6266,7 +6282,14 @@ function cutNotes(regions, out, X, pn) {
     }
     if (e.lines && !handled(/grid|lines|background: /i)) {
       const fade = e.mask ? `, FADING OUT toward the top by mask-image: ${e.mask} (and -webkit-mask-image the same), so it is clear at the top and only faintly visible lower down` : ''
-      d.note = `a GRID OF THIN LINES (NOT a filled box, NOT dark, NOT a photo): one ${at} div with no fill of its own, its background drawn as ${e.lines.lw}px ${e.lines.c} lines on a ${e.lines.size} tile (background-image: ${e.img}; background-size: ${e.lines.size})${fade}; nothing inside`
+      const grid = `a GRID OF THIN LINES (NOT a filled box, NOT dark, NOT a photo): one ${at} div with no fill of its own, its background drawn as ${e.lines.lw}px ${e.lines.c} lines on a ${e.lines.size} tile (background-image: ${e.img}; background-size: ${e.lines.size})${fade}`
+      // n264: a gridded pane that holds words or a drawing (r29 e5 candle chart: tabs, candles SVG, axis) keeps them;
+      // 'nothing inside' threw the whole chart away
+      if ((f.text ?? '').trim() || e.svgKids) {
+        d.note = /background-image: [^;]*linear-gradient/.test(d.note ?? '') ? `${d.note}; its line-grid background tiles at exactly background-size: ${e.lines.size} (${e.lines.lw}px ${e.lines.c} lines)` : `${grid} as its BACKGROUND only, its parts drawn ON it inside the same div; ${d.note ?? ''}`
+        continue
+      }
+      d.note = `${grid}; nothing inside`
       continue
     }
     if (e.quarter) {
