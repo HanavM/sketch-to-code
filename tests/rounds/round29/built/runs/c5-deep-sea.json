@@ -1,0 +1,505 @@
+{
+  "id": "c5-deep-sea",
+  "at": "2026-10-27T09:43:47.839Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8330155700251662,
+    "overallV2": 0.8330155700251662,
+    "overallV1": 0.7769059113805541,
+    "colour": 0.9614688470445051,
+    "structure": 0.8456795884436816,
+    "structureStrict": 0.7224578200821726,
+    "colourAligned": 0.9614688470445051,
+    "structureAligned": 0.8456795884436816,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9457776175662687
+    },
+    "layout": 0.7382483138908437,
+    "layoutV1": 0.7382483138908437,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      960
+    ],
+    [
+      0,
+      28,
+      1,
+      392,
+      893
+    ],
+    [
+      0,
+      438,
+      1,
+      244,
+      908
+    ],
+    [
+      0,
+      3,
+      723,
+      1274,
+      237
+    ],
+    [
+      3,
+      3,
+      723,
+      1274,
+      237
+    ],
+    [
+      4,
+      3,
+      723,
+      1274,
+      194
+    ],
+    [
+      5,
+      3,
+      722,
+      1273,
+      195
+    ],
+    [
+      4,
+      3,
+      917,
+      1274,
+      43
+    ],
+    [
+      0,
+      3,
+      777,
+      1274,
+      183
+    ],
+    [
+      8,
+      3,
+      777,
+      1274,
+      183
+    ],
+    [
+      9,
+      3,
+      777,
+      1274,
+      194
+    ],
+    [
+      10,
+      3,
+      776,
+      1273,
+      195
+    ],
+    [
+      0,
+      40,
+      120,
+      43,
+      72
+    ],
+    [
+      12,
+      40,
+      120,
+      43,
+      18
+    ],
+    [
+      12,
+      40,
+      138,
+      43,
+      18
+    ],
+    [
+      12,
+      40,
+      156,
+      43,
+      18
+    ],
+    [
+      12,
+      40,
+      174,
+      43,
+      18
+    ],
+    [
+      0,
+      88,
+      180,
+      540,
+      176
+    ],
+    [
+      17,
+      88,
+      180,
+      540,
+      88
+    ],
+    [
+      17,
+      88,
+      268,
+      540,
+      88
+    ],
+    [
+      0,
+      84,
+      410,
+      440,
+      56
+    ],
+    [
+      0,
+      87,
+      523,
+      165,
+      49
+    ],
+    [
+      0,
+      900,
+      120,
+      150,
+      110
+    ],
+    [
+      0,
+      764,
+      304,
+      32,
+      32
+    ],
+    [
+      0,
+      724,
+      384,
+      15,
+      15
+    ],
+    [
+      0,
+      1153,
+      304,
+      52,
+      52
+    ],
+    [
+      0,
+      823,
+      423,
+      353,
+      293
+    ],
+    [
+      26,
+      860,
+      507,
+      279,
+      20
+    ],
+    [
+      26,
+      860,
+      539,
+      279,
+      58
+    ],
+    [
+      26,
+      860,
+      609,
+      279,
+      24
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.625,
+    "kept": [
+      "glass",
+      "glow",
+      "gradient",
+      "italic",
+      "overlap"
+    ],
+    "missing": [
+      "blur",
+      "soft-shadow",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 50494,
+    "output": 34608,
+    "cacheRead": 323035
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52543,
+      "output": 18423,
+      "cacheRead": 156827,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 219266
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 18706,
+      "output": 8719,
+      "cacheRead": 163124,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 102720
+    }
+  ],
+  "ease": {
+    "marks": 14,
+    "captured": 14,
+    "notes": 13,
+    "words": 527,
+    "drawMs": 61386,
+    "readingMs": 73616,
+    "runMs": 397628
+  },
+  "reading": "The sketch is a dark deep-sea themed hero page: a top-to-bottom teal-to-black gradient background with two tall empty photo-backdrop panels, a decorative two-layer wavy hill divider near the bottom, a mint-green depth scale (0m/200m/1,000m/4,000m), a large two-line headline \"Into the / midnight zone\", a two-line paragraph of copy, a glowing mint \"Join the dive\" pill button, a small glowing lilac gradient block, three small empty pill-input controls, and a frosted-glass stats card showing current depth, water temperature and pressure.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        28,
+        1,
+        386,
+        770
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A 392x893px empty product-photo backdrop block filled with a soft pale tinted #ffffff to #000000 (top to bottom) gradient — no picture placeholder, no X, no ico"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        438,
+        1,
+        238,
+        796
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A 244x908px empty product-photo backdrop block filled with a soft pale tinted #ffffff to #000000 (top to bottom) gradient — no picture placeholder, no X, no ico"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        703,
+        1274,
+        194
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Two layered wavy-hill filled shapes spanning the full page width at the bottom, back to front: a dark teal (#0b3a7a) hill cresting about 723-759px down (top edg"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        53,
+        124,
+        17,
+        696
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Mint green (#7ff3ff) depth-scale label text \"0 m / 200 m / 1,000 m / 4,000 m\", set in a 43px wide box with top-left at 40,120, 12px type, line-height 18px, wrap"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        88,
+        180,
+        558,
+        175
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy, tight-set (line-height 0.95) headline \"Into the midnight zone\", set in exactly 2 lines: \"Into the\" / \"midnight zone\" (keep these breaks; "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        88,
+        410,
+        432,
+        56
+      ],
+      "paths": [],
+      "instruction": "Body copy \"A live dive log from the Abyssal-3 sub. Follow the crew 4,000 metres down, one sonar ping at a time.\", set in a 440px wide box with top-left at 84,41"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        87,
+        523,
+        165,
+        49
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A mint-green (#7ff3ff, solid fill) pill button labeled \"Join the dive\" in bold dark navy (#041b45) text, with a soft coloured glow around it: box-shadow: rgba(1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        903,
+        123,
+        143,
+        103
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A small 150x110px pale lilac-to-purple gradient block, top-left at 900,120, 75px rounded corners, plain paint only (no picture, no X, no icon, no text), with a "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        764,
+        304,
+        32,
+        32
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "A small empty pill-shaped input control at this location."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        724,
+        384,
+        15,
+        15
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A small empty pill-shaped input control at this location."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1153,
+        304,
+        52,
+        52
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A small empty pill-shaped input control at this location."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        423,
+        353,
+        293
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "A frosted-glass stats card with the label \"CURRENT DEPTH\" (#7ff3ff), a big 58px bold value \"2,418 m\" (#e6fbff), and a line \"Water 2.1°C · Pressure 243 bar\" (#bf"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

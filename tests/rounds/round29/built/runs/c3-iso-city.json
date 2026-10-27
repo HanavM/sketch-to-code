@@ -1,0 +1,476 @@
+{
+  "id": "c3-iso-city",
+  "at": "2026-10-27T09:27:13.856Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8866861657579737,
+    "overallV2": 0.8866861657579737,
+    "overallV1": 0.8407613745013083,
+    "colour": 0.9949813230238574,
+    "structure": 0.9500977125878162,
+    "structureStrict": 0.9088129164732005,
+    "colourAligned": 0.9949813230238574,
+    "structureAligned": 0.9500977125878162,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9535360654073417
+    },
+    "layout": 0.8477541472375704,
+    "layoutV1": 0.8477541472375704,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      68,
+      24,
+      1144,
+      30
+    ],
+    [
+      1,
+      68,
+      24,
+      119,
+      30
+    ],
+    [
+      1,
+      924,
+      27,
+      288,
+      24
+    ],
+    [
+      3,
+      924,
+      27,
+      43,
+      24
+    ],
+    [
+      3,
+      999,
+      27,
+      32,
+      24
+    ],
+    [
+      3,
+      1063,
+      27,
+      64,
+      24
+    ],
+    [
+      3,
+      1159,
+      27,
+      53,
+      24
+    ],
+    [
+      0,
+      72,
+      140,
+      334,
+      195
+    ],
+    [
+      8,
+      72,
+      204,
+      154,
+      66
+    ],
+    [
+      0,
+      64,
+      390,
+      400,
+      84
+    ],
+    [
+      0,
+      67,
+      514,
+      155,
+      49
+    ],
+    [
+      0,
+      563,
+      123,
+      654,
+      653
+    ],
+    [
+      12,
+      563,
+      123,
+      654,
+      653
+    ],
+    [
+      13,
+      563,
+      123,
+      654,
+      653
+    ],
+    [
+      14,
+      563,
+      123,
+      654,
+      654
+    ],
+    [
+      13,
+      640,
+      420,
+      500,
+      290
+    ],
+    [
+      13,
+      740,
+      478,
+      300,
+      174
+    ],
+    [
+      13,
+      800,
+      510,
+      120,
+      150
+    ],
+    [
+      13,
+      800,
+      510,
+      120,
+      150
+    ],
+    [
+      13,
+      800,
+      510,
+      120,
+      150
+    ],
+    [
+      13,
+      710,
+      270,
+      160,
+      320
+    ],
+    [
+      13,
+      710,
+      270,
+      160,
+      320
+    ],
+    [
+      13,
+      710,
+      270,
+      160,
+      320
+    ],
+    [
+      13,
+      890,
+      370,
+      140,
+      240
+    ],
+    [
+      13,
+      890,
+      370,
+      140,
+      240
+    ],
+    [
+      13,
+      890,
+      370,
+      140,
+      240
+    ],
+    [
+      13,
+      1020,
+      540,
+      40,
+      40
+    ],
+    [
+      13,
+      670,
+      550,
+      40,
+      40
+    ],
+    [
+      13,
+      1060,
+      560,
+      40,
+      40
+    ],
+    [
+      0,
+      64,
+      660,
+      428,
+      83
+    ],
+    [
+      30,
+      64,
+      660,
+      132,
+      83
+    ],
+    [
+      31,
+      80,
+      676,
+      100,
+      39
+    ],
+    [
+      31,
+      80,
+      715,
+      100,
+      20
+    ],
+    [
+      30,
+      212,
+      660,
+      132,
+      83
+    ],
+    [
+      34,
+      228,
+      676,
+      100,
+      39
+    ],
+    [
+      34,
+      228,
+      715,
+      100,
+      20
+    ],
+    [
+      30,
+      360,
+      660,
+      132,
+      83
+    ],
+    [
+      37,
+      376,
+      676,
+      100,
+      39
+    ],
+    [
+      37,
+      376,
+      715,
+      100,
+      20
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "clip-shape",
+      "hard-shadow",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 43463,
+    "output": 25936,
+    "cacheRead": 230231
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52300,
+      "output": 19620,
+      "cacheRead": 217844,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read components/IsometricCity.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Write components/IsometricCity.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 213033
+    }
+  ],
+  "ease": {
+    "marks": 10,
+    "captured": 10,
+    "notes": 7,
+    "words": 854,
+    "drawMs": 47542,
+    "readingMs": 59224,
+    "runMs": 273887
+  },
+  "reading": "A landing-page hero sketch: a top nav bar, a 3-line coral-accented headline, a 3-line body paragraph, a dark 'Start a block' button, a big isometric illustration made of layered polygon shapes (buildings/park), and a row of 3 stat cards — all styled per the user's typed notes (page gradient, colors, exact text and specs).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        68,
+        43,
+        1144,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: '▲ Blockville' logo/wordmark at the far left; nav links 'Plans', 'Map', 'Builders', 'Sign in' pushed to the far right (751px gap from the lo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 59
+        }
+      ],
+      "region": [
+        72,
+        140,
+        396,
+        196
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy headline 'Plan a city block in an afternoon.' set in exactly 3 lines with these breaks kept: 'Plan a city' / 'block in an' / 'afternoon.' E"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        390,
+        392,
+        84
+      ],
+      "paths": [],
+      "instruction": "Body paragraph, text color #4b5875 (dark grey, distinct from the page's default dark grey text): 'Drag streets, zone lots and drop buildings. Blockville shows s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        67,
+        514,
+        155,
+        49
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Button labeled 'Start a block', solid fill exactly #23314d (not pale, not transparent), white #ffffff text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        563,
+        123,
+        654,
+        653
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Isometric illustration made of 14 separate polygon-clipped elements with live content (per the note's exact part-by-part spec of size, position, fill color and "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        68,
+        663,
+        421,
+        76
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "3 separate white #ffffff stat cards placed side by side, each its own filled card (not bare text), 132x83px, 14px border-radius, 16px padding, 16px gap between "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

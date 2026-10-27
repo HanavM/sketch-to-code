@@ -4073,6 +4073,9 @@ function repeatUnit(t0) {
 /** Code in a card: its lines as set, and which tokens are coloured (round 5 c5: only the tokens were said). */
 function codeNote(f) {
   if (!isMono(f.font.family) || f.setLines.filter((l) => l.trim()).length < 3 || f.setLines.length > 12) return null
+  // n262: a card whose heading is set in a non-mono face is a filled card with a heading and mono copy, not code
+  // (round 29 c2 lime card 'WE BUILD LOUD THINGS' in Helvetica: said as code lines, built black with yellow mono text)
+  if ((f.parts ?? []).some((p) => p.t && p.face && p.face !== 'mono')) return null
   // n183: rows of two items pushed apart (round 18 c2 services '01 Identity ... →': innerText split them into lines, said
   // as separate lines, built with every arrow on its own line) are said as rows, each ruled under if the target rules it
   const tp = (f.parts ?? []).filter((p) => p.t)
@@ -6520,6 +6523,18 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px DOT-GRID canvas at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${flat ? `a FLAT ${hexOf(flat)} fill (the same light colour top to bottom, NOT a gradient, never darkening)` : 'no fill of its own'} with tiny ${hexOf(ink)} dots${ink.a < 0.95 ? ` at ${Math.round(ink.a * 100)}% opacity (faint)` : ''} (${2 * r}px across) in an even grid, one every ${cell}px across and ${cellY}px down, exactly: background-color: ${flat ? hexOf(flat) : 'transparent'}; background-image: radial-gradient(${ink.a < 0.95 ? `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${Math.round(ink.a * 100) / 100})` : hexOf(ink)} ${r}px, transparent ${r}px); background-size: ${cell}px ${cellY}px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)`
       return
     }
+    // n262: a blurred linear gradient fading to clear, usually turned, is a soft LIGHT BEAM (round 29 c5 sun rays:
+    // said as an 'empty product-photo backdrop' going #ffffff to #000000, the clear stop read as black, built as upright
+    // see-through panels with hard edges)
+    if (f.blur >= 3 && /^linear-gradient/.test(f.bgImage ?? '') && cs.some((c) => c.a < 0.05)) {
+      const B = f.box0 ?? { x: Math.round(f.rect.x), y: Math.round(f.rect.y), w: Math.round(f.rect.w), h: Math.round(f.rect.h) }
+      const rot = f.rotate ?? 0
+      const img = f.bgImage.replace(/rgba?\([^)]+\)/g, (m) => { const c = parse(m); return !c ? m : c.a < 0.05 ? 'transparent' : c.a < 0.95 ? `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})` : hexOf(c) })
+      const top = /^\s*[\d.]+px\s+0px/.test(B.origin ?? '') || /top/.test(B.origin ?? '')
+      d.kind = 'box'
+      d.note = `a soft LIGHT BEAM (a shaft of light from above), NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE ${B.w}x${B.h}px div, position absolute, its top-left at ${B.x},${B.y} BEFORE its turn, no border, square corners, painted exactly background: ${img} (it fades to fully clear, the page showing through; never black, never opaque), filter: blur(${Math.round(f.blur)}px) (soft edges)${Math.abs(rot) >= 1 ? `, transform: rotate(${rot}deg) about its ${top ? 'TOP centre (transform-origin: top)' : 'centre'} so it leans ${rot > 0 ? 'to the left as it falls' : 'to the right as it falls'}` : ''}; behind the words, pointer-events none`
+      return
+    }
     // n256: a big blurred radial gradient is a soft GLOW, not a photo backdrop (round 28 c2: radial #5b3cff glow with
     // filter blur(30px) said as a 'top to bottom gradient block, 50% rounded', built as a hard violet slab over the title)
     if (f.blur >= 12 && /^radial-gradient/.test(f.bgImage ?? '')) {
@@ -6682,7 +6697,8 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       } else {
         const lines = f.brStack?.length >= 2 ? f.brStack.map((b) => b.t) : f.chipLines?.lines?.length >= 2 ? f.chipLines.lines.map((x) => x.t) : null
         const ft = f.font, lh = ft.lineHeight ? `, line-height ${Math.round(ft.lineHeight)}px` : ''
-        inside = `padding ${f.inset?.t ?? 0}px ${f.inset?.l ?? 0}px; on it ${ft.size}px ${ft.weight >= 600 ? 'bold ' : ''}${face(ft.family)} ${hx(f.colour)} text${dist(f.colour, f.bg) > 60 ? ` (its own ink, NOT the card's ${hx(f.bg)})` : ''}${lh}${f.centred ? ', centred' : ''}, quoted whole (these exact words, nothing invented, nothing dropped)${lines ? `, each of these ${lines.length} on its own line: ${lines.map((t) => `"${t}"`).join(' / ')}` : `: "${f.text.replace(/\s+/g, ' ')}"${f.textLines >= 2 ? ` (it wraps onto ${f.textLines} lines inside the card)` : ''}`}`
+        // n262: a filled turned card whose text is vertical (r29 c2 side index 'STUDIO—NULL' built horizontal, clipped)
+        inside = `padding ${f.inset?.t ?? 0}px ${f.inset?.l ?? 0}px; on it ${ft.size}px ${ft.weight >= 600 ? 'bold ' : ''}${face(ft.family)} ${hx(f.colour)} text${dist(f.colour, f.bg) > 60 ? ` (its own ink, NOT the card's ${hx(f.bg)})` : ''}${lh}${f.centred ? ', centred' : ''}, quoted whole (these exact words, nothing invented, nothing dropped)${lines ? `, each of these ${lines.length} on its own line: ${lines.map((t) => `"${t}"`).join(' / ')}` : `: "${f.text.replace(/\s+/g, ' ')}"${f.textLines >= 2 ? ` (it wraps onto ${f.textLines} lines inside the card)` : ''}`}${f.vertical ? `; the text runs VERTICALLY (writing-mode: vertical-rl) down the card's long side, one line, letter-spacing ${Math.round(f.font.spacing ?? 0)}px${Math.abs(rot) === 180 ? ', and with the card turned 180deg it reads bottom to top (first letter at the BOTTOM); never sideways-mirrored, never cut' : ''}` : ''}`
       }
       out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px ${hx(f.bg)} card (a separate piece of paper laid on the page), position absolute with its top-left at ${E.x},${E.y} page px (before its turn), square corners${f.paperX?.mask ? `, its edge cut by a mask exactly: -webkit-mask: ${rgbaW(f.paperX.mask.img)} ${f.paperX.mask.pos} / ${f.paperX.mask.size} ${f.paperX.mask.rep} (a ${/radial/.test(f.paperX.mask.img) && /repeat-x/.test(f.paperX.mask.rep) ? 'SCALLOPED top edge: a row of small half-circle bites' : 'cut edge'})` : ''}${edge}${ring}${sh}${turnW}${mot}; ${inside}` })
       marked.add(f.role)

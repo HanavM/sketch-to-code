@@ -1,0 +1,532 @@
+{
+  "id": "c4-deco-cinema",
+  "at": "2026-10-27T09:36:01.859Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8964280086638783,
+    "overallV2": 0.8964280086638783,
+    "overallV1": 0.8610922159313201,
+    "colour": 0.9787183832389468,
+    "structure": 0.8044506395503247,
+    "structureStrict": 0.7144136462831269,
+    "colourAligned": 0.9787183832389468,
+    "structureAligned": 0.8044506395503247,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6846406010630948
+    },
+    "layout": 0.9386872188961377,
+    "layoutV1": 0.9386872188961377,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      960
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      960
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      2,
+      309,
+      24,
+      66,
+      21
+    ],
+    [
+      2,
+      431,
+      24,
+      84,
+      21
+    ],
+    [
+      2,
+      570,
+      24,
+      125,
+      21
+    ],
+    [
+      2,
+      751,
+      24,
+      103,
+      21
+    ],
+    [
+      2,
+      911,
+      24,
+      61,
+      21
+    ],
+    [
+      1,
+      340,
+      -260,
+      600,
+      1000
+    ],
+    [
+      1,
+      343,
+      1,
+      593,
+      750
+    ],
+    [
+      9,
+      343,
+      1,
+      593,
+      750
+    ],
+    [
+      10,
+      344,
+      -1,
+      591,
+      537
+    ],
+    [
+      10,
+      389,
+      109,
+      502,
+      641
+    ],
+    [
+      1,
+      200,
+      120,
+      60,
+      780
+    ],
+    [
+      1,
+      1020,
+      120,
+      60,
+      780
+    ],
+    [
+      1,
+      560,
+      150,
+      160,
+      80
+    ],
+    [
+      1,
+      343,
+      1,
+      593,
+      535
+    ],
+    [
+      16,
+      343,
+      1,
+      593,
+      535
+    ],
+    [
+      17,
+      344,
+      -1,
+      591,
+      537
+    ],
+    [
+      1,
+      390,
+      110,
+      500,
+      640
+    ],
+    [
+      1,
+      398,
+      270,
+      450,
+      182
+    ],
+    [
+      20,
+      398,
+      270,
+      450,
+      91
+    ],
+    [
+      20,
+      398,
+      361,
+      450,
+      91
+    ],
+    [
+      1,
+      398,
+      472,
+      450,
+      24
+    ],
+    [
+      1,
+      540,
+      560,
+      200,
+      56
+    ],
+    [
+      1,
+      64,
+      563,
+      253,
+      133
+    ],
+    [
+      25,
+      81,
+      580,
+      219,
+      30
+    ],
+    [
+      25,
+      81,
+      643,
+      219,
+      36
+    ],
+    [
+      27,
+      81,
+      643,
+      219,
+      18
+    ],
+    [
+      27,
+      81,
+      661,
+      219,
+      18
+    ],
+    [
+      1,
+      963,
+      563,
+      253,
+      134
+    ],
+    [
+      30,
+      980,
+      580,
+      219,
+      30
+    ],
+    [
+      30,
+      980,
+      644,
+      219,
+      36
+    ],
+    [
+      32,
+      980,
+      644,
+      219,
+      18
+    ],
+    [
+      32,
+      980,
+      662,
+      219,
+      18
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "clip-shape",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "overlap",
+      "serif",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 65960,
+    "output": 41797,
+    "cacheRead": 233949
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 83741,
+      "output": 31936,
+      "cacheRead": 220704,
+      "toolCalls": 10,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 368993
+    }
+  ],
+  "ease": {
+    "marks": 13,
+    "captured": 13,
+    "notes": 12,
+    "words": 671,
+    "drawMs": 65590,
+    "readingMs": 84794,
+    "runMs": 455128
+  },
+  "reading": "A cinema homepage hero sketch: a sunburst-patterned background behind a central arch shape reading \"THE ODEON\" with a tagline and a \"BOOK SEATS\" button, flanked by two vertical minimap-style strips, topped by a 5-item nav bar, and followed by two film-listing cards (Metropolis, Casablanca).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        1,
+        593,
+        750
+      ],
+      "paths": [
+        "s0",
+        "s5"
+      ],
+      "instruction": "A SUNBURST: 45 sharp straight rays fanning out from one centre, alternating dark teal #1c2e28 and near-black #0f1a17, each ray 4deg wide (like a starburst / pin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        203,
+        124,
+        53,
+        772
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A code MINIMAP strip: one textless div exactly 60x780px at 200,120 (position absolute), NO words, NOT a list, NOT an outline panel: painted only by fine horizon"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1023,
+        124,
+        54,
+        773
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A code MINIMAP strip: one textless div exactly 60x780px at 1020,120 (position absolute), NO words, NOT a list, NOT an outline panel: painted only by fine horizo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "The region is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #c9a24a rule along its BOTTOM edge only, border-bottom, no other border, exa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 83
+        }
+      ],
+      "region": [
+        343,
+        1,
+        593,
+        535
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A dark teal to near-black gradient arch (round top, flat bottom): one plain CSS block 500x640px, top-left at 390,110, border-radius 250px 250px 0 0 so the top i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        154,
+        72,
+        73
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A FAINT SUNBURST: 30 sharp straight rays fanning out from one centre, alternating bright orange #c9a24a and transparent (page shows through), each ray 6deg wide"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 83
+        }
+      ],
+      "region": [
+        343,
+        1,
+        593,
+        535
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant Didot serif regular weight (not bold) lines set tight (line-height 0.95), soft yellow #f7e3a1 (top) to soft yellow #f2d58a (bottom) gradient heading text "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [],
+      "region": [
+        343,
+        1,
+        593,
+        535
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "16px wide-spaced letters (letter-spacing 8px) bright orange #c9a24a text \"PICTURE PALACE · 1931\", sitting below the heading on the arch."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        389,
+        109,
+        502,
+        641
+      ],
+      "paths": [
+        "s5",
+        "s10"
+      ],
+      "instruction": "A soft yellow #f2d58a (top) to bright orange #b8862f (bottom) gradient button labeled \"BOOK SEATS\", 200x56px at 540,560, square corners (border-radius 0, NOT a "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        563,
+        253,
+        133
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A film listing card with bright orange border, title \"Metropolis\", lines in warm paper colour \"FRI 20:00 · ORGAN SCORE\" and \"SCREEN 1\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        563,
+        253,
+        134
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A film listing card with bright orange border, title \"Casablanca\", lines in warm paper colour \"SAT 19:30 · 35MM PRINT\" and \"SCREEN 2\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
