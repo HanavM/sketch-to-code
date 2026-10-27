@@ -299,7 +299,7 @@
    ],
    [
     "cropped-number",
-    "bleeding off the left page edge (starts 60px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters red \"07\", 520px type, about 518px wide (no larger), absolutely placed: its box's top-left at -60,80 and its first letter's ink starting at x=-60 (not further right)"
+    "bleeding off the left page edge (starts 60px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters red \"07\", 520px type, about 518px wide (no larger), absolutely placed: its box's top-left at -60,80 and its first letter's ink starting at x=-60 (not further right), line-height 416px (tight, 0.80; NOT normal line-height, which drops the letters lower), letter-spacing -30px"
    ],
    [
     "photo-1",
@@ -529,7 +529,7 @@
    ],
    [
     "week-grid",
-    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #ffffff 0px 59px, #e3e3e3 59px 60px)): 59px white then 1px light grey, over and over; AND laid over them (a second background layer on the same box, both showing): vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, transparent 0px 139px, #e3e3e3 139px 140px)): 139px clear (see-through) then 1px light grey, over and over block"
+    "big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #ffffff 0px 59px, #e3e3e3 59px 60px)): 59px white then 1px light grey, over and over; AND laid over them (a second background layer on the same box, both showing): vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, transparent 0px 139px, #e3e3e3 139px 140px)): 139px clear (see-through) then 1px light grey, over and over: ONE 980x830px block (exactly this size, NOT filling the cell or box it sits in), position absolute with its top-left at 300,70, nothing inside it, square corners, no border"
    ],
    [
     "events",

@@ -521,11 +521,11 @@
    ],
    [
     "numeral",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"57\", 560px type, about 543px wide (no larger), absolutely placed: its box's top-left at 470,60 and its first letter's ink starting at x=470 (not further right)"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"57\", 560px type, about 543px wide (no larger), absolutely placed: its box's top-left at 470,60 and its first letter's ink starting at x=470 (not further right), line-height 448px (tight, 0.80; NOT normal line-height, which drops the letters lower), letter-spacing -40px"
    ],
    [
     "program",
-    "a ruled index list 440px wide at 40,460, 15px near-black, 4 rows each 43px tall with a 1px #111111 rule across its top, the label at the left and its date or number at the far right of the row (NOT a paragraph, NOT a table with heads): \"Lecture\" … \"12.03 18:00\", \"Workshop\" … \"14.03 10:00\", \"Exhibition\" … \"15.03 — 30.06\", \"Archive tour\" … \"Thursdays\"; the right parts whole, exactly as written, never cut"
+    "a ruled index list 440px wide at 40,460, 15px near-black, 4 rows each 43px tall with a 2px #111111 rule across its top, the label at the left and its date or number at the far right of the row (NOT a paragraph, NOT a table with heads): \"Lecture\" … \"12.03 18:00\", \"Workshop\" … \"14.03 10:00\", \"Exhibition\" … \"15.03 — 30.06\", \"Archive tour\" … \"Thursdays\"; the right parts whole, exactly as written, never cut"
    ],
    [
     "ring",

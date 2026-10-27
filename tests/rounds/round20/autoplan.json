@@ -159,7 +159,7 @@
    ],
    [
     "manifesto",
-    "black (exactly #000000) thick black border block, white text \"RAW HTML.\" on its own line, then under it the copy quoted whole (these exact words, nothing invented): 18px \"We build websites with no gradients, no rounded corners and no apologies. Twelve columns, three-pixel rules.\"; its text #ffffff (white, NOT the page's black text); its \"RAW HTML.\" is BIG 54px font-weight 900 Arial Black, sans-serif type (NOT the Courier New of the rest, NOT small), #c6ff00, filling about 445x54px from 806,90, on one line"
+    "black (exactly #000000) thick black border block, white text 54px heavy bold Arial Black (NOT the copy's Courier New (monospace)) heading \"RAW HTML.\" on its own line, then under it the copy quoted whole (these exact words, nothing invented): 18px Courier New (monospace) \"We build websites with no gradients, no rounded corners and no apologies. Twelve columns, three-pixel rules.\"; its text #ffffff (white, NOT the page's black text)"
    ],
    [
     "vertical-ticker",
@@ -545,7 +545,7 @@
    ],
    [
     "outline-number",
-    "giant (font-family Arial Black, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined lavender \"3\", 640px type, about 326px wide (no larger), absolutely placed: its box's top-left at 560,40 and its first letter's ink starting at x=560 (not further right)"
+    "giant (font-family Arial Black, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined lavender \"3\", 640px type, about 326px wide (no larger), absolutely placed: its box's top-left at 560,40 and its first letter's ink starting at x=560 (not further right), line-height 512px (tight, 0.80; NOT normal line-height, which drops the letters lower), letter-spacing -30px"
    ],
    [
     "wave",

@@ -285,7 +285,7 @@
    ],
    [
     "column-rules",
-    "faded to 25% opacity (see-through) big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, transparent 0px 105px, #dd2222 105px 106px)): 105px clear (see-through) then 1px red, over and over block"
+    "faded to 25% opacity (see-through) big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, transparent 0px 105px, #dd2222 105px 106px)): 105px clear (see-through) then 1px red, over and over: ONE 1280x900px block (exactly this size, NOT filling the cell or box it sits in), position absolute with its top-left at 0,0, nothing inside it, square corners, no border"
    ],
    [
     "big-two",

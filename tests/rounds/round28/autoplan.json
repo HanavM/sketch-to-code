@@ -169,7 +169,7 @@
    ],
    [
     "barcode-bars",
-    "big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, #141210 0px 6px, transparent 6px 14px, #141210 14px 18px, transparent 18px 30px)): 6px near-black then 8px clear (see-through) then 4px near-black then 12px clear (see-through), over and over block"
+    "big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, #141210 0px 6px, transparent 6px 14px, #141210 14px 18px, transparent 18px 30px)): 6px near-black then 8px clear (see-through) then 4px near-black then 12px clear (see-through), over and over: ONE 430x60px block (exactly this size, NOT filling the cell or box it sits in), position absolute with its top-left at 56,640, nothing inside it, square corners, no border"
    ],
    [
     "lineup",

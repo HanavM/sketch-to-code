@@ -65,7 +65,7 @@
    ],
    [
     "stripe-band",
-    "big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, #151515 0px 40px, #f1ece2 40px 80px)): 40px near-black then 40px cream, over and over block"
+    "big vertical repeating stripes, NOT a smooth gradient (repeating-linear-gradient(90deg, #151515 0px 40px, #f1ece2 40px 80px)): 40px near-black then 40px cream, over and over: ONE 1280x300px block (exactly this size, NOT filling the cell or box it sits in), position absolute with its top-left at 0,300, nothing inside it, square corners, no border"
    ],
    [
     "wave-word",

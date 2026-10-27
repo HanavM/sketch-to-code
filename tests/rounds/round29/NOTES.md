@@ -119,3 +119,22 @@ Planner rules (each a rule, not a page patch):
 Re-planned rounds 1-28: r16 c3 hours row now said ruled above and below with double lines; r23 e4 order form part by part; r24 e5 delivery options part by part; outlined nav pills one line, no underline (r18 c1, r25 e4, r26 c3, r28 e4); r25 c5 price badge no longer called faint; sunburst notes say no outline (r16, r19, r24). None re-run.
 
 Still open: e1 spreadsheet layout shifts (70); c2 barcode and mono lime heading (81); c3 clouds and invented frame (89); e5 slider track line and page fill.
+
+## n266: planner fixes, re-run live (2026-10-27, ~173k billed)
+
+| page | was | now | marks | words | draw s | run s | tokens | what changed |
+|---|---|---|---|---|---|---|---|---|
+| e1 spreadsheet | 70% | **83%** | 11 | ~1,620 | 89 | 269 | 86k | every column at its own width (Region wide, number columns narrow, the last column wide), so column edges, numbers and chips line up with the target; comment card lost its shadow |
+| c2 brutal grid | 81% | **85%** | 18 | ~735 | 83 | 211 | 87k | barcode its own 260x220 block inset in its cell (was filling the cell), lime card heading heavy Helvetica on two lines over bold mono copy, work list bold with 2px rules |
+
+Round 29 now **91%** (91.4: c1 92, c2 85, c3 89, c4 96, c5 93, e1 83, e2 93, e3 95, e4 95, e5 93).
+
+Planner rules (each a rule, not a page patch):
+- A spreadsheet grid whose columns differ in width says each column's exact width (table-layout fixed, colgroup); it was said as '9 equal columns about 170px'.
+- An empty block painted only with repeating stripes, said with no size, says its own box and place and that it does not fill its cell (c2 barcode).
+- A filled block's heading over loose copy says the heading's own size, weight and face when it differs from the copy's, and its <br> line breaks; the copy says its weight and face (c2 lime card heading was built mono, one line).
+- A ruled index list says bold and its rule width (c2 list was said 1px regular for 2px bold).
+- Giant type of 300px+ placed absolutely says its tight line-height and letter-spacing, so the letters sit at the top of their box (c2 numerals sat about 40px low; planned, not re-run).
+Re-planned rounds 1-28: tight line-height on giant numerals r2, r3, r4, r5, r8, r12, r13, r16, r20, r21, r26; stripe boxes r14, r16, r25, r28; heading faces r1, r20, r27; ruled list r13. None re-run.
+
+Still open: c2 numerals sit low and NEW WORK tag text small (85); c3 clouds and invented frame (89); e1 comment card shadow and sheet tab pill (83); e5 slider track line.
