@@ -1,24 +1,24 @@
 {
   "id": "e2-inventory-modal",
-  "at": "2026-10-27T15:48:59.890Z",
+  "at": "2026-10-27T17:09:25.057Z",
   "likeness": {
     "version": 3,
-    "overall": 0.03333333333333333,
-    "overallV2": 0.03333333333333333,
-    "overallV1": 0.03333333333333333,
-    "colour": 0.3803737788417788,
-    "structure": 0.38479232936724794,
-    "structureStrict": 0.38479232936724794,
-    "colourAligned": 0.3803737788417788,
-    "structureAligned": 0.38479232936724794,
+    "overall": 0.8932588404616693,
+    "overallV2": 0.8932588404616693,
+    "overallV1": 0.8923687599987924,
+    "colour": 0.961834121616309,
+    "structure": 0.9249379849267186,
+    "structureStrict": 0.9233734582745982,
+    "colourAligned": 0.961834121616309,
+    "structureAligned": 0.9249379849267186,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": -1
+      "r": 0.9770921050873853
     },
-    "layout": 0.1111111111111111,
-    "layoutV1": 0.1111111111111111,
+    "layout": 0.8584029703688768,
+    "layoutV1": 0.6843616724337735,
     "layoutVersion": 2
   },
   "boxes": [
@@ -28,36 +28,577 @@
       0,
       1280,
       900
+    ],
+    [
+      0,
+      0,
+      0,
+      220,
+      900
+    ],
+    [
+      1,
+      12,
+      20,
+      196,
+      34
+    ],
+    [
+      2,
+      24,
+      27,
+      68,
+      20
+    ],
+    [
+      1,
+      12,
+      58,
+      196,
+      34
+    ],
+    [
+      4,
+      24,
+      65,
+      59,
+      20
+    ],
+    [
+      1,
+      12,
+      96,
+      196,
+      34
+    ],
+    [
+      6,
+      24,
+      103,
+      59,
+      20
+    ],
+    [
+      1,
+      12,
+      134,
+      196,
+      34
+    ],
+    [
+      8,
+      24,
+      141,
+      42,
+      20
+    ],
+    [
+      1,
+      12,
+      172,
+      196,
+      34
+    ],
+    [
+      10,
+      24,
+      179,
+      59,
+      20
+    ],
+    [
+      1,
+      12,
+      210,
+      196,
+      34
+    ],
+    [
+      12,
+      24,
+      217,
+      48,
+      20
+    ],
+    [
+      0,
+      248,
+      24,
+      1004,
+      26
+    ],
+    [
+      0,
+      248,
+      68,
+      239,
+      85
+    ],
+    [
+      15,
+      266,
+      89,
+      203,
+      17
+    ],
+    [
+      15,
+      266,
+      112,
+      203,
+      36
+    ],
+    [
+      0,
+      503,
+      68,
+      239,
+      85
+    ],
+    [
+      18,
+      521,
+      89,
+      203,
+      17
+    ],
+    [
+      18,
+      521,
+      112,
+      203,
+      36
+    ],
+    [
+      0,
+      758,
+      68,
+      239,
+      85
+    ],
+    [
+      21,
+      776,
+      89,
+      203,
+      17
+    ],
+    [
+      21,
+      776,
+      112,
+      203,
+      36
+    ],
+    [
+      0,
+      1013,
+      68,
+      239,
+      85
+    ],
+    [
+      24,
+      1031,
+      89,
+      203,
+      17
+    ],
+    [
+      24,
+      1031,
+      112,
+      203,
+      36
+    ],
+    [
+      0,
+      248,
+      173,
+      1002,
+      332
+    ],
+    [
+      27,
+      249,
+      174,
+      1000,
+      38
+    ],
+    [
+      28,
+      265,
+      184,
+      162,
+      18
+    ],
+    [
+      27,
+      249,
+      212,
+      1000,
+      294
+    ],
+    [
+      30,
+      249,
+      212,
+      1000,
+      49
+    ],
+    [
+      31,
+      265,
+      218,
+      169,
+      36
+    ],
+    [
+      32,
+      265,
+      218,
+      36,
+      36
+    ],
+    [
+      32,
+      313,
+      226,
+      121,
+      20
+    ],
+    [
+      31,
+      1212,
+      226,
+      21,
+      20
+    ],
+    [
+      30,
+      249,
+      261,
+      1000,
+      49
+    ],
+    [
+      36,
+      265,
+      267,
+      147,
+      36
+    ],
+    [
+      37,
+      265,
+      267,
+      36,
+      36
+    ],
+    [
+      37,
+      313,
+      275,
+      99,
+      20
+    ],
+    [
+      36,
+      1217,
+      275,
+      16,
+      20
+    ],
+    [
+      30,
+      249,
+      310,
+      1000,
+      49
+    ],
+    [
+      41,
+      265,
+      316,
+      146,
+      36
+    ],
+    [
+      42,
+      265,
+      316,
+      36,
+      36
+    ],
+    [
+      42,
+      313,
+      324,
+      98,
+      20
+    ],
+    [
+      41,
+      1217,
+      324,
+      16,
+      20
+    ],
+    [
+      30,
+      249,
+      359,
+      1000,
+      49
+    ],
+    [
+      46,
+      265,
+      365,
+      142,
+      36
+    ],
+    [
+      47,
+      265,
+      365,
+      36,
+      36
+    ],
+    [
+      47,
+      313,
+      373,
+      94,
+      20
+    ],
+    [
+      46,
+      1212,
+      373,
+      21,
+      20
+    ],
+    [
+      30,
+      249,
+      408,
+      1000,
+      49
+    ],
+    [
+      51,
+      265,
+      414,
+      150,
+      36
+    ],
+    [
+      52,
+      265,
+      414,
+      36,
+      36
+    ],
+    [
+      52,
+      313,
+      422,
+      102,
+      20
+    ],
+    [
+      51,
+      1217,
+      422,
+      16,
+      20
+    ],
+    [
+      30,
+      249,
+      457,
+      1000,
+      49
+    ],
+    [
+      56,
+      265,
+      464,
+      149,
+      36
+    ],
+    [
+      57,
+      265,
+      464,
+      36,
+      36
+    ],
+    [
+      57,
+      313,
+      472,
+      101,
+      20
+    ],
+    [
+      56,
+      1209,
+      472,
+      24,
+      20
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      61,
+      390,
+      130,
+      500,
+      600
+    ],
+    [
+      62,
+      844,
+      146,
+      30,
+      30
+    ],
+    [
+      62,
+      414,
+      193,
+      452,
+      240
+    ],
+    [
+      62,
+      429,
+      464,
+      48,
+      48
+    ],
+    [
+      62,
+      491,
+      472,
+      99,
+      16
+    ],
+    [
+      62,
+      491,
+      491,
+      161,
+      13
+    ],
+    [
+      62,
+      414,
+      543,
+      44,
+      40
+    ],
+    [
+      62,
+      458,
+      543,
+      80,
+      40
+    ],
+    [
+      62,
+      538,
+      543,
+      44,
+      40
+    ],
+    [
+      62,
+      598,
+      555,
+      72,
+      16
     ]
   ],
-  "groupMatched": [],
+  "groupMatched": [
+    {
+      "role": "qty-stepper",
+      "iou": 0.5663716814159292,
+      "parts": 4,
+      "rect": {
+        "x": 414,
+        "y": 543,
+        "w": 256,
+        "h": 40
+      }
+    },
+    {
+      "role": "kpis",
+      "iou": 1,
+      "parts": 4,
+      "rect": {
+        "x": 248,
+        "y": 68,
+        "w": 1004,
+        "h": 85
+      }
+    }
+  ],
   "effects": {
-    "recall": 0,
-    "kept": [],
-    "missing": [
+    "recall": 0.75,
+    "kept": [
       "glass",
       "overlap",
-      "soft-shadow",
+      "soft-shadow"
+    ],
+    "missing": [
       "stripes-or-layers"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 6276,
-    "output": 8804,
-    "cacheRead": 3084
+    "input": 71531,
+    "output": 22998,
+    "cacheRead": 356653
   },
-  "sends": null,
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 82017,
+      "output": 16762,
+      "cacheRead": 353569,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 182105
+    }
+  ],
   "ease": {
     "marks": 9,
     "captured": 9,
     "notes": 10,
     "words": 804,
-    "drawMs": 84764,
-    "readingMs": 98543,
-    "runMs": 251735
+    "drawMs": 69287,
+    "readingMs": 63567,
+    "runMs": 247185
   },
-  "reading": "The sketch lays out an inventory-management page (left nav sidebar, 'Inventory' title, 4 stat cards, a stock table) and, on top of it, a frosted overlay with a modal dialog containing a camera-view tile, a found-item result row, and a quantity stepper (for scanning/adding stock). Typed notes give exact specs (sizes, colors, copy) for every part, which take priority over the rough ink shapes.",
+  "reading": "The sketch builds a full \"Inventory\" admin page: a flat white left nav column, a bold page-title button, a row of 4 KPI stat cards, and a card listing 6 inventory items — plus, layered over the whole page, a frosted dark overlay holding a modal \"scan to add stock\" panel with a close button, a dark placeholder camera-view tile, a found-item row, and a quantity +/- stepper.",
   "actions": [
     {
       "kind": "add",
@@ -72,37 +613,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Draw the left-edge stroke as a single 220x900px full-height sidebar wrapper (its own element, not laid loose on the page), pinned at 0,0: #ffffff fill, square c"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        252,
-        71,
-        997,
-        79
-      ],
-      "paths": [
-        "s1"
-      ],
-      "instruction": "At the very top of the main content area, above the stat cards and the stock table, add a bold page title: 22px bold #1d2433 text 'Inventory' in a 1004x26px are"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        251,
-        176,
-        998,
-        334
-      ],
-      "paths": [
-        "s2"
-      ],
-      "instruction": "Add a white card/table panel below the stat-card row. It has a 1002x38px header strip across its top (its own element with a 1px #eef0f3 rule underneath), holdi"
+      "instruction": "Create a left sidebar: ONE 220x900px full-height wrapper element at 0,0, #ffffff fill, square corners, no shadow/margin (flat panel from top to bottom of page),"
     },
     {
       "kind": "add",
@@ -115,54 +626,118 @@
         894
       ],
       "paths": [
-        "s3"
-      ],
-      "instruction": "Add a full-page frosted-glass overlay layer: a see-through dark navy layer at 80% opacity that sits above the whole page, dimming (not hiding) everything undern"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        393,
-        133,
-        494,
-        594
-      ],
-      "paths": [
-        "s4"
-      ],
-      "instruction": "Add a modal dialog panel, 500x600px, positioned absolutely at 390,130, keeping its full 600px height always (never shorter). Style: #ffffff background, 16px rou"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        418,
-        197,
-        445,
-        233
-      ],
-      "paths": [
-        "s5"
-      ],
-      "instruction": "Inside the modal, add a plain dark navy (#1d2433) tile, 452x240px, 12px rounded corners — flat colour only, no picture, no X, no icon, no text (a camera-view pl"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        418,
-        452,
-        445,
-        71
-      ],
-      "paths": [
+        "s3",
+        "s4",
+        "s5",
         "s6"
       ],
-      "instruction": "Below the camera-view tile in the modal, add a 'found item' row: a 48x48px empty #e7e9ee square thumbnail (8px rounded, no icon/emoji/picture inside) on the lef"
+      "instruction": "At the very top of the main content region (above the stat cards and item list), add a bold page-title button/heading: 1004x26px at 248,24, 22px bold #1d2433 te"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add a row of 4 stat cards, each 239x85px, #ffffff fill, 1px #e2e5ea border, 10px rounded corners, positioned at x=248,503,758,1013 (all y=68). Each card holds a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Add a white inventory list card. A 1002x38px header strip across its top with a 1px #eef0f3 rule beneath it, holding one 12px bold vertically-centred text 'Item"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "Add a frosted-glass overlay covering the whole page: a dark navy layer at 80% opacity sitting above all existing page content, dimming (not hiding) everything b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "On top of the overlay, add a modal panel: ONE 500x600px absolutely-positioned panel at 390,130, #ffffff background, 16px rounded corners, full 600px height alwa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Inside the modal, add a plain dark navy (#1d2433) placeholder tile, 452x240px, 12px rounded corners, flat paint only — no picture, no X, no icon, no text (camer"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "instruction": "Below the camera tile, add a found-item row: a 48x48px #e7e9ee fill, 8px rounded, EMPTY thumbnail square at 429,464; next to it 'Oak coaster set' in 13px bold #"
     },
     {
       "kind": "add",
@@ -181,14 +756,19 @@
         }
       ],
       "region": [
-        418,
-        543,
-        444,
-        40
+        3,
+        3,
+        1274,
+        894
       ],
-      "paths": [],
-      "instruction": "Below the found-item row in the modal, add a quantity stepper control: a 44x40px '−' button (1px #d5d9e0 border, 8px rounded, 18px #1d2433 glyph); a 80x40px num"
+      "paths": [
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add a quantity stepper below the found-item row: a 44x40px '−' button (1px #d5d9e0 border, 8px rounded, 18px #1d2433 text) at 414,543; an 80x40px value box at 4"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

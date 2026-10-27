@@ -201,7 +201,10 @@ Rules:
   wide-spaced letters → letter-spacing 0.15-0.3em;
   a named typeface ("Helvetica type", "giant Georgia ...") → font-family with that
     face first and its usual fallbacks (Helvetica, Arial, sans-serif), on the page
-    or that block; never left to the app's default font;
+    or that block; never left to the app's default font. Never edit index.html
+    (any change to it reloads the whole page and drops the run in progress): a
+    web font, if one is needed, is an @import url(...) line at the very top of
+    the app's main CSS file, else the face with its system fallbacks;
   grey text (on a page whose text is white or black) → that softer grey, not the
     page's text colour;
   overlapping → absolute position or negative margin so the two boxes truly overlap;

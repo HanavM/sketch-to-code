@@ -57,3 +57,22 @@ Bench: prove the reload wait on c3, e2, e4 (and find what reloads index.html). P
 rectangle must not take the rectangle as its own drawn form (e3 launch bar). Planner: c2 tile-by-tile shape/turn/offset;
 c4 conic wheel under a masked ring; c5 labels turned round a circle, needle turn, ::after dot size; e5 ring knobs,
 masked meters, EQ curve as verbatim SVG.
+
+## n269: the blank builds found and fixed (2026-10-27, ~0.28M billed)
+
+Cause: the code writer edited the app's `index.html` to add a web-font link (c3 serif title; the c3 re-run's tool list
+shows `Edit index.html`). Any change to index.html makes the dev server reload the whole page, which drops the overlay's
+running state mid-build. Fix (a rule, not a page patch): the build brief now says never edit index.html; a web font is
+an `@import url(...)` at the top of the app's main CSS, else the face with system fallbacks. The bench also waits for
+the run record (n268), so a reload can no longer be scored as a blank page.
+
+Live re-runs, all built (none blank): **c3 noir blinds 74%** (blinds, glow, italic title with red Night, credits, badge
+right; film strip lost, stripes not faded by the mask, credits not capitals), **e2 inventory modal 89%** (app under a
+frosted modal right; stat cards and quantity stepper off), **e4 workflow editor 84%** (shell, nodes, inspector, code box
+right; it read index.html and then edited the CSS instead, as told; bezier wires, dot grid and selected-node ring lost).
+
+Round 30 over all ten pages: **76%** (c1 86, c2 65, c3 74, c4 80, c5 77, e1 87, e2 89, e3 28, e4 84, e5 87).
+Ease r30: ~12 marks, ~1,160 words, ~79 s drawing, ~82 s to reading, ~226 s build, ~91k tokens a page, no repair turns.
+
+Next: e3 launch bar taking the grid's rectangle as its drawn form (28%); c2 tile-by-tile shapes; e4 SVG wires; c3 film
+strip and masked stripes; c4 conic wheel; c5 labels round a circle; e5 knobs, meters, EQ curve.

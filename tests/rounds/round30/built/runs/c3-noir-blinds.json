@@ -1,24 +1,24 @@
 {
   "id": "c3-noir-blinds",
-  "at": "2026-10-27T16:36:59.388Z",
+  "at": "2026-10-27T16:59:36.748Z",
   "likeness": {
     "version": 3,
-    "overall": 0.01616996948979172,
-    "overallV2": 0.01616996948979172,
-    "overallV1": 0.01616996948979172,
-    "colour": 0.1558801305050016,
-    "structure": 0.0499374193839562,
-    "structureStrict": 0.0499374193839562,
-    "colourAligned": 0.1558801305050016,
-    "structureAligned": 0.0499374193839562,
+    "overall": 0.7436159278874993,
+    "overallV2": 0.7436159278874993,
+    "overallV1": 0.582121679180783,
+    "colour": 0.9169535803771638,
+    "structure": 0.6315274962365272,
+    "structureStrict": 0.19315708857666397,
+    "colourAligned": 0.9169535803771638,
+    "structureAligned": 0.6315274962365272,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": -1
+      "r": 0.3242659173711649
     },
-    "layout": 0.053899898299305735,
-    "layoutV1": 0.053899898299305735,
+    "layout": 0.712646013955854,
+    "layoutV1": 0.5840921354019756,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,47 +27,208 @@
       0,
       0,
       1280,
-      900
+      1360
+    ],
+    [
+      0,
+      1,
+      1,
+      974,
+      897
+    ],
+    [
+      1,
+      0,
+      1,
+      975,
+      897
+    ],
+    [
+      0,
+      820,
+      140,
+      260,
+      520
+    ],
+    [
+      0,
+      80,
+      250,
+      653,
+      306
+    ],
+    [
+      4,
+      80,
+      250,
+      653,
+      153
+    ],
+    [
+      4,
+      300,
+      403,
+      433,
+      153
+    ],
+    [
+      0,
+      980,
+      120,
+      200,
+      33
+    ],
+    [
+      0,
+      1092,
+      169,
+      88,
+      20
+    ],
+    [
+      0,
+      1108,
+      195,
+      72,
+      20
+    ],
+    [
+      0,
+      1088,
+      221,
+      92,
+      20
+    ],
+    [
+      0,
+      1075,
+      247,
+      105,
+      20
+    ],
+    [
+      0,
+      80,
+      720,
+      560,
+      560
+    ],
+    [
+      12,
+      81,
+      721,
+      558,
+      558
+    ],
+    [
+      0,
+      683,
+      731,
+      216,
+      37
+    ],
+    [
+      0,
+      947,
+      607,
+      244,
+      244
+    ],
+    [
+      15,
+      987,
+      682,
+      159,
+      73
+    ],
+    [
+      15,
+      1032,
+      731,
+      83,
+      37
     ]
   ],
-  "groupMatched": [],
+  "groupMatched": [
+    {
+      "role": "credits",
+      "iou": 0.8998771498771498,
+      "parts": 5,
+      "rect": {
+        "x": 980,
+        "y": 120,
+        "w": 200,
+        "h": 146.5
+      }
+    }
+  ],
   "effects": {
-    "recall": 0,
-    "kept": [],
-    "missing": [
-      "bleed",
+    "recall": 0.7272727272727273,
+    "kept": [
       "blend",
       "blur",
       "gradient",
       "huge-type",
       "italic",
-      "mask",
       "overlap",
       "serif",
-      "stripes-or-layers",
       "tilt"
+    ],
+    "missing": [
+      "bleed",
+      "mask",
+      "stripes-or-layers"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 9514,
-    "output": 5857,
-    "cacheRead": 12045
+    "input": 58768,
+    "output": 36606,
+    "cacheRead": 502241
   },
-  "sends": null,
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 71639,
+      "output": 25717,
+      "cacheRead": 462317,
+      "toolCalls": 17,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Grep",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Read src/main.tsx",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Edit s2c-bench-app/index.html",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 284441
+    }
+  ],
   "ease": {
     "marks": 13,
     "captured": 13,
     "notes": 8,
     "words": 458,
-    "drawMs": 59898,
-    "readingMs": 51414,
-    "runMs": 299535
+    "drawMs": 50927,
+    "readingMs": 99226,
+    "runMs": 385025
   },
-  "reading": "This is a movie poster/hero design: a large tilted repeating-stripe background panel, a soft blurred oval glow behind the title, a huge two-line italic title 'The Long Night' (with 'Night' in raspberry), a block of five credit lines (film-by line, Starring, two cast names, In cinemas), a printer's registration-mark crosshair graphic, a solid raspberry 'WATCH TRAILER' button, and a tilted 'OFFICIAL SELECTION VENEZIA' badge.",
+  "reading": "This is a full movie-poster style hero page: a large page-level rectangle holds a tilted striped background texture, a soft blurred glow panel, a two-line italic headline 'The Long Night', a small credits block (film-by/starring/names/in cinemas), a registration-mark graphic, a solid raspberry 'WATCH TRAILER' button, and a tilted 'OFFICIAL SELECTION VENEZIA' badge, all specified precisely by the user's typed notes.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -79,10 +240,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Decorative background block: one 1256x1641px div, position absolute, top-left at -278,-321, tilted 25° anticlockwise, opacity 55% (see-through), bleeding off th"
+      "instruction": "Tilted 25 degrees anticlockwise, faded to 55% opacity (see-through), bleeding off the left page edge (starts 278px past it): big horizontal repeating stripes, N"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -94,7 +255,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Soft blurred colour glow: one 260x520px div, border-radius 50% (oval), position absolute, top-left at 820,140, placed BEHIND the heading text (z-index under eve"
+      "instruction": "A soft blurred colour GLOW, NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE 260x520px oval (border-radius 50%) div with its top-left at 820,1"
     },
     {
       "kind": "add",
@@ -119,13 +280,17 @@
         306
       ],
       "paths": [],
-      "instruction": "Giant title text, colour-inverting where it crosses whatever is beneath it: Playfair Display italic, regular weight (not bold), tight-set letters, line-height 0"
+      "instruction": "Colour-inverting where it crosses what is under it, giant Playfair Display italic serif regular weight (not bold) tight-set letters, line-height 0.85, headline "
     },
     {
       "kind": "add",
       "textMarks": [
+        "s4",
+        "s5",
         "s6",
-        "s7"
+        "s7",
+        "s8",
+        "s9"
       ],
       "textSize": [
         {
@@ -143,12 +308,12 @@
       ],
       "region": [
         984,
-        178,
+        120,
         212,
-        33
+        148
       ],
       "paths": [],
-      "instruction": "Credits block, five separate real-text elements (page px sizes/positions), each one-line part kept on a single line (white-space: nowrap) with width as a min-wi"
+      "instruction": "Credits block, part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out;"
     },
     {
       "kind": "add",
@@ -163,7 +328,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Printer's registration mark graphic (not an input, not a button, no text): a 560px empty circle with a 2px #ece6da outline, positioned at 80,720, crossed by a 1"
+      "instruction": "A 560px printer's REGISTRATION MARK at 80,720 (NOT an input, NOT a button, no text): an empty circle with a 2px #ece6da outline, crossed by a 100px #ece6da vert"
     },
     {
       "kind": "add",
@@ -178,7 +343,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "Button labelled 'WATCH TRAILER' in deep raspberry: square corners (border-radius 0, not a pill, not rounded), solid fill exactly #b3242b (not pale, not see-thro"
+      "instruction": "Deep raspberry button labeled \"WATCH TRAILER\"; square corners (border-radius 0, NOT a pill, NOT rounded); its fill exactly #b3242b (solid, NOT pale, NOT see-thr"
     },
     {
       "kind": "add",
@@ -193,7 +358,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Badge tilted 12° anticlockwise with a warm paper border, text 'OFFICIAL SELECTION VENEZIA'."
+      "instruction": "Tilted 12 degrees anticlockwise badge with a warm paper border, reading \"OFFICIAL SELECTION VENEZIA\"."
     }
   ],
   "rejected": [

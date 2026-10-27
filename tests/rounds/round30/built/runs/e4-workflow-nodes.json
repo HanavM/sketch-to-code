@@ -1,24 +1,24 @@
 {
   "id": "e4-workflow-nodes",
-  "at": "2026-10-27T16:47:13.523Z",
+  "at": "2026-10-27T17:16:09.277Z",
   "likeness": {
     "version": 3,
-    "overall": 0.01904861111111111,
-    "overallV2": 0.01904861111111111,
-    "overallV1": 0.01904861111111111,
-    "colour": 0.9492600981144695,
-    "structure": 0.7253980556325108,
-    "structureStrict": 0.7253980556325108,
-    "colourAligned": 0.9492600981144695,
-    "structureAligned": 0.7253980556325108,
+    "overall": 0.8447080630830561,
+    "overallV2": 0.8447080630830561,
+    "overallV1": 0.8143862122890775,
+    "colour": 0.9948697247349113,
+    "structure": 0.9308565597756372,
+    "structureStrict": 0.9070667335332159,
+    "colourAligned": 0.9948697247349113,
+    "structureAligned": 0.9308565597756372,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": -1
+      "r": 0.9915619075966978
     },
-    "layout": 0.06349537037037037,
-    "layoutV1": 0.06349537037037037,
+    "layout": 0.8940820630103651,
+    "layoutV1": 0.8940820630103651,
     "layoutVersion": 2
   },
   "boxes": [
@@ -28,39 +28,662 @@
       0,
       1280,
       900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      56
+    ],
+    [
+      2,
+      24,
+      17,
+      111,
+      21
+    ],
+    [
+      2,
+      151,
+      16,
+      48,
+      23
+    ],
+    [
+      2,
+      215,
+      18,
+      54,
+      20
+    ],
+    [
+      2,
+      1119,
+      12,
+      137,
+      31
+    ],
+    [
+      1,
+      0,
+      56,
+      1280,
+      844
+    ],
+    [
+      7,
+      0,
+      56,
+      220,
+      844
+    ],
+    [
+      8,
+      16,
+      72,
+      187,
+      32
+    ],
+    [
+      8,
+      16,
+      122,
+      187,
+      17
+    ],
+    [
+      8,
+      16,
+      144,
+      187,
+      40
+    ],
+    [
+      11,
+      24,
+      152,
+      24,
+      24
+    ],
+    [
+      11,
+      58,
+      155,
+      54,
+      18
+    ],
+    [
+      8,
+      16,
+      186,
+      187,
+      40
+    ],
+    [
+      14,
+      24,
+      194,
+      24,
+      24
+    ],
+    [
+      14,
+      58,
+      197,
+      53,
+      18
+    ],
+    [
+      8,
+      16,
+      244,
+      187,
+      17
+    ],
+    [
+      8,
+      16,
+      266,
+      187,
+      40
+    ],
+    [
+      18,
+      24,
+      274,
+      24,
+      24
+    ],
+    [
+      18,
+      58,
+      277,
+      78,
+      18
+    ],
+    [
+      8,
+      16,
+      308,
+      187,
+      40
+    ],
+    [
+      21,
+      24,
+      316,
+      24,
+      24
+    ],
+    [
+      21,
+      58,
+      319,
+      47,
+      18
+    ],
+    [
+      8,
+      16,
+      350,
+      187,
+      40
+    ],
+    [
+      24,
+      24,
+      358,
+      24,
+      24
+    ],
+    [
+      24,
+      58,
+      361,
+      83,
+      18
+    ],
+    [
+      8,
+      16,
+      392,
+      187,
+      40
+    ],
+    [
+      27,
+      24,
+      400,
+      24,
+      24
+    ],
+    [
+      27,
+      58,
+      403,
+      63,
+      18
+    ],
+    [
+      8,
+      16,
+      450,
+      187,
+      17
+    ],
+    [
+      8,
+      16,
+      472,
+      187,
+      40
+    ],
+    [
+      31,
+      24,
+      480,
+      24,
+      24
+    ],
+    [
+      31,
+      58,
+      483,
+      42,
+      18
+    ],
+    [
+      8,
+      16,
+      514,
+      187,
+      40
+    ],
+    [
+      34,
+      24,
+      522,
+      24,
+      24
+    ],
+    [
+      34,
+      58,
+      525,
+      37,
+      18
+    ],
+    [
+      7,
+      220,
+      56,
+      780,
+      844
+    ],
+    [
+      37,
+      259,
+      209,
+      182,
+      96
+    ],
+    [
+      38,
+      272,
+      227,
+      156,
+      20
+    ],
+    [
+      38,
+      272,
+      251,
+      156,
+      36
+    ],
+    [
+      37,
+      553,
+      329,
+      184,
+      99
+    ],
+    [
+      41,
+      566,
+      349,
+      158,
+      20
+    ],
+    [
+      41,
+      566,
+      372,
+      158,
+      36
+    ],
+    [
+      37,
+      833,
+      210,
+      163,
+      77
+    ],
+    [
+      44,
+      846,
+      228,
+      137,
+      20
+    ],
+    [
+      44,
+      846,
+      251,
+      137,
+      18
+    ],
+    [
+      37,
+      440,
+      236,
+      12,
+      12
+    ],
+    [
+      37,
+      818,
+      246,
+      12,
+      12
+    ],
+    [
+      37,
+      538,
+      366,
+      12,
+      12
+    ],
+    [
+      37,
+      734,
+      366,
+      12,
+      12
+    ],
+    [
+      37,
+      830,
+      496,
+      170,
+      84
+    ],
+    [
+      51,
+      831,
+      497,
+      168,
+      43
+    ],
+    [
+      52,
+      843,
+      507,
+      22,
+      22
+    ],
+    [
+      52,
+      873,
+      508,
+      81,
+      20
+    ],
+    [
+      51,
+      831,
+      540,
+      168,
+      39
+    ],
+    [
+      55,
+      843,
+      551,
+      87,
+      18
+    ],
+    [
+      37,
+      818,
+      536,
+      12,
+      12
+    ],
+    [
+      37,
+      550,
+      676,
+      190,
+      84
+    ],
+    [
+      58,
+      551,
+      677,
+      188,
+      43
+    ],
+    [
+      59,
+      563,
+      687,
+      22,
+      22
+    ],
+    [
+      59,
+      593,
+      688,
+      71,
+      20
+    ],
+    [
+      58,
+      551,
+      720,
+      188,
+      39
+    ],
+    [
+      62,
+      563,
+      731,
+      107,
+      18
+    ],
+    [
+      37,
+      634,
+      670,
+      12,
+      12
+    ],
+    [
+      37,
+      841,
+      785,
+      110,
+      70
+    ],
+    [
+      37,
+      835,
+      801,
+      26,
+      14
+    ],
+    [
+      37,
+      925,
+      801,
+      26,
+      14
+    ],
+    [
+      37,
+      879,
+      821,
+      26,
+      14
+    ],
+    [
+      37,
+      925,
+      841,
+      26,
+      14
+    ],
+    [
+      37,
+      879,
+      859,
+      26,
+      14
+    ],
+    [
+      37,
+      241,
+      847,
+      163,
+      29
+    ],
+    [
+      71,
+      242,
+      848,
+      33,
+      27
+    ],
+    [
+      71,
+      275,
+      848,
+      57,
+      27
+    ],
+    [
+      71,
+      332,
+      848,
+      33,
+      27
+    ],
+    [
+      71,
+      365,
+      848,
+      38,
+      27
+    ],
+    [
+      7,
+      1000,
+      56,
+      280,
+      844
+    ],
+    [
+      76,
+      1019,
+      74,
+      243,
+      23
+    ],
+    [
+      76,
+      1019,
+      109,
+      243,
+      18
+    ],
+    [
+      76,
+      1019,
+      130,
+      243,
+      34
+    ],
+    [
+      76,
+      1019,
+      180,
+      243,
+      18
+    ],
+    [
+      76,
+      1019,
+      201,
+      243,
+      120
+    ],
+    [
+      76,
+      1019,
+      337,
+      243,
+      18
+    ],
+    [
+      76,
+      1019,
+      358,
+      243,
+      34
+    ],
+    [
+      76,
+      1226,
+      410,
+      36,
+      20
+    ],
+    [
+      84,
+      1244,
+      412,
+      16,
+      16
+    ],
+    [
+      76,
+      1019,
+      413,
+      89,
+      18
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0,
-    "kept": [],
+    "recall": 0.5,
+    "kept": [
+      "mono",
+      "overlap"
+    ],
     "missing": [
       "gradient",
-      "mono",
-      "overlap",
       "soft-shadow"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 14121,
-    "output": 7746,
-    "cacheRead": 15481
+    "input": 54327,
+    "output": 30978,
+    "cacheRead": 259937
   },
-  "sends": null,
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 70892,
+      "output": 25880,
+      "cacheRead": 256853,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/index.html",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 275380
+    }
+  ],
   "ease": {
     "marks": 9,
     "captured": 9,
     "notes": 10,
     "words": 2114,
-    "drawMs": 97414,
-    "readingMs": 69550,
-    "runMs": 287786
+    "drawMs": 69506,
+    "readingMs": 51130,
+    "runMs": 327773
   },
-  "reading": "The user sketched a full workflow-builder app shell: a top bar, a left node-library panel, a central canvas with several connected node cards and zoom controls, and a right inspector panel, all annotated with detailed typed specs for colors, layout and copy.",
+  "reading": "The sketch lays out a workflow-builder app shell: a top bar, a left node-library panel of draggable trigger/action/logic rows, a central node-canvas with three connected workflow cards (New lead → Score with AI → Score ≥ 7?) plus connector dots, a minimap widget and a zoom toolbar, and a right inspector panel configuring the 'Score with AI' node. Every region and part is fully specified by the accompanying typed notes, which take precedence over the raw ink shapes.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -72,10 +695,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top bar region, 1280x56px at 0,0, its own wrapper: #ffffff fill, 1px #e3e6eb border-bottom only, parts vertically centered (align-items center). Holds: \"Lead en"
+      "instruction": "Top bar: ONE 1280x56px element at 0,0, its own wrapper, #ffffff fill, 1px #e3e6eb bottom rule only, 56px tall, contents vertically centred. Contains: 'Lead enri"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -87,10 +710,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Left panel 220x844px: a node palette with 3 sections, each a small bold caps heading (letter-spacing 1px, #8a91a0) then its rows. TRIGGERS: 'Webhook' row (24x24"
+      "instruction": "Left node-library panel (220x844px white): 3 sections (TRIGGERS, ACTIONS, LOGIC), each a small bold caps heading (#8a91a0, letter-spacing 1px) followed by dragg"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -102,7 +725,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Central canvas frame 780x844px at 220,56 (no fill/border/shadow of its own) holding a node-graph: small white circular connector dots (12x12, #ffffff fill, 2px "
+      "instruction": "Node-canvas: an invisible 780x844px frame at 220,56 (no fill/border) holding connector dots (small circles, white fill, 2px #7a8394 border, except one 2px #ff6d"
     },
     {
       "kind": "add",
@@ -117,7 +740,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Workflow node card on the canvas: white card titled 'New lead' (#1e2430) with subtext 'Webhook · POST /hooks/leads' (#6b7385)."
+      "instruction": "White workflow card on the canvas: title 'New lead' (#1e2430) with subtext 'Webhook · POST /hooks/leads' (#6b7385), sized/positioned as sketched."
     },
     {
       "kind": "add",
@@ -132,7 +755,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Workflow node card on the canvas: white card titled 'Score with AI' with subtext 'Model: claude Prompt: rate fit 1–10'."
+      "instruction": "White workflow card on the canvas: title 'Score with AI' with subtext 'Model: claude  Prompt: rate fit 1–10', sized/positioned as sketched."
     },
     {
       "kind": "add",
@@ -147,7 +770,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Workflow node card on the canvas: white card titled 'Score ≥ 7?' (#1e2430) with subtext 'true → Slack' (#6b7385)."
+      "instruction": "White workflow card on the canvas: title 'Score ≥ 7?' (#1e2430) with subtext 'true → Slack' (#6b7385), sized/positioned as sketched."
     },
     {
       "kind": "add",
@@ -162,7 +785,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Zoom/minimap control on the canvas, bottom-right: a 110x70 box with 2px #ff6d3a border, 4px rounded, containing five small 26x14 pill dots (2px rounded), four o"
+      "instruction": "Small minimap/orientation widget near the bottom-right of the canvas: a 110x70px box with 2px #ff6d3a border, 4px rounded, containing 5 small pill marks (26x14p"
     },
     {
       "kind": "add",
@@ -177,10 +800,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Canvas zoom toolbar at bottom-left: '−' button (33x29, 1px #d6dae1 right border), '100%' label (57x29, 1px #d6dae1 right border), '+' button (33x29, 1px #d6dae1"
+      "instruction": "Zoom control toolbar bottom-left of the canvas: four segments each with a right 1px #d6dae1 border (last one without), padding-left 12px, 12px #1e2430 text — '−"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -192,7 +815,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Right panel 280x844px at 1000,56, white fill: an inspector for the selected 'Score with AI' node. Bold heading 'Score with AI' (15px #1e2430); 'Model' label (bo"
+      "instruction": "Right inspector panel: ONE 280x844px white panel at 1000,56 holding, top to bottom: bold heading 'Score with AI'; label 'Model' with a bordered select-style fie"
     }
   ],
   "rejected": [
