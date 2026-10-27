@@ -1,0 +1,262 @@
+{
+  "round": 1,
+  "id": "e1-login",
+  "version": 3,
+  "stopped": "looks right except card sits ~90px lower than drawn (centred); a fix wasnt worth another ~9 min build",
+  "likeness": 71.1,
+  "colour": 0.9936929786308323,
+  "structure": 0.9768371628902169,
+  "layout": 0.4356396786367404,
+  "strokes": {
+    "count": 7,
+    "pointsPerStroke": 3.7,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 4,
+      "line": 3
+    },
+    "inkPx": 4443
+  },
+  "erased": 0,
+  "words": 25,
+  "notes": 7,
+  "longestNote": 7,
+  "noteTexts": [
+    "white login card on pale grey page",
+    "Sign in",
+    "Welcome back. Enter your details.",
+    "Email field",
+    "Password field",
+    "Sign in, blue",
+    "Forgot your password? link"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 600,
+    "firstReadingS": 67,
+    "readS": [
+      40
+    ],
+    "buildS": [
+      522
+    ],
+    "sketchingS": 37
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 55830,
+    "cacheRead": 227176,
+    "output": 45875,
+    "billed": 101705
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 5117
+    },
+    {
+      "op": "stroke",
+      "at": 5814
+    },
+    {
+      "op": "stroke",
+      "at": 6914
+    },
+    {
+      "op": "stroke",
+      "at": 9515
+    },
+    {
+      "op": "stroke",
+      "at": 12165
+    },
+    {
+      "op": "stroke",
+      "at": 14798
+    },
+    {
+      "op": "stroke",
+      "at": 15665
+    },
+    {
+      "op": "note",
+      "at": 16356
+    },
+    {
+      "op": "note",
+      "at": 16973
+    },
+    {
+      "op": "note",
+      "at": 17667
+    },
+    {
+      "op": "note",
+      "at": 18300
+    },
+    {
+      "op": "note",
+      "at": 18915
+    },
+    {
+      "op": "note",
+      "at": 19534
+    },
+    {
+      "op": "note",
+      "at": 20173
+    },
+    {
+      "op": "run",
+      "at": 26846
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          430,
+          150
+        ],
+        [
+          850,
+          150
+        ],
+        [
+          850,
+          570
+        ],
+        [
+          430,
+          570
+        ],
+        [
+          430,
+          150
+        ]
+      ],
+      "n": 281,
+      "at": 5117
+    },
+    {
+      "way": [
+        [
+          470,
+          205
+        ],
+        [
+          556,
+          205
+        ]
+      ],
+      "n": 15,
+      "at": 5814
+    },
+    {
+      "way": [
+        [
+          470,
+          236
+        ],
+        [
+          697,
+          236
+        ]
+      ],
+      "n": 39,
+      "at": 6914
+    },
+    {
+      "way": [
+        [
+          470,
+          288
+        ],
+        [
+          810,
+          288
+        ],
+        [
+          810,
+          332
+        ],
+        [
+          470,
+          332
+        ],
+        [
+          470,
+          288
+        ]
+      ],
+      "n": 129,
+      "at": 9515
+    },
+    {
+      "way": [
+        [
+          470,
+          376
+        ],
+        [
+          810,
+          376
+        ],
+        [
+          810,
+          420
+        ],
+        [
+          470,
+          420
+        ],
+        [
+          470,
+          376
+        ]
+      ],
+      "n": 129,
+      "at": 12165
+    },
+    {
+      "way": [
+        [
+          470,
+          448
+        ],
+        [
+          810,
+          448
+        ],
+        [
+          810,
+          494
+        ],
+        [
+          470,
+          494
+        ],
+        [
+          470,
+          448
+        ]
+      ],
+      "n": 131,
+      "at": 14798
+    },
+    {
+      "way": [
+        [
+          569,
+          522
+        ],
+        [
+          711,
+          522
+        ]
+      ],
+      "n": 25,
+      "at": 15665
+    }
+  ]
+}
