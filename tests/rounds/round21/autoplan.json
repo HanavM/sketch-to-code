@@ -249,7 +249,7 @@
    ],
    [
     "label",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 79x15 at 1030,522 13px bold mono #141414 \"Gallery 4\"; 132x15 at 1030,543 13px bold mono #141414 \"Oct 30 – Jan 12\"; 150x15 at 1030,564 13px bold mono #141414 \"Free on Thursdays\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 79x15 at 1030,522 13px bold mono #141414 \"GALLERY 4\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 1px (its letters spaced out, NOT set tight); 132x15 at 1030,543 13px bold mono #141414 \"OCT 30 – JAN 12\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 1px (its letters spaced out, NOT set tight); 150x15 at 1030,564 13px bold mono #141414 \"FREE ON THURSDAYS\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 1px (its letters spaced out, NOT set tight)"
    ],
    [
     "triangle",

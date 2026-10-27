@@ -187,7 +187,7 @@
    ],
    [
     "film-strip",
-    "circle"
+    "box"
    ],
    [
     "trailer-button",
@@ -205,7 +205,7 @@
    ],
    [
     "blind-light",
-    "tilted 25° anticlockwise faded to 55% opacity (see-through) bleeding off the left page edge (starts 278px past it) big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #d9c9a3 0px 34px, transparent 34px 70px)): 34px pale pink then 36px clear (see-through), over and over: ONE 1256x1641px block (exactly this size, NOT filling the cell or box it sits in), position absolute with its top-left at -278,-321, nothing inside it, square corners, no border"
+    "turned AND sheared (NOT a plain rotate: its stripes slant 17° off square), exactly transform: matrix(0.9903, -0.4609, 0.1392, 0.945, 0, 0) about its centre, applied to its 1100x1200px box whose top-left sits at -200,-100 before the transform faded to 55% opacity (see-through) fading out softly toward its edges through a radial mask (solid in the middle, gone at the edges, NOT a hard-edged block), written exactly: -webkit-mask-image: radial-gradient(at 40% 40%, #000000 30%, transparent 70%); mask-image: radial-gradient(at 40% 40%, #000000 30%, transparent 70%) bleeding off the left page edge (starts 278px past it) big horizontal repeating stripes, NOT a smooth gradient (repeating-linear-gradient(0deg, #d9c9a3 0px 34px, transparent 34px 70px)): 34px pale pink then 36px clear (see-through), over and over: ONE 1100x1200px block (its size BEFORE the transform; NOT filling the cell or box it sits in), position absolute with its top-left at -200,-100 before the transform (n272), nothing"
    ],
    [
     "smoke",
@@ -217,11 +217,11 @@
    ],
    [
     "credits",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 200x44 at 980,120 22px bold #ece6da \"A film by Ida Ross\" with letter-spacing 1px (its letters spaced out, NOT set tight); 88x15 at 1092,169 13px #ece6da \"Starring\"; 72x15 at 1108,195 13px #ece6da \"M. Vale\"; 92x15 at 1088,221 13px #ece6da \"J. Okafor\"; 105x15 at 1075,247 13px #ece6da \"In cinemas\""
+    "the region is ONE 220x148px column at 980,120 (position absolute) with a 2px #b3242b rule down its RIGHT edge only (border-right, no other border, no fill), its lines RIGHT-aligned (text-align: right) ending 18px left of that rule (padding-right 18px); its parts inside it: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 200x44 at 980,120 22px bold #ece6da \"A film by Ida Ross\" with letter-spacing 1px (its letters spaced out, NOT set tight); 88x15 at 1092,169 13px #ece6da \"STARRING\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 72x15 at 1108,195 13px #ece6da \"M. VALE\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 92x15 at 1088,221 13px #ece6da \"J. OKAFOR\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 105x15 at 1075,247 13px #ece6da \"IN CINEMAS\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight)"
    ],
    [
     "film-strip",
-    "a 560px printer's REGISTRATION MARK at 80,720 (NOT an input, NOT a button, no text): an empty circle with a 2px #ece6da outline, crossed by a 100px #ece6da vertical and a 100px horizontal line through its centre (a crosshair in a ring)"
+    "a 560x64px FILM STRIP at 80,720 (position absolute, a long flat band, NOT a circle, NOT a button, no text, no fill: the page shows through its middle, square corners), ruled by a 2px #ece6da line along its top and its bottom (border-top and border-bottom, no side borders); inside the rules 2 rows of small square sprocket HOLES, each row its own background layer sized and placed, written exactly: background: repeating-linear-gradient(90deg, #ece6da 0px, #ece6da 14px, transparent 14px, transparent 28px) 0px 6px / 100% 10px no-repeat, repeating-linear-gradient(90deg, #ece6da 0px, #ece6da 14px, transparent 14px, transparent 28px) 0px 48px / 100% 10px no-repeat"
    ],
    [
     "trailer-button",

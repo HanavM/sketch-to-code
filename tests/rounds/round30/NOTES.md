@@ -111,3 +111,23 @@ r26 r28; not re-run).
 Round 30 over all ten: **85%** (c1 86, c2 94, c3 74, c4 80, c5 77, e1 87, e2 89, e3 90, e4 84, e5 87).
 
 Next: c3 film strip and masked stripes (74); c5 labels round a circle (77); c4 conic wheel (80); e4 SVG wires (84).
+
+## n272: film strip, blind mask and shear, credits rule and capitals (2026-10-27, ~105k billed)
+
+Cause of c3 74%: the film strip (an empty 560x64 band, two rows of sprocket holes painted by sized, no-repeat
+repeating-linear-gradient layers, ruled top and bottom) matched the registration-mark rule (two gradients, a border, any
+radius) and was said as a crosshair ring; the blind light's radial mask was never said and its skewY+rotate was said as
+"tilted 25°"; the credits' red rule down the right edge and the capitals and letter-spacing of its loose lines were lost.
+Fix (planner rules, not a page patch): a registration mark must be round and square-ish; an empty wide band of 2+ sized
+no-repeat repeating-gradient rows is a FILM STRIP said with its rules and exact layers; a text-less block with a shear in
+its transform says the exact matrix and its box before the transform; a text-less block with one radial mask says it
+exactly; a right-aligned column with a right-only border says that rule and its padding; loose text lines keep their
+letter-spacing and text-transform capitals.
+
+Live re-run: **c3 noir blinds 74 to 89%** (film strip, credits rule and capitals, sheared stripes right; the mask fade
+still ends in a hard vertical edge, the badge's inner red ring lost). 13 marks, ~690 words, 55 s drawing, 82 s to reading,
+413 s run, ~105k tokens, no repair turns. Re-planned rounds 1-29: letter-spacing and capitals on loose lines in r10 r18 r19
+r21 (not re-run); perspective floors (r6, r11) and the r26 skewed band unchanged.
+Round 30 over all ten: **86%** (c1 86, c2 94, c3 89, c4 80, c5 77, e1 87, e2 89, e3 90, e4 84, e5 87).
+
+Next: c5 labels round a circle and needle (77); c4 conic wheel under a masked ring (80); e4 SVG wires (84).

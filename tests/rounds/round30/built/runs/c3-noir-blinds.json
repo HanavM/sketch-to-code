@@ -1,24 +1,24 @@
 {
   "id": "c3-noir-blinds",
-  "at": "2026-10-27T16:59:36.748Z",
+  "at": "2026-10-27T19:07:55.094Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7436159278874993,
-    "overallV2": 0.7436159278874993,
-    "overallV1": 0.582121679180783,
-    "colour": 0.9169535803771638,
-    "structure": 0.6315274962365272,
-    "structureStrict": 0.19315708857666397,
-    "colourAligned": 0.9169535803771638,
-    "structureAligned": 0.6315274962365272,
+    "overall": 0.8885149059667474,
+    "overallV2": 0.8885149059667474,
+    "overallV1": 0.8592208546001516,
+    "colour": 0.9218268504825283,
+    "structure": 0.8369398165683278,
+    "structureStrict": 0.7574221536024794,
+    "colourAligned": 0.9218268504825283,
+    "structureAligned": 0.8369398165683278,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.3242659173711649
+      "r": 0.8853135754635315
     },
-    "layout": 0.712646013955854,
-    "layoutV1": 0.5840921354019756,
+    "layout": 0.9366630834663506,
+    "layoutV1": 0.9366630834663506,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,21 +27,28 @@
       0,
       0,
       1280,
-      1360
+      900
     ],
     [
       0,
-      1,
-      1,
+      0,
+      0,
       974,
       897
     ],
     [
       1,
+      -1,
       0,
-      1,
       975,
       897
+    ],
+    [
+      0,
+      -278,
+      -320,
+      1256,
+      1641
     ],
     [
       0,
@@ -54,55 +61,62 @@
       0,
       80,
       250,
-      653,
+      642,
       306
     ],
     [
-      4,
+      5,
       80,
       250,
-      653,
+      642,
       153
     ],
     [
-      4,
+      5,
       300,
       403,
-      433,
+      422,
       153
     ],
     [
       0,
       980,
       120,
+      220,
+      148
+    ],
+    [
+      8,
+      980,
+      120,
       200,
       33
     ],
     [
-      0,
+      8,
       1092,
-      169,
+      158,
       88,
       20
     ],
     [
-      0,
+      8,
       1108,
-      195,
+      189,
       72,
       20
     ],
     [
-      0,
+      8,
       1088,
-      221,
+      219,
       92,
       20
     ],
     [
-      0,
+      8,
       1075,
-      247,
+      250,
       105,
       20
     ],
@@ -111,14 +125,7 @@
       80,
       720,
       560,
-      560
-    ],
-    [
-      12,
-      81,
-      721,
-      558,
-      558
+      64
     ],
     [
       0,
@@ -133,102 +140,68 @@
       607,
       244,
       244
-    ],
-    [
-      15,
-      987,
-      682,
-      159,
-      73
-    ],
-    [
-      15,
-      1032,
-      731,
-      83,
-      37
     ]
   ],
-  "groupMatched": [
-    {
-      "role": "credits",
-      "iou": 0.8998771498771498,
-      "parts": 5,
-      "rect": {
-        "x": 980,
-        "y": 120,
-        "w": 200,
-        "h": 146.5
-      }
-    }
-  ],
+  "groupMatched": [],
   "effects": {
-    "recall": 0.7272727272727273,
+    "recall": 1,
     "kept": [
+      "bleed",
       "blend",
       "blur",
       "gradient",
       "huge-type",
       "italic",
+      "mask",
       "overlap",
       "serif",
+      "stripes-or-layers",
       "tilt"
     ],
-    "missing": [
-      "bleed",
-      "mask",
-      "stripes-or-layers"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 58768,
-    "output": 36606,
-    "cacheRead": 502241
+    "input": 66251,
+    "output": 38557,
+    "cacheRead": 244186
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 71639,
-      "output": 25717,
-      "cacheRead": 462317,
-      "toolCalls": 17,
+      "billed": 81864,
+      "output": 29631,
+      "cacheRead": 234536,
+      "toolCalls": 10,
       "tools": [
         "Read components/SketchShape.tsx",
         "Glob",
-        "Grep",
         "Read src/App.tsx",
-        "Glob",
-        "Glob",
-        "Glob",
-        "Read src/index.css",
-        "Read s2c-bench-app/index.html",
         "Read src/main.tsx",
         "Glob",
-        "Edit components/SketchShape.tsx",
-        "Edit s2c-bench-app/index.html",
-        "Read components/SketchShape.tsx",
-        "Edit components/SketchShape.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx"
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Edit src/index.css",
+        "Write src/App.tsx"
       ],
-      "ms": 284441
+      "ms": 329749
     }
   ],
   "ease": {
     "marks": 13,
     "captured": 13,
     "notes": 8,
-    "words": 458,
-    "drawMs": 50927,
-    "readingMs": 99226,
-    "runMs": 385025
+    "words": 689,
+    "drawMs": 54803,
+    "readingMs": 81920,
+    "runMs": 412712
   },
-  "reading": "This is a full movie-poster style hero page: a large page-level rectangle holds a tilted striped background texture, a soft blurred glow panel, a two-line italic headline 'The Long Night', a small credits block (film-by/starring/names/in cinemas), a registration-mark graphic, a solid raspberry 'WATCH TRAILER' button, and a tilted 'OFFICIAL SELECTION VENEZIA' badge, all specified precisely by the user's typed notes.",
+  "reading": "The sketch is a movie-poster style hero for \"The Long Night\": a full-bleed slanted striped background texture, a soft glow oval behind the title, a two-line italic serif headline (\"The Long\" / \"Night\" in raspberry), a right-aligned credits column (film-by line, STARRING, two cast names, IN CINEMAS), a film-strip decorative band, a solid raspberry \"WATCH TRAILER\" button, and a tilted \"OFFICIAL SELECTION VENEZIA\" badge. Typed notes give exact colors, fonts, positions and copy for every piece.",
   "actions": [
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -240,10 +213,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Tilted 25 degrees anticlockwise, faded to 55% opacity (see-through), bleeding off the left page edge (starts 278px past it): big horizontal repeating stripes, N"
+      "instruction": "Decorative background layer, turned AND sheared (not a plain rotate — stripes slant 17° off square), exactly transform: matrix(0.9903, -0.4609, 0.1392, 0.945, 0"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -255,7 +228,7 @@
       "paths": [
         "s1"
       ],
-      "instruction": "A soft blurred colour GLOW, NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE 260x520px oval (border-radius 50%) div with its top-left at 820,1"
+      "instruction": "A soft blurred colour glow — not a block, not a card, not a photo backdrop, nothing inside it: ONE 260x520px oval (border-radius 50%) div with its top-left at 8"
     },
     {
       "kind": "add",
@@ -280,17 +253,13 @@
         306
       ],
       "paths": [],
-      "instruction": "Colour-inverting where it crosses what is under it, giant Playfair Display italic serif regular weight (not bold) tight-set letters, line-height 0.85, headline "
+      "instruction": "Headline, colour-inverting where it crosses what is under it: giant Playfair Display italic serif, regular weight (not bold), tight-set letters, line-height 0.8"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s4",
-        "s5",
         "s6",
-        "s7",
-        "s8",
-        "s9"
+        "s7"
       ],
       "textSize": [
         {
@@ -308,27 +277,27 @@
       ],
       "region": [
         984,
-        120,
+        178,
         212,
-        148
+        33
       ],
       "paths": [],
-      "instruction": "Credits block, part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out;"
+      "instruction": "Credits region: ONE 220x148px column at 980,120 (position absolute) with a 2px #b3242b rule down its right edge only (border-right, no other border, no fill), l"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        332,
-        724,
-        56,
-        56
+        84,
+        723,
+        553,
+        58
       ],
       "paths": [
         "s10"
       ],
-      "instruction": "A 560px printer's REGISTRATION MARK at 80,720 (NOT an input, NOT a button, no text): an empty circle with a 2px #ece6da outline, crossed by a 100px #ece6da vert"
+      "instruction": "A 560x64px film strip at 80,720 (position absolute, a long flat band, not a circle, not a button, no text, no fill: the page shows through its middle, square co"
     },
     {
       "kind": "add",
@@ -343,7 +312,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "Deep raspberry button labeled \"WATCH TRAILER\"; square corners (border-radius 0, NOT a pill, NOT rounded); its fill exactly #b3242b (solid, NOT pale, NOT see-thr"
+      "instruction": "A deep raspberry \"WATCH TRAILER\" button; square corners (border-radius 0, not a pill, not rounded); its fill exactly #b3242b (solid, not pale, not see-through),"
     },
     {
       "kind": "add",
@@ -358,7 +327,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Tilted 12 degrees anticlockwise badge with a warm paper border, reading \"OFFICIAL SELECTION VENEZIA\"."
+      "instruction": "A badge tilted 12° anticlockwise, warm paper border, reading \"OFFICIAL SELECTION VENEZIA\"."
     }
   ],
   "rejected": [
