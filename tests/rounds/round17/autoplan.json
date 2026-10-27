@@ -417,7 +417,7 @@
    ],
    [
     "nav",
-    "nav bar \"orbit\", lines \"Product · Customers · Changelog\", \"Book a demo\"; \"Book a demo\" is a FILLED pill button (#f4f4f5 fill, no border, 130x37px, bold #0b0b0f text), NOT outlined, NOT plain text"
+    "nav bar \"orbit\", lines \"Product · Customers · Changelog\", \"Book a demo\"; \"Book a demo\" has its own BOX (NOT a plain word): 130x37px, #f4f4f5 fill, 999px rounded, padding 10px 18px, bold #0b0b0f text on ONE line; \"Book a demo\" is a FILLED pill button (#f4f4f5 fill, no border, 130x37px, bold #0b0b0f text), NOT outlined, NOT plain text"
    ],
    [
     "intro",
@@ -667,7 +667,7 @@
    ],
    [
     "top-nav",
-    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #1e1b4b fill) that holds all of these parts inside it, never laid loose on the page; deep indigo (#1e1b4b) bar 56px tall across the page, #ffffff text; left to right, each item at its own x from the bar's left: \"Relay\" at x 20; \"Dashboard\" at x 91; \"Contacts\" at x 181; \"Deals\" at x 258; \"Inbox\" at x 318; \"Search contacts…\" (a 280x34px #ffffff filled 8px rounded box #ffffff text) at x 980"
+    "the region itself is ONE 1280x56px top bar element at 0,0 (its own wrapper, #1e1b4b fill) that holds all of these parts inside it, never laid loose on the page; deep indigo (#1e1b4b) bar 56px tall across the page, #ffffff text; left to right, each item at its own x from the bar's left: \"Relay\" at x 20; \"Dashboard\" at x 91; \"Contacts\" at x 181; \"Deals\" at x 258; \"Inbox\" at x 318; \"Search contacts…\" (a 280x34px #ffffff filled 8px rounded box #ffffff text) at x 980; \"Contacts\" has its own BOX (NOT a plain word): 51x21px, no fill, a 2px #a5b4fc line along its BOTTOM edge only (border-bottom), padding 0px 0px, regular (NOT bold) #ffffff text on ONE line"
    ],
    [
     "profile-card",

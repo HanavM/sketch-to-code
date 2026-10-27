@@ -173,7 +173,7 @@
    ],
    [
     "ring-tile",
-    "white block, centred in it a 150px progress ring (not a picture): green arc 78% of the way round from the top, the rest a light grey track, bold \"78%\" in the middle; the card exactly 260x210px, its top-left at 700,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "the region itself is ONE 260x210px panel at 700,270, #ffffff fill, a 1px #e7e5e4 border, 28px rounded, with its parts inside it; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out): 150x150 at 756,301 conic-gradient(#16a34a 0deg, #16a34a 78%, #e7e5e4 0deg), a circle; 114x114 at 774,319 #ffffff fill, a circle: 30px font-weight 800 #1c1917 \"78%\"; the card exactly 260x210px, its top-left at 700,270, its top 20px under the bottom of the card right above it (that card ends at y 250: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "stripe-tile",

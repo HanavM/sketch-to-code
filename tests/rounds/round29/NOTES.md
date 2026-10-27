@@ -138,3 +138,22 @@ Planner rules (each a rule, not a page patch):
 Re-planned rounds 1-28: tight line-height on giant numerals r2, r3, r4, r5, r8, r12, r13, r16, r20, r21, r26; stripe boxes r14, r16, r25, r28; heading faces r1, r20, r27; ruled list r13. None re-run.
 
 Still open: c2 numerals sit low and NEW WORK tag text small (85); c3 clouds and invented frame (89); e1 comment card shadow and sheet tab pill (83); e5 slider track line.
+
+## n267: planner fixes, re-run live (2026-10-27, ~266k billed)
+
+| page | was | now | marks | words | draw s | run s | tokens | what changed |
+|---|---|---|---|---|---|---|---|---|
+| c3 iso city | 89% | **90%** | 10 | ~895 | 47 | 253 | 75k | both white clouds built in place; the city sits straight on the page (the invented thin frame round it is gone) |
+| e1 spreadsheet | 83% | **89%** | 11 | ~1,720 | 79 | 425 | 117k (one repair turn) | comment is a white card with its shadow; active "Q3 summary" sheet tab filled with its blue underline and top-rounded corners; "Sum" in its bordered box |
+| c2 brutal grid | 85% | **98%** | 18 | ~787 | 71 | 172 | 74k | giant 04 / 05 numerals sit at the top of their cells (tight line-height said in n266, first run on it); grid lines open, no frame |
+
+Round 29 now **93%** (93.4: c1 92, c2 98, c3 90, c4 96, c5 93, e1 89, e2 93, e3 95, e4 95, e5 93).
+
+Planner rules (each a rule, not a page patch):
+- A part painted white (or near the default) over a parent painted only by a gradient is filled; the "page behind is white" guess applies only when no gradient is behind it (c3 clouds were read as unpainted and dropped).
+- A wordless drawing of 6+ parts on an unpainted region says its parts sit straight on the page: no frame, border, panel or outline (c3 built inside an invented 1px frame).
+- A small card of words lifted by a shadow (from 8000 px², was 20000) says its fill, rounding and shadow (e1 comment card built as bare words).
+- In a row or list of plain words, a word with its own fill, border or 2px+ bottom line says its BOX: size, fill (with its opacity), border, bottom line, top-only rounding for a tab, padding, weight (e1 sheet tab and Sum box were said as plain coloured words). Skipped where the note already calls it a button, selected or highlighted.
+Re-planned rounds 1-28: the boxed word now said on 39 pages' bars and sidebars (active nav rows, Compose buttons, outlined selects, tab underlines, r22 e5 sheet tab), open drawings on r7, r15, r26 x2, white parts on gradients r9, r10, r18, r25, r26. None re-run.
+
+Still open: e1 at 89 (chart and grid lines by eye right; small row shifts); c3 at 90 (stat cards built solid white, target see-through); e5 slider track line. Next: round 30.

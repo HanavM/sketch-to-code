@@ -1,24 +1,24 @@
 {
   "id": "c3-iso-city",
-  "at": "2026-10-27T09:27:13.856Z",
+  "at": "2026-10-27T14:06:20.633Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8866861657579737,
-    "overallV2": 0.8866861657579737,
-    "overallV1": 0.8407613745013083,
-    "colour": 0.9949813230238574,
-    "structure": 0.9500977125878162,
-    "structureStrict": 0.9088129164732005,
-    "colourAligned": 0.9949813230238574,
-    "structureAligned": 0.9500977125878162,
+    "overall": 0.901937933199288,
+    "overallV2": 0.901937933199288,
+    "overallV1": 0.8701986532346851,
+    "colour": 0.9963816714698543,
+    "structure": 0.9784842455773726,
+    "structureStrict": 0.949951732607634,
+    "colourAligned": 0.9963816714698543,
+    "structureAligned": 0.9784842455773726,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9535360654073417
+      "r": 0.9652833638141918
     },
-    "layout": 0.8477541472375704,
-    "layoutV1": 0.8477541472375704,
+    "layout": 0.7820557254584996,
+    "layoutV1": 0.7820557254584996,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,274 +31,288 @@
     ],
     [
       0,
+      0,
+      0,
+      1280,
+      860
+    ],
+    [
+      1,
       68,
-      24,
+      32,
       1144,
       30
     ],
     [
-      1,
+      2,
       68,
-      24,
+      32,
       119,
       30
     ],
     [
-      1,
+      2,
       924,
-      27,
+      35,
       288,
       24
     ],
     [
-      3,
+      4,
       924,
-      27,
+      35,
       43,
       24
     ],
     [
-      3,
+      4,
       999,
-      27,
+      35,
       32,
       24
     ],
     [
-      3,
+      4,
       1063,
-      27,
+      35,
       64,
       24
     ],
     [
-      3,
+      4,
       1159,
-      27,
+      35,
       53,
       24
     ],
     [
-      0,
+      1,
       72,
       140,
-      334,
+      308,
       195
     ],
     [
-      8,
+      9,
+      72,
+      140,
+      308,
+      65
+    ],
+    [
+      9,
+      72,
+      205,
+      308,
+      65
+    ],
+    [
+      11,
       72,
       204,
       154,
       66
     ],
     [
-      0,
+      9,
+      72,
+      270,
+      308,
+      65
+    ],
+    [
+      1,
       64,
       390,
       400,
       84
     ],
     [
-      0,
+      1,
       67,
       514,
       155,
       49
     ],
     [
-      0,
-      563,
-      123,
-      654,
-      653
+      1,
+      600,
+      180,
+      120,
+      34
     ],
     [
-      12,
-      563,
-      123,
-      654,
-      653
+      1,
+      1030,
+      230,
+      90,
+      34
     ],
     [
-      13,
-      563,
-      123,
-      654,
-      653
-    ],
-    [
-      14,
-      563,
-      123,
-      654,
-      654
-    ],
-    [
-      13,
+      1,
       640,
       420,
       500,
       290
     ],
     [
-      13,
+      1,
       740,
       478,
       300,
       174
     ],
     [
-      13,
-      800,
-      510,
-      120,
-      150
-    ],
-    [
-      13,
-      800,
-      510,
-      120,
-      150
-    ],
-    [
-      13,
-      800,
-      510,
-      120,
-      150
-    ],
-    [
-      13,
+      1,
       710,
       270,
       160,
       320
     ],
     [
-      13,
+      1,
       710,
       270,
       160,
       320
     ],
     [
-      13,
+      1,
       710,
       270,
       160,
       320
     ],
     [
-      13,
+      1,
       890,
       370,
       140,
       240
     ],
     [
-      13,
+      1,
       890,
       370,
       140,
       240
     ],
     [
-      13,
+      1,
       890,
       370,
       140,
       240
     ],
     [
-      13,
+      1,
+      800,
+      510,
+      120,
+      150
+    ],
+    [
+      1,
+      800,
+      510,
+      120,
+      150
+    ],
+    [
+      1,
+      800,
+      510,
+      120,
+      150
+    ],
+    [
+      1,
       1020,
       540,
       40,
       40
     ],
     [
-      13,
+      1,
       670,
       550,
       40,
       40
     ],
     [
-      13,
+      1,
       1060,
       560,
       40,
       40
     ],
     [
-      0,
+      1,
       64,
       660,
       428,
       83
     ],
     [
-      30,
+      32,
       64,
       660,
       132,
       83
     ],
     [
-      31,
+      33,
       80,
       676,
       100,
-      39
+      30
     ],
     [
-      31,
+      33,
       80,
-      715,
+      706,
       100,
       20
     ],
     [
-      30,
+      32,
       212,
       660,
       132,
       83
     ],
     [
-      34,
+      36,
       228,
       676,
       100,
-      39
+      30
     ],
     [
-      34,
+      36,
       228,
-      715,
+      706,
       100,
       20
     ],
     [
-      30,
+      32,
       360,
       660,
       132,
       83
     ],
     [
-      37,
+      39,
       376,
       676,
       100,
-      39
+      30
     ],
     [
-      37,
+      39,
       376,
-      715,
+      706,
       100,
       20
     ]
@@ -317,43 +331,43 @@
     ]
   },
   "tokens": {
-    "input": 43463,
-    "output": 25936,
-    "cacheRead": 230231
+    "input": 50764,
+    "output": 24291,
+    "cacheRead": 214349
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 52300,
-      "output": 19620,
-      "cacheRead": 217844,
+      "billed": 57056,
+      "output": 17266,
+      "cacheRead": 201860,
       "toolCalls": 10,
       "tools": [
         "Glob",
-        "Read components/IsometricCity.tsx",
+        "Read components/SketchShape.tsx",
         "Read src/App.tsx",
-        "Read src/main.tsx",
-        "Glob",
         "Glob",
         "Glob",
         "Read src/index.css",
-        "Write components/IsometricCity.tsx",
+        "Read s2c-bench-app/package.json",
+        "Grep",
+        "Read src/main.tsx",
         "Write src/App.tsx"
       ],
-      "ms": 213033
+      "ms": 190812
     }
   ],
   "ease": {
     "marks": 10,
     "captured": 10,
     "notes": 7,
-    "words": 854,
-    "drawMs": 47542,
-    "readingMs": 59224,
-    "runMs": 273887
+    "words": 895,
+    "drawMs": 47183,
+    "readingMs": 61105,
+    "runMs": 253177
   },
-  "reading": "A landing-page hero sketch: a top nav bar, a 3-line coral-accented headline, a 3-line body paragraph, a dark 'Start a block' button, a big isometric illustration made of layered polygon shapes (buildings/park), and a row of 3 stat cards — all styled per the user's typed notes (page gradient, colors, exact text and specs).",
+  "reading": "A full landing-page hero sketch: a page-wide gradient note, a navbar (logo left, links far right), a 3-line huge headline with one coloured word, a 3-line body paragraph, a dark 'Start a block' button, a large faceted hero graphic built from many precisely specified clipped-polygon panels and circles, and a row of 3 white stat cards with number+label pairs.",
   "actions": [
     {
       "kind": "add",
@@ -368,7 +382,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Top navigation bar: '▲ Blockville' logo/wordmark at the far left; nav links 'Plans', 'Map', 'Builders', 'Sign in' pushed to the far right (751px gap from the lo"
+      "instruction": "Add a top navbar with '▲ Blockville' as the logo/wordmark sitting at the far left, and nav links Plans, Map, Builders, Sign in pushed to the far right (a 751px "
     },
     {
       "kind": "add",
@@ -395,7 +409,7 @@
         196
       ],
       "paths": [],
-      "instruction": "Huge Helvetica heavy headline 'Plan a city block in an afternoon.' set in exactly 3 lines with these breaks kept: 'Plan a city' / 'block in an' / 'afternoon.' E"
+      "instruction": "Add a huge Helvetica heavy headline set in exactly 3 lines with these line breaks kept: 'Plan a city' / 'block in an' / 'afternoon.' (each line stays whole, nev"
     },
     {
       "kind": "add",
@@ -422,7 +436,7 @@
         84
       ],
       "paths": [],
-      "instruction": "Body paragraph, text color #4b5875 (dark grey, distinct from the page's default dark grey text): 'Drag streets, zone lots and drop buildings. Blockville shows s"
+      "instruction": "Add a paragraph of dark grey text (#4b5875) in a 400px-wide box, top-left at 64,390, 18px type, 28px line-height, wrapping into exactly 3 lines: 'Drag streets, "
     },
     {
       "kind": "add",
@@ -437,10 +451,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Button labeled 'Start a block', solid fill exactly #23314d (not pale, not transparent), white #ffffff text."
+      "instruction": "Add a button labelled 'Start a block' with white text (#ffffff) and a solid dark navy fill #23314d (solid, not pale, not see-through)."
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -452,7 +466,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Isometric illustration made of 14 separate polygon-clipped elements with live content (per the note's exact part-by-part spec of size, position, fill color and "
+      "instruction": "Build a large faceted hero graphic with no surrounding frame/border/panel/card — the page background shows between the parts, each part its own real element, 16"
     },
     {
       "kind": "add",
@@ -467,7 +481,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "3 separate white #ffffff stat cards placed side by side, each its own filled card (not bare text), 132x83px, 14px border-radius, 16px padding, 16px gap between "
+      "instruction": "Add 3 separate white (#ffffff) stat cards side by side, each its own filled card (not bare text on the page), each 132x83px, 14px rounded corners, 16px padding,"
     }
   ],
   "rejected": [

@@ -631,7 +631,7 @@
   "notes": [
    [
     "sidebar",
-    "the region itself is ONE 250x900px side column element at 0,0 (its own wrapper running to the page bottom, no fill, a 1px #e5e8ef rule along its RIGHT edge only (border-right, full height)) holding the button and the mini-month and the calendars inside it, never laid loose on the page; inside it, top to bottom in the normal flow, each at its own height from the column's top (NOT pushed to the column's bottom, no margin-top auto, no justify-content space-between): the mini-month starting at y 84, then the calendars starting at y 311, and empty column below the last one; FIRST, at the very top of this region (above the mini-month and the calendars): a #4f46e5 filled 117x42px 12px rounded button at 20,20, 13px bold #ffffff text \"＋ New event\"; the other parts follow under it"
+    "\"＋ New event\"; \"＋ New event\" has its own BOX (NOT a plain word): 117x42px, #4f46e5 fill, 12px rounded, padding 12px 18px, bold #ffffff text on ONE line"
    ],
    [
     "mini-month",

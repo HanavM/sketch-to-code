@@ -1,24 +1,24 @@
 {
   "id": "e1-spreadsheet",
-  "at": "2026-10-27T13:11:47.221Z",
+  "at": "2026-10-27T14:14:51.849Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8277446065651402,
-    "overallV2": 0.8277446065651402,
-    "overallV1": 0.8134597869041027,
-    "colour": 0.9962868686205516,
-    "structure": 0.9487053648632073,
-    "structureStrict": 0.9328438910157272,
-    "colourAligned": 0.9962868686205516,
-    "structureAligned": 0.9487053648632073,
+    "overall": 0.8880815981435726,
+    "overallV2": 0.8880815981435726,
+    "overallV1": 0.8735166238730188,
+    "colour": 0.9961257004512337,
+    "structure": 0.9521938421918459,
+    "structureStrict": 0.9360212923127788,
+    "colourAligned": 0.9961257004512337,
+    "structureAligned": 0.9521938421918459,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9857489113939318
+      "r": 0.9845994508709928
     },
-    "layout": 0.6693043214541355,
-    "layoutV1": 0.6693043214541355,
+    "layout": 0.8638400938118591,
+    "layoutV1": 0.8638400938118591,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,7 +27,7 @@
       0,
       0,
       1280,
-      900
+      940
     ],
     [
       0,
@@ -39,13 +39,6 @@
     [
       1,
       16,
-      0,
-      28,
-      51
-    ],
-    [
-      2,
-      16,
       9,
       28,
       34
@@ -53,184 +46,191 @@
     [
       1,
       58,
-      0,
-      139,
-      51
+      13,
+      132,
+      26
     ],
     [
       1,
       204,
-      0,
-      22,
-      51
+      16,
+      21,
+      20
     ],
     [
       1,
       239,
-      0,
-      23,
-      51
+      16,
+      22,
+      20
     ],
     [
       1,
       276,
-      0,
-      30,
-      51
+      16,
+      28,
+      20
     ],
     [
       1,
       318,
-      0,
-      35,
-      51
+      16,
+      33,
+      20
     ],
     [
       1,
       364,
-      0,
-      43,
-      51
+      16,
+      41,
+      20
     ],
     [
       1,
       419,
-      0,
-      28,
-      51
+      16,
+      27,
+      20
     ],
     [
       1,
-      1188,
-      0,
-      76,
-      51
-    ],
-    [
-      11,
       1188,
       10,
       76,
       31
     ],
     [
+      10,
+      1208,
+      16,
+      36,
+      20
+    ],
+    [
       0,
       0,
-      52,
+      53,
       1280,
       40
     ],
     [
-      13,
-      16,
-      52,
-      11,
-      40
-    ],
-    [
-      13,
-      49,
-      52,
-      11,
-      40
-    ],
-    [
-      13,
-      101,
-      52,
-      34,
-      40
-    ],
-    [
-      13,
-      175,
-      52,
-      8,
-      40
-    ],
-    [
-      13,
-      204,
-      52,
-      13,
-      40
-    ],
-    [
-      13,
-      238,
-      52,
       12,
-      40
+      16,
+      63,
+      11,
+      20
     ],
     [
-      13,
+      12,
+      49,
+      63,
+      11,
+      20
+    ],
+    [
+      12,
+      101,
+      63,
+      33,
+      20
+    ],
+    [
+      12,
+      175,
+      63,
+      7,
+      20
+    ],
+    [
+      12,
+      204,
+      63,
+      12,
+      20
+    ],
+    [
+      12,
+      238,
+      63,
+      11,
+      20
+    ],
+    [
+      12,
       290,
-      52,
-      28,
-      40
+      63,
+      26,
+      20
     ],
     [
-      13,
+      12,
       338,
-      52,
+      63,
       14,
-      40
+      20
     ],
     [
-      13,
-      393,
-      52,
-      25,
-      40
+      12,
+      424,
+      63,
+      4,
+      20
     ],
     [
-      22,
+      12,
+      449,
+      63,
+      9,
+      20
+    ],
+    [
+      12,
+      480,
+      63,
+      12,
+      20
+    ],
+    [
+      12,
       393,
-      61,
+      62,
       25,
       23
     ],
     [
-      13,
-      424,
-      52,
-      4,
-      40
-    ],
-    [
-      13,
-      449,
-      52,
+      24,
+      401,
+      63,
       9,
-      40
-    ],
-    [
-      13,
-      480,
-      52,
-      12,
-      40
+      20
     ],
     [
       0,
       0,
-      92,
+      93,
+      1280,
+      29
+    ],
+    [
+      26,
+      0,
+      93,
       90,
       29
     ],
     [
-      0,
+      26,
       90,
-      99,
+      93,
       35,
-      15
+      29
     ],
     [
-      0,
+      26,
       125,
-      99,
-      95,
-      15
+      93,
+      91,
+      29
     ],
     [
       0,
@@ -549,9 +549,9 @@
     ],
     [
       74,
-      935,
+      953,
       176,
-      60,
+      58,
       14
     ],
     [
@@ -633,9 +633,9 @@
     ],
     [
       86,
-      935,
+      958,
       200,
-      49,
+      47,
       14
     ],
     [
@@ -717,9 +717,9 @@
     ],
     [
       98,
-      935,
+      953,
       224,
-      60,
+      58,
       14
     ],
     [
@@ -801,9 +801,9 @@
     ],
     [
       110,
-      935,
+      958,
       248,
-      49,
+      47,
       14
     ],
     [
@@ -870,6 +870,13 @@
       24
     ],
     [
+      120,
+      667,
+      267,
+      119,
+      23
+    ],
+    [
       113,
       787,
       267,
@@ -884,10 +891,10 @@
       24
     ],
     [
-      122,
-      935,
+      123,
+      953,
       272,
-      60,
+      58,
       14
     ],
     [
@@ -905,77 +912,77 @@
       24
     ],
     [
-      125,
+      126,
       1,
       291,
       46,
       24
     ],
     [
-      125,
+      126,
       47,
       291,
       170,
       24
     ],
     [
-      125,
+      126,
       217,
       291,
       110,
       24
     ],
     [
-      125,
+      126,
       327,
       291,
       110,
       24
     ],
     [
-      125,
+      126,
       437,
       291,
       110,
       24
     ],
     [
-      125,
+      126,
       547,
       291,
       120,
       24
     ],
     [
-      125,
+      126,
       667,
       291,
       120,
       24
     ],
     [
-      125,
+      126,
       787,
       291,
       140,
       24
     ],
     [
-      125,
+      126,
       927,
       291,
       110,
       24
     ],
     [
-      134,
-      935,
+      135,
+      953,
       296,
-      60,
+      58,
       14
     ],
     [
-      125,
+      126,
       1037,
       291,
       244,
@@ -989,77 +996,77 @@
       24
     ],
     [
-      137,
+      138,
       1,
       315,
       46,
       24
     ],
     [
-      137,
+      138,
       47,
       315,
       170,
       24
     ],
     [
-      137,
+      138,
       217,
       315,
       110,
       24
     ],
     [
-      137,
+      138,
       327,
       315,
       110,
       24
     ],
     [
-      137,
+      138,
       437,
       315,
       110,
       24
     ],
     [
-      137,
+      138,
       547,
       315,
       120,
       24
     ],
     [
-      137,
+      138,
       667,
       315,
       120,
       24
     ],
     [
-      137,
+      138,
       787,
       315,
       140,
       24
     ],
     [
-      137,
+      138,
       927,
       315,
       110,
       24
     ],
     [
-      146,
-      935,
+      147,
+      958,
       320,
-      49,
+      47,
       14
     ],
     [
-      137,
+      138,
       1037,
       315,
       244,
@@ -1073,70 +1080,70 @@
       24
     ],
     [
-      149,
+      150,
       1,
       339,
       46,
       24
     ],
     [
-      149,
+      150,
       47,
       339,
       170,
       24
     ],
     [
-      149,
+      150,
       217,
       339,
       110,
       24
     ],
     [
-      149,
+      150,
       327,
       339,
       110,
       24
     ],
     [
-      149,
+      150,
       437,
       339,
       110,
       24
     ],
     [
-      149,
+      150,
       547,
       339,
       120,
       24
     ],
     [
-      149,
+      150,
       667,
       339,
       120,
       24
     ],
     [
-      149,
+      150,
       787,
       339,
       140,
       24
     ],
     [
-      149,
+      150,
       927,
       339,
       110,
       24
     ],
     [
-      149,
+      150,
       1037,
       339,
       244,
@@ -1150,70 +1157,70 @@
       24
     ],
     [
-      160,
+      161,
       1,
       363,
       46,
       24
     ],
     [
-      160,
+      161,
       47,
       363,
       170,
       24
     ],
     [
-      160,
+      161,
       217,
       363,
       110,
       24
     ],
     [
-      160,
+      161,
       327,
       363,
       110,
       24
     ],
     [
-      160,
+      161,
       437,
       363,
       110,
       24
     ],
     [
-      160,
+      161,
       547,
       363,
       120,
       24
     ],
     [
-      160,
+      161,
       667,
       363,
       120,
       24
     ],
     [
-      160,
+      161,
       787,
       363,
       140,
       24
     ],
     [
-      160,
+      161,
       927,
       363,
       110,
       24
     ],
     [
-      160,
+      161,
       1037,
       363,
       244,
@@ -1227,70 +1234,70 @@
       24
     ],
     [
-      171,
+      172,
       1,
       387,
       46,
       24
     ],
     [
-      171,
+      172,
       47,
       387,
       170,
       24
     ],
     [
-      171,
+      172,
       217,
       387,
       110,
       24
     ],
     [
-      171,
+      172,
       327,
       387,
       110,
       24
     ],
     [
-      171,
+      172,
       437,
       387,
       110,
       24
     ],
     [
-      171,
+      172,
       547,
       387,
       120,
       24
     ],
     [
-      171,
+      172,
       667,
       387,
       120,
       24
     ],
     [
-      171,
+      172,
       787,
       387,
       140,
       24
     ],
     [
-      171,
+      172,
       927,
       387,
       110,
       24
     ],
     [
-      171,
+      172,
       1037,
       387,
       244,
@@ -1304,70 +1311,70 @@
       24
     ],
     [
-      182,
+      183,
       1,
       411,
       46,
       24
     ],
     [
-      182,
+      183,
       47,
       411,
       170,
       24
     ],
     [
-      182,
+      183,
       217,
       411,
       110,
       24
     ],
     [
-      182,
+      183,
       327,
       411,
       110,
       24
     ],
     [
-      182,
+      183,
       437,
       411,
       110,
       24
     ],
     [
-      182,
+      183,
       547,
       411,
       120,
       24
     ],
     [
-      182,
+      183,
       667,
       411,
       120,
       24
     ],
     [
-      182,
+      183,
       787,
       411,
       140,
       24
     ],
     [
-      182,
+      183,
       927,
       411,
       110,
       24
     ],
     [
-      182,
+      183,
       1037,
       411,
       244,
@@ -1375,13 +1382,20 @@
     ],
     [
       0,
+      1000,
+      250,
+      250,
+      70
+    ],
+    [
+      194,
       1012,
       262,
       226,
-      14
+      18
     ],
     [
-      0,
+      194,
       1012,
       280,
       226,
@@ -1395,77 +1409,77 @@
       330
     ],
     [
-      195,
+      197,
       41,
       501,
       639,
       329
     ],
     [
-      195,
+      197,
       60,
       516,
       118,
       18
     ],
     [
-      195,
+      197,
       80,
       600,
       530,
       190
     ],
     [
-      198,
+      200,
       80,
       670,
       50,
       120
     ],
     [
-      198,
+      200,
       160,
       700,
       50,
       90
     ],
     [
-      198,
+      200,
       240,
       650,
       50,
       140
     ],
     [
-      198,
+      200,
       320,
       715,
       50,
       75
     ],
     [
-      198,
+      200,
       400,
       690,
       50,
       100
     ],
     [
-      198,
+      200,
       480,
       600,
       50,
       190
     ],
     [
-      198,
+      200,
       560,
       750,
       50,
       40
     ],
     [
-      195,
+      197,
       600,
       668,
       28,
@@ -1479,97 +1493,126 @@
       40
     ],
     [
-      207,
+      209,
       16,
-      871,
+      869,
       9,
-      20
+      24
     ],
     [
-      207,
-      49,
-      871,
-      8,
-      20
+      209,
+      41,
+      869,
+      9,
+      24
     ],
     [
-      207,
-      80,
-      871,
+      209,
+      67,
+      864,
+      111,
+      34
+    ],
+    [
+      212,
+      83,
+      869,
       79,
       20
     ],
     [
-      207,
-      183,
+      209,
+      194,
       871,
-      57,
+      55,
       20
     ],
     [
-      207,
-      264,
+      209,
+      265,
       871,
-      46,
+      43,
       20
     ],
     [
-      207,
-      1177,
+      209,
+      1157,
+      866,
+      107,
+      29
+    ],
+    [
+      216,
+      1170,
       871,
-      87,
+      81,
       20
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.6666666666666666,
+    "recall": 1,
     "kept": [
       "italic",
-      "overlap"
-    ],
-    "missing": [
+      "overlap",
       "soft-shadow"
     ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 57423,
-    "output": 28780,
-    "cacheRead": 188485
+    "input": 71987,
+    "output": 44606,
+    "cacheRead": 567470
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 70613,
-      "output": 22360,
-      "cacheRead": 185401,
-      "toolCalls": 6,
+      "billed": 83744,
+      "output": 32074,
+      "cacheRead": 198876,
+      "toolCalls": 7,
       "tools": [
         "Glob",
-        "Read src/App.tsx",
         "Glob",
+        "Read src/App.tsx",
         "Read src/index.css",
+        "Read src/main.tsx",
         "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 205789
+      "ms": 312226
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 6523,
+      "output": 2188,
+      "cacheRead": 352961,
+      "toolCalls": 4,
+      "tools": [
+        "Read src/App.tsx",
+        "Grep",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 24490
     }
   ],
   "ease": {
     "marks": 11,
     "captured": 11,
     "notes": 8,
-    "words": 1618,
-    "drawMs": 89030,
-    "readingMs": 61599,
-    "runMs": 268839
+    "words": 1720,
+    "drawMs": 78987,
+    "readingMs": 86941,
+    "runMs": 425236
   },
-  "reading": "The sketch lays out a Google-Sheets-style page: a top app bar with icon/title/menu, a toolbar below it, a formula bar, a large spreadsheet grid with an active-cell/column highlight, a comment popover beside the grid, a bar chart in an inline SVG, and a status bar pinned to the bottom of the page. Every detail (colors, text, spacing, exact cell contents) is spelled out in the typed notes, which take precedence over the rough ink.",
+  "reading": "The sketch builds a full spreadsheet-app page: a top title/menu bar, a formatting toolbar, a formula bar, a large data-grid table, a floating comment tooltip over one chart column, a bar chart (SVG) below, and a bottom tab bar — all content is taken verbatim from the typed notes.",
   "actions": [
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -1581,10 +1624,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top bar, 52px tall, spans the whole page at the very top, no fill (page colour), with a 1px #e0e0e0 line under it; position absolute at 0,0, laid OVER the page "
+      "instruction": "Build a 52px-tall top bar spanning the full page width, no fill (page colour), with a 1px #e0e0e0 line under it; position:absolute at 0,0 laid OVER the page top"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [
         "s2"
       ],
@@ -1607,10 +1650,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "White (exactly #f9fbfd) toolbar, 40px tall, across the page, sitting just under the top bar. Links, all together at the LEFT one after another ending 508px in ("
+      "instruction": "Build a white (#f9fbfd) toolbar 40px tall across the page width, directly under the top bar. All items sit together at the LEFT ending 508px in (right ~60% stay"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [
         "s2",
         "s3"
@@ -1626,19 +1669,18 @@
         }
       ],
       "region": [
-        3,
+        4,
         55,
-        1273,
-        375
+        1272,
+        64
       ],
       "paths": [
-        "s1",
-        "s4"
+        "s1"
       ],
-      "instruction": "Formula bar made of 3 real elements with live text, each its own part (page px, size then top-left x,y), every one-line text part stays on ONE line (white-space"
+      "instruction": "Below the toolbar, build the cell-reference/formula row as three real elements, each one-line text kept on a single line via min-width (never a fixed width that"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -1648,13 +1690,27 @@
         305
       ],
       "paths": [
-        "s4",
-        "s5"
+        "s4"
       ],
-      "instruction": "A real SPREADSHEET GRID (a true <table> with every cell built and visible grid lines, not a plain table or list), 1280x311px at 0,122, border-collapse, every ce"
+      "instruction": "Build a real spreadsheet-grid <table> (not a plain list) 1280x311px at 0,122, border-collapse, every cell bordered 1px #e2e3e3, every row exactly 24px tall, tab"
     },
     {
-      "kind": "add",
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        726,
+        266,
+        1,
+        1
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "The active cell (row 6, column F, value 120,800) gets a vivid blue (#1a73e8) 2px outline drawn inside the cell, confirming the table's active-cell highlight col"
+    },
+    {
+      "kind": "design",
       "textMarks": [
         "s6",
         "s7",
@@ -1672,15 +1728,13 @@
         }
       ],
       "region": [
-        3,
-        125,
-        1273,
-        305
+        1004,
+        250,
+        242,
+        70
       ],
-      "paths": [
-        "s4"
-      ],
-      "instruction": "A small note/comment popover near the grid's right side made of 2 real text elements, nothing else invented: 226x14 at 1012,262, 12px bold #202124 \"Mira Okafor\""
+      "paths": [],
+      "instruction": "Build a single floating comment panel 250x70px at 1000,250, #ffffff fill, 8px rounded corners, box-shadow rgba(0,0,0,0.2) 0px 2px 8px 0px, floating over the con"
     },
     {
       "kind": "add",
@@ -1695,10 +1749,10 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Drawn as exactly this inline SVG (no picture, no box, no window, no border/outline/frame/square or background around it — only the SVG's own shapes show), 640x3"
+      "instruction": "Embed this exact inline SVG bar chart verbatim, 640x330px with top-left at page 40,500 (position absolute), no surrounding box/border/frame/background — only th"
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -1710,7 +1764,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "White (exactly #f9fbfd) bottom status bar, 40px tall, across the page, pinned to the very BOTTOM of the page (top 860, bottom edge on the page's bottom edge, po"
+      "instruction": "Build a white (#f9fbfd) bottom bar 40px tall, pinned to the very bottom of the page (top 860, position fixed/absolute bottom 0, never placed directly under the "
     }
   ],
   "rejected": []
