@@ -380,6 +380,7 @@ describe('wordsGiveCss — words that give the exact CSS shape beat the drawn ou
     expect(wordsGiveCss('a framed SCREEN: ONE 1120x700px div at 80,60, 40px rounded corners; exactly box-shadow: #1a1a14 0px 0px 0px 14px')).toBe(true)
     expect(wordsGiveCss('a see-through SCANLINE veil: ONE 1120x700px div at 80,60, painted with repeating-linear-gradient(0deg, transparent 0px 2px, rgba(0, 0, 0, 0.4) 2px 4px)')).toBe(true)
     expect(wordsGiveCss('ONE 310x380px panel at 820,130; across its TOP edge a filled TITLE STRIP (NOT a button, NOT at the bottom); a 194x12px SEGMENTED meter bar at 840,195')).toBe(true)
+    expect(wordsGiveCss('drawn as exactly this inline SVG (no picture, no box), 600x600px with its top-left at page 640,110 (position absolute), copied verbatim: <svg width="600" height="600"><line x1="300" y1="60" x2="300" y2="74"></line></svg>')).toBe(true)
     expect(wordsGiveCss('ONE 400x300px panel at 20,20 with box-shadow: 0 4px 12px #0003')).toBe(false)
   })
   it('leaves drawings the words only describe', () => {

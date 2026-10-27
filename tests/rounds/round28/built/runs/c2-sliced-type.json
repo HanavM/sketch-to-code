@@ -1,24 +1,24 @@
 {
   "id": "c2-sliced-type",
-  "at": "2026-10-27T04:42:32.790Z",
+  "at": "2026-10-27T07:29:03.782Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8618539806273801,
-    "overallV2": 0.8618539806273801,
-    "overallV1": 0.7790656863571122,
-    "colour": 0.9580495043235042,
-    "structure": 0.8813688556094621,
-    "structureStrict": 0.6628683129857262,
-    "colourAligned": 0.9580495043235042,
-    "structureAligned": 0.8813688556094621,
+    "overall": 0.8949572501880908,
+    "overallV2": 0.8949572501880908,
+    "overallV1": 0.8411335553681398,
+    "colour": 0.9801085275084211,
+    "structure": 0.9100498912835608,
+    "structureStrict": 0.7679947054890487,
+    "colourAligned": 0.9801085275084211,
+    "structureAligned": 0.9100498912835608,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.7802429192272
+      "r": 0.8336248247986909
     },
-    "layout": 0.7480408699991634,
-    "layoutV1": 0.7480408699991634,
+    "layout": 0.7912955169784631,
+    "layoutV1": 0.7912955169784631,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,7 +27,7 @@
       0,
       0,
       1280,
-      920
+      900
     ],
     [
       0,
@@ -39,51 +39,51 @@
     [
       0,
       64,
-      32,
+      36,
       1152,
       24
     ],
     [
       2,
       64,
-      32,
+      36,
       68,
       24
     ],
     [
       2,
-      944,
-      34,
-      272,
-      21
+      922,
+      36,
+      294,
+      24
     ],
     [
       4,
-      944,
-      34,
-      32,
-      21
+      922,
+      36,
+      37,
+      24
     ],
     [
       4,
-      1016,
-      34,
-      40,
-      21
+      999,
+      36,
+      45,
+      24
     ],
     [
       4,
-      1096,
-      34,
-      32,
-      21
+      1084,
+      36,
+      36,
+      24
     ],
     [
       4,
-      1168,
-      34,
-      48,
-      21
+      1161,
+      36,
+      55,
+      24
     ],
     [
       0,
@@ -108,149 +108,51 @@
     ],
     [
       0,
-      880,
-      99,
-      168,
-      70
-    ],
-    [
-      12,
-      902,
-      116,
-      124,
-      36
-    ],
-    [
-      0,
       60,
       400,
       1108,
       230
     ],
     [
+      0,
+      881,
+      101,
+      161,
+      60
+    ],
+    [
+      0,
+      0,
+      596,
+      1281,
+      85
+    ],
+    [
       14,
-      60,
-      386,
-      1108,
-      257
+      -225,
+      480,
+      4807,
+      208
+    ],
+    [
+      15,
+      -225,
+      572,
+      2403,
+      108
+    ],
+    [
+      15,
+      2178,
+      488,
+      2403,
+      108
     ],
     [
       0,
-      3,
-      577,
-      1276,
-      123
-    ],
-    [
-      16,
-      -205,
-      490,
-      3961,
-      217
-    ],
-    [
-      17,
-      -205,
-      559,
-      1982,
-      148
-    ],
-    [
-      18,
-      -204,
-      644,
-      331,
-      36
-    ],
-    [
-      18,
-      126,
-      633,
-      331,
-      36
-    ],
-    [
-      18,
-      455,
-      621,
-      331,
-      36
-    ],
-    [
-      18,
-      785,
-      610,
-      331,
-      36
-    ],
-    [
-      18,
-      1115,
-      598,
-      331,
-      36
-    ],
-    [
-      18,
-      1445,
-      587,
-      331,
-      36
-    ],
-    [
-      17,
-      1774,
-      490,
-      1982,
-      148
-    ],
-    [
-      25,
-      1775,
-      575,
-      331,
-      36
-    ],
-    [
-      25,
-      2105,
-      564,
-      331,
-      36
-    ],
-    [
-      25,
-      2435,
-      552,
-      331,
-      36
-    ],
-    [
-      25,
-      2765,
-      541,
-      331,
-      36
-    ],
-    [
-      25,
-      3095,
-      529,
-      331,
-      36
-    ],
-    [
-      25,
-      3424,
-      518,
-      331,
-      36
-    ],
-    [
-      0,
-      68,
+      64,
       690,
-      432,
+      440,
       56
     ],
     [
@@ -271,91 +173,91 @@
       0,
       823,
       684,
-      393,
-      164
+      401,
+      171
     ],
     [
-      35,
+      21,
       824,
       685,
-      195,
-      81
+      199,
+      84
     ],
     [
-      36,
+      22,
       842,
-      693,
-      159,
+      701,
+      163,
       42
     ],
     [
-      36,
+      22,
       842,
-      741,
-      159,
+      747,
+      163,
       17
     ],
     [
-      35,
-      1020,
+      21,
+      1024,
       685,
-      195,
-      81
+      199,
+      84
     ],
     [
-      39,
-      1038,
-      693,
-      159,
+      25,
+      1042,
+      701,
+      163,
       42
     ],
     [
-      39,
-      1038,
-      741,
-      159,
+      25,
+      1042,
+      747,
+      163,
       17
     ],
     [
-      35,
+      21,
       824,
-      767,
-      195,
-      81
+      770,
+      199,
+      84
     ],
     [
-      42,
+      28,
       842,
-      775,
-      159,
+      786,
+      163,
       42
     ],
     [
-      42,
+      28,
       842,
-      823,
-      159,
+      832,
+      163,
       17
     ],
     [
-      35,
-      1020,
-      767,
-      195,
-      81
+      21,
+      1024,
+      770,
+      199,
+      84
     ],
     [
-      45,
-      1038,
-      775,
-      159,
+      31,
+      1042,
+      786,
+      163,
       42
     ],
     [
-      45,
-      1038,
-      823,
-      159,
+      31,
+      1042,
+      832,
+      163,
       17
     ]
   ],
@@ -376,47 +278,59 @@
       "mono",
       "stripes-or-layers"
     ],
-    "extra": [
-      "bleed"
-    ]
+    "extra": []
   },
   "tokens": {
-    "input": 38724,
-    "output": 24116,
-    "cacheRead": 184500
+    "input": 47193,
+    "output": 21746,
+    "cacheRead": 315596
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 44215,
-      "output": 16505,
-      "cacheRead": 172065,
-      "toolCalls": 8,
+      "billed": 49196,
+      "output": 13740,
+      "cacheRead": 302957,
+      "toolCalls": 7,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
+        "Glob",
         "Read src/index.css",
-        "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/vite.config.ts",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 174122
+      "ms": 151677
     }
   ],
   "ease": {
     "marks": 11,
     "captured": 11,
     "notes": 11,
-    "words": 599,
-    "drawMs": 66959,
-    "readingMs": 64409,
-    "runMs": 239837
+    "words": 689,
+    "drawMs": 70961,
+    "readingMs": 68306,
+    "runMs": 221095
   },
-  "reading": "This is a one-page dark hero/landing design: a page-wide black background with Helvetica off-white type; a soft blurred purple glow oval sitting behind the heading; a top nav with a 'SHIFT/28' logo and right-aligned links; a giant glitch-sliced 'DISPLACE' headline cut into 3 offset color bands; a second giant hollow-outline 'DISPLACE' headline below it; a tilted pink-bordered 'NEW SHOW · LIVE' pill near the first headline; a spinning pink marquee bar repeating 'MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺'; a serif subhead paragraph; two pill buttons ('See the reel' and 'Studio notes'); and a 2x2 stats grid with hairline dividers.",
+  "reading": "A full hero section design: a dark page with a blurred purple glow behind a glitch-sliced 'DISPLACE' headline (one solid-color sliced copy and one faint outlined copy below), a top nav bar, a tilted pink 'NEW SHOW · LIVE' pill badge sitting in front of the heading, a solid pink scrolling marquee ribbon, a short serif paragraph, two pill buttons, and a 2x2 stats grid with hairline dividers.",
   "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Whole page: background #0d0d12, Helvetica type throughout, off-white body text."
+    },
     {
       "kind": "add",
       "textMarks": [],
@@ -430,7 +344,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "A soft blurred colour GLOW, NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE 700x520px oval (border-radius 50%) div with its top-left at 300,1"
+      "instruction": "A soft blurred colour GLOW, NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE 700x520px oval (border-radius 50%) div with top-left at 300,120, "
     },
     {
       "kind": "add",
@@ -445,7 +359,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Top nav bar: bold off-white 'SHIFT/28' first, then links: Work, Studio, Talks, Contact; 'SHIFT/28' sits together at the left, 'Work', 'Studio', 'Talks', 'Contac"
+      "instruction": "Top nav bar: bold off-white 'SHIFT/28' first, then links Work, Studio, Talks, Contact; 'SHIFT/28' sits at the left, the four links pushed to the far right (844p"
     },
     {
       "kind": "add",
@@ -463,12 +377,14 @@
       ],
       "region": [
         68,
-        45,
+        109,
         1044,
-        288
+        528
       ],
-      "paths": [],
-      "instruction": "ONE word sliced into 3 flat horizontal bands: 3 copies of the same text, each its own absolutely placed element stacked on exactly the same spot (same left, sam"
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Headline, first copy: ONE word sliced into 3 flat horizontal bands: 3 copies of the same live text 'DISPLACE' stacked at the exact same left/top, each showing o"
     },
     {
       "kind": "add",
@@ -486,27 +402,40 @@
       ],
       "region": [
         68,
-        369,
+        123,
         960,
-        292
+        514
       ],
-      "paths": [],
-      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not condensed/display; live text in a real text element, never SVG/out"
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Headline, second copy: giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not condensed/display; real live text, never an"
     },
     {
       "kind": "add",
-      "textMarks": [],
-      "textSize": [],
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 240
+        }
+      ],
       "region": [
-        883,
-        110,
-        163,
-        48
+        68,
+        109,
+        1044,
+        528
       ],
       "paths": [
+        "s0",
         "s4"
       ],
-      "instruction": "Tilted 8° clockwise pill label with a 1px pink border, bold text 'NEW SHOW · LIVE'; its text colour #ff4f7b (pink, not the page's off-white text)."
+      "instruction": "A tilted 8° clockwise pill label with a 1px pink border, bold text 'NEW SHOW · LIVE', text colour #ff4f7b (pink, not the page's off-white). It sits in front of "
     },
     {
       "kind": "add",
@@ -514,14 +443,15 @@
       "textSize": [],
       "region": [
         4,
-        599,
+        123,
         1274,
-        79
+        555
       ],
       "paths": [
+        "s0",
         "s5"
       ],
-      "instruction": "Tilted slightly 2° anticlockwise spinning vivid pink marquee bar, with black text 16px 'MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺' repeated along it; text colour #0d0d12"
+      "instruction": "A scrolling marquee on a SOLID pink #ff4f7b ribbon, tilted slightly 2° anticlockwise, filled edge to edge, 40px thick, square corners (not a rounded pill), 1280"
     },
     {
       "kind": "add",
@@ -546,7 +476,7 @@
         56
       ],
       "paths": [],
-      "instruction": "Serif body text: 'A design studio cutting letters into motion. Three slices, one word, a different offset every frame.'"
+      "instruction": "Serif paragraph: \"A design studio cutting letters into motion. Three slices, one word, a different offset every frame.\" Set in a 440px wide box (width 440px, to"
     },
     {
       "kind": "add",
@@ -561,7 +491,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "A row of 2 real buttons side by side (each its own element with live text, not plain text/links): 'See the reel' 136x49px at 64,810, background: linear-gradient"
+      "instruction": "A row of 2 real buttons side by side (each its own element with live text, not plain text, not links): 'See the reel' 136x49px at 64,810, background linear-grad"
     },
     {
       "kind": "add",
@@ -576,10 +506,8 @@
       "paths": [
         "s9"
       ],
-      "instruction": "A 2x2 grid of cells split by 1px hairlines, square corners (not rounded, not frosted glass, no blur): the grid itself filled #f4f1ea33 with 1px gap and a 1px bo"
+      "instruction": "A 2x2 grid of cells split by 1px hairlines, square corners (not rounded, not frosted glass, no blur): the grid itself filled #f4f1ea33 with gap 1px and a 1px bo"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

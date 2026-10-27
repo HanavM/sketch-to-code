@@ -409,7 +409,7 @@
    ],
    [
     "code",
-    "near-black (exactly #27272a) block, grey text mono 15px code lines: \"import { sketch } from 'prism'\", blank line, \"sketch('hero')\", \"  .fill('glow')\", \"  .ship()\"; grey code, coloured: light pink \"import\", \"from\"; bright green \"'hero'\", \"'glow'\"; each word in its own colour: \"import\" #f472b6, \"from\" #f472b6, \"'hero'\" #4ade80, \"'glow'\" #4ade80; the card exactly 420x360px, its top-left at 530,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "near-black (exactly #27272a) block, grey text mono 15px code lines, each line exactly 26px tall (line-height 26px, no looser): \"import { sketch } from 'prism'\", blank line, \"sketch('hero')\", \"  .fill('glow')\", \"  .ship()\"; grey code, coloured: light pink \"import\", \"from\"; bright green \"'hero'\", \"'glow'\"; each word in its own colour: \"import\" #f472b6, \"from\" #f472b6, \"'hero'\" #4ade80, \"'glow'\" #4ade80; the card exactly 420x360px, its top-left at 530,500, its top 20px under the bottom of the card right above it (that card ends at y 480: no wider gap) (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "cta",

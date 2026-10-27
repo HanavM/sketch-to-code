@@ -931,7 +931,7 @@
    ],
    [
     "terminal",
-    "near-black block mono 13px code lines: \"TERMINAL · PROBLEMS 1\", \"$ npm test\", \"✓ parse splits lines (3 ms)\", \"✓ size of a stroke (1 ms)\", \"✗ parse keeps empty ink — expected 4, got 3\", \"Tests: 1 failed, 2 passed\", \"$\"; light grey code"
+    "near-black block mono 13px code lines, each line exactly 22px tall (line-height 22px, no looser): \"TERMINAL · PROBLEMS 1\", \"$ npm test\", \"✓ parse splits lines (3 ms)\", \"✓ size of a stroke (1 ms)\", \"✗ parse keeps empty ink — expected 4, got 3\", \"Tests: 1 failed, 2 passed\", \"$\"; light grey code"
    ],
    [
     "status-bar",

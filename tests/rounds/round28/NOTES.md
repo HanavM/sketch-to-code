@@ -119,3 +119,32 @@ Round 28 now **90%** (c1 94, c2 86, c3 92, c4 89, c5 90, e1 86, e2 86, e3 92, e4
 ~10 marks, ~1,290 words, 63 s draw, 73 s read, 278 s build, ~99k tokens a page. Vitest same 2 env failures (1460
 tests); typecheck clean.
 Next: c2 sliced type and e2 patient chart (86), e1 (86), c5 re-run on the backdrop rule; then round 29.
+
+## n259: edge-to-edge ticker band, editor line pitch, whole dial drawing (~0.32M billed)
+
+Planner fixes (each a rule, not a page patch):
+
+- A small rotate() kept inside a translate loop only holds a band's tilt; it is scrolling, not spinning
+  (c2: the ticker `rotate(-2deg) translateX(-400px)` was said "spinning", built as a tall rounded pill).
+- A turned band whose own box spans the page edge to edge counts as running off both sides (its turned bounds were
+  only 0.3px past the edge), so it is said as a marquee ribbon: thickness, square corners, its full length and
+  place before the turn, spaced capitals.
+- Code lines say their exact line pitch (e1: 22px SQL lines built ~25px, pushing the results pane down).
+- A busy drawing with a single word in it (18 ticks, hands, centre cap and "HOROLOGE") is said as its own SVG,
+  copied verbatim (c5: the cap and the word were lost).
+- Pipeline (scaffold): a note that hands over verbatim SVG markup is built from the words alone, so the drawn box is
+  not mounted as a visible square frame round the drawing (c5 second run showed the frame).
+
+Re-planned rounds 1-27: marquee ribbons gain square corners and length on r3, r11, r12, r14, r17, r19 bands; code
+line pitch on 8 code notes (not re-run).
+
+| page | before | re-run | what changed |
+|---|---|---|---|
+| c5 watch dial | 90% | 94%, 90%, then **96%** | no backdrop behind the case; then the dial drawn exactly (hands, cap, word) but framed; frame gone |
+| c2 sliced type | 86% | **89%** | ticker now a square band edge to edge at the right tilt (letter spacing rule added after, not re-run) |
+| e1 query builder | 86% | **88%** | SQL lines at 22px pitch; schema tree rows lost their indent |
+
+Round 28 now **91%** (c1 94, c2 89, c3 92, c4 89, c5 96, e1 88, e2 86, e3 92, e4 90, e5 97). Ease (latest builds):
+~10 marks, ~1,290 words, 63 s draw, 75 s read, 272 s build, ~99k tokens a page. Vitest same 2 env failures (1460
+tests); typecheck clean.
+Next: e2 patient chart (86) labs units column, e1 schema tree indent, e4 Share pill and budget breakdown; then round 29.

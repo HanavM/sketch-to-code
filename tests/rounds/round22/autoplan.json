@@ -445,7 +445,7 @@
    ],
    [
     "schedule",
-    "NOT a box outline: ONE 2px dashed #0078bf rule along its TOP only (border-top only; no left, right or bottom border), and under EACH of its 3 rows its own 2px dashed #0078bf rule (each row 32px tall, border-bottom on every row, so the rows read as ruled lines); the block 440px wide, its top-left at 760,700 blue border mono 15px code lines: \"TUE\", \"Zine night\", \"18:00\", \"THU\", \"Poster lab\", \"17:30\", \"SAT\", \"Open press\", \"11:00\"; dark grey code; its text #333333 (dark grey, NOT the page's blue text)"
+    "NOT a box outline: ONE 2px dashed #0078bf rule along its TOP only (border-top only; no left, right or bottom border), and under EACH of its 3 rows its own 2px dashed #0078bf rule (each row 32px tall, border-bottom on every row, so the rows read as ruled lines); the block 440px wide, its top-left at 760,700 blue border mono 15px code lines, each line exactly 30px tall (line-height 30px, no looser): \"TUE\", \"Zine night\", \"18:00\", \"THU\", \"Poster lab\", \"17:30\", \"SAT\", \"Open press\", \"11:00\"; dark grey code; its text #333333 (dark grey, NOT the page's blue text)"
    ],
    [
     "star",

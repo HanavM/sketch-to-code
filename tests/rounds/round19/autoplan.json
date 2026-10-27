@@ -155,7 +155,7 @@
    ],
    [
     "diagonal-marquee",
-    "tilted 6° anticlockwise scrolling marquee on a SOLID near-black #141414 ribbon (the band itself filled #141414 edge to edge, 64px thick, the words centred in it, its letters warm paper #e9e4da, NOT the band colour) bleeding off the left and right page edges (one 1500px-wide line, position absolute, left -100px, top 700px BEFORE the tilt, so it starts 100px off the LEFT edge and ends 120px past the right; no letter starts at x 0; it turns about its own CENTRE (transform-origin: center, never top left), so its middle stays at 650,732 after the tilt) bold 28px \"VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦\" repeated along it, in front of the \"TYPE\" heading"
+    "tilted 6° anticlockwise scrolling marquee on a SOLID near-black #141414 ribbon (the band itself filled #141414 edge to edge, 64px thick, square corners, NOT a rounded pill, 1500px long from x -100, top 700 before its turn, the words centred in it, its letters warm paper #e9e4da, NOT the band colour) bleeding off the left and right page edges (one 1500px-wide line, position absolute, left -100px, top 700px BEFORE the tilt, so it starts 100px off the LEFT edge and ends 120px past the right; no letter starts at x 0; it turns about its own CENTRE (transform-origin: center, never top left), so its middle stays at 650,732 after the tilt) bold 28px \"VARIABLE FONTS ✦ KINETIC LAYOUTS ✦ TYPE FOR SCREENS ✦\" repeated along it, in front of the \"TYPE\" heading"
    ],
    [
     "circle-badge",

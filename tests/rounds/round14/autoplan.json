@@ -517,7 +517,7 @@
    ],
    [
     "ticker",
-    "tilted slightly 2° anticlockwise vivid pink bar, black text bold 16px text \"GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ\"; its text #09090c (black, NOT the page's off-white text)"
+    "tilted slightly 2° anticlockwise bleeding off the left and right page edges vivid pink bar, black text bold 16px text \"GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ\"; its text #09090c (black, NOT the page's off-white text)"
    ]
   ]
  },
@@ -605,7 +605,7 @@
    ],
    [
     "table-tree",
-    "the region itself is ONE 240x856px column element at 0,44 (its own wrapper, #2b2d30 fill, a 1px #393b40 rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; dark grey block mono 13px code lines: \"▾ shop\", \"▾ tables\", \"customers\", \"orders\", \"order_items\", \"products\", \"refunds\", \"▸ views\", \"▸ functions\"; light grey code"
+    "the region itself is ONE 240x856px column element at 0,44 (its own wrapper, #2b2d30 fill, a 1px #393b40 rule along its RIGHT edge only (border-right, no other border), running to the page bottom) that holds all of these parts inside it, never laid loose on the page; dark grey block mono 13px code lines, each line exactly 26px tall (line-height 26px, no looser): \"▾ shop\", \"▾ tables\", \"customers\", \"orders\", \"order_items\", \"products\", \"refunds\", \"▸ views\", \"▸ functions\"; light grey code"
    ],
    [
     "query-editor",

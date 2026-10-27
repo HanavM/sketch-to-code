@@ -386,6 +386,11 @@ export function factsInPage() {
         if (back) return /translate/.test(kf) ? 'gently bobbing up and down' : /rotate/.test(kf) ? 'wobbling back and forth' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'blinking' : 'moving'
         // n226: a hue-rotate filter loop shifts colour, it does not spin (round 22 c3 aurora blobs said 'spinning')
         if (/hue-rotate/.test(kf) && !/(?<!hue-)rotate\(/.test(kf)) return 'slowly shifting colour (filter: hue-rotate animation, NOT spinning, NOT moving)'
+        // n259: a small rotate() kept in a translate loop only holds the band's own tilt, it does not spin
+        // (round 28 c2 ticker 'rotate(-2deg) translateX(-400px)' said 'spinning', built as a tall rounded pill)
+        const turns = [...kf.matchAll(/(?<!hue-)rotate\((-?[\d.]+)(deg|turn)?\)/g)].map((m) => Math.abs(+m[1] * (m[2] === 'turn' ? 360 : 1)))
+        const held = turns.length && /translate/.test(kf) && turns.every((t) => t < 45)
+        if (held) return 'scrolling'
         return /(?<!hue-)rotate\(/.test(kf) ? 'spinning' : /translate/.test(kf) ? 'scrolling' : /scale/.test(kf) ? 'pulsing' : /opacity/.test(kf) ? 'fading' : 'moving'
       })(),
       vertical: /^vertical/.test(cs.writingMode),
@@ -816,7 +821,8 @@ export function factsInPage() {
         const ringArc = el.tagName.toLowerCase() === 'svg' && !el.querySelector('textPath') && [...el.querySelectorAll('circle')].some((q) => q.getAttribute('stroke-dasharray')) && el.outerHTML.length <= 1400
         // n251: a labelled drawing (round 27 c5 climate wheel: twelve wedge paths, rain dots and month letters; c4 laurel:
         // leaves, stems and 'OFFICIAL SELECTION') was said as loose blobs and built as rounded lumps: said verbatim
-        const labelled = el.tagName.toLowerCase() === 'svg' && !el.querySelector('textPath') && el.querySelectorAll('text').length >= 2 && el.querySelectorAll('path, polygon, ellipse, circle, rect, line, polyline').length >= 6 && el.outerHTML.length <= 4200
+        // n259: one word on a busy drawing too (round 28 c5 dial: 18 ticks, hands, centre cap and 'HOROLOGE'; cap and word lost)
+        const labelled = el.tagName.toLowerCase() === 'svg' && !el.querySelector('textPath') && (el.querySelectorAll('text').length >= 2 || (el.querySelectorAll('text').length === 1 && el.querySelectorAll('path, polygon, ellipse, circle, rect, line, polyline').length >= 12)) && el.querySelectorAll('path, polygon, ellipse, circle, rect, line, polyline').length >= 6 && el.outerHTML.length <= 4200
         if (el.tagName.toLowerCase() !== 'svg' || (el.querySelector('textPath, text') && !ringArc && !labelled)) return null
         const c = el.cloneNode(true)
         for (const n of [c, ...c.querySelectorAll('*')]) { n.removeAttribute('data-r'); n.removeAttribute('data-must'); n.removeAttribute('class') }
@@ -986,7 +992,9 @@ export function factsInPage() {
         return { x: n[0] ?? 0, y: n[1] ?? 0, blur: n[2] ?? 0, clear: /rgba\([^)]*,\s*0\)/.test(p), c: rgba((p.match(/rgba?\([^)]+\)/) || [])[0] ?? '') }
       }),
       // which edge it runs off: a word bleeding off the left is not one stretched across both
-      bleeds: r.left < -4 && r.right > innerWidth + 4 ? 'left and right' : r.left < -4 ? 'left' : r.right > innerWidth + 4 ? 'right' : r.top < -4 ? 'top' : null,
+      // n259: a turned band whose own box spans the page edge to edge runs off both sides too (round 28 c2 ticker
+      // 1280px rotate(-2deg): bounds only 0.3px past, said as a bar, built as a short rounded pill)
+      bleeds: (r.left < -4 && r.right > innerWidth + 4) || (Math.abs(+(cs.transform.match(/^matrix\([^,]+,\s*([^,]+)/) || [])[1] || 0) >= 0.01 && el.offsetWidth >= innerWidth - 4 && el.offsetWidth <= innerWidth + 400 && r.left <= 4 && r.right >= innerWidth - 4 && el.offsetHeight < 200) ? 'left and right' : r.left < -4 ? 'left' : r.right > innerWidth + 4 ? 'right' : r.top < -4 ? 'top' : null,
       // how far past the edge it starts (drawn marks stop at the screen edge, so the sketch can't show it)
       // n172: the untransformed line box of a block that bleeds both ways (round 17 c1 bands built starting at x 0)
       box0: { x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight, abs: cs.position === 'absolute', origin: cs.transformOrigin },
@@ -3543,7 +3551,7 @@ function effectWords(f) {
   // n191: a marquee's own solid band and its letters' colour (round 19 c2: the black ribbon lost, said 'near-black' text)
   if (f.motion === 'scrolling' && f.bleeds && visible(f.bg) && f.bg.a > 0.5) {
     const ink = (f.kidBoxes ?? []).find((k) => k.ink?.a > 0.5)?.ink
-    w.push(`on a SOLID ${colourName(f.bg)} ${hexOf(f.bg)} ribbon (the band itself filled ${hexOf(f.bg)} edge to edge${f.box0?.h ? `, ${f.box0.h}px thick` : ''}, the words centred in it${ink ? `, its letters ${colourName(ink)} ${hexOf(ink)}, NOT the band colour` : ''})`)
+    w.push(`on a SOLID ${colourName(f.bg)} ${hexOf(f.bg)} ribbon (the band itself filled ${hexOf(f.bg)} edge to edge${f.box0?.h ? `, ${f.box0.h}px thick` : ''}${(f.radius ?? 0) < 2 ? ', square corners, NOT a rounded pill' : ''}${f.box0?.w >= 1200 ? `, ${f.box0.w}px long from x ${f.box0.x}, top ${f.box0.y} before its turn` : ''}, the words centred in it${ink ? `, its letters ${colourName(ink)} ${hexOf(ink)}, NOT the band colour` : ''}${f.font?.spacing >= 1 ? `, ${f.font.weight >= 700 ? 'heavy ' : ''}capitals spaced out (letter-spacing ${Math.round(f.font.spacing)}px)` : ''})`)
   }
   // a slant (skewX) is not a turn: round 6 c2 'Tickets →' leaned like italics, unsaid
   if (Math.abs(f.skewX) >= 4) w.push(`slanted ${Math.abs(f.skewX)}° (skewX(${f.skewX}deg), leaning ${f.skewX < 0 ? 'right' : 'left'} like italics)`)
@@ -4016,7 +4024,9 @@ function codeNote(f) {
   const by = new Map()
   for (const k of f.tokenInks) { const n = colourName(k.c); if (n && dist(k.c, f.colour) > 40) by.set(n, uniq([...(by.get(n) ?? []), k.t])) }
   const inks = [...by].map(([n, ts]) => `${n} ${ts.map((t) => `"${t}"`).join(', ')}`).join('; ')
-  return `mono ${Math.round(f.font.size)}px code lines: ${lines}${f.colour ? `; ${colourName(f.colour)} code` : ''}${inks ? `, coloured: ${inks}` : ''}${f.attrGutter ? `; every line NUMBERED in a gutter: ${f.attrGutter.first} to ${f.attrGutter.last} in ${hexOf(f.attrGutter.ink)} mono at the left, ${f.attrGutter.w || 40}px wide${f.attrGutter.right ? ', right-aligned' : ''}, the code starting ${f.attrGutter.padL}px in from the pane's left (after the numbers, never under them)${f.attrGutter.lit.map((x) => `; line ${x.n} is the current line: its whole row filled ${x.fill.a < 0.95 ? `rgba(${x.fill.r}, ${x.fill.g}, ${x.fill.b}, ${Math.round(x.fill.a * 100) / 100})` : hexOf(x.fill)} edge to edge`).join('')}` : ''}`
+  // n259: the editor's own line pitch (round 28 e1 SQL lines 22px built ~25px: the results pane pushed down)
+  const pitch = f.font.lineHeight >= f.font.size + 2 ? `, each line exactly ${Math.round(f.font.lineHeight)}px tall (line-height ${Math.round(f.font.lineHeight)}px, no looser)` : ''
+  return `mono ${Math.round(f.font.size)}px code lines${pitch}: ${lines}${f.colour ? `; ${colourName(f.colour)} code` : ''}${inks ? `, coloured: ${inks}` : ''}${f.attrGutter ? `; every line NUMBERED in a gutter: ${f.attrGutter.first} to ${f.attrGutter.last} in ${hexOf(f.attrGutter.ink)} mono at the left, ${f.attrGutter.w || 40}px wide${f.attrGutter.right ? ', right-aligned' : ''}, the code starting ${f.attrGutter.padL}px in from the pane's left (after the numbers, never under them)${f.attrGutter.lit.map((x) => `; line ${x.n} is the current line: its whole row filled ${x.fill.a < 0.95 ? `rgba(${x.fill.r}, ${x.fill.g}, ${x.fill.b}, ${Math.round(x.fill.a * 100) / 100})` : hexOf(x.fill)} edge to edge`).join('')}` : ''}`
 }
 
 /** n136 (round 10): tile grids, checker floors, glowing mono lines with a cursor, chip log lines, box-drawing text. */

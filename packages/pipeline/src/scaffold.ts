@@ -213,6 +213,9 @@ export function wordsGiveCss(said: string): boolean {
   // n235: one sized div said with its exact box-shadow or repeating stripes (round 23 c5 CRT screen bezel, scanline veil,
   // status panel): the drawn outline was mounted as a visible extra frame (a green-tinted slab over the screen)
   if (/\bONE \d{2,4}x\d{2,4}px div at \d+,\d+/i.test(said) && /\bexactly box-shadow:|\brepeating-linear-gradient\(/i.test(said)) return true
+  // n259: a drawing said as its own SVG markup, copied verbatim: the drawn box was mounted as a visible square frame
+  // round the watch dial (round 28 c5)
+  if (/\bcopied verbatim:\s*<svg\b/i.test(said)) return true
   if (/\bTITLE STRIP \(NOT a button/.test(said) && /\bSEGMENTED meter bar\b/.test(said)) return true
   return /\bnot strokes\b/i.test(said) && /\b\d{2,4}x\d{1,4}\b/.test(said)
 }
