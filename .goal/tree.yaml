@@ -3,7 +3,7 @@ goal_state: working
 now: "Round 28 holds at 90%: the jazz poster's music notes are now exact (94%), the watch page's spec list and gold button are right. Next I lift the three 86% pages, then write round 29."
 round: 28
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90, 93, 91, 90]
-lock: null
+lock: {by: n259-run, until: "2026-10-27T08:42Z"}
 round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn, words typed, draw/read/build seconds, billed tokens, repair turns
   - {round: 1, likeness: 66, marks: 8, words: 238, draw_s: null, read_s: null, build_s: 116, tokens: 39901, fixes: 0}
   - {round: 2, likeness: 48, marks: 9, words: 268, draw_s: null, read_s: null, build_s: 96, tokens: 42686, fixes: 0}
