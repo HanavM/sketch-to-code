@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Deco cinema</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0f1a17;font-family:Georgia,serif;color:#e8d9b0}
+.burst{position:absolute;left:340px;top:-260px;width:600px;height:1000px;background:repeating-conic-gradient(from 0deg at 50% 100%,#1c2e28 0 4deg,#0f1a17 4deg 8deg);opacity:.9}
+.arch{position:absolute;left:390px;top:110px;width:500px;height:640px;border:6px double #c9a24a;border-radius:250px 250px 0 0;background:radial-gradient(circle at 50% 30%,#1f3a31,#0f1a17 70%)}
+.arch::after{content:"";position:absolute;left:24px;top:24px;right:24px;bottom:0;border:2px solid #c9a24a88;border-bottom:0;border-radius:226px 226px 0 0}
+.h{position:absolute;left:390px;top:270px;width:500px;text-align:center;font:400 96px/0.95 Didot,'Bodoni 72',Georgia,serif;letter-spacing:6px;background:linear-gradient(180deg,#f7e3a1,#b8862f 60%,#f2d58a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{position:absolute;left:390px;top:480px;width:500px;text-align:center;font:400 16px Georgia;letter-spacing:8px;color:#c9a24a}
+.fan{position:absolute;left:560px;top:150px;width:160px;height:80px;border-radius:80px 80px 0 0;background:repeating-conic-gradient(from -90deg at 50% 100%,#c9a24a 0 6deg,#0000 6deg 15deg)}
+.nav{position:absolute;left:0;top:0;width:1280px;height:64px;display:flex;align-items:center;justify-content:center;gap:56px;font:400 14px Georgia;letter-spacing:5px;border-bottom:1px solid #c9a24a55}
+.show{position:absolute;top:560px;width:260px;padding:20px;border:1px solid #c9a24a;background:#0f1a17}
+.show b{display:block;font:400 26px Georgia;color:#f2d58a}.show small{display:block;margin-top:8px;font:14px Georgia;letter-spacing:2px}.show span{display:inline-block;margin-top:14px;padding:6px 12px;border:1px solid #c9a24a;font-size:13px;letter-spacing:2px}
+.col{position:absolute;top:120px;width:60px;height:780px;background:repeating-linear-gradient(90deg,#c9a24a 0 4px,#0000 4px 14px);opacity:.6}
+.btn{position:absolute;left:540px;top:560px;width:200px;height:56px;background:linear-gradient(180deg,#f2d58a,#b8862f);color:#0f1a17;display:flex;align-items:center;justify-content:center;font:700 15px Georgia;letter-spacing:4px;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,12px 100%,0 50%)}
+</style></head><body>
+<div class="burst" data-r="sunburst" data-must></div>
+<div class="col" data-r="left-column" style="left:200px"></div><div class="col" data-r="right-column" style="left:1020px"></div>
+<div class="nav" data-r="nav"><span>FILMS</span><span>EVENTS</span><span>THE ODEON</span><span>MEMBERS</span><span>VISIT</span></div>
+<div class="arch" data-r="arch-frame" data-must></div><div class="fan" data-r="fan"></div>
+<h1 class="h" data-r="headline" data-must>THE<br>ODEON</h1>
+<p class="sub" data-r="subtitle">PICTURE PALACE · 1931</p>
+<div class="btn" data-r="book-button" data-must>BOOK SEATS</div>
+<div class="show" data-r="show-left" style="left:60px"><b>Metropolis</b><small>FRI 20:00 · ORGAN SCORE</small><span>SCREEN 1</span></div>
+<div class="show" data-r="show-right" style="left:960px"><b>Casablanca</b><small>SAT 19:30 · 35MM PRINT</small><span>SCREEN 2</span></div>
+</body></html>

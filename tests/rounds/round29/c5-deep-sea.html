@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Deep sea</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(180deg,#0aa6c9 0%,#06508a 35%,#041b45 70%,#020817 100%);font-family:Helvetica,Arial,sans-serif;color:#e6fbff}
+.ray{position:absolute;top:-100px;width:120px;height:900px;background:linear-gradient(180deg,#ffffff55,#0000 70%);transform-origin:top;filter:blur(8px)}
+.wave{position:absolute;left:0;width:1280px}
+.h{position:absolute;left:80px;top:180px;width:620px;font:800 92px/0.95 Helvetica;letter-spacing:-3px}
+.h span{display:block;font-weight:200;font-style:italic;color:#7ff3ff}
+.p{position:absolute;left:84px;top:410px;width:440px;font-size:18px;line-height:1.55;color:#bfe9f5}
+.bub{position:absolute;border-radius:50%;border:2px solid #bff6ff88;background:radial-gradient(circle at 30% 30%,#ffffff66,#0000 45%)}
+.glass{position:absolute;left:820px;top:420px;width:360px;height:300px;border-radius:24px;background:#ffffff18;border:1px solid #ffffff44;backdrop-filter:blur(14px);padding:28px;box-shadow:0 30px 60px #0008}
+.glass h3{font-size:14px;letter-spacing:3px;color:#7ff3ff}.glass b{display:block;font:800 58px Helvetica;margin:10px 0}.glass small{color:#bfe9f5;font-size:14px}
+.glass .bar{margin-top:26px;height:10px;border-radius:10px;background:#ffffff22}.glass .bar i{display:block;width:68%;height:100%;border-radius:10px;background:linear-gradient(90deg,#7ff3ff,#2ec4ff)}
+.jelly{position:absolute;left:900px;top:120px;width:150px;height:110px;border-radius:75px 75px 20px 20px;background:radial-gradient(circle at 50% 30%,#ffb3f2,#c04ad8cc 70%);box-shadow:0 0 60px #ff8be8aa}
+.jelly::after{content:"";position:absolute;left:30px;top:100px;width:90px;height:150px;background:repeating-linear-gradient(90deg,#ff8be888 0 3px,#0000 3px 18px);-webkit-mask:linear-gradient(#000,#0000)}
+.cta{position:absolute;left:84px;top:520px;padding:18px 34px;border-radius:40px;background:#7ff3ff;color:#041b45;font-weight:800;font-size:17px;box-shadow:0 0 30px #7ff3ff88}
+.depth{position:absolute;left:30px;top:120px;height:700px;border-left:2px dashed #7ff3ff66;font-size:12px;color:#7ff3ff}.depth div{position:absolute;left:8px;white-space:nowrap}
+</style></head><body>
+<div class="ray" style="left:300px;transform:rotate(18deg)" data-r="light-ray-1"></div><div class="ray" style="left:560px;transform:rotate(8deg)" data-r="light-ray-2"></div>
+<svg class="wave" data-r="waves" data-must style="top:700px" height="200" viewBox="0 0 1280 200"><path d="M0 60 C200 10 380 110 640 60 S1080 10 1280 60 V200 H0Z" fill="#0b3a7a" opacity=".7"/><path d="M0 110 C240 60 420 160 700 110 S1100 70 1280 120 V200 H0Z" fill="#031432"/></svg>
+<div class="depth" data-r="depth-scale"><div style="top:0">0 m</div><div style="top:230px">200 m</div><div style="top:460px">1,000 m</div><div style="top:690px">4,000 m</div></div>
+<h1 class="h" data-r="headline" data-must>Into the<span>midnight zone</span></h1>
+<p class="p" data-r="copy">A live dive log from the Abyssal-3 sub. Follow the crew 4,000 metres down, one sonar ping at a time.</p>
+<div class="cta" data-r="cta">Join the dive</div>
+<div class="jelly" data-r="jellyfish" data-must></div>
+<div class="bub" style="left:760px;top:300px;width:40px;height:40px" data-r="bubble-1"></div><div class="bub" style="left:720px;top:380px;width:22px;height:22px" data-r="bubble-2"></div><div class="bub" style="left:1150px;top:300px;width:60px;height:60px" data-r="bubble-3"></div>
+<div class="glass" data-r="dive-card" data-must><h3>CURRENT DEPTH</h3><b>2,418 m</b><small>Water 2.1°C · Pressure 243 bar</small><div class="bar"><i></i></div></div>
+</body></html>

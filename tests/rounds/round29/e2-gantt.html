@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Gantt</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f7f8fa;font-family:Inter,Helvetica,Arial,sans-serif;color:#1c2333;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:60px;background:#fff;border-bottom:1px solid #e3e6eb;display:flex;align-items:center;gap:16px;padding:0 24px}.top b{font-size:17px}.top .seg{display:flex;margin-left:24px;border:1px solid #d5d9e0;border-radius:8px;overflow:hidden}.top .seg span{padding:7px 14px;border-right:1px solid #d5d9e0}.top .seg span:last-child{border:0}.top .seg .on{background:#1c2333;color:#fff}.top .nw{margin-left:auto;padding:9px 16px;background:#5b5bd6;color:#fff;border-radius:8px;font-weight:600}
+.side{position:absolute;left:0;top:60px;width:300px;height:840px;background:#fff;border-right:1px solid #e3e6eb}
+.side .hd,.chart .hd{height:52px;border-bottom:1px solid #e3e6eb;display:flex;align-items:center;padding:0 16px;font-size:12px;color:#6b7385;font-weight:600}
+.row{height:44px;display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid #f0f2f5}.row.g{font-weight:700;background:#fafbfc}.row.c{padding-left:40px}.row i{width:22px;height:22px;border-radius:50%;margin-left:auto;font:700 10px/22px Helvetica;text-align:center;color:#fff;font-style:normal}
+.chart{position:absolute;left:300px;top:60px;width:980px;height:840px;background:#fff;background-image:linear-gradient(90deg,#eef0f3 1px,#0000 1px);background-size:70px 100%;background-position:0 52px}
+.chart .hd{padding:0;gap:0}.chart .hd span{width:70px;text-align:center}.chart .hd .we{color:#b0b6c2}
+.wk{position:absolute;top:52px;width:140px;height:788px;background:#f4f5f8}
+.bar{position:absolute;height:24px;border-radius:6px;color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden}
+.bar .pr{position:absolute;left:0;top:0;bottom:0;background:#0002}
+.grp{position:absolute;height:10px;background:#1c2333;clip-path:polygon(0 0,100% 0,100% 100%,calc(100% - 8px) 50%,8px 50%,0 100%)}
+.ms{position:absolute;width:18px;height:18px;background:#f5a524;transform:rotate(45deg);border:2px solid #fff;box-shadow:0 0 0 1px #f5a524}
+.msl{position:absolute;font-size:12px;font-weight:700;color:#b5770d}
+.today{position:absolute;left:615px;top:40px;width:2px;height:800px;background:#e5484d}.today::before{content:"Today";position:absolute;left:-22px;top:0;background:#e5484d;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px}
+.chart svg{position:absolute;left:0;top:0}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>Website relaunch</b><div class="seg"><span>Day</span><span class="on">Week</span><span>Month</span></div><span style="color:#6b7385">Oct 5 – Nov 14</span><span class="nw">+ New task</span></div>
+<div class="side" data-r="task-list" data-must><div class="hd">TASK<span style="margin-left:auto">OWNER</span></div>
+<div class="row g">▾ Discovery</div><div class="row c">Interviews<i style="background:#5b5bd6">AK</i></div><div class="row c">Site audit<i style="background:#12a594">JL</i></div>
+<div class="row g">▾ Design</div><div class="row c">Wireframes<i style="background:#e5484d">MR</i></div><div class="row c">Visual design<i style="background:#e5484d">MR</i></div><div class="row c">Design review<i style="background:#5b5bd6">AK</i></div>
+<div class="row g">▾ Build</div><div class="row c">CMS setup<i style="background:#f5a524">TB</i></div><div class="row c">Templates<i style="background:#12a594">JL</i></div><div class="row c">Content migration<i style="background:#f5a524">TB</i></div>
+<div class="row g">▾ Launch</div><div class="row c">QA pass<i style="background:#5b5bd6">AK</i></div><div class="row c">Go live<i style="background:#1c2333">ALL</i></div></div>
+<div class="chart" data-r="timeline" data-must><div class="hd"><span>Oct 5</span><span class="we">·</span><span>Oct 12</span><span class="we">·</span><span>Oct 19</span><span class="we">·</span><span>Oct 26</span><span class="we">·</span><span>Nov 2</span><span class="we">·</span><span>Nov 9</span><span class="we">·</span><span>Nov 16</span><span class="we">·</span></div>
+<div class="wk" style="left:560px"></div>
+<div class="grp" style="left:20px;top:69px;width:230px"></div>
+<div class="bar" style="left:20px;top:106px;width:160px;background:#5b5bd6"><span class="pr" style="width:100%"></span><span style="position:relative">Interviews</span></div>
+<div class="bar" style="left:110px;top:150px;width:140px;background:#12a594"><span class="pr" style="width:100%"></span><span style="position:relative">Site audit</span></div>
+<div class="grp" style="left:240px;top:201px;width:420px"></div>
+<div class="bar" style="left:240px;top:238px;width:180px;background:#e5484d"><span class="pr" style="width:100%"></span><span style="position:relative">Wireframes</span></div>
+<div class="bar" style="left:400px;top:282px;width:220px;background:#e5484d"><span class="pr" style="width:60%"></span><span style="position:relative">Visual design · 60%</span></div>
+<div class="ms" style="left:651px;top:329px"></div><div class="msl" style="left:680px;top:328px">Design sign-off</div>
+<div class="grp" style="left:600px;top:377px;width:340px"></div>
+<div class="bar" style="left:600px;top:414px;width:150px;background:#f5a524;opacity:.55">CMS setup</div>
+<div class="bar" style="left:680px;top:458px;width:200px;background:#12a594;opacity:.55">Templates</div>
+<div class="bar" style="left:760px;top:502px;width:180px;background:#f5a524;opacity:.55">Content migration</div>
+<div class="bar" style="left:880px;top:590px;width:80px;background:#5b5bd6;opacity:.55">QA</div>
+<div class="ms" style="left:951px;top:637px;background:#1c2333;box-shadow:0 0 0 1px #1c2333"></div>
+<svg width="980" height="840" fill="none" stroke="#8b93a5" stroke-width="1.5"><path d="M180 118 H195 V240 H240"/><path d="M420 250 H430 V294"/><path d="M620 294 H660 V330"/><path d="M750 426 H765 V470 H680"/><path d="M880 470 H895 V514 H760"/><path d="M940 514 H950 V560 H880 V602"/></svg>
+<div class="today" data-r="today-line"></div></div>
+</body></html>
