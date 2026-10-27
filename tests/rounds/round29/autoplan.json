@@ -101,11 +101,11 @@
    ],
    [
     "nav",
-    "20px \"PRINT/FEST\" first, then links: Lineup, Workshops, Map, Get tickets; \"Get tickets\" selected (bold, dark blue underline); \"Get tickets\" is an OUTLINED pill button (NOT a plain link): 125x42px, 3px solid #1d2a8a border, pill ends, no fill, padding 18px at the sides, bold #1d2a8a text"
+    "20px \"PRINT/FEST\" first, then links: Lineup, Workshops, Map, Get tickets; \"Get tickets\" is an OUTLINED pill button (NOT a plain link): 125x42px, 3px solid #1d2a8a border, pill ends, no fill, padding 18px at the sides, bold #1d2a8a text on ONE line (white-space: nowrap), no underline"
    ],
    [
     "yellow-disc",
-    "ink-like (multiply blend: darkens what it overlaps, never covers it) faded to 85% opacity (see-through) big vivid yellow circle"
+    "ink-like (multiply blend: darkens what it overlaps, never covers it) faded to 85% opacity (see-through) perfectly round FLAT disc 520x520px (border-radius 50%), ONE plain div, position absolute with its top-left at page 600,160 (its OWN place: where it meets another disc they overlap only partly, offset, never stacked on one centre), background #ffd23f (yellow), hard edge, no gradient, no shading"
    ],
    [
     "halftone-disc",
@@ -117,15 +117,15 @@
    ],
    [
     "date-band",
-    "big heavy \"14—16 MAY · LEEDS\", 34px type (font-size exactly 34px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 368px wide"
+    "big heavy \"14—16 MAY · LEEDS\", 34px type (font-size exactly 34px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 368px wide; a RULED BAND: a 6px solid #1d2a8a rule along its top AND a 6px solid #1d2a8a rule along its bottom (border-top and border-bottom, no side borders, no fill), both rules running the band's full 520px width (wider than the words), the band 520x71px with its top-left at 60,560, the words between the rules"
    ],
    [
     "lineup",
-    "the 3 parts \"Paper Kites\", \"Dot Matrix\", \"The Overprints\" sit side by side in one row with exactly 19px of empty space between one and the next (flex gap 19px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 151x25 at 60,652 22px bold #1d2a8a \"Paper Kites\"; 18x25 at 211,652 22px bold #ff4f7b \"✶\"; 147x25 at 230,652 22px bold #1d2a8a \"Dot Matrix\"; 18x25 at 377,652 22px bold #ff4f7b \"✶\"; 199x25 at 396,652 22px bold #1d2a8a \"The Overprints\"; 540x55 at 60,682 22px bold #1d2a8a \"Spot Colour\"; 18x25 at 60,682 22px bold #ff4f7b \"✶\"; 164x25 at 78,682 22px bold #1d2a8a \"Misregister\"; 18x25 at 242,682 22px bold #ff4f7b \"✶\"; 199x25 at 261,682 22px bold #1d2a8a \"Halftone Club\"; 18x25 at 459,682 22px bold #ff4f7b \"✶\""
+    "ONE paragraph of running text (a single <p>: NOT a grid, NOT a list, NOT separate placed items, no columns, no gaps added between words): 540px wide, its top-left at 60,650 (position absolute), 22px bold sans-serif #1d2a8a type, ALL CAPITALS (text-transform: uppercase), line-height 30px; the words run on and WRAP onto exactly 3 lines, left-aligned: \"PAPER KITES ✶ DOT MATRIX ✶ THE OVERPRINTS\" / \"✶ MISREGISTER ✶ HALFTONE CLUB ✶ SPOT\" / \"COLOUR\"; inside it, IN PLACE in the line, each \"✶\" bold font-style normal #ff4f7b is an inline span in its own colour (the other words stay #1d2a8a); nothing else: no sub-line, no caption, no extra line under it"
    ],
    [
     "ticket",
-    "tilted 4° anticlockwise dark blue block, cream text \"WEEKEND PASS\", lines big 46px bold \"£48\", \"ALL 3 DAYS · 40 SHOWS\", with a hard solid opaque pink shadow offset 10px down right, no blur; its text #f3ede0 (cream, NOT the page's dark blue text)"
+    "tilted 4° anticlockwise dark blue block, cream text \"WEEKEND PASS\", lines big 46px bold \"£48\", \"ALL 3 DAYS · 40 SHOWS\", with a hard solid opaque pink shadow offset 10px down right, no blur; its text #f3ede0 (cream, NOT the page's dark blue text); a 360x150px block (its size before any turn) with its top-left at 820,690 before the turn, its edges NOTCHED like a ticket: a 28px half-circle bite cut out of the middle of its left edge, a 28px half-circle bite cut out of the middle of its right edge (the page shows through each bite), exactly -webkit-mask: radial-gradient(14px at 0px 50%, rgba(0, 0, 0, 0) 98%, rgb(0, 0, 0)), radial-gradient(14px at 100% 50%, rgba(0, 0, 0, 0) 98%, rgb(0, 0, 0)); -webkit-mask-composite: source-in; mask-composite: intersect (the mask clips its box-shadow away too: NO shadow shows outside the block)"
    ],
    [
     "star",
@@ -403,7 +403,7 @@
    ],
    [
     "sunburst",
-    "a SUNBURST: 45 sharp straight rays fanning out from one centre, alternating dark teal #1c2e28 and near-black #0f1a17, each ray 4deg wide (like a starburst / pinwheel of thin pie slices), on ONE 600x1000px block at 340,-260, painted with exactly background: repeating-conic-gradient(at 50% 100%, #1c2e28 0deg, #1c2e28 4deg, #0f1a17 4deg, #0f1a17 8deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no blur"
+    "a SUNBURST: 45 sharp straight rays fanning out from one centre, alternating dark teal #1c2e28 and near-black #0f1a17, each ray 4deg wide (like a starburst / pinwheel of thin pie slices), on ONE 600x1000px block at 340,-260, square corners (NOT rounded, NOT a disc); the rays all meet at 50% across and 100% down the block (page 640,740, the middle of its BOTTOM edge) and fan out from there UPWARD like a rising sun, NOT from the block's centre, opacity 0.9, painted with exactly background: repeating-conic-gradient(at 50% 100%, #1c2e28 0deg, #1c2e28 4deg, #0f1a17 4deg, #0f1a17 8deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur"
    ],
    [
     "left-column",
@@ -419,11 +419,11 @@
    ],
    [
     "arch-frame",
-    "dark teal to near-black gradient arch (round top, flat bottom): one plain CSS block 500x640px, top-left at 390,110, border-radius 250px 250px 0 0 so the top is a perfect half circle and the sides are straight (not an SVG traced from the ink)"
+    "dark teal to near-black gradient arch (round top, flat bottom): one plain CSS block 500x640px, top-left at 390,110, border-radius 250px 250px 0 0 so the top is a perfect half circle and the sides are straight (not an SVG traced from the ink), painted with exactly background: radial-gradient(circle at 50% 30%, #1f3a31, #0f1a17 70%); its OWN border: 6px double #c9a24a round the top and both sides and the bottom (border-style DOUBLE: two thin parallel lines with a dark gap between, NOT one thick line); INSIDE it a second, thinner outline of the same arch shape (a ::after pseudo-element, position absolute, no fill): 436x602px, 24px in from its left and 24px down from its top, border 2px solid #c9a24a at 53% on the top and both sides only (NO bottom border), border-radius 226px 226px 0px 0px (its own round top inside the outer one)"
    ],
    [
     "fan",
-    "a FAINT SUNBURST: 30 sharp straight rays fanning out from one centre, alternating bright orange #c9a24a and transparent (the page shows through), each ray 6deg wide (like a starburst / pinwheel of thin pie slices), on ONE 160x80px block at 560,150, border-radius 50% (a round disc of rays), painted with exactly background: repeating-conic-gradient(from -90deg at 50% 100%, #c9a24a 0deg, #c9a24a 6deg, transparent 6deg, transparent 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no blur"
+    "a HALF-DISC FAN SUNBURST: 30 sharp straight rays fanning out from one centre, alternating bright orange #c9a24a and transparent (the page shows through), each ray 6deg wide (like a starburst / pinwheel of thin pie slices), on ONE 160x80px block at 560,150, border-radius 80px 80px 0 0 (a HALF disc: round top, FLAT bottom; NOT a full circle); the rays all meet at 50% across and 100% down the block (page 640,230, the middle of its BOTTOM edge) and fan out from there UPWARD like a rising sun, NOT from the block's centre, painted with exactly background: repeating-conic-gradient(from -90deg at 50% 100%, #c9a24a 0deg, #c9a24a 6deg, transparent 6deg, transparent 15deg) (no background-size: it does NOT repeat as tiles); NOT a checkerboard, NOT squares, NOT stripes, no outline or ring drawn round it (the drawn mark only says where it lies), no blur"
    ],
    [
     "headline",
@@ -439,11 +439,11 @@
    ],
    [
     "show-left",
-    "bright orange border \"Metropolis\", lines warm paper \"FRI 20:00 · ORGAN SCORE\", warm paper \"SCREEN 1\""
+    "bright orange border \"Metropolis\", lines warm paper \"FRI 20:00 · ORGAN SCORE\", warm paper \"SCREEN 1\"; ONE 260x140px card, top-left at 60,560, a SOLID #0f1a17 fill (opaque: it COVERS whatever runs behind it, nothing shows through), 1px solid #c9a24a border, square corners; \"SCREEN 1\" is a small OUTLINED tag (an inline box 102x30px, 1px #c9a24a border, no fill, the words inside it), NOT plain text"
    ],
    [
     "show-right",
-    "bright orange border \"Casablanca\", lines warm paper \"SAT 19:30 · 35MM PRINT\", warm paper \"SCREEN 2\""
+    "bright orange border \"Casablanca\", lines warm paper \"SAT 19:30 · 35MM PRINT\", warm paper \"SCREEN 2\"; ONE 260x140px card, top-left at 960,560, a SOLID #0f1a17 fill (opaque: it COVERS whatever runs behind it, nothing shows through), 1px solid #c9a24a border, square corners; \"SCREEN 2\" is a small OUTLINED tag (an inline box 102x30px, 1px #c9a24a border, no fill, the words inside it), NOT plain text"
    ]
   ]
  },
@@ -811,7 +811,7 @@
    ],
    [
     "order-form",
-    "dark navy border; a 351x36px #1a1f2b filled button \"Buy Sell\" (6px rounded, #d1d4dc text; its fill clearly visible, not white), then a 14px row of tabs side by side: \"Market\", \"Limit\" (selected, #ffffff text), \"Stop\" list: \"Price\" 67,400.0, \"Amount\" 0.150, \"Cost\" 10,110.00 USDT, teal button \"Buy BTC\"; each word in its own colour: \"Buy Sell\" #d1d4dc, \"Market Limit Stop\" #7c8396, \"Price 67,400.0 USDT\" #d1d4dc, \"Amount 0.150 BTC\" #d1d4dc, \"Cost 10,110.00 USDT\" #d1d4dc, \"Buy BTC\" #ffffff"
+    "the region itself is ONE 380x328px panel at 900,572, no fill, a 1px #1e2330 rule along its TOP edge only (no other border), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); the 3 parts \"Market\", \"Limit\", \"Stop\" sit side by side in one row with exactly 16px of empty space between one and the next (flex gap 16px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 22 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 351x36 at 915,587 #1a1f2b fill, 6px rounded; 173x30 at 918,590 #26a69a fill, 4px rounded, padding-left 8px (its text starts at x 926): 12px bold #ffffff \"Buy\"; 173x30 at 1091,590 4px rounded, its text CENTRED in that box (text-align: center), padding-left 8px (its text starts at x 1099): 12px bold #d1d4dc \"Sell\"; 39x14 at 915,635 12px bold #7c8396 \"Market\"; 29x14 at 970,635 12px bold #ffffff \"Limit\"; 27x14 at 1014,635 12px bold #7c8396 \"Stop\"; 351x38 at 915,661 1px #2a2f3d border, 6px rounded; 55x16 at 1061,672 14px bold #ffffff \"67,400.0\"; 27x14 at 928,673 12px #7c8396 \"Price\"; 33x14 at 1220,673 12px #7c8396 \"USDT\"; 351x38 at 915,707 1px #2a2f3d border, 6px rounded; 35x16 at 1082,718 14px bold #ffffff \"0.150\"; 41x14 at 928,719 12px #7c8396 \"Amount\"; 24x14 at 1229,719 12px #7c8396 \"BTC\"; 10x10 (its own size BEFORE the turn) centred at 920,765, TILTED: transform: rotate(45deg) round its centre (set at a slant, 45° clockwise, NOT level), on top of what is under it, #26a69a fill, 2px #26a69a border, a small SQUARE (square corners, NOT a circle); 10x10 (its own size BEFORE the turn) centred at 1008,765, TILTED: transform: rotate(45deg) round its centre (set at a slant, 45° clockwise, NOT level), on top of what is under it, #26a69a fill, 2px #26a69a border, a small SQUARE (square corners, NOT a circle); 10x10 (its own size BEFORE the turn) centred at 1095,765, TILTED: transform: rotate(45deg) round its centre (set at a slant, 45° clockwise, NOT level), on top of what is under it, #26a69a fill, 2px #26a69a border, a small SQUARE (square corners, NOT a circle); 10x10 (its own size BEFORE the turn) centred at 1183,765, TILTED: transform: rotate(45deg) round its centre (set at a slant, 45° clockwise, NOT level), on top of what is under it, 2px #2a2f3d border; 10x10 (its own size BEFORE the turn) centred at 1261,765, TILTED: transform: rotate(45deg) round its centre (set at a slant, 45° clockwise, NOT level), on top of what is under it, 2px #2a2f3d border; 104x16 at 1162,802 14px bold #ffffff \"10,110.00 USDT\"; 25x14 at 915,803 12px #7c8396 \"Cost\"; 351x44 at 915,837 #26a69a fill, 6px rounded: 15px bold #ffffff \"Buy BTC\""
    ]
   ]
  }

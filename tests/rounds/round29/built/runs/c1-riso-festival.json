@@ -1,24 +1,24 @@
 {
   "id": "c1-riso-festival",
-  "at": "2026-10-27T09:12:06.732Z",
+  "at": "2026-10-27T11:40:32.323Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7332757368322109,
-    "overallV2": 0.7332757368322109,
-    "overallV1": 0.6572333036944957,
-    "colour": 0.9500244441936196,
-    "structure": 0.8459749222772243,
-    "structureStrict": 0.7218657862490236,
-    "colourAligned": 0.9500244441936196,
-    "structureAligned": 0.8459749222772243,
+    "overall": 0.9214381853243564,
+    "overallV2": 0.9214381853243564,
+    "overallV1": 0.8786568432045458,
+    "colour": 0.9851193617084533,
+    "structure": 0.9440000680300054,
+    "structureStrict": 0.8741764815200789,
+    "colourAligned": 0.9851193617084533,
+    "structureAligned": 0.9440000680300054,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.859406560170476
+      "r": 0.9191751127016836
     },
-    "layout": 0.6722294907096155,
-    "layoutV1": 0.6722294907096155,
+    "layout": 0.9259668578350315,
+    "layoutV1": 0.9259668578350315,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,66 +31,10 @@
     ],
     [
       0,
-      0,
-      0,
-      1280,
-      78
-    ],
-    [
-      1,
-      60,
-      42,
-      115,
-      30
-    ],
-    [
-      1,
-      825,
-      36,
-      395,
-      42
-    ],
-    [
-      3,
-      825,
-      47,
-      45,
-      20
-    ],
-    [
-      3,
-      910,
-      47,
-      76,
-      20
-    ],
-    [
-      3,
-      1026,
-      47,
-      29,
-      20
-    ],
-    [
-      3,
-      1095,
-      36,
-      125,
-      42
-    ],
-    [
-      0,
-      643,
-      124,
-      513,
-      512
-    ],
-    [
-      8,
-      643,
-      124,
-      512,
-      512
+      600,
+      160,
+      520,
+      520
     ],
     [
       0,
@@ -98,6 +42,62 @@
       120,
       520,
       520
+    ],
+    [
+      0,
+      1122,
+      110,
+      106,
+      100
+    ],
+    [
+      0,
+      60,
+      36,
+      1160,
+      42
+    ],
+    [
+      4,
+      60,
+      42,
+      117,
+      30
+    ],
+    [
+      4,
+      829,
+      36,
+      391,
+      42
+    ],
+    [
+      6,
+      829,
+      45,
+      51,
+      24
+    ],
+    [
+      6,
+      912,
+      45,
+      85,
+      24
+    ],
+    [
+      6,
+      1030,
+      45,
+      33,
+      24
+    ],
+    [
+      6,
+      1095,
+      36,
+      125,
+      42
     ],
     [
       0,
@@ -129,164 +129,87 @@
     ],
     [
       0,
+      60,
+      560,
+      520,
+      71
+    ],
+    [
+      15,
       68,
-      565,
-      336,
+      570,
+      333,
       51
     ],
     [
       0,
       60,
-      652,
-      610,
-      33
+      650,
+      540,
+      90
     ],
     [
-      16,
+      17,
+      206,
+      652,
+      18,
+      26
+    ],
+    [
+      17,
+      373,
+      652,
+      18,
+      26
+    ],
+    [
+      17,
       60,
-      652,
-      151,
-      33
-    ],
-    [
-      16,
-      230,
-      652,
+      682,
       18,
-      33
+      26
     ],
     [
-      16,
-      267,
-      652,
-      147,
-      33
-    ],
-    [
-      16,
-      433,
-      652,
+      17,
+      237,
+      682,
       18,
-      33
+      26
     ],
     [
-      16,
-      471,
-      652,
-      199,
-      33
+      17,
+      450,
+      682,
+      18,
+      26
     ],
     [
       0,
-      60,
-      682,
-      668,
-      33
+      815,
+      678,
+      370,
+      175
     ],
     [
-      22,
-      60,
-      682,
-      155,
-      33
-    ],
-    [
-      22,
-      234,
-      682,
-      18,
-      33
-    ],
-    [
-      22,
-      271,
-      682,
-      164,
-      33
-    ],
-    [
-      22,
-      454,
-      682,
-      18,
-      33
-    ],
-    [
-      22,
-      492,
-      682,
-      199,
-      33
-    ],
-    [
-      22,
-      710,
-      682,
-      18,
-      33
-    ],
-    [
-      0,
-      64,
-      712,
-      290,
-      20
-    ],
-    [
-      0,
-      813,
-      669,
-      374,
-      194
-    ],
-    [
-      30,
-      813,
-      669,
-      374,
-      194
-    ],
-    [
-      31,
-      813,
-      667,
-      374,
-      196
-    ],
-    [
-      30,
-      813,
-      669,
-      374,
-      194
-    ],
-    [
-      33,
-      843,
-      710,
-      307,
-      37
-    ],
-    [
-      33,
-      845,
-      730,
-      309,
-      67
-    ],
-    [
-      33,
+      23,
       848,
-      780,
-      308,
-      41
+      694,
+      297,
+      45
     ],
     [
-      0,
-      1122,
-      110,
-      106,
-      100
+      23,
+      850,
+      722,
+      300,
+      89
+    ],
+    [
+      23,
+      855,
+      795,
+      297,
+      42
     ],
     [
       0,
@@ -298,69 +221,57 @@
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.7777777777777778,
+    "recall": 0.8888888888888888,
     "kept": [
       "blend",
       "clip-shape",
       "gradient",
+      "hard-shadow",
       "huge-type",
+      "mask",
       "overlap",
-      "tilt",
-      "uppercase-display"
+      "tilt"
     ],
     "missing": [
-      "hard-shadow",
-      "mask"
+      "uppercase-display"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 47635,
-    "output": 32900,
-    "cacheRead": 188481
+    "input": 40108,
+    "output": 18994,
+    "cacheRead": 152611
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 55786,
-      "output": 17072,
-      "cacheRead": 92422,
+      "billed": 44988,
+      "output": 11353,
+      "cacheRead": 149527,
       "toolCalls": 7,
       "tools": [
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
-        "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
         "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 186755
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 4273,
-      "output": 1601,
-      "cacheRead": 92975,
-      "toolCalls": 1,
-      "tools": [
-        "Edit src/App.tsx"
-      ],
-      "ms": 18173
+      "ms": 118024
     }
   ],
   "ease": {
     "marks": 13,
     "captured": 13,
     "notes": 9,
-    "words": 655,
-    "drawMs": 59877,
-    "readingMs": 157449,
-    "runMs": 364056
+    "words": 763,
+    "drawMs": 63733,
+    "readingMs": 79551,
+    "runMs": 198996
   },
-  "reading": "A festival landing page sketch: a nav bar with a \"Get tickets\" pill button, a huge 3-line \"INK LOUD FEST\" headline with date/location line, a yellow circle and a pink halftone-dot disc overlapping the headline, two rows of lineup act names, a short line beneath them, a tilted dark-blue \"Weekend Pass\" price card with a hard pink shadow, and a jagged pink cut-out badge shape top-right — all per the user's detailed typed styling notes, with a page-wide cream background, dark blue type and a dot-grain overlay.",
+  "reading": "The sketch lays out a festival landing page: a dot-grain-textured cream page overlay, a nav bar with wordmark/links and a pill \"Get tickets\" button, a giant 3-line headline \"INK LOUD FEST\", a double-ruled date/location band, two overlapping flat-colour decorative discs (one yellow, one pink halftone), a one-paragraph line-up blurb wrapping 3 lines with pink star glyphs, a tilted notched ticket-style promo block with a hard pink shadow, and a jagged pink cut-out decoration in the top-right corner.",
   "actions": [
     {
       "kind": "add",
@@ -385,7 +296,7 @@
         42
       ],
       "paths": [],
-      "instruction": "Build a top nav bar: a 20px \"PRINT/FEST\" logo/wordmark first, then nav links Lineup, Workshops, Map, Get tickets. \"Get tickets\" is the selected item (bold, dark"
+      "instruction": "Top nav bar: 20px wordmark \"PRINT/FEST\" first, then nav links Lineup, Workshops, Map, Get tickets. \"Get tickets\" is selected (bold, dark blue underline) and ren"
     },
     {
       "kind": "add",
@@ -412,7 +323,7 @@
         387
       ],
       "paths": [],
-      "instruction": "Giant heavy uppercase hero headline, tightly set (line-height 0.86), broken into exactly 3 lines that must keep these breaks and never rewrap: \"INK\" / \"LOUD\" / "
+      "instruction": "Giant heavy uppercase headline set tight (line-height 0.86), exactly 3 lines, each line kept whole and never re-wrapped (white-space nowrap): \"INK\" / \"LOUD\" / \""
     },
     {
       "kind": "add",
@@ -435,7 +346,7 @@
         61
       ],
       "paths": [],
-      "instruction": "Big heavy date/location line \"14—16 MAY · LEEDS\", 34px (exactly, not larger), kept on one line (white-space: nowrap, never wrapped), about 368px wide, sitting u"
+      "instruction": "Big heavy date/location line \"14—16 MAY · LEEDS\", font-size exactly 34px, on one line (white-space nowrap), about 368px wide, sitting inside a ruled band: a 6px"
     },
     {
       "kind": "design",
@@ -450,7 +361,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a big vivid yellow decorative circle behind/overlapping the hero content, rendered with multiply blend mode (darkens what it overlaps rather than covering i"
+      "instruction": "Ink-like (multiply blend, darkens what it overlaps, never covers it) perfectly round flat disc, 520x520px, border-radius 50%, faded to 85% opacity, solid flat #"
     },
     {
       "kind": "design",
@@ -465,37 +376,13 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Add a halftone dot-screen disc (NOT a shaded sphere, NOT a solid fill): a 520x520px circle (border-radius 50%) with its box at 640,120, no background colour of "
+      "instruction": "Ink-like (multiply blend) halftone dot-screen disc, NOT a sphere, NOT shaded, NOT solid fill: a 520x520px circle (border-radius 50%) at top-left 640,120 with no"
     },
     {
       "kind": "add",
       "textMarks": [
         "s8",
-        "s9"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s8",
-            "s9",
-            "s10"
-          ],
-          "lines": 3,
-          "fontPx": 20
-        }
-      ],
-      "region": [
-        64,
-        660,
-        532,
-        38
-      ],
-      "paths": [],
-      "instruction": "Build the festival lineup as two text rows with exactly 19px flex gap between items (never touching/running together), each piece its own live-text element, eac"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
+        "s9",
         "s10"
       ],
       "textSize": [
@@ -511,12 +398,12 @@
       ],
       "region": [
         64,
-        720,
-        330,
-        9
+        650,
+        532,
+        89
       ],
       "paths": [],
-      "instruction": "Add a short supporting line of copy beneath the lineup rows (text placeholder drawn here with no exact wording given) — write a plausible short line fitting a p"
+      "instruction": "One running paragraph (single <p>, not a grid/list/columns, no added gaps): 540px wide, top-left at 60,650, 22px bold sans-serif #1d2a8a, ALL CAPS, line-height "
     },
     {
       "kind": "add",
@@ -531,7 +418,7 @@
       "paths": [
         "s11"
       ],
-      "instruction": "Add a \"Weekend Pass\" price card: a dark blue (#1d2a8a) block tilted 4° anticlockwise, with cream (#f3ede0) text — label \"WEEKEND PASS\", then big 46px bold \"£48\""
+      "instruction": "Promo block tilted 4° anticlockwise: dark blue block, cream (#f3ede0) text \"WEEKEND PASS\", then big 46px bold \"£48\", then \"ALL 3 DAYS · 40 SHOWS\", with a hard s"
     },
     {
       "kind": "design",
@@ -546,7 +433,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "Add a vivid pink (#ff4f7b) jagged cut-out decorative badge shape in the top-right, rendered with multiply blend mode (darkens what's under it rather than coveri"
+      "instruction": "Ink-like (multiply blend) vivid pink jagged cut-out shape, one flat #ff4f7b fill via clip-path polygon, no gradient/shading/texture; the drawn outline itself is"
     }
   ],
   "rejected": [

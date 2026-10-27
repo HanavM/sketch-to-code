@@ -53,7 +53,7 @@
    ],
    [
     "nav",
-    "nav bar \"MERCURY/OS\", lines \"Engine · Shaders · Pricing · Docs\", \"Get access\"; \"Get access\" is an OUTLINED pill button (NOT a plain link): 122x38px, 1px solid #e9e9f2 border, pill ends, no fill, padding 20px at the sides, #e9e9f2 text"
+    "nav bar \"MERCURY/OS\", lines \"Engine · Shaders · Pricing · Docs\", \"Get access\"; \"Get access\" is an OUTLINED pill button (NOT a plain link): 122x38px, 1px solid #e9e9f2 border, pill ends, no fill, padding 20px at the sides, #e9e9f2 text on ONE line (white-space: nowrap), no underline"
    ],
    [
     "chrome-title",

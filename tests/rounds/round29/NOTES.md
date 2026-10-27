@@ -95,3 +95,27 @@ Planner rules (each a rule, not a page patch):
 Re-planned rounds 1-28: no notes change.
 
 Still open: e5 order form (segmented Buy/Sell, boxed inputs, diamond slider simplified) and ticker labels overlapping; e1 tab underline and sum box; c4 arch double line, inner arch, sunburst; c1 offset discs and ticket notches; c2 barcode and mono lime heading; c5 waves and jellyfish dome.
+
+## n265: planner fixes, re-run live (2026-10-27, ~424k billed)
+
+| page | was | now | marks | words | draw s | run s | tokens | what changed |
+|---|---|---|---|---|---|---|---|---|
+| c1 riso festival | 73% | **92%** | 13 | 742 | 64 | 199 | 59k | yellow disc at its own offset place under the halftone disc, ruled date band, lineup one capitals paragraph with pink stars in place, ticket notched both sides (mask clips the shadow, as in the target) |
+| c4 deco cinema | 90% | **95%**, then **96%** | 13 | ~850 | 69, 71 | 519, 393 | 128k, 104k | sunburst fans up from the bottom middle, arch double gold line and inner ::after arch, half-disc gold fan; second run: show cards filled (columns no longer show through) with outlined SCREEN tags |
+| e5 trading desk | 95% | 93% | 5 | ~2,150 | 78 | 382 | 133k | order form now right by eye (segmented Buy/Sell, boxed inputs, five diamond steps); score down on a lighter page fill and small layout shifts |
+
+Round 29 now **90%** (89.7: c1 92, c2 81, c3 89, c4 96, c5 93, e1 70, e2 93, e3 95, e4 95, e5 93).
+
+Planner rules (each a rule, not a page patch):
+- A see-through flat disc 200px+ says its own box and place, apart from a disc it overlaps (c1 yellow disc was 'big vivid yellow circle').
+- A text block with thick rules above and below is a RULED BAND: both rules, its full width and box (c1 date band).
+- Running text whose inline spans differ only in colour is ONE paragraph that wraps, said line by line, capitals kept (c1 lineup was measured as boxes and built mixed-case in a grid). Not for <br> lines, mono, or big type.
+- Round notches cut by a radial-gradient mask are said: each bite, its side, the exact mask and that it clips the shadow (c1 ticket).
+- An outlined nav pill is not a 'selected underline' and stays on one line (c1 Get tickets wrapped, underlined).
+- A conic sunburst says where its rays meet (c4: bottom middle, built as a round glow at the top) and square corners; a half-disc fan says round top, flat bottom; FAINT only when a painted stop is faint.
+- An arch says its own border (double line) and an unfilled ::after outline inside it (c4 inner arch).
+- A card said only by '<colour> border "words"' says its box, opaque fill and outlined tags (c4 show cards).
+- A small form said as 'button "Buy Sell"' plus a list, with 2-3 empty bordered input boxes, goes part by part (e5 order form).
+Re-planned rounds 1-28: r16 c3 hours row now said ruled above and below with double lines; r23 e4 order form part by part; r24 e5 delivery options part by part; outlined nav pills one line, no underline (r18 c1, r25 e4, r26 c3, r28 e4); r25 c5 price badge no longer called faint; sunburst notes say no outline (r16, r19, r24). None re-run.
+
+Still open: e1 spreadsheet layout shifts (70); c2 barcode and mono lime heading (81); c3 clouds and invented frame (89); e5 slider track line and page fill.
