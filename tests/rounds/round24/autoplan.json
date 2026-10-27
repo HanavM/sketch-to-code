@@ -199,7 +199,7 @@
    ],
    [
     "cta",
-    "dark plum pill label, bold pale yellow \"Find a route\"; its text #fff6e8 (pale yellow, NOT the page's dark plum text); its fill exactly #3a1f3d (solid, NOT pale, NOT see-through), its words on it"
+    "dark plum pill label, bold pale yellow \"Find a route\"; about 161x56px, a fully rounded CAPSULE (border-radius 28px, NOT square corners), flat (no gradient, no shadow), words on one line; its text #fff6e8 (pale yellow, NOT the page's dark plum text); its fill exactly #3a1f3d (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "birds",
@@ -289,7 +289,7 @@
    ],
    [
     "cta",
-    "pill label with a 2px near-black border, bold \"See the system →\""
+    "pill label with a 2px near-black border, bold \"See the system →\"; about 192x53px, a fully rounded CAPSULE (border-radius 27px, NOT square corners), NO fill (the page shows inside it, NOT grey, NOT shaded), flat (no gradient, no shadow), words on one line"
    ]
   ]
  },

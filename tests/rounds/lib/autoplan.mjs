@@ -4692,6 +4692,10 @@ function round11Note(f) {
     const tileM = (f.bgSize ?? '').match(/^([\d.]+)px/)
     const fillW = /gradient/.test(f.bgImage) ? `filled with background: ${cssHex(f.bgImage)}${tileM && +tileM[1] <= 60 ? `; background-size: ${f.bgSize} (it REPEATS: a fine HALFTONE grid of small dots every ${Math.round(+tileM[1])}px, NOT one solid disc)` : ''}` : visible(f.bg) ? `filled ${hexOf(f.bg)}` : 'no fill'
     const arch = f.radius > 0 && f.radiusBottom < f.radius / 2
+    // n274: a mask going from clear to solid within 3% is a round HOLE with a hard edge, not a soft fade (round 30 c4
+    // ray ring: a 40%/41% radial mask said 'edges fade out softly')
+    const hm = cssHex(M.img).match(/radial-gradient\((?:[^,]*?,\s*)?(?:transparent|#0000|rgba\(0, 0, 0, 0\))\s+([\d.]+)%\s*,\s*(?:#000|black|rgb\(0, 0, 0\)|#000000)\s+([\d.]+)%\)/)
+    if (hm && +hm[2] - +hm[1] <= 3) return { kind: 'box', note: `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.radius ? `, border-radius ${M.radius}` : ''}, ${fillW}; a round HOLE is cut clean through its middle by a mask (exactly mask-image: ${cssHex(M.img)}; -webkit-mask-image the same), so it is a RING: whatever lies under it (the parts behind, NOT the page fill) shows through the hole, its edge crisp, NOT a soft fade; NOT a picture placeholder` }
     return { kind: 'box', note: `a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px block at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${arch ? `, an ARCH: border-radius ${M.radius} (round top, nearly square bottom; NOT a circle)` : f.radius ? `, border-radius ${M.radius}` : ''}, ${fillW}; its edges fade out softly under a mask (mask-image: ${cssHex(M.img)}; -webkit-mask-image the same), NOT a picture placeholder` }
   }
   return null
@@ -5431,6 +5435,13 @@ function decideOne(f, page, marked, said) {
     if (cr.hole && /from\s+-?[1-9][\d.]*deg|[\s(][1-9][\d.]*deg/.test(cr.css ?? '')) {
       return { kind: 'box', note: withFx(`a ${cr.px}px GAUGE ring (NOT a donut chart, NOT plain grey): one round div painted exactly background: ${cssHex(cr.css)}; border-radius 50%; a ${colourName(cr.hole.fill)} (${hexOf(cr.hole.fill)}) inner disc inset ${cr.hole.ring}px covers its middle, so only a ${cr.hole.ring}px coloured arc shows, blending colour to colour round the circle, open (see-through) where the gradient is transparent`) }
     }
+    // n274: a whole disc of hard-edged slices set in degrees (round 30 c4 kaleidoscope: twelve 30deg slices were read as
+    // '30%' donut segments with a '-230%' track and the 720px wheel was never built)
+    if (cr.self && !cr.hole && !cr.legend && !cr.title && !cr.smooth && /\d\s*deg/.test(cr.css ?? '') && cr.stops.length >= 3) {
+      const n = cr.stops.length
+      const cols = [...new Set(cr.stops.map((g) => hexOf(g.c)))]
+      return { kind: 'box', note: withFx(`a ${cr.px}px SOLID round PINWHEEL disc (border-radius 50%, filled right to its middle: NOT a donut chart, NOT a ring, NO hole, no labels, no legend) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, cut into about ${n} hard-edged pie slices in ${cols.length} colours (${cols.join(', ')}) turning round its centre, painted exactly background: ${cssHex(cr.css)}; it lies BEHIND the parts over it (lowest z-index), which show it wherever they are see-through; the disc is the ONLY thing there: NO square box, card, wrapper fill or backdrop behind or around it (the page shows at its corners)`) }
+    }
     if (cr.stops.length >= 3) {
       const segs = cr.stops.slice(0, -1).map((g, i) => `${i ? 'then ' : ''}${colourName(g.c)} ${Math.round(g.to - g.from)}%`)
       const host = fill ? `${colourName(f.bg)} card, ` : ''
@@ -5477,7 +5488,7 @@ function decideOne(f, page, marked, said) {
     // n251: a pill painted by a gradient (round 27 c1 gold 'PRE-ORDER' button: transparent fill, gold-to-cream-to-gold
     // background-image) was said with no fill at all and built as an empty outline with its words lost
     const gpaint = !fill && /^linear-gradient/.test((f.bgImage ?? '').trim()) ? `${Math.round(w)}x${Math.round(h)}px pill FILLED with background: ${cssKeep(f.bgImage)} (a solid painted capsule, NOT an empty outline; its words sit on the paint, visible) ` : ''
-    return { kind: 'box', note: withFx(`${gpaint}${fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} ` : ''}pill label${bordered ? ` with a ${Math.round(f.border.w)}px ${colourName(f.border.colour)} border` : ''}, ${f.font.weight >= 600 ? 'bold ' : ''}${ink}${quote(f.text)}`) }
+    return { kind: 'box', note: withFx(`${gpaint}${fill ? `${vivid(f.bg) ? 'vivid ' : ''}${colourName(f.bg)} ` : ''}pill label${bordered ? ` with a ${Math.round(f.border.w)}px ${colourName(f.border.colour)} border` : ''}, ${f.font.weight >= 600 ? 'bold ' : ''}${ink}${quote(f.text)}; about ${Math.round(w)}x${Math.round(h)}px, a fully rounded CAPSULE (border-radius ${Math.round(h / 2)}px, NOT square corners)${!fill && !gpaint ? ', NO fill (the page shows inside it, NOT grey, NOT shaded)' : ''}, flat (no gradient, no shadow), words on one line`) }
   }
 
   // a filled card with a thick coloured left edge (a calendar event, round 6 e5 'Launch sync' said as an 'off-white card')
@@ -5856,7 +5867,7 @@ function decideOne(f, page, marked, said) {
     if (pills) {
       const gaps = kl.every((k) => k.left != null) ? kl.slice(1).map((k, i) => Math.round(k.left - kl[i].right)) : []
       const fillSay = k0p.fill.a < 0.95 ? `a SEE-THROUGH ${colourName({ ...k0p.fill, a: 1 })} fill (background: rgba(${k0p.fill.r}, ${k0p.fill.g}, ${k0p.fill.b}, ${Math.round(k0p.fill.a * 100) / 100}), ${Math.round(k0p.fill.a * 100)}% strong, the page showing through)` : `a solid ${colourName(k0p.fill)} (${hexOf(k0p.fill)}) fill`
-      return { kind: 'box', note: `${kl.length} FILLED pill tags in one row${gaps.length && gaps.every((g) => Math.abs(g - gaps[0]) <= 2) ? `, ${gaps[0]}px apart` : ''}, each ${Math.round(k0p.h)}px tall, fully rounded (border-radius 999px), ${fillSay}, NO border (NOT outlined chips), ${k0p.bold ? 'bold ' : ''}${hexOf(k0p.ink)} text: ${f.kidTexts.map((t) => quote(t)).join(', ')}` + on }
+      return { kind: 'box', note: `${kl.length} FILLED pill tags in one row${gaps.length && gaps.every((g) => Math.abs(g - gaps[0]) <= 2) ? `, ${gaps[0]}px apart` : ''}, each ${Math.round(k0p.h)}px tall, fully rounded (border-radius 999px), ${fillSay}, NO border (NOT outlined chips), ${k0p.bold ? 'bold ' : ''}${hexOf(k0p.ink)} text, each tag's words on ONE line (white-space: nowrap; the tag as wide as its words): ${f.kidTexts.map((t) => quote(t)).join(', ')}` + on }
     }
     // n255: a row of like filled chips with small rounding and no border (round 27 e4 file chips 'kitchen-floor.jpg
     // · 2.1 MB': radius 8 on a 27px chip missed the pill rule, said 'buttons:' and built outlined)

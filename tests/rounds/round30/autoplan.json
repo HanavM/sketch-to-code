@@ -93,7 +93,7 @@
    ],
    [
     "ticket-button",
-    "pill label with a 2px cream border, bold \"WATCH LIVE →\""
+    "pill label with a 2px cream border, bold \"WATCH LIVE →\"; about 226x58px, a fully rounded CAPSULE (border-radius 29px, NOT square corners), NO fill (the page shows inside it, NOT grey, NOT shaded), flat (no gradient, no shadow), words on one line"
    ]
   ]
  },
@@ -327,11 +327,11 @@
    ],
    [
     "colour-wheel",
-    "bleeding off the right page edge (runs 80px past it) a 720px donut chart centred, segments clockwise from the top: pink 30%, then amber 30%, then cyan 30%, then indigo 30%, then pink 30%, then amber 30%, then cyan 30%, then indigo 30%, then pink 30%, then amber 30%, then cyan 30%, the rest a indigo track -230%"
+    "bleeding off the right page edge (runs 80px past it) a 720px SOLID round PINWHEEL disc (border-radius 50%, filled right to its middle: NOT a donut chart, NOT a ring, NO hole, no labels, no legend) at 640,90, cut into about 12 hard-edged pie slices in 4 colours (#ff3d7f, #ffb800, #00d1b2, #7a5cff) turning round its centre, painted exactly background: conic-gradient(#ff3d7f 0deg, #ff3d7f 30deg, #ffb800 30deg, #ffb800 60deg, #00d1b2 60deg, #00d1b2 90deg, #7a5cff 90deg, #7a5cff 120deg, #ff3d7f 120deg, #ff3d7f 150deg, #ffb800 150deg, #ffb800 180deg, #00d1b2 180deg, #00d1b2 210deg, #7a5cff 210deg, #7a5cff 240deg, #ff3d7f 240deg, #ff3d7f 270deg, #ffb800 270deg, #ffb800 300deg, #00d1b2 300deg, #00d1b2 330deg, #7a5cff 330deg, #7a5cff 360deg); it lies BEHIND the parts over it (lowest z-index), which show it wherever they are see-through; the disc is the ONLY thing there: NO square box, card, wrapper fill or backdrop behind or around it (the page shows at its corners)"
    ],
    [
     "ray-ring",
-    "a 480x480px block at 760,210, border-radius 50%, filled with background: repeating-conic-gradient(from 15deg, #1b0b3a 0deg, #1b0b3a 15deg, #ffffff 15deg, #ffffff 30deg); its edges fade out softly under a mask (mask-image: radial-gradient(transparent 40%, #000000 41%); -webkit-mask-image the same), NOT a picture placeholder"
+    "a 480x480px block at 760,210, border-radius 50%, filled with background: repeating-conic-gradient(from 15deg, #1b0b3a 0deg, #1b0b3a 15deg, #ffffff 15deg, #ffffff 30deg); a round HOLE is cut clean through its middle by a mask (exactly mask-image: radial-gradient(transparent 40%, #000000 41%); -webkit-mask-image the same), so it is a RING: whatever lies under it (the parts behind, NOT the page fill) shows through the hole, its edge crisp, NOT a soft fade; NOT a picture placeholder"
    ],
    [
     "up-triangle",
@@ -351,15 +351,15 @@
    ],
    [
     "start-button",
-    "white pill label, bold near-black \"Start free\"; its text #1b0b3a (near-black, NOT the page's white text); its fill exactly #ffffff (solid, NOT pale, NOT see-through), its words on it"
+    "white pill label, bold near-black \"Start free\"; about 134x54px, a fully rounded CAPSULE (border-radius 27px, NOT square corners), flat (no gradient, no shadow), words on one line; its text #1b0b3a (near-black, NOT the page's white text); its fill exactly #ffffff (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "demo-button",
-    "pill label with a 2px white border, bold \"See demo\""
+    "pill label with a 2px white border, bold \"See demo\"; about 140x54px, a fully rounded CAPSULE (border-radius 27px, NOT square corners), NO fill (the page shows inside it, NOT grey, NOT shaded), flat (no gradient, no shadow), words on one line"
    ],
    [
     "chips",
-    "4 FILLED pill tags in one row, 12px apart, each 31px tall, fully rounded (border-radius 999px), a SEE-THROUGH white fill (background: rgba(255, 255, 255, 0.1), 10% strong, the page showing through), NO border (NOT outlined chips), #ffffff text: \"6-fold\", \"12-fold\", \"Radial\", \"Tile\""
+    "4 FILLED pill tags in one row, 12px apart, each 31px tall, fully rounded (border-radius 999px), a SEE-THROUGH white fill (background: rgba(255, 255, 255, 0.1), 10% strong, the page showing through), NO border (NOT outlined chips), #ffffff text, each tag's words on ONE line (white-space: nowrap; the tag as wide as its words): \"6-fold\", \"12-fold\", \"Radial\", \"Tile\""
    ]
   ]
  },

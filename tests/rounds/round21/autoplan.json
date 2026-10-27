@@ -97,7 +97,7 @@
    ],
    [
     "cta",
-    "vivid yellow pill label, bold black \"START A PROJECT →\"; its text #0e0e0e (black, NOT the page's off-white text); placed on its own: position absolute, its top-left at 48,780 of the page, 53px of empty space above it (under the lede); NOT stacked straight under the lede, it keeps its own y; its fill exactly #c6ff00 (solid, NOT pale, NOT see-through), its words on it"
+    "vivid yellow pill label, bold black \"START A PROJECT →\"; about 290x57px, a fully rounded CAPSULE (border-radius 29px, NOT square corners), flat (no gradient, no shadow), words on one line; its text #0e0e0e (black, NOT the page's off-white text); placed on its own: position absolute, its top-left at 48,780 of the page, 53px of empty space above it (under the lede); NOT stacked straight under the lede, it keeps its own y; its fill exactly #c6ff00 (solid, NOT pale, NOT see-through), its words on it"
    ]
   ]
  },
@@ -159,7 +159,7 @@
    ],
    [
     "tags",
-    "3 FILLED pill tags in one row, 12px apart, each 32px tall, fully rounded (border-radius 999px), a SEE-THROUGH white fill (background: rgba(255, 255, 255, 0.55), 55% strong, the page showing through), NO border (NOT outlined chips), bold #3a1a14 text: \"Elevation\", \"Shadows\", \"Depth\"; placed on its own: position absolute, its top-left at 64,700 of the page, 56px of empty space above it (under the cta); NOT stacked straight under the cta, it keeps its own y"
+    "3 FILLED pill tags in one row, 12px apart, each 32px tall, fully rounded (border-radius 999px), a SEE-THROUGH white fill (background: rgba(255, 255, 255, 0.55), 55% strong, the page showing through), NO border (NOT outlined chips), bold #3a1a14 text, each tag's words on ONE line (white-space: nowrap; the tag as wide as its words): \"Elevation\", \"Shadows\", \"Depth\"; placed on its own: position absolute, its top-left at 64,700 of the page, 56px of empty space above it (under the cta); NOT stacked straight under the cta, it keeps its own y"
    ],
    [
     "floor-shadow",

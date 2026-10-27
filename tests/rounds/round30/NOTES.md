@@ -154,3 +154,23 @@ Re-planned rounds 1-29: ring shadows on r11, sunburst slice counts and outlines 
 Round 30 over all ten: **88%** (c1 86, c2 94, c3 89, c4 80, c5 92, e1 87, e2 89, e3 90, e4 84, e5 87).
 
 Next: c4 conic wheel under a masked ring (80); e4 SVG bezier wires (84); c3 mask hard edge, badge inner ring.
+
+## n274: a pinwheel disc read as a donut chart, a ring's hole read as a soft fade, capsule buttons (2026-10-27, ~194k billed)
+
+Cause of c4 80%: the 720px colour wheel (one conic-gradient of twelve hard 30deg slices, no hole) went to the donut-chart
+rule, which reads stop positions as percentages, so it was said as "pink 30%, amber 30% ... the rest a track -230%" and
+never built; the ray ring's 40%/41% radial mask (a clean round hole showing the wheel) was said as "edges fade out
+softly".
+Fix (planner rules, not a page patch): a whole disc of hard-edged slices set in degrees is a PINWHEEL disc said with its
+slice count, colours and exact background, behind the parts over it, no backdrop; a radial mask going clear to solid
+within 3% is a round HOLE with a crisp edge showing the parts beneath; a pill label says its box, capsule rounding
+(half its height), no fill when outlined, flat, one line; filled pill tags keep their words on one line.
+
+Live: first run **93%** (wheel, ray ring, hole and screen-blended triangles right; buttons built square and shaded,
+chips wrapped), second run on the capsule/chip rules **86%** (buttons and chips right; a dark square backdrop behind the
+wheel and the demo button pulled beside the first one, layout 68%). The latest run counts: c4 86. The no-backdrop line on
+the pinwheel is planned, not re-run. 12 marks, ~706 words, 52-55 s drawing, 353-387 s run, ~108k + ~86k tokens, no
+repair turns. Re-planned rounds 1-29: capsule rounding and no-fill said on pill labels in 12 rounds (not re-run).
+Round 30 over all ten: **88%** (c1 86, c2 94, c3 89, c4 86, c5 92, e1 87, e2 89, e3 90, e4 84, e5 87).
+
+Next: c4 backdrop and button place; e4 SVG bezier wires (84); c1 (86); e5 knobs and meters (87).
