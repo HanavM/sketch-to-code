@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-27T00:42Z | n253 r27 re-runs; hard-edge page, glow colour, sprocket bands; ease logging | Smart home 74 to 93, film 86, perfume 81, photo 93; round 27 89. Strokes, words, speed logged. ~584k.
 2026-10-26T23:27Z | n252 live re-runs of r27 weak pages; four planner fixes | Clay 25 to 91, wheel 94, photo editor 91, cluster map 95; round 27 at 86. ~647k.
 2026-10-26T22:35Z | n251 round 27 written and built live; ten planner fixes | Ten harder pages first look 75; clay launch 25, e3 smart home 74, e1 photo editor 75 weakest. ~1.00M.
 2026-10-26T20:05Z | n250 r26 brand row, sub-line, pushed-right Undo, one-line tabs | Permissions 78 to 89, poster 88 to 92, observatory 91, banking 88. Round 26 93. ~637k.
