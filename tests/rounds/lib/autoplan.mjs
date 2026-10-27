@@ -220,6 +220,23 @@ export function factsInPage() {
       // its vertical part: '50% 0%' is a flat bottom under an elliptical top (a cinema screen arc)
       radiusBottomFlat: /^\S+\s+0(px|%)?$/.test(cs.borderBottomLeftRadius.trim()),
       shadow: cs.boxShadow,
+      // n275: connector WIRES: a child svg of only unfilled stroked curves/lines laid over a canvas region (round 30 e4
+      // workflow editor: four bezier wires between nodes never said, built with no wires at all)
+      wires: (() => {
+        if (el.tagName.toLowerCase() === 'svg') return null
+        const sv = [...el.children].find((c) => c.tagName.toLowerCase() === 'svg')
+        if (!sv || sv.querySelector('text, textPath, defs')) return null
+        const ps = [...sv.querySelectorAll('path')]
+        if (sv.querySelector('polyline, polygon, rect, circle, ellipse, line')) return null
+        if (ps.length < 2 || sv.querySelectorAll('*').length > ps.length + 4) return null
+        if (!ps.every((p) => { const g = getComputedStyle(p); return (g.fill === 'none' || rgba(g.fill)?.a <= 0.05) && rgba(g.stroke)?.a > 0.05 })) return null
+        const b = sv.getBoundingClientRect()
+        if (b.width * b.height < 0.3 * r.width * r.height) return null
+        const src = sv.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><').replace(/ style="[^"]*"/, '')
+        if (src.length > 2400) return null
+        const ds = ps.map((p) => p.getAttribute('d') || '')
+        return { src, x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), n: ps.length, curve: ds.every((q) => /[Cc]/.test(q)), elbow: ds.every((q) => /[HhVv]/.test(q) && !/[CcQqSsAa]/.test(q)) }
+      })(),
       centred: cs.textAlign === 'center' || cs.justifyContent === 'center',
       alignEnd: /right|end/.test(cs.textAlign),
       // n236: a panel of price rows each with a ::before depth bar anchored right (round 23 e4 order book: said as 'rows of
@@ -7425,6 +7442,26 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // n241: a round block ringed by inset box-shadows (round 24 c1 seal: paper ring inside the red disc, lost)
     if (/inset/.test(f.shadow ?? '') && f.shadow.split(/,(?![^(]*\))/).every((x) => /0px 0px 0px [\d.]+px inset/.test(x)) && (d.kind === 'circle' || f.radius >= Math.min(f.rect.w, f.rect.h) / 2 - 2) && !/box-shadow/.test(d.note)) add.push(`its inner ring(s) drawn exactly box-shadow: ${cssHex(f.shadow)} (rings inside the circle's edge, keep them)`)
     if (KS && f.kidTexts?.length >= 3 && !d.note.includes(KS.sign)) add.push(`the ${f.kidTexts.length} items are separate spans ${KS.gap ? `${KS.gap}px apart` : 'in a row'}${f.font?.size ? `, ${Math.round(f.font.size)}px ${f.font.weight >= 800 ? 'extra-bold (font-weight 800)' : f.font.weight >= 600 ? 'bold' : ''}${f.font.spacing >= 1 ? `, letter-spacing ${Math.round(f.font.spacing)}px` : ''}` : ''}, and AFTER EACH item a ${KS.diff ? `${colourName(KS.ink)} ${hexOf(KS.ink)} ` : ''}${quote(KS.sign)} sign${KS.ml ? ` ${KS.ml}px after its words (margin-left ${KS.ml}px)` : ''}: ${f.kidTexts.map((t) => `${quote(t, 24)} ${KS.sign}`).join(' ')} (the signs are real characters, never left out)`)
+    if (add.length) d.note += `; ${add.join('; ')}`
+  })
+  // n275: a canvas region's own wires and dot grid, and a selected card's ring (round 30 e4 workflow editor: the canvas
+  // said as an 'invisible frame, no fill' so its dot paper and four bezier wires were lost; the selected node's 2px
+  // orange border and soft ring said only 'white card')
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (!d?.kind || !d.note) return
+    const add = []
+    const W = f.wires
+    if (W && !d.note.includes('<path')) add.push(`its WIRES (the connectors between the cards, NOT boxes, NOT borders): ONE inline SVG ${W.w}x${W.h}px, position absolute with its top-left at page ${W.x},${W.y}, BEHIND the cards and ports (z-index under them, pointer-events none), no fill, copied verbatim with every one of its ${W.n} ${W.curve ? 'curves exactly as written (each a smooth bezier, NOT straight lines, NOT elbows)' : W.elbow ? 'lines exactly as written (each a right-angled elbow of straight runs, NOT curves)' : 'paths exactly as written'}: ${cssHex(W.src)}`)
+    const tile = (f.bgSize ?? '').split(',')[0].trim().match(/^([\d.]+)px(?:\s+([\d.]+)px)?$/)
+    const dot = /^radial-gradient/.test(f.bgImage ?? '') && !/,\s*radial-gradient/.test(f.bgImage) && tile && +tile[1] <= 60
+    if (dot && !/DOT|dot/.test(d.note)) {
+      if (/no fill, no border/.test(d.note)) d.note = d.note.replace('(no fill, no border, no shadow)', '(no border, no shadow; its only paint is the dot grid below)')
+      add.push(`the region itself is painted with a fine DOT GRID over the page colour: background exactly ${cssHex(f.bgImage.replace(/\s+/g, ' ').trim())} at ${Math.round(+tile[1])}px tiles (background-size ${Math.round(+tile[1])}px ${Math.round(+(tile[2] ?? tile[1]))}px), tiny dots, never a solid or gradient fill`)
+    }
+    const ring = (f.shadow ?? '').split(/,(?![^(]*\))/).find((x) => /0px 0px 0px [\d.]+px/.test(x) && !/inset/.test(x))
+    const B = f.border
+    if (ring && B?.w >= 2 && visible(B.colour) && !/box-shadow|SELECTED/.test(d.note)) add.push(`it is the SELECTED one: its edge a ${Math.round(B.w)}px ${hexOf(B.colour)} border (NOT the thin grey edge of the others) with a soft ring just outside it, exactly box-shadow: ${cssHexS(ring.trim())}`)
     if (add.length) d.note += `; ${add.join('; ')}`
   })
   // n189: an app pane (a full-width top bar, a sidebar, a list or reading column) whose only paint is one rule on its

@@ -205,6 +205,10 @@ Rules:
     (any change to it reloads the whole page and drops the run in progress): a
     web font, if one is needed, is an @import url(...) line at the very top of
     the app's main CSS file, else the face with its system fallbacks;
+  a block painted by a CSS background (a gradient, a conic pinwheel of slices, a
+    mask) → a plain div with exactly that background, never put inside an SVG
+    as a <pattern> or <foreignObject> fill (those never paint: the block shows
+    blank), and never by editing the shared drawn-shape component;
   grey text (on a page whose text is white or black) → that softer grey, not the
     page's text colour;
   overlapping → absolute position or negative margin so the two boxes truly overlap;

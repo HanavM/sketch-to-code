@@ -1,24 +1,24 @@
 {
   "id": "e4-workflow-nodes",
-  "at": "2026-10-27T17:16:09.277Z",
+  "at": "2026-10-27T21:16:05.577Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8447080630830561,
-    "overallV2": 0.8447080630830561,
-    "overallV1": 0.8143862122890775,
-    "colour": 0.9948697247349113,
-    "structure": 0.9308565597756372,
-    "structureStrict": 0.9070667335332159,
-    "colourAligned": 0.9948697247349113,
-    "structureAligned": 0.9308565597756372,
+    "overall": 0.9091677845519932,
+    "overallV2": 0.9091677845519932,
+    "overallV1": 0.8656538653894983,
+    "colour": 0.9976796344825517,
+    "structure": 0.9662344164553702,
+    "structureStrict": 0.9320943970008821,
+    "colourAligned": 0.9976796344825517,
+    "structureAligned": 0.9662344164553702,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9915619075966978
+      "r": 0.9934380673469265
     },
-    "layout": 0.8940820630103651,
-    "layoutV1": 0.8940820630103651,
+    "layout": 0.894033879021048,
+    "layoutV1": 0.894033879021048,
     "layoutVersion": 2
   },
   "boxes": [
@@ -34,14 +34,14 @@
       0,
       0,
       1280,
-      900
+      56
     ],
     [
       1,
-      0,
-      0,
-      1280,
-      56
+      24,
+      16,
+      249,
+      23
     ],
     [
       2,
@@ -60,229 +60,229 @@
     [
       2,
       215,
-      18,
-      54,
-      20
-    ],
-    [
-      2,
-      1119,
-      12,
-      137,
-      31
+      17,
+      58,
+      21
     ],
     [
       1,
-      0,
-      56,
-      1280,
-      844
+      1127,
+      12,
+      129,
+      31
     ],
     [
-      7,
+      0,
       0,
       56,
       220,
       844
     ],
     [
-      8,
+      7,
       16,
       72,
       187,
       32
     ],
     [
-      8,
+      7,
       16,
       122,
       187,
-      17
+      14
     ],
     [
-      8,
+      7,
       16,
       144,
       187,
       40
     ],
     [
-      11,
+      10,
       24,
       152,
       24,
       24
     ],
     [
-      11,
+      10,
       58,
       155,
       54,
       18
     ],
     [
-      8,
+      7,
       16,
       186,
       187,
       40
     ],
     [
-      14,
+      13,
       24,
       194,
       24,
       24
     ],
     [
-      14,
+      13,
       58,
       197,
       53,
       18
     ],
     [
-      8,
+      7,
       16,
       244,
       187,
-      17
+      14
     ],
     [
-      8,
+      7,
       16,
       266,
       187,
       40
     ],
     [
-      18,
+      17,
       24,
       274,
       24,
       24
     ],
     [
-      18,
+      17,
       58,
       277,
       78,
       18
     ],
     [
-      8,
+      7,
       16,
       308,
       187,
       40
     ],
     [
-      21,
+      20,
       24,
       316,
       24,
       24
     ],
     [
-      21,
+      20,
       58,
       319,
       47,
       18
     ],
     [
-      8,
+      7,
       16,
       350,
       187,
       40
     ],
     [
-      24,
+      23,
       24,
       358,
       24,
       24
     ],
     [
-      24,
+      23,
       58,
       361,
       83,
       18
     ],
     [
-      8,
+      7,
       16,
       392,
       187,
       40
     ],
     [
-      27,
+      26,
       24,
       400,
       24,
       24
     ],
     [
-      27,
+      26,
       58,
       403,
       63,
       18
     ],
     [
-      8,
+      7,
       16,
       450,
       187,
-      17
+      14
     ],
     [
-      8,
+      7,
       16,
       472,
       187,
       40
     ],
     [
-      31,
+      30,
       24,
       480,
       24,
       24
     ],
     [
-      31,
+      30,
       58,
       483,
       42,
       18
     ],
     [
-      8,
+      7,
       16,
       514,
       187,
       40
     ],
     [
-      34,
+      33,
       24,
       522,
       24,
       24
     ],
     [
-      34,
+      33,
       58,
       525,
       37,
       18
     ],
     [
-      7,
+      0,
+      220,
+      56,
+      780,
+      844
+    ],
+    [
+      36,
       220,
       56,
       780,
@@ -290,400 +290,446 @@
     ],
     [
       37,
-      259,
-      209,
-      182,
-      96
-    ],
-    [
-      38,
-      272,
-      227,
-      156,
-      20
-    ],
-    [
-      38,
-      272,
-      251,
-      156,
-      36
+      446,
+      242,
+      98,
+      130
     ],
     [
       37,
-      553,
-      329,
-      184,
-      99
+      740,
+      252,
+      84,
+      120
     ],
     [
-      41,
-      566,
-      349,
-      158,
-      20
-    ],
-    [
-      41,
-      566,
+      37,
+      740,
       372,
-      158,
-      36
+      84,
+      170
     ],
     [
       37,
-      833,
-      210,
-      163,
-      77
+      640,
+      316,
+      290,
+      360
     ],
     [
-      44,
-      846,
-      228,
-      137,
-      20
-    ],
-    [
-      44,
-      846,
-      251,
-      137,
-      18
-    ],
-    [
-      37,
+      36,
       440,
       236,
       12,
       12
     ],
     [
-      37,
+      36,
       818,
       246,
       12,
       12
     ],
     [
-      37,
+      36,
       538,
       366,
       12,
       12
     ],
     [
-      37,
+      36,
       734,
       366,
       12,
       12
     ],
     [
-      37,
+      36,
+      259,
+      209,
+      182,
+      96
+    ],
+    [
+      46,
+      276,
+      226,
+      148,
+      21
+    ],
+    [
+      46,
+      276,
+      253,
+      148,
+      36
+    ],
+    [
+      36,
+      553,
+      329,
+      184,
+      99
+    ],
+    [
+      49,
+      571,
+      347,
+      148,
+      21
+    ],
+    [
+      49,
+      571,
+      374,
+      148,
+      36
+    ],
+    [
+      36,
+      833,
+      210,
+      163,
+      77
+    ],
+    [
+      52,
+      850,
+      226,
+      129,
+      21
+    ],
+    [
+      52,
+      850,
+      253,
+      129,
+      18
+    ],
+    [
+      36,
       830,
       496,
       170,
       84
     ],
     [
-      51,
+      55,
       831,
       497,
       168,
       43
     ],
     [
-      52,
+      56,
       843,
       507,
       22,
       22
     ],
     [
-      52,
+      56,
       873,
       508,
       81,
       20
     ],
     [
-      51,
+      55,
       831,
       540,
       168,
       39
     ],
     [
-      55,
+      59,
       843,
       551,
       87,
       18
     ],
     [
-      37,
+      36,
       818,
       536,
       12,
       12
     ],
     [
-      37,
+      36,
       550,
       676,
       190,
       84
     ],
     [
-      58,
+      62,
       551,
       677,
       188,
       43
     ],
     [
-      59,
+      63,
       563,
       687,
       22,
       22
     ],
     [
-      59,
+      63,
       593,
       688,
       71,
       20
     ],
     [
-      58,
+      62,
       551,
       720,
       188,
       39
     ],
     [
-      62,
+      66,
       563,
       731,
       107,
       18
     ],
     [
-      37,
+      36,
       634,
       670,
       12,
       12
     ],
     [
-      37,
+      36,
       841,
       785,
       110,
       70
     ],
     [
-      37,
+      36,
       835,
       801,
       26,
       14
     ],
     [
-      37,
+      36,
       925,
       801,
       26,
       14
     ],
     [
-      37,
+      36,
       879,
       821,
       26,
       14
     ],
     [
-      37,
+      36,
       925,
       841,
       26,
       14
     ],
     [
-      37,
+      36,
       879,
       859,
       26,
       14
     ],
     [
-      37,
+      36,
       241,
       847,
-      163,
+      161,
       29
     ],
     [
-      71,
-      242,
-      848,
+      75,
+      241,
+      847,
       33,
-      27
+      29
     ],
     [
-      71,
-      275,
-      848,
+      75,
+      274,
+      847,
       57,
-      27
+      29
     ],
     [
-      71,
-      332,
-      848,
+      75,
+      331,
+      847,
       33,
-      27
+      29
     ],
     [
-      71,
-      365,
-      848,
+      75,
+      364,
+      847,
       38,
-      27
+      29
     ],
     [
-      7,
+      0,
       1000,
       56,
       280,
       844
     ],
     [
-      76,
+      80,
       1019,
       74,
       243,
-      23
+      19
     ],
     [
-      76,
+      80,
       1019,
       109,
       243,
-      18
+      15
     ],
     [
-      76,
+      80,
       1019,
       130,
       243,
       34
     ],
     [
-      76,
+      80,
       1019,
       180,
       243,
-      18
+      15
     ],
     [
-      76,
+      80,
       1019,
       201,
       243,
       120
     ],
     [
-      76,
+      80,
       1019,
       337,
       243,
-      18
+      15
     ],
     [
-      76,
+      80,
       1019,
       358,
       243,
       34
     ],
     [
-      76,
+      80,
+      1019,
+      413,
+      89,
+      15
+    ],
+    [
+      80,
       1226,
       410,
       36,
       20
     ],
     [
-      84,
+      89,
       1244,
       412,
       16,
       16
-    ],
-    [
-      76,
-      1019,
-      413,
-      89,
-      18
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.5,
+    "recall": 0.75,
     "kept": [
+      "gradient",
       "mono",
       "overlap"
     ],
     "missing": [
-      "gradient",
       "soft-shadow"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 54327,
-    "output": 30978,
-    "cacheRead": 259937
+    "input": 64047,
+    "output": 27116,
+    "cacheRead": 327339
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 70892,
-      "output": 25880,
-      "cacheRead": 256853,
+      "billed": 68417,
+      "output": 19169,
+      "cacheRead": 311348,
       "toolCalls": 8,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
+        "Read src/main.tsx",
         "Read s2c-bench-app/package.json",
-        "Read s2c-bench-app/index.html",
         "Edit src/index.css",
         "Write src/App.tsx"
       ],
-      "ms": 275380
+      "ms": 186325
     }
   ],
   "ease": {
     "marks": 9,
     "captured": 9,
     "notes": 10,
-    "words": 2114,
-    "drawMs": 69506,
-    "readingMs": 51130,
-    "runMs": 327773
+    "words": 2290,
+    "drawMs": 65862,
+    "readingMs": 69810,
+    "runMs": 257355
   },
-  "reading": "The sketch lays out a workflow-builder app shell: a top bar, a left node-library panel of draggable trigger/action/logic rows, a central node-canvas with three connected workflow cards (New lead → Score with AI → Score ≥ 7?) plus connector dots, a minimap widget and a zoom toolbar, and a right inspector panel configuring the 'Score with AI' node. Every region and part is fully specified by the accompanying typed notes, which take precedence over the raw ink shapes.",
+  "reading": "The sketch is a full workflow-builder app shell: a white top bar, a left inspector/node-library panel, a central node canvas with three connected flow cards (New lead → Score with AI, selected → Score ≥ 7? branch), a small pagination/dot indicator, zoom controls, and a right-side inspector panel configuring the 'Score with AI' node. Typed notes give exact pixel specs, colors and copy for every part, which take precedence over the rough ink.",
   "actions": [
     {
       "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "instruction": "Whole page: pale grey (#f5f6f8) background, Inter typeface, dark navy text. Build an APP SHELL: under a 56px top bar, the window is tiled edge-to-edge by fixed "
+    },
+    {
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -695,10 +741,10 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top bar: ONE 1280x56px element at 0,0, its own wrapper, #ffffff fill, 1px #e3e6eb bottom rule only, 56px tall, contents vertically centred. Contains: 'Lead enri"
+      "instruction": "Top bar: one 1280x56px wrapper at 0,0, #ffffff fill, 1px #e3e6eb border-bottom only, contents vertically centered. Contains, left-aligned together: 'Lead enrich"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -710,10 +756,10 @@
       "paths": [
         "s1"
       ],
-      "instruction": "Left node-library panel (220x844px white): 3 sections (TRIGGERS, ACTIONS, LOGIC), each a small bold caps heading (#8a91a0, letter-spacing 1px) followed by dragg"
+      "instruction": "Left node-library/inspector panel, white, 220x844 at 0,56, three sections (TRIGGERS, ACTIONS, LOGIC) each a small bold caps heading (11px bold #8a91a0, letter-s"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -725,7 +771,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Node-canvas: an invisible 780x844px frame at 220,56 (no fill/border) holding connector dots (small circles, white fill, 2px #7a8394 border, except one 2px #ff6d"
+      "instruction": "Node canvas: an invisible frame 780x844 at 220,56 (no border/shadow), background painted as a fine dot grid: radial-gradient(#cfd4dc 1px, transparent 1.4px), 20"
     },
     {
       "kind": "add",
@@ -740,7 +786,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "White workflow card on the canvas: title 'New lead' (#1e2430) with subtext 'Webhook · POST /hooks/leads' (#6b7385), sized/positioned as sketched."
+      "instruction": "Flow card on the canvas: white card titled 'New lead', subtext 'Webhook · POST /hooks/leads'; title text #1e2430, subtext #6b7385."
     },
     {
       "kind": "add",
@@ -755,7 +801,7 @@
       "paths": [
         "s4"
       ],
-      "instruction": "White workflow card on the canvas: title 'Score with AI' with subtext 'Model: claude  Prompt: rate fit 1–10', sized/positioned as sketched."
+      "instruction": "Flow card on the canvas: white card titled 'Score with AI', subtext 'Model: claude  Prompt: rate fit 1–10'. This is the SELECTED node: 2px #ff6d3a border (not t"
     },
     {
       "kind": "add",
@@ -770,7 +816,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "White workflow card on the canvas: title 'Score ≥ 7?' (#1e2430) with subtext 'true → Slack' (#6b7385), sized/positioned as sketched."
+      "instruction": "Flow card on the canvas: white card titled 'Score ≥ 7?', subtext 'true → Slack'; title text #1e2430, subtext #6b7385."
     },
     {
       "kind": "add",
@@ -785,7 +831,7 @@
       "paths": [
         "s6"
       ],
-      "instruction": "Small minimap/orientation widget near the bottom-right of the canvas: a 110x70px box with 2px #ff6d3a border, 4px rounded, containing 5 small pill marks (26x14p"
+      "instruction": "Small mini-map/status widget on the canvas: 110x70 box at 841,785 with a 2px #ff6d3a border, 4px rounded, containing four small pill dots (26x14, 2px rounded) a"
     },
     {
       "kind": "add",
@@ -800,10 +846,10 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Zoom control toolbar bottom-left of the canvas: four segments each with a right 1px #d6dae1 border (last one without), padding-left 12px, 12px #1e2430 text — '−"
+      "instruction": "Zoom control bar at the bottom of the canvas: four segments side by side, each with a right 1px #d6dae1 border (last one plain): '−' (33x29), '100%' (57x29), '+"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -815,10 +861,8 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Right inspector panel: ONE 280x844px white panel at 1000,56 holding, top to bottom: bold heading 'Score with AI'; label 'Model' with a bordered select-style fie"
+      "instruction": "Right inspector panel: one white 280x844 panel at 1000,56 configuring the selected node. Contains: bold 15px title 'Score with AI'; label 'Model' (bold #6b7385)"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }

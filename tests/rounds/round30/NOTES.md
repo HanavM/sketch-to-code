@@ -174,3 +174,26 @@ repair turns. Re-planned rounds 1-29: capsule rounding and no-fill said on pill 
 Round 30 over all ten: **88%** (c1 86, c2 94, c3 89, c4 86, c5 92, e1 87, e2 89, e3 90, e4 84, e5 87).
 
 Next: c4 backdrop and button place; e4 SVG bezier wires (84); c1 (86); e5 knobs and meters (87).
+
+## n275: canvas wires, dot paper and the selected node; a pinwheel painted inside an SVG pattern (2026-10-27, ~288k billed)
+
+Cause of e4 84%: the workflow canvas has no fill of its own, so it was said as "an invisible frame, no fill" and its
+two looks were never said: the dot paper (a 20px tiled radial dot) and the inline SVG of four bezier wires between the
+nodes (one dashed). The selected node (2px orange border and a soft 4px orange ring) was said only "white card".
+Fix (planner rules, not a page patch): a region holding an SVG of only unfilled stroked paths says its WIRES verbatim,
+behind the cards, worded as curves (beziers) or elbows (right-angled runs) by the paths themselves; a region painted
+by one tiled radial dot says its DOT GRID even when it is a frame; a card with a 2px+ coloured border and a spread-only
+ring shadow says it is the SELECTED one with that border and ring.
+
+Cause of the c4 re-run's 81%: with the backdrop gone, the code writer painted the pinwheel as a CSS conic gradient in a
+foreignObject inside an SVG pattern in the shared drawn-shape component, which never paints (the wheel showed blank).
+Build brief: a block painted by a CSS background is a plain div with that background, never an SVG pattern or
+foreignObject fill, never an edit to the shared drawn-shape component.
+
+Live: e4 **91%** (wires, dot paper, selected ring right; 9 marks, ~2,290 words, 66 s drawing, 257 s run, ~91k tokens,
+no repair turn). c4 81% (wheel blank, backdrop and buttons right), then on the brief line **93%** (wheel, ring, hole,
+triangles, buttons, chips right; 12 marks, 52 s drawing, 358 s run, ~101k tokens, no repair turn).
+Re-planned rounds 1-29: wires said on r17, r21, r28, r29 (not re-run). Round 30 over all ten: **90%** (c1 86, c2 94,
+c3 89, c4 93, c5 92, e1 87, e2 89, e3 90, e4 91, e5 87).
+
+Next: c1 chess match (86); e5 knobs and meters (87); e1 recruiting (87).
