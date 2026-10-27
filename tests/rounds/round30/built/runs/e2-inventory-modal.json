@@ -1,0 +1,194 @@
+{
+  "id": "e2-inventory-modal",
+  "at": "2026-10-27T15:48:59.890Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.03333333333333333,
+    "overallV2": 0.03333333333333333,
+    "overallV1": 0.03333333333333333,
+    "colour": 0.3803737788417788,
+    "structure": 0.38479232936724794,
+    "structureStrict": 0.38479232936724794,
+    "colourAligned": 0.3803737788417788,
+    "structureAligned": 0.38479232936724794,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": -1
+    },
+    "layout": 0.1111111111111111,
+    "layoutV1": 0.1111111111111111,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "glass",
+      "overlap",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 6276,
+    "output": 8804,
+    "cacheRead": 3084
+  },
+  "sends": null,
+  "ease": {
+    "marks": 9,
+    "captured": 9,
+    "notes": 10,
+    "words": 804,
+    "drawMs": 84764,
+    "readingMs": 98543,
+    "runMs": 251735
+  },
+  "reading": "The sketch lays out an inventory-management page (left nav sidebar, 'Inventory' title, 4 stat cards, a stock table) and, on top of it, a frosted overlay with a modal dialog containing a camera-view tile, a found-item result row, and a quantity stepper (for scanning/adding stock). Typed notes give exact specs (sizes, colors, copy) for every part, which take priority over the rough ink shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Draw the left-edge stroke as a single 220x900px full-height sidebar wrapper (its own element, not laid loose on the page), pinned at 0,0: #ffffff fill, square c"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        252,
+        71,
+        997,
+        79
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "At the very top of the main content area, above the stat cards and the stock table, add a bold page title: 22px bold #1d2433 text 'Inventory' in a 1004x26px are"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        251,
+        176,
+        998,
+        334
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a white card/table panel below the stat-card row. It has a 1002x38px header strip across its top (its own element with a 1px #eef0f3 rule underneath), holdi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a full-page frosted-glass overlay layer: a see-through dark navy layer at 80% opacity that sits above the whole page, dimming (not hiding) everything undern"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        393,
+        133,
+        494,
+        594
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a modal dialog panel, 500x600px, positioned absolutely at 390,130, keeping its full 600px height always (never shorter). Style: #ffffff background, 16px rou"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        418,
+        197,
+        445,
+        233
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Inside the modal, add a plain dark navy (#1d2433) tile, 452x240px, 12px rounded corners — flat colour only, no picture, no X, no icon, no text (a camera-view pl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        418,
+        452,
+        445,
+        71
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Below the camera-view tile in the modal, add a 'found item' row: a 48x48px empty #e7e9ee square thumbnail (8px rounded, no icon/emoji/picture inside) on the lef"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        418,
+        543,
+        444,
+        40
+      ],
+      "paths": [],
+      "instruction": "Below the found-item row in the modal, add a quantity stepper control: a 44x40px '−' button (1px #d5d9e0 border, 8px rounded, 18px #1d2433 glyph); a 80x40px num"
+    }
+  ],
+  "rejected": []
+}

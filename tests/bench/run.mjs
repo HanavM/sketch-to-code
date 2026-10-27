@@ -625,6 +625,13 @@ while (queue.length) {
       if (!busy && i > 4) break
       await page.waitForTimeout(500)
     }
+    // n268: a full page reload mid-build (the dev server logs "page reload index.html") drops the overlay out of
+    // 'running' while the codegen goes on server-side; the bench then scored a blank page and reset the app under
+    // the live build (round 30: 4 of 10 pages, zero codegen tokens). With no run record yet, wait for it.
+    for (let i = 0; i < 1200 && !readRunRecord(APP_DIR); i++) {
+      if (i === 0) log('overlay left running with no run record (page reloaded?): waiting for the build to finish')
+      await page.waitForTimeout(500)
+    }
     row.runMs = Date.now() - runStart
     const status = await statusNow()
     log(`run finished in ${(row.runMs / 1000).toFixed(0)}s · ${status.slice(0, 140)}`)
@@ -640,6 +647,12 @@ while (queue.length) {
       codegen,
     }
     spent += row.tokens.input + row.tokens.output
+    if (!record) {
+      // n268: codegen ended with no run record (zero codegen tokens, page left blank): keep the
+      // dev server's last lines so the cause is on file, not guessed
+      row.serverTail = (server?.log?.() ?? '').split('\n').slice(-60).join('\n')
+      log(`no codegen record: status "${status.slice(0, 120)}"; server tail saved to the row (serverTail)`)
+    }
     if (record?.sends?.length) {
       log('codegen turns: ' + record.sends.map((t) => `${t.attempt}/${t.kind} ${Math.round(t.billed / 1000)}k ${t.toolCalls} tools`).join(' · '))
       // which calls: Read/Edit/Write counts per turn (a 23-call build is many small Edits or re-Reads)

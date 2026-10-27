@@ -1,0 +1,408 @@
+{
+  "id": "c1-chess-match",
+  "at": "2026-10-27T15:12:58.128Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8610765974509822,
+    "overallV2": 0.8610765974509822,
+    "overallV1": 0.8357770136188863,
+    "colour": 0.9707518024044968,
+    "structure": 0.9358793100433738,
+    "structureStrict": 0.86965796228322,
+    "colourAligned": 0.9707518024044968,
+    "structureAligned": 0.9358793100433738,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9714923062356091
+    },
+    "layout": 0.6704794206947591,
+    "layoutV1": 0.6704794206947591,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      -2688,
+      -2695,
+      6656,
+      3125
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      2,
+      56,
+      40,
+      85,
+      24
+    ],
+    [
+      2,
+      865,
+      40,
+      290,
+      24
+    ],
+    [
+      4,
+      865,
+      40,
+      74,
+      24
+    ],
+    [
+      4,
+      979,
+      40,
+      68,
+      24
+    ],
+    [
+      4,
+      1088,
+      40,
+      68,
+      24
+    ],
+    [
+      0,
+      56,
+      120,
+      397,
+      206
+    ],
+    [
+      8,
+      56,
+      120,
+      397,
+      103
+    ],
+    [
+      8,
+      56,
+      223,
+      397,
+      103
+    ],
+    [
+      0,
+      932,
+      113,
+      316,
+      180
+    ],
+    [
+      0,
+      470,
+      150,
+      323,
+      360
+    ],
+    [
+      0,
+      56,
+      520,
+      21,
+      291
+    ],
+    [
+      0,
+      1000,
+      470,
+      220,
+      110
+    ],
+    [
+      14,
+      1003,
+      500,
+      215,
+      51
+    ],
+    [
+      0,
+      56,
+      780,
+      218,
+      51
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "gradient",
+      "hard-shadow",
+      "hollow-type",
+      "huge-type",
+      "mono",
+      "stripes-or-layers",
+      "uppercase-display",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": [
+      "serif"
+    ]
+  },
+  "tokens": {
+    "input": 52321,
+    "output": 14743,
+    "cacheRead": 347732
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 44861,
+      "output": 5243,
+      "cacheRead": 335945,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 54377
+    }
+  ],
+  "ease": {
+    "marks": 10,
+    "captured": 10,
+    "notes": 10,
+    "words": 495,
+    "drawMs": 65022,
+    "readingMs": 94142,
+    "runMs": 150180
+  },
+  "reading": "The sketch is a dark event-poster hero page: a near-black background with a 3D checkerboard floor fading in from mid-page, a top nav row (\"GAMBIT/26\" plus PLAYERS/TICKETS/STREAM links), a giant two-line headline \"ORLOV VS\" (VS hollow) on the left paired with \"KANE\" on the right, a huge serif knight glyph with a misregistered print-shadow copy, a vertical rotated date/location label, an orange countdown button (\"14:52 09:07\"), and a \"WATCH LIVE →\" pill button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6"
+          ],
+          "lines": 1,
+          "fontPx": 364
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a dark grey to near-black gradient block behind the whole page content, as a backdrop holding nothing."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6"
+          ],
+          "lines": 1,
+          "fontPx": 364
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        453
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a checkerboard FLOOR laid back in 3D perspective, going away into the distance: ONE 900x900px block, position absolute, top-left at 190,430 before the turn "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        424
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a top nav row: 16px \"GAMBIT/26\" at the left, then links PLAYERS, TICKETS, STREAM pushed to the far right (724px gap between the two groups); set font-weight"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 93
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        424
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a giant Helvetica heavy uppercase tight-set headline, line-height 0.86, set in exactly 2 lines: \"ORLOV\" / \"VS\" (keep these line breaks, never rewrap, white-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5"
+          ],
+          "lines": 1,
+          "fontPx": 131
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        424
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a giant Helvetica heavy tight-set headline \"KANE\", 120px font-size, about 316px wide (no larger), placed to the right near the top (matching the drawn posit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6"
+          ],
+          "lines": 1,
+          "fontPx": 364
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a giant serif regular-weight single character \"♞\" (U+265E) as LIVE TEXT (never SVG/path/drawn squiggle), 360px font-size, about 323px wide, box top-left at "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s7"
+      ],
+      "instruction": "Add a wide-spaced (letter-spacing 10px) bright orange (#e0a43a) vertical text label, writing-mode: vertical-rl, rotated 180deg (transform: rotate(180deg)) so it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8"
+          ],
+          "lines": 1,
+          "fontPx": 50
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a solid bright orange (#e0a43a) filled button block, exactly 220x110px, top-left at 1000,470, 14px rounded corners, with a hard solid opaque brown shadow of"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s9"
+      ],
+      "instruction": "Add a pill-shaped button label with a 2px cream border, bold text \"WATCH LIVE →\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

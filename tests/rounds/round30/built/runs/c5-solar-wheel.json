@@ -1,0 +1,635 @@
+{
+  "id": "c5-solar-wheel",
+  "at": "2026-10-27T15:34:50.731Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7660435713562262,
+    "overallV2": 0.7660435713562262,
+    "overallV1": 0.7025309464135767,
+    "colour": 0.974381066313815,
+    "structure": 0.8193357829193502,
+    "structureStrict": 0.7400672100127211,
+    "colourAligned": 0.974381066313815,
+    "structureAligned": 0.8193357829193502,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6733189929192566
+    },
+    "layout": 0.898408831853518,
+    "layoutV1": 0.7984088318535181,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      76,
+      44,
+      1128,
+      24
+    ],
+    [
+      1,
+      76,
+      44,
+      86,
+      24
+    ],
+    [
+      1,
+      1006,
+      44,
+      198,
+      24
+    ],
+    [
+      3,
+      1006,
+      44,
+      58,
+      24
+    ],
+    [
+      3,
+      1104,
+      44,
+      35,
+      24
+    ],
+    [
+      3,
+      1179,
+      44,
+      25,
+      24
+    ],
+    [
+      0,
+      520,
+      90,
+      720,
+      720
+    ],
+    [
+      0,
+      640,
+      210,
+      480,
+      480
+    ],
+    [
+      0,
+      860,
+      434,
+      40,
+      16
+    ],
+    [
+      0,
+      859,
+      425,
+      43,
+      34
+    ],
+    [
+      0,
+      863,
+      421,
+      34,
+      43
+    ],
+    [
+      0,
+      872,
+      422,
+      16,
+      40
+    ],
+    [
+      0,
+      863,
+      421,
+      34,
+      43
+    ],
+    [
+      0,
+      859,
+      425,
+      43,
+      34
+    ],
+    [
+      0,
+      860,
+      434,
+      40,
+      16
+    ],
+    [
+      0,
+      859,
+      425,
+      43,
+      34
+    ],
+    [
+      0,
+      863,
+      421,
+      34,
+      43
+    ],
+    [
+      0,
+      872,
+      422,
+      16,
+      40
+    ],
+    [
+      0,
+      863,
+      421,
+      34,
+      43
+    ],
+    [
+      0,
+      859,
+      425,
+      43,
+      34
+    ],
+    [
+      0,
+      879,
+      448,
+      4,
+      300
+    ],
+    [
+      21,
+      871,
+      442,
+      20,
+      20
+    ],
+    [
+      0,
+      560,
+      161,
+      590,
+      579
+    ],
+    [
+      23,
+      560,
+      161,
+      590,
+      579
+    ],
+    [
+      24,
+      883,
+      451,
+      225,
+      189
+    ],
+    [
+      24,
+      784,
+      354,
+      192,
+      192
+    ],
+    [
+      0,
+      80,
+      170,
+      334,
+      152
+    ],
+    [
+      27,
+      80,
+      170,
+      334,
+      76
+    ],
+    [
+      27,
+      80,
+      246,
+      334,
+      76
+    ],
+    [
+      29,
+      287,
+      242,
+      127,
+      84
+    ],
+    [
+      0,
+      72,
+      420,
+      380,
+      58
+    ],
+    [
+      0,
+      72,
+      600,
+      38,
+      38
+    ],
+    [
+      0,
+      128,
+      600,
+      38,
+      38
+    ],
+    [
+      0,
+      184,
+      600,
+      38,
+      38
+    ],
+    [
+      0,
+      240,
+      600,
+      38,
+      38
+    ],
+    [
+      0,
+      76,
+      703,
+      274,
+      42
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "moon-phases",
+      "iou": 1,
+      "parts": 4,
+      "rect": {
+        "x": 72,
+        "y": 600,
+        "w": 206,
+        "h": 38
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "hard-shadow",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 55455,
+    "output": 33004,
+    "cacheRead": 186575
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 58593,
+      "output": 20284,
+      "cacheRead": 172817,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/Sun.tsx",
+        "Read src/main.tsx",
+        "Edit components/Sun.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 225690
+    }
+  ],
+  "ease": {
+    "marks": 18,
+    "captured": 18,
+    "notes": 11,
+    "words": 626,
+    "drawMs": 82504,
+    "readingMs": 119494,
+    "runMs": 346834
+  },
+  "reading": "This is a full hero/landing page design for an \"Almanac\" dial product: a nav bar, a big circular dial graphic (sunburst disc + dashed ring + arc-curved month labels + a thin playhead + a sun sphere), a large two-line headline, a descriptive paragraph, a row of 4 moon-phase style dots, and a dark CTA button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        76,
+        53,
+        1128,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: bold \"ALMANAC\" wordmark sits together at the left; then links \"Calendar\", \"Tides\", \"Sky\" pushed to the far right (roughly an 833px gap from "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 7,
+          "fontPx": 85
+        }
+      ],
+      "region": [
+        560,
+        122,
+        590,
+        656
+      ],
+      "paths": [],
+      "instruction": "A SUNBURST: 6 sharp straight rays fanning out from one centre, alternating warm paper #e7d6b4 and cream #f3ead8, each ray 30deg wide (like a starburst/pinwheel "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 7,
+          "fontPx": 85
+        }
+      ],
+      "region": [
+        560,
+        161,
+        590,
+        579
+      ],
+      "paths": [
+        "s10",
+        "s11"
+      ],
+      "instruction": "A ROUND (border-radius 50%, a circle 480px across, NEVER a square) 1px dashed #2b2118 outline (dashes, not a solid line), a big near-black outline circle sittin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 7,
+          "fontPx": 85
+        }
+      ],
+      "region": [
+        524,
+        94,
+        712,
+        712
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "The word \"JANFEBMARAPRMAYJUNJULAUGSEPOCT\"… set on an ARC (a curved title bending over a centre point, NOT a straight line, NOT links): a zero-size anchor div at"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 7,
+          "fontPx": 85
+        }
+      ],
+      "region": [
+        560,
+        161,
+        590,
+        579
+      ],
+      "paths": [
+        "s2",
+        "s10",
+        "s11"
+      ],
+      "instruction": "A THIN vertical line (a playhead), NOT a bar or block: ONE 4x300px div, position absolute with its top-left at 879,448 page px, background #2b2118, laid OVER ev"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 7,
+          "fontPx": 85
+        }
+      ],
+      "region": [
+        560,
+        161,
+        590,
+        579
+      ],
+      "paths": [
+        "s10",
+        "s11"
+      ],
+      "instruction": "A 200px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 35%, #ffd36b 0%, #e2761b 100%) so it looks lit from the top"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 69
+        }
+      ],
+      "region": [
+        80,
+        170,
+        378,
+        152
+      ],
+      "paths": [],
+      "instruction": "Huge Georgia serif regular weight (not bold) headline set tight (line-height 1) \"The year, in one turn\", set in exactly 2 lines: \"The year,\" / \"in one turn\" (ke"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14",
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s14",
+            "s15"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        76,
+        420,
+        372,
+        58
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text \"Sunrise, solstice and every full moon on a single dial. Printed on cotton paper, made to hang.\"; set in a 380px wide box (width: 380px, its"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        76,
+        604,
+        199,
+        31
+      ],
+      "paths": [
+        "s16"
+      ],
+      "instruction": "Row of 4 moon-phase dots, part by part (page px: size, then top-left x,y; each its own real element, all 4 of them, nothing invented, nothing left out): 38x38 a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        76,
+        703,
+        274,
+        42
+      ],
+      "paths": [
+        "s17"
+      ],
+      "instruction": "Near-black (exactly #2b2118) CTA button/bar with cream text \"ORDER THE 2027 DIAL\"; its text is #f3ead8 (cream, NOT the page's near-black text)."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

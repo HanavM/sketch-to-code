@@ -1,0 +1,201 @@
+{
+  "id": "e4-workflow-nodes",
+  "at": "2026-10-27T16:47:13.523Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.01904861111111111,
+    "overallV2": 0.01904861111111111,
+    "overallV1": 0.01904861111111111,
+    "colour": 0.9492600981144695,
+    "structure": 0.7253980556325108,
+    "structureStrict": 0.7253980556325108,
+    "colourAligned": 0.9492600981144695,
+    "structureAligned": 0.7253980556325108,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": -1
+    },
+    "layout": 0.06349537037037037,
+    "layoutV1": 0.06349537037037037,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "gradient",
+      "mono",
+      "overlap",
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 14121,
+    "output": 7746,
+    "cacheRead": 15481
+  },
+  "sends": null,
+  "ease": {
+    "marks": 9,
+    "captured": 9,
+    "notes": 10,
+    "words": 2114,
+    "drawMs": 97414,
+    "readingMs": 69550,
+    "runMs": 287786
+  },
+  "reading": "The user sketched a full workflow-builder app shell: a top bar, a left node-library panel, a central canvas with several connected node cards and zoom controls, and a right inspector panel, all annotated with detailed typed specs for colors, layout and copy.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top bar region, 1280x56px at 0,0, its own wrapper: #ffffff fill, 1px #e3e6eb border-bottom only, parts vertically centered (align-items center). Holds: \"Lead en"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        59,
+        214,
+        837
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left panel 220x844px: a node palette with 3 sections, each a small bold caps heading (letter-spacing 1px, #8a91a0) then its rows. TRIGGERS: 'Webhook' row (24x24"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        59,
+        774,
+        838
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Central canvas frame 780x844px at 220,56 (no fill/border/shadow of its own) holding a node-graph: small white circular connector dots (12x12, #ffffff fill, 2px "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        259,
+        209,
+        182,
+        96
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Workflow node card on the canvas: white card titled 'New lead' (#1e2430) with subtext 'Webhook · POST /hooks/leads' (#6b7385)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        553,
+        329,
+        184,
+        99
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Workflow node card on the canvas: white card titled 'Score with AI' with subtext 'Model: claude Prompt: rate fit 1–10'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        833,
+        210,
+        163,
+        77
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Workflow node card on the canvas: white card titled 'Score ≥ 7?' (#1e2430) with subtext 'true → Slack' (#6b7385)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        824,
+        774,
+        153,
+        103
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Zoom/minimap control on the canvas, bottom-right: a 110x70 box with 2px #ff6d3a border, 4px rounded, containing five small 26x14 pill dots (2px rounded), four o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        849,
+        156,
+        24
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Canvas zoom toolbar at bottom-left: '−' button (33x29, 1px #d6dae1 right border), '100%' label (57x29, 1px #d6dae1 right border), '+' button (33x29, 1px #d6dae1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1003,
+        59,
+        274,
+        838
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Right panel 280x844px at 1000,56, white fill: an inspector for the selected 'Score with AI' node. Bold heading 'Score with AI' (15px #1e2430); 'Model' label (bo"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

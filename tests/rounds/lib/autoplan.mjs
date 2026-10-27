@@ -1020,7 +1020,7 @@ export function factsInPage() {
       })(),
       shadows: (cs.boxShadow === 'none' ? [] : cs.boxShadow.split(/,(?![^(]*\))/)).map((p) => {
         const n = (p.replace(/rgba?\([^)]*\)/g, '').match(/-?[\d.]+px/g) ?? []).map(parseFloat)
-        return { x: n[0] ?? 0, y: n[1] ?? 0, blur: n[2] ?? 0, clear: /rgba\([^)]*,\s*0\)/.test(p), c: rgba((p.match(/rgba?\([^)]+\)/) || [])[0] ?? '') }
+        return { x: n[0] ?? 0, y: n[1] ?? 0, blur: n[2] ?? 0, clear: /rgba\([^)]*,\s*0\)/.test(p), inset: /inset/.test(p), c: rgba((p.match(/rgba?\([^)]+\)/) || [])[0] ?? '') }
       }),
       // which edge it runs off: a word bleeding off the left is not one stretched across both
       // n259: a turned band whose own box spans the page edge to edge runs off both sides too (round 28 c2 ticker
@@ -4097,6 +4097,14 @@ function glowWords(f) {
 function shadowWords(f) {
   const s = f.shadows.find((x) => !x.clear && x.blur <= 1 && (Math.abs(x.x) >= 2 || Math.abs(x.y) >= 2))
   if (!s) return null
+  // n268: an INSET hard shadow is a stripe painted inside one edge, not a shadow cast outside (round 30 e3 trip bar:
+  // 'inset 3px 0 0 orange', a left accent stripe, was said 'shadow offset 3px right' and built with none)
+  if (s.inset) {
+    const ax = Math.abs(Math.round(s.x)), ay = Math.abs(Math.round(s.y))
+    const edge = ax >= ay ? (s.x > 0 ? 'LEFT' : 'RIGHT') : (s.y > 0 ? 'TOP' : 'BOTTOM')
+    const c = s.c ? `${colourName({ ...s.c, a: 1 })} (${hexOf({ ...s.c, a: 1 })})` : 'dark'
+    return `solid ${c} ${Math.max(ax, ay)}px stripe painted INSIDE its ${edge} edge (box-shadow: inset ${Math.round(s.x)}px ${Math.round(s.y)}px 0 ${s.c ? hexOf({ ...s.c, a: 1 }) : '#000'}; an accent stripe on the bar itself, NOT a shadow cast outside it)`
+  }
   const side = `${s.y > 0 ? 'down' : 'up'} ${s.x > 0 ? 'right' : 'left'}`
   // a see-through shadow says its strength (round 4 c1: 18% near-black over cream was said 'near-black',
   // so a solid black slab was asked for; the real one reads as a faint grey-beige)

@@ -679,7 +679,7 @@
    ],
    [
     "trip-span",
-    "cream bar, red text \"✈ Lisbon offsite\", with a hard solid opaque orange shadow offset 3px straight right (0px up or down), no blur; its text #c2410c (red, NOT the page's dark navy text); its fill exactly #ffedd5 (solid, NOT pale, NOT see-through), its words on it"
+    "cream bar, red text \"✈ Lisbon offsite\", with a solid orange (#f97316) 3px stripe painted INSIDE its LEFT edge (box-shadow: inset 3px 0px 0 #f97316; an accent stripe on the bar itself, NOT a shadow cast outside it); its text #c2410c (red, NOT the page's dark navy text); its fill exactly #ffedd5 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "launch-span",

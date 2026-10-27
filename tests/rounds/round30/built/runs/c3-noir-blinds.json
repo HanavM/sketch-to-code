@@ -1,0 +1,202 @@
+{
+  "id": "c3-noir-blinds",
+  "at": "2026-10-27T16:36:59.388Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.01616996948979172,
+    "overallV2": 0.01616996948979172,
+    "overallV1": 0.01616996948979172,
+    "colour": 0.1558801305050016,
+    "structure": 0.0499374193839562,
+    "structureStrict": 0.0499374193839562,
+    "colourAligned": 0.1558801305050016,
+    "structureAligned": 0.0499374193839562,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": -1
+    },
+    "layout": 0.053899898299305735,
+    "layoutV1": 0.053899898299305735,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "bleed",
+      "blend",
+      "blur",
+      "gradient",
+      "huge-type",
+      "italic",
+      "mask",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 9514,
+    "output": 5857,
+    "cacheRead": 12045
+  },
+  "sends": null,
+  "ease": {
+    "marks": 13,
+    "captured": 13,
+    "notes": 8,
+    "words": 458,
+    "drawMs": 59898,
+    "readingMs": 51414,
+    "runMs": 299535
+  },
+  "reading": "This is a movie poster/hero design: a large tilted repeating-stripe background panel, a soft blurred oval glow behind the title, a huge two-line italic title 'The Long Night' (with 'Night' in raspberry), a block of five credit lines (film-by line, Starring, two cast names, In cinemas), a printer's registration-mark crosshair graphic, a solid raspberry 'WATCH TRAILER' button, and a tilted 'OFFICIAL SELECTION VENEZIA' badge.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        1,
+        974,
+        897
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Decorative background block: one 1256x1641px div, position absolute, top-left at -278,-321, tilted 25° anticlockwise, opacity 55% (see-through), bleeding off th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        143,
+        254,
+        513
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Soft blurred colour glow: one 260x520px div, border-radius 50% (oval), position absolute, top-left at 820,140, placed BEHIND the heading text (z-index under eve"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 139
+        }
+      ],
+      "region": [
+        88,
+        250,
+        588,
+        306
+      ],
+      "paths": [],
+      "instruction": "Giant title text, colour-inverting where it crosses whatever is beneath it: Playfair Display italic, regular weight (not bold), tight-set letters, line-height 0"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 6,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        984,
+        178,
+        212,
+        33
+      ],
+      "paths": [],
+      "instruction": "Credits block, five separate real-text elements (page px sizes/positions), each one-line part kept on a single line (white-space: nowrap) with width as a min-wi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        332,
+        724,
+        56,
+        56
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Printer's registration mark graphic (not an input, not a button, no text): a 560px empty circle with a 2px #ece6da outline, positioned at 80,720, crossed by a 1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        683,
+        731,
+        216,
+        37
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Button labelled 'WATCH TRAILER' in deep raspberry: square corners (border-radius 0, not a pill, not rounded), solid fill exactly #b3242b (not pale, not see-thro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        966,
+        626,
+        206,
+        206
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Badge tilted 12° anticlockwise with a warm paper border, text 'OFFICIAL SELECTION VENEZIA'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
