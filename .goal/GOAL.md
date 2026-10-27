@@ -1,9 +1,16 @@
 # Goal
 
-Prove sketch-to-code works the way a person would actually use it: look at a website, sketch it roughly
-with a few strokes and a few words, and get that website. You (the Claude agent) play the person. Make
-the tool better until rough, human-like sketches reliably produce close copies, and measure how much
-effort each sketch took.
+Make sketch-to-code the tool its mission calls for: a drawing-first Cursor, where you sketch what you want
+(text is only there to support the sketch) and get real, working code, so that building software is open to
+anyone who can draw a rough picture of it.
+
+Use testing to find out what the tool is missing, then build it. You (the Claude agent) play a real person:
+look at a website, sketch it roughly with a few strokes and a few words, and see what comes out. Every gap
+you hit (something you couldn't express, a stroke it misread, a fix that took too long, a missing gesture,
+tool, shortcut or feedback, a slow or confusing step) is a lead for a feature. Decide what is missing, build
+it into sketch-to-code, and change the setup (the drawing tools, the overlay, how sketches are read, how
+pages are built and corrected, the tests themselves) in whatever ways the mission needs. Then test again.
+Keep a running list of the features you found missing, what you built for each, and whether it helped.
 
 ## How every page is done (the rules)
 1. **Look only at the picture.** For each target page, the sketcher sees only its screenshot
@@ -21,9 +28,9 @@ effort each sketch took.
    its source: write a round's targets and screenshots in one step, and sketch them in later steps
    without opening the source. Mix 5 creative landing pages and 5 everyday app pages per round, easier
    to harder over time. Existing rounds 1-30 screenshots can be reused as a pool.
-5. **Improve the tool, not the sketch.** Wins must come from changes to sketch-to-code itself (how it
-   reads strokes and notes, how it builds and corrects), not from longer or more precise notes, and not
-   from a page-by-page list of sketching tricks. A short general "how I sketch" guide (one page max) is
+5. **Improve the tool, not the sketch.** Wins must come from new or better features in sketch-to-code
+   itself (new ways to draw or mark things, how it reads strokes and notes, how it builds, shows and
+   corrects), not from longer or more precise notes, and not from a page-by-page list of sketching tricks. A short general "how I sketch" guide (one page max) is
    fine. Keep the likeness scorer fixed (v3); don't tune it.
 
 ## Measure on every page, and roll up per round
@@ -49,6 +56,8 @@ as it is today, and record every number. Report honestly how far below the old 9
 2. A skeptic verify run re-sketches 4 of those pages from scratch and gets within 5 points of their scores.
 3. Every number above is recorded per page and per round, with side-by-sides (target, your sketch,
    result) to watch.
+4. The list of missing features shows what was built because of the tests, each with a short demo
+   (GIF) and its before/after effect on likeness and effort.
 
 ## Budget
 No daily token cap; log tokens per day.
