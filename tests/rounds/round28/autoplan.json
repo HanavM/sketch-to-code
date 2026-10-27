@@ -259,11 +259,11 @@
    ],
    [
     "sliced-title",
-    "ONE word sliced into 3 flat horizontal bands: 3 copies of the same text, each its own absolutely placed element stacked on exactly the same spot (same left, same top), each showing only its own band through clip-path: inset(), the bands meeting edge to edge with no gap: band 1 clip-path: inset(0% 0 66% 0), color #f4f1ea, not moved; band 2 clip-path: inset(34% 0 33% 0), color #ff4f7b, slid 38px right (transform: translateX(38px)); band 3 clip-path: inset(67% 0 0% 0), color #f4f1ea, slid 22px left (transform: translateX(-22px)); so it reads as one word cut and offset like a glitch, NOT a whole uncut word, NOT 3 separate lines; each copy is giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"DISPLACE\", 230px type, about 1067px wide (no larger)"
+    "ONE word sliced into 3 flat horizontal bands: 3 copies of the same text, each its own absolutely placed element stacked on exactly the same spot (same left, same top), each showing only its own band through clip-path: inset(), the bands meeting edge to edge with no gap: band 1 clip-path: inset(0% 0 66% 0), color #f4f1ea, not moved; band 2 clip-path: inset(34% 0 33% 0), color #ff4f7b, slid 38px right (transform: translateX(38px)); band 3 clip-path: inset(67% 0 0% 0), color #f4f1ea, slid 22px left (transform: translateX(-22px)); so it reads as one word cut and offset like a glitch, NOT a whole uncut word, NOT 3 separate lines; each copy is giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters \"DISPLACE\", 230px type, about 1067px wide (no larger); the first of 2 separate copies of this word, each on its own line: this one's line box starts 150px from the page top at x 60"
    ],
    [
     "outline-echo",
-    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined off-white \"DISPLACE\", 230px type, about 1067px wide (no larger); the outline is FAINT: -webkit-text-stroke: 2px rgba(244, 241, 234, 0.33) (only 33% opaque, a ghostly thin line, NOT bright), color: transparent"
+    "giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined off-white \"DISPLACE\", 230px type, about 1067px wide (no larger); the outline is FAINT: -webkit-text-stroke: 2px rgba(244, 241, 234, 0.33) (only 33% opaque, a ghostly thin line, NOT bright), color: transparent; the second of 2 separate copies of this word, each on its own line: this one's line box starts 400px from the page top at x 60, 250px BELOW the copy above it, never laid over it"
    ],
    [
     "tilted-tag",
@@ -349,7 +349,7 @@
    ],
    [
     "ground-shadow",
-    "a soft blurred SHADOW, NOT glass, NOT a box: a 360x40px oval (border-radius 50%) at 700,676, background rgba(31, 43, 34, 0.13), filter: blur(8px), no border, painted UNDER what sits on it dark navy"
+    "a soft blurred SHADOW, NOT glass, NOT a box: a 360x40px oval (border-radius 50%) at 700,676, background rgba(31, 43, 34, 0.13), filter: blur(8px), no border, painted UNDER what sits on it; dark navy"
    ],
    [
     "glass-globe",
@@ -497,7 +497,7 @@
    ],
    [
     "steel-case",
-    "a 600px donut chart centred, segments clockwise from the top: lavender 100%, then grey 0%, then light grey 0%, then grey 0%, the rest a lavender track 0%"
+    "a 600px round DISC (border-radius 50%, filled right to its middle: NOT a donut chart, NOT a ring, no segments, no labels) at 640,110, painted exactly background: conic-gradient(from 40deg, #c9ccd2, #6e737c, #e6e8ec, #7c818a, #c9ccd2), box-shadow #000000ab 0px 40px 80px 0px, #ffffff45 0px 0px 0px 2px inset; INSIDE it (position relative), absolutely placed in disc px from its top-left, these 3 painted parts in this order, later ones on top: 520x520px at 40,40 background repeating-conic-gradient(#14324f 0deg, #14324f 2deg, #173a5c 2deg, #173a5c 4deg), border-radius 50%; 130x130px at 235,120 background repeating-radial-gradient(#0f2740 0px, #0f2740 3px, #14324f 3px, #14324f 6px), border-radius 50%, a 2px #c9ccd2 border; 130x130px at 235,350 background repeating-radial-gradient(#0f2740 0px, #0f2740 3px, #14324f 3px, #14324f 6px), border-radius 50%, a 2px #c9ccd2 border"
    ],
    [
     "dial-marks",
@@ -575,7 +575,7 @@
    ],
    [
     "sql-editor",
-    "white card mono 13px code lines: \"-- revenue by country, last 30 days\", \"SELECT c.country, count(*) AS orders,\", \"       sum(o.total) AS revenue\", \"FROM orders o\", \"JOIN customers c ON c.id = o.customer_id\", \"WHERE o.created_at > now() - interval '30 days'\", \"GROUP BY 1\", \"ORDER BY revenue DESC\", \"LIMIT 12;\"; dark navy code, coloured: grey \"-- revenue by country, last 30 days\"; purple \"SELECT\", \"AS\", \"FROM\", \"JOIN\", \"ON\", \"WHERE\", \"interval\", \"GROUP BY\", \"ORDER BY\", \"DESC\", \"LIMIT\"; blue \"count\", \"sum\", \"now\"; green \"'30 days'\"; brown \"1\", \"12\""
+    "white card mono 13px code lines: \"-- revenue by country, last 30 days\", \"SELECT c.country, count(*) AS orders,\", \"       sum(o.total) AS revenue\", \"FROM orders o\", \"JOIN customers c ON c.id = o.customer_id\", \"WHERE o.created_at > now() - interval '30 days'\", \"GROUP BY 1\", \"ORDER BY revenue DESC\", \"LIMIT 12;\"; dark navy code, coloured: grey \"-- revenue by country, last 30 days\"; purple \"SELECT\", \"AS\", \"FROM\", \"JOIN\", \"ON\", \"WHERE\", \"interval\", \"GROUP BY\", \"ORDER BY\", \"DESC\", \"LIMIT\"; blue \"count\", \"sum\", \"now\"; green \"'30 days'\"; brown \"1\", \"12\"; every line NUMBERED in a gutter: 1 to 9 in #a6adbb mono at the left, 40px wide, right-aligned, the code starting 56px in from the pane's left (after the numbers, never under them); line 6 is the current line: its whole row filled #fff8d6 edge to edge"
    ],
    [
     "result-tabs",
@@ -653,11 +653,11 @@
    ],
    [
     "now-line",
-    "a THIN vertical line (a playhead), NOT a bar or block: ONE 2x286px div, position absolute with its top-left at 560,300 page px, background #b42318, laid OVER everything it crosses (highest z-index); its head is a 53x11px ::before (position absolute, left -30px, top -18px), background #000000"
+    "a THIN vertical line (a playhead), NOT a bar or block: ONE 2x286px div, position absolute with its top-left at 560,300 page px, background #b42318, laid OVER everything it crosses (highest z-index); its head is a TEXT LABEL, not a block: a ::before (position absolute, left -30px, top -18px) with content \"NOW 14:00\", 10px bold #b42318 text on NO fill (transparent background), white-space nowrap"
    ],
    [
     "lab-ranges",
-    "white card \"Labs · 06:10\" list: \"White cells\" ×10⁹/L, \"CRP\" mg/L, \"Haemoglobin\" g/dL, \"Creatinine\" µmol/L, \"Potassium\" mmol/L; list rows exactly 38px apart (38px tall, 13px type: tight, not roomier), first line 17px below the panel's top"
+    "white card \"Labs · 06:10\"; then 5 ROWS, each 38px tall with a 1px rule under it, every row's cells in this order left to right (a grid, NONE dropped): bold #18222c \"White cells\" | #18222c \"×10⁹/L\" | a RANGE BAR with its marker at 88% | bold #b42318 \"14.2\" right-aligned; bold #18222c \"CRP\" | #18222c \"mg/L\" | a RANGE BAR with its marker at 96% | bold #b42318 \"86\" right-aligned; bold #18222c \"Haemoglobin\" | #18222c \"g/dL\" | a RANGE BAR with its marker at 46% | bold #18222c \"12.8\" right-aligned; bold #18222c \"Creatinine\" | #18222c \"µmol/L\" | a RANGE BAR with its marker at 62% | bold #18222c \"94\" right-aligned; bold #18222c \"Potassium\" | #18222c \"mmol/L\" | a RANGE BAR with its marker at 30% | bold #18222c \"3.9\" right-aligned; each RANGE BAR is 342px wide, 8px tall, 4px rounded, 300px in from the row's left, painted exactly background: linear-gradient(90deg, #fde8e8 0px, #fde8e8 20%, #e5f3ec 20%, #e5f3ec 80%, #fde8e8 80%) (the zones), with a 4x16px #18222c marker standing up on it (position absolute, left at the % given, centred on the bar's height)"
    ],
    [
     "notes-timeline",

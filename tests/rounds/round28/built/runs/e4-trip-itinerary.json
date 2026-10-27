@@ -1,0 +1,783 @@
+{
+  "id": "e4-trip-itinerary",
+  "at": "2026-10-27T04:27:24.129Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8297077471913127,
+    "overallV2": 0.8297077471913127,
+    "overallV1": 0.7796612826271407,
+    "colour": 0.981542809854044,
+    "structure": 0.8970610522580689,
+    "structureStrict": 0.8341188773954908,
+    "colourAligned": 0.981542809854044,
+    "structureAligned": 0.8970610522580689,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9674944437428576
+    },
+    "layout": 0.9011522078856483,
+    "layoutV1": 0.6515986364570769,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      950
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      1,
+      36,
+      17,
+      67,
+      29
+    ],
+    [
+      1,
+      932,
+      20,
+      312,
+      24
+    ],
+    [
+      3,
+      932,
+      20,
+      35,
+      24
+    ],
+    [
+      3,
+      999,
+      20,
+      45,
+      24
+    ],
+    [
+      3,
+      1077,
+      20,
+      66,
+      24
+    ],
+    [
+      3,
+      1175,
+      20,
+      69,
+      24
+    ],
+    [
+      0,
+      36,
+      88,
+      632,
+      78
+    ],
+    [
+      8,
+      36,
+      88,
+      632,
+      51
+    ],
+    [
+      8,
+      36,
+      145,
+      632,
+      21
+    ],
+    [
+      0,
+      40,
+      183,
+      310,
+      33
+    ],
+    [
+      11,
+      40,
+      183,
+      74,
+      33
+    ],
+    [
+      11,
+      122,
+      183,
+      67,
+      33
+    ],
+    [
+      11,
+      197,
+      183,
+      70,
+      33
+    ],
+    [
+      11,
+      275,
+      183,
+      75,
+      33
+    ],
+    [
+      0,
+      36,
+      240,
+      46,
+      94
+    ],
+    [
+      0,
+      124,
+      240,
+      552,
+      94
+    ],
+    [
+      0,
+      91,
+      254,
+      16,
+      16
+    ],
+    [
+      0,
+      141,
+      255,
+      84,
+      64
+    ],
+    [
+      0,
+      239,
+      255,
+      173,
+      23
+    ],
+    [
+      0,
+      614,
+      255,
+      45,
+      20
+    ],
+    [
+      21,
+      623,
+      257,
+      27,
+      17
+    ],
+    [
+      0,
+      239,
+      275,
+      173,
+      18
+    ],
+    [
+      0,
+      124,
+      344,
+      552,
+      14
+    ],
+    [
+      0,
+      36,
+      368,
+      46,
+      94
+    ],
+    [
+      0,
+      124,
+      368,
+      552,
+      94
+    ],
+    [
+      0,
+      91,
+      382,
+      16,
+      16
+    ],
+    [
+      0,
+      141,
+      383,
+      84,
+      64
+    ],
+    [
+      0,
+      239,
+      383,
+      129,
+      23
+    ],
+    [
+      0,
+      609,
+      383,
+      50,
+      20
+    ],
+    [
+      30,
+      618,
+      385,
+      32,
+      17
+    ],
+    [
+      0,
+      239,
+      403,
+      129,
+      18
+    ],
+    [
+      0,
+      124,
+      472,
+      552,
+      14
+    ],
+    [
+      0,
+      36,
+      496,
+      46,
+      94
+    ],
+    [
+      0,
+      124,
+      496,
+      552,
+      94
+    ],
+    [
+      0,
+      91,
+      510,
+      16,
+      16
+    ],
+    [
+      0,
+      141,
+      511,
+      84,
+      64
+    ],
+    [
+      0,
+      239,
+      511,
+      122,
+      23
+    ],
+    [
+      0,
+      614,
+      511,
+      46,
+      20
+    ],
+    [
+      39,
+      623,
+      513,
+      28,
+      17
+    ],
+    [
+      0,
+      239,
+      531,
+      123,
+      18
+    ],
+    [
+      0,
+      124,
+      600,
+      552,
+      14
+    ],
+    [
+      0,
+      36,
+      624,
+      46,
+      94
+    ],
+    [
+      0,
+      124,
+      624,
+      552,
+      94
+    ],
+    [
+      0,
+      91,
+      638,
+      16,
+      16
+    ],
+    [
+      0,
+      141,
+      639,
+      84,
+      64
+    ],
+    [
+      0,
+      239,
+      639,
+      203,
+      23
+    ],
+    [
+      0,
+      614,
+      639,
+      45,
+      20
+    ],
+    [
+      48,
+      623,
+      641,
+      27,
+      17
+    ],
+    [
+      0,
+      239,
+      659,
+      203,
+      18
+    ],
+    [
+      0,
+      713,
+      91,
+      534,
+      520
+    ],
+    [
+      51,
+      1026,
+      62,
+      260,
+      600
+    ],
+    [
+      51,
+      716,
+      255,
+      530,
+      84
+    ],
+    [
+      51,
+      840,
+      97,
+      118,
+      511
+    ],
+    [
+      51,
+      714,
+      472,
+      420,
+      8
+    ],
+    [
+      51,
+      804,
+      456,
+      42,
+      42
+    ],
+    [
+      51,
+      944,
+      336,
+      42,
+      42
+    ],
+    [
+      51,
+      1074,
+      206,
+      42,
+      42
+    ],
+    [
+      0,
+      710,
+      630,
+      126,
+      104
+    ],
+    [
+      0,
+      763,
+      645,
+      21,
+      18
+    ],
+    [
+      0,
+      758,
+      667,
+      30,
+      30
+    ],
+    [
+      0,
+      762,
+      705,
+      23,
+      23
+    ],
+    [
+      0,
+      846,
+      630,
+      126,
+      104
+    ],
+    [
+      0,
+      902,
+      645,
+      20,
+      18
+    ],
+    [
+      0,
+      889,
+      667,
+      40,
+      22
+    ],
+    [
+      0,
+      898,
+      697,
+      23,
+      23
+    ],
+    [
+      0,
+      982,
+      630,
+      126,
+      104
+    ],
+    [
+      0,
+      1036,
+      645,
+      20,
+      18
+    ],
+    [
+      0,
+      1030,
+      667,
+      30,
+      30
+    ],
+    [
+      0,
+      1034,
+      705,
+      23,
+      23
+    ],
+    [
+      0,
+      1118,
+      630,
+      126,
+      104
+    ],
+    [
+      0,
+      1171,
+      645,
+      21,
+      18
+    ],
+    [
+      0,
+      1161,
+      667,
+      40,
+      22
+    ],
+    [
+      0,
+      1170,
+      697,
+      23,
+      23
+    ],
+    [
+      0,
+      713,
+      759,
+      527,
+      113
+    ],
+    [
+      75,
+      737,
+      771,
+      479,
+      20
+    ],
+    [
+      75,
+      737,
+      795,
+      479,
+      42
+    ],
+    [
+      75,
+      737,
+      841,
+      479,
+      20
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "weather-strip",
+      "iou": 1,
+      "parts": 16,
+      "rect": {
+        "x": 710,
+        "y": 630,
+        "w": 534,
+        "h": 104
+      }
+    },
+    {
+      "role": "day-timeline",
+      "iou": 0.746875,
+      "parts": 31,
+      "rect": {
+        "x": 36,
+        "y": 240,
+        "w": 640,
+        "h": 478
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient",
+      "overlap",
+      "serif",
+      "soft-shadow"
+    ],
+    "missing": [
+      "italic",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 38549,
+    "output": 23264,
+    "cacheRead": 201941
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49525,
+      "output": 18202,
+      "cacheRead": 198857,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 170372
+    }
+  ],
+  "ease": {
+    "marks": 11,
+    "captured": 11,
+    "notes": 8,
+    "words": 963,
+    "drawMs": 57822,
+    "readingMs": 48504,
+    "runMs": 219965
+  },
+  "reading": "The sketch lays out a trip-planning page: a top nav bar, a serif page heading with a date/traveller subline, a day stepper with four pills, a long itinerary list of timed cards with thumbnails, tags and connector lines, a street map panel with price pins, a four-day weather toggle widget, and a dark trip-budget summary bar. Typed notes give exact colours, sizes, positions and copy for every part, which were followed verbatim over the rough ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        58
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar: one 1280x64px top bar element at 0,0, its own wrapper, #ffffff fill, a 1px #ebe7de rule along its bottom edge only (border-bottom, no other "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        40,
+        88,
+        632,
+        60
+      ],
+      "paths": [],
+      "instruction": "Page heading block, 640px wide, top-left at 36,88: 34px Georgia serif (font-family Georgia, serif — not the sans used elsewhere) bold #22201c heading \"Four days"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        40,
+        183,
+        302,
+        26
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Day stepper: a row of 4 filled pills, each 33px tall (border-radius 999px), left to right: \"Thu 12\" #f1ede4 fill with bold #22201c text; \"Fri 13\" #22201c fill w"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        39,
+        243,
+        634,
+        634
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Itinerary timeline list, built part by part with live text (31 real elements, nothing invented, nothing left out; every one-line text part stays on one line / w"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        713,
+        91,
+        528,
+        514
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A drawn street map, 534x520px, #e6eedf ground, overflow hidden (not a photo or iframe). Inside it, absolutely positioned in panel px: 4 flat shapes — #bfd9e8 ve"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 4,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        714,
+        630,
+        526,
+        104
+      ],
+      "paths": [],
+      "instruction": "Weather day-toggle widget with \"Thu 21°\" toggled off; built part by part with live text (16 real elements, nothing invented, nothing left out; each one-line par"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        713,
+        759,
+        527,
+        113
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Trip budget summary bar: near-black (#22201c) background bar, text set in #fbfaf7 (white, not the page's near-black text). Label \"Trip budget\", a big 28px bold "
+    }
+  ],
+  "rejected": []
+}

@@ -119,7 +119,7 @@ export function factsInPage() {
         if (lw > 4 || lh < 120 || el.children.length || (el.innerText || '').trim() || !(fc?.a > 0.5)) return null
         const hd = ['::before', '::after'].map((w) => getComputedStyle(el, w)).find((c) => c.content && c.content !== 'none' && parseFloat(c.width) >= 6)
         const b = el.getBoundingClientRect()
-        return { w: lw, h: lh, x: Math.round(b.left), y: Math.round(b.top), fill: fc, head: hd ? { w: Math.round(parseFloat(hd.width)), h: Math.round(parseFloat(hd.height)), l: Math.round(parseFloat(hd.left) || 0), t: Math.round(parseFloat(hd.top) || 0), fill: rgba(hd.backgroundColor), clip: hd.clipPath && hd.clipPath !== 'none' ? hd.clipPath : null, round: parseFloat(hd.borderTopLeftRadius) >= parseFloat(hd.width) / 2 - 1 } : null }
+        return { w: lw, h: lh, x: Math.round(b.left), y: Math.round(b.top), fill: fc, head: hd ? { w: Math.round(parseFloat(hd.width)), h: Math.round(parseFloat(hd.height)), l: Math.round(parseFloat(hd.left) || 0), t: Math.round(parseFloat(hd.top) || 0), fill: rgba(hd.backgroundColor), clip: hd.clipPath && hd.clipPath !== 'none' ? hd.clipPath : null, label: /^"[^"]+"$/.test(hd.content) ? { t: hd.content.slice(1, -1), ink: rgba(hd.color), px: Math.round(parseFloat(hd.fontSize)), bold: Number(hd.fontWeight) >= 600, nowrap: /nowrap/.test(hd.whiteSpace) } : null, round: parseFloat(hd.borderTopLeftRadius) >= parseFloat(hd.width) / 2 - 1 } : null }
       })(),
       // n249: slider tracks (a thin track with a fill bar from its left and a round thumb) inside a panel (round 26 e1
       // inspector: five sliders lost, said as a plain list)
@@ -590,6 +590,31 @@ export function factsInPage() {
         const [t, rr = t, b = t, l = rr] = v
         const frac = (x, size) => /%$/.test(x) ? parseFloat(x) / 100 : (parseFloat(x) || 0) / Math.max(1, size)
         return { t: frac(t, r.height), r: frac(rr, r.width), b: frac(b, r.height), l: frac(l, r.width) }
+      })(),
+      // n256: code lines numbered by a ::before { content: attr(data-n) } gutter, one line lit (round 28 e1 SQL editor:
+      // the numbers and the highlighted current line were never said)
+      attrGutter: (() => {
+        const ks = [...el.children]
+        if (ks.length < 4) return null
+        const nums = ks.map((k) => { const pc = getComputedStyle(k, '::before'); const m = pc.content.match(/^"(\d+)"$/); return m ? { n: +m[1], ink: rgba(pc.color), w: Math.round(parseFloat(pc.width) || 0), right: pc.textAlign === 'right' } : null })
+        if (!nums.every(Boolean)) return null
+        const lit = ks.map((k, i) => ({ i, fill: rgba(getComputedStyle(k).backgroundColor) })).filter((x) => x.fill?.a > 0.05)
+        const n0 = nums.find(Boolean)
+        return { first: n0.n, last: nums.filter(Boolean).pop().n, ink: n0.ink, w: n0.w, right: n0.right, padL: Math.round(parseFloat(getComputedStyle(ks[0]).paddingLeft) || 0), lit: lit.length && lit.length <= 3 ? lit.map((x) => ({ n: nums[x.i]?.n, fill: x.fill })) : [] }
+      })(),
+      // n256: rows that each hold a range BAR (gradient zones, a marker at a % along it) between their words (round 28 e2
+      // labs: said as a two-column list, the bars and the values lost)
+      rangeRows: (() => {
+        const rows = [...el.children].filter((k) => /grid|flex/.test(getComputedStyle(k).display) && k.children.length >= 3)
+        const L = rows.map((k) => {
+          const cells = [...k.children], bar = cells.find((q) => !(q.innerText || '').trim() && getComputedStyle(q).backgroundImage !== 'none' && q.children.length === 1)
+          if (!bar) return null
+          const mk = bar.children[0], bb = bar.getBoundingClientRect(), mb = mk.getBoundingClientRect(), kb = k.getBoundingClientRect(), bc = getComputedStyle(bar)
+          return { cells: cells.map((q) => q === bar ? null : { t: (q.innerText || '').trim(), ink: rgba(getComputedStyle(q).color), bold: Number(getComputedStyle(q).fontWeight) >= 600, right: getComputedStyle(q).textAlign === 'right' }),
+            bar: { x: Math.round(bb.left - kb.left), w: Math.round(bb.width), h: Math.round(bb.height), img: bc.backgroundImage, radius: Math.round(parseFloat(bc.borderTopLeftRadius) || 0) },
+            mark: { at: Math.round((mb.left - bb.left) / Math.max(1, bb.width) * 100), w: Math.round(mb.width), h: Math.round(mb.height), fill: rgba(getComputedStyle(mk).backgroundColor) }, h: Math.round(kb.height) }
+        })
+        return L.length >= 3 && L.every(Boolean) ? L : null
       })(),
       // n256: textless painted children of a textless block (round 28 c3 terrarium: soil, four leaves and two pebbles
       // inside a glass globe were never said; the globe built empty and opaque white)
@@ -3964,7 +3989,7 @@ function codeNote(f) {
   const by = new Map()
   for (const k of f.tokenInks) { const n = colourName(k.c); if (n && dist(k.c, f.colour) > 40) by.set(n, uniq([...(by.get(n) ?? []), k.t])) }
   const inks = [...by].map(([n, ts]) => `${n} ${ts.map((t) => `"${t}"`).join(', ')}`).join('; ')
-  return `mono ${Math.round(f.font.size)}px code lines: ${lines}${f.colour ? `; ${colourName(f.colour)} code` : ''}${inks ? `, coloured: ${inks}` : ''}`
+  return `mono ${Math.round(f.font.size)}px code lines: ${lines}${f.colour ? `; ${colourName(f.colour)} code` : ''}${inks ? `, coloured: ${inks}` : ''}${f.attrGutter ? `; every line NUMBERED in a gutter: ${f.attrGutter.first} to ${f.attrGutter.last} in ${hexOf(f.attrGutter.ink)} mono at the left, ${f.attrGutter.w || 40}px wide${f.attrGutter.right ? ', right-aligned' : ''}, the code starting ${f.attrGutter.padL}px in from the pane's left (after the numbers, never under them)${f.attrGutter.lit.map((x) => `; line ${x.n} is the current line: its whole row filled ${x.fill.a < 0.95 ? `rgba(${x.fill.r}, ${x.fill.g}, ${x.fill.b}, ${Math.round(x.fill.a * 100) / 100})` : hexOf(x.fill)} edge to edge`).join('')}` : ''}`
 }
 
 /** n136 (round 10): tile grids, checker floors, glowing mono lines with a cursor, chip log lines, box-drawing text. */
@@ -4544,6 +4569,13 @@ function decideRest(f, page, marked, said) {
     if (f.radius >= L.h / 2 - 2) d.note = d.note.replace(`${Math.round(f.radius)}px rounded`, 'pill ends')
     d.note += `; TILTED ${Math.abs(rot)}° ${rot > 0 ? 'clockwise' : 'anticlockwise'} (NOT level): ONE ${L.w}x${L.h}px element${f.el ? `, position absolute with its top-left at ${f.el.x},${f.el.y} page px before the turn` : ''}, then transform: rotate(${rot}deg) round its centre`
   }
+  // n256: rows with a range bar each, said cell by cell (round 28 e2 labs)
+  if (d?.note && f.rangeRows) {
+    const R = f.rangeRows, b0 = R[0].bar, m0 = R[0].mark
+    const cell = (c) => `${c.bold ? 'bold ' : ''}${hexOf(c.ink)} ${quote(c.t)}${c.right ? ' right-aligned' : ''}`
+    d.kind = 'box'
+    d.note = d.note.replace(/ list: .*$/, '') + `; then ${R.length} ROWS, each ${R[0].h}px tall with a 1px rule under it, every row's cells in this order left to right (a grid, NONE dropped): ${R.map((r) => r.cells.map((c) => c ? cell(c) : `a RANGE BAR with its marker at ${r.mark.at}%`).join(' | ')).join('; ')}; each RANGE BAR is ${b0.w}px wide, ${b0.h}px tall, ${b0.radius}px rounded, ${b0.x}px in from the row's left, painted exactly background: ${cssHex(b0.img)} (the zones), with a ${m0.w}x${m0.h}px ${hexOf(m0.fill)} marker standing up on it (position absolute, left at the % given, centred on the bar's height)`
+  }
   // n249: slider tracks inside a panel are said one by one (round 26 e1 inspector)
   if (d?.note && f.sliders && !/slider/i.test(d.note)) {
     const S = f.sliders
@@ -4553,7 +4585,7 @@ function decideRest(f, page, marked, said) {
   if (d && f.thinHead && !f.regionKids?.length) {
     const T = f.thinHead, H = T.head
     d.kind = 'box'
-    d.note = `a THIN vertical line${H ? ' (a playhead)' : ''}, NOT a bar or block: ONE ${T.w}x${T.h}px div, position absolute with its top-left at ${T.x},${T.y} page px, background ${hexOf(T.fill)}, laid OVER everything it crosses (highest z-index)${H ? `; its head is a ${H.w}x${H.h}px ::before (position absolute, left ${H.l}px, top ${H.t}px), background ${hexOf(H.fill)}${H.clip ? `, clip-path: ${H.clip} (a ${/50% 100%/.test(H.clip) ? 'downward-pointing triangle' : 'cut shape'}, NOT a square)` : H.round ? ', a circle' : ''}` : ''}`
+    d.note = `a THIN vertical line${H ? ' (a playhead)' : ''}, NOT a bar or block: ONE ${T.w}x${T.h}px div, position absolute with its top-left at ${T.x},${T.y} page px, background ${hexOf(T.fill)}, laid OVER everything it crosses (highest z-index)${H?.label ? `; its head is a TEXT LABEL, not a block: a ::before (position absolute, left ${H.l}px, top ${H.t}px) with content ${quote(H.label.t)}, ${H.label.px}px${H.label.bold ? ' bold' : ''} ${hexOf(H.label.ink)} text ${H.fill?.a > 0.05 ? `on a ${H.w}x${H.h}px ${hexOf(H.fill)} fill` : 'on NO fill (transparent background)'}, white-space nowrap` : ''}${H && !H.label ? `; its head is a ${H.w}x${H.h}px ::before (position absolute, left ${H.l}px, top ${H.t}px), background ${hexOf(H.fill)}${H.clip ? `, clip-path: ${H.clip} (a ${/50% 100%/.test(H.clip) ? 'downward-pointing triangle' : 'cut shape'}, NOT a square)` : H.round ? ', a circle' : ''}` : ''}`
   }
   // n206: a small button placed absolutely over a bar (round 20 e3 'Sum: 13,797' over the sheet tabs: dropped) says its place
   if (d?.kind === 'button' && d.note && f.box0?.abs && w0 <= 240 && h0 <= 48 && !/ at \d+,\d+/.test(d.note)) {
@@ -5046,6 +5078,13 @@ function decideOne(f, page, marked, said) {
       return { kind: 'circle', note: withFx(`ring of big ${ct.weight >= 800 ? 'heavy ' : ct.weight >= 600 ? 'bold ' : ''}${/[a-z]/.test(t) ? '' : 'capital '}letters ${quote(t, 140)}, ${ct.size}px type${ct.spacing ? `, letter-spacing ${ct.spacing}px` : ''}${ink ? `, ${hexOf(ink)}` : ''}, set on a circle (SVG textPath) of radius ${ct.rad}px centred in a ${ct.px}x${ct.px}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: the words run ALL the way round the circle, end meeting start, never a partial arc${ringSvg(ct, t, ink ? hexOf(ink) : '')}${dr}`) }
     }
     return { kind: 'circle', note: withFx(`ring of small ${/[a-z]/.test(t) ? '' : 'spaced capital '}letters ${quote(t, 60)} running round a ${ct.px}px circle${ct.disc ? `${ct.ink && parse(ct.ink) ? `, the letters ${hexOf(parse(ct.ink))}` : ''}; they sit ON a SOLID ${hexOf(parse(ct.disc.fill))} filled disc of radius ${ct.disc.r}px (a ${2 * ct.disc.r}px round badge, an SVG <circle> with that fill under the text), no outline` : ', no outline, no fill'}`) }
+  }
+  // n256: a round textless disc painted by a gradient that holds painted parts (round 28 c5 watch: a conic steel case
+  // with a guilloché face and two sub-dials inside, said as a 'donut chart, lavender 100%' and built as a flat ring)
+  if (!(f.text ?? '').trim() && f.paintKids?.length && f.radiusPct >= 45 && /gradient\(/.test(f.bgImage ?? '') && !/^radial-gradient/.test(f.bgImage.trim()) && !f.regionKids.length) {
+    const one = (k) => `${k.w}x${k.h}px at ${k.x},${k.y}${k.img ? ` background ${cssHex(k.img)}` : ` ${hexOf(k.fill)} fill`}${k.radius ? `, border-radius ${k.radius}` : ''}${k.bt ? `, a ${k.bt.w}px ${hexOf(k.bt.c)} border` : ''}${k.rot ? `, rotated ${k.rot}°` : ''}`
+    const lb = f.layoutBox ?? { w: Math.round(f.rect.w), h: Math.round(f.rect.h) }
+    return { kind: 'box', note: withFx(`a ${lb.w}px round DISC (border-radius 50%, filled right to its middle: NOT a donut chart, NOT a ring, no segments, no labels) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, painted exactly background: ${cssHex(f.bgImage)}${f.shadow && f.shadow !== 'none' ? `, box-shadow ${cssHex(f.shadow)}` : ''}; INSIDE it (position relative), absolutely placed in disc px from its top-left, these ${f.paintKids.length} painted parts in this order, later ones on top: ${f.paintKids.map(one).join('; ')}`) }
   }
   // a progress ring made of a conic gradient (round 5 c5: said as a 'near-black block')
   if (f.conicRing && f.conicRing.round && f.conicRing.stops.length >= 2 && !f.regionKids.length) {
@@ -6380,6 +6419,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
         if (rule) dt.note += `; the cut lies exactly on the thin rule drawn across it (${Math.round(cutY)}px from the page top), its line box starting ${Math.round(top.rect.y)}px down`
         db.kind = null; db.note = null
         unionOf.set(top.role, bot.role)
+      }
+      // n256: a sliced word (its bands untagged copies) beside a separate whole copy of the word lower down is two
+      // lines, not two halves (round 28 c2: the outline echo 250px below was built over the sliced title)
+      if (!(top && bot) && same.some((g) => g.sliceCopies)) {
+        const i = same.indexOf(f), d = out.get(f.role)
+        if (d.kind && d.note) d.note = `${d.note}; the ${['first', 'second', 'third'][i] ?? `${i + 1}th`} of ${same.length} separate copies of this word, each on its own line: this one's line box starts ${Math.round(f.rect.y)}px from the page top at x ${Math.round(f.rect.x)}${i > 0 ? `, ${Math.round(f.rect.y - same[i - 1].rect.y)}px BELOW the copy above it, never laid over it` : ''}`
       }
       continue
     }

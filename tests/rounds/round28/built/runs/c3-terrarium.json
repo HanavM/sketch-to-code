@@ -1,24 +1,24 @@
 {
   "id": "c3-terrarium",
-  "at": "2026-10-27T03:48:47.876Z",
+  "at": "2026-10-27T04:49:37.664Z",
   "likeness": {
     "version": 3,
-    "overall": 0.670875294386781,
-    "overallV2": 0.670875294386781,
-    "overallV1": 0.6034516395632018,
-    "colour": 0.9349847060463344,
-    "structure": 0.7632528814737747,
-    "structureStrict": 0.67119398598941,
-    "colourAligned": 0.9349847060463344,
-    "structureAligned": 0.7632528814737747,
+    "overall": 0.7475303110438289,
+    "overallV2": 0.7258158779643102,
+    "overallV1": 0.6473894800093286,
+    "colour": 0.9767759378288615,
+    "structure": 0.8560494860061885,
+    "structureStrict": 0.7489676674449681,
+    "colourAligned": 0.9767759378288615,
+    "structureAligned": 0.8856979340264011,
     "align": {
       "scale": 1,
       "dx": 0,
-      "dy": 0,
-      "r": 0.4873917958258932
+      "dy": -16,
+      "r": 0.8600262578146395
     },
-    "layout": 0.8629921804411462,
-    "layoutV1": 0.8629921804411462,
+    "layout": 0.5739716891549442,
+    "layoutV1": 0.5739716891549442,
     "layoutVersion": 2
   },
   "boxes": [
@@ -31,213 +31,129 @@
     ],
     [
       0,
-      63,
-      35,
-      1153,
-      50
+      0,
+      0,
+      1280,
+      82
     ],
     [
       1,
-      63,
-      44,
+      64,
+      35,
       126,
       33
     ],
     [
       1,
-      956,
-      50,
-      260,
-      20
+      970,
+      40,
+      246,
+      23
     ],
     [
       3,
-      956,
-      50,
-      23,
-      20
+      970,
+      40,
+      25,
+      23
     ],
     [
       3,
-      1019,
-      50,
-      39,
-      20
+      1027,
+      40,
+      42,
+      23
     ],
     [
       3,
-      1098,
-      50,
-      30,
-      20
+      1101,
+      40,
+      33,
+      23
     ],
     [
       3,
-      1169,
-      50,
-      47,
-      20
+      1165,
+      40,
+      51,
+      23
     ],
     [
       0,
-      72,
-      170,
-      507,
-      169
+      700,
+      676,
+      360,
+      40
     ],
     [
-      8,
-      72,
-      170,
-      507,
-      84
+      0,
+      600,
+      130,
+      560,
+      560
     ],
     [
       9,
-      338,
-      164,
-      177,
-      96
+      602,
+      538,
+      556,
+      150
     ],
     [
-      8,
-      72,
-      254,
-      507,
-      84
-    ],
-    [
-      0,
-      70,
-      420,
-      432,
-      87
-    ],
-    [
-      0,
-      69,
-      524,
-      149,
-      42
-    ],
-    [
-      0,
-      64,
-      640,
-      482,
-      180
-    ],
-    [
-      14,
-      64,
-      640,
-      150,
-      180
-    ],
-    [
-      15,
-      80,
-      656,
-      120,
-      100
-    ],
-    [
-      15,
-      79,
-      764,
-      63,
-      20
-    ],
-    [
-      15,
-      80,
-      781,
-      22,
-      20
-    ],
-    [
-      14,
-      230,
-      640,
-      150,
-      180
-    ],
-    [
-      19,
-      246,
-      656,
-      120,
-      100
-    ],
-    [
-      19,
-      245,
-      764,
-      49,
-      20
-    ],
-    [
-      19,
-      246,
-      781,
-      22,
-      20
-    ],
-    [
-      14,
-      396,
-      640,
-      150,
-      180
-    ],
-    [
-      23,
-      412,
-      656,
-      120,
-      100
-    ],
-    [
-      23,
-      411,
-      764,
-      69,
-      20
-    ],
-    [
-      23,
-      412,
-      781,
-      22,
-      20
-    ],
-    [
-      0,
+      9,
       704,
-      679,
-      352,
+      355,
+      145,
+      211
+    ],
+    [
+      9,
+      842,
+      312,
+      70,
+      240
+    ],
+    [
+      9,
+      906,
+      357,
+      151,
+      210
+    ],
+    [
+      9,
+      970,
+      442,
+      144,
+      152
+    ],
+    [
+      9,
+      722,
+      534,
+      60,
       34
     ],
     [
-      0,
-      600,
-      130,
-      560,
-      560
+      9,
+      1002,
+      534,
+      44,
+      34
     ],
     [
-      28,
-      600,
-      130,
-      560,
-      560
+      9,
+      602,
+      132,
+      556,
+      556
     ],
     [
-      29,
-      601,
-      131,
-      558,
-      559
+      17,
+      603,
+      132,
+      554,
+      556
     ],
     [
       0,
@@ -247,18 +163,18 @@
       71
     ],
     [
-      31,
-      1030,
-      170,
-      43,
-      17
+      19,
+      1031,
+      168,
+      39,
+      15
     ],
     [
-      31,
-      1037,
-      187,
-      28,
-      20
+      19,
+      1034,
+      183,
+      34,
+      26
     ],
     [
       0,
@@ -268,79 +184,216 @@
       69
     ],
     [
-      34,
-      647,
-      310,
-      24,
-      17
+      22,
+      648,
+      308,
+      22,
+      15
     ],
     [
-      34,
-      634,
-      327,
-      51,
+      22,
+      628,
+      323,
+      61,
+      26
+    ],
+    [
+      0,
+      0,
+      177,
+      1280,
+      682
+    ],
+    [
+      25,
+      64,
+      177,
+      1152,
+      188
+    ],
+    [
+      26,
+      64,
+      177,
+      1152,
+      94
+    ],
+    [
+      27,
+      361,
+      170,
+      198,
+      107
+    ],
+    [
+      26,
+      64,
+      271,
+      1152,
+      94
+    ],
+    [
+      25,
+      64,
+      427,
+      432,
+      87
+    ],
+    [
+      25,
+      64,
+      560,
+      149,
+      42
+    ],
+    [
+      25,
+      64,
+      679,
+      1152,
+      180
+    ],
+    [
+      32,
+      64,
+      679,
+      150,
+      180
+    ],
+    [
+      33,
+      79,
+      695,
+      120,
+      100
+    ],
+    [
+      33,
+      79,
+      803,
+      134,
+      20
+    ],
+    [
+      33,
+      79,
+      827,
+      134,
+      20
+    ],
+    [
+      32,
+      230,
+      679,
+      150,
+      180
+    ],
+    [
+      37,
+      245,
+      695,
+      120,
+      100
+    ],
+    [
+      37,
+      245,
+      803,
+      134,
+      20
+    ],
+    [
+      37,
+      245,
+      827,
+      134,
+      20
+    ],
+    [
+      32,
+      396,
+      679,
+      150,
+      180
+    ],
+    [
+      41,
+      411,
+      695,
+      120,
+      100
+    ],
+    [
+      41,
+      411,
+      803,
+      134,
+      20
+    ],
+    [
+      41,
+      411,
+      827,
+      134,
       20
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.5454545454545454,
+    "recall": 0.9090909090909091,
     "kept": [
+      "blur",
       "glass",
       "gradient",
+      "huge-type",
       "italic",
       "overlap",
       "serif",
-      "soft-shadow"
-    ],
-    "missing": [
-      "blur",
-      "hard-shadow",
-      "huge-type",
+      "soft-shadow",
       "stripes-or-layers",
       "tilt"
+    ],
+    "missing": [
+      "hard-shadow"
     ],
     "extra": []
   },
   "tokens": {
-    "input": 38947,
-    "output": 24569,
-    "cacheRead": 284243
+    "input": 52981,
+    "output": 38410,
+    "cacheRead": 225948
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 46475,
-      "output": 17805,
-      "cacheRead": 272295,
-      "toolCalls": 11,
+      "billed": 68528,
+      "output": 28341,
+      "cacheRead": 185446,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read components/GlowingOrb.tsx",
         "Read src/App.tsx",
-        "Read s2c-bench-app/package.json",
-        "Glob",
-        "Glob",
         "Read src/index.css",
-        "Read s2c-bench-app/index.html",
-        "Edit components/GlowingOrb.tsx",
-        "Write src/App.tsx",
-        "Edit src/App.tsx"
+        "Read components/GlassTerrarium.tsx",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/GlassTerrarium.tsx",
+        "Write src/App.tsx"
       ],
-      "ms": 187774
+      "ms": 291897
     }
   ],
   "ease": {
     "marks": 11,
     "captured": 11,
     "notes": 10,
-    "words": 484,
-    "drawMs": 41934,
-    "readingMs": 59857,
-    "runMs": 248798
+    "words": 639,
+    "drawMs": 43287,
+    "readingMs": 81828,
+    "runMs": 374812
   },
-  "reading": "This is a hero section for a terrarium shop: a top navbar, a large glowing sphere with two frosted 'Humidity'/'Light' badges floating on it and a frosted glass stand beneath it, a two-line serif headline with one italic green word, a grey subtitle paragraph, a dark pill CTA button, and a row of three product cards (Fern dome, Moss jar, Desert bowl) with gradient thumbnail images and prices — all set on a cream-to-grey gradient page.",
+  "reading": "A full landing-page hero sketch: a top navbar, a large glass-globe illustration with a soft shadow beneath it and two frosted-glass info badges inside it, a two-line serif headline, a subtext line, a pill call-to-action button, and a row of three product cards below.",
   "actions": [
     {
       "kind": "add",
@@ -355,7 +408,22 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top navbar drawn as a full-width bar: brand 'Moss & Glass' in bold italic 22px Georgia serif sits at the far left; nav links 'Kits', 'Plants', 'Care', 'Cart (2)"
+      "instruction": "Top navbar bar: on the left, bold italic 22px Georgia serif logo text \"Moss & Glass\"; on the right (pushed far right, ~760px gap from the logo) a row of nav lin"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        704,
+        679,
+        352,
+        34
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A soft blurred shadow (not a box, not glass): a 360x40px oval, border-radius 50%, positioned under the globe illustration at roughly 700,676, background rgba(31"
     },
     {
       "kind": "add",
@@ -370,22 +438,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Large 560px solid sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 32% 26%, #ffffff 0%, #ffffff 6%, #ffffff 18%, #ffffff 40%, #f"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        704,
-        679,
-        352,
-        34
-      ],
-      "paths": [
-        "s1"
-      ],
-      "instruction": "Frosted glass platform/stand sitting beneath the sphere (the rectangular base shape drawn under the circle)."
+      "instruction": "A large see-through glass globe illustration (560px circle, border-radius 50%, position absolute at ~600,130): mostly-clear glass with a bright highlight radial"
     },
     {
       "kind": "add",
@@ -400,7 +453,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Frosted glass badge overlapping the top-right of the sphere, labeled 'Humidity' with value text '86%'."
+      "instruction": "Small frosted-glass badge sitting on the globe, upper-right: label \"Humidity\" with value text \"86%\"."
     },
     {
       "kind": "add",
@@ -415,7 +468,7 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Frosted glass badge overlapping the left side of the sphere, labeled 'Light' with value text 'Indirect'."
+      "instruction": "Small frosted-glass badge sitting on the globe, mid-left: label \"Light\" with value text \"Indirect\"."
     },
     {
       "kind": "add",
@@ -440,7 +493,7 @@
         188
       ],
       "paths": [],
-      "instruction": "Giant Georgia serif regular-weight headline, tight-set (line-height 0.98), set in exactly 2 lines that must keep these breaks and never rewrap: 'A small forest'"
+      "instruction": "Giant serif headline set in exactly two tight-leading lines, never re-wrapped: \"A small forest\" / \"under glass\" (Georgia serif, regular weight, line-height ~0.9"
     },
     {
       "kind": "add",
@@ -465,7 +518,7 @@
         58
       ],
       "paths": [],
-      "instruction": "Subtitle paragraph in dark grey #43534a (not the page's default navy text): 'Hand-built closed terrariums that water themselves. Moss, fern and stone, sealed in"
+      "instruction": "Body copy line below the headline, dark grey text #43534a: \"Hand-built closed terrariums that water themselves. Moss, fern and stone, sealed in blown glass.\""
     },
     {
       "kind": "add",
@@ -480,7 +533,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Dark navy pill-shaped button with bold cream #e9efe4 label text 'Build your kit'."
+      "instruction": "Dark navy pill call-to-action button with bold cream #e9efe4 label text \"Build your kit\"."
     },
     {
       "kind": "add",
@@ -495,7 +548,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Row of three product cards with exactly 16px gap between them (flex gap, never touching), each its own element with live text, each one-line text on a single li"
+      "instruction": "A row of three product cards with 16px gap between them (flex gap, never touching), each a rounded card (150x180, 1px white border, 20px radius) with a gradient"
     }
   ],
   "rejected": [

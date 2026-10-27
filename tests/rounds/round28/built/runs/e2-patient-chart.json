@@ -1,0 +1,1041 @@
+{
+  "id": "e2-patient-chart",
+  "at": "2026-10-27T05:09:34.343Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8613328788327774,
+    "overallV2": 0.8613328788327774,
+    "overallV1": 0.7914529443131759,
+    "colour": 0.990682710270482,
+    "structure": 0.897875545931238,
+    "structureStrict": 0.8067742808546968,
+    "colourAligned": 0.990682710270482,
+    "structureAligned": 0.897875545931238,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9711547432985437
+    },
+    "layout": 0.9595549403936239,
+    "layoutV1": 0.8347191979494715,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      0,
+      0,
+      68,
+      920
+    ],
+    [
+      1,
+      14,
+      20,
+      40,
+      40
+    ],
+    [
+      1,
+      14,
+      74,
+      40,
+      40
+    ],
+    [
+      1,
+      14,
+      128,
+      40,
+      40
+    ],
+    [
+      1,
+      14,
+      182,
+      40,
+      40
+    ],
+    [
+      1,
+      14,
+      236,
+      40,
+      40
+    ],
+    [
+      0,
+      72,
+      0,
+      1208,
+      96
+    ],
+    [
+      7,
+      100,
+      20,
+      56,
+      56
+    ],
+    [
+      7,
+      174,
+      27,
+      239,
+      33
+    ],
+    [
+      7,
+      174,
+      57,
+      243,
+      17
+    ],
+    [
+      7,
+      936,
+      33,
+      90,
+      29
+    ],
+    [
+      7,
+      1034,
+      33,
+      65,
+      29
+    ],
+    [
+      7,
+      1107,
+      33,
+      73,
+      29
+    ],
+    [
+      0,
+      100,
+      120,
+      180,
+      120
+    ],
+    [
+      14,
+      116,
+      138,
+      49,
+      17
+    ],
+    [
+      14,
+      116,
+      155,
+      42,
+      39
+    ],
+    [
+      14,
+      150,
+      167,
+      25,
+      20
+    ],
+    [
+      0,
+      294,
+      120,
+      180,
+      120
+    ],
+    [
+      18,
+      310,
+      138,
+      74,
+      17
+    ],
+    [
+      18,
+      310,
+      155,
+      80,
+      39
+    ],
+    [
+      0,
+      487,
+      120,
+      180,
+      120
+    ],
+    [
+      21,
+      503,
+      138,
+      26,
+      17
+    ],
+    [
+      21,
+      503,
+      155,
+      29,
+      39
+    ],
+    [
+      21,
+      539,
+      167,
+      12,
+      20
+    ],
+    [
+      0,
+      681,
+      120,
+      180,
+      120
+    ],
+    [
+      25,
+      697,
+      138,
+      27,
+      17
+    ],
+    [
+      25,
+      697,
+      155,
+      51,
+      39
+    ],
+    [
+      25,
+      754,
+      167,
+      15,
+      20
+    ],
+    [
+      0,
+      100,
+      270,
+      760,
+      330
+    ],
+    [
+      29,
+      120,
+      288,
+      140,
+      23
+    ],
+    [
+      29,
+      120,
+      317,
+      722,
+      19
+    ],
+    [
+      31,
+      300,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      345,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      390,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      435,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      480,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      525,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      570,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      615,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      660,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      705,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      750,
+      317,
+      12,
+      17
+    ],
+    [
+      31,
+      795,
+      317,
+      12,
+      17
+    ],
+    [
+      29,
+      120,
+      336,
+      722,
+      44
+    ],
+    [
+      44,
+      120,
+      344,
+      72,
+      20
+    ],
+    [
+      44,
+      120,
+      359,
+      29,
+      17
+    ],
+    [
+      44,
+      331,
+      347,
+      22,
+      22
+    ],
+    [
+      44,
+      602,
+      347,
+      22,
+      22
+    ],
+    [
+      29,
+      120,
+      380,
+      722,
+      44
+    ],
+    [
+      49,
+      120,
+      388,
+      66,
+      20
+    ],
+    [
+      49,
+      120,
+      403,
+      50,
+      17
+    ],
+    [
+      49,
+      376,
+      391,
+      22,
+      22
+    ],
+    [
+      49,
+      466,
+      391,
+      22,
+      22
+    ],
+    [
+      49,
+      647,
+      391,
+      22,
+      22
+    ],
+    [
+      29,
+      120,
+      424,
+      722,
+      44
+    ],
+    [
+      55,
+      120,
+      432,
+      77,
+      20
+    ],
+    [
+      55,
+      120,
+      447,
+      53,
+      17
+    ],
+    [
+      55,
+      421,
+      435,
+      22,
+      22
+    ],
+    [
+      55,
+      511,
+      435,
+      22,
+      22
+    ],
+    [
+      29,
+      120,
+      468,
+      722,
+      44
+    ],
+    [
+      60,
+      120,
+      476,
+      38,
+      20
+    ],
+    [
+      60,
+      120,
+      491,
+      53,
+      17
+    ],
+    [
+      60,
+      379,
+      484,
+      520,
+      12
+    ],
+    [
+      29,
+      120,
+      512,
+      722,
+      44
+    ],
+    [
+      64,
+      120,
+      520,
+      71,
+      20
+    ],
+    [
+      64,
+      120,
+      535,
+      49,
+      17
+    ],
+    [
+      64,
+      692,
+      523,
+      22,
+      22
+    ],
+    [
+      0,
+      560,
+      300,
+      2,
+      286
+    ],
+    [
+      68,
+      530,
+      282,
+      53,
+      15
+    ],
+    [
+      0,
+      100,
+      620,
+      753,
+      253
+    ],
+    [
+      70,
+      120,
+      638,
+      87,
+      23
+    ],
+    [
+      70,
+      120,
+      671,
+      715,
+      38
+    ],
+    [
+      72,
+      120,
+      683,
+      110,
+      20
+    ],
+    [
+      72,
+      240,
+      683,
+      80,
+      18
+    ],
+    [
+      72,
+      420,
+      686,
+      342,
+      8
+    ],
+    [
+      75,
+      719,
+      682,
+      4,
+      16
+    ],
+    [
+      72,
+      774,
+      680,
+      61,
+      23
+    ],
+    [
+      70,
+      120,
+      709,
+      715,
+      38
+    ],
+    [
+      78,
+      120,
+      721,
+      110,
+      20
+    ],
+    [
+      78,
+      240,
+      721,
+      80,
+      18
+    ],
+    [
+      78,
+      420,
+      724,
+      342,
+      8
+    ],
+    [
+      81,
+      746,
+      720,
+      4,
+      16
+    ],
+    [
+      78,
+      774,
+      718,
+      61,
+      23
+    ],
+    [
+      70,
+      120,
+      747,
+      715,
+      38
+    ],
+    [
+      84,
+      120,
+      759,
+      110,
+      20
+    ],
+    [
+      84,
+      240,
+      759,
+      80,
+      18
+    ],
+    [
+      84,
+      420,
+      762,
+      342,
+      8
+    ],
+    [
+      87,
+      575,
+      758,
+      4,
+      16
+    ],
+    [
+      84,
+      774,
+      756,
+      61,
+      23
+    ],
+    [
+      70,
+      120,
+      785,
+      715,
+      38
+    ],
+    [
+      90,
+      120,
+      797,
+      110,
+      20
+    ],
+    [
+      90,
+      240,
+      797,
+      80,
+      18
+    ],
+    [
+      90,
+      420,
+      800,
+      342,
+      8
+    ],
+    [
+      93,
+      630,
+      796,
+      4,
+      16
+    ],
+    [
+      90,
+      774,
+      794,
+      61,
+      23
+    ],
+    [
+      70,
+      120,
+      823,
+      715,
+      38
+    ],
+    [
+      96,
+      120,
+      835,
+      110,
+      20
+    ],
+    [
+      96,
+      240,
+      835,
+      80,
+      18
+    ],
+    [
+      96,
+      420,
+      838,
+      342,
+      8
+    ],
+    [
+      99,
+      521,
+      834,
+      4,
+      16
+    ],
+    [
+      96,
+      774,
+      832,
+      61,
+      23
+    ],
+    [
+      0,
+      884,
+      120,
+      370,
+      760
+    ],
+    [
+      102,
+      904,
+      138,
+      42,
+      23
+    ],
+    [
+      102,
+      910,
+      167,
+      326,
+      82
+    ],
+    [
+      104,
+      905,
+      183,
+      12,
+      12
+    ],
+    [
+      104,
+      930,
+      181,
+      95,
+      17
+    ],
+    [
+      104,
+      930,
+      198,
+      308,
+      40
+    ],
+    [
+      102,
+      910,
+      249,
+      326,
+      82
+    ],
+    [
+      108,
+      905,
+      265,
+      12,
+      12
+    ],
+    [
+      108,
+      930,
+      263,
+      104,
+      17
+    ],
+    [
+      108,
+      930,
+      280,
+      308,
+      40
+    ],
+    [
+      102,
+      910,
+      331,
+      326,
+      63
+    ],
+    [
+      112,
+      905,
+      347,
+      12,
+      12
+    ],
+    [
+      112,
+      930,
+      345,
+      70,
+      17
+    ],
+    [
+      112,
+      930,
+      362,
+      308,
+      20
+    ],
+    [
+      102,
+      910,
+      416,
+      320,
+      90
+    ],
+    [
+      102,
+      1145,
+      528,
+      91,
+      33
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "vital-cards",
+      "iou": 0.9986859395532195,
+      "parts": 4,
+      "rect": {
+        "x": 100,
+        "y": 120,
+        "w": 761,
+        "h": 120
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 63561,
+    "output": 34393,
+    "cacheRead": 566109
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 76172,
+      "output": 26246,
+      "cacheRead": 552058,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 278877
+    }
+  ],
+  "ease": {
+    "marks": 8,
+    "captured": 8,
+    "notes": 9,
+    "words": 1398,
+    "drawMs": 58571,
+    "readingMs": 73311,
+    "runMs": 353430
+  },
+  "reading": "The sketch lays out a clinical patient-dashboard: a full-height green icon sidebar, a patient-info header bar, a row of vital-sign cards, a medications timeline panel with a live \"now\" playhead, a labs panel with range bars, and a right-hand notes panel with a history feed, an \"Add a note\" input and a Sign note button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        66,
+        893
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Full-height narrow left navigation sidebar: deep green (#0e5e6f) fill, no picture. Stack 5 small rounded squares (40px) vertically from its top, 14px apart, as "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        76,
+        3,
+        1200,
+        90
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Patient-header panel: one 1208x96px white (#ffffff) card holding, left to right, a 56x56 avatar circle (gradient #9bd3d9→#0e5e6f), the patient name \"Amira Hadda"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        104,
+        123,
+        753,
+        114
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Row of 4 vital-sign cards (180x120 each, white/rounded with light border, the Heart-rate one tinted #fffafa with a red border): \"Heart rate\" label with big bold"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        103,
+        273,
+        753,
+        324
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Medications timeline panel: one 760x330px white rounded card titled \"Medications · today\", with an hour ruler (06,08,10,...,04) and 5 stacked medication rows, e"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        557,
+        304,
+        8,
+        278
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A thin vertical \"now\" playhead line (2px wide, red #b42318) laid over the medications panel at the current time position, with a small nowrap text label \"NOW 14"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        103,
+        623,
+        753,
+        253
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Labs panel: white rounded card titled \"Labs · 06:10\" with 5 result rows, each row showing a bold test name (White cells, CRP, Haemoglobin, Creatinine, Potassium"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        887,
+        123,
+        364,
+        754
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Right-hand Notes panel: a 370x760px white rounded card titled \"Notes\", containing a vertical timeline of 3 entries each with a small dot marker, a timestamp/aut"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        906,
+        410,
+        325,
+        103
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "An \"Add a note…\" text input placeholder inside the Notes panel, its placeholder text in grey (#8995a1), not the page's dark navy text."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

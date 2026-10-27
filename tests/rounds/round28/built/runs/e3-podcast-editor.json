@@ -1,0 +1,941 @@
+{
+  "id": "e3-podcast-editor",
+  "at": "2026-10-27T04:22:39.963Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9225841726707382,
+    "overallV2": 0.9225841726707382,
+    "overallV1": 0.8966031564777324,
+    "colour": 0.9869155606406896,
+    "structure": 0.932260568660468,
+    "structureStrict": 0.8673605359847771,
+    "colourAligned": 0.9869155606406896,
+    "structureAligned": 0.932260568660468,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9311822239761464
+    },
+    "layout": 0.8500811210466491,
+    "layoutV1": 0.8500811210466491,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      56
+    ],
+    [
+      1,
+      24,
+      13,
+      267,
+      30
+    ],
+    [
+      2,
+      24,
+      13,
+      61,
+      30
+    ],
+    [
+      2,
+      99,
+      18,
+      191,
+      20
+    ],
+    [
+      1,
+      1183,
+      12,
+      73,
+      31
+    ],
+    [
+      0,
+      0,
+      56,
+      340,
+      844
+    ],
+    [
+      6,
+      18,
+      72,
+      68,
+      21
+    ],
+    [
+      6,
+      265,
+      74,
+      58,
+      18
+    ],
+    [
+      6,
+      18,
+      100,
+      303,
+      55
+    ],
+    [
+      9,
+      18,
+      100,
+      303,
+      18
+    ],
+    [
+      9,
+      18,
+      122,
+      303,
+      18
+    ],
+    [
+      6,
+      183,
+      133,
+      89,
+      15
+    ],
+    [
+      12,
+      189,
+      131,
+      77,
+      20
+    ],
+    [
+      6,
+      18,
+      182,
+      303,
+      55
+    ],
+    [
+      14,
+      18,
+      182,
+      303,
+      18
+    ],
+    [
+      14,
+      18,
+      204,
+      303,
+      18
+    ],
+    [
+      6,
+      18,
+      214,
+      103,
+      20
+    ],
+    [
+      6,
+      18,
+      264,
+      303,
+      77
+    ],
+    [
+      18,
+      18,
+      264,
+      303,
+      18
+    ],
+    [
+      18,
+      18,
+      286,
+      303,
+      40
+    ],
+    [
+      6,
+      18,
+      346,
+      303,
+      55
+    ],
+    [
+      21,
+      18,
+      346,
+      303,
+      18
+    ],
+    [
+      21,
+      18,
+      368,
+      303,
+      18
+    ],
+    [
+      6,
+      18,
+      407,
+      303,
+      55
+    ],
+    [
+      24,
+      18,
+      407,
+      303,
+      18
+    ],
+    [
+      24,
+      18,
+      429,
+      303,
+      18
+    ],
+    [
+      0,
+      343,
+      59,
+      933,
+      28
+    ],
+    [
+      27,
+      359,
+      64,
+      28,
+      17
+    ],
+    [
+      27,
+      484,
+      64,
+      28,
+      17
+    ],
+    [
+      27,
+      609,
+      64,
+      28,
+      17
+    ],
+    [
+      27,
+      733,
+      64,
+      28,
+      17
+    ],
+    [
+      27,
+      858,
+      64,
+      28,
+      17
+    ],
+    [
+      27,
+      983,
+      64,
+      28,
+      17
+    ],
+    [
+      27,
+      1108,
+      64,
+      28,
+      17
+    ],
+    [
+      27,
+      1232,
+      64,
+      28,
+      17
+    ],
+    [
+      0,
+      340,
+      90,
+      940,
+      118
+    ],
+    [
+      36,
+      340,
+      90,
+      130,
+      118
+    ],
+    [
+      37,
+      352,
+      102,
+      33,
+      20
+    ],
+    [
+      37,
+      352,
+      119,
+      59,
+      17
+    ],
+    [
+      37,
+      352,
+      142,
+      22,
+      18
+    ],
+    [
+      37,
+      380,
+      142,
+      22,
+      18
+    ],
+    [
+      36,
+      490,
+      92,
+      71,
+      16
+    ],
+    [
+      42,
+      496,
+      93,
+      59,
+      15
+    ],
+    [
+      36,
+      860,
+      90,
+      72,
+      18
+    ],
+    [
+      44,
+      868,
+      92,
+      56,
+      15
+    ],
+    [
+      36,
+      490,
+      104,
+      300,
+      90
+    ],
+    [
+      46,
+      499,
+      118,
+      48,
+      12
+    ],
+    [
+      36,
+      860,
+      104,
+      360,
+      90
+    ],
+    [
+      48,
+      869,
+      118,
+      71,
+      12
+    ],
+    [
+      36,
+      491,
+      133,
+      298,
+      50
+    ],
+    [
+      36,
+      861,
+      133,
+      358,
+      50
+    ],
+    [
+      0,
+      340,
+      208,
+      940,
+      118
+    ],
+    [
+      52,
+      340,
+      208,
+      130,
+      118
+    ],
+    [
+      53,
+      352,
+      220,
+      26,
+      20
+    ],
+    [
+      53,
+      352,
+      237,
+      65,
+      17
+    ],
+    [
+      53,
+      352,
+      260,
+      22,
+      18
+    ],
+    [
+      53,
+      380,
+      260,
+      22,
+      18
+    ],
+    [
+      52,
+      590,
+      222,
+      70,
+      90
+    ],
+    [
+      52,
+      670,
+      222,
+      240,
+      90
+    ],
+    [
+      59,
+      679,
+      236,
+      73,
+      12
+    ],
+    [
+      52,
+      1020,
+      222,
+      200,
+      90
+    ],
+    [
+      61,
+      1029,
+      236,
+      50,
+      12
+    ],
+    [
+      52,
+      671,
+      251,
+      238,
+      50
+    ],
+    [
+      52,
+      1021,
+      251,
+      198,
+      50
+    ],
+    [
+      0,
+      340,
+      326,
+      940,
+      118
+    ],
+    [
+      65,
+      340,
+      326,
+      130,
+      118
+    ],
+    [
+      66,
+      352,
+      338,
+      37,
+      20
+    ],
+    [
+      66,
+      352,
+      355,
+      65,
+      17
+    ],
+    [
+      66,
+      352,
+      378,
+      22,
+      18
+    ],
+    [
+      66,
+      380,
+      378,
+      22,
+      18
+    ],
+    [
+      65,
+      490,
+      340,
+      740,
+      90
+    ],
+    [
+      71,
+      499,
+      354,
+      85,
+      12
+    ],
+    [
+      65,
+      491,
+      391,
+      738,
+      28
+    ],
+    [
+      0,
+      340,
+      444,
+      940,
+      118
+    ],
+    [
+      74,
+      340,
+      444,
+      130,
+      118
+    ],
+    [
+      75,
+      352,
+      456,
+      25,
+      20
+    ],
+    [
+      75,
+      352,
+      473,
+      54,
+      17
+    ],
+    [
+      75,
+      352,
+      496,
+      22,
+      18
+    ],
+    [
+      75,
+      380,
+      496,
+      22,
+      18
+    ],
+    [
+      74,
+      800,
+      458,
+      90,
+      90
+    ],
+    [
+      80,
+      809,
+      472,
+      24,
+      12
+    ],
+    [
+      0,
+      699,
+      60,
+      8,
+      632
+    ],
+    [
+      82,
+      695,
+      60,
+      16,
+      14
+    ],
+    [
+      0,
+      340,
+      760,
+      940,
+      140
+    ],
+    [
+      84,
+      370,
+      804,
+      56,
+      56
+    ],
+    [
+      85,
+      388,
+      816,
+      20,
+      33
+    ],
+    [
+      84,
+      695,
+      815,
+      48,
+      17
+    ],
+    [
+      84,
+      448,
+      817,
+      125,
+      39
+    ],
+    [
+      84,
+      589,
+      828,
+      84,
+      21
+    ],
+    [
+      84,
+      695,
+      828,
+      108,
+      30
+    ],
+    [
+      84,
+      1226,
+      804,
+      10,
+      58
+    ],
+    [
+      84,
+      1198,
+      810,
+      10,
+      52
+    ],
+    [
+      84,
+      1184,
+      818,
+      10,
+      44
+    ],
+    [
+      84,
+      1212,
+      824,
+      10,
+      38
+    ],
+    [
+      84,
+      1170,
+      832,
+      10,
+      30
+    ],
+    [
+      84,
+      1240,
+      838,
+      10,
+      24
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "mono",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "mask"
+    ],
+    "extra": [
+      "clip-shape"
+    ]
+  },
+  "tokens": {
+    "input": 97282,
+    "output": 55038,
+    "cacheRead": 1013094
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 65463,
+      "output": 21074,
+      "cacheRead": 177019,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 208049
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 33415,
+      "output": 13675,
+      "cacheRead": 479399,
+      "toolCalls": 6,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 163919
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 22595,
+      "output": 8000,
+      "cacheRead": 340820,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 99837
+    }
+  ],
+  "ease": {
+    "marks": 10,
+    "captured": 10,
+    "notes": 11,
+    "words": 1844,
+    "drawMs": 76226,
+    "readingMs": 112110,
+    "runMs": 585985
+  },
+  "reading": "This is a full podcast-editing studio UI drawn from scratch over an empty page: a top header bar, a left transcript panel, a timeline ruler, four audio-track rows (Maya/ad-break, Tom/hatched desk-ring, Music Bed, SFX), a chapter marker badge, a red playhead line, and a bottom transport/loudness bar — every piece fully specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top header bar: ONE 1280x56px top bar element at 0,0, its own wrapper, #1d1f26 fill, a 1px #2b2e38 rule along its bottom edge only (border-bottom, no other bord"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        59,
+        334,
+        837
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left transcript panel: ONE 340x844px panel at 0,56, #1a1c22 fill, every one-line text part kept on a single line (nowrap) with min-width sizing. Contains, part "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        59,
+        933,
+        28
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Timeline ruler bar directly under the header: a near-black (#1a1c22) bar 34px tall spanning the page width, with grey (#8d92a3, not the page's default light gre"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        93,
+        933,
+        112
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Maya track row: a 940x118px card at 340,90, #1d1f26 fill with a right-only 1px #2b2e38 border. Contains: an 'Ad break' pill (68x18, #ff5c7a fill, 4px rounded, b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        211,
+        934,
+        112
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Tom track row, directly under the Maya row with no gap: a 940x118px card at 340,208, #1d1f26 fill with right-only 1px #2b2e38 border. Contains: 'Tom' label (13p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        329,
+        933,
+        112
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Music Bed track row, flush under the Tom row: a 940x118px card at 340,326, #1d1f26 fill with right-only 1px #2b2e38 border. Contains: 'Music' label (13px bold #"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        447,
+        933,
+        112
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "SFX track row, flush under the Music Bed row: a 940x118px card at 340,444, #1d1f26 fill with right-only 1px #2b2e38 border. Contains: 'SFX' label (13px bold #e7"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        504,
+        93,
+        63,
+        12
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Chapter marker badge near the top of the Maya track row: a vivid peach-filled pill with near-black text '◆ Chapter 2' (text colour #15161b, not the page's defau"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        699,
+        60,
+        8,
+        632
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Playhead: a thin 2x640px vertical line, absolutely positioned with top-left at 702,56, background #ff5c7a, layered above everything it crosses (highest z-index)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        763,
+        933,
+        134
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Bottom transport/loudness panel: a 940x140px panel at 340,760, #1d1f26 fill, with a top-only 1px #2b2e38 rule. Contains: a round 56x56 #e7e8ee play button with "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

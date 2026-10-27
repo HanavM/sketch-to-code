@@ -1,24 +1,24 @@
 {
   "id": "c2-sliced-type",
-  "at": "2026-10-27T03:43:50.290Z",
+  "at": "2026-10-27T04:42:32.790Z",
   "likeness": {
     "version": 3,
-    "overall": 0.7620115489851801,
-    "overallV2": 0.7567875239748905,
-    "overallV1": 0.6810586536483442,
-    "colour": 0.9150551168859745,
-    "structure": 0.6985975464056281,
-    "structureStrict": 0.49872871948409764,
-    "colourAligned": 0.9150551168859745,
-    "structureAligned": 0.7123851513984534,
+    "overall": 0.8618539806273801,
+    "overallV2": 0.8618539806273801,
+    "overallV1": 0.7790656863571122,
+    "colour": 0.9580495043235042,
+    "structure": 0.8813688556094621,
+    "structureStrict": 0.6628683129857262,
+    "colourAligned": 0.9580495043235042,
+    "structureAligned": 0.8813688556094621,
     "align": {
       "scale": 1,
-      "dx": -16,
-      "dy": 32,
-      "r": 0.38843232230836305
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7802429192272
     },
-    "layout": 0.6888151165303691,
-    "layoutV1": 0.6888151165303691,
+    "layout": 0.7480408699991634,
+    "layoutV1": 0.7480408699991634,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,7 +27,7 @@
       0,
       0,
       1280,
-      900
+      920
     ],
     [
       0,
@@ -39,91 +39,70 @@
     [
       0,
       64,
-      34,
+      32,
       1152,
       24
     ],
     [
       2,
       64,
-      34,
+      32,
       68,
       24
     ],
     [
       2,
-      968,
-      36,
-      248,
+      944,
+      34,
+      272,
       21
     ],
     [
       4,
-      968,
-      36,
+      944,
+      34,
       32,
       21
     ],
     [
       4,
-      1032,
-      36,
+      1016,
+      34,
       40,
       21
     ],
     [
       4,
-      1104,
-      36,
+      1096,
+      34,
       32,
       21
     ],
     [
       4,
       1168,
-      36,
+      34,
       48,
       21
     ],
     [
       0,
-      68,
-      109,
-      1108,
-      230
-    ],
-    [
-      9,
-      68,
-      109,
-      1108,
-      230
-    ],
-    [
-      10,
-      68,
-      109,
-      1108,
-      230
-    ],
-    [
-      10,
-      106,
-      109,
-      1108,
-      230
-    ],
-    [
-      10,
-      46,
-      109,
+      60,
+      150,
       1108,
       230
     ],
     [
       0,
-      68,
-      123,
+      98,
+      150,
+      1108,
+      230
+    ],
+    [
+      0,
+      38,
+      150,
       1108,
       230
     ],
@@ -135,158 +114,137 @@
       70
     ],
     [
-      15,
-      906,
+      12,
+      902,
       116,
-      116,
-      35
+      124,
+      36
+    ],
+    [
+      0,
+      60,
+      400,
+      1108,
+      230
+    ],
+    [
+      14,
+      60,
+      386,
+      1108,
+      257
     ],
     [
       0,
       3,
       577,
       1276,
-      122
+      123
+    ],
+    [
+      16,
+      -205,
+      490,
+      3961,
+      217
     ],
     [
       17,
-      -14,
-      100,
-      1293,
-      599
+      -205,
+      559,
+      1982,
+      148
     ],
     [
       18,
-      -14,
-      100,
-      1293,
-      599
+      -204,
+      644,
+      331,
+      36
     ],
     [
-      19,
-      286,
-      110,
-      711,
-      537
+      18,
+      126,
+      633,
+      331,
+      36
     ],
     [
-      19,
-      3,
-      575,
-      1276,
-      124
+      18,
+      455,
+      621,
+      331,
+      36
+    ],
+    [
+      18,
+      785,
+      610,
+      331,
+      36
+    ],
+    [
+      18,
+      1115,
+      598,
+      331,
+      36
+    ],
+    [
+      18,
+      1445,
+      587,
+      331,
+      36
     ],
     [
       17,
-      3,
-      577,
-      1276,
-      122
+      1774,
+      490,
+      1982,
+      148
     ],
     [
-      22,
-      -194,
-      525,
-      3720,
-      154
+      25,
+      1775,
+      575,
+      331,
+      36
     ],
     [
-      23,
-      -194,
-      590,
-      1860,
-      89
+      25,
+      2105,
+      564,
+      331,
+      36
     ],
     [
-      24,
-      -194,
-      644,
-      311,
-      35
+      25,
+      2435,
+      552,
+      331,
+      36
     ],
     [
-      24,
-      116,
-      633,
-      311,
-      35
+      25,
+      2765,
+      541,
+      331,
+      36
     ],
     [
-      24,
-      426,
-      623,
-      311,
-      35
+      25,
+      3095,
+      529,
+      331,
+      36
     ],
     [
-      24,
-      736,
-      612,
-      311,
-      35
-    ],
-    [
-      24,
-      1046,
-      601,
-      311,
-      35
-    ],
-    [
-      24,
-      1356,
-      590,
-      311,
-      35
-    ],
-    [
-      23,
-      1666,
-      525,
-      1860,
-      89
-    ],
-    [
-      31,
-      1666,
-      579,
-      311,
-      35
-    ],
-    [
-      31,
-      1976,
-      569,
-      311,
-      35
-    ],
-    [
-      31,
-      2286,
-      558,
-      311,
-      35
-    ],
-    [
-      31,
-      2595,
-      547,
-      311,
-      35
-    ],
-    [
-      31,
-      2905,
-      536,
-      311,
-      35
-    ],
-    [
-      31,
-      3215,
-      525,
-      311,
-      35
+      25,
+      3424,
+      518,
+      331,
+      36
     ],
     [
       0,
@@ -311,93 +269,93 @@
     ],
     [
       0,
-      824,
+      823,
       684,
-      401,
-      171
+      393,
+      164
     ],
     [
-      41,
-      825,
+      35,
+      824,
       685,
-      199,
-      84
+      195,
+      81
+    ],
+    [
+      36,
+      842,
+      693,
+      159,
+      42
+    ],
+    [
+      36,
+      842,
+      741,
+      159,
+      17
+    ],
+    [
+      35,
+      1020,
+      685,
+      195,
+      81
+    ],
+    [
+      39,
+      1038,
+      693,
+      159,
+      42
+    ],
+    [
+      39,
+      1038,
+      741,
+      159,
+      17
+    ],
+    [
+      35,
+      824,
+      767,
+      195,
+      81
     ],
     [
       42,
-      843,
-      696,
-      163,
+      842,
+      775,
+      159,
       42
     ],
     [
       42,
-      843,
-      742,
-      163,
+      842,
+      823,
+      159,
       17
     ],
     [
-      41,
-      1025,
-      685,
-      199,
-      84
+      35,
+      1020,
+      767,
+      195,
+      81
     ],
     [
       45,
-      1043,
-      696,
-      163,
+      1038,
+      775,
+      159,
       42
     ],
     [
       45,
-      1043,
-      742,
-      163,
-      17
-    ],
-    [
-      41,
-      825,
-      770,
-      199,
-      84
-    ],
-    [
-      48,
-      843,
-      781,
-      163,
-      42
-    ],
-    [
-      48,
-      843,
-      827,
-      163,
-      17
-    ],
-    [
-      41,
-      1025,
-      770,
-      199,
-      84
-    ],
-    [
-      51,
-      1043,
-      781,
-      163,
-      42
-    ],
-    [
-      51,
-      1043,
-      827,
-      163,
+      1038,
+      823,
+      159,
       17
     ]
   ],
@@ -423,62 +381,42 @@
     ]
   },
   "tokens": {
-    "input": 67304,
-    "output": 38407,
-    "cacheRead": 525991
+    "input": 38724,
+    "output": 24116,
+    "cacheRead": 184500
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 81186,
-      "output": 28021,
-      "cacheRead": 498950,
-      "toolCalls": 13,
+      "billed": 44215,
+      "output": 16505,
+      "cacheRead": 172065,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
-        "Read src/App.tsx",
-        "Read src/main.tsx",
         "Glob",
+        "Read src/App.tsx",
         "Read src/index.css",
-        "Read s2c-bench-app/index.html",
+        "Read src/main.tsx",
         "Read s2c-bench-app/package.json",
         "Edit src/index.css",
-        "Write src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 329786
+      "ms": 174122
     }
   ],
   "ease": {
     "marks": 11,
     "captured": 11,
     "notes": 11,
-    "words": 532,
-    "drawMs": 66275,
-    "readingMs": 99506,
-    "runMs": 430628
+    "words": 599,
+    "drawMs": 66959,
+    "readingMs": 64409,
+    "runMs": 239837
   },
-  "reading": "A full dark hero page: a soft purple glow blob behind a giant glitch-sliced 'DISPLACE' word (plus a faint hollow-outline duplicate of the same word layered in front of it), a nav bar with a brand mark and right-aligned links, a tilted pink 'NEW SHOW · LIVE' pill, a spinning pink marquee bar with repeated text, a serif paragraph, two pill buttons, and a 2x2 stat grid.",
+  "reading": "This is a one-page dark hero/landing design: a page-wide black background with Helvetica off-white type; a soft blurred purple glow oval sitting behind the heading; a top nav with a 'SHIFT/28' logo and right-aligned links; a giant glitch-sliced 'DISPLACE' headline cut into 3 offset color bands; a second giant hollow-outline 'DISPLACE' headline below it; a tilted pink-bordered 'NEW SHOW · LIVE' pill near the first headline; a spinning pink marquee bar repeating 'MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺'; a serif subhead paragraph; two pill buttons ('See the reel' and 'Studio notes'); and a 2x2 stats grid with hairline dividers.",
   "actions": [
-    {
-      "kind": "design",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        3,
-        3,
-        1274,
-        894
-      ],
-      "paths": [
-        "s10"
-      ],
-      "instruction": "Set the whole page background to black (#0d0d12), use Helvetica as the base font-family site-wide, and set default body text color to an off-white (#f4f1ea / #b"
-    },
     {
       "kind": "add",
       "textMarks": [],
@@ -492,7 +430,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add one soft blurred color glow: a 700x520px oval div (border-radius 50%), position absolute with top-left at 300,120, sitting BEHIND all heading text (lower z-"
+      "instruction": "A soft blurred colour GLOW, NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE 700x520px oval (border-radius 50%) div with its top-left at 300,1"
     },
     {
       "kind": "add",
@@ -507,7 +445,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a nav bar: bold off-white 'SHIFT/28' brand mark at the left (#f4f1ea), followed by links 'Work', 'Studio', 'Talks', 'Contact' pushed to the far right with a"
+      "instruction": "Top nav bar: bold off-white 'SHIFT/28' first, then links: Work, Studio, Talks, Contact; 'SHIFT/28' sits together at the left, 'Work', 'Studio', 'Talks', 'Contac"
     },
     {
       "kind": "add",
@@ -525,14 +463,12 @@
       ],
       "region": [
         68,
-        109,
+        45,
         1044,
-        528
+        288
       ],
-      "paths": [
-        "s0"
-      ],
-      "instruction": "Add the word 'DISPLACE' as giant Helvetica heavy (font-weight 900, round-bowled, not condensed/display), ~230px, ~1067px wide, live text (not SVG), sliced into "
+      "paths": [],
+      "instruction": "ONE word sliced into 3 flat horizontal bands: 3 copies of the same text, each its own absolutely placed element stacked on exactly the same spot (same left, sam"
     },
     {
       "kind": "add",
@@ -550,40 +486,27 @@
       ],
       "region": [
         68,
-        123,
+        369,
         960,
-        514
+        292
       ],
-      "paths": [
-        "s0"
-      ],
-      "instruction": "Add a second copy of the word 'DISPLACE', same giant Helvetica heavy live-text style (~230px, ~1067px wide), but hollow/outlined: color: transparent with a fain"
+      "paths": [],
+      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not condensed/display; live text in a real text element, never SVG/out"
     },
     {
       "kind": "add",
-      "textMarks": [
-        "s2"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s2"
-          ],
-          "lines": 1,
-          "fontPx": 240
-        }
-      ],
+      "textMarks": [],
+      "textSize": [],
       "region": [
-        68,
-        109,
-        1044,
-        528
+        883,
+        110,
+        163,
+        48
       ],
       "paths": [
-        "s0",
         "s4"
       ],
-      "instruction": "Add a pill-shaped label tilted 8° clockwise with a 1px pink border, bold text 'NEW SHOW · LIVE' colored #ff4f7b (pink, not the page's default off-white)."
+      "instruction": "Tilted 8° clockwise pill label with a 1px pink border, bold text 'NEW SHOW · LIVE'; its text colour #ff4f7b (pink, not the page's off-white text)."
     },
     {
       "kind": "add",
@@ -591,15 +514,14 @@
       "textSize": [],
       "region": [
         4,
-        123,
+        599,
         1274,
-        555
+        79
       ],
       "paths": [
-        "s0",
         "s5"
       ],
-      "instruction": "Add a spinning/marquee vivid pink bar tilted 2° anticlockwise spanning the page width, with repeated black (#0d0d12) 16px text 'MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺"
+      "instruction": "Tilted slightly 2° anticlockwise spinning vivid pink marquee bar, with black text 16px 'MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺' repeated along it; text colour #0d0d12"
     },
     {
       "kind": "add",
@@ -624,7 +546,7 @@
         56
       ],
       "paths": [],
-      "instruction": "Add a serif paragraph of body copy: 'A design studio cutting letters into motion. Three slices, one word, a different offset every frame.'"
+      "instruction": "Serif body text: 'A design studio cutting letters into motion. Three slices, one word, a different offset every frame.'"
     },
     {
       "kind": "add",
@@ -639,7 +561,7 @@
       "paths": [
         "s8"
       ],
-      "instruction": "Add a row of 2 real pill buttons side by side: 'See the reel' (136x49px at 64,810) with background linear-gradient(90deg,#ff4f7b,#5b3cff), 15px bold white cente"
+      "instruction": "A row of 2 real buttons side by side (each its own element with live text, not plain text/links): 'See the reel' 136x49px at 64,810, background: linear-gradient"
     },
     {
       "kind": "add",
@@ -654,8 +576,10 @@
       "paths": [
         "s9"
       ],
-      "instruction": "Add a 2x2 stat grid, square corners (not rounded, no blur/frosted glass): grid container filled #f4f1ea33 with 1px gap and 1px border of same color; each cell s"
+      "instruction": "A 2x2 grid of cells split by 1px hairlines, square corners (not rounded, not frosted glass, no blur): the grid itself filled #f4f1ea33 with 1px gap and a 1px bo"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

@@ -659,7 +659,7 @@
    ],
    [
     "today-line",
-    "a THIN vertical line (a playhead), NOT a bar or block: ONE 2x784px div, position absolute with its top-left at 915,116 page px, background #de350b, laid OVER everything it crosses (highest z-index); its head is a 32x12px ::before (position absolute, left -22px, top -1px), background #de350b"
+    "a THIN vertical line (a playhead), NOT a bar or block: ONE 2x784px div, position absolute with its top-left at 915,116 page px, background #de350b, laid OVER everything it crosses (highest z-index); its head is a TEXT LABEL, not a block: a ::before (position absolute, left -22px, top -1px) with content \"Today\", 11px bold #ffffff text on a 32x12px #de350b fill, white-space nowrap"
    ]
   ]
  },
