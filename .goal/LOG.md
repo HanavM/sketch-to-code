@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-27T05:14Z | n256 round 28 written and built live; ten new drawing rules | Ten harder pages first look 82; sliced title 69 to 86, patient chart 86. Round 28 83. ~1.4M.
 2026-10-27T02:48Z | n255 r27 claim form total row and chips; festival frames, dates, ticket | Claim form 83 to 84, film festival 86 to 88. Round 27 91. ~256k.
 2026-10-27T02:30Z | n254 r27 neck size, bold summary values, inline-link line, radio rings, checklist, pager | Perfume 81 to 90, tarot 91, meal planner 93, claim form 83. Round 27 91. ~770k.
 2026-10-27T00:42Z | n253 r27 re-runs; hard-edge page, glow colour, sprocket bands; ease logging | Smart home 74 to 93, film 86, perfume 81, photo 93; round 27 89. Strokes, words, speed logged. ~584k.
