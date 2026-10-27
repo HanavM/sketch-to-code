@@ -1,24 +1,24 @@
 {
   "id": "e3-month-calendar",
-  "at": "2026-10-27T15:59:58.845Z",
+  "at": "2026-10-27T17:34:31.166Z",
   "likeness": {
     "version": 3,
-    "overall": 0.27841602940711496,
-    "overallV2": 0.27841602940711496,
-    "overallV1": 0.27841602940711496,
-    "colour": 0.6613767672808077,
-    "structure": 0.6415008267076698,
-    "structureStrict": 0.5650729723743138,
-    "colourAligned": 0.764792233830342,
-    "structureAligned": 0.6415008267076698,
+    "overall": 0.8953714079394255,
+    "overallV2": 0.8953714079394255,
+    "overallV1": 0.8814126982940897,
+    "colour": 0.9971894893129694,
+    "structure": 0.9750244168874991,
+    "structureStrict": 0.964201877505421,
+    "colourAligned": 0.9971894893129694,
+    "structureAligned": 0.9750244168874991,
     "align": {
-      "scale": 0.88,
-      "dx": 32,
-      "dy": -129,
-      "r": 0.167343599427658
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9646918075308127
     },
-    "layout": 0.92805343135705,
-    "layoutV1": 0.7851962884999072,
+    "layout": 0.9100921128073235,
+    "layoutV1": 0.7672349699501807,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,7 +27,7 @@
       0,
       0,
       1280,
-      940
+      900
     ],
     [
       0,
@@ -66,13 +66,6 @@
     ],
     [
       1,
-      985,
-      15,
-      181,
-      33
-    ],
-    [
-      1,
       988,
       18,
       50,
@@ -91,6 +84,13 @@
       18,
       65,
       27
+    ],
+    [
+      1,
+      985,
+      15,
+      181,
+      33
     ],
     [
       1,
@@ -170,11 +170,25 @@
       26
     ],
     [
+      20,
+      27,
+      143,
+      15,
+      18
+    ],
+    [
       11,
       50,
       139,
       28,
       26
+    ],
+    [
+      22,
+      57,
+      143,
+      14,
+      18
     ],
     [
       11,
@@ -184,11 +198,25 @@
       26
     ],
     [
+      24,
+      87,
+      143,
+      15,
+      18
+    ],
+    [
       11,
       110,
       139,
       28,
       26
+    ],
+    [
+      26,
+      117,
+      143,
+      15,
+      18
     ],
     [
       11,
@@ -198,11 +226,25 @@
       26
     ],
     [
+      28,
+      147,
+      143,
+      15,
+      18
+    ],
+    [
       11,
       170,
       139,
       28,
       26
+    ],
+    [
+      30,
+      178,
+      143,
+      12,
+      18
     ],
     [
       11,
@@ -212,11 +254,25 @@
       26
     ],
     [
+      32,
+      212,
+      143,
+      5,
+      18
+    ],
+    [
       11,
       20,
       167,
       28,
       26
+    ],
+    [
+      34,
+      30,
+      171,
+      7,
+      18
     ],
     [
       11,
@@ -226,6 +282,13 @@
       26
     ],
     [
+      36,
+      60,
+      171,
+      7,
+      18
+    ],
+    [
       11,
       80,
       167,
@@ -233,11 +296,25 @@
       26
     ],
     [
+      38,
+      90,
+      171,
+      8,
+      18
+    ],
+    [
       11,
       110,
       167,
       28,
       26
+    ],
+    [
+      40,
+      120,
+      171,
+      7,
+      18
     ],
     [
       11,
@@ -247,11 +324,25 @@
       26
     ],
     [
+      42,
+      150,
+      171,
+      7,
+      18
+    ],
+    [
       11,
       170,
       167,
       28,
       26
+    ],
+    [
+      44,
+      181,
+      171,
+      7,
+      18
     ],
     [
       11,
@@ -261,11 +352,25 @@
       26
     ],
     [
+      46,
+      210,
+      171,
+      7,
+      18
+    ],
+    [
       11,
       20,
       195,
       28,
       26
+    ],
+    [
+      48,
+      30,
+      199,
+      7,
+      18
     ],
     [
       11,
@@ -275,11 +380,25 @@
       26
     ],
     [
+      50,
+      58,
+      199,
+      12,
+      18
+    ],
+    [
       11,
       80,
       195,
       28,
       26
+    ],
+    [
+      52,
+      89,
+      199,
+      10,
+      18
     ],
     [
       11,
@@ -289,7 +408,7 @@
       26
     ],
     [
-      37,
+      54,
       113,
       197,
       22,
@@ -303,6 +422,13 @@
       26
     ],
     [
+      56,
+      148,
+      199,
+      12,
+      18
+    ],
+    [
       11,
       170,
       195,
@@ -310,11 +436,25 @@
       26
     ],
     [
+      58,
+      178,
+      199,
+      13,
+      18
+    ],
+    [
       11,
       200,
       195,
       28,
       26
+    ],
+    [
+      60,
+      208,
+      199,
+      12,
+      18
     ],
     [
       11,
@@ -324,11 +464,25 @@
       26
     ],
     [
+      62,
+      28,
+      227,
+      12,
+      18
+    ],
+    [
       11,
       50,
       223,
       28,
       26
+    ],
+    [
+      64,
+      58,
+      227,
+      12,
+      18
     ],
     [
       11,
@@ -338,11 +492,25 @@
       26
     ],
     [
+      66,
+      88,
+      227,
+      12,
+      18
+    ],
+    [
       11,
       110,
       223,
       28,
       26
+    ],
+    [
+      68,
+      118,
+      227,
+      12,
+      18
     ],
     [
       11,
@@ -352,6 +520,13 @@
       26
     ],
     [
+      70,
+      147,
+      227,
+      15,
+      18
+    ],
+    [
       11,
       170,
       223,
@@ -359,11 +534,25 @@
       26
     ],
     [
+      72,
+      178,
+      227,
+      12,
+      18
+    ],
+    [
       11,
       200,
       223,
       28,
       26
+    ],
+    [
+      74,
+      207,
+      227,
+      15,
+      18
     ],
     [
       11,
@@ -373,11 +562,25 @@
       26
     ],
     [
+      76,
+      27,
+      255,
+      15,
+      18
+    ],
+    [
       11,
       50,
       251,
       28,
       26
+    ],
+    [
+      78,
+      57,
+      255,
+      15,
+      18
     ],
     [
       11,
@@ -387,11 +590,25 @@
       26
     ],
     [
+      80,
+      87,
+      255,
+      15,
+      18
+    ],
+    [
       11,
       110,
       251,
       28,
       26
+    ],
+    [
+      82,
+      117,
+      255,
+      15,
+      18
     ],
     [
       11,
@@ -401,6 +618,13 @@
       26
     ],
     [
+      84,
+      147,
+      255,
+      14,
+      18
+    ],
+    [
       11,
       170,
       251,
@@ -408,11 +632,25 @@
       26
     ],
     [
+      86,
+      177,
+      255,
+      15,
+      18
+    ],
+    [
       11,
       200,
       251,
       28,
       26
+    ],
+    [
+      88,
+      207,
+      255,
+      15,
+      18
     ],
     [
       11,
@@ -429,18 +667,18 @@
       16
     ],
     [
-      57,
+      91,
       20,
       336,
       14,
       14
     ],
     [
-      57,
+      91,
       42,
-      335,
+      333,
       32,
-      16
+      20
     ],
     [
       11,
@@ -450,18 +688,18 @@
       16
     ],
     [
-      60,
+      94,
       20,
       362,
       14,
       14
     ],
     [
-      60,
+      94,
       42,
-      361,
+      359,
       60,
-      16
+      20
     ],
     [
       11,
@@ -471,18 +709,18 @@
       16
     ],
     [
-      63,
+      97,
       20,
       388,
       14,
       14
     ],
     [
-      63,
+      97,
       42,
-      387,
+      385,
       37,
-      16
+      20
     ],
     [
       11,
@@ -492,249 +730,144 @@
       16
     ],
     [
-      66,
+      100,
       20,
       414,
       14,
       14
     ],
     [
-      66,
-      42,
-      413,
-      53,
-      16
-    ],
-    [
-      0,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      69,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      70,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      70,
-      544,
-      461,
-      284,
-      16
-    ],
-    [
-      0,
-      240,
-      64,
-      149,
-      32
-    ],
-    [
-      0,
-      389,
-      64,
-      149,
-      32
-    ],
-    [
-      0,
-      537,
-      64,
-      149,
-      32
-    ],
-    [
-      0,
-      686,
-      64,
-      149,
-      32
-    ],
-    [
-      0,
-      834,
-      64,
-      149,
-      32
-    ],
-    [
-      0,
-      983,
-      64,
-      149,
-      32
-    ],
-    [
-      0,
-      1131,
-      64,
-      149,
-      32
-    ],
-    [
-      0,
-      240,
-      96,
-      149,
-      161
-    ],
-    [
-      80,
-      248,
-      102,
-      15,
-      15
-    ],
-    [
-      0,
-      389,
-      96,
-      149,
-      161
-    ],
-    [
-      82,
-      397,
-      102,
-      15,
-      15
-    ],
-    [
-      0,
-      537,
-      96,
-      149,
-      161
-    ],
-    [
-      84,
-      545,
-      102,
-      15,
-      15
-    ],
-    [
-      0,
-      686,
-      96,
-      149,
-      161
-    ],
-    [
-      86,
-      694,
-      102,
-      15,
-      15
-    ],
-    [
-      0,
-      834,
-      96,
-      149,
-      161
-    ],
-    [
-      88,
-      842,
-      102,
-      16,
-      15
-    ],
-    [
-      0,
-      983,
-      96,
-      149,
-      161
-    ],
-    [
-      90,
-      991,
-      102,
-      13,
-      15
-    ],
-    [
-      0,
-      1131,
-      96,
-      149,
-      161
-    ],
-    [
-      92,
-      1139,
-      102,
-      5,
-      15
-    ],
-    [
-      0,
-      240,
-      257,
-      149,
-      161
-    ],
-    [
-      94,
-      248,
-      263,
-      8,
-      15
-    ],
-    [
-      0,
-      389,
-      257,
-      149,
-      161
-    ],
-    [
-      96,
-      397,
-      263,
-      8,
-      15
-    ],
-    [
-      0,
-      537,
-      257,
-      149,
-      161
-    ],
-    [
-      98,
-      545,
-      263,
-      8,
-      15
-    ],
-    [
-      0,
-      686,
-      257,
-      149,
-      161
-    ],
-    [
       100,
-      694,
-      263,
-      8,
-      15
+      42,
+      411,
+      53,
+      20
+    ],
+    [
+      0,
+      240,
+      64,
+      149,
+      32
+    ],
+    [
+      0,
+      389,
+      64,
+      149,
+      32
+    ],
+    [
+      0,
+      537,
+      64,
+      149,
+      32
+    ],
+    [
+      0,
+      686,
+      64,
+      149,
+      32
+    ],
+    [
+      0,
+      834,
+      64,
+      149,
+      32
+    ],
+    [
+      0,
+      983,
+      64,
+      149,
+      32
+    ],
+    [
+      0,
+      1131,
+      64,
+      149,
+      32
+    ],
+    [
+      0,
+      240,
+      96,
+      149,
+      161
+    ],
+    [
+      0,
+      389,
+      96,
+      149,
+      161
+    ],
+    [
+      0,
+      537,
+      96,
+      149,
+      161
+    ],
+    [
+      0,
+      686,
+      96,
+      149,
+      161
+    ],
+    [
+      0,
+      834,
+      96,
+      149,
+      161
+    ],
+    [
+      0,
+      983,
+      96,
+      149,
+      161
+    ],
+    [
+      0,
+      1131,
+      96,
+      149,
+      161
+    ],
+    [
+      0,
+      240,
+      257,
+      149,
+      161
+    ],
+    [
+      0,
+      389,
+      257,
+      149,
+      161
+    ],
+    [
+      0,
+      537,
+      257,
+      149,
+      161
+    ],
+    [
+      0,
+      686,
+      257,
+      149,
+      161
     ],
     [
       0,
@@ -744,25 +877,11 @@
       161
     ],
     [
-      102,
-      842,
-      263,
-      8,
-      15
-    ],
-    [
       0,
       983,
       257,
       149,
       161
-    ],
-    [
-      104,
-      991,
-      263,
-      7,
-      15
     ],
     [
       0,
@@ -772,25 +891,11 @@
       161
     ],
     [
-      106,
-      1139,
-      263,
-      8,
-      15
-    ],
-    [
       0,
       240,
       418,
       149,
       161
-    ],
-    [
-      108,
-      248,
-      424,
-      8,
-      15
     ],
     [
       0,
@@ -800,25 +905,11 @@
       161
     ],
     [
-      110,
-      397,
-      424,
-      13,
-      15
-    ],
-    [
       0,
       537,
       418,
       149,
       161
-    ],
-    [
-      112,
-      545,
-      424,
-      10,
-      15
     ],
     [
       0,
@@ -835,25 +926,11 @@
       161
     ],
     [
-      115,
-      842,
-      424,
-      13,
-      15
-    ],
-    [
       0,
       983,
       418,
       149,
       161
-    ],
-    [
-      117,
-      991,
-      424,
-      13,
-      15
     ],
     [
       0,
@@ -863,25 +940,11 @@
       161
     ],
     [
-      119,
-      1139,
-      424,
-      13,
-      15
-    ],
-    [
       0,
       240,
       578,
       149,
       161
-    ],
-    [
-      121,
-      248,
-      584,
-      13,
-      15
     ],
     [
       0,
@@ -891,25 +954,11 @@
       161
     ],
     [
-      123,
-      397,
-      584,
-      12,
-      15
-    ],
-    [
       0,
       537,
       578,
       149,
       161
-    ],
-    [
-      125,
-      545,
-      584,
-      13,
-      15
     ],
     [
       0,
@@ -919,25 +968,11 @@
       161
     ],
     [
-      127,
-      694,
-      584,
-      13,
-      15
-    ],
-    [
       0,
       834,
       578,
       149,
       161
-    ],
-    [
-      129,
-      842,
-      584,
-      16,
-      15
     ],
     [
       0,
@@ -947,25 +982,11 @@
       161
     ],
     [
-      131,
-      991,
-      584,
-      13,
-      15
-    ],
-    [
       0,
       1131,
       578,
       149,
       161
-    ],
-    [
-      133,
-      1139,
-      584,
-      15,
-      15
     ],
     [
       0,
@@ -975,25 +996,11 @@
       161
     ],
     [
-      135,
-      248,
-      745,
-      15,
-      15
-    ],
-    [
       0,
       389,
       739,
       149,
       161
-    ],
-    [
-      137,
-      397,
-      745,
-      16,
-      15
     ],
     [
       0,
@@ -1003,25 +1010,11 @@
       161
     ],
     [
-      139,
-      545,
-      745,
-      15,
-      15
-    ],
-    [
       0,
       686,
       739,
       149,
       161
-    ],
-    [
-      141,
-      694,
-      745,
-      15,
-      15
     ],
     [
       0,
@@ -1031,13 +1024,6 @@
       161
     ],
     [
-      143,
-      842,
-      745,
-      15,
-      15
-    ],
-    [
       0,
       983,
       739,
@@ -1045,25 +1031,11 @@
       161
     ],
     [
-      145,
-      991,
-      745,
-      15,
-      15
-    ],
-    [
       0,
       1131,
       739,
       149,
       161
-    ],
-    [
-      147,
-      1139,
-      745,
-      15,
-      15
     ],
     [
       0,
@@ -1076,56 +1048,56 @@
       0,
       252,
       138,
-      90,
+      200,
       15
     ],
     [
       0,
       698,
       138,
-      77,
+      200,
       15
     ],
     [
       0,
       252,
       158,
-      86,
+      200,
       15
     ],
     [
       0,
       994,
       298,
-      92,
+      200,
       15
     ],
     [
       0,
       252,
       458,
-      108,
+      200,
       15
     ],
     [
       0,
       400,
       458,
-      91,
+      200,
       15
     ],
     [
       0,
       252,
       778,
-      43,
+      200,
       15
     ],
     [
       0,
       846,
       778,
-      65,
+      200,
       15
     ],
     [
@@ -1137,73 +1109,17 @@
     ],
     [
       0,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      159,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      160,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      160,
-      397,
-      301,
-      428,
-      15
-    ],
-    [
-      0,
       398,
-      300,
+      301,
       426,
-      16
+      20
     ],
     [
       0,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      164,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      165,
-      243,
-      67,
-      1034,
-      830
-    ],
-    [
-      165,
       544,
       461,
       284,
-      16
-    ],
-    [
-      0,
-      544,
-      460,
-      284,
-      18
+      20
     ],
     [
       0,
@@ -1213,70 +1129,77 @@
       221
     ],
     [
-      169,
-      788,
-      352,
-      12,
-      12
-    ],
-    [
-      169,
+      157,
       788,
       348,
       284,
       20
     ],
     [
-      169,
+      158,
+      788,
+      352,
+      12,
+      12
+    ],
+    [
+      158,
+      808,
+      346,
+      182,
+      24
+    ],
+    [
+      157,
       788,
       378,
       284,
       66
     ],
     [
-      169,
+      157,
       788,
       456,
       28,
       28
     ],
     [
-      169,
+      157,
       808,
       456,
       28,
       28
     ],
     [
-      169,
+      157,
       828,
       456,
       28,
       28
     ],
     [
-      169,
+      157,
       848,
       456,
       28,
       28
     ],
     [
-      169,
+      157,
       788,
       500,
       55,
       33
     ],
     [
-      169,
+      157,
       851,
       500,
       52,
       33
     ],
     [
-      169,
+      157,
       911,
       500,
       67,
@@ -1297,72 +1220,65 @@
     }
   ],
   "effects": {
-    "recall": 0.6666666666666666,
+    "recall": 1,
     "kept": [
+      "hard-shadow",
       "overlap",
       "soft-shadow"
     ],
-    "missing": [
-      "hard-shadow"
-    ],
+    "missing": [],
     "extra": []
   },
   "tokens": {
-    "input": 115009,
-    "output": 51410,
-    "cacheRead": 1310609
+    "input": 92288,
+    "output": 38654,
+    "cacheRead": 661066
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 123435,
-      "output": 34248,
-      "cacheRead": 948038,
-      "toolCalls": 15,
+      "billed": 84665,
+      "output": 21711,
+      "cacheRead": 353773,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Read components/SketchShape.tsx",
-        "Read components/SketchShape2.tsx",
-        "Read components/SketchShape3.tsx",
-        "Read src/App.tsx",
         "Glob",
-        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx",
         "Read src/index.css",
         "Write src/App.tsx",
         "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx",
-        "Edit src/App.tsx",
-        "Read src/App.tsx"
+        "Glob",
+        "Read s2c-bench-app/package.json"
       ],
-      "ms": 379357
+      "ms": 230104
     },
     {
       "attempt": "1",
       "kind": "repair",
-      "billed": 8965,
-      "output": 3505,
-      "cacheRead": 321990,
-      "toolCalls": 2,
+      "billed": 11176,
+      "output": 3957,
+      "cacheRead": 288748,
+      "toolCalls": 3,
       "tools": [
+        "Read src/App.tsx",
         "Read src/App.tsx",
         "Edit src/App.tsx"
       ],
-      "ms": 32078
+      "ms": 38590
     }
   ],
   "ease": {
     "marks": 17,
     "captured": 17,
     "notes": 7,
-    "words": 2314,
-    "drawMs": 122131,
-    "readingMs": 113734,
-    "runMs": 527810
+    "words": 2328,
+    "drawMs": 92216,
+    "readingMs": 129751,
+    "runMs": 400055
   },
-  "reading": "The sketch designs a full calendar-app page: a top header bar (nav arrows, month title, view toggle, Today button, + Event button), a left sidebar holding a mini month calendar and a colour-coded category legend, a large month-view grid filling the main area with day-of-week headers, day cells and sample event chips (including a purple 'Launch week: Atlas 2.0' bar and a cream/orange 'Lisbon offsite' bar), and a floating event-detail popup card over the grid.",
+  "reading": "The sketch lays out a full month-view calendar app page: a 64px top bar with nav arrows, a 'Today' pill, the month title, a Day/Week/Month view toggle and a teal '+ Event' button; a left sidebar containing a small November mini-month picker (with the 12th highlighted) and a 4-item colour-coded legend (Work/Launches/Travel/Holidays); a large 7-column by 5-week month grid with day numbers, several event entries (a teal 'Birthday: Sam', 'Design crit', 'Planning', 'Retro', 'Fly home', a teal circular '12' chip, a dashed 'Code freeze' bar), a cream/orange-striped 'Lisbon offsite' travel bar and a solid purple 'Launch week: Atlas 2.0' bar; and a floating event-detail popup card (title, coloured dot, date/location/owner text, four empty attendee avatar circles, and Join/Edit/Delete buttons) overlaying the grid. All text, colours and exact pixel geometry are taken verbatim from the user's typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -1387,7 +1303,7 @@
         48
       ],
       "paths": [],
-      "instruction": "Typed note (anchored to the top wavy-line strokes): the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e7eb rule alon"
+      "instruction": "Build the page's top bar as ONE 1280x64px wrapper at 0,0 (its own element, no fill, a 1px #e5e7eb border-bottom only, exactly 64px tall with its children vertic"
     },
     {
       "kind": "add",
@@ -1402,7 +1318,7 @@
       "paths": [
         "s2"
       ],
-      "instruction": "Typed note (anchored to the tall left-sidebar frame stroke): an invisible frame 240x836px at 0,64 (no fill, no border, no shadow) whose own parts are built part"
+      "instruction": "Build the left sidebar's mini month-calendar picker. The whole sidebar is an invisible 240x836px frame at 0,64 (no fill/border/shadow). Inside it: a 'November' "
     },
     {
       "kind": "add",
@@ -1431,7 +1347,7 @@
         94
       ],
       "paths": [],
-      "instruction": "Typed note (anchored to the three short squiggle rows under the mini calendar, representing a category legend): part by part (page px: size, then top-left x,y; "
+      "instruction": "Within the same left sidebar frame, below the mini calendar, add a 4-row colour-coded legend list, each row a 199x16 text label with a 14x14 rounded (4px) colou"
     },
     {
       "kind": "add",
@@ -1455,53 +1371,54 @@
         }
       ],
       "region": [
-        243,
-        67,
-        1034,
-        830
+        544,
+        461,
+        542,
+        47
       ],
       "paths": [
-        "s7",
         "s9"
       ],
-      "instruction": "Typed note (anchored to the big main-area rectangle, a month calendar grid): MON to SUN across, 5 weeks of day boxes; day 1 under SUN, first row starts with las"
+      "instruction": "Build the main month-view calendar grid: 7 weekday header cells (149x32 each, bordered right+bottom only in #eef0f2, bold 11px #9ca3af uppercase with 1px letter"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        243,
-        67,
-        1034,
-        830
+        398,
+        301,
+        426,
+        15
       ],
       "paths": [
-        "s7",
         "s8"
       ],
-      "instruction": "Typed note (anchored to the short rectangle near day 6/day-row in the grid): a cream bar, red text 'Lisbon offsite' with a plane icon, with a hard solid opaque "
+      "instruction": "Add a travel event bar inside the calendar grid: a cream (#ffedd5, solid fill) rounded bar with a solid orange (#f97316) 3px inset stripe along its left edge on"
     },
     {
       "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
-        243,
-        67,
-        1034,
-        830
+        544,
+        461,
+        284,
+        15
       ],
       "paths": [
-        "s7",
         "s9"
       ],
-      "instruction": "Typed note (anchored to the rectangle near the day-12/13 row): a vivid purple bar, white text 'Launch week: Atlas 2.0'; text colour #ffffff (NOT the page's dark"
+      "instruction": "Add a second event bar inside the calendar grid: a vivid solid purple (#7c3aed) rounded bar with white text reading 'Launch week: Atlas 2.0'."
     },
     {
       "kind": "add",
       "textMarks": [
-        "s13"
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s16"
       ],
       "textSize": [
         {
@@ -1527,7 +1444,7 @@
       "paths": [
         "s7"
       ],
-      "instruction": "Typed note (anchored to the cluster of squiggle/line rows on the right representing a popup): the region itself is ONE 320x221px floating panel at 770,330, #fff"
+      "instruction": "Add a floating event-detail popup card that overlays the calendar: a 320x221px white panel at 770,330, 12px rounded corners, with a soft drop shadow plus a 1px "
     }
   ],
   "rejected": []

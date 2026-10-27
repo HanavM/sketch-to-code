@@ -76,3 +76,18 @@ Ease r30: ~12 marks, ~1,160 words, ~79 s drawing, ~82 s to reading, ~226 s build
 
 Next: e3 launch bar taking the grid's rectangle as its drawn form (28%); c2 tile-by-tile shapes; e4 SVG wires; c3 film
 strip and masked stripes; c4 conic wheel; c5 labels round a circle; e5 knobs, meters, EQ curve.
+
+## n270: a borrowed frame is no longer a drawn form (2026-10-27, ~131k billed)
+
+Cause of e3 28%: the reading cited the month grid's big rectangle on four actions (the grid, both event bars, the
+popover), each next to its own small mark. No action cited the rectangle alone, so the old "owned alone" rule kept it
+everywhere, and the launch bar's drawn form became the whole grid: a purple slab over the month.
+Fix (grounding, a rule, not a page patch): a big drawn stroke several actions cite beside their own marks belongs to the
+action that cites the most strokes with it (the grid, with its headers); any other action whose own marks sit inside it
+and are at most a quarter of its area drops it as a borrowed frame. With no clear owner nothing changes.
+
+Live re-run: **e3 month calendar 28 to 90%** (grid, bars, mini month, legend, popover all right; view toggle blank, event
+dots and popover pointer lost). 17 marks, ~2,320 words, 92 s drawing, 400 s run, ~131k tokens, one repair turn.
+Round 30 over all ten: **82%** (c1 86, c2 65, c3 74, c4 80, c5 77, e1 87, e2 89, e3 90, e4 84, e5 87).
+
+Next: c2 tile-by-tile shapes (65); c3 film strip and masked stripes; c5 labels round a circle; e4 SVG wires.

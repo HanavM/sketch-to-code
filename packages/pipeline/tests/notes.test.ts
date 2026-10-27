@@ -783,3 +783,37 @@ describe("a stroke one action owns is not borrowed by the others (round 6 c3: th
     expect((a!.notes ?? []).join(' ')).toContain('deep green')
   })
 })
+
+describe('a big rectangle cited with small marks belongs to the action citing most with it (round 30 e3: launch bar built as a slab over the month)', () => {
+  const rect = (id: string, x: number, y: number, w: number, h: number): Stroke => ({
+    id,
+    points: [
+      { x, y, t: 0 }, { x: x + w, y, t: 10 }, { x: x + w, y: y + h, t: 20 }, { x, y: y + h, t: 30 }, { x, y, t: 40 },
+    ],
+  })
+  // s7 month grid, s8 / s9 event bars inside it, s14 a header squiggle
+  const strokes = [rect('s7', 243, 67, 1000, 700), rect('s8', 300, 300, 160, 20), rect('s9', 500, 420, 240, 20), stroke('s14', 260, 80)]
+  const ground = (sets: string[][]) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1280, h: 900 })])
+    const ev = buildEvidence(strokes, snap, [])
+    return groundInterpretation(
+      {
+        reading: 'calendar',
+        actions: sets.map((ids, i) => ({ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: `a${i}`, strokes: ids, layer: null, depicts: null, fidelity: null })),
+      } as never,
+      ev, snap, 'design',
+    ).actions
+  }
+  it('the event bars drop the borrowed grid rectangle; the grid keeps it', () => {
+    const [grid, lisbon, launch] = ground([['s7', 's9', 's14'], ['s7', 's8'], ['s7', 's9']])
+    expect(grid!.region!.w).toBeGreaterThan(900)
+    expect(lisbon!.region!.w).toBeLessThan(200)
+    expect(launch!.region!.w).toBeLessThan(260)
+    expect(launch!.svgPaths?.map((p) => p.strokeId)).toEqual(['s9'])
+  })
+  it('keeps the rectangle when no action clearly owns it', () => {
+    const [a, b] = ground([['s7', 's8'], ['s7', 's9']])
+    expect(a!.region!.w).toBeGreaterThan(900)
+    expect(b!.region!.w).toBeGreaterThan(900)
+  })
+})

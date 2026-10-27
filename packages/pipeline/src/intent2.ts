@@ -1046,17 +1046,62 @@ export function groundInterpretation(
     const ids = (a.strokes ?? []).filter((id) => ev.strokes.has(id))
     if (ids.length === 1) ownedAlone.set(ids[0]!, (ownedAlone.get(ids[0]!) ?? 0) + 1)
   }
-  const ownStrokes = (a: (typeof raw.actions)[number]): string[] => {
+  // A big drawn rectangle that several actions cite next to a small mark of
+  // their own, with no action citing it alone, is still one action's frame:
+  // the one that cites the most strokes with it (the grid with its headers).
+  // The others are borrowing it, and a borrowed frame became their drawn form:
+  // round 30 e3 cited the month grid's rectangle with the launch bar, and the
+  // bar was built as a purple slab over the whole month.
+  const frameBox = new Map<string, BBox>()
+  for (const s of ev.strokes.values()) frameBox.set(s.id, bboxOf(s.points))
+  const frameOwner = new Map<string, number>()
+  {
+    const citers = new Map<string, Array<{ i: number; others: number }>>()
+    raw.actions.forEach((a, i) => {
+      if (a.kind !== 'add' && a.kind !== 'design') return
+      const ids = [...new Set((a.strokes ?? []).filter((id) => ev.strokes.has(id)))]
+      if (ids.length < 2) return
+      for (const id of ids) {
+        const list = citers.get(id) ?? []
+        list.push({ i, others: ids.length - 1 })
+        citers.set(id, list)
+      }
+    })
+    for (const [id, list] of citers) {
+      if (list.length < 2 || ownedAlone.has(id)) continue
+      const sorted = [...list].sort((x, y) => y.others - x.others)
+      if (sorted[0]!.others > sorted[1]!.others) frameOwner.set(id, sorted[0]!.i)
+    }
+  }
+  const borrowedFrame = (id: string, rest: string[], i: number): boolean => {
+    const owner = frameOwner.get(id)
+    if (owner === undefined || owner === i) return false
+    const outer = frameBox.get(id)
+    const boxesIn = rest.map((r) => frameBox.get(r)).filter((b): b is BBox => Boolean(b))
+    if (!outer || !boxesIn.length) return false
+    const inner = union(boxesIn)
+    const pad = 8
+    const encloses = inner.x >= outer.x - pad && inner.y >= outer.y - pad &&
+      inner.x + inner.w <= outer.x + outer.w + pad && inner.y + inner.h <= outer.y + outer.h + pad
+    return encloses && outer.w * outer.h >= 4 * Math.max(1, inner.w * inner.h)
+  }
+  const ownStrokes = (a: (typeof raw.actions)[number], i = -1): string[] => {
     const ids = a.strokes ?? []
     if (a.kind !== 'add' && a.kind !== 'design') return ids
     const known = ids.filter((id) => ev.strokes.has(id))
     if (known.length < 2) return ids
-    const kept = ids.filter((id) => !ownedAlone.has(id))
-    return kept.some((id) => ev.strokes.has(id)) ? kept : ids
+    let kept = ids.filter((id) => !ownedAlone.has(id))
+    if (!kept.some((id) => ev.strokes.has(id))) kept = ids
+    const framed = kept.filter((id) => borrowedFrame(id, kept.filter((r) => r !== id && ev.strokes.has(r)), i))
+    if (framed.length) {
+      const rest = kept.filter((id) => !framed.includes(id))
+      if (rest.some((id) => ev.strokes.has(id))) kept = rest
+    }
+    return kept
   }
 
   const actions: GroundedAction[] = []
-  for (const a of raw.actions) {
+  for (const [ai, a] of raw.actions.entries()) {
     // design mode is creation-only — belt to the schema's suspenders
     if (mode === 'design' && !(DESIGN_KINDS as readonly string[]).includes(a.kind)) {
       rejected.push(`'${a.kind}' is not allowed in design mode (creation only)`)
@@ -1074,7 +1119,7 @@ export function groundInterpretation(
     // actions gives each of them the size)
     const textStackOf = (ids: string[]): TextStack[] =>
       pageStacks.filter((st) => st.strokes.some((id) => ids.includes(id)))
-    const citedStrokes = ownStrokes(a)
+    const citedStrokes = ownStrokes(a, ai)
       .map((id) => {
         const s = ev.strokes.get(id)
         if (!s) rejected.push(`unknown stroke id "${id}"`)
