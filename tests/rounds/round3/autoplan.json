@@ -699,7 +699,7 @@
    ],
    [
     "top-pages",
-    "white card \"Top pages\" list: \"/pricing\" 12,401, \"/\" 9,880, \"/docs/start\" 6,112, \"/blog/launch\" 4,307, \"/changelog\" 2,954; list rows exactly 45px apart (45px tall, 14px type: tight, not roomier), first line 55px below the panel's top"
+    "white card \"Top pages\" list: \"/pricing\" 12,401, \"/\" 9,880, \"/docs/start\" 6,112, \"/blog/launch\" 4,307, \"/changelog\" 2,954 (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted); list rows exactly 45px apart (45px tall, 14px type: tight, not roomier), first line 55px below the panel's top"
    ]
   ]
  }

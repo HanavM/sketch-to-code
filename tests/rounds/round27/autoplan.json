@@ -219,7 +219,7 @@
    ],
    [
     "neck",
-    "peach (#c9a07a) to warm paper (#f1d6b6, its stop at 50% of the way along, fully opaque) to peach (#c9a07a) gradient, left to right"
+    "peach (#c9a07a) to warm paper (#f1d6b6, its stop at 50% of the way along, fully opaque) to peach (#c9a07a) gradient, left to right block, exactly 52x24px (keep it this SMALL), its top-left at 694,246, square corners, plain paint only: no picture, no X, no icon, no text"
    ],
    [
     "glass-bottle",
@@ -797,7 +797,7 @@
    ],
    [
     "week-switch",
-    "buttons: \"‹\", \"›\"; its text #7b776d (grey, NOT the page's dark grey text)"
+    "a pager row packed at the left: ROUND 30x30px outlined (1px #ddd6c8 border, no fill) button \"‹\", then the words \"Nov 2 – Nov 6\" in grey between them, then the same button \"›\"; small gaps, all on one line; its text #7b776d (grey, NOT the page's dark grey text)"
    ],
    [
     "tabs",
@@ -813,7 +813,7 @@
    ],
    [
     "shopping-list",
-    "a #ffffff filter panel 310x540px at 940,30, 16px rounded, 20px padding (NOT an inspector, NOT filled field boxes, NOT text inputs); 4 sections top to bottom. Every [ ] is a real checkbox row: a 18x18px 5px-rounded empty square with a 2px #c9c1b0 border, [x] the same square filled solid #2f4a3a (no tick needed), then the label 10px right of it in regular dark text, any … value pushed to the far right in grey, rows about 32px tall: \"Shopping list\" (bold 18px heading, 21px from the panel top): ; \"PRODUCE\" (bold 11px heading, 77px from the panel top): [x] \"Butternut squash\n1\" … \"1\", [x] \"Spinach\n200 g\" … \"200 g\", [ ] \"Beetroot\n4\" … \"4\", [ ] \"Lemons\n3\" … \"3\"; \"PANTRY\" (bold 11px heading, 241px from the panel top): [x] \"Arborio rice\n500 g\" … \"500 g\", [ ] \"Red lentils\n400 g\" … \"400 g\", [ ] \"Harissa paste\n1 jar\" … \"1 jar\"; \"FRIDGE\" (bold 11px heading, 373px from the panel top): [ ] \"Greek yoghurt\n500 g\" … \"500 g\", [x] \"Parmesan\n100 g\" … \"100 g\""
+    "a #ffffff filter panel 310x540px at 940,30, 16px rounded, 20px padding (NOT an inspector, NOT filled field boxes, NOT text inputs); 4 sections top to bottom. Every [ ] is a real checkbox row: a 18x18px 5px-rounded empty square with a 2px #c9c1b0 border, [x] the same square filled solid #2f4a3a (no tick needed), then the label 10px right of it in regular dark text, any … value pushed to the far right in grey, rows about 32px tall: \"Shopping list\" (bold 18px heading, 21px from the panel top), then under it a small 11px #a39e92 line \"14 items · 6 done\": ; \"PRODUCE\" (bold 11px heading, 77px from the panel top): [x] \"Butternut squash\" (label STRUCK THROUGH, #a39e92 ink) … \"1\", [x] \"Spinach\" (label STRUCK THROUGH, #a39e92 ink) … \"200 g\", [ ] \"Beetroot\" … \"4\", [ ] \"Lemons\" … \"3\"; \"PANTRY\" (bold 11px heading, 241px from the panel top): [x] \"Arborio rice\" (label STRUCK THROUGH, #a39e92 ink) … \"500 g\", [ ] \"Red lentils\" … \"400 g\", [ ] \"Harissa paste\" … \"1 jar\"; \"FRIDGE\" (bold 11px heading, 373px from the panel top): [ ] \"Greek yoghurt\" … \"500 g\", [x] \"Parmesan\" (label STRUCK THROUGH, #a39e92 ink) … \"100 g\""
    ],
    [
     "nutrition-card",
@@ -821,7 +821,7 @@
    ],
    [
     "calorie-donut",
-    "a 150px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: conic-gradient(rgb(47, 74, 58) 0deg, rgb(47, 74, 58) 42%, rgb(242, 184, 75) 0deg, rgb(242, 184, 75) 72%, rgb(224, 122, 95) 0deg, rgb(224, 122, 95) 100%); border-radius 50%), ring 26px thick with a hollow white (#ffffff) middle cut by a round inner disc (inset 26px); NOT a donut chart, no segments, no labels, no legend"
+    "a 150px ring painted with ONE smooth conic gradient that blends round the circle (exactly: background: conic-gradient(rgb(47, 74, 58) 0deg, rgb(47, 74, 58) 42%, rgb(242, 184, 75) 0deg, rgb(242, 184, 75) 72%, rgb(224, 122, 95) 0deg, rgb(224, 122, 95) 100%); border-radius 50%), ring 26px thick with a hollow white (#ffffff) middle cut by a round inner disc (inset 26px); in that hollow middle, centred, bold 24px #2b2a26 \"1,840\" (the inner disc's own text); NOT a donut chart, no segments, no legend"
    ]
   ]
  },
@@ -981,11 +981,11 @@
    ],
    [
     "radio-cards",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 18 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 237x92 at 73,457 #f0f6ff fill, 2px #0a58ca border, 10px rounded; 237x92 at 322,457 1px #c8d0de border, 10px rounded; 237x92 at 572,457 1px #c8d0de border, 10px rounded; 207x16 at 337,472 14px bold #16213a \"Theft\"; 207x16 at 587,472 14px bold #16213a \"Fire or smoke\"; 205x16 at 89,473 14px bold #16213a \"Water damage\"; 122x13 at 337,494 12px #5b6782 \"Break-in or stolen items\"; 124x13 at 587,494 12px #5b6782 \"Any fire-related damage\"; 132x13 at 89,495 12px #5b6782 \"Leaks, burst pipes, floods\"; 237x92 at 73,561 1px #c8d0de border, 10px rounded; 237x92 at 322,561 1px #c8d0de border, 10px rounded; 237x92 at 572,561 1px #c8d0de border, 10px rounded; 207x16 at 88,576 14px bold #16213a \"Storm\"; 207x16 at 337,576 14px bold #16213a \"Accident\"; 207x16 at 587,576 14px bold #16213a \"Other\"; 101x13 at 88,598 12px #5b6782 \"Wind, hail, lightning\"; 147x13 at 337,598 12px #5b6782 \"Something broke by mistake\"; 106x13 at 587,598 12px #5b6782 \"Tell us in your words\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 24 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 237x92 at 73,457 #f0f6ff fill, 2px #0a58ca border, 10px rounded; 237x92 at 322,457 1px #c8d0de border, 10px rounded; 237x92 at 572,457 1px #c8d0de border, 10px rounded; 30x30 at 262,471 6px #0a58ca border, a circle, a ::after dot of the row it sits in (position absolute, content \"\"); 22x22 at 522,471 2px #c8d0de border, a circle, a ::after dot of the row it sits in (position absolute, content \"\"); 22x22 at 771,471 2px #c8d0de border, a circle, a ::after dot of the row it sits in (position absolute, content \"\"); 207x16 at 337,472 14px bold #16213a \"Theft\"; 207x16 at 587,472 14px bold #16213a \"Fire or smoke\"; 205x16 at 89,473 14px bold #16213a \"Water damage\"; 122x13 at 337,494 12px #5b6782 \"Break-in or stolen items\"; 124x13 at 587,494 12px #5b6782 \"Any fire-related damage\"; 132x13 at 89,495 12px #5b6782 \"Leaks, burst pipes, floods\"; 237x92 at 73,561 1px #c8d0de border, 10px rounded; 237x92 at 322,561 1px #c8d0de border, 10px rounded; 237x92 at 572,561 1px #c8d0de border, 10px rounded; 22x22 at 272,575 2px #c8d0de border, a circle, a ::after dot of the row it sits in (position absolute, content \"\"); 22x22 at 522,575 2px #c8d0de border, a circle, a ::after dot of the row it sits in (position absolute, content \"\"); 22x22 at 771,575 2px #c8d0de border, a circle, a ::after dot of the row it sits in (position absolute, content \"\"); 207x16 at 88,576 14px bold #16213a \"Storm\"; 207x16 at 337,576 14px bold #16213a \"Accident\"; 207x16 at 587,576 14px bold #16213a \"Other\"; 101x13 at 88,598 12px #5b6782 \"Wind, hail, lightning\"; 147x13 at 337,598 12px #5b6782 \"Something broke by mistake\"; 106x13 at 587,598 12px #5b6782 \"Tell us in your words\""
    ],
    [
     "dropzone",
-    "2px dashed #9fb3d6 outline (dashes, not a solid line) sky blue border \"browse files\", text \"JPG, PNG or PDF, up to 20 MB each\"; its text #5b6782 (grey, NOT the page's dark navy text)"
+    "2px dashed #9fb3d6 outline (dashes, not a solid line) sky blue border centred one line \"Drag photos or receipts here, or browse files\" (14px; its last words \"browse files\" sit INLINE in that same line as bold #0a58ca link text), then under it a smaller line \"JPG, PNG or PDF, up to 20 MB each\"; its text #5b6782 (grey, NOT the page's dark navy text)"
    ],
    [
     "file-chips",
@@ -997,7 +997,7 @@
    ],
    [
     "summary-card",
-    "white card \"Claim summary\" list: \"Policy\", \"Property\" Lisbon flat, \"Cover\" €120,000, \"Excess\" €250, \"Claim type\" Water damage, \"Files\" 2 attached; then under the list, in this order: a 41px row of tabs side by side: \"Est. payout\", \"up to €4,800\"; list rows exactly 37px apart (37px tall, 14px type: tight, not roomier), first line 25px below the panel's top"
+    "white card \"Claim summary\" list: \"Policy\" \"Home Plus · HP-20931\", \"Property\" Lisbon flat, \"Cover\" €120,000, \"Excess\" €250, \"Claim type\" Water damage, \"Files\" 2 attached (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted); then under the list, in this order: a 41px row of tabs side by side: \"Est. payout\", \"up to €4,800\"; list rows exactly 37px apart (37px tall, 14px type: tight, not roomier), first line 25px below the panel's top"
    ],
    [
     "actions",

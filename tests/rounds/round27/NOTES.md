@@ -99,3 +99,27 @@ read s, build s, tokens and fixes per page and per round. Round 27: 14 marks, ~1
 ~300 s to build, ~114k tokens per page, no repair turns. Words typed per page grew from ~240 (round 1) to ~1,100+.
 
 Still off: c2 neck (said with no size), e4 claim form 84, e2 meal planner 85, c1 tarot 87.
+
+## n254: live re-runs of the four weakest pages, six planner fixes (2026-10-27, ~770k billed)
+
+| page | before | after | what changed |
+|---|---|---|---|
+| c2 perfume glass | 81% | **90%** | bottle neck now a small 52x24 band under the cap (was a big tan box behind the bottle) |
+| c1 tarot fan | 87% | **91%** | re-run on the n251 notes (gold pill, starfield over the glow) |
+| e2 meal planner | 85% | 80%, then **93%** | shopping list right (real items, struck-through done rows, count line), donut says 1,840; second run (pager rule) got the week pager and a dark rail |
+| e4 claim form | 84% | 83%, then 83% | summary values bold and whole, dropzone sentence whole, radio rings drawn; the payout total row still built as a tinted box, file chips outlined |
+
+Round 27: **91%** over 10 (90.9; first look 75).
+
+Fixes (planner):
+- A small painted block with no words (square corners, under 240px) says its exact size and place (c2 neck; r7 thumbs, r10 cover).
+- Label/value rows with bold values say each value whole (up to 40 letters) and that values sit bold at the right end (e4 summary).
+- A line whose own words run into an inline bold link says the whole sentence, link inline (e4 dropzone was said as a title "browse files").
+- Empty round radio rings painted by ::before/::after on a card are parts of their own, with border and place (e4 claim type cards).
+- Checklist rows take their label from its own span (e2 'Butternut squash\n1'), say struck-through done rows and the small count line under the heading.
+- A ring's inner disc text ("1,840") is said; two buttons with words between them are a pager (e2 'Nov 2 – Nov 6' dropped).
+
+Re-planned rounds 1-26: r3, r7, r10, r14, r17, r23 notes change (small blocks, bold values, checklist labels); not re-run.
+Vitest same 2 env failures (1460); typecheck clean. Ease, round 27: 14 marks, ~1,200 words, ~82 s to draw, ~89 s to read,
+~325 s to build, ~120k tokens per page, no repair turns.
+Still off: e4 payout total row and file chips (83), c4 film festival 86.

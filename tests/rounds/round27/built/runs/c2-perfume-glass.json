@@ -1,24 +1,24 @@
 {
   "id": "c2-perfume-glass",
-  "at": "2026-10-27T00:33:40.077Z",
+  "at": "2026-10-27T01:13:50.462Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8057163597506982,
-    "overallV2": 0.8057163597506982,
-    "overallV1": 0.6933451827074597,
-    "colour": 0.9747941100678189,
-    "structure": 0.9356950027651746,
-    "structureStrict": 0.8297508067962437,
-    "colourAligned": 0.9747941100678189,
-    "structureAligned": 0.9356950027651746,
+    "overall": 0.8991358635192769,
+    "overallV2": 0.8991358635192769,
+    "overallV1": 0.8199993381851943,
+    "colour": 0.9898128442426818,
+    "structure": 0.9580728244861609,
+    "structureStrict": 0.8834624504658881,
+    "colourAligned": 0.9898128442426818,
+    "structureAligned": 0.9580728244861609,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.8237953282232019
+      "r": 0.9192321776210426
     },
-    "layout": 0.7377944167873435,
-    "layoutV1": 0.612820443429906,
+    "layout": 0.8759001272512646,
+    "layoutV1": 0.8134186427773749,
     "layoutVersion": 2
   },
   "boxes": [
@@ -35,6 +35,188 @@
       0,
       1280,
       558
+    ],
+    [
+      0,
+      760,
+      330,
+      300,
+      300
+    ],
+    [
+      0,
+      0,
+      0,
+      1274,
+      554
+    ],
+    [
+      3,
+      0,
+      0,
+      1274,
+      554
+    ],
+    [
+      4,
+      0,
+      0,
+      1274,
+      552
+    ],
+    [
+      4,
+      521,
+      140,
+      414,
+      413
+    ],
+    [
+      4,
+      600,
+      268,
+      233,
+      284
+    ],
+    [
+      3,
+      0,
+      0,
+      1274,
+      554
+    ],
+    [
+      8,
+      0,
+      0,
+      1274,
+      552
+    ],
+    [
+      8,
+      521,
+      140,
+      414,
+      413
+    ],
+    [
+      8,
+      677,
+      150,
+      81,
+      90
+    ],
+    [
+      3,
+      523,
+      143,
+      414,
+      413
+    ],
+    [
+      12,
+      523,
+      143,
+      414,
+      413
+    ],
+    [
+      13,
+      523,
+      143,
+      414,
+      413
+    ],
+    [
+      13,
+      680,
+      153,
+      81,
+      90
+    ],
+    [
+      13,
+      697,
+      249,
+      46,
+      18
+    ],
+    [
+      13,
+      603,
+      271,
+      233,
+      284
+    ],
+    [
+      3,
+      0,
+      0,
+      1274,
+      554
+    ],
+    [
+      18,
+      0,
+      0,
+      1274,
+      552
+    ],
+    [
+      18,
+      521,
+      140,
+      414,
+      413
+    ],
+    [
+      18,
+      600,
+      268,
+      233,
+      284
+    ],
+    [
+      18,
+      657,
+      377,
+      119,
+      69
+    ],
+    [
+      18,
+      686,
+      399,
+      68,
+      19
+    ],
+    [
+      23,
+      706,
+      399,
+      29,
+      9
+    ],
+    [
+      23,
+      686,
+      409,
+      68,
+      9
+    ],
+    [
+      18,
+      600,
+      380,
+      234,
+      174
+    ],
+    [
+      18,
+      626,
+      290,
+      15,
+      234
     ],
     [
       0,
@@ -80,41 +262,6 @@
     ],
     [
       0,
-      760,
-      330,
-      300,
-      300
-    ],
-    [
-      0,
-      523,
-      143,
-      414,
-      413
-    ],
-    [
-      0,
-      677,
-      150,
-      88,
-      96
-    ],
-    [
-      0,
-      600,
-      268,
-      240,
-      290
-    ],
-    [
-      0,
-      675,
-      379,
-      120,
-      70
-    ],
-    [
-      0,
       64,
       620,
       322,
@@ -125,63 +272,70 @@
       960,
       620,
       260,
+      81
+    ],
+    [
+      35,
+      960,
+      620,
+      260,
       27
     ],
     [
-      0,
+      36,
       960,
       620,
       33,
-      26
+      18
     ],
     [
-      0,
+      36,
       1107,
       620,
       113,
-      26
+      18
     ],
     [
-      0,
+      35,
       960,
       647,
       260,
       27
     ],
     [
-      0,
+      39,
       960,
       647,
       55,
-      26
+      18
     ],
     [
-      0,
+      39,
       1099,
       647,
       121,
-      26
+      18
     ],
     [
-      0,
+      35,
       960,
-      675,
+      674,
       260,
       27
     ],
     [
-      0,
+      42,
       960,
-      675,
+      674,
       44,
-      26
+      18
     ],
     [
-      0,
+      42,
       1125,
-      675,
+      674,
       95,
-      26
+      18
     ],
     [
       0,
@@ -200,17 +354,6 @@
   ],
   "groupMatched": [
     {
-      "role": "notes-list",
-      "iou": 0.9998798221367624,
-      "parts": 9,
-      "rect": {
-        "x": 960,
-        "y": 620,
-        "w": 260.03125,
-        "h": 82
-      }
-    },
-    {
       "role": "nav",
       "iou": 0.9997037515822359,
       "parts": 4,
@@ -223,59 +366,67 @@
     }
   ],
   "effects": {
-    "recall": 1,
+    "recall": 0.75,
     "kept": [
       "blur",
-      "gradient",
       "huge-type",
       "italic",
       "overlap",
       "serif",
-      "soft-shadow",
       "stripes-or-layers"
     ],
-    "missing": [],
+    "missing": [
+      "gradient",
+      "soft-shadow"
+    ],
     "extra": []
   },
   "tokens": {
-    "input": 72083,
-    "output": 34120,
-    "cacheRead": 393338
+    "input": 125064,
+    "output": 73428,
+    "cacheRead": 995930
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 71743,
-      "output": 19738,
-      "cacheRead": 378250,
-      "toolCalls": 8,
+      "billed": 159888,
+      "output": 56940,
+      "cacheRead": 980789,
+      "toolCalls": 15,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
-        "Glob",
         "Read src/index.css",
-        "Read src/main.tsx",
-        "Glob",
-        "Write src/App.tsx"
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Read components/SketchShape4.tsx"
       ],
-      "ms": 215594
+      "ms": 598828
     }
   ],
   "ease": {
     "marks": 20,
     "captured": 20,
     "notes": 14,
-    "words": 955,
-    "drawMs": 84207,
-    "readingMs": 127566,
-    "runMs": 344530
+    "words": 979,
+    "drawMs": 87180,
+    "readingMs": 159569,
+    "runMs": 760340
   },
-  "reading": "A full perfume-brand hero page: a hard-edge cream-to-pink gradient background with a faint grain overlay, a nav bar (ROSÉE + FRAGRANCE/ATELIERS/GIFTS), a giant 'ROSE nuit' Didot headline, a glass-bottle illustration built from layered gradient tiles with an off-white label button and a soft peach blur behind it, serif body copy, a three-row fragrance-notes list, an 'ADD TO BAG' button and a '€145' price.",
+  "reading": "A full hero/landing page sketch: a page-wide gradient background with a grain texture overlay, a top nav (ROSÉE + FRAGRANCE/ATELIERS/GIFTS), a giant two-line Didot headline (\"ROSE\" / \"nuit\"), a perfume-bottle style product illustration (cap, neck, glass-look panel with inset shading, and an off-white \"ROSÉE EAU DE PARFUM\" button) plus a blurred peach glow behind it, a serif descriptive paragraph, a fragrance-notes list (TOP/HEART/BASE rows), a dark \"ADD TO BAG\" button, and a \"€145\" price label.",
   "actions": [
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -289,33 +440,7 @@
         "s1",
         "s9"
       ],
-      "instruction": "Add a fine grain texture layer over the whole background (1280x558px), on top of the colour fields but under the type, with no fill of its own and pointer-event"
-    },
-    {
-      "kind": "design",
-      "textMarks": [
-        "s15",
-        "s16"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s15",
-            "s16",
-            "s17"
-          ],
-          "lines": 3,
-          "fontPx": 18
-        }
-      ],
-      "region": [
-        964,
-        630,
-        252,
-        36
-      ],
-      "paths": [],
-      "instruction": "Add a soft blurred round glow (border-radius 50%, never a square), 300x300px box with top-left at 760,330 before blur, filter: blur(70px) set directly on the el"
+      "instruction": "Add a fine grain texture layer over the whole hero area (1280x558px), no fill of its own, pointer-events none, sitting on top of the colour fields but under the"
     },
     {
       "kind": "add",
@@ -332,7 +457,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a header nav row: 'ROSÉE' at left (120x26 at 60,40, 22px regular NOT bold serif NOT the page sans, #3a2420, letter-spacing 10px), then links pushed to the f"
+      "instruction": "Top nav bar, 4 separate live-text elements, each one line (nowrap, min-width not fixed width): 'ROSÉE' 120x26 at 60,40, 22px regular serif (not the page sans) #"
     },
     {
       "kind": "add",
@@ -357,7 +482,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add a giant Didot serif headline 'ROSE', regular weight (not bold), wide-spaced letters (letter-spacing 30px), 150px type size, about 503px wide (no larger)."
+      "instruction": "Giant headline word 'ROSE' in Didot serif, regular weight (not bold), wide letter-spacing 30px, about 150px type size, roughly 503px wide."
     },
     {
       "kind": "add",
@@ -377,13 +502,12 @@
         3,
         3,
         1274,
-        623
+        552
       ],
       "paths": [
-        "s0",
-        "s2"
+        "s0"
       ],
-      "instruction": "Add a giant Didot italic serif word 'nuit' in pink, regular weight (not bold), 150px type size, about 233px wide (no larger), sitting alongside 'ROSE'."
+      "instruction": "Giant headline word 'nuit' in Didot italic serif, regular weight (not bold), pink colour, about 150px type size, roughly 233px wide, sitting alongside 'ROSE'."
     },
     {
       "kind": "add",
@@ -400,10 +524,10 @@
         "s1",
         "s7"
       ],
-      "instruction": "Add a small 88x96px tile with 10px rounded corners, filled with a brown (#8a5a3c) to peach (#e0b07e, stop at 40%, fully opaque) to brown (#8a5a3c) gradient, lef"
+      "instruction": "Small decorative tile (the bottle cap shape): brown #8a5a3c to peach #e0b07e (stop at 40%, fully opaque) to brown #8a5a3c gradient, left-to-right, 88x96px, 10px"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -418,10 +542,10 @@
         "s8",
         "s9"
       ],
-      "instruction": "Fill this bottle-neck shape with a peach (#c9a07a) to warm paper (#f1d6b6, stop at 50%, fully opaque) to peach (#c9a07a) gradient, left to right."
+      "instruction": "Small decorative block (the bottle neck connector): peach #c9a07a to warm paper #f1d6b6 (stop at 50%, fully opaque) to peach #c9a07a gradient, left-to-right, ex"
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -434,9 +558,11 @@
         "s0",
         "s1",
         "s9",
-        "s11"
+        "s11",
+        "s6",
+        "s10"
       ],
-      "instruction": "Fill this bottle body shape (240x290px, 26px rounded corners) with a pale pink (#f7c6c0 at 80% opacity) to cream (#fdeae6, stop at 30%, 67% opacity) to peach (#"
+      "instruction": "Glass-look product panel: pale pink #f7c6c0 (80% opacity) to cream #fdeae6 (stop 30%, 67% opacity) to peach #e89a9f (stop 70%, 80% opacity) to light pink #c9707"
     },
     {
       "kind": "add",
@@ -454,7 +580,22 @@
         "s9",
         "s11"
       ],
-      "instruction": "Add an off-white label/button reading 'ROSÉE EAU DE PARFUM', exactly 120x70px, #fbf2ee fill, #3a2420 text, square corners (border-radius 0, not a pill)."
+      "instruction": "Button inside the glass panel: 'ROSÉE EAU DE PARFUM', off-white #fbf2ee fill, #3a2420 text, 120x70px, square corners (border-radius 0, not a pill)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        764,
+        334,
+        292,
+        292
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Large soft blurred glow behind the product illustration: filter blur(70px) set on the element itself, box 300x300px with top-left at 760,330 before blur, perfec"
     },
     {
       "kind": "add",
@@ -481,7 +622,7 @@
         78
       ],
       "paths": [],
-      "instruction": "Add serif body copy: \"Damask rose at dusk, a thread of smoke, and something sweet you can't quite place. Made in Grasse, 50 ml.\""
+      "instruction": "Serif descriptive paragraph: \"Damask rose at dusk, a thread of smoke, and something sweet you can't quite place. Made in Grasse, 50 ml.\""
     },
     {
       "kind": "add",
@@ -508,7 +649,7 @@
         82
       ],
       "paths": [],
-      "instruction": "Add a three-row fragrance-notes list, each row with a bottom border (1px #3a2420 at 20% opacity) and a label/value pair, all 9 parts present as live text, 12px "
+      "instruction": "Fragrance notes list, 9 live-text parts plus thin bottom borders, each row one line (nowrap, min-width): row 1 — 260x27 border at 960,620 (1px #3a2420 20% botto"
     },
     {
       "kind": "add",
@@ -523,7 +664,7 @@
       "paths": [
         "s18"
       ],
-      "instruction": "Add a dark brown button reading 'ADD TO BAG', 260x54px, #3a2420 fill, #fbf2ee text (off-white, not the page's dark brown text), square corners (border-radius 0,"
+      "instruction": "Button 'ADD TO BAG': dark brown #3a2420 fill, off-white #fbf2ee text, 260x54px, square corners (border-radius 0, not a pill)."
     },
     {
       "kind": "add",
@@ -538,7 +679,7 @@
       "paths": [
         "s19"
       ],
-      "instruction": "Add serif price text '€145' at 22px (a large lead line, not small body text), about 44px wide on one line, top-left at 350,794."
+      "instruction": "Price label '€145' in serif, 22px (large lead line, not small body text), about 44px wide on one line, top-left at 350,794."
     }
   ],
   "rejected": [

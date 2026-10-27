@@ -681,7 +681,7 @@
    ],
    [
     "search-bar",
-    "white card; a 140x60px #ff5a1f filled button \"Search\" (square corners, bold #ffffff text; its fill clearly visible, not white), then list: \"From\" Lisbon (LIS), \"To\" Tokyo (HND), \"Depart\" Thu 12 Nov, \"Return\" Sun 22 Nov, \"Travellers\"; each word in its own colour: \"From Lisbon (LIS)\" #0b1f3a, \"To Tokyo (HND)\" #0b1f3a, \"Depart Thu 12 Nov\" #0b1f3a, \"Return Sun 22 Nov\" #0b1f3a, \"Travellers 2 adults, Economy\" #0b1f3a, \"Search\" #ffffff; the card exactly 1200x60px, its top-left at 40,70 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "white card; a 140x60px #ff5a1f filled button \"Search\" (square corners, bold #ffffff text; its fill clearly visible, not white), then list: \"From\" Lisbon (LIS), \"To\" Tokyo (HND), \"Depart\" Thu 12 Nov, \"Return\" Sun 22 Nov, \"Travellers\" \"2 adults, Economy\" (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted); each word in its own colour: \"From Lisbon (LIS)\" #0b1f3a, \"To Tokyo (HND)\" #0b1f3a, \"Depart Thu 12 Nov\" #0b1f3a, \"Return Sun 22 Nov\" #0b1f3a, \"Travellers 2 adults, Economy\" #0b1f3a, \"Search\" #ffffff; the card exactly 1200x60px, its top-left at 40,70 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
    ],
    [
     "filters",
@@ -917,7 +917,7 @@
    ],
    [
     "order-form",
-    "a 367x34px #2b3139 filled button \"Buy Sell\" (6px rounded, #eaecef text; its fill clearly visible, not white), then list: \"Price\" 3,412.58 USDT, \"Amount\" 0.500 ETH, \"Total\" 1,706.29 USDT, bright green button \"Buy ETH\"; each word in its own colour: \"Buy Sell\" #eaecef, \"Price 3,412.58 USDT\" #848e9c, \"Amount 0.500 ETH\" #848e9c, \"Total 1,706.29 USDT\" #848e9c, \"Buy ETH\" #0b0e11"
+    "a 367x34px #2b3139 filled button \"Buy Sell\" (6px rounded, #eaecef text; its fill clearly visible, not white), then list: \"Price\" 3,412.58 USDT, \"Amount\" 0.500 ETH, \"Total\" 1,706.29 USDT (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted), bright green button \"Buy ETH\"; each word in its own colour: \"Buy Sell\" #eaecef, \"Price 3,412.58 USDT\" #848e9c, \"Amount 0.500 ETH\" #848e9c, \"Total 1,706.29 USDT\" #848e9c, \"Buy ETH\" #0b0e11"
    ]
   ]
  },

@@ -1,24 +1,24 @@
 {
   "id": "e4-claim-form",
-  "at": "2026-10-26T22:15:26.108Z",
+  "at": "2026-10-27T01:51:58.039Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8447710668183672,
-    "overallV2": 0.8447710668183672,
-    "overallV1": 0.7969878730951094,
-    "colour": 0.9926087933893977,
-    "structure": 0.9245022290894437,
-    "structureStrict": 0.8645124722943647,
-    "colourAligned": 0.9926087933893977,
-    "structureAligned": 0.9245022290894437,
+    "overall": 0.833003100846871,
+    "overallV2": 0.833003100846871,
+    "overallV1": 0.752256987056896,
+    "colour": 0.9925318873188227,
+    "structure": 0.9246401221849715,
+    "structureStrict": 0.8232668285440601,
+    "colourAligned": 0.9925318873188227,
+    "structureAligned": 0.9246401221849715,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9110894262841005
+      "r": 0.8862388076650322
     },
-    "layout": 0.9019860676876625,
-    "layoutV1": 0.8019860676876626,
+    "layout": 0.864671730830365,
+    "layoutV1": 0.864671730830365,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,1002 +27,1081 @@
       0,
       0,
       1280,
-      950
+      924
     ],
     [
       0,
       0,
       0,
       1280,
-      64
+      924
     ],
     [
       1,
-      40,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      2,
+      24,
       17,
       157,
       29
     ],
     [
+      2,
+      1055,
+      20,
+      201,
+      24
+    ],
+    [
+      4,
+      1055,
+      20,
+      55,
+      24
+    ],
+    [
+      4,
+      1142,
+      20,
+      49,
+      24
+    ],
+    [
+      4,
+      1223,
+      20,
+      33,
+      24
+    ],
+    [
       1,
-      1056,
-      21,
-      184,
-      21
-    ],
-    [
-      3,
-      1056,
-      21,
-      48,
-      21
-    ],
-    [
-      3,
-      1136,
-      21,
-      43,
-      21
-    ],
-    [
-      3,
-      1211,
-      21,
-      29,
-      21
-    ],
-    [
       0,
+      64,
+      1280,
+      860
+    ],
+    [
+      8,
       44,
-      96,
+      107,
       792,
       30
     ],
     [
-      7,
+      9,
       44,
-      96,
+      107,
       235,
       30
     ],
     [
-      8,
+      10,
       44,
-      96,
-      79,
+      107,
+      81,
       30
     ],
     [
-      9,
+      11,
       44,
-      96,
+      107,
       30,
       30
     ],
     [
-      9,
-      82,
-      106,
+      12,
+      53,
+      112,
+      12,
+      21
+    ],
+    [
+      11,
+      84,
+      112,
       41,
-      10
+      21
     ],
     [
+      10,
+      139,
+      121,
+      125,
+      2
+    ],
+    [
+      9,
+      279,
+      107,
+      235,
+      30
+    ],
+    [
+      16,
+      279,
+      107,
+      94,
+      30
+    ],
+    [
+      17,
+      279,
+      107,
+      30,
+      30
+    ],
+    [
+      18,
+      290,
+      112,
       8,
-      137,
-      110,
-      128,
-      2
+      21
     ],
     [
-      7,
-      279,
-      96,
-      235,
-      30
-    ],
-    [
-      13,
-      279,
-      96,
-      92,
-      30
-    ],
-    [
-      14,
-      279,
-      96,
-      30,
-      30
-    ],
-    [
-      14,
-      317,
-      106,
+      17,
+      319,
+      112,
       54,
-      10
+      21
     ],
     [
-      13,
-      385,
-      110,
-      116,
+      16,
+      386,
+      121,
+      113,
       2
     ],
     [
-      7,
-      515,
-      96,
+      9,
+      513,
+      107,
       235,
       30
     ],
     [
-      18,
-      515,
-      96,
-      99,
-      30
-    ],
-    [
-      19,
-      515,
-      96,
-      30,
-      30
-    ],
-    [
-      19,
-      553,
-      106,
-      61,
-      10
-    ],
-    [
-      18,
-      628,
-      110,
-      108,
-      2
-    ],
-    [
-      7,
-      750,
-      96,
-      86,
+      22,
+      513,
+      107,
+      101,
       30
     ],
     [
       23,
-      750,
-      96,
-      86,
-      30
-    ],
-    [
-      24,
-      750,
-      96,
+      513,
+      107,
       30,
       30
     ],
     [
       24,
-      788,
-      106,
-      48,
-      10
+      524,
+      112,
+      8,
+      21
     ],
     [
-      0,
+      23,
+      553,
+      112,
+      61,
+      21
+    ],
+    [
+      22,
+      629,
+      121,
+      105,
+      2
+    ],
+    [
+      9,
+      748,
+      107,
+      88,
+      30
+    ],
+    [
+      28,
+      748,
+      107,
+      88,
+      30
+    ],
+    [
+      29,
+      748,
+      107,
+      30,
+      30
+    ],
+    [
+      30,
+      759,
+      112,
+      8,
+      21
+    ],
+    [
+      29,
+      788,
+      112,
+      48,
+      21
+    ],
+    [
+      8,
       40,
       156,
       800,
       714
     ],
     [
-      0,
-      73,
-      185,
+      33,
+      74,
+      186,
       734,
-      26
+      33
     ],
     [
-      0,
-      73,
-      215,
+      33,
+      74,
+      216,
       734,
-      16
-    ],
-    [
-      0,
-      73,
-      273,
-      350,
-      15
-    ],
-    [
-      0,
-      459,
-      273,
-      350,
-      15
-    ],
-    [
-      0,
-      73,
-      294,
-      350,
-      44
-    ],
-    [
-      32,
-      89,
-      306,
-      86,
       21
     ],
     [
-      0,
-      459,
-      294,
+      33,
+      74,
+      274,
+      350,
+      20
+    ],
+    [
+      33,
+      460,
+      274,
+      350,
+      20
+    ],
+    [
+      33,
+      74,
+      295,
       350,
       44
     ],
     [
-      34,
+      33,
+      460,
+      295,
+      350,
+      44
+    ],
+    [
+      33,
+      74,
+      358,
+      736,
+      20
+    ],
+    [
+      33,
+      74,
+      379,
+      736,
+      44
+    ],
+    [
+      33,
+      74,
+      429,
+      736,
+      18
+    ],
+    [
+      33,
+      74,
+      458,
+      736,
+      196
+    ],
+    [
+      43,
+      74,
+      458,
+      237,
+      92
+    ],
+    [
+      44,
+      263,
       474,
-      306,
-      35,
+      30,
+      30
+    ],
+    [
+      44,
+      92,
+      476,
+      201,
       21
     ],
     [
-      0,
-      73,
-      357,
-      736,
-      15
+      44,
+      92,
+      503,
+      201,
+      18
     ],
     [
-      0,
-      73,
-      378,
-      736,
-      44
-    ],
-    [
-      37,
-      88,
-      390,
-      95,
-      21
-    ],
-    [
-      0,
-      73,
-      428,
-      736,
-      14
-    ],
-    [
-      0,
-      73,
-      457,
+      43,
+      323,
+      458,
       237,
       92
     ],
     [
-      0,
-      322,
-      457,
-      237,
-      92
-    ],
-    [
-      0,
-      572,
-      457,
-      237,
-      92
-    ],
-    [
-      0,
-      73,
-      561,
-      237,
-      92
-    ],
-    [
-      0,
-      322,
-      561,
-      237,
-      92
-    ],
-    [
-      0,
-      572,
-      561,
-      237,
-      92
-    ],
-    [
-      0,
-      89,
+      48,
+      522,
       473,
-      207,
-      16
+      22,
+      22
     ],
     [
-      0,
-      337,
-      472,
-      207,
-      16
-    ],
-    [
-      0,
-      587,
-      472,
-      207,
-      16
-    ],
-    [
-      0,
-      88,
-      576,
-      207,
-      16
-    ],
-    [
-      0,
-      337,
-      576,
-      207,
-      16
-    ],
-    [
-      0,
-      587,
-      576,
-      207,
-      16
-    ],
-    [
-      0,
-      89,
-      495,
-      136,
-      13
-    ],
-    [
-      0,
-      337,
-      494,
-      126,
-      13
-    ],
-    [
-      0,
-      587,
-      494,
-      128,
-      13
-    ],
-    [
-      0,
-      88,
-      598,
-      104,
-      13
-    ],
-    [
-      0,
-      337,
-      598,
-      151,
-      13
-    ],
-    [
-      0,
-      587,
-      598,
-      109,
-      13
-    ],
-    [
-      0,
-      73,
-      688,
-      734,
-      100
-    ],
-    [
-      58,
-      344,
-      717,
-      192,
+      48,
+      340,
+      475,
+      203,
       21
     ],
     [
-      59,
-      455,
-      719,
+      48,
+      340,
+      502,
+      203,
+      18
+    ],
+    [
+      43,
+      573,
+      458,
+      237,
+      92
+    ],
+    [
+      52,
+      771,
+      473,
+      22,
+      22
+    ],
+    [
+      52,
+      590,
+      475,
+      203,
+      21
+    ],
+    [
+      52,
+      590,
+      502,
+      203,
+      18
+    ],
+    [
+      43,
+      74,
+      562,
+      237,
+      92
+    ],
+    [
+      56,
+      272,
+      577,
+      22,
+      22
+    ],
+    [
+      56,
+      91,
+      579,
+      203,
+      21
+    ],
+    [
+      56,
+      91,
+      606,
+      203,
+      18
+    ],
+    [
+      43,
+      323,
+      562,
+      237,
+      92
+    ],
+    [
+      60,
+      522,
+      577,
+      22,
+      22
+    ],
+    [
+      60,
+      340,
+      579,
+      203,
+      21
+    ],
+    [
+      60,
+      340,
+      606,
+      203,
+      18
+    ],
+    [
+      43,
+      573,
+      562,
+      237,
+      92
+    ],
+    [
+      64,
+      771,
+      577,
+      22,
+      22
+    ],
+    [
+      64,
+      590,
+      579,
+      203,
+      21
+    ],
+    [
+      64,
+      590,
+      606,
+      203,
+      18
+    ],
+    [
+      33,
+      75,
+      689,
+      729,
+      102
+    ],
+    [
+      68,
+      298,
+      718,
+      282,
+      21
+    ],
+    [
+      69,
+      500,
+      720,
       81,
       16
     ],
     [
-      58,
-      342,
-      742,
+      68,
+      341,
+      745,
       197,
       18
     ],
     [
-      0,
-      73,
-      802,
-      734,
-      32
+      33,
+      75,
+      814,
+      382,
+      38
     ],
     [
-      62,
-      73,
-      802,
+      72,
+      75,
+      814,
       174,
-      32
+      38
     ],
     [
-      62,
-      259,
-      802,
+      72,
+      261,
+      814,
       196,
-      32
+      38
     ],
     [
-      0,
+      8,
       452,
       300,
       300,
       318
     ],
     [
-      0,
-      469,
-      317,
-      266,
-      16
+      75,
+      470,
+      318,
+      264,
+      21
     ],
     [
-      0,
-      469,
-      317,
+      76,
+      470,
+      318,
       5,
-      16
+      21
     ],
     [
-      0,
-      730,
-      317,
+      76,
+      558,
+      318,
+      89,
+      21
+    ],
+    [
+      76,
+      729,
+      318,
       5,
-      16
+      21
     ],
     [
-      0,
-      469,
-      345,
-      35,
-      20
+      75,
+      470,
+      351,
+      264,
+      17
     ],
     [
-      0,
+      80,
+      470,
+      351,
+      38,
+      17
+    ],
+    [
+      80,
       508,
-      345,
-      35,
-      20
+      351,
+      38,
+      17
     ],
     [
-      0,
-      546,
-      345,
-      35,
-      20
+      80,
+      545,
+      351,
+      38,
+      17
     ],
     [
-      0,
-      585,
-      345,
-      35,
-      20
+      80,
+      583,
+      351,
+      38,
+      17
     ],
     [
-      0,
-      623,
-      345,
-      35,
-      20
+      80,
+      621,
+      351,
+      38,
+      17
     ],
     [
-      0,
-      662,
-      345,
-      35,
-      20
+      80,
+      659,
+      351,
+      38,
+      17
     ],
     [
-      0,
-      700,
-      345,
-      35,
-      20
+      80,
+      696,
+      351,
+      38,
+      17
     ],
     [
-      0,
-      469,
-      369,
-      35,
-      32
+      75,
+      470,
+      372,
+      264,
+      176
     ],
     [
-      0,
-      508,
-      369,
-      35,
-      32
-    ],
-    [
-      0,
-      546,
-      369,
+      88,
+      470,
+      372,
       35,
       32
     ],
     [
-      0,
-      585,
-      369,
+      88,
+      509,
+      372,
       35,
       32
     ],
     [
-      0,
-      623,
-      369,
+      88,
+      547,
+      372,
       35,
       32
     ],
     [
-      0,
-      662,
-      369,
+      88,
+      586,
+      372,
       35,
       32
     ],
     [
-      0,
-      700,
-      369,
+      88,
+      624,
+      372,
       35,
       32
     ],
     [
-      0,
-      469,
-      405,
+      88,
+      663,
+      372,
       35,
       32
     ],
     [
-      0,
-      508,
-      405,
+      88,
+      701,
+      372,
       35,
       32
     ],
     [
-      0,
-      546,
-      405,
+      88,
+      470,
+      408,
       35,
       32
     ],
     [
-      0,
-      585,
-      405,
+      88,
+      509,
+      408,
       35,
       32
     ],
     [
-      0,
-      623,
-      405,
+      88,
+      547,
+      408,
       35,
       32
     ],
     [
-      0,
-      662,
-      405,
+      88,
+      586,
+      408,
       35,
       32
     ],
     [
-      0,
-      700,
-      405,
+      88,
+      624,
+      408,
       35,
       32
     ],
     [
-      0,
-      469,
-      441,
+      88,
+      663,
+      408,
       35,
       32
     ],
     [
-      0,
-      508,
-      441,
+      88,
+      701,
+      408,
       35,
       32
     ],
     [
-      0,
-      546,
-      441,
+      88,
+      470,
+      444,
       35,
       32
     ],
     [
-      0,
-      585,
-      441,
+      88,
+      509,
+      444,
       35,
       32
     ],
     [
-      0,
-      623,
-      441,
+      88,
+      547,
+      444,
       35,
       32
     ],
     [
-      0,
-      662,
-      441,
+      88,
+      586,
+      444,
       35,
       32
     ],
     [
-      0,
-      700,
-      441,
+      88,
+      624,
+      444,
       35,
       32
     ],
     [
-      0,
-      469,
-      477,
+      88,
+      663,
+      444,
       35,
       32
     ],
     [
-      0,
-      508,
-      477,
+      88,
+      701,
+      444,
       35,
       32
     ],
     [
-      0,
-      546,
-      477,
+      88,
+      470,
+      480,
       35,
       32
     ],
     [
-      0,
-      585,
-      477,
+      88,
+      509,
+      480,
       35,
       32
     ],
     [
-      0,
-      623,
-      477,
+      88,
+      547,
+      480,
       35,
       32
     ],
     [
-      0,
-      662,
-      477,
+      88,
+      586,
+      480,
       35,
       32
     ],
     [
-      0,
-      700,
-      477,
+      88,
+      624,
+      480,
       35,
       32
     ],
     [
-      0,
-      469,
-      513,
+      88,
+      663,
+      480,
       35,
       32
     ],
     [
-      0,
-      508,
-      513,
+      88,
+      701,
+      480,
       35,
       32
     ],
     [
-      0,
-      546,
-      513,
+      88,
+      470,
+      516,
       35,
       32
     ],
     [
-      0,
-      585,
-      513,
+      88,
+      509,
+      516,
       35,
       32
     ],
     [
-      0,
-      623,
-      513,
+      88,
+      547,
+      516,
       35,
       32
     ],
     [
-      0,
-      662,
-      513,
+      88,
+      586,
+      516,
       35,
       32
     ],
     [
-      0,
-      700,
-      513,
+      88,
+      624,
+      516,
       35,
       32
     ],
     [
-      0,
+      88,
+      663,
+      516,
+      35,
+      32
+    ],
+    [
+      88,
+      701,
+      516,
+      35,
+      32
+    ],
+    [
+      8,
       873,
       99,
       364,
       454
     ],
     [
-      111,
-      874,
-      100,
-      362,
-      44
+      124,
+      898,
+      124,
+      314,
+      24
     ],
     [
-      111,
-      874,
-      152,
-      362,
+      124,
+      898,
+      156,
+      314,
       222
     ],
     [
-      113,
+      126,
       898,
-      152,
+      156,
       314,
       37
     ],
     [
-      114,
+      127,
       898,
-      160,
+      164,
       37,
       21
     ],
     [
-      114,
-      1109,
-      160,
-      103,
+      127,
+      1064,
+      164,
+      148,
       21
     ],
     [
-      113,
+      126,
       898,
-      189,
+      193,
       314,
       37
     ],
     [
-      117,
+      130,
       898,
-      197,
+      201,
       53,
       21
     ],
     [
-      117,
-      1148,
-      197,
-      64,
+      130,
+      1141,
+      201,
+      71,
       21
     ],
     [
-      113,
+      126,
       898,
-      226,
+      230,
       314,
       37
     ],
     [
-      120,
+      133,
       898,
-      234,
+      238,
       37,
       21
     ],
     [
-      120,
+      133,
       1154,
-      234,
+      238,
       58,
       21
     ],
     [
-      113,
+      126,
       898,
-      263,
+      267,
       314,
       37
     ],
     [
-      123,
+      136,
       898,
-      271,
+      275,
       45,
       21
     ],
     [
-      123,
+      136,
       1181,
-      271,
+      275,
       31,
       21
     ],
     [
-      113,
+      126,
       898,
-      300,
+      304,
       314,
       37
     ],
     [
-      126,
+      139,
       898,
-      308,
+      312,
       66,
       21
     ],
     [
-      126,
-      1121,
-      308,
-      91,
+      139,
+      1117,
+      312,
+      95,
       21
     ],
     [
-      113,
+      126,
       898,
-      337,
+      341,
       314,
       37
     ],
     [
-      129,
+      142,
       898,
-      345,
+      349,
       30,
       21
     ],
     [
-      129,
-      1147,
-      345,
-      65,
+      142,
+      1143,
+      349,
+      69,
       21
     ],
     [
-      111,
-      874,
-      374,
-      362,
+      124,
+      898,
+      394,
+      314,
       41
     ],
     [
-      132,
-      898,
-      384,
+      145,
+      912,
+      404,
       75,
       21
     ],
     [
-      132,
-      1131,
-      384,
+      145,
+      1117,
+      404,
       81,
       21
     ],
     [
-      0,
+      8,
       874,
       583,
       362,
-      42
+      41
     ],
     [
-      135,
+      148,
       874,
       583,
       176,
-      42
+      41
     ],
     [
-      135,
+      148,
       1062,
       583,
       174,
-      42
+      41
     ],
     [
-      0,
+      8,
       873,
       653,
       364,
       114
     ],
     [
-      138,
-      897,
+      151,
+      893,
       673,
-      316,
+      324,
       21
     ],
     [
-      138,
-      897,
-      702,
-      316,
+      151,
+      893,
+      700,
+      324,
       42
     ]
   ],
-  "groupMatched": [
-    {
-      "role": "radio-cards",
-      "iou": 1,
-      "parts": 32,
-      "rect": {
-        "x": 73,
-        "y": 457,
-        "w": 736,
-        "h": 196
-      }
-    }
-  ],
+  "groupMatched": [],
   "effects": {
     "recall": 1,
     "kept": [
@@ -1033,33 +1112,40 @@
     "extra": []
   },
   "tokens": {
-    "input": 90383,
-    "output": 41455,
-    "cacheRead": 463790
+    "input": 74264,
+    "output": 32110,
+    "cacheRead": 289184
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 107451,
-      "output": 32250,
-      "cacheRead": 447866,
-      "toolCalls": 9,
+      "billed": 91028,
+      "output": 26933,
+      "cacheRead": 286100,
+      "toolCalls": 7,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
-        "Read src/index.css",
         "Read src/main.tsx",
+        "Read src/index.css",
         "Read s2c-bench-app/package.json",
-        "Write src/App.tsx",
-        "Grep",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 343983
+      "ms": 281913
     }
   ],
-  "reading": "The sketch adds a full insurance-claim 'What happened?' page: a top nav bar, a 4-step progress tracker, a large white form card (date/time fields, location field with error, incident-type category tiles, a file-upload dropzone with two attached-file chips), a floating open date-range picker popup over the card, a right-hand claim-summary sidebar card with an estimated payout row and Save/Continue buttons, and a yellow help callout box. A run-wide note sets page background, font and text colour.",
+  "ease": {
+    "marks": 15,
+    "captured": 15,
+    "notes": 11,
+    "words": 1630,
+    "drawMs": 99420,
+    "readingMs": 50848,
+    "runMs": 334263
+  },
+  "reading": "The sketch, fully specified by typed notes, is an insurance claim submission page: a top nav bar, a 4-step progress tracker, a large 'What happened?' form card (date/time/location fields, an incident-type selection grid, a file dropzone with two uploaded files, and an open floating date-range picker popover), plus a right sidebar with a claim summary card, Save draft/Continue buttons, and a yellow 'Need a hand?' help note.",
   "actions": [
     {
       "kind": "add",
@@ -1074,7 +1160,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Top bar region is ONE 1280x64px top bar element at 0,0 (its own wrapper, #ffffff fill, a 1px #e3e8f0 rule along its bottom edge only, exactly 64px tall, parts v"
+      "instruction": "Top navigation bar: one 1280x64px wrapper at 0,0, its own element, #ffffff fill, a 1px #e3e8f0 rule along its bottom edge only (border-bottom, no other border),"
     },
     {
       "kind": "add",
@@ -1089,7 +1175,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Progress steps in one row, vertically centred: a 30px circle (#0a58ca fill, 2px #0a58ca border) with bold 14px #ffffff \"✓\" centred, then 10px/14px bold #16213a "
+      "instruction": "Progress stepper row, vertically centred, each step a real marker element then its label: a 30px circle (#0a58ca fill, 2px #0a58ca border) with bold 14px white "
     },
     {
       "kind": "add",
@@ -1121,7 +1207,7 @@
         "s2",
         "s11"
       ],
-      "instruction": "This region is ONE 800x714px panel at 40,156, #ffffff fill, 1px #e3e8f0 border, 14px rounded, each one-line text part staying on a single line (white-space nowr"
+      "instruction": "Main white card panel (800x714 at 40,156, #ffffff fill, 1px #e3e8f0 border, 14px rounded) titled 'What happened?' with subtext 'Tell us about the incident. You "
     },
     {
       "kind": "add",
@@ -1153,7 +1239,7 @@
         "s2",
         "s11"
       ],
-      "instruction": "Incident-type category tiles grid inside the white card, each a selectable tile (page px, min-width not fixed width, one-line text nowrap): 237x92 at 73,457 #f0"
+      "instruction": "Incident type selection grid of 6 selectable cards in two rows of three, each with a radio circle, bold title and small grey description: row 1 — 'Water damage'"
     },
     {
       "kind": "add",
@@ -1169,7 +1255,7 @@
         "s2",
         "s9"
       ],
-      "instruction": "File upload dropzone inside the white card: 2px dashed #9fb3d6 outline (dashed, not solid, sky blue border) with a \"browse files\" action and caption text \"JPG, "
+      "instruction": "File upload dropzone with a 2px dashed #9fb3d6 border, centred text 'Drag photos or receipts here, or browse files' (with 'browse files' as an inline bold #0a58"
     },
     {
       "kind": "add",
@@ -1185,7 +1271,7 @@
         "s2",
         "s10"
       ],
-      "instruction": "Two attached-file chip buttons below the dropzone: \"kitchen-floor.jpg · 2.1 MB\" and \"plumber-receipt.pdf · 340 KB\"."
+      "instruction": "Two uploaded-file chip/buttons below the dropzone: 'kitchen-floor.jpg · 2.1 MB' and 'plumber-receipt.pdf · 340 KB'."
     },
     {
       "kind": "add",
@@ -1216,7 +1302,7 @@
         "s2",
         "s11"
       ],
-      "instruction": "An OPEN date-range picker popup floating over the page: ONE 300x318px panel at 452,300, #ffffff fill, 1px #e3e8f0 border, 12px rounded, box-shadow rgba(22,33,58"
+      "instruction": "Open floating date-range picker popover: one 300x318 panel at 452,300, #ffffff fill, 1px #e3e8f0 border, 12px rounded corners, large soft drop shadow (rgba(22,3"
     },
     {
       "kind": "add",
@@ -1231,7 +1317,7 @@
       "paths": [
         "s12"
       ],
-      "instruction": "White sidebar card \"Claim summary\" with a list: \"Policy\", \"Property\" Lisbon flat, \"Cover\" €120,000, \"Excess\" €250, \"Claim type\" Water damage, \"Files\" 2 attached"
+      "instruction": "Sidebar 'Claim summary' white card with a tight list of rows (37px apart, 14px type, first row 25px below panel top), each row's label at left and its value pus"
     },
     {
       "kind": "add",
@@ -1246,7 +1332,7 @@
       "paths": [
         "s13"
       ],
-      "instruction": "Two buttons side by side: \"Save draft\" and \"Continue\". Text colours: \"Save draft\" #16213a, \"Continue\" #ffffff (on its filled button background)."
+      "instruction": "Action button pair: 'Save draft' (text #16213a, secondary style) and 'Continue' (text #ffffff, primary filled style)."
     },
     {
       "kind": "add",
@@ -1261,10 +1347,8 @@
       "paths": [
         "s14"
       ],
-      "instruction": "Pale yellow help callout block with brown heading \"Need a hand?\" on its own line, then below it the copy exactly: \"Call 800 210 300, 8:00–20:00, or chat with a "
+      "instruction": "Pale yellow help block with brown (#7a4b00) text: heading 'Need a hand?' on its own line, then below it the copy 'Call 800 210 300, 8:00–20:00, or chat with a c"
     }
   ],
-  "rejected": [
-    "design action with neither container nor strokes"
-  ]
+  "rejected": []
 }
