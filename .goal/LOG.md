@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-27T07:55Z | n259 r28 ticker band, editor line pitch, whole dial drawing | Watch dial 90 to 96, sliced type 86 to 89, query builder 86 to 88. Round 28 91. ~430k.
 2026-10-27T07:12Z | n258 r28 spec list, gold button, dashed rail, music notes | Jazz poster 88 to 94, watch 94 to 90 (backdrop slipped), trip 90. Round 28 90. ~333k.
 2026-10-27T06:36Z | n257 r28 pane sizes, copy width, pill nav, map roads, route, pins, stacked bar | Query builder 64 to 86, terrarium 92, watch dial 94, trip map 90. Round 28 90. ~433k.
 2026-10-27T05:14Z | n256 round 28 written and built live; ten new drawing rules | Ten harder pages first look 82; sliced title 69 to 86, patient chart 86. Round 28 83. ~1.4M.
