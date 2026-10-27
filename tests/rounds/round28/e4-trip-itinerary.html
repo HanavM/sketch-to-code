@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Trip itinerary</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fbfaf7;font-family:Helvetica,Arial,sans-serif;color:#22201c;font-size:14px}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;border-bottom:1px solid #ebe7de;display:flex;align-items:center;padding:0 36px;gap:26px;background:#fff}.top b{font-size:19px;margin-right:auto;color:#d0552f}.top span{color:#6f6a60}.top .sh{padding:8px 16px;border-radius:999px;border:1px solid #22201c;color:#22201c;font-weight:700}
+.hd{position:absolute;left:36px;top:88px;width:640px}.hd h1{font:700 34px Georgia,serif}.hd p{color:#6f6a60;margin-top:6px}
+.days{position:absolute;left:36px;top:180px;display:flex;gap:8px}.days span{padding:9px 16px;border-radius:999px;background:#f1ede4;font-weight:700;font-size:13px}.days .on{background:#22201c;color:#fff}
+.tl{position:absolute;left:36px;top:240px;width:640px;height:640px}
+.tl::before{content:"";position:absolute;left:62px;top:10px;width:2px;height:610px;background:repeating-linear-gradient(180deg,#cfc8b8 0 6px,#0000 6px 12px)}
+.ev{position:relative;display:flex;gap:18px;margin-bottom:16px}.ev time{width:46px;text-align:right;font-weight:700;padding-top:14px;font-size:13px}.ev i{position:absolute;left:55px;top:14px;width:16px;height:16px;border-radius:50%;border:3px solid #d0552f;background:#fff}
+.card{margin-left:24px;flex:1;background:#fff;border:1px solid #ebe7de;border-radius:14px;padding:14px 16px;display:flex;gap:14px;box-shadow:0 2px 6px #22201c0d}.card .ph{width:84px;height:64px;border-radius:10px;flex:none}.card b{display:block;font-size:15px}.card small{color:#6f6a60;display:block;margin-top:3px}.card .tag{margin-left:auto;align-self:flex-start;padding:4px 9px;border-radius:6px;font-size:11px;font-weight:700}
+.walk{margin:-6px 0 10px 88px;color:#6f6a60;font-size:12px}
+.map{position:absolute;left:710px;top:88px;width:534px;height:520px;border-radius:18px;overflow:hidden;background:#e6eedf;border:1px solid #d6dccf}
+.map .water{position:absolute;right:-40px;top:-30px;width:260px;height:600px;background:#bfd9e8;border-radius:40% 0 0 60%}
+.map .road{position:absolute;background:#fff}
+.map svg{position:absolute;left:0;top:0}
+.pin{position:absolute;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#d0552f;border:3px solid #fff;box-shadow:0 3px 6px #0003}.pin b{display:block;transform:rotate(45deg);color:#fff;font-size:12px;text-align:center;line-height:24px}
+.wx{position:absolute;left:710px;top:630px;width:534px;display:flex;gap:10px}.wx div{flex:1;height:104px;background:#fff;border:1px solid #ebe7de;border-radius:14px;text-align:center;padding-top:12px}.wx i{display:block;margin:8px auto;width:30px;height:30px;border-radius:50%;background:#f4b740;box-shadow:0 0 0 6px #f4b74033}.wx .cl i{background:#c9ced6;border-radius:15px;width:40px;height:22px;box-shadow:none}.wx b{font-size:15px}
+.bud{position:absolute;left:710px;top:756px;width:534px;height:120px;background:#22201c;color:#fbfaf7;border-radius:14px;padding:18px 20px}.bud b{font-size:28px;display:block;margin-top:4px}.bud .bar{margin-top:12px;height:10px;border-radius:5px;background:#ffffff22;overflow:hidden;display:flex}.bud .bar i{height:10px}
+.bud small{color:#bdb6a8}.bud .lg{position:absolute;right:20px;top:20px;text-align:right;font-size:12px;line-height:1.7;color:#bdb6a8}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>wander</b><span>Trips</span><span>Saved</span><span>Bookings</span><span class="sh">Share trip</span></div>
+<div class="hd" data-r="trip-title" data-must><h1>Four days in Lisbon</h1><p>12–15 Nov · 2 travellers · 6 bookings confirmed</p></div>
+<div class="days" data-r="day-tabs"><span>Thu 12</span><span class="on">Fri 13</span><span>Sat 14</span><span>Sun 15</span></div>
+<div class="tl" data-r="day-timeline" data-must>
+<div class="ev"><time>08:30</time><i></i><div class="card"><div class="ph" style="background:linear-gradient(135deg,#f4b740,#d0552f)"></div><div><b>Breakfast at Manteigaria</b><small>Pastéis de nata · Chiado</small></div><span class="tag" style="background:#fdeee6;color:#d0552f">Food</span></div></div>
+<div class="walk">🚶 12 min walk · 900 m</div>
+<div class="ev"><time>10:00</time><i></i><div class="card"><div class="ph" style="background:linear-gradient(135deg,#bfd9e8,#4f7ea8)"></div><div><b>Tram 28 to Alfama</b><small>Booked · seats 4A, 4B</small></div><span class="tag" style="background:#e5f0f8;color:#2d6690">Ticket</span></div></div>
+<div class="walk">🚶 5 min walk</div>
+<div class="ev"><time>11:30</time><i></i><div class="card"><div class="ph" style="background:linear-gradient(135deg,#e8d5b0,#a8794e)"></div><div><b>São Jorge Castle</b><small>Timed entry 11:30 · 2 h</small></div><span class="tag" style="background:#f1ede4;color:#6f6a60">Sight</span></div></div>
+<div class="walk">🚕 18 min ride · €9</div>
+<div class="ev"><time>19:30</time><i></i><div class="card"><div class="ph" style="background:linear-gradient(135deg,#3a2f4a,#d0552f)"></div><div><b>Fado dinner, Tasca do Chico</b><small>Table for 2 · confirmed</small></div><span class="tag" style="background:#fdeee6;color:#d0552f">Food</span></div></div></div>
+<div class="map" data-r="route-map" data-must><div class="water"></div><div class="road" style="left:0;top:200px;width:534px;height:10px;transform:rotate(-8deg)"></div><div class="road" style="left:180px;top:0;width:10px;height:520px;transform:rotate(12deg)"></div><div class="road" style="left:0;top:380px;width:420px;height:8px"></div>
+<svg width="534" height="520"><path d="M110 400 C160 330 210 330 250 280 S330 160 380 150" fill="none" stroke="#d0552f" stroke-width="4" stroke-dasharray="10 8"/></svg>
+<i class="pin" style="left:96px;top:370px"><b>1</b></i><i class="pin" style="left:236px;top:250px"><b>2</b></i><i class="pin" style="left:366px;top:120px"><b>3</b></i></div>
+<div class="wx" data-r="weather-strip"><div><small>Thu</small><i></i><b>21°</b></div><div class="cl"><small>Fri</small><i></i><b>18°</b></div><div><small>Sat</small><i></i><b>22°</b></div><div class="cl"><small>Sun</small><i></i><b>17°</b></div></div>
+<div class="bud" data-r="budget-card" data-must><small>Trip budget</small><b>€1,240 of €1,600</b><div class="bar"><i style="width:42%;background:#d0552f"></i><i style="width:22%;background:#f4b740"></i><i style="width:13%;background:#8fb8d6"></i></div><div class="lg">Stay €520<br>Food €360<br>Travel €210</div></div>
+</body></html>

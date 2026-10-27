@@ -1,0 +1,661 @@
+{
+  "id": "c2-sliced-type",
+  "at": "2026-10-27T03:43:50.290Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7620115489851801,
+    "overallV2": 0.7567875239748905,
+    "overallV1": 0.6810586536483442,
+    "colour": 0.9150551168859745,
+    "structure": 0.6985975464056281,
+    "structureStrict": 0.49872871948409764,
+    "colourAligned": 0.9150551168859745,
+    "structureAligned": 0.7123851513984534,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 32,
+      "r": 0.38843232230836305
+    },
+    "layout": 0.6888151165303691,
+    "layoutV1": 0.6888151165303691,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      300,
+      120,
+      700,
+      520
+    ],
+    [
+      0,
+      64,
+      34,
+      1152,
+      24
+    ],
+    [
+      2,
+      64,
+      34,
+      68,
+      24
+    ],
+    [
+      2,
+      968,
+      36,
+      248,
+      21
+    ],
+    [
+      4,
+      968,
+      36,
+      32,
+      21
+    ],
+    [
+      4,
+      1032,
+      36,
+      40,
+      21
+    ],
+    [
+      4,
+      1104,
+      36,
+      32,
+      21
+    ],
+    [
+      4,
+      1168,
+      36,
+      48,
+      21
+    ],
+    [
+      0,
+      68,
+      109,
+      1108,
+      230
+    ],
+    [
+      9,
+      68,
+      109,
+      1108,
+      230
+    ],
+    [
+      10,
+      68,
+      109,
+      1108,
+      230
+    ],
+    [
+      10,
+      106,
+      109,
+      1108,
+      230
+    ],
+    [
+      10,
+      46,
+      109,
+      1108,
+      230
+    ],
+    [
+      0,
+      68,
+      123,
+      1108,
+      230
+    ],
+    [
+      0,
+      880,
+      99,
+      168,
+      70
+    ],
+    [
+      15,
+      906,
+      116,
+      116,
+      35
+    ],
+    [
+      0,
+      3,
+      577,
+      1276,
+      122
+    ],
+    [
+      17,
+      -14,
+      100,
+      1293,
+      599
+    ],
+    [
+      18,
+      -14,
+      100,
+      1293,
+      599
+    ],
+    [
+      19,
+      286,
+      110,
+      711,
+      537
+    ],
+    [
+      19,
+      3,
+      575,
+      1276,
+      124
+    ],
+    [
+      17,
+      3,
+      577,
+      1276,
+      122
+    ],
+    [
+      22,
+      -194,
+      525,
+      3720,
+      154
+    ],
+    [
+      23,
+      -194,
+      590,
+      1860,
+      89
+    ],
+    [
+      24,
+      -194,
+      644,
+      311,
+      35
+    ],
+    [
+      24,
+      116,
+      633,
+      311,
+      35
+    ],
+    [
+      24,
+      426,
+      623,
+      311,
+      35
+    ],
+    [
+      24,
+      736,
+      612,
+      311,
+      35
+    ],
+    [
+      24,
+      1046,
+      601,
+      311,
+      35
+    ],
+    [
+      24,
+      1356,
+      590,
+      311,
+      35
+    ],
+    [
+      23,
+      1666,
+      525,
+      1860,
+      89
+    ],
+    [
+      31,
+      1666,
+      579,
+      311,
+      35
+    ],
+    [
+      31,
+      1976,
+      569,
+      311,
+      35
+    ],
+    [
+      31,
+      2286,
+      558,
+      311,
+      35
+    ],
+    [
+      31,
+      2595,
+      547,
+      311,
+      35
+    ],
+    [
+      31,
+      2905,
+      536,
+      311,
+      35
+    ],
+    [
+      31,
+      3215,
+      525,
+      311,
+      35
+    ],
+    [
+      0,
+      68,
+      690,
+      432,
+      56
+    ],
+    [
+      0,
+      64,
+      810,
+      136,
+      49
+    ],
+    [
+      0,
+      214,
+      810,
+      145,
+      49
+    ],
+    [
+      0,
+      824,
+      684,
+      401,
+      171
+    ],
+    [
+      41,
+      825,
+      685,
+      199,
+      84
+    ],
+    [
+      42,
+      843,
+      696,
+      163,
+      42
+    ],
+    [
+      42,
+      843,
+      742,
+      163,
+      17
+    ],
+    [
+      41,
+      1025,
+      685,
+      199,
+      84
+    ],
+    [
+      45,
+      1043,
+      696,
+      163,
+      42
+    ],
+    [
+      45,
+      1043,
+      742,
+      163,
+      17
+    ],
+    [
+      41,
+      825,
+      770,
+      199,
+      84
+    ],
+    [
+      48,
+      843,
+      781,
+      163,
+      42
+    ],
+    [
+      48,
+      843,
+      827,
+      163,
+      17
+    ],
+    [
+      41,
+      1025,
+      770,
+      199,
+      84
+    ],
+    [
+      51,
+      1043,
+      781,
+      163,
+      42
+    ],
+    [
+      51,
+      1043,
+      827,
+      163,
+      17
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "blur",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "mono",
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 67304,
+    "output": 38407,
+    "cacheRead": 525991
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 81186,
+      "output": 28021,
+      "cacheRead": 498950,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 329786
+    }
+  ],
+  "ease": {
+    "marks": 11,
+    "captured": 11,
+    "notes": 11,
+    "words": 532,
+    "drawMs": 66275,
+    "readingMs": 99506,
+    "runMs": 430628
+  },
+  "reading": "A full dark hero page: a soft purple glow blob behind a giant glitch-sliced 'DISPLACE' word (plus a faint hollow-outline duplicate of the same word layered in front of it), a nav bar with a brand mark and right-aligned links, a tilted pink 'NEW SHOW · LIVE' pill, a spinning pink marquee bar with repeated text, a serif paragraph, two pill buttons, and a 2x2 stat grid.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Set the whole page background to black (#0d0d12), use Helvetica as the base font-family site-wide, and set default body text color to an off-white (#f4f1ea / #b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        303,
+        123,
+        694,
+        514
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add one soft blurred color glow: a 700x520px oval div (border-radius 50%), position absolute with top-left at 300,120, sitting BEHIND all heading text (lower z-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        42,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a nav bar: bold off-white 'SHIFT/28' brand mark at the left (#f4f1ea), followed by links 'Work', 'Studio', 'Talks', 'Contact' pushed to the far right with a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 240
+        }
+      ],
+      "region": [
+        68,
+        109,
+        1044,
+        528
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add the word 'DISPLACE' as giant Helvetica heavy (font-weight 900, round-bowled, not condensed/display), ~230px, ~1067px wide, live text (not SVG), sliced into "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 243
+        }
+      ],
+      "region": [
+        68,
+        123,
+        960,
+        514
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a second copy of the word 'DISPLACE', same giant Helvetica heavy live-text style (~230px, ~1067px wide), but hollow/outlined: color: transparent with a fain"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 240
+        }
+      ],
+      "region": [
+        68,
+        109,
+        1044,
+        528
+      ],
+      "paths": [
+        "s0",
+        "s4"
+      ],
+      "instruction": "Add a pill-shaped label tilted 8° clockwise with a 1px pink border, bold text 'NEW SHOW · LIVE' colored #ff4f7b (pink, not the page's default off-white)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        123,
+        1274,
+        555
+      ],
+      "paths": [
+        "s0",
+        "s5"
+      ],
+      "instruction": "Add a spinning/marquee vivid pink bar tilted 2° anticlockwise spanning the page width, with repeated black (#0d0d12) 16px text 'MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        690,
+        432,
+        56
+      ],
+      "paths": [],
+      "instruction": "Add a serif paragraph of body copy: 'A design studio cutting letters into motion. Three slices, one word, a different offset every frame.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        67,
+        813,
+        289,
+        42
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a row of 2 real pill buttons side by side: 'See the reel' (136x49px at 64,810) with background linear-gradient(90deg,#ff4f7b,#5b3cff), 15px bold white cente"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        684,
+        393,
+        164
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a 2x2 stat grid, square corners (not rounded, no blur/frosted glass): grid container filled #f4f1ea33 with 1px gap and 1px border of same color; each cell s"
+    }
+  ],
+  "rejected": []
+}

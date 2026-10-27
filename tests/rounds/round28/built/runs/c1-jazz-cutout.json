@@ -1,0 +1,588 @@
+{
+  "id": "c1-jazz-cutout",
+  "at": "2026-10-27T03:06:04.772Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8782536631882428,
+    "overallV2": 0.8782536631882428,
+    "overallV1": 0.8432129884402186,
+    "colour": 0.9901504249215515,
+    "structure": 0.9394518884540227,
+    "structureStrict": 0.8746005713838614,
+    "colourAligned": 0.9901504249215515,
+    "structureAligned": 0.9394518884540227,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9837001917734267
+    },
+    "layout": 0.7398556078494504,
+    "layoutV1": 0.6256438871757356,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      1,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      1,
+      1054,
+      230,
+      62,
+      52
+    ],
+    [
+      3,
+      1054,
+      230,
+      62,
+      52
+    ],
+    [
+      0,
+      880,
+      420,
+      300,
+      300
+    ],
+    [
+      0,
+      646,
+      90,
+      294,
+      620
+    ],
+    [
+      0,
+      700,
+      180,
+      360,
+      120
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      56,
+      34,
+      128,
+      26
+    ],
+    [
+      0,
+      974,
+      34,
+      251,
+      20
+    ],
+    [
+      10,
+      974,
+      34,
+      66,
+      20
+    ],
+    [
+      10,
+      1070,
+      34,
+      77,
+      20
+    ],
+    [
+      10,
+      1177,
+      34,
+      48,
+      20
+    ],
+    [
+      0,
+      52,
+      120,
+      532,
+      504
+    ],
+    [
+      14,
+      52,
+      120,
+      532,
+      168
+    ],
+    [
+      14,
+      52,
+      288,
+      532,
+      168
+    ],
+    [
+      14,
+      52,
+      456,
+      532,
+      168
+    ],
+    [
+      0,
+      1188,
+      102,
+      21,
+      303
+    ],
+    [
+      0,
+      59,
+      643,
+      423,
+      54
+    ],
+    [
+      0,
+      56,
+      727,
+      96,
+      21
+    ],
+    [
+      0,
+      152,
+      728,
+      128,
+      26
+    ],
+    [
+      0,
+      56,
+      754,
+      96,
+      21
+    ],
+    [
+      0,
+      152,
+      755,
+      153,
+      26
+    ],
+    [
+      0,
+      56,
+      781,
+      96,
+      21
+    ],
+    [
+      0,
+      152,
+      782,
+      175,
+      26
+    ],
+    [
+      0,
+      530,
+      709,
+      210,
+      207
+    ],
+    [
+      26,
+      530,
+      709,
+      210,
+      207
+    ],
+    [
+      27,
+      531,
+      709,
+      210,
+      209
+    ],
+    [
+      26,
+      530,
+      709,
+      210,
+      207
+    ],
+    [
+      0,
+      880,
+      744,
+      171,
+      42
+    ],
+    [
+      0,
+      883,
+      793,
+      239,
+      50
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.9990510939149727,
+      "parts": 2,
+      "rect": {
+        "x": 56,
+        "y": 34,
+        "w": 1169.109375,
+        "h": 26
+      }
+    },
+    {
+      "role": "lineup",
+      "iou": 0.5999129955170349,
+      "parts": 6,
+      "rect": {
+        "x": 56,
+        "y": 727,
+        "w": 270.84375,
+        "h": 80.5
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "hard-shadow",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 93443,
+    "output": 34433,
+    "cacheRead": 727523
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 110673,
+      "output": 26683,
+      "cacheRead": 724439,
+      "toolCalls": 16,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SoldOut.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SoldOut.tsx",
+        "Write src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 298311
+    }
+  ],
+  "ease": {
+    "marks": 20,
+    "captured": 20,
+    "notes": 15,
+    "words": 1177,
+    "drawMs": 93475,
+    "readingMs": 79768,
+    "runMs": 379930
+  },
+  "reading": "This is a jazz-night event flyer page: a top nav (\"BLUE HOUR\" / LINEUP / TICKETS / CLUB), a full-page grain texture overlay, a layered hero graphic (amber disc, near-black and red angled cut-out shapes, small accent disc and square) behind a giant \"LATE SETS JAZZ\" headline with hollow \"SETS\", a vertical \"SEASON 28 · FRIDAYS\" label, a striped panel beside a 3-row event lineup list, a tilted \"SOLD OUT ×2\" stamp, a \"Doors at 21:00\" line, and a \"BOOK A TABLE\" button with a red drop shadow.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A fine grain texture div (1280x900px) laid over the whole page, above the colour fields but under all type, pointer-events none, no fill of its own: thin #00000"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top nav row, four live-text elements, not wrapping: italic 22px Georgia serif \"BLUE HOUR\" (900 weight, uppercase, #141210) at left (128x26 at 56,34); then \"LINE"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "A plain absolutely-positioned div, perfectly round (border-radius 50%, not traced from ink), 300px across, top-left at 880,420, flat fully opaque vivid amber (#"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A near-black (#141210) jagged cut-out shape, flat fill via clip-path polygon (no gradient/shading/texture), outline strokes not kept visible. Box 294x620 at top"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s4"
+      ],
+      "instruction": "A vivid red (#d6452b) angled cut-out shape, flat fill via clip-path polygon (no gradient/shading/texture), blended multiply (darkens rather than covers). Box 36"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s4",
+        "s5"
+      ],
+      "instruction": "A perfectly round solid disc (border-radius 50%, not traced from ink), 67px across, flat fully opaque near-black (#141210) fill, hard edge, no blur, tilted 24° "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s6"
+      ],
+      "instruction": "A small near-black (#141210) square accent shape, tilted 10° anticlockwise, placed beside the hero graphic."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 153
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant heading, live text in Impact/Arial Narrow 900-weight round-bowled sans, line-height 0.8, 210px type, box top-left at 52,120 (~524px wide), set as 3 tight "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s10"
+      ],
+      "instruction": "Vertical live text along the right edge, writing-mode vertical-rl, 14px bold uppercase letters, letter-spacing 8px, reading \"SEASON 28 · FRIDAYS\", line about 30"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        643,
+        423,
+        54
+      ],
+      "paths": [
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "instruction": "A block with a big vertical repeating-stripe background (NOT a smooth gradient, NOT an image): repeating-linear-gradient(90deg, #141210 0px 6px, transparent 6px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14",
+        "s15",
+        "s16"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s14",
+            "s15",
+            "s16"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        60,
+        724,
+        422,
+        82
+      ],
+      "paths": [],
+      "instruction": "A 3-row event lineup list, each row its own live-text elements: \"NOV 06\" (14px, 900 weight, uppercase, 2px letter-spacing, #141210) at 56,727 beside \"Mara Okafo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        548,
+        728,
+        174,
+        170
+      ],
+      "paths": [
+        "s17"
+      ],
+      "instruction": "A \"sold out\" stamp badge: a near-black outline circle, 150px across, tilted 14° anticlockwise, with centred 26px live text in exactly 3 lines \"SOLD\" / \"OUT\" / \""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s18"
+      ],
+      "textSize": [],
+      "region": [
+        884,
+        756,
+        163,
+        8
+      ],
+      "paths": [],
+      "instruction": "Italic serif lead line \"Doors at 21:00\", 28px, about 171px wide on one line, top-left at 880,744."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        883,
+        793,
+        239,
+        50
+      ],
+      "paths": [
+        "s19"
+      ],
+      "instruction": "A near-black (#141210) button/bar labelled \"BOOK A TABLE\" in warm paper (#efe4cc) text, square corners (no radius, not a pill), with a hard solid opaque red sha"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

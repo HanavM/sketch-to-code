@@ -591,6 +591,51 @@ export function factsInPage() {
         const frac = (x, size) => /%$/.test(x) ? parseFloat(x) / 100 : (parseFloat(x) || 0) / Math.max(1, size)
         return { t: frac(t, r.height), r: frac(rr, r.width), b: frac(b, r.height), l: frac(l, r.width) }
       })(),
+      // n256: textless painted children of a textless block (round 28 c3 terrarium: soil, four leaves and two pebbles
+      // inside a glass globe were never said; the globe built empty and opaque white)
+      paintKids: (() => {
+        if ((el.innerText || '').trim() || el.querySelector('[data-r]')) return null
+        const ks = [...el.children]
+        if (!ks.length || ks.length > 12) return null
+        const L = ks.map((k) => {
+          const c = getComputedStyle(k), b = k.getBoundingClientRect()
+          const img = c.backgroundImage !== 'none' ? c.backgroundImage : null, fill = rgba(c.backgroundColor)
+          if (!img && !(fill?.a > 0.05)) return null
+          const tm = c.transform.match(/^matrix\(([^)]+)\)/), rot = tm ? Math.round(Math.atan2(+tm[1].split(',')[1], +tm[1].split(',')[0]) * 180 / Math.PI) : 0
+          return { x: Math.round(k.offsetLeft), y: Math.round(k.offsetTop), w: k.offsetWidth, h: k.offsetHeight, img, fill, radius: c.borderRadius !== '0px' ? c.borderRadius : null, rot, origin: rot ? c.transformOrigin : null, bt: (parseFloat(c.borderTopWidth) || 0) >= 2 ? { w: Math.round(parseFloat(c.borderTopWidth)), c: rgba(c.borderTopColor) } : null }
+        })
+        return L.every(Boolean) ? L : null
+      })(),
+      // n256: a grid whose 1px gaps let its own tint show as hairlines between filled cells (round 28 c2 stat grid:
+      // said 'frosted glass list', built as one rounded glass card with no lines)
+      hairGrid: (() => {
+        if (!/grid/.test(cs.display)) return null
+        const gp = Math.max(parseFloat(cs.rowGap) || 0, parseFloat(cs.columnGap) || 0)
+        const line = rgba(cs.backgroundColor)
+        const ks = [...el.children]
+        if (gp < 1 || gp > 3 || !line || line.a < 0.05 || ks.length < 2) return null
+        const fills = ks.map((k) => rgba(getComputedStyle(k).backgroundColor))
+        if (!fills.every((c) => c && c.a > 0.9)) return null
+        const cols = cs.gridTemplateColumns.split(/\s+/).filter(Boolean).length, kb = ks[0].getBoundingClientRect(), kc = getComputedStyle(ks[0])
+        return { cols, rows: Math.ceil(ks.length / cols), gap: Math.round(gp), line, cell: fills[0], cw: Math.round(kb.width), ch: Math.round(kb.height), pad: `${Math.round(parseFloat(kc.paddingTop))}px ${Math.round(parseFloat(kc.paddingLeft))}px`, bw: Math.round(parseFloat(cs.borderTopWidth) || 0) }
+      })(),
+      // n256: untagged sibling copies of the same word, each clip-path inset to a band (round 28 c2: DISPLACE cut in
+      // three bands, the middle one pink and slid right; only the tagged top band was said, built as one whole word)
+      sliceCopies: (() => {
+        if (!/inset\(/.test(cs.clipPath)) return null
+        const txt = (el.innerText || '').trim()
+        if (!txt) return null
+        const sibs = [...(el.parentElement?.children ?? [])].filter((k) => k !== el && !k.dataset?.r && (k.innerText || '').trim() === txt && /inset\(/.test(getComputedStyle(k).clipPath))
+        if (!sibs.length) return null
+        const band = (k) => {
+          const c = getComputedStyle(k), m = c.clipPath.match(/inset\(([^)]*)\)/)[1].replace(/round.*$/, '').trim().split(/\s+/)
+          const [t, rr = t, b = t] = m, kb = k.getBoundingClientRect()
+          const fr = (x) => /%$/.test(x) ? parseFloat(x) : Math.round((parseFloat(x) || 0) / Math.max(1, kb.height) * 100)
+          const tm = c.transform.match(/^matrix\(([^)]+)\)/)
+          return { t: fr(t), b: fr(b), dx: tm ? Math.round(+tm[1].split(',')[4]) : 0, ink: rgba(c.color), top: Math.round(kb.top) }
+        }
+        return [el, ...sibs].map(band).sort((a, b) => a.t - b.t)
+      })(),
       // a flat move or slant: matrix(a, b, c, d, e, f); skewX(k) puts tan(k) in c (round 6 c2 'Tickets' skewed, unsaid)
       shiftX: (() => { const m = cs.transform.match(/^matrix\(([^)]+)\)/); return m ? Math.round(+m[1].split(',')[4]) : 0 })(),
       skewX: (() => { const m = cs.transform.match(/^matrix\(([^)]+)\)/); if (!m) return 0; const [a, b, c, d] = m[1].split(',').map(Number); return Math.abs(b) < 0.01 && Math.abs(d) > 0.01 ? Math.round(Math.atan(c / d) * 180 / Math.PI) : 0 })(),
@@ -3456,7 +3501,9 @@ function effectWords(f) {
   // a slant (skewX) is not a turn: round 6 c2 'Tickets →' leaned like italics, unsaid
   if (Math.abs(f.skewX) >= 4) w.push(`slanted ${Math.abs(f.skewX)}° (skewX(${f.skewX}deg), leaning ${f.skewX < 0 ? 'right' : 'left'} like italics)`)
   // a clip that keeps one half: a word sliced across its middle (round 6 c2: said as two stacked lines)
-  const ci = f.clipInset
+  const sc = f.sliceCopies?.length >= 2 ? f.sliceCopies : null
+  if (sc) w.push(`ONE word sliced into ${sc.length} flat horizontal bands: ${sc.length} copies of the same text, each its own absolutely placed element stacked on exactly the same spot (same left, same top), each showing only its own band through clip-path: inset(), the bands meeting edge to edge with no gap: ${sc.map((b, i) => `band ${i + 1} clip-path: inset(${b.t}% 0 ${b.b}% 0), color ${hexOf(b.ink)}${b.dx ? `, slid ${Math.abs(b.dx)}px ${b.dx > 0 ? 'right' : 'left'} (transform: translateX(${b.dx}px))` : ', not moved'}`).join('; ')}; so it reads as one word cut and offset like a glitch, NOT a whole uncut word, NOT ${sc.length} separate lines; each copy is`)
+  const ci = sc ? null : f.clipInset
   if (ci && ci.b >= 0.3 && ci.t < 0.05) w.push(`only the top ${Math.round((1 - ci.b) * 100)}% of the letters shows (clip-path cuts them flat across the middle)`)
   else if (ci && ci.t >= 0.3 && ci.b < 0.05) w.push(`only the bottom ${Math.round((1 - ci.t) * 100)}% of the letters shows (clip-path cuts them flat across the middle)${Math.abs(f.shiftX) >= 8 ? `, shifted ${Math.abs(f.shiftX)}px ${f.shiftX > 0 ? 'right' : 'left'} of where the top half sits` : ''}; its cut edge sits right on the top half's cut edge, no gap, so the two halves join into one word sliced across`)
   // the mode decides the look: only difference/exclusion invert (round 4 c1's multiply headline was said as inverting)
@@ -3475,7 +3522,12 @@ function effectWords(f) {
   if (f.opacity < 0.6 || (f.opacity < 0.9 && ((f.bg && f.bg.a > 0.05) || /gradient/.test(f.bgImage)))) w.push(`faded to ${Math.round(f.opacity * 100)}% opacity (see-through)`)
   if (f.maskFade?.bands) w.push(`cut into ${f.maskFade.n} hard horizontal STRIPES across its lower ${f.maskFade.solidTo != null ? `${100 - f.maskFade.solidTo}% (solid above ${f.maskFade.solidTo}%)` : 'half'} by a banded mask (gaps of the page showing through between the bands, NOT a fade, NOT a plain gradient): mask-image: ${cssHex(f.maskFade.img)}; -webkit-mask-image the same, exactly${f.maskFade.comp ? `; mask-composite: ${f.maskFade.comp.split(',')[0].trim()} (the layers ADD: solid where either shows)` : ''};`)
   else if (f.maskFade) w.push(`fading out into the page toward the ${f.maskFade.toward} (solid until ${f.maskFade.fromPct}%, gone at the ${f.maskFade.toward} edge)`)
-  if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
+  const hg = f.hairGrid
+  if (hg) w.push(`a ${hg.cols}x${hg.rows} grid of cells split by ${hg.gap}px HAIRLINES, square corners, NOT rounded, NOT frosted glass, no blur: the grid itself is filled ${cssHex(`rgba(${hg.line.r}, ${hg.line.g}, ${hg.line.b}, ${hg.line.a})`)} with gap ${hg.gap}px${hg.bw ? ` and a ${hg.bw}px border of the same colour` : ''}, and every cell is filled solid ${hexOf(hg.cell)} (${hg.cw}x${hg.ch}px, padding ${hg.pad}), so only the thin lines between cells show the grid's colour;`)
+  // n256: a textless see-through block blurred soft is a cast SHADOW (round 28 c3 ground shadow under the globe: said
+  // 'frosted glass', built as a pale hard-edged slab)
+  else if (f.blur >= 4 && !(f.text ?? '').trim() && f.bg && f.bg.a > 0.03 && f.bg.a < 0.5) w.push(`a soft blurred SHADOW, NOT glass, NOT a box: a ${Math.round(f.layoutBox?.w ?? f.rect.w)}x${Math.round(f.layoutBox?.h ?? f.rect.h)}px ${f.radiusPct >= 45 ? 'oval (border-radius 50%) ' : ''}at ${Math.round(f.layoutBox?.x ?? f.rect.x)},${Math.round(f.layoutBox?.y ?? f.rect.y)}, background rgba(${f.bg.r}, ${f.bg.g}, ${f.bg.b}, ${Math.round(f.bg.a * 100) / 100}), filter: blur(${Math.round(f.blur)}px), no border, painted UNDER what sits on it;`)
+  else if (f.backdrop || (f.bg && f.bg.a > 0.03 && f.bg.a < 0.4)) w.push('frosted glass')
   // one edge: say how far past it the block starts ('off the left edge' alone built at x=0, round 2 c2)
   const past = f.bleeds !== 'left and right' && f.bleedPx >= 16 ? ` (${f.bleeds === 'right' ? 'runs' : 'starts'} ${f.bleedPx}px past it)` : ''
   const B0 = f.box0
@@ -5278,6 +5330,13 @@ function decideOne(f, page, marked, said) {
       const stop = (x) => x.c.a < 0.004 ? `transparent ${x.at}%` : `${x.c.a < 0.95 ? `rgba(${x.c.r}, ${x.c.g}, ${x.c.b}, ${Math.round(x.c.a * 100) / 100})` : hexOf(x.c)} ${x.at}%`
       return { kind: 'circle', note: `a SOFT GLOW, NOT a solid disc, NO edge anywhere: a ${Math.round(w)}x${Math.round(h)}px see-through layer at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute, behind the content, holding nothing), border-radius 50%, painted with exactly background: radial-gradient(circle${at ? ` at ${at[1]}% ${at[2]}%` : ''}, ${st.map(stop).join(', ')}): its middle a faint ${hexOf({ ...st[0].c, a: 1 })} haze fading out to nothing, the page colour showing through everywhere, no border, no shadow` }
     }
+    // n256: a sphere whose layers are mostly see-through and that holds painted parts is a GLASS globe (round 28 c3: said
+    // 'solid sphere, fully opaque' with every #ffffffcc/#ffffff22 stop said #ffffff, its soil and leaves lost)
+    const seeThru = st.filter((x) => (x.c?.a ?? 1) < 0.7).length >= Math.ceil(st.length / 2)
+    if (seeThru && f.paintKids?.length) {
+      const one = (k) => `${k.w}x${k.h}px at ${k.x},${k.y}${k.img ? ` background ${cssHex(k.img)}` : ` ${hexOf(k.fill)} fill`}${k.radius ? `, border-radius ${k.radius}` : ''}${k.bt ? `, a ${k.bt.w}px ${hexOf(k.bt.c)} top border` : ''}${k.rot ? `, rotated ${k.rot}° (transform-origin ${k.origin})` : ''}`
+      return { kind: 'circle', note: withFx(`a see-through GLASS globe, NOT a solid ball, NOT opaque white: a ${Math.round(w)}px circle (border-radius 50%) at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (position absolute), background exactly ${cssHex(f.bgImage)} (mostly clear: the page shows through it)${f.border?.w ? `, a ${Math.round(f.border.w)}px ${cssHex(`rgba(${f.border.colour.r}, ${f.border.colour.g}, ${f.border.colour.b}, ${f.border.colour.a})`)} rim` : ''}${f.shadow && f.shadow !== 'none' ? `, box-shadow ${cssHex(f.shadow)}` : ''}, overflow hidden; INSIDE it, in globe px from its top-left, these ${f.paintKids.length} painted parts in this order (later ones on top, all cut by the round edge): ${f.paintKids.map(one).join('; ')}`) }
+    }
     const sg = f.shadows.find((x) => !x.clear && x.blur >= 10)
     return { kind: 'circle', note: withFx(`a ${Math.round(w)}px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at ${at ? `${at[1]}% ${at[2]}%` : 'center'}, ${st.map((x) => `${hexOf(x.c)} ${x.at}%`).join(', ')}) so it looks lit from ${at && +at[1] < 50 ? 'the top left' : 'above'}${sg ? `, with a big soft ${colourName({ ...sg.c, a: 1 })} glow under it (box-shadow ${sg.x}px ${sg.y}px ${sg.blur}px, ${Math.round(sg.c.a * 100)}% opacity)` : ''}${f.floatIn ? `; NOT absolutely placed: it sits INSIDE the running paragraph as its first child, float: ${f.floatIn.side}${f.floatIn.shape ? `, shape-outside: ${f.floatIn.shape}` : ''}, margin ${f.floatIn.m.map((v) => `${v}px`).join(' ')}, so the paragraph's lines wrap round its curve (its top-left lands at ${Math.round(f.rect.x)},${Math.round(f.rect.y)})` : `; absolutely placed, top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${f.coveredBy?.length ? `BEHIND the words that cross it (z-index 0, set before them; the words ${f.coveredBy.map((t) => quote(t, 24)).join(', ')} paint OVER the sphere and stay fully visible, never hidden by it)` : 'ON TOP of every tile it overlaps (highest z-index, nothing covers it)'}`}`) }
   }
@@ -6276,6 +6335,14 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       const flat = f.bg?.a > 0.05 ? f.bg : null
       d.kind = 'box'
       d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px DOT-GRID canvas at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${flat ? `a FLAT ${hexOf(flat)} fill (the same light colour top to bottom, NOT a gradient, never darkening)` : 'no fill of its own'} with tiny ${hexOf(ink)} dots${ink.a < 0.95 ? ` at ${Math.round(ink.a * 100)}% opacity (faint)` : ''} (${2 * r}px across) in an even grid, one every ${cell}px across and ${cellY}px down, exactly: background-color: ${flat ? hexOf(flat) : 'transparent'}; background-image: radial-gradient(${ink.a < 0.95 ? `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${Math.round(ink.a * 100) / 100})` : hexOf(ink)} ${r}px, transparent ${r}px); background-size: ${cell}px ${cellY}px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)`
+      return
+    }
+    // n256: a big blurred radial gradient is a soft GLOW, not a photo backdrop (round 28 c2: radial #5b3cff glow with
+    // filter blur(30px) said as a 'top to bottom gradient block, 50% rounded', built as a hard violet slab over the title)
+    if (f.blur >= 12 && /^radial-gradient/.test(f.bgImage ?? '')) {
+      const lb = f.layoutBox ?? { x: Math.round(f.rect.x), y: Math.round(f.rect.y), w: Math.round(f.rect.w), h: Math.round(f.rect.h) }
+      d.kind = 'box'
+      d.note = `a soft blurred colour GLOW, NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE ${lb.w}x${lb.h}px ${f.radiusPct >= 45 ? 'oval (border-radius 50%) ' : ''}div with its top-left at ${lb.x ?? Math.round(f.rect.x)},${lb.y ?? Math.round(f.rect.y)}, position absolute, BEHIND the words (z-index under every heading), background: ${cssHex(f.bgImage)} exactly, filter: blur(${Math.round(f.blur)}px); no hard edge anywhere, it fades into the page`
       return
     }
     const g = gradientWords(f) ?? (cs.length >= 2 ? `pale tinted ${hexOf(cs[0])} to ${hexOf(cs[cs.length - 1])}${linearEnds(f.bgImage) ? ` (${linearEnds(f.bgImage).join(' to ')})` : ''}` : null)

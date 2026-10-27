@@ -1,0 +1,504 @@
+{
+  "id": "c3-terrarium",
+  "at": "2026-10-27T03:48:47.876Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.670875294386781,
+    "overallV2": 0.670875294386781,
+    "overallV1": 0.6034516395632018,
+    "colour": 0.9349847060463344,
+    "structure": 0.7632528814737747,
+    "structureStrict": 0.67119398598941,
+    "colourAligned": 0.9349847060463344,
+    "structureAligned": 0.7632528814737747,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.4873917958258932
+    },
+    "layout": 0.8629921804411462,
+    "layoutV1": 0.8629921804411462,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      63,
+      35,
+      1153,
+      50
+    ],
+    [
+      1,
+      63,
+      44,
+      126,
+      33
+    ],
+    [
+      1,
+      956,
+      50,
+      260,
+      20
+    ],
+    [
+      3,
+      956,
+      50,
+      23,
+      20
+    ],
+    [
+      3,
+      1019,
+      50,
+      39,
+      20
+    ],
+    [
+      3,
+      1098,
+      50,
+      30,
+      20
+    ],
+    [
+      3,
+      1169,
+      50,
+      47,
+      20
+    ],
+    [
+      0,
+      72,
+      170,
+      507,
+      169
+    ],
+    [
+      8,
+      72,
+      170,
+      507,
+      84
+    ],
+    [
+      9,
+      338,
+      164,
+      177,
+      96
+    ],
+    [
+      8,
+      72,
+      254,
+      507,
+      84
+    ],
+    [
+      0,
+      70,
+      420,
+      432,
+      87
+    ],
+    [
+      0,
+      69,
+      524,
+      149,
+      42
+    ],
+    [
+      0,
+      64,
+      640,
+      482,
+      180
+    ],
+    [
+      14,
+      64,
+      640,
+      150,
+      180
+    ],
+    [
+      15,
+      80,
+      656,
+      120,
+      100
+    ],
+    [
+      15,
+      79,
+      764,
+      63,
+      20
+    ],
+    [
+      15,
+      80,
+      781,
+      22,
+      20
+    ],
+    [
+      14,
+      230,
+      640,
+      150,
+      180
+    ],
+    [
+      19,
+      246,
+      656,
+      120,
+      100
+    ],
+    [
+      19,
+      245,
+      764,
+      49,
+      20
+    ],
+    [
+      19,
+      246,
+      781,
+      22,
+      20
+    ],
+    [
+      14,
+      396,
+      640,
+      150,
+      180
+    ],
+    [
+      23,
+      412,
+      656,
+      120,
+      100
+    ],
+    [
+      23,
+      411,
+      764,
+      69,
+      20
+    ],
+    [
+      23,
+      412,
+      781,
+      22,
+      20
+    ],
+    [
+      0,
+      704,
+      679,
+      352,
+      34
+    ],
+    [
+      0,
+      600,
+      130,
+      560,
+      560
+    ],
+    [
+      28,
+      600,
+      130,
+      560,
+      560
+    ],
+    [
+      29,
+      601,
+      131,
+      558,
+      559
+    ],
+    [
+      0,
+      1013,
+      153,
+      76,
+      71
+    ],
+    [
+      31,
+      1030,
+      170,
+      43,
+      17
+    ],
+    [
+      31,
+      1037,
+      187,
+      28,
+      20
+    ],
+    [
+      0,
+      604,
+      294,
+      110,
+      69
+    ],
+    [
+      34,
+      647,
+      310,
+      24,
+      17
+    ],
+    [
+      34,
+      634,
+      327,
+      51,
+      20
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.5454545454545454,
+    "kept": [
+      "glass",
+      "gradient",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow"
+    ],
+    "missing": [
+      "blur",
+      "hard-shadow",
+      "huge-type",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 38947,
+    "output": 24569,
+    "cacheRead": 284243
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46475,
+      "output": 17805,
+      "cacheRead": 272295,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read components/GlowingOrb.tsx",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/index.html",
+        "Edit components/GlowingOrb.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 187774
+    }
+  ],
+  "ease": {
+    "marks": 11,
+    "captured": 11,
+    "notes": 10,
+    "words": 484,
+    "drawMs": 41934,
+    "readingMs": 59857,
+    "runMs": 248798
+  },
+  "reading": "This is a hero section for a terrarium shop: a top navbar, a large glowing sphere with two frosted 'Humidity'/'Light' badges floating on it and a frosted glass stand beneath it, a two-line serif headline with one italic green word, a grey subtitle paragraph, a dark pill CTA button, and a row of three product cards (Fern dome, Moss jar, Desert bowl) with gradient thumbnail images and prices — all set on a cream-to-grey gradient page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        35,
+        1153,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navbar drawn as a full-width bar: brand 'Moss & Glass' in bold italic 22px Georgia serif sits at the far left; nav links 'Kits', 'Plants', 'Care', 'Cart (2)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        134,
+        553,
+        552
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Large 560px solid sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 32% 26%, #ffffff 0%, #ffffff 6%, #ffffff 18%, #ffffff 40%, #f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        704,
+        679,
+        352,
+        34
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Frosted glass platform/stand sitting beneath the sphere (the rectangular base shape drawn under the circle)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1013,
+        153,
+        76,
+        71
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Frosted glass badge overlapping the top-right of the sphere, labeled 'Humidity' with value text '86%'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        294,
+        110,
+        69
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Frosted glass badge overlapping the left side of the sphere, labeled 'Light' with value text 'Indirect'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 86
+        }
+      ],
+      "region": [
+        72,
+        170,
+        468,
+        188
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif regular-weight headline, tight-set (line-height 0.98), set in exactly 2 lines that must keep these breaks and never rewrap: 'A small forest'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        70,
+        420,
+        432,
+        58
+      ],
+      "paths": [],
+      "instruction": "Subtitle paragraph in dark grey #43534a (not the page's default navy text): 'Hand-built closed terrariums that water themselves. Moss, fern and stone, sealed in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        69,
+        524,
+        149,
+        42
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Dark navy pill-shaped button with bold cream #e9efe4 label text 'Build your kit'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        67,
+        643,
+        475,
+        174
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Row of three product cards with exactly 16px gap between them (flex gap, never touching), each its own element with live text, each one-line text on a single li"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}
