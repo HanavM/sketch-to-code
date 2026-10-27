@@ -1,9 +1,9 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "The month calendar page went from 28% to 90% after fixing how a big drawn box shared by several parts is read; round 30 is now 82%. Next: the letter-tile mosaic and the other shape-heavy creative pages."
+now: "The letter-tile mosaic page went from 65% to 94% once each tile was described with its own shape and tilt; round 30 is now 85%. Next: the film-noir page's film strip and the year wheel's labels round a circle."
 round: 30
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90, 93, 91, 92, 93, 82]
-lock: {by: n271, until: "2026-10-27T19:24Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90, 93, 91, 92, 93, 85]
+lock: null
 round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn, words typed, draw/read/build seconds, billed tokens, repair turns
   - {round: 1, likeness: 66, marks: 8, words: 238, draw_s: null, read_s: null, build_s: 116, tokens: 39901, fixes: 0}
   - {round: 2, likeness: 48, marks: 9, words: 268, draw_s: null, read_s: null, build_s: 96, tokens: 42686, fixes: 0}
@@ -34,7 +34,7 @@ round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn,
   - {round: 27, likeness: 91, marks: 14, words: 1213, draw_s: 79, read_s: 102, build_s: 343, tokens: 126417, fixes: 0.2}
   - {round: 28, likeness: 92, marks: 10, words: 1342, draw_s: 62, read_s: 81, build_s: 252, tokens: 96881, fixes: 0}
   - {round: 29, likeness: 93, marks: 10, words: 1305, draw_s: 67, read_s: 73, build_s: 260, tokens: 95529, fixes: 0}
-  - {round: 30, likeness: 82, marks: 12, words: 1157, draw_s: 76, read_s: 84, build_s: 211, tokens: 87149, fixes: 0}   # e3 re-run after n270
+  - {round: 30, likeness: 85, marks: 12, words: 1175, draw_s: 76, read_s: 83, build_s: 207, tokens: 86783, fixes: 0}   # c2 re-run after n271
 asks: []
 handled:
   - "2026-10-26 15:49 INBOX: ease, efficiency and speed now logged every page and round: run digests record marks, notes, words, draw/read/run time; tests/rounds/EASE.md and round_ease: give likeness, marks, words, draw s, read s, build s, tokens and repair turns per page and round (n253)."
@@ -42,6 +42,8 @@ handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n271 (7a0e3c5 on try/n3-vocabulary): planner: a glyph tile grid whose tiles differ says each tile's own shape (full circle, uneven corners, clip-path, border) and transform (translate then rotate from its matrix), tile size from its untransformed box (was 198 for 180px turned tiles); a dot-grid canvas says its linear fading mask exactly; an outline ring says a filled ::after inside (45deg square = DIAMOND) with size, place, turn; a region's loose copy says its face when it differs from the page (Georgia blurb under Helvetica) and italics. Live r30 c2 65 to 94 (~48k, no repair turn). Round 30 85 (84.8). Re-planned rounds 1-29: face said on loose copy in r1 r6 r10 r12 r13 r14 r21 r23 r26 r28 (not re-run). Vitest same 2 env failures; typecheck clean. Fresh container: npm ci, build, /tmp/pwb symlinks 1243 as 1234."
+  - "Token ledger: 2026-10-27 n271 live r30 c2 ~48k billed (no cap set)."
   - "n270 (01477f7 on try/n3-vocabulary): grounding: a big drawn stroke several add/design actions cite beside their own marks, none citing it alone, belongs to the action citing the most strokes with it; any other action whose marks sit inside it at a quarter of its area or less drops it as a borrowed frame (r30 e3 grid rectangle was the launch bar's drawn form). Unit test added. Live e3 28 to 90 (~131k, one repair turn). Round 30 82 (81.9). Vitest same 2 env failures; tsc -b clean. Fresh container: npm ci, build, /tmp/pwb with chromium-1234 linked to 1243."
   - "Token ledger: 2026-10-27 n270 live r30 e3 ~131k billed (no cap set)."
   - "n269 (9e76370 on try/n3-vocabulary): the r30 blank builds were the code writer editing the app index.html to add a web-font link (c3 re-run tool list: Edit index.html); any index.html change makes the dev server reload the page and the overlay drops the running build. Build brief now: never edit index.html, web font as @import url() at the top of the main CSS. Live re-runs all built: c3 74 (film strip, mask fade lost), e2 89, e4 84 (read index.html, edited CSS instead; wires lost). Round 30 76 over all ten. Vitest same 2 env failures; typecheck clean. Fresh container: npm ci, build, /tmp/pwb symlinks 1243 as 1234."
@@ -893,4 +895,5 @@ nodes:
   - {id: n269, parent: n268, kind: step, status: done, branch: try/n3-vocabulary, title: "Free first, ~400k live: prove the bench waits out a mid-build page reload (r30 c3, e2, e4), find what reloads index.html; e3 launch bar took the grid's rectangle as its drawn form",
      result: "Blank builds: writer edited index.html for a font. Now forbidden. c3 74, e2 89, e4 84. 9e76370."}
   - {id: n270, parent: n269, kind: step, status: done, branch: try/n3-vocabulary, title: "Free first, ~400k live: r30 e3 launch bar took the grid's rectangle as its drawn form (28); c2 tile-by-tile shape, turn, offset (65); e4 SVG bezier wires; fix, re-run", result: "Borrowed grid rectangle no longer a small mark's drawn form; e3 28 to 90. Round 30 82."}
-  - {id: n271, parent: n270, kind: step, status: open, branch: try/n3-vocabulary, title: "Free first, ~400k live: r30 c2 tile-by-tile shape, turn, offset (65); c3 film strip, masked stripes (74); c5 labels round a circle (77); e4 SVG bezier wires; fix, re-run", result: null}
+  - {id: n271, parent: n270, kind: step, status: done, branch: try/n3-vocabulary, title: "Free first, ~400k live: r30 c2 tile-by-tile shape, turn, offset (65); c3 film strip, masked stripes (74); c5 labels round a circle (77); e4 SVG bezier wires; fix, re-run", result: "Tiles each said with own shape, turn, offset; dot fade, ring diamond, serif blurb. c2 65 to 94. Round 30 85."}
+  - {id: n272, parent: n271, kind: step, status: open, branch: try/n3-vocabulary, title: "Free first, ~400k live: r30 c3 film strip and masked stripes (74); c5 labels round a circle, needle (77); c4 conic wheel under a masked ring (80); e4 SVG bezier wires (84); fix, re-run", result: null}
