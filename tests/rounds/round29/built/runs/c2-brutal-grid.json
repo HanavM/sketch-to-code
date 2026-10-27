@@ -1,24 +1,24 @@
 {
   "id": "c2-brutal-grid",
-  "at": "2026-10-27T09:21:45.538Z",
+  "at": "2026-10-27T10:34:54.675Z",
   "likeness": {
     "version": 3,
-    "overall": 0.6177335630028179,
-    "overallV2": 0.6177335630028179,
-    "overallV1": 0.5412130774293012,
-    "colour": 0.8755717609165178,
-    "structure": 0.7002655943364091,
-    "structureStrict": 0.5528315974023992,
-    "colourAligned": 0.8755717609165178,
-    "structureAligned": 0.7002655943364091,
+    "overall": 0.8064020748221138,
+    "overallV2": 0.8064020748221138,
+    "overallV1": 0.6840269513177837,
+    "colour": 0.9445375567221911,
+    "structure": 0.8067068369741808,
+    "structureStrict": 0.5709235242009953,
+    "colourAligned": 0.9445375567221911,
+    "structureAligned": 0.8067068369741808,
     "align": {
-      "scale": 0.96,
+      "scale": 1,
       "dx": 0,
-      "dy": 48,
-      "r": 0.6085696799846847
+      "dy": -32,
+      "r": 0.8394152157717039
     },
-    "layout": 0.7083191379680804,
-    "layoutV1": 0.7083191379680804,
+    "layout": 0.8958964259052183,
+    "layoutV1": 0.8958964259052183,
     "layoutVersion": 2
   },
   "boxes": [
@@ -63,6 +63,20 @@
       0,
       320,
       300
+    ],
+    [
+      5,
+      984,
+      24,
+      270,
+      55
+    ],
+    [
+      5,
+      984,
+      95,
+      270,
+      84
     ],
     [
       1,
@@ -128,81 +142,32 @@
       900
     ],
     [
-      14,
-      -17,
-      405,
-      113,
-      90
+      16,
+      18,
+      285,
+      45,
+      330
     ],
     [
       1,
       120,
-      -67,
-      447,
-      425
+      20,
+      442,
+      420
     ],
     [
       1,
       520,
-      213,
-      447,
-      425
+      300,
+      442,
+      420
     ],
     [
       1,
-      963,
-      3,
-      313,
-      293
-    ],
-    [
-      18,
-      987,
-      75,
-      265,
-      23
-    ],
-    [
-      18,
-      987,
-      98,
-      265,
-      23
-    ],
-    [
-      18,
-      987,
-      133,
-      265,
-      92
-    ],
-    [
-      1,
-      511,
-      74,
-      252,
-      252
-    ],
-    [
-      1,
-      100,
-      629,
-      520,
-      46
-    ],
-    [
-      23,
-      100,
-      629,
-      520,
-      21
-    ],
-    [
-      23,
-      100,
-      654,
-      520,
-      21
+      614,
+      120,
+      46,
+      159
     ],
     [
       1,
@@ -212,196 +177,159 @@
       161
     ],
     [
-      26,
+      21,
       100,
       620,
       520,
       40
     ],
     [
-      27,
+      22,
       100,
       629,
       134,
       24
     ],
     [
-      27,
+      22,
       582,
       629,
       38,
       24
     ],
     [
-      26,
+      21,
       100,
       660,
       520,
       40
     ],
     [
-      30,
+      25,
       100,
       669,
       154,
       24
     ],
     [
-      30,
+      25,
       582,
       669,
       38,
       24
     ],
     [
-      26,
+      21,
       100,
       700,
       520,
       40
     ],
     [
-      33,
+      28,
       100,
       709,
       134,
       24
     ],
     [
-      33,
+      28,
       582,
       709,
       38,
       24
     ],
     [
-      26,
+      21,
       100,
       740,
       520,
       40
     ],
     [
-      36,
+      31,
       100,
       749,
       115,
       24
     ],
     [
-      36,
+      31,
       582,
       749,
       38,
       24
     ],
     [
-      26,
-      100,
-      780,
-      520,
-      1
-    ],
-    [
       1,
-      100,
-      751,
-      520,
-      21
+      960,
+      760,
+      300,
+      110
     ],
     [
-      40,
-      100,
-      751,
-      520,
-      21
-    ],
-    [
-      1,
-      663,
-      643,
-      253,
-      213
-    ],
-    [
-      1,
-      968,
-      782,
-      153,
+      34,
+      1028,
+      790,
+      163,
       51
     ]
   ],
   "groupMatched": [],
   "effects": {
-    "recall": 0.75,
+    "recall": 1,
     "kept": [
+      "hard-shadow",
       "hollow-type",
       "huge-type",
       "mono",
       "overlap",
       "stripes-or-layers",
-      "tilt"
-    ],
-    "missing": [
-      "hard-shadow",
+      "tilt",
       "vertical-type"
     ],
-    "extra": [
-      "bleed"
-    ]
+    "missing": [],
+    "extra": []
   },
   "tokens": {
-    "input": 64019,
-    "output": 44000,
-    "cacheRead": 442462
+    "input": 52009,
+    "output": 20780,
+    "cacheRead": 148454
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 49762,
-      "output": 18051,
-      "cacheRead": 139376,
-      "toolCalls": 6,
+      "billed": 46080,
+      "output": 10332,
+      "cacheRead": 134301,
+      "toolCalls": 8,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
         "Read src/index.css",
         "Read src/main.tsx",
+        "Read s2c-bench-app/index.html",
+        "Read s2c-bench-app/package.json",
         "Write src/App.tsx"
       ],
-      "ms": 205327
-    },
-    {
-      "attempt": "1",
-      "kind": "repair",
-      "billed": 30004,
-      "output": 14288,
-      "cacheRead": 289454,
-      "toolCalls": 4,
-      "tools": [
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx",
-        "Edit src/App.tsx"
-      ],
-      "ms": 177562
+      "ms": 113625
     }
   ],
   "ease": {
-    "marks": 18,
-    "captured": 18,
+    "marks": 19,
+    "captured": 19,
     "notes": 10,
-    "words": 550,
-    "drawMs": 72498,
-    "readingMs": 114662,
-    "runMs": 499483
+    "words": 678,
+    "drawMs": 82056,
+    "readingMs": 105569,
+    "runMs": 220988
   },
-  "reading": "This is a full-page wireframe for a one-page studio/portfolio site: a 4x3 grid of 12 equal 320x300 cells bordered right+bottom, a rotated 80x900 black sidebar card reading \"STUDIO—NULL\", two giant Helvetica numerals \"04\" and \"05\" (one solid, one hollow-outlined), a yellow mono intro block (\"WE BUILD\" / \"LOUD THINGS\" / tagline), a diagonal red-orange \"NEW WORK\" banner, a ruled 4-row project index list, two short text placeholders flanking that list, a repeating vertical-stripe pattern block, and a bold yellow \"SAY HI →\" link.",
+  "reading": "This is a full single-page portfolio/studio layout sketched as a 4x3 grid of 320x300 panels, with a vertical nav bar, a giant '04' numeral, an outlined '05' numeral, a yellow CTA block, a rotated 'NEW WORK' tag, a ruled 4-row project index, a striped pattern block, and a 'SAY HI' button bottom-right — all specified precisely by the typed notes, which take priority over the loose ink.",
   "actions": [
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -413,45 +341,25 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build the page base per the run-wide note: light grey #e9e9e4 page background, monospace type, black text throughout. Lay out a 4-column x 3-row grid of 12 real"
-    },
-    {
-      "kind": "add",
-      "textMarks": [],
-      "textSize": [],
-      "region": [
-        3,
-        4,
-        74,
-        892
-      ],
-      "paths": [
-        "s1"
-      ],
-      "instruction": "One 80x900px #0b0b0b card, a separate piece styled like paper laid on the page, position absolute with top-left at 0,0 page px before rotation, square corners, "
+      "instruction": "Lay out the page as 12 equal panels, each a real element with live text, 320x300px, 2px #0b0b0b border on the right and bottom edges only, positioned part by pa"
     },
     {
       "kind": "add",
       "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
         "s2"
       ],
-      "textSize": [
-        {
-          "strokes": [
-            "s2"
-          ],
-          "lines": 1,
-          "fontPx": 425
-        }
-      ],
-      "region": [
-        128,
-        -67,
-        366,
-        510
-      ],
-      "paths": [],
-      "instruction": "Giant live-text numeral \"04\" in real Helvetica/Arial sans-serif, font-weight 900, round-bowled (not condensed/display), set as an actual character in a text ele"
+      "instruction": "Left nav/button block, solid black (#0b0b0b) filled, exactly 80x900px, top-left at 0,0, square corners, sitting over the left column of panels. Text set vertica"
     },
     {
       "kind": "add",
@@ -468,13 +376,36 @@
         }
       ],
       "region": [
+        128,
+        -67,
+        366,
+        510
+      ],
+      "paths": [],
+      "instruction": "Giant live-text numeral in the top-left panel: \"04\" set in Helvetica/Arial sans-serif, font-weight 900, round-bowled (not condensed/display), 420px type, about "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 425
+        }
+      ],
+      "region": [
         528,
         213,
         366,
         510
       ],
       "paths": [],
-      "instruction": "Giant live-text numeral \"05\" in real Helvetica/Arial sans-serif, font-weight 900, round-bowled, rendered hollow/outlined in black (stroke only, no fill) as an a"
+      "instruction": "Giant live-text numeral in the panel at 320,300: \"05\" set in Helvetica/Arial sans-serif, font-weight 900, round-bowled, hollow/outlined in black, 420px type, ab"
     },
     {
       "kind": "add",
@@ -487,9 +418,9 @@
         294
       ],
       "paths": [
-        "s4"
+        "s5"
       ],
-      "instruction": "Vivid yellow monospace 15px code-styled text block, each line exactly 23px line-height, black surrounding code chrome: three lines reading \"WE BUILD\", \"LOUD THI"
+      "instruction": "Vivid yellow block filling the panel at 960,0 (fill #c6ff00 edge to edge, 320x300px), text in #0b0b0b (not the fill colour): heading \"WE BUILD LOUD THINGS\" on i"
     },
     {
       "kind": "add",
@@ -502,91 +433,33 @@
         152
       ],
       "paths": [
-        "s5"
+        "s6"
       ],
-      "instruction": "A diagonal banner block, solid vivid #ff3b00 fill (not pale, not transparent), with white (#ffffff) text reading \"NEW WORK\" set on it."
+      "instruction": "A vivid red-orange (#ff3b00 solid) tag block with white (#ffffff) text \"NEW WORK\", box before rotation 159x46px top-left at 660,120 (position absolute), rotated"
     },
     {
       "kind": "add",
       "textMarks": [
+        "s7",
         "s8",
         "s9",
         "s10",
-        "s11"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7",
-            "s8",
-            "s9",
-            "s10",
-            "s11",
-            "s12",
-            "s13"
-          ],
-          "lines": 8,
-          "fontPx": 14
-        }
-      ],
-      "region": [
-        104,
-        666,
-        512,
-        69
-      ],
-      "paths": [],
-      "instruction": "A ruled index list, 520px wide positioned at 100,620 page px, monospace (Courier New) 16px black text, 4 rows each 40px tall with a 1px #0b0b0b rule across the "
-    },
-    {
-      "kind": "add",
-      "textMarks": [
-        "s6",
-        "s7"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7",
-            "s8",
-            "s9",
-            "s10",
-            "s11",
-            "s12",
-            "s13"
-          ],
-          "lines": 8,
-          "fontPx": 14
-        }
-      ],
-      "region": [
-        104,
-        626,
-        512,
-        29
-      ],
-      "paths": [],
-      "instruction": "Short two-line text placeholder sitting just above the project index list; set plausible heading copy fitting the studio page, e.g. a small label such as \"SELEC"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
+        "s11",
         "s12",
-        "s13"
+        "s13",
+        "s14"
       ],
       "textSize": [
         {
           "strokes": [
-            "s6",
             "s7",
             "s8",
             "s9",
             "s10",
             "s11",
             "s12",
-            "s13"
+            "s13",
+            "s14"
           ],
           "lines": 8,
           "fontPx": 14
@@ -594,12 +467,12 @@
       ],
       "region": [
         104,
-        747,
+        620,
         512,
-        29
+        162
       ],
       "paths": [],
-      "instruction": "Short text placeholder sitting just below the project index list, shorter than the line above it; set plausible closing copy fitting the studio page, e.g. a lin"
+      "instruction": "A ruled index list, 520px wide, positioned at 100,620, monospace (Courier New) 16px black text, 4 rows each 40px tall with a 1px #0b0b0b rule across the top and"
     },
     {
       "kind": "add",
@@ -612,21 +485,21 @@
         213
       ],
       "paths": [
-        "s14",
         "s15",
-        "s16"
+        "s16",
+        "s17"
       ],
-      "instruction": "A block filled with big heavy vertical repeating stripes, not a smooth gradient: repeating-linear-gradient(90deg, #0b0b0b 0px 6px, transparent 6px 14px) — 6px s"
+      "instruction": "A block filling the panel at 640,600 with big vertical repeating stripes, not a smooth gradient: repeating-linear-gradient(90deg, #0b0b0b 0px 6px, transparent 6"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s17"
+        "s18"
       ],
       "textSize": [
         {
           "strokes": [
-            "s17"
+            "s18"
           ],
           "lines": 1,
           "fontPx": 55
@@ -639,8 +512,10 @@
         66
       ],
       "paths": [],
-      "instruction": "Bold heavy yellow text link reading \"SAY HI →\" at exactly 34px font-size, kept on one line (white-space: nowrap, never wrapped), about 153px wide."
+      "instruction": "A button in the panel at 960,600: solid black (#0b0b0b) filled block, exactly 300x110px, top-left at 960,760, square corners, big heavy yellow (#c6ff00) text ce"
     }
   ],
-  "rejected": []
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
 }

@@ -54,3 +54,26 @@ Re-planned rounds 1-28: no notes change.
 c2 lime card and SAY HI button: fill vs ink (fill said as the text colour); side tag turn and hinge; e5 candle SVG unsaid
 and 'null' card fill; c5 depth scale (absolute labels said as wrapped lines), jellyfish ::after tentacles, card progress
 bar, waves; c4 arch double border and inner ::after arch, sunburst; c1 offset discs and ticket notches; e1 status chips.
+
+## n263: planner fixes, re-run live (2026-10-27, ~295k billed)
+
+| page | was | now | marks | words | draw s | read s | run s | tokens | what changed |
+|---|---|---|---|---|---|---|---|---|---|
+| c2 brutal grid | 62% | **81%** | 19 | 678 | 82 | 106 | 221 | 73k | lime card filled lime with dark text, black SAY HI button with lime letters and red hard shadow, NEW WORK tag a quarter turn about its corner, index reads bottom to top |
+| c5 deep sea | 83% | **93%** | 14 | 852 | 94 | 151 | 538 | 132k | dashed depth scale with labels spread down it, jellyfish tentacles, three ringed bubbles, gradient progress bar in the depth card |
+
+(c5 was also run once on the older notes: 86%, ~90k, light beams right from the n262 rule.)
+Round 29 now **87%** (c1 73, c2 81, c3 89, c4 90, c5 93, e1 74, e2 93, e3 95, e4 95, e5 89).
+
+Planner rules (each a rule, not a page patch):
+- A filled block holding a heading plus its own loose copy names the block and says its fill and text ink apart (c2 lime card was said 'vivid yellow' and built black with yellow text).
+- A filled text block 300px or narrower (a button) says its fill, ink, size, place and hard shadow (c2 SAY HI was said 'big heavy yellow').
+- A quarter turn hinged on a corner says rotate(90deg), the hinge and the box before the turn (c2 tag was said 'diagonal').
+- A narrow unfilled div with a left rule and short labels spread down it is a SCALE (c5 depth labels were said as wrapped lines).
+- An empty ringed circle with a soft radial highlight is a BUBBLE (was 'pill input').
+- A painted ::before/::after hanging out of its block is said with its box, gradient and mask (c5 tentacles).
+- A progress bar whose fill is a gradient is now found and said inside its card (c5 depth bar).
+Re-planned rounds 1-28: only round 21 c4's -90° numeral note gains its rotate() value.
+
+Still open: c2 barcode fills its whole cell and the lime heading came out mono; c5 waves flat and the jellyfish a pill not a dome;
+c4 arch double line, inner arch, sunburst; c1 offset discs and ticket notches; e5 candle SVG and 'null' card fill; e1 status chips.

@@ -69,6 +69,7 @@ export function factsInPage() {
       role: el.dataset?.r ?? '*',
       tag: el.tagName.toLowerCase(),
       rect: { x: r.x, y: r.y, w: r.width, h: r.height },
+      elBox: { x: el.offsetLeft, y: el.offsetTop },
       text: (el.innerText || '').replace(/\s+/g, ' ').trim(),
       ownText,
       // n204: a card's own lines as typed (line breaks kept: round 20 e4 card visual '•••• 4242' / '' / 'H. MEHTA 09/28')
@@ -2146,6 +2147,8 @@ export function factsInPage() {
       // n242: a word ringed by a hand-drawn SVG laid over it (round 24 c4 'photos' in an orange ellipse: never said, lost)
       circled: (() => { const out = []; for (const sv of el.querySelectorAll('svg')) { const sp = sv.parentElement; if (sp === el || getComputedStyle(sv).position !== 'absolute' || !/^inline/.test(getComputedStyle(sp).display)) continue; const sb = sv.getBoundingClientRect(), pb = sp.getBoundingClientRect(), mx = pb.x + pb.width / 2, my = pb.y + pb.height / 2; if (!(mx > sb.x && mx < sb.right && my > sb.y && my < sb.bottom && sb.width >= pb.width)) continue; const shapes = sv.querySelectorAll('ellipse,circle,path,rect,polyline'); const word = (sp.innerText || '').replace(/\s+/g, ' ').trim(); if (!shapes.length || shapes.length > 3 || !word || word.length > 30 || [...shapes].some((x) => (x.getAttribute('fill') ?? '') !== 'none')) continue; const cs = getComputedStyle(sv); out.push({ word, svg: sv.outerHTML.replace(/\s+/g, ' ').trim(), left: Math.round(parseFloat(cs.left) || 0), top: Math.round(parseFloat(cs.top) || 0) }) } return out.length ? out : null })(),
       // a round dot hung on the element by ::before/::after (a calendar now-line's knob, round 6 e5)
+      // n263: a painted ::before/::after hanging OUT of its block (round 29 c5 jellyfish tentacles: striped, masked, lost)
+      pseudoHang: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); if (!c.content || c.content === 'none' || c.position !== 'absolute' || c.backgroundImage === 'none') continue; const L = parseFloat(c.left) || 0, T = parseFloat(c.top) || 0, pw = parseFloat(c.width), ph = parseFloat(c.height); if (!(pw >= 20 && ph >= 20)) continue; if (!(T + ph > el.offsetHeight + 10 || L + pw > el.offsetWidth + 10 || T < -10 || L < -10)) continue; const mk = c.webkitMaskImage && c.webkitMaskImage !== 'none' ? c.webkitMaskImage : (c.maskImage && c.maskImage !== 'none' ? c.maskImage : null); return { w, x: Math.round(L), y: Math.round(T), pw: Math.round(pw), ph: Math.round(ph), img: c.backgroundImage, mask: mk } } return null })(),
       pseudoDot: (() => { for (const w of ['::before', '::after']) { const c = getComputedStyle(el, w); const pw = parseFloat(c.width), ph = parseFloat(c.height); if (c.content && c.content !== 'none' && pw >= 4 && pw <= 20 && Math.abs(pw - ph) <= 1 && parseFloat(c.borderTopLeftRadius) >= pw * 0.4 && rgba(c.backgroundColor)?.a > 0.05) return { px: Math.round(pw), at: (parseFloat(c.left) || 0) < r.width / 2 ? 'left' : 'right' } } return null })(),
       // small bordered or filled leaf labels anywhere inside (a toolbar's buttons in nested groups)
       leafButtons: [...el.querySelectorAll('*')].filter((k) => { const c = getComputedStyle(k); const t = txt(k); const b = k.getBoundingClientRect(); return t && t.length <= 24 && !k.children.length && b.height >= 26 && b.height <= 56 && (rgba(c.backgroundColor)?.a > 0.05 || parseFloat(c.borderTopWidth) >= 1) }).map((k) => ({ t: txt(k), fill: rgba(getComputedStyle(k).backgroundColor), border: rgba(getComputedStyle(k).borderTopColor), x: k.getBoundingClientRect().left })),
@@ -2154,7 +2157,7 @@ export function factsInPage() {
         for (const t of [el, ...el.querySelectorAll('*')]) {
           const u = t.firstElementChild; if (!u || txt(t)) continue
           const a = t.getBoundingClientRect(), b = u.getBoundingClientRect()
-          if (a.height <= 14 && a.width >= 60 && b.height >= a.height - 2 && b.width < a.width * 0.98 && rgba(getComputedStyle(t).backgroundColor)?.a > 0.05 && rgba(getComputedStyle(u).backgroundColor)?.a > 0.05) {
+          if (a.height <= 14 && a.width >= 60 && b.height >= a.height - 2 && b.width < a.width * 0.98 && rgba(getComputedStyle(t).backgroundColor)?.a > 0.05 && (rgba(getComputedStyle(u).backgroundColor)?.a > 0.05 || /gradient/.test(getComputedStyle(u).backgroundImage))) {
             // n225: several like bars stacked (round 22 e2 rating breakdown: five bars said as one)
             const sibs = t.parentElement ? [...t.parentElement.children].filter((k) => k.firstElementChild && !txt(k) && Math.abs(k.getBoundingClientRect().height - a.height) <= 1 && Math.abs(k.getBoundingClientRect().width - a.width) <= 2) : [t]
             const big = t.parentElement && [...t.parentElement.children].find((k) => txt(k) && parseFloat(getComputedStyle(k).fontSize) >= 28)
@@ -2162,7 +2165,7 @@ export function factsInPage() {
               big: big ? { t: txt(big), px: Math.round(parseFloat(getComputedStyle(big).fontSize)), bold: Number(getComputedStyle(big).fontWeight) >= 600, x: Math.round(big.getBoundingClientRect().left), y: Math.round(big.getBoundingClientRect().top) } : null } : null
             // n246: a meter of 2+ coloured segments side by side (round 25 e3 storage: said one indigo fill)
             const segs = t.children.length >= 2 && [...t.children].every((k) => !txt(k) && rgba(getComputedStyle(k).backgroundColor)?.a > 0.05 && Math.abs(k.getBoundingClientRect().top - b.top) <= 1) ? [...t.children].map((k) => ({ pct: Math.round(k.getBoundingClientRect().width / a.width * 100), c: rgba(getComputedStyle(k).backgroundColor) })) : null
-            return { pct: Math.round(b.width / a.width * 100), fill: rgba(getComputedStyle(u).backgroundColor), track: rgba(getComputedStyle(t).backgroundColor), lines: (el.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), many, segs: segs && new Set(segs.map((x) => `${x.c.r},${x.c.g},${x.c.b}`)).size >= 2 ? segs : null, h: Math.round(a.height), rad: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius) || 0) }
+            return { box: { x: Math.round(a.left), y: Math.round(a.top), w: Math.round(a.width) }, fillImg: /gradient/.test(getComputedStyle(u).backgroundImage) ? getComputedStyle(u).backgroundImage : null, pct: Math.round(b.width / a.width * 100), fill: rgba(getComputedStyle(u).backgroundColor), track: rgba(getComputedStyle(t).backgroundColor), lines: (el.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean), many, segs: segs && new Set(segs.map((x) => `${x.c.r},${x.c.g},${x.c.b}`)).size >= 2 ? segs : null, h: Math.round(a.height), rad: Math.round(parseFloat(getComputedStyle(t).borderTopLeftRadius) || 0) }
           }
         }
         return null
@@ -3599,7 +3602,14 @@ function effectWords(f) {
   else if (f.tilt3d) w.push(`tilted back in 3D perspective${f.rot3d ? ` (${[f.rot3d.y ? `rotateY(${f.rot3d.y}deg)` : '', f.rot3d.x ? `rotateX(${f.rot3d.x}deg)` : ''].filter(Boolean).join(' ')})` : ''}`)
   // which way and how far: a bare 'tilted' was built flat (round 4 c1 blue block, sticker)
   else if (turn >= 1.5 && turn <= 60) w.push(`tilted ${turn < 3 ? 'slightly ' : ''}${turn}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}`)
-  else if (turn > 60 && turn < 170) w.push('diagonal')
+  // n263: a quarter turn is not 'diagonal' (round 29 c2 'NEW WORK' tag, rotate(90deg) about its top-left corner, was
+  // built as a 45deg slab); it says its angle, hinge and box before the turn
+  else if (turn > 60 && turn < 170 && Math.abs(turn - 90) <= 1 && f.box0 && (f.box0.origin ?? '').split(' ').map(parseFloat).slice(0, 2).every((v) => v <= 1)) {
+    const o = (f.box0.origin ?? '').split(' ').map(parseFloat)
+    const hinge = o.length >= 2 && o[0] <= 1 && o[1] <= 1 ? 'its TOP-LEFT corner (transform-origin: left top)' : 'its centre'
+    w.push(`turned EXACTLY ${Math.round(f.rotate)}° (transform: rotate(${Math.round(f.rotate)}deg), a quarter turn, NOT 45°, NOT diagonal) about ${hinge}, so its words read ${f.rotate > 0 ? 'top to bottom' : 'bottom to top'}; its box before the turn ${Math.round(f.box0.w)}x${Math.round(f.box0.h)}px with its top-left at ${Math.round(f.box0.x)},${Math.round(f.box0.y)} (position absolute)`)
+  }
+  else if (turn > 60 && turn < 170) w.push(`diagonal (rotate(${Math.round(f.rotate)}deg))`)
   if (f.motion) w.push(f.motion === 'scrolling' && f.bleeds ? 'scrolling marquee' : f.motion)
   // n191: a marquee's own solid band and its letters' colour (round 19 c2: the black ribbon lost, said 'near-black' text)
   if (f.motion === 'scrolling' && f.bleeds && visible(f.bg) && f.bg.a > 0.5) {
@@ -4642,6 +4652,16 @@ function decideRest(f, page, marked, said) {
     return { kind: 'box', note: `a row ${Math.round(f.rect.w)}px wide at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} with ONLY a ${T.px}px ${hexOf(T.c)} rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text ${T.pad}px under the rule; ${f.kidTexts.length === 3 ? 'three' : 'two'} separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): ${Math.round(f.font.size)}px ${faceName(f.font.family)}${f.font.spacing >= 1.5 ? ' widely spaced' : ''} ${hexOf(f.colour)} ${quote(f.kidTexts[0], 30)} at the far left, ${f.kidTexts.length === 3 ? `${quote(f.kidTexts[1], 30)} in the middle, ` : ''}${quote(f.kidTexts[f.kidTexts.length - 1], 30)} at the far right${stackNote}` }
   }
   const d0 = decideOne(f, page, marked, said)
+  // n263: a painted pseudo-part hanging out of the block is said whole (round 29 c5 jellyfish tentacles lost)
+  if (d0?.note && f.pseudoHang && !/tentacle|hanging/.test(d0.note)) {
+    const P = f.pseudoHang
+    d0.note += `; PLUS hanging out of it a painted ${f.pseudoHang.w} part (its own absolute ${P.pw}x${P.ph}px box at ${P.x},${P.y} inside the block, so it hangs below/outside it; part of the drawing, like tentacles or fringe): background ${cssHexS(P.img)}${P.mask ? `, faded out by mask-image ${cssHexS(P.mask)} (-webkit-mask too)` : ''}`
+  }
+  // n263: a progress bar inside a card whose note never says it (round 29 c5 frosted depth card: gradient bar lost)
+  if (d0?.note && f.progress?.box && f.progress.fillImg && !f.progress.many && !/progress|meter|bar \d|filled \d+%/.test(d0.note)) {
+    const P = f.progress
+    d0.note += `; inside it, under the text, a thin PROGRESS BAR ${P.box.w}x${P.h}px with its top-left at ${P.box.x},${P.box.y}, ${P.rad}px rounded: a ${hexOf(P.track)}${P.track.a < 0.95 ? ` at ${Math.round(P.track.a * 100)}%` : ''} track, filled from the left to ${P.pct}% by ${P.fillImg ? cssHexS(P.fillImg) : hexOf(P.fill)}`
+  }
   const w0 = f.rect.w, h0 = f.rect.h
   // n252: corner brackets said one by one (round 27 e1 crop handles)
   if (f.cornerMarks && (!d0?.note || d0.note.length < 40)) {
@@ -4775,6 +4795,19 @@ function decideOne(f, page, marked, said) {
   }
   const grad = gradientWords(f)
   const bordered = f.border.w >= 1 && visible(f.border.colour)
+  // n263: a dashed or solid left rule with short labels placed down it is a SCALE (round 29 c5 depth scale: said as one
+  // wrapped 4-line block, built stacked at the top)
+  {
+    const K = (f.kidBoxes ?? []).filter((k) => k.t.length <= 16)
+    if (!fill && w <= 160 && f.border.left >= 1 && f.border.leftStyle !== 'none' && visible(f.border.leftColour) && h >= 300 && K.length >= 3 && K.length === (f.kidBoxes ?? []).length && !f.regionKids.length && K[K.length - 1].top - K[0].top >= h * 0.5) {
+      const lc = f.border.leftColour
+      return { kind: 'text', note: `a vertical SCALE (a ruler down the page), NOT a paragraph, NOT a list: a ${Math.round(h)}px tall ${Math.round(f.border.left)}px ${f.border.leftStyle} ${hexOf({ ...lc, a: 1 })}${lc.a < 0.95 ? ` at ${Math.round(lc.a * 100)}%` : ''} line (border-left of an empty ${Math.round(h)}px tall div, position absolute, top-left at ${f.elBox?.x ?? Math.round(f.rect.x)},${Math.round(f.rect.y)}); beside it ${K.length} small ${K[0].s}px ${hexOf(K[0].ink)} labels, each position absolute, ${Math.round(K[0].left + f.rect.x - (f.elBox?.x ?? f.rect.x))}px right of the line, one line each (white-space nowrap): ${K.map((k) => `${quote(k.t, 16)} ${Math.round(k.top)}px down`).join(', ')} (spread down the line, NOT stacked together)` }
+    }
+  }
+  // n263: an empty round bubble with a ring and a soft highlight (round 29 c5: said 'pill input')
+  if (!(f.text ?? '').trim() && !f.kidCount && Math.abs(w - h) <= 2 && w <= 120 && (f.radiusPct >= 49 || f.radius >= w / 2 - 1) && bordered && f.border.colour.a < 0.95 && /radial-gradient/.test(f.bgImage ?? '') && !visible(f.bg)) {
+    return { kind: 'circle', note: `a BUBBLE (empty circle, NOT an input, NOT a button, no text): one ${Math.round(w)}x${Math.round(h)}px div, border-radius 50%, position absolute at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${bordered ? `, ${Math.round(f.border.w)}px solid ${hexOf({ ...f.border.colour, a: 1 })}${f.border.colour.a < 0.95 ? ` at ${Math.round(f.border.colour.a * 100)}%` : ''} border` : ''}${/gradient/.test(f.bgImage ?? '') ? `, background ${cssHexS(f.bgImage)}` : visible(f.bg) ? `, ${hexOf(f.bg)} fill` : ', no fill'}` }
+  }
   // n192: a thin rod with a round knob on one end (round 19 c4 tonearm: said as a 'tilted gradient block', built as a slab)
   if (f.rodKnob && !(f.text ?? '').trim()) {
     const K = f.rodKnob
@@ -5571,7 +5604,7 @@ function decideOne(f, page, marked, said) {
     return { kind: 'box', note: `solid ${colourName(f.bg)} strip only ${Math.round(h)}px tall, ${Math.round(w)}px wide, no text (${divider ? `a divider rule, not a bar or button; exactly ${Math.round(h)}px thick (height: ${Math.round(h)}px, Tailwind h-[${Math.round(h)}px], never h-${Math.round(h)} which is ${Math.round(h)*4}px), thinner than the drawn pen line` : 'a progress bar'})${f.rect.y <= 4 ? ' along the top edge' : ''}` }
   }
   // a progress meter with its label lines
-  if (f.progress && !f.regionKids.length && f.progress.lines.length <= 3) {
+  if (f.progress && !f.progress.fillImg && !f.regionKids.length && f.progress.lines.length <= 3) {
     const p = f.progress
     if (p.many) { const m = p.many; return { kind: 'box', note: `${m.big ? `a big ${m.big.px}px ${m.big.bold ? 'bold ' : ''}${quote(m.big.t, 8)} at ${m.big.x},${m.big.y} on the left, and to its right ` : ''}${m.n} SEPARATE thin bars stacked (a rating breakdown, NOT one bar), each ${m.w}x${m.h}px, ${m.rad}px rounded, ${m.gap}px apart, the first at ${m.x},${m.y}: a ${hexOf(p.track)} track each, filled ${hexOf(p.fill)} from the left to ${m.pcts.map((x) => `${x}%`).join(', ')} top to bottom` } }
     if (p.segs) return { kind: 'box', note: `${p.lines.length ? `${quote(p.lines[0], 30)}, ` : ''}a ${p.h}px ${p.rad}px-rounded meter on a ${hexOf(p.track)} track (overflow hidden) filled by ${p.segs.length} SEPARATE coloured segments side by side from the left, in this order: ${p.segs.map((x) => `${x.pct}% ${hexOf(x.c)}`).join(', ')} (one flex row of ${p.segs.length} bars, NOT one single fill), the rest of the track empty${p.lines[1] ? `; small grey ${quote(p.lines[1], 40)} under` : ''}` }
@@ -5756,6 +5789,9 @@ function decideOne(f, page, marked, said) {
     // orange band were built white like the black band's
     // the band is the whole block, filled edge to edge, and left-set type says so: 'on a yellow band' was
     // built as a yellow strip behind the letters only, and the masthead centred (round 6 c5, n89)
+    // n263: a filled text block 300px or narrower (a button) says its fill apart from its ink: round 29 c2's
+    // black 'SAY HI' button with lime letters was said 'big heavy yellow' and built as bare yellow words
+    if (fill && !f.clipText && w <= 300 && w >= 80 && h >= 36 && h <= 120 && w >= h * 1.5 && !f.motion && Math.abs(f.rotate || 0) < 2) tw.push(`${textCol ? `(${hexOf(f.colour)}) ` : `${colourName(f.colour)} (${hexOf(f.colour)}) `}letters (their ink, NOT the fill) on a solid ${colourName(f.bg)} (${hexOf(f.bg)}) FILLED button block, exactly ${Math.round(w)}x${Math.round(h)}px with its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, ${f.radius >= 1 ? `${Math.round(f.radius)}px rounded corners` : 'square corners'}, the words centred in it${shadowWords(f) ? `, with a ${shadowWords(f)} (box-shadow ${f.shadows.filter((x) => !x.clear && x.blur <= 1).map((x) => `${Math.round(x.x)}px ${Math.round(x.y)}px 0 ${hexOf({ ...x.c, a: 1 })}`).join(', ')})` : ''}`)
     if (fill && !f.clipText && w > 300) tw.push(`${textCol ? '' : `${colourName(f.colour)} letters `}on a ${colourName(f.bg)} (${hexOf(f.bg)}) band (${Math.abs(f.rotate) >= 2 && Math.abs(f.rotate) <= 45 && f.layoutBox?.h ? `the band itself ${f.layoutBox.w}x${f.layoutBox.h}px before the tilt (height: ${f.layoutBox.h}px, only ${f.layoutBox.h}px thick; the tilt alone makes its outline ${Math.round(h)}px tall), filled ${colourName(f.bg)} edge to edge` : `the whole ${Math.round(w)}x${Math.round(h)}px block filled ${colourName(f.bg)} edge to edge`}${!f.centred && !f.motion && f.inset ? `, type left-aligned ${Math.round(f.inset.l)}px in from its left, not centred` : ''})`)
     const under = f.lineUnder ? (said.add(f.lineUnder), `, line under: ${quote(f.lineUnder, 60)}`) : ''
     const sk = f.subKid && f.text.endsWith(f.subKid.t) && f.text.length > f.subKid.t.length ? f.subKid : null
@@ -5871,7 +5907,9 @@ function decideOne(f, page, marked, said) {
     // 'vertical near-black, light grey text' into near-black text on the page)
     // a filled card with a title and copy names the block too: 'mint green "Wait", text ...' coloured the
     // title and left the card dark like its neighbour (round 4 c5)
-    const filledCard = (fill || grad) && !frosted && !f.regionKids.length && f.kidTexts.length >= 2 && !look.includes('card')
+    // n263: a heading plus its own loose copy counts too (round 29 c2 lime card 'WE BUILD...' + bare text: said
+    // 'vivid yellow "WE BUILD"', built a black card with yellow text)
+    const filledCard = (fill || grad) && !frosted && !f.regionKids.length && (f.kidTexts.length >= 2 || (f.kidTexts.length === 1 && (f.ownText ?? '').trim().length > 24)) && !look.includes('card')
     const noun = (lightText || filledCard) && !what && !look.some((x) => / block\b/.test(x)) ? (Math.max(w, h) >= 4 * Math.min(w, h) ? 'bar' : 'block') : null
     // a rounded filled tile holding only copy says the tile and the ink apart (round 8 c3: a near-black text tile
     // said 'off-white "2.4M ..."' was built with no tile; 'pale pink 24px text' turned the quote's ink pink)
@@ -5882,6 +5920,7 @@ function decideOne(f, page, marked, said) {
     }
     // n191: a marquee ribbon already names its fill; the bare fill word read as the letters' colour
     const say = uniq([...look, noun, what].filter((x) => !(look.some((y) => /ribbon \(the band itself/.test(y ?? '')) && x === colourName(f.bg)))).join(' ') + lightText
+      + (noun && fill && !grad && !lightText && f.kidTexts.length === 1 && f.colour?.a > 0.5 && dist(f.colour, f.bg) > 60 ? ` (fill ${hexOf(f.bg)} edge to edge, ${Math.round(w)}x${Math.round(h)}px; its text ${hexOf(f.colour)}, NOT the fill colour)` : '')
     const head = f.kidTexts[0] && f.kidTexts[0].length <= 40 ? f.kidTexts[0] : null
     const list = f.dense?.type === 'list' && !f.regionKids.length ? denseNote(f.dense) : null
     // a titled card: its title and one short line are copy a person types, or the build invents its own
@@ -7346,7 +7385,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
   regions.forEach((f) => {
     const d = out.get(f.role), S = f.shown
     if (d?.kind !== 'text' || !d.note || !S || f.regionKids.length || S.lines.length < 2 || S.lines.length > 4) return
-    if (!(f.font?.size >= 12 && f.font.size < 30) || /lines:|\d+px wide|part by part|wrapping onto/.test(d.note)) return
+    if (!(f.font?.size >= 12 && f.font.size < 30) || /lines:|\d+px wide|part by part|wrapping onto|a vertical SCALE/.test(d.note)) return
     const lh = Math.round(parseFloat(f.font.lineHeight) || f.font.size * 1.5)
     d.note = `${d.note}; set in a ${Math.round(f.rect.w)}px wide box (width: ${Math.round(f.rect.w)}px, its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}), ${Math.round(f.font.size)}px type${lh >= f.font.size ? `, line-height ${lh}px` : ''}, wrapping into exactly ${S.lines.length} lines: ${S.lines.map((t) => quote(t, 70)).join(' / ')} (no narrower box, no extra line)`
   })

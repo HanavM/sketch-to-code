@@ -38,7 +38,7 @@ may be more than its build was given. Correcting is also visible as live re-runs
 | 26 | 10 | 93% | 11 | 1,155 | – | – | 324 | 108,065 | 0.1 |
 | 27 | 10 | 91% | 14 | 1,238 | 79 | 102 | 343 | 126,417 | 0.2 |
 | 28 | 10 | 92% | 10 | 1,342 | 62 | 81 | 252 | 96,881 | 0.4 |
-| 29 | 10 | 84% | 10 | 1,061 | 62 | 80 | 286 | 91,558 | 0.4 |
+| 29 | 10 | 87% | 10 | 1,106 | 66 | 87 | 266 | 92,679 | 0.2 |
 
 ## Per page
 
@@ -47,10 +47,10 @@ may be more than its build was given. Correcting is also visible as live re-runs
 | page | likeness | marks | notes | words | draw s | read s | build s | tokens | fixes |
 |---|---|---|---|---|---|---|---|---|---|
 | c1-riso-festival | 73% | 13 | 9 | 655 | 60 | 157 | 205 | 80,535 | 1 |
-| c2-brutal-grid | 62% | 18 | 10 | 550 | 72 | 115 | 383 | 108,019 | 1 |
+| c2-brutal-grid | 81% | 19 | 10 | 678 | 82 | 106 | 114 | 72,789 | 0 |
 | c3-iso-city | 89% | 10 | 7 | 854 | 48 | 59 | 213 | 69,399 | 0 |
 | c4-deco-cinema | 90% | 13 | 12 | 671 | 66 | 85 | 369 | 107,757 | 0 |
-| c5-deep-sea | 83% | 14 | 13 | 527 | 61 | 74 | 322 | 85,102 | 1 |
+| c5-deep-sea | 93% | 14 | 13 | 852 | 94 | 151 | 385 | 131,540 | 0 |
 | e1-spreadsheet | 74% | 11 | 8 | 1,278 | 78 | 94 | 305 | 99,263 | 1 |
 | e2-gantt | 93% | 4 | 5 | 1,451 | 54 | 38 | 241 | 78,118 | 0 |
 | e3-support-inbox | 95% | 4 | 4 | 1,770 | 64 | 44 | 255 | 83,271 | 0 |
@@ -169,7 +169,7 @@ may be more than its build was given. Correcting is also visible as live re-runs
 | c1-kinetic-type | 89% | 12 | 10 | 542 | – | – | 287 | 97,659 | 1 |
 | c2-depth-stack | 92% | 9 | 8 | 711 | – | – | 115 | 42,995 | 0 |
 | c3-mask-reveal | 90% | 14 | 9 | 525 | – | – | 263 | 84,633 | 1 |
-| c4-swiss-orbit | 89% | 19 | 13 | 936 | – | – | 406 | 115,951 | 2 |
+| c4-swiss-orbit | 89% | 19 | 13 | 937 | – | – | 406 | 115,951 | 2 |
 | c5-neon-grid | 91% | 8 | 9 | 833 | – | – | 140 | 69,902 | 0 |
 | e1-mail-client | 87% | 6 | 6 | 1,560 | – | – | 193 | 81,450 | 0 |
 | e2-analytics | 86% | 9 | 10 | 1,425 | – | – | 154 | 67,383 | 0 |

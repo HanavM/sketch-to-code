@@ -211,11 +211,11 @@
    ],
    [
     "lime-card",
-    "vivid yellow \"WE BUILD LOUD THINGS\" on its own line, then under it the copy quoted whole (these exact words, nothing invented): 15px \"Identity, type and web for people who refuse the template. Est. 2014, Rotterdam.\""
+    "vivid yellow block (fill #c6ff00 edge to edge, 320x300px; its text #0b0b0b, NOT the fill colour) \"WE BUILD LOUD THINGS\" on its own line, then under it the copy quoted whole (these exact words, nothing invented): 15px \"Identity, type and web for people who refuse the template. Est. 2014, Rotterdam.\""
    ],
    [
     "side-tag",
-    "diagonal vivid red-orange block, white text \"NEW WORK\"; its text #ffffff (white, NOT the page's black text); its fill exactly #ff3b00 (solid, NOT pale, NOT see-through), its words on it"
+    "turned EXACTLY 90° (transform: rotate(90deg), a quarter turn, NOT 45°, NOT diagonal) about its TOP-LEFT corner (transform-origin: left top), so its words read top to bottom; its box before the turn 159x46px with its top-left at 660,120 (position absolute) vivid red-orange block, white text \"NEW WORK\"; its text #ffffff (white, NOT the page's black text); its fill exactly #ff3b00 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "work-list",
@@ -227,7 +227,7 @@
    ],
    [
     "contact-button",
-    "big heavy yellow \"SAY HI →\", 34px type (font-size exactly 34px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 153px wide"
+    "big heavy yellow (#c6ff00) letters (their ink, NOT the fill) on a solid black (#0b0b0b) FILLED button block, exactly 300x110px with its top-left at 960,760, square corners, the words centred in it, with a hard solid opaque red-orange shadow offset 12px down left, no blur (box-shadow -12px 12px 0 #ff3b00) \"SAY HI →\", 34px type (font-size exactly 34px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 153px wide"
    ]
   ]
  },
@@ -495,15 +495,15 @@
    ],
    [
     "bubble-1",
-    "box"
+    "circle"
    ],
    [
     "bubble-2",
-    "box"
+    "circle"
    ],
    [
     "bubble-3",
-    "box"
+    "circle"
    ],
    [
     "dive-card",
@@ -529,7 +529,7 @@
    ],
    [
     "depth-scale",
-    "mint green \"0 m 200 m 1,000 m 4,000 m\"; its text #7ff3ff (mint green, NOT the page's off-white text); set in a 43px wide box (width: 43px, its top-left at 40,120), 12px type, line-height 18px, wrapping into exactly 4 lines: \"0 m\" / \"200 m\" / \"1,000 m\" / \"4,000 m\" (no narrower box, no extra line)"
+    "a vertical SCALE (a ruler down the page), NOT a paragraph, NOT a list: a 704px tall 2px dashed #7ff3ff at 40% line (border-left of an empty 704px tall div, position absolute, top-left at 30,120); beside it 4 small 12px #7ff3ff labels, each position absolute, 10px right of the line, one line each (white-space nowrap): \"0 m\" 0px down, \"200 m\" 230px down, \"1,000 m\" 460px down, \"4,000 m\" 690px down (spread down the line, NOT stacked together)"
    ],
    [
     "headline",
@@ -545,23 +545,23 @@
    ],
    [
     "jellyfish",
-    "pale lilac to purple gradient block, exactly 150x110px (keep it this SMALL), its top-left at 900,120, 75px rounded corners, plain paint only: no picture, no X, no icon, no text; a coloured GLOW round it (light spilling out, soft): exactly box-shadow: rgba(255, 139, 232, 0.67) 0px 0px 60px 0px"
+    "pale lilac to purple gradient block, exactly 150x110px (keep it this SMALL), its top-left at 900,120, 75px rounded corners, plain paint only: no picture, no X, no icon, no text; PLUS hanging out of it a painted ::after part (its own absolute 90x150px box at 30,100 inside the block, so it hangs below/outside it; part of the drawing, like tentacles or fringe): background repeating-linear-gradient(90deg, rgba(255, 139, 232, 0.53) 0px, rgba(255, 139, 232, 0.53) 3px, transparent 3px, transparent 18px), faded out by mask-image linear-gradient(#000000, transparent) (-webkit-mask too); a coloured GLOW round it (light spilling out, soft): exactly box-shadow: rgba(255, 139, 232, 0.67) 0px 0px 60px 0px"
    ],
    [
     "bubble-1",
-    "pill input \"\""
+    "a BUBBLE (empty circle, NOT an input, NOT a button, no text): one 40x40px div, border-radius 50%, position absolute at 760,300, 2px solid #bff6ff at 53% border, background radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 45%)"
    ],
    [
     "bubble-2",
-    "pill input \"\""
+    "a BUBBLE (empty circle, NOT an input, NOT a button, no text): one 22x22px div, border-radius 50%, position absolute at 720,380, 2px solid #bff6ff at 53% border, background radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 45%)"
    ],
    [
     "bubble-3",
-    "pill input \"\""
+    "a BUBBLE (empty circle, NOT an input, NOT a button, no text): one 60x60px div, border-radius 50%, position absolute at 1150,300, 2px solid #bff6ff at 53% border, background radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 45%)"
    ],
    [
     "dive-card",
-    "frosted glass \"CURRENT DEPTH\", lines big 58px bold \"2,418 m\", \"Water 2.1°C · Pressure 243 bar\"; each word in its own colour: \"CURRENT DEPTH\" #7ff3ff, \"2,418 m\" #e6fbff, \"Water 2.1°C · Pressure 243 bar\" #bfe9f5"
+    "frosted glass \"CURRENT DEPTH\", lines big 58px bold \"2,418 m\", \"Water 2.1°C · Pressure 243 bar\"; inside it, under the text, a thin PROGRESS BAR 302x10px with its top-left at 849,596, 10px rounded: a #ffffff at 13% track, filled from the left to 68% by linear-gradient(90deg, #7ff3ff, #2ec4ff); each word in its own colour: \"CURRENT DEPTH\" #7ff3ff, \"2,418 m\" #e6fbff, \"Water 2.1°C · Pressure 243 bar\" #bfe9f5"
    ]
   ]
  },
