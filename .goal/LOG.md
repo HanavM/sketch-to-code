@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-27T10:54Z | n263 r29 filled card and button fill vs ink, quarter-turn tag, depth scale, tentacles, bubbles | Brutal grid 62 to 81, deep sea 83 to 93. Round 29 87. ~295k.
 2026-10-27T10:40Z | n262 round 29 written and built untuned (posters, spreadsheet, Gantt, inbox, design tool, trading) | First look 84. Everyday 93-95 on three; brutal grid 62. Three planner fixes. ~920k.
 2026-10-27T09:00Z | n261 r28 schema tree rows, headline line breaks, key-list legend | Metro poster 89 to 95, query builder 88 to 89. Round 28 92. ~150k.
 2026-10-27T08:42Z | n260 r28 sparklines, lab columns, outlined Share pill, budget corner lines | Patient chart 86 to 90, trip page 89 (pill, budget lines exact). Round 28 92. ~290k.
