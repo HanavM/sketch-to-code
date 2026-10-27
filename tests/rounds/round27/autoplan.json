@@ -89,7 +89,7 @@
    ],
    [
     "copy",
-    "lavender text \"Seventy-eight cards, foil-edged, with a guide that skips the mystic fog and talks like a friend over tea.\"; its text #c9b9e6 (lavender, NOT the page's warm paper text)"
+    "lavender text \"Seventy-eight cards, foil-edged, with a guide that skips the mystic fog and talks like a friend over tea.\"; its text #c9b9e6 (lavender, NOT the page's warm paper text); set in a 430px wide box (width: 430px, its top-left at 70,556), 17px type, line-height 27px, wrapping into exactly 2 lines: \"Seventy-eight cards, foil-edged, with a guide that skips the\" / \"mystic fog and talks like a friend over tea.\" (no narrower box, no extra line)"
    ],
    [
     "gold-button",
@@ -231,7 +231,7 @@
    ],
    [
     "copy",
-    "serif text \"Damask rose at dusk, a thread of smoke, and something sweet you can't quite place. Made in Grasse, 50 ml.\""
+    "serif text \"Damask rose at dusk, a thread of smoke, and something sweet you can't quite place. Made in Grasse, 50 ml.\"; set in a 330px wide box (width: 330px, its top-left at 60,620), 15px type, line-height 26px, wrapping into exactly 3 lines: \"Damask rose at dusk, a thread of smoke, and\" / \"something sweet you can't quite place. Made in\" / \"Grasse, 50 ml.\" (no narrower box, no extra line)"
    ],
    [
     "notes-list",
@@ -361,7 +361,7 @@
    ],
    [
     "copy",
-    "dark grey text \"A squishy little notes app with springy cards, gentle sounds and sync that never makes you wait.\"; its text #5a4f86 (dark grey, NOT the page's deep indigo text)"
+    "dark grey text \"A squishy little notes app with springy cards, gentle sounds and sync that never makes you wait.\"; its text #5a4f86 (dark grey, NOT the page's deep indigo text); set in a 470px wide box (width: 470px, its top-left at 70,480), 19px type, line-height 29px, wrapping into exactly 2 lines: \"A squishy little notes app with springy cards, gentle\" / \"sounds and sync that never makes you wait.\" (no narrower box, no extra line)"
    ],
    [
     "clay-button",
@@ -879,7 +879,7 @@
    ],
    [
     "header",
-    "26px \"Home\" first, then links: ☀ 14° outside, All on: 7; \"Home\" sit together at the left, \"☀ 14° outside\", \"All on: 7\" pushed to the far right (857px gap); \"☀ 14° outside\" is a FILLED pill button (#ffffff fill, no border, 119x34px, bold #1d2433 text), NOT outlined, NOT plain text; \"All on: 7\" is a FILLED pill button (#ffffff fill, no border, 83x33px, bold #1d2433 text), NOT outlined, NOT plain text"
+    "26px \"Home\" first, then links: ☀ 14° outside, All on: 7; \"Home\" sit together at the left, \"☀ 14° outside\", \"All on: 7\" pushed to the far right (857px gap); \"☀ 14° outside\" is a FILLED pill button (#ffffff fill, no border, 119x34px, bold #1d2433 text), NOT outlined, NOT plain text; \"All on: 7\" is a FILLED pill button (#ffffff fill, no border, 83x33px, bold #1d2433 text), NOT outlined, NOT plain text; set in a 1200px wide box (width: 1200px, its top-left at 40,28), 13px type, line-height 20px, wrapping into exactly 2 lines: \"Home\" / \"☀ 14° outsideAll on: 7\" (no narrower box, no extra line)"
    ],
    [
     "room-tabs",

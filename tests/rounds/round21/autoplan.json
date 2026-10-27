@@ -85,7 +85,7 @@
    ],
    [
     "counter",
-    "mono \"214 animated identities shipped\"; its text #8a8a8a (grey, NOT the page's off-white text); set BOLD (font-weight 700), NOT regular"
+    "mono \"214 animated identities shipped\"; its text #8a8a8a (grey, NOT the page's off-white text); set BOLD (font-weight 700), NOT regular; set in a 227px wide box (width: 227px, its top-left at 600,640), 14px type, line-height 22px, wrapping into exactly 2 lines: \"214\" / \"animated identities shipped\" (no narrower box, no extra line)"
    ],
    [
     "spin-badge",
@@ -97,7 +97,7 @@
    ],
    [
     "cta",
-    "vivid yellow pill label, bold black \"START A PROJECT →\"; its text #0e0e0e (black, NOT the page's off-white text); placed on its own: position absolute, its top-left at 48,780 of the page, 53px of empty space above it (under the lede); NOT stacked straight under the lede, it keeps its own y"
+    "vivid yellow pill label, bold black \"START A PROJECT →\"; its text #0e0e0e (black, NOT the page's off-white text); placed on its own: position absolute, its top-left at 48,780 of the page, 53px of empty space above it (under the lede); NOT stacked straight under the lede, it keeps its own y; its fill exactly #c6ff00 (solid, NOT pale, NOT see-through), its words on it"
    ]
   ]
  },
@@ -151,7 +151,7 @@
    ],
    [
     "sub",
-    "text \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\"; placed on its own: position absolute, its top-left at 64,470 of the page, 175px of empty space above it (under the headline); NOT stacked straight under the headline, it keeps its own y"
+    "text \"Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.\"; placed on its own: position absolute, its top-left at 64,470 of the page, 175px of empty space above it (under the headline); NOT stacked straight under the headline, it keeps its own y; set in a 440px wide box (width: 440px, its top-left at 64,470), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Stackable design tokens that keep every surface,\" / \"shadow and elevation in sync across your apps.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -245,7 +245,7 @@
    ],
    [
     "caption",
-    "serif text \"An exhibition of cut-outs, windows and holes: what you see depends on what we take away.\""
+    "serif text \"An exhibition of cut-outs, windows and holes: what you see depends on what we take away.\"; set in a 520px wide box (width: 520px, its top-left at 48,520), 22px type, line-height 32px, wrapping into exactly 2 lines: \"An exhibition of cut-outs, windows and holes: what you\" / \"see depends on what we take away.\" (no narrower box, no extra line)"
    ],
    [
     "label",

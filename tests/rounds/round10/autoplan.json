@@ -329,7 +329,7 @@
    ],
    [
     "log-lines",
-    "exactly 4 18px Courier New #39ff7a lines (line-height 34px) at 182,392, nothing else invented: \"> loading modules .........\" then a \"OK\" chip / \"> linking synthwave.so .....\" then a \"OK\" chip / \"> calibrating phosphor ....\" then a \"OK\" chip / \"> ready for input_\"; each chip a solid #39ff7a label with #05140a text, 6px side padding, square corners"
+    "exactly 4 18px Courier New #39ff7a lines (line-height 34px) at 182,392, nothing else invented: \"> loading modules .........\" then a \"OK\" chip / \"> linking synthwave.so .....\" then a \"OK\" chip / \"> calibrating phosphor ....\" then a \"OK\" chip / \"> ready for input_\"; each chip a solid #39ff7a label with #05140a text, 6px side padding, square corners; set in a 347px wide box (width: 347px, its top-left at 182,392), 18px type, line-height 34px, wrapping into exactly 4 lines: \"> loading modules ......... OK\" / \"> linking synthwave.so ..... OK\" / \"> calibrating phosphor .... OK\" / \"> ready for input_\" (no narrower box, no extra line)"
    ],
    [
     "ascii-box",
@@ -485,7 +485,7 @@
    ],
    [
     "lede",
-    "italic text \"A seven-room house in the red hills, where the walls hold the afternoon heat long after dark.\""
+    "italic text \"A seven-room house in the red hills, where the walls hold the afternoon heat long after dark.\"; set in a 380px wide box (width: 380px, its top-left at 80,150), 18px type, line-height 27px, wrapping into exactly 2 lines: \"A seven-room house in the red hills, where the walls\" / \"hold the afternoon heat long after dark.\" (no narrower box, no extra line)"
    ],
    [
     "vertical-rule",

@@ -271,7 +271,7 @@
    ],
    [
     "lede",
-    "text \"Gummies with real fruit, no gelatine, and a texture we can only describe as bouncy.\""
+    "text \"Gummies with real fruit, no gelatine, and a texture we can only describe as bouncy.\"; set in a 460px wide box (width: 460px, its top-left at 60,560), 20px type, line-height 29px, wrapping into exactly 2 lines: \"Gummies with real fruit, no gelatine, and a texture\" / \"we can only describe as bouncy.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -353,7 +353,7 @@
    ],
    [
     "peak-label",
-    "vivid orange bar, near-black text \"PASSO GAVIA\"; its text #11140f (near-black, NOT the page's cream text); square corners (border-radius 0, NOT a pill, NOT rounded)"
+    "vivid orange bar, near-black text \"PASSO GAVIA\"; its text #11140f (near-black, NOT the page's cream text); square corners (border-radius 0, NOT a pill, NOT rounded); its fill exactly #ff5d3a (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "elevation-bars",

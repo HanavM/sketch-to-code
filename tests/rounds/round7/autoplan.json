@@ -49,7 +49,7 @@
    ],
    [
     "stat-tile",
-    "vivid yellow block, near-black text \"UPTIME\", text \"99.9\"; its text #111111 (near-black, NOT the page's white text); the card exactly 300x200px, its top-left at 620,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "vivid yellow block, near-black text \"UPTIME\", text \"99.9\"; its text #111111 (near-black, NOT the page's white text); the card exactly 300x200px, its top-left at 620,40 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room); its fill exactly #facc15 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "list-tile",
@@ -163,7 +163,7 @@
    ],
    [
     "note",
-    "text \"A variable family with weight and width axes. Drag the slider, the specimen breathes.\""
+    "text \"A variable family with weight and width axes. Drag the slider, the specimen breathes.\"; set in a 400px wide box (width: 400px, its top-left at 820,770), 17px type, line-height 26px, wrapping into exactly 2 lines: \"A variable family with weight and width axes. Drag\" / \"the slider, the specimen breathes.\" (no narrower box, no extra line)"
    ]
   ]
  },
@@ -237,7 +237,7 @@
    ],
    [
     "sub",
-    "text \"Five layers of skyline that drift apart as you scroll. A night walk through the old port.\""
+    "text \"Five layers of skyline that drift apart as you scroll. A night walk through the old port.\"; set in a 420px wide box (width: 420px, its top-left at 84,430), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Five layers of skyline that drift apart as you scroll.\" / \"A night walk through the old port.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -327,7 +327,7 @@
    ],
    [
     "sub",
-    "indigo text \"Edge, compute and storage as one stack you can see. Deploy from a single file.\"; its text #4338ca (indigo, NOT the page's deep indigo text)"
+    "indigo text \"Edge, compute and storage as one stack you can see. Deploy from a single file.\"; its text #4338ca (indigo, NOT the page's deep indigo text); set in a 420px wide box (width: 420px, its top-left at 72,400), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Edge, compute and storage as one stack you can\" / \"see. Deploy from a single file.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -1089,7 +1089,7 @@
    ],
    [
     "price",
-    "one line, left to right, each part a little apart: bold 28px dark navy \"$189\", then 18px grey \"$240\" struck through (line-through), then a small red tag (#dc2626, white text, 4px rounded) \"-21%\"; each word in its own colour: \"$240\" #9ca3af, \"-21%\" #ffffff"
+    "one line, left to right, each part a little apart: bold 28px dark navy \"$189\", then 18px grey \"$240\" struck through (line-through), then a small red tag (#dc2626, white text, 4px rounded) \"-21%\"; each word in its own colour: \"$240\" #9ca3af, \"-21%\" #ffffff; set in a 166px wide box (width: 166px, its top-left at 730,206), 28px type, line-height 42px, wrapping into exactly 2 lines: \"$189$240\" / \"-21%\" (no narrower box, no extra line)"
    ],
    [
     "colour-label",
@@ -1137,7 +1137,7 @@
    ],
    [
     "acc-body",
-    "dark grey text \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.\"; its text #4b5563 (dark grey, NOT the page's dark navy text), its top 658px from the page top, 46px below the top of the \"Details −\" line above it (that line's text sits above this text, never on the same line or over it)"
+    "dark grey text \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.\"; its text #4b5563 (dark grey, NOT the page's dark navy text), its top 658px from the page top, 46px below the top of the \"Details −\" line above it (that line's text sits above this text, never on the same line or over it); set in a 474px wide box (width: 474px, its top-left at 730,658), 14px type, line-height 22px, wrapping into exactly 2 lines: \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs\"… / \"its own chest pocket.\" (no narrower box, no extra line)"
    ],
    [
     "acc-care",

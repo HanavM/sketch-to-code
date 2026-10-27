@@ -109,7 +109,7 @@
    ],
    [
     "info-copy",
-    "serif text \"An exhibition on overlap: what happens where pigments meet, light adds up and inks subtract.\""
+    "serif text \"An exhibition on overlap: what happens where pigments meet, light adds up and inks subtract.\"; set in a 300px wide box (width: 300px, its top-left at 640,720), 15px type, line-height 23px, wrapping into exactly 2 lines: \"An exhibition on overlap: what happens where\" / \"pigments meet, light adds up and inks subtract.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -117,7 +117,7 @@
    ],
    [
     "meta-mono",
-    "mono \"N 52.37 / E 4.89 FREE ENTRY FRIDAYS\""
+    "mono \"N 52.37 / E 4.89 FREE ENTRY FRIDAYS\"; set in a 148px wide box (width: 148px, its top-left at 56,800), 12px type, line-height 17px, wrapping into exactly 2 lines: \"N 52.37 / E 4.89\" / \"FREE ENTRY FRIDAYS\" (no narrower box, no extra line)"
    ]
   ]
  },
@@ -275,7 +275,7 @@
    ],
    [
     "copy",
-    "dark grey text \"Monthly kits of hand-dyed washi with step cards and a video for every crease. Beginners welcome.\"; its text #4a463f (dark grey, NOT the page's near-black text)"
+    "dark grey text \"Monthly kits of hand-dyed washi with step cards and a video for every crease. Beginners welcome.\"; its text #4a463f (dark grey, NOT the page's near-black text); set in a 400px wide box (width: 400px, its top-left at 80,520), 16px type, line-height 26px, wrapping into exactly 2 lines: \"Monthly kits of hand-dyed washi with step cards and a\" / \"video for every crease. Beginners welcome.\" (no narrower box, no extra line)"
    ],
    [
     "step-cards",
@@ -405,7 +405,7 @@
    ],
    [
     "copy",
-    "lavender text \"Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the eyepiece.\"; its text #b6bde3 (lavender, NOT the page's off-white text)"
+    "lavender text \"Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the eyepiece.\"; its text #b6bde3 (lavender, NOT the page's off-white text); set in a 440px wide box (width: 440px, its top-left at 60,570), 17px type, line-height 27px, wrapping into exactly 2 lines: \"Our 1-metre dome telescope opens at dusk. Small\" / \"groups, red-light only, hot cocoa at the eyepiece.\" (no narrower box, no extra line)"
    ],
    [
     "glass-stats",
@@ -579,7 +579,7 @@
    ],
    [
     "mono-copy",
-    "mono light grey text \"A quarterly zine of collage, comics and rants. 48 pages, risograph cover, open submissions.\"; its text #dfe4ff (light grey, NOT the page's near-black text); on the #1f3dff block, no fill or bar of its own"
+    "mono light grey text \"A quarterly zine of collage, comics and rants. 48 pages, risograph cover, open submissions.\"; its text #dfe4ff (light grey, NOT the page's near-black text); on the #1f3dff block, no fill or bar of its own; set in a 520px wide box (width: 520px, its top-left at 80,740), 16px type, line-height 25px, wrapping into exactly 2 lines: \"A quarterly zine of collage, comics and rants. 48\" / \"pages, risograph cover, open submissions.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -993,7 +993,7 @@
    ],
    [
     "toast",
-    "near-black task card 360x48px, 10px rounded: title \"Admin role updated\"; a 18px round green avatar dot (no letter; a full circle 18x18px, never squashed into a bar) in the top-left corner; each word in its own colour: \"Admin role updated\" #ffffff, \"Undo\" #a5b4fc; \"Undo\" pushed to the far RIGHT end of the row (margin-left: auto, 16px in from the right edge), NOT right after \"Admin role updated\""
+    "near-black task card 360x48px, 10px rounded: title \"Admin role updated\"; a 18px round green avatar dot (no letter; a full circle 18x18px, never squashed into a bar) in the top-left corner; each word in its own colour: \"Admin role updated\" #ffffff, \"Undo\" #a5b4fc; \"Undo\" pushed to the far RIGHT end of the row (margin-left: auto, 16px in from the right edge), NOT right after \"Admin role updated\"; its fill exactly #18181b (solid, NOT pale, NOT see-through), its words on it"
    ]
   ]
  },

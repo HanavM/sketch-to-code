@@ -167,11 +167,11 @@
    ],
    [
     "lede",
-    "dark grey text \"Drag towers, roads and parks onto a live isometric map. Zoning rules check themselves as you build.\"; its text #4a4e69 (dark grey, NOT the page's dark navy text)"
+    "dark grey text \"Drag towers, roads and parks onto a live isometric map. Zoning rules check themselves as you build.\"; its text #4a4e69 (dark grey, NOT the page's dark navy text); set in a 400px wide box (width: 400px, its top-left at 64,440), 18px type, line-height 28px, wrapping into exactly 3 lines: \"Drag towers, roads and parks onto a live\" / \"isometric map. Zoning rules check themselves as\" / \"you build.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
-    "dark navy block, white text \"Start building\", with a hard solid opaque pink shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's dark navy text)"
+    "dark navy block, white text \"Start building\", with a hard solid opaque pink shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's dark navy text); its fill exactly #22223b (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "tag-1",
@@ -347,7 +347,7 @@
    ],
    [
     "caption",
-    "mono text \"FIG. 1 — Barbican estate, London, shot on expired film, 2026.\""
+    "mono text \"FIG. 1 — Barbican estate, London, shot on expired film, 2026.\"; set in a 330px wide box (width: 330px, its top-left at 40,748), 13px type, line-height 18px, wrapping into exactly 2 lines: \"FIG. 1 — Barbican estate, London, shot on\" / \"expired film, 2026.\" (no narrower box, no extra line)"
    ],
    [
     "issue-number",
@@ -441,7 +441,7 @@
    ],
    [
     "cta",
-    "gently bobbing up and down vivid pink bar, off-white text \"BOOK A PRESS SLOT\", with a hard solid opaque blue shadow offset 4px down right, no blur; its text #fbf6ea (off-white, NOT the page's blue text); square corners (border-radius 0, NOT a pill, NOT rounded); ONE 259x50px card, position absolute with its top-left at page 70,740 (its own place on the page, a sibling of the other blocks, NOT inside any of them)"
+    "gently bobbing up and down vivid pink bar, off-white text \"BOOK A PRESS SLOT\", with a hard solid opaque blue shadow offset 4px down right, no blur; its text #fbf6ea (off-white, NOT the page's blue text); square corners (border-radius 0, NOT a pill, NOT rounded); ONE 259x50px card, position absolute with its top-left at page 70,740 (its own place on the page, a sibling of the other blocks, NOT inside any of them); its fill exactly #ff48b0 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "schedule",
@@ -527,7 +527,7 @@
    ],
    [
     "col-todo",
-    "the region itself is ONE 296x251px panel at 20,142, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 34,154 12px bold #5e6c84 \"TO DO\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 278,154 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 286): 12px bold #5e6c84 \"3\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 30,178 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"Hero illustration v2\"; 40x8 at 42,188 #4bce97 fill, pill ends; 24x24 at 270,225 #ff7452 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 50x14 at 42,230 12px #5e6c84 \"WEB-112\"; 276x81 at 30,267 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"Pricing table states\"; 40x8 at 42,277 #f87168 fill, pill ends; 40x8 at 88,277 #9f8fef fill, pill ends; 24x24 at 270,314 #6554c0 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 50x14 at 42,319 12px #5e6c84 \"WEB-118\"; 276x27 at 30,356 padding-left 8px (its text starts at x 38): 13px #5e6c84 \"+ Create issue\"; the card exactly 296x251px, its top-left at 20,142 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "the region itself is ONE 296x251px panel at 20,142, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 12 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 34,154 12px bold #5e6c84 \"TO DO\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 278,154 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 286): 12px bold #5e6c84 \"3\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 30,178 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"Hero illustration v2\"; 40x8 at 42,188 #4bce97 fill, pill ends; 24x24 at 270,225 #ff7452 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 50x14 at 42,230 12px #5e6c84 \"WEB-112\"; 276x81 at 30,267 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 42): 13px #172b4d \"Pricing table states\"; 40x8 at 42,277 #f87168 fill, pill ends; 40x8 at 88,277 #9f8fef fill, pill ends; 24x24 at 270,314 #6554c0 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 50x14 at 42,319 12px #5e6c84 \"WEB-118\"; 276x27 at 30,356 padding-left 8px (its text starts at x 38): 13px #5e6c84 \"+ Create issue\"; the card exactly 296x251px, its top-left at 20,142 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room); PLUS (keep it, never dropped) a STACKED bar 252x8px at page 42,277 (no track fill, overflow hidden, a flex row): its 2 flat segments left to right, touching, no gaps: 40px #f87168, 40px #9f8fef, the rest of the track left empty"
    ],
    [
     "col-progress",
@@ -551,7 +551,7 @@
    ],
    [
     "col-eng-progress",
-    "the region itself is ONE 296x224px panel at 332,542, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 346,554 12px bold #5e6c84 \"IN PROGRESS\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 590,554 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 598): 12px bold #5e6c84 \"2\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 342,578 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Auth migration\"; 40x8 at 354,588 #579dff fill, pill ends; 40x8 at 400,588 #f87168 fill, pill ends; 24x24 at 582,625 #6554c0 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 51x14 at 354,630 12px #5e6c84 \"WEB-127\"; 276x81 at 342,667 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Search index\"; 40x8 at 354,677 #579dff fill, pill ends; 24x24 at 582,714 #57d9a3 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 51x14 at 354,719 12px #5e6c84 \"WEB-128\"; the card exactly 296x224px, its top-left at 332,542 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room)"
+    "the region itself is ONE 296x224px panel at 332,542, #ebecf0 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 11 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 268x14 at 346,554 12px bold #5e6c84 \"IN PROGRESS\" with letter-spacing 1px (its letters spaced out, NOT set tight); 24x14 at 590,554 #dfe1e6 fill, pill ends, padding-left 8px (its text starts at x 598): 12px bold #5e6c84 \"2\" with letter-spacing 1px (its letters spaced out, NOT set tight); 276x81 at 342,578 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Auth migration\"; 40x8 at 354,588 #579dff fill, pill ends; 40x8 at 400,588 #f87168 fill, pill ends; 24x24 at 582,625 #6554c0 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 51x14 at 354,630 12px #5e6c84 \"WEB-127\"; 276x81 at 342,667 #ffffff fill, 8px rounded, padding-left 12px (its text starts at x 354): 13px #172b4d \"Search index\"; 40x8 at 354,677 #579dff fill, pill ends; 24x24 at 582,714 #57d9a3 fill, a circle, EMPTY (no icon, no emoji, no picture inside); 51x14 at 354,719 12px #5e6c84 \"WEB-128\"; the card exactly 296x224px, its top-left at 332,542 (fixed size and place: fit what is inside it, never grow it or push the cards below down; every floating panel takes no room); PLUS (keep it, never dropped) a STACKED bar 252x8px at page 354,588 (no track fill, overflow hidden, a flex row): its 2 flat segments left to right, touching, no gaps: 40px #579dff, 40px #f87168, the rest of the track left empty"
    ],
    [
     "col-eng-review",

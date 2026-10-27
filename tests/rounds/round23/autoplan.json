@@ -231,7 +231,7 @@
    ],
    [
     "lede",
-    "lavender text \"Hexa turns six sources into one live cube you can turn, slice and query from any side.\"; its text #c9c3ee (lavender, NOT the page's off-white text)"
+    "lavender text \"Hexa turns six sources into one live cube you can turn, slice and query from any side.\"; its text #c9c3ee (lavender, NOT the page's off-white text); set in a 460px wide box (width: 460px, its top-left at 80,490), 18px type, line-height 29px, wrapping into exactly 2 lines: \"Hexa turns six sources into one live cube you can turn,\" / \"slice and query from any side.\" (no narrower box, no extra line)"
    ],
    [
     "cta-primary",
@@ -325,7 +325,7 @@
    ],
    [
     "lede",
-    "brown text \"A weekly letter on design, space and the long view. Read in seven minutes, kept for years.\"; its text #5c574c (brown, NOT the page's near-black text)"
+    "brown text \"A weekly letter on design, space and the long view. Read in seven minutes, kept for years.\"; its text #5c574c (brown, NOT the page's near-black text); set in a 420px wide box (width: 420px, its top-left at 80,520), 18px type, line-height 29px, wrapping into exactly 2 lines: \"A weekly letter on design, space and the long view.\" / \"Read in seven minutes, kept for years.\" (no narrower box, no extra line)"
    ],
    [
     "signup",
@@ -619,7 +619,7 @@
    ],
    [
     "size-badge",
-    "vivid bright sky blue block, white text \"180 × 180\"; its text #ffffff (white, NOT the page's near-black text)"
+    "vivid bright sky blue block, white text \"180 × 180\"; its text #ffffff (white, NOT the page's near-black text); its fill exactly #0d99ff (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "cursor",
@@ -631,7 +631,7 @@
    ],
    [
     "zoom",
-    "white \"64%\""
+    "white \"64%\"; its fill exactly #ffffff (solid, NOT pale, NOT see-through), its words on it"
    ]
   ]
  },
@@ -917,7 +917,7 @@
    ],
    [
     "order-form",
-    "a 367x34px #2b3139 filled button \"Buy Sell\" (6px rounded, #eaecef text; its fill clearly visible, not white), then list: \"Price\" 3,412.58 USDT, \"Amount\" 0.500 ETH, \"Total\" 1,706.29 USDT (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted), bright green button \"Buy ETH\"; each word in its own colour: \"Buy Sell\" #eaecef, \"Price 3,412.58 USDT\" #848e9c, \"Amount 0.500 ETH\" #848e9c, \"Total 1,706.29 USDT\" #848e9c, \"Buy ETH\" #0b0e11"
+    "a 367x34px #2b3139 filled button \"Buy Sell\" (6px rounded, #eaecef text; its fill clearly visible, not white), then list: \"Price\" 3,412.58 USDT, \"Amount\" 0.500 ETH, \"Total\" 1,706.29 USDT (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted), bright green button \"Buy ETH\"; each word in its own colour: \"Buy Sell\" #eaecef, \"Price 3,412.58 USDT\" #848e9c, \"Amount 0.500 ETH\" #848e9c, \"Total 1,706.29 USDT\" #848e9c, \"Buy ETH\" #0b0e11; PLUS (keep it, never dropped) a STACKED bar 367x4px at page 897,749 (no track fill, overflow hidden, a flex row): its 4 flat segments left to right, touching, no gaps: 80px #0ecb81, 80px #0ecb81, 80px #2b3139, 80px #2b3139, the rest of the track left empty"
    ]
   ]
  },

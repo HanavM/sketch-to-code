@@ -207,11 +207,11 @@
    ],
    [
     "hours",
-    "text \"Route 9, exit 14. Pie fresh at midnight, jukebox free after two.\""
+    "text \"Route 9, exit 14. Pie fresh at midnight, jukebox free after two.\"; set in a 380px wide box (width: 380px, its top-left at 560,488), 17px type, line-height 27px, wrapping into exactly 2 lines: \"Route 9, exit 14. Pie fresh at midnight, jukebox\" / \"free after two.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
-    "near-black indigo pill label with a 3px cyan border, bold \"BOOK A BOOTH\"; a coloured GLOW round it (light spilling out, soft): exactly box-shadow: #22e6ff 0px 0px 14px 0px, #22e6ff 0px 0px 14px 0px inset"
+    "near-black indigo pill label with a 3px cyan border, bold \"BOOK A BOOTH\"; a coloured GLOW round it (light spilling out, soft): exactly box-shadow: #22e6ff 0px 0px 14px 0px, #22e6ff 0px 0px 14px 0px inset; its fill exactly #12061a (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "starburst",
@@ -505,7 +505,7 @@
    ],
    [
     "copy",
-    "text \"Hand-graded used vinyl and new pressings, shipped flat in stiff mailers. Listen to every side before you buy.\""
+    "text \"Hand-graded used vinyl and new pressings, shipped flat in stiff mailers. Listen to every side before you buy.\"; set in a 330px wide box (width: 330px, its top-left at 880,380), 16px type, line-height 25px, wrapping into exactly 3 lines: \"Hand-graded used vinyl and new pressings,\" / \"shipped flat in stiff mailers. Listen to every\" / \"side before you buy.\" (no narrower box, no extra line)"
    ],
    [
     "equaliser",
@@ -683,7 +683,7 @@
    ],
    [
     "storage",
-    "\"Storage\", a 8px 4px-rounded meter on a #e2e8f0 track (overflow hidden) filled by 3 SEPARATE coloured segments side by side from the left, in this order: 38% #6366f1, 20% #38bdf8, 12% #f472b6 (one flex row of 3 bars, NOT one single fill), the rest of the track empty; small grey \"70.4 GB of 100 GB used\" under; its text #64748b (grey, NOT the page's dark navy text)"
+    "\"Storage\", a 8px 4px-rounded meter on a #e2e8f0 track (overflow hidden) filled by 3 SEPARATE coloured segments side by side from the left, in this order: 38% #6366f1, 20% #38bdf8, 12% #f472b6 (one flex row of 3 bars, NOT one single fill), the rest of the track empty; small grey \"70.4 GB of 100 GB used\" under; its text #64748b (grey, NOT the page's dark navy text); PLUS (keep it, never dropped) a STACKED bar 204x8px at page 14,846 (#e2e8f0 track, 4px rounded, overflow hidden, a flex row): its 3 flat segments left to right, touching, no gaps: 78px #6366f1, 41px #38bdf8, 24px #f472b6, the rest of the track left empty"
    ],
    [
     "topbar",
@@ -711,7 +711,7 @@
    ],
    [
     "upload-toast",
-    "dark navy task card 352x60px, 12px rounded: a title row (display flex, justify-content: space-between): semibold \"Uploading 3 files\" at the LEFT and regular (not bold) #94a3b8 \"64%\" at the far RIGHT end of the same line (two separate spans, never run together); a thin 6px cyan (#38bdf8) progress bar 64% full on a dark grey (#334155) track under the title; its text #ffffff (white, NOT the page's dark navy text)"
+    "dark navy task card 352x60px, 12px rounded: a title row (display flex, justify-content: space-between): semibold \"Uploading 3 files\" at the LEFT and regular (not bold) #94a3b8 \"64%\" at the far RIGHT end of the same line (two separate spans, never run together); a thin 6px cyan (#38bdf8) progress bar 64% full on a dark grey (#334155) track under the title; its text #ffffff (white, NOT the page's dark navy text); its fill exactly #0f172a (solid, NOT pale, NOT see-through), its words on it"
    ]
   ]
  },

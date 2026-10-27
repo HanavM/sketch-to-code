@@ -63,3 +63,32 @@ Re-planned rounds 1-27: only r21 e3 (the Today tag now said as a label on its re
 Round 28 now **83%** (latest build of each page: c1 88, c2 86, c3 75, c4 89, c5 73, e1 64, e2 86, e3 92, e4 83, e5 97).
 Vitest: same 2 env failures (1460 tests); typecheck clean.
 Next: e1 full-height columns, c5 re-run, c3 copy width and pill nav, e4 thin turned roads, SVG route, dashed rail and stacked bar.
+
+## n257: pane sizes, copy width, frosted pill nav, map roads and pins, stacked bars (~0.5M billed)
+
+Planner fixes (each a rule, not a page patch):
+
+- An app shell (a top bar, then panes tiling the window to the page bottom) says every pane's exact box and that no
+  pane is sized by its content (e1: columns had shrunk to their content).
+- A short paragraph of body copy says its box width and its own line breaks (c3: 2 lines built as 3).
+- A nav on a see-through light pill with a hairline border says its own frosted pill box (c3: pill lost).
+- A filled button said only by colour name also says its exact fill (c3 button built pale and empty).
+- A row whose own text is only the count after a tagged label and a bar says label, bar, then the count LAST (e1).
+- A drawn map's thin turned roads say their own size and turn, an SVG route over it is said verbatim, and teardrop
+  pins say their shape (e4: fat white bands, route lost, round pins).
+- A stacked bar of flat segments inside a card says its track and each segment (e4 budget bar lost).
+
+Re-planned rounds 1-27: copy width/lines change 87 notes (not re-run), exact button fill 26, stacked bars 7, app shell
+2 (r12 e1, r17 e3), thin roads 1 (r13 e3).
+
+| page | before | re-run | what changed |
+|---|---|---|---|
+| e1 query builder | 64% | 85%, then **86%** | full-height panes; then cost-bar rows label, bar, count in order |
+| c3 terrarium | 75% | **92%** | frosted pill nav, copy on 2 lines, kit cards in place (the button came out pale; rule added after, not re-run) |
+| c5 watch dial | 73% | **94%** | plain re-run on the n256 notes: steel case, guilloché face, sub-dials, hands right (the 73 was a bad run) |
+| e4 trip itinerary | 83% | **90%** | thin turned roads, dashed SVG route, teardrop pins, stacked budget bar |
+
+Round 28 now **90%** (c1 88, c2 86, c3 92, c4 89, c5 94, e1 86, e2 86, e3 92, e4 90, e5 97). Ease (latest builds):
+~10 marks, ~1,260 words, 64 s draw, 68 s read, 261 s build, ~93k tokens a page. Vitest same 2 env failures (1460
+tests); typecheck clean.
+Next: c5 spec list capitals and gold button, c2/e2 (86), c1 music notes, e4 dashed timeline rail; then round 29.

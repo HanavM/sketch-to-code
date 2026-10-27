@@ -69,7 +69,7 @@
    ],
    [
     "body",
-    "text \"A quarterly zine of walks, night trains and the people you meet on the way.\""
+    "text \"A quarterly zine of walks, night trains and the people you meet on the way.\"; set in a 380px wide box (width: 380px, its top-left at 60,560), 18px type, line-height 28px, wrapping into exactly 2 lines: \"A quarterly zine of walks, night trains and the\" / \"people you meet on the way.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -131,7 +131,7 @@
    ],
    [
     "body",
-    "grey text \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\"; its text #a3a3a3 (grey, NOT the page's white text)"
+    "grey text \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\"; its text #a3a3a3 (grey, NOT the page's white text); set in a 300px wide box (width: 300px, its top-left at 924,785), 16px type, line-height 26px, wrapping into exactly 2 lines: \"Three nights of loud guitars in a disused\" / \"tram depot. Bring earplugs.\" (no narrower box, no extra line)"
    ],
    [
     "date",
@@ -205,7 +205,7 @@
    ],
    [
     "body",
-    "text \"Write, link and find anything in a quiet space that syncs everywhere.\""
+    "text \"Write, link and find anything in a quiet space that syncs everywhere.\"; set in a 520px wide box (width: 520px, its top-left at 347,443), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Write, link and find anything in a quiet space that syncs\" / \"everywhere.\" (no narrower box, no extra line)"
    ],
    [
     "ctas",
@@ -333,7 +333,7 @@
    ],
    [
     "body",
-    "dark grey text \"Seventies flavours, real cream, and one strict rule: no spoons left behind.\"; its text #44403c (dark grey, NOT the page's black text)"
+    "dark grey text \"Seventies flavours, real cream, and one strict rule: no spoons left behind.\"; its text #44403c (dark grey, NOT the page's black text); set in a 420px wide box (width: 420px, its top-left at 68,540), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Seventies flavours, real cream, and one strict\" / \"rule: no spoons left behind.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -607,19 +607,19 @@
    ],
    [
     "row-1",
-    "toggle on \"Email digests A summary of activity\"…"
+    "toggle on \"Email digests A summary of activity\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,142), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Email digests\" / \"A summary of activity every Monday.\" (no narrower box, no extra line)"
    ],
    [
     "row-2",
-    "toggle on \"Mentions Notify me when someone\"…"
+    "toggle on \"Mentions Notify me when someone\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,223), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Mentions\" / \"Notify me when someone @mentions me.\" (no narrower box, no extra line)"
    ],
    [
     "row-3",
-    "toggle off \"Product news Occasional updates about\"…"
+    "toggle off \"Product news Occasional updates about\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,304), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Product news\" / \"Occasional updates about new features.\" (no narrower box, no extra line)"
    ],
    [
     "row-4",
-    "toggle off \"Weekly report Usage numbers for your\"…"
+    "toggle off \"Weekly report Usage numbers for your\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,385), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Weekly report\" / \"Usage numbers for your workspace.\" (no narrower box, no extra line)"
    ],
    [
     "save",

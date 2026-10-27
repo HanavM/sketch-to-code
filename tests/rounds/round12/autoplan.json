@@ -53,7 +53,7 @@
    ],
    [
     "subcopy",
-    "lavender text \"Zoning, traffic and skyline, drawn in true isometric. Every tower is a box you can lift.\"; its text #b9b4d6 (lavender, NOT the page's pale blue-grey text)"
+    "lavender text \"Zoning, traffic and skyline, drawn in true isometric. Every tower is a box you can lift.\"; its text #b9b4d6 (lavender, NOT the page's pale blue-grey text); set in a 400px wide box (width: 400px, its top-left at 56,430), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Zoning, traffic and skyline, drawn in true isometric.\" / \"Every tower is a box you can lift.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -151,7 +151,7 @@
    ],
    [
     "subcopy",
-    "text \"Three nights, nine stages, one warehouse. Bring earplugs and somebody you like.\""
+    "text \"Three nights, nine stages, one warehouse. Bring earplugs and somebody you like.\"; set in a 380px wide box (width: 380px, its top-left at 56,740), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Three nights, nine stages, one warehouse. Bring\" / \"earplugs and somebody you like.\" (no narrower box, no extra line)"
    ],
    [
     "date-block",
@@ -213,7 +213,7 @@
    ],
    [
     "subcopy",
-    "lavender text \"Ambient lamps that follow your voice, your music and your sleep.\"; its text #b8c0d9 (lavender, NOT the page's off-white text)"
+    "lavender text \"Ambient lamps that follow your voice, your music and your sleep.\"; its text #b8c0d9 (lavender, NOT the page's off-white text); set in a 500px wide box (width: 500px, its top-left at 390,430), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Ambient lamps that follow your voice, your music and your\" / \"sleep.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -351,7 +351,7 @@
    ],
    [
     "subcopy",
-    "text \"A night-to-dawn city run, every second Saturday. Pace groups for everyone.\"; its text #111111 (near-black, NOT the page's white text); on the #e8ff3a block, no fill or bar of its own"
+    "text \"A night-to-dawn city run, every second Saturday. Pace groups for everyone.\"; its text #111111 (near-black, NOT the page's white text); on the #e8ff3a block, no fill or bar of its own; set in a 330px wide box (width: 330px, its top-left at 56,420), 17px type, line-height 26px, wrapping into exactly 2 lines: \"A night-to-dawn city run, every second\" / \"Saturday. Pace groups for everyone.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -445,7 +445,7 @@
    ],
    [
     "dek",
-    "text \"Four presses, two owners and a cat called Pantone keep ink on paper in a city that went digital.\"; set BOLD (font-weight 700), NOT regular; placed on its own: position absolute, its top-left at 640,470 of the page, 136px of empty space above it (under the headline); NOT stacked straight under the headline, it keeps its own y"
+    "text \"Four presses, two owners and a cat called Pantone keep ink on paper in a city that went digital.\"; set BOLD (font-weight 700), NOT regular; placed on its own: position absolute, its top-left at 640,470 of the page, 136px of empty space above it (under the headline); NOT stacked straight under the headline, it keeps its own y; set in a 600px wide box (width: 600px, its top-left at 640,470), 20px type, line-height 29px, wrapping into exactly 2 lines: \"Four presses, two owners and a cat called Pantone keep ink\" / \"on paper in a city that went digital.\" (no narrower box, no extra line)"
    ],
    [
     "body-columns",
@@ -453,7 +453,7 @@
    ],
    [
     "sticker",
-    "tilted 9° anticlockwise vivid red block, white text \"PRINT IS NOT DEAD\", with a hard solid opaque near-black shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's near-black text)"
+    "tilted 9° anticlockwise vivid red block, white text \"PRINT IS NOT DEAD\", with a hard solid opaque near-black shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's near-black text); its fill exactly #ff3b1f (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "folio",
@@ -483,7 +483,7 @@
   "notes": [
    [
     "*",
-    "whole page: light grey (#e5e5e5, plainly not white) page, Helvetica type, near-black text"
+    "whole page: light grey (#e5e5e5, plainly not white) page, Helvetica type, near-black text; an APP SHELL: under the 48px top bar the window is tiled edge to edge by fixed panes that fill it down to the page bottom (900px), no gaps: the layers-panel exactly 240x852px at 0,48 (to the page bottom); the canvas exactly 780x852px at 240,48 (to the page bottom); the properties-panel exactly 260x852px at 1020,48 (to the page bottom); each pane is placed at exactly that box (position absolute, or a CSS grid with exactly those column widths and row heights), with a FIXED height and overflow hidden: it keeps its full size even where its content ends early (empty pane below), NEVER sized by its content, never one shared row that shrinks to fit"
    ],
    [
     "toolbar",

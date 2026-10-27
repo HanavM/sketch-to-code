@@ -61,7 +61,7 @@
    ],
    [
     "copy",
-    "dark grey text \"A type foundry that sets letters on curves, rings and spirals. Fourteen families, one gravity.\"; its text #4a4a4a (dark grey, NOT the page's near-black text)"
+    "dark grey text \"A type foundry that sets letters on curves, rings and spirals. Fourteen families, one gravity.\"; its text #4a4a4a (dark grey, NOT the page's near-black text); set in a 380px wide box (width: 380px, its top-left at 64,560), 17px type, line-height 26px, wrapping into exactly 2 lines: \"A type foundry that sets letters on curves, rings\" / \"and spirals. Fourteen families, one gravity.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -155,7 +155,7 @@
    ],
    [
     "copy",
-    "lavender text \"Speakers poured from a single piece of aluminium, polished until the room reflects in them.\"; its text #a7a8bd (lavender, NOT the page's light grey text)"
+    "lavender text \"Speakers poured from a single piece of aluminium, polished until the room reflects in them.\"; its text #a7a8bd (lavender, NOT the page's light grey text); set in a 420px wide box (width: 420px, its top-left at 76,680), 17px type, line-height 26px, wrapping into exactly 2 lines: \"Speakers poured from a single piece of aluminium,\" / \"polished until the room reflects in them.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -447,7 +447,7 @@
    ],
    [
     "copy",
-    "pale lilac text \"Guided sunrise climbs in the Dolomites. Small groups, early starts, no crowds at the top.\"; its text #f5d7e6 (pale lilac, NOT the page's deep indigo text); on the #2a1633 block, no fill or bar of its own"
+    "pale lilac text \"Guided sunrise climbs in the Dolomites. Small groups, early starts, no crowds at the top.\"; its text #f5d7e6 (pale lilac, NOT the page's deep indigo text); on the #2a1633 block, no fill or bar of its own; set in a 340px wide box (width: 340px, its top-left at 880,800), 15px type, line-height 23px, wrapping into exactly 2 lines: \"Guided sunrise climbs in the Dolomites. Small\" / \"groups, early starts, no crowds at the top.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -663,7 +663,7 @@
    ],
    [
     "map",
-    "a drawn street map, 580x772px, #e8eef0 ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 5 flat shapes: #b9d6e3 vertical area 220x772px at 380,0; #cfe3c4 area 200x140px at 60,420 (30px rounded); #ffffff horizontal strip 580x14px at 0,300; #ffffff vertical strip 12x772px at 240,0; #ffffff area 576x91px at 2,580; then 5 price pins over them, each a bold text pill (#ffffff fill, #222222 text, fully rounded, about 28px tall, soft drop shadow): \"€142\" at 120,200, \"€98\" at 278,359 (the picked one: #222222 fill, #ffffff text, scaled 1.1), \"€87\" at 80,520, \"€260\" at 300,640, \"€115\" at 180,100; each word in its own colour: \"€142\" #222222, \"€98\" #ffffff, \"€87\" #222222, \"€260\" #222222, \"€115\" #222222, \"+ −\" #222222"
+    "a drawn street map, 580x772px, #e8eef0 ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 5 flat shapes: #b9d6e3 vertical area 220x772px at 380,0; #cfe3c4 area 200x140px at 60,420 (30px rounded); #ffffff horizontal strip 580x14px at 0,300; #ffffff vertical strip 12x772px at 240,0; #ffffff THIN road 580x10px (only 10px thick) at 0,620 before its turn, transform: rotate(-8deg) (a slim line turned 8°, NOT a wide band); then 5 price pins over them, each a bold text pill (#ffffff fill, #222222 text, fully rounded, about 28px tall, soft drop shadow): \"€142\" at 120,200, \"€98\" at 278,359 (the picked one: #222222 fill, #ffffff text, scaled 1.1), \"€87\" at 80,520, \"€260\" at 300,640, \"€115\" at 180,100; each word in its own colour: \"€142\" #222222, \"€98\" #ffffff, \"€87\" #222222, \"€260\" #222222, \"€115\" #222222, \"+ −\" #222222"
    ]
   ]
  },

@@ -73,7 +73,7 @@
    ],
    [
     "meta",
-    "text \"A short film about the city between midnight and dawn. Shot on 16mm, scored live.\""
+    "text \"A short film about the city between midnight and dawn. Shot on 16mm, scored live.\"; set in a 360px wide box (width: 360px, its top-left at 56,796), 16px type, line-height 24px, wrapping into exactly 2 lines: \"A short film about the city between midnight and\" / \"dawn. Shot on 16mm, scored live.\" (no narrower box, no extra line)"
    ],
    [
     "track",
@@ -225,7 +225,7 @@
    ],
    [
     "lead",
-    "dark grey text \"Sections ease in as you scroll, each one a beat later than the last. No code, no timelines to wire up.\"; its text #475569 (dark grey, NOT the page's dark navy text)"
+    "dark grey text \"Sections ease in as you scroll, each one a beat later than the last. No code, no timelines to wire up.\"; its text #475569 (dark grey, NOT the page's dark navy text); set in a 460px wide box (width: 460px, its top-left at 760,132), 18px type, line-height 28px, wrapping into exactly 2 lines: \"Sections ease in as you scroll, each one a beat later than\" / \"the last. No code, no timelines to wire up.\" (no narrower box, no extra line)"
    ],
    [
     "card-1",
@@ -331,11 +331,11 @@
    ],
    [
     "pill-dark",
-    "tilted 10° clockwise dark brown pill label with a 2px dark brown border, bold off-white \"Linen only\"; its text #fff7ed (off-white, NOT the page's dark brown text)"
+    "tilted 10° clockwise dark brown pill label with a 2px dark brown border, bold off-white \"Linen only\"; its text #fff7ed (off-white, NOT the page's dark brown text); its fill exactly #431407 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "pill-yellow",
-    "tilted 4° clockwise vivid yellow pill label with a 2px dark brown border, bold \"Ships in 24h\""
+    "tilted 4° clockwise vivid yellow pill label with a 2px dark brown border, bold \"Ships in 24h\"; its fill exactly #facc15 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "logo",
@@ -343,7 +343,7 @@
    ],
    [
     "copy",
-    "text \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\"; placed on its own: position absolute, its top-left at 60,640 of the page, 577px of empty space above it (under the logo); NOT stacked straight under the logo, it keeps its own y"
+    "text \"Loose shirts, wide trousers and nothing you need to iron. Made in Porto in small runs.\"; placed on its own: position absolute, its top-left at 60,640 of the page, 577px of empty space above it (under the logo); NOT stacked straight under the logo, it keeps its own y; set in a 340px wide box (width: 340px, its top-left at 60,640), 17px type, line-height 26px, wrapping into exactly 2 lines: \"Loose shirts, wide trousers and nothing you\" / \"need to iron. Made in Porto in small runs.\" (no narrower box, no extra line)"
    ],
    [
     "buy",

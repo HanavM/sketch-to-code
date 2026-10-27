@@ -419,7 +419,7 @@
    ],
    [
     "chapter-list",
-    "4 short 12px mono labels stacked straight down, each label ONE ordinary horizontal line of upright text (NOT vertical writing, NOT rotated, NOT turned), 150px apart (line-height 150px), all left-aligned at x 60: \"01 Dawn\" at y 184 #c9f27a; \"02 Ridge\" at y 334 #6f8f8a; \"03 Pass\" at y 484 #6f8f8a; \"04 Lake\" at y 634 #6f8f8a"
+    "4 short 12px mono labels stacked straight down, each label ONE ordinary horizontal line of upright text (NOT vertical writing, NOT rotated, NOT turned), 150px apart (line-height 150px), all left-aligned at x 60: \"01 Dawn\" at y 184 #c9f27a; \"02 Ridge\" at y 334 #6f8f8a; \"03 Pass\" at y 484 #6f8f8a; \"04 Lake\" at y 634 #6f8f8a; set in a 58px wide box (width: 58px, its top-left at 60,116), 12px type, line-height 150px, wrapping into exactly 4 lines: \"01 Dawn\" / \"02 Ridge\" / \"03 Pass\" / \"04 Lake\" (no narrower box, no extra line)"
    ],
    [
     "chapter",
@@ -497,7 +497,7 @@
    ],
    [
     "copy",
-    "grey text \"A neon display family drawn for signs that hum. Every weight ships with its own glow profile.\"; its text #9a9aa6 (grey, NOT the page's off-white text)"
+    "grey text \"A neon display family drawn for signs that hum. Every weight ships with its own glow profile.\"; its text #9a9aa6 (grey, NOT the page's off-white text); set in a 420px wide box (width: 420px, its top-left at 62,430), 17px type, line-height 26px, wrapping into exactly 2 lines: \"A neon display family drawn for signs that hum. Every\" / \"weight ships with its own glow profile.\" (no narrower box, no extra line)"
    ],
    [
     "stats",

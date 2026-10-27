@@ -65,7 +65,7 @@
    ],
    [
     "left-copy",
-    "text \"Every print is pulled twice: once in light, once in dark. The halftone sits where they meet.\"; placed on its own: position absolute, its top-left at 60,640 of the page, 584px of empty space above it (under the nav); NOT stacked straight under the nav, it keeps its own y"
+    "text \"Every print is pulled twice: once in light, once in dark. The halftone sits where they meet.\"; placed on its own: position absolute, its top-left at 60,640 of the page, 584px of empty space above it (under the nav); NOT stacked straight under the nav, it keeps its own y; set in a 420px wide box (width: 420px, its top-left at 60,640), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Every print is pulled twice: once in light, once in\" / \"dark. The halftone sits where they meet.\" (no narrower box, no extra line)"
    ],
    [
     "right-quote",
@@ -151,7 +151,7 @@
    ],
    [
     "lede",
-    "text \"Budget, savings and spending, each on its own pane, all visible at once.\""
+    "text \"Budget, savings and spending, each on its own pane, all visible at once.\"; set in a 400px wide box (width: 400px, its top-left at 60,470), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Budget, savings and spending, each on its own\" / \"pane, all visible at once.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -323,7 +323,7 @@
    ],
    [
     "pull-quote",
-    "italic text \"“We don't close. We just change who's working.”\""
+    "italic text \"“We don't close. We just change who's working.”\"; set in a 500px wide box (width: 500px, its top-left at 40,640), 28px type, line-height 36px, wrapping into exactly 2 lines: \"“We don't close. We just change who's\" / \"working.”\" (no narrower box, no extra line)"
    ],
    [
     "vertical-label",
@@ -389,7 +389,7 @@
    ],
    [
     "lede",
-    "text \"Live zones, recovery scores and a coach that listens to your pulse.\""
+    "text \"Live zones, recovery scores and a coach that listens to your pulse.\"; set in a 460px wide box (width: 460px, its top-left at 60,500), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Live zones, recovery scores and a coach that listens\" / \"to your pulse.\" (no narrower box, no extra line)"
    ],
    [
     "store-buttons",
@@ -743,7 +743,7 @@
    ],
    [
     "toast",
-    "deep green bar, white text \"✓ Saved address found\"; its text #ffffff (white, NOT the page's dark navy text)"
+    "deep green bar, white text \"✓ Saved address found\"; its text #ffffff (white, NOT the page's dark navy text); its fill exactly #0e6245 (solid, NOT pale, NOT see-through), its words on it"
    ]
   ]
  }

@@ -1508,6 +1508,14 @@ export function factsInPage() {
       })(),
       // n131: a drawn map: a pale panel holding absolutely placed strips (streets), areas (water, park) and short-text
       // pills (price pins), one dark (round 9 e2: said only 'pale blue-grey', built a blank grey panel)
+      // n257: a stacked bar of flat coloured segments inside a card (round 28 e4 budget: Stay/Food/Travel bar lost)
+      stackBar: (() => {
+        const B = [...el.querySelectorAll('*')].find((g) => { const ks = [...g.children]; if (ks.length < 2 || ks.length > 8 || g.closest('[data-r]') !== el) return false; const b = g.getBoundingClientRect(); if (b.height > 16 || b.height < 4 || b.width < 120) return false; const cs2 = ks.map((k) => getComputedStyle(k)); return ks.every((k, i) => !(k.innerText || '').trim() && rgba(cs2[i].backgroundColor)?.a > 0.5 && Math.abs(k.getBoundingClientRect().height - b.height) <= 1) && new Set(cs2.map((c) => c.backgroundColor)).size >= 2 })
+        if (!B) return null
+        const b = B.getBoundingClientRect(), c = getComputedStyle(B)
+        return { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), track: rgba(c.backgroundColor), r: Math.round(parseFloat(c.borderTopLeftRadius) || 0),
+          segs: [...B.children].map((k) => ({ w: Math.round(k.getBoundingClientRect().width), c: rgba(getComputedStyle(k).backgroundColor) })) }
+      })(),
       mapPanel: (() => {
         if (el.querySelector('[data-r]') && ![...el.querySelectorAll('[data-r]')].every((k) => k.parentElement === el && (k.innerText || '').trim().length <= 4)) return null
         const abs = kids.filter((k) => getComputedStyle(k).position === 'absolute' && !k.dataset?.r)
@@ -1517,8 +1525,13 @@ export function factsInPage() {
         const o = el.getBoundingClientRect()
         const at = (k) => { const b = k.getBoundingClientRect(); return { x: Math.round(b.left - o.left), y: Math.round(b.top - o.top), w: Math.round(b.width), h: Math.round(b.height) } }
         return { bg: rgba(cs.backgroundColor), w: Math.round(o.width), h: Math.round(o.height),
-          areas: areas.map((k) => ({ ...at(k), c: rgba(getComputedStyle(k).backgroundColor), r: Math.round(parseFloat(getComputedStyle(k).borderTopLeftRadius) || 0) })),
-          pins: pins.map((k) => { const c = getComputedStyle(k); return { ...at(k), t: (k.innerText || '').trim(), fill: rgba(c.backgroundColor), ink: rgba(c.color), bold: Number(c.fontWeight) >= 600, shadow: c.boxShadow !== 'none', scale: /matrix\(([\d.]+)/.test(c.transform) ? Math.round(parseFloat(c.transform.match(/matrix\(([\d.]+)/)[1]) * 100) / 100 : 1 } }) }
+          // n257: a thin road turned a few degrees says its own size and turn (round 28 e4: a 534x10 road turned -8deg
+          // was said by its turned bounds, 530x84, and built as a fat white band)
+          areas: areas.map((k) => { const c = getComputedStyle(k), m = c.transform.match(/^matrix\(([^,]+),\s*([^,]+)/), deg = m ? Math.round(Math.atan2(+m[2], +m[1]) * 180 / Math.PI) : 0
+            return { ...at(k), c: rgba(c.backgroundColor), r: Math.round(parseFloat(c.borderTopLeftRadius) || 0), ...(deg && Math.abs(deg) < 80 ? { turn: deg, own: { x: k.offsetLeft, y: k.offsetTop, w: k.offsetWidth, h: k.offsetHeight } } : {}) } }),
+          // n257: a route drawn as an SVG path over the map (round 28 e4: the dashed route lost)
+          svg: (() => { const v = el.querySelector(':scope > svg'); if (!v) return null; const c = v.cloneNode(true); const src = c.outerHTML.replace(/\s+/g, ' '); return src.length <= 900 ? src : null })(),
+          pins: pins.map((k) => { const c = getComputedStyle(k), ic = getComputedStyle(k.firstElementChild ?? k); const drop = parseFloat(c.borderBottomLeftRadius) < 2 && parseFloat(c.borderTopRightRadius) >= k.offsetHeight / 2 - 1 && /matrix/.test(c.transform); return { ...at(k), t: (k.innerText || '').trim(), fill: rgba(c.backgroundColor), ink: rgba(drop ? ic.color : c.color), bold: Number((drop ? ic : c).fontWeight) >= 600, shadow: c.boxShadow !== 'none', ...(drop ? { drop: { w: k.offsetWidth, h: k.offsetHeight, x: k.offsetLeft, y: k.offsetTop, bw: Math.round(parseFloat(c.borderTopWidth) || 0), bc: rgba(c.borderTopColor), tr: c.transform } } : {}), scale: !drop && /matrix\(([\d.]+)/.test(c.transform) ? Math.round(parseFloat(c.transform.match(/matrix\(([\d.]+)/)[1]) * 100) / 100 : 1 } }) }
       })(),
       // n131: a grid of listing cards, each a gradient photo (with an optional white badge) over a title row, a grey line
       // and a price line (round 9 e2: said only 'list', built a text list with no photos)
@@ -4157,7 +4170,11 @@ function partsNote(P, f) {
     // over the bars)
     const bar = p.t && p.h <= 2 * p.px && P.filter((q) => !q.t && q.fill && q.h <= 14 && q.w >= 0.3 * p.w && q.x > p.x + 4 && q.x + q.w <= p.x + p.w + 1 && q.y >= p.y - 2 && q.y + q.h <= p.y + p.h + 2).sort((a, b) => b.w - a.w)[0]
     const tk = p.t ? p.t.split(/\s+/) : []
-    const text = p.t ? (bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${p.face ? `${p.face === 'sans' ? 'Helvetica/Arial sans-serif (NOT the page serif)' : 'serif (NOT the page sans)'} ` : ''}${hx(p.ink)} "${p.caps ? p.t.toUpperCase() : p.t}"${p.caps ? ' (ALL CAPITALS: text-transform: uppercase)' : ''}${p.ls >= 1 ? ` with letter-spacing ${p.ls}px (its letters spaced out, NOT set tight)` : ''}${p.tar && p.nl >= 2 ? ' (its lines RIGHT-aligned: text-align: right)' : ''}${p.px >= 20 && p.nl >= 2 && p.nl <= 4 ? ` set on exactly ${p.nl} lines (line-height ${p.lh}px; it WRAPS, never forced onto one line)` : ''}${p.px < 20 && p.nl >= 2 && p.nl <= 6 && p.lh && p.t.length >= 20 && p.t.length * p.px * 0.5 >= p.w && p.h >= 1.6 * p.lh ? ` wrapping onto ${p.nl} lines within its ${p.w}px width, line-height exactly ${p.lh}px` : ''}${p.runs?.length ? ` (ONE element, its words in this order; inside it ${p.runs.map((r) => `"${r.t}" in an inline span ${[r.it ? 'italic' : '', r.bold ? 'bold' : '', r.mono ? 'monospace' : '', r.ink && p.ink && dist(r.ink, p.ink) > 20 ? hx(r.ink) : ''].filter(Boolean).join(' ') || 'styled'}`).join(', ')}, IN PLACE in the line, NOT placed apart)` : ''}${p.cap ? `; opening on a DROP CAP: its first letter "${p.cap.letter}" ${p.cap.px}px ${hx(p.cap.ink)}, floated left and sinking about ${Math.max(2, Math.round(p.cap.px * 0.8 / (p.px * 1.6)) + 1)} lines into the text (::first-letter, float: left)` : ''}${p.wrap ? `; ${p.wrap.name ? `the ${p.wrap.name} (${p.wrap.w}x${p.wrap.h})` : `a ${p.wrap.w}x${p.wrap.h} block`} sits INSIDE this text at its top ${p.wrap.side}, float: ${p.wrap.side}${p.wrap.round ? ', shape-outside: circle(50%)' : ''}, and the lines WRAP round it (shorter beside it), never running under or over it` : ''}`) : ''
+    // n257: a row whose own text is only the count after a separately tagged label and a bar (round 28 e1 cost bars
+    // 'Join [bar] 62%': '62%' was said first with the row's box and built before the label)
+    const lab = p.t && tk.length === 1 && p.h <= 2 * p.px ? P.find((q) => q !== p && q.t && Math.abs(q.y - p.y) <= 2 && q.x >= p.x - 1 && q.x < p.x + 0.5 * p.w) : null
+    const bar1 = lab ? bar ?? P.filter((q) => !q.t && q.fill && q.h <= 14 && q.w >= 6 && q.x >= lab.x + lab.w - 2 && q.x + q.w <= p.x + p.w + 1 && q.y >= p.y - 2 && q.y + q.h <= p.y + p.h + 2).sort((a, b) => b.w - a.w)[0] : null
+    const text = p.t ? (bar1 ? `a row (one flex row, its parts in this order, left to right): the label "${lab.t}" first, then the ${bar1.w}px bar from x ${bar1.x}, then ${p.px}px ${hx(p.ink)} "${p.t}" LAST, right after the bar ends (about 8px gap), NEVER before the label or over the bar` : bar && tk.length === 2 ? `a row: ${p.px}px ${hx(p.ink)} "${tk[0]}" at the left (x ${p.x}), then the bar(s) from x ${bar.x} to ${bar.x + bar.w}, then "${tk[1]}" right after the bar ends; the text is NEVER printed over the bar` : `${p.px}px ${wtSay}${p.it ? 'italic ' : ''}${p.mono ? 'mono ' : ''}${p.face ? `${p.face === 'sans' ? 'Helvetica/Arial sans-serif (NOT the page serif)' : 'serif (NOT the page sans)'} ` : ''}${hx(p.ink)} "${p.caps ? p.t.toUpperCase() : p.t}"${p.caps ? ' (ALL CAPITALS: text-transform: uppercase)' : ''}${p.ls >= 1 ? ` with letter-spacing ${p.ls}px (its letters spaced out, NOT set tight)` : ''}${p.tar && p.nl >= 2 ? ' (its lines RIGHT-aligned: text-align: right)' : ''}${p.px >= 20 && p.nl >= 2 && p.nl <= 4 ? ` set on exactly ${p.nl} lines (line-height ${p.lh}px; it WRAPS, never forced onto one line)` : ''}${p.px < 20 && p.nl >= 2 && p.nl <= 6 && p.lh && p.t.length >= 20 && p.t.length * p.px * 0.5 >= p.w && p.h >= 1.6 * p.lh ? ` wrapping onto ${p.nl} lines within its ${p.w}px width, line-height exactly ${p.lh}px` : ''}${p.runs?.length ? ` (ONE element, its words in this order; inside it ${p.runs.map((r) => `"${r.t}" in an inline span ${[r.it ? 'italic' : '', r.bold ? 'bold' : '', r.mono ? 'monospace' : '', r.ink && p.ink && dist(r.ink, p.ink) > 20 ? hx(r.ink) : ''].filter(Boolean).join(' ') || 'styled'}`).join(', ')}, IN PLACE in the line, NOT placed apart)` : ''}${p.cap ? `; opening on a DROP CAP: its first letter "${p.cap.letter}" ${p.cap.px}px ${hx(p.cap.ink)}, floated left and sinking about ${Math.max(2, Math.round(p.cap.px * 0.8 / (p.px * 1.6)) + 1)} lines into the text (::first-letter, float: left)` : ''}${p.wrap ? `; ${p.wrap.name ? `the ${p.wrap.name} (${p.wrap.w}x${p.wrap.h})` : `a ${p.wrap.w}x${p.wrap.h} block`} sits INSIDE this text at its top ${p.wrap.side}, float: ${p.wrap.side}${p.wrap.round ? ', shape-outside: circle(50%)' : ''}, and the lines WRAP round it (shorter beside it), never running under or over it` : ''}`) : ''
     if (p.op < 98) paint.push(`${p.op}% opacity`)
     // n187: a struck title (round 18 e1 Done cards: <s> text built plain and wrapped)
     if (p.strike) paint.push(`STRUCK THROUGH (text-decoration: line-through), on one line (white-space: nowrap)`)
@@ -4819,7 +4836,11 @@ function decideOne(f, page, marked, said) {
     const area = (a) => `${hexOf(a.c)} ${a.w >= M.w - 2 || a.h >= M.h - 200 ? (a.w > a.h ? 'horizontal' : 'vertical') + ' ' : ''}${Math.min(a.w, a.h) <= 20 ? 'strip' : 'area'} ${a.w}x${a.h}px at ${a.x},${a.y}${a.r ? ` (${a.r}px rounded)` : ''}`
     const pin = (p) => `${quote(p.t, 8)} at ${p.x},${p.y}${p.fill && dist(p.fill, { r: 255, g: 255, b: 255 }) > 60 ? ` (the picked one: ${hexOf(p.fill)} fill, ${hexOf(p.ink)} text${p.scale > 1 ? `, scaled ${p.scale}` : ''})` : ''}`
     const p0 = M.pins.find((p) => !(p.fill && dist(p.fill, { r: 255, g: 255, b: 255 }) > 60)) ?? M.pins[0]
-    return { kind: 'box', note: `a drawn street map, ${M.w}x${M.h}px, ${hexOf(M.bg)} ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first ${M.areas.length} flat shapes: ${M.areas.map(area).join('; ')}; then ${M.pins.length} price pins over them, each a ${p0.bold ? 'bold ' : ''}text pill (${hexOf(p0.fill)} fill, ${hexOf(p0.ink)} text, fully rounded, about ${p0.h}px tall${p0.shadow ? ', soft drop shadow' : ''}): ${M.pins.map(pin).join(', ')}` }
+    const turned = (a) => (a.turn ? `${hexOf(a.c)} THIN ${a.own.w > a.own.h ? 'road' : 'road'} ${a.own.w}x${a.own.h}px (only ${Math.min(a.own.w, a.own.h)}px thick) at ${a.own.x},${a.own.y} before its turn, transform: rotate(${a.turn}deg) (a slim line turned ${Math.abs(a.turn)}°, NOT a wide band)` : area(a))
+    const D = M.pins.every((p) => p.drop) ? M.pins[0].drop : null
+    const svgSay = M.svg ? `; then OVER the shapes and UNDER the pins this SVG, verbatim, at the panel's top-left (position absolute, left 0, top 0): ${M.svg}` : ''
+    const pinsSay = D ? `${M.pins.length} map pins over them, each a TEARDROP (NOT a round pill): a ${D.w}x${D.h}px box, border-radius 50% 50% 50% 0, transform: rotate(-45deg) (point down), ${hexOf(M.pins[0].fill)} fill${D.bw ? `, a ${D.bw}px ${hexOf(D.bc)} border` : ''}${M.pins[0].shadow ? ', soft drop shadow' : ''}, its number inside turned back upright (rotate(45deg)), ${hexOf(M.pins[0].ink)} ${M.pins[0].bold ? 'bold ' : ''}text, centred; top-left of each pin box in panel px before its turn: ${M.pins.map((p) => `${quote(p.t, 8)} at ${p.drop.x},${p.drop.y}`).join(', ')}` : `${M.pins.length} price pins over them, each a ${p0.bold ? 'bold ' : ''}text pill (${hexOf(p0.fill)} fill, ${hexOf(p0.ink)} text, fully rounded, about ${p0.h}px tall${p0.shadow ? ', soft drop shadow' : ''}): ${M.pins.map(pin).join(', ')}`
+    return { kind: 'box', note: `a drawn street map, ${M.w}x${M.h}px, ${hexOf(M.bg)} ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first ${M.areas.length} flat shapes: ${M.areas.map(turned).join('; ')}${svgSay}; then ${pinsSay}` }
   }
   // n131: listing cards: grid, then each card's gradient photo, badge and lines
   if (f.photoCards) {
@@ -7161,6 +7182,55 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const t0 = T[0]
     const sh = t0.shift.length ? `; tiles ${t0.shift[0][0] + 1} to ${t0.shift[t0.shift.length - 1][0] + 1} (a middle row) ${t0.shift.length > 1 ? 'EACH have' : 'has'} margin-left ${t0.shift[0][1]}px (every one of them), so that row sits shifted right (a honeycomb)` : ''
     d.note = `${d.note ? `${d.note}; ` : ''}PLUS ${T.length} groups of small shaped tiles (KEEP them, each tile its own div, never dropped): each group a grid (grid-template-columns: ${t0.cols}; gap: ${t0.gap}) of ${t0.colours.length} ${t0.w}x${t0.h}px tiles cut by clip-path: ${t0.clip}${sh}; tile colours by letter (${pal.map((c, i) => `${L[i]} = ${c}`).join(', ')}), in order: ${T.map(one).join('; ')}`
+  }
+  // n257: a stacked bar inside a card says its track and every segment (round 28 e4 budget bar lost)
+  regions.forEach((f) => {
+    const d = out.get(f.role), S = f.stackBar
+    if (!d?.note || !S || /STACKED bar/.test(d.note)) return
+    const tr = S.track && S.track.a > 0.05 ? `${S.track.a < 0.95 ? `rgba(${S.track.r}, ${S.track.g}, ${S.track.b}, ${Math.round(S.track.a * 100) / 100})` : hexOf(S.track)} track` : 'no track fill'
+    d.note = `${d.note}; PLUS (keep it, never dropped) a STACKED bar ${S.w}x${S.h}px at page ${S.x},${S.y} (${tr}${S.r ? `, ${S.r}px rounded` : ''}, overflow hidden, a flex row): its ${S.segs.length} flat segments left to right, touching, no gaps: ${S.segs.map((g) => `${g.w}px ${hexOf(g.c)}`).join(', ')}${S.segs.reduce((a, g) => a + g.w, 0) < S.w - 4 ? ', the rest of the track left empty' : ''}`
+  })
+  // n257: a filled button said only by colour name says its exact fill (round 28 c3: 'dark navy pill label' built as a
+  // pale empty pill, its cream words lost on it)
+  regions.forEach((f) => {
+    const d = out.get(f.role)
+    if (d?.kind !== 'box' || !d.note || f.regionKids.length || !(f.text && f.text.length <= 30) || !(visible(f.bg) && f.bg.a > 0.9) || dist(f.bg, visible(body.bg) ? body.bg : { r: 255, g: 255, b: 255 }) < 40) return
+    if (d.note.includes(hexOf(f.bg)) || /part by part|the region itself/.test(d.note)) return
+    d.note = `${d.note}; its fill exactly ${hexOf(f.bg)} (solid, NOT pale, NOT see-through), its words on it`
+  })
+  // n257: a short paragraph of body copy says its box width and its own line breaks (round 28 c3: the 440px, 2-line
+  // copy built narrower and wrapped onto 3 lines, pushing the button and kit cards ~20px down)
+  regions.forEach((f) => {
+    const d = out.get(f.role), S = f.shown
+    if (d?.kind !== 'text' || !d.note || !S || f.regionKids.length || S.lines.length < 2 || S.lines.length > 4) return
+    if (!(f.font?.size >= 12 && f.font.size < 30) || /lines:|\d+px wide|part by part|wrapping onto/.test(d.note)) return
+    const lh = Math.round(parseFloat(f.font.lineHeight) || f.font.size * 1.5)
+    d.note = `${d.note}; set in a ${Math.round(f.rect.w)}px wide box (width: ${Math.round(f.rect.w)}px, its top-left at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}), ${Math.round(f.font.size)}px type${lh >= f.font.size ? `, line-height ${lh}px` : ''}, wrapping into exactly ${S.lines.length} lines: ${S.lines.map((t) => quote(t, 70)).join(' / ')} (no narrower box, no extra line)`
+  })
+  // n257: a nav bar on a see-through light pill with a hairline border (round 28 c3: said as bare links, the frosted
+  // 1160x56 pill lost) says its own box
+  regions.forEach((f) => {
+    const d = out.get(f.role), R = f.rect, rgbaS = (c) => `rgba(${c.r}, ${c.g}, ${c.b}, ${Math.round(c.a * 100) / 100})`
+    if (!d?.note || f.regionKids.length || !/\blinks:/.test(d.note) || d.note.includes(`${Math.round(R.w)}x${Math.round(R.h)}`)) return
+    if (!(visible(f.bg) && f.bg.a < 0.9 && Math.min(f.bg.r, f.bg.g, f.bg.b) >= 220) || !(f.radius >= 12) || R.w < 600 || R.h > 90) return
+    d.note = `the region itself is ONE ${Math.round(R.w)}x${Math.round(R.h)}px FROSTED GLASS ${f.radius >= R.h / 2 - 1 ? 'PILL' : 'rounded'} bar at ${Math.round(R.x)},${Math.round(R.y)} (NOT bare words on the page): fill ${rgbaS(f.bg)}${f.backdrop ? `, backdrop-filter: blur(${f.backdropPx || 12}px)` : ''}${f.border?.w >= 1 && visible(f.border.colour) ? `, a ${Math.round(f.border.w)}px ${rgbaS(f.border.colour)} border` : ''}, border-radius ${f.radius >= R.h / 2 - 1 ? '999px' : `${Math.round(f.radius)}px`}, its words inside it, vertically centred; ${d.note}`
+  })
+  // n257: an app shell of side-by-side panes under a top bar, filling the window to the page bottom (round 28 e1:
+  // schema tree, editor, results and plan built in one flex row whose panes shrank to their content, the sidebar
+  // ending at 386px and the plan at 664px of 900): say every pane's exact box and that none is sized by its content
+  {
+    const kidOf = new Set(regions.flatMap((f) => f.regionKids ?? []))
+    const top = regions.filter((f) => !kidOf.has(f.role) && plan.some(([r]) => r === f.role))
+    const bar = top.find((f) => f.rect.y <= 2 && f.rect.w >= 1200 && f.rect.h >= 30 && f.rect.h <= 100)
+    const y0 = bar ? bar.rect.y + bar.rect.h : 0
+    const panes = top.filter((f) => f !== bar && f.rect.y >= y0 - 2 && f.rect.w >= 160 && f.rect.h >= 30 && f.rect.w < 1270)
+    const reach = panes.filter((f) => f.rect.y + f.rect.h >= 895)
+    const area = panes.reduce((s, f) => s + f.rect.w * Math.min(f.rect.h, 900 - f.rect.y), 0)
+    const apart = panes.every((a, i) => panes.every((b, j) => j <= i || a.rect.x + a.rect.w <= b.rect.x + 2 || b.rect.x + b.rect.w <= a.rect.x + 2 || a.rect.y + a.rect.h <= b.rect.y + 2 || b.rect.y + b.rect.h <= a.rect.y + 2))
+    if (bar && panes.length >= 3 && reach.length >= 2 && apart && area >= 0.85 * 1280 * (900 - y0)) {
+      const say = panes.slice().sort((a, b) => a.rect.x - b.rect.x || a.rect.y - b.rect.y).map((f) => `the ${f.role} exactly ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}${f.rect.y + f.rect.h >= 895 ? ' (to the page bottom)' : ''}`)
+      pn = `${pn ?? 'whole page:'}; an APP SHELL: under the ${Math.round(bar.rect.h)}px top bar the window is tiled edge to edge by fixed panes that fill it down to the page bottom (900px), no gaps: ${say.join('; ')}; each pane is placed at exactly that box (position absolute, or a CSS grid with exactly those column widths and row heights), with a FIXED height and overflow hidden: it keeps its full size even where its content ends early (empty pane below), NEVER sized by its content, never one shared row that shrinks to fit`
+    }
   }
   const notes = [...(pn ? [['*', pn]] : []), ...regions.filter((f) => out.get(f.role).note).map((f) => [f.role, out.get(f.role).note])]
   return { plan, notes }

@@ -49,7 +49,7 @@
    ],
    [
     "subcopy",
-    "lavender text \"Spend from any of them, earn on all of them. Tilt your phone to switch cards.\"; its text #cfc8ee (lavender, NOT the page's white text)"
+    "lavender text \"Spend from any of them, earn on all of them. Tilt your phone to switch cards.\"; its text #cfc8ee (lavender, NOT the page's white text); set in a 430px wide box (width: 430px, its top-left at 64,520), 18px type, line-height 28px, wrapping into exactly 2 lines: \"Spend from any of them, earn on all of them. Tilt your\" / \"phone to switch cards.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -231,7 +231,7 @@
    ],
    [
     "subcopy",
-    "text \"A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.\""
+    "text \"A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.\"; set in a 420px wide box (width: 420px, its top-left at 56,330), 18px type, line-height 27px, wrapping into exactly 2 lines: \"A browser 3D engine that thinks in boxes. Drop in a\" / \"cube, it just renders.\" (no narrower box, no extra line)"
    ],
    [
     "cta",

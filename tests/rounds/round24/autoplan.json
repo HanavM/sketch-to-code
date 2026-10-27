@@ -195,15 +195,15 @@
    ],
    [
     "lede",
-    "text \"Hut-to-hut routes through layered valleys, booked in one go, with dinner waiting at every ridge.\""
+    "text \"Hut-to-hut routes through layered valleys, booked in one go, with dinner waiting at every ridge.\"; set in a 440px wide box (width: 440px, its top-left at 70,350), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Hut-to-hut routes through layered valleys, booked in\" / \"one go, with dinner waiting at every ridge.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
-    "dark plum pill label, bold pale yellow \"Find a route\"; its text #fff6e8 (pale yellow, NOT the page's dark plum text)"
+    "dark plum pill label, bold pale yellow \"Find a route\"; its text #fff6e8 (pale yellow, NOT the page's dark plum text); its fill exactly #3a1f3d (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "birds",
-    "\"︶ ︶ ︶\""
+    "\"︶ ︶ ︶\"; set in a 64px wide box (width: 64px, its top-left at 640,200), 28px type, line-height 42px, wrapping into exactly 2 lines: \"︶ ︶\" / \"︶\" (no narrower box, no extra line)"
    ],
    [
     "ticket",
@@ -285,7 +285,7 @@
    ],
    [
     "copy",
-    "text \"A studio for identity systems built from twenty forms, four colours and one strict module.\""
+    "text \"A studio for identity systems built from twenty forms, four colours and one strict module.\"; set in a 380px wide box (width: 380px, its top-left at 60,620), 17px type, line-height 27px, wrapping into exactly 2 lines: \"A studio for identity systems built from twenty\" / \"forms, four colours and one strict module.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -367,7 +367,7 @@
    ],
    [
     "lede",
-    "serif text \"Drop in pictures, tickets and scribbles; roamlog lays them out into a book you can hold.\""
+    "serif text \"Drop in pictures, tickets and scribbles; roamlog lays them out into a book you can hold.\"; set in a 400px wide box (width: 400px, its top-left at 70,430), 18px type, line-height 29px, wrapping into exactly 2 lines: \"Drop in pictures, tickets and scribbles; roamlog lays\" / \"them out into a book you can hold.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -801,7 +801,7 @@
    ],
    [
     "languages",
-    "the 3 parts \"Python 62.0%\", \"Rust 21.3%\", \"Shell 10.8%\" sit side by side in one row with exactly 16px of empty space between one and the next (flex gap 16px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 328x18 at 920,620 16px bold #1f2328 \"Languages\"; 203x8 at 920,648 #3572a5 fill; 69x8 at 1123,648 #dea584 fill; 36x8 at 1192,648 #89e051 fill; 20x8 at 1228,648 #e34c26 fill; 89x14 at 920,666 12px #1f2328 \"Python 62.0%\"; 76x14 at 1025,666 12px #1f2328 \"Rust 21.3%\"; 78x14 at 1117,666 12px #1f2328 \"Shell 10.8%\"; 77x14 at 920,686 12px #1f2328 \"HTML 5.9%\""
+    "the 3 parts \"Python 62.0%\", \"Rust 21.3%\", \"Shell 10.8%\" sit side by side in one row with exactly 16px of empty space between one and the next (flex gap 16px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 328x18 at 920,620 16px bold #1f2328 \"Languages\"; 203x8 at 920,648 #3572a5 fill; 69x8 at 1123,648 #dea584 fill; 36x8 at 1192,648 #89e051 fill; 20x8 at 1228,648 #e34c26 fill; 89x14 at 920,666 12px #1f2328 \"Python 62.0%\"; 76x14 at 1025,666 12px #1f2328 \"Rust 21.3%\"; 78x14 at 1117,666 12px #1f2328 \"Shell 10.8%\"; 77x14 at 920,686 12px #1f2328 \"HTML 5.9%\"; PLUS (keep it, never dropped) a STACKED bar 328x8px at page 920,648 (no track fill, 4px rounded, overflow hidden, a flex row): its 4 flat segments left to right, touching, no gaps: 203px #3572a5, 69px #dea584, 36px #89e051, 20px #e34c26"
    ]
   ]
  },

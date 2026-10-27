@@ -89,7 +89,7 @@
    ],
    [
     "lede",
-    "text \"Two drums, four colours, one very loud duplicator. Bring paper, leave with a poster still warm from the press.\""
+    "text \"Two drums, four colours, one very loud duplicator. Bring paper, leave with a poster still warm from the press.\"; set in a 420px wide box (width: 420px, its top-left at 56,650), 17px type, line-height 26px, wrapping into exactly 2 lines: \"Two drums, four colours, one very loud duplicator. Bring\" / \"paper, leave with a poster still warm from the press.\" (no narrower box, no extra line)"
    ],
    [
     "sticker",
@@ -249,7 +249,7 @@
    ],
    [
     "cta",
-    "white block, black text \"Open an account\"; its text #070b1c (black, NOT the page's white text)"
+    "white block, black text \"Open an account\"; its text #070b1c (black, NOT the page's white text); its fill exactly #ffffff (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "glass-card-1",
@@ -459,11 +459,11 @@
    ],
    [
     "sub",
-    "italic text \"A three-day walking festival in the red hills. Maps on paper, stories by the fire.\""
+    "italic text \"A three-day walking festival in the red hills. Maps on paper, stories by the fire.\"; set in a 420px wide box (width: 420px, its top-left at 70,330), 20px type, line-height 30px, wrapping into exactly 2 lines: \"A three-day walking festival in the red hills. Maps\" / \"on paper, stories by the fire.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
-    "near-black pill label, bold soft yellow \"Book a trail →\"; its text #ffd8a8 (soft yellow, NOT the page's near-black text)"
+    "near-black pill label, bold soft yellow \"Book a trail →\"; its text #ffd8a8 (soft yellow, NOT the page's near-black text); its fill exactly #2b1a12 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "hill-back",
@@ -557,7 +557,7 @@
    ],
    [
     "sub",
-    "dark grey text \"Snap the receipt, tag your friends, done. Tabby settles up while you're still arguing about the tip.\"; its text #4a4675 (dark grey, NOT the page's dark navy text)"
+    "dark grey text \"Snap the receipt, tag your friends, done. Tabby settles up while you're still arguing about the tip.\"; its text #4a4675 (dark grey, NOT the page's dark navy text); set in a 470px wide box (width: 470px, its top-left at 60,440), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Snap the receipt, tag your friends, done. Tabby settles\" / \"up while you're still arguing about the tip.\" (no narrower box, no extra line)"
    ],
    [
     "store-buttons",

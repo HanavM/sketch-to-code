@@ -275,7 +275,7 @@
    ],
    [
     "copy",
-    "serif text \"A design studio cutting letters into motion. Three slices, one word, a different offset every frame.\""
+    "serif text \"A design studio cutting letters into motion. Three slices, one word, a different offset every frame.\"; set in a 440px wide box (width: 440px, its top-left at 64,690), 18px type, line-height 28px, wrapping into exactly 2 lines: \"A design studio cutting letters into motion. Three slices, one\" / \"word, a different offset every frame.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -345,7 +345,7 @@
    ],
    [
     "frosted-nav",
-    "bold italic 22px Georgia serif \"Moss & Glass\" first, then links: Kits, Plants, Care, Cart (2); \"Moss & Glass\" sit together at the left, \"Kits\", \"Plants\", \"Care\", \"Cart (2)\" pushed to the far right (760px gap)"
+    "the region itself is ONE 1160x56px FROSTED GLASS PILL bar at 60,32 (NOT bare words on the page): fill rgba(255, 255, 255, 0.53), backdrop-filter: blur(12px), a 1px rgba(255, 255, 255, 0.67) border, border-radius 999px, its words inside it, vertically centred; bold italic 22px Georgia serif \"Moss & Glass\" first, then links: Kits, Plants, Care, Cart (2); \"Moss & Glass\" sit together at the left, \"Kits\", \"Plants\", \"Care\", \"Cart (2)\" pushed to the far right (760px gap)"
    ],
    [
     "ground-shadow",
@@ -361,11 +361,11 @@
    ],
    [
     "copy",
-    "dark grey text \"Hand-built closed terrariums that water themselves. Moss, fern and stone, sealed in blown glass.\"; its text #43534a (dark grey, NOT the page's dark navy text)"
+    "dark grey text \"Hand-built closed terrariums that water themselves. Moss, fern and stone, sealed in blown glass.\"; its text #43534a (dark grey, NOT the page's dark navy text); set in a 440px wide box (width: 440px, its top-left at 66,420), 18px type, line-height 29px, wrapping into exactly 2 lines: \"Hand-built closed terrariums that water themselves.\" / \"Moss, fern and stone, sealed in blown glass.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
-    "dark navy pill label, bold cream \"Build your kit\"; its text #e9efe4 (cream, NOT the page's dark navy text)"
+    "dark navy pill label, bold cream \"Build your kit\"; its text #e9efe4 (cream, NOT the page's dark navy text); its fill exactly #1f2b22 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "humidity-card",
@@ -509,7 +509,7 @@
    ],
    [
     "copy",
-    "serif lavender text \"Calibre H-28: a guilloché dial cut on a 1920s rose engine, two sub-dials, a 72-hour reserve.\"; its text #bdb6a8 (lavender, NOT the page's warm paper text)"
+    "serif lavender text \"Calibre H-28: a guilloché dial cut on a 1920s rose engine, two sub-dials, a 72-hour reserve.\"; its text #bdb6a8 (lavender, NOT the page's warm paper text); set in a 440px wide box (width: 440px, its top-left at 66,430), 17px type, line-height 28px, wrapping into exactly 2 lines: \"Calibre H-28: a guilloché dial cut on a 1920s rose engine, two\" / \"sub-dials, a 72-hour reserve.\" (no narrower box, no extra line)"
    ],
    [
     "spec-list",
@@ -563,7 +563,7 @@
   "notes": [
    [
     "*",
-    "whole page: pale grey (#f6f7f9, plainly not white) page, Helvetica type, dark navy text"
+    "whole page: pale grey (#f6f7f9, plainly not white) page, Helvetica type, dark navy text; an APP SHELL: under the 52px top bar the window is tiled edge to edge by fixed panes that fill it down to the page bottom (900px), no gaps: the schema-tree exactly 250x848px at 0,52 (to the page bottom); the sql-editor exactly 690x300px at 250,52; the result-tabs exactly 690x38px at 250,352; the result-table exactly 690x510px at 250,390 (to the page bottom); the query-plan exactly 340x848px at 940,52 (to the page bottom); each pane is placed at exactly that box (position absolute, or a CSS grid with exactly those column widths and row heights), with a FIXED height and overflow hidden: it keeps its full size even where its content ends early (empty pane below), NEVER sized by its content, never one shared row that shrinks to fit"
    ],
    [
     "top-bar",
@@ -591,7 +591,7 @@
    ],
    [
     "cost-bars",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 308x15 at 957,592 13px #1a1f2b \"62%\"; 90x15 at 957,592 13px #4a5263 \"Join\"; 150x10 at 1055,595 #c9372c fill, pill ends; 308x15 at 957,617 13px #1a1f2b \"28%\"; 90x15 at 957,617 13px #4a5263 \"Scan\"; 70x10 at 1055,620 #1b5fd9 fill, pill ends; 308x15 at 957,642 13px #1a1f2b \"8%\"; 90x15 at 957,642 13px #4a5263 \"Aggregate\"; 20x10 at 1055,645 #1b5fd9 fill, pill ends"
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 9 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 308x15 at 957,592 a row (one flex row, its parts in this order, left to right): the label \"Join\" first, then the 150px bar from x 1055, then 13px #1a1f2b \"62%\" LAST, right after the bar ends (about 8px gap), NEVER before the label or over the bar; 90x15 at 957,592 13px #4a5263 \"Join\"; 150x10 at 1055,595 #c9372c fill, pill ends; 308x15 at 957,617 a row (one flex row, its parts in this order, left to right): the label \"Scan\" first, then the 70px bar from x 1055, then 13px #1a1f2b \"28%\" LAST, right after the bar ends (about 8px gap), NEVER before the label or over the bar; 90x15 at 957,617 13px #4a5263 \"Scan\"; 70x10 at 1055,620 #1b5fd9 fill, pill ends; 308x15 at 957,642 a row (one flex row, its parts in this order, left to right): the label \"Aggregate\" first, then the 20px bar from x 1055, then 13px #1a1f2b \"8%\" LAST, right after the bar ends (about 8px gap), NEVER before the label or over the bar; 90x15 at 957,642 13px #4a5263 \"Aggregate\"; 20x10 at 1055,645 #1b5fd9 fill, pill ends"
    ]
   ]
  },
@@ -747,7 +747,7 @@
    ],
    [
     "marker-chapter",
-    "vivid peach block, near-black text \"◆ Chapter 2\"; its text #15161b (near-black, NOT the page's light grey text)"
+    "vivid peach block, near-black text \"◆ Chapter 2\"; its text #15161b (near-black, NOT the page's light grey text); its fill exactly #ffcc4d (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "playhead",
@@ -821,7 +821,7 @@
    ],
    [
     "route-map",
-    "a drawn street map, 534x520px, #e6eedf ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 4 flat shapes: #bfd9e8 vertical area 260x600px at 313,-29 (40px rounded); #ffffff area 530x84px at 3,164; #ffffff vertical area 118x511px at 127,6; #ffffff strip 420x8px at 1,381; then 3 price pins over them, each a text pill (#d0552f fill, #22201c text, fully rounded, about 42px tall, soft drop shadow): \"1\" at 91,365 (the picked one: #d0552f fill, #22201c text), \"2\" at 231,245 (the picked one: #d0552f fill, #22201c text), \"3\" at 361,115 (the picked one: #d0552f fill, #22201c text)"
+    "a drawn street map, 534x520px, #e6eedf ground, overflow hidden (NOT empty, NOT a picture, NOT an iframe); inside it, absolutely placed in panel px, first 4 flat shapes: #bfd9e8 vertical area 260x600px at 313,-29 (40px rounded); #ffffff THIN road 534x10px (only 10px thick) at 0,200 before its turn, transform: rotate(-8deg) (a slim line turned 8°, NOT a wide band); #ffffff THIN road 10x520px (only 10px thick) at 180,0 before its turn, transform: rotate(12deg) (a slim line turned 12°, NOT a wide band); #ffffff strip 420x8px at 1,381; then OVER the shapes and UNDER the pins this SVG, verbatim, at the panel's top-left (position absolute, left 0, top 0): <svg width=\"534\" height=\"520\"><path d=\"M110 400 C160 330 210 330 250 280 S330 160 380 150\" fill=\"none\" stroke=\"#d0552f\" stroke-width=\"4\" stroke-dasharray=\"10 8\"></path></svg>; then 3 map pins over them, each a TEARDROP (NOT a round pill): a 30x30px box, border-radius 50% 50% 50% 0, transform: rotate(-45deg) (point down), #d0552f fill, a 3px #ffffff border, soft drop shadow, its number inside turned back upright (rotate(45deg)), #ffffff bold text, centred; top-left of each pin box in panel px before its turn: \"1\" at 96,370, \"2\" at 236,250, \"3\" at 366,120"
    ],
    [
     "weather-strip",
@@ -829,7 +829,7 @@
    ],
    [
     "budget-card",
-    "near-black (exactly #22201c) bar, white text \"Trip budget\", lines big 28px bold \"€1,240 of €1,600\", \"Stay €520 Food €360 Travel €210\"; its text #fbfaf7 (white, NOT the page's near-black text)"
+    "near-black (exactly #22201c) bar, white text \"Trip budget\", lines big 28px bold \"€1,240 of €1,600\", \"Stay €520 Food €360 Travel €210\"; its text #fbfaf7 (white, NOT the page's near-black text); PLUS (keep it, never dropped) a STACKED bar 494x10px at page 730,838 (rgba(255, 255, 255, 0.13) track, 5px rounded, overflow hidden, a flex row): its 3 flat segments left to right, touching, no gaps: 207px #d0552f, 109px #f4b740, 64px #8fb8d6, the rest of the track left empty"
    ]
   ]
  },

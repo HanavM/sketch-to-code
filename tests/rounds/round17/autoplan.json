@@ -101,7 +101,7 @@
    ],
    [
     "copy",
-    "text \"Three days of guitars, synths and too much sun in a field two hours out of town. Camping included.\""
+    "text \"Three days of guitars, synths and too much sun in a field two hours out of town. Camping included.\"; set in a 440px wide box (width: 440px, its top-left at 48,760), 17px type, line-height 25px, wrapping into exactly 2 lines: \"Three days of guitars, synths and too much sun in a field\" / \"two hours out of town. Camping included.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -167,7 +167,7 @@
    ],
    [
     "side-quote",
-    "italic serif text \"Misregistration is not a bug. It is the whole point.\""
+    "italic serif text \"Misregistration is not a bug. It is the whole point.\"; set in a 270px wide box (width: 270px, its top-left at 940,380), 24px type, line-height 31px, wrapping into exactly 2 lines: \"Misregistration is not a\" / \"bug. It is the whole point.\" (no narrower box, no extra line)"
    ],
    [
     "info-row",
@@ -563,7 +563,7 @@
   "notes": [
    [
     "*",
-    "whole page: light grey (#e5e5e5, plainly not white) page, Helvetica type, near-black text"
+    "whole page: light grey (#e5e5e5, plainly not white) page, Helvetica type, near-black text; an APP SHELL: under the 48px top bar the window is tiled edge to edge by fixed panes that fill it down to the page bottom (900px), no gaps: the layers-panel exactly 240x852px at 0,48 (to the page bottom); the canvas exactly 760x852px at 240,48 (to the page bottom); the properties-panel exactly 280x852px at 1000,48 (to the page bottom); each pane is placed at exactly that box (position absolute, or a CSS grid with exactly those column widths and row heights), with a FIXED height and overflow hidden: it keeps its full size even where its content ends early (empty pane below), NEVER sized by its content, never one shared row that shrinks to fit"
    ],
    [
     "toolbar",
@@ -679,7 +679,7 @@
    ],
    [
     "deal-panel",
-    "the region itself is ONE 320x213px panel at 940,76, #ffffff fill, a 1px #e5e7eb border, 12px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); white card \"Northwind pilot\" \"Close date: Nov 28\" big \"£48,000\" list: \"Lead\", \"Qualified\", \"Proposal\", \"Negotiation\", \"Won\"; then under the list, in this order: \"Proposal ▾\"; the 5 parts \"Lead\", \"Qualified\", \"Proposal\", \"Negotiation\", \"Won\" sit side by side in one row with exactly 27px of empty space between one and the next (flex gap 27px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 14 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 278x17 at 961,97 15px bold #1f2937 \"Northwind pilot\"; 111x15 at 961,118 13px #6b7280 \"Close date: Nov 28\"; 278x34 at 961,141 30px font-weight 800 #1f2937 \"£48,000\"; 52x8 at 961,189 #4f46e5 fill, pill ends; 52x8 at 1017,189 #4f46e5 fill, pill ends; 52x8 at 1074,189 #4f46e5 fill, pill ends; 52x8 at 1130,189 #e5e7eb fill, pill ends; 52x8 at 1187,189 #e5e7eb fill, pill ends; 22x11 at 961,205 10px #6b7280 \"Lead\"; 39x11 at 1010,205 10px #6b7280 \"Qualified\"; 39x11 at 1076,205 10px #6b7280 \"Proposal\"; 51x11 at 1142,205 10px #6b7280 \"Negotiation\"; 20x11 at 1219,205 10px #6b7280 \"Won\"; 278x36 at 961,232 2px #4f46e5 border, 8px rounded, padding-left 10px (its text starts at x 971): 13px bold #1f2937 \"Proposal ▾\""
+    "the region itself is ONE 320x213px panel at 940,76, #ffffff fill, a 1px #e5e7eb border, 12px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); white card \"Northwind pilot\" \"Close date: Nov 28\" big \"£48,000\" list: \"Lead\", \"Qualified\", \"Proposal\", \"Negotiation\", \"Won\"; then under the list, in this order: \"Proposal ▾\"; the 5 parts \"Lead\", \"Qualified\", \"Proposal\", \"Negotiation\", \"Won\" sit side by side in one row with exactly 27px of empty space between one and the next (flex gap 27px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 14 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 278x17 at 961,97 15px bold #1f2937 \"Northwind pilot\"; 111x15 at 961,118 13px #6b7280 \"Close date: Nov 28\"; 278x34 at 961,141 30px font-weight 800 #1f2937 \"£48,000\"; 52x8 at 961,189 #4f46e5 fill, pill ends; 52x8 at 1017,189 #4f46e5 fill, pill ends; 52x8 at 1074,189 #4f46e5 fill, pill ends; 52x8 at 1130,189 #e5e7eb fill, pill ends; 52x8 at 1187,189 #e5e7eb fill, pill ends; 22x11 at 961,205 10px #6b7280 \"Lead\"; 39x11 at 1010,205 10px #6b7280 \"Qualified\"; 39x11 at 1076,205 10px #6b7280 \"Proposal\"; 51x11 at 1142,205 10px #6b7280 \"Negotiation\"; 20x11 at 1219,205 10px #6b7280 \"Won\"; 278x36 at 961,232 2px #4f46e5 border, 8px rounded, padding-left 10px (its text starts at x 971): 13px bold #1f2937 \"Proposal ▾\"; PLUS (keep it, never dropped) a STACKED bar 278x8px at page 961,189 (no track fill, overflow hidden, a flex row): its 5 flat segments left to right, touching, no gaps: 52px #4f46e5, 52px #4f46e5, 52px #4f46e5, 52px #e5e7eb, 52px #e5e7eb, the rest of the track left empty"
    ],
    [
     "stage-dropdown",

@@ -145,7 +145,7 @@
    ],
    [
     "lead",
-    "dark grey text \"A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell.\"; its text #44403c (dark grey, NOT the page's near-black text)"
+    "dark grey text \"A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell.\"; its text #44403c (dark grey, NOT the page's near-black text); set in a 380px wide box (width: 380px, its top-left at 60,560), 20px type, line-height 30px, wrapping into exactly 2 lines: \"A quarterly magazine of glue, scissors and\" / \"stubborn ideas, printed on paper you can smell.\" (no narrower box, no extra line)"
    ],
    [
     "sticker",
@@ -283,7 +283,7 @@
    ],
    [
     "caption",
-    "dark grey text \"Outerwear cut in two colours only. Pick a side, or wear both.\"; its text #404040 (dark grey, NOT the page's black text)"
+    "dark grey text \"Outerwear cut in two colours only. Pick a side, or wear both.\"; its text #404040 (dark grey, NOT the page's black text); set in a 300px wide box (width: 300px, its top-left at 48,807), 15px type, line-height 23px, wrapping into exactly 2 lines: \"Outerwear cut in two colours only. Pick a\" / \"side, or wear both.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -357,7 +357,7 @@
    ],
    [
     "meta",
-    "text \"Three days of lectures on grids, systems and the stubborn beauty of the sans-serif. Kunsthalle Basel.\""
+    "text \"Three days of lectures on grids, systems and the stubborn beauty of the sans-serif. Kunsthalle Basel.\"; set in a 260px wide box (width: 260px, its top-left at 340,60), 14px type, line-height 20px, wrapping into exactly 3 lines: \"Three days of lectures on grids, systems\" / \"and the stubborn beauty of the sans-serif.\" / \"Kunsthalle Basel.\" (no narrower box, no extra line)"
    ],
    [
     "date",
@@ -447,7 +447,7 @@
    ],
    [
     "lead",
-    "grey text \"Layered networking for teams who ship to every continent and still sleep at night.\"; its text #94a3b8 (grey, NOT the page's light grey text)"
+    "grey text \"Layered networking for teams who ship to every continent and still sleep at night.\"; its text #94a3b8 (grey, NOT the page's light grey text); set in a 470px wide box (width: 470px, its top-left at 72,500), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Layered networking for teams who ship to every\" / \"continent and still sleep at night.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -791,7 +791,7 @@
    ],
    [
     "today",
-    "vivid red \"Today\"; square corners (border-radius 0, NOT a pill, NOT rounded)"
+    "vivid red \"Today\"; square corners (border-radius 0, NOT a pill, NOT rounded); its fill exactly #ef4444 (solid, NOT pale, NOT see-through), its words on it"
    ]
   ]
  }

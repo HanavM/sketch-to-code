@@ -57,7 +57,7 @@
    ],
    [
     "copy",
-    "text \"We cut type apart and put it back moving. Identity systems for brands that refuse to sit still.\"; placed on its own: position absolute, its top-left at 60,560 of the page, 509px of empty space above it (under the nav); NOT stacked straight under the nav, it keeps its own y"
+    "text \"We cut type apart and put it back moving. Identity systems for brands that refuse to sit still.\"; placed on its own: position absolute, its top-left at 60,560 of the page, 509px of empty space above it (under the nav); NOT stacked straight under the nav, it keeps its own y; set in a 420px wide box (width: 420px, its top-left at 60,560), 20px type, line-height 29px, wrapping into exactly 3 lines: \"We cut type apart and put it back moving.\" / \"Identity systems for brands that refuse to sit\" / \"still.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -119,7 +119,7 @@
    ],
    [
     "sub",
-    "light grey text \"Every account, card and invoice on one calm, translucent dashboard.\"; its text #cbd5e1 (light grey, NOT the page's white text)"
+    "light grey text \"Every account, card and invoice on one calm, translucent dashboard.\"; its text #cbd5e1 (light grey, NOT the page's white text); set in a 440px wide box (width: 440px, its top-left at 80,470), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Every account, card and invoice on one calm,\" / \"translucent dashboard.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -449,7 +449,7 @@
    ],
    [
     "zoom",
-    "\"+ −\""
+    "\"+ −\"; set in a 40px wide box (width: 40px, its top-left at 1216,96), 20px type, line-height 40px, wrapping into exactly 2 lines: \"+\" / \"−\" (no narrower box, no extra line)"
    ]
   ]
  },

@@ -65,7 +65,7 @@
    ],
    [
     "sub",
-    "grey text \"Layered, tilted, lit. A card engine for product pages that want depth without WebGL.\"; its text #94a3b8 (grey, NOT the page's light grey text)"
+    "grey text \"Layered, tilted, lit. A card engine for product pages that want depth without WebGL.\"; its text #94a3b8 (grey, NOT the page's light grey text); set in a 440px wide box (width: 440px, its top-left at 64,450), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Layered, tilted, lit. A card engine for product pages\" / \"that want depth without WebGL.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -242,7 +242,7 @@
    ],
    [
     "sub",
-    "text \"Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one.\""
+    "text \"Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one.\"; set in a 420px wide box (width: 420px, its top-left at 60,400), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Hand-drawn routes through the Alentejo, with huts\" / \"every 18 km and bread waiting at each one.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -304,7 +304,7 @@
    ],
    [
     "sub",
-    "text \"Live metrics on your laptop, phone and wall, synced in under a second.\""
+    "text \"Live metrics on your laptop, phone and wall, synced in under a second.\"; set in a 330px wide box (width: 330px, its top-left at 60,200), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Live metrics on your laptop, phone and\" / \"wall, synced in under a second.\" (no narrower box, no extra line)"
    ],
    [
     "cta",

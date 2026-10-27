@@ -61,7 +61,7 @@
    ],
    [
     "lede",
-    "lavender text \"A real-time renderer that treats every surface like poured chrome. Ships to the browser at 120fps.\"; its text #a8abbb (lavender, NOT the page's light grey text)"
+    "lavender text \"A real-time renderer that treats every surface like poured chrome. Ships to the browser at 120fps.\"; its text #a8abbb (lavender, NOT the page's light grey text); set in a 430px wide box (width: 430px, its top-left at 66,560), 19px type, line-height 29px, wrapping into exactly 2 lines: \"A real-time renderer that treats every surface like\" / \"poured chrome. Ships to the browser at 120fps.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -143,11 +143,11 @@
    ],
    [
     "clients-stat",
-    "vivid yellow block \"CLIENTS\", text \"84\"; its \"84\" is BIG 120px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #111111, filling about 188x120px from 501,160, on one line"
+    "vivid yellow block \"CLIENTS\", text \"84\"; its \"84\" is BIG 120px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #111111, filling about 188x120px from 501,160, on one line; its fill exactly #ffe600 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "awards-stat",
-    "vivid indigo block, white text \"AWARDS\", text \"12\"; its text #ffffff (white, NOT the page's near-black text); its \"12\" is BIG 120px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #ffffff, filling about 188x120px from 725,160, on one line"
+    "vivid indigo block, white text \"AWARDS\", text \"12\"; its text #ffffff (white, NOT the page's near-black text); its \"12\" is BIG 120px font-weight 900 Impact, sans-serif type (NOT the Courier New of the rest, NOT small), #ffffff, filling about 188x120px from 725,160, on one line; its fill exactly #2340ff (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "hatched-cell",
@@ -241,7 +241,7 @@
    ],
    [
     "lede",
-    "dark grey text \"Zone streets, drop buildings and simulate traffic on a living isometric map your whole council can edit.\"; its text #4b4878 (dark grey, NOT the page's deep indigo text)"
+    "dark grey text \"Zone streets, drop buildings and simulate traffic on a living isometric map your whole council can edit.\"; its text #4b4878 (dark grey, NOT the page's deep indigo text); set in a 470px wide box (width: 470px, its top-left at 74,470), 18px type, line-height 28px, wrapping into exactly 2 lines: \"Zone streets, drop buildings and simulate traffic on a living\" / \"isometric map your whole council can edit.\" (no narrower box, no extra line)"
    ],
    [
     "cta",
@@ -363,7 +363,7 @@
    ],
    [
     "vertical-nav",
-    "wide-spaced letters (letter-spacing 4px) \"FILMS STILLS JOURNAL\"; its text #101820 (near-black, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; its words are VERTICAL, each its own element (writing-mode: vertical-rl; transform: rotate(180deg), reading bottom to top; NOT one horizontal line), each at its own page box: \"FILMS\" 14x56 at 30,306, \"STILLS\" 14x65 at 30,402, \"JOURNAL\" 14x86 at 30,508"
+    "wide-spaced letters (letter-spacing 4px) \"FILMS STILLS JOURNAL\"; its text #101820 (near-black, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; its words are VERTICAL, each its own element (writing-mode: vertical-rl; transform: rotate(180deg), reading bottom to top; NOT one horizontal line), each at its own page box: \"FILMS\" 14x56 at 30,306, \"STILLS\" 14x65 at 30,402, \"JOURNAL\" 14x86 at 30,508; set in a 14px wide box (width: 14px, its top-left at 30,0), 12px type, line-height 18px, wrapping into exactly 3 lines: \"FILMS\" / \"STILLS\" / \"JOURNAL\" (no narrower box, no extra line)"
    ],
    [
     "brand",
@@ -375,7 +375,7 @@
    ],
    [
     "copy",
-    "dark grey text \"A photographer's year spent chasing the twenty minutes after sunset, across nine cities and one long winter.\"; its text #3a3a3a (dark grey, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own"
+    "dark grey text \"A photographer's year spent chasing the twenty minutes after sunset, across nine cities and one long winter.\"; its text #3a3a3a (dark grey, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; set in a 360px wide box (width: 360px, its top-left at 96,670), 20px type, line-height 30px, wrapping into exactly 3 lines: \"A photographer's year spent chasing the\" / \"twenty minutes after sunset, across nine\" / \"cities and one long winter.\" (no narrower box, no extra line)"
    ],
    [
     "more-link",
@@ -387,7 +387,7 @@
    ],
    [
     "hollow-number",
-    "italic peach \"07 of twenty-four\"; its text #ffb37a (peach, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; the word \"07\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 1.5px #ffb37a), set MUCH BIGGER than the rest: 110px upright (NOT italic) type, line-height 1, about 110x110px with its top-left at 820,430, on its OWN line above the rest (display: block), the small words under it"
+    "italic peach \"07 of twenty-four\"; its text #ffb37a (peach, NOT the page's cream text); on the #f5e9d7 block, no fill or bar of its own; the word \"07\" is HOLLOW: outline only, transparent fill (color: transparent; -webkit-text-stroke: 1.5px #ffb37a), set MUCH BIGGER than the rest: 110px upright (NOT italic) type, line-height 1, about 110x110px with its top-left at 820,430, on its OWN line above the rest (display: block), the small words under it; set in a 110px wide box (width: 110px, its top-left at 820,430), 16px type, line-height 24px, wrapping into exactly 2 lines: \"07\" / \"of twenty-four\" (no narrower box, no extra line)"
    ],
    [
     "progress-ring",
@@ -899,7 +899,7 @@
    ],
    [
     "selected-pin",
-    "near-black pill label, bold white \"€196\"; its text #ffffff (white, NOT the page's near-black text)"
+    "near-black pill label, bold white \"€196\"; its text #ffffff (white, NOT the page's near-black text); its fill exactly #222222 (solid, NOT pale, NOT see-through), its words on it"
    ],
    [
     "map-popup",
