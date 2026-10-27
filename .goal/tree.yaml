@@ -1,9 +1,9 @@
 goal_hash: 6750c2e4e6f7142b64e68ce8c7e75fc1545326be
 goal_state: working
-now: "Round 29 is at 91%: the spreadsheet went 70 to 83 now that every column has its own width, and the brutal grid 81 to 85 (barcode, heading, list). Next: the iso city's clouds, the brutal grid's numerals, the spreadsheet's comment card, then round 30."
+now: "Round 29 is at 93%: the brutal grid jumped 85 to 98 (its giant numbers now sit right), the spreadsheet 83 to 89 (comment card, sheet tab) and the iso city got its clouds back. Next: write round 30, ten pages harder than round 29."
 round: 29
-round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90, 93, 91, 92, 91]
-lock: {by: "run-2026-10-27T1355Z n267", until: "2026-10-27T15:26Z"}
+round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90, 93, 91, 92, 93]
+lock: null
 round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn, words typed, draw/read/build seconds, billed tokens, repair turns
   - {round: 1, likeness: 66, marks: 8, words: 238, draw_s: null, read_s: null, build_s: 116, tokens: 39901, fixes: 0}
   - {round: 2, likeness: 48, marks: 9, words: 268, draw_s: null, read_s: null, build_s: 96, tokens: 42686, fixes: 0}
@@ -33,7 +33,7 @@ round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn,
   - {round: 26, likeness: 93, marks: 11, words: 1126, draw_s: null, read_s: null, build_s: 324, tokens: 108065, fixes: 0}
   - {round: 27, likeness: 91, marks: 14, words: 1213, draw_s: 79, read_s: 102, build_s: 343, tokens: 126417, fixes: 0.2}
   - {round: 28, likeness: 92, marks: 10, words: 1342, draw_s: 62, read_s: 81, build_s: 252, tokens: 96881, fixes: 0}
-  - {round: 29, likeness: 91, marks: 10, words: 1285, draw_s: 70, read_s: 72, build_s: 251, tokens: 93192, fixes: 0}
+  - {round: 29, likeness: 93, marks: 10, words: 1305, draw_s: 67, read_s: 73, build_s: 260, tokens: 95529, fixes: 0}
 asks: []
 handled:
   - "2026-10-26 15:49 INBOX: ease, efficiency and speed now logged every page and round: run digests record marks, notes, words, draw/read/run time; tests/rounds/EASE.md and round_ease: give likeness, marks, words, draw s, read s, build s, tokens and repair turns per page and round (n253)."
@@ -41,6 +41,8 @@ handled:
   - "2026-10-22 17:36 INBOX: marked c1-c4, c6, c7 met with re-scored evidence (c5 open: the hardest final round is not built yet); added round: and round_scores: (v3 re-score of each page's latest build), kept per round from now on."
   - "2026-10-22 Hanav (chat): no daily cap now. Live runs keep --budget per run as a runaway guard; tokens still logged per day."
 notes:
+  - "n267 (d9a15a5 on try/n3-vocabulary): planner: a white part over a gradient-painted parent is filled (r29 c3 clouds dropped as unpainted); a wordless drawing of 6+ parts on an unpainted region says it sits straight on the page, no frame (c3 invented frame); a small shadowed card of words from 8000 px2 says its fill, rounding and shadow (e1 comment card); in a row of plain words a word with its own fill, border or 2px+ bottom line says its BOX, with top-only rounding for a tab (e1 sheet tab, Sum box). Live: c2 85 to 98 (first run on n266 numeral line-height), e1 83 to 89, c3 89 to 90. Round 29 93 (93.4). Re-planned rounds 1-28: boxed words on 39 roles, open drawings r7 r15 r26, white-on-gradient parts r9 r10 r18 r25 r26 (not re-run). Vitest same 2 env failures; typecheck clean. Fresh container: npm ci, build, /tmp/pwb symlinks 1243 as 1234."
+  - "Token ledger: 2026-10-27 n267 live r29 c3 ~75k + e1 ~117k + c2 ~74k billed (no cap set)."
   - "n266 (38e9553 on try/n3-vocabulary): planner: a spreadsheet grid with unequal columns says each column's exact width (table-layout fixed, colgroup; r29 e1 was said '9 equal columns about 170px'); an empty block painted only with repeating stripes said with no size says its own box and place, not filling its cell (c2 barcode); a filled block's heading over loose copy says the heading's size, weight, face and br line breaks, and the copy's weight and face (c2 lime heading built mono, one line); a ruled index list says bold and its rule width (c2 list 2px bold); giant 300px+ type placed absolutely says its tight line-height and letter-spacing (c2 numerals ~40px low; planned, not re-run). Live: e1 70 to 83, c2 81 to 85. Round 29 91 (91.4). Re-planned rounds 1-28: line-height on 11 giant numerals, stripe boxes r14 r16 r25 r28, heading faces r1 r20 r27, ruled list r13 (not re-run). Vitest same 2 env failures; typecheck clean. Fresh container: npm ci, build, /tmp/pwb symlinks 1243 as 1234."
   - "Token ledger: 2026-10-27 n266 live r29 c2 ~87k + e1 ~86k billed (no cap set)."
   - "n265 (0282933 on try/n3-vocabulary): planner: a see-through flat disc 200px+ says its own box and place (c1 yellow disc built under the halftone); a text block ruled above and below is a RULED BAND; running text with colour-only inline spans is ONE wrapping paragraph said line by line, capitals kept (c1 lineup); radial-gradient mask notches said with each bite and the exact mask (c1 ticket); outlined nav pill one line, no underline; conic sunburst says where its rays meet and square corners, half-disc fan, FAINT only for faint paint (c4); arch says its double border and the ::after inner arch; card said only as colour border + words says box, opaque fill, outlined tags; small form with 2-3 empty bordered inputs goes part by part (e5). Live: c1 73 to 92, c4 90 to 95 then 96, e5 95 to 93 (order form right by eye, page fill lighter). Round 29 90 (89.7). Re-planned rounds 1-28: r16 hours row, r23 e4 and r24 e5 forms, outlined pills r18 r25 r26 r28, r25 badge, sunburst no-outline r16 r19 r24 (not re-run). Vitest same 2 env failures; typecheck clean. Fresh container: npm ci, build, /tmp/pwb symlinks 1243 as 1234."
@@ -878,5 +880,7 @@ nodes:
      branch: try/n3-vocabulary, result: "Riso festival 73 to 92, deco cinema 90 to 96, trading order form right by eye (93). Round 29 90. 0282933."}
   - {id: n266, parent: n265, kind: step, title: 'Free first, ~400k live: r29 e1 spreadsheet column shifts (70), c2 barcode cell and mono lime heading (81), c3 lost clouds and invented frame (89), e5 slider track; fix, re-run; then round 30', status: done,
      branch: try/n3-vocabulary, result: "Spreadsheet 70 to 83: each column its own width. Brutal grid 81 to 85: barcode, heading, list. 38e9553."}
-  - {id: n267, parent: n266, kind: step, title: 'Free first, ~300k live: r29 c3 iso city lost clouds and invented frame (89), c2 numerals low and small tag text (85, line-height now said), e1 comment card shadow and sheet tab (83); fix, re-run; then round 30', status: open,
+  - {id: n267, parent: n266, kind: step, title: 'Free first, ~300k live: r29 c3 iso city lost clouds and invented frame (89), c2 numerals low and small tag text (85, line-height now said), e1 comment card shadow and sheet tab (83); fix, re-run; then round 30', status: done,
+     branch: try/n3-vocabulary, result: "Brutal grid 85 to 98, spreadsheet 83 to 89 (comment card, sheet tab), iso city 90 with clouds. Round 29 93. d9a15a5."}
+  - {id: n268, parent: n267, kind: step, title: 'Round 30, ~1M live: write ten pages harder than round 29 (5 creative, 5 everyday), untuned first live builds of all ten, fix the worst gaps; carry r29 c3 see-through stat cards, e5 slider track', status: open,
      branch: try/n3-vocabulary, result: null}
