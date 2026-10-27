@@ -1,0 +1,335 @@
+{
+  "round": 2,
+  "id": "e3-settings",
+  "version": 3,
+  "stopped": null,
+  "likeness": 38.7,
+  "colour": 0.9921359849287996,
+  "structure": 0.9308402866392315,
+  "layout": 0.4343302485722971,
+  "strokes": {
+    "count": 10,
+    "pointsPerStroke": 3.8,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "box": 6
+    },
+    "inkPx": 2968
+  },
+  "erased": 0,
+  "words": 33,
+  "notes": 6,
+  "longestNote": 13,
+  "noteTexts": [
+    "Settings",
+    "tabs Profile, Notifications (active blue), Billing, Team",
+    "4 rows: Email digests, Mentions, Product news, Weekly report, each with grey description",
+    "toggles: first two on (blue)",
+    "Save changes, blue",
+    "Reset all, red outline"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 581,
+    "firstReadingS": 64,
+    "readS": [
+      46
+    ],
+    "buildS": [
+      508
+    ],
+    "sketchingS": 27
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 68576,
+    "cacheRead": 882729,
+    "output": 47846,
+    "billed": 116422
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 784
+    },
+    {
+      "op": "stroke",
+      "at": 2049
+    },
+    {
+      "op": "stroke",
+      "at": 5399
+    },
+    {
+      "op": "stroke",
+      "at": 6265
+    },
+    {
+      "op": "stroke",
+      "at": 7133
+    },
+    {
+      "op": "stroke",
+      "at": 7999
+    },
+    {
+      "op": "stroke",
+      "at": 8866
+    },
+    {
+      "op": "stroke",
+      "at": 9966
+    },
+    {
+      "op": "stroke",
+      "at": 11535
+    },
+    {
+      "op": "stroke",
+      "at": 12916
+    },
+    {
+      "op": "note",
+      "at": 13532
+    },
+    {
+      "op": "note",
+      "at": 14208
+    },
+    {
+      "op": "note",
+      "at": 14965
+    },
+    {
+      "op": "note",
+      "at": 15623
+    },
+    {
+      "op": "note",
+      "at": 16260
+    },
+    {
+      "op": "note",
+      "at": 16905
+    },
+    {
+      "op": "run",
+      "at": 17009
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          120,
+          57
+        ],
+        [
+          238,
+          57
+        ]
+      ],
+      "n": 21,
+      "at": 784
+    },
+    {
+      "way": [
+        [
+          120,
+          118
+        ],
+        [
+          405,
+          118
+        ]
+      ],
+      "n": 49,
+      "at": 2049
+    },
+    {
+      "way": [
+        [
+          120,
+          141
+        ],
+        [
+          1160,
+          141
+        ]
+      ],
+      "n": 174,
+      "at": 5399
+    },
+    {
+      "way": [
+        [
+          1112,
+          169
+        ],
+        [
+          1160,
+          169
+        ],
+        [
+          1160,
+          195
+        ],
+        [
+          1112,
+          195
+        ],
+        [
+          1112,
+          169
+        ]
+      ],
+      "n": 25,
+      "at": 6265
+    },
+    {
+      "way": [
+        [
+          1112,
+          250
+        ],
+        [
+          1160,
+          250
+        ],
+        [
+          1160,
+          276
+        ],
+        [
+          1112,
+          276
+        ],
+        [
+          1112,
+          250
+        ]
+      ],
+      "n": 25,
+      "at": 7133
+    },
+    {
+      "way": [
+        [
+          1112,
+          331
+        ],
+        [
+          1160,
+          331
+        ],
+        [
+          1160,
+          357
+        ],
+        [
+          1112,
+          357
+        ],
+        [
+          1112,
+          331
+        ]
+      ],
+      "n": 25,
+      "at": 7999
+    },
+    {
+      "way": [
+        [
+          1112,
+          412
+        ],
+        [
+          1160,
+          412
+        ],
+        [
+          1160,
+          438
+        ],
+        [
+          1112,
+          438
+        ],
+        [
+          1112,
+          412
+        ]
+      ],
+      "n": 25,
+      "at": 8866
+    },
+    {
+      "way": [
+        [
+          120,
+          173
+        ],
+        [
+          347,
+          173
+        ]
+      ],
+      "n": 39,
+      "at": 9966
+    },
+    {
+      "way": [
+        [
+          120,
+          499
+        ],
+        [
+          272,
+          499
+        ],
+        [
+          272,
+          544
+        ],
+        [
+          120,
+          544
+        ],
+        [
+          120,
+          499
+        ]
+      ],
+      "n": 67,
+      "at": 11535
+    },
+    {
+      "way": [
+        [
+          285,
+          499
+        ],
+        [
+          396,
+          499
+        ],
+        [
+          396,
+          544
+        ],
+        [
+          285,
+          544
+        ],
+        [
+          285,
+          499
+        ]
+      ],
+      "n": 55,
+      "at": 12916
+    }
+  ]
+}
