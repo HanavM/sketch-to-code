@@ -1,24 +1,24 @@
 {
   "id": "e4-trip-itinerary",
-  "at": "2026-10-27T07:08:23.145Z",
+  "at": "2026-10-27T08:20:53.527Z",
   "likeness": {
     "version": 3,
-    "overall": 0.8963505438460424,
-    "overallV2": 0.8963505438460424,
-    "overallV1": 0.8638537942921822,
-    "colour": 0.9877734124388707,
-    "structure": 0.9459554855781545,
-    "structureStrict": 0.9050851441724845,
-    "colourAligned": 0.9877734124388707,
-    "structureAligned": 0.9459554855781545,
+    "overall": 0.894553655628509,
+    "overallV2": 0.894553655628509,
+    "overallV1": 0.8741997626229585,
+    "colour": 0.9919106372188985,
+    "structure": 0.9562155779796501,
+    "structureStrict": 0.93061700066063,
+    "colourAligned": 0.9919106372188985,
+    "structureAligned": 0.9562155779796501,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9834620087149853
+      "r": 0.9870269938571272
     },
-    "layout": 0.9275535969072078,
-    "layoutV1": 0.6463035969072078,
+    "layout": 0.8504448014612542,
+    "layoutV1": 0.7075876586041113,
     "layoutVersion": 2
   },
   "boxes": [
@@ -27,598 +27,598 @@
       0,
       0,
       1280,
-      920
+      900
     ],
     [
       0,
       0,
       0,
       1280,
-      64
+      900
     ],
     [
       1,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      2,
       36,
       17,
       67,
       29
     ],
     [
-      1,
-      959,
-      22,
-      285,
-      20
+      2,
+      921,
+      15,
+      323,
+      34
     ],
     [
-      3,
-      959,
-      22,
+      4,
+      921,
+      21,
       31,
-      20
+      21
     ],
     [
-      3,
-      1022,
-      22,
+      4,
+      984,
+      21,
       40,
-      20
+      21
     ],
     [
-      3,
-      1094,
-      22,
+      4,
+      1055,
+      21,
       58,
-      20
+      21
     ],
     [
-      3,
-      1183,
-      22,
-      61,
-      20
+      4,
+      1145,
+      15,
+      99,
+      34
     ],
     [
-      0,
+      1,
       36,
       88,
       640,
-      69
+      66
     ],
     [
-      8,
+      9,
       36,
       88,
       640,
-      43
+      39
     ],
     [
-      8,
+      9,
       36,
-      137,
+      133,
       640,
-      20
+      21
     ],
     [
-      0,
+      1,
       40,
-      184,
-      322,
+      183,
+      290,
       33
     ],
     [
-      11,
+      12,
       40,
-      184,
-      77,
-      33
-    ],
-    [
-      11,
-      125,
-      184,
+      183,
       69,
       33
     ],
     [
-      11,
-      202,
-      184,
-      73,
+      12,
+      117,
+      183,
+      61,
       33
     ],
     [
-      11,
-      284,
-      184,
-      78,
+      12,
+      186,
+      183,
+      65,
       33
     ],
     [
-      0,
+      12,
+      260,
+      183,
+      70,
+      33
+    ],
+    [
+      1,
       98,
       250,
       2,
       610
     ],
     [
-      0,
+      1,
       36,
       240,
       46,
       94
     ],
     [
-      0,
+      1,
       124,
       240,
       552,
       94
     ],
     [
-      0,
+      1,
       91,
       254,
       16,
       16
     ],
     [
-      0,
+      1,
       141,
       255,
       84,
       64
     ],
     [
-      0,
+      1,
       239,
       255,
       173,
       23
     ],
     [
-      0,
+      1,
       614,
       255,
       45,
       20
     ],
     [
-      0,
+      1,
       239,
       275,
       173,
       18
     ],
     [
-      0,
+      1,
       124,
       344,
       552,
-      18
+      14
     ],
     [
-      0,
+      1,
       36,
       368,
       46,
       94
     ],
     [
-      0,
+      1,
       124,
       368,
       552,
       94
     ],
     [
-      0,
+      1,
       91,
       382,
       16,
       16
     ],
     [
-      0,
+      1,
       141,
       383,
       84,
       64
     ],
     [
-      0,
+      1,
       239,
       383,
       129,
       23
     ],
     [
-      0,
+      1,
       609,
       383,
       50,
       20
     ],
     [
-      0,
+      1,
       239,
       403,
       129,
       18
     ],
     [
-      0,
+      1,
       124,
       472,
       552,
-      18
+      14
     ],
     [
-      0,
+      1,
       36,
       496,
       46,
       94
     ],
     [
-      0,
+      1,
       124,
       496,
       552,
       94
     ],
     [
-      0,
+      1,
       91,
       510,
       16,
       16
     ],
     [
-      0,
+      1,
       141,
       511,
       84,
       64
     ],
     [
-      0,
+      1,
       239,
       511,
       122,
       23
     ],
     [
-      0,
+      1,
       614,
       511,
       46,
       20
     ],
     [
-      0,
+      1,
       239,
       531,
       123,
       18
     ],
     [
-      0,
+      1,
       124,
       600,
       552,
-      18
+      14
     ],
     [
-      0,
+      1,
       36,
       624,
       46,
       94
     ],
     [
-      0,
+      1,
       124,
       624,
       552,
       94
     ],
     [
-      0,
+      1,
       91,
       638,
       16,
       16
     ],
     [
-      0,
+      1,
       141,
       639,
       84,
       64
     ],
     [
-      0,
+      1,
       239,
       639,
       203,
       23
     ],
     [
-      0,
+      1,
       614,
       639,
       45,
       20
     ],
     [
-      0,
+      1,
       239,
       659,
       203,
       18
     ],
     [
-      0,
+      1,
       713,
       91,
       534,
       520
     ],
     [
-      48,
-      713,
-      91,
-      528,
-      514
-    ],
-    [
       49,
-      714,
-      91,
-      527,
-      514
-    ],
-    [
-      48,
       1026,
       62,
       260,
       600
     ],
     [
-      48,
+      49,
       715,
       254,
       530,
       84
     ],
     [
-      48,
+      49,
       839,
       96,
       118,
       511
     ],
     [
-      48,
+      49,
       714,
       472,
       420,
       8
     ],
     [
-      48,
+      49,
       713,
       91,
       534,
       520
     ],
     [
-      55,
+      54,
       823,
       241,
       270,
       250
     ],
     [
-      48,
+      49,
       803,
       455,
       42,
       42
     ],
     [
-      57,
+      56,
       820,
       466,
       7,
       20
     ],
     [
-      48,
+      49,
       943,
       335,
       42,
       42
     ],
     [
-      59,
+      58,
       960,
       346,
       7,
       20
     ],
     [
-      48,
+      49,
       1073,
       205,
       42,
       42
     ],
     [
-      61,
+      60,
       1090,
       216,
       7,
       20
     ],
     [
-      0,
-      714,
-      606,
-      135,
-      20
-    ],
-    [
-      0,
+      1,
       710,
       630,
       126,
       104
     ],
     [
-      0,
-      763,
-      645,
-      21,
-      18
-    ],
-    [
-      0,
-      758,
-      667,
-      30,
-      30
-    ],
-    [
-      0,
-      762,
-      705,
-      23,
-      23
-    ],
-    [
-      0,
+      1,
       846,
       630,
       126,
       104
     ],
     [
-      0,
-      902,
-      645,
-      14,
-      18
-    ],
-    [
-      0,
-      889,
-      667,
-      40,
-      22
-    ],
-    [
-      0,
-      898,
-      697,
-      23,
-      23
-    ],
-    [
-      0,
+      1,
       982,
       630,
       126,
       104
     ],
     [
-      0,
-      1036,
-      645,
-      18,
-      18
-    ],
-    [
-      0,
-      1030,
-      667,
-      30,
-      30
-    ],
-    [
-      0,
-      1034,
-      705,
-      23,
-      23
-    ],
-    [
-      0,
+      1,
       1118,
       630,
       126,
       104
     ],
     [
-      0,
+      1,
+      763,
+      645,
+      21,
+      18
+    ],
+    [
+      1,
+      902,
+      645,
+      14,
+      18
+    ],
+    [
+      1,
+      1036,
+      645,
+      18,
+      18
+    ],
+    [
+      1,
       1171,
       645,
       21,
       18
     ],
     [
-      0,
+      1,
+      758,
+      667,
+      30,
+      30
+    ],
+    [
+      1,
+      889,
+      667,
+      40,
+      22
+    ],
+    [
+      1,
+      1030,
+      667,
+      30,
+      30
+    ],
+    [
+      1,
       1161,
       667,
       40,
       22
     ],
     [
-      0,
+      1,
+      762,
+      705,
+      23,
+      23
+    ],
+    [
+      1,
+      898,
+      697,
+      23,
+      23
+    ],
+    [
+      1,
+      1034,
+      705,
+      23,
+      23
+    ],
+    [
+      1,
       1170,
       697,
       23,
       23
     ],
     [
-      0,
-      714,
-      742,
-      326,
-      18
-    ],
-    [
-      0,
+      1,
       713,
       759,
       527,
       113
     ],
     [
-      0,
-      730,
-      766,
-      65,
-      20
+      78,
+      737,
+      779,
+      70,
+      21
     ],
     [
-      0,
-      730,
-      784,
+      78,
+      737,
+      799,
       213,
       42
     ],
     [
-      0,
-      730,
-      820,
-      196,
+      78,
+      1157,
+      779,
+      63,
+      61
+    ],
+    [
+      81,
+      1157,
+      779,
+      63,
       20
     ],
     [
-      0,
+      81,
+      1157,
+      799,
+      63,
+      20
+    ],
+    [
+      81,
+      1157,
+      819,
+      63,
+      20
+    ],
+    [
+      78,
       730,
       838,
       494,
@@ -657,17 +657,6 @@
         "w": 534,
         "h": 104
       }
-    },
-    {
-      "role": "day-timeline",
-      "iou": 0.96875,
-      "parts": 32,
-      "rect": {
-        "x": 36,
-        "y": 240,
-        "w": 640,
-        "h": 620
-      }
     }
   ],
   "effects": {
@@ -687,51 +676,41 @@
     ]
   },
   "tokens": {
-    "input": 73485,
-    "output": 48278,
-    "cacheRead": 444375
+    "input": 53837,
+    "output": 31967,
+    "cacheRead": 207089
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 95355,
-      "output": 37486,
-      "cacheRead": 430466,
-      "toolCalls": 18,
+      "billed": 60867,
+      "output": 22435,
+      "cacheRead": 192979,
+      "toolCalls": 8,
       "tools": [
         "Glob",
-        "Glob",
         "Read src/App.tsx",
-        "Read components/StreetMap.tsx",
         "Glob",
         "Read src/index.css",
-        "Glob",
-        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/vite.config.ts",
         "Read src/main.tsx",
-        "Glob",
-        "Write components/Navbar.tsx",
-        "Write components/ItineraryTimeline.tsx",
-        "Write components/MapPanel.tsx",
-        "Write components/WeatherWidget.tsx",
-        "Write components/BudgetSummary.tsx",
-        "Edit src/App.tsx",
-        "Glob",
-        "Read src/App.tsx"
+        "Write src/App.tsx"
       ],
-      "ms": 400329
+      "ms": 220971
     }
   ],
   "ease": {
     "marks": 11,
     "captured": 11,
     "notes": 8,
-    "words": 1140,
-    "drawMs": 63770,
-    "readingMs": 103390,
-    "runMs": 505326
+    "words": 1222,
+    "drawMs": 58258,
+    "readingMs": 92649,
+    "runMs": 314939
   },
-  "reading": "The sketch is a full trip-planning page: a top navbar, a page heading with sub-copy, a date stepper, a large left-hand itinerary/timeline panel with a dashed rail, a right-hand drawn street map, a weather forecast widget with four day-cards, and a dark budget summary box with a stacked progress bar — all specified in detail by the typed notes.",
+  "reading": "The sketch is a full trip-itinerary page: a top nav bar, a heading block with date stepper, a long vertical itinerary/timeline list on the left, and on the right a street map, a weather-forecast strip and a trip-budget bar — all specified precisely by the user's typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -746,7 +725,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Build the top navigation as one 1280x64px wrapper element at 0,0 holding all its parts (never laid loose on the page), #ffffff fill, with a 1px #ebe7de rule alo"
+      "instruction": "Build the page's top bar: a single 1280x64px wrapper element (own container) with #ffffff fill and a 1px #ebe7de border on its bottom edge only, contents vertic"
     },
     {
       "kind": "add",
@@ -771,7 +750,7 @@
         60
       ],
       "paths": [],
-      "instruction": "Add a heading block, 640px wide, top-left at 36,88: a 34px bold Georgia serif (NOT the page's sans font) heading in #22201c reading 'Four days in Lisbon'; 6px b"
+      "instruction": "Add a heading block, 640px wide, top-left at 36,88: 'Four days in Lisbon' in bold 34px Georgia serif, #22201c, with 'Four days in Lisbon' as real text; 6px belo"
     },
     {
       "kind": "add",
@@ -786,7 +765,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a date stepper: a row of 4 pill buttons, each 33px tall, fully rounded (border-radius 999px), bold text: 'Thu 12' (#f1ede4 fill, #22201c text), 'Fri 13' (#2"
+      "instruction": "Add a date stepper: a row of 4 filled pill buttons, each 33px tall (pill radius): 'Thu 12' (#f1ede4 fill, bold #22201c text), 'Fri 13' (#22201c fill, bold #ffff"
     },
     {
       "kind": "add",
@@ -801,10 +780,10 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add the day itinerary panel as a large block (roughly 634x634 at 39,243) containing: behind its parts, an absolutely-positioned 2x610px DASHED vertical rail at "
+      "instruction": "Build the itinerary section as a container: behind its items, a dashed vertical rail line (2px wide, ~610px tall, repeating dashes of #cfc8b8) running down the "
     },
     {
-      "kind": "design",
+      "kind": "add",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -816,64 +795,14 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a drawn street-map panel, 534x520px, #e6eedf ground, overflow hidden (a real illustrated map, not a photo or iframe). Inside: a #bfd9e8 vertical water/park "
+      "instruction": "Build a drawn street-map panel, 534x520px, #e6eedf ground, contents clipped (overflow hidden) — a real drawn map, not a photo/iframe: flat shapes for a water/pa"
     },
     {
       "kind": "add",
       "textMarks": [
-        "s6"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7",
-            "s8",
-            "s9"
-          ],
-          "lines": 4,
-          "fontPx": 17
-        }
-      ],
-      "region": [
-        714,
-        639,
-        526,
-        9
-      ],
-      "paths": [],
-      "instruction": "Add a short section heading above the weather cards (text placeholder), e.g. \"This week's weather\", styled as a small bold label consistent with the page's othe"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
+        "s6",
         "s7",
-        "s8"
-      ],
-      "textSize": [
-        {
-          "strokes": [
-            "s6",
-            "s7",
-            "s8",
-            "s9"
-          ],
-          "lines": 4,
-          "fontPx": 17
-        }
-      ],
-      "region": [
-        714,
-        665,
-        526,
-        35
-      ],
-      "paths": [],
-      "instruction": "Add a weekly weather widget: a row of 4 white rounded cards (126x104 each, 1px #ebe7de border) for Thu, Fri, Sat, Sun. Each card has a small 12px day label, a 3"
-    },
-    {
-      "kind": "add",
-      "textMarks": [
+        "s8",
         "s9"
       ],
       "textSize": [
@@ -890,12 +819,12 @@
       ],
       "region": [
         714,
-        717,
-        326,
-        8
+        630,
+        526,
+        104
       ],
       "paths": [],
-      "instruction": "Add a short caption/text placeholder below the weather cards, e.g. 'Updated hourly from local forecast', small 12px muted text."
+      "instruction": "Build a weather-forecast strip of 4 day cards (Thu, Fri, Sat, Sun), each a white rounded card (1px #ebe7de border) showing the day label, an icon/toggle control"
     },
     {
       "kind": "add",
@@ -910,7 +839,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Add a near-black (#22201c) trip-budget summary box with white (#fbfaf7) text: a label 'Trip budget', a big 28px bold line '€1,240 of €1,600', and a breakdown li"
+      "instruction": "Build a near-black (#22201c) trip-budget bar block with #fbfaf7 (white) text: label 'Trip budget' and a large bold 28px figure '€1,240 of €1,600'. Beside it (no"
     }
   ],
   "rejected": []

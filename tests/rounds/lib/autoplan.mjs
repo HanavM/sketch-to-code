@@ -607,6 +607,20 @@ export function factsInPage() {
         const n0 = nums.find(Boolean)
         return { first: n0.n, last: nums.filter(Boolean).pop().n, ink: n0.ink, w: n0.w, right: n0.right, padL: Math.round(parseFloat(getComputedStyle(ks[0]).paddingLeft) || 0), lit: lit.length && lit.length <= 3 ? lit.map((x) => ({ n: nums[x.i]?.n, fill: x.fill })) : [] }
       })(),
+      // n260: a small absolutely placed block of <br> lines set right-aligned in a corner (round 28 e4 budget breakdown
+      // 'Stay €520<br>Food €360<br>Travel €210' at top-right: said as one run, built as a line under the figure)
+      cornerLines: (() => {
+        for (const k of el.children) {
+          const ks = getComputedStyle(k)
+          if (ks.position !== 'absolute' || k.querySelectorAll('br').length < 1 || k.children.length !== k.querySelectorAll('br').length) continue
+          const lines = (k.innerText || '').split('\n').map((x) => x.trim()).filter(Boolean)
+          if (lines.length < 2 || lines.length > 6 || lines.some((x) => x.length > 40 || x.length < 3)) continue
+          const kb = k.getBoundingClientRect()
+          if (parseFloat(ks.fontSize) > 16 || kb.width > 260 || r.right - kb.right > 40 || kb.top - r.top > 40 || kb.height > 0.6 * r.height) continue
+          return { lines, right: ks.textAlign === 'right' || ks.textAlign === 'end', px: Math.round(parseFloat(ks.fontSize)), lh: Math.round(parseFloat(ks.lineHeight) || parseFloat(ks.fontSize) * 1.2), ink: rgba(ks.color), bold: Number(ks.fontWeight) >= 600, x: Math.round(kb.left), y: Math.round(kb.top), w: Math.round(kb.width), h: Math.round(kb.height), inR: Math.round(r.right - kb.right), inT: Math.round(kb.top - r.top) }
+        }
+        return null
+      })(),
       // n256: rows that each hold a range BAR (gradient zones, a marker at a % along it) between their words (round 28 e2
       // labs: said as a two-column list, the bars and the values lost)
       rangeRows: (() => {
@@ -615,7 +629,9 @@ export function factsInPage() {
           const cells = [...k.children], bar = cells.find((q) => !(q.innerText || '').trim() && getComputedStyle(q).backgroundImage !== 'none' && q.children.length === 1)
           if (!bar) return null
           const mk = bar.children[0], bb = bar.getBoundingClientRect(), mb = mk.getBoundingClientRect(), kb = k.getBoundingClientRect(), bc = getComputedStyle(bar)
-          return { cells: cells.map((q) => q === bar ? null : { t: (q.innerText || '').trim(), ink: rgba(getComputedStyle(q).color), bold: Number(getComputedStyle(q).fontWeight) >= 600, right: getComputedStyle(q).textAlign === 'right' }),
+          // n260: each cell's column left and width (round 28 e2 units column built 100px left of its target)
+          return { cells: cells.map((q) => q === bar ? null : { t: (q.innerText || '').trim(), ink: rgba(getComputedStyle(q).color), bold: Number(getComputedStyle(q).fontWeight) >= 600, right: getComputedStyle(q).textAlign === 'right', px: Math.round(parseFloat(getComputedStyle(q).fontSize)), x: Math.round(q.getBoundingClientRect().left - kb.left), w: Math.round(q.getBoundingClientRect().width) }),
+            row: { x: Math.round(kb.left), y: Math.round(kb.top), w: Math.round(kb.width) },
             bar: { x: Math.round(bb.left - kb.left), w: Math.round(bb.width), h: Math.round(bb.height), img: bc.backgroundImage, radius: Math.round(parseFloat(bc.borderTopLeftRadius) || 0) },
             mark: { at: Math.round((mb.left - bb.left) / Math.max(1, bb.width) * 100), w: Math.round(mb.width), h: Math.round(mb.height), fill: rgba(getComputedStyle(mk).backgroundColor) }, h: Math.round(kb.height) }
         })
@@ -1886,6 +1902,20 @@ export function factsInPage() {
           const s = getComputedStyle(k), b = k.getBoundingClientRect()
           if (s.display === 'none' || s.visibility === 'hidden' || b.width < 2 || b.height < 2 || parseFloat(s.opacity) < 0.05) continue
           if (preDone.some((q) => q.contains(k))) continue
+          // n260: a small stroke-only line drawing inside a region (round 28 e2 vital cards: four sparklines, never said,
+          // built as bare cards) is one of its parts, copied verbatim at its place
+          if (k.tagName.toLowerCase() === 'svg' && k !== el && !k.querySelector('text, textPath')) {
+            const sh = [...k.querySelectorAll('path, line, polyline, circle, ellipse, rect, polygon')]
+            const cl = k.cloneNode(true)
+            for (const n of [cl, ...cl.querySelectorAll('*')]) { n.removeAttribute('class'); n.removeAttribute('data-r'); n.removeAttribute('data-must') }
+            if (!cl.getAttribute('width')) { cl.setAttribute('width', String(Math.round(b.width))); cl.setAttribute('height', String(Math.round(b.height))) }
+            const src = cl.outerHTML.replace(/\s+/g, ' ').replace(/> </g, '><')
+            if (sh.length && sh.length <= 4 && src.length <= 900 && b.width * b.height <= 40000 && sh.every((q) => /^(polyline|path|line)$/i.test(q.tagName) && (getComputedStyle(q).fill === 'none' || rgba(getComputedStyle(q).fill)?.a < 0.05) && rgba(getComputedStyle(q).stroke)?.a > 0.05)) {
+              preDone.push(k)
+              out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height), t: null, svg: src, px: 0, bold: false, ink: null, mono: false, fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
+              continue
+            }
+          }
           // n145: a pre block of several lines (round 11 e1 terminal: its lines collapsed into one run and its coloured
           // marks placed apart at their own x,y, so the output came out scrambled) is ONE part said line by line
           if (/^pre/.test(s.whiteSpace) && (k.textContent || '').trim().includes('\n')) {
@@ -4188,6 +4218,8 @@ function partsNote(P, f) {
     // n143: a weight other than 400 / 700 is said as its number, italic said (round 11 c3 weight ladder: Thin 100 built
     // regular, Black 900 built upright bold)
     const wtSay = p.wt && ![400, 700].includes(p.wt) && (p.wt <= 300 || p.wt >= 800 || p.px >= 20) ? `font-weight ${p.wt} ` : p.bold ? 'bold ' : p.px >= 20 ? 'regular (NOT bold) ' : ''
+    // n260: a small line drawing (a sparkline) handed over verbatim
+    if (p.svg) return `${p.w}x${p.h} at ${p.x},${p.y}: a small LINE DRAWING (a sparkline: a thin line, no fill, no axes, no frame round it), this inline SVG copied VERBATIM, position absolute at that spot: ${p.svg}`
     // n145: a pre block said line by line, coloured words in place (round 11 e1 terminal output scrambled)
     if (p.pre) return `${p.w}x${p.h} at ${p.x},${p.y}${p.fill ? ` ${hx(p.fill)} fill` : ''}: ONE pre block (white-space: pre, ${p.px}px ${p.mono ? 'monospace' : ''} ${hx(p.ink)} text, line-height ${p.pre.lh}px, padding ${p.pre.padT}px ${p.pre.padL}px) of ${p.pre.lines.length} lines in EXACTLY this order, each line ONE row written as one run of text, leading spaces kept, the listed words wrapped in spans of their own colour IN PLACE inside the line (NOT placed separately, NOT absolutely positioned): ${p.pre.lines.map((l, i) => `${i + 1} \`${l.text}\`${l.runs.length ? ` [${l.runs.map((r) => `${JSON.stringify(r.t)} ${hexOf(r.c)}`).join(', ')}]` : ''}`).join('; ')}`
     // n156: a row whose text wraps a bar laid inside it (round 14 e3 ratings '5★ [bar] 72%': built with the text printed
@@ -4586,6 +4618,10 @@ function decideRest(f, page, marked, said) {
     const pushed = mixed && kl.left - kp.right >= 40 && w0 - kl.right <= 32 && Math.abs(kl.top - kp.top) <= 6 && kinks.slice(1, -1).every((k, i) => k.left - kinks[i].right < 40)
     if (mixed) d.note += `; each word in its own colour: ${kinks.map((k) => `${quote(k.t, 30)} ${hexOf(k.ink)}`).join(', ')}${pushed ? `; ${quote(kl.t, 30)} pushed to the far RIGHT end of the row (margin-left: auto, ${Math.round(w0 - kl.right)}px in from the right edge), NOT right after ${quote(kp.t, 30)}` : ''}`
     else if (dist(f.colour, page.colour) > 60 && !d.note.includes(hexOf(f.colour)) && !['heading'].includes(d.kind)) d.note += `; its text ${hexOf(f.colour)} (${colourName(f.colour)}, NOT the page's ${colourName(page.colour)} text)`
+    // n260: an outlined word in a row of plain links is a button with its own box (round 28 e4 'Share trip' pill: said
+    // as a plain dark link, built with no outline)
+    const outl = (f.kidBoxes ?? []).length >= 3 ? f.kidBoxes.filter((k) => k.bw >= 1 && k.bc?.a > 0.3 && !(k.fill?.a > 0.05) && k.t.length <= 24 && k.h <= 48 && k.w <= 220 && k.radius >= k.h / 2 - 1) : []
+    if (outl.length && outl.length <= 2 && !/OUTLINED/.test(d.note)) d.note += `; ${outl.map((k) => `${quote(k.t, 24)} is an OUTLINED ${k.radius >= k.h / 2 - 1 ? 'pill' : 'box'} button (NOT a plain link): ${Math.round(k.w)}x${Math.round(k.h)}px, ${Math.round(k.bw)}px solid ${hexOf(k.bc)} border, ${k.radius >= k.h / 2 - 1 ? 'pill ends' : `${Math.round(k.radius)}px rounded`}, no fill, padding ${k.pad}px at the sides, ${k.bold ? 'bold ' : ''}${hexOf(k.ink)} text`).join('; ')}`
   }
   // n177: a one-line lead text of 18px+ says its size in words (round 17 c5: the 22px intro built 12px twice; the drawn
   // squiggle height alone did not carry it)
@@ -4610,12 +4646,18 @@ function decideRest(f, page, marked, said) {
     if (f.radius >= L.h / 2 - 2) d.note = d.note.replace(`${Math.round(f.radius)}px rounded`, 'pill ends')
     d.note += `; TILTED ${Math.abs(rot)}° ${rot > 0 ? 'clockwise' : 'anticlockwise'} (NOT level): ONE ${L.w}x${L.h}px element${f.el ? `, position absolute with its top-left at ${f.el.x},${f.el.y} page px before the turn` : ''}, then transform: rotate(${rot}deg) round its centre`
   }
+  // n260: corner block of short lines (round 28 e4 budget breakdown)
+  if (d?.note && f.cornerLines && !/CORNER BLOCK/.test(d.note)) {
+    const K = f.cornerLines
+    d.note = d.note.replace(`, ${quote(K.lines.join(' '))}`, '').replace(quote(K.lines.join(' ')), '')
+    d.note += `; PLUS a CORNER BLOCK of ${K.lines.length} short lines, one under the next (each its own line, NOT run together on one line): ${K.lines.map((x) => quote(x)).join(' / ')}; ${K.px}px ${K.bold ? 'bold ' : ''}${hexOf(K.ink)} text, line-height ${K.lh}px, ${K.right ? 'RIGHT-aligned, ' : ''}${K.w}x${K.h}px, position absolute ${K.inT}px from the block's top and ${K.inR}px in from its right edge (page ${K.x},${K.y}), beside the big figure, NOT under it`
+  }
   // n256: rows with a range bar each, said cell by cell (round 28 e2 labs)
   if (d?.note && f.rangeRows) {
     const R = f.rangeRows, b0 = R[0].bar, m0 = R[0].mark
-    const cell = (c) => `${c.bold ? 'bold ' : ''}${hexOf(c.ink)} ${quote(c.t)}${c.right ? ' right-aligned' : ''}`
+    const cell = (c) => `${c.px ? `${c.px}px ` : ''}${c.bold ? 'bold ' : ''}${hexOf(c.ink)} ${quote(c.t)}${c.right ? ' right-aligned' : ''}`
     d.kind = 'box'
-    d.note = d.note.replace(/ list: .*$/, '') + `; then ${R.length} ROWS, each ${R[0].h}px tall with a 1px rule under it, every row's cells in this order left to right (a grid, NONE dropped): ${R.map((r) => r.cells.map((c) => c ? cell(c) : `a RANGE BAR with its marker at ${r.mark.at}%`).join(' | ')).join('; ')}; each RANGE BAR is ${b0.w}px wide, ${b0.h}px tall, ${b0.radius}px rounded, ${b0.x}px in from the row's left, painted exactly background: ${cssHex(b0.img)} (the zones), with a ${m0.w}x${m0.h}px ${hexOf(m0.fill)} marker standing up on it (position absolute, left at the % given, centred on the bar's height)`
+    d.note = d.note.replace(/ list: .*$/, '') + `; then ${R.length} ROWS, each ${R[0].h}px tall with a 1px rule under it, every row's cells in this order left to right (a grid, NONE dropped): ${R.map((r) => r.cells.map((c) => c ? cell(c) : `a RANGE BAR with its marker at ${r.mark.at}%`).join(' | ')).join('; ')}; the columns sit at fixed lefts inside each ${R[0].row.w}px row (grid-template-columns, NOT auto-sized): ${R[0].cells.map((c) => c ? `${quote(c.t)} column from ${c.x}px (${c.w}px wide)` : `the bar from ${b0.x}px (${b0.w}px wide)`).join(', ')}; the first row's top-left is at ${R[0].row.x},${R[0].row.y} page px; each RANGE BAR is ${b0.w}px wide, ${b0.h}px tall, ${b0.radius}px rounded, ${b0.x}px in from the row's left, painted exactly background: ${cssHex(b0.img)} (the zones), with a ${m0.w}x${m0.h}px ${hexOf(m0.fill)} marker standing up on it (position absolute, left at the % given, centred on the bar's height)`
   }
   // n249: slider tracks inside a panel are said one by one (round 26 e1 inspector)
   if (d?.note && f.sliders && !/slider/i.test(d.note)) {

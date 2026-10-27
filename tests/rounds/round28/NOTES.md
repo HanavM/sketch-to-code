@@ -148,3 +148,31 @@ Round 28 now **91%** (c1 94, c2 89, c3 92, c4 89, c5 96, e1 88, e2 86, e3 92, e4
 ~10 marks, ~1,290 words, 63 s draw, 75 s read, 272 s build, ~99k tokens a page. Vitest same 2 env failures (1460
 tests); typecheck clean.
 Next: e2 patient chart (86) labs units column, e1 schema tree indent, e4 Share pill and budget breakdown; then round 29.
+
+## n260: sparklines in cards, lab columns, outlined nav pill, corner line blocks (~0.29M billed)
+
+Planner fixes (each a rule, not a page patch):
+
+- A small stroke-only line drawing inside a region (a sparkline) is one of its parts, handed over as its own SVG
+  copied verbatim at its place, width and height added when it has only a viewBox (e2: four vital-card sparklines
+  were never said once the cards were said part by part; also r4, r11, r14, r18, r25, r27 stat cards).
+- Rows with a range bar say each column's fixed left and width, each cell's text size, and the first row's place
+  (e2: the units column was built 100px left of its target; text came out larger).
+- An outlined pill among plain links says its box, border, rounding, padding and ink (e4: "Share trip" built as a
+  plain link; also r18, r25, r26).
+- A small absolutely placed block of short <br> lines in a card's corner is said line by line with its size, ink,
+  alignment and corner offsets (e4: the budget breakdown was said as one run and built as a line under the figure;
+  also r12 masthead issue lines).
+
+Re-planned rounds 1-27: sparklines on r4, r11, r14, r18, r25, r27; outlined pills on r18, r25, r26; a corner block on
+r12 (not re-run).
+
+| page | before | re-run | what changed |
+|---|---|---|---|
+| e2 patient chart | 86% | 85%, then **90%** | sparklines and lab columns exact; first run built lab text large (cell sizes rule added); second run clean |
+| e4 trip itinerary | 90% | 89% | Share trip pill and budget lines now exact, no invented weather title; river edge built straight (target curved) |
+
+Round 28 now **92%** (c1 94, c2 89, c3 92, c4 89, c5 96, e1 88, e2 90, e3 92, e4 89, e5 97). Ease (latest builds):
+~10 marks, ~1,330 words, 62 s draw, 73 s read, 259 s build, ~96k tokens a page, no repair turns. Vitest same 2 env
+failures (1460 tests); typecheck clean.
+Next: e1 schema tree indent and mono rows (88), c4 metro poster (89); then round 29.
