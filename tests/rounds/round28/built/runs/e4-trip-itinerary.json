@@ -1,24 +1,24 @@
 {
   "id": "e4-trip-itinerary",
-  "at": "2026-10-27T06:20:25.769Z",
+  "at": "2026-10-27T07:08:23.145Z",
   "likeness": {
     "version": 3,
-    "overall": 0.9003555602534233,
-    "overallV2": 0.9003555602534233,
-    "overallV1": 0.8657817389568584,
-    "colour": 0.9898617416591693,
-    "structure": 0.9451260018560402,
-    "structureStrict": 0.9016433797634138,
-    "colourAligned": 0.9898617416591693,
-    "structureAligned": 0.9451260018560402,
+    "overall": 0.8963505438460424,
+    "overallV2": 0.8963505438460424,
+    "overallV1": 0.8638537942921822,
+    "colour": 0.9877734124388707,
+    "structure": 0.9459554855781545,
+    "structureStrict": 0.9050851441724845,
+    "colourAligned": 0.9877734124388707,
+    "structureAligned": 0.9459554855781545,
     "align": {
       "scale": 1,
       "dx": 0,
       "dy": 0,
-      "r": 0.9812809647430447
+      "r": 0.9834620087149853
     },
-    "layout": 0.9209298303929192,
-    "layoutV1": 0.6727368031820349,
+    "layout": 0.9275535969072078,
+    "layoutV1": 0.6463035969072078,
     "layoutVersion": 2
   },
   "boxes": [
@@ -34,336 +34,350 @@
       0,
       0,
       1280,
-      920
-    ],
-    [
-      1,
-      0,
-      0,
-      1280,
       64
     ],
     [
-      2,
+      1,
       36,
       17,
       67,
       29
     ],
     [
-      2,
-      932,
-      20,
-      312,
-      24
-    ],
-    [
-      4,
-      932,
-      20,
-      35,
-      24
-    ],
-    [
-      4,
-      999,
-      20,
-      45,
-      24
-    ],
-    [
-      4,
-      1077,
-      20,
-      66,
-      24
-    ],
-    [
-      4,
-      1175,
-      20,
-      69,
-      24
-    ],
-    [
       1,
+      959,
+      22,
+      285,
+      20
+    ],
+    [
+      3,
+      959,
+      22,
+      31,
+      20
+    ],
+    [
+      3,
+      1022,
+      22,
+      40,
+      20
+    ],
+    [
+      3,
+      1094,
+      22,
+      58,
+      20
+    ],
+    [
+      3,
+      1183,
+      22,
+      61,
+      20
+    ],
+    [
+      0,
       36,
       88,
       640,
-      78
+      69
     ],
     [
-      9,
+      8,
       36,
       88,
       640,
-      51
+      43
     ],
     [
-      9,
+      8,
       36,
-      145,
+      137,
       640,
-      21
+      20
     ],
     [
-      1,
-      36,
-      180,
-      326,
+      0,
+      40,
+      184,
+      322,
       33
     ],
     [
-      12,
-      36,
-      180,
+      11,
+      40,
+      184,
+      77,
+      33
+    ],
+    [
+      11,
+      125,
+      184,
+      69,
+      33
+    ],
+    [
+      11,
+      202,
+      184,
+      73,
+      33
+    ],
+    [
+      11,
+      284,
+      184,
       78,
       33
     ],
     [
-      12,
-      122,
-      180,
-      71,
-      33
+      0,
+      98,
+      250,
+      2,
+      610
     ],
     [
-      12,
-      201,
-      180,
-      74,
-      33
-    ],
-    [
-      12,
-      283,
-      180,
-      79,
-      33
-    ],
-    [
-      1,
+      0,
       36,
       240,
       46,
-      20
+      94
     ],
     [
-      1,
+      0,
       124,
       240,
       552,
       94
     ],
     [
-      1,
+      0,
       91,
       254,
       16,
       16
     ],
     [
-      1,
+      0,
       141,
       255,
       84,
       64
     ],
     [
-      1,
+      0,
       239,
       255,
       173,
       23
     ],
     [
-      1,
+      0,
       614,
       255,
       45,
       20
     ],
     [
-      1,
+      0,
       239,
       275,
       173,
       18
     ],
     [
-      1,
+      0,
       124,
       344,
       552,
       18
     ],
     [
-      1,
+      0,
       36,
       368,
       46,
-      20
+      94
     ],
     [
-      1,
+      0,
       124,
       368,
       552,
       94
     ],
     [
-      1,
+      0,
       91,
       382,
       16,
       16
     ],
     [
-      1,
+      0,
       141,
       383,
       84,
       64
     ],
     [
-      1,
+      0,
       239,
       383,
       129,
       23
     ],
     [
-      1,
+      0,
       609,
       383,
       50,
       20
     ],
     [
-      1,
+      0,
       239,
       403,
       129,
       18
     ],
     [
-      1,
+      0,
       124,
       472,
       552,
       18
     ],
     [
-      1,
+      0,
       36,
       496,
       46,
-      20
+      94
     ],
     [
-      1,
+      0,
       124,
       496,
       552,
       94
     ],
     [
-      1,
+      0,
       91,
       510,
       16,
       16
     ],
     [
-      1,
+      0,
       141,
       511,
       84,
       64
     ],
     [
-      1,
+      0,
       239,
       511,
       122,
       23
     ],
     [
-      1,
+      0,
       614,
       511,
       46,
       20
     ],
     [
-      1,
+      0,
       239,
       531,
       123,
       18
     ],
     [
-      1,
+      0,
       124,
       600,
       552,
       18
     ],
     [
-      1,
+      0,
       36,
       624,
       46,
-      20
+      94
     ],
     [
-      1,
+      0,
       124,
       624,
       552,
       94
     ],
     [
-      1,
+      0,
       91,
       638,
       16,
       16
     ],
     [
-      1,
+      0,
       141,
       639,
       84,
       64
     ],
     [
-      1,
+      0,
       239,
       639,
       203,
       23
     ],
     [
-      1,
+      0,
       614,
       639,
       45,
       20
     ],
     [
-      1,
+      0,
       239,
       659,
       203,
       18
     ],
     [
-      1,
+      0,
       713,
       91,
       534,
       520
+    ],
+    [
+      48,
+      713,
+      91,
+      528,
+      514
+    ],
+    [
+      49,
+      714,
+      91,
+      527,
+      514
     ],
     [
       48,
@@ -401,7 +415,7 @@
       520
     ],
     [
-      53,
+      55,
       823,
       241,
       270,
@@ -415,11 +429,11 @@
       42
     ],
     [
-      55,
-      812,
-      464,
-      24,
-      24
+      57,
+      820,
+      466,
+      7,
+      20
     ],
     [
       48,
@@ -429,11 +443,11 @@
       42
     ],
     [
-      57,
-      952,
-      344,
-      24,
-      24
+      59,
+      960,
+      346,
+      7,
+      20
     ],
     [
       48,
@@ -443,189 +457,189 @@
       42
     ],
     [
-      59,
-      1082,
-      214,
-      24,
-      24
+      61,
+      1090,
+      216,
+      7,
+      20
     ],
     [
-      1,
+      0,
       714,
-      634,
-      526,
-      24
+      606,
+      135,
+      20
     ],
     [
-      1,
+      0,
       710,
       630,
       126,
       104
     ],
     [
-      1,
+      0,
       763,
       645,
       21,
       18
     ],
     [
-      1,
+      0,
       758,
       667,
       30,
       30
     ],
     [
-      1,
+      0,
       762,
       705,
       23,
       23
     ],
     [
-      1,
+      0,
       846,
       630,
       126,
       104
     ],
     [
-      1,
+      0,
       902,
       645,
       14,
       18
     ],
     [
-      1,
+      0,
       889,
       667,
       40,
       22
     ],
     [
-      1,
+      0,
       898,
       697,
       23,
       23
     ],
     [
-      1,
+      0,
       982,
       630,
       126,
       104
     ],
     [
-      1,
+      0,
       1036,
       645,
       18,
       18
     ],
     [
-      1,
+      0,
       1030,
       667,
       30,
       30
     ],
     [
-      1,
+      0,
       1034,
       705,
       23,
       23
     ],
     [
-      1,
+      0,
       1118,
       630,
       126,
       104
     ],
     [
-      1,
+      0,
       1171,
       645,
       21,
       18
     ],
     [
-      1,
+      0,
       1161,
       667,
       40,
       22
     ],
     [
-      1,
+      0,
       1170,
       697,
       23,
       23
     ],
     [
-      1,
+      0,
       714,
-      717,
+      742,
       326,
       18
     ],
     [
-      1,
+      0,
       713,
       759,
       527,
       113
     ],
     [
-      79,
-      737,
-      779,
-      479,
+      0,
+      730,
+      766,
+      65,
       20
     ],
     [
-      79,
-      737,
-      803,
-      479,
+      0,
+      730,
+      784,
+      213,
       42
     ],
     [
-      79,
-      737,
-      849,
-      479,
+      0,
+      730,
+      820,
+      196,
       20
     ],
     [
-      79,
+      0,
       730,
       838,
       494,
       10
     ],
     [
-      83,
+      85,
       730,
       838,
       207,
       10
     ],
     [
-      83,
+      85,
       937,
       838,
       109,
       10
     ],
     [
-      83,
+      85,
       1046,
       838,
       64,
@@ -635,24 +649,24 @@
   "groupMatched": [
     {
       "role": "weather-strip",
-      "iou": 0.9904761904761905,
-      "parts": 18,
+      "iou": 1,
+      "parts": 16,
       "rect": {
         "x": 710,
         "y": 630,
         "w": 534,
-        "h": 105
+        "h": 104
       }
     },
     {
       "role": "day-timeline",
-      "iou": 0.746875,
-      "parts": 31,
+      "iou": 0.96875,
+      "parts": 32,
       "rect": {
         "x": 36,
         "y": 240,
         "w": 640,
-        "h": 478
+        "h": 620
       }
     }
   ],
@@ -668,43 +682,56 @@
     "missing": [
       "italic"
     ],
-    "extra": []
+    "extra": [
+      "stripes-or-layers"
+    ]
   },
   "tokens": {
-    "input": 43528,
-    "output": 29339,
-    "cacheRead": 182596
+    "input": 73485,
+    "output": 48278,
+    "cacheRead": 444375
   },
   "sends": [
     {
       "attempt": "1",
       "kind": "build",
-      "billed": 55931,
-      "output": 20033,
-      "cacheRead": 179512,
-      "toolCalls": 7,
+      "billed": 95355,
+      "output": 37486,
+      "cacheRead": 430466,
+      "toolCalls": 18,
       "tools": [
         "Glob",
         "Glob",
         "Read src/App.tsx",
+        "Read components/StreetMap.tsx",
+        "Glob",
         "Read src/index.css",
+        "Glob",
+        "Glob",
         "Read src/main.tsx",
-        "Read s2c-bench-app/package.json",
-        "Write src/App.tsx"
+        "Glob",
+        "Write components/Navbar.tsx",
+        "Write components/ItineraryTimeline.tsx",
+        "Write components/MapPanel.tsx",
+        "Write components/WeatherWidget.tsx",
+        "Write components/BudgetSummary.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
       ],
-      "ms": 204060
+      "ms": 400329
     }
   ],
   "ease": {
     "marks": 11,
     "captured": 11,
     "notes": 8,
-    "words": 1099,
-    "drawMs": 66565,
-    "readingMs": 100225,
-    "runMs": 305539
+    "words": 1140,
+    "drawMs": 63770,
+    "readingMs": 103390,
+    "runMs": 505326
   },
-  "reading": "The sketch lays out a Lisbon trip-planner dashboard: a top nav bar, a page title with subtitle, a day-stepper, a long itinerary timeline on the left, and on the right a map panel, a weather forecast widget, and a dark trip-budget summary bar — all fully specified by the typed notes.",
+  "reading": "The sketch is a full trip-planning page: a top navbar, a page heading with sub-copy, a date stepper, a large left-hand itinerary/timeline panel with a dashed rail, a right-hand drawn street map, a weather forecast widget with four day-cards, and a dark budget summary box with a stacked progress bar — all specified in detail by the typed notes.",
   "actions": [
     {
       "kind": "add",
@@ -719,7 +746,7 @@
       "paths": [
         "s0"
       ],
-      "instruction": "Add the page's top navigation bar as one 1280x64px wrapper element at 0,0 with #ffffff fill and a 1px #ebe7de border-bottom only, its parts vertically centered "
+      "instruction": "Build the top navigation as one 1280x64px wrapper element at 0,0 holding all its parts (never laid loose on the page), #ffffff fill, with a 1px #ebe7de rule alo"
     },
     {
       "kind": "add",
@@ -744,7 +771,7 @@
         60
       ],
       "paths": [],
-      "instruction": "Add a page-title block, 640px wide with top-left at 36,88: a 34px Georgia serif bold #22201c heading \"Four days in Lisbon\", and 6px below it 14px #6f6a60 text \""
+      "instruction": "Add a heading block, 640px wide, top-left at 36,88: a 34px bold Georgia serif (NOT the page's sans font) heading in #22201c reading 'Four days in Lisbon'; 6px b"
     },
     {
       "kind": "add",
@@ -759,7 +786,7 @@
       "paths": [
         "s3"
       ],
-      "instruction": "Add a date-stepper row of 4 pill buttons (33px tall, border-radius 999px): \"Thu 12\" (#f1ede4 fill, bold #22201c text), \"Fri 13\" (#22201c fill, bold #ffffff text"
+      "instruction": "Add a date stepper: a row of 4 pill buttons, each 33px tall, fully rounded (border-radius 999px), bold text: 'Thu 12' (#f1ede4 fill, #22201c text), 'Fri 13' (#2"
     },
     {
       "kind": "add",
@@ -774,10 +801,10 @@
       "paths": [
         "s4"
       ],
-      "instruction": "Add the day's itinerary as a vertical timeline, built from 31 real, nothing-invented parts (all one-line text parts use white-space:nowrap with min-width so a w"
+      "instruction": "Add the day itinerary panel as a large block (roughly 634x634 at 39,243) containing: behind its parts, an absolutely-positioned 2x610px DASHED vertical rail at "
     },
     {
-      "kind": "add",
+      "kind": "design",
       "textMarks": [],
       "textSize": [],
       "region": [
@@ -789,7 +816,7 @@
       "paths": [
         "s5"
       ],
-      "instruction": "Add a 534x520px drawn street-map panel (#e6eedf ground, overflow hidden, not a photo/iframe). Inside: a rotated #bfd9e8 vertical land area, two thin (10px) whit"
+      "instruction": "Add a drawn street-map panel, 534x520px, #e6eedf ground, overflow hidden (a real illustrated map, not a photo or iframe). Inside: a #bfd9e8 vertical water/park "
     },
     {
       "kind": "add",
@@ -815,7 +842,7 @@
         9
       ],
       "paths": [],
-      "instruction": "Add a short one-line heading above the weather forecast widget, e.g. \"This week's weather\", matching the page's near-black Helvetica text."
+      "instruction": "Add a short section heading above the weather cards (text placeholder), e.g. \"This week's weather\", styled as a small bold label consistent with the page's othe"
     },
     {
       "kind": "add",
@@ -842,7 +869,7 @@
         35
       ],
       "paths": [],
-      "instruction": "Add a 4-day weather widget of 16 real parts (one-line parts nowrap/min-width): four 126x104 #ffffff cards (1px #ebe7de border, 14px rounded) for Thu/Fri/Sat/Sun"
+      "instruction": "Add a weekly weather widget: a row of 4 white rounded cards (126x104 each, 1px #ebe7de border) for Thu, Fri, Sat, Sun. Each card has a small 12px day label, a 3"
     },
     {
       "kind": "add",
@@ -868,7 +895,7 @@
         8
       ],
       "paths": [],
-      "instruction": "Add a short caption line below the weather cards, e.g. \"Pack a light layer for cooler evenings\", in the page's muted #6f6a60 body text style."
+      "instruction": "Add a short caption/text placeholder below the weather cards, e.g. 'Updated hourly from local forecast', small 12px muted text."
     },
     {
       "kind": "add",
@@ -883,7 +910,7 @@
       "paths": [
         "s10"
       ],
-      "instruction": "Add a near-black (#22201c) trip-budget summary bar with white (#fbfaf7) text: a label \"Trip budget\", a big 28px bold line \"€1,240 of €1,600\", and a breakdown li"
+      "instruction": "Add a near-black (#22201c) trip-budget summary box with white (#fbfaf7) text: a label 'Trip budget', a big 28px bold line '€1,240 of €1,600', and a breakdown li"
     }
   ],
   "rejected": []

@@ -525,7 +525,7 @@
    ],
    [
     "filters",
-    "buttons: \"Last 7 days\", \"30 days\", \"All plans\", \"Export\"; \"Last 7 days\" selected (dark navy fill); each word in its own colour: \"Last 7 days\" #ffffff, \"30 days\" #111827, \"All plans\" #111827, \"Export\" #111827"
+    "4 buttons in one row packed at the left, 10px apart, left to right: \"Last 7 days\" 97x33px, SOLID #111827 fill (dark navy, NOT white or cream), 1px #111827 border, 8px rounded, 13px #ffffff text; \"30 days\" 76x33px, NO fill (see-through, the page shows inside), 1px #d1d5db border, 8px rounded, 13px #111827 text; \"All plans\" 79x33px, NO fill (see-through, the page shows inside), 1px #d1d5db border, 8px rounded, 13px #111827 text; \"Export\" 68x33px, NO fill (see-through, the page shows inside), 1px #d1d5db border, 8px rounded, 13px #111827 text; \"Last 7 days\" selected (dark navy fill); each word in its own colour: \"Last 7 days\" #ffffff, \"30 days\" #111827, \"All plans\" #111827, \"Export\" #111827"
    ],
    [
     "heatmap",

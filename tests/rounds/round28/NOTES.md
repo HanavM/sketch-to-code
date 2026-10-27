@@ -92,3 +92,30 @@ Round 28 now **90%** (c1 88, c2 86, c3 92, c4 89, c5 94, e1 86, e2 86, e3 92, e4
 ~10 marks, ~1,260 words, 64 s draw, 68 s read, 261 s build, ~93k tokens a page. Vitest same 2 env failures (1460
 tests); typecheck clean.
 Next: c5 spec list capitals and gold button, c2/e2 (86), c1 music notes, e4 dashed timeline rail; then round 29.
+
+## n258: spec lists, mixed button rows, dashed rails, music notes (~0.33M billed)
+
+Planner fixes (each a rule, not a page patch):
+
+- A list of label/value rows split by hairline rules in spaced capitals is a SPEC LIST: rules only, no box, label
+  ink, value ink, caps and spacing said (c5: said as a "border list", built as a boxed mixed-case table).
+- A row of 2-4 buttons where some are filled and some only outlined says each button's box, fill, border, text and
+  spacing (c5: "RESERVE ONE" gold built cream).
+- A thin rail painted by ::before/::after down or across a region is said as its own dashed (or solid) line
+  (e4: the dashed timeline rail was lost; also r19 e4 status timeline).
+- A filled ellipse with a thin ::after stem is a MUSIC NOTE: un-turned ellipse size, turn and the stem said
+  (c1: said "round disc 67px" from turned bounds, built as one black square).
+- A round painted disc says nothing is behind it (c5 re-run built a grey square backdrop behind the case; not re-run).
+
+Re-planned rounds 1-27: mixed button rows change r1 c4, r2 c3, r5 e2, r16 c5, r20 c5, r26 c5; rail r19 e4 (not re-run).
+
+| page | before | re-run | what changed |
+|---|---|---|---|
+| c1 jazz cutout | 88% | **94%** | both music notes exact (ellipse heads, stems); one invented copy line over JAZZ |
+| c5 watch dial | 94% | 90% | spec list and gold button now exact; a grey square was built behind the case (rule added after) |
+| e4 trip itinerary | 90% | 90% | dashed rail now drawn; Share trip outline pill, budget breakdown and weather caption still off |
+
+Round 28 now **90%** (c1 94, c2 86, c3 92, c4 89, c5 90, e1 86, e2 86, e3 92, e4 90, e5 97). Ease (latest builds):
+~10 marks, ~1,290 words, 63 s draw, 73 s read, 278 s build, ~99k tokens a page. Vitest same 2 env failures (1460
+tests); typecheck clean.
+Next: c2 sliced type and e2 patient chart (86), e1 (86), c5 re-run on the backdrop rule; then round 29.

@@ -393,7 +393,7 @@
    ],
    [
     "store-buttons",
-    "buttons: \"App Store\", \"Google Play\"; each word in its own colour: \"App Store\" #0a0f1e, \"Google Play\" #ffffff"
+    "2 buttons in one row packed at the left, 14px apart, left to right: \"App Store\" 120x48px, SOLID #ffffff fill (white, NOT white or cream), no border, 12px rounded, 16px bold #0a0f1e text; \"Google Play\" 138x48px, NO fill (see-through, the page shows inside), 1px #ffffff border, 12px rounded, 16px bold #ffffff text; each word in its own colour: \"App Store\" #0a0f1e, \"Google Play\" #ffffff"
    ],
    [
     "floor-shadow",

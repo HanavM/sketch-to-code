@@ -79,7 +79,7 @@
    ],
    [
     "note-1",
-    "circle"
+    "box"
    ],
    [
     "note-2",
@@ -153,11 +153,11 @@
    ],
    [
     "note-1",
-    "tilted 24° anticlockwise perfectly round solid disc (border-radius 50%, not traced from the ink), 67px across, flat fully opaque near-black (#141210) fill, hard edge, no blur"
+    "a MUSIC NOTE (NOT a disc, NOT a square): one 56x40px div, border-radius 50% (an ELLIPSE 56 wide, 40 tall), #141210 fill, its centre at page 1008,170 (position absolute), transform: rotate(-24deg); its STEM is its own ::after (content \"\", position absolute, left: 48px, top: -90px), 6x110px, #141210 fill: a thin upright line rising from the head, turning with it"
    ],
    [
     "note-2",
-    "tilted 10° anticlockwise near-black"
+    "a MUSIC NOTE (NOT a disc, NOT a square): one 56x40px div, border-radius 50% (an ELLIPSE 56 wide, 40 tall), #141210 fill, its centre at page 1088,260 (position absolute), transform: rotate(-10deg); its STEM is its own ::after (content \"\", position absolute, left: 48px, top: -90px), 6x110px, #141210 fill: a thin upright line rising from the head, turning with it"
    ],
    [
     "headline",
@@ -497,7 +497,7 @@
    ],
    [
     "steel-case",
-    "a 600px round DISC (border-radius 50%, filled right to its middle: NOT a donut chart, NOT a ring, no segments, no labels) at 640,110, painted exactly background: conic-gradient(from 40deg, #c9ccd2, #6e737c, #e6e8ec, #7c818a, #c9ccd2), box-shadow #000000ab 0px 40px 80px 0px, #ffffff45 0px 0px 0px 2px inset; INSIDE it (position relative), absolutely placed in disc px from its top-left, these 3 painted parts in this order, later ones on top: 520x520px at 40,40 background repeating-conic-gradient(#14324f 0deg, #14324f 2deg, #173a5c 2deg, #173a5c 4deg), border-radius 50%; 130x130px at 235,120 background repeating-radial-gradient(#0f2740 0px, #0f2740 3px, #14324f 3px, #14324f 6px), border-radius 50%, a 2px #c9ccd2 border; 130x130px at 235,350 background repeating-radial-gradient(#0f2740 0px, #0f2740 3px, #14324f 3px, #14324f 6px), border-radius 50%, a 2px #c9ccd2 border"
+    "a 600px round DISC (border-radius 50%, filled right to its middle: NOT a donut chart, NOT a ring, no segments, no labels) at 640,110, painted exactly background: conic-gradient(from 40deg, #c9ccd2, #6e737c, #e6e8ec, #7c818a, #c9ccd2), box-shadow #000000ab 0px 40px 80px 0px, #ffffff45 0px 0px 0px 2px inset (on the round disc itself, so the shadow is round); the disc is the ONLY thing there: NO square box, card, wrapper fill or backdrop behind or around it (the page shows at its corners); INSIDE it (position relative), absolutely placed in disc px from its top-left, these 3 painted parts in this order, later ones on top: 520x520px at 40,40 background repeating-conic-gradient(#14324f 0deg, #14324f 2deg, #173a5c 2deg, #173a5c 4deg), border-radius 50%; 130x130px at 235,120 background repeating-radial-gradient(#0f2740 0px, #0f2740 3px, #14324f 3px, #14324f 6px), border-radius 50%, a 2px #c9ccd2 border; 130x130px at 235,350 background repeating-radial-gradient(#0f2740 0px, #0f2740 3px, #14324f 3px, #14324f 6px), border-radius 50%, a 2px #c9ccd2 border"
    ],
    [
     "dial-marks",
@@ -513,11 +513,11 @@
    ],
    [
     "spec-list",
-    "warm paper border list: \"Case\" Steel, 39 mm, \"Movement\" Manual, H-28, \"Reserve\" 72 hours, \"Edition\" Of 280; list rows exactly 42px apart (42px tall, 13px type: tight, not roomier), first line 1px below the panel's top"
+    "a SPEC LIST 460px wide, its top-left at 66,520: 4 label/value rows each 42px tall, stacked, NO box around it (no outer border, no fill, no rounded corners: NOT a table card); a 1px #e9e3d6 at 20% (background/border rgba(233, 227, 214, 0.2)) rule above the first row and a 1px #e9e3d6 at 20% (background/border rgba(233, 227, 214, 0.2)) hairline rule under EVERY row; each row: the label at the left in #a9a294, the value pushed to the row's right end in #e9e3d6; 13px medium sans type, ALL CAPITALS (text-transform: uppercase, labels AND values), letter-spacing 2px (spaced out); rows top to bottom: \"Case\" / \"Steel, 39 mm\"; \"Movement\" / \"Manual, H-28\"; \"Reserve\" / \"72 hours\"; \"Edition\" / \"Of 280\""
    ],
    [
     "cta",
-    "buttons: \"RESERVE ONE\", \"VISIT THE ATELIER\"; each word in its own colour: \"RESERVE ONE\" #0b1018, \"VISIT THE ATELIER\" #d8b56a"
+    "2 buttons in one row packed at the left, 16px apart, left to right: \"RESERVE ONE\" 185x47px, SOLID #d8b56a fill (peach, NOT white or cream), 1px #d8b56a border, square corners, 13px bold #0b1018 text, letter-spacing 3px in capitals; \"VISIT THE ATELIER\" 229x47px, NO fill (see-through, the page shows inside), 1px #d8b56a border, square corners, 13px bold #d8b56a text, letter-spacing 3px in capitals; each word in its own colour: \"RESERVE ONE\" #0b1018, \"VISIT THE ATELIER\" #d8b56a"
    ],
    [
     "caption",
@@ -817,7 +817,7 @@
    ],
    [
     "day-timeline",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 31 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 46x94 at 36,240 13px bold #22201c \"08:30\"; 552x94 at 124,240 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,254 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,255 linear-gradient(135deg, #f4b740, #d0552f), 10px rounded; 173x17 at 239,255 15px bold #22201c \"Breakfast at Manteigaria\"; 45x20 at 614,255 #fdeee6 fill, 6px rounded, padding-left 9px (its text starts at x 623): 11px bold #d0552f \"Food\"; 173x13 at 239,275 12px #6f6a60 \"Pastéis de nata · Chiado\"; 552x14 at 124,344 12px #6f6a60 \"🚶 12 min walk · 900 m\"; 46x94 at 36,368 13px bold #22201c \"10:00\"; 552x94 at 124,368 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,382 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,383 linear-gradient(135deg, #bfd9e8, #4f7ea8), 10px rounded; 129x17 at 239,383 15px bold #22201c \"Tram 28 to Alfama\"; 50x20 at 609,383 #e5f0f8 fill, 6px rounded, padding-left 9px (its text starts at x 618): 11px bold #2d6690 \"Ticket\"; 129x13 at 239,403 12px #6f6a60 \"Booked · seats 4A, 4B\"; 552x14 at 124,472 12px #6f6a60 \"🚶 5 min walk\"; 46x94 at 36,496 13px bold #22201c \"11:30\"; 552x94 at 124,496 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,510 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,511 linear-gradient(135deg, #e8d5b0, #a8794e), 10px rounded; 122x17 at 239,511 15px bold #22201c \"São Jorge Castle\"; 46x20 at 614,511 #f1ede4 fill, 6px rounded, padding-left 9px (its text starts at x 623): 11px bold #6f6a60 \"Sight\"; 122x13 at 239,531 12px #6f6a60 \"Timed entry 11:30 · 2 h\"; 552x14 at 124,600 12px #6f6a60 \"🚕 18 min ride · €9\"; 46x94 at 36,624 13px bold #22201c \"19:30\"; 552x94 at 124,624 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,638 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,639 linear-gradient(135deg, #3a2f4a, #d0552f), 10px rounded; 203x17 at 239,639 15px bold #22201c \"Fado dinner, Tasca do Chico\"; 45x20 at 614,639 #fdeee6 fill, 6px rounded, padding-left 9px (its text starts at x 623): 11px bold #d0552f \"Food\"; 203x13 at 239,659 12px #6f6a60 \"Table for 2 · confirmed\""
+    "behind its parts a 2x610px DASHED vertical rail line at page 98,250 (its own absolute element under the dots and cards, background: repeating-linear-gradient(#cfc8b8 0px, #cfc8b8 6px, transparent 6px, transparent 12px): short dashes with gaps, NOT a solid line; never left out); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 31 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 46x94 at 36,240 13px bold #22201c \"08:30\"; 552x94 at 124,240 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,254 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,255 linear-gradient(135deg, #f4b740, #d0552f), 10px rounded; 173x17 at 239,255 15px bold #22201c \"Breakfast at Manteigaria\"; 45x20 at 614,255 #fdeee6 fill, 6px rounded, padding-left 9px (its text starts at x 623): 11px bold #d0552f \"Food\"; 173x13 at 239,275 12px #6f6a60 \"Pastéis de nata · Chiado\"; 552x14 at 124,344 12px #6f6a60 \"🚶 12 min walk · 900 m\"; 46x94 at 36,368 13px bold #22201c \"10:00\"; 552x94 at 124,368 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,382 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,383 linear-gradient(135deg, #bfd9e8, #4f7ea8), 10px rounded; 129x17 at 239,383 15px bold #22201c \"Tram 28 to Alfama\"; 50x20 at 609,383 #e5f0f8 fill, 6px rounded, padding-left 9px (its text starts at x 618): 11px bold #2d6690 \"Ticket\"; 129x13 at 239,403 12px #6f6a60 \"Booked · seats 4A, 4B\"; 552x14 at 124,472 12px #6f6a60 \"🚶 5 min walk\"; 46x94 at 36,496 13px bold #22201c \"11:30\"; 552x94 at 124,496 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,510 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,511 linear-gradient(135deg, #e8d5b0, #a8794e), 10px rounded; 122x17 at 239,511 15px bold #22201c \"São Jorge Castle\"; 46x20 at 614,511 #f1ede4 fill, 6px rounded, padding-left 9px (its text starts at x 623): 11px bold #6f6a60 \"Sight\"; 122x13 at 239,531 12px #6f6a60 \"Timed entry 11:30 · 2 h\"; 552x14 at 124,600 12px #6f6a60 \"🚕 18 min ride · €9\"; 46x94 at 36,624 13px bold #22201c \"19:30\"; 552x94 at 124,624 #ffffff fill, 1px #ebe7de border, 14px rounded; 16x16 at 91,638 #ffffff fill, 3px #d0552f border, a circle; 84x64 at 141,639 linear-gradient(135deg, #3a2f4a, #d0552f), 10px rounded; 203x17 at 239,639 15px bold #22201c \"Fado dinner, Tasca do Chico\"; 45x20 at 614,639 #fdeee6 fill, 6px rounded, padding-left 9px (its text starts at x 623): 11px bold #d0552f \"Food\"; 203x13 at 239,659 12px #6f6a60 \"Table for 2 · confirmed\""
    ],
    [
     "route-map",

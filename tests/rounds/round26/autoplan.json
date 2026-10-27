@@ -689,7 +689,7 @@
    ],
    [
     "buttons",
-    "buttons: \"Pre-order €449\", \"Listen\"; each word in its own colour: \"Pre-order €449\" #1b1c1f, \"Listen\" #e9e6dc"
+    "2 buttons in one row packed at the left, 16px apart, left to right: \"Pre-order €449\" 172x58px, SOLID #ff6a2a fill (orange, NOT white or cream), no border, 999px rounded, 16px bold #1b1c1f text; \"Listen\" 111x58px, NO fill (see-through, the page shows inside), 2px #e9e6dc border, 999px rounded, 16px bold #e9e6dc text; each word in its own colour: \"Pre-order €449\" #1b1c1f, \"Listen\" #e9e6dc"
    ],
    [
     "spec-row",

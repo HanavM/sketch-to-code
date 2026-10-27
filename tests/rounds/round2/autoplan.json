@@ -209,7 +209,7 @@
    ],
    [
     "ctas",
-    "buttons: \"Get started\", \"Watch demo\"; each word in its own colour: \"Get started\" #1e1b4b, \"Watch demo\" #ffffff"
+    "2 buttons in one row packed at the left, 16px apart, left to right: \"Get started\" 135x52px, SOLID #ffffff fill (white, NOT white or cream), no border, 14px rounded, 16px #1e1b4b text; \"Watch demo\" 147x52px, NO fill (see-through, the page shows inside), 1px #ffffff border, 14px rounded, 16px #ffffff text; each word in its own colour: \"Get started\" #1e1b4b, \"Watch demo\" #ffffff"
    ]
   ]
  },

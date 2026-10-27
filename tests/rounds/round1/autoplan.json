@@ -239,7 +239,7 @@
    ],
    [
     "ctas",
-    "buttons: \"Start building\", \"Talk to us\"; each word in its own colour: \"Start building\" #ffffff, \"Talk to us\" #22d3ee"
+    "2 buttons in one row packed at the left, 20px apart, left to right: \"Start building\" 167x52px, SOLID #a855f7 fill (purple, NOT white or cream), no border, 12px rounded, 16px bold #ffffff text; \"Talk to us\" 140x52px, NO fill (see-through, the page shows inside), 1px #22d3ee border, 12px rounded, 16px bold #22d3ee text; each word in its own colour: \"Start building\" #ffffff, \"Talk to us\" #22d3ee"
    ]
   ]
  },
