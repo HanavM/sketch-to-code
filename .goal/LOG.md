@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-27T19:35Z | n272 r30 c3 film strip, sheared masked blinds, red-ruled caps credits | Noir poster 74 to 89. Round 30 86. ~105k.
 2026-10-27T18:12Z | n271 r30 c2 letter tiles said one by one (shape, turn, offset), dot fade, ring diamond, serif blurb | Mosaic type 65 to 94. Round 30 85. ~48k.
 2026-10-27T17:52Z | n270 r30 e3 launch bar took the grid rectangle as its drawn form | Shared big rectangle now kept only by its owner. e3 28 to 90. Round 30 82. ~131k.
 2026-10-27T17:25Z | n269 blank round 30 builds traced and fixed, c3 e2 e4 re-run | Writer edited index.html, reloading mid-build; now forbidden. c3 74, e2 89, e4 84. Round 30 76. ~275k.
