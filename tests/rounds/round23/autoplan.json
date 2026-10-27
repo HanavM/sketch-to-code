@@ -149,7 +149,7 @@
    ],
    [
     "caption",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 300x12 at 900,520 11px bold #141414 \"COLLAGE SERIES\" with letter-spacing 4px (its letters spaced out, NOT set tight); 300x67 at 900,545 16px #141414 \"Nine posters assembled from torn transit maps, safety stripes and the gold of an old sign.\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 300x12 at 900,520 11px bold #141414 \"COLLAGE SERIES\" with letter-spacing 4px (its letters spaced out, NOT set tight); 300x67 at 900,545 16px serif (NOT the page sans) #141414 \"Nine posters assembled from torn transit maps, safety stripes and the gold of an old sign.\""
    ],
    [
     "cta",
@@ -321,7 +321,7 @@
    ],
    [
     "headline",
-    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.98) \"Slow news for fast orbits\", set in exactly 2 lines: \"Slow news for\" / \"fast orbits\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide); the word \"fast\" is italic serif (font-family Georgia, serif) regular-weight orange #e2603a (its own colour; the other words stay #1d1b16)"
+    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.98) \"Slow news for fast orbits\", set in exactly 2 lines: \"Slow news for\" / \"fast orbits\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide); the word \"fast\" is italic serif (font-family Georgia, serif) regular-weight orange #e2603a (its own colour; the other words stay #1d1b16); its \"Slow news for\" is BIG 96px font-weight undefined Georgia, serif type (NOT the Helvetica of the rest, NOT small), #1d1b16, filling about 516x107px from 80,193, on one line; its \"orbits\" is BIG 96px font-weight undefined Georgia, serif type (NOT the Helvetica of the rest, NOT small), #1d1b16, filling about 222x107px from 207,287, on one line"
    ],
    [
     "lede",

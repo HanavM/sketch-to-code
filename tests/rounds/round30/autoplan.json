@@ -135,7 +135,7 @@
    ],
    [
     "dot-fade",
-    "a big 520x900px DOT-GRID canvas at 760,0: no fill of its own with tiny #1d1a2f dots (4px across) in an even grid, one every 22px across and 22px down, exactly: background-color: transparent; background-image: radial-gradient(#1d1a2f 2px, transparent 2px); background-size: 22px 22px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)"
+    "a big 520x900px DOT-GRID canvas at 760,0: no fill of its own with tiny #1d1a2f dots (4px across) in an even grid, one every 22px across and 22px down, exactly: background-color: transparent; background-image: radial-gradient(#1d1a2f 2px, transparent 2px); background-size: 22px 22px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it); the dots FADE OUT toward one side through a mask on this canvas, written exactly: -webkit-mask-image: linear-gradient(90deg, transparent, #000000); mask-image: linear-gradient(90deg, transparent, #000000) (n271)"
    ],
    [
     "nav",
@@ -143,15 +143,15 @@
    ],
    [
     "letter-tiles",
-    "a 4x2 grid of 8 square glyph TILES (display: grid; 4 columns; gap 12px), 760x372px with its top-left at 70,150; every tile is its own 198x198px box, 18px rounded, holding ONE centred 150px Helvetica letter (NOT one word on a line, NOT letters without boxes); left to right, top to bottom: 1. \"P\" weight 900, tile FILLED solid #ff5a36, letter #fbf6ee, no glow; 2. \"L\" weight 900, tile FILLED solid #1d1a2f, letter #ffd23f, no glow; 3. \"A\" weight 900, tile FILLED solid #ffd23f, letter #1d1a2f, no glow; 4. \"Y\" weight 900, tile FILLED solid #3a86ff, letter #fbf6ee, no glow; 5. \"F\" weight 900, tile FILLED solid #fbf6ee, letter #ff5a36, no glow; 6. \"U\" weight 900, tile FILLED solid #8338ec, letter #fbf6ee, no glow; 7. \"L\" weight 900, tile FILLED solid #1d1a2f, letter #fbf6ee, no glow; 8. \"!\" weight 900, tile FILLED solid #ff5a36, letter #1d1a2f, no glow"
+    "a 4x2 grid of 8 glyph TILES, each its own shape and turn (NOT all the same rounded square, NOT a straight even row) (display: grid; 4 columns; gap 12px), 760x372px with its top-left at 70,150; every tile is its own 180x180px box, 18px rounded, holding ONE centred 150px Helvetica letter (NOT one word on a line, NOT letters without boxes); left to right, top to bottom: 1. \"P\" weight 900, tile FILLED solid #ff5a36, letter #fbf6ee, no glow, tile rotate(-6deg) (transform, it keeps its grid cell; tilted left); 2. \"L\" weight 900, tile FILLED solid #1d1a2f, letter #ffd23f, no glow, tile a full CIRCLE (border-radius 50%), tile straight, not turned; 3. \"A\" weight 900, tile FILLED solid #ffd23f, letter #1d1a2f, no glow, tile translate(-3px, 20px) rotate(8deg) (transform, it keeps its grid cell; tilted right, pushed down); 4. \"Y\" weight 900, tile FILLED solid #3a86ff, letter #fbf6ee, no glow, tile cut by clip-path: polygon(0px 0px, 100% 0px, 100% 70%, 70% 100%, 0px 100%), tile straight, not turned; 5. \"F\" weight 900, tile FILLED solid #fbf6ee, letter #ff5a36, no glow, tile 6px solid #1d1a2f border, tile straight, not turned; 6. \"U\" weight 900, tile FILLED solid #8338ec, letter #fbf6ee, no glow, tile rotate(-10deg) (transform, it keeps its grid cell; tilted left); 7. \"L\" weight 900, tile FILLED solid #1d1a2f, letter #fbf6ee, no glow, tile corners border-radius 90px 18px 90px 18px (uneven: a leaf shape), tile straight, not turned; 8. \"!\" weight 900, tile FILLED solid #ff5a36, letter #1d1a2f, no glow, tile translate(0px, -16px) (transform, it keeps its grid cell; lifted up)"
    ],
    [
     "blurb",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 330x15 at 880,180 13px bold #ff5a36 \"VARIABLE MOSAIC\" with letter-spacing 4px (its letters spaced out, NOT set tight); 330x80 at 880,215 19px #1d1a2f \"A display family built from tiles. Every letter is a shape, every shape is a letter. Mix them, turn them, break the grid.\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 330x15 at 880,180 13px bold #ff5a36 \"VARIABLE MOSAIC\" with letter-spacing 4px (its letters spaced out, NOT set tight); 330x80 at 880,215 19px serif (NOT the page sans) #1d1a2f \"A display family built from tiles. Every letter is a shape, every shape is a letter. Mix them, turn them, break the grid.\""
    ],
    [
     "circle-diamond",
-    "outline ring 300px across at 880,440, a 3px solid #1d1a2f border, no fill (see-through middle)"
+    "outline ring 300px across at 880,440, a 3px solid #1d1a2f border, no fill (see-through middle); INSIDE it a solid #ffd23f DIAMOND (a square turned 45deg) 174x174px (before any turn) placed 60px from the ring's left and 60px from its top (an ::after, position absolute, transform: rotate(45deg))"
    ],
    [
     "try-button",

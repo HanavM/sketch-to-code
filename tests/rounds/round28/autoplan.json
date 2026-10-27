@@ -173,7 +173,7 @@
    ],
    [
     "lineup",
-    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 96x22 at 56,727 14px font-weight 900 #141210 \"NOV 06\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 121x19 at 152,728 17px #141210 \"Mara Okafor Trio\"; 96x22 at 56,754 14px font-weight 900 #141210 \"NOV 13\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 141x19 at 152,755 17px #141210 \"The Low Brass Club\"; 96x22 at 56,781 14px font-weight 900 #141210 \"NOV 20\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 158x19 at 152,782 17px #141210 \"Ines Duarte, solo piano\""
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 96x22 at 56,727 14px font-weight 900 #141210 \"NOV 06\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 121x19 at 152,728 17px serif (NOT the page sans) #141210 \"Mara Okafor Trio\"; 96x22 at 56,754 14px font-weight 900 #141210 \"NOV 13\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 141x19 at 152,755 17px serif (NOT the page sans) #141210 \"The Low Brass Club\"; 96x22 at 56,781 14px font-weight 900 #141210 \"NOV 20\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 2px (its letters spaced out, NOT set tight); 158x19 at 152,782 17px serif (NOT the page sans) #141210 \"Ines Duarte, solo piano\""
    ],
    [
     "round-stamp",
@@ -357,7 +357,7 @@
    ],
    [
     "headline",
-    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.98) \"A small forest under glass\", set in exactly 2 lines: \"A small forest\" / \"under glass\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide); the word \"forest\" is italic serif (font-family Georgia, serif) regular-weight green #3f7a4c (its own colour; the other words stay #1f2b22)"
+    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.98) \"A small forest under glass\", set in exactly 2 lines: \"A small forest\" / \"under glass\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 507px wide); the word \"forest\" is italic serif (font-family Georgia, serif) regular-weight green #3f7a4c (its own colour; the other words stay #1f2b22); its \"A small\" is BIG 96px font-weight undefined Georgia, serif type (NOT the Helvetica of the rest, NOT small), #1f2b22, filling about 304x107px from 64,163, on one line; its \"under glass\" is BIG 96px font-weight undefined Georgia, serif type (NOT the Helvetica of the rest, NOT small), #1f2b22, filling about 413x107px from 64,257, on one line"
    ],
    [
     "copy",
@@ -505,7 +505,7 @@
    ],
    [
     "headline",
-    "giant Didot serif regular weight (not bold) lines set tight (line-height 1) \"Time, engraved by hand\", set in exactly 2 lines: \"Time, engraved\" / \"by hand\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 490px wide); the word \"engraved\" is italic serif (font-family Didot, Bodoni 72, Georgia, serif) regular-weight peach #d8b56a (its own colour; the other words stay #e9e3d6)"
+    "giant Didot serif regular weight (not bold) lines set tight (line-height 1) \"Time, engraved by hand\", set in exactly 2 lines: \"Time, engraved\" / \"by hand\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 490px wide); the word \"engraved\" is italic serif (font-family Didot, Bodoni 72, Georgia, serif) regular-weight peach #d8b56a (its own colour; the other words stay #e9e3d6); its \"Time,\" is BIG 80px font-weight undefined Didot, serif type (NOT the Helvetica of the rest, NOT small), #e9e3d6, filling about 200x88px from 64,166, on one line; its \"by hand\" is BIG 80px font-weight undefined Didot, serif type (NOT the Helvetica of the rest, NOT small), #e9e3d6, filling about 249x88px from 64,246, on one line"
    ],
    [
     "copy",

@@ -401,7 +401,7 @@
    ],
    [
     "serif-headline",
-    "huge Georgia serif \"A night with Saturn, up close.\", set in exactly 2 lines: \"A night with Saturn,\" / \"up close.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 500px wide); the word \"Saturn\" is italic serif (font-family Georgia, serif) bold peach #ffb36b (its own colour; the other words stay #e8ecff)"
+    "huge Georgia serif \"A night with Saturn, up close.\", set in exactly 2 lines: \"A night with Saturn,\" / \"up close.\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 500px wide); the word \"Saturn\" is italic serif (font-family Georgia, serif) bold peach #ffb36b (its own colour; the other words stay #e8ecff); its \"A night with\" is BIG 58px font-weight undefined Georgia, serif type (NOT the Helvetica of the rest, NOT small), #e8ecff, filling about 321x65px from 60,417, on one line; its \", up close.\" is BIG 58px font-weight undefined Georgia, serif type (NOT the Helvetica of the rest, NOT small), #e8ecff, filling about 520x124px from 60,417, on one line"
    ],
    [
     "copy",
@@ -669,7 +669,7 @@
    ],
    [
     "synth-panel",
-    "the region itself is ONE 700x520px panel at 520,120 (position absolute, its FULL height kept: 520px tall, never shorter), background linear-gradient(rgb(217, 212, 198), rgb(200, 194, 178)), 14px rounded, box-shadow: rgba(0, 0, 0, 0.667) 0px 20px 40px 0px, rgba(255, 255, 255, 0.533) 0px 2px 0px 0px inset (a big dark drop shadow under it, plus a thin inset highlight along its top edge); 2 small round 12px screw dots painted by its ::before/::after at 14,14 and 674,14 inside it (radial-gradient(rgb(136, 136, 136), rgb(68, 68, 68))); the parts drawn on their own (knob-grid, jacks, leds) all sit INSIDE this panel, within its edges; warm paper #d9d4c6 (top) to lavender #c8c2b2 (bottom) gradient, with a hard white at 53% opacity shadow offset 2px straight down (0px sideways), no blur"
+    "the region itself is ONE 700x520px panel at 520,120 (position absolute, its FULL height kept: 520px tall, never shorter), background linear-gradient(rgb(217, 212, 198), rgb(200, 194, 178)), 14px rounded, box-shadow: rgba(0, 0, 0, 0.667) 0px 20px 40px 0px, rgba(255, 255, 255, 0.533) 0px 2px 0px 0px inset (a big dark drop shadow under it, plus a thin inset highlight along its top edge); 2 small round 12px screw dots painted by its ::before/::after at 14,14 and 674,14 inside it (radial-gradient(rgb(136, 136, 136), rgb(68, 68, 68))); the parts drawn on their own (knob-grid, jacks, leds) all sit INSIDE this panel, within its edges; warm paper #d9d4c6 (top) to lavender #c8c2b2 (bottom) gradient, with a solid white (#ffffff) 2px stripe painted INSIDE its TOP edge (box-shadow: inset 0px 2px 0 #ffffff; an accent stripe on the bar itself, NOT a shadow cast outside it)"
    ],
    [
     "knob-grid",

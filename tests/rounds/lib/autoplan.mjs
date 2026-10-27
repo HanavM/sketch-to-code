@@ -578,6 +578,10 @@ export function factsInPage() {
         for (const k of ks) { const b = k.getBoundingClientRect(), c = getComputedStyle(k); if ((k.textContent || '').trim() || b.width < 6 || b.width > 20 || Math.abs(b.width - b.height) > 1 || parseFloat(c.borderTopLeftRadius) < b.width * 0.4 || !(rgba(c.backgroundColor)?.a > 0.5)) break; ds.push({ c: rgba(c.backgroundColor), px: Math.round(b.width), x: Math.round(b.left - el.getBoundingClientRect().left) }) }
         return ds.length >= 2 && ds.length <= 4 && ks.length > ds.length ? ds : null
       })(),
+      // n271: the block's own fading mask, and a turned ::after (round 30 c2 dot grid faded in from the left by a
+      // linear mask, built hard-edged; a yellow diamond ::after inside the ring, dropped)
+      ownMask: (() => { const m = cs.webkitMaskImage && cs.webkitMaskImage !== 'none' ? cs.webkitMaskImage : (cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : null); return m && /linear-gradient|radial-gradient/.test(m) ? m : null })(),
+      afterTurn: (() => { const a = getComputedStyle(el, '::after'); const m = a.transform && a.transform !== 'none' ? a.transform.match(/matrix\(([^)]+)\)/) : null; if (!m) return null; const [p, q] = m[1].split(',').map(Number); return Math.round(Math.atan2(q, p) * 180 / Math.PI) || null })(),
       // n231: a plain filled ::after box inside (round 22 e4 minimap's visible-range block)
       afterBox: (() => { const a = getComputedStyle(el, '::after'); if (!a.content || a.content === 'none' || !(rgba(a.backgroundColor)?.a > 0.02)) return null; return { x: Math.round(parseFloat(a.left) || 0), y: Math.round(parseFloat(a.top) || 0), w: Math.round(parseFloat(a.width) || 0), h: Math.round(parseFloat(a.height) || 0), fill: rgba(a.backgroundColor) } })(),
       // n136: preformatted box-drawing text (round 10 c3 ASCII frame, dropped)
@@ -755,7 +759,13 @@ export function factsInPage() {
         const ts = kids.map((k) => {
           const s = getComputedStyle(k), b = k.getBoundingClientRect(), t = (k.innerText || '').trim()
           const sh = s.textShadow && s.textShadow !== 'none' ? s.textShadow.match(/(rgba?\([^)]+\))\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px/) : null
-          return { t, w: +s.fontWeight, italic: s.fontStyle === 'italic', px: Math.round(parseFloat(s.fontSize)), ink: rgba(s.color), fill: rgba(s.backgroundColor), border: parseFloat(s.borderTopWidth) >= 1 ? rgba(s.borderTopColor) : null, bw: Math.round(parseFloat(s.borderTopWidth) || 0), rad: Math.round(parseFloat(s.borderTopLeftRadius) || 0), stroke: parseFloat(s.webkitTextStrokeWidth) > 0 ? { w: Math.round(parseFloat(s.webkitTextStrokeWidth)), c: rgba(s.webkitTextStrokeColor) } : null, glow: sh ? { c: rgba(sh[1]), blur: Math.round(+sh[4]) } : null, bw2: Math.round(b.width), bh: Math.round(b.height) }
+          return { t, w: +s.fontWeight, italic: s.fontStyle === 'italic', px: Math.round(parseFloat(s.fontSize)), ink: rgba(s.color), fill: rgba(s.backgroundColor), border: parseFloat(s.borderTopWidth) >= 1 ? rgba(s.borderTopColor) : null, bw: Math.round(parseFloat(s.borderTopWidth) || 0), rad: Math.round(parseFloat(s.borderTopLeftRadius) || 0), stroke: parseFloat(s.webkitTextStrokeWidth) > 0 ? { w: Math.round(parseFloat(s.webkitTextStrokeWidth)), c: rgba(s.webkitTextStrokeColor) } : null, glow: sh ? { c: rgba(sh[1]), blur: Math.round(+sh[4]) } : null, bw2: Math.round(b.width), bh: Math.round(b.height),
+            // n271: each tile's own shape, turn and offset (round 30 c2: a circle tile, a clipped corner, a leaf-cornered
+            // tile, turned and lifted tiles were all built as one even row of same-size rounded squares)
+            ow: k.offsetWidth, oh: k.offsetHeight,
+            corners: ['TopLeft', 'TopRight', 'BottomRight', 'BottomLeft'].map((c) => { const v = s[`border${c}Radius`].split(' ')[0]; return Math.round(/%$/.test(v) ? parseFloat(v) / 100 * k.offsetWidth : parseFloat(v) || 0) }),
+            clip: s.clipPath && s.clipPath !== 'none' ? s.clipPath : null,
+            tf: (() => { const m = s.transform && s.transform !== 'none' ? s.transform.match(/matrix\(([^)]+)\)/) : null; if (!m) return null; const [a, bb, , , e, f2] = m[1].split(',').map(Number); const deg = Math.round(Math.atan2(bb, a) * 180 / Math.PI); const tx = Math.round(e), ty = Math.round(f2); return deg || tx || ty ? { deg, tx, ty } : null })() }
         })
         if (ts.some((x) => !x.t || x.t.length > 2) || !ts.every((x) => x.border || x.fill?.a > 0.05) || ts.some((x) => x.bw2 < 40)) return null
         const cols = cs.gridTemplateColumns.split(/\s+/).filter(Boolean).length
@@ -1897,8 +1907,12 @@ export function factsInPage() {
           // n244: or its line boxes sit at 2+ tops (round 24 c1 info copy: 17px on 1.55 lines, two lines measured 45px < 1.8 x 26px,
           // so it was cut at 70 letters and the tail said as a garbled 'first bold' run)
           const wrapped = b.height >= 1.8 * (parseFloat(es.lineHeight) || parseFloat(es.fontSize) * 1.2) || new Set([...rg.getClientRects()].filter((q) => q.width > 1).map((q) => Math.round(q.top))).size >= 2
+          // n271: the region's own loose copy keeps its face when it differs from the page's (round 30 c2 blurb in Georgia
+          // under a Helvetica page: said with no face, built sans)
+          const looseGen = (fam) => (/mono|courier|consolas/i.test(fam) ? 'mono' : /georgia|times|garamond|playfair|didot|bodoni/i.test(fam) || (/serif/i.test(fam) && !/sans-serif/i.test(fam)) ? 'serif' : 'sans')
+          const looseFace = (fam) => { const g = looseGen(fam); return g !== 'mono' && g !== looseGen(getComputedStyle(document.body).fontFamily) ? g : null }
           const ew = wrapped ? Math.round(el.getBoundingClientRect().right - (parseFloat(es.paddingRight) || 0) - b.left) : Math.round(b.width)
-          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.max(Math.round(b.width), ew), h: Math.round(b.height), t: t.slice(0, wrapped ? 1200 : 70), px: Math.round(parseFloat(es.fontSize)), bold: Number(es.fontWeight) >= 600, ink: rgba(es.color), mono: /mono|courier|consolas/i.test(es.fontFamily), fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
+          out.push({ x: Math.round(b.left), y: Math.round(b.top), w: Math.max(Math.round(b.width), ew), h: Math.round(b.height), t: t.slice(0, wrapped ? 1200 : 70), px: Math.round(parseFloat(es.fontSize)), bold: Number(es.fontWeight) >= 600, ink: rgba(es.color), mono: /mono|courier|consolas/i.test(es.fontFamily), face: looseFace(es.fontFamily), fam: es.fontFamily.split(',')[0].replace(/["']/g, '').trim(), it: es.fontStyle === 'italic', fill: null, img: null, radius: 0, border: null, ring: null, inset: null, op: 100 })
         }
         // n198: an untagged absolutely placed block laid over a region from outside it (round 20 e1: the week's events are
         // siblings of the grid, the hour labels a column beside it; all lost, the grid built empty) is one of that
@@ -5201,15 +5215,28 @@ function decideOne(f, page, marked, said) {
   // n154: a glyph tile grid, said tile by tile (round 14 c5 built it as one white word)
   if (f.glyphTiles && !f.regionKids.length) {
     const g = f.glyphTiles, t0 = g.tiles[0]
+    // n271: tiles differ in shape, turn or offset: each says its own (size from its own untransformed box)
+    const mixed = g.tiles.some((x) => x.tf || x.clip || (x.corners ?? []).join() !== (t0.corners ?? []).join() || !!x.border !== !!t0.border)
+    if (mixed) { t0.bw2 = t0.ow ?? t0.bw2; t0.bh = t0.oh ?? t0.bh }
     const one = (x, i) => {
       const parts = [`${i + 1}. ${quote(x.t)} weight ${x.w}${x.italic ? ' italic' : ''}`]
       if (x.fill?.a > 0.05) parts.push(`tile FILLED solid ${hexOf(x.fill)}`)
       if (x.stroke && !(x.ink?.a > 0.05)) parts.push(`HOLLOW letter: outline only (color: transparent; -webkit-text-stroke: ${x.stroke.w}px ${hexOf(x.stroke.c)})`)
       else parts.push(`letter ${hexOf(x.ink)}`)
       parts.push(x.glow ? `glowing (text-shadow 0 0 ${x.glow.blur}px ${hexOf(x.glow.c)})` : 'no glow')
+      // n271: the tile's own shape, border, turn and offset, when the tiles differ (round 30 c2)
+      if (mixed) {
+        const c = x.corners ?? []
+        if (c.length && c.every((v) => v >= x.ow / 2 - 1)) parts.push('tile a full CIRCLE (border-radius 50%)')
+        else if (c.length && c.some((v) => v !== c[0])) parts.push(`tile corners border-radius ${c.map((v) => `${v}px`).join(' ')} (uneven: a leaf shape)`)
+        else if (c.length && c[0] !== t0.rad) parts.push(`tile ${c[0]}px rounded`)
+        if (x.clip) parts.push(`tile cut by clip-path: ${x.clip}`)
+        if (x.border && !t0.border) parts.push(`tile ${x.bw}px solid ${hexOf(x.border)} border`)
+        parts.push(x.tf ? `tile ${[x.tf.tx || x.tf.ty ? `translate(${x.tf.tx}px, ${x.tf.ty}px)` : '', x.tf.deg ? `rotate(${x.tf.deg}deg)` : ''].filter(Boolean).join(' ')} (transform, it keeps its grid cell; ${x.tf.deg ? (x.tf.deg < 0 ? 'tilted left' : 'tilted right') : ''}${x.tf.ty ? `${x.tf.deg ? ', ' : ''}${x.tf.ty < 0 ? 'lifted up' : 'pushed down'}` : ''})` : 'tile straight, not turned')
+      }
       return parts.join(', ')
     }
-    return { kind: 'box', note: withFx(`a ${g.cols}x${g.rows} grid of ${g.tiles.length} square glyph TILES (display: grid; ${g.cols} columns; gap ${g.gap}px), ${g.w}x${g.h}px with its top-left at ${g.x},${g.y}; every tile is its own ${t0.bw2}x${t0.bh}px box${t0.border ? ` with a ${t0.bw}px ${hexOf(t0.border)} border` : ''}, ${t0.rad}px rounded, holding ONE centred ${t0.px}px Helvetica letter (NOT one word on a line, NOT letters without boxes); left to right, top to bottom: ${g.tiles.map(one).join('; ')}`) }
+    return { kind: 'box', note: withFx(`a ${g.cols}x${g.rows} grid of ${g.tiles.length} ${mixed ? "glyph TILES, each its own shape and turn (NOT all the same rounded square, NOT a straight even row)" : "square glyph TILES"} (display: grid; ${g.cols} columns; gap ${g.gap}px), ${g.w}x${g.h}px with its top-left at ${g.x},${g.y}; every tile is its own ${t0.bw2}x${t0.bh}px box${t0.border ? ` with a ${t0.bw}px ${hexOf(t0.border)} border` : ''}, ${t0.rad}px rounded, holding ONE centred ${t0.px}px Helvetica letter (NOT one word on a line, NOT letters without boxes); left to right, top to bottom: ${g.tiles.map(one).join('; ')}`) }
   }
   // ---- round 7 creative (n94)
   // a word set letter by letter, each letter its own size and weight on one baseline
@@ -5656,7 +5683,7 @@ function decideOne(f, page, marked, said) {
         return { kind: 'circle', note: `a THICK DONUT ring (NOT a thin outline): one ${w0}x${w0}px div, border-radius 50%, its top-left at ${Math.round(cx - w0 / 2)},${Math.round(cy - w0 / 2)}, border: ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)}, no fill (the page shows through its ${w0 - 2 * Math.round(f.border.w)}px hole)${f.shadow && f.shadow !== 'none' ? `; exactly box-shadow: ${cssHex(f.shadow)}` : ''}${f.rotate ? `; transform: rotate(${f.rotate}deg)` : ''}` }
       }
     }
-    if (!f.text && !fill && !grad && !glowy && bordered && w >= 120 && f.border.w >= 2 && !fx.length) return { kind: 'circle', note: `outline ring ${Math.round(w)}px across at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border, no fill (see-through middle)` }
+    if (!f.text && !fill && !grad && !glowy && bordered && w >= 120 && f.border.w >= 2 && !fx.length) return { kind: 'circle', note: `outline ring ${Math.round(w)}px across at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}, a ${Math.round(f.border.w)}px solid ${hexOf(f.border.colour)} border, no fill (see-through middle)${f.afterBox && f.afterBox.w >= 20 ? `; INSIDE it a solid ${hexOf(f.afterBox.fill)} ${f.afterTurn && Math.abs(f.afterTurn) === 45 && f.afterBox.w === f.afterBox.h ? 'DIAMOND (a square turned 45deg)' : 'block'} ${f.afterBox.w}x${f.afterBox.h}px (before any turn) placed ${f.afterBox.x}px from the ring's left and ${f.afterBox.y}px from its top (an ::after, position absolute${f.afterTurn ? `, transform: rotate(${f.afterTurn}deg)` : ''})` : ''}` }
     // n265: a big see-through flat disc says its own box (round 29 c1 yellow disc: said 'big vivid yellow circle', built
     // UNDER the halftone disc, the offset lost)
     if (!f.text && fill && !grad && !glowy && w >= 200 && fx.some((x) => /opacity|fade/.test(x)) && !fx.some((x) => /blur/.test(x))) return { kind: 'circle', note: withFx(`perfectly round FLAT disc ${Math.round(w)}x${Math.round(h)}px (border-radius 50%), ONE plain div, position absolute with its top-left at page ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (its OWN place: where it meets another disc they overlap only partly, offset, never stacked on one centre), background ${hexOf(f.bg)} (${colourName(f.bg)}), hard edge, no gradient, no shading`) }
@@ -6667,7 +6694,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       const r = +(((f.bgImage.match(/\)\s*([\d.]+)px/) || [])[1]) || 1)
       const flat = f.bg?.a > 0.05 ? f.bg : null
       d.kind = 'box'
-      d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px DOT-GRID canvas at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${flat ? `a FLAT ${hexOf(flat)} fill (the same light colour top to bottom, NOT a gradient, never darkening)` : 'no fill of its own'} with tiny ${hexOf(ink)} dots${ink.a < 0.95 ? ` at ${Math.round(ink.a * 100)}% opacity (faint)` : ''} (${2 * r}px across) in an even grid, one every ${cell}px across and ${cellY}px down, exactly: background-color: ${flat ? hexOf(flat) : 'transparent'}; background-image: radial-gradient(${ink.a < 0.95 ? `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${Math.round(ink.a * 100) / 100})` : hexOf(ink)} ${r}px, transparent ${r}px); background-size: ${cell}px ${cellY}px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)`
+      d.note = `a big ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px DOT-GRID canvas at ${Math.round(f.rect.x)},${Math.round(f.rect.y)}: ${flat ? `a FLAT ${hexOf(flat)} fill (the same light colour top to bottom, NOT a gradient, never darkening)` : 'no fill of its own'} with tiny ${hexOf(ink)} dots${ink.a < 0.95 ? ` at ${Math.round(ink.a * 100)}% opacity (faint)` : ''} (${2 * r}px across) in an even grid, one every ${cell}px across and ${cellY}px down, exactly: background-color: ${flat ? hexOf(flat) : 'transparent'}; background-image: radial-gradient(${ink.a < 0.95 ? `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${Math.round(ink.a * 100) / 100})` : hexOf(ink)} ${r}px, transparent ${r}px); background-size: ${cell}px ${cellY}px; NOT a gradient wash, NOT a photo backdrop, nothing inside of its own (the other parts sit on top of it)${f.ownMask ? `; the dots FADE OUT toward one side through a mask on this canvas, written exactly: -webkit-mask-image: ${cssHex(f.ownMask)}; mask-image: ${cssHex(f.ownMask)} (n271)` : ''}`
       return
     }
     // n262: a blurred linear gradient fading to clear, usually turned, is a soft LIGHT BEAM (round 29 c5 sun rays:

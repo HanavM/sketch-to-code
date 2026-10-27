@@ -365,7 +365,7 @@
    ],
    [
     "clay-button",
-    "grey #8a73ff (top) to vivid indigo #5b45e0 (bottom) gradient pill glowing button \"Download free\", with a hard white at 33% opacity shadow offset 3px straight down (0px sideways), no blur; its text #ffffff (white, NOT the page's deep indigo text); a coloured GLOW round it (light spilling out, soft): exactly box-shadow: rgba(255, 255, 255, 0.33) 0px 3px 0px 0px inset, #3b28a8 0px 8px 0px 0px, rgba(59, 40, 168, 0.33) 0px 18px 30px 0px"
+    "grey #8a73ff (top) to vivid indigo #5b45e0 (bottom) gradient pill glowing button \"Download free\", with a solid white (#ffffff) 3px stripe painted INSIDE its TOP edge (box-shadow: inset 0px 3px 0 #ffffff; an accent stripe on the bar itself, NOT a shadow cast outside it)"
    ],
    [
     "ghost-button",

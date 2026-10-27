@@ -91,3 +91,23 @@ dots and popover pointer lost). 17 marks, ~2,320 words, 92 s drawing, 400 s run,
 Round 30 over all ten: **82%** (c1 86, c2 65, c3 74, c4 80, c5 77, e1 87, e2 89, e3 90, e4 84, e5 87).
 
 Next: c2 tile-by-tile shapes (65); c3 film strip and masked stripes; c5 labels round a circle; e4 SVG wires.
+
+## n271: tiles said one by one (2026-10-27, ~48k billed)
+
+Cause of c2 65%: the glyph-tile grid was said as eight same-size rounded squares (sized by their turned bounds, 198px
+for 180px tiles), so the circle tile, the clipped corner, the leaf-cornered tile, the outlined tile and every turn and
+lift were lost; the dot field's left fade (a linear mask), the yellow diamond inside the ring (an ::after turned 45deg)
+and the blurb's Georgia face were unsaid too.
+Fix (planner rules, not a page patch): when a tile grid's tiles differ, each tile says its own shape (circle, uneven
+corners, clip-path, border) and its transform (translate then rotate, from its matrix), and the tile size is its own
+untransformed box; a dot-grid canvas says its fading mask exactly; an outline ring says a filled ::after inside it with
+its size, place and turn (a 45deg square is a DIAMOND); a region's own loose copy says its face when it differs from the
+page's (serif under a sans page) and keeps italics.
+
+Live re-run: **c2 mosaic type 65 to 94%** (every tile's shape, turn and offset right, dot fade, diamond, serif blurb;
+button corners square, ring a little small). 9 marks, ~585 words, 48 s drawing, 49 s to reading, 145 s run, ~48k tokens,
+no repair turns. Re-planned rounds 1-29: serif/sans face now said on 8 loose copy blocks (r1 r6 r10 r12 r13 r14 r21 r23
+r26 r28; not re-run).
+Round 30 over all ten: **85%** (c1 86, c2 94, c3 74, c4 80, c5 77, e1 87, e2 89, e3 90, e4 84, e5 87).
+
+Next: c3 film strip and masked stripes (74); c5 labels round a circle (77); c4 conic wheel (80); e4 SVG wires (84).
