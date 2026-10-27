@@ -123,3 +123,27 @@ Re-planned rounds 1-26: r3, r7, r10, r14, r17, r23 notes change (small blocks, b
 Vitest same 2 env failures (1460); typecheck clean. Ease, round 27: 14 marks, ~1,200 words, ~82 s to draw, ~89 s to read,
 ~325 s to build, ~120k tokens per page, no repair turns.
 Still off: e4 payout total row and file chips (83), c4 film festival 86.
+
+## n255: claim form total row and file chips, film festival frames, date block and ticket (2026-10-27, ~256k billed)
+
+| page | before | after | what changed |
+|---|---|---|---|
+| e4 claim form | 83% | **84%** | payout total row built as a plain row (label left, bold value right), file chips filled with no outline; one repair turn |
+| c4 film festival | 86% | **88%** | film frames 200x140 with dark gaps between them, date block right-aligned, ticket with dashed tear line and two notches; laurel built as a grey box this time (model chose to reuse a component) |
+
+Round 27: **91%** over 10 (91.2; first look 75).
+
+Fixes (planner):
+- A closing total row shaped like the list rows (label left, value pushed right) is said as a TOTAL row with its size and inks,
+  not as a row of tabs (e4 'Est. payout / up to €4,800' built as a tinted box). r19 e1 trip total also gains it.
+- Like filled chips with small rounding (radius 3 up to under half their height) and no border say FILLED chips, rounding,
+  padding, bold ink, nowrap (e4 file chips were 'buttons:', built outlined).
+- Parts inside a turned panel are said by their un-turned size, not their turned bounds (c4 frames 200x140 said 214x160 and
+  built touching; also r20 c3 glass card bar 8px said 39px, r22 c3 app chip).
+- An upright ticket (mask notches, dashed tear line, price stub) is said whole like the turned one (c4 was said part by part:
+  solid line, no notches); wrapping lines in it say their line count, the others nowrap.
+- A multi-line display block set right-aligned says so and where its lines end (c4 '14—21 / NOV' built left-aligned; also r4).
+
+Re-planned rounds 1-26: r4, r19, r20, r22 notes change (not re-run). Vitest same 2 env failures (1460); typecheck clean.
+Ease, round 27: 14 marks, ~1,210 words, ~79 s to draw, ~102 s to read, ~343 s to build, ~126k tokens per page, 0.2 repair turns.
+Still off: e4 summary rows a little loose; c4 laurel (model variance). Next: round 28.

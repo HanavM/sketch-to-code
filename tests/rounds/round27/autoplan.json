@@ -463,11 +463,11 @@
    ],
    [
     "dates",
-    "huge heavy lines set tight (line-height 0.9) \"14—21 NOV\", set in exactly 2 lines: \"14—21\" / \"NOV\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 206px wide)"
+    "huge heavy lines set tight (line-height 0.9) \"14—21 NOV\", set in exactly 2 lines: \"14—21\" / \"NOV\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 206px wide), RIGHT-ALIGNED (text-align: right): every line ends flush at x 1220 (the shorter line sits further right, NOT left-aligned)"
    ],
    [
     "film-strip",
-    "the region itself is ONE 1500x200px panel, position absolute with its top-left at -80,540 page px before its turn, transform: rotate(-6deg) on this panel (TILTED 6° anticlockwise, NOT straight; its parts turn WITH it, and the part places below are page px before the turn), #141414 fill, with its parts inside it; along its edges 2 thin STRIPED bands painted by pseudo-elements (position absolute, full width, they turn with the panel): its ::before 14px tall, top: 8px, background: repeating-linear-gradient(90deg, #f1e7d0 0px, #f1e7d0 16px, transparent 16px, transparent 34px); its ::after 14px tall, top: 178px, background: repeating-linear-gradient(90deg, #f1e7d0 0px, #f1e7d0 16px, transparent 16px, transparent 34px) (a row of small holes, NOT solid, NOT left out); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 214x160 at 43,560 linear-gradient(160deg, #f2b632, #e23b2e), 4px rounded; 214x160 at 259,560 linear-gradient(160deg, #3d6b8e, #141414), 4px rounded; 214x160 at 476,560 linear-gradient(200deg, #e8d5b0, #8a5a3c), 4px rounded; 214x160 at 692,560 linear-gradient(160deg, #6a8f5a, #1d3320), 4px rounded; 214x160 at 907,560 linear-gradient(120deg, #e23b2e, #3a0a14), 4px rounded; 214x160 at 1123,560 linear-gradient(160deg, #c9c3b8, #4a4640), 4px rounded"
+    "the region itself is ONE 1500x200px panel, position absolute with its top-left at -80,540 page px before its turn, transform: rotate(-6deg) on this panel (TILTED 6° anticlockwise, NOT straight; its parts turn WITH it, and the part places below are page px before the turn), #141414 fill, with its parts inside it; along its edges 2 thin STRIPED bands painted by pseudo-elements (position absolute, full width, they turn with the panel): its ::before 14px tall, top: 8px, background: repeating-linear-gradient(90deg, #f1e7d0 0px, #f1e7d0 16px, transparent 16px, transparent 34px); its ::after 14px tall, top: 178px, background: repeating-linear-gradient(90deg, #f1e7d0 0px, #f1e7d0 16px, transparent 16px, transparent 34px) (a row of small holes, NOT solid, NOT left out); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 6 of them, nothing invented, nothing left out): 200x140 at 50,570 linear-gradient(160deg, #f2b632, #e23b2e), 4px rounded; 200x140 at 266,570 linear-gradient(160deg, #3d6b8e, #141414), 4px rounded; 200x140 at 483,570 linear-gradient(200deg, #e8d5b0, #8a5a3c), 4px rounded; 200x140 at 699,570 linear-gradient(160deg, #6a8f5a, #1d3320), 4px rounded; 200x140 at 914,570 linear-gradient(120deg, #e23b2e, #3a0a14), 4px rounded; 200x140 at 1130,570 linear-gradient(160deg, #c9c3b8, #4a4640), 4px rounded"
    ],
    [
     "copy",
@@ -479,7 +479,7 @@
    ],
    [
     "ticket",
-    "the region itself is ONE 360x130px panel at 860,745, #f2b632 fill, 10px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); vivid amber block; part by part (page px: size, then top-left x,y; each part its own real element with live text, all 5 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 226x90 at 884,765 2px #1b1b1b border on the right only; 79x90 at 1110,765 padding-left 22px (its text starts at x 1132): 34px font-weight 900 #1b1b1b \"€60\"; 180x14 at 884,768 12px bold #1b1b1b \"ADMIT ONE · ALL WEEK\" with letter-spacing 2px (its letters spaced out, NOT set tight); 224x68 at 884,783 30px font-weight 900 #1b1b1b \"FESTIVAL PASS\" set on exactly 2 lines (line-height 36px; it WRAPS, never forced onto one line); 174x14 at 884,854 12px bold #1b1b1b \"SEAT: ANY · ROW: ANY\" with letter-spacing 2px (its letters spaced out, NOT set tight)"
+    "ONE 360x130px #f2b632 admission TICKET at 860,745 (position absolute, NOT turned), 10px rounded; display flex, two parts side by side: the MAIN part on the left, exactly 226px wide (NOT flex 1; padding 20px 24px on the ticket), with, top to bottom on their own lines, 12px bold #1b1b1b \"ADMIT ONE · ALL WEEK\" (letter-spacing 2px), then 30px bold #1b1b1b \"FESTIVAL PASS\" set on 2 lines (it wraps inside the main part), then 12px bold #1b1b1b \"SEAT: ANY · ROW: ANY\" (letter-spacing 2px) (every other line on ONE line: white-space nowrap); then a 2px DASHED #1b1b1b TEAR LINE down its right edge (border-right: 2px dashed; dashes, NOT a solid line); then the STUB on the right taking the rest, holding bold 34px #1b1b1b \"€60\" upright on one line, vertically centred; two round notches bitten out of the top and bottom edges right where the tear line runs, so the page shows through, by exactly this mask on the ticket: -webkit-mask-image: radial-gradient(circle at 250px 0px, rgba(0, 0, 0, 0) 14px, rgb(0, 0, 0) 15px), radial-gradient(circle at 250px 100%, rgba(0, 0, 0, 0) 14px, rgb(0, 0, 0) 15px); -webkit-mask-position: 50% 0%, 50% 100%; -webkit-mask-size: 100% 51%, 100% 51%; -webkit-mask-repeat: no-repeat, no-repeat (mask-* the same); nothing else inside, no other block"
    ]
   ]
  },
@@ -989,7 +989,7 @@
    ],
    [
     "file-chips",
-    "buttons: \"kitchen-floor.jpg · 2.1 MB\", \"plumber-receipt.pdf · 340 KB\""
+    "2 FILLED chips in one row packed at the left, 10px apart, each 26px tall, 8px rounded (NOT pills), a solid pale blue-grey (#eef2f8) fill, NO border (NOT outlined), 12px side padding, 12px bold #16213a text on ONE line (nowrap), each its own width: \"kitchen-floor.jpg · 2.1 MB\", \"plumber-receipt.pdf · 340 KB\""
    ],
    [
     "date-popover",
@@ -997,7 +997,7 @@
    ],
    [
     "summary-card",
-    "white card \"Claim summary\" list: \"Policy\" \"Home Plus · HP-20931\", \"Property\" Lisbon flat, \"Cover\" €120,000, \"Excess\" €250, \"Claim type\" Water damage, \"Files\" 2 attached (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted); then under the list, in this order: a 41px row of tabs side by side: \"Est. payout\", \"up to €4,800\"; list rows exactly 37px apart (37px tall, 14px type: tight, not roomier), first line 25px below the panel's top"
+    "white card \"Claim summary\" list: \"Policy\" \"Home Plus · HP-20931\", \"Property\" Lisbon flat, \"Cover\" €120,000, \"Excess\" €250, \"Claim type\" Water damage, \"Files\" 2 attached (each row: its label at the left, its value pushed to the row's right end in BOLD, every value written exactly as quoted); then under the list, in this order: a 41px TOTAL row closing the list (NOT tabs, NOT a tinted box: no fill, no border, no rule under it), laid out like the rows above: bold 18px #5b6782 \"Est. payout\" at the left, bold 18px #16213a \"up to €4,800\" pushed to the row's right end; list rows exactly 37px apart (37px tall, 14px type: tight, not roomier), first line 25px below the panel's top"
    ],
    [
     "actions",

@@ -1260,12 +1260,13 @@ export function factsInPage() {
         for (const n of main.childNodes) {
           const t = (n.textContent || '').replace(/\s+/g, ' ').trim(); if (!t) continue
           const c = n.nodeType === 1 ? getComputedStyle(n) : mc
-          lines.push({ t, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color) })
+          const rg = document.createRange(); rg.selectNodeContents(n); const tops = new Set([...rg.getClientRects()].map((q) => Math.round(q.top)))
+          lines.push({ t, px: Math.round(parseFloat(c.fontSize)), bold: Number(c.fontWeight) >= 600, ink: rgba(c.color), n: tops.size, ls: Math.round(parseFloat(c.letterSpacing) || 0) })
         }
         const notch = +((m.match(/(?:transparent|rgba\(0, 0, 0, 0\))\s+([\d.]+)px/) || [])[1] || 0)
         const upright = !/vertical/.test(getComputedStyle(stub).writingMode)
         const mask = upright ? { img: m, pos: cs.webkitMaskPosition || cs.maskPosition, size: cs.webkitMaskSize || cs.maskSize, rep: cs.webkitMaskRepeat || cs.maskRepeat, mainW: main.offsetWidth } : null
-        return { upright, mask, lines, pad: `${Math.round(parseFloat(mc.paddingTop))}px ${Math.round(parseFloat(mc.paddingLeft))}px`, tear: { w: Math.round(parseFloat(mc.borderRightWidth)), style: mc.borderRightStyle, c: rgba(mc.borderRightColor) },
+        return { upright, mask, lines, pad: `${Math.round(parseFloat(mc.paddingTop))}px ${Math.round(parseFloat(mc.paddingLeft))}px`, selfPad: `${Math.round(parseFloat(cs.paddingTop))}px ${Math.round(parseFloat(cs.paddingLeft))}px`, tear: { w: Math.round(parseFloat(mc.borderRightWidth)), style: mc.borderRightStyle, c: rgba(mc.borderRightColor) },
           stub: { t: (stub.innerText || '').trim(), w: stub.offsetWidth, px: Math.round(parseFloat(sc2.fontSize)), bold: Number(sc2.fontWeight) >= 600, ink: rgba(sc2.color), mono: /mono|courier/i.test(sc2.fontFamily), ls: Math.round(parseFloat(sc2.letterSpacing) || 0) }, notch }
       })(),
       // n152: a grid of big same-size filled tiles, each a round letter disc in the middle and a name tag in a corner
@@ -2848,6 +2849,12 @@ export function factsInPage() {
         // n143: an extra that comes after the list in the page is said after it (round 11 e3: the LABELS group was said
         // before the folders and built above them)
         const after = !!(rep[rep.length - 1].compareDocumentPosition(k) & 4)
+        // n255: a closing total row shaped like the list rows (label left, value pushed right; round 27 e4 'Est. payout /
+        // up to €4,800' was said as a row of tabs and built as a tinted box)
+        if (!pin && cs2.length === 2 && cs2.every((g) => txt(g) && txt(g).length <= 40 && !filled(g) && !g.children.length) && /flex/.test(c.display) && /space-between/.test(c.justifyContent) && rep[0].children.length === 2) {
+          const vc = getComputedStyle(cs2[1]), lc = getComputedStyle(cs2[0])
+          return { t: cs2.map(txt).join(' '), total: { l: txt(cs2[0]), v: txt(cs2[1]), px: Math.round(parseFloat(vc.fontSize)), bold: Number(vc.fontWeight) >= 600, lbold: Number(lc.fontWeight) >= 600, ink: rgba(vc.color), link: rgba(lc.color), ruled: parseFloat(c.borderBottomWidth) >= 1, h: Math.round(b.height) }, btn: false, fill: null, big: false, after }
+        }
         // n143: a row of short tabs side by side, one selected (round 11 e3 Primary / Promotions / Updates: dropped)
         const tb = [...k.children].map((g) => g.getBoundingClientRect())
         if (!pin && cs2.length >= 2 && cs2.length <= 6 && cs2.every((g) => txt(g) && txt(g).length <= 20 && !filled(g) && parseFloat(getComputedStyle(g).borderTopWidth) < 1) && tb.every((r) => Math.abs(r.top - tb[0].top) <= 4)) {
@@ -3802,7 +3809,7 @@ function denseNote(d) {
       const pic = d.pic ? `a ${d.pic.w}x${d.pic.h}px ${/gradient/.test(d.pic.bg) ? `gradient (${[...d.pic.bg.matchAll(/rgba?\([^)]+\)/g)].map((m) => hexOf(parse(m[0]))).join(' to ')}) ` : d.pic.fill ? `${hexOf(d.pic.fill)} ` : ''}poster picture${d.pic.rad ? ` ${d.pic.rad}px rounded` : ''} at its top left (${d.pic.x}px in, ${d.pic.y}px down)${d.pic.float === 'left' ? ', the title and lines just right of it' : ''}; ` : ''
       const pinSay = (x) => x.pin ? ` (pinned to the card's bottom: its bottom edge ${x.pin.up}px above the card's bottom edge, ${x.pin.w}px wide, centred; empty space above it)` : ''
       const exPin = (x) => `, ${x.bold ? 'bold ' : ''}${x.ink && colourName(x.ink) !== 'near-black' ? `${colourName(x.ink)} (${hexOf(x.ink)}) ` : ''}${quote(x.t)}${pinSay(x)}`
-      const ex = (x) => x.pin ? '' : x.tabs ? tabsSay({ extra: [x] }).replace(/, then $/, ' ') : x.caps ? `small grey spaced capitals ${quote(x.t)} ` : x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.dot ? `${hexOf(x.dot)} round dot then ` : ''}${x.big ? 'big ' : ''}${quote(x.t)} `
+      const ex = (x) => x.pin ? '' : x.total ? `a ${x.total.h}px TOTAL row closing the list (NOT tabs, NOT a tinted box: no fill, no border${x.total.ruled ? '' : ', no rule under it'}), laid out like the rows above: ${x.total.lbold ? 'bold ' : ''}${x.total.px}px ${hexOf(x.total.link)} ${quote(x.total.l, 40)} at the left, ${x.total.bold ? 'bold ' : ''}${x.total.px}px ${hexOf(x.total.ink)} ${quote(x.total.v, 40)} pushed to the row's right end ` : x.tabs ? tabsSay({ extra: [x] }).replace(/, then $/, ' ') : x.caps ? `small grey spaced capitals ${quote(x.t)} ` : x.chips ? `small filled chips side by side, separate: ${x.chips.map((c) => `${quote(c.t)} (${hexOf(c.fill)} fill, bold ${hexOf(c.ink)} text)`).join(', ')} ` : x.lines ? `grey lines ${x.lines.map((l) => quote(l)).join(' / ')} ` : `${x.dot ? `${hexOf(x.dot)} round dot then ` : ''}${x.big ? 'big ' : ''}${quote(x.t)} `
       const hl = d.headLook
       const headSay = d.head ? hl ? `a ${hl.w}x${hl.h}px ${hexOf(hl.fill)} filled button ${quote(d.head, 20)}${hl.rad ? ` (${hl.rad}px rounded,` : hl.radR >= 4 ? ` (left corners square, right corners ${hl.radR}px rounded: border-radius 0 ${hl.radR}px ${hl.radR}px 0,` : ' (square corners,'}${hl.bold ? ' bold' : ''} ${hexOf(hl.ink)} text; its fill clearly visible, not white), then ` : `${quote(d.head, 20)} ` : ''
       const onSay = d.on && d.onFill ? ` (${hexOf(d.onFill)} ${d.onRad ? 'rounded ' : d.onRadR >= 4 ? `flat-left, right-end-rounded (border-radius 0 ${d.onRadR}px ${d.onRadR}px 0) ` : 'square '}fill${d.onInk ? `, ${hexOf(d.onInk)} text` : ''})` : ''
@@ -5421,6 +5428,13 @@ function decideOne(f, page, marked, said) {
       const fillSay = k0p.fill.a < 0.95 ? `a SEE-THROUGH ${colourName({ ...k0p.fill, a: 1 })} fill (background: rgba(${k0p.fill.r}, ${k0p.fill.g}, ${k0p.fill.b}, ${Math.round(k0p.fill.a * 100) / 100}), ${Math.round(k0p.fill.a * 100)}% strong, the page showing through)` : `a solid ${colourName(k0p.fill)} (${hexOf(k0p.fill)}) fill`
       return { kind: 'box', note: `${kl.length} FILLED pill tags in one row${gaps.length && gaps.every((g) => Math.abs(g - gaps[0]) <= 2) ? `, ${gaps[0]}px apart` : ''}, each ${Math.round(k0p.h)}px tall, fully rounded (border-radius 999px), ${fillSay}, NO border (NOT outlined chips), ${k0p.bold ? 'bold ' : ''}${hexOf(k0p.ink)} text: ${f.kidTexts.map((t) => quote(t)).join(', ')}` + on }
     }
+    // n255: a row of like filled chips with small rounding and no border (round 27 e4 file chips 'kitchen-floor.jpg
+    // · 2.1 MB': radius 8 on a 27px chip missed the pill rule, said 'buttons:' and built outlined)
+    const chips = !pills && !mixed && !lead && !states && kl.length === f.kidCount && kl.length >= 2 && kl.length <= 6 && kl.every((k) => k.fill?.a > 0.05 && !(k.bw >= 1) && k.radius >= 3 && k.radius < k.h / 2 - 2 && k.h <= 40 && Math.abs(k.h - k0p.h) <= 2 && hexOf(k.fill) === hexOf(k0p.fill) && k.t.length <= 48 && k.left != null)
+    if (chips) {
+      const gaps = kl.slice(1).map((k, i) => Math.round(k.left - kl[i].right))
+      return { kind: 'box', note: `${kl.length} FILLED chips in one row packed at the left${gaps.every((g) => Math.abs(g - gaps[0]) <= 2) ? `, ${gaps[0]}px apart` : ''}, each ${Math.round(k0p.h)}px tall, ${Math.round(k0p.radius)}px rounded (NOT pills), a solid ${colourName(k0p.fill)} (${hexOf(k0p.fill)}) fill, NO border (NOT outlined), ${k0p.pad != null ? `${Math.round(k0p.pad)}px side padding, ` : ''}${k0p.s ?? k0p.px ?? 12}px ${k0p.bold ? 'bold ' : ''}${hexOf(k0p.ink)} text on ONE line (nowrap), each its own width: ${f.kidTexts.map((t) => quote(t, 48)).join(', ')}` + on }
+    }
     // n245: a row of like square-cornered dark tiles (round 25 c5 record crate: said 'buttons:', built as white pills)
     const tiles = !mixed && !lead && !states && kl.length === f.kidCount && kl.length >= 3 && kl.every((k) => k.fill?.a > 0.9 && k.radius < 4 && Math.abs(k.h - kl[0].h) <= 2 && Math.abs(k.w - kl[0].w) <= 4 && hexOf(k.fill) === hexOf(kl[0].fill) && k.left != null)
     if (tiles) {
@@ -5543,7 +5557,7 @@ function decideOne(f, page, marked, said) {
     // n216: gradient letters with a coloured drop-shadow glow round them (round 21 c5 title's pink glow lost)
     const DG = f.dropGlow && f.clipText ? f.dropGlow : null
     const dropSay = DG ? `, GLOWING: a ${colourName(DG.c)} halo round the letters, exactly filter: drop-shadow(${DG.x}px ${DG.y}px ${DG.blur}px ${hexOf(DG.c)}) on the heading itself (a filter, NOT a text-shadow, which gradient text would hide)` : ''
-    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${bigAt}${fadeSay}${wide}${one}${centreSay}${dropSay}${mid}${ttl}${under}${lab}`.trim()) }
+    return { kind: 'heading', note: withFx(`${tw.join(' ')} ${quote(f.text, 60)}${ckSay}${brk}${brk && f.alignEnd && !f.centred ? `, RIGHT-ALIGNED (text-align: right): every line ends flush at x ${Math.round(f.rect.x + f.rect.w)} (the shorter line sits further right, NOT left-aligned)` : ''}${bigAt}${fadeSay}${wide}${one}${centreSay}${dropSay}${mid}${ttl}${under}${lab}`.trim()) }
   }
   // a row of short items (nav links, tabs)
   if (f.kidCount >= 3 && f.kidTexts.length >= 3 && f.kidTexts.every((t) => t.length <= 16) && h <= 80 && !f.regionKids.length) {
@@ -6454,7 +6468,7 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     const vague = d.kind && d.note && !f.regionKids.length && P.filter((p) => p.fill || p.ring || p.img).length >= 2 && P.filter((p) => p.t).length >= 5 && !/\d+px|#[0-9a-f]{6}/i.test(own)
     // n156: a note with no colour of its own over a region of 3+ painted parts (round 14 e1 drawer: status pills,
     // description box, progress bar lost; e5 composer said as bare words, its box and dark Send button lost)
-    const unpainted = d.kind && d.note && !f.regionKids.length && /\blist: /.test(own) && P.filter((p) => p.t && p.fill?.a > 0.05).length >= 2 && P.filter((p) => p.border && p.border.w?.some?.((v) => v >= 1)).length >= 1 && !/#[0-9a-f]{6}/i.test(own.replace(/; its text #[0-9a-f]{6}.*$/i, ''))
+    const unpainted = d.kind && d.note && !f.regionKids.length && /\blist: /.test(own) && P.filter((p) => p.t && p.fill?.a > 0.05).length >= 2 && P.filter((p) => p.border && p.border.w?.some?.((v) => v >= 1)).length >= 1 && !/#[0-9a-f]{6}/i.test(own.replace(/; its text #[0-9a-f]{6}.*$/i, '').replace(/a \d+px TOTAL row closing the list.*?pushed to the row's right end/g, ''))
     // n148: a form of boxed fields said as bare grey lines (round 12 e4 checkout: floating labels inside bordered fields,
     // the 2-up / 1-up / 3-up rows, the focused email ring and the City/State/ZIP row all lost)
     const fieldBox = (p) => p.t && p.border && p.border.w.every((v) => v >= 1) && p.h >= 34 && p.h <= 64 && p.w >= 60
@@ -6489,6 +6503,16 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
       for (const t of f.ownLines) { if (!t) { gap++; continue } ls.push(`${gap ? `${gap} empty line${gap > 1 ? 's' : ''} (a <br>) then ` : ''}${quote(t, 40)}`); gap = 0 }
       const fam = /mono|courier|consolas|menlo/i.test(K.family) ? 'monospace (Courier New)' : /georgia|serif/i.test(K.family) && !/sans/i.test(K.family) ? 'serif' : 'sans-serif'
       out.set(f.role, { kind: 'box', note: `ONE ${L.w}x${L.h}px card (its untransformed size: keep BOTH, it is ${L.w > L.h ? 'wider than tall, NOT squat' : 'tall'}), position absolute with its top-left at ${f.el.x},${f.el.y} page px (before its turn), FLOATING above everything under it (z-index on top)${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}, background: ${cssHex(f.bgImage)}${sh}; transform: rotate(${f.rotate}deg) on THIS CARD ONLY (tilted ${Math.abs(f.rotate)}° ${f.rotate > 0 ? 'clockwise' : 'anticlockwise'}); padding ${K.pad}; ${K.px}px ${K.bold ? 'bold ' : ''}${fam} ${hexOf(parse(K.ink))} text; inside it, top to bottom: ${[...blocks, ...ls].join(', then ')}` })
+      marked.add(f.role)
+      return
+    }
+    // n255: an upright ticket (round 27 c4 festival pass: notches by mask and a dashed tear line; not turned, so the
+    // ticket note above never ran and it was said part by part: built with a solid line and no notches)
+    if (!turned && Math.abs(f.rotate || 0) < 1 && f.ticket?.upright && f.ticket.mask && !f.regionKids.length && f.bg && visible(f.bg)) {
+      const K = f.ticket, R = f.rect, hx = (c) => hexOf(c)
+      const main = K.lines.map((q, i) => `${i ? 'then ' : ''}${q.px}px ${q.bold ? 'bold ' : ''}${hx(q.ink)} ${quote(q.t, 40)}${q.ls ? ` (letter-spacing ${q.ls}px)` : ''}${q.n >= 2 ? ` set on ${q.n} lines (it wraps inside the main part)` : ''}`).join(', ')
+      K.pad = K.pad === '0px 0px' ? K.selfPad : K.pad
+      out.set(f.role, { kind: 'box', note: `ONE ${Math.round(R.w)}x${Math.round(R.h)}px ${hx(f.bg)} admission TICKET at ${Math.round(R.x)},${Math.round(R.y)} (position absolute, NOT turned)${f.radius >= 2 ? `, ${Math.round(f.radius)}px rounded` : ''}; display flex, two parts side by side: the MAIN part on the left, exactly ${K.mask.mainW}px wide (NOT flex 1; padding ${K.pad} on the ticket), with, top to bottom on their own lines, ${main} (every other line on ONE line: white-space nowrap); then a ${K.tear.w}px ${K.tear.style.toUpperCase()} ${hx(K.tear.c)} TEAR LINE down its right edge (border-right: ${K.tear.w}px ${K.tear.style}; dashes, NOT a solid line); then the STUB on the right taking the rest, holding ${K.stub.bold ? 'bold ' : ''}${K.stub.px}px ${hx(K.stub.ink)} ${quote(K.stub.t, 30)} upright on one line, vertically centred; two round notches bitten out of the top and bottom edges right where the tear line runs, so the page shows through, by exactly this mask on the ticket: -webkit-mask-image: ${K.mask.img}; -webkit-mask-position: ${K.mask.pos}; -webkit-mask-size: ${K.mask.size}; -webkit-mask-repeat: ${K.mask.rep} (mask-* the same); nothing else inside, no other block` })
       marked.add(f.role)
       return
     }
@@ -6530,7 +6554,12 @@ export async function autoPlan(browser, htmlPath, viewport = { width: 1280, heig
     // straight); its parts are said where they sit before the turn, so they turn with it
     const R0 = f.rect, spin = Math.abs(f.rotate) >= 1.5 && Math.abs(f.rotate) <= 20 && f.layoutBox?.w && f.el && !f.regionKids.length
     const Pq = spin ? P.map((p) => { const a = -(f.turn || f.rotate) * Math.PI / 180, cx = R0.x + R0.w / 2, cy = R0.y + R0.h / 2, mx = p.x + p.w / 2 - cx, my = p.y + p.h / 2 - cy
-      return { ...p, x: Math.round(cx + mx * Math.cos(a) - my * Math.sin(a) - p.w / 2), y: Math.round(cy + mx * Math.sin(a) + my * Math.cos(a) - p.h / 2) } }) : P
+      // n255: a part's page box is its TURNED bounds (round 27 c4 film frames 200x140 said 214x160, built touching, the
+      // 16px dark gaps lost): un-turn the box too
+      const th = Math.abs(a), co = Math.cos(th), si = Math.sin(th), dn = co * co - si * si
+      const uw = dn > 0.5 ? Math.round((p.w * co - p.h * si) / dn) : p.w, uh = dn > 0.5 ? Math.round((p.h * co - p.w * si) / dn) : p.h
+      const w = uw > 0 && uh > 0 ? uw : p.w, h = uw > 0 && uh > 0 ? uh : p.h
+      return { ...p, w, h, x: Math.round(cx + mx * Math.cos(a) - my * Math.sin(a) - w / 2), y: Math.round(cy + mx * Math.sin(a) + my * Math.cos(a) - h / 2) } }) : P
     let note = partsNote(Pq, f)
     if (ruled) { d.note = `the region itself is a ${Math.round(f.rect.w)}x${Math.round(f.rect.h)}px box at ${Math.round(f.rect.x)},${Math.round(f.rect.y)} (its left edge EXACTLY at x=${Math.round(f.rect.x)}, its right edge at x=${Math.round(f.rect.x + f.rect.w)}; any label gutter beside it is no wider than its labels, so the grid is never pushed right) painted as ${d.note.split('; centred on top of it')[0].replace(/ block$/, '')}`; note = `laid over it (and beside it, where a part sits outside its box) ${note}` }
     if (cardLoose) note = `its own parts (beside the regions inside it, which are drawn and built on their own and sit OVER these where they cross), ${note}`
