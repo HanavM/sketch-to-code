@@ -3,7 +3,7 @@ goal_state: working
 now: "The kaleidoscope page now builds its big colour wheel (80% to 93% on the first try; 86% on a re-run that added a dark square behind it); round 30 holds at 88%. Next: drop that square and fix the workflow page's curved wires."
 round: 30
 round_scores: [67, 58, 69, 64, 76, 79, 81, 86, 84, 88, 83, 85, 84, 85, 87, 83, 88, 89, 89, 91, 90, 91, 90, 91, 90, 93, 91, 92, 93, 88]
-lock: null
+lock: {by: run-2026-10-27T2054, until: "2026-10-27T22:24:53Z"}
 round_ease:   # per round averages per page (tests/rounds/EASE.md): marks drawn, words typed, draw/read/build seconds, billed tokens, repair turns
   - {round: 1, likeness: 66, marks: 8, words: 238, draw_s: null, read_s: null, build_s: 116, tokens: 39901, fixes: 0}
   - {round: 2, likeness: 48, marks: 9, words: 268, draw_s: null, read_s: null, build_s: 96, tokens: 42686, fixes: 0}
