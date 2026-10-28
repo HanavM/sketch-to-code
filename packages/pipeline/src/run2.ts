@@ -50,6 +50,7 @@ import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits } from './repair-time.js'
 import { areasBrief, verifyAreaMarks, verifyEdges } from './areas.js'
+import { solidsBrief, verifySolids } from './solids.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
@@ -170,6 +171,7 @@ Rules:
     area (no frame, no card) unless a note says border, outline, card or panel;
     a box flagged "area": true is exactly that: transparent, no fill, border or shadow;
     a line flagged "edge": true is the slanted boundary between two page colours;
+    a box or ring flagged "solid" is one plain element of that colour (opaque, no path);
   line → a level line standing for text marks the MIDDLE of its letters: centre
     that text's line box on the line's y (top = y - lineHeight / 2), never put
     the text's top edge on it. A level line is a row of text (a short one under a
@@ -541,6 +543,7 @@ export async function runV2(
     keptMarksBrief(kept) +
     inkColoursBrief(interp) +
     areasBrief(interp.actions, input.snapshot.viewport) +
+    solidsBrief(interp.actions) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -1257,12 +1260,12 @@ export function verifyActions(
 
   // n14: a box round a big word is no card; a slanted line across the page is the colour edge
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
-  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)]] as const) {
+  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['solids', verifySolids(allMarks, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : 'slanted edge'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : 'coloured plain shapes'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks

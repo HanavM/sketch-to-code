@@ -842,3 +842,27 @@ describe('a box round a big number is its area, even when the reading calls the 
     expect(a.svgPaths?.length).toBe(1)
   })
 })
+
+describe('a ring typed "lime badge" is a solid lime badge, even when the reading calls it a depiction (n15, round 12 c4)', () => {
+  const pts = Array.from({ length: 41 }, (_, i) => {
+    const t = (i / 40) * Math.PI * 2
+    return { x: 180 + 90 * Math.cos(t), y: 650 + 90 * Math.sin(t), t: i * 10 }
+  })
+  const ring: Stroke = { id: 's5', points: pts }
+  const ground = (text: string) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1280, h: 900 })])
+    const ev = buildEvidence([ring], snap, [{ id: 'n0', text, at: { x: 180, y: 650 }, anchor: { kind: 'strokes', strokeIds: ['s5'] } }])
+    return groundInterpretation(
+      { reading: 'badge', actions: [{ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: 'a badge', strokes: ['s5'], layer: null, depicts: 'a round badge', fidelity: null }] } as never,
+      ev, snap, 'design',
+    ).actions[0]!
+  }
+  it('no path: a ring shape mark flagged solid lime', () => {
+    const a = ground('lime badge FREE COFFEE AFTER')
+    expect(a.svgPaths).toBeUndefined()
+    expect(a.shapeMarks?.[0]?.solid?.word).toBe('lime')
+  })
+  it('a drawn sun keeps its outline', () => {
+    expect(ground('the sun, glowing').svgPaths?.length).toBe(1)
+  })
+})

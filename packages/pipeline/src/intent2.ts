@@ -300,6 +300,7 @@ export function isPageLookNote(text: string): boolean {
 }
 
 import { isAreaNote, markAreasAndEdges } from './areas.js'
+import { markSolids, solidOf } from './solids.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
 
@@ -1017,7 +1018,12 @@ export function groundInterpretation(
           // note is a big word or number is that word's area, never a drawn form.
           const areaBox = shape?.shape === 'box' && ev.notes.some((n) =>
             (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && isAreaNote(n.text))
-          if (shape && (!a.depicts || areaBox)) {
+          // n15: a ring typed "lime badge NEW" was read as a depiction of a badge and came out a
+          // faint brown disc (round 12 c4); a closed shape whose own note names a coloured plain
+          // thing is that plain thing, never a drawn form.
+          const solidMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && solidOf(n.text))
+          if (shape && (!a.depicts || areaBox || solidMark)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }
@@ -1162,6 +1168,8 @@ export function groundInterpretation(
     const stacks = textStackOf([...textMarks, ...shapeMarks.filter((m) => m.shape === 'line').map((m) => m.strokeId)])
     // n14: a box round a big word is that word's area, a slanted line across the page is an edge
     if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport)
+    // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
+    if (shapeMarks.length) markSolids(shapeMarks, noteObjs)
     actions.push({
       kind: a.kind,
       targets,

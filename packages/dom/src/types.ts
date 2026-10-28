@@ -37,6 +37,10 @@ export interface DomNode {
     border?: string
     /** Set only when the element casts a shadow. */
     boxShadow?: string
+    /** Set only when below 1 (n15: a coloured badge must not come out faint). */
+    opacity?: string
+    /** Set only when the element is filtered (blur). */
+    filter?: string
   }
   /** Parent DomNode id, or null for the root. */
   parent: string | null
