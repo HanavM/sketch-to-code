@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Colour now comes from the drawing: pick a colour and tap a box, blob or the page (two taps make a gradient). The sunset page went from 52 to 74 and the glass page from 77 to 79, with no fixes and a third fewer words. Next: make a stacked headline read as one big heading."
+now: "A headline drawn as a long line with a short one under it is now read as one big heading: one note covers both lines, it is built at the drawn size and breaks where the drawing breaks. The sunset heading now matches the target (score flat at 74); the diagonal page fell to 40 because its big box became a black card. Next: make runs that stall still finish and record, then stop boxes round big words turning into cards."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-28T02:36Z", until: "2026-10-28T04:06Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -32,12 +32,15 @@ nodes:
      result: "Note threads plus drag-to-rebind: 6 of 8 notes were on wrong marks; fixed before build. Diagonal 49.9 to 55.1."}
   - {id: n10, parent: n3, kind: step, title: "Colour from ink: a pen colour or a fill on a mark sets that block's colour, shown at once; re-sketch the sunset hero and glass blobs (colour gaps)", status: done, branch: try/n3-ink-style, base: "try/n4-look-fix",
      result: "Tap to fill marks or page, gradients; exact colours landed. Sunset 52.1 to 74.0, glass 76.9 to 79.2, no fixes."}
-  - {id: n11, parent: n4, kind: step, title: "A stacked headline is one heading: a note on any of its lines covers all, line pitch sets the size, letters sit on the drawn lines; a note dropped in a small box inside a big one binds to the small box only; re-sketch sunset and diagonal", status: open, branch: try/n4-look-fix, base: "try/n3-ink-style", result: null}
+  - {id: n11, parent: n4, kind: step, title: "A stacked headline is one heading: a note on any of its lines covers all, line pitch sets the size, letters sit on the drawn lines; a note dropped in a small box inside a big one binds to the small box only; re-sketch sunset and diagonal", status: done, branch: try/n4-look-fix, base: "try/n3-ink-style",
+     result: "Line stacks read as one heading, break where drawn. Sunset 74.0 to 73.8 (heading matches); diagonal 55.1 to 39.8 (box became card)."}
   - {id: n12, parent: n3, kind: step, title: "A tapped colour keeps its strength: glows and blurred shapes stay vivid, not faint; re-sketch glass blobs and orbit type", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n13, parent: n4, kind: step, title: "A run never stalls silently: a repair round that makes no progress ends with the built page kept and its record, times and tokens written; a line drawn for a word is checked as the word's middle, not a 1px box; re-sketch sunset", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n14, parent: n2, kind: step, title: "A box round a big word or number never becomes a card, and a diagonal band between two colours is the edge of the split; re-sketch the diagonal split twice to see the spread", status: open, branch: try/n2-shape-vocab, base: "try/n4-look-fix", result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
-  - {gap: "Line length does not set text size", found_on: "r1 c1", built: null, helped: null}
-  - {gap: "A headline's wrap line read as a new invented tagline", found_on: "r1 c1", built: null, helped: null}
+  - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
+  - {gap: "A headline's wrap line read as a new invented tagline", found_on: "r1 c1", built: "stacked level lines are one heading: one note covers all lines, size from the pitch, words break where the lines break (n11)", helped: "partly: sunset heading now matches the target, score flat 74.0 to 73.8"}
   - {gap: "Nothing shows what the tool understood until Run (45-75 s)", found_on: "r1 c1, r1 e1", built: null, helped: null}
   - {gap: "Unclear which mark a note belongs to; chips cover marks", found_on: "r1 c1, r1 e1", built: "a dashed thread from every note to its mark, plain-word label, drag a note onto another mark (n9)", helped: "yes: diagonal split 49.9 to 55.1, no fix after build"}
   - {gap: "Misleading result card after a fix that worked", found_on: "r1 c1", built: null, helped: null}
@@ -93,3 +96,7 @@ notes:
 n10_resketch:   # same marks as baseline, colour words replaced by colour taps
   - {page: r2 c3-glass-blobs, likeness: 79.2, was: 76.9, strokes: 13, taps: 4, words: 35, minutes: 4.8, fixes: 0, tokens: 51364}
   - {page: r1 c1-sunset-hero, likeness: 74.0, was: 52.1, strokes: 10, taps: 4, words: 23, minutes: 5.1, fixes: 0, tokens: 49630}
+  - {gap: "A note in a small box inside a big box also bound to the big box", found_on: "r2 c3 (n10)", built: "the note binds to the small box only (n11)", helped: "yes: diagonal page, all 8 notes on the right mark with no drags (n9 needed 5)"}
+  - {gap: "A headline drawn as three lines 66px apart: the note covered one line, heading built small", found_on: "r12 c4 (n9)", built: "stacked level lines are one heading (n11)", helped: "yes: headline built big as drawn"}
+  - {gap: "A stalled repair round leaves no run record: no times, no tokens", found_on: "r1 c1 (n11)", built: null, helped: null}
+  - {gap: "Builds of the same sketch swing 7+ points; one build per page is a noisy before/after", found_on: "r1 c1 (n11)", built: null, helped: null}
