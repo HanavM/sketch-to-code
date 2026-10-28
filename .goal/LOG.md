@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T23:58Z | n45 one-line heading spans its line; pointed pill is a pill | Heading spans, pill right, subtitle split from heading. Bookshop 72.9, 56.8, 64.4, 69.8; nav still spread.
 2026-10-28T22:52Z | n44 a bare line under a heading is its next line; italic means italic | Studio 74.3 to 78.8, 80.2, no invented subtitle; bookshop italic regular but fell to 69.5.
 2026-10-28T22:18Z | n43 do heading and own-words checks carry over | Yes: aurora 73.8 best, roastery 85.3, bookshop 72.9, studio 74.3. Nothing-to-change fix rule built.
 2026-10-28T21:32Z | n41 first build keeps to typed words, no words on words | Invented and overlapping words caught; 3-line heading kept. Roastery 74.4, 80.1, then 88.1 first time.

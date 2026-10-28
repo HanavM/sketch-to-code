@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A plain line drawn under a heading now becomes the heading's second line instead of made-up words (studio best yet at 80.2). Next: make a one-line heading as wide as its drawn line, and keep a centred menu round its logo."
+now: "A big heading drawn as one line now spans that line, and a button drawn with pointed ends comes out as a rounded pill. Next: keep a centred menu round its logo instead of spreading it to the edges."
 round: 32
 round_scores: [53, 77, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-28T2253, until: "2026-10-29T00:23Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -96,7 +96,9 @@ nodes:
      result: "Carries over: aurora 73.8 (best), roastery 85.3, bookshop 72.9; studio 74.3. Nothing-to-change rule built, unit-tested."}
   - {id: n44, parent: n4, kind: step, title: "A bare line under a heading is that heading's next line, never a made-up subtitle; nav words typed round a logo stay round it; italic means italic, not bold; re-sketch studio and bookshop", status: done, branch: try/n3-ink-style,
      result: "Bare line joins its heading, italic regular. Studio 74.3 to 78.8, 80.2; bookshop fell 72.9 to 69.5."}
-  - {id: n45, parent: n4, kind: step, priority: next, title: "A one-line heading drawn as a long line spans it (width told and checked on the page), a rounded pill is a pill not a hexagon, nav words typed round a logo stay round it; re-sketch bookshop", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n45, parent: n4, kind: step, priority: next, title: "A one-line heading drawn as a long line spans it (width told and checked on the page), a rounded pill is a pill not a hexagon, nav words typed round a logo stay round it; re-sketch bookshop", status: done, branch: try/n3-ink-style,
+     result: "Heading spans its line, pill not hexagon, subtitle its own block. Bookshop 72.9, 56.8, 64.4, 69.8."}
+  - {id: n46, parent: n4, kind: step, priority: next, title: "Nav words typed round a centred logo stay within their drawn centred line (never spread to the page edges); re-sketch bookshop twice and studio once", status: open, branch: try/n3-ink-style, result: null}
   - {id: n38, parent: n2, kind: step, title: "A short label typed beside a divider or short line stays where typed (never centred on the line or dropped into a nearby box), a lone short line under the header is a heading, and a round mark is a circle not a hexagon; re-sketch calendar, files and chat", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A bare line drawn under a two-line heading (longer than the first line) got a made-up subtitle", found_on: "r32 c3 (n43)", built: "stacks know where notes were typed: a bare line under a noted heading line, same edge, up to 1.6x longer, is the heading's next line; shown as 'on these 2 lines' while typing (n44)", helped: "yes: studio 74.3 to 78.8, 80.2, heading breaks as in the target"}
