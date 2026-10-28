@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Fix rounds now edit in seconds instead of thinking for minutes: the sign-in page went from 82.8 to 93.4 and 90.2 with the same sketch. Next: a settings page that drifts down as a whole."
+now: "Settings page went from 37.6 to 60.5 and 61.4: every row keeps its grey line, and repairs keep going while boxes move closer. Next: take a drift out where it starts, not from the header."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-28T10:42Z-n24, until: "2026-10-28T12:11Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -43,7 +43,9 @@ nodes:
      result: "Card kept where drawn; tapped grey never snapped; lines checked as text. Login 65.5 to 82.8, 80.6; 90 s build."}
   - {id: n22, parent: n4, kind: step, title: "A repair round that thinks for minutes without an edit is cut short (thinking is not progress), and a repair that moves inputs aims at the drawn spot without overshooting; re-sketch login and settings", status: done, branch: try/n4-look-fix,
      result: "Repairs at low effort edit in seconds; stacked boxes told who follows. Login 82.8 to 93.4, 90.2; settings 37.6."}
-  - {id: n24, parent: n4, kind: step, priority: next, title: "A page that drifts down as a whole is fixed at the top (the header that pushed it), repairs never move a box the wrong way, and a note for every row gives each row all its lines; re-sketch settings twice", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n24, parent: n4, kind: step, title: "A page that drifts down as a whole is fixed at the top (the header that pushed it), repairs never move a box the wrong way, and a note for every row gives each row all its lines; re-sketch settings twice", status: done, branch: try/n4-look-fix,
+     result: "Drift named at top, worse repairs put back, rows keep grey lines. Settings 37.6 to 60.5, 61.4."}
+  - {id: n25, parent: n4, kind: step, priority: next, title: "A drift is taken out where it starts (row spacing, not the header): the header's drawn lines are held, rows keep the drawn pitch, an on toggle's knob sits inside its track; re-sketch settings twice", status: open, branch: try/n4-look-fix, result: null}
   - {id: n14, parent: n2, kind: step, title: "A box round a big word or number never becomes a card, and a diagonal band between two colours is the edge of the split; re-sketch the diagonal split twice to see the spread", status: done, branch: try/n2-shape-vocab, base: "try/n4-look-fix",
      result: "Area boxes and slanted edges told and checked. Diagonal 39.8 to 55.9 and 57.8; split on line, no card."}
   - {id: n15, parent: n2, kind: step, title: "A ring or box with a colour and a label (a lime badge, a white rows panel) is built as that plain shape in that colour, never a faint drawn disc or a default white card; re-sketch diagonal and glass blobs", status: done, branch: try/n2-shape-vocab,
@@ -106,8 +108,12 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A repair round thinks 2-8 minutes before any edit (thinking reset the watchdog)", found_on: "r1 e1 (n13, n20, n22)", built: "only tool calls and words count as progress; repairs run at low effort; 180 s with no edit stops a repair, build kept (n22)", helped: "yes: repairs edit in 4-18 s, login 82.8, 80.6 to 93.4, 90.2"}
   - {gap: "A repair moved every field by its own offset though the lower ones only followed the top one, overshooting", found_on: "r1 e1 (n20)", built: "each box judged by its own error against the box above or the card it sits in; followers and landed boxes below told to stay (n22)", helped: "yes: repairs passed every check in 1-2 rounds"}
   - {gap: "flow-root and flex on one element: flow-root won, the card sat at the left edge", found_on: "r1 e1 (n22)", built: "finishing pass drops flow-root where flex or grid sets the display (n22)", helped: "yes: no left-edge card after the fix"}
-  - {gap: "A whole page built 16-30px lower than drawn; the repair moved toggles further down", found_on: "r2 e3 (n22)", built: null, helped: null}
-  - {gap: "A whole-sketch note 'title + grey line' for every row: the grey lines were dropped", found_on: "r2 e3 (n22)", built: null, helped: null}
+  - {gap: "A whole page built 16-30px lower than drawn; the repair moved toggles further down", found_on: "r2 e3 (n22)", built: "the top box of a drifting column is told the whole page sits low, the drawn gap under the line above, and to take it out above, never add (n24)", helped: "partly: toggles landed in try 2, settings 37.6 to 61.4; header squeezed instead"}
+  - {gap: "A whole-sketch note 'title + grey line' for every row: the grey lines were dropped", found_on: "r2 e3 (n22)", built: "a note naming a row's parts gives every row every part, placeholder where none typed (n24)", helped: "yes: all four grey lines built, both tries"}
+  - {gap: "A repair that made drawn boxes worse (30 to 48px low) was kept", found_on: "r2 e3 (n22)", built: "a repair round that moves drawn boxes further off is put back and re-verified (n24)", helped: "guard in place; not triggered in the two re-sketches"}
+  - {gap: "A repair that brought boxes 24px closer stopped on 'no improvement' because the pass share was flat", found_on: "r2 e3 (n24)", built: "boxes moving clearly closer earns one more round (n24)", helped: "yes: try 2 went 60% to 80% of checks, toggles landed"}
+  - {gap: "The repair takes a drift out of the header (heading and tabs move up) instead of the row spacing that caused it", found_on: "r2 e3 (n24)", built: null, helped: null}
+  - {gap: "Rows built taller than drawn push the buttons twice as far as the top toggle", found_on: "r2 e3 (n24)", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -133,7 +139,7 @@ notes:
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
   - "After npm ci, the agent SDK may only have its musl binary: run npm install --no-save @anthropic-ai/claude-agent-sdk-linux-x64@<same version> or every Run fails in under a second."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
-  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k)"
+  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k); n24 ~139k billed (settings 85k, 54k)"
 n14_resketch:   # same 9 marks and 8 notes as n9/n11 (nav note typed as a whole-sketch note)
   - {page: r12 c4-diagonal-split, try: 1, likeness: 55.9, was: 39.8, strokes: 9, words: 45, minutes: 5.7, fixes: 0, tokens: 76787}
   - {page: r12 c4-diagonal-split, try: 2, likeness: 57.8, was: 39.8, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 54885}
@@ -179,3 +185,6 @@ n22_resketch:   # login: same 9 marks and 6 notes as n13/n20, word for word; set
   - {page: r1 e1-login, try: 5, likeness: 93.4, was: 82.8, strokes: 9, words: 22, minutes: 2.3, fixes: 0, build_s: 69, tokens: 53286, note: "repairs at low effort"}
   - {page: r1 e1-login, try: 6, likeness: 90.2, was: 82.8, strokes: 9, words: 22, minutes: 3.1, fixes: 0, build_s: 126, tokens: 50701}
   - {page: r2 e3-settings, likeness: 37.6, was: 77.4, strokes: 11, words: 36, minutes: 2.6, fixes: 1, build_s: 101, tokens: 45224, note: "fresh sketch; page 16-30px low, row grey lines dropped"}
+n24_resketch:   # same 8 marks, 3 taps and 9 notes as n22 settings, word for word
+  - {page: r2 e3-settings, try: 1, likeness: 60.5, was: 37.6, strokes: 11, words: 36, minutes: 4.3, fixes: 0, build_s: 171, tokens: 84796, note: "rows keep grey lines; repair 56 to 32px low then stopped flat"}
+  - {page: r2 e3-settings, try: 2, likeness: 61.4, was: 37.6, strokes: 11, words: 36, minutes: 3.0, fixes: 0, build_s: 141, tokens: 54146, note: "3 rounds, toggles landed; header squeezed up, buttons 15px high"}
