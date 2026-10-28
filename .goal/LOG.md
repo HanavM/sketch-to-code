@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T12:08Z | n26 write round 31 targets | Ten fresh pages written, screenshotted, calibrated; six harder than round 1. Not sketched; next step sketches them.
 2026-10-28T12:02Z | n21 words sit where drawn or typed | Line words keep their side, typed copy keeps its spot, long builds not killed. Bento 82.6 to 83.1, 84.3.
 2026-10-28T11:15Z | n25 a drift is taken out where it starts; knobs inside tracks | Header held, drift from gap under tabs, knobs inside. Settings 61.4 to 71.8, 72.8.
 2026-10-28T11:00Z | n24 a drifting page is fixed at the top; rows get every part | Rows keep grey lines; worse repairs put back; closer boxes earn a round. Settings 37.6 to 60.5, 61.4.

@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Bento page now 84.3 (was 82.6): words start where their line was drawn, a line typed low in a card sits low, and long first builds are no longer cut off. Next: write ten fresh pages for round 31 to test on pages never seen."
+now: "Wrote ten fresh pages for round 31 (citrus juice, gallery, bank cards, festival poster, quote; checkout, inbox, task board, weather, profile). Next: sketch them by hand from their pictures only."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: n26-run, until: "2026-10-28T13:30Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -61,7 +61,10 @@ nodes:
      result: "Gains carry: bento 81.3 to 82.6, sunset 52.1 to 76.4 after fixing headings that swallowed subtitle lines."}
   - {id: n21, parent: n4, kind: step, title: "A word typed on a drawn line sits where the line is (left stays left, not centred), and text with no line goes where it was typed; re-sketch bento", status: done, branch: try/n4-look-fix,
      result: "Words keep their line's side and typed spot; long builds not killed. Bento 82.6 to 83.1, 84.3."}
-  - {id: n26, parent: n1, kind: step, priority: next, title: "Write round 31: ten fresh pages (5 creative landing, 5 everyday app, harder than round 1) and their screenshots, without sketching them; sketch them in later steps", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n26, parent: n1, kind: step, title: "Write round 31: ten fresh pages (5 creative landing, 5 everyday app, harder than round 1) and their screenshots, without sketching them; sketch them in later steps", status: done, branch: try/n4-look-fix,
+     result: "Ten fresh pages written, screenshotted and calibrated; six harder than round 1. None sketched yet."}
+  - {id: n27, parent: n1, kind: step, priority: next, title: "Sketch round 31 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n28, parent: n1, kind: step, title: "Sketch round 31 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n4-look-fix, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
