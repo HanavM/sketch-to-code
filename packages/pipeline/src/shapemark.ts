@@ -64,6 +64,11 @@ export interface ShapeMark {
   each?: { note: string; of: number }
   /** n32: box or ring whose note names a typed mark ("big yellow quote mark"): that glyph, no box. */
   glyph?: { char: string; name: string }
+  /**
+   * box only (n45): drawn wide with flat top and bottom and ends that bulge out (round or pointed,
+   * the way a pill is drawn with a mouse): a pill, fully rounded ends.
+   */
+  pill?: true
 }
 
 const r1 = (v: number) => Math.round(v)
@@ -158,7 +163,34 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   if (!allCorners && share(pts, onRing) >= 0.92 && len >= ellPerim * 0.85 && len <= ellPerim * 1.6) {
     return { shape: 'ellipse', box: { x: r1(b.x), y: r1(b.y), w: r1(b.w), h: r1(b.h) } }
   }
+  // n45: a PILL (round 32 c5: a button drawn wide with flat top and bottom and pointed ends, the
+  // way a pill is drawn with a mouse, was read as freehand and built a hexagon). A wide ring
+  // stays a ring (tested first). Flat along the top
+  // and bottom over the middle, the four corners empty, and the ends bulging out to the far sides.
+  const pill = asPill(pts, b, len)
+  if (pill) return pill
   return null
+}
+
+function asPill(pts: Array<{ x: number; y: number }>, b: BBox, len: number): Omit<ShapeMark, 'strokeId'> | null {
+  if (b.w < 2 * b.h || b.h < 16 || b.h > 140) return null
+  const tol = Math.max(5, b.h * 0.14)
+  // the middle stretch (the ends' bulge aside) runs flat along the top and the bottom
+  const mid = pts.filter((p) => p.x >= b.x + b.h * 0.6 && p.x <= b.x + b.w - b.h * 0.6)
+  if (mid.length < 6) return null
+  const flat = mid.filter((p) => p.y - b.y <= tol || b.y + b.h - p.y <= tol).length / mid.length
+  if (flat < 0.9) return null
+  const top = mid.some((p) => p.y - b.y <= tol), bottom = mid.some((p) => b.y + b.h - p.y <= tol)
+  if (!top || !bottom) return null
+  // corners empty: the ends come in from the corners towards the middle height
+  const cornerR = b.h * 0.12
+  const corners = [[b.x, b.y], [b.x + b.w, b.y], [b.x, b.y + b.h], [b.x + b.w, b.y + b.h]] as const
+  if (corners.some(([cx, cy]) => pts.some((p) => Math.hypot(p.x - cx, p.y - cy) <= cornerR))) return null
+  // each end reaches its far side near the middle height
+  const reaches = (x: number) => pts.some((p) => Math.abs(p.x - x) <= tol && Math.abs(p.y - (b.y + b.h / 2)) <= b.h * 0.3)
+  if (!reaches(b.x) || !reaches(b.x + b.w)) return null
+  if (len > 2.2 * (b.w + b.h)) return null
+  return { shape: 'box', pill: true, box: { x: r1(b.x), y: r1(b.y), w: r1(b.w), h: r1(b.h) } }
 }
 
 type P = { x: number; y: number }
@@ -264,6 +296,10 @@ export function cleanPath(m: Omit<ShapeMark, 'strokeId'>, origin: { x: number; y
     const t = m.tilt, c = { x: t.cx, y: t.cy }
     const k = turn([{ x: t.cx - t.w / 2, y: t.cy - t.h / 2 }, { x: t.cx + t.w / 2, y: t.cy - t.h / 2 }, { x: t.cx + t.w / 2, y: t.cy + t.h / 2 }, { x: t.cx - t.w / 2, y: t.cy + t.h / 2 }], t.deg, c)
     return `M ${X(k[0]!.x)} ${Y(k[0]!.y)} L ${X(k[1]!.x)} ${Y(k[1]!.y)} L ${X(k[2]!.x)} ${Y(k[2]!.y)} L ${X(k[3]!.x)} ${Y(k[3]!.y)} Z`
+  }
+  if (m.shape === 'box' && m.pill) {
+    const r = r1(h / 2)
+    return `M ${X(x + r)} ${Y(y)} H ${X(x + w - r)} A ${r} ${r} 0 0 1 ${X(x + w - r)} ${Y(y + h)} H ${X(x + r)} A ${r} ${r} 0 0 1 ${X(x + r)} ${Y(y)} Z`
   }
   if (m.shape === 'box') return `M ${X(x)} ${Y(y)} H ${X(x + w)} V ${Y(y + h)} H ${X(x)} Z`
   const rx = r1(w / 2), ry = r1(h / 2)

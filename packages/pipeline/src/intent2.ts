@@ -292,11 +292,11 @@ export function resolveNotes(
  * n44: the spots notes were typed on the sketch: notes on marks and notes placed in empty space
  * (a whole-sketch note sits nowhere). The overlay reads the same set (main.ts notesOnSketch).
  */
-export function notesOnSketch(notes: Array<{ text?: string; at?: { x: number; y: number }; anchor?: TypedNote['anchor'] }>): Array<{ x: number; y: number }> {
+export function notesOnSketch(notes: Array<{ text?: string; at?: { x: number; y: number }; anchor?: TypedNote['anchor'] }>): Array<{ x: number; y: number; text: string }> {
   return notes
     .filter((n) => n.at && Number.isFinite(n.at.x) && Number.isFinite(n.at.y) && (n.text ?? '').trim() &&
       (n.anchor?.kind === 'strokes' || (n.anchor?.kind === 'run' && n.anchor.placed === true)))
-    .map((n) => ({ x: n.at!.x, y: n.at!.y }))
+    .map((n) => ({ x: n.at!.x, y: n.at!.y, text: n.text ?? '' }))
 }
 
 /**
@@ -927,7 +927,7 @@ export function groundInterpretation(
     [...ev.strokes.values()].map((s) => ({ id: s.id, points: s.points })),
     // n44: a bare line under a heading line is its next line (ResolvedNote keeps `at` for exactly the
     // notes on marks and placed notes, the same set notesOnSketch reads)
-    { notesAt: ev.notes.filter((n) => n.at && (n.scope === 'strokes' || n.placed)).map((n) => n.at!) },
+    { notesAt: ev.notes.filter((n) => n.at && (n.scope === 'strokes' || n.placed)).map((n) => ({ ...n.at!, text: n.text })) },
   )
 
   // A stroke one add/design action cites ALONE is that action's own mark. Any
@@ -1063,7 +1063,7 @@ export function groundInterpretation(
           const glyphMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
             (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && glyphOf(n.text))
           // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
-          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || shape.tilt)) {
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || shape.tilt || shape.pill)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }

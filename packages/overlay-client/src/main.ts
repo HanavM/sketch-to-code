@@ -7320,11 +7320,11 @@ class Overlay {
   }
 
   /** n44: where notes sit on the sketch (on marks or placed), so a bare line is known; same set as the pipeline's. */
-  private notesOnSketch(): Array<{ x: number; y: number }> {
+  private notesOnSketch(): Array<{ x: number; y: number; text: string }> {
     return this.notes
       .filter((n) => n.text.trim() && Number.isFinite(n.at.x) && Number.isFinite(n.at.y) &&
         (n.anchor.kind === 'strokes' || (n.anchor.kind === 'run' && (n.anchor as { placed?: boolean }).placed === true)))
-      .map((n) => ({ x: n.at.x, y: n.at.y }))
+      .map((n) => ({ x: n.at.x, y: n.at.y, text: n.text }))
   }
 
   /** The drawing `seed` belongs to: strokes close in space AND in time. */

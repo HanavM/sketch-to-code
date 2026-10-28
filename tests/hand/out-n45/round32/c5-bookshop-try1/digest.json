@@ -1,0 +1,298 @@
+{
+  "round": 32,
+  "id": "c5-bookshop",
+  "version": 3,
+  "stopped": null,
+  "likeness": 72.9,
+  "colour": 0.9814509764325029,
+  "structure": 0.9089313626354311,
+  "layout": 0.6276429272941431,
+  "strokes": {
+    "count": 9,
+    "pointsPerStroke": 2.6,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "circle": 1,
+      "box": 1,
+      "dot": 3
+    },
+    "inkPx": 6362
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 34,
+  "notes": 4,
+  "longestNote": 12,
+  "noteTexts": [
+    "Shop Events, Leaf & Spine big bold serif, Clubs Visit",
+    "A quiet place to read. big italic serif green",
+    "An independent bookshop with a garden café, open every day until nine.",
+    "Browse the shelves"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 183,
+    "firstReadingS": 69,
+    "readS": [
+      44
+    ],
+    "buildS": [
+      112
+    ],
+    "sketchingS": 27
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 61130,
+    "cacheRead": 132844,
+    "output": 13378,
+    "billed": 74508
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 1913
+    },
+    {
+      "op": "stroke",
+      "at": 5927
+    },
+    {
+      "op": "stroke",
+      "at": 8206
+    },
+    {
+      "op": "stroke",
+      "at": 10374
+    },
+    {
+      "op": "stroke",
+      "at": 12241
+    },
+    {
+      "op": "stroke",
+      "at": 20475
+    },
+    {
+      "op": "pen",
+      "color": "#fdf9e6",
+      "at": 20842
+    },
+    {
+      "op": "stroke",
+      "at": 21312
+    },
+    {
+      "op": "pen",
+      "color": "#17532f",
+      "at": 21675
+    },
+    {
+      "op": "stroke",
+      "at": 22143
+    },
+    {
+      "op": "stroke",
+      "at": 22609
+    },
+    {
+      "op": "note",
+      "at": 23314
+    },
+    {
+      "op": "note",
+      "at": 24001
+    },
+    {
+      "op": "note",
+      "at": 24707
+    },
+    {
+      "op": "note",
+      "at": 25351
+    },
+    {
+      "op": "run",
+      "at": 25471
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          378,
+          47
+        ],
+        [
+          902,
+          47
+        ]
+      ],
+      "n": 88,
+      "at": 1913
+    },
+    {
+      "way": [
+        [
+          2,
+          89
+        ],
+        [
+          1278,
+          89
+        ]
+      ],
+      "n": 214,
+      "at": 5927
+    },
+    {
+      "way": [
+        [
+          313,
+          295
+        ],
+        [
+          965,
+          295
+        ]
+      ],
+      "n": 110,
+      "at": 8206
+    },
+    {
+      "way": [
+        [
+          335,
+          360
+        ],
+        [
+          945,
+          360
+        ]
+      ],
+      "n": 103,
+      "at": 10374
+    },
+    {
+      "way": [
+        [
+          550,
+          419
+        ],
+        [
+          730,
+          419
+        ],
+        [
+          755,
+          447
+        ],
+        [
+          730,
+          476
+        ],
+        [
+          550,
+          476
+        ],
+        [
+          525,
+          447
+        ],
+        [
+          550,
+          419
+        ]
+      ],
+      "n": 85,
+      "at": 12241
+    },
+    {
+      "way": [
+        [
+          2,
+          780
+        ],
+        [
+          1278,
+          780
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          780
+        ]
+      ],
+      "n": 467,
+      "at": 20475
+    },
+    {
+      "way": [
+        [
+          200,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 21312
+    },
+    {
+      "way": [
+        [
+          640,
+          840
+        ]
+      ],
+      "n": 1,
+      "at": 22143
+    },
+    {
+      "way": [
+        [
+          560,
+          447
+        ]
+      ],
+      "n": 1,
+      "at": 22609
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Shop Events, Leaf & Spine big bold serif, Clubs Visit",
+      "whole": false,
+      "x": 640,
+      "y": 33,
+      "at": 23314
+    },
+    {
+      "text": "A quiet place to read. big italic serif green",
+      "whole": false,
+      "x": 640,
+      "y": 280,
+      "at": 24001
+    },
+    {
+      "text": "An independent bookshop with a garden café, open every day until nine.",
+      "whole": false,
+      "x": 640,
+      "y": 348,
+      "at": 24707
+    },
+    {
+      "text": "Browse the shelves",
+      "whole": false,
+      "x": 640,
+      "y": 440,
+      "at": 25351
+    }
+  ]
+}

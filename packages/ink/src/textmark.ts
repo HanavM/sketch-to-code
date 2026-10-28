@@ -385,11 +385,13 @@ export const LINE_STACK_LIFT = 0.16
  * n44: what else is known when stacks are read. `notesAt`: where every typed note sits (page px).
  * A level line with no note typed on or near it is bare: it carries no words of its own.
  */
-export interface StackOpts { notesAt?: Array<{ x: number; y: number }> }
+export interface StackOpts { notesAt?: Array<{ x: number; y: number; text?: string }> }
 /** n44: a note this close to a line's ink (px) is typed on that line. */
 export const BARE_NOTE_PX = 48
 /** n44: a bare line under a heading line may run this much longer and still be its next line. */
 export const BARE_WRAP_MAX = 1.6
+/** n45: a note this many words long typed on a line is that line's own sentence (a subtitle), not a heading's wrap. */
+export const OWN_SENTENCE_WORDS = 6
 
 /** n33: centred display copy (a pull quote) may sit this close. */
 export const QUOTE_STACK_MIN_PITCH = 48
@@ -414,6 +416,18 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOp
   const notes = opts.notesAt?.filter((n) => Number.isFinite(n.x) && Number.isFinite(n.y))
   const bare = (l: LineGeom): boolean => notes !== undefined && !notes.some((n) =>
     Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX)
+  // n45 (r32 c5): "A quiet place to read." and the sentence under it, each typed on its own line,
+  // were read as one two-line heading (the second line a little shorter, on the heading pitch) and
+  // the sentence was built as the heading's wrap. A line carrying a sentence of its own (a note of
+  // six words or more typed on it, not the note on the line above) is the next block.
+  const nearOf = (l: LineGeom) => notes?.filter((n) =>
+    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX) ?? []
+  const ownSentence = (next: LineGeom, first: LineGeom): boolean => {
+    const mine = nearOf(next).filter((n) => (n.text ?? '').trim().split(/\s+/).length >= OWN_SENTENCE_WORDS)
+    if (!mine.length) return false
+    const theirs = nearOf(first)
+    return mine.some((n) => !theirs.some((t) => t.x === n.x && t.y === n.y))
+  }
   const used = new Set<string>()
   const out: TextStack[] = []
   for (const first of ls) {
@@ -446,6 +460,7 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOp
       const firstHeld = stack.length === 1 && ls.some((o) => o !== first && o !== next && Math.abs(o.cy - first.cy) < 0.5 * gap &&
         Math.abs(o.cy - first.cy) >= 8 && Math.min(o.x1, first.x1) > Math.max(o.x0, first.x0))
       if (firstHeld) break
+      if (ownSentence(next, first) && Math.min(next.x1, first.x1) > Math.max(next.x0, first.x0)) break
       const wrapsShorter = wn <= Math.max(last.x1 - last.x0, w0) * 1.05
       const bareWrap = !wrapsShorter && sameEdge && wn <= BARE_WRAP_MAX * w0 && bare(next) && !bare(first)
       if (gap >= minPitch && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk && !tight &&
