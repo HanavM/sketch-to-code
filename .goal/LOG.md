@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T07:15Z | n18 do the gains carry over to untouched pages | No: pricing 50.5 to 33.2, login 71.1 to 47.7. Ink colours no longer snapped; repair round stalls found.
 
 2026-10-28T06:10Z | n17 big word fills its drawn box; band as wide as told | 09 fills its box, band thin, both checked. Diagonal 67.4, 64.9 to 75.7, 73.2; best yet.
 2026-10-28T05:20Z | n16 outlined words stay hollow; text reads on what is behind | 09 hollow both tries, nav white on try 2; 09 drifted off its box: 73.6, 70.3 to 67.4, 64.9.
