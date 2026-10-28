@@ -1,0 +1,281 @@
+{
+  "round": 1,
+  "id": "c1-sunset-hero",
+  "version": 3,
+  "stopped": null,
+  "likeness": 74,
+  "colour": 0.9315227603126403,
+  "structure": 0.9174530522917079,
+  "layout": 0.5645835717080041,
+  "strokes": {
+    "count": 10,
+    "pointsPerStroke": 1.9,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 5,
+      "box": 1,
+      "dot": 4
+    },
+    "inkPx": 2551
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 23,
+  "notes": 5,
+  "longestNote": 7,
+  "noteTexts": [
+    "dusk. italic serif",
+    "Work Studio Journal Contact",
+    "Stay for the golden hour, huge serif",
+    "A slow-living retreat on the coast",
+    "Book a stay"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 303,
+    "firstReadingS": 54,
+    "readS": [
+      28
+    ],
+    "buildS": [
+      236
+    ],
+    "sketchingS": 39
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 28467,
+    "cacheRead": 219932,
+    "output": 21163,
+    "billed": 49630
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 613
+    },
+    {
+      "op": "stroke",
+      "at": 1928
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 2303
+    },
+    {
+      "op": "stroke",
+      "at": 5177
+    },
+    {
+      "op": "stroke",
+      "at": 6210
+    },
+    {
+      "op": "stroke",
+      "at": 8328
+    },
+    {
+      "op": "stroke",
+      "at": 10361
+    },
+    {
+      "op": "pen",
+      "color": "#ff7a50",
+      "at": 10733
+    },
+    {
+      "op": "stroke",
+      "at": 11212
+    },
+    {
+      "op": "pen",
+      "color": "#ff4f7b",
+      "at": 11582
+    },
+    {
+      "op": "stroke",
+      "at": 12062
+    },
+    {
+      "op": "pen",
+      "color": "#8b2cf5",
+      "at": 12436
+    },
+    {
+      "op": "stroke",
+      "at": 12917
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 13286
+    },
+    {
+      "op": "stroke",
+      "at": 13762
+    },
+    {
+      "op": "note",
+      "at": 14415
+    },
+    {
+      "op": "note",
+      "at": 15081
+    },
+    {
+      "op": "note",
+      "at": 15768
+    },
+    {
+      "op": "note",
+      "at": 16429
+    },
+    {
+      "op": "note",
+      "at": 17063
+    },
+    {
+      "op": "run",
+      "at": 25865
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          72,
+          46
+        ],
+        [
+          125,
+          46
+        ]
+      ],
+      "n": 10,
+      "at": 613
+    },
+    {
+      "way": [
+        [
+          910,
+          46
+        ],
+        [
+          1208,
+          46
+        ]
+      ],
+      "n": 51,
+      "at": 1928
+    },
+    {
+      "way": [
+        [
+          215,
+          305
+        ],
+        [
+          1070,
+          305
+        ]
+      ],
+      "n": 144,
+      "at": 5177
+    },
+    {
+      "way": [
+        [
+          540,
+          425
+        ],
+        [
+          745,
+          425
+        ]
+      ],
+      "n": 35,
+      "at": 6210
+    },
+    {
+      "way": [
+        [
+          350,
+          528
+        ],
+        [
+          930,
+          528
+        ]
+      ],
+      "n": 98,
+      "at": 8328
+    },
+    {
+      "way": [
+        [
+          530,
+          616
+        ],
+        [
+          750,
+          616
+        ],
+        [
+          750,
+          676
+        ],
+        [
+          530,
+          676
+        ],
+        [
+          530,
+          616
+        ]
+      ],
+      "n": 95,
+      "at": 10361
+    },
+    {
+      "way": [
+        [
+          30,
+          120
+        ]
+      ],
+      "n": 1,
+      "at": 11212
+    },
+    {
+      "way": [
+        [
+          120,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 12062
+    },
+    {
+      "way": [
+        [
+          1240,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 12917
+    },
+    {
+      "way": [
+        [
+          700,
+          646
+        ]
+      ],
+      "n": 1,
+      "at": 13762
+    }
+  ]
+}

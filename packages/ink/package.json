@@ -26,6 +26,10 @@
       "types": "./dist/notefocus.d.ts",
       "default": "./dist/notefocus.js"
     },
+    "./inkfill": {
+      "types": "./dist/inkfill.d.ts",
+      "default": "./dist/inkfill.js"
+    },
     "./scene": {
       "types": "./dist/scene.d.ts",
       "default": "./dist/scene.js"

@@ -11,7 +11,8 @@
 import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
-  type BBox, type Stroke,
+  isFillDot, inkFills, pageFill,
+  type BBox, type InkFill, type Stroke,
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, type ColorMatch } from './palette.js'
@@ -214,6 +215,8 @@ export interface Evidence {
   strokes: Map<string, Stroke>
   /** Typed notes, anchored to ids (never to coordinates from the model). */
   notes: ResolvedNote[]
+  /** n10: coloured taps and what each fills (a mark, or the page). */
+  fills?: InkFill[]
 }
 
 const MENU_CAP = 70
@@ -299,7 +302,12 @@ export function isPageLookNote(text: string): boolean {
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
 
-export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: TypedNote[] = []): Evidence {
+export function buildEvidence(allStrokes: Stroke[], snap: DomSnapshot, notes: TypedNote[] = []): Evidence {
+  // n10: a coloured tap is a fill, not a mark: it never reaches the reading as
+  // a stroke (it would be a dot on whatever it sits on); what it fills is
+  // decided from the ink here and handed over as colour
+  const fills = inkFills(allStrokes)
+  const strokes = allStrokes.filter((s) => !isFillDot(s))
   let inkBox: BBox | null = null
   for (const s of strokes) {
     if (s.points.length === 0) continue
@@ -439,6 +447,8 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
         ? { x: Math.round(inkBox.x), y: Math.round(inkBox.y), w: Math.round(inkBox.w), h: Math.round(inkBox.h) }
         : null,
       strokes: strokeList,
+      // n10: what the user coloured in by tapping with a colour picked
+      ...(fills.length ? { colourFills: fills.map((f) => ({ fills: f.target ?? 'whole page', color: f.color })) } : {}),
       typedNotes: resolved.length ? resolved : undefined,
       elementMenu: menu.map((n) => ({
         id: n.id,
@@ -461,7 +471,7 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
     maxSize: 1100,
     underlayRects: menu.map((n) => n.rect),
   })
-  return { png: encodePng(raster), brief, elements, strokes: strokeMap, notes: resolved }
+  return { png: encodePng(raster), brief, elements, strokes: strokeMap, notes: resolved, fills }
 }
 
 export const DESIGN_INTERPRET_PROMPT = `
@@ -548,6 +558,11 @@ A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
 That colour is an instruction about the result ("make this red"), not a
 description of the ink; say so in the instruction. Never invent a colour for
 ink that has no drawnColor.
+"colourFills" are taps the user made with a colour picked: each colours in the
+stroke it names (that block's background is that colour) or the whole page
+(several page taps = a gradient from the first towards the last). Each one is
+exact and is handed to the build as is: never contradict it in words, and do
+not cite the taps (they are not strokes).
 
 Rules for your answer:
 - Only 'add' and 'design' actions exist in this mode.
@@ -661,6 +676,11 @@ A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
 That colour is an instruction about the result ("make this red"), not a
 description of the ink; say so in the instruction. Never invent a colour for
 ink that has no drawnColor.
+"colourFills" are taps the user made with a colour picked: each colours in the
+stroke it names (that block's background is that colour) or the whole page
+(several page taps = a gradient from the first towards the last). Each one is
+exact and is handed to the build as is: never contradict it in words, and do
+not cite the taps (they are not strokes).
 
 Rules for your answer:
 - Reference ONLY ids from the menus. Never invent ids. Never output
@@ -748,6 +768,8 @@ export interface GroundedAction {
   refs?: Array<{ token: string; label: string; domId?: string; srcLoc?: string }>
   /** Colour the strokes were drawn in, snapped to the app's own palette. */
   color?: ColorMatch
+  /** n10: colours stated by the ink itself, per mark (exact, never snapped). */
+  inkColours?: InkColour[]
   /** navigate: the screen's name, as written. */
   screen?: string
   /**
@@ -765,6 +787,18 @@ export interface GroundedAction {
   /** navigate: every stroke it cites (arrow, box, name). Paths are only fitted for creations. */
   strokeIds?: string[]
   needsConfirm: boolean
+}
+
+/** n10: a colour the ink states for one mark: its fill, or its text colour. */
+export interface InkColour {
+  strokeId: string
+  /** 'box' | 'ring' | 'line' | 'text line' | 'outline' (a closed freehand blob) */
+  mark: string
+  paint: 'background' | 'text'
+  color: string
+  box: BBox
+  /** a tap with a colour picked, or the pen colour the mark was drawn in */
+  how: 'tap' | 'pen'
 }
 
 export interface GroundedInterpretation {
@@ -793,6 +827,8 @@ export interface GroundedInterpretation {
    * these, full viewport height. The note still also goes to its own action.
    */
   pageNotes?: string[]
+  /** n10: the page colour the user tapped on bare page (a gradient for 2+ colours). */
+  pageFill?: { colors: string[]; angle?: number; css: string }
   /** Model references that failed validation (reported, never executed). */
   rejected: string[]
 }
@@ -1083,6 +1119,22 @@ export function groundInterpretation(
     const drawnColor = [...tally.entries()].sort((a, b) => b[1] - a[1])[0]?.[0]
     const color = drawnColor ? (matchColor(drawnColor, palette) ?? undefined) : undefined
 
+    // n10: colour per mark, from the ink: a tap fills the mark it landed in; a
+    // box, ring or closed blob drawn in a colour is filled with it; a line or
+    // text squiggle drawn in a colour is that text's (or rule's) colour
+    const inkColours: InkColour[] = []
+    for (const st of citedStrokes) {
+      const b = bboxOf(st.points)
+      const box = { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) }
+      const sm = shapeMarks.find((m) => m.strokeId === st.id)
+      const mark = sm ? (sm.shape === 'ellipse' ? 'ring' : sm.shape) : textMarks.includes(st.id) ? 'text line' : 'outline'
+      const tap = (ev.fills ?? []).filter((f) => f.target === st.id).pop()
+      if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box, how: 'tap' }); continue }
+      if (!st.color) continue
+      const flat = sm?.shape === 'line' || textMarks.includes(st.id)
+      inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })
+    }
+
     // destructive-width gate is ours, not the model's
     const targetArea = targets.reduce((acc, t) => acc + t.rect.w * t.rect.h, 0)
     const needsConfirm =
@@ -1119,6 +1171,7 @@ export function groundInterpretation(
       notes: notes.length ? notes : undefined,
       refs: refs.length ? refs : undefined,
       color,
+      ...(inkColours.length ? { inkColours } : {}),
       ...(a.kind === 'navigate' && a.screen ? { screen: a.screen.trim() } : {}),
       // the arrow and the box: run2 finds the screen's box among these (s2c-040)
       ...(a.kind === 'navigate' && citedStrokes.length ? { strokeIds: citedStrokes.map((st) => st.id) } : {}),
@@ -1130,11 +1183,13 @@ export function groundInterpretation(
   // claimed it — an unattached one still describes this run.
   const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
   const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
+  const page = pageFill(ev.fills ?? [])
 
   return {
     reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,
     droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
     runNotes: runNotes.length ? runNotes : undefined,
     ...(pageNotes.length ? { pageNotes } : {}),
+    ...(page ? { pageFill: page } : {}),
   }
 }

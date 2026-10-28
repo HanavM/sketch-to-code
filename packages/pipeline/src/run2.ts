@@ -44,6 +44,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
+import { inkColoursBrief, verifyInkColours } from './inkcolour.js'
 import { verifyShapeMarks, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
@@ -527,6 +528,7 @@ export async function runV2(
       : '') +
     countsBrief(counts) +
     keptMarksBrief(kept) +
+    inkColoursBrief(interp) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -636,6 +638,7 @@ export async function runV2(
     const result = verifyActions(
       interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity }, probes,
       [...(interp.pageNotes ?? []), ...(interp.runNotes ?? [])],
+      interp.pageFill,
     )
 
     // the drawn strokes a scaffold handed over must still be drawn where they were
@@ -1022,6 +1025,8 @@ export function verifyActions(
   probes: ProbeVerdict[] = [],
   /** Words typed about the whole page or the run (no action claimed them): their page fill is checked too. */
   looseNotes: string[] = [],
+  /** n10: the page colour tapped on bare page. */
+  pageFill?: GroundedInterpretation['pageFill'],
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -1236,6 +1241,15 @@ export function verifyActions(
     total++
     if (!faults.length) satisfied++
     else failures.push(`page (typed colours): ${faults.join('; ')}`)
+  }
+
+  // n10: colours the ink stated (taps, coloured marks) reached their marks
+  const inkCol = verifyInkColours(actions, pageFill, after)
+  if (!inkCol.unverifiable) {
+    details.push({ kind: 'ink-colours', verdict: inkCol })
+    total++
+    if (inkCol.satisfied) satisfied++
+    else failures.push(`page (colours from the ink): ${inkCol.reason}`)
   }
 
   for (const v of probes) {

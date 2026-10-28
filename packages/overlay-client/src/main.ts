@@ -8,6 +8,7 @@ import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-c
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
 import { noteFocus } from '@s2c/ink/notefocus'
+import { inkFills, isFillDot, pageFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
@@ -7057,6 +7058,15 @@ class Overlay {
    * technically under there. Selecting a 1280x1312 wrapper is never what was
    * meant, and treating it as empty is what lets a press out there be a stroke.
    */
+  /** n10: a coloured tap is a fill when it lands in a drawn outline or on bare page. */
+  private isFillTap(e: PointerEvent): boolean {
+    const at = this.toPage(e)
+    const probe = [...this.strokes, { id: '?probe', points: [at, at, at], color: this.pen ?? '#000' }]
+    if (inkFills(probe).pop()?.target) return true
+    const target = this.pickTweakTarget(e.clientX, e.clientY)
+    return !target || this.isBackdrop(target)
+  }
+
   private isBackdrop(el: Element): boolean {
     const r = el.getBoundingClientRect()
     return r.width * r.height >= window.innerWidth * window.innerHeight * 0.5
@@ -7677,9 +7687,11 @@ class Overlay {
   private noteMarks(n: { at: { x: number; y: number }; anchor: NoteAnchor }): Stroke[] {
     if (n.anchor.kind !== 'strokes') return []
     const live = new Set(this.strokes.map((s) => s.id))
-    const ids = n.anchor.strokeIds.filter((id) => live.has(id))
-    const focus = noteFocus(ids, n.anchor.focus, n.at, this.strokes) ?? ids
-    return this.strokes.filter((s) => focus.includes(s.id))
+    // a coloured tap fills a mark; it is never what a note is about (n10)
+    const marks = this.strokes.filter((s) => !isFillDot(s))
+    const ids = n.anchor.strokeIds.filter((id) => live.has(id) && marks.some((m) => m.id === id))
+    const focus = noteFocus(ids, n.anchor.focus, n.at, marks) ?? ids
+    return marks.filter((s) => focus.includes(s.id))
   }
 
   /** "on this box", "on this ring", "on these 2 lines": the mark in plain words. */
@@ -7852,8 +7864,16 @@ class Overlay {
   private renderInk() {
     const held = [...(this.flight?.strokes ?? []), ...this.queue.flatMap((j) => j.strokes)]
     const heldSet = new Set(held)
-    this.ink.replaceChildren(...[...held, ...this.strokes].map((st) => {
+    this.ink.replaceChildren(...this.fillLayer(), ...[...held, ...this.strokes].map((st) => {
       const path = this.inkPath()
+      if (isFillDot(st)) {
+        // the tap itself: a small dot in its colour, on top of the fill it made
+        path.setAttribute('d', `M ${String(st.points[0]!.x - 0.5)} ${String(st.points[0]!.y)} l 1 0`)
+        path.style.stroke = st.color ?? '#000'
+        path.style.strokeWidth = '9'
+        path.classList.add('fillDot')
+        return path
+      }
       path.setAttribute('d', pathD(st.points))
       // A coloured stroke paints in its own colour, so what the user sees on
       // the page is exactly the colour the run will ask for. Inline style, not
@@ -7869,6 +7889,56 @@ class Overlay {
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
     this.renderNoteLinks()
     this.refreshOptimistic()
+  }
+
+  /**
+   * n10: what the taps coloured in, under the ink: each tapped outline filled
+   * in its colour, and the page tint (or gradient) behind everything. Half
+   * strength, so the marks and the page under them still read.
+   */
+  private fillLayer(): SVGElement[] {
+    const NS = 'http://www.w3.org/2000/svg'
+    const fills = inkFills(this.strokes)
+    if (!fills.length) return []
+    const out: SVGElement[] = []
+    const page = pageFill(fills)
+    if (page) {
+      const rect = document.createElementNS(NS, 'rect')
+      const w = document.documentElement.scrollWidth, h = Math.max(document.documentElement.scrollHeight, window.innerHeight)
+      rect.setAttribute('x', '0'); rect.setAttribute('y', '0')
+      rect.setAttribute('width', String(w)); rect.setAttribute('height', String(h))
+      rect.setAttribute('opacity', '0.4'); rect.classList.add('fillPage')
+      if (page.colors.length > 1) {
+        const defs = document.createElementNS(NS, 'defs')
+        const g = document.createElementNS(NS, 'linearGradient')
+        g.id = 's2c-page-fill'
+        const rad = ((page.angle ?? 180) * Math.PI) / 180
+        const dx = Math.sin(rad) / 2, dy = -Math.cos(rad) / 2
+        g.setAttribute('x1', String(0.5 - dx)); g.setAttribute('y1', String(0.5 - dy))
+        g.setAttribute('x2', String(0.5 + dx)); g.setAttribute('y2', String(0.5 + dy))
+        page.colors.forEach((c, i) => {
+          const stop = document.createElementNS(NS, 'stop')
+          stop.setAttribute('offset', String(i / (page.colors.length - 1)))
+          stop.setAttribute('stop-color', c)
+          g.appendChild(stop)
+        })
+        defs.appendChild(g); out.push(defs)
+        rect.setAttribute('fill', 'url(#s2c-page-fill)')
+      } else rect.setAttribute('fill', page.css)
+      out.push(rect)
+    }
+    for (const f of fills) {
+      const t = f.target ? this.strokes.find((s) => s.id === f.target) : null
+      if (!t) continue
+      const path = this.inkPath()
+      path.setAttribute('d', `${pathD(t.points)} Z`)
+      path.style.fill = f.color
+      path.style.stroke = 'none'
+      path.style.opacity = '0.5'
+      path.classList.add('fillMark')
+      out.push(path)
+    }
+    return out
   }
 
   private toPage(e: PointerEvent): Pt {
@@ -7956,6 +8026,27 @@ class Overlay {
       const pts = this.live.points
       for (let i = 1; i < pts.length; i++) {
         travel += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+      }
+      if (travel <= CLICK_SLOP && this.pen && this.live.color && this.isFillTap(e)) {
+        /*
+         * n10: with a colour picked, a tap colours in. Inside a drawn box, ring
+         * or closed blob it fills that mark; on bare page it colours the page
+         * (two page taps in two colours: a gradient from the first to the
+         * last). Kept as a dot stroke so undo, the run and the reading all see
+         * it, and shown filled the moment the pen lifts.
+         */
+        const at = this.toPage(e)
+        this.live.points = [at, { ...at, x: at.x + 1 }, { ...at, x: at.x + 1, y: at.y + 1 }]
+        this.strokes.push(this.live)
+        this.live = null
+        this.livePath = null
+        this.resetBridge()
+        this.renderInk()
+        this.sync()
+        const f = inkFills(this.strokes).pop()
+        this.status(f?.target ? `filled this mark ${this.pen}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? ' (gradient from the first tap to this one)' : ''}`)
+        this.scheduleAuto()
+        return
       }
       if (travel <= CLICK_SLOP) {
         const target = this.pickTweakTarget(e.clientX, e.clientY)

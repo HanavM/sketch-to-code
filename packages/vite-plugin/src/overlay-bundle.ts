@@ -41,6 +41,8 @@ export function overlayAliases(
   // which mark each note is about, shown before the build (goal loop n9)
   const focusSrc = resolve(inkPkg, 'src/notefocus.ts')
   if (exists(focusSrc)) alias['@s2c/ink/notefocus'] = focusSrc
+  const fillSrc = resolve(inkPkg, 'src/inkfill.ts')
+  if (exists(fillSrc)) alias['@s2c/ink/inkfill'] = fillSrc
   return alias
 }
 
