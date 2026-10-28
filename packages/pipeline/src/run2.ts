@@ -3,7 +3,7 @@
  * interpretV2()  — evidence → one multimodal call → grounded, validated intent
  * runV2()        — grounded intent → codegen → per-action verification
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { encodePng, renderScene, type Stroke } from '@s2c/ink'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
@@ -48,7 +48,8 @@ import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
 import { verifyShapeMarks, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
-import { repairFits } from './repair-time.js'
+import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
+import { STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
 import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
@@ -77,6 +78,8 @@ export interface SendCost {
   /** The turn's tool calls in order, "Name dir/file" (at most 40). */
   tools: string[]
   ms: number
+  /** Set when the turn was ended for making no progress: why. */
+  stalled?: string
 }
 
 export interface InterpretV2Result {
@@ -336,7 +339,17 @@ export async function runV2(
   mkdirSync(runDir, { recursive: true })
   const save = (name: string, data: unknown) =>
     writeFileSync(join(runDir, name), JSON.stringify(data, null, 2))
-  const stage = (s: string, detail?: string) => ctx.emit('stage', { stage: s, detail })
+  // every stage is also written down as it happens: a run that hangs or is
+  // stopped still says where it got to (n18: a stalled repair left nothing)
+  const runStarted = Date.now()
+  const stage = (s: string, detail?: string) => {
+    try {
+      appendFileSync(join(runDir, 'stages.jsonl'), JSON.stringify({ ms: Date.now() - runStarted, stage: s, detail }) + '\n')
+    } catch { /* the record is a bonus; the stage still goes out */ }
+    ctx.emit('stage', { stage: s, detail })
+  }
+  const stallMs = Number(process.env.S2C_STALL_MS) > 0 ? Number(process.env.S2C_STALL_MS) : STALL_MS
+  let repairStalled: string | null = null
   let totalUsage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
 
   stage('safety', 'git checkpoint')
@@ -767,8 +780,19 @@ export async function runV2(
       const u0 = s.usage()
       const t0 = s.toolCalls()
       const started = Date.now()
+      let stalled: string | undefined
       try {
-        return await s.send(content)
+        // a repair must leave time for the verify after it; a build only
+        // must not sit silent (the cap still ends it)
+        const marginMs = kind === 'repair' ? VERIFY_MARGIN_MS : 0
+        return await watchTurn(
+          s.send(content),
+          () => stallReason({ now: Date.now(), lastActivity: s.lastActivity(), deadline: ctx.deadline, marginMs, stallMs }),
+          Math.min(5_000, Math.max(50, Math.floor(stallMs / 4))),
+        )
+      } catch (e) {
+        if (e instanceof TurnStalled) stalled = e.why
+        throw e
       } finally {
         const u1 = s.usage()
         sends.push({
@@ -779,6 +803,7 @@ export async function runV2(
           toolCalls: s.toolCalls() - t0,
           tools: s.toolLog().slice(t0, t0 + 40),
           ms: Date.now() - started,
+          ...(stalled ? { stalled } : {}),
         })
         // per turn, so a run the cap stops still says where its time went
         save('sends.json', sends)
@@ -849,12 +874,30 @@ export async function runV2(
             `ACTIONS:\n${JSON.stringify(interp.actions.map((a, i) => ({ action: i, ...a })), null, 2)}\n\n` +
             `Check the codemod edits against the failures below before changing anything — ` +
             `if an edit is already correct, leave it and say so.\n\n`
-        saveReply(await metered('repair', {
-          text:
-            `${context}Verification against the live DOM found problems:\n${failures.join('\n')}\n\n` +
-            `Fix exactly these. Do not change anything already working.\n\n` +
-            leanRepairNote(session ? (session as CodegenSession).toolLog() : []),
-        }))
+        try {
+          saveReply(await metered('repair', {
+            text:
+              `${context}Verification against the live DOM found problems:\n${failures.join('\n')}\n\n` +
+              `Fix exactly these. Do not change anything already working.\n\n` +
+              leanRepairNote(session ? (session as CodegenSession).toolLog() : []),
+          }))
+        } catch (e) {
+          if (!(e instanceof TurnStalled)) throw e
+          // keep the build: stop the agent (no more edits can land), then
+          // verify what is on disk so the record says what the page really is
+          repairStalled = e.why
+          stage('repair', `repair round ${round + 1} stopped: ${e.why}; keeping the build`)
+          const live = session as CodegenSession | null
+          if (live) {
+            live.close()
+            await settleSession(live.closed)
+          }
+          const after = await verifyRound(`${tag}-${round + 1}`)
+          lastFailures = after.failures
+          if (after.score > best) best = after.score
+          stage('verify', `${Math.round(after.score * 100)}% of actions satisfied after the stopped repair`)
+          break
+        }
       }
     } finally {
       if (session) {
@@ -930,6 +973,7 @@ export async function runV2(
     fidelity,
     candidates,
     finishing: finishEdits,
+    repairStalled,
   })
   const summary =
     // A dropped action leads, because it is the thing most worth knowing and a

@@ -141,6 +141,8 @@ export interface CodegenSession {
   toolCalls: () => number
   /** Each tool call so far as "Name dir/file" (Edit app/page.tsx): which calls made a turn long. */
   toolLog: () => string[]
+  /** When the agent last said anything (ms epoch): how a stalled turn is told from a slow one. */
+  lastActivity: () => number
   close: () => void
   /**
    * Resolves once the agent's message loop has ended, i.e. the subprocess is
@@ -179,6 +181,7 @@ export function createCodegenSession(
   const usage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
   let tools = 0
   const toolList: string[] = []
+  let lastSeen = Date.now()
 
   async function* input(): AsyncGenerator<SDKUserMessage> {
     while (true) {
@@ -220,6 +223,7 @@ export function createCodegenSession(
     try {
       let buffer = ''
       for await (const msg of q) {
+        lastSeen = Date.now()
         if (msg.type === 'assistant') {
           for (const block of msg.message.content) {
             if (block.type === 'text') buffer += block.text
@@ -282,6 +286,7 @@ export function createCodegenSession(
           return
         }
         pending.push({ resolve, reject })
+        lastSeen = Date.now()
         inputQueue.push({
           type: 'user',
           parent_tool_use_id: null,
@@ -303,6 +308,7 @@ export function createCodegenSession(
     usage: () => ({ ...usage }),
     toolCalls: () => tools,
     toolLog: () => [...toolList],
+    lastActivity: () => lastSeen,
     close,
     closed,
   }
@@ -321,20 +327,24 @@ function scriptedSession(
 ): CodegenSession {
   let ended = false
   let turn = 0
+  let lastSeen = Date.now()
   return {
     async send(content: UserContent): Promise<string> {
       if (signal?.aborted) throw abortError(signal)
       if (ended) throw new Error('codegen session already closed')
+      lastSeen = Date.now()
       script.onCall?.('codegen', content.text.slice(0, 200))
       if (!script.codegen) throw new Error('scripted model: codegen is not scripted')
       ev.onStage('codegen', 'scripted edit')
       const reply = await script.codegen({ root: appRoot, text: content.text, turn: ++turn })
+      lastSeen = Date.now()
       if (signal?.aborted) throw abortError(signal)
       return reply
     },
     usage: () => ({ input: 0, cacheRead: 0, output: 0 }),
     toolCalls: () => 0,
     toolLog: () => [],
+    lastActivity: () => lastSeen,
     close: () => { ended = true },
     closed: Promise.resolve(),
   }
