@@ -20,6 +20,7 @@
  *                               walked at 6px with slight wobble)
  *   pen {color|null}            pen colour via the real pen panel
  *   note {x, y, text, whole?}   Alt+N (or Alt+Shift+N) and type
+ *   deleteNote {text}           click a note's x (n35; counts as a fix)
  *   undo                        Ctrl+Z (counts as an erased stroke)
  *   moveNote {text, x, y}       drag a note chip onto another mark (n9; counts as a fix)
  *   look {name}                 screenshot of what is on screen now
@@ -170,6 +171,22 @@ const ops = {
     await p.mouse.up(); await p.waitForTimeout(250)
     S.noteMoves = (S.noteMoves ?? 0) + 1
     S.events.push({ op: 'moveNote', at: now() - (S.t0 ?? now()) })
+    return { ok: true, status: await statusLine(p) }
+  },
+  /** n35: click a note chip's x (found by the start of its text); counts as a fix. */
+  async deleteNote({ text }) {
+    const p = S.page
+    const ok = await p.evaluate((t) => {
+      const root = document.getElementById('s2c-overlay-host').shadowRoot
+      const chip = [...root.querySelectorAll('.noteChip')].find((c) => (c.querySelector('.noteText')?.textContent ?? '').startsWith(t))
+      const x = chip?.querySelector('.noteDel'); if (!x) return false
+      const r = x.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }
+    }, text)
+    if (!ok) return { ok: false, error: 'no such note' }
+    await p.mouse.click(ok.x, ok.y); await p.waitForTimeout(200)
+    S.noteMoves = (S.noteMoves ?? 0) + 1
+    S.notes = S.notes.filter((n) => !n.text.startsWith(text))
+    S.events.push({ op: 'deleteNote', at: now() - (S.t0 ?? now()) })
     return { ok: true, status: await statusLine(p) }
   },
   async undo() {
