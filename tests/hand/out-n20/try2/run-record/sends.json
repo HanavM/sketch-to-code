@@ -1,0 +1,47 @@
+[
+  {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 15211,
+    "output": 4860,
+    "cacheRead": 110491,
+    "toolCalls": 6,
+    "tools": [
+      "Glob",
+      "Glob",
+      "Read src/App.tsx",
+      "Read src/index.css",
+      "Read src/main.tsx",
+      "Edit src/App.tsx"
+    ],
+    "ms": 54469
+  },
+  {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 21522,
+    "output": 9694,
+    "cacheRead": 88607,
+    "toolCalls": 4,
+    "tools": [
+      "Read src/App.tsx",
+      "Edit src/App.tsx",
+      "Edit src/App.tsx",
+      "Edit src/App.tsx"
+    ],
+    "ms": 123037
+  },
+  {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+      "Read src/App.tsx"
+    ],
+    "ms": 485069,
+    "stalled": "only 56 s left before the run cap"
+  }
+]

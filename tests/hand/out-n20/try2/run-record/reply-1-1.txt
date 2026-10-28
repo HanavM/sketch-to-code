@@ -1,0 +1,7 @@
+I'll explore the project structure to understand the app's existing style before building the sign-in card.The app currently renders just an empty `<main>`, so there's no existing design system to match beyond Tailwind defaults — I'll build a clean, modern card using Tailwind utility classes.action 0: Built a centered white card (422px wide, rounded-2xl, shadow + ring for a body-tone/shadow-side solid look) on a `#f3f4f6` page background, top-anchored via `pt-[149px]`.
+action 1: Added "Sign in" heading at the top of the card.
+action 2: Added "Welcome back. Enter your details." subheading below it.
+action 3: Added a labeled Email input (label above, full-width field).
+action 4: Added a labeled Password input (label above, full-width field).
+action 5: Added a "Sign in" button filled with `#2563eb`, white text.
+action 6: Added a "Forgot your password?" link in `#2563eb` below the button.

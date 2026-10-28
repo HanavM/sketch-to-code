@@ -1,0 +1,2 @@
+action 2: reduced the gap above the email field (form mt-8 → mt-[16px]) so the input sits 16px higher, matching its drawn position.
+action 3: replaced the shared space-y-5 gap with an explicit mt-[5px] on the password field's wrapper (button spacing preserved via mt-5), moving the input up 15px to its drawn position.

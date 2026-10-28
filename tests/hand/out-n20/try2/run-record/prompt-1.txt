@@ -1,0 +1,268 @@
+READING (user-confirmed): A sign-in form card is sketched: a heading "Sign in", a subheading, labeled email and password inputs, a filled blue "Sign in" button, and a blue "Forgot your password?" link, all on a light gray page background.
+
+FIDELITY (set by the user for this run):
+NORMALIZE (resemblance 50%): rebuild with pristine geometry from the drawn features. Straighten, close and align what is nearly so, while keeping the measured composition.
+RESULT — SOLID: build it out of filled shapes, not outlines, in at least two values so the form reads as an object rather than a flat cut-out — a body tone and a shadow side at minimum. Use strokes only where a line is genuinely the subject.
+STYLE — MATCH THE APP: take the aesthetic from the code around it. Look at how nearby components render (stroke weights, corner radii, shadow use, how much colour they carry) and make this belong beside them.
+MUST SURVIVE (scored): left/right lopsidedness (never mirror one side onto the other); the uneven spacing and length of repeated parts; the drawn form's aspect ratio; where each part sits relative to the others.
+Styling: use the app's existing palette, stroke weights and spacing scale for CHROME — frames, borders, labels, anything that belongs to the UI. A depicted SUBJECT is not chrome: give it the colours the thing actually has (skin, hair, foliage, metal, sky), harmonised with the app rather than flattened into one of its greys. A palette is a constraint on the interface, not a reason for a face to be grey.
+
+COLOURS FROM THE INK (the user coloured these in with a picked colour, so the value is exact; use these hex values as they are, never a palette near-miss and never a paler or brighter version; a typed colour word about the same block is overruled by these):
+- the whole page (body / outermost wrapper, full viewport height, behind every block): background #f3f4f6 exactly
+- action 5, the box drawn at x 470, y 447, 341x48: the block built for it is filled with #2563eb (its own background); text on it must stay readable against it
+
+ACTIONS:
+[
+  {
+    "action": 0,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add a centered sign-in form card/panel matching this outlined box.",
+    "region": {
+      "x": 429.1877136230469,
+      "y": 149.10491943359375,
+      "w": 421.6353454589844,
+      "h": 421.5191650390625
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s0",
+        "shape": "box",
+        "box": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 422
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "Sign in",
+      "Welcome back. Enter your details.",
+      "blue link Forgot your password?"
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 1,
+    "kind": "add",
+    "targets": [],
+    "position": "into",
+    "instruction": "Add a heading reading \"Sign in\" at the top of the card.",
+    "region": {
+      "x": 470,
+      "y": 204.613525390625,
+      "w": 86,
+      "h": 0.503570556640625
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s1",
+        "shape": "line",
+        "box": {
+          "x": 470,
+          "y": 205,
+          "w": 86,
+          "h": 0
+        },
+        "from": {
+          "x": 470,
+          "y": 205
+        },
+        "to": {
+          "x": 556,
+          "y": 205
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "Sign in"
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 2,
+    "kind": "add",
+    "targets": [],
+    "position": "into",
+    "instruction": "Add a subheading/body line reading \"Welcome back. Enter your details.\" below the heading.",
+    "region": {
+      "x": 470,
+      "y": 235.16958618164062,
+      "w": 227,
+      "h": 1.3038177490234375
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s2",
+        "shape": "line",
+        "box": {
+          "x": 470,
+          "y": 236,
+          "w": 227,
+          "h": 0
+        },
+        "from": {
+          "x": 470,
+          "y": 236
+        },
+        "to": {
+          "x": 697,
+          "y": 236
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "Welcome back. Enter your details."
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 3,
+    "kind": "add",
+    "targets": [],
+    "position": "into",
+    "instruction": "Add an email input field with a label \"Email\" above it.",
+    "region": {
+      "x": 469.7590026855469,
+      "y": 287.23931884765625,
+      "w": 340.2479553222656,
+      "h": 45.175933837890625
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s3",
+        "shape": "box",
+        "box": {
+          "x": 470,
+          "y": 287,
+          "w": 340,
+          "h": 45
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "Email input, label above"
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 4,
+    "kind": "add",
+    "targets": [],
+    "position": "into",
+    "instruction": "Add a password input field with a label \"Password\" above it.",
+    "region": {
+      "x": 469.3218688964844,
+      "y": 375.25323486328125,
+      "w": 341.2322692871094,
+      "h": 45.62188720703125
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s4",
+        "shape": "box",
+        "box": {
+          "x": 469,
+          "y": 375,
+          "w": 341,
+          "h": 46
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "Password input, label above"
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 5,
+    "kind": "add",
+    "targets": [],
+    "position": "into",
+    "instruction": "Add a \"Sign in\" button, filled with blue (#2563eb) background per the colour fill.",
+    "region": {
+      "x": 470,
+      "y": 447.1042175292969,
+      "w": 340.8597412109375,
+      "h": 47.634002685546875
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s5",
+        "shape": "box",
+        "box": {
+          "x": 470,
+          "y": 447,
+          "w": 341,
+          "h": 48
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "Sign in"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s5",
+        "mark": "box",
+        "paint": "background",
+        "color": "#2563eb",
+        "box": {
+          "x": 470,
+          "y": 447,
+          "w": 341,
+          "h": 48
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 6,
+    "kind": "add",
+    "targets": [],
+    "position": "into",
+    "instruction": "Add a blue \"Forgot your password?\" text link below the button.",
+    "region": {
+      "x": 569,
+      "y": 521.1802978515625,
+      "w": 142,
+      "h": 1.67816162109375
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s6",
+        "shape": "line",
+        "box": {
+          "x": 569,
+          "y": 522,
+          "w": 142,
+          "h": 0
+        },
+        "from": {
+          "x": 569,
+          "y": 522
+        },
+        "to": {
+          "x": 711,
+          "y": 522
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "blue link Forgot your password?"
+    ],
+    "needsConfirm": false
+  }
+]
+
+Implement every action now.

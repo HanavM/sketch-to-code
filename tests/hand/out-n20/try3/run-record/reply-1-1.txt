@@ -1,0 +1,10 @@
+Built the sign-in card in `src/App.tsx` (previously a blank `<main>`), matching the drawn geometry and colors.
+
+action 0: built a white, bordered, rounded card (shadow-lg for the body/shadow-tone contrast) sized 422px wide, positioned with pt-[149px] and centered horizontally to land at the drawn x/y.
+action 1: added "Sign in" heading (text-2xl bold) with "Welcome back. Enter your details." subheading below it.
+action 2: added labeled email input (label above, full-width bordered field).
+action 3: added labeled password input (label above, matching style).
+action 4: added the "Sign in" button filled with the exact `#2563eb` background and white text.
+action 5: added the blue "Forgot your password?" link below the button, colored `#2563eb`.
+
+Also set the page background to `#f3f4f6` exactly per the ink color spec.

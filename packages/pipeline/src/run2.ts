@@ -625,6 +625,9 @@ export async function runV2(
   const asked = askedHexes([
     ...interp.actions.flatMap((a) => [a.instruction, ...(a.notes ?? [])]),
     ...(interp.pageNotes ?? []), ...(interp.runNotes ?? []),
+    // n20: a colour the ink stated (a tap on the page or a mark) is as exact as a typed hex; snapping the
+    // tapped pale grey page (#f3f4f6) to bg-white failed the ink-colour check every round (r1 e1, repair x2)
+    ...(interp.pageFill?.colors ?? []), ...interp.actions.flatMap((a) => (a.inkColours ?? []).map((c) => c.color)),
   ])
   let finishEdits: unknown[] = []
   /**
