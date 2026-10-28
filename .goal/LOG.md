@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T08:35Z | n19 carry-over, part two | Bento 81.3 to 82.6, sunset 52.1 to 76.4; headings no longer swallow subtitle lines.
 2026-10-28T07:45Z | n13 a run never stalls silently | Turns watched; stuck repair keeps the build and writes its record. Login 47.7 to 65.5; card centred low.
 2026-10-28T07:15Z | n18 do the gains carry over to untouched pages | No: pricing 50.5 to 33.2, login 71.1 to 47.7. Ink colours no longer snapped; repair round stalls found.
 
