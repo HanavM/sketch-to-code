@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Sketched the five round 32 landing pages by hand: 70.5 average with 11 strokes and 38 words each; quick fixes after a build made three pages worse. Next: the five app pages."
-round: 31
-round_scores: [53, 77]   # round 0 = hand baseline on 10 pool pages; then round 31 (first fresh round)
-round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-n36", until: "2026-10-28T20:11Z"}
+now: "Round 32 is fully sketched: 75.7 average likeness with 11 strokes and 37 words a page (app pages 80.9, landing pages 70.5). Next: make fix notes safe and put short labels where they were typed."
+round: 32
+round_scores: [53, 77, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32 (fresh rounds)
+round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}]   # per round: {round, strokes, words, minutes}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -81,8 +81,10 @@ nodes:
      result: "Ten fresh pages written, screenshotted and calibrated; six harder than round 1. None sketched yet."}
   - {id: n35, parent: n1, kind: step, title: "Sketch round 32 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n3-ink-style, 
      result: "Aurora 66.3, roastery 78.3, studio 77.5, synth 59.9, bookshop 70.3; mean 70.5, 11 strokes, 38 words."}
-  - {id: n36, parent: n1, kind: step, priority: next, title: "Sketch round 32 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n37, parent: n4, kind: step, title: "A fix note after a build is checked on the page like a build (put back if it made things worse), reaches the parts it names not their wrapper, and stacked big heading lines stay one heading; re-sketch aurora, roastery and synth", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n36, parent: n1, kind: step, title: "Sketch round 32 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
+     result: "Signup 89.7, analytics 73.6, chat 86.9, calendar 80.5, files 73.9; round 32 mean 75.7, 11 strokes."}
+  - {id: n37, parent: n4, kind: step, priority: next, title: "A fix note after a build is checked on the page like a build (put back if it made things worse), reaches the parts it names not their wrapper, and stacked big heading lines stay one heading; re-sketch aurora, roastery and synth", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n38, parent: n2, kind: step, title: "A short label typed beside a divider or short line stays where typed (never centred on the line or dropped into a nearby box), a lone short line under the header is a heading, and a round mark is a circle not a hexagon; re-sketch calendar, files and chat", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A fix note after a build runs a quick edit with no page check and made 3 of 4 pages worse (heading onto date, subtitle into heading, panel painted)", found_on: "r32 c1, c2, c4", built: null, helped: null}
   - {gap: "A fix note about bars lands on their wrapper and changes the wrapper", found_on: "r32 c4", built: null, helped: null}
@@ -90,6 +92,11 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A placed note dragged onto a mark always falls to the whole sketch", found_on: "r32 c1", built: null, helped: null}
   - {gap: "A coloured underline under a short link groups with the paragraph above and is built as huge red text", found_on: "r32 c3", built: null, helped: null}
   - {gap: "A pill with angled ends pasted as a hexagon; no way to draw a repeated row of bars", found_on: "r32 c5, c4", built: null, helped: null}
+  - {gap: "A short label typed above a divider binds to the line: built centred and pushed down (March 2027) or dropped into the search box (Cloudbox)", found_on: "r32 e4, e5", built: null, helped: null}
+  - {gap: "A lone short line where a heading goes, noted 'My files', is built as small grey body text", found_on: "r32 e5", built: null, helped: null}
+  - {gap: "A colour word for things inside a box paints the box (12 blue bars made a blue chart panel); a drawn table box built bare, no border", found_on: "r32 e2", built: null, helped: null}
+  - {gap: "Round avatar marks built as hexagons; 'Name: message' notes built on one line; invented a DIRECT MESSAGES heading", found_on: "r32 e3", built: null, helped: null}
+  - {gap: "Colouring many marks takes one tap each (10 of 22 strokes on the chat page were taps); a page tap also colours the header strip", found_on: "r32 e3, e5", built: null, helped: null}
   - {gap: "No way to draw a centre glow: two page taps only make a straight fade", found_on: "r31 c5", built: "a page tap ringed by 3+ page taps in another colour is a radial spotlight: shown on the sketch, told exactly, checked on the page (n33)", helped: "yes: spotlight quote 71.0 to 77.6 with the line fix, glow right first time"}
   - {gap: "Two centred quote lines drawn 60px apart built as small body text", found_on: "r31 c5", built: "centred 2-3 line stacks at 48-63px pitch are display copy sized from the pitch (n33)", helped: "yes: quote at the drawn size first time"}
   - {gap: "Drawn two-line text wrapped into three lines and ran into the next block, unchecked", found_on: "r31 c5 (n33 try 1)", built: "page check: sized text keeps its drawn line count and size; repair drops forced breaks (n33)", helped: "yes: quote breaks as in the target, 72.6 to 77.6"}
@@ -275,3 +282,14 @@ round31_pages:   # n27 (c1-c5) and n28 (e1-e5, tests/hand/N28.md): hand-sketched
 n30_resketch:   # same 18 strokes/taps and 9 notes as n28/n29 weather, word for word (tests/hand/N30.md)
   - {page: r31 e4-weather, try: 1, likeness: 79.8, was: 56.0, strokes: 18, words: 48, minutes: 4.5, fixes: 0, build_s: 125, tokens: 60429}
   - {page: r31 e4-weather, try: 2, likeness: 81.4, was: 56.0, strokes: 18, words: 48, minutes: 4.5, fixes: 0, build_s: 108, tokens: 50779}
+round32_pages:   # n35 (c1-c5, tests/hand/N35.md) and n36 (e1-e5, tests/hand/N36.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n33. Mean 75.7, median 11 strokes, 36.5 words, 4.2 min
+  - {page: r32 c1-aurora-fest, likeness: 66.3, strokes: 11, taps: 3, words: 43, minutes: 4.5, fixes: 1, build_s: 190, tokens: 97061}
+  - {page: r32 c2-roastery, likeness: 78.3, strokes: 15, taps: 5, words: 32, minutes: 3.6, fixes: 1, build_s: 93, tokens: 61225}
+  - {page: r32 c3-studio-grid, likeness: 77.5, strokes: 17, taps: 4, words: 38, minutes: 8.7, fixes: 1, build_s: 430, tokens: 133306}
+  - {page: r32 c4-synth-app, likeness: 59.9, strokes: 10, taps: 3, words: 41, minutes: 5.1, fixes: 1, build_s: 219, tokens: 90537}
+  - {page: r32 c5-bookshop, likeness: 70.3, strokes: 9, taps: 3, words: 34, minutes: 4.0, fixes: 0, build_s: 160, tokens: 60381}
+  - {page: r32 e1-signup, likeness: 89.7, strokes: 10, taps: 2, words: 22, minutes: 3.1, fixes: 0, build_s: 105, tokens: 65436}
+  - {page: r32 e2-analytics, likeness: 73.6, strokes: 11, taps: 2, words: 30, minutes: 4.0, fixes: 0, build_s: 143, tokens: 42595}
+  - {page: r32 e3-chat, likeness: 86.9, strokes: 22, taps: 10, words: 53, minutes: 3.3, fixes: 0, build_s: 89, tokens: 41178}
+  - {page: r32 e4-week-calendar, likeness: 80.5, strokes: 14, taps: 6, words: 35, minutes: 4.8, fixes: 0, build_s: 193, tokens: 77711}
+  - {page: r32 e5-files, likeness: 73.9, strokes: 9, taps: 3, words: 51, minutes: 7.4, fixes: 0, build_s: 343, tokens: 113913}
