@@ -286,7 +286,7 @@ export function fontForPitch(pitch: number): number {
  * read a type size from each stack of two or more lines; a lone squiggle drawn
  * heading-tall gives a one-line stack sized from its height.
  */
-export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] {
+export function textStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOpts = {}): TextStack[] {
   const ls = marks
     .filter((m) => isTextMark(m.points))
     .map((m) => lineGeom(m.id, m.points))
@@ -349,7 +349,7 @@ export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextS
       lineWidths: stack.map((l) => Math.round(l.x1 - l.x0)),
     })
   }
-  return [...out, ...lineStacks(marks)]
+  return [...out, ...lineStacks(marks, opts)]
 }
 
 /**
@@ -381,6 +381,16 @@ export const LINE_STACK_MIN_PITCH = 64
 export const LINE_STACK_MAX_PITCH = 200
 /** n40: how far (share of the line pitch) a heading's line boxes sit above its drawn lines. */
 export const LINE_STACK_LIFT = 0.16
+/**
+ * n44: what else is known when stacks are read. `notesAt`: where every typed note sits (page px).
+ * A level line with no note typed on or near it is bare: it carries no words of its own.
+ */
+export interface StackOpts { notesAt?: Array<{ x: number; y: number }> }
+/** n44: a note this close to a line's ink (px) is typed on that line. */
+export const BARE_NOTE_PX = 48
+/** n44: a bare line under a heading line may run this much longer and still be its next line. */
+export const BARE_WRAP_MAX = 1.6
+
 /** n33: centred display copy (a pull quote) may sit this close. */
 export const QUOTE_STACK_MIN_PITCH = 48
 
@@ -393,11 +403,17 @@ export const QUOTE_STACK_MIN_PITCH = 48
  * tighter, and four or more even rules are a list, not a heading), none page-wide (a
  * divider), and no line longer than the first (a heading wraps shorter, not longer).
  */
-function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] {
+function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOpts = {}): TextStack[] {
   const ls = marks
     .filter((m) => !isTextMark(m.points) && isLevelLine(m.points))
     .map((m) => lineGeom(m.id, m.points))
     .sort((a, b) => a.cy - b.cy)
+  // n44 (r32 c3): "Buildings / that breathe." drawn as a short line with a longer bare line under it;
+  // the longer-line rule split them and the bare line got a made-up subtitle. A bare line (no note on
+  // it, when notes are known) has no words but the heading's, so it may run longer and still wrap it.
+  const notes = opts.notesAt?.filter((n) => Number.isFinite(n.x) && Number.isFinite(n.y))
+  const bare = (l: LineGeom): boolean => notes !== undefined && !notes.some((n) =>
+    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX)
   const used = new Set<string>()
   const out: TextStack[] = []
   for (const first of ls) {
@@ -425,10 +441,17 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
       const centredOnly = Math.abs((next.x0 + next.x1) / 2 - (first.x0 + first.x1) / 2) <= Math.max(24, 0.05 * w0) &&
         Math.abs(next.x0 - first.x0) > 40 && w0 >= 400
       const minPitch = centredOnly ? QUOTE_STACK_MIN_PITCH : LINE_STACK_MIN_PITCH
+      // n44 (r32 c3): a paragraph's wrap line never starts a heading (the paragraph's second line and the
+      // link 115px under it were read as a 105px heading)
+      const firstHeld = stack.length === 1 && ls.some((o) => o !== first && o !== next && Math.abs(o.cy - first.cy) < 0.5 * gap &&
+        Math.abs(o.cy - first.cy) >= 8 && Math.min(o.x1, first.x1) > Math.max(o.x0, first.x0))
+      if (firstHeld) break
+      const wrapsShorter = wn <= Math.max(last.x1 - last.x0, w0) * 1.05
+      const bareWrap = !wrapsShorter && sameEdge && wn <= BARE_WRAP_MAX * w0 && bare(next) && !bare(first)
       if (gap >= minPitch && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk && !tight &&
           // n41 (r32 c2): a heading wraps shorter than its first line, not always shorter than the line
           // above it ("Small batch, / roasted on / Thursdays.": the third line is longer than the second)
-          wn <= Math.max(last.x1 - last.x0, w0) * 1.05 && wn >= 0.12 * w0) stack.push(next)
+          (wrapsShorter || bareWrap) && wn >= 0.12 * w0) stack.push(next)
       else if (gap > LINE_STACK_MAX_PITCH) break
       // a heading never jumps over a line in its way: a line under it that overlaps it
       // and does not continue it ends the heading (the subtitle under "hour")

@@ -239,6 +239,8 @@ export function resolveNotes(
   strokes: Stroke[] = [],
 ): ResolvedNote[] {
   const out: ResolvedNote[] = []
+  // n44: where every note on the sketch was typed, so a bare line (no note on it) is known
+  const stackOpts = { notesAt: notesOnSketch(notes) }
   for (const n of notes) {
     const text = typeof n.text === 'string' ? n.text.trim() : ''
     if (!text) continue
@@ -272,7 +274,7 @@ export function resolveNotes(
     }
     if (anchor?.kind === 'strokes') {
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
-      const focus = noteFocus(ids, anchor.focus, n.at, strokes, text)
+      const focus = noteFocus(ids, anchor.focus, n.at, strokes, text, stackOpts)
       out.push(ids.length
         ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs, ...(n.at ? { at: { x: n.at.x, y: n.at.y } } : {}) }
         : { id: n.id, text, scope: 'run', ...withRefs })
@@ -284,6 +286,17 @@ export function resolveNotes(
       : { id: n.id, text, scope: 'run', ...withRefs })
   }
   return out
+}
+
+/**
+ * n44: the spots notes were typed on the sketch: notes on marks and notes placed in empty space
+ * (a whole-sketch note sits nowhere). The overlay reads the same set (main.ts notesOnSketch).
+ */
+export function notesOnSketch(notes: Array<{ text?: string; at?: { x: number; y: number }; anchor?: TypedNote['anchor'] }>): Array<{ x: number; y: number }> {
+  return notes
+    .filter((n) => n.at && Number.isFinite(n.at.x) && Number.isFinite(n.at.y) && (n.text ?? '').trim() &&
+      (n.anchor?.kind === 'strokes' || (n.anchor?.kind === 'run' && n.anchor.placed === true)))
+    .map((n) => ({ x: n.at!.x, y: n.at!.y }))
 }
 
 /**
@@ -912,6 +925,9 @@ export function groundInterpretation(
   // app's default heading size (~50px for a 157px drawn size).
   const pageStacks = textStacks(
     [...ev.strokes.values()].map((s) => ({ id: s.id, points: s.points })),
+    // n44: a bare line under a heading line is its next line (ResolvedNote keeps `at` for exactly the
+    // notes on marks and placed notes, the same set notesOnSketch reads)
+    { notesAt: ev.notes.filter((n) => n.at && (n.scope === 'strokes' || n.placed)).map((n) => n.at!) },
   )
 
   // A stroke one add/design action cites ALONE is that action's own mark. Any

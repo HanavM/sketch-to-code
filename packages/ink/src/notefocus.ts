@@ -6,7 +6,7 @@
  * see bound is what the build is told.
  */
 import type { BBox, Stroke } from './types.js'
-import { isLevelLine, isTextMark, textStacks } from './textmark.js'
+import { isLevelLine, isTextMark, textStacks, type StackOpts } from './textmark.js'
 
 /** A text stack at least this big (font px) is one display heading for note focus. */
 export const GIANT_STACK_PX = 60
@@ -26,6 +26,7 @@ export function noteFocus(
   at: { x: number; y: number } | undefined,
   strokes: Stroke[],
   text?: string,
+  stackOpts: StackOpts = {},
 ): string[] | undefined {
   if (ids.length < 2) return undefined
   let focus: string[] = (given ?? []).filter((id) => ids.includes(id))
@@ -103,7 +104,7 @@ export function noteFocus(
   // apart, past the slack, so typed on line 1, line 2 lost the note. Only giant stacks:
   // small ones also stack a title over a section heading, or a list of separate links.
   if (focus.length > 0) {
-    for (const st of textStacks(strokes.filter((x) => ids.includes(x.id)))) {
+    for (const st of textStacks(strokes.filter((x) => ids.includes(x.id)), stackOpts)) {
       if (st.lines >= 2 && st.fontPx >= GIANT_STACK_PX && st.strokes.some((id) => focus.includes(id))) {
         focus = ids.filter((id) => focus.includes(id) || st.strokes.includes(id))
       }
@@ -322,10 +323,10 @@ export const distToRect = (p: { x: number; y: number }, r: BBox): number => {
  * Returns, for every stroke in a giant stack (two or three level lines or squiggles read as one
  * display heading, letters GIANT_STACK_PX or more), the ids of all that stack's strokes.
  */
-export function giantStacks(strokes: Array<{ id: string; points: Array<{ x: number; y: number }> }>): Map<string, string[]> {
+export function giantStacks(strokes: Array<{ id: string; points: Array<{ x: number; y: number }> }>, stackOpts: StackOpts = {}): Map<string, string[]> {
   const out = new Map<string, string[]>()
   const usable = strokes.filter((s) => s.points.length > 1)
-  for (const st of textStacks(usable as Stroke[])) {
+  for (const st of textStacks(usable as Stroke[], stackOpts)) {
     if (st.lines < 2 || st.fontPx < GIANT_STACK_PX) continue
     for (const id of st.strokes) out.set(id, st.strokes)
   }

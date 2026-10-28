@@ -7316,16 +7316,25 @@ class Overlay {
       if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
     }
     if (!seed) return []
-    return this.clusterFrom(seed)
+    return this.clusterFrom(seed, { x, y })
+  }
+
+  /** n44: where notes sit on the sketch (on marks or placed), so a bare line is known; same set as the pipeline's. */
+  private notesOnSketch(): Array<{ x: number; y: number }> {
+    return this.notes
+      .filter((n) => n.text.trim() && Number.isFinite(n.at.x) && Number.isFinite(n.at.y) &&
+        (n.anchor.kind === 'strokes' || (n.anchor.kind === 'run' && (n.anchor as { placed?: boolean }).placed === true)))
+      .map((n) => ({ x: n.at.x, y: n.at.y }))
   }
 
   /** The drawing `seed` belongs to: strokes close in space AND in time. */
-  private clusterFrom(seed: Stroke): Stroke[] {
+  private clusterFrom(seed: Stroke, at?: { x: number; y: number }): Stroke[] {
     const boxes = new Map<Stroke, Box>()
     for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
     // n40: a giant heading's lines are one drawing however far apart (round 32 c1: NORTH and LIGHTS
     // 170px apart), and a heading line never joins the next text line (LIGHTS joined the date line)
-    const stacks = giantStacks(this.strokes.filter((st) => !isFillDot(st)))
+    // n44: the note being typed counts as typed where it is (its line is not bare)
+    const stacks = giantStacks(this.strokes.filter((st) => !isFillDot(st)), { notesAt: [...this.notesOnSketch(), ...(at ? [at] : [])] })
     const textLine = new Map<string, boolean>()
     const isLine = (id: string) => {
       let v = textLine.get(id)
@@ -7416,7 +7425,8 @@ class Overlay {
   private startLabel(first: string) {
     const seed = this.strokes[this.strokes.length - 1]
     if (!seed) return
-    const group = this.clusterFrom(seed)
+    const sb = this.strokeBox(seed)
+    const group = this.clusterFrom(seed, { x: sb.x + sb.w / 2, y: sb.y + sb.h / 2 })
     // hang the field just under the drawing's left edge, where the eye already is
     let x = Infinity, bottom = -Infinity
     for (const st of group) {
@@ -7653,7 +7663,7 @@ class Overlay {
         .filter((o) => o.d <= NOTE_NEAR_PX * 2.5).sort((a, b) => a.d - b.d)
       const seed = boxes[0]?.st
       if (seed) {
-        const group = this.clusterFrom(seed)
+        const group = this.clusterFrom(seed, d.at)
         d.anchor = { kind: 'strokes', strokeIds: group.map((s) => s.id) }
         this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
       }
@@ -7838,7 +7848,7 @@ class Overlay {
     // a coloured tap fills a mark; it is never what a note is about (n10)
     const marks = this.strokes.filter((s) => !isFillDot(s))
     const ids = n.anchor.strokeIds.filter((id) => live.has(id) && marks.some((m) => m.id === id))
-    const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text) ?? ids
+    const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text, { notesAt: [...this.notesOnSketch(), n.at] }) ?? ids
     return marks.filter((s) => focus.includes(s.id))
   }
 

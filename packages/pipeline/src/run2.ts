@@ -221,6 +221,12 @@ Rules:
   the words would wrap earlier than drawn, take the font-size down within the 15%
   and keep the weight regular unless a note asks for bold; never let a heading wrap
   into more lines than were drawn.
+  A note's type words are taken exactly (n44, round 32 c5: "big italic serif" came out bold
+  italic): "italic" sets font-style italic and nothing else, so its weight stays regular
+  (400) unless the same note says bold, heavy or black; "serif" picks a serif face at
+  that weight. Never add bold to a heading because it is big. Regular letters are
+  narrower than bold ones: a heading drawn as one long level line still spans that line,
+  so size it up until its words run about the drawn length.
   A one-line entry's region is centred on the drawn letters for line-height 1.2:
   the letters must sit where the squiggle was drawn. Use line-height 1.2 for it, or
   if you set display type tighter (0.8-1), keep the line box centred on the

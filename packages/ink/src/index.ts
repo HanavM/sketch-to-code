@@ -28,7 +28,7 @@ export type { Easing } from './easing.js'
 export {
   measureTextMark, textMarkReason, isTextMark, isLevelLine, fontForPitch, textStacks, LONE_HEADING_INK,
 } from './textmark.js'
-export type { TextMarkMeasure, TextStack } from './textmark.js'
+export type { TextMarkMeasure, TextStack, StackOpts } from './textmark.js'
 export {
   noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX, distToRect, union as bboxUnionAll, boxes as boxStrokes,
   groupCount,
