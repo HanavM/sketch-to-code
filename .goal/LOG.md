@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T14:45Z | n30 colour taps and notes reach everything | Taps through toolbar, tapped rings solid, all text white checked. Weather 56.0 to 79.8, 81.4.
 2026-10-28T13:45Z | n29 notes land where typed | Taps never claim notes; far notes keep their spot; dividers make columns. Inbox 60.5 to 69.8, 68.6; weather 56.0.
 2026-10-28T13:13Z | n28 sketch round 31 e1-e5 by hand | Checkout 84.3, inbox 60.5, kanban 90.6, weather 65.9, profile 87.3. Round 31: 77.0, 18.5 strokes.
 2026-10-28T13:05Z | n27 sketch round 31 c1-c5 by hand | Citrus 77.0, gallery 81.7, cards 65.6, poster 85.0, quote 72.5; mean 76.4, 15 strokes, 43 words.
