@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Big headings drawn as two far-apart lines are now one heading, and their letters land nearer the drawn lines: aurora 73. Next: stop the first build adding words nobody drew."
+now: "The first build now uses only the words you typed and never stacks words on words; a three-line heading stays three lines: roastery 88.1, right first time. Next: check the gains carry to other round 32 pages."
 round: 32
 round_scores: [53, 77, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-2026-10-28T2056Z n41", until: "2026-10-28T22:26Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -90,14 +90,16 @@ nodes:
   - {id: n40, parent: n4, kind: step, title: "Big heading lines drawn far apart stay one heading at the drawn size and spot; re-sketch aurora", status: done, branch: try/n3-ink-style,
      result: "Heading lines group as one, never with the date; letters lifted toward drawn lines. Aurora 70.2, 73.0."}
   - {id: n42, parent: n4, kind: step, title: "Show where a big heading's letters will sit on the sketch before the build, and build them at the drawn size; a colour word on a line (teal date) stays bright; re-sketch aurora and studio", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n41, parent: n4, kind: step, priority: next, title: "The first build never adds words nobody drew or typed, and words already on top of each other after the first build are caught and fixed; re-sketch roastery", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n41, parent: n4, kind: step, title: "The first build never adds words nobody drew or typed, and words already on top of each other after the first build are caught and fixed; re-sketch roastery", status: done, branch: try/n3-ink-style,
+     result: "Invented and overlapping words caught; heading's longer third line kept. Roastery 74.4, 80.1, then 88.1 first time."}
+  - {id: n43, parent: n4, kind: step, priority: next, title: "Do the 3-line heading and own-words checks carry over? Re-run aurora, studio and bookshop with every feature so far; a fix note with nothing left to change says so instead of running", status: open, branch: try/n3-ink-style, result: null}
   - {id: n38, parent: n2, kind: step, title: "A short label typed beside a divider or short line stays where typed (never centred on the line or dropped into a nearby box), a lone short line under the header is a heading, and a round mark is a circle not a hexagon; re-sketch calendar, files and chat", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Two big heading lines drawn 170px apart: the heading note took one line, the second line joined the date line under it; letters built half a line under the drawn lines", found_on: "r32 c1", built: "a giant heading's lines always group together and never with the next text line, shown on the sketch; heading box lifted so letters end near the drawn lines (n40)", helped: "yes: aurora 72.2 to 73.0, baselines 56px off to 29px off, heading note 'on these 2 lines'"}
   - {gap: "A fix note after a build runs a quick edit with no page check and made 3 of 4 pages worse (heading onto date, subtitle into heading, panel painted)", found_on: "r32 c1, c2, c4", built: "a fix on a built page is measured: words apart stay apart (and clear of painted shapes), 'no panel' means it stops painting; still broken after repairs = page put back (n37)", helped: "yes: aurora 66.3 to 72.2, synth 59.9 to 80.9 with the same fix notes; put-back not needed live"}
   - {gap: "A fix note about bars lands on their wrapper and changes the wrapper", found_on: "r32 c4", built: "a note naming parts (bars, cards, links) on a wrapper tells codegen to change the parts, not the wrapper (n37)", helped: "yes: synth panel gone, bars pink to violet as typed"}
   - {gap: "Which built element a fix note lands on varies run to run (roastery: heading once, subtitle once) and is only shown as a word in the bar", found_on: "r32 c2 (n37)", built: null, helped: null}
-  - {gap: "Big heading lines 80-170px apart are not one heading; a 3-line stack note takes only 2 lines; the free line gets invented copy or overlaps", found_on: "r32 c1, c2, c3", built: null, helped: null}
+  - {gap: "Big heading lines 80-170px apart are not one heading; a 3-line stack note takes only 2 lines; the free line gets invented copy or overlaps", found_on: "r32 c1, c2, c3", built: "far-apart giant lines group (n40); a heading's third line may be longer than its second, so all 3 lines are one heading, shown before the build; every build checked for words nobody typed and words on words, repair told which to take out (n41)", helped: "yes: aurora 66.3 to 73.0 (n40); roastery 83.6 to 88.1, right first time, 48k tokens (n41)"}
   - {gap: "A placed note dragged onto a mark always falls to the whole sketch", found_on: "r32 c1", built: null, helped: null}
   - {gap: "A coloured underline under a short link groups with the paragraph above and is built as huge red text", found_on: "r32 c3", built: null, helped: null}
   - {gap: "A pill with angled ends pasted as a hexagon; no way to draw a repeated row of bars", found_on: "r32 c5, c4", built: null, helped: null}
