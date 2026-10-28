@@ -4,7 +4,7 @@ now: "The first build now uses only the words you typed and never stacks words o
 round: 32
 round_scores: [53, 77, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}]   # per round: {round, strokes, words, minutes}
-lock: null
+lock: {by: run-n43, until: "2026-10-28T23:24Z"}
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
