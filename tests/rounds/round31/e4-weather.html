@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Weather</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:linear-gradient(180deg,#4f9df7 0%,#a7d3ff 100%);font-family:Helvetica,Arial,sans-serif;color:#fff;overflow:hidden}
+.top{display:flex;justify-content:space-between;padding:36px 64px;font-size:16px}.top b{font-size:22px}
+.now{display:flex;align-items:center;gap:40px;padding:30px 64px}
+.sun{width:170px;height:170px;border-radius:50%;background:#ffd23f;box-shadow:0 0 0 22px rgba(255,210,63,.3)}
+.temp{font-size:150px;font-weight:200;line-height:1}.desc{font-size:24px}.desc small{display:block;font-size:16px;opacity:.85;margin-top:8px}
+.hours{margin:30px 64px 0;background:rgba(255,255,255,.22);border-radius:18px;display:flex;justify-content:space-between;padding:22px 34px;font-size:15px;text-align:center}.hours b{display:block;font-size:22px;margin-top:10px}
+.days{margin:20px 64px 0;background:rgba(255,255,255,.22);border-radius:18px;padding:14px 34px;color:#fff}
+.d{display:flex;align-items:center;justify-content:space-between;padding:12px 0;font-size:17px;border-bottom:1px solid rgba(255,255,255,.3)}.d:last-child{border:0}
+.bar{width:360px;height:6px;border-radius:3px;background:linear-gradient(90deg,#7dd3fc,#fde047)}
+</style></head><body>
+<div class="top" data-r="header"><b>Lisbon</b><span>Today · Fri 14 June</span></div>
+<div class="now" data-r="current" data-must><div class="sun" data-r="sun" data-must></div><div class="temp" data-r="temperature" data-must>24°</div><div class="desc">Sunny<small>High 27° · Low 18°</small></div></div>
+<div class="hours" data-r="hourly" data-must><div>Now<b>24°</b></div><div>1 PM<b>25°</b></div><div>2 PM<b>26°</b></div><div>3 PM<b>27°</b></div><div>4 PM<b>26°</b></div><div>5 PM<b>25°</b></div><div>6 PM<b>23°</b></div></div>
+<div class="days" data-r="daily" data-must><div class="d">Saturday<div class="bar"></div>19° / 28°</div><div class="d">Sunday<div class="bar"></div>18° / 26°</div><div class="d">Monday<div class="bar"></div>17° / 24°</div></div>
+</body></html>
