@@ -795,7 +795,7 @@ export async function runV2(
         // must not sit silent (the cap still ends it)
         const marginMs = kind === 'repair' ? VERIFY_MARGIN_MS : 0
         return await watchTurn(
-          s.send(content),
+          s.send(content, kind === 'repair' ? { effort: 'low' } : undefined),
           () => stallReason({
             now: Date.now(), lastActivity: s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs,
             // a repair is told the exact pixels: minutes of thought with no edit is a stall (n22)

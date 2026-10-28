@@ -132,9 +132,18 @@ export interface UserContent {
   images?: string[]
 }
 
+export interface SendOptions {
+  /**
+   * Reasoning effort for this turn (n22). A repair is told the exact pixels to
+   * change, yet repair turns thought for 2-8 minutes before any edit (or never
+   * edited); 'low' asks for the edit, not a re-plan. Omitted: the default.
+   */
+  effort?: 'low' | 'medium'
+}
+
 export interface CodegenSession {
   /** Send a user turn; resolves with the assistant's text reply. */
-  send: (content: UserContent) => Promise<string>
+  send: (content: UserContent, opts?: SendOptions) => Promise<string>
   /** Cumulative token usage across all turns so far. */
   usage: () => TokenUsage
   /** Tool calls the agent has made so far (Read, Edit, ...): where a costly turn went. */
@@ -211,6 +220,7 @@ export function createCodegenSession(
   let lastSeen = Date.now()
   let lastMoved = lastSeen
   let lastEdited = lastSeen
+  let lastEffort: SendOptions['effort'] | null = null
 
   async function* input(): AsyncGenerator<SDKUserMessage> {
     while (true) {
@@ -306,7 +316,14 @@ export function createCodegenSession(
   void closed.finally(() => signal?.removeEventListener('abort', onAbort))
 
   return {
-    send(content: UserContent): Promise<string> {
+    send(content: UserContent, opts?: SendOptions): Promise<string> {
+      // per-turn effort: set before the turn is queued, cleared for turns that don't ask
+      const effort = opts?.effort ?? null
+      if (effort !== lastEffort) {
+        lastEffort = effort
+        q.applyFlagSettings({ effortLevel: effort }).catch((e: unknown) =>
+          ev.onStage('codegen', `effort not applied: ${e instanceof Error ? e.message : String(e)}`.slice(0, 120)))
+      }
       return new Promise<string>((resolve, reject) => {
         if (signal?.aborted) {
           reject(abortError(signal))
