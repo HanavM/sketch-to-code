@@ -143,3 +143,72 @@ export function cleanPath(m: Omit<ShapeMark, 'strokeId'>, origin: { x: number; y
   const rx = r1(w / 2), ry = r1(h / 2)
   return `M ${X(x)} ${Y(y + h / 2)} A ${rx} ${ry} 0 1 0 ${X(x + w)} ${Y(y + h / 2)} A ${rx} ${ry} 0 1 0 ${X(x)} ${Y(y + h / 2)} Z`
 }
+
+export interface MarkVerdict {
+  satisfied: boolean
+  unverifiable?: boolean
+  reason: string
+  /** Per drawn box/ring: where the built thing of that size landed. */
+  marks?: Array<{ strokeId: string; drawn: BBox; built: BBox | null; dx: number | null; dy: number | null }>
+}
+
+interface SnapLike {
+  truncated?: boolean
+  nodes: Array<{ id: string; tag: string; rect: BBox }>
+}
+
+/**
+ * Did each drawn box and ring land where it was drawn?
+ *
+ * The region check (verifyDesignPlacement) asks whether SOME new element is
+ * near the action's whole region, generously: a settings page whose four
+ * toggles and two buttons all slid 30-95px down passed it (n7 re-sketch of
+ * r2 e3: layout 20%, "satisfied"). A drawn box is a far tighter promise: a
+ * thing that size, at that spot. So each box or ring is matched to the built
+ * element closest to it among those about its size, and one that is off by
+ * more than a small slack is a failure that names how far and which way, which
+ * is what a repair round can act on.
+ */
+export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: SnapLike): MarkVerdict {
+  const boxes = marks.filter((m) => m.shape !== 'line' && m.box.w >= 12 && m.box.h >= 10)
+  if (!boxes.length) return { satisfied: true, unverifiable: true, reason: 'no drawn boxes to check' }
+  if (before.truncated || after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
+  const key = (n: { tag: string; rect: BBox }) => `${n.tag}@${r1(n.rect.x)},${r1(n.rect.y)},${r1(n.rect.w)},${r1(n.rect.h)}`
+  const old = new Set(before.nodes.map(key))
+  const fresh = after.nodes.filter((n) => !old.has(key(n)) && n.rect.w > 0 && n.rect.h > 0)
+  const claimed = new Set<string>()
+  const out: NonNullable<MarkVerdict['marks']> = []
+  const misses: string[] = []
+  for (const m of boxes) {
+    const b = m.box
+    const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+    let best: (typeof fresh)[number] | null = null, bestD = Infinity
+    for (const n of fresh) {
+      if (claimed.has(n.id)) continue
+      if (Math.abs(n.rect.w - b.w) > Math.max(10, b.w * 0.35)) continue
+      if (Math.abs(n.rect.h - b.h) > Math.max(8, b.h * 0.4)) continue
+      const d = Math.hypot(n.rect.x + n.rect.w / 2 - cx, n.rect.y + n.rect.h / 2 - cy)
+      if (d < bestD) { best = n; bestD = d }
+    }
+    const where = `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
+    if (!best || bestD > 260) {
+      out.push({ strokeId: m.strokeId, drawn: b, built: null, dx: null, dy: null })
+      misses.push(`${where}: nothing about that size was built near it; build what it stands for at that size, there`)
+      continue
+    }
+    claimed.add(best.id)
+    const dx = r1(best.rect.x + best.rect.w / 2 - cx), dy = r1(best.rect.y + best.rect.h / 2 - cy)
+    out.push({ strokeId: m.strokeId, drawn: b, built: { ...best.rect }, dx, dy })
+    const slack = Math.max(12, Math.min(b.w, b.h) * 0.25)
+    if (Math.abs(dx) > slack || Math.abs(dy) > slack) {
+      const off = [
+        Math.abs(dy) > slack ? `${Math.abs(dy)}px too ${dy > 0 ? 'low' : 'high'}` : '',
+        Math.abs(dx) > slack ? `${Math.abs(dx)}px too far ${dx > 0 ? 'right' : 'left'}` : '',
+      ].filter(Boolean).join(' and ')
+      misses.push(`${where}: the <${best.tag}> built for it sits ${off}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size)`)
+    }
+  }
+  return misses.length
+    ? { satisfied: false, reason: misses.join('; '), marks: out }
+    : { satisfied: true, reason: `${boxes.length} drawn box${boxes.length > 1 ? 'es' : ''} built where drawn`, marks: out }
+}

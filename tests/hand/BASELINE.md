@@ -45,7 +45,7 @@ the old 90%, which came from DOM-derived notes of ~1,250 words a page.
 
 | # | gap | found on | built | helped? |
 |---|---|---|---|---|
-| 1 | Drawn position is not kept: the build re-centres or reflows blocks away from where they were drawn | c1, e1 | — | — |
+| 1 | Drawn position is not kept: the build re-centres or reflows blocks away from where they were drawn | c1, e1 | shape marks + landing check: drawn boxes must land where drawn, a repair round moves them (n7) | yes: settings layout 20% to 80%, 38.7 to 77.4 |
 | 2 | Line length does not set size: a headline line drawn 850px wide came out as ~700px one-line text; it took a box plus "much bigger" to fix | c1 | — | — |
 | 3 | A second short line under a headline (its wrap) was read as a new invented tagline | c1 | — | — |
 | 4 | Nothing shows what the tool understood until Run (~45-75 s to the first read-back) | c1, e1 | — | — |
@@ -53,14 +53,17 @@ the old 90%, which came from DOM-derived notes of ~1,250 words a page.
 | 6 | After a fix run, the card said "I couldn't add what you drew, one mark matched nothing" although the change worked: misleading feedback that also covers the page | c1 | — | — |
 | 7 | Slow, costly builds for simple pages: a login card took 522 s and ~100k tokens | e1 | — | — |
 | 8 | No colour from the drawing: button text colour, gradient stops all had to be words | c1 | — | — |
-| 9 | Hand strokes rendered literally into the page: wobbly lines across the tabs, toggles and a button filled as raw ink shapes | e3 | — | — |
+| 9 | Hand strokes rendered literally into the page: wobbly lines across the tabs, toggles and a button filled as raw ink shapes | e3 | shape marks: boxes, lines, rings never become paths (n7) | yes: settings structure to 97%, no ink in the page |
 | 10 | A short line under a row label (meaning "its description") was read as a new section header with invented text | e3 | — | — |
 | 11 | Pinned marks (toggles) stay where drawn while the rows around them reflow, so they misalign with their rows | e3 | — | — |
 | 12 | Colour fixes by words overshoot: "glows much brighter" turned pink and cyan into white; no way to point at a colour | c3 | — | — |
 | 13 | A one-line subtitle drawn 280px wide wrapped onto two lines (line length still does not set width) | e2 | — | — |
-| 14 | Hand-drawn circles kept their wobble: the orange disc came out as a lumpy blob and the ring as a polygon | r8 c2 | — | — |
+| 14 | Hand-drawn circles kept their wobble: the orange disc came out as a lumpy blob and the ring as a polygon | r8 c2 | shape marks: a ring is a clean circle (n7) | not re-tested live yet |
 | 15 | Invented content: the grid's names and numbers and the orbit blurb were made up, not left as placeholders or asked for | r5 e5, r8 c2 | — | — |
-| 16 | Drawn blocks ignored for size: the seat map shrank to a small grid inside the big blocks I drew; cards shrank to their content | r8 e4 | — | — |
-| 17 | A box drawn to mark an area (where the big 09 goes) became a visible framed card; after a fix, raw ink lines were pasted into the page | r12 c4 | — | — |
+| 16 | Drawn blocks ignored for size: the seat map shrank to a small grid inside the big blocks I drew; cards shrank to their content | r8 e4 | shape marks: a box is the block at exactly that box (n7) | yes: seat map fills the drawn blocks, 14.3 to 36.6 |
+| 17 | A box drawn to mark an area (where the big 09 goes) became a visible framed card; after a fix, raw ink lines were pasted into the page | r12 c4 | shape marks: a box round a word marks its area, no frame unless asked (n7) | not re-tested live yet |
 | 18 | No default theme from the picture: with no colour words, a light page came out dark | r8 e4 | — | — |
 | 19 | Two short stacked lines (NOV / 14-16) read as a small label plus a date, not one big two-line block | r8 c2 | — | — |
+| 20 | Counts in notes ignored for a grid: "5 teams" filled all 24 rows with invented rows | r5 e5 (n7) | — | — |
+| 21 | A fix note re-laid the page and moved the drawn grid 48px off its box | r5 e5 (n7) | — | — |
+| 22 | On-state toggles built with the knob outside the track | r2 e3 (n7) | — | — |

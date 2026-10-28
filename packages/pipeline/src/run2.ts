@@ -44,6 +44,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
+import { verifyShapeMarks } from './shapemark.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits } from './repair-time.js'
 import { leanRepairNote } from './repair-brief.js'
@@ -164,8 +165,10 @@ Rules:
     Whether it shows a border or a fill comes from what it is and the notes, never
     from the ink: a box drawn round a big word, number or group only marks its
     area (no frame, no card) unless a note says border, outline, card or panel;
-  line → a level line is a row of text (a short one under a heading is that
-    heading's smaller line), a divider rule (a long thin line across a section, a
+  line → a level line standing for text marks the MIDDLE of its letters: centre
+    that text's line box on the line's y (top = y - lineHeight / 2), never put
+    the text's top edge on it. A level line is a row of text (a short one under a
+    heading is that heading's smaller line), a divider rule (a long thin line across a section, a
     1px border), or an underline (an active tab, a link): pick by length and what
     is next to it; a slanted line is an edge between two areas (clip-path); never
     a wavy or hand-drawn path;
@@ -1078,6 +1081,16 @@ export function verifyActions(
           total++
           if (anchor.satisfied) satisfied++
           else failures.push(`action ${i} (${a.kind}, placement): ${anchor.reason}`)
+        }
+      }
+      // each drawn box or ring is a thing that size at that spot (n7)
+      if (a.shapeMarks?.length && !a.insertSlot) {
+        const marks = verifyShapeMarks(a.shapeMarks, before, after)
+        if (!marks.unverifiable) {
+          details.push({ kind: 'marks', index: i, verdict: marks })
+          total++
+          if (marks.satisfied) satisfied++
+          else failures.push(`action ${i} (${a.kind}, drawn boxes): ${marks.reason}`)
         }
       }
       // "near the mark" is not "where the mark said": the end of a short nav

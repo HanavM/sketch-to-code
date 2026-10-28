@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { shapeOf, isShapeMark, cleanPath } from '../src/shapemark.js'
+import { shapeOf, isShapeMark, cleanPath, verifyShapeMarks, type ShapeMark } from '../src/shapemark.js'
 import { isTextMark } from '../src/textmark.js'
 import { instantEligible } from '../src/instant.js'
 // @ts-expect-error — plain .mjs bench module, no types
@@ -71,5 +71,26 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     const snap = { nodes: [], truncated: false, url: 'http://x/', takenAt: 0, viewport: { w: 1280, h: 900, scrollX: 0, scrollY: 0 } } as never
     const v = instantEligible([{ id: 's1', points: box(10, 10, 200, 100).map((p: P, i: number) => ({ ...p, t: i })) }], snap)
     expect(v.ok).toBe(false)
+  })
+
+  it('checks each drawn box landed where it was drawn, and says how far off it is', () => {
+    const marks: ShapeMark[] = [
+      { strokeId: 's4', shape: 'box', box: { x: 1112, y: 169, w: 48, h: 26 } },
+      { strokeId: 's5', shape: 'box', box: { x: 1112, y: 250, w: 48, h: 26 } },
+      { strokeId: 's1', shape: 'line', box: { x: 120, y: 57, w: 118, h: 0 }, from: { x: 120, y: 57 }, to: { x: 238, y: 57 } },
+    ]
+    const before = { nodes: [{ id: 'm', tag: 'main', rect: { x: 0, y: 0, w: 1280, h: 900 } }] }
+    const node = (id: string, x: number, y: number, w: number, h: number) => ({ id, tag: 'button', rect: { x, y, w, h } })
+    const placed = verifyShapeMarks(marks, before, { nodes: [...before.nodes, node('t1', 1112, 170, 48, 28), node('t2', 1112, 249, 48, 28)] })
+    expect(placed.satisfied).toBe(true)
+    const slid = verifyShapeMarks(marks, before, { nodes: [...before.nodes, node('t1', 1112, 201, 48, 28), node('t2', 1112, 298, 48, 28)] })
+    expect(slid.satisfied).toBe(false)
+    expect(slid.reason).toMatch(/drawn at \(1112,169\) 48x26: the <button> built for it sits 33px too low/)
+    expect(slid.reason).toMatch(/49px too low/)
+    const none = verifyShapeMarks(marks, before, { nodes: before.nodes })
+    expect(none.satisfied).toBe(false)
+    expect(none.reason).toMatch(/nothing about that size/)
+    // lines alone are not checked (a line may be text, a rule or an underline)
+    expect(verifyShapeMarks([marks[2]!], before, before).unverifiable).toBe(true)
   })
 })
