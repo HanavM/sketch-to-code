@@ -203,9 +203,17 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
   // per landed-or-off mark: what the message needs once the column is known
   const placed: Array<{ m: ShapeMark; tag: string; dx: number; dy: number; slack: number }> = []
   const lines: string[] = []
-  for (const m of boxes) {
+  const holds = (o: BBox, me: BBox) => o !== me && o.x <= me.x + 2 && o.y <= me.y + 2 && o.x + o.w >= me.x + me.w - 2 && o.y + o.h >= me.y + me.h - 2
+  // n22 (login try 2): the card was built 90px low and the fields in it with
+  // it, so the email box was matched to the password field and the heading.
+  // Big boxes are matched first, and a box inside one that landed off is
+  // looked for where that offset puts it.
+  const order = boxes.map((m, i) => ({ m, i })).sort((a, b) => b.m.box.w * b.m.box.h - a.m.box.w * a.m.box.h || a.i - b.i)
+  const rank = new Map(order.map((o) => [o.m.strokeId, o.i]))
+  for (const { m } of order) {
     const b = m.box
-    const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+    const holder = placed.filter((p) => holds(p.m.box, b)).sort((a, c) => a.m.box.w * a.m.box.h - c.m.box.w * c.m.box.h)[0]
+    const cx = b.x + b.w / 2 + (holder?.dx ?? 0), cy = b.y + b.h / 2 + (holder?.dy ?? 0)
     let best: (typeof fresh)[number] | null = null, bestD = Infinity
     for (const n of fresh) {
       if (claimed.has(n.id)) continue
@@ -222,7 +230,7 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
       continue
     }
     claimed.add(best.id)
-    const dx = r1(best.rect.x + best.rect.w / 2 - cx), dy = r1(best.rect.y + best.rect.h / 2 - cy)
+    const dx = r1(best.rect.x + best.rect.w / 2 - (b.x + b.w / 2)), dy = r1(best.rect.y + best.rect.h / 2 - (b.y + b.h / 2))
     if (mine.has(m.strokeId)) out.push({ strokeId: m.strokeId, drawn: b, built: { ...best.rect }, dx, dy })
     // n20: the slack grows with the box but stops at 28px. A 422px sign-in
     // card built 90px below where it was drawn (centred on the screen) passed
@@ -230,6 +238,8 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     const slack = Math.min(28, Math.max(12, Math.min(b.w, b.h) * 0.25))
     placed.push({ m, tag: best.tag, dx, dy, slack })
   }
+  placed.sort((a, c) => rank.get(a.m.strokeId)! - rank.get(c.m.strokeId)!)
+  out.sort((a, c) => rank.get(a.strokeId)! - rank.get(c.strokeId)!)
   // n22 (login, n20 try 3): the email field was 16px low and the password
   // field under it 15px low only BECAUSE of it. Each was told "move it 16px",
   // the repair shifted both, and the password field and button ended 16 and
@@ -242,9 +252,7 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     for (const o of placed) {
       if (o === placed[i]) continue
       const ob = o.m.box
-      const contains = ob.x <= me.x + 2 && ob.y <= me.y + 2 && ob.x + ob.w >= me.x + me.w - 2 && ob.y + ob.h >= me.y + me.h - 2
-      if (contains) continue // a card round the field is not "above" it
-      if (ob.x >= me.x - 2 && ob.y >= me.y - 2 && ob.x + ob.w <= me.x + me.w + 2 && ob.y + ob.h <= me.y + me.h + 2) continue
+      if (holds(ob, me) || holds(me, ob)) continue // a card round the field is not "above" it
       const overlap = Math.min(ob.x + ob.w, me.x + me.w) - Math.max(ob.x, me.x)
       if (overlap < 0.5 * Math.min(ob.w, me.w)) continue
       if (ob.y + ob.h > me.y + 4) continue
@@ -252,8 +260,17 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     }
     return pick
   }
+  // what a box's position hangs on: the box straight above it, else the box it sits in
+  const holderOf = (i: number) => placed.filter((p) => holds(p.m.box, placed[i]!.m.box))
+    .sort((a, c) => a.m.box.w * a.m.box.h - c.m.box.w * c.m.box.h)[0] ?? null
+  const ref = (i: number): { p: (typeof placed)[number]; rel: string } | null => {
+    const a = above(i)
+    if (a) return { p: a, rel: 'above it' }
+    const h = holderOf(i)
+    return h ? { p: h, rel: 'it sits in' } : null
+  }
   const anyMoveAbove = (i: number): (typeof placed)[number] | null => {
-    for (let a = above(i); a; a = above(placed.indexOf(a))) {
+    for (let a = ref(i)?.p ?? null; a; a = ref(placed.indexOf(a))?.p ?? null) {
       if (Math.abs(a.dy) > a.slack) return a
     }
     return null
@@ -264,14 +281,15 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     if (!mine.has(p.m.strokeId)) continue
     const b = p.m.box
     const where = `the ${p.m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
-    const up = above(i)
+    const r = ref(i)
+    const up = r?.p ?? null
     const ownDy = up ? r1(p.dy - up.dy) : p.dy
     const off = Math.abs(p.dy) > p.slack || Math.abs(p.dx) > p.slack
     if (!off) {
       // landed, but a box above it is about to move: it would move with it
       const mover = anyMoveAbove(i)
       if (mover && Math.abs(mover.dy) > p.slack) {
-        misses.push(`${where}: the <${p.tag}> built for it lands now, but it sits below ${name(mover)}, which is ${Math.abs(mover.dy)}px too ${mover.dy > 0 ? 'low' : 'high'}. When that one moves this one moves with it, so keep this one at its drawn top (${r1(b.y)}px): change the gap above it by the same amount the other way.`)
+        misses.push(`${where}: the <${p.tag}> built for it lands now, but its place hangs on ${name(mover)}, which is ${Math.abs(mover.dy)}px too ${mover.dy > 0 ? 'low' : 'high'}. When that one moves this one moves with it, so keep this one at its drawn top (${r1(b.y)}px): change the gap above it by the same amount the other way.`)
       }
       continue
     }
@@ -285,11 +303,11 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
       : ''
     const followsOnly = up && Math.abs(p.dy) > p.slack && Math.abs(p.dx) <= p.slack && Math.abs(ownDy) <= Math.min(6, p.slack)
     if (followsOnly) {
-      misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}, but only because ${name(up)} above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.`)
+      misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}, but only because ${name(up)} ${r!.rel} is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.`)
       continue
     }
     const partial = up && Math.abs(up.dy) > up.slack && Math.abs(p.dx) <= p.slack
-      ? ` ${Math.abs(up.dy)}px of that comes from ${name(up)} above it; once that one is fixed this one is still ${Math.abs(ownDy)}px too ${ownDy > 0 ? 'low' : 'high'}, so change only the gap between them by ${Math.abs(ownDy)}px.`
+      ? ` ${Math.abs(up.dy)}px of that comes from ${name(up)} ${r!.rel}; once that one is fixed this one is still ${Math.abs(ownDy)}px too ${ownDy > 0 ? 'low' : 'high'}, so change only the gap between them by ${Math.abs(ownDy)}px.`
       : ''
     misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${partial}${centred}`)
   }

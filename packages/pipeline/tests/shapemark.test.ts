@@ -139,7 +139,7 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(email).toMatch(/16px too low; move it/)
     expect(pass).toMatch(/only because the <input> drawn at \(470,287\) above it/)
     expect(pass).toMatch(/do not move this one on its own/)
-    expect(btn).toMatch(/lands now/)
+    expect(btn).toMatch(/lands now, but its place hangs on the <input> drawn at \(469,375\)/)
     expect(btn).toMatch(/keep this one at its drawn top \(447px\)/)
     // the card round them is not "above" them
     expect(v.reason).not.toMatch(/drawn at \(429,149\) above/)
@@ -166,4 +166,25 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(pass.marks).toHaveLength(1)
     expect(verifyShapeMarks([page[1]!], before, after).reason).toMatch(/15px too low; move it/)
   })
+
+  it('n22: a card built 90px low takes its fields with it: they are matched where the card put them and told they hang on it', () => {
+    // n22 login try 2, the real rects: the email box had been matched to the password field
+    const page: ShapeMark[] = [
+      { strokeId: 's0', shape: 'box', box: { x: 429, y: 149, w: 422, h: 422 } },
+      { strokeId: 's3', shape: 'box', box: { x: 470, y: 287, w: 340, h: 45 } },
+      { strokeId: 's4', shape: 'box', box: { x: 469, y: 375, w: 341, h: 46 } },
+      { strokeId: 's5', shape: 'box', box: { x: 470, y: 447, w: 341, h: 48 } },
+    ]
+    const n = (id: string, tag: string, x: number, y: number, w: number, h: number) => ({ id, tag, rect: { x, y, w, h } })
+    const after = { nodes: [n('c', 'div', 429, 232, 422, 436), n('h', 'h1', 469, 272, 342, 32),
+      n('e', 'input', 469, 390, 342, 42), n('p', 'input', 469, 478, 342, 42), n('b', 'button', 469, 550, 342, 44)] }
+    const v = verifyShapeMarks(page, { nodes: [] }, after)
+    const at = (id: string) => v.marks!.find((m) => m.strokeId === id)!.built!.y
+    expect(at('s3')).toBe(390)
+    expect(at('s4')).toBe(478)
+    expect(at('s5')).toBe(550)
+    expect(v.reason).toMatch(/looks centred on the screen/)
+    expect(v.reason).toMatch(/90px of that comes from the <div> drawn at \(429,149\) it sits in/)
+  })
 })
+
