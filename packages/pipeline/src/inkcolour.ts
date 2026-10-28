@@ -26,7 +26,7 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
     for (const c of a.inkColours ?? []) {
       const at = `x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}x${String(c.box.h)}`
       lines.push(c.paint === 'background'
-        ? `- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with ${hex(c.color)} (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}); text on it must stay readable against it`
+        ? `- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with ${hex(c.color)} (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}) at full strength: opacity 1 and that exact colour in its middle; if it is a glow or blurred shape, soften only its edge (blur at most ${String(maxBlur(c.box))}px) and never fade it with opacity, a see-through colour or a paler tint; text on it must stay readable against it`
         : `- action ${String(i)}, the ${c.mark} drawn at ${at}: that ${c.mark === 'line' ? 'text or rule' : 'text'} is coloured ${hex(c.color)}`)
     }
   })
@@ -35,6 +35,30 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
     `use these hex values as they are, never a palette near-miss and never a paler or brighter version; ` +
     `a typed colour word about the same block is overruled by these):\n${lines.join('\n')}\n\n`
 }
+
+/** n12: the largest blur (px) that still leaves a block of this size at about 90% of its colour in the middle. */
+export function maxBlur(b: { w: number; h: number }): number {
+  return Math.max(4, Math.round(Math.min(b.w, b.h) / 2 / 2.2))
+}
+
+/**
+ * n12: how much of its colour a block shows in its middle, 0..1: its own and every ancestor's opacity, the
+ * background's alpha, and a blur (a Gaussian of radius s over a block of half-size R keeps 1 - e^(-R²/2s²)
+ * of the colour at its centre). A tapped glow came out the exact hex but at about half strength (n10: pink
+ * #ec4899 painted rgb(133,49,113) in the middle), and the hex check passed it.
+ */
+export function strengthOf(n: DomNode, css: string, byId: Map<string, DomNode>): { strength: number; opacity: number; blur: number } {
+  let opacity = 1
+  for (let m: DomNode | undefined = n, k = 0; m && k < 64; m = m.parent ? byId.get(m.parent) : undefined, k++) {
+    if (m.style.opacity !== undefined) opacity *= Number(m.style.opacity)
+  }
+  const blurM = /blur\(\s*([\d.]+)px/.exec(n.style.filter ?? '')
+  const blur = blurM ? Number(blurM[1]) : 0
+  const R = Math.min(n.rect.w, n.rect.h) / 2
+  const kept = blur > 0 ? 1 - Math.exp(-(R * R) / (2 * blur * blur)) : 1
+  return { strength: opacity * alphaOf(css) * kept, opacity, blur }
+}
+const STRONG = 0.8
 
 const centreIn = (n: DomNode, b: { x: number; y: number; w: number; h: number }, pad: number) => {
   const cx = n.rect.x + n.rect.w / 2, cy = n.rect.y + n.rect.h / 2
@@ -63,7 +87,7 @@ export interface InkColourVerdict {
   satisfied: boolean
   unverifiable?: boolean
   reason: string
-  checks: Array<{ what: string; want: string; best: number | null; ok: boolean }>
+  checks: Array<{ what: string; want: string; best: number | null; ok: boolean; strength?: number }>
 }
 
 const OK_DE = 18
@@ -82,16 +106,21 @@ export function inkHexes(interp: Pick<GroundedInterpretation, 'actions' | 'pageF
   return out
 }
 
-function closest(want: string, nodes: DomNode[], what: 'background' | 'text'): number | null {
+function closestAt(want: string, nodes: DomNode[], what: 'background' | 'text'): { de: number; node: DomNode; css: string } | null {
   const w = parseCssColor(want)
   if (!w) return null
-  let best = Infinity
+  let best: { de: number; node: DomNode; css: string } | null = null
   for (const n of nodes) for (const css of painted(n, what)) {
     if (!css || (what === 'background' && alphaOf(css) < 0.35)) continue
     const g = parseCssColor(css)
-    if (g) best = Math.min(best, deltaE(w, g))
+    if (!g) continue
+    const de = deltaE(w, g)
+    if (!best || de < best.de) best = { de, node: n, css }
   }
-  return best === Infinity ? null : best
+  return best
+}
+function closest(want: string, nodes: DomNode[], what: 'background' | 'text'): number | null {
+  return closestAt(want, nodes, what)?.de ?? null
 }
 
 /** Did each colour the ink stated reach the built page, on its mark? */
@@ -104,6 +133,7 @@ export function verifyInkColours(
   const misses: string[] = []
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated', checks }
   const vw = after.viewport.w, vh = after.viewport.h
+  const byId = new Map(after.nodes.map((n) => [n.id, n]))
   if (pageFill) {
     // the page colour: something at least most of the viewport paints it
     const big = after.nodes.filter((n) => n.rect.w >= vw * 0.8 && n.rect.h >= vh * 0.6)
@@ -126,10 +156,18 @@ export function verifyInkColours(
       const near = after.nodes.filter((n) => c.paint === 'text'
         ? n.text.length > 0 && crosses(n.rect, band)
         : centreIn(n, b, pad) && n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.5 + 20 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 20)
-      const best = closest(c.color, near, c.paint)
-      const ok = best !== null && best <= SOLID_OK_DE
+      const at = closestAt(c.color, near, c.paint)
+      const best = at?.de ?? null
       const what = `the ${c.mark} drawn at (${String(b.x)},${String(b.y)}) ${String(b.w)}x${String(b.h)}`
-      checks.push({ what, want: hex(c.color), best, ok })
+      const hit = best !== null && best <= SOLID_OK_DE
+      // n12: the right hex is not enough for a fill: it has to show at (nearly) full strength in the middle
+      const st = hit && c.paint === 'background' && at ? strengthOf(at.node, at.css, byId) : null
+      const ok = hit && (!st || st.strength >= STRONG)
+      checks.push({ what, want: hex(c.color), best, ok, ...(st ? { strength: Math.round(st.strength * 100) / 100 } : {}) })
+      if (hit && st && !ok) {
+        misses.push(`action ${String(i)}: ${what} was coloured ${hex(c.color)}; the block has that colour but shows only about ${String(Math.round(st.strength * 100))}% of it in its middle (${[st.opacity < 1 ? `opacity ${st.opacity.toFixed(2)}` : '', st.blur ? `blur ${String(Math.round(st.blur))}px` : '', alphaOf(at!.css) < 1 ? `see-through colour ${alphaOf(at!.css).toFixed(2)}` : ''].filter(Boolean).join(', ')}), so it reads faint: make it opacity 1 with the solid colour, and soften only its edge (blur at most ${String(maxBlur(b))}px)`)
+        continue
+      }
       if (!ok) misses.push(`action ${String(i)}: ${what} was coloured ${hex(c.color)}${c.paint === 'text' ? ' (text colour)' : ' (fill)'}; ${best === null ? 'nothing that size was built there carrying a colour' : `what was built there is ΔE ${best.toFixed(0)} away`}: paint ${c.paint === 'text' ? 'its text' : 'the block itself'} exactly ${hex(c.color)}`)
     }
   })

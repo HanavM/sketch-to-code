@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { Stroke } from '@s2c/ink'
 import { buildEvidence } from '../src/intent2.js'
-import { inkColoursBrief, inkHexes, verifyInkColours } from '../src/inkcolour.js'
+import { inkColoursBrief, inkHexes, maxBlur, verifyInkColours } from '../src/inkcolour.js'
 import { askedHexes, finishSource } from '../src/finish.js'
 import type { GroundedAction } from '../src/intent2.js'
 
@@ -67,5 +67,32 @@ describe('colours from the ink reach codegen and are checked (n10)', () => {
     const { code, edits } = finishSource('<main className="bg-[#f3f4f6]"><b className="bg-[#2563eb]"/></main>', palette, asked)
     expect(edits).toEqual([])
     expect(code).toContain('bg-[#f3f4f6]')
+  })
+
+  it('a tapped glow keeps its strength: faded or over-blurred fails, a soft edge passes (n12)', () => {
+    const glow = act([{ strokeId: 'g', mark: 'outline', paint: 'background', color: '#ec4899', box: { x: 60, y: 40, w: 420, h: 420 }, how: 'tap' }])
+    const page = snap([node('root', { x: 0, y: 0, w: 1280, h: 900 }, { backgroundColor: 'rgb(30, 27, 75)' })])
+    const withBlob = (style: Partial<DomNode['style']>, parentStyle: Partial<DomNode['style']> = {}) => {
+      const wrap = { ...node('wrap', { x: 0, y: 0, w: 1280, h: 900 }, parentStyle), parent: 'root' }
+      const blob = { ...node('blob', { x: 60, y: 40, w: 420, h: 420 }, { backgroundColor: 'rgb(236, 72, 153)', borderRadius: '9999px', ...style }), parent: 'wrap' }
+      return snap([...page.nodes, wrap, blob])
+    }
+    // the n10 build: exact hex, but opacity and a wide blur leave about half of it
+    const faint = verifyInkColours([glow], null, withBlob({ opacity: '0.6', filter: 'blur(120px)' }))
+    expect(faint.satisfied).toBe(false)
+    expect(faint.reason).toMatch(/shows only about \d+% of it/)
+    expect(faint.reason).toContain('opacity 0.60')
+    // fading on a wrapper counts too
+    expect(verifyInkColours([glow], null, withBlob({}, { opacity: '0.5' })).satisfied).toBe(false)
+    // a see-through colour reads faint
+    expect(verifyInkColours([glow], null, withBlob({ backgroundColor: 'rgba(236, 72, 153, 0.5)' })).satisfied).toBe(false)
+    // full colour with a soft edge is what was asked
+    const soft = verifyInkColours([glow], null, withBlob({ filter: `blur(${String(maxBlur({ w: 420, h: 420 }))}px)` }))
+    expect(soft.satisfied).toBe(true)
+    expect(soft.checks[0]!.strength).toBeGreaterThanOrEqual(0.8)
+    // and the brief asks for it
+    const b = inkColoursBrief({ actions: [glow] })
+    expect(b).toContain('at full strength: opacity 1')
+    expect(b).toContain(`blur at most ${String(maxBlur({ w: 420, h: 420 }))}px`)
   })
 })
