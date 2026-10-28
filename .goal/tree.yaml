@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Old pages keep their gains: bento 82.6 and sunset 76.4, best yet. Next: keep drawn cards and headings where they were drawn, not centred."
+now: "The sign-in card now lands where it was drawn and keeps its grey page: login 65.5 to 82.8, builds 3x faster. Next: tapped glows that stay vivid."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-28T0822Z, until: '2026-10-28T09:52Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -34,10 +34,12 @@ nodes:
      result: "Tap to fill marks or page, gradients; exact colours landed. Sunset 52.1 to 74.0, glass 76.9 to 79.2, no fixes."}
   - {id: n11, parent: n4, kind: step, title: "A stacked headline is one heading: a note on any of its lines covers all, line pitch sets the size, letters sit on the drawn lines; a note dropped in a small box inside a big one binds to the small box only; re-sketch sunset and diagonal", status: done, branch: try/n4-look-fix, base: "try/n3-ink-style",
      result: "Line stacks read as one heading, break where drawn. Sunset 74.0 to 73.8 (heading matches); diagonal 55.1 to 39.8 (box became card)."}
-  - {id: n12, parent: n3, kind: step, title: "A tapped colour keeps its strength: glows and blurred shapes stay vivid, not faint; re-sketch glass blobs and orbit type", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n12, parent: n3, kind: step, priority: next, title: "A tapped colour keeps its strength: glows and blurred shapes stay vivid, not faint; re-sketch glass blobs and orbit type", status: open, branch: try/n3-ink-style, result: null}
   - {id: n13, parent: n4, kind: step, title: "A run never stalls silently: a repair round that makes no progress ends with the built page kept and its record, times and tokens written; a line drawn for a word is checked as the word's middle, not a 1px box; re-sketch sunset", status: done, branch: try/n4-look-fix, base: "try/n2-shape-vocab",
      result: "Turns watched, stalled repair keeps build, stages logged. Login 47.7 to 65.5, run finished; card centred low."}
-  - {id: n20, parent: n4, kind: step, priority: next, title: "A drawn card stays where it was drawn, not centred on the page, and a repair that moves fields never stacks a label onto another field; re-sketch login", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n20, parent: n4, kind: step, title: "A drawn card stays where it was drawn, not centred on the page, and a repair that moves fields never stacks a label onto another field; re-sketch login", status: done, branch: try/n4-look-fix,
+     result: "Card kept where drawn; tapped grey never snapped; lines checked as text. Login 65.5 to 82.8, 80.6; 90 s build."}
+  - {id: n22, parent: n4, kind: step, title: "A repair round that thinks for minutes without an edit is cut short (thinking is not progress), and a repair that moves inputs aims at the drawn spot without overshooting; re-sketch login and settings", status: open, branch: try/n4-look-fix, result: null}
   - {id: n14, parent: n2, kind: step, title: "A box round a big word or number never becomes a card, and a diagonal band between two colours is the edge of the split; re-sketch the diagonal split twice to see the spread", status: done, branch: try/n2-shape-vocab, base: "try/n4-look-fix",
      result: "Area boxes and slanted edges told and checked. Diagonal 39.8 to 55.9 and 57.8; split on line, no card."}
   - {id: n15, parent: n2, kind: step, title: "A ring or box with a colour and a label (a lime badge, a white rows panel) is built as that plain shape in that colour, never a faint drawn disc or a default white card; re-sketch diagonal and glass blobs", status: done, branch: try/n2-shape-vocab,
@@ -122,7 +124,7 @@ notes:
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
   - "After npm ci, the agent SDK may only have its musl binary: run npm install --no-save @anthropic-ai/claude-agent-sdk-linux-x64@<same version> or every Run fails in under a second."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
-  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k)"
+  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k)"
 n14_resketch:   # same 9 marks and 8 notes as n9/n11 (nav note typed as a whole-sketch note)
   - {page: r12 c4-diagonal-split, try: 1, likeness: 55.9, was: 39.8, strokes: 9, words: 45, minutes: 5.7, fixes: 0, tokens: 76787}
   - {page: r12 c4-diagonal-split, try: 2, likeness: 57.8, was: 39.8, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 54885}
@@ -142,6 +144,14 @@ n16_resketch:   # same 9 marks and 8 notes as n15, word for word; try 1 first Ru
   - {gap: "A style word in a note (big bold) copied into the page text", found_on: "r1 e2 (n18)", built: null, helped: null}
   - {gap: "Boxes drawn tall end at their content; a word fix for height moved them down instead", found_on: "r1 e2 (n18)", built: null, helped: null}
   - {gap: "A repair round after a failed check can hang with no record and nothing on screen", found_on: "r1 e1 (n18, twice)", built: "every turn watched; a silent or too-late repair is stopped, build kept, record and stage log written (n13)", helped: "yes: login run finished with its record, 47.7 to 65.5"}
-  - {gap: "A drawn card is centred on the page instead of kept where drawn", found_on: "r1 e1 (n13)", built: null, helped: null}
+  - {gap: "A drawn card is centred on the page instead of kept where drawn", found_on: "r1 e1 (n13)", built: "landing slack stops at 28px, centring named in the check and ruled out for codegen; words on a form field fail the check (n20)", helped: "yes: card where drawn every try; login 65.5 to 82.8 and 80.6"}
   - {gap: "A repair round thinks for minutes before any edit and can make layout worse (label onto a field)", found_on: "r1 e1 (n13)", built: null, helped: null}
   - {gap: "A heading stack jumped over the subtitle and took its wrap line", found_on: "r1 c1", built: "headings never jump a line or take a tight paragraph line; a paragraph note covers its wraps (n19)", helped: "yes: sunset 72.1 to 76.4, build 522 s to 132 s, tokens 97k to 36k"}
+  - {gap: "The finishing pass snapped a tapped page colour (#f3f4f6) to white, so the colour check failed every round", found_on: "r1 e1 (n20)", built: "colours stated by the ink count as asked and are never snapped (n20)", helped: "yes: try 2 52.6 (white page) vs try 3 80.6 (grey kept)"}
+  - {gap: "Headings and links drawn as level lines always failed the 1px region check, wasting repair rounds", found_on: "r1 e1 (n20)", built: "a level line matches the new text it runs through (n20)", helped: "yes: login repair down to one 15 s round, build 666 s to 90 s"}
+  - {gap: "A repair round can think 8 minutes with no edit before the run cap stops it", found_on: "r1 e1 (n20)", built: null, helped: null}
+  - {gap: "Input placeholders (you@example.com, dots) are not built unless typed", found_on: "r1 e1 (n20)", built: null, helped: null}
+n20_resketch:   # same 9 marks and 6 notes as n13, word for word
+  - {page: r1 e1-login, try: 1, likeness: 82.8, was: 65.5, strokes: 9, words: 22, minutes: 3.7, fixes: 0, build_s: 130, tokens: 50404}
+  - {page: r1 e1-login, try: 2, likeness: 52.6, was: 65.5, strokes: 9, words: 22, minutes: 12.6, fixes: 0, build_s: 666, tokens: 48755, note: "page snapped to white; 8 min idle repair (both fixed before try 3)"}
+  - {page: r1 e1-login, try: 3, likeness: 80.6, was: 65.5, strokes: 9, words: 22, minutes: 2.7, fixes: 0, build_s: 90, tokens: 30927}
