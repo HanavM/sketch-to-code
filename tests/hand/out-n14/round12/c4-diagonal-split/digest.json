@@ -3,10 +3,10 @@
   "id": "c4-diagonal-split",
   "version": 3,
   "stopped": null,
-  "likeness": 49.7,
-  "colour": 0.8096305883954524,
-  "structure": 0.6143708659693514,
-  "layout": 0.6212347789835495,
+  "likeness": 57.8,
+  "colour": 0.7933628366914302,
+  "structure": 0.7280802861630172,
+  "layout": 0.6583262011741182,
   "strokes": {
     "count": 9,
     "pointsPerStroke": 4.7,
@@ -19,8 +19,9 @@
     "inkPx": 6168
   },
   "erased": 0,
-  "words": 52,
-  "notes": 9,
+  "notesMoved": 0,
+  "words": 45,
+  "notes": 8,
   "longestNote": 8,
   "noteTexts": [
     "RUNCLUB, nav right ROUTES · CREW · SHOP",
@@ -30,110 +31,99 @@
     "JOIN THE NEXT RUN black",
     "lime badge FREE COFFEE AFTER, tilted",
     "3 rows: Route, Start, Groups",
-    "huge outlined 09, white",
-    "split covers the whole page, no card"
+    "huge outlined 09, white"
   ],
   "time": {
-    "firstStrokeToDoneS": 743,
-    "firstReadingS": 124,
+    "firstStrokeToDoneS": 296,
+    "firstReadingS": 70,
     "readS": [
-      94,
-      24
+      43
     ],
     "buildS": [
-      387,
-      193
+      224
     ],
-    "sketchingS": 45
+    "sketchingS": 29
   },
-  "corrections": 1,
-  "runs": 2,
+  "corrections": 0,
+  "runs": 1,
   "tokens": {
-    "input": 70685,
-    "cacheRead": 275365,
-    "output": 59862,
-    "billed": 130547
+    "input": 31776,
+    "cacheRead": 248213,
+    "output": 23109,
+    "billed": 54885
   },
   "events": [
     {
       "op": "stroke",
-      "at": 3093
+      "at": 3092
     },
     {
       "op": "stroke",
-      "at": 4706
+      "at": 4690
     },
     {
       "op": "stroke",
-      "at": 6305
+      "at": 6289
     },
     {
       "op": "stroke",
-      "at": 7906
+      "at": 7889
     },
     {
       "op": "stroke",
-      "at": 9173
+      "at": 9156
     },
     {
       "op": "stroke",
-      "at": 11189
+      "at": 11157
     },
     {
       "op": "stroke",
-      "at": 13024
+      "at": 12956
     },
     {
       "op": "stroke",
-      "at": 16006
+      "at": 15940
     },
     {
       "op": "stroke",
-      "at": 21424
+      "at": 21341
     },
     {
       "op": "note",
-      "at": 22074
+      "at": 22010
     },
     {
       "op": "note",
-      "at": 22758
+      "at": 22700
     },
     {
       "op": "note",
-      "at": 23408
+      "at": 23364
     },
     {
       "op": "note",
-      "at": 24045
+      "at": 24003
     },
     {
       "op": "note",
-      "at": 24700
+      "at": 24661
     },
     {
       "op": "note",
-      "at": 25358
+      "at": 25341
     },
     {
       "op": "note",
-      "at": 26015
+      "at": 26000
     },
     {
       "op": "note",
-      "at": 26666
+      "at": 26650
     },
     {
       "op": "run",
-      "at": 29244
-    },
-    {
-      "op": "note",
-      "at": 518107
-    },
-    {
-      "op": "run",
-      "at": 518234
+      "at": 26778
     }
   ],
   "strokesDrawn": [
@@ -149,7 +139,7 @@
         ]
       ],
       "n": 159,
-      "at": 3093
+      "at": 3092
     },
     {
       "way": [
@@ -163,7 +153,7 @@
         ]
       ],
       "n": 69,
-      "at": 4706
+      "at": 4690
     },
     {
       "way": [
@@ -177,7 +167,7 @@
         ]
       ],
       "n": 69,
-      "at": 6305
+      "at": 6289
     },
     {
       "way": [
@@ -191,7 +181,7 @@
         ]
       ],
       "n": 69,
-      "at": 7906
+      "at": 7889
     },
     {
       "way": [
@@ -205,7 +195,7 @@
         ]
       ],
       "n": 49,
-      "at": 9173
+      "at": 9156
     },
     {
       "way": [
@@ -231,7 +221,7 @@
         ]
       ],
       "n": 93,
-      "at": 11189
+      "at": 11157
     },
     {
       "way": [
@@ -305,7 +295,7 @@
         ]
       ],
       "n": 81,
-      "at": 13024
+      "at": 12956
     },
     {
       "way": [
@@ -331,7 +321,7 @@
         ]
       ],
       "n": 151,
-      "at": 16006
+      "at": 15940
     },
     {
       "way": [
@@ -357,7 +347,7 @@
         ]
       ],
       "n": 297,
-      "at": 21424
+      "at": 21341
     }
   ]
 }
