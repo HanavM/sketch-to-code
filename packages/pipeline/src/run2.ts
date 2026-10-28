@@ -49,7 +49,7 @@ import { verifyShapeMarks, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksIn
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits } from './repair-time.js'
-import { areasBrief, verifyAreaMarks, verifyEdges } from './areas.js'
+import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { leanRepairNote } from './repair-brief.js'
@@ -1267,13 +1267,13 @@ export function verifyActions(
   // n14: a box round a big word is no card; a slanted line across the page is the colour edge
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
-  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['solids', verifySolids(allMarks, after)],
+  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks

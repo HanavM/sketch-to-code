@@ -15,6 +15,8 @@ export interface DomNode {
    * reads on the screen; `text` stays the identity everything else matches on.
    */
   textRuns?: string[]
+  /** n17: the box the own text's letters fill (union of its line boxes), page px; only when there is own text. */
+  textBox?: { x: number; y: number; w: number; h: number }
   classes: string[]
   style: {
     display: string

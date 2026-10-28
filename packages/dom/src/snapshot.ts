@@ -67,6 +67,21 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
       }
       text = text.replace(/\s+/g, ' ').trim().slice(0, maxTextLen)
       const textRuns = runs.map((r) => r.replace(/\s+/g, ' ').trim()).filter(Boolean)
+      // n17: where the letters themselves sit (a block's rect can be far wider than its word)
+      let textBox: { x: number; y: number; w: number; h: number } | undefined
+      if (text) {
+        let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+        for (const child of el.childNodes) {
+          if (child.nodeType !== 3 || !(child.textContent ?? '').trim()) continue
+          const range = doc.createRange()
+          range.selectNodeContents(child)
+          for (const r of range.getClientRects()) {
+            if (r.width < 1 || r.height < 1) continue
+            x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom)
+          }
+        }
+        if (x1 > x0) textBox = { x: x0 + sx, y: y0 + sy, w: x1 - x0, h: y1 - y0 }
+      }
 
       nodes.push({
         id: myId,
@@ -79,6 +94,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           h: rect.height,
         },
         text,
+        ...(textBox ? { textBox } : {}),
         ...(textRuns.length > 1 ? { textRuns: textRuns.map((r) => r.slice(0, maxTextLen)) } : {}),
         classes: typeof el.className === 'string' ? el.className.split(/\s+/).filter(Boolean).slice(0, 24) : [],
         style: {

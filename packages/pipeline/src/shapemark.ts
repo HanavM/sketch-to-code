@@ -45,6 +45,10 @@ export interface ShapeMark {
   edge?: true
   /** box or ring (n15): its notes name a coloured plain thing ("lime badge"): one solid element in that colour. */
   solid?: { word: string; hex: string; noun: string; tol: number }
+  /** area box (n17): the big word or number typed on it ("09"), which must fill the box. */
+  word?: string
+  /** edge line (n17): a band or stripe noted on it, this many px wide, centred on the drawn line. */
+  band?: { px: number; colour: string | null }
   /** area box (n16): its notes say the big word is outlined: hollow letters, a text stroke. */
   outlined?: { colour: string | null }
 }
