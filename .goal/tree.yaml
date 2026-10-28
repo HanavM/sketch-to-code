@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Ten fresh pages for round 32 are written and photographed (an aurora festival, a week calendar, a chat app and more). Next: sketch the five landing pages by hand."
+now: "Sketched the five round 32 landing pages by hand: 70.5 average with 11 strokes and 38 words each; quick fixes after a build made three pages worse. Next: the five app pages."
 round: 31
 round_scores: [53, 77]   # round 0 = hand baseline on 10 pool pages; then round 31 (first fresh round)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-n35, until: '2026-10-28T19:33Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -79,9 +79,17 @@ nodes:
      result: "Ringed tap makes a spotlight, quote keeps drawn size and lines, checked. Spotlight quote 71.0 to 77.6, no fixes."}
   - {id: n34, parent: n1, kind: step, priority: next, title: "Write round 32: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them", status: done, branch: try/n3-ink-style, base: "try/n3-ink-style (has every feature through n33)",
      result: "Ten fresh pages written, screenshotted and calibrated; six harder than round 1. None sketched yet."}
-  - {id: n35, parent: n1, kind: step, priority: next, title: "Sketch round 32 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n36, parent: n1, kind: step, title: "Sketch round 32 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n35, parent: n1, kind: step, title: "Sketch round 32 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n3-ink-style, 
+     result: "Aurora 66.3, roastery 78.3, studio 77.5, synth 59.9, bookshop 70.3; mean 70.5, 11 strokes, 38 words."}
+  - {id: n36, parent: n1, kind: step, priority: next, title: "Sketch round 32 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n37, parent: n4, kind: step, title: "A fix note after a build is checked on the page like a build (put back if it made things worse), reaches the parts it names not their wrapper, and stacked big heading lines stay one heading; re-sketch aurora, roastery and synth", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A fix note after a build runs a quick edit with no page check and made 3 of 4 pages worse (heading onto date, subtitle into heading, panel painted)", found_on: "r32 c1, c2, c4", built: null, helped: null}
+  - {gap: "A fix note about bars lands on their wrapper and changes the wrapper", found_on: "r32 c4", built: null, helped: null}
+  - {gap: "Big heading lines 80-170px apart are not one heading; a 3-line stack note takes only 2 lines; the free line gets invented copy or overlaps", found_on: "r32 c1, c2, c3", built: null, helped: null}
+  - {gap: "A placed note dragged onto a mark always falls to the whole sketch", found_on: "r32 c1", built: null, helped: null}
+  - {gap: "A coloured underline under a short link groups with the paragraph above and is built as huge red text", found_on: "r32 c3", built: null, helped: null}
+  - {gap: "A pill with angled ends pasted as a hexagon; no way to draw a repeated row of bars", found_on: "r32 c5, c4", built: null, helped: null}
   - {gap: "No way to draw a centre glow: two page taps only make a straight fade", found_on: "r31 c5", built: "a page tap ringed by 3+ page taps in another colour is a radial spotlight: shown on the sketch, told exactly, checked on the page (n33)", helped: "yes: spotlight quote 71.0 to 77.6 with the line fix, glow right first time"}
   - {gap: "Two centred quote lines drawn 60px apart built as small body text", found_on: "r31 c5", built: "centred 2-3 line stacks at 48-63px pitch are display copy sized from the pitch (n33)", helped: "yes: quote at the drawn size first time"}
   - {gap: "Drawn two-line text wrapped into three lines and ran into the next block, unchecked", found_on: "r31 c5 (n33 try 1)", built: "page check: sized text keeps its drawn line count and size; repair drops forced breaks (n33)", helped: "yes: quote breaks as in the target, 72.6 to 77.6"}

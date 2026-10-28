@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T18:40Z | n35 sketch round 32 c1-c5 by hand | Aurora 66.3, roastery 78.3, studio 77.5, synth 59.9, bookshop 70.3; mean 70.5, 11 strokes; fixes hurt.
 2026-10-28T18:20Z | n34 write round 32 targets | Ten fresh pages written, screenshotted, calibrated; six harder than round 1. Not sketched; next steps sketch them.
 2026-10-28T17:55Z | n33 spotlight from taps; quote keeps its drawn lines | Ringed tap paints a radial glow; quote at drawn size and breaks, checked. Spotlight quote 71.0 to 77.6.
 2026-10-28T16:30Z | n32 group notes reach every card; quote mark is the glyph | Logo and digits on all 3 cards, opening quote right first time. Cards 76.5, quote 71.0, no fixes.
