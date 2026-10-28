@@ -39,6 +39,8 @@ export interface ShapeMark {
   to?: { x: number; y: number }
   /** box only (n14): its notes say it holds a big word or number, so it marks that word's area: no card. */
   area?: true
+  /** n15: what the area holds: a big word (default) or bare rows. */
+  areaOf?: 'rows'
   /** line only (n14): a slanted line running most of the page: the edge between two areas. */
   edge?: true
   /** box or ring (n15): its notes name a coloured plain thing ("lime badge"): one solid element in that colour. */

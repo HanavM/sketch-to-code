@@ -25,7 +25,18 @@ import { parseCssColor, hexOf, deltaE } from './palette.js'
 const BIG = /\b(huge|giant|big|bigger|large|massive|oversized|enormous|display|jumbo|outsized)\b/i
 const WORDY = /\b(number|numeral|digits?|word|words|headline|heading|title|letters|type|wordmark|logo ?type)\b|\d|\b[A-Z]{2,}\b/
 // what a box IS when it is a thing of its own; "outlined 09" is the letters' outline, not a frame
-const THING = /\b(card|cards|panel|tile|frame|framed|border|bordered|button|btn|badge|pill|chip|input|field|search|modal|dialog|window|boxed|container|sheet|sticker|banner|filled|fill|background|bg|backdrop|shadow|photo|picture|image|img|chart|graph|map|video|table|grid|list|form|block|plate|slab)\b|\boutlined (box|card|panel|frame|rectangle)\b/i
+const THING = /\b(card|cards|panel|tile|frame|framed|border|bordered|button|btn|badge|pill|chip|input|field|search|modal|dialog|window|boxed|container|sheet|sticker|banner|filled|fill|background|bg|backdrop|shadow|photos?|pictures?|images?|img|charts?|graphs?|maps?|videos?|table|grid|list|form|block|plate|slab|avatars?|thumbnails?|icons?)\b|\boutlined (box|card|panel|frame|rectangle)\b/i
+
+// n15: "3 rows: Route, Start, Groups" typed on a box over a red page came out a white rounded card
+// with a shadow (round 12 c4, n9-n14); the target's rows sit bare on the page. A box whose note
+// only lists rows or lines (no card, panel or colour named) marks where they sit.
+const ROWS = /\b(\d+|two|three|four|five|six)\s+(rows|lines|items|entries|stats|facts)\b|^\s*(rows|list|lines)\s*:/i
+const COLOUR_WORD = /\b(white|black|cream|grey|gray|navy|lime|green|blue|red|pink|orange|yellow|purple|violet|teal|cyan|dark|light|pale)\b/i
+
+/** Does this typed note say its box only holds bare rows? */
+export function isRowsNote(text: string): boolean {
+  return ROWS.test(text) && !THING.test(text) && !COLOUR_WORD.test(text.replace(/:.*$/, ''))
+}
 
 /** Does this typed note say its box only holds a big word or number? */
 export function isAreaNote(text: string): boolean {
@@ -49,6 +60,7 @@ export function markAreasAndEdges(
     const own = notes.filter((n) => n.focus?.includes(m.strokeId))
     const said = own.length ? own : boxes.length === 1 ? notes.filter((n) => !n.focus?.length || n.focus.includes(m.strokeId)) : []
     if (said.length && said.some((n) => isAreaNote(n.text)) && !said.some((n) => THING.test(n.text))) m.area = true
+    else if (said.length && said.some((n) => isRowsNote(n.text)) && !said.some((n) => THING.test(n.text))) { m.area = true; m.areaOf = 'rows' }
   }
   for (const m of marks) {
     if (m.shape !== 'line' || !m.from || !m.to) continue
@@ -74,7 +86,14 @@ export function areasBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>, viewpor
   const lines: string[] = []
   actions.forEach((a, i) => {
     for (const m of a.shapeMarks ?? []) {
-      if (m.area) {
+      if (m.area && m.areaOf === 'rows') {
+        const b = m.box
+        lines.push(
+          `- action ${i}: the box at (${b.x},${b.y}) ${b.w}x${b.h} only marks where the rows typed on it sit, spread over its height. ` +
+          `It is NOT a card: no background, no rounded panel, no shadow, no outer border; the rows sit straight on the page ` +
+          `(thin dividers between rows are fine), text in a colour that reads on the page behind.`,
+        )
+      } else if (m.area) {
         const b = m.box
         lines.push(
           `- action ${i}: the box at (${b.x},${b.y}) ${b.w}x${b.h} only marks where the big word or number typed on it sits ` +
@@ -159,9 +178,9 @@ export function verifyAreaMarks(marks: ShapeMark[], after: Snap): AreaVerdict {
       ].filter(Boolean)
       if (what.length) {
         faults.push(
-          `the box drawn at (${b.x},${b.y}) ${b.w}x${b.h} only marks where a big word or number sits, but the <${n.tag}> ` +
+          `the box drawn at (${b.x},${b.y}) ${b.w}x${b.h} only marks where ${m.areaOf === 'rows' ? 'bare rows sit' : 'a big word or number sits'}, but the <${n.tag}> ` +
           `built over it paints ${what.join(' and ')}, a card the user never asked for: make it transparent with no border ` +
-          `or shadow, so the page shows behind the letters`,
+          `or shadow, so the page shows behind ${m.areaOf === 'rows' ? 'the rows' : 'the letters'}`,
         )
         break
       }

@@ -91,3 +91,29 @@ describe('verifyEdges', () => {
     expect(v.satisfied).toBe(false)
   })
 })
+
+describe('a box typed with bare rows is their area, not a card (n15, round 12 c4)', () => {
+  it('reads row lists, not coloured panels', async () => {
+    const { isRowsNote } = await import('../src/areas.js')
+    expect(isRowsNote('3 rows: Route, Start, Groups')).toBe(true)
+    expect(isRowsNote('rows: name, email, role')).toBe(true)
+    expect(isRowsNote('white panel, 3 rows')).toBe(false)
+    expect(isRowsNote('card with 3 rows')).toBe(false)
+    expect(isRowsNote('3 rows of photos')).toBe(false)
+  })
+  it('flags the box, briefs no card, and fails a white rounded card over it', () => {
+    const marks: ShapeMark[] = [{ strokeId: 'b', shape: 'box', box: { x: 900, y: 520, w: 320, h: 132 } }]
+    markAreasAndEdges(marks, [{ text: '3 rows: Route, Start, Groups', focus: ['b'] }], vp)
+    expect(marks[0]!.area).toBe(true)
+    expect(marks[0]!.areaOf).toBe('rows')
+    expect(areasBrief([{ shapeMarks: marks }], vp)).toMatch(/NOT a card/)
+    const snap = (card: ReturnType<typeof st>) => ({ viewport: vp, nodes: [
+      node('p', null, { x: 0, y: 0, w: 1280, h: 900 }, st({ backgroundColor: 'rgb(200, 40, 40)' })),
+      node('c', 'p', { x: 900, y: 519, w: 321, h: 134 }, card),
+    ] })
+    const bad = verifyAreaMarks(marks, snap(st({ backgroundColor: 'rgb(255, 255, 255)', boxShadow: 'rgba(0,0,0,.1) 0 4px 12px' })))
+    expect(bad.satisfied).toBe(false)
+    expect(bad.reason).toMatch(/bare rows/)
+    expect(verifyAreaMarks(marks, snap(st())).satisfied).toBe(true)
+  })
+})
