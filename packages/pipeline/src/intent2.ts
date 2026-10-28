@@ -308,6 +308,7 @@ export function isPageLookNote(text: string): boolean {
 
 import { isAreaNote, markAreasAndEdges } from './areas.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
+import { glyphOf, markEach, markGlyphs } from './each.js'
 import { markTextPlaces } from './textplace.js'
 import { markOutlined } from './textlook.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
@@ -1042,8 +1043,11 @@ export function groundInterpretation(
           // two rings with a yellow tap inside and a grey-blue tap on the halo were read as a
           // depicted sun, traced as paths, and built a grey lopsided blob.
           const tappedRing = shape?.shape === 'ellipse' && tapSolidAllowed && (ev.fills ?? []).some((f) => f.target === s.id)
+          // n32: a box typed "big yellow quote mark" is the glyph, never a traced or filled box
+          const glyphMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && glyphOf(n.text))
           // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
-          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || shape.tilt)) {
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || shape.tilt)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }
@@ -1189,6 +1193,9 @@ export function groundInterpretation(
     // n14: a box round a big word is that word's area, a slanted line across the page is an edge
     if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport)
     // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
+    // n32: a box typed as a quote mark is that glyph; a group note's contents go on every member
+    if (shapeMarks.length) markGlyphs(shapeMarks, noteObjs)
+    if (shapeMarks.length) markEach(shapeMarks, noteObjs)
     if (shapeMarks.length) markSolids(shapeMarks, noteObjs)
     // n30: a ring coloured in by a tap (no glow or blur asked anywhere) is a solid disc in exactly that colour
     if (shapeMarks.length && tapSolidAllowed) markTappedSolids(shapeMarks, inkColours)

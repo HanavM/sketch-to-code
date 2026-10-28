@@ -60,6 +60,10 @@ export interface ShapeMark {
    * the box itself is w x h, centred at (cx, cy), turned `deg` degrees (CSS rotate: + is clockwise).
    */
   tilt?: { deg: number; w: number; h: number; cx: number; cy: number; weak?: true }
+  /** n32: one of a group a note names ("3 cards, logo top left on each"): that note, and how many share it. */
+  each?: { note: string; of: number }
+  /** n32: box or ring whose note names a typed mark ("big yellow quote mark"): that glyph, no box. */
+  glyph?: { char: string; name: string }
 }
 
 const r1 = (v: number) => Math.round(v)
@@ -292,7 +296,8 @@ interface SnapLike {
  * is what a repair round can act on.
  */
 export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: SnapLike, page: ShapeMark[] = marks): MarkVerdict {
-  const isBox = (m: ShapeMark) => m.shape !== 'line' && m.box.w >= 12 && m.box.h >= 10
+  // n32: a box noted as a quote mark is a glyph (checked by verifyGlyphs), not a box-sized element
+  const isBox = (m: ShapeMark) => m.shape !== 'line' && !m.glyph && m.box.w >= 12 && m.box.h >= 10
   const mine = new Set(marks.filter(isBox).map((m) => m.strokeId))
   if (!mine.size) return { satisfied: true, unverifiable: true, reason: 'no drawn boxes to check' }
   // n22: every box on the page is matched (one action's field sits under

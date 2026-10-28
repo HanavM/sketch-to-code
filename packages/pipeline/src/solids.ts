@@ -75,7 +75,7 @@ interface NoteLike { text: string; focus?: string[] }
 export function markSolids(marks: ShapeMark[], notes: NoteLike[]): void {
   const closed = marks.filter((m) => m.shape === 'box' || m.shape === 'ellipse')
   for (const m of closed) {
-    if (m.area || m.solid) continue
+    if (m.area || m.solid || m.glyph) continue
     const own = notes.filter((n) => n.focus?.includes(m.strokeId))
     const said = own.length ? own : closed.length === 1 ? notes.filter((n) => !n.focus?.length || n.focus.includes(m.strokeId)) : []
     for (const n of said) {
@@ -101,7 +101,7 @@ export function markTappedSolids(
   inkColours: Array<{ strokeId: string; color: string; how: 'tap' | 'pen'; paint: 'background' | 'text' }>,
 ): void {
   for (const m of marks) {
-    if (m.shape !== 'ellipse' || m.area || m.solid) continue
+    if (m.shape !== 'ellipse' || m.area || m.solid || m.glyph) continue
     const tap = inkColours.filter((c) => c.strokeId === m.strokeId && c.how === 'tap' && c.paint === 'background').pop()
     if (!tap) continue
     const p = parseCssColor(tap.color)
