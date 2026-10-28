@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T22:40Z | n43 do heading and own-words checks carry over | Yes: aurora 73.8 best, roastery 85.3, bookshop 72.9, studio 74.3. Nothing-to-change fix rule built.
 2026-10-28T21:32Z | n41 first build keeps to typed words, no words on words | Invented and overlapping words caught; 3-line heading kept. Roastery 74.4, 80.1, then 88.1 first time.
 2026-10-28T20:58Z | n40 far-apart heading lines are one heading | Lines group as one, never with the date; letters lifted to drawn lines. Aurora 70.2, 73.0.
 2026-10-28T20:09Z | n39 a fix note goes to the part it means | 'Below heading' typed on the heading changes the part below, shown. Roastery 77.9 to 80.5, 83.6.
