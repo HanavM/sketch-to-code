@@ -286,6 +286,26 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     return null
   }
   const name = (p: (typeof placed)[number]) => `the <${p.tag}> drawn at (${p.m.box.x},${p.m.box.y})`
+  const level = page.filter((m) => m.shape === 'line' && !m.edge && m.from && m.to && Math.abs(m.from.y - m.to.y) <= 2)
+  const topDrift = (i: number): string => {
+    const p = placed[i]!, b = p.m.box
+    const hangsOn = (j: number): boolean => {
+      for (let a = ref(j)?.p ?? null, k = 0; a && k < 40; a = ref(placed.indexOf(a))?.p ?? null, k++) if (a === p) return true
+      return false
+    }
+    const followers = placed.filter((o, j) => j !== i && hangsOn(j) && Math.abs(o.dy - p.dy) <= Math.max(12, Math.abs(p.dy) * 0.5)).length
+    // the nearest level line drawn above it (a rule, a tab underline, a heading's line)
+    const line = level.filter((l) => l.from!.y <= b.y - 2).sort((a, c) => c.from!.y - a.from!.y)[0]
+    const sign = p.dy > 0 ? 'low' : 'high'
+    const n = Math.abs(p.dy)
+    const whole = followers ? ` The ${followers} drawn box${followers > 1 ? 'es' : ''} below it ride${followers > 1 ? '' : 's'} on it, so the whole page from here down sits about ${n}px ${sign}.` : ''
+    const fix = p.dy > 0
+      ? `take ${n}px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.`
+      : `add ${n}px to the space above it (the list's top margin, or the gap under what sits above it). Never pull it further up.`
+    if (!line) return `${whole} The cause is above it, at the top: ${fix}`
+    const ly = line.from!.y
+    return `${whole} The cause is above it, at the top: drawn, its top is ${r1(b.y - ly)}px below the line drawn at y=${ly}; built, it is ${r1(b.y + p.dy - ly)}px below that line's spot. So ${fix}`
+  }
   for (let i = 0; i < placed.length; i++) {
     const p = placed[i]!
     if (!mine.has(p.m.strokeId)) continue
@@ -325,7 +345,12 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     const partial = upOff
       ? ` Part of that comes from ${name(up)} ${r!.rel}; once that one is fixed this one is still ${rest}, so change only the spacing between them by that much.`
       : ''
-    misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${partial}${centred}`)
+    // n24 (r2 e3 settings): every toggle sat 19-30px low because the heading and tabs above them came out
+    // taller than drawn. The top toggle was told "move it, fix the spacing that pushed it"; the repair added
+    // space and all four ended 37-48px low. When the top box of a column is off and the boxes below only
+    // follow it, the cause is above it: say so, with the drawn line it hangs under and the gap to take out.
+    const drift = !up && Math.abs(p.dy) > p.slack ? topDrift(i) : ''
+    misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${partial}${centred}${drift}`)
   }
   // the "nothing built" misses first, in drawing order
   misses.unshift(...lines)
@@ -499,4 +524,31 @@ export function verifyTextClearOfFields(before: TextSnap, after: TextSnap): Mark
     reason: fresh.map((h) => `"${h.text}" sits on top of the field at (${r1(h.field.x)},${r1(h.field.y)}) ${r1(h.field.w)}x${r1(h.field.h)}`).join('; ') +
       '; keep each label in its own row just above its field (move the label with its field, never onto another one)',
   }
+}
+
+/**
+ * How far the drawn boxes are off, in total, in a verify record (n24).
+ *
+ * A repair round on the settings page moved every toggle further from where it
+ * was drawn (30px low to 48px low) and was kept, because "no improvement" only
+ * stopped the next round. With this, the round that made the boxes worse is
+ * known and its edits can be put back. A box with nothing built for it counts
+ * as 200px off.
+ */
+export function marksMiss(detail: unknown): number | null {
+  const seen: Array<{ built: unknown; dx: number | null; dy: number | null }> = []
+  const walk = (v: unknown, depth: number): void => {
+    if (!v || typeof v !== 'object' || depth > 6) return
+    if (Array.isArray(v)) { for (const x of v) walk(x, depth + 1); return }
+    const o = v as Record<string, unknown>
+    if (o.kind === 'marks' && o.verdict && typeof o.verdict === 'object') {
+      const ms = (o.verdict as { marks?: unknown }).marks
+      if (Array.isArray(ms)) for (const m of ms) if (m && typeof m === 'object') seen.push(m as { built: unknown; dx: number | null; dy: number | null })
+      return
+    }
+    for (const x of Object.values(o)) walk(x, depth + 1)
+  }
+  walk(detail, 0)
+  if (!seen.length) return null
+  return seen.reduce((t, m) => t + (m.built == null || m.dx == null || m.dy == null ? 200 : Math.abs(m.dx) + Math.abs(m.dy)), 0)
 }

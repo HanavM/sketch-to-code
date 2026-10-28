@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { shapeOf, isShapeMark, cleanPath, verifyShapeMarks, verifyTextClearOfFields, type ShapeMark } from '../src/shapemark.js'
+import { shapeOf, isShapeMark, cleanPath, verifyShapeMarks, verifyTextClearOfFields, marksMiss, type ShapeMark } from '../src/shapemark.js'
 import { isTextMark } from '../src/textmark.js'
 import { instantEligible } from '../src/instant.js'
 // @ts-expect-error — plain .mjs bench module, no types
@@ -196,6 +196,36 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     const v = verifyShapeMarks(page, { nodes: [] }, { nodes: [n('c', 'div', 0, 150, 421, 440), n('e', 'input', 41, 298, 340, 44)] })
     expect(v.reason).toMatch(/\(429,149\) 422x422: the <div> built for it sits 429px too far left/)
     expect(v.reason).toMatch(/\(470,287\) 340x45: the <input> built for it sits 429px too far left, but only because the <div> drawn at \(429,149\) it sits in/)
+  })
+
+  it('n24: a column of toggles that all sit low is told the cause is above it, under the drawn tabs line', () => {
+    // r2 e3 settings, n22 round 1: the real numbers (tabs line at y=141, toggles 30, 26, 22, 19 low)
+    const marks: ShapeMark[] = [
+      { strokeId: 's1', shape: 'line', box: { x: 120, y: 141, w: 1040, h: 0 }, from: { x: 120, y: 141 }, to: { x: 1160, y: 141 } },
+      { strokeId: 's2', shape: 'box', box: { x: 1112, y: 168, w: 48, h: 28 } },
+      { strokeId: 's3', shape: 'box', box: { x: 1112, y: 250, w: 49, h: 27 } },
+      { strokeId: 's4', shape: 'box', box: { x: 1111, y: 331, w: 49, h: 27 } },
+      { strokeId: 's5', shape: 'box', box: { x: 1112, y: 411, w: 48, h: 27 } },
+    ]
+    const n = (id: string, y: number) => ({ id, tag: 'span', rect: { x: 1112, y, w: 48, h: 28 } })
+    const v = verifyShapeMarks(marks, { nodes: [] }, { nodes: [n('a', 198), n('b', 275), n('c', 352), n('d', 429)] })
+    expect(v.satisfied).toBe(false)
+    const top = v.reason.split('; the ').find((x) => x.includes('(1112,168)'))!
+    expect(top).toMatch(/The 3 drawn boxes below it ride on it, so the whole page from here down sits about 30px low/)
+    expect(top).toMatch(/drawn, its top is 27px below the line drawn at y=141; built, it is 57px below/)
+    expect(top).toMatch(/take 30px OUT of the space above it/)
+    expect(top).toMatch(/Never add space/)
+    // a box with a box above it is not told about the top
+    expect(v.reason.split('; the ').find((x) => x.includes('(1112,250)'))).not.toMatch(/OUT of the space/)
+  })
+
+  it('n24: marksMiss totals how far the drawn boxes are off in a verify record', () => {
+    const rec = [{ kind: 'add', index: 0, verdict: { satisfied: true } },
+      { kind: 'marks', index: 2, verdict: { satisfied: false, marks: [{ dx: 0, dy: 30, built: {} }, { dx: 1, dy: -22, built: {} }] } }]
+    expect(marksMiss(rec)).toBe(53)
+    expect(marksMiss({ verified: rec })).toBe(53)
+    expect(marksMiss([{ kind: 'marks', verdict: { marks: [{ dx: null, dy: null, built: null }] } }])).toBe(200)
+    expect(marksMiss([{ kind: 'add' }])).toBeNull()
   })
 })
 

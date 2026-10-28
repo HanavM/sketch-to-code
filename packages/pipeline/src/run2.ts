@@ -25,6 +25,7 @@ import {
 } from './intent2.js'
 import { SKETCH_SKILL } from './skill.js'
 import { checkpoint } from './safety.js'
+import { rowPartsBrief } from './rowparts.js'
 import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
@@ -45,7 +46,7 @@ import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
 import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
-import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
+import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, marksMiss, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
@@ -567,6 +568,10 @@ export async function runV2(
         `cream, warm paper) must show as that tint behind the white cards, never plain white:\n${interp.pageNotes.map((n) => `- ${n}`).join('\n')}\n\n`
       : '') +
     countsBrief(counts) +
+    rowPartsBrief([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
+    ].filter((n, i, all) => all.indexOf(n) === i)) +
     keptMarksBrief(kept) +
     inkColoursBrief(interp) +
     areasBrief(interp.actions, input.snapshot.viewport) +
@@ -824,6 +829,22 @@ export async function runV2(
     }
     let best = -1
     let lastFailures: string[] = []
+    // n24: the page as it was before the last repair turn, and how far its drawn boxes were off then
+    let preRepair: { work: Map<string, string | null>; miss: number | null } | null = null
+    const putBackIfWorse = async (miss: number | null, vtag: string): Promise<void> => {
+      const prev = preRepair
+      if (!prev || prev.miss == null || miss == null || miss <= prev.miss + 6) return
+      // a repair that moved the drawn boxes further from where they were drawn is undone
+      // (r2 e3 settings, n22: toggles 30px low became 48px low and that page was kept)
+      const now = captureWork(ctx.root, cp)
+      const added = new Map([...now].filter(([rel]) => !prev.work.has(rel)))
+      if (added.size) revertWork(ctx.root, cp, added)
+      applyWork(ctx.root, prev.work)
+      stage('verify', `the repair moved drawn boxes further off (${prev.miss}px to ${miss}px in all): put the page back as it was before it`)
+      await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
+      const back = await verifyRound(`${vtag}-back`)
+      lastFailures = back.failures
+    }
     try {
       // scaffolds are written next: a stopped run must not start an attempt
       throwIfStopped(ctx.signal)
@@ -870,8 +891,10 @@ export async function runV2(
         lastFailures = failures
         stage('verify', `${Math.round(score * 100)}% of actions satisfied`)
 
+        const miss = marksMiss(lastVerify)
         if (score > best) best = score
         else {
+          await putBackIfWorse(miss, `${tag}-${round}`)
           stage('verify', 'no improvement — stopping')
           break
         }
@@ -881,6 +904,7 @@ export async function runV2(
           break
         }
         stage('repair', `round ${round + 1}`)
+        preRepair = { work: captureWork(ctx.root, cp), miss }
         const context = session
           ? ''
           : `READING (user-confirmed): ${interp.reading}\n\n${codemodNote}` +
@@ -907,6 +931,7 @@ export async function runV2(
           }
           const after = await verifyRound(`${tag}-${round + 1}`)
           lastFailures = after.failures
+          if (after.score <= best) await putBackIfWorse(marksMiss(lastVerify), `${tag}-${round + 1}`)
           if (after.score > best) best = after.score
           stage('verify', `${Math.round(after.score * 100)}% of actions satisfied after the stopped repair`)
           break
