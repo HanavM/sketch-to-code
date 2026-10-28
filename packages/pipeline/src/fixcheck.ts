@@ -87,6 +87,19 @@ export function newTextOverlaps(before: DomSnapshot, after: DomSnapshot, min = 0
       out.push({ a: A.key, b: B.key, share: Math.round(share * 100) / 100 })
     }
   }
+  // r32 c2 (n37 replay): a heading set on one line ran under the big drawn disc beside it. Painted
+  // shapes with no words of their own count too: words that were clear of one must stay clear.
+  const area = after.viewport.w * after.viewport.h
+  const shapes = after.nodes.filter((n) => !words(n) && paints(n) && n.rect.w >= 24 && n.rect.h >= 24 && n.rect.w * n.rect.h < area * 0.4)
+  for (const T of now) {
+    for (const S of shapes) {
+      if (isAncestor(byId, S, T.node) || isAncestor(byId, T.node, S)) continue
+      const share = inter(T.box, S.rect) / Math.max(1, T.box.w * T.box.h)
+      if (share < min) continue
+      if (inter(was.get(T.key)!.box, S.rect) / Math.max(1, T.box.w * T.box.h) >= min / 2) continue
+      out.push({ a: T.key, b: `the ${S.tag} shape at ${Math.round(S.rect.x)},${Math.round(S.rect.y)}`, share: Math.round(share * 100) / 100 })
+    }
+  }
   return out.sort((x, y) => y.share - x.share).slice(0, 6)
 }
 

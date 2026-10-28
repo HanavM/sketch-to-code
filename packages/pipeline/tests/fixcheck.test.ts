@@ -44,6 +44,15 @@ describe('fix check (n37)', () => {
     expect(newTextOverlaps(snap([heading(120), lowDate, nav]), snap([heading(240), lowDate, nav]))).toHaveLength(0)
   })
 
+  it('words that run under a painted shape they were clear of fail too (r32 c2 disc)', () => {
+    const disc = node('disc', { x: 620, y: 120, w: 300, h: 300 }, '', { backgroundColor: 'rgb(194, 114, 64)', borderRadius: '50%' })
+    const h = (w: number) => node('h', { x: 40, y: 140, w, h: 60 }, 'Small batch, roasted on Thursdays.')
+    const o = newTextOverlaps(snap([disc, h(320), date, nav]), snap([disc, h(900), date, nav]))
+    expect(o[0]?.a).toBe('Small batch, roasted on Thursdays.')
+    expect(o[0]?.b).toMatch(/shape/)
+    expect(newTextOverlaps(snap([disc, h(320), date, nav]), snap([disc, h(330), date, nav]))).toHaveLength(0)
+  })
+
   it('"no panel behind bars" fails while the panel still paints, in any colour', () => {
     const panel = node('p', { x: 200, y: 200, w: 800, h: 300 }, '', { backgroundColor: 'rgb(30, 30, 40)' })
     const before = snap([panel, heading(120), date, nav])

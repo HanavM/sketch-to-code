@@ -4,7 +4,10 @@
  * tool change on an already-sketched page with the sketch held still. Correction notes typed after the
  * first Run, and note drags, are left out (the point is whether the first build now gets it right).
  *
- *   node tests/hand/replay.mjs <digest.json> [--port 5390]
+ *   node tests/hand/replay.mjs <digest.json> [--port 5390] [--fixes]
+ *
+ * --fixes (n37): after the first Run, type the same correction notes at the same spots and Run again,
+ * so a change to how fix notes are handled is measured with the fix held still too.
  */
 import { readFileSync } from 'node:fs'
 import { request } from 'node:http'
@@ -30,5 +33,10 @@ for (const o of ops) { const r = await call(o.op); if (o.op.op === 'note') conso
 await call({ op: 'look', name: 'threads' })
 const run = await call({ op: 'run' })
 console.log('run', JSON.stringify(run).slice(0, 400))
+if (process.argv.includes('--fixes')) {
+  const fixes = d.notesTyped.filter((n) => n.at > firstRun).sort((a, b) => a.at - b.at)
+  for (const n of fixes) { const r = await call({ op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole }); console.log('fix', JSON.stringify(n.text), '->', r.status ?? '') }
+  if (fixes.length) { await call({ op: 'look', name: 'fix-threads' }); const r2 = await call({ op: 'run' }); console.log('run2', JSON.stringify(r2).slice(0, 600)) }
+}
 const done = await call({ op: 'done' })
 console.log('done', JSON.stringify(done).slice(0, 600))
