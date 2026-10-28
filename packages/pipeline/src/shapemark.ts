@@ -195,6 +195,9 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
   const claimed = new Set<string>()
   const out: NonNullable<MarkVerdict['marks']> = []
   const misses: string[] = []
+  // per landed-or-off mark: what the message needs once the column is known
+  const placed: Array<{ m: ShapeMark; tag: string; dx: number; dy: number; slack: number }> = []
+  const lines: string[] = []
   for (const m of boxes) {
     const b = m.box
     const cx = b.x + b.w / 2, cy = b.y + b.h / 2
@@ -209,7 +212,7 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     const where = `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
     if (!best || bestD > 260) {
       out.push({ strokeId: m.strokeId, drawn: b, built: null, dx: null, dy: null })
-      misses.push(`${where}: nothing about that size was built near it; build what it stands for at that size, there`)
+      lines.push(`${where}: nothing about that size was built near it; build what it stands for at that size, there`)
       continue
     }
     claimed.add(best.id)
@@ -219,18 +222,72 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     // card built 90px below where it was drawn (centred on the screen) passed
     // under a quarter-of-the-box slack; a person sees 90px at once.
     const slack = Math.min(28, Math.max(12, Math.min(b.w, b.h) * 0.25))
-    if (Math.abs(dx) > slack || Math.abs(dy) > slack) {
-      const off = [
-        Math.abs(dy) > slack ? `${Math.abs(dy)}px too ${dy > 0 ? 'low' : 'high'}` : '',
-        Math.abs(dx) > slack ? `${Math.abs(dx)}px too far ${dx > 0 ? 'right' : 'left'}` : '',
-      ].filter(Boolean).join(' and ')
-      // a big block off only vertically is almost always centred on the screen
-      const centred = Math.abs(dy) > slack && Math.abs(dx) <= slack && b.w >= 160 && b.h >= 120
-        ? ` It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, ${r1(b.y)}px from the top of the page.`
-        : ''
-      misses.push(`${where}: the <${best.tag}> built for it sits ${off}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${centred}`)
-    }
+    placed.push({ m, tag: best.tag, dx, dy, slack })
   }
+  // n22 (login, n20 try 3): the email field was 16px low and the password
+  // field under it 15px low only BECAUSE of it. Each was told "move it 16px",
+  // the repair shifted both, and the password field and button ended 16 and
+  // 26px too high. So a box in a stack is judged by its own error (its offset
+  // minus the offset of the box straight above it), and the repair is told
+  // which boxes simply follow and which already-landed boxes will move too.
+  const above = (i: number): (typeof placed)[number] | null => {
+    const me = placed[i]!.m.box
+    let pick: (typeof placed)[number] | null = null
+    for (const o of placed) {
+      if (o === placed[i]) continue
+      const ob = o.m.box
+      const contains = ob.x <= me.x + 2 && ob.y <= me.y + 2 && ob.x + ob.w >= me.x + me.w - 2 && ob.y + ob.h >= me.y + me.h - 2
+      if (contains) continue // a card round the field is not "above" it
+      if (ob.x >= me.x - 2 && ob.y >= me.y - 2 && ob.x + ob.w <= me.x + me.w + 2 && ob.y + ob.h <= me.y + me.h + 2) continue
+      const overlap = Math.min(ob.x + ob.w, me.x + me.w) - Math.max(ob.x, me.x)
+      if (overlap < 0.5 * Math.min(ob.w, me.w)) continue
+      if (ob.y + ob.h > me.y + 4) continue
+      if (!pick || ob.y > pick.m.box.y) pick = o
+    }
+    return pick
+  }
+  const anyMoveAbove = (i: number): (typeof placed)[number] | null => {
+    for (let a = above(i); a; a = above(placed.indexOf(a))) {
+      if (Math.abs(a.dy) > a.slack) return a
+    }
+    return null
+  }
+  const name = (p: (typeof placed)[number]) => `the <${p.tag}> drawn at (${p.m.box.x},${p.m.box.y})`
+  for (let i = 0; i < placed.length; i++) {
+    const p = placed[i]!
+    const b = p.m.box
+    const where = `the ${p.m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
+    const up = above(i)
+    const ownDy = up ? r1(p.dy - up.dy) : p.dy
+    const off = Math.abs(p.dy) > p.slack || Math.abs(p.dx) > p.slack
+    if (!off) {
+      // landed, but a box above it is about to move: it would move with it
+      const mover = anyMoveAbove(i)
+      if (mover && Math.abs(mover.dy) > p.slack) {
+        misses.push(`${where}: the <${p.tag}> built for it lands now, but it sits below ${name(mover)}, which is ${Math.abs(mover.dy)}px too ${mover.dy > 0 ? 'low' : 'high'}. When that one moves this one moves with it, so keep this one at its drawn top (${r1(b.y)}px): change the gap above it by the same amount the other way.`)
+      }
+      continue
+    }
+    const dirs = [
+      Math.abs(p.dy) > p.slack ? `${Math.abs(p.dy)}px too ${p.dy > 0 ? 'low' : 'high'}` : '',
+      Math.abs(p.dx) > p.slack ? `${Math.abs(p.dx)}px too far ${p.dx > 0 ? 'right' : 'left'}` : '',
+    ].filter(Boolean).join(' and ')
+    // a big block off only vertically is almost always centred on the screen
+    const centred = Math.abs(p.dy) > p.slack && Math.abs(p.dx) <= p.slack && b.w >= 160 && b.h >= 120
+      ? ` It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, ${r1(b.y)}px from the top of the page.`
+      : ''
+    const followsOnly = up && Math.abs(p.dy) > p.slack && Math.abs(p.dx) <= p.slack && Math.abs(ownDy) <= Math.min(6, p.slack)
+    if (followsOnly) {
+      misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}, but only because ${name(up)} above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.`)
+      continue
+    }
+    const partial = up && Math.abs(up.dy) > up.slack && Math.abs(p.dx) <= p.slack
+      ? ` ${Math.abs(up.dy)}px of that comes from ${name(up)} above it; once that one is fixed this one is still ${Math.abs(ownDy)}px too ${ownDy > 0 ? 'low' : 'high'}, so change only the gap between them by ${Math.abs(ownDy)}px.`
+      : ''
+    misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${partial}${centred}`)
+  }
+  // the "nothing built" misses first, in drawing order
+  misses.unshift(...lines)
   return misses.length
     ? { satisfied: false, reason: misses.join('; '), marks: out }
     : { satisfied: true, reason: `${boxes.length} drawn box${boxes.length > 1 ? 'es' : ''} built where drawn`, marks: out }

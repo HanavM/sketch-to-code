@@ -49,7 +49,7 @@ import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
-import { STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
+import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
 import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
@@ -354,6 +354,7 @@ export async function runV2(
     ctx.emit('stage', { stage: s, detail })
   }
   const stallMs = Number(process.env.S2C_STALL_MS) > 0 ? Number(process.env.S2C_STALL_MS) : STALL_MS
+  const repairEditMs = Number(process.env.S2C_REPAIR_EDIT_MS) > 0 ? Number(process.env.S2C_REPAIR_EDIT_MS) : REPAIR_EDIT_MS
   let repairStalled: string | null = null
   let totalUsage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
 
@@ -795,7 +796,11 @@ export async function runV2(
         const marginMs = kind === 'repair' ? VERIFY_MARGIN_MS : 0
         return await watchTurn(
           s.send(content),
-          () => stallReason({ now: Date.now(), lastActivity: s.lastActivity(), deadline: ctx.deadline, marginMs, stallMs }),
+          () => stallReason({
+            now: Date.now(), lastActivity: s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs,
+            // a repair is told the exact pixels: minutes of thought with no edit is a stall (n22)
+            ...(kind === 'repair' ? { lastEdit: s.lastEdit(), editMs: repairEditMs } : {}),
+          }),
           Math.min(5_000, Math.max(50, Math.floor(stallMs / 4))),
         )
       } catch (e) {

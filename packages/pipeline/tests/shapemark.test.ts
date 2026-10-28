@@ -118,4 +118,37 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(verifyTextClearOfFields(on, on).satisfied).toBe(true)
     expect(verifyTextClearOfFields({ nodes: [] }, { nodes: [label(10)] }).unverifiable).toBe(true)
   })
+
+  it('n22: a field pushed down by the one above is told it follows; a landed button below is told to stay', () => {
+    // n20 try 3 round 1, the real numbers: email 16 low, password 15 low (because of email), button landed
+    const marks: ShapeMark[] = [
+      { strokeId: 's0', shape: 'box', box: { x: 429, y: 149, w: 422, h: 422 } },
+      { strokeId: 's3', shape: 'box', box: { x: 470, y: 287, w: 340, h: 45 } },
+      { strokeId: 's4', shape: 'box', box: { x: 469, y: 375, w: 341, h: 46 } },
+      { strokeId: 's5', shape: 'box', box: { x: 470, y: 447, w: 341, h: 48 } },
+    ]
+    const before = { nodes: [{ id: 'm', tag: 'main', rect: { x: 0, y: 0, w: 1280, h: 900 } }] }
+    const n = (id: string, tag: string, x: number, y: number, w: number, h: number) => ({ id, tag, rect: { x, y, w, h } })
+    const v = verifyShapeMarks(marks, before, { nodes: [...before.nodes,
+      n('c', 'div', 429, 150, 422, 422), n('e', 'input', 470, 304, 340, 42), n('p', 'input', 470, 392, 340, 42), n('b', 'button', 470, 454, 340, 44)] })
+    expect(v.satisfied).toBe(false)
+    const parts = v.reason.split('; the ')
+    const email = parts.find((x) => x.includes('(470,287)'))!
+    const pass = parts.find((x) => x.includes('(469,375) 341x46'))!
+    const btn = parts.find((x) => x.includes('(470,447) 341x48'))!
+    expect(email).toMatch(/16px too low; move it/)
+    expect(pass).toMatch(/only because the <input> drawn at \(470,287\) above it/)
+    expect(pass).toMatch(/do not move this one on its own/)
+    expect(btn).toMatch(/lands now/)
+    expect(btn).toMatch(/keep this one at its drawn top \(447px\)/)
+    // the card round them is not "above" them
+    expect(v.reason).not.toMatch(/drawn at \(429,149\) above/)
+    // a field whose own gap is also wrong is told only its own share
+    const w = verifyShapeMarks(marks, before, { nodes: [...before.nodes,
+      n('c', 'div', 429, 150, 422, 422), n('e', 'input', 470, 304, 340, 42), n('p', 'input', 470, 418, 340, 42), n('b', 'button', 470, 474, 340, 44)] })
+    expect(w.reason).toMatch(/16px of that comes from the <input> drawn at \(470,287\) above it; once that one is fixed this one is still 25px too low, so change only the gap between them by 25px/)
+    // nothing off: nothing said
+    expect(verifyShapeMarks(marks, before, { nodes: [...before.nodes,
+      n('c', 'div', 429, 150, 422, 422), n('e', 'input', 470, 288, 340, 44), n('p', 'input', 470, 376, 340, 44), n('b', 'button', 470, 448, 340, 46)] }).satisfied).toBe(true)
+  })
 })
