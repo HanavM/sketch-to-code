@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Wrote ten fresh pages for round 31 (citrus juice, gallery, bank cards, festival poster, quote; checkout, inbox, task board, weather, profile). Next: sketch them by hand from their pictures only."
+now: "Sketched the five creative pages of round 31 by hand: 76 average, 15 strokes, 43 words. Next: the five everyday app pages."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-n27, until: "2026-10-28T13:36Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -63,8 +63,9 @@ nodes:
      result: "Words keep their line's side and typed spot; long builds not killed. Bento 82.6 to 83.1, 84.3."}
   - {id: n26, parent: n1, kind: step, title: "Write round 31: ten fresh pages (5 creative landing, 5 everyday app, harder than round 1) and their screenshots, without sketching them; sketch them in later steps", status: done, branch: try/n4-look-fix,
      result: "Ten fresh pages written, screenshotted and calibrated; six harder than round 1. None sketched yet."}
-  - {id: n27, parent: n1, kind: step, priority: next, title: "Sketch round 31 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n4-look-fix, result: null}
-  - {id: n28, parent: n1, kind: step, title: "Sketch round 31 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n27, parent: n1, kind: step, title: "Sketch round 31 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n4-look-fix,
+     result: "Citrus 77.0, gallery 81.7, cards 65.6, poster 85.0, quote 72.5; mean 76.4, 15 strokes, 43 words."}
+  - {id: n28, parent: n1, kind: step, priority: next, title: "Sketch round 31 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n4-look-fix, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
@@ -128,6 +129,15 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "Button text judged against the card behind the button; repair made it white on white", found_on: "r5 c5 (n21)", built: "a box paints over its ancestors' fills in the contrast check (n21)", helped: "yes: Get Prism 2 readable on try 2"}
   - {gap: "Glows named in words (not tapped) come out faint or one-coloured", found_on: "r5 c5 (n21)", built: null, helped: null}
   - {gap: "A note mixing a label and copy (quote: ...) has its spot told but not checked", found_on: "r5 c5 (n21)", built: null, helped: null}
+  - {gap: "A freehand leaf with a green tap built as a pill; no organic-shape mark", found_on: "r31 c1 (n27)", built: null, helped: null}
+  - {gap: "A big ring built 35px right of where drawn; rings not checked for place like boxes", found_on: "r31 c1 (n27)", built: null, helped: null}
+  - {gap: "A tilted box is read as a ring; its drawn angle is not used (built straight, then tilted the wrong way)", found_on: "r31 c3 (n27)", built: null, helped: null}
+  - {gap: "One note cannot cover a group of marks (3 cards, 3 frames)", found_on: "r31 c2, c3 (n27)", built: null, helped: null}
+  - {gap: "Headings and subtitles land above or below their drawn lines, up to 130px", found_on: "r31 c2, c3, c5 (n27)", built: null, helped: null}
+  - {gap: "Close short lines (name, role, dots) grouped; dragging a note cannot split them", found_on: "r31 c5 (n27)", built: null, helped: null}
+  - {gap: "A two-line centred quote: the note covers only its first line", found_on: "r31 c5 (n27)", built: null, helped: null}
+  - {gap: "A box noted as a quote mark is built as a box; no centre spotlight from colour taps", found_on: "r31 c5 (n27)", built: null, helped: null}
+  - {gap: "A title on a short line inside a cell binds to the cell and is built smaller than drawn", found_on: "r31 c4 (n27)", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -153,7 +163,7 @@ notes:
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
   - "After npm ci, the agent SDK may only have its musl binary: run npm install --no-save @anthropic-ai/claude-agent-sdk-linux-x64@<same version> or every Run fails in under a second."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
-  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k); n24 ~139k billed (settings 85k, 54k); n25 ~124k billed (settings 83k, 40k); n21 ~185k billed (bento 131k, 54k; two stalled builds billed ~0)"
+  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k); n24 ~139k billed (settings 85k, 54k); n25 ~124k billed (settings 83k, 40k); n21 ~185k billed (bento 131k, 54k; two stalled builds billed ~0); n27 ~487k billed (c1 107k, c2 30k, c3 121k, c4 93k, c5 136k)"
 n14_resketch:   # same 9 marks and 8 notes as n9/n11 (nav note typed as a whole-sketch note)
   - {page: r12 c4-diagonal-split, try: 1, likeness: 55.9, was: 39.8, strokes: 9, words: 45, minutes: 5.7, fixes: 0, tokens: 76787}
   - {page: r12 c4-diagonal-split, try: 2, likeness: 57.8, was: 39.8, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 54885}
@@ -208,3 +218,9 @@ n25_resketch:   # same 8 marks, 3 taps and 9 notes as n22/n24 settings, word for
 n21_resketch:   # same 11 marks, 8 taps and 9 notes as n19 bento, word for word (two earlier tries killed by the build watchdog, not counted)
   - {page: r5 c5-bento, try: 1, likeness: 83.1, was: 82.6, strokes: 19, words: 37, minutes: 8.7, fixes: 0, build_s: 366, tokens: 131429, note: "words placed; button hung on the wrong card, 2 repair rounds, text white on white"}
   - {page: r5 c5-bento, try: 2, likeness: 84.3, was: 82.6, strokes: 19, words: 37, minutes: 7.5, fixes: 0, build_s: 176, tokens: 53706, note: "one build, every check passed, no repair"}
+round31_pages:   # n27: hand-sketched from screenshots, tool as of n21; full table tests/hand/N27.md on try/n4-look-fix
+  - {page: r31 c1-citrus-launch, likeness: 77.0, strokes: 16, words: 44, minutes: 5.8, fixes: 0, build_s: 247, tokens: 107457}
+  - {page: r31 c2-night-gallery, likeness: 81.7, strokes: 14, words: 36, minutes: 2.5, fixes: 0, build_s: 75, tokens: 29649}
+  - {page: r31 c3-stacked-cards, likeness: 65.6, strokes: 15, words: 50, minutes: 6.5, fixes: 1, build_s: 296, tokens: 120598}
+  - {page: r31 c4-poster-grid, likeness: 85.0, strokes: 24, words: 29, minutes: 5.7, fixes: 0, build_s: 243, tokens: 92777}
+  - {page: r31 c5-spotlight-quote, likeness: 72.5, strokes: 11, words: 43, minutes: 8.6, fixes: 1, build_s: 397, tokens: 136456, note: "2 note moves"}

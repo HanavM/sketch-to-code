@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T13:05Z | n27 sketch round 31 c1-c5 by hand | Citrus 77.0, gallery 81.7, cards 65.6, poster 85.0, quote 72.5; mean 76.4, 15 strokes, 43 words.
 2026-10-28T12:08Z | n26 write round 31 targets | Ten fresh pages written, screenshotted, calibrated; six harder than round 1. Not sketched; next step sketches them.
 2026-10-28T12:02Z | n21 words sit where drawn or typed | Line words keep their side, typed copy keeps its spot, long builds not killed. Bento 82.6 to 83.1, 84.3.
 2026-10-28T11:15Z | n25 a drift is taken out where it starts; knobs inside tracks | Header held, drift from gap under tabs, knobs inside. Settings 61.4 to 71.8, 72.8.
