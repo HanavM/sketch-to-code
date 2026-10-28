@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T15:30Z | n31 tilted boxes keep their angle; one note covers a group | Cards built turned as drawn, group notes reach all. Cards 65.6 to 79.0, 77.8; gallery 80.1.
 2026-10-28T14:45Z | n30 colour taps and notes reach everything | Taps through toolbar, tapped rings solid, all text white checked. Weather 56.0 to 79.8, 81.4.
 2026-10-28T13:45Z | n29 notes land where typed | Taps never claim notes; far notes keep their spot; dividers make columns. Inbox 60.5 to 69.8, 68.6; weather 56.0.
 2026-10-28T13:13Z | n28 sketch round 31 e1-e5 by hand | Checkout 84.3, inbox 60.5, kanban 90.6, weather 65.9, profile 87.3. Round 31: 77.0, 18.5 strokes.

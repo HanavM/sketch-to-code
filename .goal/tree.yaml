@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Colour taps and colour notes now reach everything: the weather page went from 56 to 80 with no fixes. Next: tilted cards and one note for a group of marks."
+now: "Cards drawn at an angle now come out at that angle, and one note can cover a group: the stacked cards page went from 66 to 79 with no fixes. Next: repeated words on every card, and quote marks."
 round: 31
 round_scores: [53, 77]   # round 0 = hand baseline on 10 pool pages; then round 31 (first fresh round)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-28T14:55Z", until: "2026-10-28T16:25Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -71,8 +71,13 @@ nodes:
      result: "Taps never claim notes; far notes keep their spot; dividers make columns. Inbox 60.5 to 69.8, 68.6; weather 56.0."}
   - {id: n30, parent: n4, kind: step, priority: next, title: "Colour notes and taps reach everything: an all-text-white note covers every panel, two page taps make the fade, a ring with a colour tap is a solid disc in that colour; re-sketch weather", status: done, branch: try/n4-look-fix,
      result: "Taps pass through the toolbar, tapped rings are solid discs, all text white checked. Weather 56.0 to 79.8, 81.4."}
-  - {id: n31, parent: n2, kind: step, priority: next, title: "A tilted box keeps its drawn angle (not read as a ring), and one note can cover a group of marks (3 cards, 3 frames); re-sketch stacked cards and night gallery", status: open, branch: try/n2-shape-vocab, result: null}
+  - {id: n31, parent: n2, kind: step, title: "A tilted box keeps its drawn angle (not read as a ring), and one note can cover a group of marks (3 cards, 3 frames); re-sketch stacked cards and night gallery", status: done, branch: try/n2-shape-vocab, base: "try/n4-look-fix",
+     result: "Cards built turned as drawn, group notes reach all. Cards 65.6 to 79.0, 77.8; gallery 80.1, all frames."}
+  - {id: n32, parent: n2, kind: step, priority: next, title: "Words a group note gives each mark (a logo on every card, digits on each) land on every one, and a box noted as a quote mark is that glyph; re-sketch stacked cards and spotlight quote", status: open, branch: try/n2-shape-vocab, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A box drawn turned is read as a ring or freehand and built straight", found_on: "r31 c3", built: "a turned box keeps its angle: own size, centre and rotate() told and checked; slight tilts only in a turned stack (n31)", helped: "yes: stacked cards 65.6 to 79.0, 77.8, no fixes, half the tokens"}
+  - {gap: "One note cannot cover a group of marks (3 cards, frames on all 3)", found_on: "r31 c3, r31 c2", built: "a note with a count or all/each covers every like mark chained to its mark, shown before the build (n31)", helped: "partly: all 3 frames and cards styled; gallery score flat 81.7 to 80.1"}
+  - {gap: "Frames added outside drawn boxes close the gaps between them", found_on: "r31 c2 (n31)", built: "boxes drawn side by side keep their gap, checked on the page (n31)", helped: "partly: gallery 78.2 to 80.1, frames spaced as drawn"}
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
   - {gap: "A headline's wrap line read as a new invented tagline", found_on: "r1 c1", built: "stacked level lines are one heading: one note covers all lines, size from the pitch, words break where the lines break (n11)", helped: "partly: sunset heading now matches the target, score flat 74.0 to 73.8"}
