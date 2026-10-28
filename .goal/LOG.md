@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T17:55Z | n33 spotlight from taps; quote keeps its drawn lines | Ringed tap paints a radial glow; quote at drawn size and breaks, checked. Spotlight quote 71.0 to 77.6.
 2026-10-28T16:30Z | n32 group notes reach every card; quote mark is the glyph | Logo and digits on all 3 cards, opening quote right first time. Cards 76.5, quote 71.0, no fixes.
 2026-10-28T15:30Z | n31 tilted boxes keep their angle; one note covers a group | Cards built turned as drawn, group notes reach all. Cards 65.6 to 79.0, 77.8; gallery 80.1.
 2026-10-28T14:45Z | n30 colour taps and notes reach everything | Taps through toolbar, tapped rings solid, all text white checked. Weather 56.0 to 79.8, 81.4.

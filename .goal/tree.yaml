@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "One note about a group now puts its words on every card, and a box noted as a quote mark comes out as the quote mark first time. Next: a centre spotlight glow and quote text at its drawn size, then a second fresh round."
+now: "A tap ringed by other taps now paints a centre spotlight, and a drawn two-line quote keeps its size and line breaks (spotlight quote page 71 to 78). Next: write a second fresh round of ten pages."
 round: 31
 round_scores: [53, 77]   # round 0 = hand baseline on 10 pool pages; then round 31 (first fresh round)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-n33", until: "2026-10-28T18:24Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -75,9 +75,13 @@ nodes:
      result: "Cards built turned as drawn, group notes reach all. Cards 65.6 to 79.0, 77.8; gallery 80.1, all frames."}
   - {id: n32, parent: n2, kind: step, priority: next, title: "Words a group note gives each mark (a logo on every card, digits on each) land on every one, and a box noted as a quote mark is that glyph; re-sketch stacked cards and spotlight quote", status: done, branch: try/n2-shape-vocab,
      result: "Logo and digits on all 3 cards, opening quote glyph first time; cards 76.5, quote 71.0, no fixes."}
-  - {id: n33, parent: n3, kind: step, priority: next, title: "A centre spotlight from a tap (a page tap inside a ring of taps makes a radial glow), and a two-line centred quote keeps its drawn size and spot; re-sketch spotlight quote and inbox", status: open, branch: try/n3-ink-style, base: "try/n2-shape-vocab", result: null}
-  - {id: n34, parent: n1, kind: step, title: "Write round 32: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them", status: open, branch: try/n2-shape-vocab, result: null}
+  - {id: n33, parent: n3, kind: step, title: "A centre spotlight from a tap (a page tap inside a ring of taps makes a radial glow), and a two-line centred quote keeps its drawn size and spot; re-sketch spotlight quote", status: done, branch: try/n3-ink-style, base: "try/n2-shape-vocab (merged in, with n12)",
+     result: "Ringed tap makes a spotlight, quote keeps drawn size and lines, checked. Spotlight quote 71.0 to 77.6, no fixes."}
+  - {id: n34, parent: n1, kind: step, priority: next, title: "Write round 32: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them", status: open, branch: try/n3-ink-style, base: "try/n3-ink-style (has every feature through n33)", result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "No way to draw a centre glow: two page taps only make a straight fade", found_on: "r31 c5", built: "a page tap ringed by 3+ page taps in another colour is a radial spotlight: shown on the sketch, told exactly, checked on the page (n33)", helped: "yes: spotlight quote 71.0 to 77.6 with the line fix, glow right first time"}
+  - {gap: "Two centred quote lines drawn 60px apart built as small body text", found_on: "r31 c5", built: "centred 2-3 line stacks at 48-63px pitch are display copy sized from the pitch (n33)", helped: "yes: quote at the drawn size first time"}
+  - {gap: "Drawn two-line text wrapped into three lines and ran into the next block, unchecked", found_on: "r31 c5 (n33 try 1)", built: "page check: sized text keeps its drawn line count and size; repair drops forced breaks (n33)", helped: "yes: quote breaks as in the target, 72.6 to 77.6"}
   - {gap: "A group note's contents (logo, card digits) built on one card only", found_on: "r31 c3", built: "a group note's contents go on every member in the same spot, counted on the page (n32)", helped: "yes for the ask, flat score: all 3 cards carry logo and digits, 76.5 vs 77.8-79.0, no fixes"}
   - {gap: "A box noted as a quote mark built as a box, then a closing quote", found_on: "r31 c5", built: "a box or ring noted as a quote mark is the opening glyph, sized to the drawn spot, checked (n32)", helped: "partly: right first time, 1 fix and 2 drags fewer, 6 fewer words; 71.0 vs 72.5"}
   - {gap: "A box drawn turned is read as a ring or freehand and built straight", found_on: "r31 c3", built: "a turned box keeps its angle: own size, centre and rotate() told and checked; slight tilts only in a turned stack (n31)", helped: "yes: stacked cards 65.6 to 79.0, 77.8, no fixes, half the tokens"}
