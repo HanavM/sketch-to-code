@@ -1,0 +1,21 @@
+[
+  {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 7,
+    "tools": [
+      "Glob",
+      "Glob",
+      "Read src/App.tsx",
+      "Read components/ProgressRing.tsx",
+      "Read components/BarChart.tsx",
+      "Read src/index.css",
+      "Read s2c-hand-app/package.json"
+    ],
+    "ms": 160015,
+    "stalled": "the agent made no progress for 153 s"
+  }
+]

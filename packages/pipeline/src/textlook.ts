@@ -168,7 +168,15 @@ function gradientMean(img: string): Rgb | 'mixed' {
  * 'mixed' when a gradient or picture is on top (can't judge); white when bare.
  */
 function fillAt(nodes: NodeLike[], upTo: number, x: number, y: number): Rgb | 'mixed' {
-  let best: { key: [number, number, number]; c: Rgb | 'mixed' } | null = null
+  let best: { key: [number, number, number]; c: Rgb | 'mixed'; id: string } | null = null
+  // n21 (bento): a static white button inside a positioned gradient card was ranked under the
+  // card, so its own text read as "on the card colour" and a repair made it white on white.
+  // A box paints over its ancestors' backgrounds, whatever their position.
+  const byId = new Map(nodes.map((n) => [n.id, n]))
+  const within = (id: string, anc: string): boolean => {
+    for (let p = byId.get(id)?.parent, d = 0; p && d < 60; d++, p = byId.get(p)?.parent) if (p === anc) return true
+    return false
+  }
   for (let i = 0; i <= upTo; i++) {
     const n = nodes[i]!
     if (!inside(n.rect, x, y)) continue
@@ -186,9 +194,11 @@ function fillAt(nodes: NodeLike[], upTo: number, x: number, y: number): Rgb | 'm
     const positioned = n.style.position && n.style.position !== 'static' ? 1 : 0
     const z = positioned ? parseInt(n.style.zIndex ?? '0', 10) || 0 : 0
     const key: [number, number, number] = [z, positioned, i]
-    if (!best || key[0] > best.key[0] || (key[0] === best.key[0] && (key[1] > best.key[1] || (key[1] === best.key[1] && key[2] > best.key[2])))) {
-      best = { key, c }
-    }
+    const over = !best ? true
+      : within(n.id, best.id) && key[0] >= 0 ? true
+        : within(best.id, n.id) && best.key[0] >= 0 ? false
+          : key[0] > best.key[0] || (key[0] === best.key[0] && (key[1] > best.key[1] || (key[1] === best.key[1] && key[2] > best.key[2])))
+    if (over) best = { key, c, id: n.id }
   }
   return best ? best.c : { r: 255, g: 255, b: 255 }
 }

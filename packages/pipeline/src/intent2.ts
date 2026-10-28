@@ -101,7 +101,7 @@ export interface TypedNote {
   anchor:
     | { kind: 'element'; srcLoc: string }
     | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
-    | { kind: 'run' }
+    | { kind: 'run'; placed?: boolean }
   /** Elements named inside `text` by token. Usually empty. */
   refs?: NoteRef[]
 }
@@ -127,6 +127,10 @@ export interface ResolvedNote {
    * sentence still reads — the words are never dropped for a stale stamp.
    */
   refs?: Array<{ token: string; elementId?: string; label: string }>
+  /** n21: where the note was typed, page px (a note typed low in a card is copy that sits low). */
+  at?: { x: number; y: number }
+  /** n29: typed in empty space with nothing drawn near: its words (if copy) are built where typed. */
+  placed?: boolean
 }
 
 export interface RawInterpretation {
@@ -268,13 +272,16 @@ export function resolveNotes(
     }
     if (anchor?.kind === 'strokes') {
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
-      const focus = noteFocus(ids, anchor.focus, n.at, strokes)
+      const focus = noteFocus(ids, anchor.focus, n.at, strokes, text)
       out.push(ids.length
-        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs }
+        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs, ...(n.at ? { at: { x: n.at.x, y: n.at.y } } : {}) }
         : { id: n.id, text, scope: 'run', ...withRefs })
       continue
     }
-    out.push({ id: n.id, text, scope: 'run', ...withRefs })
+    const placed = anchor?.kind === 'run' && anchor.placed === true && n.at && Number.isFinite(n.at.x) && Number.isFinite(n.at.y)
+    out.push(placed
+      ? { id: n.id, text, scope: 'run', placed: true, at: { x: n.at.x, y: n.at.y }, ...withRefs }
+      : { id: n.id, text, scope: 'run', ...withRefs })
   }
   return out
 }
@@ -300,7 +307,9 @@ export function isPageLookNote(text: string): boolean {
 }
 
 import { isAreaNote, markAreasAndEdges } from './areas.js'
-import { markSolids, solidOf } from './solids.js'
+import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
+import { glyphOf, markEach, markGlyphs } from './each.js'
+import { markTextPlaces } from './textplace.js'
 import { markOutlined } from './textlook.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
@@ -821,6 +830,8 @@ export interface GroundedInterpretation {
   actions: GroundedAction[]
   /** Typed notes that matched no single action — they apply to the run. */
   runNotes?: string[]
+  /** n29: run notes typed in empty space, with the spot they were typed at (page px). */
+  placedNotes?: Array<{ text: string; x: number; y: number }>
   /**
    * Typed notes that describe the look of the WHOLE page ("bright yellow page",
    * "near-black page with a faint grid"), wherever they were typed. A person
@@ -922,6 +933,8 @@ export function groundInterpretation(
   // bar was built as a purple slab over the whole month.
   const frameBox = new Map<string, BBox>()
   for (const s of ev.strokes.values()) frameBox.set(s.id, bboxOf(s.points))
+  // n31: every stroke's ink, so a slightly turned box can tell whether it sits in a turned stack
+  const pagePoints = [...ev.strokes.values()].map((s) => s.points)
   const frameOwner = new Map<string, number>()
   {
     const citers = new Map<string, Array<{ i: number; others: number }>>()
@@ -969,6 +982,8 @@ export function groundInterpretation(
   }
 
   const actions: GroundedAction[] = []
+  // n30: taps make solid discs unless some note asks for glows or blur (glass blobs keep their soft glow)
+  const tapSolidAllowed = tapSolidsAllowed(ev.notes.map((n) => n.text))
   for (const [ai, a] of raw.actions.entries()) {
     // design mode is creation-only — belt to the schema's suspenders
     if (mode === 'design' && !(DESIGN_KINDS as readonly string[]).includes(a.kind)) {
@@ -1012,7 +1027,7 @@ export function groundInterpretation(
           // a box, a straight line or a ring marks where something goes and how
           // big: it never becomes a path either (shapemark.ts). Only a depiction
           // keeps paths, and then the clean shape, never the wobble.
-          const shape = shapeOf(s.points)
+          const shape = shapeOf(s.points, pagePoints)
           // n14: a box round "huge outlined 09" is read as a depiction of the number, its
           // outline became a path, and the composition check then asked for that closed
           // form to be filled: a black card behind the 09 (round 12 c4). A box whose own
@@ -1024,7 +1039,15 @@ export function groundInterpretation(
           // thing is that plain thing, never a drawn form.
           const solidMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
             (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && solidOf(n.text))
-          if (shape && (!a.depicts || areaBox || solidMark)) {
+          // n30: a ring the user coloured in with a tap is a plain disc in that colour. Round 31 e4:
+          // two rings with a yellow tap inside and a grey-blue tap on the halo were read as a
+          // depicted sun, traced as paths, and built a grey lopsided blob.
+          const tappedRing = shape?.shape === 'ellipse' && tapSolidAllowed && (ev.fills ?? []).some((f) => f.target === s.id)
+          // n32: a box typed "big yellow quote mark" is the glyph, never a traced or filled box
+          const glyphMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && glyphOf(n.text))
+          // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || shape.tilt)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }
@@ -1104,7 +1127,7 @@ export function groundInterpretation(
     }
     const targetIds = new Set([...targets.map((t) => t.domId), ...(dest ? [dest.domId] : [])])
     const notes: string[] = []
-    const noteObjs: Array<{ text: string; focus?: string[] }> = []
+    const noteObjs: Array<{ text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }> = []
     const refs: NonNullable<GroundedAction['refs']> = []
     for (const note of ev.notes) {
       const hit =
@@ -1112,7 +1135,7 @@ export function groundInterpretation(
         (note.scope === 'strokes' && (focusCited(note) ?? (note.strokeIds ?? []).some((id) => citedIds.has(id))))
       if (!hit) continue
       notes.push(note.text)
-      noteObjs.push({ text: note.text, ...(note.focus?.length ? { focus: note.focus } : {}) })
+      noteObjs.push({ text: note.text, ...(note.focus?.length ? { focus: note.focus } : {}), ...(note.at ? { at: note.at } : {}), ...(note.strokeIds?.length ? { strokeIds: note.strokeIds } : {}) })
       attached.add(note.id)
       // the sentence came with this action, so the elements it names come too —
       // including the source location, which is what codegen actually needs
@@ -1170,9 +1193,16 @@ export function groundInterpretation(
     // n14: a box round a big word is that word's area, a slanted line across the page is an edge
     if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport)
     // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
+    // n32: a box typed as a quote mark is that glyph; a group note's contents go on every member
+    if (shapeMarks.length) markGlyphs(shapeMarks, noteObjs)
+    if (shapeMarks.length) markEach(shapeMarks, noteObjs)
     if (shapeMarks.length) markSolids(shapeMarks, noteObjs)
+    // n30: a ring coloured in by a tap (no glow or blur asked anywhere) is a solid disc in exactly that colour
+    if (shapeMarks.length && tapSolidAllowed) markTappedSolids(shapeMarks, inkColours)
     // n16: "huge outlined 09" on an area box stays hollow letters
     if (shapeMarks.length) markOutlined(shapeMarks, noteObjs)
+    // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low
+    if (shapeMarks.length) markTextPlaces(shapeMarks, noteObjs)
     actions.push({
       kind: a.kind,
       targets,
@@ -1208,11 +1238,15 @@ export function groundInterpretation(
   const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
   const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
   const page = pageFill(ev.fills ?? [])
+  const placedNotes = ev.notes
+    .filter((n) => n.placed && n.at && !attached.has(n.id) && !isPageLookNote(n.text))
+    .map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) }))
 
   return {
     reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,
     droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
     runNotes: runNotes.length ? runNotes : undefined,
+    ...(placedNotes.length ? { placedNotes } : {}),
     ...(pageNotes.length ? { pageNotes } : {}),
     ...(page ? { pageFill: page } : {}),
   }

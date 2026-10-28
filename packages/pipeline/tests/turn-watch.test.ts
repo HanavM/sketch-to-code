@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { STALL_MS, TurnStalled, stallReason, watchTurn } from '../src/turn-watch.js'
+import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from '../src/turn-watch.js'
+import { movesTurnOn } from '../src/codegen.js'
 
 describe('stallReason', () => {
   it('lets a turn that is still talking run', () => {
@@ -15,6 +16,33 @@ describe('stallReason', () => {
   })
   it('no deadline: only silence ends a turn', () => {
     expect(stallReason({ now: 10, lastActivity: 0, deadline: undefined, marginMs: 60_000 })).toBeNull()
+  })
+})
+
+describe('n22: thinking is not progress', () => {
+  it('a repair that reads, then thinks with no edit, is ended at the edit limit', () => {
+    // n20 try 2 round 3: Read at 180 s, then 484 s of thinking, no edit
+    const start = 0
+    const readAt = 1_300
+    const now = start + REPAIR_EDIT_MS + 5_000
+    expect(stallReason({ now, lastActivity: readAt + 100_000, lastEdit: start })).toMatch(/185 s without an edit \(thinking is not progress\)/)
+    // an edit resets it; a build turn (no lastEdit) is not held to it
+    expect(stallReason({ now, lastActivity: now - 1_000, lastEdit: now - 30_000 })).toBeNull()
+    expect(stallReason({ now, lastActivity: now - 1_000 })).toBeNull()
+  })
+  it('only tool calls, results and words move a turn on', () => {
+    expect(movesTurnOn({ type: 'assistant', message: { content: [{ type: 'thinking' }] } })).toBe(false)
+    expect(movesTurnOn({ type: 'assistant', message: { content: [{ type: 'redacted_thinking' }, { type: 'text', text: ' ' }] } })).toBe(false)
+    expect(movesTurnOn({ type: 'assistant', message: { content: [{ type: 'thinking' }, { type: 'tool_use' }] } })).toBe(true)
+    expect(movesTurnOn({ type: 'assistant', message: { content: [{ type: 'text', text: 'Fixed.' }] } })).toBe(true)
+    expect(movesTurnOn({ type: 'user' })).toBe(true)
+    expect(movesTurnOn({ type: 'result' })).toBe(true)
+    expect(movesTurnOn({ type: 'system' })).toBe(false)
+    // n21: a long Write streams its input; that is progress, streamed thinking is not
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'input_json_delta', partial_json: '{"con' } } })).toBe(true)
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'text_delta', text: 'Done' } } })).toBe(true)
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'thinking_delta' } } })).toBe(false)
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'message_start' } })).toBe(false)
   })
 })
 

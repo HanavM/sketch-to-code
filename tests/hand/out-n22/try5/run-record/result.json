@@ -1,0 +1,387 @@
+{
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "f9778430ac2808321397a0927595e38ac8318303",
+  "changedFiles": [
+    "src/App.tsx"
+  ],
+  "reading": "A sign-in card: a bordered panel holding a 'Sign in' heading, a 'Welcome back. Enter your details.' subheading, labeled Email and Password inputs, a filled blue 'Sign in' button, and a blue 'Forgot your password?' link below it. The whole page gets a light gray background.",
+  "verification": [
+    {
+      "kind": "add",
+      "index": 0,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <div> at (429,149) 422x422 matches the sketch region",
+        "bestCandidate": {
+          "tag": "div",
+          "srcLoc": "src/App.tsx:4:7",
+          "rect": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 422
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 0,
+      "verdict": {
+        "satisfied": true,
+        "reason": "1 drawn box built where drawn",
+        "marks": [
+          {
+            "strokeId": "s0",
+            "drawn": {
+              "x": 429,
+              "y": 149,
+              "w": 422,
+              "h": 422
+            },
+            "built": {
+              "x": 429,
+              "y": 149,
+              "w": 422,
+              "h": 422
+            },
+            "dx": 0,
+            "dy": 0
+          }
+        ]
+      }
+    },
+    {
+      "kind": "add",
+      "index": 1,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <h1> \"Sign in\" at (470,191) 79x29 sits on the drawn line",
+        "bestCandidate": {
+          "tag": "h1",
+          "srcLoc": "src/App.tsx:5:9",
+          "rect": {
+            "x": 470,
+            "y": 190,
+            "w": 340,
+            "h": 32
+          }
+        }
+      }
+    },
+    {
+      "kind": "add",
+      "index": 2,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <p> \"Welcome back. Enter your detai\" at (470,231) 225x17 sits on the drawn line",
+        "bestCandidate": {
+          "tag": "p",
+          "srcLoc": "src/App.tsx:6:9",
+          "rect": {
+            "x": 470,
+            "y": 230,
+            "w": 340,
+            "h": 20
+          }
+        }
+      }
+    },
+    {
+      "kind": "add",
+      "index": 3,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <h1> at (470,190) 340x32 matches the sketch region",
+        "bestCandidate": {
+          "tag": "h1",
+          "srcLoc": "src/App.tsx:5:9",
+          "rect": {
+            "x": 470,
+            "y": 190,
+            "w": 340,
+            "h": 32
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 3,
+      "verdict": {
+        "satisfied": true,
+        "reason": "1 drawn box built where drawn",
+        "marks": [
+          {
+            "strokeId": "s3",
+            "drawn": {
+              "x": 470,
+              "y": 287,
+              "w": 340,
+              "h": 45
+            },
+            "built": {
+              "x": 470,
+              "y": 288,
+              "w": 340,
+              "h": 42
+            },
+            "dx": 0,
+            "dy": 0
+          }
+        ]
+      }
+    },
+    {
+      "kind": "add",
+      "index": 4,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <div> at (470,262) 340x156 matches the sketch region",
+        "bestCandidate": {
+          "tag": "div",
+          "srcLoc": "src/App.tsx:8:9",
+          "rect": {
+            "x": 470,
+            "y": 262,
+            "w": 340,
+            "h": 156
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 4,
+      "verdict": {
+        "satisfied": true,
+        "reason": "1 drawn box built where drawn",
+        "marks": [
+          {
+            "strokeId": "s4",
+            "drawn": {
+              "x": 469,
+              "y": 375,
+              "w": 341,
+              "h": 46
+            },
+            "built": {
+              "x": 470,
+              "y": 376,
+              "w": 340,
+              "h": 42
+            },
+            "dx": 1,
+            "dy": -1
+          }
+        ]
+      }
+    },
+    {
+      "kind": "add",
+      "index": 5,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <div> at (470,262) 340x156 matches the sketch region",
+        "bestCandidate": {
+          "tag": "div",
+          "srcLoc": "src/App.tsx:8:9",
+          "rect": {
+            "x": 470,
+            "y": 262,
+            "w": 340,
+            "h": 156
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 5,
+      "verdict": {
+        "satisfied": true,
+        "reason": "1 drawn box built where drawn",
+        "marks": [
+          {
+            "strokeId": "s5",
+            "drawn": {
+              "x": 470,
+              "y": 447,
+              "w": 341,
+              "h": 48
+            },
+            "built": {
+              "x": 470,
+              "y": 446,
+              "w": 340,
+              "h": 44
+            },
+            "dx": 0,
+            "dy": -3
+          }
+        ]
+      }
+    },
+    {
+      "kind": "add",
+      "index": 6,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <a> \"Forgot your password?\" at (564,515) 152x17 sits on the drawn line",
+        "bestCandidate": {
+          "tag": "a",
+          "srcLoc": "src/App.tsx:38:9",
+          "rect": {
+            "x": 470,
+            "y": 514,
+            "w": 340,
+            "h": 20
+          }
+        }
+      }
+    },
+    {
+      "kind": "drift",
+      "verdict": {
+        "satisfied": true,
+        "reason": "4 of 4 blocks within 16px of their drawn top",
+        "offsets": [
+          {
+            "index": 0,
+            "drawn": 149,
+            "built": 149,
+            "dy": 0
+          },
+          {
+            "index": 3,
+            "drawn": 287,
+            "built": 288,
+            "dy": 1
+          },
+          {
+            "index": 4,
+            "drawn": 375,
+            "built": 376,
+            "dy": 1
+          },
+          {
+            "index": 5,
+            "drawn": 447,
+            "built": 446,
+            "dy": -1
+          }
+        ]
+      }
+    },
+    {
+      "kind": "readable",
+      "verdict": {
+        "satisfied": true,
+        "reason": "4 pieces of text read on what is behind them"
+      }
+    },
+    {
+      "kind": "clear",
+      "verdict": {
+        "satisfied": true,
+        "reason": "no words sit on a form field"
+      }
+    },
+    {
+      "kind": "ink-colours",
+      "verdict": {
+        "satisfied": true,
+        "reason": "2 colours from the ink on the page",
+        "checks": [
+          {
+            "what": "page",
+            "want": "#f3f4f6",
+            "best": 0,
+            "ok": true
+          },
+          {
+            "what": "the box drawn at (470,447) 341x48",
+            "want": "#2563eb",
+            "best": 0,
+            "ok": true
+          }
+        ]
+      }
+    }
+  ],
+  "tokens": {
+    "input": 35465,
+    "cacheRead": 302556,
+    "output": 6212
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 14581,
+      "output": 4495,
+      "cacheRead": 110641,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 49334
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 23861,
+      "output": 930,
+      "cacheRead": 66291,
+      "toolCalls": 2,
+      "tools": [
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 9063
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 3235,
+      "output": 787,
+      "cacheRead": 125624,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 8339
+    }
+  ],
+  "codemod": {
+    "handled": [],
+    "refused": []
+  },
+  "backend": {
+    "applied": [],
+    "refused": []
+  },
+  "fidelity": {
+    "resemblance": 0.5,
+    "keep": {
+      "asymmetry": true,
+      "rhythm": true,
+      "proportions": true,
+      "placement": true
+    },
+    "fill": "filled",
+    "style": "auto",
+    "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null
+}

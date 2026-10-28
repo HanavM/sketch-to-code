@@ -88,3 +88,35 @@ describe('a heading never takes a paragraph line; a paragraph note covers its wr
     expect(noteFocus(L.map((x) => x.id), undefined, { x: 510, y: 205 }, L)).toEqual(['t'])
   })
 })
+
+describe('n31: one note covers a group of marks', () => {
+  // round 31 c3: three overlapping turned cards; round 31 c2: three frames in a row
+  const cards = [
+    walk('navy', [[708, 192], [1045, 150], [1070, 370], [735, 410], [708, 192]]),
+    walk('blue', [[790, 300], [1126, 322], [1115, 518], [775, 515], [790, 300]]),
+    walk('pink', [[836, 466], [1172, 452], [1184, 672], [845, 688], [836, 466]]),
+    walk('btn', [[76, 560], [255, 560], [255, 616], [76, 616], [76, 560]]),
+    walk('head', [[72, 240], [500, 240]]),
+  ]
+  const cid = cards.map((s) => s.id)
+  it('"3 tilted stacked cards" typed by the top card is about all three', () => {
+    const f = noteFocus(cid, undefined, { x: 1150, y: 120 }, cards, '3 tilted stacked cards, white plastik top left')
+    expect(f?.sort()).toEqual(['blue', 'navy', 'pink'])
+  })
+  it('without a group word it stays on the nearest card', () => {
+    expect(noteFocus(cid, undefined, { x: 1150, y: 120 }, cards, 'white plastik top left')).toEqual(['navy'])
+  })
+  const frames = [
+    walk('f1', [[100, 300], [380, 300], [380, 650], [100, 650], [100, 300]]),
+    walk('f2', [[440, 300], [800, 300], [800, 650], [440, 650], [440, 300]]),
+    walk('f3', [[840, 300], [1120, 300], [1120, 650], [840, 650], [840, 300]]),
+    walk('title', [[100, 150], [700, 150]]),
+  ]
+  const fid = frames.map((s) => s.id)
+  it('"gold frames on all 3" covers the row of frames, and "both" or a count past the group does nothing odd', () => {
+    expect(noteFocus(fid, undefined, { x: 1080, y: 320 }, frames, 'gold frames on all 3')?.sort()).toEqual(['f1', 'f2', 'f3'])
+    expect(noteFocus(fid, undefined, { x: 1080, y: 320 }, frames, 'all frames thin gold')?.sort()).toEqual(['f1', 'f2', 'f3'])
+    expect(noteFocus(fid, undefined, { x: 1080, y: 320 }, frames, '5 cards')).toEqual(['f3'])
+    expect(noteFocus(fid, undefined, { x: 1080, y: 320 }, frames, 'all text white')).toEqual(['f3'])
+  })
+})

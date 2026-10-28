@@ -12,6 +12,13 @@
  * stalled repair keeps the build that was already written and verified.
  */
 export const STALL_MS = 150_000
+/**
+ * n22: a repair turn gets this long to make its first edit (and between
+ * edits). Repairs are told the exact pixels to change; a good one reads the
+ * file and edits within seconds (n20 try 3: 7 s). Try 2's third round read the
+ * file, then thought for 8 minutes with no edit until the cap stopped it.
+ */
+export const REPAIR_EDIT_MS = 180_000
 export const WATCH_EVERY_MS = 5_000
 
 export class TurnStalled extends Error {
@@ -23,8 +30,11 @@ export class TurnStalled extends Error {
 
 export interface StallInput {
   now: number
-  /** When the agent last said anything (a message, a tool call, a result). */
+  /** When the agent last moved the turn on (a tool call, a result, reply text; not thinking). */
   lastActivity: number
+  /** When the agent last edited a file (or the turn began); set only for turns that must edit. */
+  lastEdit?: number
+  editMs?: number
   /** Host run cap, if any. */
   deadline?: number
   /** Time to leave before the cap (e.g. for the verify after a repair). */
@@ -37,6 +47,10 @@ export function stallReason(o: StallInput): string | null {
   const stallMs = o.stallMs ?? STALL_MS
   const quiet = o.now - o.lastActivity
   if (quiet >= stallMs) return `the agent made no progress for ${Math.round(quiet / 1000)} s`
+  if (o.lastEdit !== undefined) {
+    const sinceEdit = o.now - o.lastEdit
+    if (sinceEdit >= (o.editMs ?? REPAIR_EDIT_MS)) return `the repair went ${Math.round(sinceEdit / 1000)} s without an edit (thinking is not progress)`
+  }
   if (o.deadline !== undefined && Number.isFinite(o.deadline)) {
     const left = o.deadline - o.now
     if (left <= (o.marginMs ?? 0)) return `only ${Math.max(0, Math.round(left / 1000))} s left before the run cap`

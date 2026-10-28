@@ -1,0 +1,457 @@
+{
+  "round": 31,
+  "id": "c2-night-gallery",
+  "version": 3,
+  "stopped": null,
+  "likeness": 78.2,
+  "colour": 0.9538225076194572,
+  "structure": 0.7612199194422313,
+  "layout": 0.6595539688636686,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 2.6,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 4,
+      "line": 6,
+      "dot": 4
+    },
+    "inkPx": 6544
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 36,
+  "notes": 8,
+  "longestNote": 8,
+  "noteTexts": [
+    "thick gold frames on all 3",
+    "I. Harbour, 1921",
+    "II. The red room",
+    "III. Pines",
+    "Paintings after dark, big italic serif",
+    "Open late · Fridays till 10, gold outline",
+    "HALDEN GALLERY",
+    "EXHIBITIONS · VISIT · MEMBERS"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 414,
+    "firstReadingS": 64,
+    "readS": [
+      28
+    ],
+    "buildS": [
+      348
+    ],
+    "sketchingS": 39
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 82807,
+    "cacheRead": 629402,
+    "output": 31014,
+    "billed": 113821
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 4463
+    },
+    {
+      "op": "stroke",
+      "at": 9592
+    },
+    {
+      "op": "stroke",
+      "at": 14291
+    },
+    {
+      "op": "stroke",
+      "at": 15057
+    },
+    {
+      "op": "stroke",
+      "at": 15823
+    },
+    {
+      "op": "stroke",
+      "at": 16458
+    },
+    {
+      "op": "stroke",
+      "at": 18541
+    },
+    {
+      "op": "stroke",
+      "at": 20608
+    },
+    {
+      "op": "stroke",
+      "at": 21547
+    },
+    {
+      "op": "stroke",
+      "at": 22858
+    },
+    {
+      "op": "pen",
+      "color": "#0f0e12",
+      "at": 23227
+    },
+    {
+      "op": "stroke",
+      "at": 23691
+    },
+    {
+      "op": "pen",
+      "color": "#2c3a58",
+      "at": 24052
+    },
+    {
+      "op": "stroke",
+      "at": 24525
+    },
+    {
+      "op": "pen",
+      "color": "#62291f",
+      "at": 24894
+    },
+    {
+      "op": "stroke",
+      "at": 25358
+    },
+    {
+      "op": "pen",
+      "color": "#22463a",
+      "at": 25720
+    },
+    {
+      "op": "stroke",
+      "at": 26192
+    },
+    {
+      "op": "note",
+      "at": 26851
+    },
+    {
+      "op": "note",
+      "at": 27499
+    },
+    {
+      "op": "note",
+      "at": 28126
+    },
+    {
+      "op": "note",
+      "at": 28741
+    },
+    {
+      "op": "note",
+      "at": 29415
+    },
+    {
+      "op": "note",
+      "at": 30075
+    },
+    {
+      "op": "note",
+      "at": 30712
+    },
+    {
+      "op": "note",
+      "at": 31368
+    },
+    {
+      "op": "run",
+      "at": 36635
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          64,
+          128
+        ],
+        [
+          364,
+          128
+        ],
+        [
+          364,
+          548
+        ],
+        [
+          64,
+          548
+        ],
+        [
+          64,
+          128
+        ]
+      ],
+      "n": 241,
+      "at": 4463
+    },
+    {
+      "way": [
+        [
+          392,
+          128
+        ],
+        [
+          812,
+          128
+        ],
+        [
+          812,
+          548
+        ],
+        [
+          392,
+          548
+        ],
+        [
+          392,
+          128
+        ]
+      ],
+      "n": 281,
+      "at": 9592
+    },
+    {
+      "way": [
+        [
+          840,
+          128
+        ],
+        [
+          1180,
+          128
+        ],
+        [
+          1180,
+          548
+        ],
+        [
+          840,
+          548
+        ],
+        [
+          840,
+          128
+        ]
+      ],
+      "n": 255,
+      "at": 14291
+    },
+    {
+      "way": [
+        [
+          64,
+          572
+        ],
+        [
+          172,
+          572
+        ]
+      ],
+      "n": 19,
+      "at": 15057
+    },
+    {
+      "way": [
+        [
+          392,
+          572
+        ],
+        [
+          500,
+          572
+        ]
+      ],
+      "n": 19,
+      "at": 15823
+    },
+    {
+      "way": [
+        [
+          840,
+          572
+        ],
+        [
+          900,
+          572
+        ]
+      ],
+      "n": 11,
+      "at": 16458
+    },
+    {
+      "way": [
+        [
+          64,
+          692
+        ],
+        [
+          644,
+          692
+        ]
+      ],
+      "n": 98,
+      "at": 18541
+    },
+    {
+      "way": [
+        [
+          980,
+          720
+        ],
+        [
+          1216,
+          720
+        ],
+        [
+          1216,
+          772
+        ],
+        [
+          980,
+          772
+        ],
+        [
+          980,
+          720
+        ]
+      ],
+      "n": 97,
+      "at": 20608
+    },
+    {
+      "way": [
+        [
+          64,
+          48
+        ],
+        [
+          230,
+          48
+        ]
+      ],
+      "n": 29,
+      "at": 21547
+    },
+    {
+      "way": [
+        [
+          910,
+          48
+        ],
+        [
+          1216,
+          48
+        ]
+      ],
+      "n": 52,
+      "at": 22858
+    },
+    {
+      "way": [
+        [
+          700,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 23691
+    },
+    {
+      "way": [
+        [
+          214,
+          338
+        ]
+      ],
+      "n": 1,
+      "at": 24525
+    },
+    {
+      "way": [
+        [
+          602,
+          338
+        ]
+      ],
+      "n": 1,
+      "at": 25358
+    },
+    {
+      "way": [
+        [
+          1010,
+          338
+        ]
+      ],
+      "n": 1,
+      "at": 26192
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "thick gold frames on all 3",
+      "whole": false,
+      "x": 214,
+      "y": 250,
+      "at": 26851
+    },
+    {
+      "text": "I. Harbour, 1921",
+      "whole": false,
+      "x": 110,
+      "y": 580,
+      "at": 27499
+    },
+    {
+      "text": "II. The red room",
+      "whole": false,
+      "x": 440,
+      "y": 580,
+      "at": 28126
+    },
+    {
+      "text": "III. Pines",
+      "whole": false,
+      "x": 870,
+      "y": 580,
+      "at": 28741
+    },
+    {
+      "text": "Paintings after dark, big italic serif",
+      "whole": false,
+      "x": 300,
+      "y": 670,
+      "at": 29415
+    },
+    {
+      "text": "Open late · Fridays till 10, gold outline",
+      "whole": false,
+      "x": 1100,
+      "y": 746,
+      "at": 30075
+    },
+    {
+      "text": "HALDEN GALLERY",
+      "whole": false,
+      "x": 140,
+      "y": 36,
+      "at": 30712
+    },
+    {
+      "text": "EXHIBITIONS · VISIT · MEMBERS",
+      "whole": false,
+      "x": 1060,
+      "y": 36,
+      "at": 31368
+    }
+  ]
+}

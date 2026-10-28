@@ -3,119 +3,149 @@
   "id": "e3-settings",
   "version": 3,
   "stopped": null,
-  "likeness": 38.7,
-  "colour": 0.9921359849287996,
-  "structure": 0.9308402866392315,
-  "layout": 0.4343302485722971,
+  "likeness": 37.6,
+  "colour": 0.9932575715807619,
+  "structure": 0.9264504958828208,
+  "layout": 0.3037259884786164,
   "strokes": {
-    "count": 10,
-    "pointsPerStroke": 3.8,
+    "count": 11,
+    "pointsPerStroke": 3.4,
     "simpleShare": 1,
     "shapes": {
-      "line": 4,
-      "box": 6
+      "line": 2,
+      "box": 6,
+      "dot": 3
     },
-    "inkPx": 2968
+    "inkPx": 2456
   },
   "erased": 0,
-  "words": 33,
-  "notes": 6,
+  "notesMoved": 1,
+  "words": 36,
+  "notes": 9,
   "longestNote": 13,
   "noteTexts": [
     "Settings",
-    "tabs Profile, Notifications (active blue), Billing, Team",
-    "4 rows: Email digests, Mentions, Product news, Weekly report, each with grey description",
-    "toggles: first two on (blue)",
-    "Save changes, blue",
+    "tabs Profile, Notifications (active, blue underline), Billing, Team",
+    "4 rows, title + grey line: Email digests, Mentions, Product news, Weekly report",
+    "toggle on",
+    "toggle on",
+    "toggle off",
+    "toggle off",
+    "Save changes",
     "Reset all, red outline"
   ],
   "time": {
-    "firstStrokeToDoneS": 581,
-    "firstReadingS": 64,
+    "firstStrokeToDoneS": 153,
+    "firstReadingS": 50,
     "readS": [
-      46
+      22
     ],
     "buildS": [
-      508
+      101
     ],
-    "sketchingS": 27
+    "sketchingS": 30
   },
   "corrections": 0,
   "runs": 1,
   "tokens": {
-    "input": 68576,
-    "cacheRead": 882729,
-    "output": 47846,
-    "billed": 116422
+    "input": 34133,
+    "cacheRead": 260206,
+    "output": 11091,
+    "billed": 45224
   },
   "events": [
     {
       "op": "stroke",
-      "at": 784
+      "at": 795
     },
     {
       "op": "stroke",
-      "at": 2049
+      "at": 4143
     },
     {
       "op": "stroke",
-      "at": 5399
+      "at": 5026
     },
     {
       "op": "stroke",
-      "at": 6265
+      "at": 5910
     },
     {
       "op": "stroke",
-      "at": 7133
+      "at": 6779
     },
     {
       "op": "stroke",
-      "at": 7999
+      "at": 7661
     },
     {
       "op": "stroke",
-      "at": 8866
+      "at": 9271
     },
     {
       "op": "stroke",
-      "at": 9966
+      "at": 10644
+    },
+    {
+      "op": "pen",
+      "color": "#2563eb",
+      "at": 11023
     },
     {
       "op": "stroke",
-      "at": 11535
+      "at": 11511
     },
     {
       "op": "stroke",
-      "at": 12916
+      "at": 11977
+    },
+    {
+      "op": "stroke",
+      "at": 12442
     },
     {
       "op": "note",
-      "at": 13532
+      "at": 13076
     },
     {
       "op": "note",
-      "at": 14208
+      "at": 13834
     },
     {
       "op": "note",
-      "at": 14965
+      "at": 14616
     },
     {
       "op": "note",
-      "at": 15623
+      "at": 15242
     },
     {
       "op": "note",
-      "at": 16260
+      "at": 15899
     },
     {
       "op": "note",
-      "at": 16905
+      "at": 16533
+    },
+    {
+      "op": "note",
+      "at": 17175
+    },
+    {
+      "op": "note",
+      "at": 17828
+    },
+    {
+      "op": "note",
+      "at": 18518
+    },
+    {
+      "op": "moveNote",
+      "at": 23318
     },
     {
       "op": "run",
-      "at": 17009
+      "at": 27844
     }
   ],
   "strokesDrawn": [
@@ -131,21 +161,7 @@
         ]
       ],
       "n": 21,
-      "at": 784
-    },
-    {
-      "way": [
-        [
-          120,
-          118
-        ],
-        [
-          405,
-          118
-        ]
-      ],
-      "n": 49,
-      "at": 2049
+      "at": 795
     },
     {
       "way": [
@@ -159,7 +175,7 @@
         ]
       ],
       "n": 174,
-      "at": 5399
+      "at": 4143
     },
     {
       "way": [
@@ -185,7 +201,7 @@
         ]
       ],
       "n": 25,
-      "at": 6265
+      "at": 5026
     },
     {
       "way": [
@@ -211,7 +227,7 @@
         ]
       ],
       "n": 25,
-      "at": 7133
+      "at": 5910
     },
     {
       "way": [
@@ -237,7 +253,7 @@
         ]
       ],
       "n": 25,
-      "at": 7999
+      "at": 6779
     },
     {
       "way": [
@@ -263,21 +279,7 @@
         ]
       ],
       "n": 25,
-      "at": 8866
-    },
-    {
-      "way": [
-        [
-          120,
-          173
-        ],
-        [
-          347,
-          173
-        ]
-      ],
-      "n": 39,
-      "at": 9966
+      "at": 7661
     },
     {
       "way": [
@@ -303,7 +305,7 @@
         ]
       ],
       "n": 67,
-      "at": 11535
+      "at": 9271
     },
     {
       "way": [
@@ -329,7 +331,37 @@
         ]
       ],
       "n": 55,
-      "at": 12916
+      "at": 10644
+    },
+    {
+      "way": [
+        [
+          196,
+          521
+        ]
+      ],
+      "n": 1,
+      "at": 11511
+    },
+    {
+      "way": [
+        [
+          1136,
+          182
+        ]
+      ],
+      "n": 1,
+      "at": 11977
+    },
+    {
+      "way": [
+        [
+          1136,
+          263
+        ]
+      ],
+      "n": 1,
+      "at": 12442
     }
   ]
 }

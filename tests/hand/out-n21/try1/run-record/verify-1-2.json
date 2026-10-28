@@ -1,0 +1,407 @@
+[
+  {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <main> at (0,0) 1280x904 matches the sketch region",
+      "bestCandidate": {
+        "tag": "main",
+        "srcLoc": "src/App.tsx:9:5",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 904.125
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (779,39) 462x446 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:24:11",
+        "rect": {
+          "x": 778.609375,
+          "y": 39,
+          "w": 462.390625,
+          "h": 446.125
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s1",
+          "drawn": {
+            "x": 779,
+            "y": 39,
+            "w": 462,
+            "h": 212
+          },
+          "built": {
+            "x": 778.609375,
+            "y": 39,
+            "w": 462.390625,
+            "h": 212
+          },
+          "dx": 0,
+          "dy": 0
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (779,269) 462x216 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:34:13",
+        "rect": {
+          "x": 778.609375,
+          "y": 269,
+          "w": 462.390625,
+          "h": 216.125
+        }
+      }
+    }
+  },
+  {
+    "kind": "composition",
+    "index": 2,
+    "score": 0.7718979091340189,
+    "massSimilarity": 0.6741398701914556,
+    "flaws": [],
+    "notes": []
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (779,269) 462x216 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:34:13",
+        "rect": {
+          "x": 778.609375,
+          "y": 269,
+          "w": 462.390625,
+          "h": 216.125
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 1020,
+            "y": 269,
+            "w": 221,
+            "h": 211
+          },
+          "built": {
+            "x": 994.21875,
+            "y": 269,
+            "w": 246.78125,
+            "h": 216.125
+          },
+          "dx": -13,
+          "dy": 3
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (39,503) 1202x362 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:71:9",
+        "rect": {
+          "x": 39,
+          "y": 503.125,
+          "w": 1202,
+          "h": 362
+        }
+      }
+    }
+  },
+  {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.9923315943782189,
+    "massSimilarity": 0.9890451348260271,
+    "flaws": [],
+    "notes": []
+  },
+  {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <svg> at (401,271) 480x294 matches the sketch region",
+      "bestCandidate": {
+        "tag": "svg",
+        "srcLoc": "src/components/SoftGlow.tsx:10:5",
+        "rect": {
+          "x": 400.609375,
+          "y": 270.875,
+          "w": 480,
+          "h": 294.25
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 529,
+            "y": 499,
+            "w": 421,
+            "h": 361
+          },
+          "built": {
+            "x": 512.921875,
+            "y": 503.125,
+            "w": 411.859375,
+            "h": 362
+          },
+          "dx": -21,
+          "dy": 5
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (63,567) 408x274 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:75:13",
+        "rect": {
+          "x": 63,
+          "y": 567.125,
+          "w": 407.921875,
+          "h": 274
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s6",
+          "drawn": {
+            "x": 969,
+            "y": 499,
+            "w": 271,
+            "h": 362
+          },
+          "built": {
+            "x": 942.78125,
+            "y": 503.125,
+            "w": 298.21875,
+            "h": 362
+          },
+          "dx": -13,
+          "dy": 4
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (243,751) 48x90 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:77:17",
+        "rect": {
+          "x": 242.96875,
+          "y": 751.125,
+          "w": 48,
+          "h": 90
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 7,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (997,786) 215x47: the <button> built for it sits 13px too far left, but only because the <div> drawn at (1020,269) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.",
+      "marks": [
+        {
+          "strokeId": "s7",
+          "drawn": {
+            "x": 997,
+            "y": 786,
+            "w": 215,
+            "h": 47
+          },
+          "built": {
+            "x": 974.78125,
+            "y": 785.125,
+            "w": 234.21875,
+            "h": 48
+          },
+          "dx": -13,
+          "dy": 0
+        }
+      ]
+    }
+  },
+  {
+    "kind": "drift",
+    "verdict": {
+      "satisfied": true,
+      "reason": "6 of 6 blocks within 16px of their drawn top",
+      "offsets": [
+        {
+          "index": 0,
+          "drawn": 39,
+          "built": 39,
+          "dy": 0
+        },
+        {
+          "index": 1,
+          "drawn": 39,
+          "built": 39,
+          "dy": 0
+        },
+        {
+          "index": 2,
+          "drawn": 269,
+          "built": 269,
+          "dy": 0
+        },
+        {
+          "index": 4,
+          "drawn": 499,
+          "built": 503,
+          "dy": 4
+        },
+        {
+          "index": 5,
+          "drawn": 499,
+          "built": 503,
+          "dy": 4
+        },
+        {
+          "index": 6,
+          "drawn": 499,
+          "built": 503,
+          "dy": 4
+        }
+      ]
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "9 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "placed",
+    "verdict": {
+      "satisfied": true,
+      "reason": "2 placed words where drawn"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": true,
+      "reason": "7 colours from the ink on the page",
+      "checks": [
+        {
+          "what": "page",
+          "want": "#0a0a0c",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (779,39) 462x212",
+          "want": "#fafafa",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the outline drawn at (779,269) 222x211",
+          "want": "#1c1c1f",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (1020,269) 221x211",
+          "want": "#facc15",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the outline drawn at (39,499) 472x362",
+          "want": "#1c1c1f",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (529,499) 421x361",
+          "want": "#1c1c1f",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (969,499) 271x362",
+          "want": "#6366f1",
+          "best": 0,
+          "ok": true
+        }
+      ]
+    }
+  }
+]

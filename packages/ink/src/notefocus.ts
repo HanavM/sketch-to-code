@@ -25,6 +25,7 @@ export function noteFocus(
   given: string[] | undefined,
   at: { x: number; y: number } | undefined,
   strokes: Stroke[],
+  text?: string,
 ): string[] | undefined {
   if (ids.length < 2) return undefined
   let focus: string[] = (given ?? []).filter((id) => ids.includes(id))
@@ -131,7 +132,84 @@ export function noteFocus(
       }
     }
   }
+  // n31: a note that names a group ("3 tilted stacked cards", "gold frames on all 3") is about
+  // every mark of that group: the like-sized closed shapes that touch or sit in a row with the one
+  // it landed on. Round 31 c3 and c2: such notes reached only the nearest card or frame.
+  if (focus.length > 0 && text) {
+    const g = groupOf(text, focus, ids, strokes, at)
+    if (g) focus = ids.filter((id) => focus.includes(id) || g.includes(id))
+  }
   return focus.length > 0 && focus.length < ids.length ? focus : undefined
+}
+
+const COUNT_WORDS: Record<string, number> = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, both: 2 }
+
+/**
+ * How many marks a note names as a group: "3 cards", "three frames", "all 3", "on both" give the
+ * number; "all cards", "each tile", "every box" give 0 (all of the group). Null when it names none.
+ */
+export function groupCount(text: string): number | null {
+  const t = ` ${text.toLowerCase()} `
+  const num = String.raw`(\d|two|three|four|five|six|seven|eight|nine)`
+  const plural = String.raw`(?:[a-z-]+\s+){0,3}[a-z]+s\b`
+  let m = new RegExp(String.raw`\b(?:all|each of(?: the)?|on)\s+${num}\b`).exec(t)
+  if (!m) m = new RegExp(String.raw`(?:^|[\s,(])${num}\s+${plural}`).exec(t)
+  if (m) {
+    const n = /\d/.test(m[1]!) ? Number(m[1]) : COUNT_WORDS[m[1]!]!
+    return n >= 2 && n <= 9 ? n : null
+  }
+  if (/\bboth\b/.test(t)) return 2
+  if (/\b(all|each|every)\s+(?:the\s+)?(?:[a-z-]+\s+){0,2}[a-z]+s?\b/.test(t) && !/\b(all|every)\s+(text|words|copy|page|the page)\b/.test(t)) return 0
+  return null
+}
+
+/** Closed outline (box, ring, turned box): ends meet and it is not tiny. */
+function closedBox(st: Stroke): BBox | null {
+  const pts = st.points
+  if (pts.length < 8) return null
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  const w = x1 - x0, h = y1 - y0
+  if (w < 24 || h < 20) return null
+  const a = pts[0]!, b = pts[pts.length - 1]!
+  if (Math.hypot(a.x - b.x, a.y - b.y) > Math.max(24, 0.15 * Math.min(w, h))) return null
+  return { x: x0, y: y0, w, h }
+}
+
+function groupOf(text: string, focus: string[], ids: string[], strokes: Stroke[], at: { x: number; y: number } | undefined): string[] | null {
+  const n = groupCount(text)
+  if (n === null) return null
+  const shapes = new Map<string, BBox>()
+  for (const st of strokes) {
+    if (!ids.includes(st.id)) continue
+    const b = closedBox(st)
+    if (b) shapes.set(st.id, b)
+  }
+  const seeds = focus.filter((id) => shapes.has(id))
+  if (seeds.length !== 1) return null
+  const s = shapes.get(seeds[0]!)!
+  // like-sized: each side within half again of the seed's (round 31 c2: frames 300, 420 and 340 wide)
+  const ratio = (a: number, b: number) => Math.max(a, b) / Math.max(1, Math.min(a, b))
+  const like = (b: BBox) => ratio(b.w, s.w) <= 1.5 && ratio(b.h, s.h) <= 1.5
+  const gapOf = (a: BBox, b: BBox) => Math.max(0, Math.max(a.x, b.x) - Math.min(a.x + a.w, b.x + b.w), Math.max(a.y, b.y) - Math.min(a.y + a.h, b.y + b.h))
+  const reach = Math.max(40, 0.6 * Math.min(s.w, s.h))
+  // like-sized shapes chained by overlap or a small gap, none holding another
+  const group = [seeds[0]!]
+  for (let grew = true; grew;) {
+    grew = false
+    for (const [id, b] of shapes) {
+      if (group.includes(id) || !like(b)) continue
+      if (group.some((g) => { const gb = shapes.get(g)!; return contains(gb, b) || contains(b, gb) })) continue
+      if (group.some((g) => gapOf(shapes.get(g)!, b) <= reach)) { group.push(id); grew = true }
+    }
+  }
+  if (group.length < 2) return null
+  if (n === 0) return group
+  if (group.length < n) return null
+  // more than named: the n nearest the point it was typed at (the seed always among them)
+  const p = at ?? { x: s.x + s.w / 2, y: s.y + s.h / 2 }
+  const d = (id: string) => { const b = shapes.get(id)!; return id === seeds[0] ? -1 : Math.hypot(b.x + b.w / 2 - p.x, b.y + b.h / 2 - p.y) }
+  return group.sort((a, b) => d(a) - d(b)).slice(0, n)
 }
 
 /** Line pitch (px) under which level lines are one paragraph's wraps. */

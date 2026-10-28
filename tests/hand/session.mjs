@@ -149,7 +149,7 @@ const ops = {
     await p.mouse.move(x, y); await p.waitForTimeout(120)
     await p.keyboard.press(whole ? 'Alt+Shift+N' : 'Alt+n'); await p.waitForTimeout(250)
     await p.keyboard.type(text); await p.keyboard.press('Enter'); await p.waitForTimeout(200)
-    S.notes.push({ text, whole: !!whole, at: now() - S.t0 })
+    S.notes.push({ text, whole: !!whole, x, y, at: now() - S.t0 })
     S.events.push({ op: 'note', at: now() - S.t0 })
     // what a person reads in the bar: which mark the note landed on (n9)
     return { ok: true, notes: S.notes.length, status: await statusLine(p) }
@@ -210,7 +210,11 @@ const ops = {
       if (!busy && i > 4) break
       await p.waitForTimeout(500)
     }
-    for (let i = 0; i < 1200 && runRecords(APP_DIR).length <= before; i++) await p.waitForTimeout(500)
+    // n21: a run that failed writes no record; the bar says so, so stop waiting
+    for (let i = 0; i < 1200 && runRecords(APP_DIR).length <= before; i++) {
+      if (i > 4 && /went wrong|couldn.t/i.test(await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? ''))) break
+      await p.waitForTimeout(500)
+    }
     const totalMs = now() - t
     const rec = runRecords(APP_DIR).slice(-1)[0] ?? null
     await p.reload({ waitUntil: 'networkidle' }); await p.waitForTimeout(1200)
@@ -255,7 +259,7 @@ const ops = {
       },
       corrections: Math.max(0, S.runs.length - 1), runs: S.runs.length,
       tokens: { input: sum('input'), cacheRead: sum('cacheRead'), output: sum('output'), billed: sum('input') + sum('output') },
-      events: S.events, strokesDrawn: S.strokes,
+      events: S.events, strokesDrawn: S.strokes, notesTyped: S.notes,
     }
     writeFileSync(join(S.dir, 'digest.json'), JSON.stringify(digest, null, 2))
     await sideBySide(p, spec.ref, S.dir)

@@ -25,6 +25,7 @@ import {
 } from './intent2.js'
 import { SKETCH_SKILL } from './skill.js'
 import { checkpoint } from './safety.js'
+import { rowPartsBrief, toggleBrief } from './rowparts.js'
 import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
@@ -45,13 +46,17 @@ import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
 import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
-import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
+import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, marksMiss, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
-import { STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
+import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
 import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
+import { tiltBrief, verifyTilts } from './tilt.js'
+import { eachBrief, verifyEach, verifyGlyphs } from './each.js'
+import { allTextBrief, allTextColour, verifyAllText } from './alltext.js'
+import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
@@ -354,6 +359,7 @@ export async function runV2(
     ctx.emit('stage', { stage: s, detail })
   }
   const stallMs = Number(process.env.S2C_STALL_MS) > 0 ? Number(process.env.S2C_STALL_MS) : STALL_MS
+  const repairEditMs = Number(process.env.S2C_REPAIR_EDIT_MS) > 0 ? Number(process.env.S2C_REPAIR_EDIT_MS) : REPAIR_EDIT_MS
   let repairStalled: string | null = null
   let totalUsage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
 
@@ -566,11 +572,27 @@ export async function runV2(
         `cream, warm paper) must show as that tint behind the white cards, never plain white:\n${interp.pageNotes.map((n) => `- ${n}`).join('\n')}\n\n`
       : '') +
     countsBrief(counts) +
+    rowPartsBrief([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
+    ].filter((n, i, all) => all.indexOf(n) === i)) +
+    toggleBrief([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
+    ]) +
     keptMarksBrief(kept) +
     inkColoursBrief(interp) +
     areasBrief(interp.actions, input.snapshot.viewport) +
     solidsBrief(interp.actions) +
+    tiltBrief(interp.actions) +
+    eachBrief(interp.actions) +
+    allTextBrief(allTextColour([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
+    ])) +
     textLookBrief(interp.actions) +
+    textPlaceBrief(interp.actions, input.snapshot.viewport, strokeDividers(input.strokes)) +
+    placedBrief(interp.placedNotes, input.snapshot.viewport) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -684,6 +706,7 @@ export async function runV2(
       interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity }, probes,
       [...(interp.pageNotes ?? []), ...(interp.runNotes ?? [])],
       interp.pageFill,
+      interp.placedNotes,
     )
 
     // the drawn strokes a scaffold handed over must still be drawn where they were
@@ -794,8 +817,15 @@ export async function runV2(
         // must not sit silent (the cap still ends it)
         const marginMs = kind === 'repair' ? VERIFY_MARGIN_MS : 0
         return await watchTurn(
-          s.send(content),
-          () => stallReason({ now: Date.now(), lastActivity: s.lastActivity(), deadline: ctx.deadline, marginMs, stallMs }),
+          s.send(content, kind === 'repair' ? { effort: 'low' } : undefined),
+          () => stallReason({
+            now: Date.now(),
+            // n21 (bento): a first build may think 150+ s before its one big Write; every streamed
+            // delta (thinking too) shows it is alive. Only a repair must show tool calls or words.
+            lastActivity: kind === 'build' ? s.lastActivity() : s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs,
+            // a repair is told the exact pixels: minutes of thought with no edit is a stall (n22)
+            ...(kind === 'repair' ? { lastEdit: s.lastEdit(), editMs: repairEditMs } : {}),
+          }),
           Math.min(5_000, Math.max(50, Math.floor(stallMs / 4))),
         )
       } catch (e) {
@@ -819,6 +849,22 @@ export async function runV2(
     }
     let best = -1
     let lastFailures: string[] = []
+    // n24: the page as it was before the last repair turn, and how far its drawn boxes were off then
+    let preRepair: { work: Map<string, string | null>; miss: number | null } | null = null
+    const putBackIfWorse = async (miss: number | null, vtag: string): Promise<void> => {
+      const prev = preRepair
+      if (!prev || prev.miss == null || miss == null || miss <= prev.miss + 6) return
+      // a repair that moved the drawn boxes further from where they were drawn is undone
+      // (r2 e3 settings, n22: toggles 30px low became 48px low and that page was kept)
+      const now = captureWork(ctx.root, cp)
+      const added = new Map([...now].filter(([rel]) => !prev.work.has(rel)))
+      if (added.size) revertWork(ctx.root, cp, added)
+      applyWork(ctx.root, prev.work)
+      stage('verify', `the repair moved drawn boxes further off (${prev.miss}px to ${miss}px in all): put the page back as it was before it`)
+      await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
+      const back = await verifyRound(`${vtag}-back`)
+      lastFailures = back.failures
+    }
     try {
       // scaffolds are written next: a stopped run must not start an attempt
       throwIfStopped(ctx.signal)
@@ -865,8 +911,14 @@ export async function runV2(
         lastFailures = failures
         stage('verify', `${Math.round(score * 100)}% of actions satisfied`)
 
-        if (score > best) best = score
+        const miss = marksMiss(lastVerify)
+        // n24 (settings try 1): the repair took the toggles from 56px to 32px low, but the share of
+        // actions passing stayed 60%, so it stopped with the page still low. Boxes moving clearly
+        // closer to where they were drawn is progress too: one more round.
+        const closer = preRepair?.miss != null && miss != null && miss < preRepair.miss - 12
+        if (score > best || (score === best && closer)) best = score
         else {
+          await putBackIfWorse(miss, `${tag}-${round}`)
           stage('verify', 'no improvement — stopping')
           break
         }
@@ -876,6 +928,7 @@ export async function runV2(
           break
         }
         stage('repair', `round ${round + 1}`)
+        preRepair = { work: captureWork(ctx.root, cp), miss }
         const context = session
           ? ''
           : `READING (user-confirmed): ${interp.reading}\n\n${codemodNote}` +
@@ -902,6 +955,7 @@ export async function runV2(
           }
           const after = await verifyRound(`${tag}-${round + 1}`)
           lastFailures = after.failures
+          if (after.score <= best) await putBackIfWorse(marksMiss(lastVerify), `${tag}-${round + 1}`)
           if (after.score > best) best = after.score
           stage('verify', `${Math.round(after.score * 100)}% of actions satisfied after the stopped repair`)
           break
@@ -1103,6 +1157,8 @@ export function verifyActions(
   looseNotes: string[] = [],
   /** n10: the page colour tapped on bare page. */
   pageFill?: GroundedInterpretation['pageFill'],
+  /** n29: words typed in empty space, checked to be built where typed. */
+  typedSpots?: PlacedNote[],
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -1140,6 +1196,8 @@ export function verifyActions(
 
   let decorations: DomNode[] | null = null
   const claimedDecorations = new Set<string>()
+  // every drawn box on the page, so a field's check knows what sits above it (n22)
+  const pageMarks = actions.flatMap((a) => (a.shapeMarks && !a.insertSlot ? a.shapeMarks : []))
   for (const [i, a] of actions.entries()) {
     if (a.kind === 'swap') {
       total++
@@ -1210,7 +1268,7 @@ export function verifyActions(
       }
       // each drawn box or ring is a thing that size at that spot (n7)
       if (a.shapeMarks?.length && !a.insertSlot) {
-        const marks = verifyShapeMarks(a.shapeMarks, before, after)
+        const marks = verifyShapeMarks(a.shapeMarks, before, after, pageMarks)
         if (!marks.unverifiable) {
           details.push({ kind: 'marks', index: i, verdict: marks })
           total++
@@ -1322,13 +1380,14 @@ export function verifyActions(
   // n14: a box round a big word is no card; a slanted line across the page is the colour edge
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
-  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)],
-    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)]] as const) {
+  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
+    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
+    ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
@@ -1378,6 +1437,9 @@ function namedColourText(actions: Array<{ notes?: string[] }>, loose: string[]) 
   const COL = /\b(white|black|cream|grey|gray|navy|lime|green|blue|red|pink|orange|yellow|purple|violet|teal|cyan|gold|dark|light)\b/i
   const notes = [...loose, ...actions.flatMap((a) => a.notes ?? [])]
     .filter((t) => COL.test(t)).map((t) => t.toLowerCase())
+  // n30: "all text white" names the colour of every word, so none of it is the readability check's to change
+  // (round 31 e4: white panel text on pale blue was 'fixed' to dark grey)
+  if (allTextColour(notes)) return () => true
   return (n: { text?: string }) => {
     const words = (n.text ?? '').toLowerCase().match(/[\p{L}\p{N}]{3,}/gu) ?? []
     return words.length > 0 && notes.some((t) => words.slice(0, 3).some((w) => t.includes(w)))

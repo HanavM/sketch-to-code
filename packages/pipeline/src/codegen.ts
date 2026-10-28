@@ -132,9 +132,18 @@ export interface UserContent {
   images?: string[]
 }
 
+export interface SendOptions {
+  /**
+   * Reasoning effort for this turn (n22). A repair is told the exact pixels to
+   * change, yet repair turns thought for 2-8 minutes before any edit (or never
+   * edited); 'low' asks for the edit, not a re-plan. Omitted: the default.
+   */
+  effort?: 'low' | 'medium'
+}
+
 export interface CodegenSession {
   /** Send a user turn; resolves with the assistant's text reply. */
-  send: (content: UserContent) => Promise<string>
+  send: (content: UserContent, opts?: SendOptions) => Promise<string>
   /** Cumulative token usage across all turns so far. */
   usage: () => TokenUsage
   /** Tool calls the agent has made so far (Read, Edit, ...): where a costly turn went. */
@@ -143,6 +152,15 @@ export interface CodegenSession {
   toolLog: () => string[]
   /** When the agent last said anything (ms epoch): how a stalled turn is told from a slow one. */
   lastActivity: () => number
+  /**
+   * When the agent last did something that moves the turn on (ms epoch): a tool
+   * call, a tool result, reply text, a turn end. Thinking alone is not progress
+   * (n20 try 2: a repair turn thought for 8 minutes with no edit, and each
+   * thinking message reset the watchdog).
+   */
+  lastProgress: () => number
+  /** When the agent last edited or wrote a file (ms epoch), or the current turn began. */
+  lastEdit: () => number
   close: () => void
   /**
    * Resolves once the agent's message loop has ended, i.e. the subprocess is
@@ -150,6 +168,33 @@ export interface CodegenSession {
    * waits for the answer before telling the user the run has stopped.
    */
   closed: Promise<void>
+}
+
+/** Tool calls that change the page's source. */
+export const EDIT_TOOLS = new Set(['Edit', 'Write', 'MultiEdit', 'NotebookEdit'])
+
+/**
+ * Does this agent message move the turn on? Tool calls, tool results, reply
+ * text and turn ends do. An assistant message that is only thinking does not,
+ * and neither do system notices.
+ */
+export function movesTurnOn(msg: { type: string; message?: unknown; event?: unknown }): boolean {
+  if (msg.type === 'user' || msg.type === 'result' || msg.type === 'tool_progress') return true
+  // n21 (bento, first build): the agent spent 150+ s writing one big App.tsx. Without
+  // partial messages the whole Write arrives at once, so the watchdog saw silence and
+  // ended a build that was busy writing. Streamed tool input and reply text are
+  // progress; streamed thinking is not.
+  if (msg.type === 'stream_event') {
+    const e = msg.event as { type?: string; delta?: { type?: string; text?: string; partial_json?: string } } | undefined
+    if (e?.type !== 'content_block_delta') return false
+    return e.delta?.type === 'input_json_delta' || (e.delta?.type === 'text_delta' && !!e.delta.text?.trim())
+  }
+  if (msg.type !== 'assistant') return false
+  const m = msg.message
+  const content = m && typeof m === 'object' ? (m as { content?: unknown }).content : undefined
+  if (!Array.isArray(content)) return true
+  return content.some((b: { type?: string; text?: string }) =>
+    b.type !== 'thinking' && b.type !== 'redacted_thinking' && !(b.type === 'text' && !b.text?.trim()))
 }
 
 /** The error a run rejects with when it was told to stop. */
@@ -182,6 +227,9 @@ export function createCodegenSession(
   let tools = 0
   const toolList: string[] = []
   let lastSeen = Date.now()
+  let lastMoved = lastSeen
+  let lastEdited = lastSeen
+  let lastEffort: SendOptions['effort'] | null = null
 
   async function* input(): AsyncGenerator<SDKUserMessage> {
     while (true) {
@@ -209,6 +257,8 @@ export function createCodegenSession(
       settingSources: [],
       systemPrompt: { type: 'preset', preset: 'claude_code', append: contractOverride ?? contractFor(mode) },
       persistSession: false,
+      // n21: streamed deltas tell the watchdog a long Write is still being written
+      includePartialMessages: true,
       maxTurns: 40,
       env: cleanEnv(),
       strictMcpConfig: true,
@@ -224,10 +274,12 @@ export function createCodegenSession(
       let buffer = ''
       for await (const msg of q) {
         lastSeen = Date.now()
+        if (movesTurnOn(msg)) lastMoved = lastSeen
         if (msg.type === 'assistant') {
           for (const block of msg.message.content) {
             if (block.type === 'text') buffer += block.text
             if (block.type === 'tool_use') {
+              if (EDIT_TOOLS.has(block.name)) lastEdited = lastSeen
               tools++
               const inp = block.input as Record<string, unknown>
               const file = typeof inp.file_path === 'string' ? inp.file_path.split('/').slice(-2).join('/') : ''
@@ -275,7 +327,14 @@ export function createCodegenSession(
   void closed.finally(() => signal?.removeEventListener('abort', onAbort))
 
   return {
-    send(content: UserContent): Promise<string> {
+    send(content: UserContent, opts?: SendOptions): Promise<string> {
+      // per-turn effort: set before the turn is queued, cleared for turns that don't ask
+      const effort = opts?.effort ?? null
+      if (effort !== lastEffort) {
+        lastEffort = effort
+        q.applyFlagSettings({ effortLevel: effort }).catch((e: unknown) =>
+          ev.onStage('codegen', `effort not applied: ${e instanceof Error ? e.message : String(e)}`.slice(0, 120)))
+      }
       return new Promise<string>((resolve, reject) => {
         if (signal?.aborted) {
           reject(abortError(signal))
@@ -286,7 +345,7 @@ export function createCodegenSession(
           return
         }
         pending.push({ resolve, reject })
-        lastSeen = Date.now()
+        lastSeen = lastMoved = lastEdited = Date.now()
         inputQueue.push({
           type: 'user',
           parent_tool_use_id: null,
@@ -309,6 +368,8 @@ export function createCodegenSession(
     toolCalls: () => tools,
     toolLog: () => [...toolList],
     lastActivity: () => lastSeen,
+    lastProgress: () => lastMoved,
+    lastEdit: () => lastEdited,
     close,
     closed,
   }
@@ -345,6 +406,8 @@ function scriptedSession(
     toolCalls: () => 0,
     toolLog: () => [],
     lastActivity: () => lastSeen,
+    lastProgress: () => lastSeen,
+    lastEdit: () => lastSeen,
     close: () => { ended = true },
     closed: Promise.resolve(),
   }

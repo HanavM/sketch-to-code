@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Checkout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;display:flex}
+.l{width:700px;padding:56px 64px}.r{flex:1;background:#f3f4f6;padding:56px 56px;border-left:1px solid #e5e7eb}
+.logo{font-weight:800;font-size:22px}h2{font-size:20px;margin-top:40px}
+.in{height:46px;border:1px solid #d1d5db;border-radius:8px;margin-top:14px;padding:13px 14px;font-size:15px;color:#9ca3af}
+.row{display:flex;gap:14px}.row .in{flex:1}
+.pay{margin-top:36px;height:54px;border-radius:8px;background:#111827;color:#fff;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center}
+.item{display:flex;align-items:center;gap:16px;margin-bottom:22px}.th{width:64px;height:64px;border-radius:10px;background:#d1d5db}.item .n{flex:1;font-size:15px}.item .n small{display:block;color:#6b7280;margin-top:4px}
+.line{display:flex;justify-content:space-between;font-size:15px;color:#4b5563;margin-top:14px}.tot{border-top:1px solid #d1d5db;padding-top:18px;margin-top:22px;font-size:20px;font-weight:700;color:#111827}
+</style></head><body>
+<div class="l" data-r="form-column" data-must><div class="logo" data-r="logo">Kettle&amp;Co</div>
+<h2>Contact</h2><div class="in" data-r="email" data-must>Email</div>
+<h2>Delivery</h2><div class="row"><div class="in">First name</div><div class="in">Last name</div></div><div class="in" data-r="address" data-must>Address</div><div class="row"><div class="in">City</div><div class="in">Postcode</div></div>
+<div class="pay" data-r="pay-button" data-must>Pay now</div></div>
+<div class="r" data-r="summary" data-must>
+<div class="item" data-r="item-1"><div class="th"></div><div class="n">Stovetop kettle<small>Copper</small></div><b>$64.00</b></div>
+<div class="item" data-r="item-2"><div class="th"></div><div class="n">Pour-over set<small>Matte black</small></div><b>$38.00</b></div>
+<div class="line"><span>Subtotal</span><span>$102.00</span></div><div class="line"><span>Shipping</span><span>Free</span></div>
+<div class="line tot" data-r="total" data-must><span>Total</span><span>$102.00</span></div></div>
+</body></html>

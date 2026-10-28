@@ -49,7 +49,7 @@ describe('resolveNotes — anchoring the exact words', () => {
       { id: 'n0', text: 'fade these in and out', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: ['s1', 's2', 'gone'] } },
     ]
     expect(resolveNotes(notes, snap, new Set(['s1', 's2']))).toEqual([
-      { id: 'n0', text: 'fade these in and out', scope: 'strokes', strokeIds: ['s1', 's2'] },
+      { id: 'n0', text: 'fade these in and out', scope: 'strokes', strokeIds: ['s1', 's2'], at: { x: 0, y: 0 } },
     ])
   })
 

@@ -36,7 +36,7 @@ const THING = /\b(badge|pill|chip|tag|sticker|dot|disc|disk|circle|button|btn|pa
 // words that mean the colour is the ink of letters, a border, a glow, or the page: not this shape's fill
 const NOT_FILL = /\b(text|letters|words|type|font|outline|outlined|border|stroke|ring of|glow|halo|shadow|page|background|bg)\b/i
 
-export interface Solid { word: string; hex: string; noun: string; tol: number }
+export interface Solid { word: string; hex: string; noun: string; tol: number; tapped?: boolean }
 
 /** "lime badge NEW" → {word: lime, noun: badge}; null when the note gives no fill colour for a plain thing. */
 export function solidOf(text: string): Solid | null {
@@ -75,13 +75,39 @@ interface NoteLike { text: string; focus?: string[] }
 export function markSolids(marks: ShapeMark[], notes: NoteLike[]): void {
   const closed = marks.filter((m) => m.shape === 'box' || m.shape === 'ellipse')
   for (const m of closed) {
-    if (m.area || m.solid) continue
+    if (m.area || m.solid || m.glyph) continue
     const own = notes.filter((n) => n.focus?.includes(m.strokeId))
     const said = own.length ? own : closed.length === 1 ? notes.filter((n) => !n.focus?.length || n.focus.includes(m.strokeId)) : []
     for (const n of said) {
       const s = solidOf(n.text)
       if (s) { m.solid = s; break }
     }
+  }
+}
+
+/** n30: no note anywhere asks for a glow, blur or see-through shape, so a tapped ring may be a solid disc. */
+export function tapSolidsAllowed(texts: string[]): boolean {
+  return !texts.some((t) => /\b(glass|frosted|translucent|transparent|see-through|blur|blurred|blurry|glow|glows|glowing|haze|hazy|soft light)\b/i.test(t))
+}
+
+/**
+ * n30: a ring coloured in with a tap is a plain disc in exactly that colour (in place). Round 31 e4: a
+ * sun drawn as two rings, a yellow tap inside and a grey-blue tap on the halo, came out a grey lopsided
+ * blob. The tap states the colour exactly, so the check is tight; a ring inside another ring is told it
+ * sits on top, centred where drawn.
+ */
+export function markTappedSolids(
+  marks: ShapeMark[],
+  inkColours: Array<{ strokeId: string; color: string; how: 'tap' | 'pen'; paint: 'background' | 'text' }>,
+): void {
+  for (const m of marks) {
+    if (m.shape !== 'ellipse' || m.area || m.solid || m.glyph) continue
+    const tap = inkColours.filter((c) => c.strokeId === m.strokeId && c.how === 'tap' && c.paint === 'background').pop()
+    if (!tap) continue
+    const p = parseCssColor(tap.color)
+    if (!p) continue
+    const hex = hexOf(p)
+    m.solid = { word: hex, hex, noun: 'disc', tol: 6, tapped: true }
   }
 }
 
@@ -92,6 +118,16 @@ export function solidsBrief(actions: Array<{ shapeMarks?: ShapeMark[]; inkColour
       if (!m.solid) continue
       const b = m.box
       const ring = m.shape === 'ellipse'
+      if (m.solid.tapped) {
+        const inside = (a.shapeMarks ?? []).find((o) => o !== m && o.solid?.tapped && o.box.w > b.w && o.box.x <= b.x + 4 && o.box.y <= b.y + 4 &&
+          o.box.x + o.box.w >= b.x + b.w - 4 && o.box.y + o.box.h >= b.y + b.h - 4)
+        lines.push(
+          `- action ${i}: the ring drawn at (${b.x},${b.y}) ${b.w}x${b.h} was coloured in with a tap: ONE plain disc exactly that size at exactly that place ` +
+          `(a div with border-radius 50%, width ${b.w}px, height ${b.h}px), background ${m.solid.hex} exactly, fully opaque; no svg, no path, no blob, no blur, ` +
+          `no opacity, no gradient${inside ? `; it sits on top of the bigger disc drawn at (${inside.box.x},${inside.box.y}) ${inside.box.w}x${inside.box.h}, centred where drawn, so that disc shows round it as a ring` : ''}.`,
+        )
+        continue
+      }
       lines.push(
         `- action ${i}: the ${ring ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h} is a plain ${m.solid.word} ${m.solid.noun}: ` +
         `ONE element exactly that size at exactly that place, ${ring ? 'a circle (border-radius 50%)' : 'a rectangle with at most slightly rounded corners'}, ` +
@@ -155,7 +191,9 @@ export function verifySolids(marks: ShapeMark[], after: Snap): SolidVerdict {
         if (!best || (best.faint && !faint) || (best.faint === faint && de < best.de)) best = { de, n, faint }
       }
     }
-    const what = `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h} with "${s.word} ${s.noun}"`
+    const what = s.tapped
+      ? `the ring drawn at (${b.x},${b.y}) ${b.w}x${b.h}, tapped ${s.hex}`
+      : `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h} with "${s.word} ${s.noun}"`
     if (!best) {
       faults.push(`${what} has no element of about that size painting a fill there: build it as one ${s.word} element exactly at that box` +
         `${m.shape === 'ellipse' ? ', border-radius 50%' : ''}, opaque`)

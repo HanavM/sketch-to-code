@@ -7,7 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
-import { noteFocus } from '@s2c/ink/notefocus'
+import { noteFocus, groupCount } from '@s2c/ink/notefocus'
 import { inkFills, isFillDot, pageFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
@@ -935,7 +935,7 @@ const PANEL_GAP = 10
 type NoteAnchor =
   | { kind: 'element'; srcLoc: string }
   | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
-  | { kind: 'run' }
+  | { kind: 'run'; placed?: boolean }
 
 /**
  * An element named INSIDE a sentence, by pointing at it while typing.
@@ -976,10 +976,12 @@ interface Box { x: number; y: number; w: number; h: number }
 
 /**
  * How far from the pointer a stroke's bbox may sit and still count as "this
- * note is about that". Generous on purpose: people gesture NEAR the thing
- * they mean, and the alternative (a run-level note) loses information.
+ * note is about that". n29: was 120 (generous because a run-level note lost
+ * its spot). Round 31 e4: "Lisbon", typed 58px above the sun, was built in the
+ * sun; e2: the sender line typed 57px from its marks bound to the title line.
+ * A note typed further off is now PLACED: its words are built where typed.
  */
-const NOTE_NEAR_PX = 120
+const NOTE_NEAR_PX = 48
 /** Two strokes belong to the same drawing if their boxes are this close… */
 const NOTE_CLUSTER_PX = 120
 /** …and were drawn this close in time. A shape drawn now on top of one drawn
@@ -4281,6 +4283,30 @@ class Overlay {
     if (!d || e.pointerId !== d.pointerId) return
     this.hudDrag = null
     if (this.hud.hasPointerCapture(e.pointerId)) this.hud.releasePointerCapture(e.pointerId)
+    /*
+     * n30: a colour tap that lands on the bar's bare surface (not a button, not
+     * the grip) was meant for the page under it. Round 31 e4: the second page
+     * tap of a top-to-bottom fade sat under the bar, was taken as a zero-length
+     * drag, and the page came out one flat colour. The bar steps aside: the tap
+     * goes through to the sketch at that spot.
+     */
+    const moved = Math.hypot(e.clientX - d.startX, e.clientY - d.startY)
+    const src = e.composedPath()[0]
+    const onGrip = src instanceof Element && !!src.closest('#hudGrip')
+    if (moved <= CLICK_SLOP && !onGrip && this.mode === 'draw' && this.pen) {
+      this.hudPos = { x: d.originX, y: d.originY }
+      this.applyHudPos()
+      const at = this.toPage(e)
+      const dot = { id: `s${this.strokeSeq++}`, points: [at, { ...at, x: at.x + 1 }, { ...at, x: at.x + 1, y: at.y + 1 }], color: this.pen }
+      this.strokes.push(dot)
+      this.resetBridge()
+      this.renderInk()
+      this.sync()
+      const f = inkFills(this.strokes).pop()
+      this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? ' — gradient from the first tap to this one' : ''}`)
+      this.scheduleAuto()
+      return
+    }
     this.saveHudState()
   }
 
@@ -7279,6 +7305,10 @@ class Overlay {
     for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
     let seed: Stroke | null = null
     for (const st of this.strokes) {
+      // n29: a coloured tap is never what a note is about, so it never seeds one. Round 31
+      // e2: the taps were the newest strokes, so "Compose" seeded on the taps, the thread
+      // dropped them, and the note fell to the whole sketch.
+      if (isFillDot(st)) continue
       // later strokes overwrite earlier ones: this.strokes is in draw order
       if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
     }
@@ -7293,7 +7323,7 @@ class Overlay {
     const group = [seed]
     for (;;) {
       const next = this.strokes.find((st) =>
-        !group.includes(st) &&
+        !group.includes(st) && !isFillDot(st) &&
         group.some((g) =>
           this.boxGap(boxes.get(g)!, boxes.get(st)!) <= NOTE_CLUSTER_PX &&
           Math.abs(this.strokeTime(st) - this.strokeTime(g)) <= NOTE_CLUSTER_MS),
@@ -7328,7 +7358,10 @@ class Overlay {
     if (group.length > 0) {
       return { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id) }, strokes: group, el: null }
     }
-    return { anchor: { kind: 'run' }, strokes: [], el: null }
+    // n29: typed in empty space, nothing drawn near: words placed where typed (not forced
+    // onto the whole sketch, which loses the spot). Round 31 e4: the date typed top right
+    // was built under the city name.
+    return { anchor: { kind: 'run', placed: true }, strokes: [], el: null }
   }
 
   /** The tiny "what did this land on" line — the only feedback that says
@@ -7341,7 +7374,7 @@ class Overlay {
       const n = anchor.strokeIds.length
       return n === 1 ? 'on this stroke' : `on these ${n} strokes`
     }
-    return 'whole sketch'
+    return anchor.placed ? 'placed here' : 'whole sketch'
   }
 
   /** Everything that already owns the keyboard, so a bare key is not ours. */
@@ -7597,6 +7630,19 @@ class Overlay {
     // would have the model acting on an element nobody mentions
     const refs = d.refs.filter((r) => text.includes(r.token))
     const existing = d.id ? this.notes.find((n) => n.id === d.id) : undefined
+    // n31: a note naming a group ("3 tilted stacked cards") typed just off the group, in empty
+    // space, is about that group: round 31 c3, typed 30px above the stack's corner, it was
+    // placed as loose words and the cards never heard it. Within a wider reach, it joins them.
+    if (!existing && d.anchor.kind === 'run' && d.anchor.placed && groupCount(text) !== null) {
+      const boxes = this.strokes.filter((st) => !isFillDot(st)).map((st) => ({ st, d: this.boxDist(this.strokeBox(st), d.at.x, d.at.y) }))
+        .filter((o) => o.d <= NOTE_NEAR_PX * 2.5).sort((a, b) => a.d - b.d)
+      const seed = boxes[0]?.st
+      if (seed) {
+        const group = this.clusterFrom(seed)
+        d.anchor = { kind: 'strokes', strokeIds: group.map((s) => s.id) }
+        this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
+      }
+    }
     if (existing) {
       existing.text = text
       existing.refs = refs
@@ -7684,13 +7730,13 @@ class Overlay {
    * noteFocus, run on the server too): its drawing, narrowed to the mark
    * nearest the point it was typed at. What the thread shows is what gets sent.
    */
-  private noteMarks(n: { at: { x: number; y: number }; anchor: NoteAnchor }): Stroke[] {
+  private noteMarks(n: { at: { x: number; y: number }; anchor: NoteAnchor; text?: string }): Stroke[] {
     if (n.anchor.kind !== 'strokes') return []
     const live = new Set(this.strokes.map((s) => s.id))
     // a coloured tap fills a mark; it is never what a note is about (n10)
     const marks = this.strokes.filter((s) => !isFillDot(s))
     const ids = n.anchor.strokeIds.filter((id) => live.has(id) && marks.some((m) => m.id === id))
-    const focus = noteFocus(ids, n.anchor.focus, n.at, marks) ?? ids
+    const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text) ?? ids
     return marks.filter((s) => focus.includes(s.id))
   }
 
@@ -7700,7 +7746,7 @@ class Overlay {
     const words = marks.map((m) => markWord(m.points))
     const same = words.every((w) => w === words[0])
     if (marks.length === 1) return `on this ${words[0]!}`
-    return same ? `on these ${String(marks.length)} ${words[0]!}s` : `on these ${String(marks.length)} marks`
+    return same ? `on these ${String(marks.length)} ${words[0] === "box" ? "boxes" : `${words[0]!}s`}` : `on these ${String(marks.length)} marks`
   }
 
   /** Page box of what a note is about, or null for a whole-sketch note. */
@@ -7835,7 +7881,7 @@ class Overlay {
               // n9: the marks the thread shows, so the build is told exactly that
               ...this.focusWire(n),
             }
-          : { kind: 'run' as const },
+          : n.anchor.placed ? { kind: 'run' as const, placed: true } : { kind: 'run' as const },
       // omitted when there are none, which is most notes: an empty array on
       // every note is noise on the wire and in the model's brief, and it also
       // means a note that references nothing is byte-identical to one written
@@ -12520,7 +12566,20 @@ export function markWord(pts: Array<{ x: number; y: number }>): string {
   if (closed) {
     const tol = Math.max(6, 0.08 * Math.min(w, h))
     const onEdge = pts.filter((p) => Math.min(p.x - x0, x1 - p.x, p.y - y0, y1 - p.y) <= tol).length
-    return onEdge / pts.length >= 0.8 ? 'box' : 'ring'
+    if (onEdge / pts.length >= 0.8) return 'box'
+    // n31: a box drawn turned (a card in a fanned stack) is still a box, not a ring
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2
+    for (let a = -40; a <= 40; a += 1) {
+      if (a === 0) continue
+      const r = a * Math.PI / 180, cos = Math.cos(r), sin = Math.sin(r)
+      const q = pts.map((p) => ({ x: (p.x - cx) * cos - (p.y - cy) * sin, y: (p.x - cx) * sin + (p.y - cy) * cos }))
+      let u0 = Infinity, v0 = Infinity, u1 = -Infinity, v1 = -Infinity
+      for (const p of q) { u0 = Math.min(u0, p.x); v0 = Math.min(v0, p.y); u1 = Math.max(u1, p.x); v1 = Math.max(v1, p.y) }
+      const t2 = Math.max(6, 0.08 * Math.min(u1 - u0, v1 - v0))
+      const on = q.filter((p) => Math.min(p.x - u0, u1 - p.x, p.y - v0, v1 - p.y) <= t2).length
+      if (on / q.length >= 0.85) return 'box'
+    }
+    return 'ring'
   }
   let len = 0
   for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
