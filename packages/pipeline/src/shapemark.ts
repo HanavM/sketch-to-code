@@ -44,7 +44,7 @@ export interface ShapeMark {
   /** line only (n14): a slanted line running most of the page: the edge between two areas. */
   edge?: true
   /** box or ring (n15): its notes name a coloured plain thing ("lime badge"): one solid element in that colour. */
-  solid?: { word: string; hex: string; noun: string; tol: number }
+  solid?: { word: string; hex: string; noun: string; tol: number; tapped?: boolean }
   /** area box (n17): the big word or number typed on it ("09"), which must fill the box. */
   word?: string
   /** edge line (n17): a band or stripe noted on it, this many px wide, centred on the drawn line. */

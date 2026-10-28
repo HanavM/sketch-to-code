@@ -53,6 +53,7 @@ import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
 import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
 import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
+import { allTextBrief, allTextColour, verifyAllText } from './alltext.js'
 import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { leanRepairNote } from './repair-brief.js'
@@ -581,6 +582,10 @@ export async function runV2(
     inkColoursBrief(interp) +
     areasBrief(interp.actions, input.snapshot.viewport) +
     solidsBrief(interp.actions) +
+    allTextBrief(allTextColour([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
+    ])) +
     textLookBrief(interp.actions) +
     textPlaceBrief(interp.actions, input.snapshot.viewport, strokeDividers(input.strokes)) +
     placedBrief(interp.placedNotes, input.snapshot.viewport) +
@@ -1372,12 +1377,13 @@ export function verifyActions(
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)],
-    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)]] as const) {
+    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
+    ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
@@ -1427,6 +1433,9 @@ function namedColourText(actions: Array<{ notes?: string[] }>, loose: string[]) 
   const COL = /\b(white|black|cream|grey|gray|navy|lime|green|blue|red|pink|orange|yellow|purple|violet|teal|cyan|gold|dark|light)\b/i
   const notes = [...loose, ...actions.flatMap((a) => a.notes ?? [])]
     .filter((t) => COL.test(t)).map((t) => t.toLowerCase())
+  // n30: "all text white" names the colour of every word, so none of it is the readability check's to change
+  // (round 31 e4: white panel text on pale blue was 'fixed' to dark grey)
+  if (allTextColour(notes)) return () => true
   return (n: { text?: string }) => {
     const words = (n.text ?? '').toLowerCase().match(/[\p{L}\p{N}]{3,}/gu) ?? []
     return words.length > 0 && notes.some((t) => words.slice(0, 3).some((w) => t.includes(w)))

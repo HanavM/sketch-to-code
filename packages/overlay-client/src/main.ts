@@ -4283,6 +4283,30 @@ class Overlay {
     if (!d || e.pointerId !== d.pointerId) return
     this.hudDrag = null
     if (this.hud.hasPointerCapture(e.pointerId)) this.hud.releasePointerCapture(e.pointerId)
+    /*
+     * n30: a colour tap that lands on the bar's bare surface (not a button, not
+     * the grip) was meant for the page under it. Round 31 e4: the second page
+     * tap of a top-to-bottom fade sat under the bar, was taken as a zero-length
+     * drag, and the page came out one flat colour. The bar steps aside: the tap
+     * goes through to the sketch at that spot.
+     */
+    const moved = Math.hypot(e.clientX - d.startX, e.clientY - d.startY)
+    const src = e.composedPath()[0]
+    const onGrip = src instanceof Element && !!src.closest('#hudGrip')
+    if (moved <= CLICK_SLOP && !onGrip && this.mode === 'draw' && this.pen) {
+      this.hudPos = { x: d.originX, y: d.originY }
+      this.applyHudPos()
+      const at = this.toPage(e)
+      const dot = { id: `s${this.strokeSeq++}`, points: [at, { ...at, x: at.x + 1 }, { ...at, x: at.x + 1, y: at.y + 1 }], color: this.pen }
+      this.strokes.push(dot)
+      this.resetBridge()
+      this.renderInk()
+      this.sync()
+      const f = inkFills(this.strokes).pop()
+      this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? ' — gradient from the first tap to this one' : ''}`)
+      this.scheduleAuto()
+      return
+    }
     this.saveHudState()
   }
 

@@ -307,7 +307,7 @@ export function isPageLookNote(text: string): boolean {
 }
 
 import { isAreaNote, markAreasAndEdges } from './areas.js'
-import { markSolids, solidOf } from './solids.js'
+import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { markTextPlaces } from './textplace.js'
 import { markOutlined } from './textlook.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
@@ -979,6 +979,8 @@ export function groundInterpretation(
   }
 
   const actions: GroundedAction[] = []
+  // n30: taps make solid discs unless some note asks for glows or blur (glass blobs keep their soft glow)
+  const tapSolidAllowed = tapSolidsAllowed(ev.notes.map((n) => n.text))
   for (const [ai, a] of raw.actions.entries()) {
     // design mode is creation-only — belt to the schema's suspenders
     if (mode === 'design' && !(DESIGN_KINDS as readonly string[]).includes(a.kind)) {
@@ -1034,7 +1036,11 @@ export function groundInterpretation(
           // thing is that plain thing, never a drawn form.
           const solidMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
             (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && solidOf(n.text))
-          if (shape && (!a.depicts || areaBox || solidMark)) {
+          // n30: a ring the user coloured in with a tap is a plain disc in that colour. Round 31 e4:
+          // two rings with a yellow tap inside and a grey-blue tap on the halo were read as a
+          // depicted sun, traced as paths, and built a grey lopsided blob.
+          const tappedRing = shape?.shape === 'ellipse' && tapSolidAllowed && (ev.fills ?? []).some((f) => f.target === s.id)
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }
@@ -1181,6 +1187,8 @@ export function groundInterpretation(
     if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport)
     // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
     if (shapeMarks.length) markSolids(shapeMarks, noteObjs)
+    // n30: a ring coloured in by a tap (no glow or blur asked anywhere) is a solid disc in exactly that colour
+    if (shapeMarks.length && tapSolidAllowed) markTappedSolids(shapeMarks, inkColours)
     // n16: "huge outlined 09" on an area box stays hollow letters
     if (shapeMarks.length) markOutlined(shapeMarks, noteObjs)
     // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low
