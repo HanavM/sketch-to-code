@@ -101,7 +101,7 @@ export interface TypedNote {
   anchor:
     | { kind: 'element'; srcLoc: string }
     | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
-    | { kind: 'run' }
+    | { kind: 'run'; placed?: boolean }
   /** Elements named inside `text` by token. Usually empty. */
   refs?: NoteRef[]
 }
@@ -129,6 +129,8 @@ export interface ResolvedNote {
   refs?: Array<{ token: string; elementId?: string; label: string }>
   /** n21: where the note was typed, page px (a note typed low in a card is copy that sits low). */
   at?: { x: number; y: number }
+  /** n29: typed in empty space with nothing drawn near: its words (if copy) are built where typed. */
+  placed?: boolean
 }
 
 export interface RawInterpretation {
@@ -276,7 +278,10 @@ export function resolveNotes(
         : { id: n.id, text, scope: 'run', ...withRefs })
       continue
     }
-    out.push({ id: n.id, text, scope: 'run', ...withRefs })
+    const placed = anchor?.kind === 'run' && anchor.placed === true && n.at && Number.isFinite(n.at.x) && Number.isFinite(n.at.y)
+    out.push(placed
+      ? { id: n.id, text, scope: 'run', placed: true, at: { x: n.at.x, y: n.at.y }, ...withRefs }
+      : { id: n.id, text, scope: 'run', ...withRefs })
   }
   return out
 }
@@ -824,6 +829,8 @@ export interface GroundedInterpretation {
   actions: GroundedAction[]
   /** Typed notes that matched no single action — they apply to the run. */
   runNotes?: string[]
+  /** n29: run notes typed in empty space, with the spot they were typed at (page px). */
+  placedNotes?: Array<{ text: string; x: number; y: number }>
   /**
    * Typed notes that describe the look of the WHOLE page ("bright yellow page",
    * "near-black page with a faint grid"), wherever they were typed. A person
@@ -1213,11 +1220,15 @@ export function groundInterpretation(
   const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
   const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
   const page = pageFill(ev.fills ?? [])
+  const placedNotes = ev.notes
+    .filter((n) => n.placed && n.at && !attached.has(n.id) && !isPageLookNote(n.text))
+    .map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) }))
 
   return {
     reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,
     droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
     runNotes: runNotes.length ? runNotes : undefined,
+    ...(placedNotes.length ? { placedNotes } : {}),
     ...(pageNotes.length ? { pageNotes } : {}),
     ...(page ? { pageFill: page } : {}),
   }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { ShapeMark } from '../src/shapemark.js'
-import { markTextPlaces, sideOf, textPlaceBrief, verifyTextPlace } from '../src/textplace.js'
+import { markTextPlaces, placedBrief, sideOf, textPlaceBrief, verifyPlaced, verifyTextPlace } from '../src/textplace.js'
 
 const VP = { w: 1280, h: 900 }
 // round 5 c5 bento, as drawn in n19
@@ -58,5 +58,28 @@ describe('words sit where drawn or typed (n21)', () => {
     expect(bad.reason).toMatch(/too high by 203px/)
     expect(verifyTextPlace(marks, { nodes: [node('Ready when you are.', { x: 990, y: 700, w: 180, h: 44 })] }, VP).satisfied).toBe(true)
     expect(verifyTextPlace(marks, { nodes: [] }, VP).unverifiable).toBe(true)
+  })
+})
+
+describe('n29: dividers are column edges; words typed in empty space keep their spot', () => {
+  // round 31 e2 inbox, as drawn in n28: a divider at x 620, the title line 664-1066 at y 52
+  const divider = (): ShapeMark => ({ strokeId: 'div', shape: 'line', box: { x: 620, y: 2, w: 0, h: 895 }, from: { x: 620, y: 2 }, to: { x: 620, y: 897 } })
+  const titleLine = (): ShapeMark => ({ strokeId: 't', shape: 'line', box: { x: 664, y: 52, w: 402, h: 0 }, from: { x: 664, y: 52 }, to: { x: 1066, y: 52 }, words: 'Venue walkthrough on Thursday' })
+
+  it('a line just right of a divider is left-aligned in its column, not right on the page', () => {
+    const b = textPlaceBrief([{ shapeMarks: [divider(), titleLine()] }], VP)
+    expect(b).toMatch(/LEFT-aligned and their first letter starts at x 664/)
+    expect(textPlaceBrief([{ shapeMarks: [titleLine()] }], VP)).toMatch(/RIGHT-aligned/)
+    const bad = verifyTextPlace([divider(), titleLine()], { nodes: [node('Venue walkthrough on Thursday', { x: 760, y: 32, w: 300, h: 40 })] }, VP)
+    expect(bad.satisfied).toBe(false)
+  })
+
+  it('briefs and checks words typed where nothing is drawn', () => {
+    const notes = [{ text: 'Today · Fri 14 June', x: 1140, y: 45 }]
+    expect(placedBrief(notes, VP)).toMatch(/typed at \(1140,45\).*on the right, around x 1140/)
+    expect(placedBrief(undefined, VP)).toBe('')
+    expect(verifyPlaced(notes, { nodes: [node('Today · Fri 14 June', { x: 64, y: 90, w: 160, h: 20 })] }).satisfied).toBe(false)
+    expect(verifyPlaced(notes, { nodes: [node('Today · Fri 14 June', { x: 1060, y: 36, w: 160, h: 20 })] }).satisfied).toBe(true)
+    expect(verifyPlaced(notes, { nodes: [] }).unverifiable).toBe(true)
   })
 })

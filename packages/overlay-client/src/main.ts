@@ -935,7 +935,7 @@ const PANEL_GAP = 10
 type NoteAnchor =
   | { kind: 'element'; srcLoc: string }
   | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
-  | { kind: 'run' }
+  | { kind: 'run'; placed?: boolean }
 
 /**
  * An element named INSIDE a sentence, by pointing at it while typing.
@@ -976,10 +976,12 @@ interface Box { x: number; y: number; w: number; h: number }
 
 /**
  * How far from the pointer a stroke's bbox may sit and still count as "this
- * note is about that". Generous on purpose: people gesture NEAR the thing
- * they mean, and the alternative (a run-level note) loses information.
+ * note is about that". n29: was 120 (generous because a run-level note lost
+ * its spot). Round 31 e4: "Lisbon", typed 58px above the sun, was built in the
+ * sun; e2: the sender line typed 57px from its marks bound to the title line.
+ * A note typed further off is now PLACED: its words are built where typed.
  */
-const NOTE_NEAR_PX = 120
+const NOTE_NEAR_PX = 48
 /** Two strokes belong to the same drawing if their boxes are this close… */
 const NOTE_CLUSTER_PX = 120
 /** …and were drawn this close in time. A shape drawn now on top of one drawn
@@ -7279,6 +7281,10 @@ class Overlay {
     for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
     let seed: Stroke | null = null
     for (const st of this.strokes) {
+      // n29: a coloured tap is never what a note is about, so it never seeds one. Round 31
+      // e2: the taps were the newest strokes, so "Compose" seeded on the taps, the thread
+      // dropped them, and the note fell to the whole sketch.
+      if (isFillDot(st)) continue
       // later strokes overwrite earlier ones: this.strokes is in draw order
       if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
     }
@@ -7293,7 +7299,7 @@ class Overlay {
     const group = [seed]
     for (;;) {
       const next = this.strokes.find((st) =>
-        !group.includes(st) &&
+        !group.includes(st) && !isFillDot(st) &&
         group.some((g) =>
           this.boxGap(boxes.get(g)!, boxes.get(st)!) <= NOTE_CLUSTER_PX &&
           Math.abs(this.strokeTime(st) - this.strokeTime(g)) <= NOTE_CLUSTER_MS),
@@ -7328,7 +7334,10 @@ class Overlay {
     if (group.length > 0) {
       return { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id) }, strokes: group, el: null }
     }
-    return { anchor: { kind: 'run' }, strokes: [], el: null }
+    // n29: typed in empty space, nothing drawn near: words placed where typed (not forced
+    // onto the whole sketch, which loses the spot). Round 31 e4: the date typed top right
+    // was built under the city name.
+    return { anchor: { kind: 'run', placed: true }, strokes: [], el: null }
   }
 
   /** The tiny "what did this land on" line — the only feedback that says
@@ -7341,7 +7350,7 @@ class Overlay {
       const n = anchor.strokeIds.length
       return n === 1 ? 'on this stroke' : `on these ${n} strokes`
     }
-    return 'whole sketch'
+    return anchor.placed ? 'placed here' : 'whole sketch'
   }
 
   /** Everything that already owns the keyboard, so a bare key is not ours. */
@@ -7835,7 +7844,7 @@ class Overlay {
               // n9: the marks the thread shows, so the build is told exactly that
               ...this.focusWire(n),
             }
-          : { kind: 'run' as const },
+          : n.anchor.placed ? { kind: 'run' as const, placed: true } : { kind: 'run' as const },
       // omitted when there are none, which is most notes: an empty array on
       // every note is noise on the wire and in the model's brief, and it also
       // means a note that references nothing is byte-identical to one written

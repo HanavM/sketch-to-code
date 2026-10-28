@@ -54,12 +54,26 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[]): void {
 }
 
 /** The smallest drawn box holding the line, else the page. */
-function holderOf(line: ShapeMark, boxes: ShapeMark[], viewport: { w: number; h: number }): BBox {
+function holderOf(line: ShapeMark, boxes: ShapeMark[], viewport: { w: number; h: number }, dividers: ShapeMark[] = []): BBox {
   const b = line.box
   const hold = boxes.filter((o) => o.box.x <= b.x + 6 && o.box.x + o.box.w >= b.x + b.w - 6 && o.box.y <= b.y + 2 && o.box.y + o.box.h >= b.y - 2)
     .sort((p, q) => p.box.w * p.box.h - q.box.w * q.box.h)[0]
-  return hold ? hold.box : { x: 0, y: 0, w: viewport.w, h: viewport.h }
+  let h = hold ? hold.box : { x: 0, y: 0, w: viewport.w, h: viewport.h }
+  // n29: a drawn divider (an upright line across the line's height) is a column edge.
+  // Round 31 e2: the title line sat at the left of the reading pane, right of the
+  // divider; measured against the page it read as right-aligned and was built so.
+  for (const v of dividers) {
+    const vx = v.box.x + v.box.w / 2
+    if (v.box.y > b.y + 2 || v.box.y + v.box.h < b.y - 2 || vx <= h.x || vx >= h.x + h.w) continue
+    if (vx <= b.x + 6) h = { x: vx, y: h.y, w: h.x + h.w - vx, h: h.h }
+    else if (vx >= b.x + b.w - 6) h = { x: h.x, y: h.y, w: vx - h.x, h: h.h }
+  }
+  return h
 }
+
+/** Upright drawn lines: column dividers. */
+const uprights = (marks: ShapeMark[]) => marks.filter((m) => m.shape === 'line' && !m.edge && !!m.from && !!m.to &&
+  Math.abs(m.from.x - m.to.x) <= 4 && Math.abs(m.from.y - m.to.y) >= 120)
 
 /** Which side of its box a line sits on: the gaps to the two edges decide. */
 export function sideOf(line: BBox, holder: BBox): Side {
@@ -81,14 +95,15 @@ type ActionLike = { shapeMarks?: ShapeMark[] }
 export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: number }): string {
   const all = actions.flatMap((a) => a.shapeMarks ?? [])
   const boxes = all.filter(isBox)
+  const divs = uprights(all)
   const lines: string[] = []
   actions.forEach((a, i) => {
     for (const m of a.shapeMarks ?? []) {
       if (isLevel(m) && m.words) {
-        const h = holderOf(m, boxes, viewport)
+        const h = holderOf(m, boxes, viewport, divs)
         const side = sideOf(m.box, h)
         const x0 = m.box.x, x1 = m.box.x + m.box.w, y = m.box.y
-        const inBox = h.w === viewport.w && h.x === 0 ? 'on the page' : `in the box at (${h.x},${h.y}) ${h.w}x${h.h}`
+        const inBox = h.w === viewport.w && h.x === 0 ? 'on the page' : `in the box (or column) at (${r1(h.x)},${r1(h.y)}) ${r1(h.w)}x${r1(h.h)}`
         lines.push(side === 'left'
           ? `- action ${i}: "${m.words}" is typed on the level line drawn from x ${x0} to ${x1} at y ${y}, ${inBox}, ${r1(x0 - h.x)}px in from its LEFT edge: ` +
             `the words are LEFT-aligned and their first letter starts at x ${x0} (text-align: left; never centred in the box, no mx-auto or text-center on them).`
@@ -129,11 +144,12 @@ function builtWords(text: string, after: Snap, y: number): NodeLike | null {
 export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: number; h: number }): PlaceVerdict {
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const boxes = marks.filter(isBox)
+  const divs = uprights(marks)
   const faults: string[] = []
   let judged = 0
   for (const m of marks) {
     if (isLevel(m) && m.words) {
-      const side = sideOf(m.box, holderOf(m, boxes, viewport))
+      const side = sideOf(m.box, holderOf(m, boxes, viewport, divs))
       if (side === 'centre') continue
       const t = builtWords(m.words, after, m.box.y)
       if (!t || Math.abs(t.textBox!.y + t.textBox!.h / 2 - m.box.y) > 80) continue
@@ -165,4 +181,48 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
   return faults.length
     ? { satisfied: false, reason: faults.join('; ') }
     : { satisfied: true, reason: `${judged} placed word${judged > 1 ? 's' : ''} where drawn` }
+}
+
+/** n29: a note typed in empty space, nothing drawn near it. */
+export interface PlacedNote { text: string; x: number; y: number }
+
+/** Which side of the page a spot is on (thirds). */
+const pageSide = (x: number, w: number): Side => (x < w / 3 ? 'left' : x > (w * 2) / 3 ? 'right' : 'centre')
+
+/**
+ * Words typed where nothing is drawn sit where they were typed (n29). Round 31 e4: the
+ * date typed at the top right, with no mark near, was a whole-sketch note and was built
+ * under the city name; "Lisbon", typed above the sun, bound to the sun and sat inside it.
+ */
+export function placedBrief(notes: PlacedNote[] | undefined, viewport: { w: number; h: number }): string {
+  if (!notes?.length) return ''
+  const lines = notes.map((n) => {
+    const side = pageSide(n.x, viewport.w)
+    return `- "${n.text}" was typed at (${n.x},${n.y}) with nothing drawn near it. If those words are copy shown on the page, ` +
+      `they sit right there: about y ${n.y}, ${side === 'left' ? `starting near x ${n.x}` : side === 'right' ? `on the right, around x ${n.x}` : `centred near x ${n.x}`}; ` +
+      `never moved under or into another block. A note that only describes the page has no spot.`
+  })
+  return `WORDS TYPED IN EMPTY SPACE (deterministic, from where they were typed; checked on the page):\n${lines.join('\n')}\n\n`
+}
+
+/** Placed copy is built within reach of where it was typed. Notes whose words are not on the page are not judged. */
+export function verifyPlaced(notes: PlacedNote[] | undefined, after: Snap): PlaceVerdict {
+  if (!notes?.length) return { satisfied: true, unverifiable: true, reason: 'no placed notes' }
+  if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
+  const faults: string[] = []
+  let judged = 0
+  for (const n of notes) {
+    const t = builtWords(n.text, after, n.y)
+    if (!t) continue
+    judged++
+    const tb = t.textBox!
+    const cy = tb.y + tb.h / 2
+    const dx = n.x < tb.x ? tb.x - n.x : n.x > tb.x + tb.w ? n.x - (tb.x + tb.w) : 0
+    if (Math.abs(cy - n.y) > 48 || dx > 120) {
+      faults.push(`"${n.text}" was typed at (${n.x},${n.y}) with nothing drawn there, but its words sit at (${r1(tb.x)},${r1(cy)}): ` +
+        `move them to about y ${n.y}${dx > 120 ? ` and x ${n.x}` : ''}; change nothing else`)
+    }
+  }
+  if (!judged) return { satisfied: true, unverifiable: true, reason: 'no placed copy built' }
+  return faults.length ? { satisfied: false, reason: faults.join('; ') } : { satisfied: true, reason: `${judged} typed word${judged > 1 ? 's' : ''} where typed` }
 }

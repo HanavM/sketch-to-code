@@ -53,7 +53,7 @@ import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
 import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
 import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
-import { textPlaceBrief, verifyTextPlace } from './textplace.js'
+import { placedBrief, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
@@ -583,6 +583,7 @@ export async function runV2(
     solidsBrief(interp.actions) +
     textLookBrief(interp.actions) +
     textPlaceBrief(interp.actions, input.snapshot.viewport) +
+    placedBrief(interp.placedNotes, input.snapshot.viewport) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -696,6 +697,7 @@ export async function runV2(
       interp.actions, input.snapshot, after, { strokes: input.strokes, sources, fidelity }, probes,
       [...(interp.pageNotes ?? []), ...(interp.runNotes ?? [])],
       interp.pageFill,
+      interp.placedNotes,
     )
 
     // the drawn strokes a scaffold handed over must still be drawn where they were
@@ -1146,6 +1148,8 @@ export function verifyActions(
   looseNotes: string[] = [],
   /** n10: the page colour tapped on bare page. */
   pageFill?: GroundedInterpretation['pageFill'],
+  /** n29: words typed in empty space, checked to be built where typed. */
+  typedSpots?: PlacedNote[],
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -1368,12 +1372,12 @@ export function verifyActions(
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)],
-    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport)]] as const) {
+    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport)], ['typed-spot', verifyPlaced(typedSpots, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
