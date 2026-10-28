@@ -821,3 +821,24 @@ describe('a big rectangle cited with small marks belongs to the action citing mo
     expect(b!.region!.w).toBeGreaterThan(900)
   })
 })
+
+describe('a box round a big number is its area, even when the reading calls the number a depiction (n14, round 12 c4)', () => {
+  const box: Stroke = { id: 's9', points: [{ x: 400, y: 140, t: 0 }, { x: 910, y: 140, t: 10 }, { x: 910, y: 515, t: 20 }, { x: 400, y: 515, t: 30 }, { x: 400, y: 140, t: 40 }] }
+  const ground = (text: string) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1280, h: 900 })])
+    const ev = buildEvidence([box], snap, [{ id: 'n0', text, at: { x: 560, y: 440 }, anchor: { kind: 'strokes', strokeIds: ['s9'] } }])
+    return groundInterpretation(
+      { reading: 'hero', actions: [{ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: 'a huge 09', strokes: ['s9'], layer: null, depicts: 'the number 09', fidelity: null }] } as never,
+      ev, snap, 'design',
+    ).actions[0]!
+  }
+  it('no path to fill: a shape mark flagged area', () => {
+    const a = ground('huge outlined 09, white')
+    expect(a.svgPaths).toBeUndefined()
+    expect(a.shapeMarks?.[0]?.area).toBe(true)
+  })
+  it('a picture of a thing keeps its drawn outline', () => {
+    const a = ground('a framed photo of the team')
+    expect(a.svgPaths?.length).toBe(1)
+  })
+})

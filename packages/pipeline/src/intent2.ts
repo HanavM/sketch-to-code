@@ -299,7 +299,7 @@ export function isPageLookNote(text: string): boolean {
   return /\b(page|pages|site|website|background|backdrop|bg|paper|theme|whole|overall|everywhere)\b/i.test(t)
 }
 
-import { markAreasAndEdges } from './areas.js'
+import { isAreaNote, markAreasAndEdges } from './areas.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
 
@@ -1011,7 +1011,13 @@ export function groundInterpretation(
           // big: it never becomes a path either (shapemark.ts). Only a depiction
           // keeps paths, and then the clean shape, never the wobble.
           const shape = shapeOf(s.points)
-          if (shape && !a.depicts) {
+          // n14: a box round "huge outlined 09" is read as a depiction of the number, its
+          // outline became a path, and the composition check then asked for that closed
+          // form to be filled: a black card behind the 09 (round 12 c4). A box whose own
+          // note is a big word or number is that word's area, never a drawn form.
+          const areaBox = shape?.shape === 'box' && ev.notes.some((n) =>
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && isAreaNote(n.text))
+          if (shape && (!a.depicts || areaBox)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }
