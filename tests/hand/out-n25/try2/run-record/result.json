@@ -1,0 +1,327 @@
+{
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "9bf3568adb1af0faa9aa6792f214d3f12a4d59dd",
+  "changedFiles": [
+    "src/App.tsx"
+  ],
+  "reading": "A settings page: a 'Settings' heading, a tab bar (Profile, Notifications (active, blue underline), Billing, Team), a list of 4 notification toggle rows (Email digests, Mentions, Product news, Weekly report) with the first two toggles on (filled blue) and the last two off, and two buttons at the bottom: a blue filled 'Save changes' button and a red-outlined 'Reset all' button.",
+  "verification": [
+    {
+      "kind": "add",
+      "index": 0,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <h1> \"Settings\" at (120,57) 97x29 sits on the drawn line",
+        "bestCandidate": {
+          "tag": "h1",
+          "srcLoc": "src/App.tsx:51:7",
+          "rect": {
+            "x": 120,
+            "y": 56,
+            "w": 1040,
+            "h": 32
+          }
+        }
+      }
+    },
+    {
+      "kind": "add",
+      "index": 1,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <span> at (120,116) 43x32 matches the sketch region",
+        "bestCandidate": {
+          "tag": "span",
+          "srcLoc": "src/App.tsx:55:11",
+          "rect": {
+            "x": 120,
+            "y": 116,
+            "w": 43.21875,
+            "h": 32
+          }
+        }
+      }
+    },
+    {
+      "kind": "add",
+      "index": 2,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <h1> at (120,56) 1040x32 matches the sketch region (placed by the page layout)",
+        "bestCandidate": {
+          "tag": "h1",
+          "srcLoc": "src/App.tsx:51:7",
+          "rect": {
+            "x": 120,
+            "y": 56,
+            "w": 1040,
+            "h": 32
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 2,
+      "verdict": {
+        "satisfied": true,
+        "reason": "4 drawn boxes built where drawn",
+        "marks": [
+          {
+            "strokeId": "s2",
+            "drawn": {
+              "x": 1112,
+              "y": 167,
+              "w": 48,
+              "h": 30
+            },
+            "built": {
+              "x": 1112,
+              "y": 177,
+              "w": 48,
+              "h": 28
+            },
+            "dx": 0,
+            "dy": 9
+          },
+          {
+            "strokeId": "s3",
+            "drawn": {
+              "x": 1112,
+              "y": 249,
+              "w": 49,
+              "h": 29
+            },
+            "built": {
+              "x": 1112,
+              "y": 258,
+              "w": 48,
+              "h": 28
+            },
+            "dx": 0,
+            "dy": 9
+          },
+          {
+            "strokeId": "s4",
+            "drawn": {
+              "x": 1112,
+              "y": 330,
+              "w": 49,
+              "h": 29
+            },
+            "built": {
+              "x": 1112,
+              "y": 339,
+              "w": 48,
+              "h": 28
+            },
+            "dx": 0,
+            "dy": 9
+          },
+          {
+            "strokeId": "s5",
+            "drawn": {
+              "x": 1112,
+              "y": 410,
+              "w": 49,
+              "h": 29
+            },
+            "built": {
+              "x": 1112,
+              "y": 420,
+              "w": 48,
+              "h": 28
+            },
+            "dx": 0,
+            "dy": 10
+          }
+        ]
+      }
+    },
+    {
+      "kind": "add",
+      "index": 3,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <div> at (120,414) 228x40 matches the sketch region",
+        "bestCandidate": {
+          "tag": "div",
+          "srcLoc": "src/App.tsx:74:13",
+          "rect": {
+            "x": 120,
+            "y": 414,
+            "w": 228.234375,
+            "h": 40
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 3,
+      "verdict": {
+        "satisfied": true,
+        "reason": "1 drawn box built where drawn",
+        "marks": [
+          {
+            "strokeId": "s6",
+            "drawn": {
+              "x": 120,
+              "y": 498,
+              "w": 152,
+              "h": 46
+            },
+            "built": {
+              "x": 120,
+              "y": 502,
+              "w": 156.265625,
+              "h": 48
+            },
+            "dx": 2,
+            "dy": 5
+          }
+        ]
+      }
+    },
+    {
+      "kind": "add",
+      "index": 4,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <div> at (120,414) 228x40 matches the sketch region",
+        "bestCandidate": {
+          "tag": "div",
+          "srcLoc": "src/App.tsx:74:13",
+          "rect": {
+            "x": 120,
+            "y": 414,
+            "w": 228.234375,
+            "h": 40
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 4,
+      "verdict": {
+        "satisfied": true,
+        "reason": "1 drawn box built where drawn",
+        "marks": [
+          {
+            "strokeId": "s7",
+            "drawn": {
+              "x": 283,
+              "y": 499,
+              "w": 113,
+              "h": 47
+            },
+            "built": {
+              "x": 288.265625,
+              "y": 501,
+              "w": 115.1875,
+              "h": 50
+            },
+            "dx": 6,
+            "dy": 4
+          }
+        ]
+      }
+    },
+    {
+      "kind": "readable",
+      "verdict": {
+        "satisfied": true,
+        "reason": "4 pieces of text read on what is behind them"
+      }
+    },
+    {
+      "kind": "ink-colours",
+      "verdict": {
+        "satisfied": true,
+        "reason": "3 colours from the ink on the page",
+        "checks": [
+          {
+            "what": "the box drawn at (1112,167) 48x30",
+            "want": "#2563eb",
+            "best": 0,
+            "ok": true
+          },
+          {
+            "what": "the box drawn at (1112,249) 49x29",
+            "want": "#2563eb",
+            "best": 0,
+            "ok": true
+          },
+          {
+            "what": "the box drawn at (120,498) 152x46",
+            "want": "#2563eb",
+            "best": 0,
+            "ok": true
+          }
+        ]
+      }
+    }
+  ],
+  "tokens": {
+    "input": 26642,
+    "cacheRead": 194134,
+    "output": 6898
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 17588,
+      "output": 5512,
+      "cacheRead": 112797,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-hand-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 64378
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 15952,
+      "output": 1386,
+      "cacheRead": 81337,
+      "toolCalls": 2,
+      "tools": [
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 16983
+    }
+  ],
+  "codemod": {
+    "handled": [],
+    "refused": []
+  },
+  "backend": {
+    "applied": [],
+    "refused": []
+  },
+  "fidelity": {
+    "resemblance": 0.5,
+    "keep": {
+      "asymmetry": true,
+      "rhythm": true,
+      "proportions": true,
+      "placement": true
+    },
+    "fill": "filled",
+    "style": "auto",
+    "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null
+}

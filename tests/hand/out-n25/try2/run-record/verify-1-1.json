@@ -1,0 +1,258 @@
+[
+  {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> \"Settings\" at (120,57) 97x29 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:51:7",
+        "rect": {
+          "x": 120,
+          "y": 56,
+          "w": 1040,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <span> at (120,116) 43x32 matches the sketch region",
+      "bestCandidate": {
+        "tag": "span",
+        "srcLoc": "src/App.tsx:55:11",
+        "rect": {
+          "x": 120,
+          "y": 116,
+          "w": 43.21875,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> at (120,56) 1040x32 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:51:7",
+        "rect": {
+          "x": 120,
+          "y": 56,
+          "w": 1040,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (1112,167) 48x30: the <button> built for it sits 33px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The 3 drawn boxes below it ride on it, so the whole page from here down sits about 33px low. The line drawn at y=141 (the bar above it) is built where drawn (its bottom at y=150), so the header is right. The drift starts in the gap under that line: drawn, this box's top is 26px below it; built, 50px. So take 24px OUT of that gap only (the list's top margin or padding, the first row's top padding, a spacer or margin under the tab bar). Keep the heading and the tabs exactly as they are: do not shrink or move them. Never add space; no negative margins or relative offsets. The rows keep the drawn pitch (81px top to top): keep each row's height and gap as they are.; the box drawn at (1112,249) 49x29: the <button> built for it sits 33px too low, but only because the <button> drawn at (1112,167) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.; the box drawn at (1112,330) 49x29: the <button> built for it sits 33px too low, but only because the <button> drawn at (1112,249) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.; the box drawn at (1112,410) 49x29: the <button> built for it sits 34px too low, but only because the <button> drawn at (1112,330) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.",
+      "marks": [
+        {
+          "strokeId": "s2",
+          "drawn": {
+            "x": 1112,
+            "y": 167,
+            "w": 48,
+            "h": 30
+          },
+          "built": {
+            "x": 1112,
+            "y": 201,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 33
+        },
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 1112,
+            "y": 249,
+            "w": 49,
+            "h": 29
+          },
+          "built": {
+            "x": 1112,
+            "y": 282,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 33
+        },
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 1112,
+            "y": 330,
+            "w": 49,
+            "h": 29
+          },
+          "built": {
+            "x": 1112,
+            "y": 363,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 33
+        },
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 1112,
+            "y": 410,
+            "w": 49,
+            "h": 29
+          },
+          "built": {
+            "x": 1112,
+            "y": 444,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 34
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (120,377) 275x20 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:76:15",
+        "rect": {
+          "x": 120,
+          "y": 377,
+          "w": 275.21875,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (120,498) 152x46: the <button> built for it sits 29px too low, the same as the <button> drawn at (1112,167): the whole page above it sits that much low. Do not move this one on its own: it lands when the space at the top is fixed.",
+      "marks": [
+        {
+          "strokeId": "s6",
+          "drawn": {
+            "x": 120,
+            "y": 498,
+            "w": 152,
+            "h": 46
+          },
+          "built": {
+            "x": 120,
+            "y": 526,
+            "w": 156.265625,
+            "h": 48
+          },
+          "dx": 2,
+          "dy": 29
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (120,377) 275x20 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:76:15",
+        "rect": {
+          "x": 120,
+          "y": 377,
+          "w": 275.21875,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (283,499) 113x47: the <button> built for it sits 28px too low, the same as the <button> drawn at (1112,167): the whole page above it sits that much low. Do not move this one on its own: it lands when the space at the top is fixed.",
+      "marks": [
+        {
+          "strokeId": "s7",
+          "drawn": {
+            "x": 283,
+            "y": 499,
+            "w": 113,
+            "h": 47
+          },
+          "built": {
+            "x": 288.265625,
+            "y": 525,
+            "w": 115.1875,
+            "h": 50
+          },
+          "dx": 6,
+          "dy": 28
+        }
+      ]
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "4 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": false,
+      "reason": "action 2: the box drawn at (1112,167) 48x30 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb; action 2: the box drawn at (1112,249) 49x29 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb",
+      "checks": [
+        {
+          "what": "the box drawn at (1112,167) 48x30",
+          "want": "#2563eb",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (1112,249) 49x29",
+          "want": "#2563eb",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (120,498) 152x46",
+          "want": "#2563eb",
+          "best": 0,
+          "ok": true
+        }
+      ]
+    }
+  }
+]
