@@ -94,3 +94,50 @@ export function pickOther<T extends { box: Box }>(
   }
   return best
 }
+
+/**
+ * n43: what a built part already looks like, enough to tell whether a fix note asks for
+ * something it already is.
+ */
+export interface PartLook {
+  lines: number // rendered text lines
+  weight: number // font-weight
+  centred: boolean // text centred, or the box centred in its parent
+  upper: boolean // shows in capitals
+  italic: boolean
+}
+
+const NUM: Record<string, number> = { one: 1, single: 1, '1': 1, two: 2, '2': 2, three: 3, '3': 3, four: 4, '4': 4 }
+
+/**
+ * n43: a fix note that asks only for what the part already is ("one line, below heading" on
+ * a subtitle that is already one line) has nothing to change. Round 32 c2 (n41 try 3): the
+ * first build already had the subtitle on one line, and the fix still ran a paid round to
+ * "change" it. Returns the plain reason ("already one line") when every clause of the note
+ * is either a place ("below heading", "here") or a look the part already has; null when any
+ * clause asks for something else, or is not understood (then the fix runs as before).
+ */
+export function alreadySo(text: string, look: PartLook): string | null {
+  const clauses = text.toLowerCase().replace(/[.!]+$/, '').split(/\s*(?:,|;|\band\b|\+)\s*/).map((c) => c.trim()).filter(Boolean)
+  if (clauses.length === 0) return null
+  const have: string[] = []
+  for (let c of clauses) {
+    // a place, not a change: "below heading", "here", "this"
+    if (placedAgainst(c) && new RegExp(`^${REL}\\b`).test(c)) continue
+    if (/^(here|this|this one|that one|it)$/.test(c)) continue
+    c = c.replace(/^(make it|keep it|should be|put it|keep|make|on|in|all on|fit on)\s+/, '').replace(/^(it'?s|is)\s+/, '')
+    let m: RegExpExecArray | null
+    if ((m = /^(one|single|1|two|2|three|3|four|4)[ -]lines?$/.exec(c)) || (m = /^(?:on\s+)?(one|single|1) ?row$/.exec(c))) {
+      const n = NUM[m[1]!]!
+      if (look.lines !== n) return null
+      have.push(n === 1 ? 'one line' : `${String(n)} lines`); continue
+    }
+    if (/^(bold|bolder|heavy)$/.test(c)) { if (look.weight < 600) return null; have.push('bold'); continue }
+    if (/^(not bold|regular weight|regular|light|thin)$/.test(c)) { if (look.weight >= 600) return null; have.push('not bold'); continue }
+    if (/^(centred|centered|center|centre|in the middle|middle)$/.test(c)) { if (!look.centred) return null; have.push('centred'); continue }
+    if (/^(uppercase|upper case|all caps|caps|capitals)$/.test(c)) { if (!look.upper) return null; have.push('in capitals'); continue }
+    if (/^(italic|italics|slanted)$/.test(c)) { if (!look.italic) return null; have.push('italic'); continue }
+    return null
+  }
+  return have.length ? `already ${have.join(', ')}` : null
+}

@@ -19,7 +19,7 @@ import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type Hold
 import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { warmInIdle, warmStrokes } from './warm-pen.js'
-import { isRole, pickOther, placedAgainst, type PartInfo } from './fix-subject.js'
+import { alreadySo, boxDist, isRole, pickOther, placedAgainst, type PartInfo, type PartLook } from './fix-subject.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 // n18: how many undo eases a hot reload's remount handed to the new node (e2e reads it)
@@ -970,6 +970,8 @@ interface Note {
   anchor: NoteAnchor
   /** Elements the text points at by token. Empty for most notes. */
   refs: NoteRef[]
+  /** n43: the part already is what this fix note asks ("already one line"): nothing to change. */
+  already?: string
 }
 
 /** Page-space rect. Same {x,y,w,h} shape the ink and the snapshot both use. */
@@ -7657,14 +7659,17 @@ class Overlay {
       }
     }
     // n39: "one line, below heading" typed on the heading's edge is about the part below it
-    if (!existing && d.anchor.kind === 'element') this.reanchorPlacedAgainst(d, text)
+    if (!existing && (d.anchor.kind === 'element' || (d.anchor.kind === 'run' && d.anchor.placed))) this.reanchorPlacedAgainst(d, text)
+    // n43: a fix note asking only for what its part already is has nothing to change
+    const already = this.alreadyFor(d.anchor, text)
     if (existing) {
       existing.text = text
       existing.refs = refs
+      existing.already = already ?? undefined
     } else {
-      this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor, refs })
+      this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor, refs, ...(already ? { already } : {}) })
     }
-    this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}`)
+    this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}${already ? ` · ${already}, nothing to change` : ''}`)
     this.renderNotes()
     this.sync()
     // that note answered the bare-ring question: in auto mode, carry on
@@ -7680,15 +7685,26 @@ class Overlay {
    * c2: typed on the heading's lower edge, it reshaped the heading instead of the subtitle.
    */
   private reanchorPlacedAgainst(d: { at: { x: number; y: number }; anchor: NoteAnchor }, text: string) {
-    if (d.anchor.kind !== 'element') return
     const named = placedAgainst(text)
     if (!named) return
-    const el = document.querySelector(`[data-s2c="${d.anchor.srcLoc}"]`) as HTMLElement | null
-    if (!el || !isRole(this.partInfo(el), named.role)) return
     const pageBox = (e: Element) => {
       const b = e.getBoundingClientRect()
       return { x: b.left + window.scrollX, y: b.top + window.scrollY, w: b.width, h: b.height }
     }
+    let el: HTMLElement | null = null
+    if (d.anchor.kind === 'element') {
+      el = document.querySelector(`[data-s2c="${d.anchor.srcLoc}"]`) as HTMLElement | null
+    } else if (d.anchor.kind === 'run' && d.anchor.placed) {
+      // n43: typed in the gap between built parts ("one line, below heading" typed between the
+      // heading and the subtitle, round 32 c2): the named part is the nearest one of its kind
+      let bd = 90
+      for (const c of document.querySelectorAll<HTMLElement>('[data-s2c]')) {
+        if (this.isPageBackground(c) || !isRole(this.partInfo(c), named.role)) continue
+        const dist = boxDist(pageBox(c), d.at.x, d.at.y)
+        if (dist < bd) { bd = dist; el = c }
+      }
+    }
+    if (!el || !isRole(this.partInfo(el), named.role)) return
     const cands = [...document.querySelectorAll<HTMLElement>('[data-s2c]')]
       .filter((c) => c !== el && !c.contains(el) && !el.contains(c) && !this.isPageBackground(c) &&
         !isRole(this.partInfo(c), named.role) && (c.textContent ?? '').trim() !== '' &&
@@ -7700,6 +7716,36 @@ class Overlay {
     if (!best || !srcLoc) return
     d.anchor = { kind: 'element', srcLoc }
     this.noteWhat.textContent = `${this.anchorLabel(d.anchor, best.c)} (the part ${named.rel} the ${named.role})`
+  }
+
+  /** n43: the reason a fix note on a built part has nothing to change, or null. */
+  private alreadyFor(anchor: NoteAnchor, text: string): string | null {
+    if (anchor.kind !== 'element') return null
+    const el = document.querySelector(`[data-s2c="${anchor.srcLoc}"]`) as HTMLElement | null
+    if (!el || (el.textContent ?? '').trim() === '') return null
+    return alreadySo(text, this.partLook(el))
+  }
+
+  private partLook(el: HTMLElement): PartLook {
+    const cs = getComputedStyle(el)
+    const range = document.createRange()
+    range.selectNodeContents(el)
+    // rendered lines: distinct line tops among the text's client rects
+    const tops: number[] = []
+    for (const r of range.getClientRects()) {
+      if (r.width < 1 || r.height < 1) continue
+      if (!tops.some((t) => Math.abs(t - r.top) < r.height * 0.5)) tops.push(r.top)
+    }
+    const b = el.getBoundingClientRect()
+    const pb = el.parentElement?.getBoundingClientRect()
+    const words = (el.textContent ?? '').replace(/[^A-Za-z]/g, '')
+    return {
+      lines: Math.max(1, tops.length),
+      weight: Number(cs.fontWeight) || (cs.fontWeight === 'bold' ? 700 : 400),
+      centred: cs.textAlign === 'center' || (pb != null && Math.abs((b.left + b.width / 2) - (pb.left + pb.width / 2)) <= 8 && b.width < pb.width - 16),
+      upper: cs.textTransform === 'uppercase' || (words.length > 1 && words === words.toUpperCase()),
+      italic: cs.fontStyle === 'italic',
+    }
   }
 
   private partInfo(el: HTMLElement): PartInfo {
@@ -11566,6 +11612,16 @@ class Overlay {
     }
     const job = forFlight ? this.flight : null
     if (!job && !this.hasWork()) return
+    // n43: nothing drawn and every note asks only for what its part already is: say so, run nothing
+    if (!job && this.strokes.length === 0 && this.notes.length > 0 && this.notes.every((n) => n.already)) {
+      const why = this.notes.map((n) => `"${n.text}": ${n.already ?? ''}`).join('; ')
+      this.notes = []
+      this.renderNotes()
+      this.sync()
+      this.status(`nothing to change — ${why}`)
+      ;(window as unknown as { __s2cNothing?: string[] }).__s2cNothing = [...((window as unknown as { __s2cNothing?: string[] }).__s2cNothing ?? []), why]
+      return
+    }
     // a new run answers the last one's misread; the card is about a run that is over
     this.hideMisread()
     if (job) return void (await this.readFlight(job))

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isRole, pickOther, placedAgainst } from '../src/fix-subject.js'
+import { isRole, pickOther, placedAgainst, alreadySo } from '../src/fix-subject.js'
 
 describe('n39: a fix note that names a part as a place is about another part', () => {
   it('reads the named part and the relation', () => {
@@ -32,5 +32,30 @@ describe('n39: a fix note that names a part as a place is about another part', (
   })
   it('keeps the pointer pick when nothing is within reach', () => {
     expect(pickOther([button], { x: 500, y: 300 }, 'below', heading)).toBeNull()
+  })
+})
+
+describe('alreadySo (n43)', () => {
+  const sub = { lines: 1, weight: 400, centred: false, upper: false, italic: false }
+  it('a subtitle already on one line: nothing to change (round 32 c2)', () => {
+    expect(alreadySo('one line, below heading', sub)).toBe('already one line')
+  })
+  it('a subtitle on two lines still needs the fix', () => {
+    expect(alreadySo('one line, below heading', { ...sub, lines: 2 })).toBeNull()
+  })
+  it('any clause asking for something else runs the fix', () => {
+    expect(alreadySo('one line, bigger', sub)).toBeNull()
+    expect(alreadySo('one line, below heading, white', sub)).toBeNull()
+    expect(alreadySo('move it left', sub)).toBeNull()
+  })
+  it('several looks it already has', () => {
+    expect(alreadySo('bold and centred', { ...sub, weight: 700, centred: true })).toBe('already bold, centred')
+    expect(alreadySo('make it bold', sub)).toBeNull()
+    expect(alreadySo('all caps', { ...sub, upper: true })).toBe('already in capitals')
+    expect(alreadySo('3 lines', { ...sub, lines: 3 })).toBe('already 3 lines')
+  })
+  it('a place alone is not a request with nothing to change', () => {
+    expect(alreadySo('below heading', sub)).toBeNull()
+    expect(alreadySo('', sub)).toBeNull()
   })
 })

@@ -210,9 +210,15 @@ const ops = {
     for (let i = 0; i < 960 && !ready && !failed; i++) {
       const st = await safeEval(p, () => {
         const h = document.getElementById('s2c-overlay-host'); const c = h?.shadowRoot?.getElementById('confirm'); const s = h?.shadowRoot?.getElementById('status')
-        return { ready: c ? getComputedStyle(c).display !== 'none' && !c.disabled : false, failed: !!s && s.classList.contains('err') && /couldn.t read/.test(s.textContent ?? '') }
+        return { ready: c ? getComputedStyle(c).display !== 'none' && !c.disabled : false, failed: !!s && s.classList.contains('err') && /couldn.t read/.test(s.textContent ?? ''), nothing: !!s && /^nothing to change/.test(s.textContent ?? '') }
       })
       ready = !!st.ready; failed = !!st.failed
+      // n43: every fix note asked for what the page already is; no run, no tokens
+      if (st.nothing) {
+        const status = await statusLine(p)
+        S.runs.push({ n, readMs: now() - t, buildMs: 0, totalMs: now() - t, codegen: null, interpret: null, nothing: true, status, strokesSoFar: S.strokes.length, notesSoFar: S.notes.length })
+        return { ok: true, nothing: true, status }
+      }
       if (!ready && !failed) await p.waitForTimeout(250)
     }
     const readMs = now() - t
