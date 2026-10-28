@@ -60,6 +60,19 @@ describe('verifyReadable', () => {
       node('n', 'p', { x: 1000, y: 30, w: 80, h: 20 }, { color: navColour, position: 'relative' }, 'Menu'),
     ],
   })
+  it('n21: a static button paints over its positioned card: white on white fails, indigo on white passes', () => {
+    const page = (ink: string) => ({
+      viewport: vp,
+      nodes: [
+        node('c', null, { x: 969, y: 499, w: 271, h: 362 }, { backgroundColor: 'rgb(99, 102, 241)', position: 'relative' }),
+        node('b', 'c', { x: 997, y: 786, w: 215, h: 47 }, { backgroundColor: 'rgb(255, 255, 255)', color: ink }, 'Get Prism 2'),
+      ],
+    })
+    const bad = verifyReadable(page('rgb(255, 255, 255)'))
+    expect(bad.satisfied).toBe(false)
+    expect(bad.reason).toMatch(/#ffffff on #ffffff/)
+    expect(verifyReadable(page('rgb(99, 102, 241)')).satisfied).toBe(true)
+  })
   it('black nav on the red half fails (round 12 c4 try 2)', () => {
     const v = verifyReadable(split('rgb(17, 17, 17)'))
     expect(v.satisfied).toBe(false)

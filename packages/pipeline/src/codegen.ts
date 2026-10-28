@@ -178,8 +178,17 @@ export const EDIT_TOOLS = new Set(['Edit', 'Write', 'MultiEdit', 'NotebookEdit']
  * text and turn ends do. An assistant message that is only thinking does not,
  * and neither do system notices.
  */
-export function movesTurnOn(msg: { type: string; message?: unknown }): boolean {
+export function movesTurnOn(msg: { type: string; message?: unknown; event?: unknown }): boolean {
   if (msg.type === 'user' || msg.type === 'result' || msg.type === 'tool_progress') return true
+  // n21 (bento, first build): the agent spent 150+ s writing one big App.tsx. Without
+  // partial messages the whole Write arrives at once, so the watchdog saw silence and
+  // ended a build that was busy writing. Streamed tool input and reply text are
+  // progress; streamed thinking is not.
+  if (msg.type === 'stream_event') {
+    const e = msg.event as { type?: string; delta?: { type?: string; text?: string; partial_json?: string } } | undefined
+    if (e?.type !== 'content_block_delta') return false
+    return e.delta?.type === 'input_json_delta' || (e.delta?.type === 'text_delta' && !!e.delta.text?.trim())
+  }
   if (msg.type !== 'assistant') return false
   const m = msg.message
   const content = m && typeof m === 'object' ? (m as { content?: unknown }).content : undefined
@@ -248,6 +257,8 @@ export function createCodegenSession(
       settingSources: [],
       systemPrompt: { type: 'preset', preset: 'claude_code', append: contractOverride ?? contractFor(mode) },
       persistSession: false,
+      // n21: streamed deltas tell the watchdog a long Write is still being written
+      includePartialMessages: true,
       maxTurns: 40,
       env: cleanEnv(),
       strictMcpConfig: true,

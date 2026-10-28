@@ -38,6 +38,11 @@ describe('n22: thinking is not progress', () => {
     expect(movesTurnOn({ type: 'user' })).toBe(true)
     expect(movesTurnOn({ type: 'result' })).toBe(true)
     expect(movesTurnOn({ type: 'system' })).toBe(false)
+    // n21: a long Write streams its input; that is progress, streamed thinking is not
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'input_json_delta', partial_json: '{"con' } } })).toBe(true)
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'text_delta', text: 'Done' } } })).toBe(true)
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'content_block_delta', delta: { type: 'thinking_delta' } } })).toBe(false)
+    expect(movesTurnOn({ type: 'stream_event', event: { type: 'message_start' } })).toBe(false)
   })
 })
 

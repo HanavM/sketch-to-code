@@ -51,6 +51,10 @@ export interface ShapeMark {
   band?: { px: number; colour: string | null }
   /** area box (n16): its notes say the big word is outlined: hollow letters, a text stroke. */
   outlined?: { colour: string | null }
+  /** level line (n21): the words typed on it, which sit on its side of the box around it. */
+  words?: string
+  /** big box (n21): notes typed at a spot inside it, page px. */
+  typed?: Array<{ text: string; x: number; y: number }>
 }
 
 const r1 = (v: number) => Math.round(v)
@@ -263,6 +267,10 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
       if (o === placed[i]) continue
       const ob = o.m.box
       if (holds(ob, me) || holds(me, ob)) continue // a card round the field is not "above" it
+      // n21 (bento): a button inside the CTA card hung on the quote card in the row above,
+      // outside that card. A box in a card only follows boxes in the same card.
+      const myCard = placed.filter((p) => holds(p.m.box, me)).sort((a, c) => a.m.box.w * a.m.box.h - c.m.box.w * c.m.box.h)[0]
+      if (myCard && !holds(myCard.m.box, ob)) continue
       const overlap = Math.min(ob.x + ob.w, me.x + me.w) - Math.max(ob.x, me.x)
       if (overlap < 0.5 * Math.min(ob.w, me.w)) continue
       if (ob.y + ob.h > me.y + 4) continue

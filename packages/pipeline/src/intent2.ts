@@ -127,6 +127,8 @@ export interface ResolvedNote {
    * sentence still reads — the words are never dropped for a stale stamp.
    */
   refs?: Array<{ token: string; elementId?: string; label: string }>
+  /** n21: where the note was typed, page px (a note typed low in a card is copy that sits low). */
+  at?: { x: number; y: number }
 }
 
 export interface RawInterpretation {
@@ -270,7 +272,7 @@ export function resolveNotes(
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
       const focus = noteFocus(ids, anchor.focus, n.at, strokes)
       out.push(ids.length
-        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs }
+        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs, ...(n.at ? { at: { x: n.at.x, y: n.at.y } } : {}) }
         : { id: n.id, text, scope: 'run', ...withRefs })
       continue
     }
@@ -301,6 +303,7 @@ export function isPageLookNote(text: string): boolean {
 
 import { isAreaNote, markAreasAndEdges } from './areas.js'
 import { markSolids, solidOf } from './solids.js'
+import { markTextPlaces } from './textplace.js'
 import { markOutlined } from './textlook.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
@@ -1104,7 +1107,7 @@ export function groundInterpretation(
     }
     const targetIds = new Set([...targets.map((t) => t.domId), ...(dest ? [dest.domId] : [])])
     const notes: string[] = []
-    const noteObjs: Array<{ text: string; focus?: string[] }> = []
+    const noteObjs: Array<{ text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }> = []
     const refs: NonNullable<GroundedAction['refs']> = []
     for (const note of ev.notes) {
       const hit =
@@ -1112,7 +1115,7 @@ export function groundInterpretation(
         (note.scope === 'strokes' && (focusCited(note) ?? (note.strokeIds ?? []).some((id) => citedIds.has(id))))
       if (!hit) continue
       notes.push(note.text)
-      noteObjs.push({ text: note.text, ...(note.focus?.length ? { focus: note.focus } : {}) })
+      noteObjs.push({ text: note.text, ...(note.focus?.length ? { focus: note.focus } : {}), ...(note.at ? { at: note.at } : {}), ...(note.strokeIds?.length ? { strokeIds: note.strokeIds } : {}) })
       attached.add(note.id)
       // the sentence came with this action, so the elements it names come too —
       // including the source location, which is what codegen actually needs
@@ -1173,6 +1176,8 @@ export function groundInterpretation(
     if (shapeMarks.length) markSolids(shapeMarks, noteObjs)
     // n16: "huge outlined 09" on an area box stays hollow letters
     if (shapeMarks.length) markOutlined(shapeMarks, noteObjs)
+    // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low
+    if (shapeMarks.length) markTextPlaces(shapeMarks, noteObjs)
     actions.push({
       kind: a.kind,
       targets,

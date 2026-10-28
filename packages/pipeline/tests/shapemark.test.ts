@@ -119,6 +119,23 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(verifyTextClearOfFields({ nodes: [] }, { nodes: [label(10)] }).unverifiable).toBe(true)
   })
 
+  it('n21: a button in a card never hangs on a box in the row above, outside that card', () => {
+    // bento: quote card 13px left; the CTA card under-right of it landed; its button 13px left on its own
+    const marks: ShapeMark[] = [
+      { strokeId: 'q', shape: 'box', box: { x: 1020, y: 269, w: 221, h: 211 } },
+      { strokeId: 'c', shape: 'box', box: { x: 969, y: 499, w: 271, h: 362 } },
+      { strokeId: 'b', shape: 'box', box: { x: 997, y: 786, w: 215, h: 47 } },
+    ]
+    const before = { nodes: [{ id: 'm', tag: 'main', rect: { x: 0, y: 0, w: 1280, h: 900 } }] }
+    const n = (id: string, tag: string, x: number, y: number, w: number, h: number) => ({ id, tag, rect: { x, y, w, h } })
+    const v = verifyShapeMarks(marks, before, { nodes: [...before.nodes,
+      n('q', 'div', 1007, 269, 221, 211), n('c', 'div', 969, 499, 271, 362), n('b', 'button', 984, 786, 215, 47)] })
+    expect(v.satisfied).toBe(false)
+    const btn = v.reason.split('; the ').find((x) => x.includes('(997,786)'))!
+    expect(btn).toMatch(/13px too far left; move it/)
+    expect(btn).not.toMatch(/only because/)
+  })
+
   it('n22: a field pushed down by the one above is told it follows; a landed button below is told to stay', () => {
     // n20 try 3 round 1, the real numbers: email 16 low, password 15 low (because of email), button landed
     const marks: ShapeMark[] = [

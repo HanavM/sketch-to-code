@@ -1,0 +1,424 @@
+READING (user-confirmed): The sketch lays out a dark-themed product page: a glowing hero panel titled "Prism 2", a light stat callout "2.4×", a dark panel with a 72% green progress ring, a yellow testimonial quote panel, a dark "Weekly builds" bar chart with 7 purple bars, a dark code-snippet panel, and an indigo CTA panel reading "Ready when you are." with a "Get Prism 2" button, all over a near-black page background.
+
+FIDELITY (set by the user for this run):
+NORMALIZE (resemblance 50%): rebuild with pristine geometry from the drawn features. Straighten, close and align what is nearly so, while keeping the measured composition.
+RESULT — SOLID: build it out of filled shapes, not outlines, in at least two values so the form reads as an object rather than a flat cut-out — a body tone and a shadow side at minimum. Use strokes only where a line is genuinely the subject.
+STYLE — MATCH THE APP: take the aesthetic from the code around it. Look at how nearby components render (stroke weights, corner radii, shadow use, how much colour they carry) and make this belong beside them.
+MUST SURVIVE (scored): left/right lopsidedness (never mirror one side onto the other); the uneven spacing and length of repeated parts; the drawn form's aspect ratio; where each part sits relative to the others.
+Styling: use the app's existing palette, stroke weights and spacing scale for CHROME — frames, borders, labels, anything that belongs to the UI. A depicted SUBJECT is not chrome: give it the colours the thing actually has (skin, hair, foliage, metal, sky), harmonised with the app rather than flattened into one of its greys. A palette is a constraint on the interface, not a reason for a face to be grey.
+
+PAGE LOOK (the user typed these about the whole page, wherever the note sits): apply them to the page itself — the outermost page wrapper / body background, filling at least the full viewport height (min-height: 100vh) behind every block — not only to the block the note was typed on. A box drawn across the top is still a nav row on that page, not a filled bar, unless a note says so. A tinted page colour (pale blue-grey, off-white, cream, warm paper) must show as that tint behind the white cards, never plain white:
+- quote: It feels like the page is reading my mind.
+
+COUNTS THE USER TYPED (exact; never pad a list, grid or table with invented extra entries):
+- "7 rising purple bars": exactly 7 bars, no more, no fewer
+
+COLOURS FROM THE INK (the user coloured these in with a picked colour, so the value is exact; use these hex values as they are, never a palette near-miss and never a paler or brighter version; a typed colour word about the same block is overruled by these):
+- the whole page (body / outermost wrapper, full viewport height, behind every block): background #0a0a0c exactly
+- action 1, the box drawn at x 779, y 39, 462x212: the block built for it is filled with #fafafa (its own background); text on it must stay readable against it
+- action 2, the outline drawn at x 779, y 269, 222x211: the block built for it is filled with #1c1c1f (its own background, in the drawn outline's shape); text on it must stay readable against it
+- action 3, the box drawn at x 1020, y 269, 221x211: the block built for it is filled with #facc15 (its own background); text on it must stay readable against it
+- action 4, the outline drawn at x 39, y 499, 472x362: the block built for it is filled with #1c1c1f (its own background, in the drawn outline's shape); text on it must stay readable against it
+- action 5, the box drawn at x 529, y 499, 421x361: the block built for it is filled with #1c1c1f (its own background); text on it must stay readable against it
+- action 6, the box drawn at x 969, y 499, 271x362: the block built for it is filled with #6366f1 (its own background); text on it must stay readable against it
+
+WHERE THE WORDS SIT (deterministic, from where the lines were drawn and the notes typed; checked on the page):
+- action 0: the note "blue and pink glows on dark" was typed at (420,120), in the upper part of the box, about 18% down drawn at (39,39) 721x442. If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y 120, not at the top or the middle of the box by default; a note that only describes the box (its colours, what it holds) has no spot.
+- action 3: the note "quote: It feels like the page is reading my mind." was typed at (1130,330), in the upper part of the box, about 29% down drawn at (1020,269) 221x211. If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y 330, not at the top or the middle of the box by default; a note that only describes the box (its colours, what it holds) has no spot.
+- action 5: the note "code snippet" was typed at (740,620), in the middle part of the box, about 34% down drawn at (529,499) 421x361. If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y 620, not at the top or the middle of the box by default; a note that only describes the box (its colours, what it holds) has no spot.
+- action 6: the note "Ready when you are." was typed at (1090,735), in the lower part of the box, about 65% down drawn at (969,499) 271x362. If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y 735, not at the top or the middle of the box by default; a note that only describes the box (its colours, what it holds) has no spot.
+
+ACTIONS:
+[
+  {
+    "action": 0,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add a large hero panel (top-left) with a dark background and decorative blue and pink glows sweeping across it, per note 'blue and pink glows on dark'; inside it place a large heading reading 'Prism 2' where the underline mark sits.",
+    "region": {
+      "x": 39.17100524902344,
+      "y": 39.104923248291016,
+      "w": 721.4530792236328,
+      "h": 441.7073631286621
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s0",
+        "shape": "box",
+        "box": {
+          "x": 39,
+          "y": 39,
+          "w": 721,
+          "h": 442
+        },
+        "typed": [
+          {
+            "text": "blue and pink glows on dark",
+            "x": 420,
+            "y": 120
+          }
+        ]
+      },
+      {
+        "strokeId": "s9",
+        "shape": "line",
+        "box": {
+          "x": 68,
+          "y": 255,
+          "w": 254,
+          "h": 0
+        },
+        "from": {
+          "x": 68,
+          "y": 255
+        },
+        "to": {
+          "x": 322,
+          "y": 255
+        }
+      }
+    ],
+    "layer": "container",
+    "notes": [
+      "blue and pink glows on dark",
+      "Prism 2"
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 1,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add a light panel (top-right, background #fafafa) containing large stat text reading '2.4×' where the underline mark sits.",
+    "region": {
+      "x": 779.1011352539062,
+      "y": 39.30525588989258,
+      "w": 461.72833251953125,
+      "h": 211.58195114135742
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s1",
+        "shape": "box",
+        "box": {
+          "x": 779,
+          "y": 39,
+          "w": 462,
+          "h": 212
+        }
+      },
+      {
+        "strokeId": "s10",
+        "shape": "line",
+        "box": {
+          "x": 808,
+          "y": 115,
+          "w": 172,
+          "h": 0
+        },
+        "from": {
+          "x": 808,
+          "y": 115
+        },
+        "to": {
+          "x": 980,
+          "y": 115
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "2.4×"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s1",
+        "mark": "box",
+        "paint": "background",
+        "color": "#fafafa",
+        "box": {
+          "x": 779,
+          "y": 39,
+          "w": 462,
+          "h": 212
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 2,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add a dark panel (background #1c1c1f) containing a circular progress ring showing 72%, coloured green, per note '72% green ring'.",
+    "region": {
+      "x": 779.1209106445312,
+      "y": 269.1695861816406,
+      "w": 221.62860107421875,
+      "h": 211.21426391601562
+    },
+    "svgPaths": [
+      {
+        "strokeId": "s2",
+        "d": "M 0 0 H 222 V 211 H 0 Z"
+      },
+      {
+        "strokeId": "s8",
+        "d": "M 41 105 A 70 70 0 1 0 181 105 A 70 70 0 1 0 41 105 Z"
+      }
+    ],
+    "layer": "container",
+    "depicts": "progress ring",
+    "fidelity": "recognized",
+    "notes": [
+      "72% green ring"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s2",
+        "mark": "outline",
+        "paint": "background",
+        "color": "#1c1c1f",
+        "box": {
+          "x": 779,
+          "y": 269,
+          "w": 222,
+          "h": 211
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 3,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add a yellow panel (background #facc15) displaying a testimonial quote: 'It feels like the page is reading my mind.'",
+    "region": {
+      "x": 1019.5847778320312,
+      "y": 269.23931884765625,
+      "w": 220.65069580078125,
+      "h": 210.9576416015625
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s3",
+        "shape": "box",
+        "box": {
+          "x": 1020,
+          "y": 269,
+          "w": 221,
+          "h": 211
+        },
+        "typed": [
+          {
+            "text": "quote: It feels like the page is reading my mind.",
+            "x": 1130,
+            "y": 330
+          }
+        ]
+      }
+    ],
+    "layer": "container",
+    "notes": [
+      "quote: It feels like the page is reading my mind."
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s3",
+        "mark": "box",
+        "paint": "background",
+        "color": "#facc15",
+        "box": {
+          "x": 1020,
+          "y": 269,
+          "w": 221,
+          "h": 211
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 4,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add a dark panel (background #1c1c1f) titled 'Weekly builds' containing a bar chart with 7 rising purple bars.",
+    "region": {
+      "x": 39.114627838134766,
+      "y": 499.1248779296875,
+      "w": 471.75112533569336,
+      "h": 361.62939453125
+    },
+    "svgPaths": [
+      {
+        "strokeId": "s4",
+        "d": "M 0 0 H 472 V 362 H 0 Z"
+      }
+    ],
+    "layer": "container",
+    "depicts": "bar chart",
+    "fidelity": "recognized",
+    "notes": [
+      "Weekly builds, 7 rising purple bars"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s4",
+        "mark": "outline",
+        "paint": "background",
+        "color": "#1c1c1f",
+        "box": {
+          "x": 39,
+          "y": 499,
+          "w": 472,
+          "h": 362
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 5,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add a dark panel (background #1c1c1f) displaying a code snippet in monospace formatting, per note 'code snippet'.",
+    "region": {
+      "x": 529.1390380859375,
+      "y": 499.1042175292969,
+      "w": 421.40240478515625,
+      "h": 361.4260559082031
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s5",
+        "shape": "box",
+        "box": {
+          "x": 529,
+          "y": 499,
+          "w": 421,
+          "h": 361
+        },
+        "typed": [
+          {
+            "text": "code snippet",
+            "x": 740,
+            "y": 620
+          }
+        ]
+      }
+    ],
+    "layer": "container",
+    "notes": [
+      "code snippet"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s5",
+        "mark": "box",
+        "paint": "background",
+        "color": "#1c1c1f",
+        "box": {
+          "x": 529,
+          "y": 499,
+          "w": 421,
+          "h": 361
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 6,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Add an indigo call-to-action panel (background #6366f1) with heading text 'Ready when you are.' and, below it, a button labeled 'Get Prism 2'.",
+    "region": {
+      "x": 969.1362915039062,
+      "y": 499.1802673339844,
+      "w": 271.48297119140625,
+      "h": 361.5856018066406
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s6",
+        "shape": "box",
+        "box": {
+          "x": 969,
+          "y": 499,
+          "w": 271,
+          "h": 362
+        },
+        "typed": [
+          {
+            "text": "Ready when you are.",
+            "x": 1090,
+            "y": 735
+          }
+        ]
+      },
+      {
+        "strokeId": "s7",
+        "shape": "box",
+        "box": {
+          "x": 997,
+          "y": 786,
+          "w": 215,
+          "h": 47
+        }
+      }
+    ],
+    "layer": "container",
+    "notes": [
+      "Ready when you are.",
+      "Get Prism 2"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s6",
+        "mark": "box",
+        "paint": "background",
+        "color": "#6366f1",
+        "box": {
+          "x": 969,
+          "y": 499,
+          "w": 271,
+          "h": 362
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  }
+]
+
+MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the
+proportions your result will be checked against):
+action 2 — measured composition of the drawn "progress ring":
+overall 1.05:1 (w:h), 2 drawn part(s)
+left-right asymmetry 0.02, top-bottom 0.02 (0 = perfectly symmetric; PRESERVE this — do not mirror one side onto the other unless it is near 0)
+ink mass by quadrant — top-left 25%, top-right 25%, bottom-left 25%, bottom-right 25%
+
+action 4 — measured composition of the drawn "bar chart":
+overall 1.30:1 (w:h), 1 drawn part(s)
+left-right asymmetry 0.01, top-bottom 0.01 (0 = perfectly symmetric; PRESERVE this — do not mirror one side onto the other unless it is near 0)
+ink mass by quadrant — top-left 25%, top-right 25%, bottom-left 25%, bottom-right 25%
+
+THE GEOMETRY IS ALREADY WRITTEN. These components exist now, built from the user's
+own strokes — the paths in them ARE the drawing, measured, not a description of it:
+- src/components/ProgressRing.tsx (ProgressRing) — action 2
+- src/components/BarChart.tsx (BarChart) — action 4
+
+Keep those path elements. Do not replace them with shapes of your own and do not
+re-derive them from the svgPath data in the action — that is where they came from.
+Your job on those actions is everything else: mount the component where the action
+says, name and style it in the app's idiom, and build the finished result AROUND the
+drawn paths (fills, interior detail, shading) per the FIDELITY block. Delete a
+scaffold only if its action genuinely does not need a component.
+
+Implement every action now.
