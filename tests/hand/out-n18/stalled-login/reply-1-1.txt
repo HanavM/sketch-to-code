@@ -1,0 +1,9 @@
+Implemented the sign-in card in `src/App.tsx`, rewriting the empty `App` component.
+
+action 0: built a centered card (white, rounded-xl, border, shadow-lg) on a `#f3f4f6` full-viewport page background, holding the heading, subtext, inputs, button and link.
+action 1: added "Sign in" heading at the top of the card.
+action 2: added the "Welcome back. Enter your details." subtext below the heading.
+action 3: added a labeled email input ("Email" label above the field).
+action 4: added a labeled password input ("Password" label above the field).
+action 5: added the "Sign in" button filled with `#2563eb` and white text.
+action 6: added the centered "Forgot your password?" link in blue below the button.

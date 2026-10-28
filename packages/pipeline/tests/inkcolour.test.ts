@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { Stroke } from '@s2c/ink'
 import { buildEvidence } from '../src/intent2.js'
-import { inkColoursBrief, verifyInkColours } from '../src/inkcolour.js'
+import { inkColoursBrief, inkHexes, verifyInkColours } from '../src/inkcolour.js'
+import { askedHexes, finishSource } from '../src/finish.js'
 import type { GroundedAction } from '../src/intent2.js'
 
 const node = (id: string, rect: DomNode['rect'], style: Partial<DomNode['style']> = {}, text = ''): DomNode => ({
@@ -51,5 +52,20 @@ describe('colours from the ink reach codegen and are checked (n10)', () => {
     expect(v.satisfied).toBe(false)
     expect(v.reason).toContain('the ring drawn at (120,80)')
     expect(v.reason).toContain('#ec4899')
+  })
+
+  it('a tapped pale page is exact: white does not pass for #f3f4f6, and finishing never snaps it (n18)', () => {
+    const page = { colors: ['#f3f4f6'], css: '#f3f4f6' }
+    const white = snap([node('root', { x: 0, y: 0, w: 1280, h: 900 }, { backgroundColor: 'rgb(255, 255, 255)' })])
+    const v = verifyInkColours([], page, white)
+    expect(v.satisfied).toBe(false)
+    expect(v.reason).toContain('#f3f4f6')
+    const grey = snap([node('root', { x: 0, y: 0, w: 1280, h: 900 }, { backgroundColor: 'rgb(243, 244, 246)' })])
+    expect(verifyInkColours([], page, grey).satisfied).toBe(true)
+    const asked = askedHexes(inkHexes({ pageFill: page, actions: [act([{ strokeId: 's', mark: 'box', paint: 'background', color: '#2563eb', box: { x: 0, y: 0, w: 10, h: 10 }, how: 'tap' }])] }))
+    const palette = [{ token: 'bg-white', rgb: { r: 255, g: 255, b: 255 } }, { token: 'bg-blue-600', rgb: { r: 37, g: 99, b: 235 } }] as never
+    const { code, edits } = finishSource('<main className="bg-[#f3f4f6]"><b className="bg-[#2563eb]"/></main>', palette, asked)
+    expect(edits).toEqual([])
+    expect(code).toContain('bg-[#f3f4f6]')
   })
 })

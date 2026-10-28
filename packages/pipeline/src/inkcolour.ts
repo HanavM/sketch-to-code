@@ -67,6 +67,20 @@ export interface InkColourVerdict {
 }
 
 const OK_DE = 18
+/**
+ * A single tapped colour is exact, so it is checked as exact: ΔE 18 let a white page pass for a tapped pale
+ * grey (#f3f4f6 is ΔE 4 from white, n18 r1 e1-login), and nothing asked for the grey again. Gradient stops
+ * keep the loose bar (a stop is read where the gradient passes, not at one pixel).
+ */
+const SOLID_OK_DE = 2.5
+
+/** Every colour the ink states (taps, coloured pens, the page), as #rrggbb strings for the finishing pass. */
+export function inkHexes(interp: Pick<GroundedInterpretation, 'actions' | 'pageFill'>): string[] {
+  const out: string[] = []
+  for (const c of interp.pageFill?.colors ?? []) out.push(c)
+  for (const a of interp.actions) for (const c of a.inkColours ?? []) out.push(c.color)
+  return out
+}
 
 function closest(want: string, nodes: DomNode[], what: 'background' | 'text'): number | null {
   const w = parseCssColor(want)
@@ -95,7 +109,7 @@ export function verifyInkColours(
     const big = after.nodes.filter((n) => n.rect.w >= vw * 0.8 && n.rect.h >= vh * 0.6)
     for (const c of pageFill.colors) {
       const best = closest(c, big, 'background')
-      const ok = best !== null && best <= OK_DE
+      const ok = best !== null && best <= (pageFill.colors.length > 1 ? OK_DE : SOLID_OK_DE)
       checks.push({ what: 'page', want: hex(c), best, ok })
       if (!ok) misses.push(`the whole page should paint ${hex(c)}${pageFill.colors.length > 1 ? ` (in the gradient ${pageFill.css})` : ''} behind everything, full viewport height; ${best === null ? 'no page-sized element paints any colour' : `the nearest page-sized colour is ΔE ${best.toFixed(0)} away`}`)
     }
@@ -113,7 +127,7 @@ export function verifyInkColours(
         ? n.text.length > 0 && crosses(n.rect, band)
         : centreIn(n, b, pad) && n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.5 + 20 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 20)
       const best = closest(c.color, near, c.paint)
-      const ok = best !== null && best <= OK_DE
+      const ok = best !== null && best <= SOLID_OK_DE
       const what = `the ${c.mark} drawn at (${String(b.x)},${String(b.y)}) ${String(b.w)}x${String(b.h)}`
       checks.push({ what, want: hex(c.color), best, ok })
       if (!ok) misses.push(`action ${String(i)}: ${what} was coloured ${hex(c.color)}${c.paint === 'text' ? ' (text colour)' : ' (fill)'}; ${best === null ? 'nothing that size was built there carrying a colour' : `what was built there is ΔE ${best.toFixed(0)} away`}: paint ${c.paint === 'text' ? 'its text' : 'the block itself'} exactly ${hex(c.color)}`)

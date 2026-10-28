@@ -44,7 +44,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
-import { inkColoursBrief, verifyInkColours } from './inkcolour.js'
+import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
 import { verifyShapeMarks, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
@@ -525,6 +525,9 @@ export async function runV2(
   const counts = countClaims([
     ...(input.notes ?? []).map((n) => n.text),
     ...(interp.pageNotes ?? []), ...(interp.runNotes ?? []),
+    // a colour tapped or drawn in ink is as exact as a typed hex: never snap it to a nearby token
+    // (n18, r1 e1-login: the tapped pale grey page #f3f4f6 was rewritten to bg-white, ΔE 4, after every build)
+    ...inkHexes(interp),
   ])
   if (counts.length) save('counts.json', counts)
 

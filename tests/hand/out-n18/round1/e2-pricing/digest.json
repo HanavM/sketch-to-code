@@ -1,0 +1,295 @@
+{
+  "round": 1,
+  "id": "e2-pricing",
+  "version": 3,
+  "stopped": null,
+  "likeness": 33.2,
+  "colour": 0.9474352265638949,
+  "structure": 0.7513273781155568,
+  "layout": 0.25327271541909263,
+  "strokes": {
+    "count": 8,
+    "pointsPerStroke": 3.3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 2,
+      "box": 4,
+      "dot": 2
+    },
+    "inkPx": 5788
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 59,
+  "notes": 8,
+  "longestNote": 12,
+  "noteTexts": [
+    "Simple pricing, big bold",
+    "Start free. Upgrade when you grow.",
+    "Starter $0/mo: 1 project, Community support, Basic analytics; outline button Get started",
+    "Pro $24/mo white text: Unlimited projects, Priority support, Advanced analytics, Custom domains",
+    "Start trial",
+    "Team $79/mo: Everything in Pro, SSO, Audit logs; outline button Contact sales",
+    "text is only Simple pricing, centred",
+    "cards full height as drawn"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 706,
+    "firstReadingS": 53,
+    "readS": [
+      19,
+      6
+    ],
+    "buildS": [
+      411,
+      218
+    ],
+    "sketchingS": 51
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 88488,
+    "cacheRead": 539455,
+    "output": 54260,
+    "billed": 142748
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 1304
+    },
+    {
+      "op": "stroke",
+      "at": 2566
+    },
+    {
+      "op": "stroke",
+      "at": 7249
+    },
+    {
+      "op": "stroke",
+      "at": 12184
+    },
+    {
+      "op": "stroke",
+      "at": 16899
+    },
+    {
+      "op": "stroke",
+      "at": 19016
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 25131
+    },
+    {
+      "op": "stroke",
+      "at": 25598
+    },
+    {
+      "op": "pen",
+      "color": "#6366f1",
+      "at": 25968
+    },
+    {
+      "op": "stroke",
+      "at": 26451
+    },
+    {
+      "op": "note",
+      "at": 27134
+    },
+    {
+      "op": "note",
+      "at": 27819
+    },
+    {
+      "op": "note",
+      "at": 28637
+    },
+    {
+      "op": "note",
+      "at": 29431
+    },
+    {
+      "op": "note",
+      "at": 30066
+    },
+    {
+      "op": "note",
+      "at": 30813
+    },
+    {
+      "op": "run",
+      "at": 34020
+    },
+    {
+      "op": "note",
+      "at": 473971
+    },
+    {
+      "op": "note",
+      "at": 474634
+    },
+    {
+      "op": "run",
+      "at": 474701
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          490,
+          105
+        ],
+        [
+          790,
+          105
+        ]
+      ],
+      "n": 51,
+      "at": 1304
+    },
+    {
+      "way": [
+        [
+          500,
+          152
+        ],
+        [
+          780,
+          152
+        ]
+      ],
+      "n": 48,
+      "at": 2566
+    },
+    {
+      "way": [
+        [
+          133,
+          228
+        ],
+        [
+          451,
+          228
+        ],
+        [
+          451,
+          666
+        ],
+        [
+          133,
+          666
+        ],
+        [
+          133,
+          228
+        ]
+      ],
+      "n": 253,
+      "at": 7249
+    },
+    {
+      "way": [
+        [
+          481,
+          208
+        ],
+        [
+          799,
+          208
+        ],
+        [
+          799,
+          686
+        ],
+        [
+          481,
+          686
+        ],
+        [
+          481,
+          208
+        ]
+      ],
+      "n": 267,
+      "at": 12184
+    },
+    {
+      "way": [
+        [
+          829,
+          228
+        ],
+        [
+          1147,
+          228
+        ],
+        [
+          1147,
+          666
+        ],
+        [
+          829,
+          666
+        ],
+        [
+          829,
+          228
+        ]
+      ],
+      "n": 253,
+      "at": 16899
+    },
+    {
+      "way": [
+        [
+          514,
+          511
+        ],
+        [
+          766,
+          511
+        ],
+        [
+          766,
+          555
+        ],
+        [
+          514,
+          555
+        ],
+        [
+          514,
+          511
+        ]
+      ],
+      "n": 99,
+      "at": 19016
+    },
+    {
+      "way": [
+        [
+          640,
+          640
+        ]
+      ],
+      "n": 1,
+      "at": 25598
+    },
+    {
+      "way": [
+        [
+          640,
+          533
+        ]
+      ],
+      "n": 1,
+      "at": 26451
+    }
+  ]
+}
