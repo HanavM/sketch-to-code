@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A tap ringed by other taps now paints a centre spotlight, and a drawn two-line quote keeps its size and line breaks (spotlight quote page 71 to 78). Next: write a second fresh round of ten pages."
+now: "Ten fresh pages for round 32 are written and photographed (an aurora festival, a week calendar, a chat app and more). Next: sketch the five landing pages by hand."
 round: 31
 round_scores: [53, 77]   # round 0 = hand baseline on 10 pool pages; then round 31 (first fresh round)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-n34-2026-10-28T17:55Z", until: "2026-10-28T19:25Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -77,7 +77,10 @@ nodes:
      result: "Logo and digits on all 3 cards, opening quote glyph first time; cards 76.5, quote 71.0, no fixes."}
   - {id: n33, parent: n3, kind: step, title: "A centre spotlight from a tap (a page tap inside a ring of taps makes a radial glow), and a two-line centred quote keeps its drawn size and spot; re-sketch spotlight quote", status: done, branch: try/n3-ink-style, base: "try/n2-shape-vocab (merged in, with n12)",
      result: "Ringed tap makes a spotlight, quote keeps drawn size and lines, checked. Spotlight quote 71.0 to 77.6, no fixes."}
-  - {id: n34, parent: n1, kind: step, priority: next, title: "Write round 32: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them", status: open, branch: try/n3-ink-style, base: "try/n3-ink-style (has every feature through n33)", result: null}
+  - {id: n34, parent: n1, kind: step, priority: next, title: "Write round 32: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them", status: done, branch: try/n3-ink-style, base: "try/n3-ink-style (has every feature through n33)",
+     result: "Ten fresh pages written, screenshotted and calibrated; six harder than round 1. None sketched yet."}
+  - {id: n35, parent: n1, kind: step, priority: next, title: "Sketch round 32 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n36, parent: n1, kind: step, title: "Sketch round 32 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "No way to draw a centre glow: two page taps only make a straight fade", found_on: "r31 c5", built: "a page tap ringed by 3+ page taps in another colour is a radial spotlight: shown on the sketch, told exactly, checked on the page (n33)", helped: "yes: spotlight quote 71.0 to 77.6 with the line fix, glow right first time"}
   - {gap: "Two centred quote lines drawn 60px apart built as small body text", found_on: "r31 c5", built: "centred 2-3 line stacks at 48-63px pitch are display copy sized from the pitch (n33)", helped: "yes: quote at the drawn size first time"}
