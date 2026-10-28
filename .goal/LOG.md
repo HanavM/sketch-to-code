@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T19:58Z | n37 fix notes checked like a build | Words kept apart, panels dropped when told, parts not wrapper. Aurora 66.3 to 72.2, synth 59.9 to 80.9.
 2026-10-28T19:12Z | n36 sketch round 32 e1-e5 by hand | Signup 89.7, analytics 73.6, chat 86.9, calendar 80.5, files 73.9; round 32 mean 75.7, 11 strokes.
 2026-10-28T18:40Z | n35 sketch round 32 c1-c5 by hand | Aurora 66.3, roastery 78.3, studio 77.5, synth 59.9, bookshop 70.3; mean 70.5, 11 strokes; fixes hurt.
 2026-10-28T18:20Z | n34 write round 32 targets | Ten fresh pages written, screenshotted, calibrated; six harder than round 1. Not sketched; next steps sketch them.
