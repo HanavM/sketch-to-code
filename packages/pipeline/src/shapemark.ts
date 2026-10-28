@@ -215,13 +215,20 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     claimed.add(best.id)
     const dx = r1(best.rect.x + best.rect.w / 2 - cx), dy = r1(best.rect.y + best.rect.h / 2 - cy)
     out.push({ strokeId: m.strokeId, drawn: b, built: { ...best.rect }, dx, dy })
-    const slack = Math.max(12, Math.min(b.w, b.h) * 0.25)
+    // n20: the slack grows with the box but stops at 28px. A 422px sign-in
+    // card built 90px below where it was drawn (centred on the screen) passed
+    // under a quarter-of-the-box slack; a person sees 90px at once.
+    const slack = Math.min(28, Math.max(12, Math.min(b.w, b.h) * 0.25))
     if (Math.abs(dx) > slack || Math.abs(dy) > slack) {
       const off = [
         Math.abs(dy) > slack ? `${Math.abs(dy)}px too ${dy > 0 ? 'low' : 'high'}` : '',
         Math.abs(dx) > slack ? `${Math.abs(dx)}px too far ${dx > 0 ? 'right' : 'left'}` : '',
       ].filter(Boolean).join(' and ')
-      misses.push(`${where}: the <${best.tag}> built for it sits ${off}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size)`)
+      // a big block off only vertically is almost always centred on the screen
+      const centred = Math.abs(dy) > slack && Math.abs(dx) <= slack && b.w >= 160 && b.h >= 120
+        ? ` It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, ${r1(b.y)}px from the top of the page.`
+        : ''
+      misses.push(`${where}: the <${best.tag}> built for it sits ${off}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${centred}`)
     }
   }
   return misses.length
@@ -348,4 +355,50 @@ export function verifyKeptMarks(marks: KeptMark[], after: SnapLike): MarkVerdict
   return misses.length
     ? { satisfied: false, reason: misses.join('; ') }
     : { satisfied: true, reason: `${marks.length} box${marks.length > 1 ? 'es' : ''} drawn earlier still where drawn` }
+}
+
+interface TextSnap { truncated?: boolean; nodes: Array<{ id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }> }
+
+/**
+ * No words sit on top of a form field (n20).
+ *
+ * Round 1 e1 (hand, n13): a repair round moving the inputs up to where they
+ * were drawn squeezed the "Password" label onto the email field, and nothing
+ * noticed: every check looked at where boxes went, none at what they now
+ * cover. A label, heading or line of copy whose letters overlap an input,
+ * textarea or select is broken whatever the layout score says. Only overlaps
+ * that are new in this run count, so a page that already had one is not
+ * blamed on the run.
+ */
+export function verifyTextClearOfFields(before: TextSnap, after: TextSnap): MarkVerdict {
+  if (before.truncated || after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
+  const FIELD = new Set(['input', 'textarea', 'select'])
+  const hits = (snap: TextSnap) => {
+    const fields = snap.nodes.filter((n) => FIELD.has(n.tag) && n.rect.w > 4 && n.rect.h > 4)
+    const out: Array<{ text: string; field: BBox; key: string }> = []
+    if (!fields.length) return out
+    for (const t of snap.nodes) {
+      const tb = t.textBox
+      if (!t.text || !tb || tb.w <= 0 || tb.h <= 0 || FIELD.has(t.tag) || t.tag === 'option') continue
+      for (const f of fields) {
+        const ix = Math.min(tb.x + tb.w, f.rect.x + f.rect.w) - Math.max(tb.x, f.rect.x)
+        const iy = Math.min(tb.y + tb.h, f.rect.y + f.rect.h) - Math.max(tb.y, f.rect.y)
+        if (ix <= 0 || iy <= 0) continue
+        // a third of the letters' height inside the field: on it, not just touching
+        if (iy < tb.h / 3 || ix < Math.min(tb.w, 8)) continue
+        out.push({ text: t.text.slice(0, 40), field: f.rect, key: `${t.text}@${r1(f.rect.x)},${r1(f.rect.y)}` })
+      }
+    }
+    return out
+  }
+  const fields = after.nodes.some((n) => FIELD.has(n.tag))
+  if (!fields) return { satisfied: true, unverifiable: true, reason: 'no form fields on the page' }
+  const old = new Set(hits(before).map((h) => h.key))
+  const fresh = hits(after).filter((h) => !old.has(h.key))
+  if (!fresh.length) return { satisfied: true, reason: 'no words sit on a form field' }
+  return {
+    satisfied: false,
+    reason: fresh.map((h) => `"${h.text}" sits on top of the field at (${r1(h.field.x)},${r1(h.field.y)}) ${r1(h.field.w)}x${r1(h.field.h)}`).join('; ') +
+      '; keep each label in its own row just above its field (move the label with its field, never onto another one)',
+  }
 }

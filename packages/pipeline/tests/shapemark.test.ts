@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { shapeOf, isShapeMark, cleanPath, verifyShapeMarks, type ShapeMark } from '../src/shapemark.js'
+import { shapeOf, isShapeMark, cleanPath, verifyShapeMarks, verifyTextClearOfFields, type ShapeMark } from '../src/shapemark.js'
 import { isTextMark } from '../src/textmark.js'
 import { instantEligible } from '../src/instant.js'
 // @ts-expect-error — plain .mjs bench module, no types
@@ -92,5 +92,30 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(none.reason).toMatch(/nothing about that size/)
     // lines alone are not checked (a line may be text, a rule or an underline)
     expect(verifyShapeMarks([marks[2]!], before, before).unverifiable).toBe(true)
+  })
+
+  it('n20: a big card off by 90px is a miss (slack stops at 28px) and is named as centred on the screen', () => {
+    const card: ShapeMark[] = [{ strokeId: 's0', shape: 'box', box: { x: 429, y: 149, w: 422, h: 422 } }]
+    const before = { nodes: [{ id: 'm', tag: 'main', rect: { x: 0, y: 0, w: 1280, h: 900 } }] }
+    const at = (y: number) => ({ nodes: [...before.nodes, { id: 'c', tag: 'div', rect: { x: 429, y, w: 422, h: 423 } }] })
+    const low = verifyShapeMarks(card, before, at(238.5))
+    expect(low.satisfied).toBe(false)
+    expect(low.reason).toMatch(/90px too low/)
+    expect(low.reason).toMatch(/centred on the screen.*149px from the top/)
+    expect(verifyShapeMarks(card, before, at(170)).satisfied).toBe(true)
+  })
+
+  it('n20: words newly sitting on a form field fail; a label above its field passes', () => {
+    const field = { id: 'f', tag: 'input', rect: { x: 470, y: 432, w: 340, h: 44 }, text: '' }
+    const label = (y: number) => ({ id: 'l', tag: 'label', rect: { x: 470, y, w: 340, h: 16 }, text: 'Password', textBox: { x: 470, y, w: 60, h: 16 } })
+    const ok = { nodes: [field, label(410)] }
+    expect(verifyTextClearOfFields({ nodes: [] }, ok).satisfied).toBe(true)
+    const on = { nodes: [field, label(440)] }
+    const v = verifyTextClearOfFields({ nodes: [] }, on)
+    expect(v.satisfied).toBe(false)
+    expect(v.reason).toMatch(/"Password" sits on top of the field/)
+    // already there before this run: not this run's fault
+    expect(verifyTextClearOfFields(on, on).satisfied).toBe(true)
+    expect(verifyTextClearOfFields({ nodes: [] }, { nodes: [label(10)] }).unverifiable).toBe(true)
   })
 })

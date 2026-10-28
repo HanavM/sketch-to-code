@@ -45,7 +45,7 @@ import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
 import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
-import { verifyShapeMarks, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
+import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
@@ -170,6 +170,11 @@ Rules:
   one stands for as real elements with CSS, on that geometry:
   box → the block it marks (card, button, input, toggle, panel, a picture with an X,
     or just the area a big word, chart or group sits in) at exactly box x/y/w/h.
+    That includes its spot on the page: a card or panel drawn in the upper part of
+    the screen is never centred vertically (no min-h-screen + items-center or
+    justify-center, place-items-center, my-auto); its top is box.y from the page top
+    (padding-top on the page wrapper). Centre it across only if it was drawn centred.
+    Labels stay in their own row above their field, never on another field;
     Whether it shows a border or a fill comes from what it is and the notes, never
     from the ink: a box drawn round a big word, number or group only marks its
     area (no frame, no card) unless a note says border, outline, card or panel;
@@ -1315,12 +1320,12 @@ export function verifyActions(
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)],
-    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })]] as const) {
+    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
