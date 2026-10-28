@@ -892,7 +892,11 @@ export async function runV2(
         stage('verify', `${Math.round(score * 100)}% of actions satisfied`)
 
         const miss = marksMiss(lastVerify)
-        if (score > best) best = score
+        // n24 (settings try 1): the repair took the toggles from 56px to 32px low, but the share of
+        // actions passing stayed 60%, so it stopped with the page still low. Boxes moving clearly
+        // closer to where they were drawn is progress too: one more round.
+        const closer = preRepair?.miss != null && miss != null && miss < preRepair.miss - 12
+        if (score > best || (score === best && closer)) best = score
         else {
           await putBackIfWorse(miss, `${tag}-${round}`)
           stage('verify', 'no improvement — stopping')

@@ -306,6 +306,8 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     const ly = line.from!.y
     return `${whole} The cause is above it, at the top: drawn, its top is ${r1(b.y - ly)}px below the line drawn at y=${ly}; built, it is ${r1(b.y + p.dy - ly)}px below that line's spot. So ${fix}`
   }
+  // the top box of each column that sits off on its own (nothing drawn above it to blame)
+  const drifters = placed.filter((q, j) => !ref(j) && Math.abs(q.dy) > q.slack).sort((a, c) => a.m.box.y - c.m.box.y)
   for (let i = 0; i < placed.length; i++) {
     const p = placed[i]!
     if (!mine.has(p.m.strokeId)) continue
@@ -349,6 +351,14 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     // taller than drawn. The top toggle was told "move it, fix the spacing that pushed it"; the repair added
     // space and all four ended 37-48px low. When the top box of a column is off and the boxes below only
     // follow it, the cause is above it: say so, with the drawn line it hangs under and the gap to take out.
+    // and a box elsewhere on the page that is off by the same amount (the buttons under the rows) rides the
+    // same drift: it lands when the top is fixed, so it is not moved on its own (that would double the fix)
+    const twin = !up && Math.abs(p.dy) > p.slack && Math.abs(p.dx) <= p.slack
+      ? drifters.find((d) => d !== p && Math.abs(d.dy - p.dy) <= 10 && d.m.box.y + d.m.box.h <= b.y) : undefined
+    if (twin) {
+      misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}, the same as ${name(twin)}: the whole page above it sits that much ${p.dy > 0 ? 'low' : 'high'}. Do not move this one on its own: it lands when the space at the top is fixed.`)
+      continue
+    }
     const drift = !up && Math.abs(p.dy) > p.slack ? topDrift(i) : ''
     misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${partial}${centred}${drift}`)
   }

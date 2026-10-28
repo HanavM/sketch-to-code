@@ -215,6 +215,12 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(top).toMatch(/drawn, its top is 27px below the line drawn at y=141; built, it is 57px below/)
     expect(top).toMatch(/take 30px OUT of the space above it/)
     expect(top).toMatch(/Never add space/)
+    // a button further down, off by the same, rides the same drift and is not moved on its own
+    const withBtn = [...marks, { strokeId: 's6', shape: 'box' as const, box: { x: 120, y: 499, w: 152, h: 45 } }]
+    const b = verifyShapeMarks(withBtn, { nodes: [] }, { nodes: [n('a', 198), n('b', 275), n('c', 352), n('d', 429), { id: 'e', tag: 'button', rect: { x: 120, y: 527, w: 152, h: 45 } }] })
+    const btn = b.reason.split('; the ').find((x) => x.includes('(120,499)'))!
+    expect(btn).toMatch(/28px too low, the same as the <span> drawn at \(1112,168\)/)
+    expect(btn).toMatch(/Do not move this one on its own/)
     // a box with a box above it is not told about the top
     expect(v.reason.split('; the ').find((x) => x.includes('(1112,250)'))).not.toMatch(/OUT of the space/)
   })
