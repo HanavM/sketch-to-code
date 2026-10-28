@@ -426,7 +426,9 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
         Math.abs(next.x0 - first.x0) > 40 && w0 >= 400
       const minPitch = centredOnly ? QUOTE_STACK_MIN_PITCH : LINE_STACK_MIN_PITCH
       if (gap >= minPitch && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk && !tight &&
-          wn <= (last.x1 - last.x0) * 1.05 && wn >= 0.12 * w0) stack.push(next)
+          // n41 (r32 c2): a heading wraps shorter than its first line, not always shorter than the line
+          // above it ("Small batch, / roasted on / Thursdays.": the third line is longer than the second)
+          wn <= Math.max(last.x1 - last.x0, w0) * 1.05 && wn >= 0.12 * w0) stack.push(next)
       else if (gap > LINE_STACK_MAX_PITCH) break
       // a heading never jumps over a line in its way: a line under it that overlaps it
       // and does not continue it ends the heading (the subtitle under "hour")
@@ -437,7 +439,8 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
     // a fourth line on the same pitch below: a ruled list, not a heading
     const pitch = stack[1]!.cy - stack[0]!.cy
     const after = ls.find((l) => !stack.includes(l) && Math.abs(l.cy - stack[stack.length - 1]!.cy - pitch) <= 0.25 * pitch &&
-      Math.abs(l.x0 - first.x0) <= Math.max(40, 0.15 * w0))
+      Math.abs(l.x0 - first.x0) <= Math.max(40, 0.15 * w0) &&
+      l.x1 - l.x0 <= 1.15 * w0) // n41: a longer line under a heading is its subtitle, not a list's next row
     if (stack.length === 3 && after) continue
     for (const l of stack) used.add(l.id)
     const gaps = stack.slice(1).map((l, i) => l.cy - stack[i]!.cy).sort((a, b) => a - b)

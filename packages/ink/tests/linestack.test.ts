@@ -52,4 +52,11 @@ describe('a centred pull quote drawn as two long lines (n33)', () => {
   it('left-aligned lines 56px apart stay separate (rows of a list)', () => {
     expect(textStacks([line('a', 200, 1080, 300), line('b', 200, 900, 356)])).toHaveLength(0)
   })
+  it('n41: a heading whose third line is longer than its second is still one 3-line heading (r32 c2 roastery)', () => {
+    const st = textStacks([line('a', 80, 418, 282), line('b', 80, 360, 354), line('c', 80, 380, 426), line('sub', 80, 553, 480)])
+    const h = st.find((s) => s.strokes.includes('a'))!
+    expect(h.lines).toBe(3)
+    expect(h.strokes).toEqual(['a', 'b', 'c'])
+    expect(st.some((s) => s.strokes.includes('sub'))).toBe(false)
+  })
 })

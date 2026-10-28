@@ -63,6 +63,7 @@ import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import { fixBrief, verifyFix, type FixVerdict } from './fixcheck.js'
+import { verifyOwnWords } from './ownwords.js'
 import type { RunContext, RunResult } from './run.js'
 import { deriveProbes, relocateProbes, type ProbeVerdict } from './probe.js'
 
@@ -167,8 +168,8 @@ Rules:
   something whose text matches the label. A ref with no srcLoc is one whose
   element could not be found; say so rather than guessing at a substitute.
 - "textMarks" lists strokes that are squiggles standing for lines of text. Each one
-  is a line of REAL copy (from a typed note when there is one, otherwise plausible
-  words for the page); its length and height say body versus heading. They are
+  is a line of REAL copy (from a typed note when there is one, or the rest of the
+  note on the lines just above it; otherwise short plausible words for the page); its length and height say body versus heading. They are
   never drawn as SVG, whatever the FIDELITY block says, and they have no svgPath.
 - "shapeMarks" lists strokes that are plain shapes the user drew to say WHERE a
   thing goes and HOW BIG: a box, a straight line, a ring. Each carries its clean
@@ -195,7 +196,10 @@ Rules:
     heading is that heading's smaller line, UNLESS "textSize" lists it with the heading:
     then it is the same heading wrapped onto its next line, same size), a divider rule (a long thin line across a section, a
     1px border), or an underline (an active tab, a link): pick by length and what
-    is next to it; a slanted line is an edge between two areas (clip-path); never
+    is next to it. A level line with no note of its own, right under or among lines
+    whose note has more words than they hold, is that text's next line: the note's
+    words run onto it. Never put words nobody typed on such a line, and never build
+    two pieces of text on top of each other (both are measured); a slanted line is an edge between two areas (clip-path); never
     a wavy or hand-drawn path;
   ellipse → a clean circle or ring (border-radius: 50%), exactly box w × h.
 - "textSize" groups stacked text squiggles, or stacked level lines drawn as one big
@@ -1418,12 +1422,13 @@ export function verifyActions(
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
     ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)],
+    ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
