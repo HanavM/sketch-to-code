@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T09:08Z | n12 a tapped colour keeps its strength | Full strength told and measured. Glass blobs 79.2 to 85.1, no repair; orbit 73.9 to 75.3 with taps.
 2026-10-28T08:50Z | n20 a drawn card stays where it was drawn | Card kept where drawn, tapped grey never snapped, lines checked as text. Login 65.5 to 82.8, 80.6.
 2026-10-28T08:35Z | n19 carry-over, part two | Bento 81.3 to 82.6, sunset 52.1 to 76.4; headings no longer swallow subtitle lines.
 2026-10-28T07:45Z | n13 a run never stalls silently | Turns watched; stuck repair keeps the build and writes its record. Login 47.7 to 65.5; card centred low.
