@@ -842,7 +842,7 @@ export interface GroundedInterpretation {
    */
   pageNotes?: string[]
   /** n10: the page colour the user tapped on bare page (a gradient for 2+ colours). */
-  pageFill?: { colors: string[]; angle?: number; css: string }
+  pageFill?: { colors: string[]; angle?: number; css: string; radial?: { x: number; y: number; r: number } }
   /** Model references that failed validation (reported, never executed). */
   rejected: string[]
 }

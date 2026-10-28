@@ -18,7 +18,9 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
   const lines: string[] = []
   if (interp.pageFill) {
     const f = interp.pageFill
-    lines.push(f.colors.length > 1
+    lines.push(f.radial
+      ? `- the whole page (body / outermost wrapper, full viewport height, behind every block): background ${f.css} exactly — a centre spotlight: ${hex(f.colors[0]!)} glowing at x ${String(f.radial.x)}, y ${String(f.radial.y)} and fading out to ${f.colors.slice(1).map(hex).join(' then ')} by ${String(f.radial.r)}px from there, that colour everywhere beyond. A radial-gradient on the page itself (not a linear fade, not a small blurred blob, not a pale overlay); keep the stops and the centre as given`
+      : f.colors.length > 1
       ? `- the whole page (body / outermost wrapper, full viewport height, behind every block): background ${`linear-gradient(${String(f.angle)}deg, ${f.colors.map(hex).join(', ')})`} exactly`
       : `- the whole page (body / outermost wrapper, full viewport height, behind every block): background ${hex(f.colors[0]!)} exactly`)
   }
@@ -137,6 +139,12 @@ export function verifyInkColours(
   if (pageFill) {
     // the page colour: something at least most of the viewport paints it
     const big = after.nodes.filter((n) => n.rect.w >= vw * 0.8 && n.rect.h >= vh * 0.6)
+    if (pageFill.radial) {
+      // n33: a spotlight is a radial glow; a linear fade carries the same stops and passed the hex check
+      const ok = big.some((n) => /radial-gradient/i.test(n.style.backgroundImage ?? ''))
+      checks.push({ what: 'page spotlight', want: 'radial-gradient', best: ok ? 0 : null, ok })
+      if (!ok) misses.push(`the page should be a centre spotlight: background ${pageFill.css} on the page itself (a radial-gradient glowing at x ${String(pageFill.radial.x)}, y ${String(pageFill.radial.y)}); no page-sized element paints a radial-gradient`)
+    }
     for (const c of pageFill.colors) {
       const best = closest(c, big, 'background')
       const ok = best !== null && best <= (pageFill.colors.length > 1 ? OK_DE : SOLID_OK_DE)

@@ -87,14 +87,58 @@ export function inkFills<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(stro
 /**
  * The page's colour from its bare-page taps: one colour, or a gradient from
  * the first tap towards the last (angle in CSS degrees: 0 = up, 90 = right).
+ *
+ * n33: a spotlight. One page tap with three or more page taps around it (they
+ * surround it: no gap between them wider than a half turn, and it sits near
+ * their middle) in another colour is a radial glow: the centre tap's colour at
+ * that spot, fading out to the ring's colour by the ring's distance. Round 31
+ * c5 had a purple glow in the middle of a near-black page and the only way to
+ * say it was two taps, which built a top-to-bottom fade.
  */
-export function pageFill(fills: InkFill[]): { colors: string[]; angle?: number; css: string } | null {
+export interface PageFill {
+  colors: string[]
+  angle?: number
+  css: string
+  /** n33: a centre glow: where (page px) and how far out (px) until the ring's colour. */
+  radial?: { x: number; y: number; r: number }
+}
+
+export function spotlight(page: Array<Pick<InkFill, 'color' | 'at'>>): PageFill | null {
+  if (page.length < 4) return null
+  const same = (a: string, b: string) => a.toLowerCase() === b.toLowerCase()
+  for (const c of page) {
+    const ring = page.filter((f) => f !== c)
+    if (ring.some((f) => same(f.color, c.color))) continue
+    const mx = ring.reduce((t, f) => t + f.at.x, 0) / ring.length
+    const my = ring.reduce((t, f) => t + f.at.y, 0) / ring.length
+    const ds = ring.map((f) => Math.hypot(f.at.x - c.at.x, f.at.y - c.at.y))
+    const r = ds.reduce((t, d) => t + d, 0) / ds.length
+    if (r < 60) continue
+    if (Math.hypot(mx - c.at.x, my - c.at.y) > 0.6 * r) continue
+    if (Math.min(...ds) < 0.35 * r) continue
+    const angs = ring.map((f) => Math.atan2(f.at.y - c.at.y, f.at.x - c.at.x)).sort((a, b) => a - b)
+    let gap = angs[0]! + 2 * Math.PI - angs[angs.length - 1]!
+    for (let i = 1; i < angs.length; i++) gap = Math.max(gap, angs[i]! - angs[i - 1]!)
+    if (gap > Math.PI) continue
+    const outer: string[] = []
+    for (const f of ring) if (!outer.some((o) => same(o, f.color))) outer.push(f.color)
+    const colors = [c.color, ...outer]
+    const R = Math.round(r), X = Math.round(c.at.x), Y = Math.round(c.at.y)
+    const stops = [`${c.color} 0px`, ...outer.map((o, i) => `${o} ${String(Math.round(R * (i + 1) / outer.length))}px`)]
+    return { colors, radial: { x: X, y: Y, r: R }, css: `radial-gradient(circle at ${String(X)}px ${String(Y)}px, ${stops.join(', ')})` }
+  }
+  return null
+}
+
+export function pageFill(fills: InkFill[]): PageFill | null {
   const page = fills.filter((f) => f.target === null)
   if (!page.length) return null
   const colors = page.map((f) => f.color)
   if (page.length === 1 || colors.every((c) => c.toLowerCase() === colors[0]!.toLowerCase())) {
     return { colors: [colors[0]!], css: colors[0]! }
   }
+  const spot = spotlight(page)
+  if (spot) return spot
   const a = page[0]!.at, z = page[page.length - 1]!.at
   // CSS: 0deg points up, 90deg right; screen y grows downward
   const angle = Math.round(((Math.atan2(z.x - a.x, -(z.y - a.y)) * 180) / Math.PI + 360) % 360)

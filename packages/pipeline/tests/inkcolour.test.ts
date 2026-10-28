@@ -96,3 +96,20 @@ describe('colours from the ink reach codegen and are checked (n10)', () => {
     expect(b).toContain(`blur at most ${String(maxBlur({ w: 420, h: 420 }))}px`)
   })
 })
+
+describe('a tapped spotlight is told as a radial glow and checked as one (n33)', () => {
+  const page = { colors: ['#3a2a6e', '#14111f'], radial: { x: 640, y: 370, r: 520 }, css: 'radial-gradient(circle at 640px 370px, #3a2a6e 0px, #14111f 520px)' }
+  it('the brief gives the radial gradient and where it glows', () => {
+    const b = inkColoursBrief({ pageFill: page, actions: [] })
+    expect(b).toContain('radial-gradient(circle at 640px 370px, #3a2a6e 0px, #14111f 520px)')
+    expect(b).toContain('centre spotlight')
+  })
+  it('a linear fade with the same stops fails; a radial glow passes', () => {
+    const lin = snap([node('root', { x: 0, y: 0, w: 1280, h: 900 }, { backgroundImage: 'linear-gradient(180deg, rgb(58, 42, 110), rgb(20, 17, 31))' } as Partial<DomNode['style']>)])
+    const v = verifyInkColours([], page, lin)
+    expect(v.satisfied).toBe(false)
+    expect(v.reason).toContain('centre spotlight')
+    const rad = snap([node('root', { x: 0, y: 0, w: 1280, h: 900 }, { backgroundImage: 'radial-gradient(circle at 640px 370px, rgb(58, 42, 110) 0px, rgb(20, 17, 31) 520px)' } as Partial<DomNode['style']>)])
+    expect(verifyInkColours([], page, rad).satisfied).toBe(true)
+  })
+})

@@ -23,7 +23,7 @@
  * pluginEntry().
  */
 import { spawn, spawnSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync, appendFileSync } from 'node:fs'
 import { dirname, isAbsolute, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -348,10 +348,13 @@ export async function makeApp({ dir, port }) {
         stdio: ['ignore', 'pipe', 'pipe'],
         env: { ...process.env, XDG_DATA_HOME: join(dir, '.sketch2code', 'xdg'), BROWSER: 'none' },
       })
-      child.stdout.on('data', (d) => out.push(String(d)))
-      child.stderr.on('data', (d) => out.push(String(d)))
+      // the server's own output also goes to a file, so a run that dies says why (n33)
+      const logFile = process.env.S2C_APP_LOG
+      const keep = (d) => { out.push(String(d)); if (logFile) try { appendFileSync(logFile, String(d)) } catch { /* best effort */ } }
+      child.stdout.on('data', keep)
+      child.stderr.on('data', keep)
       let exited = false
-      child.on('exit', () => { exited = true })
+      child.on('exit', (code, sig) => { exited = true; if (logFile) try { appendFileSync(logFile, `\n[vite exited code=${String(code)} signal=${String(sig)}]\n`) } catch { /* best effort */ } })
 
       const stop = async () => {
         try { process.kill(-child.pid, 'SIGTERM') } catch { child.kill('SIGTERM') }

@@ -4303,7 +4303,7 @@ class Overlay {
       this.renderInk()
       this.sync()
       const f = inkFills(this.strokes).pop()
-      this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? ' — gradient from the first tap to this one' : ''}`)
+      this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes))?.radial ? ' — spotlight: the centre tap glows out to the taps round it' : ' — gradient from the first tap to this one') : ''}`)
       this.scheduleAuto()
       return
     }
@@ -7954,7 +7954,23 @@ class Overlay {
       rect.setAttribute('x', '0'); rect.setAttribute('y', '0')
       rect.setAttribute('width', String(w)); rect.setAttribute('height', String(h))
       rect.setAttribute('opacity', '0.4'); rect.classList.add('fillPage')
-      if (page.colors.length > 1) {
+      if (page.radial) {
+        // n33: a spotlight: the centre tap glows out to the ring's colour, shown the moment the pen lifts
+        const defs = document.createElementNS(NS, 'defs')
+        const g = document.createElementNS(NS, 'radialGradient')
+        g.id = 's2c-page-fill'
+        g.setAttribute('gradientUnits', 'userSpaceOnUse')
+        g.setAttribute('cx', String(page.radial.x)); g.setAttribute('cy', String(page.radial.y))
+        g.setAttribute('r', String(page.radial.r))
+        page.colors.forEach((c, i) => {
+          const stop = document.createElementNS(NS, 'stop')
+          stop.setAttribute('offset', String(i / (page.colors.length - 1)))
+          stop.setAttribute('stop-color', c)
+          g.appendChild(stop)
+        })
+        defs.appendChild(g); out.push(defs)
+        rect.setAttribute('fill', 'url(#s2c-page-fill)')
+      } else if (page.colors.length > 1) {
         const defs = document.createElementNS(NS, 'defs')
         const g = document.createElementNS(NS, 'linearGradient')
         g.id = 's2c-page-fill'
@@ -8090,7 +8106,7 @@ class Overlay {
         this.renderInk()
         this.sync()
         const f = inkFills(this.strokes).pop()
-        this.status(f?.target ? `filled this mark ${this.pen}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? ' (gradient from the first tap to this one)' : ''}`)
+        this.status(f?.target ? `filled this mark ${this.pen}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
         this.scheduleAuto()
         return
       }

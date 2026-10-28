@@ -53,3 +53,26 @@ describe('colour from ink: taps fill what they land in (n10)', () => {
     expect(f[0]!.color).toBe('#00ff00')
   })
 })
+
+describe('a spotlight from taps (n33)', () => {
+  it('a page tap with three or more taps round it in another colour is a radial glow at that tap', () => {
+    const f = inkFills([tap('c', 640, 360, '#3a2a6e'), tap('n', 640, 80, '#14111f'), tap('e', 1180, 400, '#14111f'), tap('s', 620, 760, '#14111f'), tap('w', 90, 380, '#14111f')])
+    const g = pageFill(f)!
+    expect(g.radial).toBeDefined()
+    expect(Math.abs(g.radial!.x - 640)).toBeLessThanOrEqual(2)
+    expect(Math.abs(g.radial!.y - 360)).toBeLessThanOrEqual(2)
+    expect(g.radial!.r).toBeGreaterThan(300)
+    expect(g.colors).toEqual(['#3a2a6e', '#14111f'])
+    expect(g.css).toMatch(/^radial-gradient\(circle at 64\dpx 36\dpx, #3a2a6e 0px, #14111f \d+px\)$/)
+  })
+  it('the centre tap may come last', () => {
+    const f = inkFills([tap('n', 640, 80, '#000000'), tap('e', 1180, 400, '#000000'), tap('s', 620, 760, '#000000'), tap('c', 640, 360, '#ff0000')])
+    expect(Math.abs(pageFill(f)!.radial!.x - 640)).toBeLessThanOrEqual(2)
+  })
+  it('taps all on one side, or only two, stay a linear fade', () => {
+    const side = inkFills([tap('c', 640, 360, '#3a2a6e'), tap('a', 900, 100, '#14111f'), tap('b', 1000, 360, '#14111f'), tap('d', 900, 620, '#14111f')])
+    expect(pageFill(side)!.radial).toBeUndefined()
+    const two = inkFills([tap('a', 640, 250, '#3a2a6e'), tap('b', 640, 820, '#14111f')])
+    expect(pageFill(two)!.css).toMatch(/^linear-gradient/)
+  })
+})

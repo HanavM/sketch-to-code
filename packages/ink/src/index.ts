@@ -33,5 +33,5 @@ export {
   noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX, distToRect, union as bboxUnionAll, boxes as boxStrokes,
   groupCount,
 } from './notefocus.js'
-export { isFillDot, inkFills, pageFill, FILL_DOT_PX } from './inkfill.js'
-export type { InkFill } from './inkfill.js'
+export { isFillDot, inkFills, pageFill, spotlight, FILL_DOT_PX } from './inkfill.js'
+export type { InkFill, PageFill } from './inkfill.js'

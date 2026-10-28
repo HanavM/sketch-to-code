@@ -39,3 +39,16 @@ describe('a heading stack never jumps a line in its way (n19)', () => {
     expect(st[0]!.strokes).toEqual(['a', 'b'])
   })
 })
+
+describe('a centred pull quote drawn as two long lines (n33)', () => {
+  it('two centred lines 60px apart are one display stack at about 46px', () => {
+    const st = textStacks([line('a', 200, 1080, 335), line('b', 304, 976, 395)])
+    expect(st).toHaveLength(1)
+    expect(st[0]!.linePitchPx).toBe(60)
+    expect(st[0]!.fontPx).toBeGreaterThanOrEqual(42)
+    expect(st[0]!.fontPx).toBeLessThanOrEqual(50)
+  })
+  it('left-aligned lines 56px apart stay separate (rows of a list)', () => {
+    expect(textStacks([line('a', 200, 1080, 300), line('b', 200, 900, 356)])).toHaveLength(0)
+  })
+})

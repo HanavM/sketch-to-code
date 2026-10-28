@@ -379,6 +379,8 @@ export function isLevelLine(points: Point[]): boolean {
 /** Line pitch range (px) at which stacked level lines read as one display heading. */
 export const LINE_STACK_MIN_PITCH = 64
 export const LINE_STACK_MAX_PITCH = 200
+/** n33: centred display copy (a pull quote) may sit this close. */
+export const QUOTE_STACK_MIN_PITCH = 48
 
 /**
  * Stacked level lines that are one big heading (n11, round 1 c1): "Stay for the golden"
@@ -415,7 +417,13 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
       // belongs to that block, not the heading (n19, round 1 c1: the subtitle's wrap joined)
       const tight = ls.some((o) => o !== next && !stack.includes(o) && Math.abs(o.cy - next.cy) < 0.5 * gap &&
         Math.min(o.x1, next.x1) > Math.max(o.x0, next.x0))
-      if (gap >= LINE_STACK_MIN_PITCH && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk && !tight &&
+      // n33: a centred statement (a pull quote) sets a little tighter: two or three long lines, centred on
+      // each other but not sharing a left edge, 48-63px apart, are display copy too (r31 c5: drawn 60px apart,
+      // built as 20px body text). Left-aligned lines this close stay rows of a list.
+      const centredOnly = Math.abs((next.x0 + next.x1) / 2 - (first.x0 + first.x1) / 2) <= Math.max(24, 0.05 * w0) &&
+        Math.abs(next.x0 - first.x0) > 40 && w0 >= 400
+      const minPitch = centredOnly ? QUOTE_STACK_MIN_PITCH : LINE_STACK_MIN_PITCH
+      if (gap >= minPitch && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk && !tight &&
           wn <= (last.x1 - last.x0) * 1.05 && wn >= 0.12 * w0) stack.push(next)
       else if (gap > LINE_STACK_MAX_PITCH) break
       // a heading never jumps over a line in its way: a line under it that overlaps it
@@ -439,7 +447,8 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
       lines: stack.length,
       box: { x: Math.round(x0), y: Math.round(stack[0]!.cy - p / 2), w: Math.round(x1 - x0), h: Math.round(p * stack.length) },
       linePitchPx: Math.round(p),
-      fontPx: fontForPitch(p),
+      // a centred statement under the heading band sets at about 1.3 line-height
+      fontPx: p < LINE_STACK_MIN_PITCH ? Math.round(p / 1.3) : fontForPitch(p),
       lineWidths: stack.map((l) => Math.round(l.x1 - l.x0)),
     })
   }

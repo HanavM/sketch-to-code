@@ -58,6 +58,7 @@ import { eachBrief, verifyEach, verifyGlyphs } from './each.js'
 import { allTextBrief, allTextColour, verifyAllText } from './alltext.js'
 import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
+import { verifyStackLines } from './stacklines.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
@@ -207,7 +208,9 @@ Rules:
   that line-height (overrides fontPx), line-height exactly as said.
   "lineWidths" is how long each line was drawn: break the copy where the drawing
   breaks, so each line's words fill about its drawn length (a long first line and a
-  short second one means most of the words on line 1, a word or two on line 2). If
+  short second one means most of the words on line 1, a word or two on line 2). Do it
+  with the width, not a forced <br>: a <br> placed where the words do not fit the width
+  makes an extra line (n33: "...in a weekend,<br>" at 880px wrapped into three). If
   the words would wrap earlier than drawn, take the font-size down within the 15%
   and keep the weight regular unless a note asks for bold; never let a heading wrap
   into more lines than were drawn.
@@ -1382,12 +1385,13 @@ export function verifyActions(
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
-    ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)]] as const) {
+    ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)],
+    ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
