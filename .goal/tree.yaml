@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Settings page now 71.8 and 72.8 (was 61.4): the header stays put, toggles look right, one quick fix lands every box. Next: words typed on a drawn line stay where the line is (bento page)."
+now: "Bento page now 84.3 (was 82.6): words start where their line was drawn, a line typed low in a card sits low, and long first builds are no longer cut off. Next: write ten fresh pages for round 31 to test on pages never seen."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-28T11:13Z n21", until: "2026-10-28T12:43Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -59,7 +59,9 @@ nodes:
      result: "No: pricing 50.5 to 33.2, login 71.1 to 47.7. Fixed ink colour snapping; repair rounds stall."}
   - {id: n19, parent: n2, kind: step, title: "Carry-over, part two: re-sketch bento and sunset with everything so far", status: done, branch: try/n4-look-fix,
      result: "Gains carry: bento 81.3 to 82.6, sunset 52.1 to 76.4 after fixing headings that swallowed subtitle lines."}
-  - {id: n21, parent: n4, kind: step, priority: next, title: "A word typed on a drawn line sits where the line is (left stays left, not centred), and text with no line goes where it was typed; re-sketch bento", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n21, parent: n4, kind: step, title: "A word typed on a drawn line sits where the line is (left stays left, not centred), and text with no line goes where it was typed; re-sketch bento", status: done, branch: try/n4-look-fix,
+     result: "Words keep their line's side and typed spot; long builds not killed. Bento 82.6 to 83.1, 84.3."}
+  - {id: n26, parent: n1, kind: step, priority: next, title: "Write round 31: ten fresh pages (5 creative landing, 5 everyday app, harder than round 1) and their screenshots, without sketching them; sketch them in later steps", status: open, branch: try/n4-look-fix, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
@@ -116,6 +118,13 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "The repair takes a drift out of the header (heading and tabs move up) instead of the row spacing that caused it", found_on: "r2 e3 (n24)", built: "where the tabs line was built is found; if it landed the header is held and the drift named in the gap under it (n25)", helped: "yes: try 2 33px low to landed in one round, header untouched; settings 61.4 to 72.8"}
   - {gap: "Rows built taller than drawn push the buttons twice as far as the top toggle", found_on: "r2 e3 (n24)", built: "row pitch drawn vs built named; a box under the rows rides the lowest drifting box above it (n25)", helped: "yes: buttons rode along, no doubled fix"}
   - {gap: "A tapped blue built about ΔE 14 off on the first build", found_on: "r2 e3 (n25)", built: null, helped: null}
+  - {gap: "Words typed on a line drawn at the left of a box were centred in the box", found_on: "r5 c5 (n19)", built: "a level line's own words keep its side of the box: told the side and start x, letters checked on the page (n21)", helped: "yes: Prism 2 and 2.4x start where drawn both tries; bento 82.6 to 83.1, 84.3"}
+  - {gap: "Copy typed low in a card with no line under it went to the top of the card", found_on: "r5 c5 (n19)", built: "every note keeps where it was typed; a note in a big box is told its spot, its words checked near that height (n21)", helped: "yes: Ready when you are. sits above the button both tries"}
+  - {gap: "A first build that thinks 150+ s before one big write was killed by the watchdog: page failed, nothing built", found_on: "r5 c5 (n21, twice)", built: "streamed deltas show a build is alive; only repairs need tool calls and edits (n21)", helped: "yes: build finished in 176-366 s"}
+  - {gap: "A button inside a card was told it follows a box in the row above, outside its card; repairs never moved it", found_on: "r5 c5 (n21)", built: "a box in a card only follows boxes in the same card (n21)", helped: "yes: try 2 passed every check with no repair"}
+  - {gap: "Button text judged against the card behind the button; repair made it white on white", found_on: "r5 c5 (n21)", built: "a box paints over its ancestors' fills in the contrast check (n21)", helped: "yes: Get Prism 2 readable on try 2"}
+  - {gap: "Glows named in words (not tapped) come out faint or one-coloured", found_on: "r5 c5 (n21)", built: null, helped: null}
+  - {gap: "A note mixing a label and copy (quote: ...) has its spot told but not checked", found_on: "r5 c5 (n21)", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -141,7 +150,7 @@ notes:
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
   - "After npm ci, the agent SDK may only have its musl binary: run npm install --no-save @anthropic-ai/claude-agent-sdk-linux-x64@<same version> or every Run fails in under a second."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
-  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k); n24 ~139k billed (settings 85k, 54k)"
+  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k); n24 ~139k billed (settings 85k, 54k); n25 ~124k billed (settings 83k, 40k); n21 ~185k billed (bento 131k, 54k; two stalled builds billed ~0)"
 n14_resketch:   # same 9 marks and 8 notes as n9/n11 (nav note typed as a whole-sketch note)
   - {page: r12 c4-diagonal-split, try: 1, likeness: 55.9, was: 39.8, strokes: 9, words: 45, minutes: 5.7, fixes: 0, tokens: 76787}
   - {page: r12 c4-diagonal-split, try: 2, likeness: 57.8, was: 39.8, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 54885}
@@ -193,3 +202,6 @@ n24_resketch:   # same 8 marks, 3 taps and 9 notes as n22 settings, word for wor
 n25_resketch:   # same 8 marks, 3 taps and 9 notes as n22/n24 settings, word for word
   - {page: r2 e3-settings, try: 1, likeness: 71.8, was: 61.4, strokes: 11, words: 36, minutes: 3.6, fixes: 0, build_s: 166, tokens: 83208, note: "knobs inside; one repair round"}
   - {page: r2 e3-settings, try: 2, likeness: 72.8, was: 61.4, strokes: 11, words: 36, minutes: 2.1, fixes: 0, build_s: 83, tokens: 40301, note: "33px low, told header right; one round landed every box"}
+n21_resketch:   # same 11 marks, 8 taps and 9 notes as n19 bento, word for word (two earlier tries killed by the build watchdog, not counted)
+  - {page: r5 c5-bento, try: 1, likeness: 83.1, was: 82.6, strokes: 19, words: 37, minutes: 8.7, fixes: 0, build_s: 366, tokens: 131429, note: "words placed; button hung on the wrong card, 2 repair rounds, text white on white"}
+  - {page: r5 c5-bento, try: 2, likeness: 84.3, was: 82.6, strokes: 19, words: 37, minutes: 7.5, fixes: 0, build_s: 176, tokens: 53706, note: "one build, every check passed, no repair"}
