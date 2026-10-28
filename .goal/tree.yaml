@@ -4,7 +4,7 @@ now: "Round 31 is fully sketched by hand: 77 average (goal 80), 18.5 strokes, 43
 round: 31
 round_scores: [53, 77]   # round 0 = hand baseline on 10 pool pages; then round 31 (first fresh round)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}]   # per round: {round, strokes, words, minutes}
-lock: null
+lock: {by: run-n29, until: "2026-10-28T14:44Z"}
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -67,7 +67,7 @@ nodes:
      result: "Citrus 77.0, gallery 81.7, cards 65.6, poster 85.0, quote 72.5; mean 76.4, 15 strokes, 43 words."}
   - {id: n28, parent: n1, kind: step, title: "Sketch round 31 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n4-look-fix,
      result: "Checkout 84.3, inbox 60.5, kanban 90.6, weather 65.9, profile 87.3; round 31 mean 77.0, 18.5 strokes."}
-  - {id: n29, parent: n4, kind: step, priority: next, title: "Notes land where typed: a note in a small box inside a big box binds to the small box, a far-off note never grabs a mark, a heading on a long line keeps its side and size, text colour notes cover a whole panel; re-sketch inbox and weather", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n29, parent: n4, kind: step, priority: next, title: "Notes land where typed: a note in a small box inside a big box binds to the small box, a far-off note never grabs a mark, a heading on a long line keeps its side and size, text colour notes cover a whole panel; re-sketch inbox and weather", status: active, branch: try/n4-look-fix, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
