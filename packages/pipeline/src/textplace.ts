@@ -17,7 +17,7 @@
  *    near that height. Zero tokens.
  */
 import type { BBox } from '@s2c/ink'
-import type { ShapeMark } from './shapemark.js'
+import { shapeOf, type ShapeMark } from './shapemark.js'
 
 interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }
@@ -71,6 +71,17 @@ function holderOf(line: ShapeMark, boxes: ShapeMark[], viewport: { w: number; h:
   return h
 }
 
+/**
+ * Upright lines among all the strokes, cited by an action or not: a divider is often
+ * drawn first and claimed by no action (round 31 e2), yet it still splits the page.
+ */
+export function strokeDividers(strokes: Array<{ id: string; points: Array<{ x: number; y: number }> }> | undefined): ShapeMark[] {
+  return uprights((strokes ?? []).flatMap((st) => {
+    const m = st.points.length > 1 ? shapeOf(st.points) : null
+    return m ? [{ ...m, strokeId: st.id }] : []
+  }))
+}
+
 /** Upright drawn lines: column dividers. */
 const uprights = (marks: ShapeMark[]) => marks.filter((m) => m.shape === 'line' && !m.edge && !!m.from && !!m.to &&
   Math.abs(m.from.x - m.to.x) <= 4 && Math.abs(m.from.y - m.to.y) >= 120)
@@ -92,10 +103,10 @@ const where = (b: BBox, x: number, y: number): string => {
 
 type ActionLike = { shapeMarks?: ShapeMark[] }
 
-export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: number }): string {
+export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: number }, dividers: ShapeMark[] = []): string {
   const all = actions.flatMap((a) => a.shapeMarks ?? [])
   const boxes = all.filter(isBox)
-  const divs = uprights(all)
+  const divs = [...uprights(all), ...dividers]
   const lines: string[] = []
   actions.forEach((a, i) => {
     for (const m of a.shapeMarks ?? []) {
@@ -141,10 +152,10 @@ function builtWords(text: string, after: Snap, y: number): NodeLike | null {
  * spot in a big box sits near that height. Notes that are not the copy (no built text
  * carries their words) are not judged.
  */
-export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: number; h: number }): PlaceVerdict {
+export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: number; h: number }, dividers: ShapeMark[] = []): PlaceVerdict {
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const boxes = marks.filter(isBox)
-  const divs = uprights(marks)
+  const divs = [...uprights(marks), ...dividers]
   const faults: string[] = []
   let judged = 0
   for (const m of marks) {

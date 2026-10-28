@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { ShapeMark } from '../src/shapemark.js'
-import { markTextPlaces, placedBrief, sideOf, textPlaceBrief, verifyPlaced, verifyTextPlace } from '../src/textplace.js'
+import { markTextPlaces, placedBrief, sideOf, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace } from '../src/textplace.js'
 
 const VP = { w: 1280, h: 900 }
 // round 5 c5 bento, as drawn in n19
@@ -70,6 +70,11 @@ describe('n29: dividers are column edges; words typed in empty space keep their 
     const b = textPlaceBrief([{ shapeMarks: [divider(), titleLine()] }], VP)
     expect(b).toMatch(/LEFT-aligned and their first letter starts at x 664/)
     expect(textPlaceBrief([{ shapeMarks: [titleLine()] }], VP)).toMatch(/RIGHT-aligned/)
+    // a divider no action cites still counts, read from the raw strokes
+    const pts = Array.from({ length: 150 }, (_, i) => ({ x: 620 + (i % 3) - 1, y: 2 + i * 6 }))
+    const divs = strokeDividers([{ id: 's1', points: pts }, { id: 'dot', points: [{ x: 5, y: 5 }] }])
+    expect(divs).toHaveLength(1)
+    expect(textPlaceBrief([{ shapeMarks: [titleLine()] }], VP, divs)).toMatch(/LEFT-aligned and their first letter starts at x 664/)
     const bad = verifyTextPlace([divider(), titleLine()], { nodes: [node('Venue walkthrough on Thursday', { x: 760, y: 32, w: 300, h: 40 })] }, VP)
     expect(bad.satisfied).toBe(false)
   })
