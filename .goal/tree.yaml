@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Hand-sketching the baseline pages from screenshots only: 5 of 10 done, averaging 58% (pricing 51, glass blobs 77, settings 39). The tool often moves things off where they were drawn and sometimes pastes my raw pen marks into the page. Next: the last five baseline pages."
+now: "Baseline done: 10 hand-drawn pages average 53% likeness with about 9 strokes and 43 words each. Next: make the tool keep things where and as big as they were drawn, and stop pasting my pen marks into the page."
 round: 0
-round_scores: []
-round_medians: []   # per round: {round, strokes, words, minutes}
-lock: {by: n6-run, until: "2026-10-28T01:23Z"}
+round_scores: [53]   # round 0 = hand baseline on 10 pool pages
+round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -15,12 +15,14 @@ criteria:
   - {id: c4, text: "A list of missing features found by testing, what was built for each, with a GIF demo and its before/after effect on likeness and effort", state: open, evidence: null}
 nodes:
   - {id: n0, parent: null, kind: goal, title: "A drawing-first Cursor: rough sketch plus a few words gives real working code", status: open}
-  - {id: n1, parent: n0, kind: approach, title: "Hand-sketch bench and honest baseline: draw 10 pool pages stroke by stroke from screenshots only, through the real overlay, and record every number", status: active, branch: try/n1-hand-bench, base: "try/n3-vocabulary 8121cbe (the tool as it is today, v3 scorer, rounds 1-30 pool)",
-     result: "Hand session built; baseline 2 of 10: sunset hero 52, login 71; 7-8 strokes, 25-41 words."}
+  - {id: n1, parent: n0, kind: approach, title: "Hand-sketch bench and honest baseline: draw 10 pool pages stroke by stroke from screenshots only, through the real overlay, and record every number", status: proven, branch: try/n1-hand-bench, base: "try/n3-vocabulary 8121cbe (the tool as it is today, v3 scorer, rounds 1-30 pool)",
+     result: "Bench works; baseline of 10 hand pages: mean 53.1, median 9 strokes, 43 words, 5.8 min."}
   - {id: n5, parent: n1, kind: step, title: "Baseline pages 3-5 by hand (r1 e2-pricing, r2 c3-glass-blobs, r2 e3-settings)", status: done, branch: try/n1-hand-bench,
      result: "Pricing 50.5, glass blobs 76.9, settings 38.7; 5-10 strokes, 33-50 words; five new gaps logged."}
-  - {id: n6, parent: n1, kind: step, title: "Baseline pages 6-10 by hand (r5 c5-bento, r5 e5-data-grid, r8 c2-orbit-type, r8 e4-seat-booking, r12 c4-diagonal-split)", status: open, branch: try/n1-hand-bench, result: null}
+  - {id: n6, parent: n1, kind: step, title: "Baseline pages 6-10 by hand (r5 c5-bento, r5 e5-data-grid, r8 c2-orbit-type, r8 e4-seat-booking, r12 c4-diagonal-split)", status: done, branch: try/n1-hand-bench,
+     result: "Bento 81.3, grid 25.0, orbit 71.0, seats 14.3, diagonal 49.7; 6-10 strokes, 32-52 words."}
   - {id: n2, parent: n0, kind: approach, title: "Shape vocabulary: rough strokes snap to simple shapes and common marks (X box = picture, squiggle = text, pill = button, ruled lines = list) read with meaning, so few strokes say a lot", status: open, branch: try/n2-shape-vocab, result: null}
+  - {id: n7, parent: n2, kind: step, title: "Drawn means placed: boxes and lines set where things go and how big, a box marks an area (not a card), and pen marks never get pasted into the page; re-sketch the 3 worst baseline pages", status: open, branch: try/n2-shape-vocab, base: "try/n1-hand-bench", result: null}
   - {id: n3, parent: n0, kind: approach, title: "Style from ink, not words: colour swatches, fill tool and pen weight so colours, emphasis and sizes come from the drawing", status: open, branch: try/n3-ink-style, result: null}
   - {id: n4, parent: n0, kind: approach, title: "Fast look-and-fix: the tool shows what it understood on the sketch at once, and pointing gestures correct it with quick partial rebuilds", status: open, branch: try/n4-look-fix, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
@@ -37,14 +39,26 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "Pinned marks stay where drawn while rows around them reflow, so they misalign", found_on: "r2 e3", built: null, helped: null}
   - {gap: "Colour fixes by words overshoot (brighter glows turned white); no way to point at a colour", found_on: "r2 c3", built: null, helped: null}
   - {gap: "A one-line subtitle drawn wide still wrapped onto two lines", found_on: "r1 e2", built: null, helped: null}
+  - {gap: "Wobbly hand circles kept as lumpy blobs and polygon rings", found_on: "r8 c2", built: null, helped: null}
+  - {gap: "Invented content (names, numbers, blurbs) instead of placeholders", found_on: "r5 e5, r8 c2", built: null, helped: null}
+  - {gap: "Drawn blocks ignored for size: seat map and cards shrank to content", found_on: "r8 e4", built: null, helped: null}
+  - {gap: "A box marking an area became a visible framed card; a fix pasted raw ink", found_on: "r12 c4", built: null, helped: null}
+  - {gap: "Light page came out dark with no colour words", found_on: "r8 e4", built: null, helped: null}
+  - {gap: "Two stacked short lines read as label plus small date, not one big block", found_on: "r8 c2", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
   - {page: r1 e2-pricing, likeness: 50.5, strokes: 5, words: 50, minutes: 2.6, fixes: 0, tokens: 39065}
   - {page: r2 c3-glass-blobs, likeness: 76.9, strokes: 9, words: 49, minutes: 7.8, fixes: 1, tokens: 100705}
   - {page: r2 e3-settings, likeness: 38.7, strokes: 10, words: 33, minutes: 9.7, fixes: 0, tokens: 116422}
+  - {page: r5 c5-bento, likeness: 81.3, strokes: 10, words: 35, minutes: 3.5, fixes: 0, tokens: 47146}
+  - {page: r5 e5-data-grid, likeness: 25.0, strokes: 6, words: 45, minutes: 5.6, fixes: 1, tokens: 68188}
+  - {page: r8 c2-orbit-type, likeness: 71.0, strokes: 10, words: 32, minutes: 5.3, fixes: 0, tokens: 62463}
+  - {page: r8 e4-seat-booking, likeness: 14.3, strokes: 10, words: 47, minutes: 6.0, fixes: 1, tokens: 82820}
+  - {page: r12 c4-diagonal-split, likeness: 49.7, strokes: 9, words: 52, minutes: 12.4, fixes: 1, tokens: 130547}
 notes:
   - "Hand session: node tests/hand/session.mjs (needs npm ci + npm run build; chromium at /opt/pw-browsers/chromium-1243). Drive it with curl -d JSON ops open/stroke/note/pen/undo/look/run/done on localhost:5390. Stop it with fuser -k 5390/tcp 5302/tcp, never pkill -f."
   - "Don't open target HTML, targets.json, effects.json, autoplan files or round NOTES while sketching. Only ref/*.png. The session loads targets.json itself, only to score at done."
+  - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
-  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k."
+  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k)."
