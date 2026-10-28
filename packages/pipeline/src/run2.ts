@@ -62,6 +62,7 @@ import { verifyStackLines } from './stacklines.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
+import { fixBrief, verifyFix, type FixVerdict } from './fixcheck.js'
 import type { RunContext, RunResult } from './run.js'
 import { deriveProbes, relocateProbes, type ProbeVerdict } from './probe.js'
 
@@ -596,6 +597,7 @@ export async function runV2(
     textLookBrief(interp.actions) +
     textPlaceBrief(interp.actions, input.snapshot.viewport, strokeDividers(input.strokes)) +
     placedBrief(interp.placedNotes, input.snapshot.viewport) +
+    fixBrief(interp.actions, input.snapshot) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -676,6 +678,7 @@ export async function runV2(
   }
 
   let lastVerify: unknown = null
+  let lastFix: FixVerdict | null = null
   /** Re-snapshot the live page and score every action against the drawing. */
   const verifyRound = async (tag: string) => {
     // finishPass writes source: never after a stop
@@ -763,6 +766,14 @@ export async function runV2(
       result.failures.push(`page (drawn earlier): ${held.reason}`)
       result.score = Math.min(result.score, 0.99)
     }
+    // n37: a fix on a built page keeps words apart and takes a panel away when told to
+    const fixed = verifyFix(interp.actions, input.snapshot, after)
+    lastFix = fixed
+    for (const f of fixed.failures) {
+      stage('verify', f)
+      result.failures.push(f)
+    }
+    if (fixed.failures.length) result.score = Math.min(result.score, 0.99)
     // the numbers the user typed are exact (n8)
     const counted = verifyCounts(counts, after)
     if (!counted.unverifiable && !counted.satisfied) {
@@ -1022,6 +1033,24 @@ export async function runV2(
   // arrived during it wins over reporting success
   throwIfStopped(ctx.signal)
 
+  // n37: a fix that still runs words together or keeps a panel it was told to drop made the page
+  // worse (r32 c1, c2, c4): put the page back exactly as it was before the note, and say so
+  let putBack: string | null = null
+  const fixNow = lastFix as FixVerdict | null // set inside verifyRound
+  if (fixNow && (fixNow.overlaps.length || fixNow.noFill.length)) {
+    const work = new Map([...captureWork(ctx.root, cp)].filter(([rel]) => !rel.startsWith('.sketch2code/') && !untrackedBefore.has(rel)))
+    if (work.size) {
+      revertWork(ctx.root, cp, work)
+      putBack = fixNow.overlaps.length
+        ? `the fix ran "${fixNow.overlaps[0]!.a.slice(0, 30)}" into "${fixNow.overlaps[0]!.b.slice(0, 30)}"`
+        : `the fix kept the ${fixNow.noFill[0]!.what} it was told to take away`
+      stage('verify', `${putBack}: put the page back as it was before this note`)
+      finalFailures = [`${putBack}, so the page was put back as it was before this note. Try saying it another way, or draw where it goes.`]
+      bestScore = 0
+      await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
+    }
+  }
+
   // remember this run's drawn boxes, so later runs keep them where drawn (n8)
   if (freshMarks.length) saveKeptMarks(ctx.root, mergeKeptMarks(keptAll, freshMarks))
 
@@ -1039,6 +1068,7 @@ export async function runV2(
     candidates,
     finishing: finishEdits,
     repairStalled,
+    ...(putBack ? { putBack } : {}),
   })
   const summary =
     // A dropped action leads, because it is the thing most worth knowing and a
