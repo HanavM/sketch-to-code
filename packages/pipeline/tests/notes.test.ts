@@ -809,7 +809,9 @@ describe('a big rectangle cited with small marks belongs to the action citing mo
     expect(grid!.region!.w).toBeGreaterThan(900)
     expect(lisbon!.region!.w).toBeLessThan(200)
     expect(launch!.region!.w).toBeLessThan(260)
-    expect(launch!.svgPaths?.map((p) => p.strokeId)).toEqual(['s9'])
+    // a drawn box marks where the bar goes: a shape mark, never a path (n7)
+    expect(launch!.shapeMarks?.map((m) => m.strokeId)).toEqual(['s9'])
+    expect(launch!.svgPaths).toBeUndefined()
   })
   it('keeps the rectangle when no action clearly owns it', () => {
     const [a, b] = ground([['s7', 's8'], ['s7', 's9']])

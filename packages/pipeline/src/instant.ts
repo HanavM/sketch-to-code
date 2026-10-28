@@ -31,6 +31,7 @@ import { importAnchor } from './imports.js'
 import type { FidelityControls } from './fidelity.js'
 import { buildScaffold, scaffoldDir, type Scaffold } from './scaffold.js'
 import { isTextMark } from './textmark.js'
+import { isShapeMark } from './shapemark.js'
 import type { GroundedAction } from './intent2.js'
 
 export interface InstantPlan {
@@ -120,6 +121,11 @@ export function instantEligible(strokes: Stroke[], snap: DomSnapshot): InstantVe
   // page-05 failure, shown instantly. The interpreted path writes real copy.
   if (strokes.some((s) => s.points.length >= 4 && isTextMark(s.points))) {
     return { ok: false, reason: 'part of it reads as a line of text, which needs words, not a drawing' }
+  }
+  // a box, a straight line or a ring marks where something goes: mounting the
+  // ink itself is the pasted-pen-marks failure (shapemark.ts, n7)
+  if (strokes.some((s) => s.points.length >= 2 && isShapeMark(s.points))) {
+    return { ok: false, reason: 'it reads as a box, line or ring marking where something goes, which gets built, not traced' }
   }
   return { ok: 'maybe' }
 }

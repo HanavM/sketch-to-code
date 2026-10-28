@@ -148,7 +148,7 @@ const MAX_SIDES = 4
  * strokes that together outline a rectangle. Fewer strokes win a tie.
  */
 export function screenBox(nav: GroundedAction, strokes: Stroke[]): BBox | null {
-  const ids = new Set([...(nav.strokeIds ?? []), ...(nav.svgPaths ?? []).map((p) => p.strokeId)])
+  const ids = new Set([...(nav.strokeIds ?? []), ...(nav.svgPaths ?? []).map((p) => p.strokeId), ...(nav.shapeMarks ?? []).map((m) => m.strokeId)])
   const cited = strokes.filter((s) => ids.has(s.id) && s.points.length >= 2)
   let best: BBox | null = null
   const offer = (b: BBox | null) => { if (b && (!best || b.w * b.h > best.w * best.h)) best = b }
@@ -224,14 +224,14 @@ export function retargetIntoScreens(
     if (!nav || nav.kind !== 'navigate') continue
     const box = screenBox(nav, strokes)
     if (!box) continue
-    const navIds = new Set([...(nav.strokeIds ?? []), ...(nav.svgPaths ?? []).map((p) => p.strokeId), ...(nav.textMarks ?? [])])
+    const navIds = new Set([...(nav.strokeIds ?? []), ...(nav.svgPaths ?? []).map((p) => p.strokeId), ...(nav.textMarks ?? []), ...(nav.shapeMarks ?? []).map((m) => m.strokeId)])
     const stamp = screenMainStamp(root, s.file)
     for (const [i, a] of actions.entries()) {
       if (handled.has(i) || i === s.index || a.onScreen) continue
       if (a.kind !== 'add' && a.kind !== 'design') continue
       if (!a.region || insideShare(a.region, box) < 0.8) continue
       // the box itself, cited twice, is not something drawn inside it
-      const own = [...(a.svgPaths ?? []).map((p) => p.strokeId), ...(a.textMarks ?? [])]
+      const own = [...(a.svgPaths ?? []).map((p) => p.strokeId), ...(a.textMarks ?? []), ...(a.shapeMarks ?? []).map((m) => m.strokeId)]
       if (own.length && own.every((id) => navIds.has(id))) continue
       a.onScreen = { name: s.title, route: s.route, file: s.file, navIndex: s.index }
       a.dest = {

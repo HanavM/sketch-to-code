@@ -154,6 +154,22 @@ Rules:
   is a line of REAL copy (from a typed note when there is one, otherwise plausible
   words for the page); its length and height say body versus heading. They are
   never drawn as SVG, whatever the FIDELITY block says, and they have no svgPath.
+- "shapeMarks" lists strokes that are plain shapes the user drew to say WHERE a
+  thing goes and HOW BIG: a box, a straight line, a ring. Each carries its clean
+  geometry in page px (box; a line's from/to). They have no svgPath and are never
+  drawn as SVG or traced: the user's ink is never part of the page. Build what each
+  one stands for as real elements with CSS, on that geometry:
+  box → the block it marks (card, button, input, toggle, panel, a picture with an X,
+    or just the area a big word, chart or group sits in) at exactly box x/y/w/h.
+    Whether it shows a border or a fill comes from what it is and the notes, never
+    from the ink: a box drawn round a big word, number or group only marks its
+    area (no frame, no card) unless a note says border, outline, card or panel;
+  line → a level line is a row of text (a short one under a heading is that
+    heading's smaller line), a divider rule (a long thin line across a section, a
+    1px border), or an underline (an active tab, a link): pick by length and what
+    is next to it; a slanted line is an edge between two areas (clip-path); never
+    a wavy or hand-drawn path;
+  ellipse → a clean circle or ring (border-radius: 50%), exactly box w × h.
 - "textSize" groups stacked text squiggles: the spacing the user drew between the
   lines IS the line height. Set that text's font-size to fontPx (within ~15%) with a
   matching line-height, wrapped to box.w, so it fills the drawn box with that many

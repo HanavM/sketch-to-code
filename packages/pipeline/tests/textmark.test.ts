@@ -112,16 +112,17 @@ describe('page 05 — a squiggle that means words never becomes a path', () => {
   it('grounding keeps the squiggles cited but fits no path for them', () => {
     const a = ground('verbatim')
     expect(a.textMarks).toEqual(text)
-    expect(a.svgPaths!.map((p) => p.strokeId)).toEqual(shapes)
+    // the logo boxes and the avatar ring mark where things go: shape marks, no paths (n7)
+    expect(a.svgPaths).toBeUndefined()
+    expect(a.shapeMarks!.map((m) => m.strokeId)).toEqual(shapes)
     // the region still covers the words: they are part of what was drawn
     expect(a.region!.y).toBeLessThan(130)
   })
 
   it('the scaffold written before codegen holds no text squiggle, even at the trace rung', () => {
     const a = ground('verbatim')
-    const sc = buildScaffold(a, 0, { ...DEFAULT_FIDELITY, resemblance: 1 })!
-    for (const id of text) expect(sc.code).not.toContain(`${id}:`)
-    for (const id of shapes) expect(sc.code).toContain(`${id}:`)
+    // nothing left to trace: squiggles are words, boxes and the ring are shape marks (n7)
+    expect(buildScaffold(a, 0, { ...DEFAULT_FIDELITY, resemblance: 1 })).toBeNull()
   })
 
   it("an action that is only words loses 'verbatim' — there is nothing left to trace", () => {
@@ -133,15 +134,16 @@ describe('page 05 — a squiggle that means words never becomes a path', () => {
   })
 
   it("leaves the interpreter's fidelity alone when there is real geometry", () => {
-    expect(ground('verbatim', ['s9']).fidelity).toBe('verbatim')
+    // a plain ring is a shape mark now, so 'verbatim' has nothing to trace (n7)
+    expect(ground('verbatim', ['s9']).fidelity).toBeUndefined()
     expect(ground('recognized', ['s7', 's9']).fidelity).toBe('recognized')
   })
 
   it('the instant render declines a drawing that contains a line of text', () => {
     const v = instantEligible(strokes.filter((s) => s.id === 's7' || s.id === 's9'), blankPage())
     expect(v.ok).toBe(false)
-    // and still offers a pure shape
-    expect(instantEligible(strokes.filter((s) => s.id === 's9'), blankPage())).toEqual({ ok: 'maybe' })
+    // a plain ring marks a circle: built clean by the interpreted path, never mounted as ink (n7)
+    expect(instantEligible(strokes.filter((s) => s.id === 's9'), blankPage()).ok).toBe(false)
   })
 })
 

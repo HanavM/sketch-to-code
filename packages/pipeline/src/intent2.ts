@@ -16,6 +16,7 @@ import {
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, type ColorMatch } from './palette.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
+import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { findInsertSlot, type InsertSlot } from './insert-slot.js'
 
 // ---------- model-facing output schema ----------
@@ -897,6 +898,10 @@ export interface GroundedAction {
   /** Cited strokes that are text squiggles: each stands for a line of real
    *  copy. Decided from the ink (textmark.ts), not by the model. */
   textMarks?: string[]
+  /** Cited strokes that are plain boxes, straight lines or rings: they say where
+   *  something goes and how big, never "draw my ink". Their clean geometry,
+   *  decided from the ink (shapemark.ts); they have no svgPath. */
+  shapeMarks?: ShapeMark[]
   /** Stacks of those squiggles (2+ lines): the drawn line spacing is the line
    *  height, so it carries a font size (textmark.ts textStacks). */
   textSize?: TextStack[]
@@ -1115,6 +1120,7 @@ export function groundInterpretation(
     let region: BBox | undefined
     const svgPaths: Array<{ strokeId: string; d: string }> = []
     const textMarks: string[] = []
+    const shapeMarks: ShapeMark[] = []
     // every page stack this action cites any line of (a stack split over two
     // actions gives each of them the size)
     const textStackOf = (ids: string[]): TextStack[] =>
@@ -1138,6 +1144,18 @@ export function groundInterpretation(
           // It still sets the region and stays cited (textmark.ts).
           if (isTextMark(s.points)) {
             textMarks.push(s.id)
+            continue
+          }
+          // a box, a straight line or a ring marks where something goes and how
+          // big: it never becomes a path either (shapemark.ts). Only a depiction
+          // keeps paths, and then the clean shape, never the wobble.
+          const shape = shapeOf(s.points)
+          if (shape && !a.depicts) {
+            shapeMarks.push({ strokeId: s.id, ...shape })
+            continue
+          }
+          if (shape) {
+            svgPaths.push({ strokeId: s.id, d: cleanPath(shape, { x: region!.x, y: region!.y }) })
             continue
           }
           const fit = toSvgPath(s.points, { tolerance: 2, origin: { x: region!.x, y: region!.y } })
@@ -1265,12 +1283,13 @@ export function groundInterpretation(
       region,
       svgPaths: svgPaths.length ? svgPaths : undefined,
       textMarks: textMarks.length ? textMarks : undefined,
+      ...(shapeMarks.length ? { shapeMarks } : {}),
       ...(stacks.length ? { textSize: stacks } : {}),
       layer: a.layer ?? undefined,
       depicts: a.depicts ?? undefined,
       // 'verbatim' on an action whose every mark stands for text is the page-05
       // failure stated as a field; there is nothing left to trace
-      fidelity: a.fidelity === 'verbatim' && textMarks.length && !svgPaths.length
+      fidelity: a.fidelity === 'verbatim' && (textMarks.length || shapeMarks.length) && !svgPaths.length
         ? undefined
         : (a.fidelity ?? undefined),
       notes: notes.length ? notes : undefined,
