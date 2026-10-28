@@ -1,5 +1,5 @@
 # Log (newest first)
-2026-10-28T21:45Z | n41 first build keeps to typed words, no words on words | Invented and overlapping words caught; 3-line heading kept. Roastery 74.4, 80.1, then 88.1 first time.
+2026-10-28T21:32Z | n41 first build keeps to typed words, no words on words | Invented and overlapping words caught; 3-line heading kept. Roastery 74.4, 80.1, then 88.1 first time.
 2026-10-28T20:58Z | n40 far-apart heading lines are one heading | Lines group as one, never with the date; letters lifted to drawn lines. Aurora 70.2, 73.0.
 2026-10-28T20:09Z | n39 a fix note goes to the part it means | 'Below heading' typed on the heading changes the part below, shown. Roastery 77.9 to 80.5, 83.6.
 2026-10-28T19:58Z | n37 fix notes checked like a build | Words kept apart, panels dropped when told, parts not wrapper. Aurora 66.3 to 72.2, synth 59.9 to 80.9.
