@@ -19,6 +19,7 @@ import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type Hold
 import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { warmInIdle, warmStrokes } from './warm-pen.js'
+import { isRole, pickOther, placedAgainst, type PartInfo } from './fix-subject.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 // n18: how many undo eases a hot reload's remount handed to the new node (e2e reads it)
@@ -7643,6 +7644,8 @@ class Overlay {
         this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
       }
     }
+    // n39: "one line, below heading" typed on the heading's edge is about the part below it
+    if (!existing && d.anchor.kind === 'element') this.reanchorPlacedAgainst(d, text)
     if (existing) {
       existing.text = text
       existing.refs = refs
@@ -7656,6 +7659,47 @@ class Overlay {
     if (this.askedKey) {
       this.askedKey = null
       this.scheduleAuto()
+    }
+  }
+
+  /**
+   * n39: a fix note naming a part only as a place ("one line, below heading") that landed
+   * ON that part is about the nearest other part on the side the words point to. Round 32
+   * c2: typed on the heading's lower edge, it reshaped the heading instead of the subtitle.
+   */
+  private reanchorPlacedAgainst(d: { at: { x: number; y: number }; anchor: NoteAnchor }, text: string) {
+    if (d.anchor.kind !== 'element') return
+    const named = placedAgainst(text)
+    if (!named) return
+    const el = document.querySelector(`[data-s2c="${d.anchor.srcLoc}"]`) as HTMLElement | null
+    if (!el || !isRole(this.partInfo(el), named.role)) return
+    const pageBox = (e: Element) => {
+      const b = e.getBoundingClientRect()
+      return { x: b.left + window.scrollX, y: b.top + window.scrollY, w: b.width, h: b.height }
+    }
+    const cands = [...document.querySelectorAll<HTMLElement>('[data-s2c]')]
+      .filter((c) => c !== el && !c.contains(el) && !el.contains(c) && !this.isPageBackground(c) &&
+        !isRole(this.partInfo(c), named.role) && (c.textContent ?? '').trim() !== '' &&
+        // a leaf-ish part: no stamped child holding all its words
+        ![...c.querySelectorAll<HTMLElement>('[data-s2c]')].some((k) => (k.textContent ?? '').trim() === (c.textContent ?? '').trim()))
+      .map((c) => ({ c, box: pageBox(c) }))
+    const best = pickOther(cands, d.at, named.rel, pageBox(el))
+    const srcLoc = best?.c.dataset.s2c
+    if (!best || !srcLoc) return
+    d.anchor = { kind: 'element', srcLoc }
+    this.noteWhat.textContent = `${this.anchorLabel(d.anchor, best.c)} (the part ${named.rel} the ${named.role})`
+  }
+
+  private partInfo(el: HTMLElement): PartInfo {
+    const cs = getComputedStyle(el)
+    const tag = el.tagName.toLowerCase()
+    const bg = cs.backgroundColor
+    return {
+      tag,
+      fontPx: parseFloat(cs.fontSize) || 16,
+      inNav: el.closest('nav, header') != null,
+      isButtonish: tag === 'button' || (tag === 'a' && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent'),
+      isImageish: tag === 'img' || tag === 'svg' || tag === 'canvas' || (el.children.length === 0 && (el.textContent ?? '').trim() === '' && cs.borderRadius.includes('%')),
     }
   }
 
