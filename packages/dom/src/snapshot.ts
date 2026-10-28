@@ -100,6 +100,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           ...(cs.boxShadow && cs.boxShadow !== 'none' ? { boxShadow: cs.boxShadow.slice(0, 60) } : {}),
           ...(cs.opacity && Number(cs.opacity) < 1 ? { opacity: cs.opacity } : {}),
           ...(cs.filter && cs.filter !== 'none' ? { filter: cs.filter.slice(0, 60) } : {}),
+          ...(parseFloat(cs.getPropertyValue('-webkit-text-stroke-width')) > 0 ? { textStroke: cs.getPropertyValue('-webkit-text-stroke-width') } : {}),
         },
         parent: parentId,
         depth,

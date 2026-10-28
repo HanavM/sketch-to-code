@@ -301,6 +301,7 @@ export function isPageLookNote(text: string): boolean {
 
 import { isAreaNote, markAreasAndEdges } from './areas.js'
 import { markSolids, solidOf } from './solids.js'
+import { markOutlined } from './textlook.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
 
@@ -1170,6 +1171,8 @@ export function groundInterpretation(
     if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport)
     // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
     if (shapeMarks.length) markSolids(shapeMarks, noteObjs)
+    // n16: "huge outlined 09" on an area box stays hollow letters
+    if (shapeMarks.length) markOutlined(shapeMarks, noteObjs)
     actions.push({
       kind: a.kind,
       targets,

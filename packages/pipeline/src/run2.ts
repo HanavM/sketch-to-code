@@ -51,6 +51,7 @@ import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits } from './repair-time.js'
 import { areasBrief, verifyAreaMarks, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
+import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
@@ -172,6 +173,7 @@ Rules:
     a box flagged "area": true is exactly that: transparent, no fill, border or shadow;
     a line flagged "edge": true is the slanted boundary between two page colours;
     a box or ring flagged "solid" is one plain element of that colour (opaque, no path);
+    a box flagged "outlined" holds hollow letters (transparent fill, text stroke);
   line → a level line standing for text marks the MIDDLE of its letters: centre
     that text's line box on the line's y (top = y - lineHeight / 2), never put
     the text's top edge on it. A level line is a row of text (a short one under a
@@ -245,6 +247,9 @@ Rules:
     blank), and never by editing the shared drawn-shape component;
   grey text (on a page whose text is white or black) → that softer grey, not the
     page's text colour;
+  text whose colour no note gives → a colour that reads on what is right behind
+    it: white or light on a dark or saturated fill (red, black, navy), near-black
+    on a light one; on a split page, judge by the half the text sits on (checked);
   overlapping → absolute position or negative margin so the two boxes truly overlap;
   a bar laid OVER the page top (absolute at 0,0) → what sits under it keeps its
     page y by its own absolute top or padding-top on the page wrapper, never a
@@ -544,6 +549,7 @@ export async function runV2(
     inkColoursBrief(interp) +
     areasBrief(interp.actions, input.snapshot.viewport) +
     solidsBrief(interp.actions) +
+    textLookBrief(interp.actions) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -1259,13 +1265,15 @@ export function verifyActions(
   }
 
   // n14: a box round a big word is no card; a slanted line across the page is the colour edge
+  // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
-  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['solids', verifySolids(allMarks, after)]] as const) {
+  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['solids', verifySolids(allMarks, after)],
+    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : 'coloured plain shapes'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'solids' ? 'coloured plain shapes' : kind === 'outlined' ? 'outlined words' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
@@ -1307,4 +1315,16 @@ export function isDecoration(a: GroundedAction): boolean {
 /** True when the user's typed words for an action hold whole SVG markup to build verbatim (n160). */
 export function typedSvg(notes: readonly string[] | undefined): boolean {
   return (notes ?? []).some((n) => /<svg\b[^>]*>[\s\S]*<\/svg>/i.test(n))
+}
+
+/** n16: text a note gave a colour for ("JOIN THE NEXT RUN black") is not judged for readability. */
+function namedColourText(actions: Array<{ notes?: string[] }>, loose: string[]) {
+  // only what the user typed: the reading's own instructions name colours for everything
+  const COL = /\b(white|black|cream|grey|gray|navy|lime|green|blue|red|pink|orange|yellow|purple|violet|teal|cyan|gold|dark|light)\b/i
+  const notes = [...loose, ...actions.flatMap((a) => a.notes ?? [])]
+    .filter((t) => COL.test(t)).map((t) => t.toLowerCase())
+  return (n: { text?: string }) => {
+    const words = (n.text ?? '').toLowerCase().match(/[\p{L}\p{N}]{3,}/gu) ?? []
+    return words.length > 0 && notes.some((t) => words.slice(0, 3).some((w) => t.includes(w)))
+  }
 }

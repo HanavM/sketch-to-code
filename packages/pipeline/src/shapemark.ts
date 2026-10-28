@@ -45,6 +45,8 @@ export interface ShapeMark {
   edge?: true
   /** box or ring (n15): its notes name a coloured plain thing ("lime badge"): one solid element in that colour. */
   solid?: { word: string; hex: string; noun: string; tol: number }
+  /** area box (n16): its notes say the big word is outlined: hollow letters, a text stroke. */
+  outlined?: { colour: string | null }
 }
 
 const r1 = (v: number) => Math.round(v)

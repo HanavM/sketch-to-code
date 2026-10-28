@@ -89,6 +89,18 @@ export function parseCssColor(input: string): Rgb | null {
     if (![L, C, hDeg].every(Number.isFinite)) return null
     return oklchToRgb(L, C, hDeg)
   }
+  // n16: Chrome reports a colour with alpha (text-white/70) as oklab(L a b / A)
+  const oklab = /^oklab\(([^)]+)\)$/.exec(s)
+  if (oklab) {
+    const parts = oklab[1]!.split(/[\s,/]+/).filter(Boolean)
+    if (parts.length < 3) return null
+    if (parts.length >= 4 && Number(parts[3]) === 0) return null
+    const L = parts[0]!.endsWith('%') ? Number(parts[0]!.slice(0, -1)) / 100 : Number(parts[0])
+    const a = Number(parts[1]), bb = Number(parts[2])
+    if (![L, a, bb].every(Number.isFinite)) return null
+    const C = Math.hypot(a, bb)
+    return oklchToRgb(L, C, (Math.atan2(bb, a) * 180) / Math.PI)
+  }
   return null
 }
 
