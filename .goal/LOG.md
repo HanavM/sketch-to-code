@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-28T02:12Z | n9 show which mark each note belongs to | Threads plus drag-to-rebind; 6 of 8 notes were mis-bound. Diagonal 49.9 to 55.1, one run, 70k tokens.
 2026-10-28T01:50Z | n8 counts and fixes keep the drawing | Exact counts, kept boxes. Grid 14 to 34 (5 teams, held still), orbit 74, diagonal 50.
 2026-10-28T01:15Z | n7 drawn means placed | Boxes, lines, rings never pasted; landing check. Settings 39 to 77, seats 14 to 37, grid 25 to 14.
 2026-10-28T00:45Z | n6 baseline pages 6-10 by hand | Bento 81, grid 25, orbit 71, seats 14, diagonal 50; baseline mean 53.1, 9 strokes, 43 words.

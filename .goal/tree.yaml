@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Typed counts now stick (the budget sheet shows exactly 5 teams in 24 rows) and later fixes no longer move what I drew. Next: show which drawn mark each note belongs to before building, since notes landing on the wrong mark cost the most on the running-club page."
+now: "Every note now shows a thread to the mark it is about, and a note can be dragged onto the right mark before building: the running-club page went from 49.9 to 55.1 with no fix needed. Next: try colour from the drawing itself (pen colour and fill) instead of colour words."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-2026-10-28T0148Z n9", until: "2026-10-28T03:20Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -28,13 +28,16 @@ nodes:
      result: "Exact counts and kept boxes: grid 13.7 to 33.7, held still through fix; orbit 73.9; diagonal 49.9."}
   - {id: n3, parent: n0, kind: approach, title: "Style from ink, not words: colour swatches, fill tool and pen weight so colours, emphasis and sizes come from the drawing", status: open, branch: try/n3-ink-style, result: null}
   - {id: n4, parent: n0, kind: approach, title: "Fast look-and-fix: the tool shows what it understood on the sketch at once, and pointing gestures correct it with quick partial rebuilds", status: active, branch: try/n4-look-fix, result: null}
-  - {id: n9, parent: n4, kind: step, title: "Show which drawn mark each note belongs to, on the sketch, before the build, and let a note be moved onto the right mark; re-sketch the diagonal split", status: open, branch: try/n4-look-fix, base: "try/n2-shape-vocab", result: null}
+  - {id: n9, parent: n4, kind: step, title: "Show which drawn mark each note belongs to, on the sketch, before the build, and let a note be moved onto the right mark; re-sketch the diagonal split", status: done, branch: try/n4-look-fix, base: "try/n2-shape-vocab",
+     result: "Note threads plus drag-to-rebind: 6 of 8 notes were on wrong marks; fixed before build. Diagonal 49.9 to 55.1."}
+  - {id: n10, parent: n3, kind: step, title: "Colour from ink: a pen colour or a fill on a mark sets that block's colour, shown at once; re-sketch the sunset hero and glass blobs (colour gaps)", status: open, branch: try/n3-ink-style, base: "try/n4-look-fix", result: null}
+  - {id: n11, parent: n4, kind: step, title: "A stacked headline is one heading: a note on any of its lines covers all, line pitch sets the size; show what each line will become before the build", status: open, branch: try/n4-look-fix, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: null, helped: null}
   - {gap: "A headline's wrap line read as a new invented tagline", found_on: "r1 c1", built: null, helped: null}
   - {gap: "Nothing shows what the tool understood until Run (45-75 s)", found_on: "r1 c1, r1 e1", built: null, helped: null}
-  - {gap: "Unclear which mark a note belongs to; chips cover marks", found_on: "r1 c1, r1 e1", built: null, helped: null}
+  - {gap: "Unclear which mark a note belongs to; chips cover marks", found_on: "r1 c1, r1 e1", built: "a dashed thread from every note to its mark, plain-word label, drag a note onto another mark (n9)", helped: "yes: diagonal split 49.9 to 55.1, no fix after build"}
   - {gap: "Misleading result card after a fix that worked", found_on: "r1 c1", built: null, helped: null}
   - {gap: "Slow costly builds: login card 522 s, ~100k tokens", found_on: "r1 e1", built: null, helped: null}
   - {gap: "Colours only through words", found_on: "r1 c1", built: null, helped: null}
@@ -52,8 +55,11 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "Counts in notes ignored for a grid: 5 teams filled all 24 rows with invented rows", found_on: "r5 e5 (n7)", built: "typed counts are exact: told to codegen and counted on the page (n8)", helped: "yes: exactly 5 teams in 24 rows, both tries; grid 13.7 to 33.7"}
   - {gap: "A fix note re-laid the page and moved the drawn grid 48px off its box", found_on: "r5 e5 (n7)", built: "boxes drawn earlier are remembered and held in place on later runs (n8)", helped: "yes: grid did not move through the fix; fix took 40 s"}
   - {gap: "On-state toggles built with the knob outside the track", found_on: "r2 e3 (n7)", built: null, helped: null}
-  - {gap: "Notes go to the wrong mark when several sit close: a badge's words filled the big box, the badge ring got an invented RC", found_on: "r12 c4 (n8)", built: null, helped: null}
-  - {gap: "A huge outlined number typed in a note (09) was left out entirely", found_on: "r12 c4 (n8)", built: null, helped: null}
+  - {gap: "Notes go to the wrong mark when several sit close: a badge's words filled the big box, the badge ring got an invented RC", found_on: "r12 c4 (n8)", built: "threads show each note's mark before the build; drag to rebind; overlay and build share one rule (n9)", helped: "yes: badge text in the ring, no invented RC"}
+  - {gap: "A huge outlined number typed in a note (09) was left out entirely", found_on: "r12 c4 (n8)", built: "cause was the note bound to the diagonal; fixed by n9 threads and diagonal rule", helped: "yes: outlined 09 built across the band"}
+  - {gap: "A long diagonal stroke's box swallowed notes typed beside it", found_on: "r12 c4 (n9)", built: "a diagonal covers its ink, not its box (n9)", helped: "yes: 09 note bound to the big box alone"}
+  - {gap: "A note on a 3-line headline covers only the line it was typed on; heading built smaller", found_on: "r12 c4 (n9)", built: null, helped: null}
+  - {gap: "Bare detail rows drawn as a box became a white card", found_on: "r12 c4 (n9)", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
