@@ -44,7 +44,8 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
-import { verifyShapeMarks } from './shapemark.js'
+import { verifyShapeMarks, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, type KeptMark } from './shapemark.js'
+import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits } from './repair-time.js'
 import { leanRepairNote } from './repair-brief.js'
@@ -485,6 +486,29 @@ export async function runV2(
     })
     .filter((s): s is string => s !== null)
 
+  // n8: what the user drew earlier stays put, and the numbers they typed are exact
+  const freshMarks = interp.actions.flatMap((a) => a.shapeMarks ?? [])
+  const RESIZE = /\b(move|shift|resize|bigger|smaller|wider|narrower|taller|shorter|larger|grow|shrink|lower|higher|up|down)\b/i
+  const overlaps = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) => {
+    const w = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)
+    const h = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y)
+    return w > 0 && h > 0 ? (w * h) / Math.min(a.w * a.h, b.w * b.h) : 0
+  }
+  const keptAll = loadKeptMarks(ctx.root)
+  const kept: KeptMark[] = marksInPlace(keptAll, input.snapshot).filter((k) =>
+    !freshMarks.some((m) => m.shape !== 'line' && overlaps(m.box, k.box) > 0.6) &&
+    // a note that asks to move or resize the very block it sits on is obeyed, not undone
+    !interp.actions.some((a) => {
+      const r = a.region ?? a.dest?.rect
+      return !!r && overlaps(r, k.box) > 0.5 && RESIZE.test([a.instruction, ...(a.notes ?? [])].join(' '))
+    }))
+  if (kept.length) save('kept-marks.json', kept)
+  const counts = countClaims([
+    ...(input.notes ?? []).map((n) => n.text),
+    ...(interp.pageNotes ?? []), ...(interp.runNotes ?? []),
+  ])
+  if (counts.length) save('counts.json', counts)
+
   const baseBrief =
     `READING (user-confirmed): ${interp.reading}\n\n` +
     codemodNote +
@@ -501,6 +525,8 @@ export async function runV2(
         `page, not a filled bar, unless a note says so. A tinted page colour (pale blue-grey, off-white, ` +
         `cream, warm paper) must show as that tint behind the white cards, never plain white:\n${interp.pageNotes.map((n) => `- ${n}`).join('\n')}\n\n`
       : '') +
+    countsBrief(counts) +
+    keptMarksBrief(kept) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -653,6 +679,21 @@ export async function runV2(
           `a rule you drew is broken (${v.kind}): ${v.message}` + (v.note ? ` — you wrote: "${v.note}"` : ''),
         )
       }
+      result.score = Math.min(result.score, 0.99)
+    }
+
+    // boxes drawn in earlier runs stay where they were drawn (n8)
+    const held = verifyKeptMarks(kept, after)
+    if (!held.unverifiable && !held.satisfied) {
+      stage('verify', held.reason)
+      result.failures.push(`page (drawn earlier): ${held.reason}`)
+      result.score = Math.min(result.score, 0.99)
+    }
+    // the numbers the user typed are exact (n8)
+    const counted = verifyCounts(counts, after)
+    if (!counted.unverifiable && !counted.satisfied) {
+      stage('verify', counted.reason)
+      result.failures.push(`page (typed counts): ${counted.reason}`)
       result.score = Math.min(result.score, 0.99)
     }
 
@@ -845,6 +886,9 @@ export async function runV2(
   // the last step that could still be writing has returned; a stop that
   // arrived during it wins over reporting success
   throwIfStopped(ctx.signal)
+
+  // remember this run's drawn boxes, so later runs keep them where drawn (n8)
+  if (freshMarks.length) saveKeptMarks(ctx.root, mergeKeptMarks(keptAll, freshMarks))
 
   // touchedFiles, not changedFiles: a component the run CREATED is untracked
   // and never shows up in a diff, so new files went unreported in the summary

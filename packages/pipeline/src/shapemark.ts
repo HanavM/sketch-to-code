@@ -24,6 +24,8 @@
  */
 import type { BBox, Point } from '@s2c/ink'
 import { resampleBySpacing } from '@s2c/ink'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 
 export type ShapeKind = 'box' | 'line' | 'ellipse'
 
@@ -211,4 +213,113 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
   return misses.length
     ? { satisfied: false, reason: misses.join('; '), marks: out }
     : { satisfied: true, reason: `${boxes.length} drawn box${boxes.length > 1 ? 'es' : ''} built where drawn`, marks: out }
+}
+
+/**
+ * Boxes drawn in an earlier run stay where they were drawn (n8).
+ *
+ * Round 5 e5 (hand, n7): the grid was drawn as one big box and built there;
+ * the next run was only a note ("title small, menu on same line") and it
+ * re-laid the page and pulled the grid 48px up, off its box. Nothing checked
+ * it, because the landing check only looked at the marks of the run that drew
+ * them. So every drawn box and ring that landed is remembered, and every later
+ * run is told to keep it and checked against it, like a rule the user drew.
+ *
+ * Only marks that are on the page right now (something that size sits where
+ * it was drawn in the snapshot the run starts from) are held: a block the user
+ * deleted, moved on purpose or undid is not pinned back.
+ */
+export interface KeptMark { shape: ShapeKind; box: BBox }
+
+export const keptMarksPath = (root: string): string => join(root, '.sketch2code', 'marks.json')
+
+export function loadKeptMarks(root: string): KeptMark[] {
+  try {
+    const raw = JSON.parse(readFileSync(keptMarksPath(root), 'utf8')) as unknown
+    if (!Array.isArray(raw)) return []
+    return raw.filter((m): m is KeptMark => {
+      const b = (m as KeptMark)?.box
+      return !!b && [b.x, b.y, b.w, b.h].every((v) => typeof v === 'number' && Number.isFinite(v)) &&
+        ((m as KeptMark).shape === 'box' || (m as KeptMark).shape === 'ellipse')
+    })
+  } catch {
+    return []
+  }
+}
+
+const overlapShare = (a: BBox, b: BBox): number => {
+  const w = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)
+  const h = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y)
+  if (w <= 0 || h <= 0) return 0
+  return (w * h) / Math.min(a.w * a.h, b.w * b.h)
+}
+
+/** Add this run's boxes; a new box drawn over an old one replaces it. */
+export function mergeKeptMarks(kept: KeptMark[], fresh: ShapeMark[]): KeptMark[] {
+  const add = fresh.filter((m) => m.shape !== 'line' && m.box.w >= 40 && m.box.h >= 24).map((m) => ({ shape: m.shape, box: { ...m.box } }))
+  const old = kept.filter((k) => !add.some((a) => overlapShare(a.box, k.box) > 0.6))
+  return [...old, ...add].slice(-40)
+}
+
+export function saveKeptMarks(root: string, marks: KeptMark[]): void {
+  try {
+    mkdirSync(join(root, '.sketch2code'), { recursive: true })
+    writeFileSync(keptMarksPath(root), JSON.stringify(marks, null, 2))
+  } catch { /* remembering is a nicety; never fail a run over it */ }
+}
+
+/** The element of about that size nearest the mark, and how far its centre is off. */
+function nearestOfSize(m: KeptMark, snap: SnapLike): { n: SnapLike['nodes'][number]; dx: number; dy: number } | null {
+  const b = m.box
+  const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  let best: { n: SnapLike['nodes'][number]; dx: number; dy: number } | null = null, bestD = Infinity
+  for (const n of snap.nodes) {
+    if (n.rect.w <= 0 || n.rect.h <= 0) continue
+    if (Math.abs(n.rect.w - b.w) > Math.max(10, b.w * 0.2)) continue
+    if (Math.abs(n.rect.h - b.h) > Math.max(8, b.h * 0.25)) continue
+    const dx = n.rect.x + n.rect.w / 2 - cx, dy = n.rect.y + n.rect.h / 2 - cy
+    const d = Math.hypot(dx, dy)
+    if (d < bestD) { best = { n, dx: r1(dx), dy: r1(dy) }; bestD = d }
+  }
+  return best && bestD <= 260 ? best : null
+}
+
+const keptSlack = (b: BBox) => Math.max(10, Math.min(24, Math.min(b.w, b.h) * 0.15))
+
+/** The kept marks that sit where they were drawn in this snapshot (the ones to hold). */
+export function marksInPlace(marks: KeptMark[], snap: SnapLike): KeptMark[] {
+  if (snap.truncated) return []
+  return marks.filter((m) => {
+    const hit = nearestOfSize(m, snap)
+    return !!hit && Math.abs(hit.dx) <= keptSlack(m.box) && Math.abs(hit.dy) <= keptSlack(m.box)
+  })
+}
+
+export function keptMarksBrief(marks: KeptMark[]): string {
+  if (!marks.length) return ''
+  return `DRAWN EARLIER AND BUILT WHERE DRAWN (keep each exactly there and that size; a note about ` +
+    `something else never moves them: fix spacing around them instead):\n` +
+    marks.map((m) => `- ${m.shape === 'ellipse' ? 'ring' : 'box'} at x ${m.box.x}, y ${m.box.y}, ${m.box.w}x${m.box.h}`).join('\n') + '\n\n'
+}
+
+export function verifyKeptMarks(marks: KeptMark[], after: SnapLike): MarkVerdict {
+  if (!marks.length) return { satisfied: true, unverifiable: true, reason: 'no boxes drawn earlier' }
+  if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
+  const misses: string[] = []
+  for (const m of marks) {
+    const b = m.box
+    const where = `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn earlier at (${b.x},${b.y}) ${b.w}x${b.h}`
+    const hit = nearestOfSize(m, after)
+    if (!hit) { misses.push(`${where}: what was built there is gone or changed size; put it back at that size, there`); continue }
+    const s = keptSlack(b)
+    if (Math.abs(hit.dx) <= s && Math.abs(hit.dy) <= s) continue
+    const off = [
+      Math.abs(hit.dy) > s ? `${Math.abs(hit.dy)}px too ${hit.dy > 0 ? 'low' : 'high'}` : '',
+      Math.abs(hit.dx) > s ? `${Math.abs(hit.dx)}px too far ${hit.dx > 0 ? 'right' : 'left'}` : '',
+    ].filter(Boolean).join(' and ')
+    misses.push(`${where}: this edit moved the <${hit.n.tag}> built for it ${off}; put it back where it was drawn (change the spacing of what this edit touched, not its position)`)
+  }
+  return misses.length
+    ? { satisfied: false, reason: misses.join('; ') }
+    : { satisfied: true, reason: `${marks.length} box${marks.length > 1 ? 'es' : ''} drawn earlier still where drawn` }
 }
