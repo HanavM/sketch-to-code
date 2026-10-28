@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T07:45Z | n13 a run never stalls silently | Turns watched; stuck repair keeps the build and writes its record. Login 47.7 to 65.5; card centred low.
 2026-10-28T07:15Z | n18 do the gains carry over to untouched pages | No: pricing 50.5 to 33.2, login 71.1 to 47.7. Ink colours no longer snapped; repair round stalls found.
 
 2026-10-28T06:10Z | n17 big word fills its drawn box; band as wide as told | 09 fills its box, band thin, both checked. Diagonal 67.4, 64.9 to 75.7, 73.2; best yet.

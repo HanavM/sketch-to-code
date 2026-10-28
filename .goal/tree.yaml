@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Checked whether the gains hold on fresh pages: they did not (pricing and login scored below baseline). Fixed tapped colours being swapped for near ones; next: stop repair rounds from hanging, then re-test."
+now: "Runs no longer hang silently: a stuck repair now keeps the page and writes its record. Login back up to 65.5. Next: re-test bento and sunset with everything so far."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-2026-10-28T0712Z", until: "2026-10-28T08:42Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -35,7 +35,9 @@ nodes:
   - {id: n11, parent: n4, kind: step, title: "A stacked headline is one heading: a note on any of its lines covers all, line pitch sets the size, letters sit on the drawn lines; a note dropped in a small box inside a big one binds to the small box only; re-sketch sunset and diagonal", status: done, branch: try/n4-look-fix, base: "try/n3-ink-style",
      result: "Line stacks read as one heading, break where drawn. Sunset 74.0 to 73.8 (heading matches); diagonal 55.1 to 39.8 (box became card)."}
   - {id: n12, parent: n3, kind: step, title: "A tapped colour keeps its strength: glows and blurred shapes stay vivid, not faint; re-sketch glass blobs and orbit type", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n13, parent: n4, kind: step, priority: next, title: "A run never stalls silently: a repair round that makes no progress ends with the built page kept and its record, times and tokens written; a line drawn for a word is checked as the word's middle, not a 1px box; re-sketch sunset", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n13, parent: n4, kind: step, title: "A run never stalls silently: a repair round that makes no progress ends with the built page kept and its record, times and tokens written; a line drawn for a word is checked as the word's middle, not a 1px box; re-sketch sunset", status: done, branch: try/n4-look-fix, base: "try/n2-shape-vocab",
+     result: "Turns watched, stalled repair keeps build, stages logged. Login 47.7 to 65.5, run finished; card centred low."}
+  - {id: n20, parent: n4, kind: step, title: "A drawn card stays where it was drawn, not centred on the page, and a repair that moves fields never stacks a label onto another field; re-sketch login", status: open, branch: try/n4-look-fix, result: null}
   - {id: n14, parent: n2, kind: step, title: "A box round a big word or number never becomes a card, and a diagonal band between two colours is the edge of the split; re-sketch the diagonal split twice to see the spread", status: done, branch: try/n2-shape-vocab, base: "try/n4-look-fix",
      result: "Area boxes and slanted edges told and checked. Diagonal 39.8 to 55.9 and 57.8; split on line, no card."}
   - {id: n15, parent: n2, kind: step, title: "A ring or box with a colour and a label (a lime badge, a white rows panel) is built as that plain shape in that colour, never a faint drawn disc or a default white card; re-sketch diagonal and glass blobs", status: done, branch: try/n2-shape-vocab,
@@ -46,7 +48,7 @@ nodes:
      result: "09 fills its drawn box, band a thin stripe, both checked. Diagonal 67.4, 64.9 to 75.7, 73.2."}
   - {id: n18, parent: n2, kind: step, title: "Do the gains carry over? Re-sketch 4 baseline pages untouched since the baseline (pricing, login, bento, sunset) with every feature so far, by hand from screenshots", status: done, branch: try/n2-shape-vocab,
      result: "No: pricing 50.5 to 33.2, login 71.1 to 47.7. Fixed ink colour snapping; repair rounds stall."}
-  - {id: n19, parent: n2, kind: step, title: "Carry-over, part two: re-sketch bento and sunset, and login again once runs no longer stall; a style word is never copied into text; a box drawn tall stays that tall", status: open, branch: try/n2-shape-vocab, result: null}
+  - {id: n19, parent: n2, kind: step, priority: next, title: "Carry-over, part two: re-sketch bento and sunset, and login again once runs no longer stall; a style word is never copied into text; a box drawn tall stays that tall", status: open, branch: try/n2-shape-vocab, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
@@ -137,4 +139,6 @@ n16_resketch:   # same 9 marks and 8 notes as n15, word for word; try 1 first Ru
   - {gap: "Tapped colour silently swapped for a nearby one (pale grey page became white) and still passed the check", found_on: "r1 e1 (n18)", built: "ink colours never snapped; one tapped colour checked as exact (n18)", helped: "check now catches it; result not yet re-scored (repair round stalled)"}
   - {gap: "A style word in a note (big bold) copied into the page text", found_on: "r1 e2 (n18)", built: null, helped: null}
   - {gap: "Boxes drawn tall end at their content; a word fix for height moved them down instead", found_on: "r1 e2 (n18)", built: null, helped: null}
-  - {gap: "A repair round after a failed check can hang with no record and nothing on screen", found_on: "r1 e1 (n18, twice)", built: null, helped: null}
+  - {gap: "A repair round after a failed check can hang with no record and nothing on screen", found_on: "r1 e1 (n18, twice)", built: "every turn watched; a silent or too-late repair is stopped, build kept, record and stage log written (n13)", helped: "yes: login run finished with its record, 47.7 to 65.5"}
+  - {gap: "A drawn card is centred on the page instead of kept where drawn", found_on: "r1 e1 (n13)", built: null, helped: null}
+  - {gap: "A repair round thinks for minutes before any edit and can make layout worse (label onto a field)", found_on: "r1 e1 (n13)", built: null, helped: null}
