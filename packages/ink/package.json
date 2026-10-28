@@ -22,6 +22,10 @@
       "types": "./dist/classify.d.ts",
       "default": "./dist/classify.js"
     },
+    "./notefocus": {
+      "types": "./dist/notefocus.d.ts",
+      "default": "./dist/notefocus.js"
+    },
     "./scene": {
       "types": "./dist/scene.d.ts",
       "default": "./dist/scene.js"

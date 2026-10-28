@@ -7,6 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
+import { noteFocus } from '@s2c/ink/notefocus'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
@@ -1957,6 +1958,14 @@ const STYLES = css`
     border: 2px solid var(--s2c-line-strong); border-radius: 6px; background: rgb(56 189 248 / 0.12);
   }
   #noteHi.on { display: block; }
+  /* n9: every note's thread to the mark it is about, always on while you draw,
+     so a note that landed on the wrong mark is visible BEFORE anything is built.
+     Amber, not the ink's blue: it is the tool talking, not your drawing. */
+  #noteLinks { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+  #noteLinks line { stroke: #f59e0b; stroke-width: 1.5; stroke-dasharray: 4 3; }
+  #noteLinks rect { fill: rgb(245 158 11 / 0.07); stroke: #f59e0b; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  #noteLinks circle { fill: #f59e0b; }
+  .noteChip.dragging { opacity: 0.85; cursor: grabbing; }
   /*
    * Elements the SENTENCE points at, outlined while it is being written.
    *
@@ -2321,6 +2330,10 @@ class Overlay {
   private noteRefs!: HTMLElement
   private noteInput: HTMLInputElement
   private noteHi: HTMLElement
+  /** n9: the amber threads from each note chip to the mark it is about. */
+  private noteLinks!: SVGSVGElement
+  /** A chip being dragged onto another mark; a drag is not a click. */
+  private noteDrag: { id: string; px: number; py: number; moved: boolean } | null = null
   /** Open editor: null id = a new note, else the note being re-edited. */
   private noteDraft: {
     id: string | null
@@ -2534,6 +2547,7 @@ class Overlay {
     this.notesLayer = document.createElement('div')
     this.notesLayer.id = 'notes'
     this.notesLayer.innerHTML = `
+      <svg id="noteLinks" width="1" height="1"></svg>
       <div id="noteHi"></div>
       <div id="noteRefHi"></div>
       <div id="noteBox">
@@ -2548,6 +2562,7 @@ class Overlay {
     this.noteWhat = this.shadow.getElementById('noteWhat')!
     this.noteInput = this.shadow.getElementById('noteInput') as HTMLInputElement
     this.noteHi = this.shadow.getElementById('noteHi')!
+    this.noteLinks = this.shadow.getElementById('noteLinks') as unknown as SVGSVGElement
     this.noteRefHi = this.shadow.getElementById('noteRefHi')!
     this.noteRefs = this.shadow.getElementById('noteRefs')!
 
@@ -7394,8 +7409,9 @@ class Overlay {
     caretEnd = false,
   ) {
     this.noteDraft = { id, at, anchor: r.anchor, refs: refs.map((x) => ({ ...x })) }
-    this.noteWhat.textContent = this.anchorLabel(r.anchor, r.el)
-    this.showNoteHighlight(r)
+    const marks = r.anchor.kind === 'strokes' ? this.noteMarks({ at, anchor: r.anchor }) : r.strokes
+    this.noteWhat.textContent = r.anchor.kind === 'strokes' ? this.markLabel(marks) : this.anchorLabel(r.anchor, r.el)
+    this.showNoteHighlight({ ...r, strokes: marks })
     // the box lives in PAGE space, so the clamp is against the viewport's
     // current page window — it only has to be right at open time
     const w = Math.min(320, window.innerWidth - 24)
@@ -7634,7 +7650,11 @@ class Overlay {
         this.deleteNote(n.id)
       })
       chip.append(text, del)
-      chip.addEventListener('click', () => this.editNote(n))
+      chip.addEventListener('click', () => {
+        if (this.noteDrag?.moved) { this.noteDrag = null; return }
+        this.editNote(n)
+      })
+      this.wireNoteDrag(chip, n)
       this.notesLayer.appendChild(chip)
       // Flip to the other side of the anchor when the chip would run off the
       // page. Clamped against the DOCUMENT's width, never the viewport's: a
@@ -7646,6 +7666,129 @@ class Overlay {
         chip.style.left = `${String(Math.max(8, Math.round(n.at.x - 10 - w)))}px`
       }
     }
+    this.renderNoteLinks()
+  }
+
+  /**
+   * The strokes a note is about, by the SAME rule the build uses (ink's
+   * noteFocus, run on the server too): its drawing, narrowed to the mark
+   * nearest the point it was typed at. What the thread shows is what gets sent.
+   */
+  private noteMarks(n: { at: { x: number; y: number }; anchor: NoteAnchor }): Stroke[] {
+    if (n.anchor.kind !== 'strokes') return []
+    const live = new Set(this.strokes.map((s) => s.id))
+    const ids = n.anchor.strokeIds.filter((id) => live.has(id))
+    const focus = noteFocus(ids, n.anchor.focus, n.at, this.strokes) ?? ids
+    return this.strokes.filter((s) => focus.includes(s.id))
+  }
+
+  /** "on this box", "on this ring", "on these 2 lines": the mark in plain words. */
+  private markLabel(marks: Stroke[]): string {
+    if (marks.length === 0) return 'whole sketch'
+    const words = marks.map((m) => markWord(m.points))
+    const same = words.every((w) => w === words[0])
+    if (marks.length === 1) return `on this ${words[0]!}`
+    return same ? `on these ${String(marks.length)} ${words[0]!}s` : `on these ${String(marks.length)} marks`
+  }
+
+  /** Page box of what a note is about, or null for a whole-sketch note. */
+  private noteTarget(n: Note): Box | null {
+    if (n.anchor.kind === 'element') {
+      const el = document.querySelector(`[data-s2c="${n.anchor.srcLoc}"]`)
+      if (!el) return null
+      const b = el.getBoundingClientRect()
+      return { x: b.left + window.scrollX, y: b.top + window.scrollY, w: b.width, h: b.height }
+    }
+    const marks = this.noteMarks(n)
+    if (marks.length === 0) return null
+    const bs = marks.map((s) => this.strokeBox(s))
+    const x0 = Math.min(...bs.map((b) => b.x)), y0 = Math.min(...bs.map((b) => b.y))
+    const x1 = Math.max(...bs.map((b) => b.x + b.w)), y1 = Math.max(...bs.map((b) => b.y + b.h))
+    return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+  }
+
+  /**
+   * n9: a thread from every chip to the mark it is about, plus a faint outline
+   * of that mark. Before this, several notes typed near a cluster of marks all
+   * said "on these 8 strokes", and which one each landed on was only learned
+   * from the build (round 12 c4: the badge's words filled the big box).
+   */
+  private renderNoteLinks() {
+    const svg = this.noteLinks
+    if (!svg) return
+    const NS = 'http://www.w3.org/2000/svg'
+    svg.replaceChildren()
+    let maxX = 1, maxY = 1
+    for (const n of this.notes) {
+      const t = this.noteTarget(n)
+      if (!t) continue
+      const chip = this.notesLayer.querySelector(`.noteChip[data-note="${n.id}"]`) as HTMLElement | null
+      const cx = chip ? chip.offsetLeft + Math.min(14, chip.offsetWidth / 2) : n.at.x + 10
+      const cy = chip ? chip.offsetTop + chip.offsetHeight / 2 : n.at.y + 10
+      // the near edge of the mark, so the thread ends ON it, not at its middle
+      const tx = Math.max(t.x, Math.min(cx, t.x + t.w))
+      const ty = Math.max(t.y, Math.min(cy, t.y + t.h))
+      const rect = document.createElementNS(NS, 'rect')
+      rect.setAttribute('x', String(Math.round(t.x - 4)))
+      rect.setAttribute('y', String(Math.round(t.y - 4)))
+      rect.setAttribute('width', String(Math.round(t.w + 8)))
+      rect.setAttribute('height', String(Math.round(t.h + 8)))
+      rect.setAttribute('rx', '6')
+      rect.dataset.note = n.id
+      const line = document.createElementNS(NS, 'line')
+      line.setAttribute('x1', String(Math.round(cx)))
+      line.setAttribute('y1', String(Math.round(cy)))
+      line.setAttribute('x2', String(Math.round(tx)))
+      line.setAttribute('y2', String(Math.round(ty)))
+      line.dataset.note = n.id
+      const dot = document.createElementNS(NS, 'circle')
+      dot.setAttribute('cx', String(Math.round(tx)))
+      dot.setAttribute('cy', String(Math.round(ty)))
+      dot.setAttribute('r', '3')
+      svg.append(rect, line, dot)
+      maxX = Math.max(maxX, t.x + t.w + 12, cx)
+      maxY = Math.max(maxY, t.y + t.h + 12, cy)
+    }
+    svg.setAttribute('width', String(Math.ceil(maxX)))
+    svg.setAttribute('height', String(Math.ceil(maxY)))
+  }
+
+  /**
+   * n9: drag a chip onto the mark it should be about. Dropping re-reads what
+   * is under the drop point by the same rules as Alt+N, so the thread jumps to
+   * the new mark at once; a plain click still opens the note to edit.
+   */
+  private wireNoteDrag(chip: HTMLElement, n: Note) {
+    chip.addEventListener('pointerdown', (e) => {
+      if ((e.target as HTMLElement).classList.contains('noteDel')) return
+      this.noteDrag = { id: n.id, px: e.clientX, py: e.clientY, moved: false }
+      chip.setPointerCapture(e.pointerId)
+      e.stopPropagation()
+    })
+    chip.addEventListener('pointermove', (e) => {
+      const d = this.noteDrag
+      if (!d || d.id !== n.id) return
+      if (!d.moved && Math.hypot(e.clientX - d.px, e.clientY - d.py) < 5) return
+      d.moved = true
+      chip.classList.add('dragging')
+      chip.style.left = `${String(Math.round(e.clientX + window.scrollX + 10))}px`
+      chip.style.top = `${String(Math.round(e.clientY + window.scrollY + 10))}px`
+    })
+    chip.addEventListener('pointerup', (e) => {
+      const d = this.noteDrag
+      if (!d || d.id !== n.id) return
+      if (chip.hasPointerCapture(e.pointerId)) chip.releasePointerCapture(e.pointerId)
+      if (!d.moved) { this.noteDrag = null; return }
+      // keep `moved` set until the click that follows this pointerup is eaten
+      setTimeout(() => { if (this.noteDrag === d) this.noteDrag = null }, 0)
+      const r = this.resolveAnchor(e.clientX, e.clientY, n.anchor.kind === 'run')
+      n.at = { x: e.clientX + window.scrollX, y: e.clientY + window.scrollY }
+      n.anchor = r.anchor
+      this.renderNotes()
+      this.sync()
+      const what = r.anchor.kind === 'strokes' ? this.markLabel(this.noteMarks(n)) : this.anchorLabel(r.anchor, r.el)
+      this.status(`note moved — now ${what}`)
+    })
   }
 
   /**
@@ -7660,6 +7803,12 @@ class Overlay {
    * empty) and optional here, because an empty one is not worth sending. The two
    * shapes being different is the honest description of that.
    */
+  private focusWire(n: Note): { focus?: string[] } {
+    if (n.anchor.kind !== 'strokes') return {}
+    const ids = this.noteMarks(n).map((s) => s.id)
+    return ids.length > 0 && ids.length < n.anchor.strokeIds.length ? { focus: ids } : {}
+  }
+
   private notesPayload(notes: Note[] = this.notes): Array<Omit<Note, 'refs'> & { refs?: NoteRef[] }> {
     return notes.map((n) => ({
       id: n.id,
@@ -7671,7 +7820,8 @@ class Overlay {
           ? {
               kind: 'strokes' as const,
               strokeIds: [...n.anchor.strokeIds],
-              ...(n.anchor.focus?.length ? { focus: [...n.anchor.focus] } : {}),
+              // n9: the marks the thread shows, so the build is told exactly that
+              ...this.focusWire(n),
             }
           : { kind: 'run' as const },
       // omitted when there are none, which is most notes: an empty array on
@@ -7717,6 +7867,7 @@ class Overlay {
       return path
     }))
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
+    this.renderNoteLinks()
     this.refreshOptimistic()
   }
 
@@ -12262,4 +12413,25 @@ function readingOutcome(ok: boolean, httpStatus: number, body: ReadingBody, ms: 
     ...(v2?.plain ? { plain: v2.plain } : {}),
     ...(v2 ? { actions: v2.interpretation.actions.length } : {}),
   }
+}
+
+/**
+ * A drawn mark in one plain word, for the note label: closed and square-edged
+ * is a box, closed and round is a ring, open and straight is a line.
+ */
+export function markWord(pts: Array<{ x: number; y: number }>): string {
+  if (pts.length < 2) return 'mark'
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  const w = x1 - x0, h = y1 - y0
+  const a = pts[0]!, b = pts[pts.length - 1]!
+  const closed = Math.hypot(a.x - b.x, a.y - b.y) <= Math.max(24, 0.15 * Math.min(w, h)) && Math.min(w, h) >= 20
+  if (closed) {
+    const tol = Math.max(6, 0.08 * Math.min(w, h))
+    const onEdge = pts.filter((p) => Math.min(p.x - x0, x1 - p.x, p.y - y0, y1 - p.y) <= tol).length
+    return onEdge / pts.length >= 0.8 ? 'box' : 'ring'
+  }
+  let len = 0
+  for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+  return Math.hypot(a.x - b.x, a.y - b.y) >= 0.9 * len ? 'line' : 'scribble'
 }

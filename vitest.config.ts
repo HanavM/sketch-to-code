@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       // before '@s2c/ink': a string alias also matches its subpaths
       '@s2c/ink/classify': resolve(__dirname, 'packages/ink/src/classify.ts'),
+      '@s2c/ink/notefocus': resolve(__dirname, 'packages/ink/src/notefocus.ts'),
       '@s2c/ink/scene': resolve(__dirname, 'packages/ink/src/scene.ts'),
       '@s2c/ink': pkg('ink'),
       '@s2c/dom': pkg('dom'),

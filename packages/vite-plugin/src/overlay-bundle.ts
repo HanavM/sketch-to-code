@@ -38,6 +38,9 @@ export function overlayAliases(
   // the stroke scene (arrows), zlib-free like the classifier (goal loop n7)
   const sceneSrc = resolve(inkPkg, 'src/scene.ts')
   if (exists(sceneSrc)) alias['@s2c/ink/scene'] = sceneSrc
+  // which mark each note is about, shown before the build (goal loop n9)
+  const focusSrc = resolve(inkPkg, 'src/notefocus.ts')
+  if (exists(focusSrc)) alias['@s2c/ink/notefocus'] = focusSrc
   return alias
 }
 

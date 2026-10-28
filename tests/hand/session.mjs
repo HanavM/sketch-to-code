@@ -21,6 +21,7 @@
  *   pen {color|null}            pen colour via the real pen panel
  *   note {x, y, text, whole?}   Alt+N (or Alt+Shift+N) and type
  *   undo                        Ctrl+Z (counts as an erased stroke)
+ *   moveNote {text, x, y}       drag a note chip onto another mark (n9; counts as a fix)
  *   look {name}                 screenshot of what is on screen now
  *   run                         Alt+R, wait for the reading, shot it, Go, wait
  *                               for the build, reload, shot the result
@@ -75,6 +76,9 @@ async function safeEval(page, fn, arg0) {
     }
   }
   throw new Error('page kept navigating')
+}
+async function statusLine(page) {
+  return page.evaluate(() => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '')
 }
 async function drawMode(page) {
   for (let i = 0; i < 4; i++) {
@@ -147,7 +151,26 @@ const ops = {
     await p.keyboard.type(text); await p.keyboard.press('Enter'); await p.waitForTimeout(200)
     S.notes.push({ text, whole: !!whole, at: now() - S.t0 })
     S.events.push({ op: 'note', at: now() - S.t0 })
-    return { ok: true, notes: S.notes.length }
+    // what a person reads in the bar: which mark the note landed on (n9)
+    return { ok: true, notes: S.notes.length, status: await statusLine(p) }
+  },
+  /** n9: drag a note's chip (found by the start of its text) to page point x,y. */
+  async moveNote({ text, x, y }) {
+    const p = S.page
+    const box = await p.evaluate((t) => {
+      const root = document.getElementById('s2c-overlay-host').shadowRoot
+      const chip = [...root.querySelectorAll('.noteChip')].find((c) => (c.querySelector('.noteText')?.textContent ?? '').startsWith(t))
+      if (!chip) return null
+      const r = chip.getBoundingClientRect(); return { x: r.left + 8, y: r.top + r.height / 2 }
+    }, text)
+    if (!box) return { ok: false, error: 'no such note' }
+    await p.mouse.move(box.x, box.y); await p.mouse.down()
+    const tx = x - (await p.evaluate(() => window.scrollX)), ty = y - (await p.evaluate(() => window.scrollY))
+    for (let i = 1; i <= 12; i++) { await p.mouse.move(box.x + ((tx - box.x) * i) / 12, box.y + ((ty - box.y) * i) / 12); await p.waitForTimeout(16) }
+    await p.mouse.up(); await p.waitForTimeout(250)
+    S.noteMoves = (S.noteMoves ?? 0) + 1
+    S.events.push({ op: 'moveNote', at: now() - (S.t0 ?? now()) })
+    return { ok: true, status: await statusLine(p) }
   },
   async undo() {
     await S.page.keyboard.press('Control+z'); await S.page.waitForTimeout(200)
@@ -221,7 +244,7 @@ const ops = {
     const digest = {
       round: S.round, id: S.id, version: LIKENESS_VERSION, stopped: stopped ?? null,
       likeness: Math.round(overall * 1000) / 10, colour: pic.colourAligned, structure: pic.structureAligned, layout,
-      strokes: strokeStats(S.strokes.map((s) => s.way)), erased: S.undos,
+      strokes: strokeStats(S.strokes.map((s) => s.way)), erased: S.undos, notesMoved: S.noteMoves ?? 0,
       words, notes: S.notes.length, longestNote: S.notes.reduce((a, n) => Math.max(a, n.text.split(/\s+/).filter(Boolean).length), 0),
       noteTexts: S.notes.map((n) => n.text),
       time: {
