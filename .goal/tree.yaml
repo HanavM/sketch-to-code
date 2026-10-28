@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Fix notes typed after a build are now checked and put back if they make the page worse: two landing pages rose 6 and 21 points. Next: show which part a fix note will change before it runs, and keep short labels where typed."
+now: "A fix note like \"below the heading\" now changes the part below the heading, not the heading: the roastery page rose to 80 and 84. Next: keep big heading lines drawn far apart as one heading."
 round: 32
 round_scores: [53, 77, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-n39-1951, until: "2026-10-28T21:21Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -85,7 +85,10 @@ nodes:
      result: "Signup 89.7, analytics 73.6, chat 86.9, calendar 80.5, files 73.9; round 32 mean 75.7, 11 strokes."}
   - {id: n37, parent: n4, kind: step, title: "A fix note after a build is checked on the page like a build (put back if it made things worse), reaches the parts it names not their wrapper, and stacked big heading lines stay one heading; re-sketch aurora, roastery and synth", status: done, branch: try/n3-ink-style,
      result: "Fixes checked for words running together, panels kept, parts named. Aurora 66.3 to 72.2, synth 59.9 to 80.9, roastery 77.9."}
-  - {id: n39, parent: n4, kind: step, priority: next, title: "Before a fix runs, show which built part the note will change (highlight it on the page) so a wrong pick is seen and dragged; big heading lines drawn far apart stay one heading; re-sketch roastery and aurora", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n39, parent: n4, kind: step, title: "Before a fix runs, show which built part the note will change, and a note like 'below heading' typed on the heading goes to the part below; re-sketch roastery", status: done, branch: try/n3-ink-style,
+     result: "A fix note naming a part as a place goes to the part beside it, shown. Roastery 77.9 to 80.5, 83.6."}
+  - {id: n40, parent: n4, kind: step, priority: next, title: "Big heading lines drawn far apart stay one heading at the drawn size and spot; re-sketch aurora", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n41, parent: n4, kind: step, title: "The first build never adds words nobody drew or typed, and words already on top of each other after the first build are caught and fixed; re-sketch roastery", status: open, branch: try/n3-ink-style, result: null}
   - {id: n38, parent: n2, kind: step, title: "A short label typed beside a divider or short line stays where typed (never centred on the line or dropped into a nearby box), a lone short line under the header is a heading, and a round mark is a circle not a hexagon; re-sketch calendar, files and chat", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A fix note after a build runs a quick edit with no page check and made 3 of 4 pages worse (heading onto date, subtitle into heading, panel painted)", found_on: "r32 c1, c2, c4", built: "a fix on a built page is measured: words apart stay apart (and clear of painted shapes), 'no panel' means it stops painting; still broken after repairs = page put back (n37)", helped: "yes: aurora 66.3 to 72.2, synth 59.9 to 80.9 with the same fix notes; put-back not needed live"}
@@ -187,6 +190,8 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A ring with a yellow tap and a grey-blue halo built as a grey lopsided blob", found_on: "r31 e4 (n29)", built: "a tapped ring is a solid disc in exactly that colour, never a path; a ring in a ring sits on top (n30)", helped: "yes: yellow sun with grey-blue halo both tries"}
   - {gap: "Two taps on one mark keep only the last colour: no gradient on a banner", found_on: "r31 e5 (n28)", built: null, helped: null}
   - {gap: "A ring overlapping a banner is built two-toned", found_on: "r31 e5 (n28)", built: null, helped: null}
+  - {gap: "A fix note 'below heading' typed on the heading's edge changed the heading, not the subtitle", found_on: "r32 c2 (n37)", built: "a note naming a part as a place goes to the nearest other part on that side, said on the status line (n39)", helped: "yes: rule fired live; roastery 77.9 to 80.5, 83.6"}
+  - {gap: "First build invented a line nobody drew, on top of the heading", found_on: "r32 c2 (n39)", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -301,3 +306,6 @@ n37_resketch:   # same strokes, taps and notes as n35 word for word, fix notes t
   - {page: r32 c4-synth-app, likeness: 80.9, was: 59.9, strokes: 10, words: 41, minutes: 5.5, fixes: 1, build_s: 267, tokens: 78772}
   - {page: r32 c2-roastery, try: 1, likeness: 67.2, was: 78.3, strokes: 15, words: 32, minutes: 7.3, fixes: 1, build_s: 350, tokens: 116261, note: "fix landed on the heading, ran under the disc; shape check added after"}
   - {page: r32 c2-roastery, try: 2, likeness: 77.9, was: 78.3, strokes: 15, words: 32, minutes: 3.5, fixes: 1, build_s: 128, tokens: 61935}
+n39_resketch:   # same strokes, taps, notes and fix note as n35/n37 (replay --fixes)
+  - {page: r32 c2-roastery, try: 1, likeness: 80.5, was: 77.9, strokes: 15, words: 32, minutes: 6.4, fixes: 1, build_s: 308, tokens: 127276, note: "pointer already on subtitle; rule not needed"}
+  - {page: r32 c2-roastery, try: 2, likeness: 83.6, was: 77.9, strokes: 15, words: 32, minutes: 3.3, fixes: 1, build_s: 114, tokens: 57706, note: "rule fired live: the part below the heading"}
