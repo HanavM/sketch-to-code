@@ -25,7 +25,7 @@ describe('n22: thinking is not progress', () => {
     const start = 0
     const readAt = 1_300
     const now = start + REPAIR_EDIT_MS + 5_000
-    expect(stallReason({ now, lastActivity: readAt + 100_000, lastEdit: start })).toMatch(/125 s without an edit \(thinking is not progress\)/)
+    expect(stallReason({ now, lastActivity: readAt + 100_000, lastEdit: start })).toMatch(/185 s without an edit \(thinking is not progress\)/)
     // an edit resets it; a build turn (no lastEdit) is not held to it
     expect(stallReason({ now, lastActivity: now - 1_000, lastEdit: now - 30_000 })).toBeNull()
     expect(stallReason({ now, lastActivity: now - 1_000 })).toBeNull()

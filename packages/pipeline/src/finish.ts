@@ -21,7 +21,7 @@ import { appPalette, deltaE, hexOf, parseCssColor, type PaletteEntry } from './p
 import type { DomSnapshot } from '@s2c/dom'
 
 export interface FinishEdit {
-  kind: 'colour-snapped' | 'empty-path-dropped' | 'duplicate-path-dropped' | 'position-yields'
+  kind: 'colour-snapped' | 'empty-path-dropped' | 'duplicate-path-dropped' | 'position-yields' | 'display-clash'
   detail: string
 }
 
@@ -108,6 +108,17 @@ export function finishSource(code: string, palette: PaletteEntry[], asked: Reado
     if (/\b(absolute|fixed|sticky)\b/.test(a + b + c)) return whole
     edits.push({ kind: 'position-yields', detail: 'a hard-coded relative now yields to an absolute/fixed className' })
     return `className={\`${a}\${/\\b(absolute|fixed|sticky)\\b/.test(className) ? '' : 'relative'}${b}\${className}${c}\`}`
+  })
+
+  // ⑤ flow-root next to flex or grid on one element: both set display, and in Tailwind's stylesheet
+  // .flow-root comes later, so the flex lost and a card meant to be centred by justify-center sat at
+  // the left edge (n22, login: the card 429px left of where it was drawn). The wrapper rule asks for
+  // flow-root only to stop a child's margin collapsing through it; a flex or grid box already does that.
+  out = out.replace(/className=(["'])([^"'{}]*)\1/g, (whole, q: string, cls: string) => {
+    const list = cls.split(/\s+/)
+    if (!list.includes('flow-root') || !list.some((c) => /^(inline-)?(flex|grid)$/.test(c))) return whole
+    edits.push({ kind: 'display-clash', detail: 'flow-root dropped where flex or grid sets the display' })
+    return `className=${q}${list.filter((c) => c !== 'flow-root').join(' ')}${q}`
   })
 
   return { code: out, edits }

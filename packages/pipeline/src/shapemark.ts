@@ -223,6 +223,16 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
       if (d < bestD) { best = n; bestD = d }
     }
     const where = `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
+    // n22 (login try 3): the sign-in card was built at the left edge, 429px off. "Nothing that size was
+    // built near it" sent the repair to rebuild it; a big block of just that size anywhere is that block, off.
+    if ((!best || bestD > 260) && b.w >= 160 && b.h >= 120) {
+      for (const n of fresh) {
+        if (claimed.has(n.id)) continue
+        if (Math.abs(n.rect.w - b.w) > b.w * 0.06 || Math.abs(n.rect.h - b.h) > b.h * 0.1) continue
+        const d = Math.hypot(n.rect.x + n.rect.w / 2 - cx, n.rect.y + n.rect.h / 2 - cy)
+        if (!best || bestD > 260 || d < bestD) { best = n; bestD = 0 }
+      }
+    }
     if (!best || bestD > 260) {
       if (!mine.has(m.strokeId)) continue
       out.push({ strokeId: m.strokeId, drawn: b, built: null, dx: null, dy: null })
@@ -301,13 +311,19 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     const centred = Math.abs(p.dy) > p.slack && Math.abs(p.dx) <= p.slack && b.w >= 160 && b.h >= 120
       ? ` It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, ${r1(b.y)}px from the top of the page.`
       : ''
-    const followsOnly = up && Math.abs(p.dy) > p.slack && Math.abs(p.dx) <= p.slack && Math.abs(ownDy) <= Math.min(6, p.slack)
+    const ownDx = up ? r1(p.dx - up.dx) : p.dx
+    const followsOnly = up && Math.abs(ownDy) <= Math.min(6, p.slack) && Math.abs(ownDx) <= Math.min(6, p.slack)
     if (followsOnly) {
       misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}, but only because ${name(up)} ${r!.rel} is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.`)
       continue
     }
-    const partial = up && Math.abs(up.dy) > up.slack && Math.abs(p.dx) <= p.slack
-      ? ` ${Math.abs(up.dy)}px of that comes from ${name(up)} ${r!.rel}; once that one is fixed this one is still ${Math.abs(ownDy)}px too ${ownDy > 0 ? 'low' : 'high'}, so change only the gap between them by ${Math.abs(ownDy)}px.`
+    const upOff = up && (Math.abs(up.dy) > up.slack || Math.abs(up.dx) > up.slack)
+    const rest = [
+      Math.abs(ownDy) > 2 ? `${Math.abs(ownDy)}px too ${ownDy > 0 ? 'low' : 'high'}` : '',
+      Math.abs(ownDx) > 2 ? `${Math.abs(ownDx)}px too far ${ownDx > 0 ? 'right' : 'left'}` : '',
+    ].filter(Boolean).join(' and ')
+    const partial = upOff
+      ? ` Part of that comes from ${name(up)} ${r!.rel}; once that one is fixed this one is still ${rest}, so change only the spacing between them by that much.`
       : ''
     misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${partial}${centred}`)
   }

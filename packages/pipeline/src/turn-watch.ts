@@ -18,7 +18,7 @@ export const STALL_MS = 150_000
  * file and edits within seconds (n20 try 3: 7 s). Try 2's third round read the
  * file, then thought for 8 minutes with no edit until the cap stopped it.
  */
-export const REPAIR_EDIT_MS = 120_000
+export const REPAIR_EDIT_MS = 180_000
 export const WATCH_EVERY_MS = 5_000
 
 export class TurnStalled extends Error {

@@ -146,7 +146,7 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     // a field whose own gap is also wrong is told only its own share
     const w = verifyShapeMarks(marks, before, { nodes: [...before.nodes,
       n('c', 'div', 429, 150, 422, 422), n('e', 'input', 470, 304, 340, 42), n('p', 'input', 470, 418, 340, 42), n('b', 'button', 470, 474, 340, 44)] })
-    expect(w.reason).toMatch(/16px of that comes from the <input> drawn at \(470,287\) above it; once that one is fixed this one is still 25px too low, so change only the gap between them by 25px/)
+    expect(w.reason).toMatch(/Part of that comes from the <input> drawn at \(470,287\) above it; once that one is fixed this one is still 25px too low, so change only the spacing between them by that much/)
     // nothing off: nothing said
     expect(verifyShapeMarks(marks, before, { nodes: [...before.nodes,
       n('c', 'div', 429, 150, 422, 422), n('e', 'input', 470, 288, 340, 44), n('p', 'input', 470, 376, 340, 44), n('b', 'button', 470, 448, 340, 46)] }).satisfied).toBe(true)
@@ -184,7 +184,18 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(at('s4')).toBe(478)
     expect(at('s5')).toBe(550)
     expect(v.reason).toMatch(/looks centred on the screen/)
-    expect(v.reason).toMatch(/90px of that comes from the <div> drawn at \(429,149\) it sits in/)
+    expect(v.reason).toMatch(/Part of that comes from the <div> drawn at \(429,149\) it sits in; once that one is fixed this one is still 12px too low/)
+  })
+
+  it('n22: a card built far off but exactly its size is that card, off (not "nothing built")', () => {
+    const page: ShapeMark[] = [
+      { strokeId: 's0', shape: 'box', box: { x: 429, y: 149, w: 422, h: 422 } },
+      { strokeId: 's3', shape: 'box', box: { x: 470, y: 287, w: 340, h: 45 } },
+    ]
+    const n = (id: string, tag: string, x: number, y: number, w: number, h: number) => ({ id, tag, rect: { x, y, w, h } })
+    const v = verifyShapeMarks(page, { nodes: [] }, { nodes: [n('c', 'div', 0, 150, 421, 440), n('e', 'input', 41, 298, 340, 44)] })
+    expect(v.reason).toMatch(/\(429,149\) 422x422: the <div> built for it sits 429px too far left/)
+    expect(v.reason).toMatch(/\(470,287\) 340x45: the <input> built for it sits 429px too far left, but only because the <div> drawn at \(429,149\) it sits in/)
   })
 })
 
