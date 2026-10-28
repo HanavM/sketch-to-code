@@ -299,6 +299,7 @@ export function isPageLookNote(text: string): boolean {
   return /\b(page|pages|site|website|background|backdrop|bg|paper|theme|whole|overall|everywhere)\b/i.test(t)
 }
 
+import { markAreasAndEdges } from './areas.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
 
@@ -1090,6 +1091,7 @@ export function groundInterpretation(
     }
     const targetIds = new Set([...targets.map((t) => t.domId), ...(dest ? [dest.domId] : [])])
     const notes: string[] = []
+    const noteObjs: Array<{ text: string; focus?: string[] }> = []
     const refs: NonNullable<GroundedAction['refs']> = []
     for (const note of ev.notes) {
       const hit =
@@ -1097,6 +1099,7 @@ export function groundInterpretation(
         (note.scope === 'strokes' && (focusCited(note) ?? (note.strokeIds ?? []).some((id) => citedIds.has(id))))
       if (!hit) continue
       notes.push(note.text)
+      noteObjs.push({ text: note.text, ...(note.focus?.length ? { focus: note.focus } : {}) })
       attached.add(note.id)
       // the sentence came with this action, so the elements it names come too —
       // including the source location, which is what codegen actually needs
@@ -1151,6 +1154,8 @@ export function groundInterpretation(
       : undefined
 
     const stacks = textStackOf([...textMarks, ...shapeMarks.filter((m) => m.shape === 'line').map((m) => m.strokeId)])
+    // n14: a box round a big word is that word's area, a slanted line across the page is an edge
+    if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport)
     actions.push({
       kind: a.kind,
       targets,

@@ -31,6 +31,12 @@ export interface DomNode {
     borderRadius: string
     /** Set only when the element paints a gradient or image (not 'none'). */
     backgroundImage?: string
+    /** Set only when the element is clipped (n14: a slanted edge between two areas is a clip-path). */
+    clipPath?: string
+    /** Set only when the top border paints: '2px rgb(0, 0, 0)' (n14: an area box must not be framed). */
+    border?: string
+    /** Set only when the element casts a shadow. */
+    boxShadow?: string
   }
   /** Parent DomNode id, or null for the root. */
   parent: string | null

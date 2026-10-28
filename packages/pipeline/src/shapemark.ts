@@ -37,6 +37,10 @@ export interface ShapeMark {
   /** line only: where the pen started and ended, page px. */
   from?: { x: number; y: number }
   to?: { x: number; y: number }
+  /** box only (n14): its notes say it holds a big word or number, so it marks that word's area: no card. */
+  area?: true
+  /** line only (n14): a slanted line running most of the page: the edge between two areas. */
+  edge?: true
 }
 
 const r1 = (v: number) => Math.round(v)
