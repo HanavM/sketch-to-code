@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Settings page went from 37.6 to 60.5 and 61.4: every row keeps its grey line, and repairs keep going while boxes move closer. Next: take a drift out where it starts, not from the header."
+now: "Settings page now 71.8 and 72.8 (was 61.4): the header stays put, toggles look right, one quick fix lands every box. Next: words typed on a drawn line stay where the line is (bento page)."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run n25 2026-10-28T11:00Z", until: "2026-10-28T12:30Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -45,7 +45,8 @@ nodes:
      result: "Repairs at low effort edit in seconds; stacked boxes told who follows. Login 82.8 to 93.4, 90.2; settings 37.6."}
   - {id: n24, parent: n4, kind: step, title: "A page that drifts down as a whole is fixed at the top (the header that pushed it), repairs never move a box the wrong way, and a note for every row gives each row all its lines; re-sketch settings twice", status: done, branch: try/n4-look-fix,
      result: "Drift named at top, worse repairs put back, rows keep grey lines. Settings 37.6 to 60.5, 61.4."}
-  - {id: n25, parent: n4, kind: step, priority: next, title: "A drift is taken out where it starts (row spacing, not the header): the header's drawn lines are held, rows keep the drawn pitch, an on toggle's knob sits inside its track; re-sketch settings twice", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n25, parent: n4, kind: step, title: "A drift is taken out where it starts (row spacing, not the header): the header's drawn lines are held, rows keep the drawn pitch, an on toggle's knob sits inside its track; re-sketch settings twice", status: done, branch: try/n4-look-fix,
+     result: "Header held, drift taken from gap under tabs, knobs inside tracks. Settings 61.4 to 71.8, 72.8."}
   - {id: n14, parent: n2, kind: step, title: "A box round a big word or number never becomes a card, and a diagonal band between two colours is the edge of the split; re-sketch the diagonal split twice to see the spread", status: done, branch: try/n2-shape-vocab, base: "try/n4-look-fix",
      result: "Area boxes and slanted edges told and checked. Diagonal 39.8 to 55.9 and 57.8; split on line, no card."}
   - {id: n15, parent: n2, kind: step, title: "A ring or box with a colour and a label (a lime badge, a white rows panel) is built as that plain shape in that colour, never a faint drawn disc or a default white card; re-sketch diagonal and glass blobs", status: done, branch: try/n2-shape-vocab,
@@ -58,7 +59,7 @@ nodes:
      result: "No: pricing 50.5 to 33.2, login 71.1 to 47.7. Fixed ink colour snapping; repair rounds stall."}
   - {id: n19, parent: n2, kind: step, title: "Carry-over, part two: re-sketch bento and sunset with everything so far", status: done, branch: try/n4-look-fix,
      result: "Gains carry: bento 81.3 to 82.6, sunset 52.1 to 76.4 after fixing headings that swallowed subtitle lines."}
-  - {id: n21, parent: n4, kind: step, title: "A word typed on a drawn line sits where the line is (left stays left, not centred), and text with no line goes where it was typed; re-sketch bento", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n21, parent: n4, kind: step, priority: next, title: "A word typed on a drawn line sits where the line is (left stays left, not centred), and text with no line goes where it was typed; re-sketch bento", status: open, branch: try/n4-look-fix, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
@@ -81,7 +82,7 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "Two stacked short lines read as label plus small date, not one big block", found_on: "r8 c2", built: null, helped: null}
   - {gap: "Counts in notes ignored for a grid: 5 teams filled all 24 rows with invented rows", found_on: "r5 e5 (n7)", built: "typed counts are exact: told to codegen and counted on the page (n8)", helped: "yes: exactly 5 teams in 24 rows, both tries; grid 13.7 to 33.7"}
   - {gap: "A fix note re-laid the page and moved the drawn grid 48px off its box", found_on: "r5 e5 (n7)", built: "boxes drawn earlier are remembered and held in place on later runs (n8)", helped: "yes: grid did not move through the fix; fix took 40 s"}
-  - {gap: "On-state toggles built with the knob outside the track", found_on: "r2 e3 (n7)", built: null, helped: null}
+  - {gap: "On-state toggles built with the knob outside the track", found_on: "r2 e3 (n7)", built: "codegen told the knob travel; a knob poking out of a toggle box is a check miss (n25)", helped: "yes: knobs inside both tries"}
   - {gap: "Notes go to the wrong mark when several sit close: a badge's words filled the big box, the badge ring got an invented RC", found_on: "r12 c4 (n8)", built: "threads show each note's mark before the build; drag to rebind; overlay and build share one rule (n9)", helped: "yes: badge text in the ring, no invented RC"}
   - {gap: "A huge outlined number typed in a note (09) was left out entirely", found_on: "r12 c4 (n8)", built: "cause was the note bound to the diagonal; fixed by n9 threads and diagonal rule", helped: "yes: outlined 09 built across the band"}
   - {gap: "A long diagonal stroke's box swallowed notes typed beside it", found_on: "r12 c4 (n9)", built: "a diagonal covers its ink, not its box (n9)", helped: "yes: 09 note bound to the big box alone"}
@@ -112,8 +113,9 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A whole-sketch note 'title + grey line' for every row: the grey lines were dropped", found_on: "r2 e3 (n22)", built: "a note naming a row's parts gives every row every part, placeholder where none typed (n24)", helped: "yes: all four grey lines built, both tries"}
   - {gap: "A repair that made drawn boxes worse (30 to 48px low) was kept", found_on: "r2 e3 (n22)", built: "a repair round that moves drawn boxes further off is put back and re-verified (n24)", helped: "guard in place; not triggered in the two re-sketches"}
   - {gap: "A repair that brought boxes 24px closer stopped on 'no improvement' because the pass share was flat", found_on: "r2 e3 (n24)", built: "boxes moving clearly closer earns one more round (n24)", helped: "yes: try 2 went 60% to 80% of checks, toggles landed"}
-  - {gap: "The repair takes a drift out of the header (heading and tabs move up) instead of the row spacing that caused it", found_on: "r2 e3 (n24)", built: null, helped: null}
-  - {gap: "Rows built taller than drawn push the buttons twice as far as the top toggle", found_on: "r2 e3 (n24)", built: null, helped: null}
+  - {gap: "The repair takes a drift out of the header (heading and tabs move up) instead of the row spacing that caused it", found_on: "r2 e3 (n24)", built: "where the tabs line was built is found; if it landed the header is held and the drift named in the gap under it (n25)", helped: "yes: try 2 33px low to landed in one round, header untouched; settings 61.4 to 72.8"}
+  - {gap: "Rows built taller than drawn push the buttons twice as far as the top toggle", found_on: "r2 e3 (n24)", built: "row pitch drawn vs built named; a box under the rows rides the lowest drifting box above it (n25)", helped: "yes: buttons rode along, no doubled fix"}
+  - {gap: "A tapped blue built about ΔE 14 off on the first build", found_on: "r2 e3 (n25)", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -188,3 +190,6 @@ n22_resketch:   # login: same 9 marks and 6 notes as n13/n20, word for word; set
 n24_resketch:   # same 8 marks, 3 taps and 9 notes as n22 settings, word for word
   - {page: r2 e3-settings, try: 1, likeness: 60.5, was: 37.6, strokes: 11, words: 36, minutes: 4.3, fixes: 0, build_s: 171, tokens: 84796, note: "rows keep grey lines; repair 56 to 32px low then stopped flat"}
   - {page: r2 e3-settings, try: 2, likeness: 61.4, was: 37.6, strokes: 11, words: 36, minutes: 3.0, fixes: 0, build_s: 141, tokens: 54146, note: "3 rounds, toggles landed; header squeezed up, buttons 15px high"}
+n25_resketch:   # same 8 marks, 3 taps and 9 notes as n22/n24 settings, word for word
+  - {page: r2 e3-settings, try: 1, likeness: 71.8, was: 61.4, strokes: 11, words: 36, minutes: 3.6, fixes: 0, build_s: 166, tokens: 83208, note: "knobs inside; one repair round"}
+  - {page: r2 e3-settings, try: 2, likeness: 72.8, was: 61.4, strokes: 11, words: 36, minutes: 2.1, fixes: 0, build_s: 83, tokens: 40301, note: "33px low, told header right; one round landed every box"}

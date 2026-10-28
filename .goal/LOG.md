@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-28T11:15Z | n25 a drift is taken out where it starts; knobs inside tracks | Header held, drift from gap under tabs, knobs inside. Settings 61.4 to 71.8, 72.8.
 2026-10-28T11:00Z | n24 a drifting page is fixed at the top; rows get every part | Rows keep grey lines; worse repairs put back; closer boxes earn a round. Settings 37.6 to 60.5, 61.4.
 2026-10-28T10:50Z | n22 repairs that think without editing are cut; stacked boxes aim right | Low-effort repairs edit in seconds. Login 82.8 to 93.4, 90.2; settings fresh sketch 37.6, page drifts low.
 2026-10-28T09:08Z | n12 a tapped colour keeps its strength | Full strength told and measured. Glass blobs 79.2 to 85.1, no repair; orbit 73.9 to 75.3 with taps.
