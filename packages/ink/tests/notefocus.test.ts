@@ -46,3 +46,26 @@ describe('a diagonal covers its ink, not its box (n9)', () => {
     expect(noteFocus(ids, undefined, { x: 520, y: 845 }, S)).toEqual(['diag'])
   })
 })
+
+describe('n11: nested boxes and stacked heading lines', () => {
+  const card = walk('card', [[300, 200], [900, 200], [900, 600], [300, 600], [300, 200]])
+  const btn = walk('btn', [[350, 500], [550, 500], [550, 560], [350, 560], [350, 500]])
+  const head = walk('head', [[350, 260], [800, 260]])
+  const NB = [card, btn, head]
+  it('a note typed inside a button box on a card is about the button alone', () => {
+    expect(noteFocus(NB.map((s) => s.id), undefined, { x: 450, y: 530 }, NB)).toEqual(['btn'])
+  })
+  it('a note typed on the card away from its contents is still about the card', () => {
+    expect(noteFocus(NB.map((s) => s.id), undefined, { x: 850, y: 400 }, NB)).toEqual(['card'])
+  })
+  // round 1 c1: a long line with a short centred line 120px under it is one big heading
+  const L = [
+    walk('l1', [[215, 305], [1070, 305]]),
+    walk('l2', [[540, 425], [745, 425]]),
+    walk('sub', [[350, 528], [930, 528]]),
+    walk('btn', [[450, 650], [670, 650], [670, 710], [450, 710], [450, 650]]),
+  ]
+  it('a note typed on the first line of a stacked line heading covers both lines', () => {
+    expect(noteFocus(L.map((s) => s.id), undefined, { x: 640, y: 300 }, L)).toEqual(['l1', 'l2'])
+  })
+})

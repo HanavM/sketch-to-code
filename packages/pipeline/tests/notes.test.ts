@@ -628,7 +628,9 @@ describe('note focus — a cluster holding several drawings', () => {
     ], snap, new Set(ids), all)
     expect(r[0]!.focus).toEqual(['dark'])
     expect(r[1]!.focus).toEqual(['arch'])
-    expect(r[2]!.focus).toEqual(['dark', 'cta'])
+    // n11: typed inside the small button box that sits in the dark half: the button alone
+    // (it used to reach the dark half too, and its words leaked onto the big block)
+    expect(r[2]!.focus).toEqual(['cta'])
     expect(r[3]!.focus).toEqual(['arch'])
   })
 

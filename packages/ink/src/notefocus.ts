@@ -88,6 +88,15 @@ export function noteFocus(
         focus = ids.filter((id) => focus.includes(id) || near.includes(id))
       } else focus = focus.filter((id) => !kids.includes(id))
     }
+    // Typed inside a small box that sits inside a bigger one (a badge or a button on a
+    // card): the note is about the small box only. n10, round 2 c3: the badge's and the
+    // button's notes were "on these 2 boxes" and their words reached the card too.
+    const holding = focus.filter((id) => boxed.has(id) && enclosed.has(id))
+    if (holding.length >= 2) {
+      const outer = holding.filter((o) => holding.some((i) => i !== o &&
+        contains(rects.get(o)!, rects.get(i)!) && !sameBox(rects.get(o)!, rects.get(i)!)))
+      if (outer.length && outer.length < holding.length) focus = focus.filter((id) => !outer.includes(id))
+    }
   }
   // A note typed on one line of a giant heading is about all its lines: they sit ~150px
   // apart, past the slack, so typed on line 1, line 2 lost the note. Only giant stacks:

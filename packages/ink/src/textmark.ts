@@ -346,5 +346,91 @@ export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextS
       fontPx: fontForPitch(pitch),
     })
   }
+  return [...out, ...lineStacks(marks)]
+}
+
+/**
+ * A level straight line, the plainest way to say "a line of text goes here".
+ * Chord at least 40px, ink barely longer than the chord, within 6° of level.
+ */
+export function isLevelLine(points: Point[]): boolean {
+  if (points.length < 2) return false
+  const a = points[0]!, b = points[points.length - 1]!
+  const chord = Math.hypot(b.x - a.x, b.y - a.y)
+  if (chord < 40) return false
+  let len = 0, dev = 0, side = 0, crossings = 0
+  const ux = (b.x - a.x) / chord, uy = (b.y - a.y) / chord
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i]!
+    if (i) len += Math.hypot(p.x - points[i - 1]!.x, p.y - points[i - 1]!.y)
+    const o = (p.x - a.x) * uy - (p.y - a.y) * ux
+    dev = Math.max(dev, Math.abs(o))
+    // same rule as the pipeline's shape marks: a bow is allowed, a zigzag is not
+    if (o > 4 && side <= 0) { if (side < 0) crossings++; side = 1 }
+    else if (o < -4 && side >= 0) { if (side > 0) crossings++; side = -1 }
+  }
+  const tilt = Math.abs(Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI) % 180
+  return len / chord <= 1.12 && crossings <= 1 && dev <= Math.max(8, Math.min(30, chord * 0.05)) && Math.min(tilt, 180 - tilt) <= 6
+}
+
+/** Line pitch range (px) at which stacked level lines read as one display heading. */
+export const LINE_STACK_MIN_PITCH = 64
+export const LINE_STACK_MAX_PITCH = 200
+
+/**
+ * Stacked level lines that are one big heading (n11, round 1 c1): "Stay for the golden"
+ * drawn as one long line with "hour" as a short centred line 120px below. Read as two
+ * separate lines, the short one was "that heading's smaller line", the note on the
+ * long one left it out, and the heading came out small and low. Two or three lines,
+ * same left edge or centred, a big even pitch (64-200px; body text and ruled lists sit
+ * tighter, and four or more even rules are a list, not a heading), none page-wide (a
+ * divider), and no line longer than the first (a heading wraps shorter, not longer).
+ */
+function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] {
+  const ls = marks
+    .filter((m) => !isTextMark(m.points) && isLevelLine(m.points))
+    .map((m) => lineGeom(m.id, m.points))
+    .sort((a, b) => a.cy - b.cy)
+  const used = new Set<string>()
+  const out: TextStack[] = []
+  for (const first of ls) {
+    if (used.has(first.id)) continue
+    const w0 = first.x1 - first.x0
+    if (w0 >= 1100) continue
+    const stack = [first]
+    for (const next of ls) {
+      if (next === first || used.has(next.id) || next.cy <= stack[stack.length - 1]!.cy) continue
+      const last = stack[stack.length - 1]!
+      const gap = next.cy - last.cy
+      const wn = next.x1 - next.x0
+      const tol = Math.max(40, 0.15 * w0)
+      const sameEdge = Math.abs(next.x0 - first.x0) <= tol ||
+        Math.abs((next.x0 + next.x1) / 2 - (first.x0 + first.x1) / 2) <= tol
+      const pitchOk = stack.length < 2 || Math.abs(gap - (last.cy - stack[stack.length - 2]!.cy)) <= 0.15 * gap
+      // a heading wraps shorter and shorter; a longer line under it is the next block
+      if (gap >= LINE_STACK_MIN_PITCH && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk &&
+          wn <= (last.x1 - last.x0) * 1.05 && wn >= 0.12 * w0) stack.push(next)
+      else if (gap > LINE_STACK_MAX_PITCH) break
+    }
+    if (stack.length > 3) { for (const l of stack) used.add(l.id); continue }
+    if (stack.length < 2) continue
+    // a fourth line on the same pitch below: a ruled list, not a heading
+    const pitch = stack[1]!.cy - stack[0]!.cy
+    const after = ls.find((l) => !stack.includes(l) && Math.abs(l.cy - stack[stack.length - 1]!.cy - pitch) <= 0.25 * pitch &&
+      Math.abs(l.x0 - first.x0) <= Math.max(40, 0.15 * w0))
+    if (stack.length === 3 && after) continue
+    for (const l of stack) used.add(l.id)
+    const gaps = stack.slice(1).map((l, i) => l.cy - stack[i]!.cy).sort((a, b) => a - b)
+    const p = gaps[Math.floor(gaps.length / 2)]!
+    const x0 = Math.min(...stack.map((l) => l.x0))
+    const x1 = Math.max(...stack.map((l) => l.x1))
+    out.push({
+      strokes: stack.map((l) => l.id),
+      lines: stack.length,
+      box: { x: Math.round(x0), y: Math.round(stack[0]!.cy - p / 2), w: Math.round(x1 - x0), h: Math.round(p * stack.length) },
+      linePitchPx: Math.round(p),
+      fontPx: fontForPitch(p),
+    })
+  }
   return out
 }

@@ -26,7 +26,7 @@ export type { CubicBezier, SvgPathResult } from './fitcurve.js'
 export { strokeToEasing } from './easing.js'
 export type { Easing } from './easing.js'
 export {
-  measureTextMark, textMarkReason, isTextMark, fontForPitch, textStacks, LONE_HEADING_INK,
+  measureTextMark, textMarkReason, isTextMark, isLevelLine, fontForPitch, textStacks, LONE_HEADING_INK,
 } from './textmark.js'
 export type { TextMarkMeasure, TextStack } from './textmark.js'
 export {

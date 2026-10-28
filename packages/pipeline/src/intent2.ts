@@ -1025,9 +1025,11 @@ export function groundInterpretation(
       // A squiggle sits on its line's middle, so ink alone puts a block of text half a
       // line low (round 4 c1: 150px headline drawn as 3 lines built ~60px low). A pure
       // text action whose lines all form one drawn stack takes that stack's line boxes.
-      if (region && textMarks.length && !svgPaths.length && textMarks.length === citedStrokes.length) {
-        for (const st of textStackOf(textMarks)) {
-          if (st.strokes.every((id) => textMarks.includes(id))) region = bboxUnion(region, st.box)
+      // n11: the same for a heading drawn as stacked level lines (lineStacks).
+      const wordLines = [...textMarks, ...shapeMarks.filter((m) => m.shape === 'line').map((m) => m.strokeId)]
+      if (region && wordLines.length && !svgPaths.length && wordLines.length === citedStrokes.length) {
+        for (const st of textStackOf(wordLines)) {
+          if (st.strokes.every((id) => wordLines.includes(id))) region = bboxUnion(region, st.box)
         }
       }
     }
@@ -1148,7 +1150,7 @@ export function groundInterpretation(
       ? findInsertSlot(snap, region, dest?.domId)
       : undefined
 
-    const stacks = textStackOf(textMarks)
+    const stacks = textStackOf([...textMarks, ...shapeMarks.filter((m) => m.shape === 'line').map((m) => m.strokeId)])
     actions.push({
       kind: a.kind,
       targets,

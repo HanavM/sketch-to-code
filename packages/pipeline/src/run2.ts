@@ -170,12 +170,14 @@ Rules:
   line → a level line standing for text marks the MIDDLE of its letters: centre
     that text's line box on the line's y (top = y - lineHeight / 2), never put
     the text's top edge on it. A level line is a row of text (a short one under a
-    heading is that heading's smaller line), a divider rule (a long thin line across a section, a
+    heading is that heading's smaller line, UNLESS "textSize" lists it with the heading:
+    then it is the same heading wrapped onto its next line, same size), a divider rule (a long thin line across a section, a
     1px border), or an underline (an active tab, a link): pick by length and what
     is next to it; a slanted line is an edge between two areas (clip-path); never
     a wavy or hand-drawn path;
   ellipse → a clean circle or ring (border-radius: 50%), exactly box w × h.
-- "textSize" groups stacked text squiggles: the spacing the user drew between the
+- "textSize" groups stacked text squiggles, or stacked level lines drawn as one big
+  heading (a long line with a shorter one under it): the spacing the user drew between the
   lines IS the line height. Set that text's font-size to fontPx (within ~15%) with a
   matching line-height, wrapped to box.w, so it fills the drawn box with that many
   lines. A one-line entry is a lone heading squiggle drawn tall: its height set
