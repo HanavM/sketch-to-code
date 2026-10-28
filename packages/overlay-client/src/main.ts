@@ -7,7 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
-import { noteFocus, groupCount } from '@s2c/ink/notefocus'
+import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine } from '@s2c/ink/notefocus'
 import { inkFills, isFillDot, pageFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
@@ -7321,13 +7321,25 @@ class Overlay {
   private clusterFrom(seed: Stroke): Stroke[] {
     const boxes = new Map<Stroke, Box>()
     for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
+    // n40: a giant heading's lines are one drawing however far apart (round 32 c1: NORTH and LIGHTS
+    // 170px apart), and a heading line never joins the next text line (LIGHTS joined the date line)
+    const stacks = giantStacks(this.strokes.filter((st) => !isFillDot(st)))
+    const textLine = new Map<string, boolean>()
+    const isLine = (id: string) => {
+      let v = textLine.get(id)
+      if (v === undefined) { v = isTextLine(this.strokes.find((st) => st.id === id)?.points ?? []); textLine.set(id, v) }
+      return v
+    }
     const group = [seed]
     for (;;) {
       const next = this.strokes.find((st) =>
         !group.includes(st) && !isFillDot(st) &&
-        group.some((g) =>
-          this.boxGap(boxes.get(g)!, boxes.get(st)!) <= NOTE_CLUSTER_PX &&
-          Math.abs(this.strokeTime(st) - this.strokeTime(g)) <= NOTE_CLUSTER_MS),
+        group.some((g) => {
+          const j = stackJoin(g.id, st.id, stacks, isLine)
+          if (j !== undefined) return j
+          return this.boxGap(boxes.get(g)!, boxes.get(st)!) <= NOTE_CLUSTER_PX &&
+            Math.abs(this.strokeTime(st) - this.strokeTime(g)) <= NOTE_CLUSTER_MS
+        }),
       )
       if (!next) break
       group.push(next)

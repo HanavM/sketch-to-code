@@ -6,7 +6,7 @@
  * see bound is what the build is told.
  */
 import type { BBox, Stroke } from './types.js'
-import { isLevelLine, textStacks } from './textmark.js'
+import { isLevelLine, isTextMark, textStacks } from './textmark.js'
 
 /** A text stack at least this big (font px) is one display heading for note focus. */
 export const GIANT_STACK_PX = 60
@@ -310,3 +310,42 @@ export const distToRect = (p: { x: number; y: number }, r: BBox): number => {
   const dy = Math.max(r.y - p.y, 0, p.y - (r.y + r.h))
   return Math.hypot(dx, dy)
 }
+
+/**
+ * n40: the lines of a giant heading are one drawing, and a heading line never joins the next block.
+ *
+ * Round 32 c1 (aurora): NORTH and LIGHTS were drawn as two level lines 170px apart, the date line
+ * 90px under LIGHTS. The overlay groups a note's marks by distance (boxes within 120px), so the
+ * heading note typed on line 1 took only line 1, and LIGHTS' line joined the date line: the date
+ * note was "on these 2 marks" and its thread drew one box round LIGHTS and the date.
+ *
+ * Returns, for every stroke in a giant stack (two or three level lines or squiggles read as one
+ * display heading, letters GIANT_STACK_PX or more), the ids of all that stack's strokes.
+ */
+export function giantStacks(strokes: Array<{ id: string; points: Array<{ x: number; y: number }> }>): Map<string, string[]> {
+  const out = new Map<string, string[]>()
+  const usable = strokes.filter((s) => s.points.length > 1)
+  for (const st of textStacks(usable as Stroke[])) {
+    if (st.lines < 2 || st.fontPx < GIANT_STACK_PX) continue
+    for (const id of st.strokes) out.set(id, st.strokes)
+  }
+  return out
+}
+
+/**
+ * Whether two strokes drawn close together may be grouped as one drawing, given the giant stacks:
+ * lines of one giant heading always go together; a giant heading's line never groups with another
+ * text line (a level line or squiggle outside its stack), however close. Anything else: undefined,
+ * and the usual space-and-time rule decides.
+ */
+export function stackJoin(a: string, b: string, stacks: Map<string, string[]>, isTextLine: (id: string) => boolean): boolean | undefined {
+  const sa = stacks.get(a), sb = stacks.get(b)
+  if (sa && sa === sb) return true
+  if ((sa && !sb && isTextLine(b)) || (sb && !sa && isTextLine(a))) return false
+  if (sa && sb && sa !== sb) return false
+  return undefined
+}
+
+/** A stroke that says "a line of text goes here": a level line or a text squiggle (n40). */
+export const isTextLine = (points: Array<{ x: number; y: number }>): boolean =>
+  points.length > 1 && (isLevelLine(points as Stroke['points']) || isTextMark(points as Stroke['points']))

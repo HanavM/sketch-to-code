@@ -379,6 +379,8 @@ export function isLevelLine(points: Point[]): boolean {
 /** Line pitch range (px) at which stacked level lines read as one display heading. */
 export const LINE_STACK_MIN_PITCH = 64
 export const LINE_STACK_MAX_PITCH = 200
+/** n40: how far (share of the line pitch) a heading's line boxes sit above its drawn lines. */
+export const LINE_STACK_LIFT = 0.16
 /** n33: centred display copy (a pull quote) may sit this close. */
 export const QUOTE_STACK_MIN_PITCH = 48
 
@@ -442,10 +444,16 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
     const p = gaps[Math.floor(gaps.length / 2)]!
     const x0 = Math.min(...stack.map((l) => l.x0))
     const x1 = Math.max(...stack.map((l) => l.x1))
+    // n40: a level line drawn for a big heading line sits low on its letters. Of six hand-drawn
+    // heading stacks (rounds 1, 31, 32) four were drawn on the baseline and two through the middle,
+    // so centring the line box on the line built the letters about half a line low (r32 c1: NORTH's
+    // baseline 56px under its drawn line). Display lines are read as the lower third of the letters:
+    // the line box starts LINE_STACK_LIFT of a pitch higher, at most a quarter cap off either way.
+    const lift = p >= LINE_STACK_MIN_PITCH ? LINE_STACK_LIFT * p : 0
     out.push({
       strokes: stack.map((l) => l.id),
       lines: stack.length,
-      box: { x: Math.round(x0), y: Math.round(stack[0]!.cy - p / 2), w: Math.round(x1 - x0), h: Math.round(p * stack.length) },
+      box: { x: Math.round(x0), y: Math.round(stack[0]!.cy - p / 2 - lift), w: Math.round(x1 - x0), h: Math.round(p * stack.length) },
       linePitchPx: Math.round(p),
       // a centred statement under the heading band sets at about 1.3 line-height
       fontPx: p < LINE_STACK_MIN_PITCH ? Math.round(p / 1.3) : fontForPitch(p),

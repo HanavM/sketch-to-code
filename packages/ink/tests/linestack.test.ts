@@ -15,8 +15,9 @@ describe('stacked level lines read as one heading (n11)', () => {
     expect(st[0]!.strokes).toEqual(['a', 'b'])
     expect(st[0]!.linePitchPx).toBe(120)
     expect(st[0]!.fontPx).toBeGreaterThanOrEqual(100)
-    // letters sit on the drawn lines: line 1's box is centred on y=305
-    expect(st[0]!.box.y).toBe(245)
+    // letters sit on the drawn lines: line 1's box sits a little above centred on y=305 (n40: a
+    // heading line is drawn low on its letters; 305 - 60 - 0.16 * 120)
+    expect(st[0]!.box.y).toBe(226)
   })
   it('body lines and a ruled list are not a heading', () => {
     expect(textStacks([line('a', 100, 600, 300), line('b', 100, 600, 340)])).toEqual([])

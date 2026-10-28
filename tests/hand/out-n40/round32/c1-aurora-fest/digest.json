@@ -1,0 +1,380 @@
+{
+  "round": 32,
+  "id": "c1-aurora-fest",
+  "version": 3,
+  "stopped": null,
+  "likeness": 73,
+  "colour": 0.8950222627481329,
+  "structure": 0.7289481113916831,
+  "layout": 0.661189704075678,
+  "strokes": {
+    "count": 11,
+    "pointsPerStroke": 2.2,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 7,
+      "circle": 1,
+      "dot": 3
+    },
+    "inkPx": 2904
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 43,
+  "notes": 8,
+  "longestNote": 15,
+  "noteTexts": [
+    "AURORA white",
+    "LINEUP · TICKETS · TRAVEL",
+    "NORTH LIGHTS huge white",
+    "14–16 FEB · TROMSØ teal",
+    "Get passes",
+    "Halvard · Mira Sol · The Ice Choir / Northbound · Lumen · Kaja Vik",
+    "soft teal-violet aurora glow band",
+    "two lines: NORTH / LIGHTS"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 253,
+    "firstReadingS": 55,
+    "readS": [
+      36,
+      5
+    ],
+    "buildS": [
+      174,
+      13
+    ],
+    "sketchingS": 25
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 82509,
+    "cacheRead": 319369,
+    "output": 20416,
+    "billed": 102925
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 727
+    },
+    {
+      "op": "stroke",
+      "at": 1891
+    },
+    {
+      "op": "stroke",
+      "at": 4143
+    },
+    {
+      "op": "stroke",
+      "at": 6442
+    },
+    {
+      "op": "stroke",
+      "at": 7808
+    },
+    {
+      "op": "stroke",
+      "at": 9443
+    },
+    {
+      "op": "stroke",
+      "at": 10659
+    },
+    {
+      "op": "stroke",
+      "at": 11808
+    },
+    {
+      "op": "pen",
+      "color": "#141735",
+      "at": 12185
+    },
+    {
+      "op": "stroke",
+      "at": 12659
+    },
+    {
+      "op": "pen",
+      "color": "#17434a",
+      "at": 13029
+    },
+    {
+      "op": "stroke",
+      "at": 13492
+    },
+    {
+      "op": "pen",
+      "color": "#5ee8d6",
+      "at": 13860
+    },
+    {
+      "op": "stroke",
+      "at": 14325
+    },
+    {
+      "op": "note",
+      "at": 14971
+    },
+    {
+      "op": "note",
+      "at": 15624
+    },
+    {
+      "op": "note",
+      "at": 16268
+    },
+    {
+      "op": "note",
+      "at": 16911
+    },
+    {
+      "op": "note",
+      "at": 17533
+    },
+    {
+      "op": "note",
+      "at": 18249
+    },
+    {
+      "op": "note",
+      "at": 18915
+    },
+    {
+      "op": "run",
+      "at": 19241
+    },
+    {
+      "op": "note",
+      "at": 231988
+    },
+    {
+      "op": "run",
+      "at": 232600
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          72,
+          44
+        ],
+        [
+          170,
+          44
+        ]
+      ],
+      "n": 17,
+      "at": 727
+    },
+    {
+      "way": [
+        [
+          958,
+          44
+        ],
+        [
+          1208,
+          44
+        ]
+      ],
+      "n": 43,
+      "at": 1891
+    },
+    {
+      "way": [
+        [
+          78,
+          355
+        ],
+        [
+          715,
+          355
+        ]
+      ],
+      "n": 107,
+      "at": 4143
+    },
+    {
+      "way": [
+        [
+          78,
+          525
+        ],
+        [
+          735,
+          525
+        ]
+      ],
+      "n": 111,
+      "at": 6442
+    },
+    {
+      "way": [
+        [
+          78,
+          615
+        ],
+        [
+          400,
+          615
+        ]
+      ],
+      "n": 55,
+      "at": 7808
+    },
+    {
+      "way": [
+        [
+          90,
+          680
+        ],
+        [
+          238,
+          680
+        ],
+        [
+          250,
+          710
+        ],
+        [
+          238,
+          740
+        ],
+        [
+          90,
+          740
+        ],
+        [
+          78,
+          710
+        ],
+        [
+          90,
+          680
+        ]
+      ],
+      "n": 71,
+      "at": 9443
+    },
+    {
+      "way": [
+        [
+          940,
+          578
+        ],
+        [
+          1208,
+          578
+        ]
+      ],
+      "n": 46,
+      "at": 10659
+    },
+    {
+      "way": [
+        [
+          961,
+          611
+        ],
+        [
+          1208,
+          611
+        ]
+      ],
+      "n": 42,
+      "at": 11808
+    },
+    {
+      "way": [
+        [
+          500,
+          120
+        ]
+      ],
+      "n": 1,
+      "at": 12659
+    },
+    {
+      "way": [
+        [
+          1150,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 13492
+    },
+    {
+      "way": [
+        [
+          160,
+          712
+        ]
+      ],
+      "n": 1,
+      "at": 14325
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "AURORA white",
+      "whole": false,
+      "x": 120,
+      "y": 28,
+      "at": 14971
+    },
+    {
+      "text": "LINEUP · TICKETS · TRAVEL",
+      "whole": false,
+      "x": 1080,
+      "y": 28,
+      "at": 15624
+    },
+    {
+      "text": "NORTH LIGHTS huge white",
+      "whole": false,
+      "x": 300,
+      "y": 340,
+      "at": 16268
+    },
+    {
+      "text": "14–16 FEB · TROMSØ teal",
+      "whole": false,
+      "x": 240,
+      "y": 608,
+      "at": 16911
+    },
+    {
+      "text": "Get passes",
+      "whole": false,
+      "x": 160,
+      "y": 700,
+      "at": 17533
+    },
+    {
+      "text": "Halvard · Mira Sol · The Ice Choir / Northbound · Lumen · Kaja Vik",
+      "whole": false,
+      "x": 1080,
+      "y": 565,
+      "at": 18249
+    },
+    {
+      "text": "soft teal-violet aurora glow band",
+      "whole": false,
+      "x": 1000,
+      "y": 300,
+      "at": 18915
+    },
+    {
+      "text": "two lines: NORTH / LIGHTS",
+      "whole": false,
+      "x": 400,
+      "y": 360,
+      "at": 231988
+    }
+  ]
+}

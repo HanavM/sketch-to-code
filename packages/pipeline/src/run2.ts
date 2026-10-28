@@ -200,7 +200,9 @@ Rules:
   ellipse → a clean circle or ring (border-radius: 50%), exactly box w × h.
 - "textSize" groups stacked text squiggles, or stacked level lines drawn as one big
   heading (a long line with a shorter one under it): the spacing the user drew between the
-  lines IS the line height. Set that text's font-size to fontPx (within ~15%) with a
+  lines IS the line height. Its box already places the letters (stacked heading lines are
+  drawn low on the letters, often on the baseline): fill the box from its top, so each
+  line's letters end just at or a little under its drawn line, not centred on it. Set that text's font-size to fontPx (within ~15%) with a
   matching line-height, wrapped to box.w, so it fills the drawn box with that many
   lines. A one-line entry is a lone heading squiggle drawn tall: its height set
   fontPx. A display headline drawn this big stays this big; never shrink it to the
