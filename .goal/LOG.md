@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-28T05:20Z | n16 outlined words stay hollow; text reads on what is behind | 09 hollow both tries, nav white on try 2; 09 drifted off its box: 73.6, 70.3 to 67.4, 64.9.
 2026-10-28T04:12Z | n15 coloured badge or panel is that plain shape, solid | Solid lime badge, bare rows, both checked. Diagonal 57.8, 55.9 to 73.6, 70.3; no fixes.
 2026-10-28T03:50Z | n14 box round a big word is no card; slanted line is the colour edge | Area boxes and slanted edges told and checked. Diagonal 39.8 to 55.9, 57.8; split on line, no card.
 2026-10-28T03:30Z | n11 stacked headline is one heading | Line stacks read as one heading, break where drawn. Sunset 74.0 to 73.8; diagonal 55.1 to 39.8 (box became card).

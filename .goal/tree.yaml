@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A ring typed lime badge is now a solid lime badge, and rows typed on a box sit bare on the page, not in a white card: the diagonal page went from about 57 to 74 and 70. Next: keep outlined big words outlined and make text pick a colour that reads on what is behind it."
+now: "Outlined big numbers now stay hollow and text is checked to read on what is behind it, but the diagonal page slipped to 67 and 65 because the big 09 drifted off its box. Next: make a big word fill the box it was drawn in."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-28T0454Z, until: '2026-10-28T06:24Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -40,7 +40,9 @@ nodes:
      result: "Area boxes and slanted edges told and checked. Diagonal 39.8 to 55.9 and 57.8; split on line, no card."}
   - {id: n15, parent: n2, kind: step, title: "A ring or box with a colour and a label (a lime badge, a white rows panel) is built as that plain shape in that colour, never a faint drawn disc or a default white card; re-sketch diagonal and glass blobs", status: done, branch: try/n2-shape-vocab,
      result: "Solid coloured badges, bare row boxes, both checked. Diagonal 57.8 and 55.9 to 73.6 and 70.3."}
-  - {id: n16, parent: n2, kind: step, title: "Words keep their look and read on what is behind them: an outlined big word stays outlined, text with no colour typed picks one that reads on the half or block it sits on; re-sketch diagonal and sunset", status: open, branch: try/n2-shape-vocab, result: null}
+  - {id: n16, parent: n2, kind: step, title: "Words keep their look and read on what is behind them: an outlined big word stays outlined, text with no colour typed picks one that reads on the half or block it sits on; re-sketch diagonal and sunset", status: done, branch: try/n2-shape-vocab, 
+     result: "Outlined 09 hollow both tries, nav white on try 2; but 09 drifted off its box: 67.4, 64.9."}
+  - {id: n17, parent: n2, kind: step, title: "A big word in an area box fills that box (size and place told and checked on the page), and a band on an edge is as wide as drawn; re-sketch the diagonal split twice", status: open, branch: try/n2-shape-vocab, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: "a heading's drawn line lengths set where its words break (n11)", helped: "partly: sunset wraps as drawn"}
@@ -83,6 +85,10 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "Nav text with no colour typed came out black on the red half, unreadable against the target's white", found_on: "r12 c4 (n15)", built: null, helped: null}
   - {gap: "A band noted on an edge line has no width from the ink; built wider than drawn", found_on: "r12 c4 (n15)", built: null, helped: null}
   - {gap: "A note typed in the empty strip above a big box binds to that box and the diagonal; a whole-sketch nav note was once dropped", found_on: "r12 c4 (n14)", built: null, helped: null}
+  - {gap: "Outlined big number built solid white with a shadow", found_on: "r12 c4 (n15)", built: "a box typed outlined holds hollow letters: told and checked for a text stroke and see-through fill (n16)", helped: "yes: 09 hollow both tries; score fell for other reasons (67.4, 64.9)"}
+  - {gap: "Text with no colour typed came out black on the red half", found_on: "r12 c4 (n15)", built: "every piece of text checked against the fill behind it (clip and gradient aware; dark on saturated fails) (n16)", helped: "partly: nav white on try 2; check caught try 1 only offline, fix landed after"}
+  - {gap: "A big word in an area box shrinks and drifts off the box it was drawn in", found_on: "r12 c4 (n16)", built: null, helped: null}
+  - {gap: "Badge words set on one line, not stacked as drawn", found_on: "r12 c4 (n16)", built: null, helped: null}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -106,8 +112,9 @@ notes:
   - "Hand session: node tests/hand/session.mjs (needs npm ci + npm run build; chromium at /opt/pw-browsers/chromium-1243). Drive it with curl -d JSON ops open/stroke/note/pen/undo/look/run/done on localhost:5390. Stop it with fuser -k 5390/tcp 5302/tcp, never pkill -f."
   - "Don't open target HTML, targets.json, effects.json, autoplan files or round NOTES while sketching. Only ref/*.png. The session loads targets.json itself, only to score at done."
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
+  - "After npm ci, the agent SDK may only have its musl binary: run npm install --no-save @anthropic-ai/claude-agent-sdk-linux-x64@<same version> or every Run fails in under a second."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
-  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k)."
+  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k)"
 n14_resketch:   # same 9 marks and 8 notes as n9/n11 (nav note typed as a whole-sketch note)
   - {page: r12 c4-diagonal-split, try: 1, likeness: 55.9, was: 39.8, strokes: 9, words: 45, minutes: 5.7, fixes: 0, tokens: 76787}
   - {page: r12 c4-diagonal-split, try: 2, likeness: 57.8, was: 39.8, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 54885}
@@ -117,3 +124,6 @@ n10_resketch:   # same marks as baseline, colour words replaced by colour taps
 n15_resketch:   # same 9 marks and 8 notes as n14, word for word
   - {page: r12 c4-diagonal-split, try: 1, likeness: 73.6, was: 57.8, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 66667}
   - {page: r12 c4-diagonal-split, try: 2, likeness: 70.3, was: 55.9, strokes: 9, words: 45, minutes: 5.1, fixes: 0, tokens: 58766}
+n16_resketch:   # same 9 marks and 8 notes as n15, word for word; try 1 first Run failed to start (SDK binary), not a correction
+  - {page: r12 c4-diagonal-split, try: 1, likeness: 67.4, was: 73.6, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 58126}
+  - {page: r12 c4-diagonal-split, try: 2, likeness: 64.9, was: 70.3, strokes: 9, words: 45, minutes: 3.7, fixes: 0, tokens: 43767}
