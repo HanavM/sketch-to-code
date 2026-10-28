@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Every note now shows a thread to the mark it is about, and a note can be dragged onto the right mark before building: the running-club page went from 49.9 to 55.1 with no fix needed. Next: try colour from the drawing itself (pen colour and fill) instead of colour words."
+now: "Colour now comes from the drawing: pick a colour and tap a box, blob or the page (two taps make a gradient). The sunset page went from 52 to 74 and the glass page from 77 to 79, with no fixes and a third fewer words. Next: make a stacked headline read as one big heading."
 round: 0
 round_scores: [53]   # round 0 = hand baseline on 10 pool pages
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-2026-10-28T0210Z n10", until: "2026-10-28T03:40:00Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -26,12 +26,14 @@ nodes:
      result: "Shape marks plus landing check: settings 38.7 to 77.4, seats 14.3 to 36.6, grid 25.0 to 13.7."}
   - {id: n8, parent: n2, kind: step, title: "Counts and fixes keep the drawing: a note's count fills only that many rows, a fix note never moves drawn boxes; re-sketch data grid, diagonal split and orbit type (area box, rings)", status: done, branch: try/n2-shape-vocab,
      result: "Exact counts and kept boxes: grid 13.7 to 33.7, held still through fix; orbit 73.9; diagonal 49.9."}
-  - {id: n3, parent: n0, kind: approach, title: "Style from ink, not words: colour swatches, fill tool and pen weight so colours, emphasis and sizes come from the drawing", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n3, parent: n0, kind: approach, title: "Style from ink, not words: colour swatches, fill tool and pen weight so colours, emphasis and sizes come from the drawing", status: active, branch: try/n3-ink-style, result: null}
   - {id: n4, parent: n0, kind: approach, title: "Fast look-and-fix: the tool shows what it understood on the sketch at once, and pointing gestures correct it with quick partial rebuilds", status: active, branch: try/n4-look-fix, result: null}
   - {id: n9, parent: n4, kind: step, title: "Show which drawn mark each note belongs to, on the sketch, before the build, and let a note be moved onto the right mark; re-sketch the diagonal split", status: done, branch: try/n4-look-fix, base: "try/n2-shape-vocab",
      result: "Note threads plus drag-to-rebind: 6 of 8 notes were on wrong marks; fixed before build. Diagonal 49.9 to 55.1."}
-  - {id: n10, parent: n3, kind: step, title: "Colour from ink: a pen colour or a fill on a mark sets that block's colour, shown at once; re-sketch the sunset hero and glass blobs (colour gaps)", status: open, branch: try/n3-ink-style, base: "try/n4-look-fix", result: null}
-  - {id: n11, parent: n4, kind: step, title: "A stacked headline is one heading: a note on any of its lines covers all, line pitch sets the size; show what each line will become before the build", status: open, branch: try/n4-look-fix, result: null}
+  - {id: n10, parent: n3, kind: step, title: "Colour from ink: a pen colour or a fill on a mark sets that block's colour, shown at once; re-sketch the sunset hero and glass blobs (colour gaps)", status: done, branch: try/n3-ink-style, base: "try/n4-look-fix",
+     result: "Tap to fill marks or page, gradients; exact colours landed. Sunset 52.1 to 74.0, glass 76.9 to 79.2, no fixes."}
+  - {id: n11, parent: n4, kind: step, title: "A stacked headline is one heading: a note on any of its lines covers all, line pitch sets the size, letters sit on the drawn lines; a note dropped in a small box inside a big one binds to the small box only; re-sketch sunset and diagonal", status: open, branch: try/n4-look-fix, base: "try/n3-ink-style", result: null}
+  - {id: n12, parent: n3, kind: step, title: "A tapped colour keeps its strength: glows and blurred shapes stay vivid, not faint; re-sketch glass blobs and orbit type", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawn position not kept: blocks re-centred or pushed away from where drawn", found_on: "r1 c1, r1 e1", built: "drawn boxes checked where they land; repair round moves them (n7)", helped: "yes: settings layout 20% to 80%"}
   - {gap: "Line length does not set text size", found_on: "r1 c1", built: null, helped: null}
@@ -40,17 +42,17 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "Unclear which mark a note belongs to; chips cover marks", found_on: "r1 c1, r1 e1", built: "a dashed thread from every note to its mark, plain-word label, drag a note onto another mark (n9)", helped: "yes: diagonal split 49.9 to 55.1, no fix after build"}
   - {gap: "Misleading result card after a fix that worked", found_on: "r1 c1", built: null, helped: null}
   - {gap: "Slow costly builds: login card 522 s, ~100k tokens", found_on: "r1 e1", built: null, helped: null}
-  - {gap: "Colours only through words", found_on: "r1 c1", built: null, helped: null}
+  - {gap: "Colours only through words", found_on: "r1 c1", built: "pick a colour and tap a mark or the page; 2+ page taps make a gradient; shown at once, checked on the page (n10)", helped: "yes: sunset 52.1 to 74.0, glass 76.9 to 79.2, no fix, 32% fewer words"}
   - {gap: "Hand strokes rendered literally into the page (wobbly lines, raw ink toggles and buttons)", found_on: "r2 e3", built: "shape marks: boxes, lines, rings never become paths (n7)", helped: "yes: settings 38.7 to 77.4"}
   - {gap: "A short line under a row label read as a new section header with invented text", found_on: "r2 e3", built: null, helped: null}
   - {gap: "Pinned marks stay where drawn while rows around them reflow, so they misalign", found_on: "r2 e3", built: null, helped: null}
-  - {gap: "Colour fixes by words overshoot (brighter glows turned white); no way to point at a colour", found_on: "r2 c3", built: null, helped: null}
+  - {gap: "Colour fixes by words overshoot (brighter glows turned white); no way to point at a colour", found_on: "r2 c3", built: "tap the glow with the colour you want; exact hex told and checked (n10)", helped: "yes: pink and cyan landed exactly, no fix needed"}
   - {gap: "A one-line subtitle drawn wide still wrapped onto two lines", found_on: "r1 e2", built: null, helped: null}
   - {gap: "Wobbly hand circles kept as lumpy blobs and polygon rings", found_on: "r8 c2", built: "shape marks: a ring is a clean circle (n7)", helped: "yes: clean dotted ring and disc, orbit 71.0 to 73.9 (n8)"}
   - {gap: "Invented content (names, numbers, blurbs) instead of placeholders", found_on: "r5 e5, r8 c2", built: null, helped: null}
   - {gap: "Drawn blocks ignored for size: seat map and cards shrank to content", found_on: "r8 e4", built: "a box is the block at exactly that box (n7)", helped: "yes: seats 14.3 to 36.6, no fix needed"}
   - {gap: "A box marking an area became a visible framed card; a fix pasted raw ink", found_on: "r12 c4", built: "a box round a word marks its area, no frame unless asked; ink never pasted (n7)", helped: "partly: no card after the fix note, but score flat at 49.9 (n8)"}
-  - {gap: "Light page came out dark with no colour words", found_on: "r8 e4", built: null, helped: null}
+  - {gap: "Light page came out dark with no colour words", found_on: "r8 e4", built: "a tap on bare page sets the page colour (n10)", helped: "not re-tested on that page yet"}
   - {gap: "Two stacked short lines read as label plus small date, not one big block", found_on: "r8 c2", built: null, helped: null}
   - {gap: "Counts in notes ignored for a grid: 5 teams filled all 24 rows with invented rows", found_on: "r5 e5 (n7)", built: "typed counts are exact: told to codegen and counted on the page (n8)", helped: "yes: exactly 5 teams in 24 rows, both tries; grid 13.7 to 33.7"}
   - {gap: "A fix note re-laid the page and moved the drawn grid 48px off its box", found_on: "r5 e5 (n7)", built: "boxes drawn earlier are remembered and held in place on later runs (n8)", helped: "yes: grid did not move through the fix; fix took 40 s"}
@@ -60,6 +62,9 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A long diagonal stroke's box swallowed notes typed beside it", found_on: "r12 c4 (n9)", built: "a diagonal covers its ink, not its box (n9)", helped: "yes: 09 note bound to the big box alone"}
   - {gap: "A note on a 3-line headline covers only the line it was typed on; heading built smaller", found_on: "r12 c4 (n9)", built: null, helped: null}
   - {gap: "Bare detail rows drawn as a box became a white card", found_on: "r12 c4 (n9)", built: null, helped: null}
+  - {gap: "A tapped glow lands the exact hex but faint: blur and low opacity spread it thin", found_on: "r2 c3 (n10)", built: null, helped: null}
+  - {gap: "A note dropped in a small box inside a big box binds to both boxes", found_on: "r2 c3 (n10)", built: null, helped: null}
+  - {gap: "Colour check missed a white two-line heading and spent a repair round", found_on: "r1 c1 (n10)", built: "text colour looked for across the drawn line's band (n10)", helped: "yes: test covers it"}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -85,3 +90,6 @@ notes:
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
   - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k)."
+n10_resketch:   # same marks as baseline, colour words replaced by colour taps
+  - {page: r2 c3-glass-blobs, likeness: 79.2, was: 76.9, strokes: 13, taps: 4, words: 35, minutes: 4.8, fixes: 0, tokens: 51364}
+  - {page: r1 c1-sunset-hero, likeness: 74.0, was: 52.1, strokes: 10, taps: 4, words: 23, minutes: 5.1, fixes: 0, tokens: 49630}
