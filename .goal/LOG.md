@@ -1,5 +1,6 @@
 # Log (newest first)
 
+2026-10-28T03:50Z | n14 box round a big word is no card; slanted line is the colour edge | Area boxes and slanted edges told and checked. Diagonal 39.8 to 55.9, 57.8; split on line, no card.
 2026-10-28T03:30Z | n11 stacked headline is one heading | Line stacks read as one heading, break where drawn. Sunset 74.0 to 73.8; diagonal 55.1 to 39.8 (box became card).
 2026-10-28T02:40Z | n10 colour from ink | Tap a colour to fill a mark or page, gradients. Sunset 52 to 74, glass 77 to 79, no fixes.
 2026-10-28T02:12Z | n9 show which mark each note belongs to | Threads plus drag-to-rebind; 6 of 8 notes were mis-bound. Diagonal 49.9 to 55.1, one run, 70k tokens.
