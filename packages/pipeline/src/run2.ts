@@ -1145,6 +1145,8 @@ export function verifyActions(
 
   let decorations: DomNode[] | null = null
   const claimedDecorations = new Set<string>()
+  // every drawn box on the page, so a field's check knows what sits above it (n22)
+  const pageMarks = actions.flatMap((a) => (a.shapeMarks && !a.insertSlot ? a.shapeMarks : []))
   for (const [i, a] of actions.entries()) {
     if (a.kind === 'swap') {
       total++
@@ -1215,7 +1217,7 @@ export function verifyActions(
       }
       // each drawn box or ring is a thing that size at that spot (n7)
       if (a.shapeMarks?.length && !a.insertSlot) {
-        const marks = verifyShapeMarks(a.shapeMarks, before, after)
+        const marks = verifyShapeMarks(a.shapeMarks, before, after, pageMarks)
         if (!marks.unverifiable) {
           details.push({ kind: 'marks', index: i, verdict: marks })
           total++

@@ -185,9 +185,14 @@ interface SnapLike {
  * more than a small slack is a failure that names how far and which way, which
  * is what a repair round can act on.
  */
-export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: SnapLike): MarkVerdict {
-  const boxes = marks.filter((m) => m.shape !== 'line' && m.box.w >= 12 && m.box.h >= 10)
-  if (!boxes.length) return { satisfied: true, unverifiable: true, reason: 'no drawn boxes to check' }
+export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: SnapLike, page: ShapeMark[] = marks): MarkVerdict {
+  const isBox = (m: ShapeMark) => m.shape !== 'line' && m.box.w >= 12 && m.box.h >= 10
+  const mine = new Set(marks.filter(isBox).map((m) => m.strokeId))
+  if (!mine.size) return { satisfied: true, unverifiable: true, reason: 'no drawn boxes to check' }
+  // n22: every box on the page is matched (one action's field sits under
+  // another action's field), but only this action's boxes are judged
+  const boxes = [...marks.filter(isBox), ...page.filter((m) => isBox(m) && !mine.has(m.strokeId))]
+    .filter((m, i, a) => a.findIndex((o) => o.strokeId === m.strokeId) === i)
   if (before.truncated || after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const key = (n: { tag: string; rect: BBox }) => `${n.tag}@${r1(n.rect.x)},${r1(n.rect.y)},${r1(n.rect.w)},${r1(n.rect.h)}`
   const old = new Set(before.nodes.map(key))
@@ -211,13 +216,14 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     }
     const where = `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
     if (!best || bestD > 260) {
+      if (!mine.has(m.strokeId)) continue
       out.push({ strokeId: m.strokeId, drawn: b, built: null, dx: null, dy: null })
       lines.push(`${where}: nothing about that size was built near it; build what it stands for at that size, there`)
       continue
     }
     claimed.add(best.id)
     const dx = r1(best.rect.x + best.rect.w / 2 - cx), dy = r1(best.rect.y + best.rect.h / 2 - cy)
-    out.push({ strokeId: m.strokeId, drawn: b, built: { ...best.rect }, dx, dy })
+    if (mine.has(m.strokeId)) out.push({ strokeId: m.strokeId, drawn: b, built: { ...best.rect }, dx, dy })
     // n20: the slack grows with the box but stops at 28px. A 422px sign-in
     // card built 90px below where it was drawn (centred on the screen) passed
     // under a quarter-of-the-box slack; a person sees 90px at once.
@@ -255,6 +261,7 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
   const name = (p: (typeof placed)[number]) => `the <${p.tag}> drawn at (${p.m.box.x},${p.m.box.y})`
   for (let i = 0; i < placed.length; i++) {
     const p = placed[i]!
+    if (!mine.has(p.m.strokeId)) continue
     const b = p.m.box
     const where = `the ${p.m.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
     const up = above(i)
@@ -290,7 +297,7 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
   misses.unshift(...lines)
   return misses.length
     ? { satisfied: false, reason: misses.join('; '), marks: out }
-    : { satisfied: true, reason: `${boxes.length} drawn box${boxes.length > 1 ? 'es' : ''} built where drawn`, marks: out }
+    : { satisfied: true, reason: `${mine.size} drawn box${mine.size > 1 ? 'es' : ''} built where drawn`, marks: out }
 }
 
 /**

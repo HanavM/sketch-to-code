@@ -151,4 +151,19 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(verifyShapeMarks(marks, before, { nodes: [...before.nodes,
       n('c', 'div', 429, 150, 422, 422), n('e', 'input', 470, 288, 340, 44), n('p', 'input', 470, 376, 340, 44), n('b', 'button', 470, 448, 340, 46)] }).satisfied).toBe(true)
   })
+
+  it('n22: each action is judged alone but sees the boxes of the other actions above it', () => {
+    const page: ShapeMark[] = [
+      { strokeId: 's3', shape: 'box', box: { x: 470, y: 287, w: 340, h: 45 } },
+      { strokeId: 's4', shape: 'box', box: { x: 469, y: 375, w: 341, h: 46 } },
+    ]
+    const before = { nodes: [] }
+    const after = { nodes: [{ id: 'e', tag: 'input', rect: { x: 470, y: 301, w: 340, h: 42 } }, { id: 'p', tag: 'input', rect: { x: 470, y: 392, w: 340, h: 42 } }] }
+    const pass = verifyShapeMarks([page[1]!], before, after, page)
+    expect(pass.satisfied).toBe(false)
+    expect(pass.reason).toMatch(/only because the <input> drawn at \(470,287\)/)
+    expect(pass.reason).not.toMatch(/\(470,287\) 340x45:/)
+    expect(pass.marks).toHaveLength(1)
+    expect(verifyShapeMarks([page[1]!], before, after).reason).toMatch(/15px too low; move it/)
+  })
 })
