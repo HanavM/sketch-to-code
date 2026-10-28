@@ -1,0 +1,514 @@
+{
+  "round": 32,
+  "id": "e4-week-calendar",
+  "version": 3,
+  "stopped": null,
+  "likeness": 80.5,
+  "colour": 0.9947556428311054,
+  "structure": 0.9298369024630859,
+  "layout": 0.8033459774366883,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 3.1,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 1,
+      "box": 7,
+      "dot": 6
+    },
+    "inkPx": 8399
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 35,
+  "notes": 10,
+  "longestNote": 8,
+  "noteTexts": [
+    "March 2027",
+    "+ Event",
+    "Mon 8 … Sun 14, one per column",
+    "9am to 4pm down the side",
+    "7 day columns, hour rows, thin grey lines",
+    "Standup",
+    "Design review",
+    "Lunch w/ Sam",
+    "Launch prep",
+    "Gym"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 289,
+    "firstReadingS": 86,
+    "readS": [
+      40
+    ],
+    "buildS": [
+      193
+    ],
+    "sketchingS": 56
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 57102,
+    "cacheRead": 196020,
+    "output": 20609,
+    "billed": 77711
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 4011
+    },
+    {
+      "op": "stroke",
+      "at": 5166
+    },
+    {
+      "op": "stroke",
+      "at": 16381
+    },
+    {
+      "op": "stroke",
+      "at": 18209
+    },
+    {
+      "op": "stroke",
+      "at": 20575
+    },
+    {
+      "op": "stroke",
+      "at": 22592
+    },
+    {
+      "op": "stroke",
+      "at": 25491
+    },
+    {
+      "op": "stroke",
+      "at": 27307
+    },
+    {
+      "op": "pen",
+      "color": "#2563eb",
+      "at": 27683
+    },
+    {
+      "op": "stroke",
+      "at": 28157
+    },
+    {
+      "op": "stroke",
+      "at": 28641
+    },
+    {
+      "op": "pen",
+      "color": "#7c3aed",
+      "at": 29011
+    },
+    {
+      "op": "stroke",
+      "at": 29495
+    },
+    {
+      "op": "pen",
+      "color": "#f59e0b",
+      "at": 29863
+    },
+    {
+      "op": "stroke",
+      "at": 30341
+    },
+    {
+      "op": "pen",
+      "color": "#dc2626",
+      "at": 30716
+    },
+    {
+      "op": "stroke",
+      "at": 31191
+    },
+    {
+      "op": "pen",
+      "color": "#16a34a",
+      "at": 31564
+    },
+    {
+      "op": "stroke",
+      "at": 32041
+    },
+    {
+      "op": "note",
+      "at": 32709
+    },
+    {
+      "op": "note",
+      "at": 33338
+    },
+    {
+      "op": "note",
+      "at": 34019
+    },
+    {
+      "op": "note",
+      "at": 34682
+    },
+    {
+      "op": "note",
+      "at": 35389
+    },
+    {
+      "op": "note",
+      "at": 36026
+    },
+    {
+      "op": "note",
+      "at": 36675
+    },
+    {
+      "op": "note",
+      "at": 37331
+    },
+    {
+      "op": "note",
+      "at": 37979
+    },
+    {
+      "op": "note",
+      "at": 38611
+    },
+    {
+      "op": "run",
+      "at": 46413
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          72
+        ],
+        [
+          1277,
+          72
+        ]
+      ],
+      "n": 214,
+      "at": 4011
+    },
+    {
+      "way": [
+        [
+          1162,
+          18
+        ],
+        [
+          1248,
+          18
+        ],
+        [
+          1248,
+          54
+        ],
+        [
+          1162,
+          54
+        ],
+        [
+          1162,
+          20
+        ]
+      ],
+      "n": 41,
+      "at": 5166
+    },
+    {
+      "way": [
+        [
+          96,
+          128
+        ],
+        [
+          1256,
+          128
+        ],
+        [
+          1256,
+          897
+        ],
+        [
+          96,
+          897
+        ],
+        [
+          96,
+          130
+        ]
+      ],
+      "n": 643,
+      "at": 16381
+    },
+    {
+      "way": [
+        [
+          100,
+          132
+        ],
+        [
+          258,
+          132
+        ],
+        [
+          258,
+          220
+        ],
+        [
+          100,
+          220
+        ],
+        [
+          100,
+          134
+        ]
+      ],
+      "n": 82,
+      "at": 18209
+    },
+    {
+      "way": [
+        [
+          266,
+          228
+        ],
+        [
+          424,
+          228
+        ],
+        [
+          424,
+          412
+        ],
+        [
+          266,
+          412
+        ],
+        [
+          266,
+          230
+        ]
+      ],
+      "n": 114,
+      "at": 20575
+    },
+    {
+      "way": [
+        [
+          597,
+          420
+        ],
+        [
+          755,
+          420
+        ],
+        [
+          755,
+          508
+        ],
+        [
+          597,
+          508
+        ],
+        [
+          597,
+          422
+        ]
+      ],
+      "n": 82,
+      "at": 22592
+    },
+    {
+      "way": [
+        [
+          763,
+          516
+        ],
+        [
+          921,
+          516
+        ],
+        [
+          921,
+          796
+        ],
+        [
+          763,
+          796
+        ],
+        [
+          763,
+          518
+        ]
+      ],
+      "n": 146,
+      "at": 25491
+    },
+    {
+      "way": [
+        [
+          1094,
+          228
+        ],
+        [
+          1252,
+          228
+        ],
+        [
+          1252,
+          316
+        ],
+        [
+          1094,
+          316
+        ],
+        [
+          1094,
+          230
+        ]
+      ],
+      "n": 82,
+      "at": 27307
+    },
+    {
+      "way": [
+        [
+          1240,
+          46
+        ]
+      ],
+      "n": 1,
+      "at": 28157
+    },
+    {
+      "way": [
+        [
+          180,
+          190
+        ]
+      ],
+      "n": 1,
+      "at": 28641
+    },
+    {
+      "way": [
+        [
+          345,
+          350
+        ]
+      ],
+      "n": 1,
+      "at": 29495
+    },
+    {
+      "way": [
+        [
+          676,
+          480
+        ]
+      ],
+      "n": 1,
+      "at": 30341
+    },
+    {
+      "way": [
+        [
+          842,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 31191
+    },
+    {
+      "way": [
+        [
+          1173,
+          290
+        ]
+      ],
+      "n": 1,
+      "at": 32041
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "March 2027",
+      "whole": false,
+      "x": 40,
+      "y": 36,
+      "at": 32709
+    },
+    {
+      "text": "+ Event",
+      "whole": false,
+      "x": 1180,
+      "y": 36,
+      "at": 33338
+    },
+    {
+      "text": "Mon 8 … Sun 14, one per column",
+      "whole": false,
+      "x": 150,
+      "y": 100,
+      "at": 34019
+    },
+    {
+      "text": "9am to 4pm down the side",
+      "whole": false,
+      "x": 30,
+      "y": 168,
+      "at": 34682
+    },
+    {
+      "text": "7 day columns, hour rows, thin grey lines",
+      "whole": false,
+      "x": 500,
+      "y": 700,
+      "at": 35389
+    },
+    {
+      "text": "Standup",
+      "whole": false,
+      "x": 120,
+      "y": 148,
+      "at": 36026
+    },
+    {
+      "text": "Design review",
+      "whole": false,
+      "x": 286,
+      "y": 244,
+      "at": 36675
+    },
+    {
+      "text": "Lunch w/ Sam",
+      "whole": false,
+      "x": 617,
+      "y": 436,
+      "at": 37331
+    },
+    {
+      "text": "Launch prep",
+      "whole": false,
+      "x": 783,
+      "y": 532,
+      "at": 37979
+    },
+    {
+      "text": "Gym",
+      "whole": false,
+      "x": 1114,
+      "y": 244,
+      "at": 38611
+    }
+  ]
+}
