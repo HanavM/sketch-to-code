@@ -41,6 +41,8 @@ export interface Solid { word: string; hex: string; noun: string; tol: number }
 /** "lime badge NEW" → {word: lime, noun: badge}; null when the note gives no fill colour for a plain thing. */
 export function solidOf(text: string): Solid | null {
   const t = ` ${text.toLowerCase()} `
+  // a glass card or a glow is see-through on purpose: not a solid fill
+  if (/\b(glass|frosted|translucent|transparent|see-through|blurred|blurry|glow|glowing|ghost)\b/.test(t)) return null
   const noun = THING.exec(t)
   if (!noun) return null
   // the colour word nearest before the noun (within a few words), else anywhere after "in"

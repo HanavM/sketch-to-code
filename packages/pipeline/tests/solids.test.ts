@@ -20,6 +20,8 @@ describe('solidOf (n15)', () => {
     expect(solidOf('white text on a pill')).toBeNull()
     expect(solidOf('red page, a panel of rows')).toBeNull()
     expect(solidOf('black outlined card')).toBeNull()
+    expect(solidOf('frosted white glass card')).toBeNull()
+    expect(solidOf('pink blurred glow disc')).toBeNull()
   })
 })
 
