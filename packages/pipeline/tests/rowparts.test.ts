@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { rowParts, rowPartsBrief } from '../src/rowparts.js'
+import { toggleBrief, rowParts, rowPartsBrief } from '../src/rowparts.js'
 
 describe('rowParts (n24)', () => {
   it('reads the parts of every row from a whole-sketch note', () => {
@@ -17,5 +17,11 @@ describe('rowParts (n24)', () => {
     const b = rowPartsBrief(['4 rows, title + grey line: Email digests, Mentions'])
     expect(b).toContain('every row gets a title and a grey line')
     expect(b).toContain('Never leave a named part out')
+  })
+
+  it('n25: a toggle note brings the knob arithmetic; no toggle, nothing', () => {
+    expect(toggleBrief(['toggle on'])).toMatch(/knob that always stays INSIDE the track/)
+    expect(toggleBrief(['dark mode switch'])).toMatch(/TOGGLES/)
+    expect(toggleBrief(['Save changes'])).toBe('')
   })
 })

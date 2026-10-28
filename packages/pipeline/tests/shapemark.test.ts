@@ -233,5 +233,44 @@ describe('shapeOf — boxes, lines and rings that mark where things go', () => {
     expect(marksMiss([{ kind: 'marks', verdict: { marks: [{ dx: null, dy: null, built: null }] } }])).toBe(200)
     expect(marksMiss([{ kind: 'add' }])).toBeNull()
   })
+
+  it('n25: a header built where drawn is held; the drift is named in the gap under the line, with the row pitch', () => {
+    const marks: ShapeMark[] = [
+      { strokeId: 's1', shape: 'line', box: { x: 120, y: 141, w: 1040, h: 0 }, from: { x: 120, y: 141 }, to: { x: 1160, y: 141 } },
+      { strokeId: 's2', shape: 'box', box: { x: 1112, y: 167, w: 48, h: 30 } },
+      { strokeId: 's3', shape: 'box', box: { x: 1112, y: 249, w: 49, h: 29 } },
+      { strokeId: 's4', shape: 'box', box: { x: 1112, y: 330, w: 49, h: 29 } },
+      { strokeId: 's5', shape: 'box', box: { x: 1112, y: 410, w: 49, h: 29 } },
+      { strokeId: 's6', shape: 'box', box: { x: 120, y: 498, w: 152, h: 46 } },
+    ]
+    const n = (id: string, y: number) => ({ id, tag: 'button', rect: { x: 1112, y, w: 48, h: 30 } })
+    const tabs = { id: 't', tag: 'nav', rect: { x: 120, y: 100, w: 1040, h: 42 } }
+    const after = { nodes: [tabs, n('a', 244), n('b', 334), n('c', 423), n('d', 512), { id: 'e', tag: 'button', rect: { x: 120, y: 610, w: 152, h: 46 } }] }
+    const v = verifyShapeMarks(marks, { nodes: [] }, after)
+    const top = v.reason.split('; the ').find((x) => x.includes('(1112,167)'))!
+    expect(top).toMatch(/built where drawn \(its bottom at y=142\), so the header is right/)
+    expect(top).toMatch(/drawn, this box's top is 26px below it; built, 102px/)
+    expect(top).toMatch(/Keep the heading and the tabs exactly as they are/)
+    expect(top).toMatch(/built 9px taller each than drawn: drawn, one row's top to the next is 81px; built, 90px/)
+    const btn = v.reason.split('; the ').find((x) => x.includes('(120,498)'))!
+    expect(btn).toMatch(/103px of that is the <button> drawn at \(1112,410\)/)
+    expect(btn).toMatch(/The gap between them is about right/)
+    expect(btn).not.toMatch(/OUT of the space/)
+    // a header that is itself built low gets that part named above the line
+    const low = verifyShapeMarks(marks, { nodes: [] }, { nodes: [{ ...tabs, rect: { ...tabs.rect, y: 140 } }, ...after.nodes.slice(1)] })
+    expect(low.reason).toMatch(/The line drawn at y=141 is itself built 41px too low/)
+  })
+
+  it('n25: an on toggle whose knob pokes past its track is a miss with the right travel', () => {
+    const marks: ShapeMark[] = [{ strokeId: 's2', shape: 'box', box: { x: 1112, y: 167, w: 44, h: 24 } }]
+    const ok = verifyShapeMarks(marks, { nodes: [] }, { nodes: [
+      { id: 't', tag: 'button', rect: { x: 1112, y: 167, w: 44, h: 24 } }, { id: 'k', tag: 'span', rect: { x: 1134, y: 169, w: 20, h: 20 } }] })
+    expect(ok.satisfied).toBe(true)
+    const bad = verifyShapeMarks(marks, { nodes: [] }, { nodes: [
+      { id: 't', tag: 'button', rect: { x: 1112, y: 167, w: 44, h: 24 } }, { id: 'k', tag: 'span', rect: { x: 1142, y: 169, w: 20, h: 20 } }] })
+    expect(bad.satisfied).toBe(false)
+    expect(bad.reason).toMatch(/sticks 6px out past the track's right end/)
+    expect(bad.reason).toMatch(/translate-x-\[20px\]/)
+  })
 })
 

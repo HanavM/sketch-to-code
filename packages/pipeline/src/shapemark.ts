@@ -287,6 +287,34 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
   }
   const name = (p: (typeof placed)[number]) => `the <${p.tag}> drawn at (${p.m.box.x},${p.m.box.y})`
   const level = page.filter((m) => m.shape === 'line' && !m.edge && m.from && m.to && Math.abs(m.from.y - m.to.y) <= 2)
+  // n25: where the page built a drawn level line (a tab bar's rule, a header's underline): the bar whose
+  // width spans most of the line and whose bottom edge sits nearest it. Null when nothing like it was built.
+  const builtLine = (l: ShapeMark): number | null => {
+    const x0 = Math.min(l.from!.x, l.to!.x), x1 = Math.max(l.from!.x, l.to!.x), len = x1 - x0
+    if (len < 120) return null
+    let best: number | null = null
+    for (const n of after.nodes) {
+      const r = n.rect
+      if (r.h <= 0 || r.h > 90 || r.w < len * 0.6 || r.w > len * 1.4) continue
+      if (Math.min(r.x + r.w, x1) - Math.max(r.x, x0) < len * 0.6) continue
+      const bottom = r.y + r.h
+      if (Math.abs(bottom - l.from!.y) > 120) continue
+      if (best === null || Math.abs(bottom - l.from!.y) < Math.abs(best - l.from!.y)) best = bottom
+    }
+    return best === null ? null : r1(best)
+  }
+  // n25: the drawn pitch of a column (top to top) against the built one, from the boxes riding on box i
+  const pitchOf = (i: number): string => {
+    const col = [placed[i]!, ...placed.filter((o, j) => j !== i && (() => {
+      for (let a = ref(j)?.p ?? null, k = 0; a && k < 40; a = ref(placed.indexOf(a))?.p ?? null, k++) if (a === placed[i]) return true
+      return false
+    })())].sort((a, c) => a.m.box.y - c.m.box.y)
+    if (col.length < 3) return ''
+    const drawn = (col.at(-1)!.m.box.y - col[0]!.m.box.y) / (col.length - 1)
+    const built = (col.at(-1)!.m.box.y + col.at(-1)!.dy - col[0]!.m.box.y - col[0]!.dy) / (col.length - 1)
+    if (Math.abs(built - drawn) < 4) return ` The rows keep the drawn pitch (${r1(drawn)}px top to top): keep each row's height and gap as they are.`
+    return ` The rows are also built ${r1(Math.abs(built - drawn))}px ${built > drawn ? 'taller' : 'shorter'} each than drawn: drawn, one row's top to the next is ${r1(drawn)}px; built, ${r1(built)}px. Make each row (its padding, line heights and the gap or divider under it) add up to ${r1(drawn)}px.`
+  }
   const topDrift = (i: number): string => {
     const p = placed[i]!, b = p.m.box
     const hangsOn = (j: number): boolean => {
@@ -299,12 +327,30 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     const sign = p.dy > 0 ? 'low' : 'high'
     const n = Math.abs(p.dy)
     const whole = followers ? ` The ${followers} drawn box${followers > 1 ? 'es' : ''} below it ride${followers > 1 ? '' : 's'} on it, so the whole page from here down sits about ${n}px ${sign}.` : ''
+    const pitch = followers >= 2 ? pitchOf(i) : ''
     const fix = p.dy > 0
       ? `take ${n}px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.`
       : `add ${n}px to the space above it (the list's top margin, or the gap under what sits above it). Never pull it further up.`
-    if (!line) return `${whole} The cause is above it, at the top: ${fix}`
+    if (!line) return `${whole} The cause is above it, at the top: ${fix}${pitch}`
     const ly = line.from!.y
-    return `${whole} The cause is above it, at the top: drawn, its top is ${r1(b.y - ly)}px below the line drawn at y=${ly}; built, it is ${r1(b.y + p.dy - ly)}px below that line's spot. So ${fix}`
+    // n25 (r2 e3 settings, n24 try 2): the heading and tabs were built where drawn and the extra 77px sat
+    // between the tabs line and the first row, but the repair was told "the heading's size or margin, the
+    // tab bar" first and squeezed the header up. So find where the line was built: if it landed, the header
+    // is held and the gap under it is named as the one place to take the drift out.
+    const at = builtLine(line)
+    const gapDrawn = r1(b.y - ly), gapBuilt = r1(b.y + p.dy - (at ?? ly))
+    if (at !== null && Math.abs(at - ly) <= 12) {
+      const gapFix = p.dy > 0
+        ? `take ${r1(gapBuilt - gapDrawn)}px OUT of that gap only (the list's top margin or padding, the first row's top padding, a spacer or margin under the tab bar). Keep the heading and the tabs exactly as they are: do not shrink or move them. Never add space; no negative margins or relative offsets.`
+        : `add ${r1(gapDrawn - gapBuilt)}px to that gap only (the list's top margin). Keep the heading and the tabs exactly as they are.`
+      return `${whole} The line drawn at y=${ly} (the bar above it) is built where drawn (its bottom at y=${at}), so the header is right. The drift starts in the gap under that line: drawn, this box's top is ${gapDrawn}px below it; built, ${gapBuilt}px. So ${gapFix}${pitch}`
+    }
+    if (at !== null) {
+      const lineOff = r1(at - ly)
+      const rest = r1(gapBuilt - gapDrawn)
+      return `${whole} The line drawn at y=${ly} is itself built ${Math.abs(lineOff)}px too ${lineOff > 0 ? 'low' : 'high'} (its bottom at y=${at}): that part of the drift is above the line (the heading's size or margin, the tab bar's padding or height): ${lineOff > 0 ? 'take' : 'add'} ${Math.abs(lineOff)}px there. ${Math.abs(rest) > 4 ? `The other ${Math.abs(rest)}px is in the gap under the line (drawn ${gapDrawn}px, built ${gapBuilt}px): ${rest > 0 ? 'take it out of' : 'add it to'} the list's top margin or the first row's padding.` : 'The gap under the line is right; keep it.'} Never push anything further ${p.dy > 0 ? 'down' : 'up'}; no negative margins or relative offsets.${pitch}`
+    }
+    return `${whole} The cause is above it, at the top: drawn, its top is ${gapDrawn}px below the line drawn at y=${ly}; built, it is ${r1(b.y + p.dy - ly)}px below that line's spot. So ${fix}${pitch}`
   }
   // the top box of each column that sits off on its own (nothing drawn above it to blame)
   const drifters = placed.filter((q, j) => !ref(j) && Math.abs(q.dy) > q.slack).sort((a, c) => a.m.box.y - c.m.box.y)
@@ -359,8 +405,39 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
       misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}, the same as ${name(twin)}: the whole page above it sits that much ${p.dy > 0 ? 'low' : 'high'}. Do not move this one on its own: it lands when the space at the top is fixed.`)
       continue
     }
+    // n25 (r2 e3 settings, n24 try 2): the buttons under the rows were 112px low, the last toggle 102px low
+    // (the first 77 plus taller rows). Told "take 112px out above it" on its own, the repair doubled the fix
+    // and the buttons ended 15px high. A box with no box straight above it rides on the lowest drawn box
+    // above it in any column: only the rest is its own.
+    const rider = !up && Math.abs(p.dy) > p.slack && Math.abs(p.dx) <= p.slack
+      ? placed.filter((o) => o !== p && o.m.box.y + o.m.box.h <= b.y + 2 && Math.abs(o.dy) > o.slack && Math.sign(o.dy) === Math.sign(p.dy))
+        .sort((a, c) => (c.m.box.y + c.m.box.h) - (a.m.box.y + a.m.box.h))[0] : undefined
+    if (rider) {
+      const own = r1(p.dy - rider.dy)
+      misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}, and ${Math.abs(rider.dy)}px of that is ${name(rider)} above it, which sits ${Math.abs(rider.dy)}px too ${rider.dy > 0 ? 'low' : 'high'}: it moves with the rows above when those are fixed, so do not move it on its own for that part.${Math.abs(own) > p.slack ? ` The other ${Math.abs(own)}px is its own: change the gap between the last row and it by ${Math.abs(own)}px (${own > 0 ? 'less' : 'more'} space).` : ' The gap between them is about right; keep it.'}`)
+      continue
+    }
     const drift = !up && Math.abs(p.dy) > p.slack ? topDrift(i) : ''
     misses.push(`${where}: the <${p.tag}> built for it sits ${dirs}; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).${partial}${centred}${drift}`)
+  }
+  // n25 (r2 e3 settings, n22 and n24): an on toggle was built with its knob past the track's right end.
+  // A drawn box of toggle shape whose built element has a round knob poking out of it is a miss.
+  for (const o of out) {
+    const t = o.built
+    if (!t || t.w < 24 || t.w > 90 || t.h < 12 || t.h > 44 || t.w < t.h * 1.3) continue
+    const cy = t.y + t.h / 2
+    for (const k of after.nodes) {
+      const r = k.rect
+      if (r.w < 6 || r.h < 6 || r.h > t.h + 4 || r.w > t.h + 6 || Math.abs(r.w - r.h) > 4) continue
+      if (Math.abs(r.y + r.h / 2 - cy) > t.h / 2) continue
+      if (r.x > t.x + t.w + 20 || r.x + r.w < t.x - 20) continue
+      const outR = r1(r.x + r.w - (t.x + t.w)), outL = r1(t.x - r.x)
+      if (outR <= 2 && outL <= 2) continue
+      const inset = Math.max(1, r1((t.h - r.h) / 2))
+      const travel = r1(t.w - r.w - 2 * inset)
+      misses.push(`the box drawn at (${o.drawn.x},${o.drawn.y}) ${o.drawn.w}x${o.drawn.h}: its knob (a <${k.tag}> ${r1(r.w)}x${r1(r.h)}) sticks ${outR > 2 ? `${outR}px out past the track's right end` : `${outL}px out past its left end`}. The knob stays inside its ${r1(t.w)}x${r1(t.h)} track: ${inset}px in from the edge when off, and moved exactly ${travel}px right when on (translate-x-[${travel}px], or left ${r1(t.w - r.w - inset)}px), never more`)
+      break
+    }
   }
   // the "nothing built" misses first, in drawing order
   misses.unshift(...lines)

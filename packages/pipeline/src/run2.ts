@@ -25,7 +25,7 @@ import {
 } from './intent2.js'
 import { SKETCH_SKILL } from './skill.js'
 import { checkpoint } from './safety.js'
-import { rowPartsBrief } from './rowparts.js'
+import { rowPartsBrief, toggleBrief } from './rowparts.js'
 import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
@@ -572,6 +572,10 @@ export async function runV2(
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []),
       ...interp.actions.flatMap((a) => a.notes ?? []),
     ].filter((n, i, all) => all.indexOf(n) === i)) +
+    toggleBrief([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
+    ]) +
     keptMarksBrief(kept) +
     inkColoursBrief(interp) +
     areasBrief(interp.actions, input.snapshot.viewport) +

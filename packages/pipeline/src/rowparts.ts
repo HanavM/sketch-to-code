@@ -36,3 +36,19 @@ export function rowPartsBrief(notes: string[]): string {
     `typed gets one short plain placeholder in the look named (a "grey line" is one short grey sentence, smaller ` +
     `than the title, right under it). Never leave a named part out of any row.\n\n`
 }
+
+/**
+ * n25 (r2 e3 settings, n22 and n24): every on toggle was built with its knob
+ * past the end of its track (translate-x larger than the track allows). When
+ * a note names a toggle or switch, codegen is told the arithmetic once.
+ */
+const TOGGLE = /\b(toggles?|switch(es)?)\b/i
+
+export function toggleBrief(notes: string[]): string {
+  if (!notes.some((n) => TOGGLE.test(n))) return ''
+  return `TOGGLES: a toggle is a rounded track with a round knob that always stays INSIDE the track. ` +
+    `Give the track position: relative and an exact width and height (the drawn box), and the knob an exact ` +
+    `size (track height minus 2 * inset, inset 2-3px), absolutely placed at top: inset, left: inset. On, it moves ` +
+    `right by exactly track width - knob width - 2 * inset px (for a 44x24 track and 20px knob with 2px inset: ` +
+    `translate-x-[20px]), never more. Do not use a Tailwind translate step that does not match that number.\n\n`
+}
