@@ -69,3 +69,22 @@ describe('n11: nested boxes and stacked heading lines', () => {
     expect(noteFocus(L.map((s) => s.id), undefined, { x: 640, y: 300 }, L)).toEqual(['l1', 'l2'])
   })
 })
+
+describe('a heading never takes a paragraph line; a paragraph note covers its wraps (n19)', () => {
+  const S = [
+    walk('h1', [[215, 305], [1070, 305]]), walk('h2', [[540, 425], [745, 425]]),
+    walk('p1', [[350, 528], [930, 528]]), walk('p2', [[585, 554], [695, 554]]),
+    walk('btn', [[530, 616], [750, 616], [750, 676], [530, 676], [530, 616]]),
+  ]
+  const ids = S.map((s) => s.id)
+  it('a note on heading line 1 covers line 2 but not the subtitle wrap under it', () => {
+    expect(noteFocus(ids, undefined, { x: 640, y: 300 }, S)).toEqual(['h1', 'h2'])
+  })
+  it('a note on the subtitle covers both of its lines', () => {
+    expect(noteFocus(ids, undefined, { x: 640, y: 528 }, S)).toEqual(['p1', 'p2'])
+  })
+  it('a short title over a longer subtitle stays apart', () => {
+    const L = [walk('t', [[470, 205], [556, 205]]), walk('s', [[470, 236], [697, 236]]), walk('b', [[470, 288], [810, 288], [810, 332], [470, 332], [470, 288]])]
+    expect(noteFocus(L.map((x) => x.id), undefined, { x: 510, y: 205 }, L)).toEqual(['t'])
+  })
+})

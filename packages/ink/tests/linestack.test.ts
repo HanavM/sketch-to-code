@@ -31,3 +31,11 @@ describe('stacked level lines read as one heading (n11)', () => {
     expect(isLevelLine([{ x: 0, y: 0, t: 0 }, { x: 300, y: 120, t: 1 }])).toBe(false)
   })
 })
+
+describe('a heading stack never jumps a line in its way (n19)', () => {
+  it('the subtitle wrap under "hour" does not become heading line 3', () => {
+    const st = textStacks([line('a', 215, 1070, 305), line('b', 540, 745, 425), line('p1', 350, 930, 528), line('p2', 585, 695, 554)])
+    expect(st).toHaveLength(1)
+    expect(st[0]!.strokes).toEqual(['a', 'b'])
+  })
+})

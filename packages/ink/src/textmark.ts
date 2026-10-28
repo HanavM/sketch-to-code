@@ -411,9 +411,16 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
         Math.abs((next.x0 + next.x1) / 2 - (first.x0 + first.x1) / 2) <= tol
       const pitchOk = stack.length < 2 || Math.abs(gap - (last.cy - stack[stack.length - 2]!.cy)) <= 0.15 * gap
       // a heading wraps shorter and shorter; a longer line under it is the next block
-      if (gap >= LINE_STACK_MIN_PITCH && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk &&
+      // a line held tight by a neighbour (a paragraph's wrap, pitch under half the heading's)
+      // belongs to that block, not the heading (n19, round 1 c1: the subtitle's wrap joined)
+      const tight = ls.some((o) => o !== next && !stack.includes(o) && Math.abs(o.cy - next.cy) < 0.5 * gap &&
+        Math.min(o.x1, next.x1) > Math.max(o.x0, next.x0))
+      if (gap >= LINE_STACK_MIN_PITCH && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk && !tight &&
           wn <= (last.x1 - last.x0) * 1.05 && wn >= 0.12 * w0) stack.push(next)
       else if (gap > LINE_STACK_MAX_PITCH) break
+      // a heading never jumps over a line in its way: a line under it that overlaps it
+      // and does not continue it ends the heading (the subtitle under "hour")
+      else if (Math.min(next.x1, first.x1) > Math.max(next.x0, first.x0)) break
     }
     if (stack.length > 3) { for (const l of stack) used.add(l.id); continue }
     if (stack.length < 2) continue

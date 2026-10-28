@@ -6,7 +6,7 @@
  * see bound is what the build is told.
  */
 import type { BBox, Stroke } from './types.js'
-import { textStacks } from './textmark.js'
+import { isLevelLine, textStacks } from './textmark.js'
 
 /** A text stack at least this big (font px) is one display heading for note focus. */
 export const GIANT_STACK_PX = 60
@@ -108,8 +108,34 @@ export function noteFocus(
       }
     }
   }
+  // A note on the first line of a paragraph is about its wrap lines too: level lines
+  // stepped tightly under it (under PARA_PITCH_PX), overlapping it and no longer than it.
+  // n19, round 1 c1: the subtitle's note took line 1 and left "little longer." unbuilt.
+  if (focus.length > 0) {
+    const lv = strokes.filter((x) => ids.includes(x.id) && x.points.length > 1 && isLevelLine(x.points))
+      .map((x) => {
+        const xs = x.points.map((p) => p.x), ys = x.points.map((p) => p.y)
+        return { id: x.id, x0: Math.min(...xs), x1: Math.max(...xs), cy: ys.reduce((a, b) => a + b, 0) / ys.length }
+      }).sort((a, b) => a.cy - b.cy)
+    for (const l of lv) {
+      if (!focus.includes(l.id)) continue
+      let last = l
+      for (const n of lv) {
+        if (n.cy <= last.cy) continue
+        const gap = n.cy - last.cy
+        if (gap > PARA_PITCH_PX) break
+        if (gap >= 8 && Math.min(n.x1, last.x1) > Math.max(n.x0, last.x0) && n.x1 - n.x0 <= (last.x1 - last.x0) * 1.05) {
+          if (!focus.includes(n.id)) focus = ids.filter((id) => focus.includes(id) || id === n.id)
+          last = n
+        } else break
+      }
+    }
+  }
   return focus.length > 0 && focus.length < ids.length ? focus : undefined
 }
+
+/** Line pitch (px) under which level lines are one paragraph's wraps. */
+export const PARA_PITCH_PX = 36
 
 /** How far outside a block's own box a point may be and still count as typed on it. */
 export const NOTE_ON_BLOCK_PX = 12

@@ -1,0 +1,294 @@
+{
+  "round": 1,
+  "id": "c1-sunset-hero",
+  "version": 3,
+  "stopped": null,
+  "likeness": 76.4,
+  "colour": 0.9379915379651619,
+  "structure": 0.9514988876588313,
+  "layout": 0.5217869443110225,
+  "strokes": {
+    "count": 11,
+    "pointsPerStroke": 1.9,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 6,
+      "box": 1,
+      "dot": 4
+    },
+    "inkPx": 2661
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 29,
+  "notes": 5,
+  "longestNote": 13,
+  "noteTexts": [
+    "dusk. italic serif",
+    "Work Studio Journal Contact",
+    "Stay for the golden hour, serif",
+    "A slow-living retreat on the coast, where the evenings last a little longer.",
+    "Book a stay"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 187,
+    "firstReadingS": 54,
+    "readS": [
+      32
+    ],
+    "buildS": [
+      132
+    ],
+    "sketchingS": 24
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 21328,
+    "cacheRead": 174943,
+    "output": 14207,
+    "billed": 35535
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 606
+    },
+    {
+      "op": "stroke",
+      "at": 1918
+    },
+    {
+      "op": "stroke",
+      "at": 4771
+    },
+    {
+      "op": "stroke",
+      "at": 5821
+    },
+    {
+      "op": "stroke",
+      "at": 7934
+    },
+    {
+      "op": "stroke",
+      "at": 8723
+    },
+    {
+      "op": "stroke",
+      "at": 10768
+    },
+    {
+      "op": "pen",
+      "color": "#ff7a59",
+      "at": 11142
+    },
+    {
+      "op": "stroke",
+      "at": 11618
+    },
+    {
+      "op": "pen",
+      "color": "#ff4f7a",
+      "at": 11991
+    },
+    {
+      "op": "stroke",
+      "at": 12469
+    },
+    {
+      "op": "pen",
+      "color": "#8b2ff0",
+      "at": 12843
+    },
+    {
+      "op": "stroke",
+      "at": 13320
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 13690
+    },
+    {
+      "op": "stroke",
+      "at": 14168
+    },
+    {
+      "op": "note",
+      "at": 14832
+    },
+    {
+      "op": "note",
+      "at": 15505
+    },
+    {
+      "op": "note",
+      "at": 16205
+    },
+    {
+      "op": "note",
+      "at": 17071
+    },
+    {
+      "op": "note",
+      "at": 17706
+    },
+    {
+      "op": "run",
+      "at": 21645
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          72,
+          46
+        ],
+        [
+          125,
+          46
+        ]
+      ],
+      "n": 10,
+      "at": 606
+    },
+    {
+      "way": [
+        [
+          910,
+          46
+        ],
+        [
+          1208,
+          46
+        ]
+      ],
+      "n": 51,
+      "at": 1918
+    },
+    {
+      "way": [
+        [
+          215,
+          305
+        ],
+        [
+          1070,
+          305
+        ]
+      ],
+      "n": 144,
+      "at": 4771
+    },
+    {
+      "way": [
+        [
+          540,
+          425
+        ],
+        [
+          745,
+          425
+        ]
+      ],
+      "n": 35,
+      "at": 5821
+    },
+    {
+      "way": [
+        [
+          350,
+          528
+        ],
+        [
+          930,
+          528
+        ]
+      ],
+      "n": 98,
+      "at": 7934
+    },
+    {
+      "way": [
+        [
+          585,
+          554
+        ],
+        [
+          695,
+          554
+        ]
+      ],
+      "n": 19,
+      "at": 8723
+    },
+    {
+      "way": [
+        [
+          530,
+          616
+        ],
+        [
+          750,
+          616
+        ],
+        [
+          750,
+          676
+        ],
+        [
+          530,
+          676
+        ],
+        [
+          530,
+          616
+        ]
+      ],
+      "n": 95,
+      "at": 10768
+    },
+    {
+      "way": [
+        [
+          40,
+          30
+        ]
+      ],
+      "n": 1,
+      "at": 11618
+    },
+    {
+      "way": [
+        [
+          150,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 12469
+    },
+    {
+      "way": [
+        [
+          1240,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 13320
+    },
+    {
+      "way": [
+        [
+          700,
+          660
+        ]
+      ],
+      "n": 1,
+      "at": 14168
+    }
+  ]
+}
