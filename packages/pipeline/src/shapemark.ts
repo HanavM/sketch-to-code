@@ -549,6 +549,27 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
       break
     }
   }
+  // n31 (round 31 c2): three frames drawn 28px apart, "thick gold frames on all 3", were built with the
+  // frame added outside each drawn box, so the frames touched and the row ran wider than drawn. Boxes
+  // drawn side by side keep the gap drawn between them.
+  for (const a of out) {
+    for (const b of out) {
+      if (a === b || !a.built || !b.built) continue
+      const da = a.drawn, db = b.drawn
+      const g = db.x - (da.x + da.w)
+      if (g < 14 || g > 200) continue
+      const vov = Math.min(da.y + da.h, db.y + db.h) - Math.max(da.y, db.y)
+      if (vov < 0.6 * Math.min(da.h, db.h)) continue
+      // only next-door neighbours: no drawn box between them
+      if (out.some((c) => c !== a && c !== b && c.drawn.x >= da.x + da.w - 2 && c.drawn.x + c.drawn.w <= db.x + 2 &&
+        Math.min(c.drawn.y + c.drawn.h, da.y + da.h) - Math.max(c.drawn.y, da.y) > 0)) continue
+      const bg = r1(b.built.x - (a.built.x + a.built.w))
+      if (bg >= g * 0.5 && bg <= g * 2 + 12) continue
+      misses.push(`the boxes drawn at (${da.x},${da.y}) ${da.w}x${da.h} and (${db.x},${db.y}) ${db.w}x${db.h} stand ${g}px apart; built, ` +
+        `${bg <= 0 ? 'they touch or overlap' : bg < g ? `only ${bg}px apart` : `${bg}px apart`}. Keep each at its drawn size, with any border or frame inside it ` +
+        `(box-sizing: border-box, or a frame drawn as padding), and keep the ${g}px gap between them`)
+    }
+  }
   // the "nothing built" misses first, in drawing order
   misses.unshift(...lines)
   return misses.length

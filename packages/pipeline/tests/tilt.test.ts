@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { shapeOf, tiltOf, type ShapeMark } from '../src/shapemark.js'
+import { shapeOf, tiltOf, verifyShapeMarks, type ShapeMark } from '../src/shapemark.js'
 import { tiltBrief, verifyTilts, angleOf } from '../src/tilt.js'
 // @ts-expect-error — plain .mjs bench module, no types
 import { walk, jitter } from '../../../tests/bench/lib/draw.mjs'
@@ -60,5 +60,18 @@ describe('n31: a box drawn turned keeps its angle', () => {
     const wrong = verifyTilts([navy], { nodes: [{ id: 'a', tag: 'div', rect, style: { transform: turned(-t.deg) } }] })
     expect(wrong.satisfied).toBe(false)
     expect(wrong.reason).toMatch(/right side higher/)
+  })
+})
+
+describe('n31: boxes drawn side by side keep their gap', () => {
+  const mk = (id: string, x: number, w: number): ShapeMark => ({ strokeId: id, shape: 'box', box: { x, y: 128, w, h: 420 } })
+  const marks = [mk('a', 64, 300), mk('b', 392, 420), mk('c', 840, 340)]
+  const node = (id: string, x: number, w: number) => ({ id, tag: 'div', rect: { x, y: 118, w, h: 440 } })
+  it('frames built touching are a miss naming the gap; frames built apart pass', () => {
+    const touching = verifyShapeMarks(marks, { nodes: [] }, { nodes: [node('1', 54, 338), node('2', 392, 440), node('3', 832, 360)] })
+    expect(touching.satisfied).toBe(false)
+    expect(touching.reason).toMatch(/28px apart; built, they touch/)
+    const apart = verifyShapeMarks(marks, { nodes: [] }, { nodes: [node('1', 64, 300), node('2', 392, 420), node('3', 840, 340)].map((n) => ({ ...n, rect: { ...n.rect, y: 128, h: 420 } })) })
+    expect(apart.satisfied).toBe(true)
   })
 })

@@ -7,7 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
-import { noteFocus } from '@s2c/ink/notefocus'
+import { noteFocus, groupCount } from '@s2c/ink/notefocus'
 import { inkFills, isFillDot, pageFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
@@ -7630,6 +7630,19 @@ class Overlay {
     // would have the model acting on an element nobody mentions
     const refs = d.refs.filter((r) => text.includes(r.token))
     const existing = d.id ? this.notes.find((n) => n.id === d.id) : undefined
+    // n31: a note naming a group ("3 tilted stacked cards") typed just off the group, in empty
+    // space, is about that group: round 31 c3, typed 30px above the stack's corner, it was
+    // placed as loose words and the cards never heard it. Within a wider reach, it joins them.
+    if (!existing && d.anchor.kind === 'run' && d.anchor.placed && groupCount(text) !== null) {
+      const boxes = this.strokes.filter((st) => !isFillDot(st)).map((st) => ({ st, d: this.boxDist(this.strokeBox(st), d.at.x, d.at.y) }))
+        .filter((o) => o.d <= NOTE_NEAR_PX * 2.5).sort((a, b) => a.d - b.d)
+      const seed = boxes[0]?.st
+      if (seed) {
+        const group = this.clusterFrom(seed)
+        d.anchor = { kind: 'strokes', strokeIds: group.map((s) => s.id) }
+        this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
+      }
+    }
     if (existing) {
       existing.text = text
       existing.refs = refs
@@ -7733,7 +7746,7 @@ class Overlay {
     const words = marks.map((m) => markWord(m.points))
     const same = words.every((w) => w === words[0])
     if (marks.length === 1) return `on this ${words[0]!}`
-    return same ? `on these ${String(marks.length)} ${words[0]!}s` : `on these ${String(marks.length)} marks`
+    return same ? `on these ${String(marks.length)} ${words[0] === "box" ? "boxes" : `${words[0]!}s`}` : `on these ${String(marks.length)} marks`
   }
 
   /** Page box of what a note is about, or null for a whole-sketch note. */

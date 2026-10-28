@@ -188,7 +188,9 @@ function groupOf(text: string, focus: string[], ids: string[], strokes: Stroke[]
   const seeds = focus.filter((id) => shapes.has(id))
   if (seeds.length !== 1) return null
   const s = shapes.get(seeds[0]!)!
-  const like = (b: BBox) => Math.abs(b.w - s.w) <= s.w * 0.35 && Math.abs(b.h - s.h) <= s.h * 0.4
+  // like-sized: each side within half again of the seed's (round 31 c2: frames 300, 420 and 340 wide)
+  const ratio = (a: number, b: number) => Math.max(a, b) / Math.max(1, Math.min(a, b))
+  const like = (b: BBox) => ratio(b.w, s.w) <= 1.5 && ratio(b.h, s.h) <= 1.5
   const gapOf = (a: BBox, b: BBox) => Math.max(0, Math.max(a.x, b.x) - Math.min(a.x + a.w, b.x + b.w), Math.max(a.y, b.y) - Math.min(a.y + a.h, b.y + b.h))
   const reach = Math.max(40, 0.6 * Math.min(s.w, s.h))
   // like-sized shapes chained by overlap or a small gap, none holding another
