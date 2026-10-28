@@ -256,6 +256,8 @@ export interface TextStack {
   linePitchPx: number
   /** Font size implied by that pitch (display type sets tighter than body). */
   fontPx: number
+  /** n11: each line's drawn length, top to bottom (where the words break). */
+  lineWidths?: number[]
 }
 
 interface LineGeom { id: string; x0: number; x1: number; cy: number; y0: number; y1: number }
@@ -344,6 +346,7 @@ export function textStacks(marks: Array<{ id: string; points: Point[] }>): TextS
       box: { x: Math.round(x0), y: Math.round(y0), w: Math.round(x1 - x0), h: Math.round(pitch * stack.length) },
       linePitchPx: Math.round(pitch),
       fontPx: fontForPitch(pitch),
+      lineWidths: stack.map((l) => Math.round(l.x1 - l.x0)),
     })
   }
   return [...out, ...lineStacks(marks)]
@@ -430,6 +433,7 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>): TextStack[] 
       box: { x: Math.round(x0), y: Math.round(stack[0]!.cy - p / 2), w: Math.round(x1 - x0), h: Math.round(p * stack.length) },
       linePitchPx: Math.round(p),
       fontPx: fontForPitch(p),
+      lineWidths: stack.map((l) => Math.round(l.x1 - l.x0)),
     })
   }
   return out

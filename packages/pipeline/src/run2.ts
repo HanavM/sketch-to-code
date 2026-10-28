@@ -185,6 +185,12 @@ Rules:
   app's default heading size. When a note gives that text's line-height ('lines set
   tight (line-height 0.9)'), the drawn pitch still holds: font-size = linePitchPx /
   that line-height (overrides fontPx), line-height exactly as said.
+  "lineWidths" is how long each line was drawn: break the copy where the drawing
+  breaks, so each line's words fill about its drawn length (a long first line and a
+  short second one means most of the words on line 1, a word or two on line 2). If
+  the words would wrap earlier than drawn, take the font-size down within the 15%
+  and keep the weight regular unless a note asks for bold; never let a heading wrap
+  into more lines than were drawn.
   A one-line entry's region is centred on the drawn letters for line-height 1.2:
   the letters must sit where the squiggle was drawn. Use line-height 1.2 for it, or
   if you set display type tighter (0.8-1), keep the line box centred on the
