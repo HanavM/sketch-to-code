@@ -55,6 +55,11 @@ export interface ShapeMark {
   words?: string
   /** big box (n21): notes typed at a spot inside it, page px. */
   typed?: Array<{ text: string; x: number; y: number }>
+  /**
+   * box only (n31): drawn turned. `box` is then the space it takes on the page (its upright bounds);
+   * the box itself is w x h, centred at (cx, cy), turned `deg` degrees (CSS rotate: + is clockwise).
+   */
+  tilt?: { deg: number; w: number; h: number; cx: number; cy: number; weak?: true }
 }
 
 const r1 = (v: number) => Math.round(v)
@@ -129,8 +134,16 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   const allCorners = corners.every(([cx, cy]) => pts.some((p) => Math.hypot(p.x - cx, p.y - cy) <= cornerTol))
   const perim = 2 * (b.w + b.h)
   if (allCorners && share(pts, onEdge) >= 0.92 && len <= perim * 1.6) {
+    // n31: a box drawn turned a few degrees still passes upright; keep its angle when it fits much better
+    const t = b.w >= 40 && b.h >= 30 ? asTilted(pts, b) : null
+    if (t) return t
     return { shape: 'box', box: { x: r1(b.x), y: r1(b.y), w: r1(b.w), h: r1(b.h) } }
   }
+  // n31: a TILTED BOX (round 31 c3: three cards drawn turned 3-7 degrees were read as a ring, or as
+  // freehand, and built straight). Turn the ink upright at the angle that fits it tightest; if it is
+  // then a box, and clearly tighter than upright, it is a box drawn at that angle.
+  const t = asTilted(pts, b)
+  if (t) return t
   // RING: every point near the ellipse inscribed in the box, corners empty
   const cx = b.x + b.w / 2, cy = b.y + b.h / 2, rx = b.w / 2, ry = b.h / 2
   const onRing = (p: { x: number; y: number }) => {
@@ -144,8 +157,92 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   return null
 }
 
+type P = { x: number; y: number }
+const turn = (pts: P[], deg: number, c: P): P[] => {
+  const r = deg * Math.PI / 180, cos = Math.cos(r), sin = Math.sin(r)
+  return pts.map((p) => ({ x: c.x + (p.x - c.x) * cos - (p.y - c.y) * sin, y: c.y + (p.x - c.x) * sin + (p.y - c.y) * cos }))
+}
+/** Mean distance from each point to the nearest edge of its own bounding box. */
+const edgeFit = (pts: P[]): number => {
+  const b = bbox(pts)
+  return pts.reduce((s, p) => s + Math.min(p.x - b.x, b.x + b.w - p.x, p.y - b.y, b.y + b.h - p.y), 0) / pts.length
+}
+/** Is this (upright) closed ink a box: hugs its edges and reaches all four corners? */
+function boxLike(pts: P[]): boolean {
+  const b = bbox(pts)
+  const m = Math.min(b.w, b.h)
+  if (m < 14) return false
+  const edgeTol = Math.max(6, m * 0.12)
+  const cornerTol = Math.max(10, m * 0.2)
+  const corners = [[b.x, b.y], [b.x + b.w, b.y], [b.x, b.y + b.h], [b.x + b.w, b.y + b.h]] as const
+  if (!corners.every(([cx, cy]) => pts.some((p) => Math.hypot(p.x - cx, p.y - cy) <= cornerTol))) return false
+  const on = share(pts, (p) => Math.min(p.x - b.x, b.x + b.w - p.x, p.y - b.y, b.y + b.h - p.y) <= edgeTol)
+  return on >= 0.92 && inkLength(pts) <= 2 * (b.w + b.h) * 1.6
+}
+
+/**
+ * n31: the angle (degrees, CSS sense) a closed stroke was drawn turned at, when it is a box drawn
+ * turned 2-40 degrees and fits that turned box clearly better than an upright one; else null.
+ */
+export function tiltOf(points: P[]): { deg: number; w: number; h: number; cx: number; cy: number; aabb: BBox } | null {
+  const pts = points.length > 3 ? points : []
+  if (!pts.length) return null
+  const c = { x: pts.reduce((s, p) => s + p.x, 0) / pts.length, y: pts.reduce((s, p) => s + p.y, 0) / pts.length }
+  let best = 0, bestFit = edgeFit(pts)
+  const upright = bestFit
+  for (let a = -40; a <= 40; a += 0.5) {
+    if (a === 0) continue
+    const f = edgeFit(turn(pts, -a, c))
+    if (f < bestFit) { bestFit = f; best = a }
+  }
+  if (Math.abs(best) < 1.5 || bestFit > upright * 0.7) return null
+  const up = turn(pts, -best, c)
+  if (!boxLike(up)) return null
+  const ub = bbox(up)
+  const mid = turn([{ x: ub.x + ub.w / 2, y: ub.y + ub.h / 2 }], best, c)[0]!
+  const corners = turn([{ x: ub.x, y: ub.y }, { x: ub.x + ub.w, y: ub.y }, { x: ub.x + ub.w, y: ub.y + ub.h }, { x: ub.x, y: ub.y + ub.h }], best, c)
+  const ab = bbox(corners)
+  return { deg: best, w: r1(ub.w), h: r1(ub.h), cx: r1(mid.x), cy: r1(mid.y), aabb: { x: r1(ab.x), y: r1(ab.y), w: r1(ab.w), h: r1(ab.h) } }
+}
+
+function asTilted(pts: P[], b: BBox): Omit<ShapeMark, 'strokeId'> | null {
+  if (b.w < 40 || b.h < 30) return null
+  const t = tiltOf(pts)
+  if (!t) return null
+  const { aabb, ...tilt } = t
+  // under 3 degrees a hand box is often just drawn askew: kept only when it sits in a turned stack (settleTilts)
+  return { shape: 'box', box: aabb, tilt: Math.abs(tilt.deg) < 3 ? { ...tilt, weak: true } : tilt }
+}
+
+/**
+ * n31: a box drawn under 3 degrees off level is upright, unless it overlaps a box drawn clearly
+ * turned (a fanned stack of cards, where every card's small angle is meant). Returns the shape to
+ * keep: weak tilts that stand alone go back to their upright box.
+ */
+export function settleTilt<T extends Omit<ShapeMark, 'strokeId'>>(m: T, others: Array<Omit<ShapeMark, 'strokeId'> | null>, upright: () => BBox): T {
+  if (!m.tilt?.weak) return m
+  const ov = (a: BBox, b: BBox) => Math.min(a.x + a.w, b.x + b.w) > Math.max(a.x, b.x) && Math.min(a.y + a.h, b.y + b.h) > Math.max(a.y, b.y)
+  if (others.some((o) => o && o !== m && o.tilt && !o.tilt.weak && ov(o.box, m.box))) {
+    const { weak: _w, ...tilt } = m.tilt
+    return { ...m, tilt }
+  }
+  const { tilt: _t, ...rest } = m
+  return { ...rest, box: upright() } as T
+}
+
 /** The clean layout shape this stroke is, or null for anything else (freehand, arrows, text). */
-export function shapeOf(points: Array<{ x: number; y: number }>): Omit<ShapeMark, 'strokeId'> | null {
+export function shapeOf(points: Array<{ x: number; y: number }>, page?: Array<Array<{ x: number; y: number }>>): Omit<ShapeMark, 'strokeId'> | null {
+  const m = rawShapeOf(points)
+  if (!m?.tilt?.weak) return m
+  // n31: a slight angle counts only beside a box drawn clearly turned
+  const others = (page ?? []).filter((p) => p !== points).map((p) => (p.length > 8 ? rawShapeOf(p) : null))
+  return settleTilt(m, others, () => {
+    const b = bbox(points)
+    return { x: r1(b.x), y: r1(b.y), w: r1(b.w), h: r1(b.h) }
+  })
+}
+
+function rawShapeOf(points: Array<{ x: number; y: number }>): Omit<ShapeMark, 'strokeId'> | null {
   if (points.length < 2) return null
   const pts = resampleBySpacing(points as Point[], 6) as Array<{ x: number; y: number }>
   if (pts.length < 4) return null
@@ -159,6 +256,11 @@ export function cleanPath(m: Omit<ShapeMark, 'strokeId'>, origin: { x: number; y
   const X = (v: number) => r1(v - origin.x), Y = (v: number) => r1(v - origin.y)
   const { x, y, w, h } = m.box
   if (m.shape === 'line') return `M ${X(m.from!.x)} ${Y(m.from!.y)} L ${X(m.to!.x)} ${Y(m.to!.y)}`
+  if (m.shape === 'box' && m.tilt) {
+    const t = m.tilt, c = { x: t.cx, y: t.cy }
+    const k = turn([{ x: t.cx - t.w / 2, y: t.cy - t.h / 2 }, { x: t.cx + t.w / 2, y: t.cy - t.h / 2 }, { x: t.cx + t.w / 2, y: t.cy + t.h / 2 }, { x: t.cx - t.w / 2, y: t.cy + t.h / 2 }], t.deg, c)
+    return `M ${X(k[0]!.x)} ${Y(k[0]!.y)} L ${X(k[1]!.x)} ${Y(k[1]!.y)} L ${X(k[2]!.x)} ${Y(k[2]!.y)} L ${X(k[3]!.x)} ${Y(k[3]!.y)} Z`
+  }
   if (m.shape === 'box') return `M ${X(x)} ${Y(y)} H ${X(x + w)} V ${Y(y + h)} H ${X(x)} Z`
   const rx = r1(w / 2), ry = r1(h / 2)
   return `M ${X(x)} ${Y(y + h / 2)} A ${rx} ${ry} 0 1 0 ${X(x + w)} ${Y(y + h / 2)} A ${rx} ${ry} 0 1 0 ${X(x)} ${Y(y + h / 2)} Z`

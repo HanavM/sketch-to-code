@@ -272,7 +272,7 @@ export function resolveNotes(
     }
     if (anchor?.kind === 'strokes') {
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
-      const focus = noteFocus(ids, anchor.focus, n.at, strokes)
+      const focus = noteFocus(ids, anchor.focus, n.at, strokes, text)
       out.push(ids.length
         ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs, ...(n.at ? { at: { x: n.at.x, y: n.at.y } } : {}) }
         : { id: n.id, text, scope: 'run', ...withRefs })
@@ -932,6 +932,8 @@ export function groundInterpretation(
   // bar was built as a purple slab over the whole month.
   const frameBox = new Map<string, BBox>()
   for (const s of ev.strokes.values()) frameBox.set(s.id, bboxOf(s.points))
+  // n31: every stroke's ink, so a slightly turned box can tell whether it sits in a turned stack
+  const pagePoints = [...ev.strokes.values()].map((s) => s.points)
   const frameOwner = new Map<string, number>()
   {
     const citers = new Map<string, Array<{ i: number; others: number }>>()
@@ -1024,7 +1026,7 @@ export function groundInterpretation(
           // a box, a straight line or a ring marks where something goes and how
           // big: it never becomes a path either (shapemark.ts). Only a depiction
           // keeps paths, and then the clean shape, never the wobble.
-          const shape = shapeOf(s.points)
+          const shape = shapeOf(s.points, pagePoints)
           // n14: a box round "huge outlined 09" is read as a depiction of the number, its
           // outline became a path, and the composition check then asked for that closed
           // form to be filled: a black card behind the 09 (round 12 c4). A box whose own
@@ -1040,7 +1042,8 @@ export function groundInterpretation(
           // two rings with a yellow tap inside and a grey-blue tap on the halo were read as a
           // depicted sun, traced as paths, and built a grey lopsided blob.
           const tappedRing = shape?.shape === 'ellipse' && tapSolidAllowed && (ev.fills ?? []).some((f) => f.target === s.id)
-          if (shape && (!a.depicts || areaBox || solidMark || tappedRing)) {
+          // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || shape.tilt)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }

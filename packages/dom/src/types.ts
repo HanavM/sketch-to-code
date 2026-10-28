@@ -43,6 +43,8 @@ export interface DomNode {
     opacity?: string
     /** Set only when the element is filtered (blur). */
     filter?: string
+    /** Set only when the element is transformed: 'matrix(a, b, c, d, e, f)' (n31: a card drawn turned stays turned). */
+    transform?: string
     /** Set only when the letters are stroked (n16: an outlined big word must stay hollow): '2px'. */
     textStroke?: string
   }

@@ -7717,13 +7717,13 @@ class Overlay {
    * noteFocus, run on the server too): its drawing, narrowed to the mark
    * nearest the point it was typed at. What the thread shows is what gets sent.
    */
-  private noteMarks(n: { at: { x: number; y: number }; anchor: NoteAnchor }): Stroke[] {
+  private noteMarks(n: { at: { x: number; y: number }; anchor: NoteAnchor; text?: string }): Stroke[] {
     if (n.anchor.kind !== 'strokes') return []
     const live = new Set(this.strokes.map((s) => s.id))
     // a coloured tap fills a mark; it is never what a note is about (n10)
     const marks = this.strokes.filter((s) => !isFillDot(s))
     const ids = n.anchor.strokeIds.filter((id) => live.has(id) && marks.some((m) => m.id === id))
-    const focus = noteFocus(ids, n.anchor.focus, n.at, marks) ?? ids
+    const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text) ?? ids
     return marks.filter((s) => focus.includes(s.id))
   }
 
@@ -12553,7 +12553,20 @@ export function markWord(pts: Array<{ x: number; y: number }>): string {
   if (closed) {
     const tol = Math.max(6, 0.08 * Math.min(w, h))
     const onEdge = pts.filter((p) => Math.min(p.x - x0, x1 - p.x, p.y - y0, y1 - p.y) <= tol).length
-    return onEdge / pts.length >= 0.8 ? 'box' : 'ring'
+    if (onEdge / pts.length >= 0.8) return 'box'
+    // n31: a box drawn turned (a card in a fanned stack) is still a box, not a ring
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2
+    for (let a = -40; a <= 40; a += 1) {
+      if (a === 0) continue
+      const r = a * Math.PI / 180, cos = Math.cos(r), sin = Math.sin(r)
+      const q = pts.map((p) => ({ x: (p.x - cx) * cos - (p.y - cy) * sin, y: (p.x - cx) * sin + (p.y - cy) * cos }))
+      let u0 = Infinity, v0 = Infinity, u1 = -Infinity, v1 = -Infinity
+      for (const p of q) { u0 = Math.min(u0, p.x); v0 = Math.min(v0, p.y); u1 = Math.max(u1, p.x); v1 = Math.max(v1, p.y) }
+      const t2 = Math.max(6, 0.08 * Math.min(u1 - u0, v1 - v0))
+      const on = q.filter((p) => Math.min(p.x - u0, u1 - p.x, p.y - v0, v1 - p.y) <= t2).length
+      if (on / q.length >= 0.85) return 'box'
+    }
+    return 'ring'
   }
   let len = 0
   for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
