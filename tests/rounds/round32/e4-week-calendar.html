@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Calendar</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2937;overflow:hidden;position:relative}
+header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid #e5e7eb}
+header b{font-size:22px}header span{background:#2563eb;color:#fff;font-weight:700;font-size:14px;padding:10px 18px;border-radius:8px}
+.days{position:absolute;left:96px;right:24px;top:72px;height:56px;display:flex;border-bottom:1px solid #e5e7eb}
+.days div{flex:1;text-align:center;line-height:56px;font-size:14px;font-weight:700;color:#6b7280}
+.grid{position:absolute;left:96px;right:24px;top:128px;bottom:0;background-image:linear-gradient(#f3f4f6 1px,transparent 1px),linear-gradient(90deg,#e5e7eb 1px,transparent 1px);background-size:100% 96px,165.7px 100%}
+.hours{position:absolute;left:24px;top:120px;font-size:12px;color:#9ca3af;line-height:96px}
+.ev{position:absolute;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:700;color:#fff}
+</style></head><body>
+<header data-r="header"><b>March 2027</b><span>+ Event</span></header>
+<div class="days" data-r="day-row" data-must><div>Mon 8</div><div>Tue 9</div><div>Wed 10</div><div>Thu 11</div><div>Fri 12</div><div>Sat 13</div><div>Sun 14</div></div>
+<div class="hours">9am<br>10am<br>11am<br>12pm<br>1pm<br>2pm<br>3pm<br>4pm</div>
+<div class="grid" data-r="grid" data-must></div>
+<div class="ev" data-r="event-standup" style="left:100px;top:132px;width:158px;height:88px;background:#2563eb">Standup</div>
+<div class="ev" data-r="event-design" style="left:266px;top:228px;width:158px;height:184px;background:#7c3aed">Design review</div>
+<div class="ev" data-r="event-lunch" style="left:597px;top:420px;width:158px;height:88px;background:#f59e0b">Lunch w/ Sam</div>
+<div class="ev" data-r="event-launch" style="left:763px;top:516px;width:158px;height:280px;background:#dc2626" data-must>Launch prep</div>
+<div class="ev" data-r="event-gym" style="left:1094px;top:228px;width:158px;height:88px;background:#16a34a">Gym</div>
+</body></html>

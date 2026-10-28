@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Chat</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;display:flex}
+.rail{width:72px;background:#4c1d95;display:flex;flex-direction:column;align-items:center;padding-top:20px;gap:16px}
+.rail i{width:40px;height:40px;border-radius:10px;background:#7c3aed}.rail i:first-child{background:#fff}
+.list{width:280px;background:#f5f3ff;border-right:1px solid #ddd6fe;padding:20px 16px}
+.list h2{font-size:18px;margin-bottom:16px}
+.ch{font-size:15px;padding:10px 12px;border-radius:8px;color:#4b5563}.ch.on{background:#ddd6fe;color:#111827;font-weight:700}
+.main{flex:1;display:flex;flex-direction:column}
+.top{height:64px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 24px;font-weight:700;font-size:18px}
+.msgs{flex:1;padding:24px}
+.m{display:flex;gap:12px;margin-bottom:22px}.m i{width:40px;height:40px;border-radius:50%;background:#f59e0b;flex:none}.m:nth-child(2) i{background:#10b981}.m:nth-child(3) i{background:#3b82f6}
+.m b{font-size:15px}.m p{font-size:15px;color:#374151;margin-top:4px}
+.box{margin:0 24px 24px;height:56px;border:2px solid #c4b5fd;border-radius:12px;display:flex;align-items:center;padding:0 16px;color:#9ca3af;font-size:15px}
+</style></head><body>
+<div class="rail" data-r="rail" data-must><i></i><i></i><i></i><i></i></div>
+<div class="list" data-r="channels" data-must><h2>Acme team</h2><div class="ch"># general</div><div class="ch on"># design</div><div class="ch"># launch</div><div class="ch"># random</div><div class="ch">Ana Ruiz</div><div class="ch">Tom Becker</div></div>
+<div class="main"><div class="top" data-r="header"># design</div>
+<div class="msgs" data-r="messages" data-must>
+<div class="m"><i></i><div><b>Ana Ruiz</b><p>New hero mockups are in the drive, take a look.</p></div></div>
+<div class="m"><i></i><div><b>Tom Becker</b><p>Love the second one. Can we try it with the dark nav?</p></div></div>
+<div class="m"><i></i><div><b>Lee Park</b><p>On it, will post by lunch.</p></div></div>
+</div>
+<div class="box" data-r="composer" data-must>Message #design</div></div>
+</body></html>
