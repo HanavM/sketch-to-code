@@ -85,4 +85,13 @@ describe('kept marks: boxes drawn earlier stay where drawn', () => {
     expect(v.reason).toMatch(/48px too high/)
     expect(verifyKeptMarks(kept, snap(wrap(90))).satisfied).toBe(true)
   })
+  it('a page wrapper of about the same size cannot stand in for the moved grid (n8 re-sketch)', () => {
+    const before = snap([node('main', 'main', null, { x: 0, y: 56, w: 1280, h: 844 }), node('g', 'div', 'main', { x: 1, y: 105, w: 1278, h: 752 })])
+    const held = marksInPlace(mergeKeptMarks([], [gridMark]), before)
+    expect(held[0]!.built).toEqual({ x: 1, y: 105, w: 1278, h: 752 })
+    const after = snap([node('main', 'main', null, { x: 0, y: 56, w: 1280, h: 844 }), node('g', 'div', 'main', { x: 1, y: 64, w: 1278, h: 752 })])
+    const v = verifyKeptMarks(held, after)
+    expect(v.satisfied).toBe(false)
+    expect(v.reason).toMatch(/41px too high/)
+  })
 })

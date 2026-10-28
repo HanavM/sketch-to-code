@@ -229,7 +229,7 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
  * it was drawn in the snapshot the run starts from) are held: a block the user
  * deleted, moved on purpose or undid is not pinned back.
  */
-export interface KeptMark { shape: ShapeKind; box: BBox }
+export interface KeptMark { shape: ShapeKind; box: BBox; /** The element built for it, as found when a run starts. */ built?: BBox }
 
 export const keptMarksPath = (root: string): string => join(root, '.sketch2code', 'marks.json')
 
@@ -269,37 +269,48 @@ export function saveKeptMarks(root: string, marks: KeptMark[]): void {
 }
 
 /** The element of about that size nearest the mark, and how far its centre is off. */
-function nearestOfSize(m: KeptMark, snap: SnapLike): { n: SnapLike['nodes'][number]; dx: number; dy: number } | null {
-  const b = m.box
+function nearestOfSize(b: BBox, snap: SnapLike, sizeTol: (v: number) => number): { n: SnapLike['nodes'][number]; dx: number; dy: number } | null {
   const cx = b.x + b.w / 2, cy = b.y + b.h / 2
   let best: { n: SnapLike['nodes'][number]; dx: number; dy: number } | null = null, bestD = Infinity
   for (const n of snap.nodes) {
     if (n.rect.w <= 0 || n.rect.h <= 0) continue
-    if (Math.abs(n.rect.w - b.w) > Math.max(10, b.w * 0.2)) continue
-    if (Math.abs(n.rect.h - b.h) > Math.max(8, b.h * 0.25)) continue
+    const sw = Math.abs(n.rect.w - b.w), sh = Math.abs(n.rect.h - b.h)
+    if (sw > sizeTol(b.w) || sh > sizeTol(b.h)) continue
     const dx = n.rect.x + n.rect.w / 2 - cx, dy = n.rect.y + n.rect.h / 2 - cy
-    const d = Math.hypot(dx, dy)
+    // the closest in place AND in size: a page wrapper 90px taller whose centre
+    // happens to sit near the grid's must not stand in for the grid
+    const d = Math.hypot(dx, dy) + sw + sh
     if (d < bestD) { best = { n, dx: r1(dx), dy: r1(dy) }; bestD = d }
   }
-  return best && bestD <= 260 ? best : null
+  return best && Math.hypot(best.dx, best.dy) <= 260 ? best : null
 }
 
 const keptSlack = (b: BBox) => Math.max(10, Math.min(24, Math.min(b.w, b.h) * 0.15))
+const loose = (v: number) => Math.max(10, v * 0.2)
+const tight = (v: number) => Math.max(6, v * 0.03)
 
-/** The kept marks that sit where they were drawn in this snapshot (the ones to hold). */
+/**
+ * The kept marks that sit where they were drawn in this snapshot (the ones to
+ * hold), each pinned to the exact element that stands for it now: later runs
+ * are checked against that element's own box, so a wrapper of roughly the
+ * same size can't pass for it.
+ */
 export function marksInPlace(marks: KeptMark[], snap: SnapLike): KeptMark[] {
   if (snap.truncated) return []
-  return marks.filter((m) => {
-    const hit = nearestOfSize(m, snap)
-    return !!hit && Math.abs(hit.dx) <= keptSlack(m.box) && Math.abs(hit.dy) <= keptSlack(m.box)
-  })
+  const out: KeptMark[] = []
+  for (const m of marks) {
+    const hit = nearestOfSize(m.box, snap, loose)
+    if (!hit || Math.abs(hit.dx) > keptSlack(m.box) || Math.abs(hit.dy) > keptSlack(m.box)) continue
+    out.push({ ...m, built: { ...hit.n.rect } })
+  }
+  return out
 }
 
 export function keptMarksBrief(marks: KeptMark[]): string {
   if (!marks.length) return ''
   return `DRAWN EARLIER AND BUILT WHERE DRAWN (keep each exactly there and that size; a note about ` +
     `something else never moves them: fix spacing around them instead):\n` +
-    marks.map((m) => `- ${m.shape === 'ellipse' ? 'ring' : 'box'} at x ${m.box.x}, y ${m.box.y}, ${m.box.w}x${m.box.h}`).join('\n') + '\n\n'
+    marks.map((m) => { const r = m.built ?? m.box; return `- the block built for the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn at x ${m.box.x}, y ${m.box.y}: it is at x ${r1(r.x)}, y ${r1(r.y)}, ${r1(r.w)}x${r1(r.h)} now and must stay exactly there` }).join('\n') + '\n\n'
 }
 
 export function verifyKeptMarks(marks: KeptMark[], after: SnapLike): MarkVerdict {
@@ -308,16 +319,17 @@ export function verifyKeptMarks(marks: KeptMark[], after: SnapLike): MarkVerdict
   const misses: string[] = []
   for (const m of marks) {
     const b = m.box
+    const ref = m.built ?? m.box
     const where = `the ${m.shape === 'ellipse' ? 'ring' : 'box'} drawn earlier at (${b.x},${b.y}) ${b.w}x${b.h}`
-    const hit = nearestOfSize(m, after)
-    if (!hit) { misses.push(`${where}: what was built there is gone or changed size; put it back at that size, there`); continue }
-    const s = keptSlack(b)
+    const hit = nearestOfSize(ref, after, m.built ? tight : loose)
+    if (!hit) { misses.push(`${where}: what was built there (${r1(ref.w)}x${r1(ref.h)}) is gone or changed size; put it back at that size, there`); continue }
+    const s = m.built ? 10 : keptSlack(b)
     if (Math.abs(hit.dx) <= s && Math.abs(hit.dy) <= s) continue
     const off = [
       Math.abs(hit.dy) > s ? `${Math.abs(hit.dy)}px too ${hit.dy > 0 ? 'low' : 'high'}` : '',
       Math.abs(hit.dx) > s ? `${Math.abs(hit.dx)}px too far ${hit.dx > 0 ? 'right' : 'left'}` : '',
     ].filter(Boolean).join(' and ')
-    misses.push(`${where}: this edit moved the <${hit.n.tag}> built for it ${off}; put it back where it was drawn (change the spacing of what this edit touched, not its position)`)
+    misses.push(`${where}: this edit moved the <${hit.n.tag}> built for it ${off}; put it back where it was (change the spacing of what this edit touched, e.g. pad the header to keep its height, never the drawn block's position)`)
   }
   return misses.length
     ? { satisfied: false, reason: misses.join('; ') }
