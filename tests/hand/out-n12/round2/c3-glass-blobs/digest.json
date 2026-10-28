@@ -3,142 +3,168 @@
   "id": "c3-glass-blobs",
   "version": 3,
   "stopped": null,
-  "likeness": 76.9,
-  "colour": 0.8683431767171054,
-  "structure": 0.7964290009675619,
-  "layout": 0.7701098255314225,
+  "likeness": 85.1,
+  "colour": 0.9553209514342923,
+  "structure": 0.8806087052576698,
+  "layout": 0.7659982598688568,
   "strokes": {
-    "count": 9,
-    "pointsPerStroke": 5,
+    "count": 13,
+    "pointsPerStroke": 3.8,
     "simpleShare": 1,
     "shapes": {
       "circle": 2,
       "box": 4,
-      "line": 3
+      "line": 3,
+      "dot": 4
     },
     "inkPx": 7411
   },
   "erased": 0,
-  "words": 49,
-  "notes": 10,
+  "notesMoved": 1,
+  "words": 35,
+  "notes": 8,
   "longestNote": 12,
   "noteTexts": [
-    "dark navy page, blurry pink and cyan glows",
-    "pink blob",
-    "cyan blob",
+    "soft blurred glow",
+    "soft blurred glow",
     "frosted glass card",
     "Beta · v2.0",
     "Your notes, finally calm (huge white)",
     "Write, link and find anything in a quiet space that syncs everywhere.",
-    "Get started, white",
-    "Watch demo, outline",
-    "glows much brighter, background more purple navy"
+    "Get started",
+    "Watch demo, outline"
   ],
   "time": {
-    "firstStrokeToDoneS": 468,
-    "firstReadingS": 78,
+    "firstStrokeToDoneS": 223,
+    "firstReadingS": 75,
     "readS": [
-      44,
-      12
+      31
     ],
     "buildS": [
-      228,
-      131
+      139
     ],
     "sketchingS": 53
   },
-  "corrections": 1,
-  "runs": 2,
+  "corrections": 0,
+  "runs": 1,
   "tokens": {
-    "input": 62661,
-    "cacheRead": 376630,
-    "output": 38044,
-    "billed": 100705
+    "input": 33877,
+    "cacheRead": 85702,
+    "output": 14422,
+    "billed": 48299
   },
   "events": [
     {
       "op": "stroke",
-      "at": 4184
+      "at": 4213
     },
     {
       "op": "stroke",
-      "at": 8983
+      "at": 8997
     },
     {
       "op": "stroke",
-      "at": 16198
+      "at": 16274
     },
     {
       "op": "stroke",
-      "at": 17362
+      "at": 17441
     },
     {
       "op": "stroke",
-      "at": 19262
+      "at": 19356
     },
     {
       "op": "stroke",
-      "at": 20110
+      "at": 20208
     },
     {
       "op": "stroke",
-      "at": 21796
+      "at": 21933
     },
     {
       "op": "stroke",
-      "at": 23278
+      "at": 23458
     },
     {
       "op": "stroke",
-      "at": 24812
+      "at": 25007
+    },
+    {
+      "op": "pen",
+      "color": "#1e1b4b",
+      "at": 25393
+    },
+    {
+      "op": "stroke",
+      "at": 25877
+    },
+    {
+      "op": "pen",
+      "color": "#ec4899",
+      "at": 26255
+    },
+    {
+      "op": "stroke",
+      "at": 26725
+    },
+    {
+      "op": "pen",
+      "color": "#06b6d4",
+      "at": 27097
+    },
+    {
+      "op": "stroke",
+      "at": 27573
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 27946
+    },
+    {
+      "op": "stroke",
+      "at": 28424
     },
     {
       "op": "note",
-      "at": 25489
+      "at": 29106
     },
     {
       "op": "note",
-      "at": 26111
+      "at": 29762
     },
     {
       "op": "note",
-      "at": 26717
+      "at": 30419
     },
     {
       "op": "note",
-      "at": 27360
+      "at": 31059
     },
     {
       "op": "note",
-      "at": 27978
+      "at": 31770
     },
     {
       "op": "note",
-      "at": 28635
+      "at": 32561
     },
     {
       "op": "note",
-      "at": 29352
+      "at": 33206
     },
     {
       "op": "note",
-      "at": 29984
+      "at": 33858
     },
     {
-      "op": "note",
-      "at": 30619
+      "op": "moveNote",
+      "at": 43188
     },
     {
       "op": "run",
-      "at": 33765
-    },
-    {
-      "op": "note",
-      "at": 315419
-    },
-    {
-      "op": "run",
-      "at": 315645
+      "at": 43271
     }
   ],
   "strokesDrawn": [
@@ -186,7 +212,7 @@
         ]
       ],
       "n": 224,
-      "at": 4184
+      "at": 4213
     },
     {
       "way": [
@@ -228,7 +254,7 @@
         ]
       ],
       "n": 259,
-      "at": 8983
+      "at": 8997
     },
     {
       "way": [
@@ -254,7 +280,7 @@
         ]
       ],
       "n": 405,
-      "at": 16198
+      "at": 16274
     },
     {
       "way": [
@@ -280,7 +306,7 @@
         ]
       ],
       "n": 43,
-      "at": 17362
+      "at": 17441
     },
     {
       "way": [
@@ -294,7 +320,7 @@
         ]
       ],
       "n": 87,
-      "at": 19262
+      "at": 19356
     },
     {
       "way": [
@@ -308,7 +334,7 @@
         ]
       ],
       "n": 24,
-      "at": 20110
+      "at": 20208
     },
     {
       "way": [
@@ -322,7 +348,7 @@
         ]
       ],
       "n": 74,
-      "at": 21796
+      "at": 21933
     },
     {
       "way": [
@@ -348,7 +374,7 @@
         ]
       ],
       "n": 61,
-      "at": 23278
+      "at": 23458
     },
     {
       "way": [
@@ -374,7 +400,47 @@
         ]
       ],
       "n": 65,
-      "at": 24812
+      "at": 25007
+    },
+    {
+      "way": [
+        [
+          60,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 25877
+    },
+    {
+      "way": [
+        [
+          200,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 26725
+    },
+    {
+      "way": [
+        [
+          1100,
+          650
+        ]
+      ],
+      "n": 1,
+      "at": 27573
+    },
+    {
+      "way": [
+        [
+          414,
+          563
+        ]
+      ],
+      "n": 1,
+      "at": 28424
     }
   ]
 }

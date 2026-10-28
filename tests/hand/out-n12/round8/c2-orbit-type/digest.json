@@ -3,52 +3,53 @@
   "id": "c2-orbit-type",
   "version": 3,
   "stopped": null,
-  "likeness": 71,
-  "colour": 0.9710112476991898,
-  "structure": 0.795788156742055,
-  "layout": 0.7985119227027303,
+  "likeness": 75.3,
+  "colour": 0.9769882447613419,
+  "structure": 0.7933184033594985,
+  "layout": 0.9096872129324852,
   "strokes": {
-    "count": 10,
-    "pointsPerStroke": 6.1,
+    "count": 14,
+    "pointsPerStroke": 4.6,
     "simpleShare": 1,
     "shapes": {
       "circle": 2,
       "line": 7,
-      "box": 1
+      "box": 1,
+      "dot": 4
     },
     "inkPx": 6770
   },
   "erased": 0,
-  "words": 32,
-  "notes": 7,
+  "notesMoved": 0,
+  "words": 29,
+  "notes": 6,
   "longestNote": 7,
   "noteTexts": [
-    "cream page",
     "SOUND x4, bold, fading black to pale",
     "FM26 white bold",
     "dotted ring, LOUDER · LISTEN around it",
     "small 4-line blurb",
     "NOV 14–16 bold",
-    "black ticker: ON AIR • 98.6 FM"
+    "ticker: ON AIR • 98.6 FM"
   ],
   "time": {
-    "firstStrokeToDoneS": 316,
-    "firstReadingS": 78,
+    "firstStrokeToDoneS": 361,
+    "firstReadingS": 105,
     "readS": [
-      47
+      60
     ],
     "buildS": [
-      230
+      249
     ],
-    "sketchingS": 39
+    "sketchingS": 52
   },
   "corrections": 0,
   "runs": 1,
   "tokens": {
-    "input": 36152,
-    "cacheRead": 420156,
-    "output": 26311,
-    "billed": 62463
+    "input": 39487,
+    "cacheRead": 429025,
+    "output": 26801,
+    "billed": 66288
   },
   "events": [
     {
@@ -58,75 +59,107 @@
     },
     {
       "op": "stroke",
-      "at": 3121
+      "at": 3127
     },
     {
       "op": "stroke",
-      "at": 8638
+      "at": 8645
     },
     {
       "op": "stroke",
-      "at": 9768
+      "at": 9792
     },
     {
       "op": "stroke",
-      "at": 10902
+      "at": 10941
     },
     {
       "op": "stroke",
-      "at": 12038
+      "at": 12091
     },
     {
       "op": "stroke",
-      "at": 13185
+      "at": 13224
     },
     {
       "op": "stroke",
-      "at": 14251
+      "at": 14308
     },
     {
       "op": "stroke",
-      "at": 14969
+      "at": 15023
     },
     {
       "op": "stroke",
-      "at": 15751
+      "at": 15807
     },
     {
       "op": "stroke",
-      "at": 23671
+      "at": 23726
+    },
+    {
+      "op": "pen",
+      "color": "#f3efe6",
+      "at": 24097
+    },
+    {
+      "op": "stroke",
+      "at": 24573
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 24949
+    },
+    {
+      "op": "stroke",
+      "at": 25439
     },
     {
       "op": "note",
-      "at": 24302
+      "at": 26164
     },
     {
       "op": "note",
-      "at": 24979
+      "at": 26827
     },
     {
       "op": "note",
-      "at": 25614
+      "at": 27524
     },
     {
       "op": "note",
-      "at": 26275
+      "at": 28192
     },
     {
       "op": "note",
-      "at": 26910
+      "at": 28849
     },
     {
       "op": "note",
-      "at": 27539
+      "at": 29521
     },
     {
-      "op": "note",
-      "at": 28199
+      "op": "pen",
+      "color": "#111111",
+      "at": 38592
+    },
+    {
+      "op": "stroke",
+      "at": 39085
+    },
+    {
+      "op": "pen",
+      "color": "#ff5020",
+      "at": 44721
+    },
+    {
+      "op": "stroke",
+      "at": 45196
     },
     {
       "op": "run",
-      "at": 30878
+      "at": 45283
     }
   ],
   "strokesDrawn": [
@@ -218,7 +251,7 @@
         ]
       ],
       "n": 161,
-      "at": 3121
+      "at": 3127
     },
     {
       "way": [
@@ -308,7 +341,7 @@
         ]
       ],
       "n": 301,
-      "at": 8638
+      "at": 8645
     },
     {
       "way": [
@@ -322,7 +355,7 @@
         ]
       ],
       "n": 41,
-      "at": 9768
+      "at": 9792
     },
     {
       "way": [
@@ -336,7 +369,7 @@
         ]
       ],
       "n": 41,
-      "at": 10902
+      "at": 10941
     },
     {
       "way": [
@@ -350,7 +383,7 @@
         ]
       ],
       "n": 41,
-      "at": 12038
+      "at": 12091
     },
     {
       "way": [
@@ -364,7 +397,7 @@
         ]
       ],
       "n": 41,
-      "at": 13185
+      "at": 13224
     },
     {
       "way": [
@@ -378,7 +411,7 @@
         ]
       ],
       "n": 37,
-      "at": 14251
+      "at": 14308
     },
     {
       "way": [
@@ -392,7 +425,7 @@
         ]
       ],
       "n": 16,
-      "at": 14969
+      "at": 15023
     },
     {
       "way": [
@@ -406,7 +439,7 @@
         ]
       ],
       "n": 20,
-      "at": 15751
+      "at": 15807
     },
     {
       "way": [
@@ -432,7 +465,47 @@
         ]
       ],
       "n": 447,
-      "at": 23671
+      "at": 23726
+    },
+    {
+      "way": [
+        [
+          1150,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 24573
+    },
+    {
+      "way": [
+        [
+          640,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 25439
+    },
+    {
+      "way": [
+        [
+          1200,
+          872
+        ]
+      ],
+      "n": 1,
+      "at": 39085
+    },
+    {
+      "way": [
+        [
+          560,
+          520
+        ]
+      ],
+      "n": 1,
+      "at": 45196
     }
   ]
 }
