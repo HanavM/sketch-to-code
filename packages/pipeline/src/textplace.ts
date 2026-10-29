@@ -21,6 +21,7 @@ import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
 import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
 import { outlinedOf } from './textlook.js'
+import { bindTiltNotes } from './tiltwords.js'
 
 interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }
@@ -60,6 +61,8 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[]): void {
       .map((n) => ({ text: n.text, x: r1(n.at!.x), y: r1(n.at!.y) }))
     if (typed.length) m.typed = typed
   }
+  // n61: a note typed on a line inside a turned box is that line's words, though it is attached to several marks
+  bindTiltNotes(marks, notes)
   linkSame(marks)
 }
 

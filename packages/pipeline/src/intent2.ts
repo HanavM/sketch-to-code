@@ -326,6 +326,7 @@ import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, markTextPlaces } from './textplace.js'
+import { bindTiltNotes } from './tiltwords.js'
 import { markOutlined } from './textlook.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
@@ -1300,6 +1301,8 @@ export function groundInterpretation(
   }
 
   // n57: "WORK, same" copies the look of the line above even when the two lines are separate actions
+  // n61: the turned box and the lines drawn in it are often different actions; bind notes to those lines across them
+  bindTiltNotes(actions.flatMap((a) => a.shapeMarks ?? []), ev.notes.map((n) => ({ text: n.text, ...(n.at ? { at: n.at } : {}) })))
   linkSame(actions.flatMap((a) => a.shapeMarks ?? []))
 
   // A note the user typed must never be silently dropped because no action

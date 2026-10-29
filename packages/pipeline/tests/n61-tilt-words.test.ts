@@ -119,4 +119,36 @@ describe('words on lines inside a box drawn turned (n61)', () => {
     expect(copyOf('ONE, big bold white')).toBe('ONE')
     expect(copyOf('ADMIT')).toBe('ADMIT')
   })
+  it('binds notes typed on the lines though each is attached to several marks (as in the real flow)', () => {
+    // the real reading snaps the nearly level lines level and attaches each note to 2-4 marks
+    const lvl = (id: string, x0: number, x1: number, y: number): ShapeMark => ({ strokeId: id, shape: 'line', box: { x: x0, y, w: x1 - x0, h: 0 }, from: { x: x0, y }, to: { x: x1, y } })
+    const sl = (id: string, a: [number, number], b: [number, number]): ShapeMark => ({ strokeId: id, shape: 'line', box: { x: a[0], y: Math.min(a[1], b[1]), w: b[0] - a[0], h: Math.abs(a[1] - b[1]) }, from: { x: a[0], y: a[1] }, to: { x: b[0], y: b[1] } })
+    const marks: ShapeMark[] = [
+      { strokeId: 's1', shape: 'box', box: { x: 234, y: 182, w: 811, h: 436 }, tilt: { deg: -5.5, w: 780, h: 363, cx: 640, cy: 400 } },
+      { strokeId: 's2', shape: 'line', box: { x: 811, y: 206, w: 0, h: 354 }, from: { x: 811, y: 206 }, to: { x: 811, y: 560 } },
+      lvl('s3', 288, 583, 337), lvl('s4', 295, 448, 408), lvl('s5', 302, 655, 450),
+      sl('s6', [828, 257], [878, 251]), sl('s7', [832, 301], [926, 290]), sl('s8', [835, 326], [950, 313]),
+    ]
+    const all = ['s1', 's3', 's4']
+    markTextPlaces(marks, [
+      { text: 'The Night Owls, big bold black', at: { x: 300, y: 318 }, focus: all },
+      { text: 'Fri 12 Dec · Doors 8pm · The Grain Hall, grey', at: { x: 310, y: 452 }, focus: ['s1', 's5'] },
+      { text: 'ADMIT', at: { x: 830, y: 240 }, focus: ['s1', 's2', 's6'] },
+      { text: 'dashed', at: { x: 800, y: 400 }, focus: ['s1', 's2'] },
+      { text: 'ONE, big bold white', at: { x: 836, y: 282 }, focus: ['s1', 's6', 's7'] },
+      { text: 'Row F · Seat 14, white', at: { x: 838, y: 318 }, focus: ['s1', 's6', 's7', 's8'] },
+    ])
+    const by = (id: string) => marks.find((m) => m.strokeId === id)!
+    expect(by('s3').carries).toBe('The Night Owls, big bold black')
+    expect(by('s4').carries).toBeUndefined()
+    expect(by('s5').carries).toBe('Fri 12 Dec · Doors 8pm · The Grain Hall, grey')
+    expect(by('s6').carries).toBe('ADMIT')
+    expect(by('s7').carries).toBe('ONE, big bold white')
+    expect(by('s8').carries).toBe('Row F · Seat 14, white')
+    expect(by('s2').carries).toBeUndefined()
+    const brief = tiltWordsBrief([{ shapeMarks: marks, textSize: [{ lines: 2, strokes: ['s3', 's4'] }] }])
+    expect(brief).toContain('"ADMIT"')
+    expect(brief).toContain('"Row F · Seat 14"')
+    expect(brief).toContain('set on 2 drawn lines')
+  })
 })

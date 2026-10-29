@@ -184,3 +184,42 @@ export function verifyTiltWords(actions: ActionLike[], after: Snap): { satisfied
     ? { satisfied: false, reason: faults.join('; ') }
     : { satisfied: true, reason: `${judged} line${judged > 1 ? 's' : ''} of words on their drawn lines inside the turned box` }
 }
+
+/**
+ * n61: bind each note to the line inside a turned box it was typed on. In the real flow a note on a line in a
+ * ticket is attached to several marks at once (the line, the box, the next line), so it is no line's own note
+ * and the line carried no words. A note typed just above or on a line, near where it starts (in the box's own
+ * frame), is that line's words. Each note binds once, to its nearest line.
+ */
+export function bindTiltNotes(marks: ShapeMark[], notes: Array<{ text: string; at?: { x: number; y: number } }>): void {
+  for (const box of marks) {
+    const t = box.tilt
+    if (!t || t.weak || box.shape !== 'box') continue
+    const lines = marks.flatMap((m) => {
+      if (m === box || !isLine(m)) return []
+      const a = toLocal(m.from!, t), b = toLocal(m.to!, t)
+      if (Math.abs(a.y - b.y) > Math.max(10, Math.abs(a.x - b.x) * 0.2) || !inside(a, t) || !inside(b, t)) return []
+      return [{ m, x0: Math.min(a.x, b.x), x1: Math.max(a.x, b.x), y: (a.y + b.y) / 2 }]
+    })
+    const taken = new Set(lines.filter((l) => l.m.words || l.m.carries).map((l) => l.m.words ?? l.m.carries))
+    const pairs: Array<{ l: typeof lines[number]; text: string; d: number }> = []
+    for (const n of notes) {
+      if (!n.at || taken.has(n.text)) continue
+      const p = toLocal(n.at, t)
+      for (const l of lines) {
+        if (l.m.words || l.m.carries) continue
+        const dy = l.y - p.y // positive: typed above the line
+        if (dy < -14 || dy > 46) continue
+        if (p.x < l.x0 - 40 || p.x > l.x0 + Math.max(60, 0.6 * (l.x1 - l.x0))) continue
+        pairs.push({ l, text: n.text, d: Math.abs(dy - 12) + Math.abs(p.x - l.x0) * 0.2 })
+      }
+    }
+    pairs.sort((p, q) => p.d - q.d)
+    const usedNote = new Set<string>()
+    for (const { l, text } of pairs) {
+      if (usedNote.has(text) || l.m.words || l.m.carries) continue
+      l.m.carries = text
+      usedNote.add(text)
+    }
+  }
+}
