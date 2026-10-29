@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T19:12Z | n87 sketch round 36 e1-e5 by hand | Boarding 77.2, transactions 78.8, timesheet 61.5, email 73.8, alerts 69.9; round 36 mean 72.3, 66.5 words.
 2026-10-29T18:20Z | n86 sketch round 36 c1-c5 by hand | Vinyl 69.9, hut 80.7, chess 87.5, florist 63.0, tide 60.9; mean 72.4, 19 strokes, 57 words.
 2026-10-29T17:40Z | n85 write round 36 | Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet.
 2026-10-29T17:18Z | n84 dots in rows coloured, not the card | Card dark grey, green dots and rings per row both tries; workout 76.4 to 89.3, 88.1, no fix.

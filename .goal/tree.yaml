@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Sketched the five landing pages of round 36 by hand (average 72); next, the five app pages, then fixing pages that slide down under a tall header."
-round: 35
-round_scores: [53, 77, 76, 70, 79, 78]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35 (fresh rounds); round 34 is 79.5, round 35 is 77.9
-round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 18:15Z n87", until: "2026-10-29T19:45Z"}
+now: "Finished round 36 by hand (average 72, too many words for lists and tables); next, letting one drawn row stand for every row so lists need far fewer words."
+round: 36
+round_scores: [53, 77, 76, 70, 79, 78, 72]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3
+round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}]   # per round: {round, strokes, words, minutes}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -161,7 +161,9 @@ nodes:
      result: "Ten fresh pages written, screenshotted and calibrated; seven harder than round 1. None sketched yet."}
   - {id: n86, parent: n1, kind: step, title: "Sketch round 36 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n3-ink-style,
      result: "Vinyl 69.9, hut 80.7, chess 87.5, florist 63.0, tide 60.9; mean 72.4; layout drift and lost header."}
-  - {id: n87, parent: n1, kind: step, priority: next, title: "Sketch round 36 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n87, parent: n1, kind: step, title: "Sketch round 36 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
+     result: "Boarding 77.2, transactions 78.8, timesheet 61.5, email 73.8, alerts 69.9; round 36 mean 72.3, 66.5 words."}
+  - {id: n89, parent: n2, kind: step, priority: next, title: "The drawn first row is the template: 'rows like this' keeps its columns and height for every row, and rows can be given as a short typed list or left as filler so words drop; re-sketch transactions and email compose", status: open, branch: try/n3-ink-style, result: null}
   - {id: n88, parent: n4, kind: step, title: "A header stays at its drawn lines (no tall header pushing the page down), a repair that lifts content never removes blocks, and a note on stacked heading lines covers every line; re-sketch tide swim and florist", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
@@ -175,6 +177,11 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A wobbly hand circle is built as a lumpy blob; 'a true circle' fix moved and shrank it", found_on: "r36 c1 (n86)", built: null, helped: null}
   - {gap: "Lines drawn as stat places are pasted as white rules and a row note's label word is printed", found_on: "r36 c3 (n86)", built: null, helped: null}
   - {gap: "A fix note on a nav row changes only the word under it", found_on: "r36 c2 (n86)", built: null, helped: null}
+  - {gap: "Row content can only be typed in full: lists, tables and toggles need 60-130 words per page", found_on: "r36 e2, e3, e4, e5 (n87)", built: null, helped: null}
+  - {gap: "'Rows like this' loses the drawn row: middle column stacked under the name, rows 78-115px tall instead of ~58", found_on: "r36 e2, e4 (n87)", built: null, helped: null}
+  - {gap: "A tap above a line inside a box fills the whole box (table went grey, not just its header strip)", found_on: "r36 e3 (n87)", built: null, helped: null}
+  - {gap: "A fix note for two small buttons also restyled a nearby button (purple Submit turned white)", found_on: "r36 e3 (n87)", built: null, helped: null}
+  - {gap: "A number in a note is printed (progress bar 82% became a huge 82%); parts never drawn are invented (inbox search bar, paper-plane icon)", found_on: "r36 e3, e4, e1 (n87)", built: null, helped: null}
   - {gap: "A box drawn in a coloured pen with no tap is built as a filled button, and a 'no fill / outline only' fix strips the border too (or is refused)", found_on: "r35 c3, c4 (n76)", built: null, helped: null}
   - {gap: "A fix note dropped in empty space next to a built band or button is placed as new content, not bound to the block", found_on: "r35 c1, c5 (n76)", built: null, helped: null}
   - {gap: "Typed copy is cut at a comma (Pre-order, 38 became Pre-order) and the remaining word sized up", found_on: "r35 c5 (n76)", built: null, helped: null}
@@ -447,12 +454,17 @@ n44_resketch:   # same strokes, taps, notes and fix notes as n35 (replay --fixes
   - {page: r32 c5-bookshop, try: 1, likeness: 63.3, was: 72.9, strokes: 9, words: 34, minutes: 3.8, fixes: 0, build_s: 167, tokens: 41595, note: "italic regular, heading narrower than its line"}
   - {page: r32 c5-bookshop, try: 2, likeness: 62.4, was: 72.9, strokes: 9, words: 34, minutes: 4.0, fixes: 0, build_s: 188, tokens: 43426}
   - {page: r32 c5-bookshop, try: 3, likeness: 69.5, was: 72.9, strokes: 9, words: 34, minutes: 3.4, fixes: 0, build_s: 138, tokens: 50282, note: "told to size a regular heading to span its line"}
-round36_pages:   # n86 (c1-c5, tests/hand/N86.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n84. c1-c5 mean 72.4, median 19 strokes, 57 words, 8.1 min
+round36_pages:   # n86 (c1-c5, tests/hand/N86.md) and n87 (e1-e5, tests/hand/N87.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n84. c1-c5 mean 72.4; e1-e5 mean 72.2. Round 36: mean 72.3, median 19 strokes, 66.5 words, 8.1 min
   - {page: r36 c1-vinyl-sale, likeness: 69.9, strokes: 16, taps: 5, words: 57, notes: 9, minutes: 11.2, fixes: 1, first_read_s: 110, build_s: 398, tokens: 166043, note: "heading one line until fix; record lumpy, fix moved it"}
   - {page: r36 c2-mountain-hut, likeness: 80.7, strokes: 20, taps: 7, words: 55, notes: 9, minutes: 4.7, fixes: 1, first_read_s: 129, build_s: 126, tokens: 84987, note: "stray tap faded a mountain, fixed; nav fix hit one word"}
   - {page: r36 c3-chess-club, likeness: 87.5, strokes: 19, taps: 4, words: 75, notes: 10, minutes: 8.1, fixes: 1, first_read_s: 94, build_s: 357, tokens: 150059, note: "stats as rules until fix; outline button filled until fix"}
   - {page: r36 c4-florist, likeness: 63.0, strokes: 12, taps: 3, words: 38, notes: 6, minutes: 5.1, fixes: 1, first_read_s: 56, build_s: 228, tokens: 87414, note: "tall header, heading low; right-aligned until fix"}
   - {page: r36 c5-tide-swim, likeness: 60.9, strokes: 21, taps: 7, words: 69, notes: 10, minutes: 12.9, fixes: 1, first_read_s: 109, build_s: 622, tokens: 109905, note: "page 200px low; lift fix removed header"}
+  - {page: r36 e1-boarding-pass, likeness: 77.2, strokes: 21, taps: 4, words: 57, notes: 12, minutes: 8.1, fixes: 1, first_read_s: 110, build_s: 345, tokens: 162187, note: "barcode a dark box until fix; arrow became a plane icon"}
+  - {page: r36 e2-transactions, likeness: 78.8, strokes: 19, taps: 3, words: 131, notes: 14, minutes: 10.9, fixes: 1, first_read_s: 134, build_s: 477, tokens: 116874, note: "rows tall, one stat card grey until fix; title 22px low"}
+  - {page: r36 e3-timesheet, likeness: 61.5, strokes: 19, taps: 6, words: 129, notes: 12, minutes: 9.9, fixes: 1, first_read_s: 102, build_s: 451, tokens: 172691, note: "whole table grey; fix turned Submit white"}
+  - {page: r36 e4-email-compose, likeness: 73.8, strokes: 24, taps: 4, words: 119, notes: 12, minutes: 6.0, fixes: 1, first_read_s: 114, build_s: 203, tokens: 119603, note: "invented inbox header, tall rows until fix; compose window right"}
+  - {page: r36 e5-notifications, likeness: 69.9, strokes: 9, taps: 2, words: 64, notes: 4, minutes: 8.1, fixes: 0, first_read_s: 63, build_s: 416, tokens: 78803, note: "rows drift down, last row spills out of card"}
 round35_pages:   # n76 (c1-c5, tests/hand/N76.md) and n77 (e1-e5, tests/hand/N77.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n73. c1-c5 mean 76.1; e1-e5 mean 79.7. Round 35: mean 77.9, median 17.5 strokes, 57.5 words, 8.0 min
   - {page: r35 c1-kite-festival, likeness: 52.8, strokes: 23, taps: 8, words: 58, notes: 8, minutes: 14.1, fixes: 1, first_read_s: 123, build_s: 646, tokens: 232577, note: "page taps either side of the band line made one diagonal fade; fix note became a stripe"}
   - {page: r35 c2-gelato-stripes, likeness: 73.5, strokes: 17, taps: 6, words: 47, notes: 8, minutes: 5.8, fixes: 1, first_read_s: 114, build_s: 191, tokens: 92630, note: "plum card behind SCOOP removed by one fix; stripes twice as many"}
