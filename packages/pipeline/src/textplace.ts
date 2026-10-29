@@ -18,6 +18,7 @@
  */
 import type { BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
+import { rowBrief } from './rowspan.js'
 
 interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }
@@ -121,7 +122,7 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
           : side === 'right'
             ? `- action ${i}: "${m.words}" is typed on the level line drawn from x ${x0} to ${x1} at y ${y}, ${inBox}, near its RIGHT edge: ` +
               `the words are RIGHT-aligned and end at x ${x1} (text-align: right).`
-            : `- action ${i}: "${m.words}" is typed on the level line drawn from x ${x0} to ${x1} at y ${y}, centred ${inBox}: centre the words on x ${r1((x0 + x1) / 2)}.`)
+            : `- action ${i}: "${m.words}" is typed on the level line drawn from x ${x0} to ${x1} at y ${y}, centred ${inBox}: centre the words on x ${r1((x0 + x1) / 2)}; ${rowBrief(m.words, x0, x1)}.`)
       }
       if (m.typed?.length) {
         for (const t of m.typed) {
