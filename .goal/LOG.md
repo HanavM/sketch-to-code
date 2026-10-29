@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T17:18Z | n84 dots in rows coloured, not the card | Card dark grey, green dots and rings per row both tries; workout 76.4 to 89.3, 88.1, no fix.
 2026-10-29T16:57Z | n83 white title never vanishes; one note fills a pill row | Title white, pills split both tries; workout 70.9 to 76.4, 72.6; table still green.
 2026-10-29T16:45Z | n82 a number and its label make a stat card | Cards kept, number left, label placed first build; library 68.5, workout 70.9 (title invisible, table green).
 2026-10-29T15:58Z | n81 header ends keep their sides | Logo left, links right first build; pharmacy 58.4 to 72.9, split bill 89.4 with no fix.
