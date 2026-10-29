@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T04:05Z | n56 long line sets heading size; labels centred under rings | Heading spans its line 4 of 4, labels centred, row shift caught. Herb farm 69.6 to 76.3, 70.2.
 2026-10-29T03:12Z | n55 a note above a paragraph binds to it, not the heading | Heading stays two lines. Surf 71.8 to 82.7, 81.4; herb farm 55.1 to 69.1, 70.1; no fixes or drags.
 2026-10-29T02:48Z | n51 shapes built from their drawn outline; taps follow the curve | Mountains clipped, wave cut off, fades as tapped. Cabins 53.6 to 73.1, 71.5; surf 58.0 to 71.8, 72.8.
 2026-10-29T02:10Z | n50 sketch round 33 e1-e5 by hand | Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes.
