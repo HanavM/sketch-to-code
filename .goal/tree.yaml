@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A long line now sets a heading's size and labels sit centred under their circles (herb farm 70 to 76). Next: a big box around a page is built as a white card (invoice, billing)."
+now: "A big box drawn round a page of content is now built as a white card at the drawn edges (invoice 85 first time, billing 69 to 78). Next: check the gains carry over to the agency and ticket pages."
 round: 33
 round_scores: [53, 77, 76, 70]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-n54", until: "2026-10-29T05:32Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -111,13 +111,17 @@ nodes:
   - {id: n55, parent: n4, kind: step, title: "A note typed just above a two-line paragraph binds to the paragraph, never to the heading line above it; re-sketch surf and herb farm without note drags", status: done, branch: try/n3-ink-style, result: "Paragraph note leaves the heading; heading stays two lines. Surf 71.8 to 82.7, 81.4; herb 55.1 to 69.1, 70.1, no drags."}
   - {id: n56, parent: n4, kind: step, title: "Parts keep their drawn height and size: a centred heading, its subtitle and a row of circles with labels land where drawn, not pulled up and shrunk; re-sketch herb farm", status: done, branch: try/n3-ink-style,
      result: "Long line sets heading size, labels centred under rings, row shift caught. Herb farm 69.6 to 76.3, 70.2."}
-  - {id: n57, parent: n4, kind: step, title: "Do the gains since round 33 carry? Re-sketch the slow agency (52.5, untouched since n49) and ticket pages replayed word for word with everything through n56; log any new gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n57, parent: n4, kind: step, priority: next, title: "Do the gains since round 33 carry? Re-sketch the slow agency (52.5, untouched since n49) and ticket pages replayed word for word with everything through n56; log any new gap", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
   - {id: n53, parent: n3, kind: step, title: "A small dot tapped in a second colour inside a filled box is a placed mark (pin, status dot) at that spot, not a refill, and the build puts it where drawn; re-sketch the map search", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n54, parent: n2, kind: step, priority: next, title: "A big box around a whole page of content is a card (white panel) when it holds text and parts, and a heading note never becomes a giant word filling it; drawn edges land within 8px; re-sketch invoice and billing", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n54, parent: n2, kind: step, title: "A big box around a whole page of content is a card (white panel) when it holds text and parts, and a heading note never becomes a giant word filling it; drawn edges land within 8px; re-sketch invoice and billing", status: done, branch: try/n3-ink-style, 
+     result: "Container box is a white card at drawn edges, no giant word. Invoice 80.6 to 84.9, 73.2; billing 69.3 to 77.9."}
+  - {id: n58, parent: n4, kind: step, title: "Text rows drawn inside a card keep their drawn lines' height (no 10-15px drift down the table), and a value typed after a label (Storage, 62 of 100 GB) stays beside it unless drawn apart; re-sketch invoice and billing", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A big box drawn round a whole invoice built as nothing, and a big-bold note inside it made a giant 1042", found_on: "r33 e3 (n50)", built: "a box holding 3+ drawn marks is a container, never a big-word area; a big one is a white or tapped card at the drawn edges, told and checked (n54)", helped: "yes: card in 2 of 2 first builds, no fixes; invoice 80.6 (2 fixes) to 84.9, 73.2"}
+  - {gap: "Wide panels built centred but 16px in on each side (inside the centre slack)", found_on: "r33 e5 (n50)", built: "each side of a box 300px+ wide within 8px of its drawn side, named with both spans (n54)", helped: "yes: panels 200-1081 as drawn; billing 69.3 to 74.8, 77.9"}
   - {gap: "A short phrase on a long line with no size word is built small (28px on a 916px line)", found_on: "r33 c4 (n55)", built: "a line much longer than its words is a heading sized to span it, told and checked (n56)", helped: "yes: heading 846-860px of 916 in 4 of 4; herb farm 69.6 to 76.3, 70.2"}
   - {gap: "Labels drawn centred under circles built from each circle's left edge", found_on: "r33 c4 (n55)", built: "a short line centred under a ring or box is its label, centred on it, told and checked (n56)", helped: "yes: centred in 4 of 4 builds"}
   - {gap: "A row of circles built 24px high passed (each inside its own slack)", found_on: "r33 c4 (n56 try 1)", built: "3+ boxes in a row off together by 12px+ is one shift, named with the spacing to fix (n56)", helped: "rings within 5px in 2 of 2 builds after"}
@@ -388,3 +392,8 @@ n56_resketch:   # same strokes, taps and notes as n49 replayed word for word (fi
   - {page: r33 c4-herb-farm, try: 2, likeness: 70.4, was: 69.6, strokes: 17, taps: 4, words: 43, notes: 11, minutes: 4.0, fixes: 0, first_read_s: 73, build_s: 163, tokens: 65907}
   - {page: r33 c4-herb-farm, try: 3, likeness: 76.3, was: 69.6, strokes: 17, taps: 4, words: 43, notes: 11, minutes: 2.7, fixes: 0, first_read_s: 55, build_s: 102, tokens: 52538}
   - {page: r33 c4-herb-farm, try: 4, likeness: 70.2, was: 69.6, strokes: 17, taps: 4, words: 43, notes: 11, minutes: 3.1, fixes: 0, first_read_s: 50, build_s: 133, tokens: 51491, note: "heading sits on the drawn line, ~15px under the target"}
+n54_resketch:   # same strokes, taps and notes as n50 replayed word for word (first build only, no fix notes, no drags); tests/hand/N54.md on try/n3-ink-style
+  - {page: r33 e3-invoice, try: 1, likeness: 84.9, was: 80.6, strokes: 15, taps: 2, words: 48, notes: 9, minutes: 3.4, fixes: 0, first_read_s: 76, build_s: 124, tokens: 40792}
+  - {page: r33 e3-invoice, try: 2, likeness: 73.2, was: 80.6, strokes: 15, taps: 2, words: 48, notes: 9, minutes: 4.0, fixes: 0, first_read_s: 100, build_s: 138, tokens: 65917, note: "card right; table rows ~15px low"}
+  - {page: r33 e5-billing, try: 1, likeness: 74.8, was: 69.3, strokes: 13, taps: 1, words: 45, notes: 9, minutes: 3.5, fixes: 0, first_read_s: 66, build_s: 140, tokens: 62174}
+  - {page: r33 e5-billing, try: 2, likeness: 77.9, was: 69.3, strokes: 13, taps: 1, words: 45, notes: 9, minutes: 3.5, fixes: 0, first_read_s: 86, build_s: 123, tokens: 62300}
