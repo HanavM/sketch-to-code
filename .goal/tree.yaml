@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Giant words like SLOW and WORK now sit right on the lines drawn under them. Next: writing a fresh round of ten unseen pages to test whether all the recent gains hold up."
+now: "Ten fresh, never-seen pages are ready for round 34 (a ramen bar, a bike race, a planet tour, a flight board and more). Next: sketching them by hand from their pictures alone."
 round: 33
 round_scores: [53, 77, 76, 70]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-29T07:55Z n63", until: "2026-10-29T09:25Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -122,7 +122,10 @@ nodes:
      result: "Link underlined on one line, tagline sized, giant words no longer shrink. Agency 68.8, 70.2 with final code."}
   - {id: n64, parent: n4, kind: step, title: "Giant capital words sit ON their drawn lines (letters' bottoms on the line, not 40px above), told and checked by the cap band; re-sketch the slow agency twice", status: done, branch: try/n3-ink-style,
      result: "SLOW and WORK on their drawn lines both tries, first build. Agency 61.0, 73.9; structure still swings."}
-  - {id: n63, parent: n1, kind: step, priority: next, title: "Write round 34: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them, to test whether the gains since round 33 hold on unseen pages", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n63, parent: n1, kind: step, priority: next, title: "Write round 34: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them, to test whether the gains since round 33 hold on unseen pages", status: done, branch: try/n3-ink-style,
+     result: "Ten fresh pages written, screenshotted and calibrated; seven harder than round 1. None sketched yet."}
+  - {id: n65, parent: n1, kind: step, priority: next, title: "Sketch round 34 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n66, parent: n1, kind: step, title: "Sketch round 34 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
