@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Round 34 first half done by hand: five new landing pages average 82.5% likeness with 13 strokes and 38 words each. Next: the five everyday app pages."
+now: "Round 34 done by hand: 79.5% average likeness (just under the 80% goal), 15.5 strokes and 47.5 words per page. Next: fixing lists whose rows all get the same words."
 round: 34
-round_scores: [53, 77, 76, 70]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33 (fresh rounds)
-round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-29T09:29Z n66", until: "2026-10-29T10:59Z"}
+round_scores: [53, 77, 76, 70, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34 (fresh rounds); round 34 is 79.5
+round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}]   # per round: {round, strokes, words, minutes}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -100,8 +100,8 @@ nodes:
      result: "Heading spans its line, pill not hexagon, subtitle its own block. Bookshop 72.9, 56.8, 64.4, 69.8."}
   - {id: n46, parent: n4, kind: step, priority: next, title: "Nav words typed round a centred logo stay within their drawn centred line (never spread to the page edges); re-sketch bookshop twice and studio once", status: done, branch: try/n3-ink-style, 
      result: "Nav row kept round its centred logo in 2 of 2 builds, told and checked. Bookshop 68.7, 50.5; studio 77.6."}
-  - {id: n47, parent: n4, kind: step, title: "A heading drawn as one long line is built at the size that spans it (the font-size set straight from the check, not left to a stalling repair), and a full-width band drawn at the bottom keeps its drawn top; re-sketch bookshop twice and aurora once", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n38, parent: n2, kind: step, title: "A short label typed beside a divider or short line stays where typed (never centred on the line or dropped into a nearby box), a lone short line under the header is a heading, and a round mark is a circle not a hexagon; re-sketch calendar, files and chat", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n47, parent: n4, kind: step, title: "A heading drawn as one long line is built at the size that spans it (the font-size set straight from the check, not left to a stalling repair), and a full-width band drawn at the bottom keeps its drawn top; re-sketch bookshop twice and aurora once", status: pruned, branch: try/n3-ink-style, result: "Pruned: round 33 bookshop/aurora heading sizes; round 34 headings mostly land, weaker than n69-n71 leads."}
+  - {id: n38, parent: n2, kind: step, title: "A short label typed beside a divider or short line stays where typed (never centred on the line or dropped into a nearby box), a lone short line under the header is a heading, and a round mark is a circle not a hexagon; re-sketch calendar, files and chat", status: pruned, branch: try/n3-ink-style, result: "Pruned: old pool pages (calendar, files, chat); fresh round 34 gaps (n69-n71) matter more."}
   - {id: n48, parent: n1, kind: step, title: "Write round 33: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them, to test every feature since round 32 on pages never seen", status: done, branch: try/n3-ink-style, base: "try/n3-ink-style (has every feature through n46)",
      result: "Ten fresh pages written, screenshotted and calibrated; six harder than round 1. None sketched yet."}
   - {id: n49, parent: n1, kind: step, title: "Sketch round 33 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n3-ink-style,
@@ -128,7 +128,11 @@ nodes:
      result: "Ramen 80.8, bike 81.0, planet 79.5, bakery 82.3, ferry 89.1; mean 82.5, 13 strokes, 38 words."}
   - {id: n67, parent: n2, kind: step, title: "A thin curve drawn across a filled shape is a ring or line on it, not a split into two fills, and a full-width line with taps either side splits the page itself (no white rule left); re-sketch planet tour and ferry poster", status: open, branch: try/n3-ink-style, result: null}
   - {id: n68, parent: n4, kind: step, title: "A fix that moves text into a shape really moves it (a MOVE the codemod refuses and that changes no file is never verified as done), and a note on two overlapping marks lands on the smaller one; re-sketch bakery arch", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n66, parent: n1, kind: step, priority: next, title: "Sketch round 34 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n66, parent: n1, kind: step, title: "Sketch round 34 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
+     result: "Recipe 74.3, departures 81.3, habits 69.7, helpdesk 74.8, signup 82.2; round 34 mean 79.5, 15.5 strokes."}
+  - {id: n69, parent: n4, kind: step, priority: next, title: "Look-alike rows keep their own words: each note on one of several repeated marks is that row's text, checked on the page, and a fix can read the earlier notes (no 'Garlic clove' x3, no invented chat); re-sketch recipe and helpdesk", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n70, parent: n3, kind: step, title: "A colour tap on or next to a thin line colours that line (never a page fade stop), and a note dropped beside a small box binds to that box alone; re-sketch signup steps and recipe", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n71, parent: n2, kind: step, title: "A drawn line over repeated items sets their spacing (seven day letters over 500px means 80px apart), and a row of short values on a line is a table row, not a sentence to stretch; re-sketch habits and departures", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
