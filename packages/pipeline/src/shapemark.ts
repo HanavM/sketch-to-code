@@ -46,6 +46,8 @@ export interface ShapeMark {
    * is a card: a panel of its own colour (white unless tapped) on the page, at exactly the drawn edges.
    */
   card?: { fill: string | null }
+  /** box only (n82): its notes give a number and its label: a stat card (kept as a card), value left, label under. */
+  stat?: { value: string; label: string; labelAbove?: boolean }
   /** line only (n14): a slanted line running most of the page: the edge between two areas. */
   edge?: true
   /** box or ring (n15): its notes name a coloured plain thing ("lime badge"): one solid element in that colour. */

@@ -323,6 +323,7 @@ export function isPageLookNote(text: string): boolean {
 }
 
 import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
+import { markStats, statOf } from './statcard.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, markTextPlaces } from './textplace.js'
@@ -1086,7 +1087,7 @@ export function groundInterpretation(
           // form to be filled: a black card behind the 09 (round 12 c4). A box whose own
           // note is a big word or number is that word's area, never a drawn form.
           const areaBox = shape?.shape === 'box' && ev.notes.some((n) =>
-            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && isAreaNote(n.text))
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && isAreaNote(n.text) && !statOf([n.text]))
           // n15: a ring typed "lime badge NEW" was read as a depiction of a badge and came out a
           // faint brown disc (round 12 c4); a closed shape whose own note names a coloured plain
           // thing is that plain thing, never a drawn form.
@@ -1258,6 +1259,8 @@ export function groundInterpretation(
     // (every stroke on the page: the box round an invoice is often its own action, its lines in others)
     const innerBoxes = [...ev.strokes.values()].filter((st) => st.points.length > 1).map((st) => { const b = bboxOf(st.points); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) } }).filter((b) => b.w + b.h > 6)
     if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport, innerBoxes)
+    // n82: a box typed with a number and its label (6 big, on loan) is a stat card, never an area
+    if (shapeMarks.length) markStats(shapeMarks, noteObjs, innerBoxes)
     // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
     // n32: a box typed as a quote mark is that glyph; a group note's contents go on every member
     if (shapeMarks.length) markGlyphs(shapeMarks, noteObjs)

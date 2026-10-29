@@ -21,6 +21,7 @@
 import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { parseCssColor, hexOf, deltaE } from './palette.js'
+import { statClause } from './statcard.js'
 
 const BIG = /\b(huge|giant|big|bigger|large|massive|oversized|enormous|display|jumbo|outsized)\b/i
 const WORDY = /\b(number|numeral|digits?|word|words|headline|heading|title|letters|type|wordmark|logo ?type)\b|\d|\b[A-Z]{2,}\b/
@@ -116,6 +117,8 @@ const NO_CARD = /\b(no card|no panel|no background|transparent|bare|plain page|o
  */
 export function markCards(marks: ShapeMark[], inner: BBox[], notes: NoteLike[], taps: Array<{ strokeId: string; color: string }> = []): void {
   for (const m of marks) {
+    // n82: a stat card keeps its card; a tap on it colours it
+    if (m.stat && m.card) { const t = taps.filter((x) => x.strokeId === m.strokeId).pop(); if (t) m.card = { fill: t.color }; continue }
     if (m.shape !== 'box' || m.area || m.solid || m.glyph || m.tilt) continue
     if (m.box.w < 240 || m.box.h < 120) continue
     if (holdsMarks(m.box, inner) < CARD_MIN_MARKS) continue
@@ -135,10 +138,10 @@ export function cardsBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>): string
       const b = m.box
       lines.push(
         `- action ${i}: the box at (${b.x},${b.y}) ${b.w}x${b.h} holds the parts drawn inside it: it is a CARD, a panel of its own ` +
-        `(${m.card.fill ? `filled ${m.card.fill}` : 'white (#ffffff)'}, a 1px light border such as #e2e8f0, radius about 8px, at most a faint shadow) ` +
+        `(${m.card.fill ? `filled ${m.card.fill}` : m.stat ? 'a step off the page colour' : 'white (#ffffff)'}, a 1px light border such as #e2e8f0, radius about 8px, at most a faint shadow) ` +
         `standing on the page colour, never left out and never just an area. Its edges are the drawn edges: left ${b.x}px, top ${b.y}px, ` +
         `width ${b.w}px, height ${b.h}px (box-sizing: border-box; an exact px width, not a max-w class that rounds it; padding goes inside). ` +
-        `Everything drawn inside it is built inside it. A big or bold note on a line inside it sizes that line's text only, never a giant word filling the card. Checked on the page.`,
+        `Everything drawn inside it is built inside it. A big or bold note on a line inside it sizes that line's text only, never a giant word filling the card. Checked on the page.` + statClause(m),
       )
     }
   })
