@@ -4,7 +4,7 @@ now: "A line noted as a progress bar now builds as a real bar and small drawn sq
 round: 36
 round_scores: [53, 77, 76, 70, 79, 78, 72]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}]   # per round: {round, strokes, words, minutes}
-lock: null
+lock: {by: "run n88", until: "2026-10-30T01:11Z"}
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
