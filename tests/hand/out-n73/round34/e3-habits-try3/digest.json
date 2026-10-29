@@ -1,0 +1,609 @@
+{
+  "round": 34,
+  "id": "e3-habits",
+  "version": 3,
+  "stopped": null,
+  "likeness": 94.1,
+  "colour": 0.9955862812419918,
+  "structure": 0.9730925478888126,
+  "layout": 0.8998979523513744,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.6,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 6,
+      "line": 6,
+      "circle": 1,
+      "dot": 3
+    },
+    "inkPx": 13520
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 70,
+  "notes": 12,
+  "longestNote": 13,
+  "noteTexts": [
+    "Streaks, bold white",
+    "This week, lime bold",
+    "History",
+    "Settings",
+    "This week, big bold",
+    "M T W T F S S, small grey",
+    "Read 20 pages, bold; done M T W F",
+    "Walk 8k steps; done M W T F S",
+    "No phone in bed; done W S",
+    "Drink water; done M-S, not Sun",
+    "Stretch; done M F",
+    "7 day circles per card, green filled when done, grey ring when not"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 366,
+    "firstReadingS": 88,
+    "readS": [
+      33
+    ],
+    "buildS": [
+      276
+    ],
+    "sketchingS": 57
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 68692,
+    "cacheRead": 574738,
+    "output": 26614,
+    "billed": 95306
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 6629
+    },
+    {
+      "op": "stroke",
+      "at": 7322
+    },
+    {
+      "op": "stroke",
+      "at": 8004
+    },
+    {
+      "op": "stroke",
+      "at": 8605
+    },
+    {
+      "op": "stroke",
+      "at": 9237
+    },
+    {
+      "op": "stroke",
+      "at": 10155
+    },
+    {
+      "op": "stroke",
+      "at": 12006
+    },
+    {
+      "op": "stroke",
+      "at": 18171
+    },
+    {
+      "op": "stroke",
+      "at": 24340
+    },
+    {
+      "op": "stroke",
+      "at": 30522
+    },
+    {
+      "op": "stroke",
+      "at": 36707
+    },
+    {
+      "op": "stroke",
+      "at": 42926
+    },
+    {
+      "op": "stroke",
+      "at": 43789
+    },
+    {
+      "op": "pen",
+      "color": "#1c1917",
+      "at": 44164
+    },
+    {
+      "op": "stroke",
+      "at": 44642
+    },
+    {
+      "op": "pen",
+      "color": "#f5f5f4",
+      "at": 45007
+    },
+    {
+      "op": "stroke",
+      "at": 45475
+    },
+    {
+      "op": "pen",
+      "color": "#65a30d",
+      "at": 45841
+    },
+    {
+      "op": "stroke",
+      "at": 46309
+    },
+    {
+      "op": "note",
+      "at": 46978
+    },
+    {
+      "op": "note",
+      "at": 47648
+    },
+    {
+      "op": "note",
+      "at": 48297
+    },
+    {
+      "op": "note",
+      "at": 48944
+    },
+    {
+      "op": "note",
+      "at": 49620
+    },
+    {
+      "op": "note",
+      "at": 50303
+    },
+    {
+      "op": "note",
+      "at": 51023
+    },
+    {
+      "op": "note",
+      "at": 51703
+    },
+    {
+      "op": "note",
+      "at": 52377
+    },
+    {
+      "op": "note",
+      "at": 53068
+    },
+    {
+      "op": "note",
+      "at": 53714
+    },
+    {
+      "op": "note",
+      "at": 54497
+    },
+    {
+      "op": "run",
+      "at": 54666
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          220,
+          2
+        ],
+        [
+          220,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n": 371,
+      "at": 6629
+    },
+    {
+      "way": [
+        [
+          28,
+          48
+        ],
+        [
+          108,
+          48
+        ]
+      ],
+      "n": 14,
+      "at": 7322
+    },
+    {
+      "way": [
+        [
+          28,
+          110
+        ],
+        [
+          104,
+          110
+        ]
+      ],
+      "n": 14,
+      "at": 8004
+    },
+    {
+      "way": [
+        [
+          28,
+          148
+        ],
+        [
+          78,
+          148
+        ]
+      ],
+      "n": 9,
+      "at": 8605
+    },
+    {
+      "way": [
+        [
+          28,
+          186
+        ],
+        [
+          86,
+          186
+        ]
+      ],
+      "n": 11,
+      "at": 9237
+    },
+    {
+      "way": [
+        [
+          280,
+          68
+        ],
+        [
+          442,
+          68
+        ]
+      ],
+      "n": 28,
+      "at": 10155
+    },
+    {
+      "way": [
+        [
+          570,
+          131
+        ],
+        [
+          1070,
+          131
+        ]
+      ],
+      "n": 84,
+      "at": 12006
+    },
+    {
+      "way": [
+        [
+          280,
+          155
+        ],
+        [
+          1220,
+          155
+        ],
+        [
+          1220,
+          239
+        ],
+        [
+          280,
+          239
+        ],
+        [
+          280,
+          157
+        ]
+      ],
+      "n": 343,
+      "at": 18171
+    },
+    {
+      "way": [
+        [
+          280,
+          255
+        ],
+        [
+          1220,
+          255
+        ],
+        [
+          1220,
+          339
+        ],
+        [
+          280,
+          339
+        ],
+        [
+          280,
+          257
+        ]
+      ],
+      "n": 343,
+      "at": 24340
+    },
+    {
+      "way": [
+        [
+          280,
+          355
+        ],
+        [
+          1220,
+          355
+        ],
+        [
+          1220,
+          439
+        ],
+        [
+          280,
+          439
+        ],
+        [
+          280,
+          357
+        ]
+      ],
+      "n": 343,
+      "at": 30522
+    },
+    {
+      "way": [
+        [
+          280,
+          455
+        ],
+        [
+          1220,
+          455
+        ],
+        [
+          1220,
+          539
+        ],
+        [
+          280,
+          539
+        ],
+        [
+          280,
+          457
+        ]
+      ],
+      "n": 343,
+      "at": 36707
+    },
+    {
+      "way": [
+        [
+          280,
+          555
+        ],
+        [
+          1220,
+          555
+        ],
+        [
+          1220,
+          639
+        ],
+        [
+          280,
+          639
+        ],
+        [
+          280,
+          557
+        ]
+      ],
+      "n": 343,
+      "at": 42926
+    },
+    {
+      "way": [
+        [
+          602,
+          197
+        ],
+        [
+          599,
+          208
+        ],
+        [
+          591,
+          217
+        ],
+        [
+          580,
+          219
+        ],
+        [
+          569,
+          217
+        ],
+        [
+          561,
+          208
+        ],
+        [
+          558,
+          197
+        ],
+        [
+          561,
+          186
+        ],
+        [
+          569,
+          177
+        ],
+        [
+          580,
+          175
+        ],
+        [
+          591,
+          177
+        ],
+        [
+          599,
+          186
+        ],
+        [
+          602,
+          197
+        ]
+      ],
+      "n": 25,
+      "at": 43789
+    },
+    {
+      "way": [
+        [
+          110,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 44642
+    },
+    {
+      "way": [
+        [
+          700,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 45475
+    },
+    {
+      "way": [
+        [
+          580,
+          197
+        ]
+      ],
+      "n": 1,
+      "at": 46309
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Streaks, bold white",
+      "whole": false,
+      "x": 60,
+      "y": 42,
+      "at": 46978
+    },
+    {
+      "text": "This week, lime bold",
+      "whole": false,
+      "x": 60,
+      "y": 104,
+      "at": 47648
+    },
+    {
+      "text": "History",
+      "whole": false,
+      "x": 50,
+      "y": 142,
+      "at": 48297
+    },
+    {
+      "text": "Settings",
+      "whole": false,
+      "x": 50,
+      "y": 180,
+      "at": 48944
+    },
+    {
+      "text": "This week, big bold",
+      "whole": false,
+      "x": 360,
+      "y": 62,
+      "at": 49620
+    },
+    {
+      "text": "M T W T F S S, small grey",
+      "whole": false,
+      "x": 800,
+      "y": 126,
+      "at": 50303
+    },
+    {
+      "text": "Read 20 pages, bold; done M T W F",
+      "whole": false,
+      "x": 400,
+      "y": 197,
+      "at": 51023
+    },
+    {
+      "text": "Walk 8k steps; done M W T F S",
+      "whole": false,
+      "x": 400,
+      "y": 297,
+      "at": 51703
+    },
+    {
+      "text": "No phone in bed; done W S",
+      "whole": false,
+      "x": 400,
+      "y": 397,
+      "at": 52377
+    },
+    {
+      "text": "Drink water; done M-S, not Sun",
+      "whole": false,
+      "x": 400,
+      "y": 497,
+      "at": 53068
+    },
+    {
+      "text": "Stretch; done M F",
+      "whole": false,
+      "x": 400,
+      "y": 597,
+      "at": 53714
+    },
+    {
+      "text": "7 day circles per card, green filled when done, grey ring when not",
+      "whole": true,
+      "x": 800,
+      "y": 270,
+      "at": 54496
+    }
+  ]
+}

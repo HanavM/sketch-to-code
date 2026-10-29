@@ -67,6 +67,7 @@ import { linkLineBrief, linkLines, verifyBodyLines, verifyLinkLines } from './li
 import { verifyRowSpan } from './rowspan.js'
 import { rowWordsBrief, verifyRowWords } from './rowwords.js'
 import { lineSpreadBrief, verifyLineSpread, verifyTableRows } from './linespread.js'
+import { typedCopyBrief, verifyNoDirections, verifyTypedTimes } from './typedcopy.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
@@ -621,6 +622,10 @@ export async function runV2(
     eachBrief(interp.actions) +
     rowWordsBrief(interp.actions) +
     lineSpreadBrief(interp.actions) +
+    typedCopyBrief([...new Set([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
+      ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => m.words ? [m.words] : []))]),
+    ])]) +
     ((all) => allTextBrief(all, inkTextOf(interp.actions, all)))(allTextColour([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => a.notes ?? []),
@@ -896,9 +901,23 @@ export async function runV2(
     let best = -1
     let lastFailures: string[] = []
     // n24: the page as it was before the last repair turn, and how far its drawn boxes were off then
-    let preRepair: { work: Map<string, string | null>; miss: number | null; span: number | null } | null = null
+    let preRepair: { work: Map<string, string | null>; miss: number | null; span: number | null; fails?: Set<string> } | null = null
     const putBackIfWorse = async (miss: number | null, vtag: string): Promise<void> => {
       const prev = preRepair
+      // n73 (r34 e3 habits): a repair that fixed one check broke another that was working (it printed two cards'
+      // directions as their titles) and the share passing stayed the same: put the page back as it was before it
+      const broke = prev?.fails ? lastFailures.map(failKind).filter((k) => !prev.fails!.has(k)) : []
+      if (prev && broke.length) {
+        const now = captureWork(ctx.root, cp)
+        const added = new Map([...now].filter(([rel]) => !prev.work.has(rel)))
+        if (added.size) revertWork(ctx.root, cp, added)
+        applyWork(ctx.root, prev.work)
+        stage('verify', `the repair broke what was working (${broke.join('; ')}) with no gain: put the page back as it was before it`)
+        await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
+        const back = await verifyRound(`${vtag}-back`)
+        lastFailures = back.failures
+        return
+      }
       if (!prev || prev.miss == null || miss == null || miss <= prev.miss + 6) return
       // n60: a repair that sized a giant word to its drawn line is kept, though what is under it moved down a little
       const span = spanMisses(lastVerify)
@@ -980,7 +999,7 @@ export async function runV2(
           break
         }
         stage('repair', `round ${round + 1}`)
-        preRepair = { work: captureWork(ctx.root, cp), miss, span: spanMisses(lastVerify) }
+        preRepair = { work: captureWork(ctx.root, cp), miss, span: spanMisses(lastVerify), fails: new Set(lastFailures.map(failKind)) }
         const context = session
           ? ''
           : `READING (user-confirmed): ${interp.reading}\n\n${codemodNote}` +
@@ -1211,6 +1230,12 @@ const isDepiction = (a: GroundedAction, controls: FidelityControls = DEFAULT_FID
   !!a.svgPaths?.length && (a.fidelity === 'recognized' || rungFor(controls.resemblance) === 'trace')
 
 /** Map grounded actions onto the existing deterministic verifiers. */
+/** n73: which check a failure line is ("page (typed times ...)" or "action 2 ..."), so a repair that breaks a passing one is seen. */
+export function failKind(f: string): string {
+  const m = /^(page \([^)]*\)|[^:]{1,60})/.exec(f)
+  return (m?.[1] ?? f).trim()
+}
+
 export function verifyActions(
   actions: GroundedAction[],
   before: DomSnapshot,
@@ -1451,19 +1476,21 @@ export function verifyActions(
   // n14: a box round a big word is no card; a slanted line across the page is the colour edge
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
+  // n73: every note's text, once: typed times shown as typed, directions and look words never printed
+  const typedNotes = [...new Set([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text), ...allMarks.flatMap((m) => m.words ? [m.words] : [])])]
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['cards', verifyCards(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['tilt-words', verifyTiltWords(actions.filter((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen), after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
     ['all-text', ((all) => ((own, ink) => verifyAllText(allTextColour(all), after, (n) => own(n) || ink(n)))(ownColourText(allTextColour(all), all), onInkText(inkTextOf(actions, allTextColour(all)))))([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])])],
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
-    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
+    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
     ['link-lines', verifyLinkLines(actions, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'tilt-words' ? 'words on their drawn lines inside a turned box' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'row-words' ? 'look-alike marks each with their own words' : kind === 'line-spread' ? 'items spread over their drawn line' : kind === 'table-rows' ? 'table rows at body size' : kind === 'text-rules' ? 'lines drawn for words left off the page' : kind === 'link-lines' ? 'links drawn on a coloured line underlined' : kind === 'body-lines' ? 'sentences sized to their drawn line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'tilt-words' ? 'words on their drawn lines inside a turned box' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'row-words' ? 'look-alike marks each with their own words' : kind === 'line-spread' ? 'items spread over their drawn line' : kind === 'table-rows' ? 'table rows at body size' : kind === 'typed-times' ? 'typed times shown as typed, never a live clock' : kind === 'directions' ? 'note directions and look words never printed' : kind === 'text-rules' ? 'lines drawn for words left off the page' : kind === 'link-lines' ? 'links drawn on a coloured line underlined' : kind === 'body-lines' ? 'sentences sized to their drawn line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
