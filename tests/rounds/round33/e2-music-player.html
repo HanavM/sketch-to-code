@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Music</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#18181b;font-family:Helvetica,Arial,sans-serif;color:#fafafa;overflow:hidden;position:relative}
+.side{position:absolute;left:0;top:0;bottom:96px;width:240px;background:#09090b;padding:28px 24px;font-size:16px;color:#a1a1aa}
+.side b{display:block;color:#fafafa;font-size:22px;margin-bottom:28px}.side div{margin-bottom:16px}.side .on{color:#22c55e;font-weight:700}
+h1{position:absolute;left:290px;top:40px;font-size:34px;font-weight:800}
+.grid{position:absolute;left:290px;top:110px;width:940px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.al i{display:block;height:200px;border-radius:8px;background:#7c3aed}.al:nth-child(2) i{background:#f97316}.al:nth-child(3) i{background:#0ea5e9}.al:nth-child(4) i{background:#e11d48}.al:nth-child(5) i{background:#16a34a}.al:nth-child(6) i{background:#eab308}.al:nth-child(7) i{background:#64748b}.al:nth-child(8) i{background:#db2777}
+.al b{display:block;margin-top:10px;font-size:15px}.al span{font-size:13px;color:#a1a1aa}
+.bar{position:absolute;left:0;right:0;bottom:0;height:96px;background:#27272a;display:flex;align-items:center;padding:0 28px;gap:16px}
+.bar i{width:56px;height:56px;border-radius:6px;background:#7c3aed}
+.bar .t{width:240px;font-size:15px}.bar .t span{display:block;font-size:13px;color:#a1a1aa}
+.play{width:48px;height:48px;border-radius:50%;background:#fafafa;margin-left:180px}
+.prog{width:420px;height:4px;background:#52525b;border-radius:2px;margin-left:30px;position:relative}.prog::after{content:'';position:absolute;left:0;top:0;width:150px;height:4px;background:#22c55e;border-radius:2px}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><b>Tunes</b><div class="on">Home</div><div>Search</div><div>Library</div><div>Liked songs</div></div>
+<h1 data-r="heading">Made for you</h1>
+<div class="grid" data-r="albums" data-must>
+<div class="al"><i></i><b>Night Drive</b><span>Mixtape</span></div><div class="al"><i></i><b>Sunday Slow</b><span>Playlist</span></div><div class="al"><i></i><b>Deep Focus</b><span>Playlist</span></div><div class="al"><i></i><b>Red Room</b><span>Album</span></div>
+<div class="al"><i></i><b>Green Hours</b><span>Album</span></div><div class="al"><i></i><b>Gold Rush</b><span>Mixtape</span></div><div class="al"><i></i><b>Grey Skies</b><span>Playlist</span></div><div class="al"><i></i><b>Pink Noise</b><span>Album</span></div>
+</div>
+<div class="bar" data-r="player" data-must><i></i><div class="t">Night Drive<span>Kaia &amp; The Moths</span></div><div class="play"></div><div class="prog"></div></div>
+</body></html>

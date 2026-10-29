@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Map search</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;position:relative}
+.top{position:absolute;left:0;right:0;top:0;height:72px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 24px;gap:24px}
+.top b{font-size:22px;color:#dc2626}.q{width:420px;height:44px;border:1px solid #d1d5db;border-radius:22px;display:flex;align-items:center;padding:0 18px;color:#6b7280;font-size:15px}
+.list{position:absolute;left:0;top:72px;width:460px;bottom:0;padding:16px 24px}
+.r{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #f3f4f6}.r i{width:96px;height:72px;border-radius:8px;background:#fecaca;flex:none}
+.r b{font-size:16px}.r p{font-size:14px;color:#6b7280;margin-top:6px}
+.map{position:absolute;left:460px;top:72px;right:0;bottom:0;background:#dcfce7}
+.road{position:absolute;background:#fff}
+.pin{position:absolute;width:30px;height:30px;border-radius:50%;background:#dc2626;border:4px solid #fff}
+</style></head><body>
+<div class="top" data-r="topbar" data-must><b>Eatly</b><div class="q">Pizza near Soho</div></div>
+<div class="list" data-r="results" data-must>
+<div class="r"><i></i><div><b>Forno Rosso</b><p>★ 4.7 · Pizza · 0.3 mi</p></div></div>
+<div class="r"><i></i><div><b>Slice House</b><p>★ 4.4 · Pizza · 0.5 mi</p></div></div>
+<div class="r"><i></i><div><b>Nonna's</b><p>★ 4.8 · Italian · 0.6 mi</p></div></div>
+<div class="r"><i></i><div><b>Dough Bros</b><p>★ 4.2 · Pizza · 0.9 mi</p></div></div>
+</div>
+<div class="map" data-r="map" data-must>
+<div class="road" style="left:0;right:0;top:300px;height:18px"></div><div class="road" style="left:360px;top:0;bottom:0;width:18px"></div><div class="road" style="left:0;right:0;top:600px;height:12px"></div>
+<div class="pin" style="left:240px;top:220px"></div><div class="pin" style="left:450px;top:380px"></div><div class="pin" style="left:610px;top:180px"></div><div class="pin" style="left:300px;top:520px"></div>
+</div>
+</body></html>
