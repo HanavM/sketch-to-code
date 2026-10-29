@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T18:20Z | n86 sketch round 36 c1-c5 by hand | Vinyl 69.9, hut 80.7, chess 87.5, florist 63.0, tide 60.9; mean 72.4, 19 strokes, 57 words.
 2026-10-29T17:40Z | n85 write round 36 | Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet.
 2026-10-29T17:18Z | n84 dots in rows coloured, not the card | Card dark grey, green dots and rings per row both tries; workout 76.4 to 89.3, 88.1, no fix.
 2026-10-29T16:57Z | n83 white title never vanishes; one note fills a pill row | Title white, pills split both tries; workout 70.9 to 76.4, 72.6; table still green.
