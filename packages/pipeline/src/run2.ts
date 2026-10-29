@@ -71,6 +71,7 @@ import { lineEndsBrief, verifyLineEnds } from './lineends.js'
 import { verifyStats } from './statcard.js'
 import { typedCopyBrief, verifyNoDirections, verifyTypedTimes } from './typedcopy.js'
 import { hasSampleRows, rowDataBrief, verifyRowData } from './rowdata.js'
+import { rowMarksBrief, verifyRowMarks } from './rowmarks.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
@@ -632,6 +633,10 @@ export async function runV2(
     rowDataBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)]))]),
+    ])]) +
+    rowMarksBrief([...new Set([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
     ])]) +
     ((all) => allTextBrief(all, inkTextOf(interp.actions, all)))(allTextColour([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
@@ -1493,12 +1498,12 @@ export function verifyActions(
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
     ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes, after)], ['row-data', verifyRowData(typedNotes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
-    ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
+    ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'tilt-words' ? 'words on their drawn lines inside a turned box' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'row-words' ? 'look-alike marks each with their own words' : kind === 'line-spread' ? 'items spread over their drawn line' : kind === 'table-rows' ? 'table rows at body size' : kind === 'typed-times' ? 'typed times shown as typed, never a live clock' : kind === 'directions' ? 'note directions and look words never printed' : kind === 'row-data' ? 'rows typed as data filled in order, cells apart' : kind === 'text-rules' ? 'lines drawn for words left off the page' : kind === 'link-lines' ? 'links drawn on a coloured line underlined' : kind === 'body-lines' ? 'sentences sized to their drawn line' : kind === 'stats' ? 'a number and its label kept as a stat card' : kind === 'line-ends' ? 'words kept at the ends of a long line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'tilt-words' ? 'words on their drawn lines inside a turned box' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'row-words' ? 'look-alike marks each with their own words' : kind === 'line-spread' ? 'items spread over their drawn line' : kind === 'table-rows' ? 'table rows at body size' : kind === 'typed-times' ? 'typed times shown as typed, never a live clock' : kind === 'directions' ? 'note directions and look words never printed' : kind === 'row-data' ? 'rows typed as data filled in order, cells apart' : kind === 'text-rules' ? 'lines drawn for words left off the page' : kind === 'link-lines' ? 'links drawn on a coloured line underlined' : kind === 'body-lines' ? 'sentences sized to their drawn line' : kind === 'stats' ? 'a number and its label kept as a stat card' : kind === 'row-marks' ? 'small marks in rows coloured, the block round them not' : kind === 'line-ends' ? 'words kept at the ends of a long line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
