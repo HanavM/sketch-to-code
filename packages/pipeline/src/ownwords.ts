@@ -109,7 +109,8 @@ function onMark(b: BBox, marks: readonly MarkLike[]): boolean {
   return marks.some(({ box: m }) => cx >= m.x - pad && cx <= m.x + m.w + pad && cy >= m.y - pad && cy <= m.y + m.h + pad)
 }
 
-export function verifyOwnWords(typed: readonly string[], marks: readonly MarkLike[], before: Snap, after: Snap): OwnWordsVerdict {
+/** n80: `samples` when a note asked for sample rows ("6 rows like this"): made-up words are then wanted, and only judged when they run into other text. */
+export function verifyOwnWords(typed: readonly string[], marks: readonly MarkLike[], before: Snap, after: Snap, opts: { samples?: boolean } = {}): OwnWordsVerdict {
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const vocab = new Set(typed.flatMap(wordsOf))
   const now = pieces(after)
@@ -142,7 +143,7 @@ export function verifyOwnWords(typed: readonly string[], marks: readonly MarkLik
       if (w.length < 2) continue
       const known = w.filter((x) => vocab.has(x)).length
       if (known / w.length >= 1 / 3) continue
-      if (hit.has(t.key) || !onMark(t.box, marks)) invented.push(t.key)
+      if (hit.has(t.key) || (!opts.samples && !onMark(t.box, marks))) invented.push(t.key)
     }
   }
 

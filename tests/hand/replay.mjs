@@ -8,6 +8,9 @@
  *
  * --fixes (n37): after the first Run, type the same correction notes at the same spots and Run again,
  * so a change to how fix notes are handled is measured with the fix held still too.
+ *
+ * --notes <file.json> (n80): the same strokes and taps, but the notes typed before the first Run are the ones in
+ * that file ([{x, y, text}]), typed after the strokes in file order: a page re-noted the short way, drawing held still.
  */
 import { readFileSync } from 'node:fs'
 import { request } from 'node:http'
@@ -23,10 +26,12 @@ const post = (body) => new Promise((ok, bad) => {
 })
 const call = async (body) => { const j = await post(body); if (j.ok === false) throw new Error(`${body.op}: ${j.error}`); return j }
 const firstRun = d.events.find((e) => e.op === 'run')?.at ?? Infinity
+const notesArg = (() => { const i = process.argv.indexOf('--notes'); return i === -1 ? null : JSON.parse(readFileSync(process.argv[i + 1], 'utf8')) })()
 const ops = [
   ...d.strokesDrawn.map((s) => ({ at: s.at, op: { op: 'stroke', pts: s.way } })),
   ...d.events.filter((e) => e.op === 'pen').map((e) => ({ at: e.at - 0.5, op: { op: 'pen', color: e.color ?? null } })),
-  ...d.notesTyped.map((n) => ({ at: n.at, op: { op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole } })),
+  ...(notesArg ? notesArg.map((n, k) => ({ at: firstRun - 1 + k / 1000, op: { op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole } }))
+    : d.notesTyped.map((n) => ({ at: n.at, op: { op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole } }))),
 ].filter((o) => o.at < firstRun).sort((a, b) => a.at - b.at)
 await call({ op: 'open', round: d.round, id: d.id })
 for (const o of ops) { const r = await call(o.op); if (o.op.op === 'note') console.log('note', JSON.stringify(o.op.text), '->', r.status ?? '') }
