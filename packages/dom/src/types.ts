@@ -39,6 +39,8 @@ export interface DomNode {
     border?: string
     /** n59: set only when the bottom border paints: a drawn text line must not come back as an underline. */
     borderBottom?: string
+    /** n62: set only when the text is underlined (a link drawn on a coloured line keeps its underline). */
+    textDecoration?: string
     /** Set only when the element casts a shadow. */
     boxShadow?: string
     /** Set only when below 1 (n15: a coloured badge must not come out faint). */

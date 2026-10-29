@@ -53,8 +53,9 @@ const paints = (css: string | undefined) => {
   return !a || Number(a[1]) > 0.15
 }
 
-export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap): RuleVerdict {
-  const lines = marks.filter((m) => lineCopy(m) !== null)
+export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap, skip: ReadonlySet<string> = new Set()): RuleVerdict {
+  // n62: a link drawn on a coloured line is meant to be underlined (linkline.ts)
+  const lines = marks.filter((m) => lineCopy(m) !== null && !(m.strokeId && skip.has(m.strokeId)))
   if (!lines.length) return { satisfied: true, unverifiable: true, reason: 'no drawn lines carrying words' }
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const byId = new Map(after.nodes.map((n) => [n.id, n]))

@@ -114,6 +114,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           ...(cs.clipPath && cs.clipPath !== 'none' ? { clipPath: cs.clipPath.slice(0, 1600) } : {}),
           ...(cs.borderTopWidth && parseFloat(cs.borderTopWidth) > 0 && cs.borderTopStyle !== 'none' ? { border: `${cs.borderTopWidth} ${cs.borderTopColor}` } : {}),
           ...(cs.borderBottomWidth && parseFloat(cs.borderBottomWidth) > 0 && cs.borderBottomStyle !== 'none' ? { borderBottom: `${cs.borderBottomWidth} ${cs.borderBottomColor}` } : {}),
+          ...(/underline/.test(cs.textDecorationLine ?? '') ? { textDecoration: 'underline' } : {}),
           ...(cs.boxShadow && cs.boxShadow !== 'none' ? { boxShadow: cs.boxShadow.slice(0, 60) } : {}),
           ...(cs.opacity && Number(cs.opacity) < 1 ? { opacity: cs.opacity } : {}),
           ...(cs.filter && cs.filter !== 'none' ? { filter: cs.filter.slice(0, 60) } : {}),

@@ -63,6 +63,7 @@ import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { verifyStackLines } from './stacklines.js'
 import { keepSpanRepair, spanMisses, verifyLineSpan } from './linespan.js'
 import { verifyTextLinesNotRules } from './textrules.js'
+import { linkLineBrief, linkLines, verifyBodyLines, verifyLinkLines } from './linkline.js'
 import { verifyRowSpan } from './rowspan.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
@@ -622,6 +623,7 @@ export async function runV2(
     ])) +
     textLookBrief(interp.actions) +
     textPlaceBrief(interp.actions, input.snapshot.viewport, strokeDividers(input.strokes)) +
+    linkLineBrief(interp.actions) +
     placedBrief(interp.placedNotes, input.snapshot.viewport) +
     fixBrief(interp.actions, input.snapshot) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
@@ -1451,12 +1453,13 @@ export function verifyActions(
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
-    ['row-span', verifyRowSpan(allMarks, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after)]] as const) {
+    ['row-span', verifyRowSpan(allMarks, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
+    ['link-lines', verifyLinkLines(actions, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'tilt-words' ? 'words on their drawn lines inside a turned box' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'text-rules' ? 'lines drawn for words left off the page' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'tilt-words' ? 'words on their drawn lines inside a turned box' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'text-rules' ? 'lines drawn for words left off the page' : kind === 'link-lines' ? 'links drawn on a coloured line underlined' : kind === 'body-lines' ? 'sentences sized to their drawn line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
