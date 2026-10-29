@@ -58,6 +58,8 @@ export interface ShapeMark {
   outlined?: { colour: string | null }
   /** level line (n21): the words typed on it, which sit on its side of the box around it. */
   words?: string
+  /** n81: long level line with notes typed at its different ends (logo left, links right): each keeps its side. */
+  ends?: Array<{ text: string; x: number; y: number; side: 'left' | 'centre' | 'right' }>
   /** n59: a line that is not level (a line on a turned ticket) with its own note: the words typed on it. */
   carries?: string
   /** big box (n21): notes typed at a spot inside it, page px. */

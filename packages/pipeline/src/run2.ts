@@ -67,6 +67,7 @@ import { linkLineBrief, linkLines, verifyBodyLines, verifyLinkLines } from './li
 import { verifyRowSpan } from './rowspan.js'
 import { rowWordsBrief, verifyRowWords } from './rowwords.js'
 import { lineSpreadBrief, verifyLineSpread, verifyTableRows } from './linespread.js'
+import { lineEndsBrief, verifyLineEnds } from './lineends.js'
 import { typedCopyBrief, verifyNoDirections, verifyTypedTimes } from './typedcopy.js'
 import { hasSampleRows, rowDataBrief, verifyRowData } from './rowdata.js'
 import { leanRepairNote } from './repair-brief.js'
@@ -625,11 +626,11 @@ export async function runV2(
     lineSpreadBrief(interp.actions) +
     typedCopyBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
-      ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => m.words ? [m.words] : []))]),
+      ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)]))]),
     ])]) +
     rowDataBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
-      ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => m.words ? [m.words] : []))]),
+      ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)]))]),
     ])]) +
     ((all) => allTextBrief(all, inkTextOf(interp.actions, all)))(allTextColour([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
@@ -637,6 +638,7 @@ export async function runV2(
     ])) +
     textLookBrief(interp.actions) +
     textPlaceBrief(interp.actions, input.snapshot.viewport, strokeDividers(input.strokes)) +
+    lineEndsBrief(interp.actions) +
     linkLineBrief(interp.actions) +
     placedBrief(interp.placedNotes, input.snapshot.viewport) +
     fixBrief(interp.actions, input.snapshot) +
@@ -1482,7 +1484,7 @@ export function verifyActions(
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
   // n73: every note's text, once: typed times shown as typed, directions and look words never printed
-  const typedNotes = [...new Set([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text), ...allMarks.flatMap((m) => m.words ? [m.words] : [])])]
+  const typedNotes = [...new Set([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text), ...allMarks.flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)])])]
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['cards', verifyCards(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['tilt-words', verifyTiltWords(actions.filter((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen), after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
     ['all-text', ((all) => ((own, ink) => verifyAllText(allTextColour(all), after, (n) => own(n) || ink(n)))(ownColourText(allTextColour(all), all), onInkText(inkTextOf(actions, allTextColour(all)))))([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])])],
@@ -1490,7 +1492,7 @@ export function verifyActions(
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
     ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes, after)], ['row-data', verifyRowData(typedNotes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
-    ['link-lines', verifyLinkLines(actions, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
+    ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++

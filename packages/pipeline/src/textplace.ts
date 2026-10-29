@@ -23,6 +23,7 @@ import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
 import { spreadCentres } from './linespread.js'
 import { outlinedOf } from './textlook.js'
 import { bindTiltNotes } from './tiltwords.js'
+import { lineEnds } from './lineends.js'
 
 interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }
@@ -42,10 +43,14 @@ const ownNotes = (m: ShapeMark, notes: NoteLike[]) => notes.filter((n) => n.focu
   : n.strokeIds?.length === 1 && n.strokeIds[0] === m.strokeId)
 
 /** Record the words typed on each level line, and where notes were typed inside each big box (in place). */
-export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[]): void {
+export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[], pageW = 1280): void {
   for (const m of marks) {
     if (isLevel(m)) {
-      const n = ownNotes(m, notes)[0]
+      const own = ownNotes(m, notes)
+      // n81: notes typed at the different ends of a long line keep their sides (all of them, not the first)
+      const ends = lineEnds(m, own, pageW)
+      if (ends) { m.ends = ends; delete m.words; continue }
+      const n = own[0]
       if (n) m.words = n.text
       continue
     }
