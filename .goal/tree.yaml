@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Outlined words on a line and \"same\" now build as drawn (agency hollow both tries, no fixes), though its score stayed about 50. Next: a divider with a colour on each side makes two fills, for the ticket page."
+now: "A line drawn across a box with a colour tapped on each side now makes two solid colours (white ticket, pink stub), and lines drawn for words no longer show up as rules; the ticket went from 64 to 74-77 with no fixes. Next: keeping pen-coloured text and giant-word sizes on the agency page."
 round: 33
 round_scores: [53, 77, 76, 70]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-29T05:41Z n59", until: "2026-10-29T07:11Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -112,8 +112,10 @@ nodes:
   - {id: n56, parent: n4, kind: step, title: "Parts keep their drawn height and size: a centred heading, its subtitle and a row of circles with labels land where drawn, not pulled up and shrunk; re-sketch herb farm", status: done, branch: try/n3-ink-style,
      result: "Long line sets heading size, labels centred under rings, row shift caught. Herb farm 69.6 to 76.3, 70.2."}
   - {id: n57, parent: n4, kind: step, title: "Do the gains since round 33 carry? Re-sketch the slow agency (52.5, untouched since n49) and ticket pages replayed word for word with everything through n56; log any new gap", status: done, branch: try/n3-ink-style, result: "Hollow words and same built and checked; agency 45.9 to 50.2, 51.0; ticket 60.8, 63.7 first build."}
-  - {id: n59, parent: n2, kind: step, priority: next, title: "A straight divider across a box with a colour tap on each side makes two fills (white ticket, pink stub), never one fade, and drawn text lines are never left on the page as rules; re-sketch the gig ticket", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n60, parent: n4, kind: step, title: "Text coloured with the pen keeps its colour under all text white, and a size fix for a giant word is kept even when the repair round scores worse elsewhere; re-sketch the slow agency", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n59, parent: n2, kind: step, title: "A straight divider across a box with a colour tap on each side makes two fills (white ticket, pink stub), never one fade, and drawn text lines are never left on the page as rules; re-sketch the gig ticket", status: done, branch: try/n3-ink-style,
+     result: "Two fills at the divider, shown at once; no rules under words. Ticket 63.7 to 74.0, 76.9, no fixes."}
+  - {id: n61, parent: n4, kind: step, title: "Words on a box drawn turned sit on their drawn lines (heading and stub words land 20-40px low on the ticket), checked in the box's own frame; re-sketch the gig ticket", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n60, parent: n4, kind: step, priority: next, title: "Text coloured with the pen keeps its colour under all text white, and a size fix for a giant word is kept even when the repair round scores worse elsewhere; re-sketch the slow agency", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
@@ -122,6 +124,8 @@ nodes:
      result: "Container box is a white card at drawn edges, no giant word. Invoice 80.6 to 84.9, 73.2; billing 69.3 to 77.9."}
   - {id: n58, parent: n4, kind: step, title: "Text rows drawn inside a card keep their drawn lines' height (no 10-15px drift down the table), and a value typed after a label (Storage, 62 of 100 GB) stays beside it unless drawn apart; re-sketch invoice and billing", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A white tap and a pink tap either side of a drawn divider became one white-to-pink fade over the whole ticket", found_on: "r33 c3 (n57)", built: "a straight line across a mark with a different colour tapped each side is two solid fills, shown on the sketch at once, told as a hard stop and checked (n59)", helped: "yes: two fills in 2 of 2 builds, no fixes; ticket 63.7 to 74.0, 76.9 (demo out-n59/n59-demo.gif)"}
+  - {gap: "Lines drawn for words came back as visible rules under the words", found_on: "r33 c3 (n57)", built: "a line with its own note carrying words is only where they sit: no hr, thin bar or underline along it, told and checked (n59)", helped: "yes: no rules in 2 of 2 builds"}
   - {gap: "Words typed on a line with outlined came out solid; WORK, same got nothing of the line above", found_on: "r33 c2 (n49, n57)", built: "outlined words on a line told and checked hollow, kept whole; same copies the look of the line above across actions (n57)", helped: "partly: hollow and whole in 4 of 4 builds with the final code, no fix notes (452 s to 214-276 s); likeness flat, 45.9 to 50.2, 51.0"}
   - {gap: "One giant word on a line was never sized or checked, and all text white repaired hollow and grey words to solid white", found_on: "r33 c2 (n57)", built: "a giant word or two is sized by its line even in a stack; all-text leaves own-colour and hollow words (n57)", helped: "partly: tagline grey and letters hollow kept; size repair still undone by a worse repair round"}
   - {gap: "A big box drawn round a whole invoice built as nothing, and a big-bold note inside it made a giant 1042", found_on: "r33 e3 (n50)", built: "a box holding 3+ drawn marks is a container, never a big-word area; a big one is a white or tapped card at the drawn edges, told and checked (n54)", helped: "yes: card in 2 of 2 first builds, no fixes; invoice 80.6 (2 fixes) to 84.9, 73.2"}
