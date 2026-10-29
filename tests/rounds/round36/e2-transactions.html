@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Spending</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f5f6fa;font-family:Helvetica,Arial,sans-serif;color:#1d2230;overflow:hidden;position:relative}
+.side{position:absolute;left:0;top:0;width:220px;height:900px;background:#1d2230;color:#aab1c2;padding:32px 28px;font-size:15px}
+.side b{display:block;color:#fff;font-size:20px;margin-bottom:40px}.side div{padding:12px 0}.side .on{color:#fff;font-weight:700}
+h1{position:absolute;left:268px;top:40px;font-size:30px}
+.donut{position:absolute;left:268px;top:110px;width:440px;height:330px;background:#fff;border-radius:14px}
+.ring{position:absolute;left:40px;top:45px;width:240px;height:240px;border-radius:50%;background:conic-gradient(#5b6cff 0 42%,#ff9f43 42% 68%,#2ec4a6 68% 86%,#e5e7ef 86% 100%)}
+.hole{position:absolute;left:90px;top:95px;width:140px;height:140px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}.hole b{font-size:24px}.hole span{font-size:12px;color:#7d8597}
+.leg{position:absolute;left:300px;top:90px;font-size:14px;line-height:2.4}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px}
+.cards{position:absolute;left:740px;top:110px;width:492px;height:330px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.k{background:#fff;border-radius:14px;padding:22px}.k span{font-size:14px;color:#7d8597}.k b{display:block;font-size:30px;margin-top:8px}
+.list{position:absolute;left:268px;top:470px;width:964px;height:390px;background:#fff;border-radius:14px;padding:20px 28px}
+.list h3{font-size:18px;margin-bottom:10px}
+.t{display:flex;align-items:center;height:58px;border-top:1px solid #eef0f5;font-size:16px}.t i{width:36px;height:36px;border-radius:10px;margin-right:16px}.t span{flex:1}.t em{font-style:normal;width:160px;color:#7d8597;font-size:14px}.t b{width:110px;text-align:right}.t .in{color:#16a37a}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><b>Pocket</b><div class="on">Spending</div><div>Accounts</div><div>Budgets</div><div>Goals</div><div>Settings</div></div>
+<h1 data-r="title">October spending</h1>
+<div class="donut" data-r="donut-card" data-must><div class="ring" data-r="donut"></div><div class="hole"><b>2,140</b><span>spent</span></div>
+<div class="leg"><div><i style="background:#5b6cff"></i>Rent</div><div><i style="background:#ff9f43"></i>Food</div><div><i style="background:#2ec4a6"></i>Travel</div><div><i style="background:#e5e7ef"></i>Other</div></div></div>
+<div class="cards" data-r="kpis"><div class="k"><span>Income</span><b>3,800</b></div><div class="k"><span>Saved</span><b>1,660</b></div><div class="k"><span>Biggest day</span><b>Oct 3</b></div><div class="k"><span>Budget left</span><b>18%</b></div></div>
+<div class="list" data-r="transactions" data-must><h3>Recent</h3>
+<div class="t"><i style="background:#ff9f43"></i><span>Corner Market</span><em>Food · Oct 28</em><b>-42.10</b></div>
+<div class="t"><i style="background:#2ec4a6"></i><span>City Rail</span><em>Travel · Oct 27</em><b>-3.20</b></div>
+<div class="t"><i style="background:#16a37a"></i><span>Salary</span><em>Income · Oct 25</em><b class="in">+3,800.00</b></div>
+<div class="t"><i style="background:#ff9f43"></i><span>Noodle House</span><em>Food · Oct 24</em><b>-18.50</b></div>
+<div class="t"><i style="background:#5b6cff"></i><span>Rent</span><em>Rent · Oct 1</em><b>-900.00</b></div>
+</div>
+</body></html>

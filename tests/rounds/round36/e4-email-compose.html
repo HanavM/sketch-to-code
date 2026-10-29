@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mail</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f3f4f6;font-family:Helvetica,Arial,sans-serif;color:#1f2933;overflow:hidden;position:relative}
+.side{position:absolute;left:0;top:0;width:240px;height:900px;padding:28px 22px;font-size:15px}
+.new{width:160px;height:48px;border-radius:14px;background:#c7e0ff;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.side div.f{padding:10px 14px;border-radius:20px}.side .on{background:#dde3ea;font-weight:700}
+.list{position:absolute;left:240px;top:20px;width:1020px;height:860px;background:#fff;border-radius:16px}
+.m{display:flex;align-items:center;height:56px;padding:0 24px;border-bottom:1px solid #eef0f2;font-size:15px}.m b{width:200px}.m span{flex:1;color:#52606d}.m em{font-style:normal;font-size:13px;color:#7b8794}
+.compose{position:absolute;left:700px;top:300px;width:540px;height:600px;background:#fff;border-radius:14px 14px 0 0;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.ch{height:48px;background:#2d3748;color:#fff;border-radius:14px 14px 0 0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:15px;font-weight:700}
+.to{display:flex;align-items:center;gap:8px;height:52px;padding:0 18px;border-bottom:1px solid #eef0f2;font-size:14px;color:#7b8794}
+.chip{padding:6px 12px;border-radius:16px;background:#e3ecff;color:#1f2933}
+.subj{height:52px;padding:0 18px;border-bottom:1px solid #eef0f2;display:flex;align-items:center;font-size:15px}
+.body{padding:18px;font-size:15px;line-height:1.6;color:#323f4b}
+.send{position:absolute;left:18px;bottom:20px;width:110px;height:44px;border-radius:22px;background:#1a73e8;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<div class="side" data-r="sidebar"><div class="new" data-r="compose-btn">Compose</div><div class="f on">Inbox</div><div class="f">Starred</div><div class="f">Sent</div><div class="f">Drafts</div><div class="f">Trash</div></div>
+<div class="list" data-r="inbox" data-must>
+<div class="m"><b>Priya Shah</b><span>Notes from Monday's review</span><em>9:12</em></div>
+<div class="m"><b>Lisbon Trip</b><span>Your booking is confirmed</span><em>8:40</em></div>
+<div class="m"><b>Tom Becker</b><span>Re: design files</span><em>Yesterday</em></div>
+<div class="m"><b>Library</b><span>Two books due Friday</span><em>Yesterday</em></div>
+<div class="m"><b>Ana Ruiz</b><span>Lunch on Thursday?</span><em>Oct 27</em></div>
+<div class="m"><b>GitHub</b><span>New sign-in to your account</span><em>Oct 26</em></div>
+<div class="m"><b>Sam Ito</b><span>Photos from the weekend</span><em>Oct 25</em></div>
+</div>
+<div class="compose" data-r="compose" data-must><div class="ch">New message<span>– ×</span></div>
+<div class="to" data-r="recipients">To <span class="chip">Priya Shah</span><span class="chip">Tom Becker</span></div>
+<div class="subj" data-r="subject">Plan for next sprint</div>
+<div class="body" data-r="body">Hi both, here is a rough plan for the next two weeks. Let me know what you think before Friday.</div>
+<div class="send" data-r="send">Send</div></div>
+</body></html>

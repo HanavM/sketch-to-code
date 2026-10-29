@@ -1,0 +1,98 @@
+{
+ "c1-vinyl-sale": {
+  "found": {
+   "bleed": 1,
+   "tilt": 2,
+   "huge-type": 1,
+   "overlap": 5
+  },
+  "names": [
+   "bleed",
+   "huge-type",
+   "overlap",
+   "tilt"
+  ]
+ },
+ "c2-mountain-hut": {
+  "found": {
+   "clip-shape": 3,
+   "serif": 1,
+   "italic": 1,
+   "soft-shadow": 1,
+   "overlap": 5
+  },
+  "names": [
+   "clip-shape",
+   "italic",
+   "overlap",
+   "serif",
+   "soft-shadow"
+  ]
+ },
+ "c3-chess-club": {
+  "found": {
+   "serif": 5,
+   "overlap": 3
+  },
+  "names": [
+   "overlap",
+   "serif"
+  ]
+ },
+ "c4-florist": {
+  "found": {},
+  "names": []
+ },
+ "c5-tide-swim": {
+  "found": {
+   "huge-type": 1,
+   "uppercase-display": 1,
+   "bleed": 4,
+   "overlap": 1
+  },
+  "names": [
+   "bleed",
+   "huge-type",
+   "overlap",
+   "uppercase-display"
+  ]
+ },
+ "e1-boarding-pass": {
+  "found": {
+   "soft-shadow": 1,
+   "stripes-or-layers": 1
+  },
+  "names": [
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e2-transactions": {
+  "found": {
+   "stripes-or-layers": 1,
+   "overlap": 3
+  },
+  "names": [
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "e3-timesheet": {
+  "found": {},
+  "names": []
+ },
+ "e4-email-compose": {
+  "found": {
+   "soft-shadow": 1,
+   "overlap": 11
+  },
+  "names": [
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e5-notifications": {
+  "found": {},
+  "names": []
+ }
+}

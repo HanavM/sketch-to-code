@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Timesheet</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#ffffff;font-family:Helvetica,Arial,sans-serif;color:#22262e;overflow:hidden;position:relative}
+header{position:absolute;left:0;top:0;width:1280px;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid #e4e7ec}
+header b{font-size:22px}.wk{display:flex;align-items:center;gap:14px;font-size:16px}.wk i{width:36px;height:36px;border:1px solid #d4d8df;border-radius:8px;display:flex;align-items:center;justify-content:center;font-style:normal}
+.submit{width:150px;height:44px;border-radius:8px;background:#7c3aed;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.grid{position:absolute;left:48px;top:120px;width:1184px;border:1px solid #e4e7ec;border-radius:12px;overflow:hidden}
+.row{display:grid;grid-template-columns:280px repeat(5,1fr) 120px;height:72px;border-top:1px solid #e4e7ec;align-items:center}
+.row>*{padding:0 18px}.row.h{height:52px;border-top:none;background:#f6f7f9;font-size:13px;color:#6b7280;font-weight:700}
+.p{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:600}.p i{width:12px;height:12px;border-radius:50%}
+.c{font-size:16px}.c span{display:inline-block;padding:8px 14px;border-radius:8px;background:#f1edfe;color:#5b21b6}.c .z{background:none;color:#b0b5bd}
+.tot{font-weight:700;font-size:16px;text-align:right}
+.row.f{background:#f6f7f9;font-weight:700}
+.note{position:absolute;left:48px;top:610px;width:560px;height:220px;border:1px solid #e4e7ec;border-radius:12px;padding:22px}
+.note b{font-size:16px}.note div{margin-top:14px;height:120px;border:1px solid #d4d8df;border-radius:8px}
+.bar{position:absolute;left:652px;top:610px;width:580px;height:220px;border:1px solid #e4e7ec;border-radius:12px;padding:22px}
+.bar b{font-size:16px}.track{margin-top:30px;height:18px;border-radius:9px;background:#eef0f3}.fill{width:82%;height:18px;border-radius:9px;background:#7c3aed}
+.bar p{margin-top:18px;font-size:15px;color:#6b7280}
+</style></head><body>
+<header data-r="header"><b>Timesheet</b><div class="wk" data-r="week-picker"><i>‹</i>Oct 26 – Oct 30<i>›</i></div><div class="submit" data-r="submit">Submit week</div></header>
+<div class="grid" data-r="grid" data-must>
+<div class="row h"><div>PROJECT</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div style="text-align:right">TOTAL</div></div>
+<div class="row"><div class="p"><i style="background:#7c3aed"></i>Website redesign</div><div class="c"><span>4h</span></div><div class="c"><span>6h</span></div><div class="c"><span>3h</span></div><div class="c"><span>5h</span></div><div class="c"><span class="z">–</span></div><div class="tot">18h</div></div>
+<div class="row"><div class="p"><i style="background:#f59e0b"></i>Mobile app</div><div class="c"><span>2h</span></div><div class="c"><span class="z">–</span></div><div class="c"><span>4h</span></div><div class="c"><span>2h</span></div><div class="c"><span>6h</span></div><div class="tot">14h</div></div>
+<div class="row"><div class="p"><i style="background:#10b981"></i>Client calls</div><div class="c"><span>1h</span></div><div class="c"><span>1h</span></div><div class="c"><span>1h</span></div><div class="c"><span>1h</span></div><div class="c"><span>1h</span></div><div class="tot">5h</div></div>
+<div class="row"><div class="p"><i style="background:#ef4444"></i>Admin</div><div class="c"><span class="z">–</span></div><div class="c"><span>1h</span></div><div class="c"><span class="z">–</span></div><div class="c"><span>2h</span></div><div class="c"><span>1h</span></div><div class="tot">4h</div></div>
+<div class="row f"><div>Total</div><div>7h</div><div>8h</div><div>8h</div><div>10h</div><div>8h</div><div class="tot">41h</div></div>
+</div>
+<div class="note" data-r="notes"><b>Notes for your manager</b><div></div></div>
+<div class="bar" data-r="progress"><b>Weekly target</b><div class="track"><div class="fill"></div></div><p>41 of 50 hours logged</p></div>
+</body></html>
