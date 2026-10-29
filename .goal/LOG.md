@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T12:32Z | n75 write round 35 | Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet.
 2026-10-29T12:25Z | n73 typed times plain text; look words and directions never printed | Times static; directions never printed; breaking repairs put back. Departures 87.4; habits 85.4, 94.1; no fixes.
 2026-10-29T11:50Z | n71 repeated items spread as drawn; table rows not headings | Day columns spread as drawn, table rows body size. Habits 69.7 to 82.7, 82.2; departures 86.6, 74.7; no fixes.
 2026-10-29T11:15Z | n69 look-alike rows keep their own words | Notes bound to own box; words told and checked. Recipe 74.3 to 77.1, helpdesk 74.8 to 75.6, no fixes.
