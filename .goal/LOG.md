@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T22:45Z | n91 lists the short way on timesheet and notifications | Ruled bands take own taps, two-line names; notifications 64 to 27 words at 74.5; timesheet 55.1.
 2026-10-29T21:51Z | n90 sample rows put each value in its column | Amount at row end, stat values whole; transactions 69.3 to 85.6, email 56 words at 76.2, no fix.
 2026-10-29T20:35Z | n89 drawn first row is the template | Rows one line at drawn pitch, sample rows from a bare count; transactions 131 to 67 words, 69.3.
 2026-10-29T19:12Z | n87 sketch round 36 e1-e5 by hand | Boarding 77.2, transactions 78.8, timesheet 61.5, email 73.8, alerts 69.9; round 36 mean 72.3, 66.5 words.
