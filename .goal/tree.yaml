@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Ten fresh, never-seen pages are ready for round 34 (a ramen bar, a bike race, a planet tour, a flight board and more). Next: sketching them by hand from their pictures alone."
-round: 33
+now: "Round 34 first half done by hand: five new landing pages average 82.5% likeness with 13 strokes and 38 words each. Next: the five everyday app pages."
+round: 34
 round_scores: [53, 77, 76, 70]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-29T0854Z, until: '2026-10-29T10:25Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -89,7 +89,7 @@ nodes:
      result: "A fix note naming a part as a place goes to the part beside it, shown. Roastery 77.9 to 80.5, 83.6."}
   - {id: n40, parent: n4, kind: step, title: "Big heading lines drawn far apart stay one heading at the drawn size and spot; re-sketch aurora", status: done, branch: try/n3-ink-style,
      result: "Heading lines group as one, never with the date; letters lifted toward drawn lines. Aurora 70.2, 73.0."}
-  - {id: n42, parent: n4, kind: step, title: "Show where a big heading's letters will sit on the sketch before the build, and build them at the drawn size; a colour word on a line (teal date) stays bright; re-sketch aurora and studio", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n42, parent: n4, kind: step, title: "Show where a big heading's letters will sit on the sketch before the build, and build them at the drawn size; a colour word on a line (teal date) stays bright; re-sketch aurora and studio", status: pruned, branch: try/n3-ink-style, result: "Pruned: old pool pages; heading size on drawn lines now covered by n47 and round 34 leads."}
   - {id: n41, parent: n4, kind: step, title: "The first build never adds words nobody drew or typed, and words already on top of each other after the first build are caught and fixed; re-sketch roastery", status: done, branch: try/n3-ink-style,
      result: "Invented and overlapping words caught; heading's longer third line kept. Roastery 74.4, 80.1, then 88.1 first time."}
   - {id: n43, parent: n4, kind: step, title: "Do the 3-line heading and own-words checks carry over? Re-run aurora, studio and bookshop with every feature so far; a fix note with nothing left to change says so instead of running", status: done, branch: try/n3-ink-style,
@@ -124,8 +124,11 @@ nodes:
      result: "SLOW and WORK on their drawn lines both tries, first build. Agency 61.0, 73.9; structure still swings."}
   - {id: n63, parent: n1, kind: step, priority: next, title: "Write round 34: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them, to test whether the gains since round 33 hold on unseen pages", status: done, branch: try/n3-ink-style,
      result: "Ten fresh pages written, screenshotted and calibrated; seven harder than round 1. None sketched yet."}
-  - {id: n65, parent: n1, kind: step, priority: next, title: "Sketch round 34 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: active, branch: try/n3-ink-style, result: null}
-  - {id: n66, parent: n1, kind: step, title: "Sketch round 34 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n65, parent: n1, kind: step, title: "Sketch round 34 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n3-ink-style,
+     result: "Ramen 80.8, bike 81.0, planet 79.5, bakery 82.3, ferry 89.1; mean 82.5, 13 strokes, 38 words."}
+  - {id: n67, parent: n2, kind: step, title: "A thin curve drawn across a filled shape is a ring or line on it, not a split into two fills, and a full-width line with taps either side splits the page itself (no white rule left); re-sketch planet tour and ferry poster", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n68, parent: n4, kind: step, title: "A fix that moves text into a shape really moves it (a MOVE the codemod refuses and that changes no file is never verified as done), and a note on two overlapping marks lands on the smaller one; re-sketch bakery arch", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n66, parent: n1, kind: step, priority: next, title: "Sketch round 34 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}

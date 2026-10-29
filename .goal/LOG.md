@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T09:30Z | n65 sketch round 34 c1-c5 by hand | Ramen 80.8, bike 81.0, planet 79.5, bakery 82.3, ferry 89.1; mean 82.5, 13 strokes, 38 words.
 2026-10-29T08:05Z | n63 write round 34 | Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet.
 2026-10-29T07:40Z | n64 giant words sit on their drawn lines | Told as baseline and checked; SLOW, WORK on lines both tries. Agency 61.0, 73.9; structure noisy.
 2026-10-29T07:24Z | n62 is the agency gain steady; links keep their drawn underline | Link underlined, tagline sized, giant words stop shrinking. Agency 68.8, 70.2 final code; n60 74.6 was high.
