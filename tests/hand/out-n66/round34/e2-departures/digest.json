@@ -1,0 +1,393 @@
+{
+  "round": 34,
+  "id": "e2-departures",
+  "version": 3,
+  "stopped": null,
+  "likeness": 81.3,
+  "colour": 0.9835309583667114,
+  "structure": 0.7639852527998623,
+  "layout": 0.7175458576274535,
+  "strokes": {
+    "count": 11,
+    "pointsPerStroke": 1.9,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 10,
+      "dot": 1
+    },
+    "inkPx": 8249
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 74,
+  "notes": 11,
+  "longestNote": 10,
+  "noteTexts": [
+    "Departures, big bold yellow",
+    "14:32, big bold white",
+    "TIME DESTINATION FLIGHT GATE STATUS, small grey spaced",
+    "14:40 Lisbon TP 1351 B12 Boarding blue pill",
+    "14:55 Oslo SK 806 A4 On time green",
+    "15:10 Rome AZ 211 C7 Delayed brown",
+    "15:25 Dublin EI 155 B3 On time green",
+    "15:40 Zurich LX 345 A9 Cancelled red",
+    "16:05 Prague OK 621 C2 On time green",
+    "rows normal size, regular weight, each column under its header",
+    "always 14:32"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 395,
+    "firstReadingS": 102,
+    "readS": [
+      62,
+      39
+    ],
+    "buildS": [
+      197,
+      40
+    ],
+    "sketchingS": 57
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 61662,
+    "cacheRead": 428589,
+    "output": 30243,
+    "billed": 91905
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 1118
+    },
+    {
+      "op": "stroke",
+      "at": 1849
+    },
+    {
+      "op": "stroke",
+      "at": 4966
+    },
+    {
+      "op": "stroke",
+      "at": 8668
+    },
+    {
+      "op": "stroke",
+      "at": 11866
+    },
+    {
+      "op": "stroke",
+      "at": 15033
+    },
+    {
+      "op": "stroke",
+      "at": 18198
+    },
+    {
+      "op": "stroke",
+      "at": 21368
+    },
+    {
+      "op": "stroke",
+      "at": 24565
+    },
+    {
+      "op": "stroke",
+      "at": 27731
+    },
+    {
+      "op": "pen",
+      "color": "#0f172a",
+      "at": 28109
+    },
+    {
+      "op": "stroke",
+      "at": 28582
+    },
+    {
+      "op": "note",
+      "at": 29286
+    },
+    {
+      "op": "note",
+      "at": 29955
+    },
+    {
+      "op": "note",
+      "at": 30702
+    },
+    {
+      "op": "note",
+      "at": 31428
+    },
+    {
+      "op": "note",
+      "at": 32133
+    },
+    {
+      "op": "note",
+      "at": 32855
+    },
+    {
+      "op": "note",
+      "at": 33618
+    },
+    {
+      "op": "note",
+      "at": 34355
+    },
+    {
+      "op": "note",
+      "at": 35090
+    },
+    {
+      "op": "run",
+      "at": 40063
+    },
+    {
+      "op": "note",
+      "at": 308720
+    },
+    {
+      "op": "note",
+      "at": 309345
+    },
+    {
+      "op": "run",
+      "at": 309431
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          60,
+          62
+        ],
+        [
+          292,
+          62
+        ]
+      ],
+      "n": 40,
+      "at": 1118
+    },
+    {
+      "way": [
+        [
+          1128,
+          62
+        ],
+        [
+          1220,
+          62
+        ]
+      ],
+      "n": 16,
+      "at": 1849
+    },
+    {
+      "way": [
+        [
+          60,
+          134
+        ],
+        [
+          1010,
+          134
+        ]
+      ],
+      "n": 159,
+      "at": 4966
+    },
+    {
+      "way": [
+        [
+          60,
+          158
+        ],
+        [
+          1220,
+          158
+        ]
+      ],
+      "n": 194,
+      "at": 8668
+    },
+    {
+      "way": [
+        [
+          60,
+          196
+        ],
+        [
+          1035,
+          196
+        ]
+      ],
+      "n": 164,
+      "at": 11866
+    },
+    {
+      "way": [
+        [
+          60,
+          270
+        ],
+        [
+          1025,
+          270
+        ]
+      ],
+      "n": 162,
+      "at": 15033
+    },
+    {
+      "way": [
+        [
+          60,
+          344
+        ],
+        [
+          1025,
+          344
+        ]
+      ],
+      "n": 162,
+      "at": 18198
+    },
+    {
+      "way": [
+        [
+          60,
+          418
+        ],
+        [
+          1025,
+          418
+        ]
+      ],
+      "n": 162,
+      "at": 21368
+    },
+    {
+      "way": [
+        [
+          60,
+          492
+        ],
+        [
+          1040,
+          492
+        ]
+      ],
+      "n": 164,
+      "at": 24565
+    },
+    {
+      "way": [
+        [
+          60,
+          566
+        ],
+        [
+          1025,
+          566
+        ]
+      ],
+      "n": 162,
+      "at": 27731
+    },
+    {
+      "way": [
+        [
+          640,
+          760
+        ]
+      ],
+      "n": 1,
+      "at": 28582
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Departures, big bold yellow",
+      "whole": false,
+      "x": 170,
+      "y": 55,
+      "at": 29286
+    },
+    {
+      "text": "14:32, big bold white",
+      "whole": false,
+      "x": 1170,
+      "y": 55,
+      "at": 29955
+    },
+    {
+      "text": "TIME DESTINATION FLIGHT GATE STATUS, small grey spaced",
+      "whole": false,
+      "x": 400,
+      "y": 130,
+      "at": 30702
+    },
+    {
+      "text": "14:40 Lisbon TP 1351 B12 Boarding blue pill",
+      "whole": false,
+      "x": 400,
+      "y": 190,
+      "at": 31428
+    },
+    {
+      "text": "14:55 Oslo SK 806 A4 On time green",
+      "whole": false,
+      "x": 400,
+      "y": 264,
+      "at": 32133
+    },
+    {
+      "text": "15:10 Rome AZ 211 C7 Delayed brown",
+      "whole": false,
+      "x": 400,
+      "y": 338,
+      "at": 32855
+    },
+    {
+      "text": "15:25 Dublin EI 155 B3 On time green",
+      "whole": false,
+      "x": 400,
+      "y": 412,
+      "at": 33618
+    },
+    {
+      "text": "15:40 Zurich LX 345 A9 Cancelled red",
+      "whole": false,
+      "x": 400,
+      "y": 486,
+      "at": 34355
+    },
+    {
+      "text": "16:05 Prague OK 621 C2 On time green",
+      "whole": false,
+      "x": 400,
+      "y": 560,
+      "at": 35090
+    },
+    {
+      "text": "rows normal size, regular weight, each column under its header",
+      "whole": false,
+      "x": 400,
+      "y": 340,
+      "at": 308720
+    },
+    {
+      "text": "always 14:32",
+      "whole": false,
+      "x": 1170,
+      "y": 55,
+      "at": 309345
+    }
+  ]
+}
