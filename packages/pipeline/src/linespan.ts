@@ -14,7 +14,7 @@
  * would make it span. Zero tokens.
  */
 import type { BBox } from '@s2c/ink'
-import { wordsOf } from './ownwords.js'
+import { baselineOf, wordsOf } from './ownwords.js'
 
 interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string }
 interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; style?: { fontSize?: string } }
@@ -88,7 +88,9 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
       if (!n.text || !n.textBox) continue
       const tb = n.textBox
       const cy = tb.y + tb.h / 2
-      if (Math.abs(cy - y) > 110) continue
+      // n64: giant display type has its middle far above the line its letters sit on (SLOW at ~290px: ~140px)
+      const nfs = parseFloat(n.style?.fontSize ?? '') || 0
+      if (Math.abs(cy - y) > Math.max(110, isDisplay(m.words, len) ? nfs * 0.9 : 0)) continue
       if (Math.min(tb.x + tb.w, x1) - Math.max(tb.x, x0) <= 0) continue
       const got = wordsOf(n.text)
       if (got.length > want.length * 2 + 2) continue // a wrapper holding more than this line
@@ -111,6 +113,17 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
       misses.push(`the heading ${quote} was drawn as ONE line ${r1(len)}px long (x ${r1(x0)} to ${r1(x1)}, y ${r1(y)}) but is built on about ${String(lines)} lines (${r1(tb.h)}px tall): keep it on one line ` +
         `(white-space: nowrap, its block at least ${r1(len)}px wide, no max-width narrower than that), at the font-size that makes its words run about ${r1(len)}px, line-height about ${r1(fs * 1.2)}px, so what is under it moves back up; change nothing else`)
       continue
+    }
+    // n64: a giant word or two drawn on a line sits ON it: the letters' bottoms on the line, not above it. Round 33 c2
+    // (slow agency, n62): SLOW and WORK were built at full width but about 40px above their lines, every try.
+    if (isDisplay(m.words, len) && fs) {
+      const base = baselineOf(best.n)
+      const off = base == null ? 0 : y - base
+      if (base != null && Math.abs(off) > Math.max(16, fs * 0.07)) {
+        misses.push(`the heading ${quote} was drawn ON a line at y ${r1(y)} (x ${r1(x0)} to ${r1(x1)}): the bottoms of its letters (the baseline) belong on that line, ` +
+          `but they sit at about y ${String(base)}, ${r1(Math.abs(off))}px ${off > 0 ? 'above' : 'below'} it: move just this word ${r1(Math.abs(off))}px ${off > 0 ? 'down' : 'up'} ` +
+          `(position: relative; top: ${off > 0 ? '' : '-'}${r1(Math.abs(off))}px on its own element, or translateY), keeping its font-size, width and everything else as is`)
+      }
     }
     const ratio = tb.w / len
     if (ratio >= 0.85 && ratio <= 1.18) continue

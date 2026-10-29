@@ -194,7 +194,10 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
         // n57: a giant word or two on a long line ("SLOW, giant outlined letters") is sized by the line as well
         if ((!stacked.has(m.strokeId) && !BIG_WORD.test(m.words) && lineAsksBig(m.words, len)) || isDisplay(m.words, len)) {
           lines.push(`- action ${i}: "${m.words}" is a short phrase typed on a long line (${r1(len)}px, x ${m.box.x} to ${m.box.x + m.box.w}, y ${m.box.y}): the line sets its SIZE. ` +
-            `It is a big heading on ONE line (white-space: nowrap) whose letters run about the drawn ${r1(len)}px: font-size about ${spanFontPx(m.words, len)}px (adjust so the width matches), bold, letters sitting on y ${m.box.y}.`)
+            `It is a big heading on ONE line (white-space: nowrap) whose letters run about the drawn ${r1(len)}px: font-size about ${spanFontPx(m.words, len)}px (adjust so the width matches), bold, letters sitting on y ${m.box.y}` +
+            (isDisplay(m.words, len)
+              ? `: the line is the letters' BASELINE, their bottom edge on y ${m.box.y}, not above it (with line-height 1 the block's top is about 0.85 of the font-size above y ${m.box.y}; never leave the space under the letters between them and the line; checked on the page).`
+              : '.'))
         }
         const h = holderOf(m, boxes, viewport, divs)
         const side = sideOf(m.box, h)

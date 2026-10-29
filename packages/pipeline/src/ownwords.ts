@@ -43,6 +43,18 @@ export function inkBand(n: NodeLike): BBox {
   return { x: b.x, y: Math.round(base - cap), w: b.w, h: Math.round(cap) }
 }
 
+/**
+ * n64: about where the letters' baseline is (y), from the text box and font-size: the box is the line (or content
+ * area), the letters' bottoms sit about 0.2em above the box's bottom once any extra line-height is split off.
+ * Null with no font-size, or a box that is not one line.
+ */
+export function baselineOf(n: NodeLike): number | null {
+  const b = boxOf(n)
+  const fs = parseFloat(n.style?.fontSize ?? '') || 0
+  if (!fs || b.h > fs * 1.6 || b.h < fs * 0.9) return null
+  return Math.round(b.y + b.h - Math.max(0, b.h - fs) / 2 - 0.2 * fs)
+}
+
 function inter(a: BBox, b: BBox): number {
   const w = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)
   const h = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y)
