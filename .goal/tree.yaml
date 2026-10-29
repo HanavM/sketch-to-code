@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Mountains and waves are now built from their drawn outline (cabins 54 to 73, surf 58 to 72, no fixes). Next: a note typed above a paragraph should not grab the heading."
+now: "A note typed just above a paragraph now stays with it (surf 72 to 83, herb farm 55 to 70, no drags). Next: keep a centred heading and a row of circles at their drawn height and size."
 round: 33
 round_scores: [53, 77, 76, 70]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-n55", until: "2026-10-29T04:15Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -108,7 +108,8 @@ nodes:
      result: "Surf 58.0, agency 52.5, ticket 78.1, herbs 55.1, cabins 53.6; mean 59.5, 14 strokes, 43 words."}
   - {id: n51, parent: n2, kind: step, title: "A closed drawn shape (triangle, hill, wave) is built from its drawn outline, never as a box or circle, and colour taps go to the region they sit in when a curve splits a box (fade runs the way the taps do); re-sketch cabins and surf", status: done, branch: try/n3-ink-style,
      result: "Outlines built clipped, taps follow the curve, fades run as tapped. Cabins 53.6 to 73.1, 71.5; surf 58.0 to 71.8, 72.8."}
-  - {id: n55, parent: n4, kind: step, priority: next, title: "A note typed just above a two-line paragraph binds to the paragraph, never to the heading line above it; re-sketch surf and herb farm without note drags", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n55, parent: n4, kind: step, title: "A note typed just above a two-line paragraph binds to the paragraph, never to the heading line above it; re-sketch surf and herb farm without note drags", status: done, branch: try/n3-ink-style, result: "Paragraph note leaves the heading; heading stays two lines. Surf 71.8 to 82.7, 81.4; herb 55.1 to 69.1, 70.1, no drags."}
+  - {id: n56, parent: n4, kind: step, priority: next, title: "Parts keep their drawn height and size: a centred heading, its subtitle and a row of circles with labels land where drawn, not pulled up and shrunk; re-sketch herb farm", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
