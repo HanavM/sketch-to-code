@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Split bill</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f4f2fb;font-family:Helvetica,Arial,sans-serif;color:#221d3a;overflow:hidden;position:relative}
+header{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:#fff;border-bottom:1px solid #e6e2f3}
+.logo{font-size:21px;font-weight:800;color:#6d4aff}.trip{font-size:15px;color:#6b6585}
+.left{position:absolute;left:48px;top:100px;width:700px;height:770px;background:#fff;border-radius:16px;padding:30px}
+h1{font-size:26px;margin-bottom:6px}.total{font-size:15px;color:#6b6585;margin-bottom:24px}
+.p{display:flex;align-items:center;height:76px;border-top:1px solid #eeebf7}
+.av{width:44px;height:44px;border-radius:50%;margin-right:18px}.who{font-size:17px;font-weight:600}.amt{margin-left:auto;font-size:18px;font-weight:800}
+.pos{color:#169a5b}.neg{color:#d93a4a}
+.bar{position:absolute;left:30px;bottom:30px;width:640px;height:12px;border-radius:6px;background:#eeebf7;overflow:hidden}.bar i{display:block;width:62%;height:12px;background:#6d4aff}
+.panel{position:absolute;left:780px;top:100px;width:452px;height:770px;background:#221d3a;color:#fff;border-radius:16px;padding:30px}
+.panel h2{font-size:22px;margin-bottom:24px}.f{height:52px;border-radius:10px;background:#352e55;display:flex;align-items:center;padding:0 16px;font-size:16px;color:#bdb6dc;margin-bottom:16px}
+.f.big{height:84px;font-size:36px;font-weight:800;color:#fff}
+.split{display:flex;gap:10px;margin:8px 0 24px}.split span{flex:1;height:44px;border-radius:22px;border:1px solid #5a5180;display:flex;align-items:center;justify-content:center;font-size:14px}.split .on{background:#fff;color:#221d3a;font-weight:700}
+.add{height:58px;border-radius:12px;background:#6d4aff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin-top:200px}
+</style></head><body>
+<header data-r="header"><div class="logo" data-r="logo">halves</div><div class="trip">Lisbon trip - 5 people</div></header>
+<div class="left" data-r="balances" data-must><h1 data-r="title">Balances</h1><div class="total">Spent so far: 1,284.50 of 2,000 budget</div>
+<div class="p" data-r="person-1"><i class="av" style="background:#ffb547"></i><span class="who">Maya</span><span class="amt pos">+212.40</span></div>
+<div class="p" data-r="person-2"><i class="av" style="background:#4fc3f7"></i><span class="who">Tom</span><span class="amt neg">-86.10</span></div>
+<div class="p" data-r="person-3"><i class="av" style="background:#ef6f9a"></i><span class="who">Priya</span><span class="amt pos">+34.00</span></div>
+<div class="p" data-r="person-4"><i class="av" style="background:#81c784"></i><span class="who">Jonas</span><span class="amt neg">-120.30</span></div>
+<div class="p" data-r="person-5"><i class="av" style="background:#9575cd"></i><span class="who">Lea</span><span class="amt neg">-40.00</span></div>
+<div class="bar" data-r="budget-bar"><i></i></div></div>
+<div class="panel" data-r="add-panel" data-must><h2>Add expense</h2>
+<div class="f" data-r="field-what">What was it? (Dinner at Taberna)</div><div class="f big" data-r="field-amount">96.00</div><div class="f" data-r="field-paid">Paid by Maya</div>
+<div class="split" data-r="split-chips"><span class="on">Equally</span><span>By share</span><span>Exact</span></div>
+<div class="add" data-r="add-button" data-must>Add expense</div></div>
+</body></html>

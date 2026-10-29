@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Moon phases</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#0a0a0f;font-family:Georgia,serif;color:#ece6d6;overflow:hidden;position:relative}
+nav{display:flex;justify-content:space-between;align-items:center;padding:32px 80px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:3px;color:#9b968a}
+.logo{color:#ece6d6;font-size:16px;font-weight:700}.links{display:flex;gap:36px}
+h1{position:absolute;left:0;top:150px;width:1280px;text-align:center;font-size:88px;font-weight:400;font-style:italic}
+.sub{position:absolute;left:0;top:270px;width:1280px;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:18px;color:#9b968a;letter-spacing:1px}
+.row{position:absolute;left:130px;top:400px;width:1020px;display:flex;justify-content:space-between}
+.m{width:150px;height:150px;border-radius:50%;background:#ece6d6;position:relative;overflow:hidden}
+.m i{position:absolute;top:0;width:150px;height:150px;border-radius:50%;background:#0a0a0f}
+.m.new{background:#24242c}
+.labels{position:absolute;left:130px;top:580px;width:1020px;display:flex;justify-content:space-between;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:2px;color:#9b968a}
+.labels span{width:150px;text-align:center}
+.line{position:absolute;left:80px;top:680px;width:1120px;height:1px;background:#3a3a44}
+.cta{position:absolute;left:530px;top:730px;width:220px;height:58px;border-radius:29px;background:#ece6d6;color:#0a0a0f;font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<nav data-r="nav"><div class="logo" data-r="logo">LUNA PRESS</div><div class="links"><span>CALENDARS</span><span>PRINTS</span><span>JOURNAL</span></div></nav>
+<h1 data-r="headline" data-must>The year in moons</h1>
+<div class="sub" data-r="subhead">A 2027 wall calendar, letterpress printed on cotton paper.</div>
+<div class="row" data-r="moons" data-must>
+<div class="m new" data-r="moon-new"></div><div class="m" data-r="moon-crescent"><i style="left:45px"></i></div><div class="m" data-r="moon-half"><i style="left:75px;border-radius:0"></i></div><div class="m" data-r="moon-gibbous"><i style="left:110px"></i></div><div class="m" data-r="moon-full"></div>
+</div>
+<div class="labels" data-r="labels"><span>NEW</span><span>CRESCENT</span><span>HALF</span><span>GIBBOUS</span><span>FULL</span></div>
+<div class="line" data-r="rule"></div>
+<div class="cta" data-r="cta" data-must>Pre-order, 38</div>
+</body></html>
