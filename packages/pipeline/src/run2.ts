@@ -72,6 +72,7 @@ import { verifyStats } from './statcard.js'
 import { typedCopyBrief, verifyNoDirections, verifyTypedTimes } from './typedcopy.js'
 import { hasSampleRows, rowDataBrief, verifyRowData } from './rowdata.js'
 import { rowMarksBrief, verifyRowMarks } from './rowmarks.js'
+import { hasFillerRows, rowTemplateBrief, verifyRowTemplate } from './rowtemplate.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
@@ -634,6 +635,7 @@ export async function runV2(
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)]))]),
     ])]) +
+    rowTemplateBrief(interp.actions, input.strokes) +
     rowMarksBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => a.notes ?? []),
@@ -1494,11 +1496,11 @@ export function verifyActions(
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['cards', verifyCards(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['tilt-words', verifyTiltWords(actions.filter((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen), after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
     ['all-text', ((all) => ((own, ink) => verifyAllText(allTextColour(all), after, (n) => own(n) || ink(n)))(ownColourText(allTextColour(all), all), onInkText(inkTextOf(actions, allTextColour(all)))))([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])])],
-    ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after, { samples: hasSampleRows(typedNotes) }) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
+    ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after, { samples: hasSampleRows(typedNotes) || hasFillerRows(typedNotes) }) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
     ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes, after)], ['row-data', verifyRowData(typedNotes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
-    ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
+    ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['row-template', verifyRowTemplate(actions, depiction?.strokes, after)], ['body-lines', verifyBodyLines(actions, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++

@@ -45,6 +45,9 @@ export function solidOf(text: string): Solid | null {
   if (/\b(glass|frosted|translucent|transparent|see-through|blurred|blurry|glow|glowing|ghost)\b/.test(t)) return null
   const noun = THING.exec(t)
   if (!noun) return null
+  // n89: "small grey label, big number under" styles a stat card's label TEXT (round 36 e2: the transactions
+  // card and a stat card were built as solid grey blocks); a small or muted label, or one beside a number, is words
+  if (noun[1] === 'label' && (/\b(small|tiny|muted|faint|light)\s+(?:\w+\s+)?label\b/.test(t) || /\b(number|value|figure|stat)\b/.test(t))) return null
   // the colour word nearest before the noun (within a few words), else anywhere after "in"
   const before = t.slice(0, noun.index)
   let best: { word: string; at: number } | null = null

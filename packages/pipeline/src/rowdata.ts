@@ -74,6 +74,9 @@ export function rowData(note: string): RowData | null {
     return cs.filter(Boolean)
   }).filter((r) => r.length)
   if (more) total = rows.length + more
+  // n89: "5 rows like this, thin dividers" types no row: what follows the count is how the rows look
+  // (a single short cell, no colon, no slashes, no dots), so it is no data and never printed as a row
+  if (total !== null && !slashRows && rows.length === 1 && rows[0]!.length < 2 && !/:\s*\S/.test(note)) return null
   if (total !== null && (total < 2 || total > 40)) total = null
   const cells = rows.some((r) => r.length >= 2)
   if (!rows.length) return null
