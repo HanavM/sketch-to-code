@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Finished round 36 by hand (average 72, too many words for lists and tables); next, letting one drawn row stand for every row so lists need far fewer words."
+now: "One drawn row now stands for every row of a list (transactions went from 131 words to 67); next, the same on the email page and keeping the page at its drawn height."
 round: 36
 round_scores: [53, 77, 76, 70, 79, 78, 72]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: n89-run, until: "2026-10-29T20:59Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -163,16 +163,20 @@ nodes:
      result: "Vinyl 69.9, hut 80.7, chess 87.5, florist 63.0, tide 60.9; mean 72.4; layout drift and lost header."}
   - {id: n87, parent: n1, kind: step, title: "Sketch round 36 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Boarding 77.2, transactions 78.8, timesheet 61.5, email 73.8, alerts 69.9; round 36 mean 72.3, 66.5 words."}
-  - {id: n89, parent: n2, kind: step, priority: next, title: "The drawn first row is the template: 'rows like this' keeps its columns and height for every row, and rows can be given as a short typed list or left as filler so words drop; re-sketch transactions and email compose", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n89, parent: n2, kind: step, title: "The drawn first row is the template: 'rows like this' keeps its columns and height for every row, and rows can be given as a short typed list or left as filler so words drop; re-sketch transactions and email compose", status: done, branch: try/n3-ink-style,
+     result: "Rows one line at drawn pitch, sample rows from a bare count; transactions 131 to 67 words, 69.3, no fix."}
+  - {id: n90, parent: n89, kind: step, priority: next, title: "Rows given the short way on email compose (7 rows like this, names bold), and sample rows put each value kind in the column drawn for it (amount at the right end); whole page at its drawn height (no 20px drift); re-sketch email and transactions", status: open, branch: try/n3-ink-style, result: null}
   - {id: n88, parent: n4, kind: step, title: "A header stays at its drawn lines (no tall header pushing the page down), a repair that lifts content never removes blocks, and a note on stacked heading lines covers every line; re-sketch tide swim and florist", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
-  - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: pruned, branch: try/n3-ink-style, result: "pruned: erasing one mark has not cost score or effort in rounds 34-36; keep open slots for row and drift gaps"}
   - {id: n53, parent: n3, kind: step, title: "A small dot tapped in a second colour inside a filled box is a placed mark (pin, status dot) at that spot, not a refill, and the build puts it where drawn; re-sketch the map search", status: open, branch: try/n3-ink-style, result: null}
   - {id: n54, parent: n2, kind: step, title: "A big box around a whole page of content is a card (white panel) when it holds text and parts, and a heading note never becomes a giant word filling it; drawn edges land within 8px; re-sketch invoice and billing", status: done, branch: try/n3-ink-style, 
      result: "Container box is a white card at drawn edges, no giant word. Invoice 80.6 to 84.9, 73.2; billing 69.3 to 77.9."}
-  - {id: n58, parent: n4, kind: step, title: "Text rows drawn inside a card keep their drawn lines' height (no 10-15px drift down the table), and a value typed after a label (Storage, 62 of 100 GB) stays beside it unless drawn apart; re-sketch invoice and billing", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n58, parent: n4, kind: step, title: "Text rows drawn inside a card keep their drawn lines' height (no 10-15px drift down the table), and a value typed after a label (Storage, 62 of 100 GB) stays beside it unless drawn apart; re-sketch invoice and billing", status: pruned, branch: try/n3-ink-style, result: "pruned: folded into n90 (whole page and rows at their drawn height)"}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "Row content had to be typed in full, and 'rows like this' stacked the drawn middle column under the name in taller rows", found_on: "r36 e2, e4 (n87)", built: "n89: drawn first row is the template (columns, height) and a bare count fills sample rows", helped: "transactions 131 to 67 words; rows one line at drawn pitch, no fix (69.3 vs 78.8 after a fix)"}
+  - {gap: "'small grey label' on stat cards built cards as solid grey blocks", found_on: "r36 e2 (n89 try 1)", built: "n89: a small or number-side label is words, not a fill", helped: "no grey blocks on try 2"}
   - {gap: "A tall header pushes the whole page down; the 'too low' fix lifted it but deleted the logo and nav", found_on: "r36 c5, c4 (n86)", built: null, helped: null}
   - {gap: "A wobbly hand circle is built as a lumpy blob; 'a true circle' fix moved and shrank it", found_on: "r36 c1 (n86)", built: null, helped: null}
   - {gap: "Lines drawn as stat places are pasted as white rules and a row note's label word is printed", found_on: "r36 c3 (n86)", built: null, helped: null}
@@ -550,3 +554,6 @@ n83_resketch:   # same strokes, taps and notes as n77 replayed (its notes before
 n84_resketch:   # same strokes, taps and notes as n77 replayed (its notes before the fix); first build only, no fixes; tests/hand/N84.md on try/n3-ink-style
   - {page: r35 e3-workout-log, try: 1, likeness: 89.3, was: 76.4, strokes: 17, words: 110, notes: 15, minutes: 6.0, fixes: 0, first_read_s: 87, build_s: 269, tokens: 124288, note: "card dark grey; green dots rows 1-3, rings 4-5"}
   - {page: r35 e3-workout-log, try: 2, likeness: 88.1, was: 76.4, strokes: 17, words: 110, notes: 15, minutes: 8.1, fixes: 0, first_read_s: 107, build_s: 378, tokens: 128698, note: "same; dots a little small, header labels faint"}
+n89_resketch:   # same strokes and taps as n87, notes before its first Run with the row note cut to "5 rows like this, thin dividers" (replay.mjs --notes); first build only, no fixes; tests/hand/N89.md on try/n3-ink-style
+  - {page: r36 e2-transactions, try: 1, likeness: 53.0, was: 78.8, strokes: 19, words: 67, notes: 12, minutes: 9.6, fixes: 0, first_read_s: 105, build_s: 466, tokens: 153029, note: "rows one line at drawn pitch; 'thin dividers' printed; list and stat card built solid grey"}
+  - {page: r36 e2-transactions, try: 2, likeness: 69.3, was: 78.8, strokes: 19, words: 67, notes: 12, minutes: 9.6, fixes: 0, first_read_s: 106, build_s: 466, tokens: 77716, note: "rows one line, sample rows; page ~20px low, amount and date columns swapped; was = n87 after a fix with 131 words"}
