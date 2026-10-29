@@ -21,7 +21,7 @@ interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; styl
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 export interface SpanVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
 
-const BIG = /\b(big|bigger|huge|large|giant|massive|heading|headline|title|display|hero)\b/i
+export const BIG_WORD = /\b(big|bigger|huge|large|giant|massive|heading|headline|title|display|hero)\b/i
 /** Words in a note that describe the type rather than say the copy. */
 const STYLE = new Set(['big', 'bigger', 'huge', 'large', 'giant', 'massive', 'heading', 'headline', 'title', 'display', 'hero',
   'bold', 'italic', 'serif', 'sans', 'regular', 'light', 'thin', 'heavy', 'black', 'white', 'green', 'dark', 'navy', 'red', 'blue',
@@ -30,6 +30,26 @@ const STYLE = new Set(['big', 'bigger', 'huge', 'large', 'giant', 'massive', 'he
 
 const r1 = (v: number) => Math.round(v)
 const isLevel = (m: MarkLike) => m.shape === 'line' && !m.edge && !!m.from && !!m.to && Math.abs(m.from.y - m.to.y) <= 2
+
+/**
+ * n56: the line itself can ask for big type. Round 33 c4 (herb farm): "Fresh herbs, picked this morning" was
+ * typed on a level line 916px long with no size word, so nothing told or checked its size and it was built at
+ * 28px, running 577px. Words that would run under half the drawn length at body size (about 8.5px a letter at
+ * 16px) on a line 300px or longer are a heading sized by the line.
+ */
+export function lineAsksBig(words: string, len: number): boolean {
+  if (BIG_WORD.test(words)) return true
+  const want = copyWords(words)
+  if (len < 300 || want.length < 2 || want.length > 10) return false
+  const chars = want.join(' ').length
+  return len >= 2 * chars * 8.5
+}
+
+/** About the font-size (px) at which these words run the drawn length on one line (bold sans, ~0.56em a letter). */
+export function spanFontPx(words: string, len: number): number {
+  const chars = Math.max(1, copyWords(words).join(' ').length)
+  return Math.round(Math.min(160, Math.max(18, len / (chars * 0.56))))
+}
 
 /** The copy words of a note (its style words taken out). */
 export function copyWords(note: string): string[] {
@@ -41,10 +61,11 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
   const misses: string[] = []
   let judged = 0
   for (const m of marks) {
-    if (!isLevel(m) || !m.words || !BIG.test(m.words)) continue
+    if (!isLevel(m) || !m.words) continue
     // a line drawn as part of a multi-line stack is the stack check's (stacklines)
     if (m.strokeId && stacked.has(m.strokeId)) continue
     const len = Math.abs(m.to!.x - m.from!.x)
+    if (!lineAsksBig(m.words, len)) continue
     if (len < 200) continue
     const want = copyWords(m.words)
     if (want.length < 2) continue

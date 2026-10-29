@@ -19,6 +19,7 @@
 import type { BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
+import { BIG_WORD, lineAsksBig, spanFontPx } from './linespan.js'
 
 interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }
@@ -52,6 +53,26 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[]): void {
       .map((n) => ({ text: n.text, x: r1(n.at!.x), y: r1(n.at!.y) }))
     if (typed.length) m.typed = typed
   }
+}
+
+/**
+ * n56: a short line drawn centred right under (or just over) a ring or box is that mark's label: its words are
+ * centred on the mark. Round 33 c4 (herb farm): "Basil" and "Sweet and leafy" were drawn centred under a
+ * circle, but measured against the page they read as left lines and were built starting at the circle's left edge.
+ * A line under another such label line (a second label row) counts too, through the first one.
+ */
+export function columnOf(line: ShapeMark, marks: ShapeMark[]): ShapeMark | null {
+  const b = line.box
+  const cx = b.x + b.w / 2
+  const solidish = marks.filter((o) => o !== line && (o.shape === 'ellipse' || (o.shape === 'box' && !o.area)) && o.box.w >= 40 && o.box.h >= 24 && o.box.w <= 480)
+  const fits = (o: ShapeMark, top: number, bottom: number) =>
+    Math.abs(o.box.x + o.box.w / 2 - cx) <= Math.max(10, 0.1 * o.box.w) && b.w <= o.box.w * 1.6 &&
+    ((b.y >= bottom - 4 && b.y - bottom <= 120) || (b.y <= top + 4 && top - b.y <= 60))
+  const best = solidish.filter((o) => fits(o, o.box.y, o.box.y + o.box.h))
+    .sort((p, q) => Math.abs(b.y - (p.box.y + p.box.h)) - Math.abs(b.y - (q.box.y + q.box.h)))[0]
+  // inside the mark is the holder's business (a line in a card), not a label under it
+  if (best && !(b.y > best.box.y + 4 && b.y < best.box.y + best.box.h - 4)) return best
+  return null
 }
 
 /** The smallest drawn box holding the line, else the page. */
@@ -102,16 +123,31 @@ const where = (b: BBox, x: number, y: number): string => {
   return `the ${part} part of the box, about ${r1(fy * 100)}% down`
 }
 
-type ActionLike = { shapeMarks?: ShapeMark[] }
+type ActionLike = { shapeMarks?: ShapeMark[]; textSize?: Array<{ lines: number; strokes: string[] }> }
 
 export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: number }, dividers: ShapeMark[] = []): string {
   const all = actions.flatMap((a) => a.shapeMarks ?? [])
   const boxes = all.filter(isBox)
   const divs = [...uprights(all), ...dividers]
+  const stacked = new Set(actions.flatMap((a) => (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes)))
   const lines: string[] = []
   actions.forEach((a, i) => {
     for (const m of a.shapeMarks ?? []) {
       if (isLevel(m) && m.words) {
+        const col = columnOf(m, all)
+        if (col) {
+          const x0 = m.box.x, x1 = m.box.x + m.box.w, y = m.box.y
+          const cx = r1(col.box.x + col.box.w / 2)
+          lines.push(`- action ${i}: "${m.words}" is typed on the short line drawn from x ${x0} to ${x1} at y ${y}, centred ${y > col.box.y ? 'under' : 'over'} the ${col.shape === 'ellipse' ? 'ring' : 'box'} drawn at (${col.box.x},${col.box.y}) ${col.box.w}x${col.box.h}: ` +
+            `it is that mark's label, so its words are CENTRED on x ${cx} (text-align: center on a block centred under the mark, as wide as the mark or wider), never starting at the mark's left edge.`)
+          continue
+        }
+        // n56: a long line under a short phrase is a heading sized by the line (told here, checked by line-span)
+        const len = m.box.w
+        if (!stacked.has(m.strokeId) && !BIG_WORD.test(m.words) && lineAsksBig(m.words, len)) {
+          lines.push(`- action ${i}: "${m.words}" is a short phrase typed on a long line (${r1(len)}px, x ${m.box.x} to ${m.box.x + m.box.w}, y ${m.box.y}): the line sets its SIZE. ` +
+            `It is a big heading on ONE line (white-space: nowrap) whose letters run about the drawn ${r1(len)}px: font-size about ${spanFontPx(m.words, len)}px (adjust so the width matches), bold, letters sitting on y ${m.box.y}.`)
+        }
         const h = holderOf(m, boxes, viewport, divs)
         const side = sideOf(m.box, h)
         const x0 = m.box.x, x1 = m.box.x + m.box.w, y = m.box.y
@@ -161,6 +197,20 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
   let judged = 0
   for (const m of marks) {
     if (isLevel(m) && m.words) {
+      const col = columnOf(m, marks)
+      if (col) {
+        const t = builtWords(m.words, after, m.box.y)
+        if (!t || Math.abs(t.textBox!.y + t.textBox!.h / 2 - m.box.y) > 80) continue
+        judged++
+        const cx = col.box.x + col.box.w / 2
+        const tb = t.textBox!
+        const got = tb.x + tb.w / 2
+        if (Math.abs(got - cx) > Math.max(12, col.box.w * 0.12)) {
+          faults.push(`"${m.words}" was drawn as the label centred ${m.box.y > col.box.y ? 'under' : 'over'} the mark at (${col.box.x},${col.box.y}) ${col.box.w}x${col.box.h}, centre x ${r1(cx)}; ` +
+            `its letters run x ${r1(tb.x)} to ${r1(tb.x + tb.w)} (centre ${r1(got)}): centre them on x ${r1(cx)} (text-align: center on its block, the block centred on the mark); change nothing else`)
+        }
+        continue
+      }
       const side = sideOf(m.box, holderOf(m, boxes, viewport, divs))
       if (side === 'centre') continue
       const t = builtWords(m.words, after, m.box.y)

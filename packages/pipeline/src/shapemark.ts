@@ -336,6 +336,9 @@ interface SnapLike {
  * more than a small slack is a failure that names how far and which way, which
  * is what a repair round can act on.
  */
+/** n56: a whole row of drawn boxes off the same way by this much or more is a shift, even inside each box's slack. */
+export const ROW_SHIFT_PX = 12
+
 export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: SnapLike, page: ShapeMark[] = marks): MarkVerdict {
   // n32: a box noted as a quote mark is a glyph (checked by verifyGlyphs), not a box-sized element
   const isBox = (m: ShapeMark) => m.shape !== 'line' && !m.glyph && m.box.w >= 12 && m.box.h >= 10
@@ -615,6 +618,24 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
         `${bg <= 0 ? 'they touch or overlap' : bg < g ? `only ${bg}px apart` : `${bg}px apart`}. Keep each at its drawn size, with any border or frame inside it ` +
         `(box-sizing: border-box, or a frame drawn as padding), and keep the ${g}px gap between them`)
     }
+  }
+  // n56 (round 33 c4 herb farm): three circles drawn in a row were each built 24px high, inside the 28px slack a
+  // lone box gets, so the row passed while the whole middle of the page sat visibly high. Three or more boxes
+  // in a row all off the same way by about the same amount is one shift, not noise: a row moved as one.
+  const rowShift = placed.filter((q) => Math.abs(q.dy) >= ROW_SHIFT_PX && Math.abs(q.dy) <= q.slack && Math.abs(q.dx) <= q.slack)
+  for (const head of rowShift) {
+    const cy = head.m.box.y + head.m.box.h / 2
+    const row = rowShift.filter((q) => Math.abs(q.m.box.y + q.m.box.h / 2 - cy) <= 12 && Math.sign(q.dy) === Math.sign(head.dy))
+    if (row.length < 3 || row.some((q) => q.m.box.x < head.m.box.x)) continue
+    // every box drawn in that row must have moved, not just three of many
+    const drawnRow = placed.filter((q) => Math.abs(q.m.box.y + q.m.box.h / 2 - cy) <= 12)
+    if (drawnRow.length !== row.length || !mine.has(head.m.strokeId)) continue
+    const dys = row.map((q) => q.dy)
+    if (Math.max(...dys) - Math.min(...dys) > 6) continue
+    const d = r1(dys.reduce((a, b) => a + b, 0) / dys.length)
+    misses.push(`the row of ${row.length} ${row.every((q) => q.m.shape === 'ellipse') ? 'rings' : 'boxes'} drawn at y ${r1(head.m.box.y)} was built ${Math.abs(d)}px too ${d > 0 ? 'low' : 'high'}, all together ` +
+      `(tops at y ${r1(head.m.box.y + d)}): the row moved as one, so one space above it is off by ${Math.abs(d)}px (the gap between the text above and the row, or that text's size or margin). ` +
+      `${d < 0 ? 'Add' : 'Take out'} ${Math.abs(d)}px there so the row's tops land at y ${r1(head.m.box.y)}; keep the boxes' size and the gaps between them, and what is above the row where it is; no negative margins or relative offsets`)
   }
   // the "nothing built" misses first, in drawing order
   misses.unshift(...lines)
