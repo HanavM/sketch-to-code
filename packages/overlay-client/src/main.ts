@@ -8,7 +8,7 @@ import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-c
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
 import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine } from '@s2c/ink/notefocus'
-import { inkFills, isFillDot, pageFill } from '@s2c/ink/inkfill'
+import { inkFills, isFillDot, pageFill, markFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
@@ -4305,8 +4305,8 @@ class Overlay {
       this.resetBridge()
       this.renderInk()
       this.sync()
-      const f = inkFills(this.strokes).pop()
-      this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes))?.radial ? ' — spotlight: the centre tap glows out to the taps round it' : ' — gradient from the first tap to this one') : ''}`)
+      const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
+      this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' — spotlight: the centre tap glows out to the taps round it' : ' — gradient from the first tap to this one') : ''}`)
       this.scheduleAuto()
       return
     }
@@ -7091,7 +7091,7 @@ class Overlay {
   private isFillTap(e: PointerEvent): boolean {
     const at = this.toPage(e)
     const probe = [...this.strokes, { id: '?probe', points: [at, at, at], color: this.pen ?? '#000' }]
-    if (inkFills(probe).pop()?.target) return true
+    if (inkFills(probe, { w: window.innerWidth, h: window.innerHeight }).pop()?.target) return true
     const target = this.pickTweakTarget(e.clientX, e.clientY)
     return !target || this.isBackdrop(target)
   }
@@ -8056,7 +8056,7 @@ class Overlay {
    */
   private fillLayer(): SVGElement[] {
     const NS = 'http://www.w3.org/2000/svg'
-    const fills = inkFills(this.strokes)
+    const fills = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight })
     if (!fills.length) return []
     const out: SVGElement[] = []
     const page = pageFill(fills)
@@ -8101,12 +8101,36 @@ class Overlay {
       } else rect.setAttribute('fill', page.css)
       out.push(rect)
     }
+    // n51: one fill per mark: a fade when taps far apart gave it two colours; a region a curve cuts off a
+    // box (a wave) is painted in its own outline, so what is shown is what will be built
+    const done = new Set<string>()
     for (const f of fills) {
-      const t = f.target ? this.strokes.find((s) => s.id === f.target) : null
+      if (!f.target || done.has(f.target)) continue
+      done.add(f.target)
+      const t = this.strokes.find((s) => s.id === f.target)
       if (!t) continue
+      const mine = fills.filter((g) => g.target === f.target)
+      const region = mine.find((g) => g.region)?.region
       const path = this.inkPath()
-      path.setAttribute('d', `${pathD(t.points)} Z`)
-      path.style.fill = f.color
+      path.setAttribute('d', region ? `M ${region.map((p) => `${String(p.x)} ${String(p.y)}`).join(' L ')} Z` : `${pathD(t.points)} Z`)
+      const look = markFill(fills, f.target)
+      if (look && look.colors.length > 1) {
+        const defs = document.createElementNS(NS, 'defs')
+        const g = document.createElementNS(NS, 'linearGradient')
+        g.id = `s2c-mark-fill-${f.target}`
+        const rad = ((look.angle ?? 180) * Math.PI) / 180
+        const dx = Math.sin(rad) / 2, dy = -Math.cos(rad) / 2
+        g.setAttribute('x1', String(0.5 - dx)); g.setAttribute('y1', String(0.5 - dy))
+        g.setAttribute('x2', String(0.5 + dx)); g.setAttribute('y2', String(0.5 + dy))
+        look.colors.forEach((c, i) => {
+          const stop = document.createElementNS(NS, 'stop')
+          stop.setAttribute('offset', String(i / (look.colors.length - 1)))
+          stop.setAttribute('stop-color', c)
+          g.appendChild(stop)
+        })
+        defs.appendChild(g); out.push(defs)
+        path.style.fill = `url(#${g.id})`
+      } else path.style.fill = mine[mine.length - 1]!.color
       path.style.stroke = 'none'
       path.style.opacity = '0.5'
       path.classList.add('fillMark')
@@ -8217,8 +8241,8 @@ class Overlay {
         this.resetBridge()
         this.renderInk()
         this.sync()
-        const f = inkFills(this.strokes).pop()
-        this.status(f?.target ? `filled this mark ${this.pen}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
+        const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
+        this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target)?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : ''}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
         this.scheduleAuto()
         return
       }

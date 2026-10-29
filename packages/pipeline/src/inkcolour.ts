@@ -27,6 +27,10 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
   interp.actions.forEach((a, i) => {
     for (const c of a.inkColours ?? []) {
       const at = `x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}x${String(c.box.h)}`
+      if (c.paint === 'background' && c.fade) {
+        lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')}) exactly (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}): ${hex(c.fade.colors[0]!)} where it was tapped first, fading to ${hex(c.fade.colors.at(-1)!)} where it was tapped last; keep that direction and those stops, at full strength`)
+        continue
+      }
       lines.push(c.paint === 'background'
         ? `- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with ${hex(c.color)} (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}) at full strength: opacity 1 and that exact colour in its middle; if it is a glow or blurred shape, soften only its edge (blur at most ${String(maxBlur(c.box))}px) and never fade it with opacity, a see-through colour or a paler tint; text on it must stay readable against it`
         : `- action ${String(i)}, the ${c.mark} drawn at ${at}: that ${c.mark === 'line' ? 'text or rule' : 'text'} is coloured ${hex(c.color)}`)
@@ -164,9 +168,16 @@ export function verifyInkColours(
       const near = after.nodes.filter((n) => c.paint === 'text'
         ? n.text.length > 0 && crosses(n.rect, band)
         : centreIn(n, b, pad) && n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.5 + 20 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 20)
+      const what = `the ${c.mark} drawn at (${String(b.x)},${String(b.y)}) ${String(b.w)}x${String(b.h)}`
+      // n51: a fade from taps: every stop shows on the block, and it runs the way it was tapped
+      if (c.fade && c.paint === 'background') {
+        const v = fadeVerdict(c.fade, near)
+        checks.push({ what: `${what} (fade)`, want: c.fade.css, best: v.worst, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was tapped as a fade, ${c.fade.colors.map(hex).join(' to ')} (first tap to last); ${v.why}: paint the block itself background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')})`)
+        continue
+      }
       const at = closestAt(c.color, near, c.paint)
       const best = at?.de ?? null
-      const what = `the ${c.mark} drawn at (${String(b.x)},${String(b.y)}) ${String(b.w)}x${String(b.h)}`
       const hit = best !== null && best <= SOLID_OK_DE
       // n12: the right hex is not enough for a fill: it has to show at (nearly) full strength in the middle
       const st = hit && c.paint === 'background' && at ? strengthOf(at.node, at.css, byId) : null
@@ -183,4 +194,60 @@ export function verifyInkColours(
   return misses.length
     ? { satisfied: false, reason: misses.join('; '), checks }
     : { satisfied: true, reason: `${String(checks.length)} colour${checks.length > 1 ? 's' : ''} from the ink on the page`, checks }
+}
+
+/** CSS angle (deg) of a computed linear-gradient, and its stop colours in order. 180deg when no angle is written. */
+export function gradientOf(img: string | undefined): { angle: number; stops: string[] } | null {
+  if (!img) return null
+  const m = /linear-gradient\((.*)\)\s*$/i.exec(img.split(/,\s*(?=(?:linear|radial|conic)-gradient)/i)[0]!.trim())
+  if (!m) return null
+  const body = m[1]!
+  let angle = 180
+  const a = /^\s*(-?[\d.]+)(deg|turn|rad)/i.exec(body)
+  if (a) angle = a[2] === 'turn' ? Number(a[1]) * 360 : a[2] === 'rad' ? Number(a[1]) * 180 / Math.PI : Number(a[1])
+  else {
+    const t = /^\s*to\s+([a-z ]+?)\s*,/i.exec(body)
+    if (t) {
+      const w = t[1]!.toLowerCase()
+      const x = w.includes('right') ? 1 : w.includes('left') ? -1 : 0, y = w.includes('bottom') ? 1 : w.includes('top') ? -1 : 0
+      angle = (Math.atan2(x, -y) * 180) / Math.PI
+    }
+  }
+  const stops = [...body.matchAll(/(?:rgba?|oklch|oklab|hsla?)\([^)]*\)|#[0-9a-f]{3,8}\b/gi)].map((x) => x[0])
+  return stops.length >= 2 ? { angle: ((angle % 360) + 360) % 360, stops } : null
+}
+
+/** n51: does a block near the mark paint this fade: every stop close, the first tap's colour at the start, the right way round? */
+export function fadeVerdict(fade: { colors: string[]; angle?: number }, near: DomNode[]): { ok: boolean; worst: number | null; why: string } {
+  let best: { ok: boolean; worst: number | null; why: string } | null = null
+  for (const n of near) {
+    const g = gradientOf(n.style.backgroundImage)
+    if (!g) continue
+    const parsed = g.stops.map((c) => parseCssColor(c)).filter((c): c is NonNullable<typeof c> => !!c)
+    if (parsed.length < 2) continue
+    let worst = 0
+    for (const want of fade.colors) {
+      const w = parseCssColor(want)
+      if (!w) continue
+      worst = Math.max(worst, Math.min(...parsed.map((p) => deltaE(w, p))))
+    }
+    // which way it runs: the first tap's colour should be nearer the gradient's start than its end
+    const first = parseCssColor(fade.colors[0]!), last = parseCssColor(fade.colors.at(-1)!)
+    let flipped = false
+    if (first && last) {
+      const s0 = parsed[0]!, s1 = parsed.at(-1)!
+      const along = deltaE(first, s0) + deltaE(last, s1), against = deltaE(first, s1) + deltaE(last, s0)
+      const turn = Math.abs((((g.angle - (fade.angle ?? 180)) % 360) + 540) % 360 - 180)
+      // the same stops the other way round, or the stops right but the angle turned round
+      flipped = (against + 4 < along && turn < 90) || (along + 4 < against && turn > 90)
+    }
+    const v = worst > OK_DE
+      ? { ok: false, worst, why: `the nearest gradient there is ΔE ${worst.toFixed(0)} off one of the tapped colours` }
+      : flipped
+        ? { ok: false, worst, why: 'the gradient there runs the wrong way (the first tap\'s colour ends up where the last tap was)' }
+        : { ok: true, worst, why: '' }
+    if (v.ok) return v
+    if (!best || (best.worst ?? 999) > (v.worst ?? 999)) best = v
+  }
+  return best ?? { ok: false, worst: null, why: 'nothing that size there paints a gradient' }
 }

@@ -22,7 +22,7 @@
  * paths: there the outline may be the point. Even then a box, line or ring is
  * handed over as its clean shape (cleanPath), never the wobble.
  */
-import type { BBox, Point } from '@s2c/ink'
+import type { BBox, PageFill, Point } from '@s2c/ink'
 import { resampleBySpacing } from '@s2c/ink'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -69,6 +69,11 @@ export interface ShapeMark {
    * the way a pill is drawn with a mouse): a pill, fully rounded ends.
    */
   pill?: true
+  /**
+   * box only (n51): a shape drawn as its outline (a triangle, a mountain; or the side of a box a curve
+   * cuts off, a wave): `box` is its bounds, `points` its outline in page px. Built clipped to it (outline.ts).
+   */
+  outline?: { points: Array<{ x: number; y: number }>; corners?: number; cut?: { holder: string | null }; fill?: PageFill }
 }
 
 const r1 = (v: number) => Math.round(v)

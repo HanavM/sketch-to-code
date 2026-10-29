@@ -54,6 +54,7 @@ import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from '.
 import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
 import { tiltBrief, verifyTilts } from './tilt.js'
+import { outlineBrief, verifyOutlines } from './outline.js'
 import { eachBrief, verifyEach, verifyGlyphs } from './each.js'
 import { allTextBrief, allTextColour, verifyAllText } from './alltext.js'
 import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
@@ -194,6 +195,9 @@ Rules:
     a box flagged "outlined" holds hollow letters (transparent fill, text stroke);
     a box flagged "pill": true is a pill (a button or tag): border-radius 9999px, fully round
     ends, never a hexagon, chevron or clip-path, however pointed the ink at its ends;
+    a box with an "outline" (points in page px) is a drawn SHAPE (a triangle, a mountain, a
+    wave a curve cuts off a panel): one element at box x/y/w/h clipped to exactly that outline
+    (clip-path: polygon, see SHAPES DRAWN AS OUTLINES), never a rectangle or a circle;
   line → a level line standing for text marks the MIDDLE of its letters: centre
     that text's line box on the line's y (top = y - lineHeight / 2), never put
     the text's top edge on it. A level line is a row of text (a short one under a
@@ -605,6 +609,7 @@ export async function runV2(
     areasBrief(interp.actions, input.snapshot.viewport) +
     solidsBrief(interp.actions) +
     tiltBrief(interp.actions) +
+    outlineBrief(interp.actions) +
     eachBrief(interp.actions) +
     allTextBrief(allTextColour([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
@@ -1429,7 +1434,7 @@ export function verifyActions(
   // n14: a box round a big word is no card; a slanted line across the page is the colour edge
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
-  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
+  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
     ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)],
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],

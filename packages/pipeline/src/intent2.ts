@@ -11,13 +11,14 @@
 import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
-  isFillDot, inkFills, pageFill,
-  type BBox, type InkFill, type Stroke,
+  isFillDot, inkFills, pageFill, markFill, splitRegions,
+  type BBox, type InkFill, type SplitRegion, type Stroke,
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, type ColorMatch } from './palette.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
+import { outlineMark } from './outline.js'
 import { findInsertSlot, type InsertSlot } from './insert-slot.js'
 
 // ---------- model-facing output schema ----------
@@ -221,6 +222,8 @@ export interface Evidence {
   notes: ResolvedNote[]
   /** n10: coloured taps and what each fills (a mark, or the page). */
   fills?: InkFill[]
+  /** n51: curves drawn across a box (or the page) from edge to edge, and the side each cuts off. */
+  cuts?: SplitRegion[]
 }
 
 const MENU_CAP = 70
@@ -331,7 +334,9 @@ export function buildEvidence(allStrokes: Stroke[], snap: DomSnapshot, notes: Ty
   // n10: a coloured tap is a fill, not a mark: it never reaches the reading as
   // a stroke (it would be a dot on whatever it sits on); what it fills is
   // decided from the ink here and handed over as colour
-  const fills = inkFills(allStrokes)
+  const fills = inkFills(allStrokes, snap.viewport)
+  // n51: a curve drawn across a box from edge to edge cuts off a shape (a wave, a hill)
+  const cuts = splitRegions(allStrokes, snap.viewport)
   const strokes = allStrokes.filter((s) => !isFillDot(s))
   let inkBox: BBox | null = null
   for (const s of strokes) {
@@ -496,7 +501,7 @@ export function buildEvidence(allStrokes: Stroke[], snap: DomSnapshot, notes: Ty
     maxSize: 1100,
     underlayRects: menu.map((n) => n.rect),
   })
-  return { png: encodePng(raster), brief, elements, strokes: strokeMap, notes: resolved, fills }
+  return { png: encodePng(raster), brief, elements, strokes: strokeMap, notes: resolved, fills, ...(cuts.length ? { cuts } : {}) }
 }
 
 export const DESIGN_INTERPRET_PROMPT = `
@@ -824,6 +829,8 @@ export interface InkColour {
   box: BBox
   /** a tap with a colour picked, or the pen colour the mark was drawn in */
   how: 'tap' | 'pen'
+  /** n51: two or more taps far apart on the mark: a fade from the first tap towards the last. */
+  fade?: { colors: string[]; angle?: number; css: string }
 }
 
 export interface GroundedInterpretation {
@@ -1033,6 +1040,17 @@ export function groundInterpretation(
       }
       if (a.kind === 'design' || a.kind === 'add') {
         for (const s of citedStrokes) {
+          // n51: a curve cutting a box (a wave across a panel) is the shape it cuts off, built clipped to it
+          const cut = (ev.cuts ?? []).find((c) => c.id === s.id)
+          if (cut) {
+            const om = outlineMark(s.id, s.points, cut)
+            if (om) {
+              const f = markFill(ev.fills ?? [], s.id)
+              if (f) om.outline!.fill = f
+              shapeMarks.push(om)
+              continue
+            }
+          }
           // a squiggle that stands for words never becomes a path: not in the
           // scaffold, not in the composition check, not under the trace rung.
           // It still sets the region and stays cited (textmark.ts).
@@ -1044,6 +1062,17 @@ export function groundInterpretation(
           // big: it never becomes a path either (shapemark.ts). Only a depiction
           // keeps paths, and then the clean shape, never the wobble.
           const shape = shapeOf(s.points, pagePoints)
+          // n51: a closed outline with a few sharp corners (a triangle, a mountain) is built clipped to
+          // that outline, never as a box, and never as a traced path (round 33 c5: mountains built as boxes)
+          if (!shape) {
+            const om = outlineMark(s.id, s.points)
+            if (om) {
+              const f = markFill(ev.fills ?? [], s.id)
+              if (f) om.outline!.fill = f
+              shapeMarks.push(om)
+              continue
+            }
+          }
           // n14: a box round "huge outlined 09" is read as a depiction of the number, its
           // outline became a path, and the composition check then asked for that closed
           // form to be filled: a black card behind the 09 (round 12 c4). A box whose own
@@ -1184,9 +1213,11 @@ export function groundInterpretation(
       const b = bboxOf(st.points)
       const box = { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) }
       const sm = shapeMarks.find((m) => m.strokeId === st.id)
-      const mark = sm ? (sm.shape === 'ellipse' ? 'ring' : sm.shape) : textMarks.includes(st.id) ? 'text line' : 'outline'
+      const mark = sm?.outline ? 'outline' : sm ? (sm.shape === 'ellipse' ? 'ring' : sm.shape) : textMarks.includes(st.id) ? 'text line' : 'outline'
       const tap = (ev.fills ?? []).filter((f) => f.target === st.id).pop()
-      if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box, how: 'tap' }); continue }
+      // n51: taps far apart on one mark make a fade from the first towards the last
+      const fade = tap ? markFill(ev.fills ?? [], st.id) : null
+      if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box: sm?.outline ? sm.box : box, how: 'tap', ...(fade && fade.colors.length > 1 ? { fade } : {}) }); continue }
       if (!st.color) continue
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)
       inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })

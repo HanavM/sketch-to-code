@@ -19,7 +19,8 @@
  * built. Pure geometry, no DOM.
  */
 import type { BBox, Point, Stroke } from './types.js'
-import { bboxOf, pointInPolygon } from './geometry.js'
+import { bboxOf, pointInPolygon, polygonArea } from './geometry.js'
+import { rdp } from './simplify.js'
 
 /** A tap: a press that barely moved. Only a coloured one is a fill. */
 export const FILL_DOT_PX = 8
@@ -50,38 +51,158 @@ export interface InkFill {
   target: string | null
   /** The target's bounding box, page px. */
   box?: BBox
+  /**
+   * n51: the target is a region a curve cut off (a wave across a panel, a hill along the page's
+   * foot): the target id is the curve's, and this is the region's outline, page px.
+   */
+  region?: Array<{ x: number; y: number }>
 }
+
+type XY = { x: number; y: number }
+
+/**
+ * n51: a curve drawn across a closed box (or across the page) from one edge to another cuts it in
+ * two. Round 33 c1: a wave drawn across the left panel, two sky taps above it and a pale tap below;
+ * all three landed on the panel and the last one won, so the sky came out pale. The smaller side is
+ * the shape the curve draws (the wave, the hill); its outline is the curve closed along the box's
+ * edge. A straight line is a divider or an edge (areas.ts), never this: only a curve that bows away
+ * from its chord counts.
+ */
+export interface SplitRegion { id: string; holder: string | null; points: XY[]; box: BBox }
+
+export function splitRegions<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[], page?: { w: number; h: number }): SplitRegion[] {
+  const outlines = strokes.filter((s) => !isFillDot(s) && closedOutline(s.points))
+  const out: SplitRegion[] = []
+  for (const c of strokes) {
+    if (isFillDot(c) || c.points.length < 4 || closedOutline(c.points)) continue
+    const a = c.points[0]!, z = c.points[c.points.length - 1]!
+    const chord = Math.hypot(z.x - a.x, z.y - a.y)
+    if (chord < 120) continue
+    let len = 0, dev = 0
+    for (let i = 1; i < c.points.length; i++) len += Math.hypot(c.points[i]!.x - c.points[i - 1]!.x, c.points[i]!.y - c.points[i - 1]!.y)
+    for (const p of c.points) dev = Math.max(dev, Math.abs((p.x - a.x) * (z.y - a.y) - (p.y - a.y) * (z.x - a.x)) / chord)
+    if (len / chord < 1.04 || dev < Math.max(16, chord * 0.06)) continue
+    const cb = bboxOf(c.points)
+    // the smallest closed box that holds the curve, with both ends on its edge; else the page
+    const holders: Array<{ id: string | null; b: BBox }> = outlines
+      .map((o) => ({ id: o.id as string | null, b: bboxOf(o.points) }))
+      .filter((o) => o.b.x - 14 <= cb.x && o.b.y - 14 <= cb.y && o.b.x + o.b.w + 14 >= cb.x + cb.w && o.b.y + o.b.h + 14 >= cb.y + cb.h)
+      .sort((p, q) => p.b.w * p.b.h - q.b.w * q.b.h)
+    if (page) holders.push({ id: null, b: { x: 0, y: 0, w: page.w, h: page.h } })
+    for (const h of holders) {
+      const tol = Math.max(24, Math.min(h.b.w, h.b.h) * 0.04)
+      const ta = perimT(a, h.b, tol), tz = perimT(z, h.b, tol)
+      if (ta === null || tz === null) continue
+      const P = 2 * (h.b.w + h.b.h)
+      const fine = rdp(c.points as never, 2.5) as XY[]
+      const curve = fine.map((p) => ({ x: Math.round(p.x), y: Math.round(p.y) }))
+      // close the curve along the box's edge each way round; the smaller side is the shape
+      const side = (dir: 1 | -1): XY[] => {
+        const pts = [...curve]
+        let t = tz
+        const end = ta
+        const span = dir === 1 ? ((end - t) % P + P) % P : ((t - end) % P + P) % P
+        const corners = [0, h.b.w, h.b.w + h.b.h, 2 * h.b.w + h.b.h]
+        const passed = corners
+          .map((k) => ({ k, d: dir === 1 ? ((k - t) % P + P) % P : ((t - k) % P + P) % P }))
+          .filter((o) => o.d > 0 && o.d < span)
+          .sort((p, q) => p.d - q.d)
+        for (const o of passed) pts.push(perimPoint(o.k, h.b))
+        t = end
+        return pts
+      }
+      const one = side(1), two = side(-1)
+      const pick = Math.abs(polygonArea(one as never)) <= Math.abs(polygonArea(two as never)) ? one : two
+      const b = bboxOf(pick as never)
+      out.push({ id: c.id, holder: h.id, points: pick, box: { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) } })
+      break
+    }
+  }
+  return out
+}
+
+/** Where a point sits round a box's edge, clockwise from its top-left corner (px), or null when off the edge. */
+function perimT(p: XY, b: BBox, tol: number): number | null {
+  const dl = Math.abs(p.x - b.x), dr = Math.abs(b.x + b.w - p.x), dt = Math.abs(p.y - b.y), db = Math.abs(b.y + b.h - p.y)
+  const m = Math.min(dl, dr, dt, db)
+  if (m > tol) return null
+  const cx = Math.min(Math.max(p.x, b.x), b.x + b.w), cy = Math.min(Math.max(p.y, b.y), b.y + b.h)
+  if (m === dt) return cx - b.x
+  if (m === dr) return b.w + (cy - b.y)
+  if (m === db) return b.w + b.h + (b.x + b.w - cx)
+  return 2 * b.w + b.h + (b.y + b.h - cy)
+}
+function perimPoint(t: number, b: BBox): XY {
+  if (t <= b.w) return { x: Math.round(b.x + t), y: Math.round(b.y) }
+  if (t <= b.w + b.h) return { x: Math.round(b.x + b.w), y: Math.round(b.y + t - b.w) }
+  if (t <= 2 * b.w + b.h) return { x: Math.round(b.x + b.w - (t - b.w - b.h)), y: Math.round(b.y + b.h) }
+  return { x: Math.round(b.x), y: Math.round(b.y + b.h - (t - 2 * b.w - b.h)) }
+}
+
+/** n51: two taps this close on one mark are a re-colouring (the later wins); further apart they make a fade. */
+export const RECOLOUR_PX = 48
 
 /**
  * What each coloured tap fills: the smallest closed outline it falls inside
  * (by its ink, not just its box, so a tap beside a ring is not in the ring),
  * or the page. A later tap on the same mark wins (a person re-colouring).
  */
-export function inkFills<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[]): InkFill[] {
+export function inkFills<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[], page?: { w: number; h: number }): InkFill[] {
   const outlines = strokes.filter((s) => !isFillDot(s) && closedOutline(s.points))
+  // n51: regions a curve cuts off a box (or the page) hold taps like any outline
+  const cuts = splitRegions(strokes, page)
+  const shapes: Array<{ id: string; pts: Array<{ x: number; y: number }>; box: BBox; region?: XY[] }> = [
+    ...outlines.map((o) => ({ id: o.id, pts: o.points as XY[], box: bboxOf(o.points) })),
+    ...cuts.map((c) => ({ id: c.id, pts: c.points, box: c.box, region: c.points })),
+  ]
   const out: InkFill[] = []
   for (const d of strokes) {
     if (!isFillDot(d)) continue
     const b = bboxOf(d.points)
     const at = { x: Math.round(b.x + b.w / 2), y: Math.round(b.y + b.h / 2) }
-    let best: S | null = null, bestA = Infinity
-    for (const o of outlines) {
-      const ob = bboxOf(o.points)
+    let best: (typeof shapes)[number] | null = null, bestA = Infinity
+    for (const o of shapes) {
+      const ob = o.box
       if (at.x < ob.x || at.x > ob.x + ob.w || at.y < ob.y || at.y > ob.y + ob.h) continue
-      if (!pointInPolygon({ ...at, t: 0 }, o.points as Point[])) continue
-      const area = ob.w * ob.h
+      if (!pointInPolygon({ ...at, t: 0 }, o.pts as Point[])) continue
+      const area = o.region ? Math.abs(polygonArea(o.region as never)) : ob.w * ob.h
       if (area < bestA) { best = o; bestA = area }
     }
     const fill: InkFill = { dotId: d.id, color: d.color!, at, target: best?.id ?? null }
-    if (best) { const ob = bboxOf(best.points); fill.box = { x: Math.round(ob.x), y: Math.round(ob.y), w: Math.round(ob.w), h: Math.round(ob.h) } }
-    // a later tap on the same mark replaces the earlier one; page taps all count
+    if (best) {
+      const ob = best.box
+      fill.box = { x: Math.round(ob.x), y: Math.round(ob.y), w: Math.round(ob.w), h: Math.round(ob.h) }
+      if (best.region) fill.region = best.region
+    }
+    // a later tap close to an earlier one on the same mark re-colours it; far apart, both count (a fade, n51)
     if (fill.target) {
-      const i = out.findIndex((f) => f.target === fill.target)
+      const i = out.findIndex((f) => f.target === fill.target && Math.hypot(f.at.x - at.x, f.at.y - at.y) <= RECOLOUR_PX)
       if (i >= 0) out.splice(i, 1)
     }
     out.push(fill)
   }
   return out
+}
+
+/**
+ * n51: what one mark is filled with from its taps: one colour, or a fade from the first tap towards
+ * the last (two taps far apart on a banner, a sky). Null when nothing was tapped on it.
+ */
+export function markFill(fills: InkFill[], target: string): PageFill | null {
+  const mine = fills.filter((f) => f.target === target)
+  if (!mine.length) return null
+  return fadeOf(mine)
+}
+
+function fadeOf(taps: Array<Pick<InkFill, 'color' | 'at'>>): PageFill {
+  const colors = taps.map((f) => f.color)
+  if (taps.length === 1 || colors.every((c) => c.toLowerCase() === colors[0]!.toLowerCase())) {
+    return { colors: [colors[0]!], css: colors[0]! }
+  }
+  const a = taps[0]!.at, z = taps[taps.length - 1]!.at
+  // CSS: 0deg points up, 90deg right; screen y grows downward
+  const angle = Math.round(((Math.atan2(z.x - a.x, -(z.y - a.y)) * 180) / Math.PI + 360) % 360)
+  return { colors, angle, css: `linear-gradient(${String(angle)}deg, ${colors.join(', ')})` }
 }
 
 /**
@@ -139,8 +260,5 @@ export function pageFill(fills: InkFill[]): PageFill | null {
   }
   const spot = spotlight(page)
   if (spot) return spot
-  const a = page[0]!.at, z = page[page.length - 1]!.at
-  // CSS: 0deg points up, 90deg right; screen y grows downward
-  const angle = Math.round(((Math.atan2(z.x - a.x, -(z.y - a.y)) * 180) / Math.PI + 360) % 360)
-  return { colors, angle, css: `linear-gradient(${String(angle)}deg, ${colors.join(', ')})` }
+  return fadeOf(page)
 }
