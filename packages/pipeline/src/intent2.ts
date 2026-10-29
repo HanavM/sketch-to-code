@@ -11,7 +11,7 @@
 import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
-  isFillDot, inkFills, pageFill, markFill, splitRegions,
+  isFillDot, inkFills, pageFill, markFill, splitRegions, splitCss,
   type BBox, type InkFill, type SplitRegion, type Stroke,
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
@@ -831,6 +831,12 @@ export interface InkColour {
   how: 'tap' | 'pen'
   /** n51: two or more taps far apart on the mark: a fade from the first tap towards the last. */
   fade?: { colors: string[]; angle?: number; css: string }
+  /**
+   * n59: a straight divider drawn across the mark with a different colour tapped each side: two solid
+   * fills meeting at the divider (css is a hard-stop gradient in the block's own frame); sides are the
+   * outline cut along the divider, page px, in the order of colors.
+   */
+  split?: { colors: [string, string]; css: string; sides: [Array<{ x: number; y: number }>, Array<{ x: number; y: number }>]; dividerId: string; line: { a: { x: number; y: number }; z: { x: number; y: number } } }
 }
 
 export interface GroundedInterpretation {
@@ -1216,7 +1222,15 @@ export function groundInterpretation(
       const mark = sm?.outline ? 'outline' : sm ? (sm.shape === 'ellipse' ? 'ring' : sm.shape) : textMarks.includes(st.id) ? 'text line' : 'outline'
       const tap = (ev.fills ?? []).filter((f) => f.target === st.id).pop()
       // n51: taps far apart on one mark make a fade from the first towards the last
-      const fade = tap ? markFill(ev.fills ?? [], st.id) : null
+      const fade = tap ? markFill(ev.fills ?? [], st.id, [...ev.strokes.values()]) : null
+      // n59: a divider across the mark with a colour tapped each side: two solid fills, in the built block's own frame
+      if (tap && fade?.split) {
+        const sp = fade.split
+        const frame = sm?.tilt ? { cx: sm.tilt.cx, cy: sm.tilt.cy, w: sm.tilt.w, h: sm.tilt.h, deg: sm.tilt.deg } : { cx: b.x + b.w / 2, cy: b.y + b.h / 2, w: b.w, h: b.h, deg: 0 }
+        inkColours.push({ strokeId: st.id, mark, paint: 'background', color: sp.colors[0], box: sm?.outline ? sm.box : box, how: 'tap',
+          split: { colors: sp.colors, css: splitCss(sp, frame), sides: sp.sides, dividerId: sp.dividerId, line: sp.line } })
+        continue
+      }
       if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box: sm?.outline ? sm.box : box, how: 'tap', ...(fade && fade.colors.length > 1 ? { fade } : {}) }); continue }
       if (!st.color) continue
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)

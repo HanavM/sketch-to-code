@@ -61,6 +61,7 @@ import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPl
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { verifyStackLines } from './stacklines.js'
 import { verifyLineSpan } from './linespan.js'
+import { verifyTextLinesNotRules } from './textrules.js'
 import { verifyRowSpan } from './rowspan.js'
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
@@ -204,7 +205,8 @@ Rules:
     heading is that heading's smaller line, UNLESS "textSize" lists it with the heading:
     then it is the same heading wrapped onto its next line, same size), a divider rule (a long thin line across a section, a
     1px border), or an underline (an active tab, a link): pick by length and what
-    is next to it. A level line with no note of its own, right under or among lines
+    is next to it; but a line with words typed on it (its own note) is ONLY where those words sit: never
+    also draw it as a rule, a bar or an underline (checked). A level line with no note of its own, right under or among lines
     whose note has more words than they hold, is that text's next line: the note's
     words run onto it. Never put words nobody typed on such a line, and never build
     two pieces of text on top of each other (both are measured); a slanted line is an edge between two areas (clip-path); never
@@ -1441,12 +1443,12 @@ export function verifyActions(
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
-    ['row-span', verifyRowSpan(allMarks, after)]] as const) {
+    ['row-span', verifyRowSpan(allMarks, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'text-rules' ? 'lines drawn for words left off the page' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks

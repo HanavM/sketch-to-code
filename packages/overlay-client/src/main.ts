@@ -8113,7 +8113,20 @@ class Overlay {
       const region = mine.find((g) => g.region)?.region
       const path = this.inkPath()
       path.setAttribute('d', region ? `M ${region.map((p) => `${String(p.x)} ${String(p.y)}`).join(' L ')} Z` : `${pathD(t.points)} Z`)
-      const look = markFill(fills, f.target)
+      const look = markFill(fills, f.target, this.strokes)
+      // n59: a divider across the mark with a colour tapped each side shows as two solid fills, as it will be built
+      if (look?.split) {
+        look.split.sides.forEach((side, k) => {
+          const half = this.inkPath()
+          half.setAttribute('d', `M ${side.map((p) => `${String(p.x)} ${String(p.y)}`).join(' L ')} Z`)
+          half.style.fill = look.split!.colors[k]!
+          half.style.stroke = 'none'
+          half.style.opacity = '0.5'
+          half.classList.add('fillMark')
+          out.push(half)
+        })
+        continue
+      }
       if (look && look.colors.length > 1) {
         const defs = document.createElementNS(NS, 'defs')
         const g = document.createElementNS(NS, 'linearGradient')
@@ -8242,7 +8255,7 @@ class Overlay {
         this.renderInk()
         this.sync()
         const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
-        this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target)?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : ''}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
+        this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${((look) => look?.split ? ' (this side of the line drawn across it)' : (look?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : '')(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target, this.strokes))}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
         this.scheduleAuto()
         return
       }

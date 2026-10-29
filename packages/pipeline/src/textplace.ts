@@ -47,6 +47,12 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[]): void {
       if (n) m.words = n.text
       continue
     }
+    // n59: a slanted line with its own note still stands for those words (a line on a turned ticket)
+    if (m.shape === 'line' && !m.edge) {
+      const n = ownNotes(m, notes)[0]
+      if (n) m.carries = n.text
+      continue
+    }
     if (m.shape !== 'box' || m.area || m.solid || m.box.w < 120 || m.box.h < 100) continue
     const b = m.box
     const typed = ownNotes(m, notes)

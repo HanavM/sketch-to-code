@@ -37,6 +37,8 @@ export interface DomNode {
     clipPath?: string
     /** Set only when the top border paints: '2px rgb(0, 0, 0)' (n14: an area box must not be framed). */
     border?: string
+    /** n59: set only when the bottom border paints: a drawn text line must not come back as an underline. */
+    borderBottom?: string
     /** Set only when the element casts a shadow. */
     boxShadow?: string
     /** Set only when below 1 (n15: a coloured badge must not come out faint). */

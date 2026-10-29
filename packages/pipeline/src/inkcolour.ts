@@ -27,6 +27,14 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
   interp.actions.forEach((a, i) => {
     for (const c of a.inkColours ?? []) {
       const at = `x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}x${String(c.box.h)}`
+      if (c.paint === 'background' && c.split) {
+        const sp = c.split, L = sp.line
+        lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: a straight divider is drawn across it from (${String(L.a.x)},${String(L.a.y)}) to (${String(L.z.x)},${String(L.z.y)}) and a different colour was tapped on each side, so it is TWO SOLID FILLS meeting at that line, never a fade: ` +
+          `${hex(sp.colors[0])} on the side tapped first (around (${String(Math.round(centroid(sp.sides[0]).x))},${String(Math.round(centroid(sp.sides[0]).y))})), ${hex(sp.colors[1])} on the other side (around (${String(Math.round(centroid(sp.sides[1]).x))},${String(Math.round(centroid(sp.sides[1]).y))})). ` +
+          `Paint the block itself background ${sp.css.replace(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi, (m) => hex(m))} exactly (a hard stop, measured in the block's own frame, so it stays right when the block is turned), ` +
+          `or build the two parts as two blocks with those solid backgrounds that meet at the divider; any line or dashes on the divider are drawn on that edge`)
+        continue
+      }
       if (c.paint === 'background' && c.fade) {
         lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')}) exactly (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}): ${hex(c.fade.colors[0]!)} where it was tapped first, fading to ${hex(c.fade.colors.at(-1)!)} where it was tapped last; keep that direction and those stops, at full strength`)
         continue
@@ -169,6 +177,13 @@ export function verifyInkColours(
         ? n.text.length > 0 && crosses(n.rect, band)
         : centreIn(n, b, pad) && n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.5 + 20 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 20)
       const what = `the ${c.mark} drawn at (${String(b.x)},${String(b.y)}) ${String(b.w)}x${String(b.h)}`
+      // n59: two solid fills either side of a drawn divider: a hard-stop gradient on the block, or two solid parts
+      if (c.split && c.paint === 'background') {
+        const v = splitVerdict(c.split, near, after.nodes)
+        checks.push({ what: `${what} (two fills at a divider)`, want: c.split.css, best: v.worst, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} has a divider drawn across it with ${c.split.colors.map(hex).join(' tapped on one side and ')} on the other: two solid fills meeting at the divider, not a fade; ${v.why}: paint the block itself background ${c.split.css.replace(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi, (m) => hex(m))}`)
+        continue
+      }
       // n51: a fade from taps: every stop shows on the block, and it runs the way it was tapped
       if (c.fade && c.paint === 'background') {
         const v = fadeVerdict(c.fade, near)
@@ -250,4 +265,84 @@ export function fadeVerdict(fade: { colors: string[]; angle?: number }, near: Do
     if (!best || (best.worst ?? 999) > (v.worst ?? 999)) best = v
   }
   return best ?? { ok: false, worst: null, why: 'nothing that size there paints a gradient' }
+}
+
+type XY = { x: number; y: number }
+function centroid(poly: XY[]): XY {
+  return poly.reduce((t, p) => ({ x: t.x + p.x / poly.length, y: t.y + p.y / poly.length }), { x: 0, y: 0 })
+}
+function polyArea(poly: XY[]): number {
+  let s = 0
+  for (let i = 0; i < poly.length; i++) { const a = poly[i]!, b = poly[(i + 1) % poly.length]!; s += a.x * b.y - b.x * a.y }
+  return Math.abs(s) / 2
+}
+function inPoly(p: XY, poly: XY[]): boolean {
+  let inside = false
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const a = poly[i]!, b = poly[j]!
+    if ((a.y > p.y) !== (b.y > p.y) && p.x < ((b.x - a.x) * (p.y - a.y)) / (b.y - a.y) + a.x) inside = !inside
+  }
+  return inside
+}
+
+/** Colour stops of a computed linear-gradient with their positions (%, or null when not written). */
+export function stopsOf(img: string | undefined): Array<{ css: string; at: number | null }> {
+  const m = /linear-gradient\((.*)\)\s*$/i.exec((img ?? '').split(/,\s*(?=(?:linear|radial|conic)-gradient)/i)[0]!.trim())
+  if (!m) return []
+  const out: Array<{ css: string; at: number | null }> = []
+  for (const x of m[1]!.matchAll(/((?:rgba?|oklch|oklab|hsla?)\([^)]*\)|#[0-9a-f]{3,8}\b)\s*(-?[\d.]+%)?(?:\s+(-?[\d.]+%))?/gi)) {
+    out.push({ css: x[1]!, at: x[2] ? Number(x[2].slice(0, -1)) : null })
+    if (x[3]) out.push({ css: x[1]!, at: Number(x[3].slice(0, -1)) })
+  }
+  return out
+}
+
+/**
+ * n59: is the block painted as two solid fills meeting at the divider? Either a gradient on the block that
+ * carries both colours with a hard stop between them (the two stops at the same place), or two solid parts,
+ * one centred on each side of the divider and covering a good share of it.
+ */
+export function splitVerdict(split: NonNullable<InkColour['split']>, near: DomNode[], all: DomNode[]): { ok: boolean; worst: number | null; why: string } {
+  const want = split.colors.map((c) => parseCssColor(c))
+  if (!want[0] || !want[1]) return { ok: true, worst: null, why: '' }
+  let worstSeen: number | null = null
+  let fadeSeen = false
+  for (const n of near) {
+    const st = stopsOf(n.style.backgroundImage)
+    if (st.length < 2) continue
+    const parsed = st.map((s) => ({ c: parseCssColor(s.css), at: s.at }))
+    const de = want.map((w) => Math.min(...parsed.map((p) => (p.c ? deltaE(w!, p.c) : 999))))
+    const worst = Math.max(...de)
+    worstSeen = worstSeen === null ? worst : Math.min(worstSeen, worst)
+    if (worst > OK_DE) continue
+    // a hard stop: two neighbouring stops of the two colours at (about) the same place
+    let hard = false
+    for (let k = 1; k < parsed.length; k++) {
+      const p = parsed[k - 1]!, q = parsed[k]!
+      if (!p.c || !q.c || p.at === null || q.at === null) continue
+      if (deltaE(p.c, q.c) > OK_DE && Math.abs(q.at - p.at) <= 1.5) hard = true
+    }
+    if (hard) return { ok: true, worst, why: '' }
+    fadeSeen = true
+  }
+  // or two solid parts, one on each side
+  const sideOk = split.sides.map((side, k) => {
+    const A = polyArea(side)
+    return all.some((n) => {
+      const cx = n.rect.x + n.rect.w / 2, cy = n.rect.y + n.rect.h / 2
+      if (!inPoly({ x: cx, y: cy }, side)) return false
+      const area = n.rect.w * n.rect.h
+      if (area < A * 0.35 || area > A * 2.2) return false
+      const g = parseCssColor(n.style.backgroundColor)
+      return !!g && alphaOf(n.style.backgroundColor) >= 0.8 && deltaE(want[k]!, g) <= 6
+    })
+  })
+  if (sideOk[0] && sideOk[1]) return { ok: true, worst: 0, why: '' }
+  return {
+    ok: false,
+    worst: worstSeen,
+    why: fadeSeen
+      ? 'it is built as a fade from one colour into the other (no hard stop at the divider)'
+      : `${!sideOk[0] ? `the side tapped ${hex(split.colors[0])}` : `the side tapped ${hex(split.colors[1])}`} is not painted that solid colour`,
+  }
 }
