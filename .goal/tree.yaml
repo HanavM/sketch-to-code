@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Round 35 creative pages are sketched (average 76, below the 80 goal): outline buttons get filled and a page split with two colours still fades. Next: sketch the five app pages."
-round: 34
-round_scores: [53, 77, 76, 70, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34 (fresh rounds); round 34 is 79.5
-round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-29 n77", until: "2026-10-29T15:35Z"}
+now: "Round 35 is done: average 78, 17.5 strokes but 57.5 words, so not yet at the goal. Typing out every row of a list or table is now the biggest effort; next I make rows quick to give."
+round: 35
+round_scores: [53, 77, 76, 70, 79, 78]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35 (fresh rounds); round 34 is 79.5, round 35 is 77.9
+round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}]   # per round: {round, strokes, words, minutes}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -145,7 +145,10 @@ nodes:
      result: "Kites 52.8, gelato 73.5, lighthouse 88.5, yoga 80.1, moons 85.8; mean 76.1, 19 strokes, 54 words."}
   - {id: n78, parent: n3, kind: step, title: "A box drawn in a coloured pen with no tap is an outline (border in the pen colour, no fill), and a 'no fill' fix keeps the border; re-sketch lighthouse and yoga studio", status: open, branch: try/n3-ink-style, result: null}
   - {id: n79, parent: n4, kind: step, title: "A fix note dropped beside or inside a built block binds to that block (never new content), and typed copy with commas (Pre-order, 38) is kept whole; re-sketch kite festival and moon phases", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n77, parent: n1, kind: step, priority: next, title: "Sketch round 35 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n77, parent: n1, kind: step, title: "Sketch round 35 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
+     result: "Parking 83.2, library 73.6, workout 86.7, pharmacy 62.2, split bill 93.0; round 35 mean 77.9, 57.5 words."}
+  - {id: n80, parent: n2, kind: step, priority: next, title: "Rows are quick to give: a note on a list or table mark takes its rows as plain data (slashes or new lines between rows, commas between cells) and fills the drawn rows in order, and a note's parts split into a card's name, detail and side value with no direction words printed; re-sketch library loans, workout log and pharmacy with far fewer words", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n81, parent: n2, kind: step, title: "A box holding a small label and a big number is a stat card (box kept, number left and inside it), and logo and links at the two ends of a header line keep their sides; re-sketch library loans and split bill", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
@@ -425,12 +428,17 @@ n44_resketch:   # same strokes, taps, notes and fix notes as n35 (replay --fixes
   - {page: r32 c5-bookshop, try: 1, likeness: 63.3, was: 72.9, strokes: 9, words: 34, minutes: 3.8, fixes: 0, build_s: 167, tokens: 41595, note: "italic regular, heading narrower than its line"}
   - {page: r32 c5-bookshop, try: 2, likeness: 62.4, was: 72.9, strokes: 9, words: 34, minutes: 4.0, fixes: 0, build_s: 188, tokens: 43426}
   - {page: r32 c5-bookshop, try: 3, likeness: 69.5, was: 72.9, strokes: 9, words: 34, minutes: 3.4, fixes: 0, build_s: 138, tokens: 50282, note: "told to size a regular heading to span its line"}
-round35_pages:   # n76 (c1-c5, tests/hand/N76.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n73. c1-c5 mean 76.1, median 19 strokes, 54 words, 7.8 min
+round35_pages:   # n76 (c1-c5, tests/hand/N76.md) and n77 (e1-e5, tests/hand/N77.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n73. c1-c5 mean 76.1; e1-e5 mean 79.7. Round 35: mean 77.9, median 17.5 strokes, 57.5 words, 8.0 min
   - {page: r35 c1-kite-festival, likeness: 52.8, strokes: 23, taps: 8, words: 58, notes: 8, minutes: 14.1, fixes: 1, first_read_s: 123, build_s: 646, tokens: 232577, note: "page taps either side of the band line made one diagonal fade; fix note became a stripe"}
   - {page: r35 c2-gelato-stripes, likeness: 73.5, strokes: 17, taps: 6, words: 47, notes: 8, minutes: 5.8, fixes: 1, first_read_s: 114, build_s: 191, tokens: 92630, note: "plum card behind SCOOP removed by one fix; stripes twice as many"}
   - {page: r35 c3-lighthouse, likeness: 88.5, strokes: 20, taps: 7, words: 47, notes: 7, minutes: 7.2, fixes: 1, first_read_s: 105, build_s: 293, tokens: 114540, note: "outline button filled; fix refused"}
   - {page: r35 c4-yoga-studio, likeness: 80.1, strokes: 13, taps: 3, words: 54, notes: 9, minutes: 7.8, fixes: 1, first_read_s: 76, build_s: 346, tokens: 134821, note: "outline button lost its border; nav run together"}
   - {page: r35 c5-moon-phases, likeness: 85.8, strokes: 19, taps: 7, words: 57, notes: 9, minutes: 11.5, fixes: 1, first_read_s: 107, build_s: 507, tokens: 167023, note: "phases by fix; button copy cut at comma"}
+  - {page: r35 e1-parking-pay, likeness: 83.2, strokes: 18, taps: 5, words: 49, notes: 17, minutes: 3.3, fixes: 0, first_read_s: 86, build_s: 106, tokens: 76806, note: "heading built small; rows a little low"}
+  - {page: r35 e2-library-loans, likeness: 73.6, strokes: 17, taps: 5, words: 123, notes: 19, minutes: 12.8, fixes: 1, first_read_s: 124, build_s: 594, tokens: 214348, note: "cover tap filled the table; stat cards became giant numbers; header stayed red after fix"}
+  - {page: r35 e3-workout-log, likeness: 86.7, strokes: 17, taps: 2, words: 137, notes: 18, minutes: 10.6, fixes: 1, first_read_s: 104, build_s: 474, tokens: 182224, note: "stat cards dropped for giant numbers, table green; one fix put both right"}
+  - {page: r35 e4-pharmacy-refill, likeness: 62.2, strokes: 13, taps: 3, words: 120, notes: 13, minutes: 5.9, fixes: 1, first_read_s: 93, build_s: 224, tokens: 103626, note: "card notes printed as one line; header grew and centred"}
+  - {page: r35 e5-split-bill, likeness: 93.0, strokes: 18, taps: 5, words: 139, notes: 23, minutes: 8.2, fixes: 1, first_read_s: 113, build_s: 343, tokens: 142850, note: "header centred until fix; invented caption removed by fix"}
 round33_pages:   # n49 (c1-c5, tests/hand/N49.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n46. c1-c5 mean 59.5, median 14 strokes, 43 words, 6.8 min; n50 (e1-e5, tests/hand/N50.md) mean 79.7. Round 33: mean 69.6, median 14.5 strokes, 44.5 words, 6.3 min
   - {page: r33 c1-surf-school, likeness: 58.0, strokes: 17, taps: 6, words: 53, notes: 7, minutes: 7.2, fixes: 1, first_read_s: 103, build_s: 276, tokens: 153393}
   - {page: r33 c2-slow-agency, likeness: 52.5, strokes: 9, taps: 2, words: 42, notes: 9, minutes: 7.5, fixes: 2, first_read_s: 72, build_s: 340, tokens: 108731}
