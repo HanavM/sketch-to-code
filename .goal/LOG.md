@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T16:45Z | n82 a number and its label make a stat card | Cards kept, number left, label placed first build; library 68.5, workout 70.9 (title invisible, table green).
 2026-10-29T15:58Z | n81 header ends keep their sides | Logo left, links right first build; pharmacy 58.4 to 72.9, split bill 89.4 with no fix.
 2026-10-29T15:45Z | n80 rows are quick to give | One note fills rows; library 123 to 52 words, 76.0; pharmacy 42 words, 58.4, header centred.
 2026-10-29T14:58Z | n77 sketch round 35 e1-e5 by hand | Parking 83.2, library 73.6, workout 86.7, pharmacy 62.2, split 93.0; round 35 mean 77.9, 57.5 words.

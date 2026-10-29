@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Words typed at the two ends of a header line now stay at their ends; next, a box with a big number and its label stays a card."
+now: "A box with a number and its label now stays a stat card on the first build; next, a title typed white on a dark page never disappears."
 round: 35
 round_scores: [53, 77, 76, 70, 79, 78]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35 (fresh rounds); round 34 is 79.5, round 35 is 77.9
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-29T16:00Z, until: 2026-10-29T17:30Z}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -151,7 +151,9 @@ nodes:
      result: "Rows from one note: library 123 to 52 words, 76.0 no fix; pharmacy 120 to 42 words, 58.4."}
   - {id: n81, parent: n2, kind: step, title: "A box holding a small label and a big number is a stat card (box kept, number left and inside it), and logo and links at the two ends of a header line keep their sides; re-sketch library loans and split bill", status: done, branch: try/n3-ink-style, 
      result: "Header ends kept: logo left, links right, first build. Pharmacy 58.4 to 72.9; split bill 89.4, no fix."}
-  - {id: n82, parent: n2, kind: step, priority: next, title: "A box with a big number and a label typed for it (6 big, on loan) is a stat card: box kept as a card, number left and inside, label under it; re-sketch library loans and workout log with their first notes", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n82, parent: n2, kind: step, priority: next, title: "A box with a big number and a label typed for it (6 big, on loan) is a stat card: box kept as a card, number left and inside, label under it; re-sketch library loans and workout log with their first notes", status: done, branch: try/n3-ink-style,
+     result: "Stat cards kept, number left, label placed, first build on both. Library 68.5, workout 70.9; title invisible, table green."}
+  - {id: n83, parent: n3, kind: step, priority: next, title: "Text typed white on a dark page is never built in the page colour (a title can not vanish), and a pill row's note gives each pill its own word, never the raw note as copy; re-sketch workout log with its first notes", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
@@ -507,3 +509,6 @@ n80_resketch:   # same strokes and taps as n77, notes retyped the short way (rep
 n81_resketch:   # same strokes, taps and notes replayed (pharmacy with n80's short notes, split bill with n77's notes before its fix); first build only, no fixes; tests/hand/N81.md on try/n3-ink-style
   - {page: r35 e4-pharmacy-refill, try: 1, likeness: 72.9, was: 58.4, strokes: 13, taps: 3, words: 42, notes: 7, minutes: 6.3, fixes: 0, first_read_s: 85, build_s: 293, tokens: 121936, note: "logo left, links right, header at drawn height"}
   - {page: r35 e5-split-bill, try: 1, likeness: 89.4, was: 93.0, strokes: 18, taps: 5, words: 115, notes: 20, minutes: 5.6, fixes: 0, first_read_s: 147, build_s: 187, tokens: 77475, note: "header split first build (n77 needed a fix); invented caption still added"}
+n82_resketch:   # same strokes, taps and notes as n77 replayed (its notes before the fix); first build only, no fixes; tests/hand/N82.md on try/n3-ink-style
+  - {page: r35 e2-library-loans, try: 1, likeness: 68.5, was: 73.6, strokes: 17, taps: 5, words: 98, notes: 16, minutes: 8.1, fixes: 0, first_read_s: 82, build_s: 398, tokens: 70929, note: "3 stat cards, number left, label under (n77 first build: loose giant digits); was = n77 after a fix"}
+  - {page: r35 e3-workout-log, try: 1, likeness: 70.9, was: 86.7, strokes: 17, words: 110, notes: 15, minutes: 8.0, fixes: 0, first_read_s: 108, build_s: 367, tokens: 139351, note: "2 dark stat cards, label above, value left inside; Push day built in page colour, table green; was = n77 after a fix"}
