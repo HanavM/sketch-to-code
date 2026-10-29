@@ -1,0 +1,810 @@
+{
+  "round": 35,
+  "id": "e5-split-bill",
+  "version": 3,
+  "stopped": null,
+  "likeness": 93,
+  "colour": 0.9923519009173903,
+  "structure": 0.966517063223286,
+  "layout": 0.8761339574462702,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 3.6,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 3,
+      "box": 9,
+      "circle": 1,
+      "dot": 5
+    },
+    "inkPx": 11928
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 139,
+  "notes": 23,
+  "longestNote": 14,
+  "noteTexts": [
+    "halves, purple bold",
+    "Lisbon trip - 5 people, grey",
+    "Balances, big bold",
+    "Spent so far: 1284.50 of 2000 budget, grey",
+    "Maya, bold, +212.40 green at the right",
+    "Tom, bold, -86.10 red at the right",
+    "Priya, bold, +34.00 green at the right",
+    "Jonas, bold, -120.30 red at the right",
+    "Lea, bold, -40.00 red at the right",
+    "each row a coloured circle: orange, blue, pink, green, purple; thin lines between rows",
+    "thin pale track behind the bar",
+    "Add expense, white bold",
+    "What was it? (Dinner at Taberna), pale",
+    "96.00, huge bold white",
+    "Paid by Maya, pale",
+    "Equally, dark bold",
+    "By share, white outline",
+    "Exact, white outline",
+    "Add expense, white bold",
+    "inputs lighter purple on the dark card",
+    "white top bar: halves far left, trip text far right",
+    "amount box same dark purple as the other inputs",
+    "no text above the bar"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 493,
+    "firstReadingS": 113,
+    "readS": [
+      51,
+      23
+    ],
+    "buildS": [
+      327,
+      16
+    ],
+    "sketchingS": 76
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 107277,
+    "cacheRead": 998279,
+    "output": 35573,
+    "billed": 142850
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 4016
+    },
+    {
+      "op": "stroke",
+      "at": 12690
+    },
+    {
+      "op": "stroke",
+      "at": 19929
+    },
+    {
+      "op": "stroke",
+      "at": 20712
+    },
+    {
+      "op": "stroke",
+      "at": 21580
+    },
+    {
+      "op": "stroke",
+      "at": 24500
+    },
+    {
+      "op": "stroke",
+      "at": 27600
+    },
+    {
+      "op": "stroke",
+      "at": 30512
+    },
+    {
+      "op": "stroke",
+      "at": 31914
+    },
+    {
+      "op": "stroke",
+      "at": 33312
+    },
+    {
+      "op": "stroke",
+      "at": 34714
+    },
+    {
+      "op": "stroke",
+      "at": 37681
+    },
+    {
+      "op": "pen",
+      "color": "#6d4aff",
+      "at": 38052
+    },
+    {
+      "op": "stroke",
+      "at": 39617
+    },
+    {
+      "op": "pen",
+      "color": "#f3f1fb",
+      "at": 39982
+    },
+    {
+      "op": "stroke",
+      "at": 40451
+    },
+    {
+      "op": "pen",
+      "color": "#211d3a",
+      "at": 40816
+    },
+    {
+      "op": "stroke",
+      "at": 41280
+    },
+    {
+      "op": "pen",
+      "color": "#ffb347",
+      "at": 41648
+    },
+    {
+      "op": "stroke",
+      "at": 42113
+    },
+    {
+      "op": "pen",
+      "color": "#6d4aff",
+      "at": 42480
+    },
+    {
+      "op": "stroke",
+      "at": 42948
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 43310
+    },
+    {
+      "op": "stroke",
+      "at": 43780
+    },
+    {
+      "op": "note",
+      "at": 44439
+    },
+    {
+      "op": "note",
+      "at": 45090
+    },
+    {
+      "op": "note",
+      "at": 45754
+    },
+    {
+      "op": "note",
+      "at": 46483
+    },
+    {
+      "op": "note",
+      "at": 47166
+    },
+    {
+      "op": "note",
+      "at": 47852
+    },
+    {
+      "op": "note",
+      "at": 48557
+    },
+    {
+      "op": "note",
+      "at": 49233
+    },
+    {
+      "op": "note",
+      "at": 49944
+    },
+    {
+      "op": "note",
+      "at": 50778
+    },
+    {
+      "op": "note",
+      "at": 51441
+    },
+    {
+      "op": "note",
+      "at": 52114
+    },
+    {
+      "op": "note",
+      "at": 52855
+    },
+    {
+      "op": "note",
+      "at": 53528
+    },
+    {
+      "op": "note",
+      "at": 54209
+    },
+    {
+      "op": "note",
+      "at": 54856
+    },
+    {
+      "op": "note",
+      "at": 55531
+    },
+    {
+      "op": "note",
+      "at": 56182
+    },
+    {
+      "op": "note",
+      "at": 56844
+    },
+    {
+      "op": "note",
+      "at": 57538
+    },
+    {
+      "op": "run",
+      "at": 61463
+    },
+    {
+      "op": "note",
+      "at": 447049
+    },
+    {
+      "op": "note",
+      "at": 447763
+    },
+    {
+      "op": "note",
+      "at": 448405
+    },
+    {
+      "op": "run",
+      "at": 448486
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          69
+        ],
+        [
+          1278,
+          69
+        ]
+      ],
+      "n": 214,
+      "at": 4016
+    },
+    {
+      "way": [
+        [
+          48,
+          100
+        ],
+        [
+          748,
+          100
+        ],
+        [
+          748,
+          870
+        ],
+        [
+          48,
+          870
+        ],
+        [
+          48,
+          102
+        ]
+      ],
+      "n": 491,
+      "at": 12690
+    },
+    {
+      "way": [
+        [
+          780,
+          100
+        ],
+        [
+          1232,
+          100
+        ],
+        [
+          1232,
+          870
+        ],
+        [
+          780,
+          870
+        ],
+        [
+          780,
+          102
+        ]
+      ],
+      "n": 407,
+      "at": 19929
+    },
+    {
+      "way": [
+        [
+          78,
+          146
+        ],
+        [
+          192,
+          146
+        ]
+      ],
+      "n": 20,
+      "at": 20712
+    },
+    {
+      "way": [
+        [
+          122,
+          247
+        ],
+        [
+          118,
+          262
+        ],
+        [
+          100,
+          269
+        ],
+        [
+          82,
+          262
+        ],
+        [
+          78,
+          247
+        ],
+        [
+          82,
+          232
+        ],
+        [
+          100,
+          225
+        ],
+        [
+          118,
+          232
+        ],
+        [
+          122,
+          247
+        ]
+      ],
+      "n": 25,
+      "at": 21580
+    },
+    {
+      "way": [
+        [
+          810,
+          180
+        ],
+        [
+          1202,
+          180
+        ],
+        [
+          1202,
+          232
+        ],
+        [
+          810,
+          232
+        ],
+        [
+          810,
+          182
+        ]
+      ],
+      "n": 148,
+      "at": 24500
+    },
+    {
+      "way": [
+        [
+          810,
+          248
+        ],
+        [
+          1202,
+          248
+        ],
+        [
+          1202,
+          332
+        ],
+        [
+          810,
+          332
+        ],
+        [
+          810,
+          250
+        ]
+      ],
+      "n": 159,
+      "at": 27600
+    },
+    {
+      "way": [
+        [
+          810,
+          348
+        ],
+        [
+          1202,
+          348
+        ],
+        [
+          1202,
+          400
+        ],
+        [
+          810,
+          400
+        ],
+        [
+          810,
+          350
+        ]
+      ],
+      "n": 148,
+      "at": 30512
+    },
+    {
+      "way": [
+        [
+          810,
+          416
+        ],
+        [
+          934,
+          416
+        ],
+        [
+          934,
+          460
+        ],
+        [
+          810,
+          460
+        ],
+        [
+          810,
+          418
+        ]
+      ],
+      "n": 57,
+      "at": 31914
+    },
+    {
+      "way": [
+        [
+          944,
+          416
+        ],
+        [
+          1068,
+          416
+        ],
+        [
+          1068,
+          460
+        ],
+        [
+          944,
+          460
+        ],
+        [
+          944,
+          418
+        ]
+      ],
+      "n": 57,
+      "at": 33312
+    },
+    {
+      "way": [
+        [
+          1078,
+          416
+        ],
+        [
+          1202,
+          416
+        ],
+        [
+          1202,
+          460
+        ],
+        [
+          1078,
+          460
+        ],
+        [
+          1078,
+          418
+        ]
+      ],
+      "n": 57,
+      "at": 34714
+    },
+    {
+      "way": [
+        [
+          810,
+          660
+        ],
+        [
+          1202,
+          660
+        ],
+        [
+          1202,
+          718
+        ],
+        [
+          810,
+          718
+        ],
+        [
+          810,
+          662
+        ]
+      ],
+      "n": 150,
+      "at": 37681
+    },
+    {
+      "way": [
+        [
+          78,
+          834
+        ],
+        [
+          475,
+          834
+        ]
+      ],
+      "n": 67,
+      "at": 39617
+    },
+    {
+      "way": [
+        [
+          764,
+          890
+        ]
+      ],
+      "n": 1,
+      "at": 40451
+    },
+    {
+      "way": [
+        [
+          1000,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 41280
+    },
+    {
+      "way": [
+        [
+          100,
+          247
+        ]
+      ],
+      "n": 1,
+      "at": 42113
+    },
+    {
+      "way": [
+        [
+          1006,
+          689
+        ]
+      ],
+      "n": 1,
+      "at": 42948
+    },
+    {
+      "way": [
+        [
+          872,
+          438
+        ]
+      ],
+      "n": 1,
+      "at": 43780
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "halves, purple bold",
+      "whole": false,
+      "x": 80,
+      "y": 34,
+      "at": 44439
+    },
+    {
+      "text": "Lisbon trip - 5 people, grey",
+      "whole": false,
+      "x": 1160,
+      "y": 34,
+      "at": 45090
+    },
+    {
+      "text": "Balances, big bold",
+      "whole": false,
+      "x": 135,
+      "y": 140,
+      "at": 45754
+    },
+    {
+      "text": "Spent so far: 1284.50 of 2000 budget, grey",
+      "whole": false,
+      "x": 200,
+      "y": 176,
+      "at": 46483
+    },
+    {
+      "text": "Maya, bold, +212.40 green at the right",
+      "whole": false,
+      "x": 160,
+      "y": 247,
+      "at": 47166
+    },
+    {
+      "text": "Tom, bold, -86.10 red at the right",
+      "whole": false,
+      "x": 160,
+      "y": 322,
+      "at": 47852
+    },
+    {
+      "text": "Priya, bold, +34.00 green at the right",
+      "whole": false,
+      "x": 160,
+      "y": 398,
+      "at": 48557
+    },
+    {
+      "text": "Jonas, bold, -120.30 red at the right",
+      "whole": false,
+      "x": 160,
+      "y": 474,
+      "at": 49233
+    },
+    {
+      "text": "Lea, bold, -40.00 red at the right",
+      "whole": false,
+      "x": 160,
+      "y": 550,
+      "at": 49944
+    },
+    {
+      "text": "each row a coloured circle: orange, blue, pink, green, purple; thin lines between rows",
+      "whole": false,
+      "x": 100,
+      "y": 600,
+      "at": 50778
+    },
+    {
+      "text": "thin pale track behind the bar",
+      "whole": false,
+      "x": 600,
+      "y": 834,
+      "at": 51441
+    },
+    {
+      "text": "Add expense, white bold",
+      "whole": false,
+      "x": 880,
+      "y": 142,
+      "at": 52114
+    },
+    {
+      "text": "What was it? (Dinner at Taberna), pale",
+      "whole": false,
+      "x": 930,
+      "y": 206,
+      "at": 52855
+    },
+    {
+      "text": "96.00, huge bold white",
+      "whole": false,
+      "x": 870,
+      "y": 290,
+      "at": 53528
+    },
+    {
+      "text": "Paid by Maya, pale",
+      "whole": false,
+      "x": 870,
+      "y": 374,
+      "at": 54209
+    },
+    {
+      "text": "Equally, dark bold",
+      "whole": false,
+      "x": 872,
+      "y": 438,
+      "at": 54856
+    },
+    {
+      "text": "By share, white outline",
+      "whole": false,
+      "x": 1006,
+      "y": 438,
+      "at": 55531
+    },
+    {
+      "text": "Exact, white outline",
+      "whole": false,
+      "x": 1140,
+      "y": 438,
+      "at": 56182
+    },
+    {
+      "text": "Add expense, white bold",
+      "whole": false,
+      "x": 1006,
+      "y": 689,
+      "at": 56844
+    },
+    {
+      "text": "inputs lighter purple on the dark card",
+      "whole": false,
+      "x": 1100,
+      "y": 300,
+      "at": 57538
+    },
+    {
+      "text": "white top bar: halves far left, trip text far right",
+      "whole": false,
+      "x": 640,
+      "y": 15,
+      "at": 447049
+    },
+    {
+      "text": "amount box same dark purple as the other inputs",
+      "whole": false,
+      "x": 1100,
+      "y": 300,
+      "at": 447763
+    },
+    {
+      "text": "no text above the bar",
+      "whole": false,
+      "x": 300,
+      "y": 800,
+      "at": 448405
+    }
+  ]
+}

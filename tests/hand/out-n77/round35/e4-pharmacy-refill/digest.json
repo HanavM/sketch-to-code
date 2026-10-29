@@ -1,0 +1,557 @@
+{
+  "round": 35,
+  "id": "e4-pharmacy-refill",
+  "version": 3,
+  "stopped": null,
+  "likeness": 62.2,
+  "colour": 0.9863187586206977,
+  "structure": 0.9398576596616814,
+  "layout": 0.49488174393475426,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 3.7,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 3,
+      "box": 6,
+      "circle": 1,
+      "dot": 3
+    },
+    "inkPx": 13067
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 120,
+  "notes": 13,
+  "longestNote": 16,
+  "noteTexts": [
+    "wellcare, teal bold",
+    "Prescriptions  Orders  Help, grey",
+    "Your prescriptions, big bold",
+    "Order a refill and collect from High Street in 2 days., grey",
+    "Sertraline 50 mg · 1 tablet daily · 4 days left",
+    "Refill, white bold",
+    "Refill, grey, outline only",
+    "Ventolin inhaler · 2 puffs as needed · 21 days left",
+    "Levothyroxine 75 mcg · 1 tablet before breakfast · 2 days left, teal Refill",
+    "Omeprazole 20 mg · 1 capsule daily · 35 days left, outline Refill",
+    "every card has the mint circle, name bold over grey dose, days at right",
+    "in each card: name bold, dose under it grey, days left at the right before Refill",
+    "logo far left, links far right, white bar with line under"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 355,
+    "firstReadingS": 93,
+    "readS": [
+      39,
+      23
+    ],
+    "buildS": [
+      165,
+      59
+    ],
+    "sketchingS": 69
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 77940,
+    "cacheRead": 590677,
+    "output": 25686,
+    "billed": 103626
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 4007
+    },
+    {
+      "op": "stroke",
+      "at": 5308
+    },
+    {
+      "op": "stroke",
+      "at": 6869
+    },
+    {
+      "op": "stroke",
+      "at": 14408
+    },
+    {
+      "op": "stroke",
+      "at": 21907
+    },
+    {
+      "op": "stroke",
+      "at": 29409
+    },
+    {
+      "op": "stroke",
+      "at": 36908
+    },
+    {
+      "op": "stroke",
+      "at": 37905
+    },
+    {
+      "op": "stroke",
+      "at": 39492
+    },
+    {
+      "op": "stroke",
+      "at": 41056
+    },
+    {
+      "op": "pen",
+      "color": "#f5f7f9",
+      "at": 41424
+    },
+    {
+      "op": "stroke",
+      "at": 41890
+    },
+    {
+      "op": "pen",
+      "color": "#d6f0ec",
+      "at": 42261
+    },
+    {
+      "op": "stroke",
+      "at": 42726
+    },
+    {
+      "op": "pen",
+      "color": "#0e8a7c",
+      "at": 43094
+    },
+    {
+      "op": "stroke",
+      "at": 43558
+    },
+    {
+      "op": "note",
+      "at": 44225
+    },
+    {
+      "op": "note",
+      "at": 44907
+    },
+    {
+      "op": "note",
+      "at": 45589
+    },
+    {
+      "op": "note",
+      "at": 46365
+    },
+    {
+      "op": "note",
+      "at": 47122
+    },
+    {
+      "op": "note",
+      "at": 47793
+    },
+    {
+      "op": "note",
+      "at": 48473
+    },
+    {
+      "op": "note",
+      "at": 49200
+    },
+    {
+      "op": "note",
+      "at": 49980
+    },
+    {
+      "op": "note",
+      "at": 50792
+    },
+    {
+      "op": "note",
+      "at": 51565
+    },
+    {
+      "op": "run",
+      "at": 54310
+    },
+    {
+      "op": "note",
+      "at": 265557
+    },
+    {
+      "op": "note",
+      "at": 266255
+    },
+    {
+      "op": "run",
+      "at": 266323
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          75
+        ],
+        [
+          1278,
+          75
+        ]
+      ],
+      "n": 214,
+      "at": 4007
+    },
+    {
+      "way": [
+        [
+          64,
+          140
+        ],
+        [
+          363,
+          140
+        ]
+      ],
+      "n": 51,
+      "at": 5308
+    },
+    {
+      "way": [
+        [
+          64,
+          180
+        ],
+        [
+          449,
+          180
+        ]
+      ],
+      "n": 65,
+      "at": 6869
+    },
+    {
+      "way": [
+        [
+          64,
+          231
+        ],
+        [
+          1216,
+          231
+        ],
+        [
+          1216,
+          347
+        ],
+        [
+          64,
+          347
+        ],
+        [
+          64,
+          233
+        ]
+      ],
+      "n": 423,
+      "at": 14408
+    },
+    {
+      "way": [
+        [
+          64,
+          367
+        ],
+        [
+          1216,
+          367
+        ],
+        [
+          1216,
+          483
+        ],
+        [
+          64,
+          483
+        ],
+        [
+          64,
+          369
+        ]
+      ],
+      "n": 423,
+      "at": 21907
+    },
+    {
+      "way": [
+        [
+          64,
+          503
+        ],
+        [
+          1216,
+          503
+        ],
+        [
+          1216,
+          619
+        ],
+        [
+          64,
+          619
+        ],
+        [
+          64,
+          505
+        ]
+      ],
+      "n": 423,
+      "at": 29409
+    },
+    {
+      "way": [
+        [
+          64,
+          639
+        ],
+        [
+          1216,
+          639
+        ],
+        [
+          1216,
+          755
+        ],
+        [
+          64,
+          755
+        ],
+        [
+          64,
+          641
+        ]
+      ],
+      "n": 423,
+      "at": 36908
+    },
+    {
+      "way": [
+        [
+          153,
+          289
+        ],
+        [
+          149,
+          307
+        ],
+        [
+          124,
+          318
+        ],
+        [
+          99,
+          307
+        ],
+        [
+          95,
+          289
+        ],
+        [
+          99,
+          271
+        ],
+        [
+          124,
+          260
+        ],
+        [
+          149,
+          271
+        ],
+        [
+          153,
+          289
+        ]
+      ],
+      "n": 33,
+      "at": 37905
+    },
+    {
+      "way": [
+        [
+          1035,
+          265
+        ],
+        [
+          1185,
+          265
+        ],
+        [
+          1185,
+          313
+        ],
+        [
+          1035,
+          313
+        ],
+        [
+          1035,
+          267
+        ]
+      ],
+      "n": 67,
+      "at": 39492
+    },
+    {
+      "way": [
+        [
+          1035,
+          401
+        ],
+        [
+          1185,
+          401
+        ],
+        [
+          1185,
+          449
+        ],
+        [
+          1035,
+          449
+        ],
+        [
+          1035,
+          403
+        ]
+      ],
+      "n": 67,
+      "at": 41056
+    },
+    {
+      "way": [
+        [
+          640,
+          830
+        ]
+      ],
+      "n": 1,
+      "at": 41890
+    },
+    {
+      "way": [
+        [
+          124,
+          289
+        ]
+      ],
+      "n": 1,
+      "at": 42726
+    },
+    {
+      "way": [
+        [
+          1110,
+          289
+        ]
+      ],
+      "n": 1,
+      "at": 43558
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "wellcare, teal bold",
+      "whole": false,
+      "x": 107,
+      "y": 38,
+      "at": 44225
+    },
+    {
+      "text": "Prescriptions  Orders  Help, grey",
+      "whole": false,
+      "x": 1100,
+      "y": 38,
+      "at": 44907
+    },
+    {
+      "text": "Your prescriptions, big bold",
+      "whole": false,
+      "x": 210,
+      "y": 135,
+      "at": 45589
+    },
+    {
+      "text": "Order a refill and collect from High Street in 2 days., grey",
+      "whole": false,
+      "x": 250,
+      "y": 175,
+      "at": 46365
+    },
+    {
+      "text": "Sertraline 50 mg · 1 tablet daily · 4 days left",
+      "whole": false,
+      "x": 300,
+      "y": 289,
+      "at": 47122
+    },
+    {
+      "text": "Refill, white bold",
+      "whole": false,
+      "x": 1110,
+      "y": 289,
+      "at": 47793
+    },
+    {
+      "text": "Refill, grey, outline only",
+      "whole": false,
+      "x": 1110,
+      "y": 425,
+      "at": 48473
+    },
+    {
+      "text": "Ventolin inhaler · 2 puffs as needed · 21 days left",
+      "whole": false,
+      "x": 300,
+      "y": 425,
+      "at": 49200
+    },
+    {
+      "text": "Levothyroxine 75 mcg · 1 tablet before breakfast · 2 days left, teal Refill",
+      "whole": false,
+      "x": 300,
+      "y": 561,
+      "at": 49980
+    },
+    {
+      "text": "Omeprazole 20 mg · 1 capsule daily · 35 days left, outline Refill",
+      "whole": false,
+      "x": 300,
+      "y": 697,
+      "at": 50792
+    },
+    {
+      "text": "every card has the mint circle, name bold over grey dose, days at right",
+      "whole": false,
+      "x": 640,
+      "y": 800,
+      "at": 51565
+    },
+    {
+      "text": "in each card: name bold, dose under it grey, days left at the right before Refill",
+      "whole": false,
+      "x": 640,
+      "y": 330,
+      "at": 265557
+    },
+    {
+      "text": "logo far left, links far right, white bar with line under",
+      "whole": false,
+      "x": 640,
+      "y": 40,
+      "at": 266255
+    }
+  ]
+}
