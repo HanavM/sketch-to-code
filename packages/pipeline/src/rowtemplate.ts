@@ -146,6 +146,24 @@ const partWords = (p: RowPart, k: number, texts: number) => p.kind === 'mark'
   : p.right ? `text column ${String(k)} ENDING at x ${String(p.x + p.w)} (right aligned)`
     : `text column ${String(k)} STARTING at x ${String(p.x)}${k === 1 && texts > 1 ? ' (the name, stronger)' : ''}`
 
+/**
+ * n90: which kind of value goes in which drawn column when the rows are samples. With nothing typed, the drawn
+ * middle line had no words to say what it holds, and the transactions build put the amount there and a date at the
+ * drawn right end (target: amount at the end). People read a list's right edge as its figure column, so: the
+ * right-aligned end holds each row's figure (amount, price, count, time), a middle column holds the secondary
+ * detail (category, date, subject or preview), and the first column holds the name.
+ */
+export function sampleRoles(t: Pick<RowTemplate, 'parts'>): string {
+  const texts = t.parts.filter((p) => p.kind === 'text')
+  if (texts.length < 2) return ''
+  const end = texts[texts.length - 1]!
+  const mids = texts.slice(1, end.right ? -1 : undefined)
+  const bits = [`text column 1 holds the row's name or title`]
+  mids.forEach((_, i) => bits.push(`text column ${String(i + 2)} holds a secondary detail (category and/or date, or a subject/preview line), never the row's amount`))
+  if (end.right) bits.push(`text column ${String(texts.length)} (right aligned, at the row's end) holds the row's figure: its amount, price, count or time, and nothing else (no date there when there is an amount)`)
+  return ` Which value goes where: ${bits.join('; ')}.`
+}
+
 export function rowTemplateBrief(actions: readonly ActionLike[], strokes: readonly Stroke[]): string {
   const ts = rowTemplates(actions, strokes)
   if (!ts.length) return ''
@@ -158,7 +176,7 @@ export function rowTemplateBrief(actions: readonly ActionLike[], strokes: readon
       `Never put one column's text under another's: a detail (category, date, subject, preview) drawn as its own line further right stays in that column on the same line as the name. ` +
       `Each row is about ${String(t.pitch)}px tall: the first row centred at y ${String(t.cy)}, the next at y ${String(t.cy + t.pitch)}, and so on (row k centred at ${String(t.cy)} + (k-1) x ${String(t.pitch)}); no taller rows, no extra padding.` +
       (t.typed ? ' Fill the columns with the typed row content in order (the k-th piece of each row in text column k).'
-        : ` Nothing was typed for the rows: fill them with SAMPLE content that fits this page and the words near this mark (plausible names, titles, dates, amounts, varied per row, never copies). These sample words are allowed (the person asked for them).`)
+        : ` Nothing was typed for the rows: fill them with SAMPLE content that fits this page and the words near this mark (plausible names, titles, dates, amounts, varied per row, never copies). These sample words are allowed (the person asked for them).` + sampleRoles(t))
   })
   return `ROW TEMPLATE (deterministic, from the drawn first row; checked on the page):\n${lines.join('\n')}\n` +
     `Never print the count or "like this".\n\n`

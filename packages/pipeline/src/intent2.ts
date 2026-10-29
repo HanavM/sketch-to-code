@@ -1260,7 +1260,7 @@ export function groundInterpretation(
     const innerBoxes = [...ev.strokes.values()].filter((st) => st.points.length > 1).map((st) => { const b = bboxOf(st.points); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) } }).filter((b) => b.w + b.h > 6)
     if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport, innerBoxes)
     // n82: a box typed with a number and its label (6 big, on loan) is a stat card, never an area
-    if (shapeMarks.length) markStats(shapeMarks, noteObjs, innerBoxes)
+    if (shapeMarks.length) markStats(shapeMarks, noteObjs, innerBoxes, ev.notes.map((n) => n.text))
     // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
     // n32: a box typed as a quote mark is that glyph; a group note's contents go on every member
     if (shapeMarks.length) markGlyphs(shapeMarks, noteObjs)

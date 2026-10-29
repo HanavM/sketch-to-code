@@ -27,13 +27,16 @@ const NUM = /(?<![\w.])[$£€]?\d+(?:[.,:]\d+)*%?(?![\w])/
 const UNIT = /^(kg|g|lb|lbs|km|mi|m|min|mins|h|hrs?|hours?|days?|weeks?|months?|years?|steps|kcal|cal|gb|mb|tb|pts|points|items|users|people|%|x)$/i
 const ROWS = /\b(\d+|two|three|four|five|six)\s+(rows|lines|items|entries)\b|\brows?\s*:|\brows like this\b|\bx\d+\b|\s\/\s/i
 
+const MONTH = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+$/i
+
 export interface Stat { value: string; label: string; labelAbove?: boolean }
 
 const wordsOf = (s: string) => s.split(/\s+/).map((w) => w.replace(/^[^\p{L}\p{N}$£€%]+|[^\p{L}\p{N}%]+$/gu, '')).filter(Boolean)
 /** Copy words of a phrase: look words dropped, but small joining words kept between copy words. */
 function copyWords(part: string): string[] {
   const ws = wordsOf(part)
-  const keep = ws.map((w) => !LOOK.test(w) || KEEP_SMALL.test(w))
+  // n90: left/right are look words only next to 'aligned' ("Budget left" is copy)
+  const keep = ws.map((w, i) => !LOOK.test(w) || KEEP_SMALL.test(w) || (/^(left|right)$/i.test(w) && !/^align/i.test(ws[i + 1] ?? '') && !/^align/i.test(ws[i - 1] ?? '')))
   // a joining word counts only when a real copy word follows it in the same phrase
   const out: string[] = []
   ws.forEach((w, i) => {
@@ -51,8 +54,12 @@ function valueIn(part: string): { value: string; rest: string[] } | null {
   const tail = part.slice(m.index! + m[0].length)
   const first = wordsOf(tail)[0]
   const unit = first && UNIT.test(first) ? first : null
-  const value = unit ? `${m[0]} ${unit}` : m[0]
-  const rest = copyWords(part.slice(0, m.index!) + ' ' + (unit ? tail.replace(unit, '') : tail))
+  // n90: a day after a month name is a date value ("Biggest day Oct 3" -> "Oct 3"), not a bare 3
+  const head = part.slice(0, m.index!)
+  const mon = /^\d{1,2}$/.test(m[0]) ? head.match(MONTH) : null
+  const lead = mon ? `${mon[1]!} ` : ''
+  const value = lead + (unit ? `${m[0]} ${unit}` : m[0])
+  const rest = copyWords((mon ? head.slice(0, mon.index!) : head) + ' ' + (unit ? tail.replace(unit, '') : tail))
   return { value, rest }
 }
 
@@ -64,7 +71,8 @@ export function statOf(notes: readonly string[]): Stat | null {
   if (!notes.length || notes.some((n) => ROWS.test(n))) return null
   let value: string | null = null, label: string[] = [], vi = -1, li = -1
   notes.forEach((n, i) => {
-    const parts = n.split(/[,;·•|]/).map((p) => p.trim()).filter(Boolean)
+    // n90: a comma inside a number (3,800) is no break
+    const parts = n.split(/[;·•|]|,(?!\d{3}(?!\d))/).map((p) => p.trim()).filter(Boolean)
     for (const p of parts) {
       const v = value === null ? valueIn(p) : null
       if (v) {
@@ -90,8 +98,28 @@ interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number
 /** A small box at most this big can be a stat card (a big box round a page is a container, n54). */
 export const STAT_MAX = { w: 640, h: 320 }
 
+/**
+ * n90: a look note on the cards says where the label goes ("small grey label, big number under", "label on top",
+ * "number below the label"): true = label above, false = label under, null = not said. Round 36 transactions typed
+ * "Income 3,800" per card plus that look note; the build put every number above its label.
+ */
+export function statOrder(notes: readonly string[]): boolean | null {
+  const NUMW = '(?:big\\s+|large\\s+|huge\\s+|bold\\s+)*(?:numbers?|values?|figures?|amounts?|digits?|stats?)'
+  const LAB = '(?:small\\s+|grey\\s+|gray\\s+|muted\\s+)*labels?'
+  for (const n of notes) {
+    const t = n.toLowerCase()
+    if (new RegExp(`\\b${NUMW}\\s+(?:under|below|beneath|underneath)\\b`).test(t) || new RegExp(`\\b${LAB}\\s+(?:above|over|on\\s+top|first)\\b`).test(t) ||
+      new RegExp(`\\b${LAB}\\s*,\\s*${NUMW}\\s+(?:under|below)\\b`).test(t)) return true
+    if (new RegExp(`\\b${LAB}\\s+(?:under|below|beneath|underneath)\\b`).test(t) || new RegExp(`\\b${NUMW}\\s+(?:above|over|on\\s+top|first)\\b`).test(t)) return false
+  }
+  return null
+}
+
 /** Flag the stat-card boxes among an action's marks, in place: `stat` set and `card` kept. */
-export function markStats(marks: ShapeMark[], notes: NoteLike[], inner: BBox[] = []): void {
+export function markStats(marks: ShapeMark[], notes: NoteLike[], inner: BBox[] = [], pageNotes: readonly string[] = []): void {
+  // n90: a look note on the cards binds to one or two of them; where the label goes is said once for all of them
+  const said0 = statOrder(notes.map((n) => n.text))
+  const order = said0 ?? statOrder(pageNotes)
   const boxes = marks.filter((m) => m.shape === 'box' && !m.tilt && !m.glyph)
   for (const m of boxes) {
     if (m.box.w > STAT_MAX.w || m.box.h > STAT_MAX.h || m.box.w < 80 || m.box.h < 40) continue
@@ -100,7 +128,7 @@ export function markStats(marks: ShapeMark[], notes: NoteLike[], inner: BBox[] =
     const said = own.length ? own : boxes.length === 1 ? notes.filter((n) => !n.focus?.length) : []
     const s = statOf([...said].sort((a, b) => (a.at?.y ?? 0) - (b.at?.y ?? 0)).map((n) => n.text))
     if (!s) continue
-    m.stat = s
+    m.stat = order === null ? s : order ? { ...s, labelAbove: true } : { value: s.value, label: s.label }
     delete m.area; delete m.areaOf; delete m.word; delete m.outlined
     if (!m.card) m.card = { fill: null }
   }
