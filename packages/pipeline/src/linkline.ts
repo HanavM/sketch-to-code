@@ -133,8 +133,15 @@ export function verifyLinkLines(actions: readonly ActionLike[], after: Snap): Ve
     const chain: NodeLike[] = []
     for (let m: NodeLike | undefined = t, k = 0; m && k < 3; m = m.parent ? byId.get(m.parent) : undefined, k++) chain.push(m)
     const kids = after.nodes.filter((n) => n.parent === t.id)
-    if ([...chain, ...kids].some(underlined)) continue
     const tb = t.textBox ?? t.rect
+    // a link drawn on one short line stays on one line (n62 try 1: the arrow wrapped under the words)
+    const fs = parseFloat(t.style?.fontSize ?? '') || 0
+    if (fs && tb.h > fs * 1.9) {
+      misses.push(`the link ${quote(l.words)} was drawn on ONE short line (x ${String(l.x0)} to ${String(l.x1)}, y ${String(l.y)}) but wraps onto two lines (${String(r(tb.h))}px tall): ` +
+        `keep it on one line (white-space: nowrap; no fixed width narrower than its words), right edge near x ${String(l.x1)}, its underline still under it; change nothing else`)
+      continue
+    }
+    if ([...chain, ...kids].some(underlined)) continue
     const bar = after.nodes.some((n) => !(n.text ?? '').trim() && n.rect.h <= 4 && n.rect.w >= tb.w * 0.5 && n.rect.w <= tb.w * 1.6 + 30 &&
       Math.abs(n.rect.y - (tb.y + tb.h)) <= 14 && Math.min(n.rect.x + n.rect.w, tb.x + tb.w) - Math.max(n.rect.x, tb.x) > 0 &&
       !!n.style?.backgroundColor && !/transparent|rgba\([^)]*,\s*0\)/.test(n.style.backgroundColor))
@@ -163,7 +170,7 @@ export function verifyBodyLines(actions: readonly ActionLike[], after: Snap): Ve
       continue
     }
     const ratio = tb.w / b.len
-    if (ratio >= 0.85 && ratio <= 1.22) continue
+    if (ratio >= 0.9 && ratio <= 1.2) continue
     const to = fs ? r(fs / ratio) : b.fs
     misses.push(`the sentence ${quote(b.words)} was drawn as one line ${String(b.len)}px long (x ${String(b.x0)} to ${String(b.x0 + b.len)}, y ${String(b.y)}); its letters run ${String(r(tb.w))}px (${String(r(ratio * 100))}% of the line): ` +
       `take its font-size ${fs ? `from ${String(r(fs))}px ` : ''}to about ${String(to)}px so it runs the drawn length on one line; keep its colour, weight and left edge; change nothing else`)

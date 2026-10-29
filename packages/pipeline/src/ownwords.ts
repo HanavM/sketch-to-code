@@ -18,13 +18,30 @@
  */
 import type { BBox } from '@s2c/ink'
 
-interface NodeLike { id: string; parent?: string | null; rect: BBox; text?: string; textBox?: BBox; style?: { opacity?: string } }
+interface NodeLike { id: string; parent?: string | null; rect: BBox; text?: string; textBox?: BBox; style?: { opacity?: string; fontSize?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 interface MarkLike { box: BBox; shape?: string; words?: string; from?: { x: number; y: number }; to?: { x: number; y: number } }
 export interface OwnWordsVerdict { satisfied: boolean; unverifiable?: boolean; reason: string; invented?: string[]; overlaps?: Array<{ a: string; b: string; share: number }> }
 
 const say = (n: NodeLike) => (n.text ?? '').replace(/\s+/g, ' ').trim()
 const boxOf = (n: NodeLike): BBox => n.textBox ?? n.rect
+
+/**
+ * n62: the band the letters actually paint. Words in capitals and digits only (SLOW, WORK, 09) paint from the
+ * baseline up to the cap height (about 0.74em), while their text box is the whole line (about 1.2em, the
+ * descender and the space above the caps included). Two giant capital words set on their drawn lines 254px
+ * apart (round 33 c2) touched by text box and not by ink, and the "words on words" repair shrank them off
+ * their lines. Other text keeps its whole box.
+ */
+export function inkBand(n: NodeLike): BBox {
+  const b = boxOf(n)
+  const fs = parseFloat(n.style?.fontSize ?? '') || 0
+  const t = say(n)
+  if (!fs || !t || /\p{Ll}/u.test(t) || !/[\p{Lu}\p{N}]/u.test(t) || b.h > fs * 1.6 || b.h < fs * 0.9) return b
+  const cap = 0.74 * fs
+  const base = b.y + b.h - Math.max(0, b.h - fs) / 2 - 0.2 * fs
+  return { x: b.x, y: Math.round(base - cap), w: b.w, h: Math.round(cap) }
+}
 
 function inter(a: BBox, b: BBox): number {
   const w = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)
@@ -44,7 +61,7 @@ function pieces(snap: Snap) {
   for (const n of snap.nodes) {
     const key = say(n)
     if (key.length < 2 || seen.has(key)) continue
-    const b = boxOf(n)
+    const b = inkBand(n)
     if (b.w < 2 || b.h < 4) continue
     if (n.style?.opacity && Number(n.style.opacity) < 0.15) continue
     seen.add(key)

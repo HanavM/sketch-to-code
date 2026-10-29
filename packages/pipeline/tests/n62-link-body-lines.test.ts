@@ -39,6 +39,10 @@ describe('a link drawn on a coloured line is underlined (n62)', () => {
     expect(verifyLinkLines(actions, snap([outer, { ...t, parent: 'o' }])).satisfied).toBe(true)
     expect(verifyLinkLines(actions, snap([t, node('bar', '', { x: 1060, y: 786, w: 150, h: 2 }, { backgroundColor: 'rgb(239, 68, 68)' })])).satisfied).toBe(true)
   })
+  it('fails when the link wraps onto two lines', () => {
+    const t = node('a', 'See our projects →', { x: 1075, y: 764, w: 141, h: 43 }, { color: '#ef4444', borderBottom: '1px red' })
+    expect(verifyLinkLines(actions, snap([t])).reason).toContain('wraps onto two lines')
+  })
   it('the no-rules check leaves the link line alone', () => {
     const t = node('a', 'See our projects →', { x: 1060, y: 766, w: 150, h: 18 }, { borderBottom: '1px red' })
     expect(verifyTextLinesNotRules(actions[0]!.shapeMarks, snap([t]) as never).satisfied).toBe(false)
@@ -62,5 +66,22 @@ describe('a sentence on one drawn line runs its length (n62)', () => {
     expect(verifyBodyLines(actions, snap([{ ...short, rect: { ...short.rect, w: 455 }, textBox: { ...short.rect, w: 455 } }])).satisfied).toBe(true)
     const wrapped = { ...short, rect: { ...short.rect, w: 460, h: 44 }, textBox: { ...short.rect, w: 460, h: 44 }, style: { ...short.style, fontSize: '18px' } }
     expect(verifyBodyLines(actions, snap([wrapped])).reason).toContain('ONE line')
+  })
+})
+
+describe('capital words touch by their letters, not their line boxes (n62)', async () => {
+  const { inkBand, verifyOwnWords } = await import('../src/ownwords.js')
+  const marks = [line('slow', 64, 930, 382, 'SLOW, giant outlined letters'), line('work', 60, 980, 636, 'WORK, same')]
+  const big = (id: string, text: string, y: number, h = 348) => ({ id, text, rect: { x: 64, y, w: 866, h }, textBox: { x: 64, y, w: 866, h }, parent: null, style: { fontSize: '290px' } })
+  it('cap band is about 0.74em', () => {
+    const b = inkBand(big('s', 'SLOW', 108))
+    expect(b.h).toBe(215)
+    expect(inkBand({ ...big('x', 'Slow', 108) }).h).toBe(348)
+  })
+  it('SLOW and WORK on lines 254px apart do not run into each other', () => {
+    const v = verifyOwnWords(['SLOW, giant outlined letters', 'WORK, same'], marks, { nodes: [] }, { nodes: [big('s', 'SLOW', 108), big('w', 'WORK', 358)] })
+    expect(v.overlaps ?? []).toEqual([])
+    const v2 = verifyOwnWords(['SLOW, giant outlined letters', 'WORK, same'], marks, { nodes: [] }, { nodes: [big('s', 'SLOW', 108), big('w', 'WORK', 200)] })
+    expect((v2.overlaps ?? []).length).toBe(1)
   })
 })
