@@ -53,6 +53,20 @@ export function noteFocus(
     const row = text && groupCount(text) !== null ? null : rowMarkOf(ids, at, strokes, rects, d)
     if (row) return row === ids[0] && ids.length === 1 ? undefined : [row]
     const best = Math.min(...d.values())
+    // n71: typed right ON a level line (within 8px of it, inside its span) with no other mark that close: the note is
+    // that line's words. Round 34 e3 (habits): "M T W T F S S" typed 5px over its 500px line also took the card box
+    // 29px below, so the line got no words and the build never saw the row it set.
+    const onLine = ids.filter((id) => {
+      const r = rects.get(id)
+      return !!r && r.h <= 6 && r.w >= 40 && (d.get(id) ?? Infinity) <= 8 && at.x >= r.x && at.x <= r.x + r.w
+    })
+    const lr = onLine.length === 1 ? rects.get(onLine[0]!)! : null
+    // a line in a stack (heading lines, paragraph wraps) is left to the stack rules below
+    const otherLines = !!lr && ids.some((id) => {
+      const r = rects.get(id)
+      return id !== onLine[0] && !!r && r.h <= 6 && Math.abs(r.y - lr.y) <= 160 && Math.min(r.x + r.w, lr.x + lr.w) - Math.max(r.x, lr.x) > 0
+    })
+    if (onLine.length === 1 && !otherLines && ids.every((id) => id === onLine[0] || (d.get(id) ?? Infinity) > 12)) return onLine[0] === ids[0] && ids.length === 1 ? undefined : [onLine[0]!]
     focus = ids.filter((id) => (d.get(id) ?? Infinity) <= best + NOTE_FOCUS_SLACK_PX)
     focus = dropFarSideLines(focus, d, best, at, strokes, stackOpts)
     // Typed inside two drawn outlines, one within the other (a near ridge over a far one,

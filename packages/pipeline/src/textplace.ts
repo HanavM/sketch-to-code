@@ -20,6 +20,7 @@ import type { BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
 import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
+import { spreadCentres } from './linespread.js'
 import { outlinedOf } from './textlook.js'
 import { bindTiltNotes } from './tiltwords.js'
 
@@ -189,6 +190,8 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
             `it is that mark's label, so its words are CENTRED on x ${cx} (text-align: center on a block centred under the mark, as wide as the mark or wider), never starting at the mark's left edge.`)
           continue
         }
+        // n71: short items spread over the line are told by lineSpreadBrief (never one centred group)
+        if (spreadCentres(m.words, m.box.x, m.box.x + m.box.w)) continue
         // n56: a long line under a short phrase is a heading sized by the line (told here, checked by line-span)
         const len = m.box.w
         // n57: a giant word or two on a long line ("SLOW, giant outlined letters") is sized by the line as well

@@ -15,6 +15,7 @@
  */
 import type { BBox } from '@s2c/ink'
 import { baselineOf, wordsOf } from './ownwords.js'
+import { notHeading } from './linespread.js'
 
 interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string }
 interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; style?: { fontSize?: string } }
@@ -41,6 +42,8 @@ const isLevel = (m: MarkLike) => m.shape === 'line' && !m.edge && !!m.from && !!
  */
 export function lineAsksBig(words: string, len: number): boolean {
   if (BIG_WORD.test(words)) return true
+  // n71: a table row of short values ("14:40 Lisbon TP 1351 B12 ...") or a line noted small is never a heading
+  if (notHeading(words)) return false
   const want = copyWords(words)
   if (len < 300 || want.length < 2 || want.length > 10) return false
   const chars = want.join(' ').length
