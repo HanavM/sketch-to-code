@@ -1,0 +1,650 @@
+{
+  "round": 36,
+  "id": "e1-boarding-pass",
+  "version": 3,
+  "stopped": null,
+  "likeness": 77.2,
+  "colour": 0.9736185680970557,
+  "structure": 0.8926855853109849,
+  "layout": 0.9459249482152707,
+  "strokes": {
+    "count": 21,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 3,
+      "dot": 4,
+      "line": 13,
+      "arrow": 1
+    },
+    "inkPx": 8246
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 57,
+  "notes": 12,
+  "longestNote": 10,
+  "noteTexts": [
+    "Skyline Air, bold",
+    "Trips · Help · Account",
+    "SFO huge bold",
+    "San Francisco",
+    "JFK huge bold",
+    "New York",
+    "Passenger Maya Chen, Flight SK 214, Date 12 Nov",
+    "Gate B22, Boards 07:35, Seat 14A",
+    "small grey label above each bold value",
+    "barcode, thin dark bars",
+    "bars all the way across, white gaps, no dark fill",
+    "plain → glyph"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 488,
+    "firstReadingS": 110,
+    "readS": [
+      50,
+      15
+    ],
+    "buildS": [
+      249,
+      96
+    ],
+    "sketchingS": 78
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 126776,
+    "cacheRead": 663527,
+    "output": 35411,
+    "billed": 162187
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 7971
+    },
+    {
+      "op": "stroke",
+      "at": 8451
+    },
+    {
+      "op": "pen",
+      "color": "#edf0f5",
+      "at": 8834
+    },
+    {
+      "op": "stroke",
+      "at": 9303
+    },
+    {
+      "op": "pen",
+      "color": "#0b57c9",
+      "at": 9673
+    },
+    {
+      "op": "stroke",
+      "at": 10432
+    },
+    {
+      "op": "note",
+      "at": 11091
+    },
+    {
+      "op": "pen",
+      "color": "#555f6d",
+      "at": 11463
+    },
+    {
+      "op": "stroke",
+      "at": 12334
+    },
+    {
+      "op": "note",
+      "at": 12993
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 19194
+    },
+    {
+      "op": "stroke",
+      "at": 26772
+    },
+    {
+      "op": "stroke",
+      "at": 27251
+    },
+    {
+      "op": "pen",
+      "color": "#0b57c9",
+      "at": 27625
+    },
+    {
+      "op": "stroke",
+      "at": 29768
+    },
+    {
+      "op": "stroke",
+      "at": 30239
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 30608
+    },
+    {
+      "op": "stroke",
+      "at": 31386
+    },
+    {
+      "op": "stroke",
+      "at": 32134
+    },
+    {
+      "op": "stroke",
+      "at": 32720
+    },
+    {
+      "op": "stroke",
+      "at": 33469
+    },
+    {
+      "op": "stroke",
+      "at": 34133
+    },
+    {
+      "op": "note",
+      "at": 34774
+    },
+    {
+      "op": "note",
+      "at": 35403
+    },
+    {
+      "op": "note",
+      "at": 36042
+    },
+    {
+      "op": "note",
+      "at": 36674
+    },
+    {
+      "op": "pen",
+      "color": "#1f2937",
+      "at": 44937
+    },
+    {
+      "op": "stroke",
+      "at": 45735
+    },
+    {
+      "op": "stroke",
+      "at": 46426
+    },
+    {
+      "op": "stroke",
+      "at": 47103
+    },
+    {
+      "op": "stroke",
+      "at": 47905
+    },
+    {
+      "op": "stroke",
+      "at": 48619
+    },
+    {
+      "op": "stroke",
+      "at": 49316
+    },
+    {
+      "op": "note",
+      "at": 50021
+    },
+    {
+      "op": "note",
+      "at": 50684
+    },
+    {
+      "op": "note",
+      "at": 51374
+    },
+    {
+      "op": "stroke",
+      "at": 55240
+    },
+    {
+      "op": "note",
+      "at": 55886
+    },
+    {
+      "op": "run",
+      "at": 60247
+    },
+    {
+      "op": "note",
+      "at": 367939
+    },
+    {
+      "op": "note",
+      "at": 368577
+    },
+    {
+      "op": "run",
+      "at": 368657
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          1278,
+          2
+        ],
+        [
+          1278,
+          72
+        ],
+        [
+          2,
+          72
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 451,
+      "at": 7971
+    },
+    {
+      "way": [
+        [
+          600,
+          20
+        ]
+      ],
+      "n": 1,
+      "at": 8451
+    },
+    {
+      "way": [
+        [
+          150,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 9303
+    },
+    {
+      "way": [
+        [
+          48,
+          36
+        ],
+        [
+          150,
+          36
+        ]
+      ],
+      "n": 18,
+      "at": 10432
+    },
+    {
+      "way": [
+        [
+          1088,
+          36
+        ],
+        [
+          1232,
+          36
+        ]
+      ],
+      "n": 25,
+      "at": 12334
+    },
+    {
+      "way": [
+        [
+          340,
+          130
+        ],
+        [
+          940,
+          130
+        ],
+        [
+          940,
+          810
+        ],
+        [
+          340,
+          810
+        ],
+        [
+          340,
+          130
+        ]
+      ],
+      "n": 427,
+      "at": 26772
+    },
+    {
+      "way": [
+        [
+          640,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 27251
+    },
+    {
+      "way": [
+        [
+          340,
+          280
+        ],
+        [
+          940,
+          280
+        ]
+      ],
+      "n": 101,
+      "at": 29768
+    },
+    {
+      "way": [
+        [
+          560,
+          150
+        ]
+      ],
+      "n": 1,
+      "at": 30239
+    },
+    {
+      "way": [
+        [
+          388,
+          198
+        ],
+        [
+          495,
+          198
+        ]
+      ],
+      "n": 19,
+      "at": 31386
+    },
+    {
+      "way": [
+        [
+          388,
+          236
+        ],
+        [
+          484,
+          236
+        ]
+      ],
+      "n": 17,
+      "at": 32134
+    },
+    {
+      "way": [
+        [
+          630,
+          208
+        ],
+        [
+          658,
+          208
+        ],
+        [
+          650,
+          201
+        ]
+      ],
+      "n": 8,
+      "at": 32720
+    },
+    {
+      "way": [
+        [
+          794,
+          198
+        ],
+        [
+          892,
+          198
+        ]
+      ],
+      "n": 17,
+      "at": 33469
+    },
+    {
+      "way": [
+        [
+          828,
+          236
+        ],
+        [
+          892,
+          236
+        ]
+      ],
+      "n": 12,
+      "at": 34133
+    },
+    {
+      "way": [
+        [
+          388,
+          342
+        ],
+        [
+          504,
+          342
+        ]
+      ],
+      "n": 20,
+      "at": 45735
+    },
+    {
+      "way": [
+        [
+          556,
+          342
+        ],
+        [
+          630,
+          342
+        ]
+      ],
+      "n": 13,
+      "at": 46426
+    },
+    {
+      "way": [
+        [
+          724,
+          342
+        ],
+        [
+          796,
+          342
+        ]
+      ],
+      "n": 13,
+      "at": 47103
+    },
+    {
+      "way": [
+        [
+          388,
+          409
+        ],
+        [
+          504,
+          409
+        ]
+      ],
+      "n": 20,
+      "at": 47905
+    },
+    {
+      "way": [
+        [
+          556,
+          409
+        ],
+        [
+          630,
+          409
+        ]
+      ],
+      "n": 13,
+      "at": 48619
+    },
+    {
+      "way": [
+        [
+          724,
+          409
+        ],
+        [
+          796,
+          409
+        ]
+      ],
+      "n": 13,
+      "at": 49316
+    },
+    {
+      "way": [
+        [
+          388,
+          656
+        ],
+        [
+          888,
+          656
+        ],
+        [
+          888,
+          766
+        ],
+        [
+          388,
+          766
+        ],
+        [
+          388,
+          656
+        ]
+      ],
+      "n": 203,
+      "at": 55240
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Skyline Air, bold",
+      "whole": false,
+      "x": 100,
+      "y": 28,
+      "at": 11091
+    },
+    {
+      "text": "Trips · Help · Account",
+      "whole": false,
+      "x": 1160,
+      "y": 28,
+      "at": 12993
+    },
+    {
+      "text": "SFO huge bold",
+      "whole": false,
+      "x": 440,
+      "y": 185,
+      "at": 34774
+    },
+    {
+      "text": "San Francisco",
+      "whole": false,
+      "x": 436,
+      "y": 228,
+      "at": 35403
+    },
+    {
+      "text": "JFK huge bold",
+      "whole": false,
+      "x": 843,
+      "y": 185,
+      "at": 36042
+    },
+    {
+      "text": "New York",
+      "whole": false,
+      "x": 860,
+      "y": 228,
+      "at": 36674
+    },
+    {
+      "text": "Passenger Maya Chen, Flight SK 214, Date 12 Nov",
+      "whole": false,
+      "x": 460,
+      "y": 318,
+      "at": 50021
+    },
+    {
+      "text": "Gate B22, Boards 07:35, Seat 14A",
+      "whole": false,
+      "x": 460,
+      "y": 385,
+      "at": 50684
+    },
+    {
+      "text": "small grey label above each bold value",
+      "whole": false,
+      "x": 640,
+      "y": 440,
+      "at": 51374
+    },
+    {
+      "text": "barcode, thin dark bars",
+      "whole": false,
+      "x": 640,
+      "y": 710,
+      "at": 55886
+    },
+    {
+      "text": "bars all the way across, white gaps, no dark fill",
+      "whole": false,
+      "x": 760,
+      "y": 740,
+      "at": 367939
+    },
+    {
+      "text": "plain → glyph",
+      "whole": false,
+      "x": 644,
+      "y": 214,
+      "at": 368577
+    }
+  ]
+}

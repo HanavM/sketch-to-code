@@ -1,0 +1,817 @@
+{
+  "round": 36,
+  "id": "e2-transactions",
+  "version": 3,
+  "stopped": null,
+  "likeness": 78.8,
+  "colour": 0.9780110908354054,
+  "structure": 0.8754287678759841,
+  "layout": 0.7727211076730872,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 4.5,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 9,
+      "dot": 3,
+      "line": 6,
+      "circle": 1
+    },
+    "inkPx": 11882
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 131,
+  "notes": 14,
+  "longestNote": 40,
+  "noteTexts": [
+    "Pocket, bold",
+    "Spending (bold) Accounts Budgets Goals Settings, one per line, grey",
+    "October spending, big bold",
+    "donut: Rent blue 40%, Food orange, Travel teal, Other light grey; 2,140 spent in the hole; legend to its right",
+    "Income 3,800",
+    "Saved 1,660",
+    "Biggest day Oct 3",
+    "Budget left 18%",
+    "stat cards: small grey label, big number under",
+    "Recent, bold",
+    "5 rows like this, thin dividers: Corner Market, Food · Oct 28, -42.10; City Rail, Travel · Oct 27, -3.20; Salary, Income · Oct 25, +3,800.00 green; Noodle House, Food · Oct 24, -18.50; Rent, Rent · Oct 1, -900.00",
+    "squares orange, teal, dark green, orange, blue; middle text grey",
+    "white; every stat card: label small grey on top, number under",
+    "rows short, 58px apart; category · date in its own column where drawn"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 653,
+    "firstReadingS": 134,
+    "readS": [
+      54,
+      23
+    ],
+    "buildS": [
+      434,
+      43
+    ],
+    "sketchingS": 99
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 81993,
+    "cacheRead": 420616,
+    "output": 34881,
+    "billed": 116874
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#1d2230",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 6629
+    },
+    {
+      "op": "stroke",
+      "at": 7109
+    },
+    {
+      "op": "pen",
+      "color": "#f4f5f8",
+      "at": 7481
+    },
+    {
+      "op": "stroke",
+      "at": 7959
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 8329
+    },
+    {
+      "op": "stroke",
+      "at": 8992
+    },
+    {
+      "op": "note",
+      "at": 9658
+    },
+    {
+      "op": "stroke",
+      "at": 12210
+    },
+    {
+      "op": "note",
+      "at": 12909
+    },
+    {
+      "op": "pen",
+      "color": "#1f2433",
+      "at": 13279
+    },
+    {
+      "op": "stroke",
+      "at": 14476
+    },
+    {
+      "op": "note",
+      "at": 15116
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 26144
+    },
+    {
+      "op": "stroke",
+      "at": 30891
+    },
+    {
+      "op": "pen",
+      "color": "#5b6cff",
+      "at": 31275
+    },
+    {
+      "op": "stroke",
+      "at": 33747
+    },
+    {
+      "op": "note",
+      "at": 34584
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 34959
+    },
+    {
+      "op": "stroke",
+      "at": 37828
+    },
+    {
+      "op": "stroke",
+      "at": 40510
+    },
+    {
+      "op": "stroke",
+      "at": 43209
+    },
+    {
+      "op": "stroke",
+      "at": 45876
+    },
+    {
+      "op": "note",
+      "at": 46506
+    },
+    {
+      "op": "note",
+      "at": 47719
+    },
+    {
+      "op": "note",
+      "at": 48357
+    },
+    {
+      "op": "note",
+      "at": 48980
+    },
+    {
+      "op": "note",
+      "at": 49680
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 61433
+    },
+    {
+      "op": "stroke",
+      "at": 69480
+    },
+    {
+      "op": "pen",
+      "color": "#1f2433",
+      "at": 69846
+    },
+    {
+      "op": "stroke",
+      "at": 70496
+    },
+    {
+      "op": "note",
+      "at": 71147
+    },
+    {
+      "op": "pen",
+      "color": "#ff9f43",
+      "at": 71526
+    },
+    {
+      "op": "stroke",
+      "at": 72412
+    },
+    {
+      "op": "stroke",
+      "at": 72896
+    },
+    {
+      "op": "pen",
+      "color": "#1f2433",
+      "at": 73263
+    },
+    {
+      "op": "stroke",
+      "at": 74027
+    },
+    {
+      "op": "stroke",
+      "at": 74744
+    },
+    {
+      "op": "stroke",
+      "at": 75359
+    },
+    {
+      "op": "note",
+      "at": 76348
+    },
+    {
+      "op": "note",
+      "at": 77057
+    },
+    {
+      "op": "run",
+      "at": 80225
+    },
+    {
+      "op": "note",
+      "at": 578490
+    },
+    {
+      "op": "note",
+      "at": 579279
+    },
+    {
+      "op": "run",
+      "at": 579354
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          220,
+          2
+        ],
+        [
+          220,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 371,
+      "at": 6629
+    },
+    {
+      "way": [
+        [
+          110,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 7109
+    },
+    {
+      "way": [
+        [
+          245,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 7959
+    },
+    {
+      "way": [
+        [
+          28,
+          46
+        ],
+        [
+          94,
+          46
+        ]
+      ],
+      "n": 12,
+      "at": 8992
+    },
+    {
+      "way": [
+        [
+          28,
+          100
+        ],
+        [
+          200,
+          100
+        ],
+        [
+          200,
+          295
+        ],
+        [
+          28,
+          295
+        ],
+        [
+          28,
+          100
+        ]
+      ],
+      "n": 125,
+      "at": 12210
+    },
+    {
+      "way": [
+        [
+          268,
+          62
+        ],
+        [
+          524,
+          62
+        ]
+      ],
+      "n": 44,
+      "at": 14476
+    },
+    {
+      "way": [
+        [
+          268,
+          110
+        ],
+        [
+          708,
+          110
+        ],
+        [
+          708,
+          440
+        ],
+        [
+          268,
+          440
+        ],
+        [
+          268,
+          110
+        ]
+      ],
+      "n": 257,
+      "at": 30891
+    },
+    {
+      "way": [
+        [
+          548,
+          275
+        ],
+        [
+          544,
+          306
+        ],
+        [
+          532,
+          335
+        ],
+        [
+          513,
+          360
+        ],
+        [
+          488,
+          379
+        ],
+        [
+          459,
+          391
+        ],
+        [
+          428,
+          395
+        ],
+        [
+          397,
+          391
+        ],
+        [
+          368,
+          379
+        ],
+        [
+          343,
+          360
+        ],
+        [
+          324,
+          335
+        ],
+        [
+          312,
+          306
+        ],
+        [
+          308,
+          275
+        ],
+        [
+          312,
+          244
+        ],
+        [
+          324,
+          215
+        ],
+        [
+          343,
+          190
+        ],
+        [
+          368,
+          171
+        ],
+        [
+          397,
+          159
+        ],
+        [
+          428,
+          155
+        ],
+        [
+          459,
+          159
+        ],
+        [
+          488,
+          171
+        ],
+        [
+          513,
+          190
+        ],
+        [
+          532,
+          215
+        ],
+        [
+          544,
+          244
+        ],
+        [
+          548,
+          275
+        ]
+      ],
+      "n": 121,
+      "at": 33747
+    },
+    {
+      "way": [
+        [
+          740,
+          110
+        ],
+        [
+          978,
+          110
+        ],
+        [
+          978,
+          267
+        ],
+        [
+          740,
+          267
+        ],
+        [
+          740,
+          110
+        ]
+      ],
+      "n": 133,
+      "at": 37828
+    },
+    {
+      "way": [
+        [
+          994,
+          110
+        ],
+        [
+          1232,
+          110
+        ],
+        [
+          1232,
+          267
+        ],
+        [
+          994,
+          267
+        ],
+        [
+          994,
+          110
+        ]
+      ],
+      "n": 133,
+      "at": 40510
+    },
+    {
+      "way": [
+        [
+          740,
+          283
+        ],
+        [
+          978,
+          283
+        ],
+        [
+          978,
+          440
+        ],
+        [
+          740,
+          440
+        ],
+        [
+          740,
+          283
+        ]
+      ],
+      "n": 133,
+      "at": 43209
+    },
+    {
+      "way": [
+        [
+          994,
+          283
+        ],
+        [
+          1232,
+          283
+        ],
+        [
+          1232,
+          440
+        ],
+        [
+          994,
+          440
+        ],
+        [
+          994,
+          283
+        ]
+      ],
+      "n": 133,
+      "at": 45876
+    },
+    {
+      "way": [
+        [
+          268,
+          470
+        ],
+        [
+          1232,
+          470
+        ],
+        [
+          1232,
+          860
+        ],
+        [
+          268,
+          860
+        ],
+        [
+          268,
+          470
+        ]
+      ],
+      "n": 453,
+      "at": 69480
+    },
+    {
+      "way": [
+        [
+          296,
+          502
+        ],
+        [
+          356,
+          502
+        ]
+      ],
+      "n": 11,
+      "at": 70496
+    },
+    {
+      "way": [
+        [
+          296,
+          533
+        ],
+        [
+          332,
+          533
+        ],
+        [
+          332,
+          569
+        ],
+        [
+          296,
+          569
+        ],
+        [
+          296,
+          533
+        ]
+      ],
+      "n": 25,
+      "at": 72412
+    },
+    {
+      "way": [
+        [
+          314,
+          551
+        ]
+      ],
+      "n": 1,
+      "at": 72896
+    },
+    {
+      "way": [
+        [
+          348,
+          553
+        ],
+        [
+          450,
+          553
+        ]
+      ],
+      "n": 18,
+      "at": 74027
+    },
+    {
+      "way": [
+        [
+          934,
+          553
+        ],
+        [
+          1020,
+          553
+        ]
+      ],
+      "n": 15,
+      "at": 74744
+    },
+    {
+      "way": [
+        [
+          1158,
+          553
+        ],
+        [
+          1204,
+          553
+        ]
+      ],
+      "n": 9,
+      "at": 75359
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Pocket, bold",
+      "whole": false,
+      "x": 60,
+      "y": 30,
+      "at": 9658
+    },
+    {
+      "text": "Spending (bold) Accounts Budgets Goals Settings, one per line, grey",
+      "whole": false,
+      "x": 110,
+      "y": 200,
+      "at": 12909
+    },
+    {
+      "text": "October spending, big bold",
+      "whole": false,
+      "x": 400,
+      "y": 45,
+      "at": 15116
+    },
+    {
+      "text": "donut: Rent blue 40%, Food orange, Travel teal, Other light grey; 2,140 spent in the hole; legend to its right",
+      "whole": false,
+      "x": 428,
+      "y": 275,
+      "at": 34584
+    },
+    {
+      "text": "Income 3,800",
+      "whole": false,
+      "x": 850,
+      "y": 170,
+      "at": 46506
+    },
+    {
+      "text": "Saved 1,660",
+      "whole": false,
+      "x": 1100,
+      "y": 170,
+      "at": 47719
+    },
+    {
+      "text": "Biggest day Oct 3",
+      "whole": false,
+      "x": 850,
+      "y": 340,
+      "at": 48357
+    },
+    {
+      "text": "Budget left 18%",
+      "whole": false,
+      "x": 1100,
+      "y": 340,
+      "at": 48980
+    },
+    {
+      "text": "stat cards: small grey label, big number under",
+      "whole": false,
+      "x": 860,
+      "y": 455,
+      "at": 49680
+    },
+    {
+      "text": "Recent, bold",
+      "whole": false,
+      "x": 326,
+      "y": 488,
+      "at": 71147
+    },
+    {
+      "text": "5 rows like this, thin dividers: Corner Market, Food · Oct 28, -42.10; City Rail, Travel · Oct 27, -3.20; Salary, Income · Oct 25, +3,800.00 green; Noodle House, Food · Oct 24, -18.50; Rent, Rent · Oct 1, -900.00",
+      "whole": false,
+      "x": 700,
+      "y": 600,
+      "at": 76348
+    },
+    {
+      "text": "squares orange, teal, dark green, orange, blue; middle text grey",
+      "whole": false,
+      "x": 700,
+      "y": 680,
+      "at": 77057
+    },
+    {
+      "text": "white; every stat card: label small grey on top, number under",
+      "whole": false,
+      "x": 860,
+      "y": 420,
+      "at": 578490
+    },
+    {
+      "text": "rows short, 58px apart; category · date in its own column where drawn",
+      "whole": false,
+      "x": 700,
+      "y": 640,
+      "at": 579279
+    }
+  ]
+}
