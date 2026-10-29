@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Ten new pages are ready for the next test round, made fresh so the tool is judged on pages it has never seen. Next: sketch the five landing pages by hand."
-round: 32
+now: "Sketched the five new landing pages: they came out well below last round (about 60%), mostly because drawn shapes like mountains and waves are built as boxes. Next: the five app pages, then fix shapes."
+round: 33
 round_scores: [53, 77, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-20261029T0053Z, until: "2026-10-29T02:23Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -104,9 +104,16 @@ nodes:
   - {id: n38, parent: n2, kind: step, title: "A short label typed beside a divider or short line stays where typed (never centred on the line or dropped into a nearby box), a lone short line under the header is a heading, and a round mark is a circle not a hexagon; re-sketch calendar, files and chat", status: open, branch: try/n3-ink-style, result: null}
   - {id: n48, parent: n1, kind: step, title: "Write round 33: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them, to test every feature since round 32 on pages never seen", status: done, branch: try/n3-ink-style, base: "try/n3-ink-style (has every feature through n46)",
      result: "Ten fresh pages written, screenshotted and calibrated; six harder than round 1. None sketched yet."}
-  - {id: n49, parent: n1, kind: step, priority: next, title: "Sketch round 33 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n49, parent: n1, kind: step, title: "Sketch round 33 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n3-ink-style,
+     result: "Surf 58.0, agency 52.5, ticket 78.1, herbs 55.1, cabins 53.6; mean 59.5, 14 strokes, 43 words."}
+  - {id: n51, parent: n2, kind: step, priority: next, title: "A closed drawn shape (triangle, hill, wave) is built from its drawn outline, never as a box or circle, and colour taps go to the region they sit in when a curve splits a box (fade runs the way the taps do); re-sketch cabins and surf", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A closed triangle is read as a circle and built as a rectangle; a fix note made it worse and was kept", found_on: "r33 c5 (n49)", built: null, helped: null}
+  - {gap: "Colour taps on either side of a curve inside a box land on the wrong side; the fade runs opposite to the taps", found_on: "r33 c1 (n49)", built: null, helped: null}
+  - {gap: "A tilted box with a divider and two fills is dropped by the first build (only its text built); invented '12'", found_on: "r33 c3 (n49)", built: null, helped: null}
+  - {gap: "'giant outlined letters' built filled and below the drawn lines; 'same' does not copy a style to the next line", found_on: "r33 c2 (n49)", built: null, helped: null}
+  - {gap: "A note typed just above a two-line paragraph also grabs the heading line above it", found_on: "r33 c1, c4 (n49)", built: null, helped: null}
   - {gap: "A bare line drawn under a two-line heading (longer than the first line) got a made-up subtitle", found_on: "r32 c3 (n43)", built: "stacks know where notes were typed: a bare line under a noted heading line, same edge, up to 1.6x longer, is the heading's next line; shown as 'on these 2 lines' while typing (n44)", helped: "yes: studio 74.3 to 78.8, 80.2, heading breaks as in the target"}
   - {gap: "A paragraph's wrap line plus the link under it were read as a 105px heading", found_on: "r32 c3 (n44)", built: "a line held tight by another line never starts a heading (n44)", helped: "yes: unit test; studio link stays body size"}
   - {gap: "'big italic serif' heading built bold italic", found_on: "r32 c5 (n43)", built: "italic sets style only, weight regular unless the note says bold; a regular heading sized to span its drawn line (n44)", helped: "partly: italic regular as asked, but heading narrower than drawn: bookshop 72.9 to 63.3, 62.4, 69.5"}
@@ -233,12 +240,12 @@ n8_resketch:   # same strokes and notes as baseline, tool with exact counts + ke
   - {page: r12 c4-diagonal-split, likeness: 49.9, was: 49.7, strokes: 9, words: 52, minutes: 10.2, fixes: 1, tokens: 104676}
   - {page: r8 c2-orbit-type, likeness: 73.9, was: 71.0, strokes: 10, words: 32, minutes: 5.4, fixes: 0, tokens: 54207}
 notes:
-  - "Hand session: node tests/hand/session.mjs (needs npm ci + npm run build; chromium at /opt/pw-browsers/chromium-1243). Drive it with curl -d JSON ops open/stroke/note/pen/undo/look/run/done on localhost:5390. Stop it with fuser -k 5390/tcp 5302/tcp, never pkill -f."
+  - "Hand session: node tests/hand/session.mjs (needs npm ci + npm run build; chromium at /opt/pw-browsers/chromium-1243). Drive it with curl -d JSON ops open/stroke/note/pen/undo/look/run/done on localhost:5390. Stop it with fuser -k 5390/tcp 5302/tcp, never pkill -f (it kills the calling shell)."
   - "Don't open target HTML, targets.json, effects.json, autoplan files or round NOTES while sketching. Only ref/*.png. The session loads targets.json itself, only to score at done."
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
   - "After npm ci, the agent SDK may only have its musl binary: run npm install --no-save @anthropic-ai/claude-agent-sdk-linux-x64@<same version> or every Run fails in under a second."
   - "Vitest: same 2 env-only failures (cli init gh, library home dir). npm run build is the type check."
-  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k); n24 ~139k billed (settings 85k, 54k); n25 ~124k billed (settings 83k, 40k); n21 ~185k billed (bento 131k, 54k; two stalled builds billed ~0); n27 ~487k billed (c1 107k, c2 30k, c3 121k, c4 93k, c5 136k); n28 ~441k billed (e1 121k, e2 104k, e3 44k, e4 95k, e5 78k); n29 ~241k billed (inbox 90k, 41k; weather 110k); n30 ~111k billed (weather 60k, 51k). n37 ~406k billed (aurora 150k, synth 79k, roastery 116k, 62k). n43 ~233k billed (aurora 47k, roastery 91k, studio 60k, bookshop 35k). n44 ~335k billed (studio 90k, 109k; bookshop 42k, 43k, 50k)."
+  - "Token ledger: 2026-10-27 n1 baseline live builds ~162k billed (c1 60k, e1 102k); n5 ~256k billed (e2 39k, c3 101k, e3 116k). Day total ~418k. 2026-10-28 n6 ~391k billed (bento 47k, grid 68k, orbit 62k, seats 83k, diagonal 131k); n7 ~249k; n8 ~310k (grid 91k + 59k, diagonal 105k, orbit 54k); n14 ~132k (diagonal 77k + 55k); n15 ~125k (diagonal 67k + 59k). n16 ~102k billed (diagonal 58k, 44k); n20 ~130k billed (login 50k, 49k, 31k); n12 ~115k billed (glass 48k, orbit 66k); n22 ~274k billed (login 44k, 30k, 31k, 20k, 53k, 51k; settings 45k); n24 ~139k billed (settings 85k, 54k); n25 ~124k billed (settings 83k, 40k); n21 ~185k billed (bento 131k, 54k; two stalled builds billed ~0); n27 ~487k billed (c1 107k, c2 30k, c3 121k, c4 93k, c5 136k); n28 ~441k billed (e1 121k, e2 104k, e3 44k, e4 95k, e5 78k); n29 ~241k billed (inbox 90k, 41k; weather 110k); n30 ~111k billed (weather 60k, 51k). n37 ~406k billed (aurora 150k, synth 79k, roastery 116k, 62k). n43 ~233k billed (aurora 47k, roastery 91k, studio 60k, bookshop 35k). n44 ~335k billed (studio 90k, 109k; bookshop 42k, 43k, 50k). 2026-10-29 n49 ~517k billed (surf 153k, agency 109k, ticket 87k, herbs 51k, cabins 118k)."
 n14_resketch:   # same 9 marks and 8 notes as n9/n11 (nav note typed as a whole-sketch note)
   - {page: r12 c4-diagonal-split, try: 1, likeness: 55.9, was: 39.8, strokes: 9, words: 45, minutes: 5.7, fixes: 0, tokens: 76787}
   - {page: r12 c4-diagonal-split, try: 2, likeness: 57.8, was: 39.8, strokes: 9, words: 45, minutes: 4.9, fixes: 0, tokens: 54885}
@@ -344,3 +351,9 @@ n44_resketch:   # same strokes, taps, notes and fix notes as n35 (replay --fixes
   - {page: r32 c5-bookshop, try: 1, likeness: 63.3, was: 72.9, strokes: 9, words: 34, minutes: 3.8, fixes: 0, build_s: 167, tokens: 41595, note: "italic regular, heading narrower than its line"}
   - {page: r32 c5-bookshop, try: 2, likeness: 62.4, was: 72.9, strokes: 9, words: 34, minutes: 4.0, fixes: 0, build_s: 188, tokens: 43426}
   - {page: r32 c5-bookshop, try: 3, likeness: 69.5, was: 72.9, strokes: 9, words: 34, minutes: 3.4, fixes: 0, build_s: 138, tokens: 50282, note: "told to size a regular heading to span its line"}
+round33_pages:   # n49 (c1-c5, tests/hand/N49.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n46. c1-c5 mean 59.5, median 14 strokes, 43 words, 6.8 min
+  - {page: r33 c1-surf-school, likeness: 58.0, strokes: 17, taps: 6, words: 53, notes: 7, minutes: 7.2, fixes: 1, first_read_s: 103, build_s: 276, tokens: 153393}
+  - {page: r33 c2-slow-agency, likeness: 52.5, strokes: 9, taps: 2, words: 42, notes: 9, minutes: 7.5, fixes: 2, first_read_s: 72, build_s: 340, tokens: 108731}
+  - {page: r33 c3-gig-ticket, likeness: 78.1, strokes: 14, taps: 4, words: 44, notes: 9, minutes: 5.7, fixes: 1, first_read_s: 106, build_s: 202, tokens: 86567}
+  - {page: r33 c4-herb-farm, likeness: 55.1, strokes: 17, taps: 4, words: 43, notes: 11, minutes: 2.7, fixes: 0, first_read_s: 84, build_s: 69, tokens: 50593}
+  - {page: r33 c5-cabin-stays, likeness: 53.6, strokes: 12, taps: 5, words: 41, notes: 7, minutes: 6.8, fixes: 1, first_read_s: 74, build_s: 300, tokens: 118065}
