@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T11:50Z | n71 repeated items spread as drawn; table rows not headings | Day columns spread as drawn, table rows body size. Habits 69.7 to 82.7, 82.2; departures 86.6, 74.7; no fixes.
 2026-10-29T11:15Z | n69 look-alike rows keep their own words | Notes bound to own box; words told and checked. Recipe 74.3 to 77.1, helpdesk 74.8 to 75.6, no fixes.
 2026-10-29T10:08Z | n66 sketch round 34 e1-e5 by hand | Recipe 74.3, departures 81.3, habits 69.7, helpdesk 74.8, signup 82.2; round 34 mean 79.5.
 2026-10-29T09:30Z | n65 sketch round 34 c1-c5 by hand | Ramen 80.8, bike 81.0, planet 79.5, bakery 82.3, ferry 89.1; mean 82.5, 13 strokes, 38 words.

@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Each note typed beside a checkbox or inside a chat bubble now stays on that one, so lists keep their own words. Next: spacing repeated items as drawn (habits week, departures table)."
+now: "Days of the week and their circles now spread across the line you drew, and table rows stay normal size. Next: stop typed times turning into live clocks, then a fresh round 35."
 round: 34
 round_scores: [53, 77, 76, 70, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34 (fresh rounds); round 34 is 79.5
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "n71 run", until: "2026-10-29T12:39Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -134,7 +134,9 @@ nodes:
      result: "Each note on its own box, words told and checked. Recipe 74.3 to 77.1, helpdesk 74.8 to 75.6; no fixes."}
   - {id: n72, parent: n4, kind: step, title: "A fix can read the earlier notes (a fix on a list or thread uses the words typed for it, never made-up ones), and a sidebar row's note binds to its row line, not the row box and the sidebar too; re-sketch helpdesk with its fix notes", status: open, branch: try/n3-ink-style, result: null}
   - {id: n70, parent: n3, kind: step, title: "A colour tap on or next to a thin line colours that line (never a page fade stop), and a note dropped beside a small box binds to that box alone; re-sketch signup steps and recipe", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n71, parent: n2, kind: step, priority: next, title: "A drawn line over repeated items sets their spacing (seven day letters over 500px means 80px apart), and a row of short values on a line is a table row, not a sentence to stretch; re-sketch habits and departures", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n71, parent: n2, kind: step, title: "A drawn line over repeated items sets their spacing (seven day letters over 500px means 80px apart), and a row of short values on a line is a table row, not a sentence to stretch; re-sketch habits and departures", status: done, branch: try/n3-ink-style, 
+     result: "Day columns spread as drawn, table rows body size. Habits 69.7 to 82.7, 82.2; departures 86.6, 74.7; no fixes."}
+  - {id: n73, parent: n2, kind: step, priority: next, title: "A typed time or value is plain text (14:32 never a live clock), a note's own look words never show as a subtitle on the page, and table columns sit under the header words as drawn; re-sketch departures and habits", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
@@ -454,3 +456,9 @@ n69_resketch:   # same strokes, taps and notes as n66 replayed word for word (fi
   - {page: r34 e1-recipe, try: 2, likeness: 77.1, was: 74.3, strokes: 16, taps: 4, words: 36, notes: 10, minutes: 5.0, fixes: 0, first_read_s: 66, build_s: 231, tokens: 79022, note: "each note on its own box; five rows own words; garlic wrongly ticked"}
   - {page: r34 e4-helpdesk, try: 1, likeness: 67.4, was: 74.8, strokes: 20, taps: 4, words: 100, notes: 15, minutes: 2.7, fixes: 0, first_read_s: 90, build_s: 68, tokens: 48895, note: "bubbles own words; every time still read as a group"}
   - {page: r34 e4-helpdesk, try: 2, likeness: 75.6, was: 74.8, strokes: 20, taps: 4, words: 100, notes: 15, minutes: 4.4, fixes: 0, first_read_s: 82, build_s: 183, tokens: 74956, note: "three bubbles own messages, check passed; Waiting badge far right"}
+n71_resketch:   # same strokes and notes as n66 replayed word for word (first build only, no fix notes, no drags); tests/hand/N71.md on try/n3-ink-style
+  - {page: r34 e3-habits, try: 1, likeness: 68.3, was: 69.7, strokes: 16, taps: 3, words: 70, notes: 12, minutes: 5.6, fixes: 0, first_read_s: 98, build_s: 235, tokens: 105701, note: "spread rule only; note bound to line and card, so not live"}
+  - {page: r34 e3-habits, try: 2, likeness: 82.7, was: 69.7, strokes: 16, taps: 3, words: 70, notes: 12, minutes: 6.3, fixes: 0, first_read_s: 92, build_s: 283, tokens: 90403, note: "letters and 35 circles in 7 columns ~83px apart"}
+  - {page: r34 e3-habits, try: 3, likeness: 82.2, was: 69.7, strokes: 16, taps: 3, words: 70, notes: 12, minutes: 3.9, fixes: 0, first_read_s: 94, build_s: 138, tokens: 61349}
+  - {page: r34 e2-departures, try: 1, likeness: 86.6, was: 81.3, strokes: 11, taps: 1, words: 62, notes: 9, minutes: 3.7, fixes: 0, first_read_s: 104, build_s: 117, tokens: 44724, note: "rows body size first build; clock still live"}
+  - {page: r34 e2-departures, try: 2, likeness: 74.7, was: 81.3, strokes: 11, taps: 1, words: 62, notes: 9, minutes: 2.2, fixes: 0, first_read_s: 60, build_s: 71, tokens: 28296, note: "rows body size; title grew, header rose"}
