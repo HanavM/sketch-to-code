@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T23:55Z | n92 progress bar and outlined pager | Bar, caption, outlined squares built; timesheet 55.1 to 67.8, 70.3; try 4 48.9 from header drift.
 2026-10-29T22:45Z | n91 lists the short way on timesheet and notifications | Ruled bands take own taps, two-line names; notifications 64 to 27 words at 74.5; timesheet 55.1.
 2026-10-29T21:51Z | n90 sample rows put each value in its column | Amount at row end, stat values whole; transactions 69.3 to 85.6, email 56 words at 76.2, no fix.
 2026-10-29T20:35Z | n89 drawn first row is the template | Rows one line at drawn pitch, sample rows from a bare count; transactions 131 to 67 words, 69.3.
