@@ -71,6 +71,8 @@ export interface ShapeMark {
   each?: { note: string; of: number }
   /** n32: box or ring whose note names a typed mark ("big yellow quote mark"): that glyph, no box. */
   glyph?: { char: string; name: string }
+  /** n69: box or ring with its own note: the words typed for it (one item of a list of look-alike marks). */
+  own?: string
   /**
    * box only (n45): drawn wide with flat top and bottom and ends that bulge out (round or pointed,
    * the way a pill is drawn with a mouse): a pill, fully rounded ends.

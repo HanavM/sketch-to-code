@@ -48,6 +48,10 @@ export function noteFocus(
       if (ds.area !== undefined) enclosed.set(st.id, ds.area)
     }
     if (d.size === 0) return undefined
+    // n69: typed on the row of one of a column of look-alike marks (an ingredient beside its checkbox),
+    // with no other mark on that row: the note is that mark's, though a line above may be nearer
+    const row = text && groupCount(text) !== null ? null : rowMarkOf(ids, at, strokes, rects, d)
+    if (row) return row === ids[0] && ids.length === 1 ? undefined : [row]
     const best = Math.min(...d.values())
     focus = ids.filter((id) => (d.get(id) ?? Infinity) <= best + NOTE_FOCUS_SLACK_PX)
     focus = dropFarSideLines(focus, d, best, at, strokes, stackOpts)
@@ -100,6 +104,9 @@ export function noteFocus(
         contains(rects.get(o)!, rects.get(i)!) && !sameBox(rects.get(o)!, rects.get(i)!)))
       if (outer.length && outer.length < holding.length) focus = focus.filter((id) => !outer.includes(id))
     }
+    // n69: typed beside (or in) one of a column or row of look-alike marks (five checkboxes, three chat
+    // bubbles): the note is that one mark's, unless it names a group.
+    if (focus.length >= 2 && !(text && groupCount(text) !== null)) focus = oneOfLookAlikes(focus, at, strokes)
   }
   // A note typed on one line of a giant heading is about all its lines: they sit ~150px
   // apart, past the slack, so typed on line 1, line 2 lost the note. Only giant stacks:
@@ -142,6 +149,116 @@ export function noteFocus(
     if (g) focus = ids.filter((id) => focus.includes(id) || g.includes(id))
   }
   return focus.length > 0 && focus.length < ids.length ? focus : undefined
+}
+
+/** Closed outline of any size (a 22px checkbox counts): its box, or null. */
+export function closedAnySize(st: Stroke): BBox | null {
+  const pts = st.points
+  if (pts.length < 5) return null
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  const w = x1 - x0, h = y1 - y0
+  if (w < 8 || h < 8) return null
+  const a = pts[0]!, b = pts[pts.length - 1]!
+  if (Math.hypot(a.x - b.x, a.y - b.y) > Math.max(12, 0.15 * Math.min(w, h))) return null
+  return { x: x0, y: y0, w, h }
+}
+
+/**
+ * n69: look-alike marks in a list each own the note typed level with them.
+ *
+ * Round 34 e1 (recipe): five 22px checkboxes 38px apart, each ingredient typed to the right of its box. The
+ * slack (24px) reached the next box too, so each note was "on these 2 boxes" (dragging a note onto a box did
+ * not help: the next box is 16px away) and the build put one row's words on several rows. Round 34 e4: three
+ * chat bubbles 24px apart, each message typed inside its own bubble, also reached the next bubble.
+ *
+ * Among the like-sized closed marks in the focus (each side within half again of the others): the one the
+ * point is inside; else, for a column, the one whose height band holds the point (for a row, its width band);
+ * else the clearly nearest. Other marks in the focus stay.
+ */
+export function oneOfLookAlikes(focus: string[], at: { x: number; y: number }, strokes: Stroke[]): string[] {
+  const shapes = new Map<string, BBox>()
+  for (const st of strokes) {
+    if (!focus.includes(st.id)) continue
+    const b = closedAnySize(st)
+    if (b) shapes.set(st.id, b)
+  }
+  if (shapes.size < 2) return focus
+  const ratio = (a: number, b: number) => Math.max(a, b) / Math.max(1, Math.min(a, b))
+  const ids = [...shapes.keys()]
+  // the look-alikes: like-sized with at least one other, none holding another
+  const like = ids.filter((id) => ids.some((o) => o !== id &&
+    ratio(shapes.get(id)!.w, shapes.get(o)!.w) <= 1.5 && ratio(shapes.get(id)!.h, shapes.get(o)!.h) <= 1.5 &&
+    !contains(shapes.get(id)!, shapes.get(o)!) && !contains(shapes.get(o)!, shapes.get(id)!)))
+  if (like.length < 2) return focus
+  const bx = (id: string) => shapes.get(id)!
+  let pick: string[] = like.filter((id) => inside(at, bx(id)))
+  if (pick.length !== 1) {
+    const disjointY = like.every((a) => like.every((b) => a === b || bx(a).y + bx(a).h <= bx(b).y + 2 || bx(b).y + bx(b).h <= bx(a).y + 2))
+    const disjointX = like.every((a) => like.every((b) => a === b || bx(a).x + bx(a).w <= bx(b).x + 2 || bx(b).x + bx(b).w <= bx(a).x + 2))
+    if (disjointY) pick = like.filter((id) => at.y >= bx(id).y - 2 && at.y <= bx(id).y + bx(id).h + 2)
+    else if (disjointX) pick = like.filter((id) => at.x >= bx(id).x - 2 && at.x <= bx(id).x + bx(id).w + 2)
+    else pick = []
+  }
+  if (pick.length !== 1) {
+    const ds = like.map((id) => ({ id, d: distToRect(at, bx(id)) })).sort((a, b) => a.d - b.d)
+    if (ds[1]!.d - ds[0]!.d < 8) return focus
+    pick = [ds[0]!.id]
+  }
+  return focus.filter((id) => !like.includes(id) || id === pick[0])
+}
+
+/** n69: how far right of a list mark a note may be typed and still be that row's (px). */
+export const ROW_NOTE_REACH_PX = 240
+
+/**
+ * n69: a column of two or more look-alike small marks (checkboxes, bullets, radio rings; each side 8 to 80px,
+ * within half again of each other, lined up on their left edges, none overlapping in height); a note typed
+ * level with one of them (inside its height band), inside it or to its right within ROW_NOTE_REACH_PX, with no
+ * other mark on that row nearer: that mark. Round 34 e1: "400 g spaghetti" typed right of the first checkbox
+ * went to the "Ingredients" line 39px above (the box was 74px away).
+ */
+function rowMarkOf(ids: string[], at: { x: number; y: number }, strokes: Stroke[], rects: Map<string, BBox>, d: Map<string, number>): string | null {
+  const small = new Map<string, BBox>()
+  for (const st of strokes) {
+    if (!ids.includes(st.id)) continue
+    const b = closedAnySize(st)
+    if (b && b.w <= 80 && b.h <= 80) small.set(st.id, b)
+  }
+  if (small.size < 2) return null
+  const ratio = (a: number, b: number) => Math.max(a, b) / Math.max(1, Math.min(a, b))
+  const on = [...small].filter(([, b]) => at.y >= b.y - 2 && at.y <= b.y + b.h + 2 && at.x >= b.x - 4 && at.x <= b.x + b.w + ROW_NOTE_REACH_PX)
+  if (on.length !== 1) return null
+  const [id, b] = on[0]!
+  const column = [...small].filter(([o, c]) => o !== id && ratio(c.w, b.w) <= 1.5 && ratio(c.h, b.h) <= 1.5 &&
+    Math.abs(c.x - b.x) <= Math.max(8, 0.5 * b.w) && (c.y >= b.y + b.h - 2 || c.y + c.h <= b.y + 2))
+  if (column.length === 0) return null
+  // another mark on the same row, nearer the point (a line drawn for the row's words) owns it instead
+  const mine = d.get(id) ?? Infinity
+  for (const [o, r] of rects) {
+    if (o === id || small.has(o)) continue
+    const cy = r.y + r.h / 2
+    if (cy >= b.y - 4 && cy <= b.y + b.h + 4 && (d.get(o) ?? Infinity) < mine) return null
+    if (r.w > 0 && r.h > 0 && inside(at, r) && !(r.w * r.h > 4 * b.w * b.h)) return null
+  }
+  return id
+}
+
+/**
+ * n69: the list mark (a small closed mark, 80px or less) whose row a point was typed on: level with it and
+ * inside it or right of it within ROW_NOTE_REACH_PX; the nearest such. The overlay seeds a note's drawing on
+ * it when nothing is within its usual reach (an ingredient typed 84px right of its checkbox was "placed here").
+ */
+export function rowSeed(strokes: Stroke[], at: { x: number; y: number }): string | null {
+  let best: string | null = null, bd = Infinity
+  for (const st of strokes) {
+    const b = closedAnySize(st)
+    if (!b || b.w > 80 || b.h > 80) continue
+    if (at.y < b.y - 2 || at.y > b.y + b.h + 2 || at.x < b.x - 4 || at.x > b.x + b.w + ROW_NOTE_REACH_PX) continue
+    const dd = Math.max(0, at.x - (b.x + b.w))
+    if (dd < bd) { bd = dd; best = st.id }
+  }
+  return best
 }
 
 /** n55: the far line must be at least this many times as far as the nearest to be dropped. */
@@ -187,6 +304,9 @@ function dropFarSideLines(
   return drop.size ? focus.filter((id) => !drop.has(id)) : focus
 }
 
+/** n69: plural nouns that name drawn things on a page (a group a note can be about). */
+const GROUP_NOUN = /^(cards?|frames?|boxes|tiles?|rings?|circles?|discs?|dots?|blobs?|shapes?|marks?|buttons?|pills?|chips?|tags?|badges?|icons?|avatars?|photos?|images?|pictures?|thumbnails?|panels?|columns?|rows?|bars?|blocks?|items?|tabs?|lines?|stripes?|bands?|squares?|rectangles?|triangles?|stars?|bubbles?|cells?|slots?|seats?|steps?|stats?|fields?|inputs?|toggles?|checkboxes|sections?|logos?|planets?|petals?|layers?|sheets?|pages?|posters?|tickets?|stickers?|polaroids?|windows?|screens?|phones?|devices?|labels?|links?)$/
+
 const COUNT_WORDS: Record<string, number> = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, both: 2 }
 
 /**
@@ -198,13 +318,19 @@ export function groupCount(text: string): number | null {
   const num = String.raw`(\d|two|three|four|five|six|seven|eight|nine)`
   const plural = String.raw`(?:[a-z-]+\s+){0,3}[a-z]+s\b`
   let m = new RegExp(String.raw`\b(?:all|each of(?: the)?|on)\s+${num}\b`).exec(t)
-  if (!m) m = new RegExp(String.raw`(?:^|[\s,(])${num}\s+${plural}`).exec(t)
+  // n69: "3 cards" names a group of drawn things; "3 cloves garlic", "2 lemons" are copy (a quantity)
+  if (!m) {
+    const q = new RegExp(String.raw`(?:^|[\s,(])${num}\s+(${plural})`).exec(t)
+    if (q && GROUP_NOUN.test(q[2]!.trim().split(/\s+/).pop()!)) m = q
+  }
   if (m) {
     const n = /\d/.test(m[1]!) ? Number(m[1]) : COUNT_WORDS[m[1]!]!
     return n >= 2 && n <= 9 ? n : null
   }
   if (/\bboth\b/.test(t)) return 2
-  if (/\b(all|each|every)\s+(?:the\s+)?(?:[a-z-]+\s+){0,2}[a-z]+s?\b/.test(t) && !/\b(all|every)\s+(text|words|copy|page|the page)\b/.test(t)) return 0
+  // n69: "every box", "all three cards" name a group; "every time I click it", "each day" are copy
+  const every = /\b(?:all|each|every)\s+((?:the\s+)?(?:[a-z-]+\s+){0,2}[a-z]+s?)\b/.exec(t)
+  if (every && every[1]!.split(/\s+/).some((w) => GROUP_NOUN.test(w)) && !/\b(all|every)\s+(text|words|copy|page|the page)\b/.test(t)) return 0
   return null
 }
 

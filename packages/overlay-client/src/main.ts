@@ -7,7 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
-import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine } from '@s2c/ink/notefocus'
+import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, rowSeed } from '@s2c/ink/notefocus'
 import { inkFills, isFillDot, pageFill, markFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
@@ -7314,6 +7314,11 @@ class Overlay {
       if (isFillDot(st)) continue
       // later strokes overwrite earlier ones: this.strokes is in draw order
       if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
+    }
+    // n69: typed on the row of a list mark (an ingredient right of its checkbox), further than the usual reach
+    if (!seed) {
+      const id = rowSeed(this.strokes.filter((st) => !isFillDot(st)), { x, y })
+      seed = id ? this.strokes.find((st) => st.id === id) ?? null : null
     }
     if (!seed) return []
     return this.clusterFrom(seed, { x, y })
