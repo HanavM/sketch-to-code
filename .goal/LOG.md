@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T00:10Z | n48 write round 33 targets | Ten fresh pages written, screenshotted, calibrated; six harder than round 1. Not sketched; next steps sketch them.
 2026-10-29T00:25Z | n46 nav words round a centred logo stay round it | Row told and checked to stay in its drawn line; nav centred 2 of 2. Bookshop 68.7, 50.5; studio 77.6.
 2026-10-28T23:58Z | n45 one-line heading spans its line; pointed pill is a pill | Heading spans, pill right, subtitle split from heading. Bookshop 72.9, 56.8, 64.4, 69.8; nav still spread.
 2026-10-28T22:52Z | n44 a bare line under a heading is its next line; italic means italic | Studio 74.3 to 78.8, 80.2, no invented subtitle; bookshop italic regular but fell to 69.5.
