@@ -46,6 +46,10 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')}) exactly (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}): ${hex(c.fade.colors[0]!)} where it was tapped first, fading to ${hex(c.fade.colors.at(-1)!)} where it was tapped last; keep that direction and those stops, at full strength`)
         continue
       }
+      if (c.paint === 'border') {
+        lines.push(`- action ${String(i)}, the small box drawn at ${at} in dark ink (no colour tapped): an OUTLINED small control (an arrow / pager button, a checkbox, an icon button), about the drawn size: a thin 1px border (light grey, or ${hex(c.color)} if it reads as a strong outline), white or transparent background, never a dark or solid fill; a chevron or symbol typed next to it (‹ ›, +, ×) sits inside it in dark text`)
+        continue
+      }
       lines.push(c.paint === 'background'
         ? `- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with ${hex(c.color)} (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}) at full strength: opacity 1 and that exact colour in its middle; if it is a glow or blurred shape, soften only its edge (blur at most ${String(maxBlur(c.box))}px) and never fade it with opacity, a see-through colour or a paler tint; text on it must stay readable against it`
         : `- action ${String(i)}, the ${c.mark} drawn at ${at}: that ${c.mark === 'line' ? 'text or rule' : 'text'} is coloured ${hex(c.color)}`)
@@ -214,6 +218,16 @@ export function verifyInkColours(
         if (!v.ok) misses.push(`action ${String(i)}: ${what} was tapped as a fade, ${c.fade.colors.map(hex).join(' to ')} (first tap to last); ${v.why}: paint the block itself background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')})`)
         continue
       }
+      // n92: an outlined control: something about the drawn size there with a border and no dark fill
+      if (c.paint === 'border') {
+        const own = after.nodes.filter((n) => centreIn(n, b, Math.max(10, pad)) && n.rect.w >= b.w * 0.5 && n.rect.w <= b.w * 2 + 16 && n.rect.h >= b.h * 0.5 && n.rect.h <= b.h * 2 + 16)
+        const dark = own.filter((n) => { const p = parseCssColor(n.style.backgroundColor); return !!p && alphaOf(n.style.backgroundColor) > 0.5 && (0.299 * p.r + 0.587 * p.g + 0.114 * p.b) < 110 })
+        const framed = own.some((n) => !!n.style.border && !/^0px/.test(n.style.border))
+        const ok = !dark.length && framed
+        checks.push({ what: `${what} (outlined control)`, want: 'border, no dark fill', best: null, ok })
+        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in dark ink with no tap: an outlined small button (1px light border, white or transparent background); ${dark.length ? 'it was built with a dark solid fill' : 'nothing with a border was built there'}: give it a thin border and no dark fill, keep its symbol dark`)
+        continue
+      }
       const at = closestAt(c.color, near, c.paint)
       const best = at?.de ?? null
       const hit = best !== null && best <= SOLID_OK_DE
@@ -368,4 +382,18 @@ export function splitVerdict(split: NonNullable<InkColour['split']>, near: DomNo
       ? 'it is built as a fade from one colour into the other (no hard stop at the divider)'
       : `${!sideOk[0] ? `the side tapped ${hex(split.colors[0])}` : `the side tapped ${hex(split.colors[1])}`} is not painted that solid colour`,
   }
+}
+
+/**
+ * n92: a box no bigger than a small control (both sides at most 64px), drawn in dark, nearly neutral ink with no tap,
+ * is an outline: the person drew a square with the pen they write with, not a dark fill. Round 36 e3 (timesheet):
+ * the two pager squares beside the date range were built as dark filled buttons, three builds in a row.
+ */
+export function inkOutlineBox(color: string | null | undefined, box: { w: number; h: number }): boolean {
+  if (!color || box.w > 64 || box.h > 64 || box.w < 8 || box.h < 8) return false
+  const p = parseCssColor(color)
+  if (!p) return false
+  const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  return lum < 70 && max - min < 48
 }

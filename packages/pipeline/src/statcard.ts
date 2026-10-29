@@ -18,6 +18,7 @@
  */
 import type { ShapeMark } from './shapemark.js'
 import type { BBox } from '@s2c/ink'
+import { progressOf } from './progress.js'
 
 /** Words that only say how text looks; they are never copy. */
 const LOOK = /^(big|bigger|huge|giant|large|massive|jumbo|display|small|smaller|tiny|little|medium|grey|gray|light|dark|bold|bolder|regular|italic|caps|uppercase|lowercase|spaced|muted|faint|thin|thick|normal|size|text|and|centred|centered|left|right|aligned|underlined|outlined|serif|sans|mono|white|black|red|orange|yellow|lime|green|teal|cyan|blue|navy|indigo|purple|violet|pink|magenta|brown|beige|cream|gold|silver|pale|bright|deep|soft|number|numeral|digits?|label|value|stat|figure|in|on|the|a)$/i
@@ -68,7 +69,8 @@ function valueIn(part: string): { value: string; rest: string[] } | null {
  * `notes` in the order they sit on the box (top first), so a label typed above the number reads as above.
  */
 export function statOf(notes: readonly string[]): Stat | null {
-  if (!notes.length || notes.some((n) => ROWS.test(n))) return null
+  // n92: a box holding a progress bar note is a bar panel, not a stat card ("82%" is how full the bar is)
+  if (!notes.length || notes.some((n) => ROWS.test(n) || !!progressOf(n))) return null
   let value: string | null = null, label: string[] = [], vi = -1, li = -1
   notes.forEach((n, i) => {
     // n90: a comma inside a number (3,800) is no break

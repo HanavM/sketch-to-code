@@ -20,6 +20,7 @@
 
 interface NodeLike { id: string; text?: string; textBox?: unknown }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
+import { progressOf } from './progress.js'
 export interface CopyVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
 
 /** Words that describe how copy looks (a trailing ", big bold yellow" tail), not the copy itself. */
@@ -57,6 +58,8 @@ export function typedTimes(notes: readonly string[]): string[] {
 export function directionStrings(notes: readonly string[]): { text: string; why: string; note: string }[] {
   const out: { text: string; why: string; note: string }[] = []
   for (const n of notes) {
+    // n92: a progress bar note is told and checked by progress.ts (its caption is copy, its percent is the fill)
+    if (progressOf(n)) continue
     const p = noteParts(n)
     if (!p.look && !p.directions.length) continue
     for (const d of p.directions) if (d.replace(/[^\p{L}\p{N}]/gu, '').length >= 3) out.push({ text: d, why: 'a direction', note: n })
@@ -75,6 +78,7 @@ export function typedCopyBrief(notes: readonly string[]): string {
   }
   const seen = new Set<string>()
   for (const n of notes) {
+    if (progressOf(n)) continue
     const p = noteParts(n)
     if ((!p.look && !p.directions.length) || seen.has(n)) continue
     seen.add(n)

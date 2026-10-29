@@ -16,6 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
+import { inkOutlineBox } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -827,7 +828,8 @@ export interface InkColour {
   strokeId: string
   /** 'box' | 'ring' | 'line' | 'text line' | 'outline' (a closed freehand blob) */
   mark: string
-  paint: 'background' | 'text'
+  /** n92: 'border': a small box drawn in dark ink with no tap is an outlined button (border in the ink, no fill). */
+  paint: 'background' | 'text' | 'border'
   color: string
   box: BBox
   /** a tap with a colour picked, or the pen colour the mark was drawn in */
@@ -1242,6 +1244,8 @@ export function groundInterpretation(
       if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box: sm?.outline ? sm.box : box, how: 'tap', ...(fade && fade.colors.length > 1 ? { fade } : {}) }); continue }
       if (!st.color) continue
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)
+      // n92: a small box drawn in dark ink (no tap) is an outlined control (arrow button, checkbox), not a dark block
+      if (!flat && sm?.shape === 'box' && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
       inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })
     }
 

@@ -101,7 +101,7 @@ export function tapSolidsAllowed(texts: string[]): boolean {
  */
 export function markTappedSolids(
   marks: ShapeMark[],
-  inkColours: Array<{ strokeId: string; color: string; how: 'tap' | 'pen'; paint: 'background' | 'text' }>,
+  inkColours: Array<{ strokeId: string; color: string; how: 'tap' | 'pen'; paint: 'background' | 'text' | 'border' }>,
 ): void {
   for (const m of marks) {
     if (m.shape !== 'ellipse' || m.area || m.solid || m.glyph) continue
