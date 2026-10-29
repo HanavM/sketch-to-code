@@ -1,0 +1,550 @@
+{
+  "round": 33,
+  "id": "e4-map-search",
+  "version": 3,
+  "stopped": null,
+  "likeness": 81.4,
+  "colour": 0.9906611318491372,
+  "structure": 0.9276371222535984,
+  "layout": 0.9972550167241728,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 2.7,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 5,
+      "box": 6,
+      "dot": 6
+    },
+    "inkPx": 9338
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 74,
+  "notes": 9,
+  "longestNote": 12,
+  "noteTexts": [
+    "Eatly, red bold",
+    "Pizza near Soho, grey, round",
+    "Forno Rosso / ★ 4.7 · Pizza · 0.3 mi",
+    "Slice House / ★ 4.4 · Pizza · 0.5 mi",
+    "Nonna's / ★ 4.8 · Italian · 0.6 mi",
+    "Dough Bros / ★ 4.2 · Pizza · 0.9 mi",
+    "pale pink thumbs; thin divider under each row",
+    "map: red dots are pins, white ring",
+    "put the pins on my red dots, twice as big; streets wider"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 418,
+    "firstReadingS": 122,
+    "readS": [
+      68,
+      22
+    ],
+    "buildS": [
+      152,
+      108
+    ],
+    "sketchingS": 69
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 90656,
+    "cacheRead": 415863,
+    "output": 30682,
+    "billed": 121338
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 4011
+    },
+    {
+      "op": "stroke",
+      "at": 4644
+    },
+    {
+      "op": "stroke",
+      "at": 7692
+    },
+    {
+      "op": "stroke",
+      "at": 17276
+    },
+    {
+      "op": "pen",
+      "color": "#dcfce7",
+      "at": 17662
+    },
+    {
+      "op": "stroke",
+      "at": 18143
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 18514
+    },
+    {
+      "op": "stroke",
+      "at": 21296
+    },
+    {
+      "op": "stroke",
+      "at": 24045
+    },
+    {
+      "op": "stroke",
+      "at": 26793
+    },
+    {
+      "op": "pen",
+      "color": "#fecaca",
+      "at": 27162
+    },
+    {
+      "op": "stroke",
+      "at": 28577
+    },
+    {
+      "op": "stroke",
+      "at": 29993
+    },
+    {
+      "op": "stroke",
+      "at": 31409
+    },
+    {
+      "op": "stroke",
+      "at": 32827
+    },
+    {
+      "op": "pen",
+      "color": "#dc2626",
+      "at": 33201
+    },
+    {
+      "op": "stroke",
+      "at": 33677
+    },
+    {
+      "op": "stroke",
+      "at": 34159
+    },
+    {
+      "op": "stroke",
+      "at": 34626
+    },
+    {
+      "op": "stroke",
+      "at": 35110
+    },
+    {
+      "op": "pen",
+      "color": "#dcfce7",
+      "at": 41839
+    },
+    {
+      "op": "stroke",
+      "at": 42311
+    },
+    {
+      "op": "note",
+      "at": 48955
+    },
+    {
+      "op": "note",
+      "at": 49628
+    },
+    {
+      "op": "note",
+      "at": 50314
+    },
+    {
+      "op": "note",
+      "at": 51014
+    },
+    {
+      "op": "note",
+      "at": 51708
+    },
+    {
+      "op": "note",
+      "at": 52392
+    },
+    {
+      "op": "note",
+      "at": 53117
+    },
+    {
+      "op": "note",
+      "at": 53823
+    },
+    {
+      "op": "run",
+      "at": 53966
+    },
+    {
+      "op": "note",
+      "at": 280916
+    },
+    {
+      "op": "run",
+      "at": 280995
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          72
+        ],
+        [
+          1278,
+          72
+        ]
+      ],
+      "n": 214,
+      "at": 4011
+    },
+    {
+      "way": [
+        [
+          24,
+          36
+        ],
+        [
+          76,
+          36
+        ]
+      ],
+      "n": 10,
+      "at": 4644
+    },
+    {
+      "way": [
+        [
+          101,
+          14
+        ],
+        [
+          521,
+          14
+        ],
+        [
+          521,
+          58
+        ],
+        [
+          101,
+          58
+        ],
+        [
+          101,
+          16
+        ]
+      ],
+      "n": 155,
+      "at": 7692
+    },
+    {
+      "way": [
+        [
+          460,
+          72
+        ],
+        [
+          1278,
+          72
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          460,
+          898
+        ],
+        [
+          460,
+          74
+        ]
+      ],
+      "n": 548,
+      "at": 17276
+    },
+    {
+      "way": [
+        [
+          600,
+          200
+        ]
+      ],
+      "n": 1,
+      "at": 18143
+    },
+    {
+      "way": [
+        [
+          829,
+          72
+        ],
+        [
+          829,
+          898
+        ]
+      ],
+      "n": 139,
+      "at": 21296
+    },
+    {
+      "way": [
+        [
+          460,
+          381
+        ],
+        [
+          1278,
+          381
+        ]
+      ],
+      "n": 137,
+      "at": 24045
+    },
+    {
+      "way": [
+        [
+          460,
+          678
+        ],
+        [
+          1278,
+          678
+        ]
+      ],
+      "n": 137,
+      "at": 26793
+    },
+    {
+      "way": [
+        [
+          24,
+          104
+        ],
+        [
+          120,
+          104
+        ],
+        [
+          120,
+          176
+        ],
+        [
+          24,
+          176
+        ],
+        [
+          24,
+          106
+        ]
+      ],
+      "n": 57,
+      "at": 28577
+    },
+    {
+      "way": [
+        [
+          24,
+          209
+        ],
+        [
+          120,
+          209
+        ],
+        [
+          120,
+          281
+        ],
+        [
+          24,
+          281
+        ],
+        [
+          24,
+          211
+        ]
+      ],
+      "n": 57,
+      "at": 29993
+    },
+    {
+      "way": [
+        [
+          24,
+          314
+        ],
+        [
+          120,
+          314
+        ],
+        [
+          120,
+          386
+        ],
+        [
+          24,
+          386
+        ],
+        [
+          24,
+          316
+        ]
+      ],
+      "n": 57,
+      "at": 31409
+    },
+    {
+      "way": [
+        [
+          24,
+          419
+        ],
+        [
+          120,
+          419
+        ],
+        [
+          120,
+          491
+        ],
+        [
+          24,
+          491
+        ],
+        [
+          24,
+          421
+        ]
+      ],
+      "n": 57,
+      "at": 32827
+    },
+    {
+      "way": [
+        [
+          715,
+          307
+        ]
+      ],
+      "n": 1,
+      "at": 33677
+    },
+    {
+      "way": [
+        [
+          1085,
+          267
+        ]
+      ],
+      "n": 1,
+      "at": 34159
+    },
+    {
+      "way": [
+        [
+          925,
+          467
+        ]
+      ],
+      "n": 1,
+      "at": 34626
+    },
+    {
+      "way": [
+        [
+          775,
+          607
+        ]
+      ],
+      "n": 1,
+      "at": 35110
+    },
+    {
+      "way": [
+        [
+          1000,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 42311
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Eatly, red bold",
+      "whole": false,
+      "x": 50,
+      "y": 30,
+      "at": 48955
+    },
+    {
+      "text": "Pizza near Soho, grey, round",
+      "whole": false,
+      "x": 300,
+      "y": 36,
+      "at": 49628
+    },
+    {
+      "text": "Forno Rosso / ★ 4.7 · Pizza · 0.3 mi",
+      "whole": false,
+      "x": 250,
+      "y": 120,
+      "at": 50314
+    },
+    {
+      "text": "Slice House / ★ 4.4 · Pizza · 0.5 mi",
+      "whole": false,
+      "x": 250,
+      "y": 225,
+      "at": 51014
+    },
+    {
+      "text": "Nonna's / ★ 4.8 · Italian · 0.6 mi",
+      "whole": false,
+      "x": 250,
+      "y": 330,
+      "at": 51708
+    },
+    {
+      "text": "Dough Bros / ★ 4.2 · Pizza · 0.9 mi",
+      "whole": false,
+      "x": 250,
+      "y": 435,
+      "at": 52392
+    },
+    {
+      "text": "pale pink thumbs; thin divider under each row",
+      "whole": false,
+      "x": 72,
+      "y": 520,
+      "at": 53117
+    },
+    {
+      "text": "map: red dots are pins, white ring",
+      "whole": false,
+      "x": 640,
+      "y": 520,
+      "at": 53823
+    },
+    {
+      "text": "put the pins on my red dots, twice as big; streets wider",
+      "whole": false,
+      "x": 1000,
+      "y": 150,
+      "at": 280916
+    }
+  ]
+}

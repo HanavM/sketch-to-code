@@ -1,0 +1,529 @@
+{
+  "round": 33,
+  "id": "e3-invoice",
+  "version": 3,
+  "stopped": null,
+  "likeness": 80.6,
+  "colour": 0.9978028310460039,
+  "structure": 0.9673713306310474,
+  "layout": 0.6467124085143485,
+  "strokes": {
+    "count": 15,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 2,
+      "line": 11,
+      "dot": 2
+    },
+    "inkPx": 6890
+  },
+  "erased": 0,
+  "notesMoved": 2,
+  "words": 72,
+  "notes": 13,
+  "longestNote": 12,
+  "noteTexts": [
+    "Invoice #1042, bold",
+    "Issued 3 Nov 2026, Due 17 Nov 2026, grey, right",
+    "Billed to, Harbor Coffee Ltd bold, 12 Quay Street, Bristol",
+    "Item, Qty, Amount, grey bold; dark rule",
+    "Logo design, 1, £800",
+    "Menu layout, 2, £450",
+    "Print setup, 1, £120",
+    "Total £1,820, big bold",
+    "Pay now",
+    "remove this big number",
+    "white card, soft shadow",
+    "remove this white box",
+    "the big drawn box is a white card behind all of this"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 506,
+    "firstReadingS": 134,
+    "readS": [
+      90,
+      25,
+      45
+    ],
+    "buildS": [
+      245,
+      22,
+      12
+    ],
+    "sketchingS": 67
+  },
+  "corrections": 2,
+  "runs": 3,
+  "tokens": {
+    "input": 88461,
+    "cacheRead": 414923,
+    "output": 37612,
+    "billed": 126073
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 9129
+    },
+    {
+      "op": "stroke",
+      "at": 10104
+    },
+    {
+      "op": "stroke",
+      "at": 10936
+    },
+    {
+      "op": "stroke",
+      "at": 11751
+    },
+    {
+      "op": "stroke",
+      "at": 12386
+    },
+    {
+      "op": "stroke",
+      "at": 13218
+    },
+    {
+      "op": "stroke",
+      "at": 14117
+    },
+    {
+      "op": "stroke",
+      "at": 16354
+    },
+    {
+      "op": "stroke",
+      "at": 18586
+    },
+    {
+      "op": "stroke",
+      "at": 20820
+    },
+    {
+      "op": "stroke",
+      "at": 23053
+    },
+    {
+      "op": "stroke",
+      "at": 23954
+    },
+    {
+      "op": "stroke",
+      "at": 25384
+    },
+    {
+      "op": "pen",
+      "color": "#f1f5f9",
+      "at": 25766
+    },
+    {
+      "op": "stroke",
+      "at": 26254
+    },
+    {
+      "op": "pen",
+      "color": "#0f766e",
+      "at": 26624
+    },
+    {
+      "op": "stroke",
+      "at": 27104
+    },
+    {
+      "op": "note",
+      "at": 27807
+    },
+    {
+      "op": "note",
+      "at": 28507
+    },
+    {
+      "op": "note",
+      "at": 29219
+    },
+    {
+      "op": "note",
+      "at": 29915
+    },
+    {
+      "op": "note",
+      "at": 30565
+    },
+    {
+      "op": "note",
+      "at": 31217
+    },
+    {
+      "op": "note",
+      "at": 31892
+    },
+    {
+      "op": "note",
+      "at": 32594
+    },
+    {
+      "op": "note",
+      "at": 33237
+    },
+    {
+      "op": "moveNote",
+      "at": 40052
+    },
+    {
+      "op": "moveNote",
+      "at": 40749
+    },
+    {
+      "op": "run",
+      "at": 43607
+    },
+    {
+      "op": "note",
+      "at": 386296
+    },
+    {
+      "op": "note",
+      "at": 386960
+    },
+    {
+      "op": "run",
+      "at": 387038
+    },
+    {
+      "op": "note",
+      "at": 442710
+    },
+    {
+      "op": "note",
+      "at": 443403
+    },
+    {
+      "op": "run",
+      "at": 443468
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          260,
+          50
+        ],
+        [
+          1020,
+          50
+        ],
+        [
+          1020,
+          850
+        ],
+        [
+          260,
+          850
+        ],
+        [
+          260,
+          52
+        ]
+      ],
+      "n": 521,
+      "at": 9129
+    },
+    {
+      "way": [
+        [
+          324,
+          122
+        ],
+        [
+          506,
+          122
+        ]
+      ],
+      "n": 31,
+      "at": 10104
+    },
+    {
+      "way": [
+        [
+          831,
+          118
+        ],
+        [
+          956,
+          118
+        ]
+      ],
+      "n": 22,
+      "at": 10936
+    },
+    {
+      "way": [
+        [
+          839,
+          142
+        ],
+        [
+          956,
+          142
+        ]
+      ],
+      "n": 21,
+      "at": 11751
+    },
+    {
+      "way": [
+        [
+          324,
+          214
+        ],
+        [
+          378,
+          214
+        ]
+      ],
+      "n": 10,
+      "at": 12386
+    },
+    {
+      "way": [
+        [
+          324,
+          238
+        ],
+        [
+          452,
+          238
+        ]
+      ],
+      "n": 22,
+      "at": 13218
+    },
+    {
+      "way": [
+        [
+          324,
+          262
+        ],
+        [
+          475,
+          262
+        ]
+      ],
+      "n": 26,
+      "at": 14117
+    },
+    {
+      "way": [
+        [
+          324,
+          360
+        ],
+        [
+          956,
+          360
+        ]
+      ],
+      "n": 106,
+      "at": 16354
+    },
+    {
+      "way": [
+        [
+          324,
+          406
+        ],
+        [
+          956,
+          406
+        ]
+      ],
+      "n": 106,
+      "at": 18586
+    },
+    {
+      "way": [
+        [
+          324,
+          452
+        ],
+        [
+          956,
+          452
+        ]
+      ],
+      "n": 106,
+      "at": 20820
+    },
+    {
+      "way": [
+        [
+          324,
+          498
+        ],
+        [
+          956,
+          498
+        ]
+      ],
+      "n": 106,
+      "at": 23053
+    },
+    {
+      "way": [
+        [
+          809,
+          546
+        ],
+        [
+          956,
+          546
+        ]
+      ],
+      "n": 26,
+      "at": 23954
+    },
+    {
+      "way": [
+        [
+          324,
+          602
+        ],
+        [
+          449,
+          602
+        ],
+        [
+          449,
+          648
+        ],
+        [
+          324,
+          648
+        ],
+        [
+          324,
+          604
+        ]
+      ],
+      "n": 58,
+      "at": 25384
+    },
+    {
+      "way": [
+        [
+          130,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 26254
+    },
+    {
+      "way": [
+        [
+          386,
+          625
+        ]
+      ],
+      "n": 1,
+      "at": 27104
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Invoice #1042, bold",
+      "whole": false,
+      "x": 415,
+      "y": 110,
+      "at": 27807
+    },
+    {
+      "text": "Issued 3 Nov 2026, Due 17 Nov 2026, grey, right",
+      "whole": false,
+      "x": 890,
+      "y": 105,
+      "at": 28507
+    },
+    {
+      "text": "Billed to, Harbor Coffee Ltd bold, 12 Quay Street, Bristol",
+      "whole": false,
+      "x": 400,
+      "y": 228,
+      "at": 29219
+    },
+    {
+      "text": "Item, Qty, Amount, grey bold; dark rule",
+      "whole": false,
+      "x": 640,
+      "y": 340,
+      "at": 29915
+    },
+    {
+      "text": "Logo design, 1, £800",
+      "whole": false,
+      "x": 400,
+      "y": 383,
+      "at": 30565
+    },
+    {
+      "text": "Menu layout, 2, £450",
+      "whole": false,
+      "x": 400,
+      "y": 429,
+      "at": 31217
+    },
+    {
+      "text": "Print setup, 1, £120",
+      "whole": false,
+      "x": 400,
+      "y": 475,
+      "at": 31892
+    },
+    {
+      "text": "Total £1,820, big bold",
+      "whole": false,
+      "x": 880,
+      "y": 535,
+      "at": 32594
+    },
+    {
+      "text": "Pay now",
+      "whole": false,
+      "x": 386,
+      "y": 615,
+      "at": 33237
+    },
+    {
+      "text": "remove this big number",
+      "whole": false,
+      "x": 640,
+      "y": 745,
+      "at": 386296
+    },
+    {
+      "text": "white card, soft shadow",
+      "whole": false,
+      "x": 290,
+      "y": 800,
+      "at": 386960
+    },
+    {
+      "text": "remove this white box",
+      "whole": false,
+      "x": 640,
+      "y": 745,
+      "at": 442710
+    },
+    {
+      "text": "the big drawn box is a white card behind all of this",
+      "whole": true,
+      "x": 280,
+      "y": 300,
+      "at": 443403
+    }
+  ]
+}
