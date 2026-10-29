@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T07:12Z | n61 words on lines inside a turned box sit on them | Told and checked in the ticket's frame, notes bound. Ticket 76.9 to 87.5, 86.1, no fixes.
 2026-10-29T06:35Z | n60 pen-coloured text under all text white; giant words kept on their lines | Red link kept, SLOW and WORK full size on their lines. Agency 51.0 to 54.7, 74.6, no fixes.
 2026-10-29T06:00Z | n59 two fills at a drawn divider; text lines not rules | White ticket, pink stub, no rules, both builds. Ticket 63.7 to 74.0, 76.9, no fixes.
 2026-10-29T05:45Z | n57 do gains carry to agency and ticket | Hollow words and same built, checked; agency 45.9 to 50.2, 51.0; ticket 60.8, 63.7, no fixes.
