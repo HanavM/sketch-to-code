@@ -15,7 +15,7 @@ import {
   type BBox, type InkFill, type SplitRegion, type Stroke,
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
-import { appPalette, matchColor, type ColorMatch } from './palette.js'
+import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -1316,6 +1316,7 @@ export function groundInterpretation(
   const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
   const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
   const page = pageFill(ev.fills ?? [])
+  if (page) dropPageInk(actions, page.colors)
   const placedNotes = ev.notes
     .filter((n) => n.placed && n.at && !attached.has(n.id) && !isPageLookNote(n.text))
     .map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) }))
@@ -1327,5 +1328,28 @@ export function groundInterpretation(
     ...(placedNotes.length ? { placedNotes } : {}),
     ...(pageNotes.length ? { pageNotes } : {}),
     ...(page ? { pageFill: page } : {}),
+  }
+}
+
+/**
+ * n83: a mark drawn in the page's own colour is never painted that colour. Round 35 e3: the page was tapped
+ * near-black, and the pen kept that colour for the next strokes, so the line under "Push day, big bold white"
+ * told the build the title is #121418: it came out invisible on the #121418 page, though typed white. The pen
+ * colour left over from a page tap is not a colour choice for the mark; the typed words (or the default) decide.
+ * In place, on pen colours only (a tap on a mark is always meant).
+ */
+export function dropPageInk(actions: Array<{ inkColours?: InkColour[] }>, pageColors: readonly string[]): void {
+  const page = pageColors.map((c) => parseCssColor(c)).filter((c): c is NonNullable<typeof c> => !!c)
+  if (!page.length) return
+  for (const a of actions) {
+    if (!a.inkColours?.length) continue
+    const kept = a.inkColours.filter((c) => {
+      if (c.how !== 'pen') return true
+      const g = parseCssColor(c.color)
+      return !g || page.every((p) => deltaE(p, g) > 6)
+    })
+    if (kept.length === a.inkColours.length) continue
+    if (kept.length) a.inkColours = kept
+    else delete a.inkColours
   }
 }

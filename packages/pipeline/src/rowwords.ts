@@ -25,12 +25,15 @@ export interface RowWordsVerdict { satisfied: boolean; unverifiable?: boolean; r
 const r1 = (v: number) => Math.round(v)
 const closed = (m: ShapeMark) => (m.shape === 'box' || m.shape === 'ellipse') && !m.area && !m.glyph && !m.each
 
+// n83: words that name what a mark is ("dark pills", "rounded tabs"): a style tail, never copy
+const KIND = /^(pills?|buttons?|btns?|tabs?|chips?|toggles?|segments?|segmented|tags?|badges?|boxes|box|cards?|outline|outlined|rounded|round|filled|shape|style)$/
+
 /** A note's copy: the words before a trailing ", style" tail, as typed. */
 export function copyOf(text: string): string {
   const i = text.lastIndexOf(',')
   if (i > 0) {
     const tail = text.slice(i + 1)
-    if (wordsOf(tail).length > 0 && copyWords(tail).length === 0) return text.slice(0, i).trim()
+    if (wordsOf(tail).length > 0 && copyWords(tail).every((w) => KIND.test(w))) return text.slice(0, i).trim()
   }
   return text.trim()
 }
@@ -50,6 +53,42 @@ export function markRowWords(marks: ShapeMark[], notes: NoteLike[]): void {
       : n.strokeIds?.length === 1 && n.strokeIds[0] === m.strokeId)
     const n = own.find((x) => isCopy(copyOf(x.text)))
     if (n) m.own = copyOf(n.text)
+  }
+  splitRowNotes(marks)
+}
+
+/**
+ * n83: one note typed on a row of look-alike pills or tabs, one word per pill ("Week Month Year, dark pills" on
+ * the first of three boxes, round 35 e3), is each pill's word in drawn order: the build printed the whole note on
+ * the first pill. Split when the note's words are as many as the boxes in the row (three or more, or two when
+ * another pill's own note confirms its word), and no pill was typed a word that disagrees. In place.
+ */
+export function splitRowNotes(marks: ShapeMark[]): void {
+  const pool = marks.filter((m) => closed(m))
+  for (const m of pool) {
+    if (!m.own) continue
+    const words = m.own.split(/[\s·•|/]+/).map((w) => w.trim()).filter(Boolean)
+    if (words.length < 2 || words.length > 7 || words.some((w) => !/^[\p{L}\p{N}&+'-]+$/u.test(w))) continue
+    const s = m.box
+    const like = (o: ShapeMark) => o.shape === m.shape && ratio(o.box.w, s.w) <= 1.6 && ratio(o.box.h, s.h) <= 1.4 &&
+      Math.abs((o.box.y + o.box.h / 2) - (s.y + s.h / 2)) <= s.h * 0.5
+    const row = [m]
+    const reach = Math.max(24, 0.6 * s.h)
+    for (let grew = true; grew;) {
+      grew = false
+      for (const o of pool) {
+        if (row.includes(o) || !like(o)) continue
+        if (row.some((g) => holds(g.box, o.box) || holds(o.box, g.box))) continue
+        if (row.some((g) => gapOf(g.box, o.box) <= reach)) { row.push(o); grew = true }
+      }
+    }
+    if (row.length !== words.length) continue
+    row.sort((a, b) => a.box.x - b.box.x)
+    const others = row.filter((o) => o !== m && o.own)
+    const agrees = (o: ShapeMark) => o.own!.trim().toLowerCase() === words[row.indexOf(o)]!.toLowerCase()
+    if (others.some((o) => !agrees(o))) continue
+    if (words.length < 3 && !others.length) continue
+    row.forEach((o, i) => { o.own = words[i]! })
   }
 }
 

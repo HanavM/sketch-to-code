@@ -230,6 +230,9 @@ function fillAt(nodes: NodeLike[], upTo: number, x: number, y: number): Rgb | 'm
 }
 
 /** Every visible piece of text reads on the fill under its middle. */
+/** Contrast under which text cannot be seen at all, whatever colour was asked for. */
+const INVISIBLE = 1.35
+
 export function verifyReadable(after: Snap, opts: { skip?: (n: NodeLike) => boolean } = {}): LookVerdict {
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const byId = new Map(after.nodes.map((n) => [n.id, n]))
@@ -240,7 +243,7 @@ export function verifyReadable(after: Snap, opts: { skip?: (n: NodeLike) => bool
     if (!words || !/[\p{L}\p{N}]/u.test(words)) return
     if (n.rect.w < 4 || n.rect.h < 4) return
     if (n.rect.y > after.viewport.h * 1.5) return
-    if (opts.skip?.(n)) return
+    const named = opts.skip?.(n) ?? false
     // hollow letters are judged by their stroke, not their (see-through) fill
     if (strokePx(n) > 0) return
     if (alpha(n.style.color) < 0.5) return
@@ -251,8 +254,11 @@ export function verifyReadable(after: Snap, opts: { skip?: (n: NodeLike) => bool
     }
     const under = fillAt(after.nodes, i, n.rect.x + n.rect.w / 2, n.rect.y + n.rect.h / 2)
     if (under === 'mixed') return
-    judged++
     const cr = contrast(ink, under)
+    // n83: a colour the user typed is theirs to choose, but text in the very colour behind it is never meant
+    // (round 35 e3: "Push day, big bold white" built #121418 on the #121418 page, and the named-colour skip passed it)
+    if (named && cr >= INVISIBLE) return
+    judged++
     if (cr < MIN_CONTRAST || (lum(ink) < 0.1 && lightReads(under))) {
       faults.push(`"${words.slice(0, 24)}" is ${hexOf(ink)} on ${hexOf(under)} behind it (hard to read): ` +
         `give it a colour that reads on ${hexOf(under)} (${lum(under) > 0.35 ? 'dark' : 'white or light'}); change nothing else`)
