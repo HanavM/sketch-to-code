@@ -1,0 +1,504 @@
+{
+  "round": 35,
+  "id": "c4-yoga-studio",
+  "version": 3,
+  "stopped": null,
+  "likeness": 80.1,
+  "colour": 0.9852846962190133,
+  "structure": 0.9347959329060758,
+  "layout": 0.6992552021746068,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 3.3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 7,
+      "box": 2,
+      "circle": 1,
+      "dot": 3
+    },
+    "inkPx": 5259
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 54,
+  "notes": 9,
+  "longestNote": 13,
+  "noteTexts": [
+    "stillroom, bold",
+    "Classes Teachers Pricing Sign in",
+    "Slow down. Breathe in. huge bold",
+    "Small morning and evening classes for every level, ten minutes from the station.",
+    "Book a class, white bold",
+    "See timetable, green bold",
+    "Mon-Sat 7am-9pm  12 Mill Lane  First class free",
+    "four links spaced out on one line",
+    "outline only, no fill"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 466,
+    "firstReadingS": 76,
+    "readS": [
+      42,
+      16
+    ],
+    "buildS": [
+      188,
+      158
+    ],
+    "sketchingS": 62
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 99610,
+    "cacheRead": 389078,
+    "output": 35211,
+    "billed": 134821
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#3d3a35",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 724
+    },
+    {
+      "op": "stroke",
+      "at": 2022
+    },
+    {
+      "op": "stroke",
+      "at": 3521
+    },
+    {
+      "op": "stroke",
+      "at": 4971
+    },
+    {
+      "op": "pen",
+      "color": "#6b675f",
+      "at": 5333
+    },
+    {
+      "op": "stroke",
+      "at": 7088
+    },
+    {
+      "op": "stroke",
+      "at": 8138
+    },
+    {
+      "op": "stroke",
+      "at": 9888
+    },
+    {
+      "op": "pen",
+      "color": "#6d7f5c",
+      "at": 10249
+    },
+    {
+      "op": "stroke",
+      "at": 12123
+    },
+    {
+      "op": "stroke",
+      "at": 13990
+    },
+    {
+      "op": "stroke",
+      "at": 19973
+    },
+    {
+      "op": "pen",
+      "color": "#b8a68c",
+      "at": 20337
+    },
+    {
+      "op": "stroke",
+      "at": 20811
+    },
+    {
+      "op": "pen",
+      "color": "#6d7f5c",
+      "at": 21174
+    },
+    {
+      "op": "stroke",
+      "at": 21639
+    },
+    {
+      "op": "pen",
+      "color": "#f2ebe1",
+      "at": 22007
+    },
+    {
+      "op": "stroke",
+      "at": 22473
+    },
+    {
+      "op": "note",
+      "at": 28951
+    },
+    {
+      "op": "note",
+      "at": 29625
+    },
+    {
+      "op": "note",
+      "at": 30281
+    },
+    {
+      "op": "note",
+      "at": 31005
+    },
+    {
+      "op": "note",
+      "at": 31647
+    },
+    {
+      "op": "note",
+      "at": 32310
+    },
+    {
+      "op": "note",
+      "at": 32991
+    },
+    {
+      "op": "run",
+      "at": 33173
+    },
+    {
+      "op": "note",
+      "at": 280702
+    },
+    {
+      "op": "note",
+      "at": 281344
+    },
+    {
+      "op": "run",
+      "at": 281475
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          80,
+          47
+        ],
+        [
+          173,
+          47
+        ]
+      ],
+      "n": 17,
+      "at": 724
+    },
+    {
+      "way": [
+        [
+          898,
+          48
+        ],
+        [
+          1200,
+          48
+        ]
+      ],
+      "n": 51,
+      "at": 2022
+    },
+    {
+      "way": [
+        [
+          80,
+          290
+        ],
+        [
+          454,
+          290
+        ]
+      ],
+      "n": 63,
+      "at": 3521
+    },
+    {
+      "way": [
+        [
+          80,
+          362
+        ],
+        [
+          432,
+          362
+        ]
+      ],
+      "n": 60,
+      "at": 4971
+    },
+    {
+      "way": [
+        [
+          82,
+          440
+        ],
+        [
+          542,
+          440
+        ]
+      ],
+      "n": 78,
+      "at": 7088
+    },
+    {
+      "way": [
+        [
+          82,
+          469
+        ],
+        [
+          290,
+          469
+        ]
+      ],
+      "n": 36,
+      "at": 8138
+    },
+    {
+      "way": [
+        [
+          80,
+          789
+        ],
+        [
+          543,
+          789
+        ]
+      ],
+      "n": 78,
+      "at": 9888
+    },
+    {
+      "way": [
+        [
+          82,
+          540
+        ],
+        [
+          282,
+          540
+        ],
+        [
+          282,
+          596
+        ],
+        [
+          82,
+          596
+        ],
+        [
+          82,
+          540
+        ]
+      ],
+      "n": 85,
+      "at": 12123
+    },
+    {
+      "way": [
+        [
+          300,
+          540
+        ],
+        [
+          500,
+          540
+        ],
+        [
+          500,
+          596
+        ],
+        [
+          300,
+          596
+        ],
+        [
+          300,
+          540
+        ]
+      ],
+      "n": 85,
+      "at": 13990
+    },
+    {
+      "way": [
+        [
+          700,
+          740
+        ],
+        [
+          700,
+          390
+        ],
+        [
+          709,
+          325
+        ],
+        [
+          733,
+          265
+        ],
+        [
+          773,
+          213
+        ],
+        [
+          825,
+          173
+        ],
+        [
+          885,
+          149
+        ],
+        [
+          950,
+          140
+        ],
+        [
+          1015,
+          149
+        ],
+        [
+          1075,
+          173
+        ],
+        [
+          1127,
+          213
+        ],
+        [
+          1167,
+          265
+        ],
+        [
+          1191,
+          325
+        ],
+        [
+          1200,
+          390
+        ],
+        [
+          1200,
+          740
+        ],
+        [
+          700,
+          740
+        ]
+      ],
+      "n": 332,
+      "at": 19973
+    },
+    {
+      "way": [
+        [
+          950,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 20811
+    },
+    {
+      "way": [
+        [
+          150,
+          568
+        ]
+      ],
+      "n": 1,
+      "at": 21639
+    },
+    {
+      "way": [
+        [
+          600,
+          150
+        ]
+      ],
+      "n": 1,
+      "at": 22473
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "stillroom, bold",
+      "whole": false,
+      "x": 126,
+      "y": 37,
+      "at": 28951
+    },
+    {
+      "text": "Classes Teachers Pricing Sign in",
+      "whole": false,
+      "x": 1050,
+      "y": 38,
+      "at": 29625
+    },
+    {
+      "text": "Slow down. Breathe in. huge bold",
+      "whole": false,
+      "x": 260,
+      "y": 278,
+      "at": 30281
+    },
+    {
+      "text": "Small morning and evening classes for every level, ten minutes from the station.",
+      "whole": false,
+      "x": 310,
+      "y": 430,
+      "at": 31005
+    },
+    {
+      "text": "Book a class, white bold",
+      "whole": false,
+      "x": 182,
+      "y": 568,
+      "at": 31647
+    },
+    {
+      "text": "See timetable, green bold",
+      "whole": false,
+      "x": 400,
+      "y": 568,
+      "at": 32310
+    },
+    {
+      "text": "Mon-Sat 7am-9pm  12 Mill Lane  First class free",
+      "whole": false,
+      "x": 310,
+      "y": 779,
+      "at": 32991
+    },
+    {
+      "text": "four links spaced out on one line",
+      "whole": false,
+      "x": 1000,
+      "y": 66,
+      "at": 280702
+    },
+    {
+      "text": "outline only, no fill",
+      "whole": false,
+      "x": 400,
+      "y": 590,
+      "at": 281344
+    }
+  ]
+}

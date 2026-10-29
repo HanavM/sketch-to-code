@@ -1,0 +1,618 @@
+{
+  "round": 35,
+  "id": "c3-lighthouse",
+  "version": 3,
+  "stopped": null,
+  "likeness": 88.5,
+  "colour": 0.9640605995370626,
+  "structure": 0.910352305300075,
+  "layout": 0.7956414366007352,
+  "strokes": {
+    "count": 20,
+    "pointsPerStroke": 2.7,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 6,
+      "box": 7,
+      "dot": 7
+    },
+    "inkPx": 9885
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 47,
+  "notes": 7,
+  "longestNote": 16,
+  "noteTexts": [
+    "KEEPER, bold spaced",
+    "Rooms Tours History Book",
+    "Sleep where the light lives. huge bold",
+    "Four rooms in a working 1871 lighthouse, with the lamp room open to guests after dark.",
+    "Check dates, yellow bold; outline only",
+    "beam fades out to the right",
+    "hollow: yellow border, no fill"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 434,
+    "firstReadingS": 105,
+    "readS": [
+      51,
+      5
+    ],
+    "buildS": [
+      277,
+      16
+    ],
+    "sketchingS": 85
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 84748,
+    "cacheRead": 751539,
+    "output": 29792,
+    "billed": 114540
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ffd166",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 741
+    },
+    {
+      "op": "pen",
+      "color": "#dbe4f5",
+      "at": 1101
+    },
+    {
+      "op": "stroke",
+      "at": 2289
+    },
+    {
+      "op": "stroke",
+      "at": 8342
+    },
+    {
+      "op": "stroke",
+      "at": 12224
+    },
+    {
+      "op": "stroke",
+      "at": 13655
+    },
+    {
+      "op": "stroke",
+      "at": 15190
+    },
+    {
+      "op": "stroke",
+      "at": 16922
+    },
+    {
+      "op": "pen",
+      "color": "#f4f0e6",
+      "at": 17283
+    },
+    {
+      "op": "stroke",
+      "at": 19459
+    },
+    {
+      "op": "stroke",
+      "at": 21026
+    },
+    {
+      "op": "pen",
+      "color": "#c9d3ea",
+      "at": 21393
+    },
+    {
+      "op": "stroke",
+      "at": 23022
+    },
+    {
+      "op": "stroke",
+      "at": 24357
+    },
+    {
+      "op": "stroke",
+      "at": 32693
+    },
+    {
+      "op": "pen",
+      "color": "#ffd166",
+      "at": 33079
+    },
+    {
+      "op": "stroke",
+      "at": 35080
+    },
+    {
+      "op": "pen",
+      "color": "#0e1c3d",
+      "at": 35439
+    },
+    {
+      "op": "stroke",
+      "at": 35908
+    },
+    {
+      "op": "pen",
+      "color": "#e0b862",
+      "at": 36277
+    },
+    {
+      "op": "stroke",
+      "at": 36741
+    },
+    {
+      "op": "pen",
+      "color": "#f4f0e6",
+      "at": 37109
+    },
+    {
+      "op": "stroke",
+      "at": 37573
+    },
+    {
+      "op": "pen",
+      "color": "#ffd166",
+      "at": 37933
+    },
+    {
+      "op": "stroke",
+      "at": 38407
+    },
+    {
+      "op": "pen",
+      "color": "#e63946",
+      "at": 38772
+    },
+    {
+      "op": "stroke",
+      "at": 39240
+    },
+    {
+      "op": "stroke",
+      "at": 39706
+    },
+    {
+      "op": "pen",
+      "color": "#15306b",
+      "at": 40066
+    },
+    {
+      "op": "stroke",
+      "at": 40545
+    },
+    {
+      "op": "note",
+      "at": 46927
+    },
+    {
+      "op": "note",
+      "at": 47573
+    },
+    {
+      "op": "note",
+      "at": 48232
+    },
+    {
+      "op": "note",
+      "at": 49004
+    },
+    {
+      "op": "note",
+      "at": 49668
+    },
+    {
+      "op": "note",
+      "at": 50351
+    },
+    {
+      "op": "run",
+      "at": 53218
+    },
+    {
+      "op": "note",
+      "at": 399421
+    },
+    {
+      "op": "run",
+      "at": 399574
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          80,
+          43
+        ],
+        [
+          180,
+          43
+        ]
+      ],
+      "n": 18,
+      "at": 741
+    },
+    {
+      "way": [
+        [
+          945,
+          44
+        ],
+        [
+          1200,
+          44
+        ]
+      ],
+      "n": 44,
+      "at": 2289
+    },
+    {
+      "way": [
+        [
+          180,
+          258
+        ],
+        [
+          1050,
+          150
+        ],
+        [
+          1050,
+          385
+        ],
+        [
+          180,
+          283
+        ],
+        [
+          180,
+          258
+        ]
+      ],
+      "n": 336,
+      "at": 8342
+    },
+    {
+      "way": [
+        [
+          998,
+          260
+        ],
+        [
+          1072,
+          260
+        ],
+        [
+          1110,
+          760
+        ],
+        [
+          960,
+          760
+        ],
+        [
+          998,
+          260
+        ]
+      ],
+      "n": 206,
+      "at": 12224
+    },
+    {
+      "way": [
+        [
+          985,
+          200
+        ],
+        [
+          1085,
+          200
+        ],
+        [
+          1085,
+          270
+        ],
+        [
+          985,
+          270
+        ],
+        [
+          985,
+          200
+        ]
+      ],
+      "n": 59,
+      "at": 13655
+    },
+    {
+      "way": [
+        [
+          968,
+          430
+        ],
+        [
+          1102,
+          430
+        ],
+        [
+          1102,
+          490
+        ],
+        [
+          968,
+          490
+        ],
+        [
+          968,
+          430
+        ]
+      ],
+      "n": 65,
+      "at": 15190
+    },
+    {
+      "way": [
+        [
+          952,
+          590
+        ],
+        [
+          1118,
+          590
+        ],
+        [
+          1118,
+          650
+        ],
+        [
+          952,
+          650
+        ],
+        [
+          952,
+          590
+        ]
+      ],
+      "n": 77,
+      "at": 16922
+    },
+    {
+      "way": [
+        [
+          80,
+          500
+        ],
+        [
+          690,
+          500
+        ]
+      ],
+      "n": 103,
+      "at": 19459
+    },
+    {
+      "way": [
+        [
+          80,
+          580
+        ],
+        [
+          470,
+          580
+        ]
+      ],
+      "n": 66,
+      "at": 21026
+    },
+    {
+      "way": [
+        [
+          84,
+          640
+        ],
+        [
+          503,
+          640
+        ]
+      ],
+      "n": 71,
+      "at": 23022
+    },
+    {
+      "way": [
+        [
+          84,
+          669
+        ],
+        [
+          395,
+          669
+        ]
+      ],
+      "n": 53,
+      "at": 24357
+    },
+    {
+      "way": [
+        [
+          2,
+          760
+        ],
+        [
+          1278,
+          760
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          760
+        ]
+      ],
+      "n": 473,
+      "at": 32693
+    },
+    {
+      "way": [
+        [
+          84,
+          800
+        ],
+        [
+          304,
+          800
+        ],
+        [
+          304,
+          856
+        ],
+        [
+          84,
+          856
+        ],
+        [
+          84,
+          800
+        ]
+      ],
+      "n": 93,
+      "at": 35080
+    },
+    {
+      "way": [
+        [
+          600,
+          110
+        ]
+      ],
+      "n": 1,
+      "at": 35908
+    },
+    {
+      "way": [
+        [
+          400,
+          268
+        ]
+      ],
+      "n": 1,
+      "at": 36741
+    },
+    {
+      "way": [
+        [
+          1035,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 37573
+    },
+    {
+      "way": [
+        [
+          1035,
+          225
+        ]
+      ],
+      "n": 1,
+      "at": 38407
+    },
+    {
+      "way": [
+        [
+          1035,
+          460
+        ]
+      ],
+      "n": 1,
+      "at": 39240
+    },
+    {
+      "way": [
+        [
+          1035,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 39706
+    },
+    {
+      "way": [
+        [
+          600,
+          790
+        ]
+      ],
+      "n": 1,
+      "at": 40545
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "KEEPER, bold spaced",
+      "whole": false,
+      "x": 130,
+      "y": 33,
+      "at": 46927
+    },
+    {
+      "text": "Rooms Tours History Book",
+      "whole": false,
+      "x": 1070,
+      "y": 34,
+      "at": 47573
+    },
+    {
+      "text": "Sleep where the light lives. huge bold",
+      "whole": false,
+      "x": 385,
+      "y": 488,
+      "at": 48232
+    },
+    {
+      "text": "Four rooms in a working 1871 lighthouse, with the lamp room open to guests after dark.",
+      "whole": false,
+      "x": 290,
+      "y": 630,
+      "at": 49004
+    },
+    {
+      "text": "Check dates, yellow bold; outline only",
+      "whole": false,
+      "x": 194,
+      "y": 828,
+      "at": 49668
+    },
+    {
+      "text": "beam fades out to the right",
+      "whole": false,
+      "x": 500,
+      "y": 268,
+      "at": 50351
+    },
+    {
+      "text": "hollow: yellow border, no fill",
+      "whole": false,
+      "x": 250,
+      "y": 815,
+      "at": 399421
+    }
+  ]
+}
