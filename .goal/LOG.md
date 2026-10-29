@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T02:48Z | n51 shapes built from their drawn outline; taps follow the curve | Mountains clipped, wave cut off, fades as tapped. Cabins 53.6 to 73.1, 71.5; surf 58.0 to 71.8, 72.8.
 2026-10-29T02:10Z | n50 sketch round 33 e1-e5 by hand | Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes.
 2026-10-29T01:50Z | n49 sketch round 33 c1-c5 by hand | Surf 58.0, agency 52.5, ticket 78.1, herbs 55.1, cabins 53.6; mean 59.5; triangles built as boxes.
 2026-10-29T00:10Z | n48 write round 33 targets | Ten fresh pages written, screenshotted, calibrated; six harder than round 1. Not sketched; next steps sketch them.
