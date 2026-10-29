@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A note about coloured dots in table rows now colours only the dots (workout log 76 to 89, no fix); next, writing ten fresh pages for round 36."
+now: "Round 36 is written: ten fresh pages (vinyl sale, mountain hut, chess club, florist, sea swim; boarding pass, spending, timesheet, email, notifications); next, sketching them by hand."
 round: 35
 round_scores: [53, 77, 76, 70, 79, 78]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35 (fresh rounds); round 34 is 79.5, round 35 is 77.9
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 17:19Z", until: "2026-10-29T18:49Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -157,7 +157,10 @@ nodes:
      result: "Title white, pills Week Month Year, both tries. Workout 70.9 to 76.4, 72.6; table card still green."}
   - {id: n84, parent: n3, kind: step, title: "A colour note about small marks in rows (green dot at row end) colours only those dots, never the card round them, and each named row gets its dot; table header labels read on the card; re-sketch workout log", status: done, branch: try/n3-ink-style,
      result: "Card dark grey, green dots rows 1-3, rings 4-5, both tries. Workout 76.4 to 89.3, 88.1; no fix."}
-  - {id: n85, parent: n1, kind: step, priority: next, title: "Write round 36: ten fresh pages (5 landing, 5 app, most harder than round 1), screenshotted and calibrated, not sketched in the same step", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n85, parent: n1, kind: step, title: "Write round 36: ten fresh pages (5 landing, 5 app, most harder than round 1), screenshotted and calibrated, not sketched in the same step", status: done, branch: try/n3-ink-style,
+     result: "Ten fresh pages written, screenshotted and calibrated; seven harder than round 1. None sketched yet."}
+  - {id: n86, parent: n1, kind: step, priority: next, title: "Sketch round 36 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n87, parent: n1, kind: step, title: "Sketch round 36 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
