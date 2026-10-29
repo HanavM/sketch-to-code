@@ -20,7 +20,7 @@ import type { BBox } from '@s2c/ink'
 
 interface NodeLike { id: string; parent?: string | null; rect: BBox; text?: string; textBox?: BBox; style?: { opacity?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
-interface MarkLike { box: BBox }
+interface MarkLike { box: BBox; shape?: string; words?: string; from?: { x: number; y: number }; to?: { x: number; y: number } }
 export interface OwnWordsVerdict { satisfied: boolean; unverifiable?: boolean; reason: string; invented?: string[]; overlaps?: Array<{ a: string; b: string; share: number }> }
 
 const say = (n: NodeLike) => (n.text ?? '').replace(/\s+/g, ' ').trim()
@@ -56,6 +56,21 @@ function pieces(snap: Snap) {
 function ancestor(byId: Map<string, NodeLike>, a: NodeLike, b: NodeLike): boolean {
   for (let p = b.parent; p; p = byId.get(p)?.parent ?? null) if (p === a.id) return true
   return false
+}
+
+/** n60: the level line a piece of built text was typed on: most of its words are the copy typed on that line. */
+export function lineOf(text: string, marks: readonly MarkLike[]): MarkLike | null {
+  const got = wordsOf(text)
+  if (!got.length) return null
+  for (const m of marks) {
+    if (m.shape !== 'line' || !m.words || !m.from || !m.to || Math.abs(m.from.y - m.to.y) > 2) continue
+    const copy = m.words.includes(',') ? m.words.slice(0, m.words.indexOf(',')) : m.words
+    const want = new Set(wordsOf(copy))
+    if (!want.size) continue
+    const hit = got.filter((w) => want.has(w)).length
+    if (hit / got.length >= 0.7 && hit / want.size >= 0.7) return m
+  }
+  return null
 }
 
 /** Is a piece of text on some drawn mark: its middle inside a mark's box grown by about a line? */
@@ -113,6 +128,14 @@ export function verifyOwnWords(typed: readonly string[], marks: readonly MarkLik
   }
   for (const o of overlaps.slice(0, 4)) {
     if (invented.includes(o.a) || invented.includes(o.b)) continue
+    // n60: both typed on their own drawn lines (SLOW over WORK): each sits on its line; shrink, never push one down
+    const la = lineOf(o.a, marks), lb = lineOf(o.b, marks)
+    if (la && lb && la !== lb) {
+      lines.push(`${q(o.a)} runs into ${q(o.b)} (${String(Math.round(o.share * 100))}% of the smaller one covered). Both were typed on their own drawn lines: ` +
+        `the letters of ${q(o.a)} sit on y ${String(Math.round(la.box.y))} and those of ${q(o.b)} on y ${String(Math.round(lb.box.y))} (baselines on the drawn lines). ` +
+        `Put each back on its own line (line-height about 0.9 and no extra margin or padding between them) and, only if they still touch, make the letters a little smaller; never move either one below its drawn line or onto other text`)
+      continue
+    }
     lines.push(`${q(o.a)} runs into ${q(o.b)} (${String(Math.round(o.share * 100))}% of the smaller one covered). Keep both where drawn but size or space them so they do not touch`)
   }
   if (!lines.length) return { satisfied: true, reason: 'only typed words, none on top of each other', invented, overlaps }

@@ -124,3 +124,35 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'no one-line heading found on its drawn line' }
   return misses.length ? { satisfied: false, reason: misses.join('; ') } : { satisfied: true, reason: `${judged} one-line heading${judged > 1 ? 's' : ''} span${judged > 1 ? '' : 's'} its drawn line` }
 }
+
+/**
+ * n60: how many one-line headings miss their drawn line in a verify record (0 when the check passed), or null when
+ * it did not judge. Round 33 c2 (slow agency, n57): the repair that took SLOW up to its drawn 866px pushed the
+ * line under it down, so the boxes-moved-further rule put the whole repair back and SLOW stayed two thirds wide.
+ */
+export function spanMisses(detail: unknown): number | null {
+  let found: number | null = null
+  const walk = (v: unknown, depth: number): void => {
+    if (found !== null || !v || typeof v !== 'object' || depth > 6) return
+    if (Array.isArray(v)) { for (const x of v) walk(x, depth + 1); return }
+    const o = v as Record<string, unknown>
+    if (o.kind === 'line-span' && o.verdict && typeof o.verdict === 'object') {
+      const vd = o.verdict as { satisfied?: boolean; reason?: string }
+      found = vd.satisfied ? 0 : Math.max(1, (String(vd.reason ?? '').match(/the heading "/g) ?? []).length)
+      return
+    }
+    for (const x of Object.values(o)) walk(x, depth + 1)
+  }
+  walk(detail, 0)
+  return found
+}
+
+/**
+ * n60: keep a repair that sized a heading to its drawn line even though drawn boxes moved further off, unless they
+ * moved by a lot more (a bigger heading pushes what is under it down a little; that is the cost of the right size).
+ */
+export function keepSpanRepair(prev: { span: number | null; miss: number | null }, now: { span: number | null; miss: number | null }): boolean {
+  if (prev.span == null || now.span == null || now.span >= prev.span) return false
+  if (prev.miss == null || now.miss == null) return true
+  return now.miss <= prev.miss + 160
+}

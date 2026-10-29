@@ -27,6 +27,8 @@ const PATTERNS = [
   new RegExp(`\\b${TEXT}\\s+all\\s+(${C})\\b`, 'i'),
 ]
 
+const TOL = 14
+
 export interface AllText { word: string; hex: string; note: string }
 
 /** The first note that sets the colour of all text on the page, or null. */
@@ -40,17 +42,40 @@ export function allTextColour(notes: string[]): AllText | null {
   return null
 }
 
-export function allTextBrief(a: AllText | null): string {
+/** n60: text drawn in a coloured pen (a line in red ink under "See our projects"): its box and that ink colour. */
+export interface InkText { box: { x: number; y: number; w: number; h: number }; color: string }
+
+/** The text lines the ink coloured (pen colour on a line, or a colour tapped on text), far from the all-text colour. */
+export function inkTextOf(actions: ReadonlyArray<{ onScreen?: unknown; inkColours?: ReadonlyArray<{ paint: string; color: string; box: InkText['box'] }> }>, a: AllText | null): InkText[] {
+  if (!a) return []
+  const want = parseCssColor(a.hex)!
+  return actions.flatMap((x) => x.onScreen ? [] : (x.inkColours ?? []))
+    .filter((c) => c.paint === 'text')
+    .filter((c) => { const g = parseCssColor(c.color); return !!g && deltaE(g, want) > TOL })
+    .map((c) => ({ box: c.box, color: c.color }))
+}
+
+/** n60: does this built text sit on a line the ink coloured (same band the ink colour check uses)? */
+export function onInkText(ink: readonly InkText[]): (n: { text?: string; rect?: { x: number; y: number; w: number; h: number } }) => boolean {
+  return (n) => !!n.rect && ink.some(({ box: b }) => {
+    const band = { x: b.x, y: b.y - 40, w: b.w, h: b.h + 80 }
+    return n.rect!.x < band.x + band.w && n.rect!.x + n.rect!.w > band.x && n.rect!.y < band.y + band.h && n.rect!.y + n.rect!.h > band.y
+  })
+}
+
+export function allTextBrief(a: AllText | null, ink: readonly InkText[] = []): string {
   if (!a) return ''
+  const except = ink.length
+    ? ` EXCEPT text the user drew in a coloured pen, which keeps its ink colour (the ink overrules "${a.note}" there): ` +
+      ink.map((c) => `the words on the line at x ${String(c.box.x)} to ${String(c.box.x + c.box.w)}, y ${String(c.box.y)} are ${hexOf(parseCssColor(c.color)!)}`).join('; ') + '.'
+    : ''
   return `ALL TEXT ONE COLOUR (the user typed "${a.note}"; checked on the page): every piece of text on the page, in every ` +
     `panel, card, row, label and small caption, is ${a.word} (about ${a.hex}; slightly see-through ${a.word} for small or secondary ` +
     `text is fine). Never dark grey, black or a muted tone inside panels; text on a coloured button may differ only if the button ` +
-    `itself was typed with its own text colour.\n\n`
+    `itself was typed with its own text colour.${except}\n\n`
 }
 
 export interface AllTextVerdict { satisfied: boolean; unverifiable?: boolean; reason: string; share?: number }
-
-const TOL = 14
 
 /**
  * n57: words a note gave their own colour ("A design studio ... light grey") keep it, and hollow letters (a text
@@ -73,7 +98,7 @@ const hollow = (n: DomSnapshot['nodes'][number]) => {
   return n.style.color === 'transparent' || a < 0.35
 }
 
-export function verifyAllText(a: AllText | null, after: DomSnapshot, skip: (n: { text?: string }) => boolean = () => false): AllTextVerdict {
+export function verifyAllText(a: AllText | null, after: DomSnapshot, skip: (n: { text?: string; rect?: { x: number; y: number; w: number; h: number } }) => boolean = () => false): AllTextVerdict {
   if (!a) return { satisfied: true, unverifiable: true, reason: 'no note about all text' }
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const want = parseCssColor(a.hex)!

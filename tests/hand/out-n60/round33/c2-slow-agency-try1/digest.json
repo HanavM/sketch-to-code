@@ -1,0 +1,397 @@
+{
+  "round": 33,
+  "id": "c2-slow-agency",
+  "version": 3,
+  "stopped": null,
+  "likeness": 54.7,
+  "colour": 0.954897105711429,
+  "structure": 0.2960630291649088,
+  "layout": 0.40845985843579974,
+  "strokes": {
+    "count": 9,
+    "pointsPerStroke": 4.3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 6,
+      "circle": 1,
+      "dot": 2
+    },
+    "inkPx": 3051
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 34,
+  "notes": 7,
+  "longestNote": 13,
+  "noteTexts": [
+    "slow studio, bold",
+    "Work · About · Contact",
+    "A design studio that takes the time to get it right. light grey",
+    "See our projects →",
+    "all text white",
+    "SLOW, giant outlined letters",
+    "WORK, same"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 251,
+    "firstReadingS": 63,
+    "readS": [
+      44
+    ],
+    "buildS": [
+      185
+    ],
+    "sketchingS": 21
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 70372,
+    "cacheRead": 191978,
+    "output": 19764,
+    "billed": 90136
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 734
+    },
+    {
+      "op": "stroke",
+      "at": 1696
+    },
+    {
+      "op": "stroke",
+      "at": 4578
+    },
+    {
+      "op": "stroke",
+      "at": 7629
+    },
+    {
+      "op": "stroke",
+      "at": 9295
+    },
+    {
+      "op": "stroke",
+      "at": 11061
+    },
+    {
+      "op": "pen",
+      "color": "#ef4444",
+      "at": 11468
+    },
+    {
+      "op": "stroke",
+      "at": 12395
+    },
+    {
+      "op": "stroke",
+      "at": 12881
+    },
+    {
+      "op": "pen",
+      "color": "#0a0a0a",
+      "at": 13257
+    },
+    {
+      "op": "stroke",
+      "at": 13740
+    },
+    {
+      "op": "note",
+      "at": 14459
+    },
+    {
+      "op": "note",
+      "at": 15228
+    },
+    {
+      "op": "note",
+      "at": 16144
+    },
+    {
+      "op": "note",
+      "at": 16803
+    },
+    {
+      "op": "note",
+      "at": 17450
+    },
+    {
+      "op": "note",
+      "at": 18144
+    },
+    {
+      "op": "note",
+      "at": 18767
+    },
+    {
+      "op": "run",
+      "at": 18918
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          64,
+          56
+        ],
+        [
+          157,
+          56
+        ]
+      ],
+      "n": 17,
+      "at": 734
+    },
+    {
+      "way": [
+        [
+          1042,
+          56
+        ],
+        [
+          1216,
+          56
+        ]
+      ],
+      "n": 30,
+      "at": 1696
+    },
+    {
+      "way": [
+        [
+          64,
+          382
+        ],
+        [
+          930,
+          382
+        ]
+      ],
+      "n": 145,
+      "at": 4578
+    },
+    {
+      "way": [
+        [
+          60,
+          636
+        ],
+        [
+          980,
+          636
+        ]
+      ],
+      "n": 154,
+      "at": 7628
+    },
+    {
+      "way": [
+        [
+          1130,
+          360
+        ],
+        [
+          1128,
+          376
+        ],
+        [
+          1122,
+          390
+        ],
+        [
+          1112,
+          402
+        ],
+        [
+          1100,
+          412
+        ],
+        [
+          1086,
+          418
+        ],
+        [
+          1070,
+          420
+        ],
+        [
+          1054,
+          418
+        ],
+        [
+          1040,
+          412
+        ],
+        [
+          1028,
+          402
+        ],
+        [
+          1018,
+          390
+        ],
+        [
+          1012,
+          376
+        ],
+        [
+          1010,
+          360
+        ],
+        [
+          1012,
+          344
+        ],
+        [
+          1018,
+          330
+        ],
+        [
+          1028,
+          318
+        ],
+        [
+          1040,
+          308
+        ],
+        [
+          1054,
+          302
+        ],
+        [
+          1070,
+          300
+        ],
+        [
+          1086,
+          302
+        ],
+        [
+          1100,
+          308
+        ],
+        [
+          1112,
+          318
+        ],
+        [
+          1122,
+          330
+        ],
+        [
+          1128,
+          344
+        ],
+        [
+          1130,
+          360
+        ]
+      ],
+      "n": 73,
+      "at": 9295
+    },
+    {
+      "way": [
+        [
+          64,
+          746
+        ],
+        [
+          532,
+          746
+        ]
+      ],
+      "n": 79,
+      "at": 11061
+    },
+    {
+      "way": [
+        [
+          1062,
+          786
+        ],
+        [
+          1216,
+          786
+        ]
+      ],
+      "n": 27,
+      "at": 12395
+    },
+    {
+      "way": [
+        [
+          1070,
+          360
+        ]
+      ],
+      "n": 1,
+      "at": 12881
+    },
+    {
+      "way": [
+        [
+          640,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 13740
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "slow studio, bold",
+      "whole": false,
+      "x": 66,
+      "y": 34,
+      "at": 14459
+    },
+    {
+      "text": "Work · About · Contact",
+      "whole": false,
+      "x": 1046,
+      "y": 34,
+      "at": 15228
+    },
+    {
+      "text": "A design studio that takes the time to get it right. light grey",
+      "whole": false,
+      "x": 70,
+      "y": 722,
+      "at": 16144
+    },
+    {
+      "text": "See our projects →",
+      "whole": false,
+      "x": 1066,
+      "y": 764,
+      "at": 16803
+    },
+    {
+      "text": "all text white",
+      "whole": true,
+      "x": 640,
+      "y": 820,
+      "at": 17450
+    },
+    {
+      "text": "SLOW, giant outlined letters",
+      "whole": false,
+      "x": 80,
+      "y": 362,
+      "at": 18144
+    },
+    {
+      "text": "WORK, same",
+      "whole": false,
+      "x": 80,
+      "y": 616,
+      "at": 18767
+    }
+  ]
+}

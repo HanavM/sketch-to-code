@@ -56,11 +56,11 @@ import { solidsBrief, verifySolids } from './solids.js'
 import { tiltBrief, verifyTilts } from './tilt.js'
 import { outlineBrief, verifyOutlines } from './outline.js'
 import { eachBrief, verifyEach, verifyGlyphs } from './each.js'
-import { allTextBrief, allTextColour, ownColourText, verifyAllText } from './alltext.js'
+import { allTextBrief, allTextColour, inkTextOf, onInkText, ownColourText, verifyAllText } from './alltext.js'
 import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { verifyStackLines } from './stacklines.js'
-import { verifyLineSpan } from './linespan.js'
+import { keepSpanRepair, spanMisses, verifyLineSpan } from './linespan.js'
 import { verifyTextLinesNotRules } from './textrules.js'
 import { verifyRowSpan } from './rowspan.js'
 import { leanRepairNote } from './repair-brief.js'
@@ -614,7 +614,7 @@ export async function runV2(
     tiltBrief(interp.actions) +
     outlineBrief(interp.actions) +
     eachBrief(interp.actions) +
-    allTextBrief(allTextColour([
+    ((all) => allTextBrief(all, inkTextOf(interp.actions, all)))(allTextColour([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => a.notes ?? []),
     ])) +
@@ -888,10 +888,16 @@ export async function runV2(
     let best = -1
     let lastFailures: string[] = []
     // n24: the page as it was before the last repair turn, and how far its drawn boxes were off then
-    let preRepair: { work: Map<string, string | null>; miss: number | null } | null = null
+    let preRepair: { work: Map<string, string | null>; miss: number | null; span: number | null } | null = null
     const putBackIfWorse = async (miss: number | null, vtag: string): Promise<void> => {
       const prev = preRepair
       if (!prev || prev.miss == null || miss == null || miss <= prev.miss + 6) return
+      // n60: a repair that sized a giant word to its drawn line is kept, though what is under it moved down a little
+      const span = spanMisses(lastVerify)
+      if (keepSpanRepair(prev, { span, miss })) {
+        stage('verify', `the repair moved drawn boxes further off (${prev.miss}px to ${miss}px in all) but sized ${String(prev.span! - span!)} heading(s) to the drawn line: kept`)
+        return
+      }
       // a repair that moved the drawn boxes further from where they were drawn is undone
       // (r2 e3 settings, n22: toggles 30px low became 48px low and that page was kept)
       const now = captureWork(ctx.root, cp)
@@ -966,7 +972,7 @@ export async function runV2(
           break
         }
         stage('repair', `round ${round + 1}`)
-        preRepair = { work: captureWork(ctx.root, cp), miss }
+        preRepair = { work: captureWork(ctx.root, cp), miss, span: spanMisses(lastVerify) }
         const context = session
           ? ''
           : `READING (user-confirmed): ${interp.reading}\n\n${codemodNote}` +
@@ -1439,7 +1445,7 @@ export function verifyActions(
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['cards', verifyCards(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
-    ['all-text', ((all) => verifyAllText(allTextColour(all), after, ownColourText(allTextColour(all), all)))([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])])],
+    ['all-text', ((all) => ((own, ink) => verifyAllText(allTextColour(all), after, (n) => own(n) || ink(n)))(ownColourText(allTextColour(all), all), onInkText(inkTextOf(actions, allTextColour(all)))))([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])])],
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
