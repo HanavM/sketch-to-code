@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T15:45Z | n80 rows are quick to give | One note fills rows; library 123 to 52 words, 76.0; pharmacy 42 words, 58.4, header centred.
 2026-10-29T14:58Z | n77 sketch round 35 e1-e5 by hand | Parking 83.2, library 73.6, workout 86.7, pharmacy 62.2, split 93.0; round 35 mean 77.9, 57.5 words.
 2026-10-29T14:40Z | n76 sketch round 35 c1-c5 by hand | Kites 52.8, gelato 73.5, lighthouse 88.5, yoga 80.1, moons 85.8; mean 76.1, 19 strokes, 54 words.
 2026-10-29T12:32Z | n75 write round 35 | Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet.
