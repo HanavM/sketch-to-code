@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A big box drawn round a page of content is now built as a white card at the drawn edges (invoice 85 first time, billing 69 to 78). Next: check the gains carry over to the agency and ticket pages."
+now: "Outlined words on a line and \"same\" now build as drawn (agency hollow both tries, no fixes), though its score stayed about 50. Next: a divider with a colour on each side makes two fills, for the ticket page."
 round: 33
 round_scores: [53, 77, 76, 70]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33 (fresh rounds)
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-20261029T0431", until: "2026-10-29T06:01Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -36,7 +36,7 @@ nodes:
      result: "Line stacks read as one heading, break where drawn. Sunset 74.0 to 73.8 (heading matches); diagonal 55.1 to 39.8 (box became card)."}
   - {id: n12, parent: n3, kind: step, title: "A tapped colour keeps its strength: glows and blurred shapes stay vivid, not faint; re-sketch glass blobs and orbit type", status: done, branch: try/n3-ink-style, base: "try/n4-look-fix",
      result: "Full strength told and measured. Glass blobs 79.2 to 85.1, no repair; orbit 73.9 to 75.3 with taps."}
-  - {id: n23, parent: n3, kind: step, title: "A tap under the toolbar reaches the mark (the bar steps aside), a ring drawn in a coloured pen shows its fill at once, and words round a ring go all the way round; re-sketch orbit", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n23, parent: n3, kind: step, title: "A tap under the toolbar reaches the mark (the bar steps aside), a ring drawn in a coloured pen shows its fill at once, and words round a ring go all the way round; re-sketch orbit", status: pruned, branch: try/n3-ink-style, result: "Pruned: taps through the toolbar landed in n30; old pool page, weaker than round 33 leads."}
   - {id: n13, parent: n4, kind: step, title: "A run never stalls silently: a repair round that makes no progress ends with the built page kept and its record, times and tokens written; a line drawn for a word is checked as the word's middle, not a 1px box; re-sketch sunset", status: done, branch: try/n4-look-fix, base: "try/n2-shape-vocab",
      result: "Turns watched, stalled repair keeps build, stages logged. Login 47.7 to 65.5, run finished; card centred low."}
   - {id: n20, parent: n4, kind: step, title: "A drawn card stays where it was drawn, not centred on the page, and a repair that moves fields never stacks a label onto another field; re-sketch login", status: done, branch: try/n4-look-fix,
@@ -111,7 +111,9 @@ nodes:
   - {id: n55, parent: n4, kind: step, title: "A note typed just above a two-line paragraph binds to the paragraph, never to the heading line above it; re-sketch surf and herb farm without note drags", status: done, branch: try/n3-ink-style, result: "Paragraph note leaves the heading; heading stays two lines. Surf 71.8 to 82.7, 81.4; herb 55.1 to 69.1, 70.1, no drags."}
   - {id: n56, parent: n4, kind: step, title: "Parts keep their drawn height and size: a centred heading, its subtitle and a row of circles with labels land where drawn, not pulled up and shrunk; re-sketch herb farm", status: done, branch: try/n3-ink-style,
      result: "Long line sets heading size, labels centred under rings, row shift caught. Herb farm 69.6 to 76.3, 70.2."}
-  - {id: n57, parent: n4, kind: step, priority: next, title: "Do the gains since round 33 carry? Re-sketch the slow agency (52.5, untouched since n49) and ticket pages replayed word for word with everything through n56; log any new gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n57, parent: n4, kind: step, title: "Do the gains since round 33 carry? Re-sketch the slow agency (52.5, untouched since n49) and ticket pages replayed word for word with everything through n56; log any new gap", status: done, branch: try/n3-ink-style, result: "Hollow words and same built and checked; agency 45.9 to 50.2, 51.0; ticket 60.8, 63.7 first build."}
+  - {id: n59, parent: n2, kind: step, priority: next, title: "A straight divider across a box with a colour tap on each side makes two fills (white ticket, pink stub), never one fade, and drawn text lines are never left on the page as rules; re-sketch the gig ticket", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n60, parent: n4, kind: step, title: "Text coloured with the pen keeps its colour under all text white, and a size fix for a giant word is kept even when the repair round scores worse elsewhere; re-sketch the slow agency", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: open, branch: try/n3-ink-style, result: null}
@@ -120,6 +122,8 @@ nodes:
      result: "Container box is a white card at drawn edges, no giant word. Invoice 80.6 to 84.9, 73.2; billing 69.3 to 77.9."}
   - {id: n58, parent: n4, kind: step, title: "Text rows drawn inside a card keep their drawn lines' height (no 10-15px drift down the table), and a value typed after a label (Storage, 62 of 100 GB) stays beside it unless drawn apart; re-sketch invoice and billing", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "Words typed on a line with outlined came out solid; WORK, same got nothing of the line above", found_on: "r33 c2 (n49, n57)", built: "outlined words on a line told and checked hollow, kept whole; same copies the look of the line above across actions (n57)", helped: "partly: hollow and whole in 4 of 4 builds with the final code, no fix notes (452 s to 214-276 s); likeness flat, 45.9 to 50.2, 51.0"}
+  - {gap: "One giant word on a line was never sized or checked, and all text white repaired hollow and grey words to solid white", found_on: "r33 c2 (n57)", built: "a giant word or two is sized by its line even in a stack; all-text leaves own-colour and hollow words (n57)", helped: "partly: tagline grey and letters hollow kept; size repair still undone by a worse repair round"}
   - {gap: "A big box drawn round a whole invoice built as nothing, and a big-bold note inside it made a giant 1042", found_on: "r33 e3 (n50)", built: "a box holding 3+ drawn marks is a container, never a big-word area; a big one is a white or tapped card at the drawn edges, told and checked (n54)", helped: "yes: card in 2 of 2 first builds, no fixes; invoice 80.6 (2 fixes) to 84.9, 73.2"}
   - {gap: "Wide panels built centred but 16px in on each side (inside the centre slack)", found_on: "r33 e5 (n50)", built: "each side of a box 300px+ wide within 8px of its drawn side, named with both spans (n54)", helped: "yes: panels 200-1081 as drawn; billing 69.3 to 74.8, 77.9"}
   - {gap: "A short phrase on a long line with no size word is built small (28px on a 916px line)", found_on: "r33 c4 (n55)", built: "a line much longer than its words is a heading sized to span it, told and checked (n56)", helped: "yes: heading 846-860px of 916 in 4 of 4; herb farm 69.6 to 76.3, 70.2"}

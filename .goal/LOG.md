@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-29T05:45Z | n57 do gains carry to agency and ticket | Hollow words and same built, checked; agency 45.9 to 50.2, 51.0; ticket 60.8, 63.7, no fixes.
 2026-10-29T04:30Z | n54 a big box round content is a card at its drawn edges | White card, no giant word, sides within 8px. Invoice 80.6 to 84.9, 73.2; billing 69.3 to 74.8, 77.9.
 2026-10-29T04:05Z | n56 long line sets heading size; labels centred under rings | Heading spans its line 4 of 4, labels centred, row shift caught. Herb farm 69.6 to 76.3, 70.2.
 2026-10-29T03:12Z | n55 a note above a paragraph binds to it, not the heading | Heading stays two lines. Surf 71.8 to 82.7, 81.4; herb farm 55.1 to 69.1, 70.1; no fixes or drags.
