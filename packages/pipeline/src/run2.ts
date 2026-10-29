@@ -51,7 +51,7 @@ import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
 import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
-import { areasBrief, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
+import { areasBrief, cardsBrief, verifyCards, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
 import { tiltBrief, verifyTilts } from './tilt.js'
 import { outlineBrief, verifyOutlines } from './outline.js'
@@ -607,6 +607,7 @@ export async function runV2(
     keptMarksBrief(kept) +
     inkColoursBrief(interp) +
     areasBrief(interp.actions, input.snapshot.viewport) +
+    cardsBrief(interp.actions) +
     solidsBrief(interp.actions) +
     tiltBrief(interp.actions) +
     outlineBrief(interp.actions) +
@@ -1434,7 +1435,7 @@ export function verifyActions(
   // n14: a box round a big word is no card; a slanted line across the page is the colour edge
   // n16: text whose colour a note named keeps it; only the rest must read on what is behind
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
-  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
+  for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['cards', verifyCards(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
     ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)],
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
@@ -1445,7 +1446,7 @@ export function verifyActions(
     details.push({ kind, verdict: v })
     total++
     if (v.satisfied) satisfied++
-    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
+    else failures.push(`page (${kind === 'areas' ? 'boxes round big words' : kind === 'cards' ? 'big boxes round parts built as cards at the drawn edges' : kind === 'edges' ? 'slanted edge' : kind === 'words' ? 'big words filling their box' : kind === 'bands' ? 'band width' : kind === 'solids' ? 'coloured plain shapes' : kind === 'tilts' ? 'boxes drawn turned' : kind === 'each' ? 'one note for a group' : kind === 'glyphs' ? 'quote marks' : kind === 'outlined' ? 'outlined words' : kind === 'clear' ? 'words on form fields' : kind === 'placed' ? 'words where drawn or typed' : kind === 'typed-spot' ? 'words typed in empty space' : kind === 'all-text' ? 'all text one colour' : kind === 'stack-lines' ? 'text kept on its drawn lines' : kind === 'line-span' ? 'one-line heading as long as its drawn line' : kind === 'row-span' ? 'a row of words kept within its drawn line' : kind === 'own-words' ? 'only typed words, none on top of each other' : 'text that reads'}): ${v.reason}`)
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks

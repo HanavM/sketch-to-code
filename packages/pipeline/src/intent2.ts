@@ -322,7 +322,7 @@ export function isPageLookNote(text: string): boolean {
   return /\b(page|pages|site|website|background|backdrop|bg|paper|theme|whole|overall|everywhere)\b/i.test(t)
 }
 
-import { isAreaNote, markAreasAndEdges } from './areas.js'
+import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { markTextPlaces } from './textplace.js'
@@ -1238,7 +1238,10 @@ export function groundInterpretation(
 
     const stacks = textStackOf([...textMarks, ...shapeMarks.filter((m) => m.shape === 'line').map((m) => m.strokeId)])
     // n14: a box round a big word is that word's area, a slanted line across the page is an edge
-    if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport)
+    // n54: every drawn mark's box, so a box round other marks is read as their container
+    // (every stroke on the page: the box round an invoice is often its own action, its lines in others)
+    const innerBoxes = [...ev.strokes.values()].filter((st) => st.points.length > 1).map((st) => { const b = bboxOf(st.points); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) } }).filter((b) => b.w + b.h > 6)
+    if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport, innerBoxes)
     // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
     // n32: a box typed as a quote mark is that glyph; a group note's contents go on every member
     if (shapeMarks.length) markGlyphs(shapeMarks, noteObjs)
@@ -1248,6 +1251,8 @@ export function groundInterpretation(
     if (shapeMarks.length && tapSolidAllowed) markTappedSolids(shapeMarks, inkColours)
     // n16: "huge outlined 09" on an area box stays hollow letters
     if (shapeMarks.length) markOutlined(shapeMarks, noteObjs)
+    // n54: a big box round 3+ other drawn marks is a card (white unless tapped), at the drawn edges
+    if (shapeMarks.length) markCards(shapeMarks, innerBoxes, noteObjs, inkColours.filter((c) => c.how === 'tap').map((c) => ({ strokeId: c.strokeId, color: c.color })))
     // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low
     if (shapeMarks.length) markTextPlaces(shapeMarks, noteObjs)
     actions.push({

@@ -1,0 +1,441 @@
+{
+  "round": 33,
+  "id": "e5-billing",
+  "version": 3,
+  "stopped": null,
+  "likeness": 77.9,
+  "colour": 0.9892084149698277,
+  "structure": 0.9805561827766669,
+  "layout": 0.8516171155372334,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 2.6,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 9,
+      "box": 3,
+      "dot": 1
+    },
+    "inkPx": 9932
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 45,
+  "notes": 9,
+  "longestNote": 10,
+  "noteTexts": [
+    "Acme Cloud, bold",
+    "Billing, big bold",
+    "Pro plan, bold; $29 per month, renews 1 Dec, grey",
+    "Upgrade, white bold",
+    "Usage this month, bold",
+    "Storage, 62 of 100 GB",
+    "Bandwidth, 410 of 500 GB",
+    "Seats, 4 of 10",
+    "rounded bars; cards white, light border, page off-white"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 211,
+    "firstReadingS": 86,
+    "readS": [
+      45
+    ],
+    "buildS": [
+      123
+    ],
+    "sketchingS": 43
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 46604,
+    "cacheRead": 429221,
+    "output": 15696,
+    "billed": 62300
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 4008
+    },
+    {
+      "op": "stroke",
+      "at": 4771
+    },
+    {
+      "op": "stroke",
+      "at": 5490
+    },
+    {
+      "op": "stroke",
+      "at": 11477
+    },
+    {
+      "op": "stroke",
+      "at": 12771
+    },
+    {
+      "op": "stroke",
+      "at": 19540
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 19909
+    },
+    {
+      "op": "stroke",
+      "at": 22659
+    },
+    {
+      "op": "stroke",
+      "at": 25389
+    },
+    {
+      "op": "stroke",
+      "at": 28122
+    },
+    {
+      "op": "pen",
+      "color": "#2563eb",
+      "at": 28487
+    },
+    {
+      "op": "stroke",
+      "at": 30363
+    },
+    {
+      "op": "stroke",
+      "at": 32688
+    },
+    {
+      "op": "stroke",
+      "at": 34061
+    },
+    {
+      "op": "stroke",
+      "at": 34539
+    },
+    {
+      "op": "note",
+      "at": 35192
+    },
+    {
+      "op": "note",
+      "at": 35831
+    },
+    {
+      "op": "note",
+      "at": 36544
+    },
+    {
+      "op": "note",
+      "at": 37206
+    },
+    {
+      "op": "note",
+      "at": 37875
+    },
+    {
+      "op": "note",
+      "at": 38534
+    },
+    {
+      "op": "note",
+      "at": 39218
+    },
+    {
+      "op": "note",
+      "at": 39869
+    },
+    {
+      "op": "note",
+      "at": 40589
+    },
+    {
+      "op": "run",
+      "at": 40726
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          64
+        ],
+        [
+          1278,
+          64
+        ]
+      ],
+      "n": 214,
+      "at": 4008
+    },
+    {
+      "way": [
+        [
+          40,
+          31
+        ],
+        [
+          145,
+          31
+        ]
+      ],
+      "n": 19,
+      "at": 4771
+    },
+    {
+      "way": [
+        [
+          200,
+          130
+        ],
+        [
+          291,
+          130
+        ]
+      ],
+      "n": 16,
+      "at": 5490
+    },
+    {
+      "way": [
+        [
+          200,
+          175
+        ],
+        [
+          1080,
+          175
+        ],
+        [
+          1080,
+          280
+        ],
+        [
+          200,
+          280
+        ],
+        [
+          200,
+          177
+        ]
+      ],
+      "n": 330,
+      "at": 11477
+    },
+    {
+      "way": [
+        [
+          938,
+          207
+        ],
+        [
+          1047,
+          207
+        ],
+        [
+          1047,
+          248
+        ],
+        [
+          938,
+          248
+        ],
+        [
+          938,
+          209
+        ]
+      ],
+      "n": 51,
+      "at": 12771
+    },
+    {
+      "way": [
+        [
+          200,
+          306
+        ],
+        [
+          1080,
+          306
+        ],
+        [
+          1080,
+          554
+        ],
+        [
+          200,
+          554
+        ],
+        [
+          200,
+          308
+        ]
+      ],
+      "n": 377,
+      "at": 19540
+    },
+    {
+      "way": [
+        [
+          233,
+          407
+        ],
+        [
+          1047,
+          407
+        ]
+      ],
+      "n": 137,
+      "at": 22659
+    },
+    {
+      "way": [
+        [
+          233,
+          464
+        ],
+        [
+          1047,
+          464
+        ]
+      ],
+      "n": 137,
+      "at": 25389
+    },
+    {
+      "way": [
+        [
+          233,
+          521
+        ],
+        [
+          1047,
+          521
+        ]
+      ],
+      "n": 137,
+      "at": 28122
+    },
+    {
+      "way": [
+        [
+          233,
+          407
+        ],
+        [
+          738,
+          407
+        ]
+      ],
+      "n": 85,
+      "at": 30363
+    },
+    {
+      "way": [
+        [
+          233,
+          464
+        ],
+        [
+          900,
+          464
+        ]
+      ],
+      "n": 112,
+      "at": 32688
+    },
+    {
+      "way": [
+        [
+          233,
+          521
+        ],
+        [
+          559,
+          521
+        ]
+      ],
+      "n": 55,
+      "at": 34061
+    },
+    {
+      "way": [
+        [
+          992,
+          228
+        ]
+      ],
+      "n": 1,
+      "at": 34539
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Acme Cloud, bold",
+      "whole": false,
+      "x": 92,
+      "y": 22,
+      "at": 35192
+    },
+    {
+      "text": "Billing, big bold",
+      "whole": false,
+      "x": 245,
+      "y": 118,
+      "at": 35831
+    },
+    {
+      "text": "Pro plan, bold; $29 per month, renews 1 Dec, grey",
+      "whole": false,
+      "x": 330,
+      "y": 225,
+      "at": 36544
+    },
+    {
+      "text": "Upgrade, white bold",
+      "whole": false,
+      "x": 992,
+      "y": 220,
+      "at": 37206
+    },
+    {
+      "text": "Usage this month, bold",
+      "whole": false,
+      "x": 310,
+      "y": 344,
+      "at": 37875
+    },
+    {
+      "text": "Storage, 62 of 100 GB",
+      "whole": false,
+      "x": 310,
+      "y": 386,
+      "at": 38534
+    },
+    {
+      "text": "Bandwidth, 410 of 500 GB",
+      "whole": false,
+      "x": 310,
+      "y": 443,
+      "at": 39218
+    },
+    {
+      "text": "Seats, 4 of 10",
+      "whole": false,
+      "x": 310,
+      "y": 500,
+      "at": 39869
+    },
+    {
+      "text": "rounded bars; cards white, light border, page off-white",
+      "whole": false,
+      "x": 640,
+      "y": 600,
+      "at": 40589
+    }
+  ]
+}

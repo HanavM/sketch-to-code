@@ -54,9 +54,14 @@ export function markAreasAndEdges(
   marks: ShapeMark[],
   notes: NoteLike[],
   viewport: { w: number; h: number },
+  inner: BBox[] = [],
 ): void {
   const boxes = marks.filter((m) => m.shape === 'box')
   for (const m of boxes) {
+    // n54 (round 33 e3 invoice): a box round a whole invoice took "Total £1,820, big bold" (typed on a
+    // line inside it) as its own big-word note and built a giant "1042" over the page. A box that holds
+    // other drawn marks is a container; its big words belong to the lines inside it.
+    if (holdsMarks(m.box, inner) >= CARD_MIN_MARKS) continue
     const own = notes.filter((n) => n.focus?.includes(m.strokeId))
     const said = own.length ? own : boxes.length === 1 ? notes.filter((n) => !n.focus?.length || n.focus.includes(m.strokeId)) : []
     if (said.length && said.some((n) => isAreaNote(n.text)) && !said.some((n) => THING.test(n.text))) m.area = true
@@ -84,6 +89,106 @@ export function markAreasAndEdges(
       if (w) { m.word = w; break }
     }
   }
+}
+
+/** n54: how many other drawn marks inside a box make it a container (a card), not one big word's area. */
+export const CARD_MIN_MARKS = 3
+
+const inside = (o: BBox, b: BBox) => o.x >= b.x - 4 && o.y >= b.y - 4 && o.x + o.w <= b.x + b.w + 4 && o.y + o.h <= b.y + b.h + 4 &&
+  !(Math.abs(o.x - b.x) <= 4 && Math.abs(o.y - b.y) <= 4 && Math.abs(o.w - b.w) <= 8 && Math.abs(o.h - b.h) <= 8)
+
+/** How many of `others` (stroke boxes) sit wholly inside box `b` (the box's own stroke excluded). */
+export function holdsMarks(b: BBox, others: BBox[]): number {
+  return others.filter((o) => inside(o, b)).length
+}
+
+/** n54: the words that make a box a thing that is not a card (a picture, a field, a button, a chart...). */
+const NOT_CARD = /\b(photos?|pictures?|images?|img|charts?|graphs?|maps?|videos?|input|field|search|button|btn|pill|chip|badge|avatar|thumbnail|nav|header|footer|sidebar)\b/i
+const NO_CARD = /\b(no card|no panel|no background|transparent|bare|plain page|on the page)\b/i
+
+/**
+ * n54 (round 33 e3 invoice): a big box drawn round a whole page of content, its lines and button drawn
+ * inside it, was built as nothing (all grey page): the brief read any box round a group as only marking
+ * its area. A person who draws a big box round text and parts on a tinted page means a card: a white
+ * panel. So a box at least 240x120 that holds 3+ other drawn marks, is not an area and is not named as
+ * another thing, is a card: its tapped colour (or white) on the page, with a hairline border, at exactly
+ * the drawn edges. A box with its own tap keeps that colour (the tap is told on its own already).
+ */
+export function markCards(marks: ShapeMark[], inner: BBox[], notes: NoteLike[], taps: Array<{ strokeId: string; color: string }> = []): void {
+  for (const m of marks) {
+    if (m.shape !== 'box' || m.area || m.solid || m.glyph || m.tilt) continue
+    if (m.box.w < 240 || m.box.h < 120) continue
+    if (holdsMarks(m.box, inner) < CARD_MIN_MARKS) continue
+    const own = notes.filter((n) => n.focus?.includes(m.strokeId))
+    if (own.some((n) => NO_CARD.test(n.text) || (NOT_CARD.test(n.text) && !/\b(card|panel)\b/i.test(n.text)))) continue
+    const tap = taps.filter((t) => t.strokeId === m.strokeId).pop()
+    m.card = { fill: tap?.color ?? null }
+  }
+}
+
+/** Brief lines for the cards (n54); '' when there are none. */
+export function cardsBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>): string {
+  const lines: string[] = []
+  actions.forEach((a, i) => {
+    for (const m of a.shapeMarks ?? []) {
+      if (!m.card) continue
+      const b = m.box
+      lines.push(
+        `- action ${i}: the box at (${b.x},${b.y}) ${b.w}x${b.h} holds the parts drawn inside it: it is a CARD, a panel of its own ` +
+        `(${m.card.fill ? `filled ${m.card.fill}` : 'white (#ffffff)'}, a 1px light border such as #e2e8f0, radius about 8px, at most a faint shadow) ` +
+        `standing on the page colour, never left out and never just an area. Its edges are the drawn edges: left ${b.x}px, top ${b.y}px, ` +
+        `width ${b.w}px, height ${b.h}px (box-sizing: border-box; an exact px width, not a max-w class that rounds it; padding goes inside). ` +
+        `Everything drawn inside it is built inside it. A big or bold note on a line inside it sizes that line's text only, never a giant word filling the card. Checked on the page.`,
+      )
+    }
+  })
+  return lines.length ? `CARDS (deterministic, from a big box drawn round other marks; checked on the page):\n${lines.join('\n')}\n\n` : ''
+}
+
+/**
+ * n54: a card box is built as a panel that shows on the page (its own fill, or a border or shadow, against
+ * what is behind it), with each edge within CARD_EDGE_PX of the drawn edge.
+ */
+export const CARD_EDGE_PX = 8
+export function verifyCards(marks: ShapeMark[], after: Snap): AreaVerdict {
+  const cards = marks.filter((m) => m.card)
+  if (!cards.length) return { satisfied: true, unverifiable: true, reason: 'no card boxes' }
+  if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
+  const byId = new Map(after.nodes.map((n) => [n.id, n]))
+  const faults: string[] = []
+  for (const m of cards) {
+    const b = m.box
+    let best: NodeLike | null = null, bestD = Infinity
+    for (const n of after.nodes) {
+      if (Math.abs(n.rect.w - b.w) > b.w * 0.25 || Math.abs(n.rect.h - b.h) > b.h * 0.45) continue
+      const own = n.style.backgroundImage ? 'gradient' : (() => { const c = parseCssColor(n.style.backgroundColor); return c && (c as { a?: number }).a !== 0 ? hexOf(c) : null })()
+      const behind = under(n.parent ? byId.get(n.parent) : undefined, byId)
+      const shows = (own && own !== behind && !(own !== 'gradient' && behind !== 'gradient' && deltaE(parseCssColor(own)!, parseCssColor(behind)!) < 2)) ||
+        !!n.style.border || !!n.style.boxShadow
+      if (!shows) continue
+      const d = Math.abs(n.rect.x - b.x) + Math.abs(n.rect.y - b.y) + Math.abs(n.rect.x + n.rect.w - b.x - b.w) + Math.abs(n.rect.y + n.rect.h - b.y - b.h)
+      if (d < bestD) { best = n; bestD = d }
+    }
+    const where = `the card drawn at (${b.x},${b.y}) ${b.w}x${b.h}`
+    if (!best || bestD > 400) {
+      faults.push(`${where}: no panel that size shows on the page (no fill of its own, border or shadow there); build it as a ${m.card!.fill ?? 'white'} card with a light border at exactly those edges, everything drawn inside it inside it`)
+      continue
+    }
+    const r0 = best.rect
+    const off: string[] = []
+    const dl = r(r0.x - b.x), dr = r(r0.x + r0.w - b.x - b.w), dt = r(r0.y - b.y), db = r(r0.y + r0.h - b.y - b.h)
+    if (Math.abs(dl) > CARD_EDGE_PX) off.push(`left edge at ${r(r0.x)} (drawn ${b.x})`)
+    if (Math.abs(dr) > CARD_EDGE_PX) off.push(`right edge at ${r(r0.x + r0.w)} (drawn ${b.x + b.w})`)
+    if (Math.abs(dt) > CARD_EDGE_PX) off.push(`top at ${r(r0.y)} (drawn ${b.y})`)
+    if (Math.abs(db) > CARD_EDGE_PX) off.push(`bottom at ${r(r0.y + r0.h)} (drawn ${b.y + b.h})`)
+    if (off.length) {
+      faults.push(`${where}: the <${best.tag}> built for it has its ${off.join(', ')}: set it to left ${b.x}px, top ${b.y}px, width ${b.w}px` +
+        `${Math.abs(db) > CARD_EDGE_PX || Math.abs(dt) > CARD_EDGE_PX ? `, height ${b.h}px` : ''} exactly (box-sizing: border-box; change the card's own width/margin/padding-top of what is above it, not the parts inside)`)
+    }
+  }
+  return faults.length
+    ? { satisfied: false, reason: faults.join('; ') }
+    : { satisfied: true, reason: `${cards.length} card${cards.length > 1 ? 's' : ''} built as panels at the drawn edges` }
 }
 
 const BAND = /\b(band|stripe|strip|bar|ribbon)\b/i

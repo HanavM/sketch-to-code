@@ -41,6 +41,11 @@ export interface ShapeMark {
   area?: true
   /** n15: what the area holds: a big word (default) or bare rows. */
   areaOf?: 'rows'
+  /**
+   * box only (n54): a big box holding several other drawn marks and notes (a whole invoice, a usage panel)
+   * is a card: a panel of its own colour (white unless tapped) on the page, at exactly the drawn edges.
+   */
+  card?: { fill: string | null }
   /** line only (n14): a slanted line running most of the page: the edge between two areas. */
   edge?: true
   /** box or ring (n15): its notes name a coloured plain thing ("lime badge"): one solid element in that colour. */
@@ -338,6 +343,8 @@ interface SnapLike {
  */
 /** n56: a whole row of drawn boxes off the same way by this much or more is a shift, even inside each box's slack. */
 export const ROW_SHIFT_PX = 12
+/** n54: each side of a box 300px or wider lands within this many px of its drawn side. */
+export const BOX_EDGE_PX = 8
 
 export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: SnapLike, page: ShapeMark[] = marks): MarkVerdict {
   // n32: a box noted as a quote mark is a glyph (checked by verifyGlyphs), not a box-sized element
@@ -618,6 +625,21 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
         `${bg <= 0 ? 'they touch or overlap' : bg < g ? `only ${bg}px apart` : `${bg}px apart`}. Keep each at its drawn size, with any border or frame inside it ` +
         `(box-sizing: border-box, or a frame drawn as padding), and keep the ${g}px gap between them`)
     }
+  }
+  // n54 (round 33 e5 billing): two panels drawn 200-1080 were built 216-1063: centred, so inside the 28px
+  // slack, but each side 16-17px in, which cost the page 14 points of layout. A wide box's sides are
+  // promises of their own: each within BOX_EDGE_PX of where it was drawn (cards are checked by verifyCards).
+  for (const o of out) {
+    if (!o.built || o.drawn.w < 300) continue
+    const m = boxes.find((q) => q.strokeId === o.strokeId)
+    if (!m || m.card || m.area) continue
+    const p = placed.find((q) => q.m.strokeId === o.strokeId)
+    if (!p || Math.abs(p.dx) > p.slack || Math.abs(p.dy) > p.slack) continue // already told to move
+    const dl = r1(o.built.x - o.drawn.x), dr = r1(o.built.x + o.built.w - o.drawn.x - o.drawn.w)
+    if (Math.abs(dl) <= BOX_EDGE_PX && Math.abs(dr) <= BOX_EDGE_PX) continue
+    misses.push(`the box drawn at (${o.drawn.x},${o.drawn.y}) ${o.drawn.w}x${o.drawn.h} spans x ${o.drawn.x} to ${o.drawn.x + o.drawn.w}; the <${p.tag}> built for it spans ` +
+      `${r1(o.built.x)} to ${r1(o.built.x + o.built.w)}: make it exactly ${o.drawn.w}px wide from x ${o.drawn.x} (an exact px width with box-sizing: border-box, ` +
+      `not a max-w class or page padding that rounds it), keeping what is inside it`)
   }
   // n56 (round 33 c4 herb farm): three circles drawn in a row were each built 24px high, inside the 28px slack a
   // lone box gets, so the row passed while the whole middle of the page sat visibly high. Three or more boxes
