@@ -164,6 +164,16 @@ export function sampleRoles(t: Pick<RowTemplate, 'parts'>): string {
   return ` Which value goes where: ${bits.join('; ')}.`
 }
 
+/**
+ * n91: a look tail that asks for a two-line name ("title over small grey line", "name with a grey line under",
+ * "bold title, description below") makes the first text column two stacked lines. On notifications the tail was
+ * typed but the brief said every row is ONE line and never text under the name, so the grey line was dropped.
+ */
+const STACK = /\b(?:title|name|heading|label)s?\b[^,;.]{0,24}?\b(?:over|above|on top of)\b[^,;.]{0,20}?\b(?:line|text|subtitle|description|detail|caption)s?\b|\b(?:(?:small|grey|gray|light|muted)\s+){1,3}(?:line|text|subtitle|description|caption)s?\s+(?:under|below|beneath)(?:\s+(?:it|each|the|every))?(?:\s+(?:title|name|one))?\b|\btwo[- ]line\b/i
+export function stackedName(note: string): boolean {
+  return STACK.test(note)
+}
+
 export function rowTemplateBrief(actions: readonly ActionLike[], strokes: readonly Stroke[]): string {
   const ts = rowTemplates(actions, strokes)
   if (!ts.length) return ''
@@ -171,9 +181,11 @@ export function rowTemplateBrief(actions: readonly ActionLike[], strokes: readon
     const texts = t.parts.filter((p) => p.kind === 'text').length
     let k = 0
     const parts = t.parts.map((p) => partWords(p, p.kind === 'text' ? ++k : k, texts)).join('; ')
-    return `- ${q(t.note.slice(0, 120))}: the drawn first row (centred at y ${String(t.cy)}) is ONE line of ${String(t.parts.length)} parts, left to right: ${parts}. ` +
+    return `- ${q(t.note.slice(0, 120))}: the drawn first row (centred at y ${String(t.cy)}) is ONE ${stackedName(t.note) ? 'row' : 'line'} of ${String(t.parts.length)} parts, left to right: ${parts}. ` +
       `Build exactly ${String(t.total)} rows, every one this same line: each part in its own column at its drawn x, all parts vertically centred on the row. ` +
-      `Never put one column's text under another's: a detail (category, date, subject, preview) drawn as its own line further right stays in that column on the same line as the name. ` +
+      (stackedName(t.note)
+        ? `Text column 1 is TWO stacked lines, as the note asks: the title (stronger) and right under it a smaller grey line (a short description; sample words if none typed), both inside the row's height; the pair is centred on the row. Apart from that, never put one column's text under another's. `
+        : `Never put one column's text under another's: a detail (category, date, subject, preview) drawn as its own line further right stays in that column on the same line as the name. `) +
       `Each row is about ${String(t.pitch)}px tall: the first row centred at y ${String(t.cy)}, the next at y ${String(t.cy + t.pitch)}, and so on (row k centred at ${String(t.cy)} + (k-1) x ${String(t.pitch)}); no taller rows, no extra padding.` +
       (t.typed ? ' Fill the columns with the typed row content in order (the k-th piece of each row in text column k).'
         : ` Nothing was typed for the rows: fill them with SAMPLE content that fits this page and the words near this mark (plausible names, titles, dates, amounts, varied per row, never copies). These sample words are allowed (the person asked for them).` + sampleRoles(t))

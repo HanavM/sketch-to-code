@@ -383,3 +383,52 @@ export function pageFill(fills: InkFill[]): PageFill | null {
   if (spot) return spot
   return fadeOf(page)
 }
+
+/**
+ * n91: taps in the bands that straight lines cut across a box fill only those bands.
+ *
+ * Round 36 e3 (timesheet, n87 and n91): a table box with a line under its header row and a line over its
+ * total row, the same pale grey tapped once in the header band and once in the total band. markFill read two
+ * same-colour taps as one solid colour on the whole box, so the whole table was built grey and a fix note
+ * ("rows white; grey only header and Total rows") was needed every time. A person who rules a band off and
+ * taps inside it means that band. Here: the near-horizontal lines that run across the box (both ends near its
+ * sides) cut it into bands, top to bottom; each tap colours the band it sits in (a later tap in a band wins);
+ * bands with no tap are left unfilled. Only when at least one band is tapped and at least one is not (a tap in
+ * every band is a split or a fade, handled above). Page px; the box is the holder's bbox.
+ */
+export interface TapBands {
+  box: BBox
+  /** every band top to bottom; color null = no tap there (left as it is) */
+  bands: Array<{ y0: number; y1: number; color: string | null }>
+}
+export function tapBands<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(
+  holder: S, taps: Array<Pick<InkFill, 'color' | 'at'>>, strokes: S[],
+): TapBands | null {
+  if (!taps.length || !closedOutline(holder.points)) return null
+  const hb = bboxOf(holder.points)
+  if (hb.w < 120 || hb.h < 60) return null
+  const tol = Math.max(24, hb.w * 0.06)
+  const ys: number[] = []
+  for (const c of strokes) {
+    if (c.id === holder.id || isFillDot(c) || c.points.length < 2 || closedOutline(c.points)) continue
+    const b = bboxOf(c.points)
+    if (b.h > 14 || b.w < hb.w * 0.7) continue
+    if (Math.abs(b.x - hb.x) > tol || Math.abs(b.x + b.w - (hb.x + hb.w)) > tol) continue
+    const y = b.y + b.h / 2
+    if (y <= hb.y + 8 || y >= hb.y + hb.h - 8) continue
+    if (!ys.some((o) => Math.abs(o - y) < 12)) ys.push(y)
+  }
+  if (!ys.length) return null
+  ys.sort((a, b) => a - b)
+  const edges = [hb.y, ...ys, hb.y + hb.h].map(Math.round)
+  const bands: TapBands['bands'] = edges.slice(1).map((y1, k) => ({ y0: edges[k]!, y1, color: null }))
+  for (const t of taps) {
+    if (t.at.x < hb.x - 6 || t.at.x > hb.x + hb.w + 6) return null
+    const band = bands.find((b) => t.at.y >= b.y0 && t.at.y <= b.y1)
+    if (!band) return null
+    band.color = t.color
+  }
+  const tapped = bands.filter((b) => b.color).length
+  if (!tapped || tapped === bands.length) return null
+  return { box: { x: Math.round(hb.x), y: Math.round(hb.y), w: Math.round(hb.w), h: Math.round(hb.h) }, bands }
+}

@@ -11,7 +11,7 @@
 import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
-  isFillDot, inkFills, pageFill, markFill, splitRegions, splitCss,
+  isFillDot, inkFills, pageFill, markFill, splitRegions, splitCss, tapBands,
   type BBox, type InkFill, type SplitRegion, type Stroke,
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
@@ -840,6 +840,8 @@ export interface InkColour {
    * outline cut along the divider, page px, in the order of colors.
    */
   split?: { colors: [string, string]; css: string; sides: [Array<{ x: number; y: number }>, Array<{ x: number; y: number }>]; dividerId: string; line: { a: { x: number; y: number }; z: { x: number; y: number } } }
+  /** n91: lines ruled across the box cut it into bands; only the tapped bands are filled (top to bottom, color null = untouched). */
+  bands?: Array<{ y0: number; y1: number; color: string | null }>
 }
 
 export interface GroundedInterpretation {
@@ -1234,6 +1236,9 @@ export function groundInterpretation(
           split: { colors: sp.colors, css: splitCss(sp, frame), sides: sp.sides, dividerId: sp.dividerId, line: sp.line } })
         continue
       }
+      // n91: taps inside bands ruled across the box (a header row, a total row) fill only those bands
+      const tb = tap && !fade?.split ? tapBands(st, (ev.fills ?? []).filter((f) => f.target === st.id), [...ev.strokes.values()]) : null
+      if (tap && tb) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box, how: 'tap', bands: tb.bands }); continue }
       if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box: sm?.outline ? sm.box : box, how: 'tap', ...(fade && fade.colors.length > 1 ? { fade } : {}) }); continue }
       if (!st.color) continue
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)

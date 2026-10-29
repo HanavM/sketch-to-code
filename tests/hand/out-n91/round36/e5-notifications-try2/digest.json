@@ -1,0 +1,335 @@
+{
+  "round": 36,
+  "id": "e5-notifications",
+  "version": 3,
+  "stopped": null,
+  "likeness": 74.5,
+  "colour": 0.9972732958006343,
+  "structure": 0.9705458456956525,
+  "layout": 0.49185650057198893,
+  "strokes": {
+    "count": 9,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "line": 4,
+      "box": 3
+    },
+    "inkPx": 3760
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 27,
+  "notes": 4,
+  "longestNote": 15,
+  "noteTexts": [
+    "Notifications, big bold",
+    "Choose what we email you about.",
+    "5 rows like this, title over small grey line, toggles on on off off on",
+    "Save, white bold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 469,
+    "firstReadingS": 57,
+    "readS": [
+      37
+    ],
+    "buildS": [
+      409
+    ],
+    "sketchingS": 22
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 68496,
+    "cacheRead": 649591,
+    "output": 36550,
+    "billed": 105046
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#fafafa",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 459
+    },
+    {
+      "op": "pen",
+      "color": "#1f2023",
+      "at": 831
+    },
+    {
+      "op": "stroke",
+      "at": 1825
+    },
+    {
+      "op": "pen",
+      "color": "#6b6b70",
+      "at": 2185
+    },
+    {
+      "op": "stroke",
+      "at": 3324
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 3686
+    },
+    {
+      "op": "stroke",
+      "at": 9843
+    },
+    {
+      "op": "stroke",
+      "at": 10309
+    },
+    {
+      "op": "pen",
+      "color": "#1f2023",
+      "at": 10669
+    },
+    {
+      "op": "stroke",
+      "at": 11491
+    },
+    {
+      "op": "pen",
+      "color": "#16a34a",
+      "at": 11852
+    },
+    {
+      "op": "stroke",
+      "at": 12792
+    },
+    {
+      "op": "pen",
+      "color": "#e5e5e5",
+      "at": 13149
+    },
+    {
+      "op": "stroke",
+      "at": 15292
+    },
+    {
+      "op": "pen",
+      "color": "#1f2023",
+      "at": 15651
+    },
+    {
+      "op": "stroke",
+      "at": 17208
+    },
+    {
+      "op": "note",
+      "at": 17847
+    },
+    {
+      "op": "note",
+      "at": 18480
+    },
+    {
+      "op": "note",
+      "at": 19167
+    },
+    {
+      "op": "note",
+      "at": 19774
+    },
+    {
+      "op": "run",
+      "at": 19861
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          150,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 459
+    },
+    {
+      "way": [
+        [
+          340,
+          92
+        ],
+        [
+          533,
+          92
+        ]
+      ],
+      "n": 33,
+      "at": 1825
+    },
+    {
+      "way": [
+        [
+          340,
+          130
+        ],
+        [
+          580,
+          130
+        ]
+      ],
+      "n": 41,
+      "at": 3324
+    },
+    {
+      "way": [
+        [
+          340,
+          170
+        ],
+        [
+          940,
+          170
+        ],
+        [
+          940,
+          591
+        ],
+        [
+          340,
+          591
+        ],
+        [
+          340,
+          170
+        ]
+      ],
+      "n": 341,
+      "at": 9843
+    },
+    {
+      "way": [
+        [
+          640,
+          580
+        ]
+      ],
+      "n": 1,
+      "at": 10309
+    },
+    {
+      "way": [
+        [
+          369,
+          206
+        ],
+        [
+          494,
+          206
+        ]
+      ],
+      "n": 22,
+      "at": 11491
+    },
+    {
+      "way": [
+        [
+          859,
+          198
+        ],
+        [
+          911,
+          198
+        ],
+        [
+          911,
+          228
+        ],
+        [
+          859,
+          228
+        ],
+        [
+          859,
+          198
+        ]
+      ],
+      "n": 29,
+      "at": 12792
+    },
+    {
+      "way": [
+        [
+          340,
+          255
+        ],
+        [
+          940,
+          255
+        ]
+      ],
+      "n": 101,
+      "at": 15292
+    },
+    {
+      "way": [
+        [
+          340,
+          640
+        ],
+        [
+          490,
+          640
+        ],
+        [
+          490,
+          688
+        ],
+        [
+          340,
+          688
+        ],
+        [
+          340,
+          640
+        ]
+      ],
+      "n": 67,
+      "at": 17208
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Notifications, big bold",
+      "whole": false,
+      "x": 436,
+      "y": 76,
+      "at": 17847
+    },
+    {
+      "text": "Choose what we email you about.",
+      "whole": false,
+      "x": 460,
+      "y": 120,
+      "at": 18480
+    },
+    {
+      "text": "5 rows like this, title over small grey line, toggles on on off off on",
+      "whole": false,
+      "x": 620,
+      "y": 300,
+      "at": 19167
+    },
+    {
+      "text": "Save, white bold",
+      "whole": false,
+      "x": 415,
+      "y": 664,
+      "at": 19774
+    }
+  ]
+}

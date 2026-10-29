@@ -35,6 +35,13 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
           `or build the two parts as two blocks with those solid backgrounds that meet at the divider; any line or dashes on the divider are drawn on that edge`)
         continue
       }
+      if (c.paint === 'background' && c.bands) {
+        const tapped = c.bands.filter((b) => b.color), bare = c.bands.filter((b) => !b.color)
+        lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: straight lines are ruled across it, cutting it into ${String(c.bands.length)} bands, and colour was tapped only in some of them, so ONLY THOSE BANDS are filled, never the whole block: ` +
+          tapped.map((b) => `the band from y ${String(b.y0)} to y ${String(b.y1)} (the row(s) built there, e.g. a header or total row) background ${hex(b.color!)}`).join('; ') +
+          `; the band${bare.length > 1 ? 's' : ''} ${bare.map((b) => `from y ${String(b.y0)} to y ${String(b.y1)}`).join(' and ')} stay${bare.length > 1 ? '' : 's'} unfilled (white / the block's plain surface, no ${hex(tapped[0]!.color!)}). Keep the ruled lines as thin borders between the bands`)
+        continue
+      }
       if (c.paint === 'background' && c.fade) {
         lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')}) exactly (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}): ${hex(c.fade.colors[0]!)} where it was tapped first, fading to ${hex(c.fade.colors.at(-1)!)} where it was tapped last; keep that direction and those stops, at full strength`)
         continue
@@ -182,6 +189,22 @@ export function verifyInkColours(
         const v = splitVerdict(c.split, near, after.nodes)
         checks.push({ what: `${what} (two fills at a divider)`, want: c.split.css, best: v.worst, ok: v.ok })
         if (!v.ok) misses.push(`action ${String(i)}: ${what} has a divider drawn across it with ${c.split.colors.map(hex).join(' tapped on one side and ')} on the other: two solid fills meeting at the divider, not a fade; ${v.why}: paint the block itself background ${c.split.css.replace(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi, (m) => hex(m))}`)
+        continue
+      }
+      // n91: tapped bands carry their colour; untapped bands do not
+      if (c.bands && c.paint === 'background') {
+        for (const bd of c.bands) {
+          const bb = { x: b.x, y: bd.y0, w: b.w, h: bd.y1 - bd.y0 }
+          const inBand = after.nodes.filter((n) => centreIn(n, bb, 8) && n.rect.w >= b.w * 0.5 && n.rect.h >= Math.min(bb.h * 0.4, 24))
+          const wantC = bd.color ?? c.color
+          const at = closestAt(wantC, inBand, 'background')
+          const hit = !!at && at.de <= SOLID_OK_DE
+          const ok = bd.color ? hit : !hit
+          checks.push({ what: `${what} band y ${String(bd.y0)}-${String(bd.y1)}`, want: bd.color ? hex(bd.color) : `not ${hex(c.color)}`, best: at?.de ?? null, ok })
+          if (!ok) misses.push(bd.color
+            ? `action ${String(i)}: ${what}: the band from y ${String(bd.y0)} to y ${String(bd.y1)} was tapped ${hex(bd.color)}; paint the row(s) there background ${hex(bd.color)}`
+            : `action ${String(i)}: ${what}: the band from y ${String(bd.y0)} to y ${String(bd.y1)} had no tap but is painted ${hex(c.color)}; leave it white / plain (only the tapped bands are ${hex(c.color)})`)
+        }
         continue
       }
       // n51: a fade from taps: every stop shows on the block, and it runs the way it was tapped
