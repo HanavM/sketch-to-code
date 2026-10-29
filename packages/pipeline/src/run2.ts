@@ -56,7 +56,7 @@ import { solidsBrief, verifySolids } from './solids.js'
 import { tiltBrief, verifyTilts } from './tilt.js'
 import { outlineBrief, verifyOutlines } from './outline.js'
 import { eachBrief, verifyEach, verifyGlyphs } from './each.js'
-import { allTextBrief, allTextColour, verifyAllText } from './alltext.js'
+import { allTextBrief, allTextColour, ownColourText, verifyAllText } from './alltext.js'
 import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { verifyStackLines } from './stacklines.js'
@@ -1437,7 +1437,7 @@ export function verifyActions(
   const allMarks = actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['cards', verifyCards(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
     ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['typed-spot', verifyPlaced(typedSpots, after)],
-    ['all-text', verifyAllText(allTextColour([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])]), after)],
+    ['all-text', ((all) => verifyAllText(allTextColour(all), after, ownColourText(allTextColour(all), all)))([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])])],
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],

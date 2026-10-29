@@ -325,7 +325,7 @@ export function isPageLookNote(text: string): boolean {
 import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
-import { markTextPlaces } from './textplace.js'
+import { linkSame, markTextPlaces } from './textplace.js'
 import { markOutlined } from './textlook.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
@@ -1284,6 +1284,9 @@ export function groundInterpretation(
       needsConfirm,
     })
   }
+
+  // n57: "WORK, same" copies the look of the line above even when the two lines are separate actions
+  linkSame(actions.flatMap((a) => a.shapeMarks ?? []))
 
   // A note the user typed must never be silently dropped because no action
   // claimed it — an unattached one still describes this run.

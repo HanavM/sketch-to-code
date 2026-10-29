@@ -19,7 +19,8 @@
 import type { BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
-import { BIG_WORD, lineAsksBig, spanFontPx } from './linespan.js'
+import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
+import { outlinedOf } from './textlook.js'
 
 interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }
@@ -52,6 +53,43 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[]): void {
       .filter((n) => n.at && n.at.x >= b.x - 4 && n.at.x <= b.x + b.w + 4 && n.at.y >= b.y - 4 && n.at.y <= b.y + b.h + 4)
       .map((n) => ({ text: n.text, x: r1(n.at!.x), y: r1(n.at!.y) }))
     if (typed.length) m.typed = typed
+  }
+  linkSame(marks)
+}
+
+/**
+ * n57: resolve "same" across the given lines, then flag hollow words. "SLOW, giant outlined letters" typed on a line:
+ * the letters are hollow (before, only a box round a big word was). Run per action and again over every action's
+ * marks (the line above is often another action).
+ */
+export function linkSame(marks: ShapeMark[]): void {
+  resolveSame(marks)
+  for (const m of marks) {
+    if (!isLevel(m) || !m.words || m.outlined) continue
+    const o = outlinedOf(m.words)
+    if (o) m.outlined = o
+  }
+}
+
+/** A note's words after its first comma ("WORK, same" -> "same"); null when it has no comma. */
+const styleTail = (t: string): string | null => { const i = t.indexOf(','); return i === -1 ? null : t.slice(i + 1).trim() }
+export const SAME = /^(same|the same|same style|same look|same as (above|before|the (line|one) above)|ditto|likewise)\.?$/i
+
+/**
+ * n57: "WORK, same" typed on the line under "SLOW, giant outlined letters" means the same look. Round 33 c2
+ * (slow agency): WORK came out solid and smaller; "same" was read as nothing. A line whose note is its words
+ * plus "same" takes the style part of the nearest level line above it that has words (within 320px).
+ */
+export function resolveSame(marks: ShapeMark[]): void {
+  const lines = marks.filter((m) => isLevel(m) && m.words)
+  for (const m of lines) {
+    const tail = styleTail(m.words!)
+    if (tail === null || !SAME.test(tail)) continue
+    const above = lines.filter((o) => o !== m && o.box.y < m.box.y && m.box.y - o.box.y <= 320 && !SAME.test(styleTail(o.words!) ?? ''))
+      .sort((p, q) => q.box.y - p.box.y)[0]
+    const look = above ? styleTail(above.words!) : null
+    if (!look) continue
+    m.words = `${m.words!.slice(0, m.words!.indexOf(',')).trim()}, ${look}`
   }
 }
 
@@ -144,7 +182,8 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
         }
         // n56: a long line under a short phrase is a heading sized by the line (told here, checked by line-span)
         const len = m.box.w
-        if (!stacked.has(m.strokeId) && !BIG_WORD.test(m.words) && lineAsksBig(m.words, len)) {
+        // n57: a giant word or two on a long line ("SLOW, giant outlined letters") is sized by the line as well
+        if ((!stacked.has(m.strokeId) && !BIG_WORD.test(m.words) && lineAsksBig(m.words, len)) || isDisplay(m.words, len)) {
           lines.push(`- action ${i}: "${m.words}" is a short phrase typed on a long line (${r1(len)}px, x ${m.box.x} to ${m.box.x + m.box.w}, y ${m.box.y}): the line sets its SIZE. ` +
             `It is a big heading on ONE line (white-space: nowrap) whose letters run about the drawn ${r1(len)}px: font-size about ${spanFontPx(m.words, len)}px (adjust so the width matches), bold, letters sitting on y ${m.box.y}.`)
         }

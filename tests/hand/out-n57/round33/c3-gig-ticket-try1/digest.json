@@ -1,0 +1,442 @@
+{
+  "round": 33,
+  "id": "c3-gig-ticket",
+  "version": 3,
+  "stopped": null,
+  "likeness": 60.8,
+  "colour": 0.9636724192671617,
+  "structure": 0.8664774318990518,
+  "layout": 0.4799946508373389,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 8,
+      "box": 1,
+      "circle": 1,
+      "dot": 4
+    },
+    "inkPx": 4136
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 35,
+  "notes": 8,
+  "longestNote": 11,
+  "noteTexts": [
+    "STUBS, bold",
+    "The Night Owls, big bold black",
+    "Fri 12 Dec · Doors 8pm · The Grain Hall, grey",
+    "ADMIT",
+    "dashed",
+    "Get tickets, yellow bold",
+    "ONE, big bold white",
+    "Row F · Seat 14, white"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 222,
+    "firstReadingS": 70,
+    "readS": [
+      45
+    ],
+    "buildS": [
+      150
+    ],
+    "sketchingS": 27
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 26508,
+    "cacheRead": 181973,
+    "output": 17124,
+    "billed": 43632
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 641
+    },
+    {
+      "op": "stroke",
+      "at": 7423
+    },
+    {
+      "op": "stroke",
+      "at": 8876
+    },
+    {
+      "op": "stroke",
+      "at": 10156
+    },
+    {
+      "op": "stroke",
+      "at": 11057
+    },
+    {
+      "op": "stroke",
+      "at": 12507
+    },
+    {
+      "op": "stroke",
+      "at": 13108
+    },
+    {
+      "op": "stroke",
+      "at": 13839
+    },
+    {
+      "op": "stroke",
+      "at": 14625
+    },
+    {
+      "op": "stroke",
+      "at": 16158
+    },
+    {
+      "op": "pen",
+      "color": "#fde68a",
+      "at": 16525
+    },
+    {
+      "op": "stroke",
+      "at": 16993
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 17366
+    },
+    {
+      "op": "stroke",
+      "at": 17842
+    },
+    {
+      "op": "pen",
+      "color": "#ec4899",
+      "at": 18205
+    },
+    {
+      "op": "stroke",
+      "at": 18676
+    },
+    {
+      "op": "pen",
+      "color": "#1c1917",
+      "at": 19044
+    },
+    {
+      "op": "stroke",
+      "at": 19507
+    },
+    {
+      "op": "note",
+      "at": 20127
+    },
+    {
+      "op": "note",
+      "at": 20801
+    },
+    {
+      "op": "note",
+      "at": 21500
+    },
+    {
+      "op": "note",
+      "at": 22121
+    },
+    {
+      "op": "note",
+      "at": 22740
+    },
+    {
+      "op": "note",
+      "at": 23394
+    },
+    {
+      "op": "note",
+      "at": 24047
+    },
+    {
+      "op": "note",
+      "at": 24715
+    },
+    {
+      "op": "run",
+      "at": 24941
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          60,
+          56
+        ],
+        [
+          128,
+          56
+        ]
+      ],
+      "n": 12,
+      "at": 641
+    },
+    {
+      "way": [
+        [
+          235,
+          260
+        ],
+        [
+          1008,
+          183
+        ],
+        [
+          1045,
+          540
+        ],
+        [
+          270,
+          618
+        ],
+        [
+          236,
+          263
+        ]
+      ],
+      "n": 379,
+      "at": 7423
+    },
+    {
+      "way": [
+        [
+          793,
+          206
+        ],
+        [
+          829,
+          560
+        ]
+      ],
+      "n": 60,
+      "at": 8876
+    },
+    {
+      "way": [
+        [
+          288,
+          352
+        ],
+        [
+          583,
+          322
+        ]
+      ],
+      "n": 50,
+      "at": 10156
+    },
+    {
+      "way": [
+        [
+          295,
+          416
+        ],
+        [
+          448,
+          400
+        ]
+      ],
+      "n": 27,
+      "at": 11057
+    },
+    {
+      "way": [
+        [
+          302,
+          467
+        ],
+        [
+          655,
+          432
+        ]
+      ],
+      "n": 60,
+      "at": 12507
+    },
+    {
+      "way": [
+        [
+          828,
+          257
+        ],
+        [
+          878,
+          251
+        ]
+      ],
+      "n": 9,
+      "at": 13108
+    },
+    {
+      "way": [
+        [
+          832,
+          301
+        ],
+        [
+          926,
+          290
+        ]
+      ],
+      "n": 17,
+      "at": 13839
+    },
+    {
+      "way": [
+        [
+          835,
+          326
+        ],
+        [
+          950,
+          313
+        ]
+      ],
+      "n": 20,
+      "at": 14625
+    },
+    {
+      "way": [
+        [
+          548,
+          720
+        ],
+        [
+          656,
+          720
+        ],
+        [
+          684,
+          748
+        ],
+        [
+          656,
+          776
+        ],
+        [
+          548,
+          776
+        ],
+        [
+          520,
+          748
+        ],
+        [
+          548,
+          720
+        ]
+      ],
+      "n": 65,
+      "at": 16158
+    },
+    {
+      "way": [
+        [
+          640,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 16993
+    },
+    {
+      "way": [
+        [
+          500,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 17842
+    },
+    {
+      "way": [
+        [
+          930,
+          460
+        ]
+      ],
+      "n": 1,
+      "at": 18676
+    },
+    {
+      "way": [
+        [
+          560,
+          766
+        ]
+      ],
+      "n": 1,
+      "at": 19507
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "STUBS, bold",
+      "whole": false,
+      "x": 62,
+      "y": 36,
+      "at": 20127
+    },
+    {
+      "text": "The Night Owls, big bold black",
+      "whole": false,
+      "x": 300,
+      "y": 318,
+      "at": 20801
+    },
+    {
+      "text": "Fri 12 Dec · Doors 8pm · The Grain Hall, grey",
+      "whole": false,
+      "x": 310,
+      "y": 452,
+      "at": 21499
+    },
+    {
+      "text": "ADMIT",
+      "whole": false,
+      "x": 830,
+      "y": 240,
+      "at": 22121
+    },
+    {
+      "text": "dashed",
+      "whole": false,
+      "x": 800,
+      "y": 400,
+      "at": 22740
+    },
+    {
+      "text": "Get tickets, yellow bold",
+      "whole": false,
+      "x": 560,
+      "y": 740,
+      "at": 23394
+    },
+    {
+      "text": "ONE, big bold white",
+      "whole": false,
+      "x": 836,
+      "y": 282,
+      "at": 24047
+    },
+    {
+      "text": "Row F · Seat 14, white",
+      "whole": false,
+      "x": 838,
+      "y": 318,
+      "at": 24715
+    }
+  ]
+}

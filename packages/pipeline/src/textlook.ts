@@ -18,6 +18,10 @@ import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { hexOf, parseCssColor, type Rgb } from './palette.js'
 import { clipPolygon } from './areas.js'
+import { wordsOf } from './ownwords.js'
+
+/** The copy part of a line's note: before its first comma ("SLOW, giant outlined letters" -> "SLOW"). */
+const lineCopy = (t: string) => (t.includes(',') ? t.slice(0, t.indexOf(',')) : t).trim()
 
 const HOLLOW = /\b(outlined|outline|hollow|stroked|stroke-only|outline-only)\b/i
 const COLOUR = /\b(white|black|cream|grey|gray|navy|lime|green|blue|red|pink|orange|yellow|purple|violet|teal|cyan|gold)\b/i
@@ -54,6 +58,14 @@ export function textLookBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>): str
       if (!m.outlined) continue
       const b = m.box
       const c = m.outlined.colour ?? 'the colour that reads on what is behind'
+      if (m.shape === 'line') {
+        lines.push(
+          `- action ${i}: the words "${lineCopy(m.words ?? '')}" typed on the line from x ${b.x} to ${b.x + b.w} at y ${b.y} are OUTLINED (hollow letters): ` +
+          `color: transparent and -webkit-text-stroke: 2px ${c} (3px when the letters are taller than 120px); no solid fill, no text-shadow. ` +
+          `One word stays one word: never split it or spread its letters apart (no letter-spacing wider than 0.02em).`,
+        )
+        continue
+      }
       lines.push(
         `- action ${i}: the big word or number in the box at (${b.x},${b.y}) ${b.w}x${b.h} is OUTLINED (hollow letters): ` +
         `color: transparent and -webkit-text-stroke: 2px ${c} (3px when the letters are taller than 200px); ` +
@@ -93,6 +105,20 @@ export function verifyOutlined(marks: ShapeMark[], after: Snap): LookVerdict {
   const faults: string[] = []
   for (const m of boxes) {
     const b = m.box
+    if (m.shape === 'line') {
+      // n57: a line's hollow words: the text built on it (its typed copy words), letters sitting above the line
+      const copy = wordsOf(lineCopy(m.words ?? ''))
+      const what = `the words "${lineCopy(m.words ?? '')}" on the line at y ${b.y} typed "outlined"`
+      const t = after.nodes.filter((n) => n.text && copy.length && copy.every((w) => wordsOf(n.text!).includes(w)) &&
+        n.rect.y < b.y + 40 && n.rect.y + n.rect.h > b.y - 320 && n.rect.x < b.x + b.w + 40 && n.rect.x + n.rect.w > b.x - 40)
+        .sort((p, q) => (parseFloat(q.style.fontSize ?? '0') || 0) - (parseFloat(p.style.fontSize ?? '0') || 0) || p.rect.w * p.rect.h - q.rect.w * q.rect.h)[0]
+      if (!t) continue // its words not found: the place checks name that
+      if (!(strokePx(t) > 0 && alpha(t.style.color) < 0.35)) {
+        faults.push(`${what} is built as ${strokePx(t) > 0 ? 'stroked but filled' : 'solid'} letters ("${(t.text ?? '').slice(0, 12)}"): ` +
+          `make them hollow, color: transparent with -webkit-text-stroke: 2px ${m.outlined!.colour ?? 'white'}; no text-shadow; change nothing else`)
+      }
+      continue
+    }
     const cx = b.x + b.w / 2, cy = b.y + b.h / 2
     // the biggest-type text whose box covers the middle of the drawn box
     const texts = after.nodes.filter((n) => n.text && inside(n.rect, cx, cy, 0.25 * Math.max(b.w, b.h)))

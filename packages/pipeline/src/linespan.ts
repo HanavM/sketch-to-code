@@ -26,7 +26,9 @@ export const BIG_WORD = /\b(big|bigger|huge|large|giant|massive|heading|headline
 const STYLE = new Set(['big', 'bigger', 'huge', 'large', 'giant', 'massive', 'heading', 'headline', 'title', 'display', 'hero',
   'bold', 'italic', 'serif', 'sans', 'regular', 'light', 'thin', 'heavy', 'black', 'white', 'green', 'dark', 'navy', 'red', 'blue',
   'grey', 'gray', 'cream', 'yellow', 'orange', 'pink', 'purple', 'teal', 'lime', 'gold', 'brown', 'centred', 'centered',
-  'left', 'right', 'uppercase', 'caps', 'mono', 'font', 'text', 'in', 'and', 'the'])
+  'left', 'right', 'uppercase', 'caps', 'mono', 'font', 'text', 'in', 'and', 'the',
+  // n57: words about the letters' look, not copy ("SLOW, giant outlined letters", "WORK, same")
+  'outlined', 'outline', 'hollow', 'stroked', 'letters', 'letter', 'same', 'type'])
 
 const r1 = (v: number) => Math.round(v)
 const isLevel = (m: MarkLike) => m.shape === 'line' && !m.edge && !!m.from && !!m.to && Math.abs(m.from.y - m.to.y) <= 2
@@ -45,10 +47,16 @@ export function lineAsksBig(words: string, len: number): boolean {
   return len >= 2 * chars * 8.5
 }
 
+/** n57: a giant word or two on a long line ("SLOW, giant outlined letters"): display type sized by its line. */
+export function isDisplay(words: string, len: number): boolean {
+  return BIG_WORD.test(words) && len >= 300 && copyWords(words).length >= 1 && copyWords(words).length <= 2
+}
+
 /** About the font-size (px) at which these words run the drawn length on one line (bold sans, ~0.56em a letter). */
 export function spanFontPx(words: string, len: number): number {
   const chars = Math.max(1, copyWords(words).join(' ').length)
-  return Math.round(Math.min(160, Math.max(18, len / (chars * 0.56))))
+  // n57: one short display word may run far bigger than a sentence (SLOW over 870px)
+  return Math.round(Math.min(chars <= 6 ? 300 : 160, Math.max(18, len / (chars * 0.56))))
 }
 
 /** The copy words of a note (its style words taken out). */
@@ -62,13 +70,16 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
   let judged = 0
   for (const m of marks) {
     if (!isLevel(m) || !m.words) continue
-    // a line drawn as part of a multi-line stack is the stack check's (stacklines)
-    if (m.strokeId && stacked.has(m.strokeId)) continue
     const len = Math.abs(m.to!.x - m.from!.x)
+    // a line drawn as part of a multi-line stack is the stack check's (stacklines), except a giant word or two a
+    // line (n57: "SLOW" over "WORK", 250px apart): the stack check only judges text of 3+ words, so nothing held it
+    const inStack = !!m.strokeId && stacked.has(m.strokeId)
+    if (inStack && !isDisplay(m.words, len)) continue
     if (!lineAsksBig(m.words, len)) continue
     if (len < 200) continue
     const want = copyWords(m.words)
-    if (want.length < 2) continue
+    // n57: a single giant word ("SLOW, giant ...") is checked too when the note asks for big type
+    if (want.length < 1 || (want.length < 2 && (!BIG_WORD.test(m.words) || want[0]!.length < 2))) continue
     const wantSet = new Set(want)
     const y = m.box.y
     const x0 = Math.min(m.from!.x, m.to!.x), x1 = x0 + len
@@ -95,7 +106,7 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
     const quote = `"${want.join(' ')}"`.slice(0, 60)
     // drawn as ONE line, so a heading that wrapped is wrong however wide it runs (n45 try 2: a
     // repair took the size up, the words wrapped onto two lines and pushed the button 73px down)
-    if (fs && tb.h > fs * 1.9) {
+    if (fs && tb.h > fs * 1.9 && !inStack) {
       const lines = Math.max(2, Math.round(tb.h / (fs * 1.2)))
       misses.push(`the heading ${quote} was drawn as ONE line ${r1(len)}px long (x ${r1(x0)} to ${r1(x1)}, y ${r1(y)}) but is built on about ${String(lines)} lines (${r1(tb.h)}px tall): keep it on one line ` +
         `(white-space: nowrap, its block at least ${r1(len)}px wide, no max-width narrower than that), at the font-size that makes its words run about ${r1(len)}px, line-height about ${r1(fs * 1.2)}px, so what is under it moves back up; change nothing else`)
