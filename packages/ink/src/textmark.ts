@@ -392,6 +392,8 @@ export const BARE_NOTE_PX = 48
 export const BARE_WRAP_MAX = 1.6
 /** n45: a note this many words long typed on a line is that line's own sentence (a subtitle), not a heading's wrap. */
 export const OWN_SENTENCE_WORDS = 6
+/** n55: a note this close (px) to two lines' distances counts as near both. */
+export const NOTE_TIE_PX = 6
 
 /** n33: centred display copy (a pull quote) may sit this close. */
 export const QUOTE_STACK_MIN_PITCH = 48
@@ -414,14 +416,21 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOp
   // the longer-line rule split them and the bare line got a made-up subtitle. A bare line (no note on
   // it, when notes are known) has no words but the heading's, so it may run longer and still wrap it.
   const notes = opts.notesAt?.filter((n) => Number.isFinite(n.x) && Number.isFinite(n.y))
+  // n55 (r33 c1): a note belongs to the line it is nearest (ties within a few px go to both). The
+  // paragraph's note, typed 21px above its first line, was also 45px under the heading's last line,
+  // so that heading line "had its own sentence" and the heading broke into one small line.
+  const lineDist = (l: LineGeom, n: { x: number; y: number }) => Math.hypot(Math.max(l.x0 - n.x, n.x - l.x1, 0), n.y - l.cy)
+  const nearestLine = (n: { x: number; y: number }) => Math.min(...ls.map((o) => lineDist(o, n)))
   const bare = (l: LineGeom): boolean => notes !== undefined && !notes.some((n) =>
-    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX)
+    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX &&
+    lineDist(l, n) <= nearestLine(n) + NOTE_TIE_PX)
   // n45 (r32 c5): "A quiet place to read." and the sentence under it, each typed on its own line,
   // were read as one two-line heading (the second line a little shorter, on the heading pitch) and
   // the sentence was built as the heading's wrap. A line carrying a sentence of its own (a note of
   // six words or more typed on it, not the note on the line above) is the next block.
   const nearOf = (l: LineGeom) => notes?.filter((n) =>
-    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX) ?? []
+    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX &&
+    lineDist(l, n) <= nearestLine(n) + NOTE_TIE_PX) ?? []
   const ownSentence = (next: LineGeom, first: LineGeom): boolean => {
     const mine = nearOf(next).filter((n) => (n.text ?? '').trim().split(/\s+/).length >= OWN_SENTENCE_WORDS)
     if (!mine.length) return false

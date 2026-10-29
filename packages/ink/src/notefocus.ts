@@ -50,6 +50,7 @@ export function noteFocus(
     if (d.size === 0) return undefined
     const best = Math.min(...d.values())
     focus = ids.filter((id) => (d.get(id) ?? Infinity) <= best + NOTE_FOCUS_SLACK_PX)
+    focus = dropFarSideLines(focus, d, best, at, strokes, stackOpts)
     // Typed inside two drawn outlines, one within the other (a near ridge over a far one,
     // an inner ring): the note is about the innermost one, as with containers below.
     const boxed = boxes(strokes, ids)
@@ -141,6 +142,49 @@ export function noteFocus(
     if (g) focus = ids.filter((id) => focus.includes(id) || g.includes(id))
   }
   return focus.length > 0 && focus.length < ids.length ? focus : undefined
+}
+
+/** n55: the far line must be at least this many times as far as the nearest to be dropped. */
+export const FAR_SIDE_RATIO = 2
+/** n55: ... and at least this many px further. */
+export const FAR_SIDE_MIN_PX = 10
+
+/**
+ * n55: a note typed between two text lines, clearly nearer one of them, is about that one only,
+ * when the other belongs to another block: it sits a block gap away (more than a paragraph's wrap
+ * pitch), or another note was typed closer to it (it has its own words). Round 33 c1 and c4: the
+ * paragraph's note, typed just above its first line, was within the slack of the heading's last
+ * line too, so it also took the heading (and, via the giant stack, all of it).
+ */
+function dropFarSideLines(
+  focus: string[], d: Map<string, number>, best: number, at: { x: number; y: number },
+  strokes: Stroke[], stackOpts: StackOpts,
+): string[] {
+  if (focus.length < 2) return focus
+  const line = new Map<string, { cy: number; pts: Stroke['points'] }>()
+  for (const st of strokes) {
+    if (!focus.includes(st.id) || !isTextLine(st.points)) continue
+    line.set(st.id, { cy: st.points.reduce((a, p) => a + p.y, 0) / st.points.length, pts: st.points })
+  }
+  const nearest = focus.filter((id) => line.has(id) && (d.get(id) ?? Infinity) === best)
+  if (nearest.length !== 1) return focus
+  const near = line.get(nearest[0]!)!
+  const sideNear = Math.sign(near.cy - at.y)
+  const others = (stackOpts.notesAt ?? []).filter((q) => Math.hypot(q.x - at.x, q.y - at.y) > 2)
+  const drop = new Set<string>()
+  for (const [id, l] of line) {
+    if (id === nearest[0]) continue
+    const df = d.get(id) ?? Infinity
+    if (df < Math.max(FAR_SIDE_RATIO * best, best + FAR_SIDE_MIN_PX)) continue
+    const side = Math.sign(l.cy - at.y)
+    if (sideNear !== 0 && side === sideNear) continue
+    const blockGap = Math.abs(l.cy - near.cy) > PARA_PITCH_PX
+    const xs = l.pts.map((p) => p.x), ys = l.pts.map((p) => p.y)
+    const r = { x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) }
+    const ownNote = others.some((q) => distToRect(q, r) < df)
+    if (blockGap || ownNote) drop.add(id)
+  }
+  return drop.size ? focus.filter((id) => !drop.has(id)) : focus
 }
 
 const COUNT_WORDS: Record<string, number> = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, both: 2 }
