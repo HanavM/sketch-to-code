@@ -3024,6 +3024,7 @@ class Overlay {
     // is the only feedback that a reference is gone
     this.noteInput.addEventListener('input', () => {
       if (this.noteDraft) this.renderNoteRefs()
+      if (this.noteDraft) this.previewNoteCover()
     })
     this.noteInput.addEventListener('keyup', (e) => e.stopPropagation())
     this.noteInput.addEventListener('keypress', (e) => e.stopPropagation())
@@ -7644,6 +7645,24 @@ class Overlay {
     this.noteHi.classList.add('on')
   }
 
+  /**
+   * n94: the bar names every line a note covers WHILE it is typed, not only once it is committed. Round 36 c4
+   * (florist): "Fresh flowers, at your door by noon." typed on a heading's first line said "on this line" in the
+   * bar even though, on Enter, the note wraps onto the two lines drawn under it (n88). Same rule as commitNote.
+   */
+  private previewNoteCover() {
+    const d = this.noteDraft
+    if (!d || d.id || d.anchor.kind !== 'strokes') return
+    const text = this.noteInput.value
+    const marks = this.strokes.filter((st) => !isFillDot(st))
+    const more = text.trim() ? overflowStack(marks, d.anchor.strokeIds, text, { notesAt: [...this.notesOnSketch(), { ...d.at, text }] }) : []
+    const anchor: NoteAnchor = { ...d.anchor, strokeIds: [...d.anchor.strokeIds, ...more] }
+    const shown = this.noteMarks({ at: d.at, anchor, text })
+    this.noteWhat.textContent = this.markLabel(shown)
+    this.noteWhat.dataset.covers = String(shown.length)
+    this.showNoteHighlight({ anchor, strokes: shown, el: null })
+  }
+
   private commitNote() {
     const d = this.noteDraft
     if (!d) return
@@ -7683,10 +7702,17 @@ class Overlay {
         this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
       }
     }
+    // n94: the bar names what the note covers WITH its words (the label shown when the editor opened was worked out
+    // before any word was typed: a heading's three lines still said "on this line" after Enter)
+    if (d.anchor.kind === 'strokes') this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
     // n39: "one line, below heading" typed on the heading's edge is about the part below it
     if (!existing && (d.anchor.kind === 'element' || (d.anchor.kind === 'run' && d.anchor.placed))) this.reanchorPlacedAgainst(d, text)
     // n43: a fix note asking only for what its part already is has nothing to change
     const already = this.alreadyFor(d.anchor, text)
+    // n94: a note can change what an EARLIER note covers (round 36 florist and vinyl: a heading's note said "on this
+    // line" until the paragraph's note under it was typed; then its thread grew to all the heading's lines while the
+    // bar never said so). Count each earlier note's marks before and after, and name any that changed.
+    const coverBefore = new Map(this.notes.filter((n) => n.anchor.kind === 'strokes').map((n) => [n.id, this.noteMarks(n).length]))
     if (existing) {
       existing.text = text
       existing.refs = refs
@@ -7694,7 +7720,9 @@ class Overlay {
     } else {
       this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor, refs, ...(already ? { already } : {}) })
     }
-    this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}${already ? ` · ${already}, nothing to change` : ''}`)
+    const grew = this.notes.filter((n) => n.id !== d.id && coverBefore.has(n.id) && this.noteMarks(n).length !== coverBefore.get(n.id))
+      .map((n) => `"${n.text.length > 24 ? `${n.text.slice(0, 22).trimEnd()}…` : n.text}" now ${this.markLabel(this.noteMarks(n))}`)
+    this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}${already ? ` · ${already}, nothing to change` : ''}${grew.length ? ` · ${grew.join(' · ')}` : ''}`)
     this.renderNotes()
     this.sync()
     // that note answered the bare-ring question: in auto mode, carry on
@@ -7863,7 +7891,11 @@ class Overlay {
     // a coloured tap fills a mark; it is never what a note is about (n10)
     const marks = this.strokes.filter((s) => !isFillDot(s))
     const ids = n.anchor.strokeIds.filter((id) => live.has(id) && marks.some((m) => m.id === id))
-    const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text, { notesAt: [...this.notesOnSketch(), n.at] }) ?? ids
+    // n94: the note's own words go with its spot (a heading stack 48-63px pitched is read as one heading only when the
+    // words typed on its first line cannot fit there; without them a note being typed or committed said "on this line")
+    const own = { ...n.at, text: n.text ?? '' }
+    const others = this.notesOnSketch().filter((o) => !(o.x === n.at.x && o.y === n.at.y))
+    const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text, { notesAt: [...others, own] }) ?? ids
     return marks.filter((s) => focus.includes(s.id))
   }
 

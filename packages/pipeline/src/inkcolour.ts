@@ -14,6 +14,30 @@ import { deltaE, hexOf, parseCssColor } from './palette.js'
 
 const hex = (c: string) => { const p = parseCssColor(c); return p ? hexOf(p) : c }
 
+/**
+ * n94: a big box drawn and filled with a plain colour is a FLAT panel, built as drawn: square corners, no
+ * shadow, one solid colour. Round 36 c4 (florist): the pink panel drawn with square corners and one tap came
+ * out a rounded card with a drop shadow (try 1) and flat on try 2, a coin toss worth ~3 points of layout.
+ * Words typed on it asking for a card, rounding, a shadow or a lift keep the model's say.
+ */
+const ASKS_LOOK = /\b(card|round|rounded|curved|soft|shadow|shadowed|lifted|raised|floating|elevated|glass|frosted|blur|glow|pill|bubble)\b/i
+export function plainPanel(c: InkColour, a: Pick<GroundedAction, 'notes' | 'shapeMarks'>): boolean {
+  if (c.paint !== 'background' || c.mark !== 'box' || c.fade || c.split || c.bands) return false
+  if (c.box.w < 200 || c.box.h < 150) return false
+  const m = a.shapeMarks?.find((k) => k.strokeId === c.strokeId)
+  if (m && (m.pill || m.tilt || m.outline || m.glyph)) return false
+  return !(a.notes ?? []).some((n) => ASKS_LOOK.test(n))
+}
+const pxOf = (v: string | undefined) => { const m = /^\s*([\d.]+)px/.exec(v ?? ''); return m ? Number(m[1]) : 0 }
+/** n94: what makes a built panel not flat (corners rounder than 6px, a drop shadow, a gradient); '' when flat. */
+export function notFlat(n: DomNode): string {
+  const why: string[] = []
+  if (pxOf(n.style.borderRadius) > 6) why.push(`corners rounded ${n.style.borderRadius}`)
+  if (n.style.boxShadow && !/^\s*none/.test(n.style.boxShadow) && !/^\s*(?:rgba?\([^)]*\)\s*)?0px 0px 0px/.test(n.style.boxShadow)) why.push('a drop shadow')
+  if (/gradient\(/i.test(n.style.backgroundImage ?? '')) why.push('a gradient')
+  return why.join(', ')
+}
+
 export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' | 'pageFill'>): string {
   const lines: string[] = []
   if (interp.pageFill) {
@@ -48,6 +72,10 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
       }
       if (c.paint === 'border') {
         lines.push(`- action ${String(i)}, the small box drawn at ${at} in dark ink (no colour tapped): an OUTLINED small control (an arrow / pager button, a checkbox, an icon button), about the drawn size: a thin 1px border (light grey, or ${hex(c.color)} if it reads as a strong outline), white or transparent background, never a dark or solid fill; a chevron or symbol typed next to it (‹ ›, +, ×) sits inside it in dark text`)
+        continue
+      }
+      if (plainPanel(c, a)) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at}: a PLAIN FLAT PANEL, built as drawn: one block exactly there, background ${hex(c.color)} solid at full strength (opacity 1, no gradient, no fade, no tint), square corners (border-radius 0), no box-shadow, no border; it is a coloured area of the page, not a floating card. Its words and images sit inside it; text on it must stay readable against it`)
         continue
       }
       lines.push(c.paint === 'background'
@@ -231,6 +259,12 @@ export function verifyInkColours(
       const at = closestAt(c.color, near, c.paint)
       const best = at?.de ?? null
       const hit = best !== null && best <= SOLID_OK_DE
+      // n94: a plain drawn panel is built flat: the block carrying its colour has square corners, no shadow, no fade
+      if (hit && at && plainPanel(c, a)) {
+        const why = notFlat(at.node)
+        checks.push({ what: `${what} (flat panel)`, want: 'square corners, no shadow, no gradient', best: null, ok: !why })
+        if (why) misses.push(`action ${String(i)}: ${what} is a plain panel drawn with square corners and filled ${hex(c.color)}; it was built with ${why}: make it flat, border-radius 0, box-shadow none, one solid background ${hex(c.color)}`)
+      }
       // n12: the right hex is not enough for a fill: it has to show at (nearly) full strength in the middle
       const st = hit && c.paint === 'background' && at ? strengthOf(at.node, at.css, byId) : null
       const ok = hit && (!st || st.strength >= STRONG)
