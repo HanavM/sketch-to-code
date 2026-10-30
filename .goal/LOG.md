@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T01:45Z | n95 quiet-build guard holds in live runs | Reply words and lone reads no longer keep a written build going; watch record per turn. Florist 75.5.
 2026-10-30T01:23Z | n94 plain panels flat; bar names every line | Flat panel told and checked, 3 of 3 flat; bar says 3 lines. Florist 74.9-77.6, vinyl 71.3.
 2026-10-30T00:36Z | n93 a quiet build after writing is ended, page kept | Stopped 120 s after last progress, page verified, record written; scripted e2e passes; timesheet live 57.8.
 2026-10-30T00:35Z | n88 heading words wrap onto the lines drawn under them | Overflowing heading copy covers its bare lines; florist 69.0 to 79.2, 76.7; tide 78.1 unchanged (drift already fixed).
