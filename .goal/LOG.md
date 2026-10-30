@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T16:45Z | n117 button at a tall panel's bottom stays put | Calendar keeps natural rows, button pinned and checked; hotel 76.9, 80.2 (was 74.9, 68.7).
 2026-10-30T16:35Z | n116 top bars as tall as drawn | Bands right 6 of 6 checks, no final drift; hotel 74.9, 68.7; budget 44.9; no gain over 77.7.
 2026-10-30T15:25Z | n115 a dead preview server ends the run | Killed server: run ended in 9 s, said so, record written, page kept; hotel replay 77.7.
 2026-10-30T14:20Z | n113 a calendar note gives the month | Calendar heading, Monday start, marks right 3 of 3; hotel 62.0, 45.0 from page drift; server-death gap.
