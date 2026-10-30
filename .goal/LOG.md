@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T16:35Z | n116 top bars as tall as drawn | Bands right 6 of 6 checks, no final drift; hotel 74.9, 68.7; budget 44.9; no gain over 77.7.
 2026-10-30T15:25Z | n115 a dead preview server ends the run | Killed server: run ended in 9 s, said so, record written, page kept; hotel replay 77.7.
 2026-10-30T14:20Z | n113 a calendar note gives the month | Calendar heading, Monday start, marks right 3 of 3; hotel 62.0, 45.0 from page drift; server-death gap.
 2026-10-30T13:20Z | n112 a part drawn once is on every member | Apply on all 5 job cards, checkbox list; job board 61.3 to 77.4; contacts 77.6.

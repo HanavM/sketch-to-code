@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A build no longer hangs when the preview server dies: it stops in seconds, says so and keeps the page; the hotel page scored 77.7 on a clean rerun. Next, keeping pages from drifting lower than drawn."
+now: "Top bars are now built as tall as drawn, so pages no longer slide down under a tall header; next, keeping a calendar its natural size inside a tall panel."
 round: 38
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-30T15:54Z n116", until: "2026-10-30T17:25Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -215,7 +215,9 @@ nodes:
      result: "Calendar right in every build after fix (heading, Monday start, marks); hotel 62.0, 45.0 from page drift."}
   - {id: n115, parent: n4, kind: step, title: "A run never waits forever when the app's dev server dies mid-build: the run ends, the page on disk is kept and a record written; then re-sketch hotel for the page drift", status: done, branch: try/n3-ink-style,
      result: "Server killed mid-build: run ended in 9 s, said so, record written, page kept. Hotel replay 77.7 (was 45.0)."}
-  - {id: n116, parent: n4, kind: step, priority: next, title: "Content sits where drawn top to bottom (no whole-page downward drift from a taller header or search bar): drawn band tops told and checked on the page; replay budget (layout 27) and hotel twice", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n116, parent: n4, kind: step, title: "Content sits where drawn top to bottom (no whole-page downward drift from a taller header or search bar): drawn band tops told and checked on the page; replay budget (layout 27) and hotel twice", status: done, branch: try/n3-ink-style,
+     result: "Top bars built at drawn heights 6 of 6 checks, no final drift; hotel 74.9, 68.7; budget 44.9."}
+  - {id: n117, parent: n4, kind: step, priority: next, title: "A calendar or list at the top of a tall drawn panel keeps natural rows (only fills when told), with the button drawn at the bottom staying there; the gap under the last top band is told; replay hotel twice", status: open, branch: try/n3-ink-style, result: null}
   - {id: n114, parent: n2, kind: step, title: "A lone ring drawn at the top left of a typed list is row 1's own avatar (moved into the row, not an extra mark), and a note typed on the sidebar never binds to the list beside it; re-sketch contacts", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawing near the bottom of the page pressed toolbar buttons: a stroke flipped manual to auto, the half-drawn page built and notes were lost", found_on: "r38 e5 video call (n108)", built: "n110: in draw mode a press on the bar that travels is ink on the page; the button never fires, the bar stays put", helped: "yes: same strokes drawn cleanly, e5 91.2 (try 1 lost, unscored); e2e live-hud-ink 3 of 3"}
