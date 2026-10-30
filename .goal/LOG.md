@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T20:15Z | n122 ring arcs checked as the chart, bar rows at drawn pitch | Ink colours pass, bars on lines 3 of 3; budget 62.3, 62.3, 30.6 (panel low, repair stalled).
 2026-10-30T19:30Z | n121 words beside coloured bars stay dark | Coloured lines read as bars, labels checked dark 2 of 2; budget 61.5, 39.1 (row drift).
 2026-10-30T18:45Z | n120 a big panel lands at its drawn top | Panel top checked on any page; panel right both replays; budget 56.4, 49.6 (was 49.3, 30.7).
 2026-10-30T18:07Z | n119 a list note spreads over look-alike swatches | Legend right 2 of 2 (was 0 of 4); budget 49.3, 30.7 from unchecked panel drift.

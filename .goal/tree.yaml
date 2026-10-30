@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Bars drawn in colour now keep their words dark, checked on the page; next, stop the donut chart being checked as four separate coloured blocks."
+now: "The donut and the category bars now come out right in colour and place; next, a panel built far too low is moved back to where it was drawn."
 round: 38
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run n122 2026-10-30T19:21Z", until: "2026-10-30T20:50Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -226,7 +226,8 @@ nodes:
   - {id: n120, parent: n4, kind: step, title: "A big drawn panel is built at its drawn top (budget Categories panel came out ~145px low and every check passed), and words beside a coloured bar are checked dark; replay budget twice", status: done, branch: try/n3-ink-style, result: "Big-panel top check built, unit-tested; panel at drawn top both replays; budget 56.4, 49.6 (was 49.3, 30.7)."}
   - {id: n121, parent: n4, kind: step, title: "Words beside a coloured bar are checked dark on the page (labels took the bar colour in half the budget runs), not only asked for; replay budget twice", status: done, branch: try/n3-ink-style, 
      result: "Coloured lines read as bars, labels checked dark; dark 2 of 2; budget 61.5, 39.1 from row drift."}
-  - {id: n122, parent: n4, kind: step, priority: next, title: "A ring drawn in coloured arcs (a chart) is checked as that chart, not as one filled block per arc, and rows in a tall panel keep their drawn pitch; replay budget twice", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n122, parent: n4, kind: step, title: "A ring drawn in coloured arcs (a chart) is checked as that chart, not as one filled block per arc, and rows in a tall panel keep their drawn pitch; replay budget twice", status: done, branch: try/n3-ink-style, result: "Ring arcs left to the chart, bars on drawn lines 3 of 3; budget 62.3, 62.3, 30.6 (panel low, repair stalled)."}
+  - {id: n123, parent: n4, kind: step, priority: next, title: "A whole drawn panel built far below its drawn top is moved there directly (no model round), instead of a repair that thinks for minutes and stalls; replay budget twice", status: open, branch: try/n3-ink-style, result: null}
   - {id: n114, parent: n2, kind: step, title: "A lone ring drawn at the top left of a typed list is row 1's own avatar (moved into the row, not an extra mark), and a note typed on the sidebar never binds to the list beside it; re-sketch contacts", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A list note (Rent $1,120; Food $700; Travel $520) on one of three legend swatches gave words to the first only; two 14px swatches were not even read as boxes", found_on: "r38 e3 budget (n118)", built: "n119: closed marks from 10px (small boxes must fill their square); a semicolon list on one of a column or row of look-alikes spreads one item each in order, told and checked; its items are copy, not directions", helped: "legend yes: all 3 swatches labelled 2 of 2 (was 0 of 4); likeness no: 49.3, 30.7 (panel ~145px low, unrelated, unchecked)"}
