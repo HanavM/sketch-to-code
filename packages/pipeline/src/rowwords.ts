@@ -54,7 +54,70 @@ export function markRowWords(marks: ShapeMark[], notes: NoteLike[]): void {
     const n = own.find((x) => isCopy(copyOf(x.text)))
     if (n) m.own = copyOf(n.text)
   }
+  spreadListNotes(marks, notes)
   splitRowNotes(marks)
+}
+
+/** n119: a note's items split by semicolons or new lines ("Rent $1,120; Food $700; Travel $520"), or null. */
+export function listItems(text: string): string[] | null {
+  if (!/[;\n]/.test(text)) return null
+  const items = text.split(/\s*(?:;|\n)\s*/).map((t) => t.trim()).filter(Boolean)
+  return items.length >= 2 && items.length <= 8 ? items : null
+}
+
+/** Look-alike closed marks chained to a seed in one column or one row (same kind, about the same size, aligned). */
+export function lineOfLookAlikes(seed: ShapeMark, pool: ShapeMark[]): { marks: ShapeMark[]; axis: 'column' | 'row' } | null {
+  const s = seed.box
+  const small = Math.min(s.w, s.h)
+  const reach = Math.max(24, 1.5 * small)
+  const like = (o: ShapeMark) => o.shape === seed.shape && ratio(o.box.w, s.w) <= 1.5 && ratio(o.box.h, s.h) <= 1.5
+  const cx = (b: BBox) => b.x + b.w / 2, cy = (b: BBox) => b.y + b.h / 2
+  let best: { marks: ShapeMark[]; axis: 'column' | 'row' } | null = null
+  for (const axis of ['column', 'row'] as const) {
+    const aligned = (o: ShapeMark) => axis === 'column' ? Math.abs(cx(o.box) - cx(s)) <= Math.max(8, 0.6 * s.w) : Math.abs(cy(o.box) - cy(s)) <= Math.max(8, 0.6 * s.h)
+    const line = [seed]
+    for (let grew = true; grew;) {
+      grew = false
+      for (const o of pool) {
+        if (line.includes(o) || !like(o) || !aligned(o)) continue
+        if (line.some((g) => holds(g.box, o.box) || holds(o.box, g.box))) continue
+        if (line.some((g) => gapOf(g.box, o.box) <= reach)) { line.push(o); grew = true }
+      }
+    }
+    if (line.length >= 2 && (!best || line.length > best.marks.length)) {
+      best = { marks: line.sort((a, b) => axis === 'column' ? a.box.y - b.box.y : a.box.x - b.box.x), axis }
+    }
+  }
+  return best
+}
+
+/**
+ * n119: one note listing several items ("Rent $1,120; Food $700; Travel $520") typed on one of a column or row of
+ * look-alike small marks (three legend swatches, round 38 e3) is those marks' words, one item each, in drawn order
+ * (top to bottom, or left to right). The build had printed the first item beside the first swatch and left the
+ * other two bare. Spread only when the items are exactly as many as the marks in the line and no mark was typed
+ * other words of its own. In place.
+ */
+export function spreadListNotes(marks: ShapeMark[], notes: NoteLike[]): void {
+  const pool = marks.filter((m) => closed(m))
+  for (const n of notes) {
+    const items = listItems(copyOf(n.text))
+    if (!items || !items.every((t) => isCopy(t))) continue
+    const ids = n.focus?.length ? n.focus : n.strokeIds ?? []
+    const anchors = pool.filter((m) => ids.includes(m.strokeId))
+    if (!anchors.length) continue
+    for (const a of anchors) {
+      const line = lineOfLookAlikes(a, pool)
+      if (!line || line.marks.length !== items.length) continue
+      // every mark the note was bound to is in the line (a note on two far-apart marks is not a list for this line)
+      if (anchors.some((x) => !line.marks.includes(x))) continue
+      const whole = copyOf(n.text).trim()
+      const typedOwn = line.marks.filter((o) => o.own && o.own.trim() !== whole)
+      if (typedOwn.some((o) => o.own!.trim().toLowerCase() !== items[line.marks.indexOf(o)]!.toLowerCase())) continue
+      line.marks.forEach((o, i) => { o.own = items[i]!; o.listNote = n.text })
+      break
+    }
+  }
 }
 
 /**
@@ -167,6 +230,9 @@ export function verifyRowWords(marks: ShapeMark[], after: Snap): RowWordsVerdict
       const cands = near(m, after.nodes, want.length * 2 + 6)
       const hit = cands.some((n) => { const got = new Set(wordsOf(n.text!)); return want.filter((w) => got.has(w)).length / want.length >= 0.7 })
       if (hit) continue
+      // n119: a label and its amount built as two pieces on the mark's row ("Rent" ... "$1,120") are its words together
+      const row = new Set(cands.flatMap((n) => wordsOf(n.text!)))
+      if (want.length >= 2 && want.filter((w) => row.has(w)).length / want.length >= 0.7) continue
       // what is there instead: another item's words, or something nobody typed
       const other = worded.find((o) => o !== m && cands.some((n) => { const got = new Set(wordsOf(n.text!)); const w = copyWords(o.own!); return w.length > 0 && w.filter((x) => got.has(x)).length / w.length >= 0.7 }))
       const shown = cands.map((n) => n.text!.replace(/\s+/g, ' ').trim()).filter(Boolean)[0]
@@ -180,4 +246,9 @@ export function verifyRowWords(marks: ShapeMark[], after: Snap): RowWordsVerdict
   }
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'no look-alike marks with copy words' }
   return misses.length ? { satisfied: false, reason: misses.join('; ') } : { satisfied: true, reason: `${judged} look-alike item${judged > 1 ? 's' : ''} each show their own words` }
+}
+
+/** n119: notes spread over look-alike marks: their items are each mark's copy, never directions to keep off the page. */
+export function spreadNotes(marks: readonly ShapeMark[]): Set<string> {
+  return new Set(marks.flatMap((m) => (m.listNote ? [m.listNote] : [])))
 }

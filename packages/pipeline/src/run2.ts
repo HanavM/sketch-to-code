@@ -65,7 +65,7 @@ import { keepSpanRepair, spanMisses, verifyLineSpan } from './linespan.js'
 import { verifyTextLinesNotRules } from './textrules.js'
 import { linkLineBrief, linkLines, verifyBodyLines, verifyLinkLines } from './linkline.js'
 import { verifyRowSpan } from './rowspan.js'
-import { rowWordsBrief, verifyRowWords } from './rowwords.js'
+import { rowWordsBrief, spreadNotes, verifyRowWords } from './rowwords.js'
 import { lineSpreadBrief, verifyLineSpread, verifyTableRows } from './linespread.js'
 import { lineEndsBrief, verifyLineEnds } from './lineends.js'
 import { verifyStats } from './statcard.js'
@@ -368,7 +368,10 @@ Rules:
   append it at the end of the container instead.
 - "color" is the pen colour the user deliberately drew in. Apply it to what the
   action produces, preferring the named token when one is given — that token is
-  a colour this app already uses.
+  a colour this app already uses. A level line drawn in a colour is a bar
+  (or rule) in that colour; the words typed beside, above or at the ends of it
+  (a label, an amount) keep the block's normal text colour (dark on a light
+  block), never the bar's colour, unless a note names a colour for them.
 After editing, reply one line per action: "action N: <what you did>".
 `.trim()
 
@@ -649,7 +652,7 @@ export async function runV2(
     typedCopyBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)]))]),
-    ])]) +
+    ])].filter((t) => !spreadNotes(interp.actions.flatMap((a) => a.shapeMarks ?? [])).has(t))) +
     rowDataBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)]))]),
@@ -1582,7 +1585,7 @@ export function verifyActions(
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after, { samples: hasSampleRows(typedNotes) || hasFillerRows(typedNotes) }) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
-    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes, after)], ['row-data', verifyRowData(typedNotes, after)], ['button-labels', verifyButtonLabels(typedNotes, after)], ['drawn-once', verifyDrawnOnce(allMarks, after)], ['checklists', verifyChecklists(typedNotes, after)], ['calendars', verifyCalendars(typedNotes, after)], ['top-bands', verifyTopBands(allMarks, after)], ['panel-feet', verifyPanelFeet(allMarks, after)], ['drawn-rings', verifyDrawnRings(depiction?.strokes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
+    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes.filter((t) => !spreadNotes(allMarks).has(t)), after)], ['row-data', verifyRowData(typedNotes, after)], ['button-labels', verifyButtonLabels(typedNotes, after)], ['drawn-once', verifyDrawnOnce(allMarks, after)], ['checklists', verifyChecklists(typedNotes, after)], ['calendars', verifyCalendars(typedNotes, after)], ['top-bands', verifyTopBands(allMarks, after)], ['panel-feet', verifyPanelFeet(allMarks, after)], ['drawn-rings', verifyDrawnRings(depiction?.strokes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
     ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['progress', verifyProgress(typedNotes, after)], ['row-template', verifyRowTemplate(actions, depiction?.strokes, after)], ['body-lines', verifyBodyLines(actions, after)], ['drawn-order', verifyDrawnOrder(allMarks, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })

@@ -77,6 +77,8 @@ export interface ShapeMark {
   glyph?: { char: string; name: string }
   /** n69: box or ring with its own note: the words typed for it (one item of a list of look-alike marks). */
   own?: string
+  /** n119: the list note whose items were spread over this mark and its look-alikes, one each (its items are copy). */
+  listNote?: string
   /**
    * box only (n45): drawn wide with flat top and bottom and ends that bulge out (round or pointed,
    * the way a pill is drawn with a mouse): a pill, fully rounded ends.
@@ -139,13 +141,21 @@ function asLine(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'strokeId
   return { shape: 'line', box: bbox([from, to]), from, to }
 }
 
+/** Area enclosed by a closed stroke (shoelace), px². */
+const polyArea = (pts: Array<{ x: number; y: number }>) => {
+  let a = 0
+  for (let i = 0; i < pts.length; i++) { const p = pts[i]!, q = pts[(i + 1) % pts.length]!; a += p.x * q.y - q.x * p.y }
+  return Math.abs(a) / 2
+}
+
 /** Fraction of points within `tol` of `near`. */
 const share = (pts: Array<{ x: number; y: number }>, near: (p: { x: number; y: number }) => boolean) =>
   pts.filter(near).length / pts.length
 
 function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'strokeId'> | null {
   const b = bbox(pts)
-  if (b.w < 14 || b.h < 14) return null
+  // n119: a swatch drawn about 14px wide often comes out 13.8px after the hand's wobble: small boxes count from 10px
+  if (b.w < 10 || b.h < 10) return null
   const len = inkLength(pts)
   const first = pts[0]!, last = pts[pts.length - 1]!
   const gap = Math.hypot(last.x - first.x, last.y - first.y)
@@ -160,7 +170,10 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   const corners = [[b.x, b.y], [b.x + b.w, b.y], [b.x, b.y + b.h], [b.x + b.w, b.y + b.h]] as const
   const allCorners = corners.every(([cx, cy]) => pts.some((p) => Math.hypot(p.x - cx, p.y - cy) <= cornerTol))
   const perim = 2 * (b.w + b.h)
-  if (allCorners && share(pts, onEdge) >= 0.92 && len <= perim * 1.6) {
+  // n119: under 20px every point is near an edge and a corner, so a small box must also fill its square (a tiny ring fills ~79%)
+  const fillsSquare = m >= 20 || polyArea(pts) / Math.max(1, b.w * b.h) >= 0.86
+  if (b.w < 14 || b.h < 14) { if (!(m >= 10 && fillsSquare && gap <= 6 && Math.max(b.w, b.h) <= 3 * m)) return null }
+  if (allCorners && fillsSquare && share(pts, onEdge) >= 0.92 && len <= perim * 1.6) {
     // n31: a box drawn turned a few degrees still passes upright; keep its angle when it fits much better
     const t = b.w >= 40 && b.h >= 30 ? asTilted(pts, b) : null
     if (t) return t
