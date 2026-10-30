@@ -19,6 +19,7 @@
 import type { ShapeMark } from './shapemark.js'
 import type { BBox } from '@s2c/ink'
 import { progressOf } from './progress.js'
+import { buttonLabel } from './buttonlabel.js'
 
 /** Words that only say how text looks; they are never copy. */
 const LOOK = /^(big|bigger|huge|giant|large|massive|jumbo|display|small|smaller|tiny|little|medium|grey|gray|light|dark|bold|bolder|regular|italic|caps|uppercase|lowercase|spaced|muted|faint|thin|thick|normal|size|text|and|centred|centered|left|right|aligned|underlined|outlined|serif|sans|mono|white|black|red|orange|yellow|lime|green|teal|cyan|blue|navy|indigo|purple|violet|pink|magenta|brown|beige|cream|gold|silver|pale|bright|deep|soft|number|numeral|digits?|label|value|stat|figure|in|on|the|a)$/i
@@ -105,6 +106,8 @@ export function statOf(notes: readonly string[]): Stat | null {
   if (!notes.length || notes.some((n) => ROWS.test(n) || !!progressOf(n))) return null
   // n100: a box whose notes are copy with a number in it is that copy, never a stat card (see proseNumber)
   if (notes.some(proseNumber)) return null
+  // n111: a button label with a number in it ("Reserve · 4 nights") is the button's copy, never a stat
+  if (notes.some((n) => !!buttonLabel(n))) return null
   let value: string | null = null, label: string[] = [], vi = -1, li = -1
   notes.forEach((n, i) => {
     // n90: a comma inside a number (3,800) is no break

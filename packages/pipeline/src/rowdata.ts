@@ -22,6 +22,7 @@
  * Zero tokens.
  */
 import { noteParts } from './typedcopy.js'
+import { buttonLabel } from './buttonlabel.js'
 
 interface NodeLike { id: string; rect: { x: number; y: number; w: number; h: number }; text?: string; textBox?: { x: number; y: number; w: number; h: number }; style?: { fontSize?: string; fontWeight?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
@@ -78,8 +79,34 @@ function pairRows(parts: string[]): string[] | null {
   return out
 }
 
+/**
+ * n111: a name, then a comma, then a dotted details line ("Product designer, Fernway · Remote · $95k",
+ * "Garden double, Queen bed · courtyard view, $140"): the comma ends the name, and the dotted run is ONE details
+ * line kept as typed (its dots printed), not cells spread across the row. A later comma part holding a number is
+ * the row's side value; other later parts say how the row looks. Null when the copy is not of that shape.
+ */
+export function commaDotCells(copy: string): string[] | null {
+  const segs = copy.split(/,\s+/).map(clean).filter(Boolean)
+  if (segs.length < 2) return null
+  const di = segs.findIndex((s) => /[·•|]/.test(s))
+  if (di < 1) return null
+  const name = segs.slice(0, di).join(', ')
+  if (name.split(/\s+/).length > 6) return null
+  const meta = segs[di]!.split(CELL).map(clean).filter(Boolean)
+  if (meta.length < 2) return null
+  // a nav or words placed round a mark ("nav right ROUTES · CREW", "LOUDER · LISTEN around it") are no details line,
+  // and a time at the end ("to me · 9:14 AM") is the row's side value: keep the cells as before
+  if (/\b(nav|menu|links|around|right|left|top|bottom)\b/i.test(segs[di]!) || /\d{1,2}(:\d{2})?\s*(am|pm)\b|\b\d{1,2}:\d{2}\b/i.test(meta[meta.length - 1]!)) return null
+  const out = [name, meta.join(' · ')]
+  const val = segs.slice(di + 1).find((s) => /\d/.test(s) && s.split(/\s+/).length <= 3 && !/[·•|]/.test(s))
+  if (val) out.push(val)
+  return out
+}
+
 /** The rows a note gives, or null when it gives none. */
 export function rowData(note: string): RowData | null {
+  // n111: a button's label ("Reserve · 4 nights") is one piece of copy, no row of data
+  if (buttonLabel(note)) return null
   let text = note
   let total: number | null = null
   let more = 0
@@ -98,6 +125,8 @@ export function rowData(note: string): RowData | null {
   const body = slashRows ? text : noteParts(text).copy
   const rows = (slashRows ? pairRows(body.split(ROWSEP)) ?? body.split(ROWSEP) : [body]).map((r) => {
     const copy = slashRows ? noteParts(r).copy : r
+    const cd = commaDotCells(copy)
+    if (cd) return cd
     const cs = copy.split(CELL).map(clean).filter(Boolean)
     // a dotted row's last cell ends at ", ": what follows says how the row looks ("teal Refill"), it is no cell
     if (cs.length >= 2) cs[cs.length - 1] = cs[cs.length - 1]!.split(/,\s+/)[0]!.trim()
@@ -149,7 +178,7 @@ export function rowDataBrief(notes: readonly string[]): string {
     }
     const cells = Math.max(...d.rows.map((r) => r.length))
     if (cells >= 2) {
-      parts.push(`each quoted cell is its OWN text item (its own element) in that row's column or spot: in a card or list row the first is the name (stronger), the middle ones its details (smaller, muted, under or beside the name), the last its side value (at the row's right end, before any button); in a table, cell k sits under column header k. Never print the separators (·, •, |, /) or the cells run together on one line`)
+      parts.push(`each quoted cell is its OWN text item (its own element) in that row's column or spot: in a card or list row the first is the name (stronger), the middle ones its details (smaller, muted, under or beside the name), the last its side value (at the row's right end, before any button); in a table, cell k sits under column header k. Never print the separators (·, •, |, /) or the cells run together on one line, EXCEPT inside a quoted cell that itself holds dots: that cell is ONE details line printed exactly as typed, dots and all, on one line (for example under the name), never split into columns or moved apart`)
     } else if (d.rows.length >= 2) {
       parts.push(`a row typed as one run of words ("1 60 kg 10 90 s") is split across the drawn columns or header words in order, one value per column`)
     }
@@ -183,6 +212,11 @@ export function verifyRowData(notes: readonly string[], after: Snap): RowDataVer
       const cs = r.map(norm).filter((c) => c.length >= 2)
       const joined = L.find((l) => cs.filter((c) => l.t.includes(c)).length >= 2)
       if (joined) problems.push(`${q(joined.x.text!.slice(0, 60))} runs cells of the row ${q(r.join(' · '))} together in one piece of text: make each cell its own element (name, details, side value as typed), no separators`)
+      // n111: a dotted details cell ("Fernway · Remote · $95k") is one line, kept whole as typed
+      const dn = (s: string) => norm(s).replace(/\s*([·•|])\s*/g, ' $1 ')
+      for (const c of r.filter((c) => /[·•|]/.test(c))) {
+        if (!L.some((l) => dn(l.x.text!).includes(dn(c)))) problems.push(`the details line ${q(c)} is not on the page as one line: print it exactly as typed, dots included, as ONE text item (under the name), never split into columns`)
+      }
       checked++
     }
     // 2) typed rows (2+) all on the page, top to bottom in order

@@ -71,6 +71,7 @@ import { lineEndsBrief, verifyLineEnds } from './lineends.js'
 import { verifyStats } from './statcard.js'
 import { typedCopyBrief, verifyNoDirections, verifyTypedTimes } from './typedcopy.js'
 import { hasSampleRows, rowDataBrief, verifyRowData } from './rowdata.js'
+import { buttonLabelBrief, verifyButtonLabels } from './buttonlabel.js'
 import { rowMarksBrief, verifyRowMarks } from './rowmarks.js'
 import { progressBrief, verifyProgress } from './progress.js'
 import { hasFillerRows, rowTemplateBrief, verifyRowTemplate } from './rowtemplate.js'
@@ -645,6 +646,10 @@ export async function runV2(
     rowDataBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => [...(a.notes ?? []), ...(a.onScreen ? [] : (a.shapeMarks ?? []).flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)]))]),
+    ])]) +
+    buttonLabelBrief([...new Set([
+      ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
+      ...interp.actions.flatMap((a) => a.notes ?? []),
     ])]) +
     rowTemplateBrief(interp.actions, input.strokes) +
     rowMarksBrief([...new Set([
@@ -1559,7 +1564,7 @@ export function verifyActions(
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after, { samples: hasSampleRows(typedNotes) || hasFillerRows(typedNotes) }) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
-    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes, after)], ['row-data', verifyRowData(typedNotes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
+    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes, after)], ['row-data', verifyRowData(typedNotes, after)], ['button-labels', verifyButtonLabels(typedNotes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
     ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['progress', verifyProgress(typedNotes, after)], ['row-template', verifyRowTemplate(actions, depiction?.strokes, after)], ['body-lines', verifyBodyLines(actions, after)], ['drawn-order', verifyDrawnOrder(allMarks, after)]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
