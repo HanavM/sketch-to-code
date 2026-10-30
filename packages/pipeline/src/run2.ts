@@ -45,6 +45,7 @@ import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
+import { liftPanel, planPanelLifts, type PanelLift } from './panellift.js'
 import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
 import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, marksMiss, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
@@ -773,13 +774,29 @@ export async function runV2(
   }
 
   let lastVerify: unknown = null
+  const panelLifts: PanelLift[] = []
   let lastFix: FixVerdict | null = null
   /** Re-snapshot the live page and score every action against the drawing. */
   const verifyRound = async (tag: string) => {
     // finishPass writes source: never after a stop
     throwIfStopped(ctx.signal)
     finishPass()
-    const after = await untilStopped(ctx.requestSnapshot(runId), ctx.signal)
+    let after = await untilStopped(ctx.requestSnapshot(runId), ctx.signal)
+    // n123: a big drawn panel built far below its drawn top is moved there in code, before anything is judged:
+    // a repair told the exact pixels thought for minutes and stalled (r38 e3 budget, panel 124px low)
+    const lifts = planPanelLifts(after, placedBlocks(interp.actions))
+    for (const r of lifts.refused) stage('verify', `big panel (action ${r.index}) left to the repair: ${r.reason}`)
+    let lifted = 0
+    for (const l of lifts.lifts) {
+      const done = liftPanel(ctx.root, l)
+      if (done.ok) { lifted++; stage('verify', `moved big panel (action ${l.index}) up in ${done.file}: ${done.change}`) }
+      else stage('verify', `big panel (action ${l.index}) left to the repair: ${done.error}`)
+    }
+    if (lifted) {
+      panelLifts.push(...lifts.lifts)
+      await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
+      after = await untilStopped(ctx.requestSnapshot(runId), ctx.signal)
+    }
     // read back what was just written, so composition can be scored against
     // the ink without a screenshot or a model call
     const sources: string[] = []
@@ -1221,6 +1238,7 @@ export async function runV2(
     engine: 'model', mode: input.mode ?? 'gesture', checkpoint: cp.sha, changedFiles: files,
     reading: interp.reading, verification: lastVerify, tokens: totalUsage, sends,
     codemod: { handled: plan.handled.map((h) => h.index), refused: plan.refused },
+    ...(panelLifts.length ? { panelLifts } : {}),
     backend: { applied: backend, refused: backendRefused },
     fidelity,
     candidates,
@@ -1542,12 +1560,7 @@ export function verifyActions(
   }
 
   // whole-page builds: every block within ~16px of its drawn top (round 7 e1/e4/e5 drifted lower down the page)
-  const placed = actions.flatMap((a, i) => {
-    const region = a.region ?? a.dest?.rect
-    if ((a.kind !== 'add' && a.kind !== 'design') || a.onScreen || !region || isDecoration(a)) return []
-    if (/bleed|off the (left|right|top|bottom|page)|tilt|rotat|overlap|on top of/i.test(a.instruction)) return []
-    return [{ index: i, region, quote: a.instruction.match(/["“]([^"”]{2,})["”]/)?.[1] ?? null }]
-  })
+  const placed = placedBlocks(actions)
   const drift = verifyPageDrift(before, after, placed)
   if (!drift.unverifiable) {
     details.push({ kind: 'drift', verdict: drift })
@@ -1623,6 +1636,16 @@ const QUOTE = /["\u201c\u201d]/
 // inside words (don't, it's) never start a quote: the opening ' follows a space/bracket/colon.
 const SINGLE_QUOTED = /(?:^|[\s(:\[])['\u2018][^'\u2018\u2019]*[A-Za-z0-9][^'\u2018\u2019]*['\u2019](?=$|[\s.,;:!?)\]])/
 /** Pure drawn decoration: ink shapes only, no text lines, no quoted copy in its instruction. */
+/** Blocks the drawing placed on the page, with their drawn regions (for the drift and big-panel checks). */
+export function placedBlocks(actions: GroundedAction[]) {
+  return actions.flatMap((a, i) => {
+    const region = a.region ?? a.dest?.rect
+    if ((a.kind !== 'add' && a.kind !== 'design') || a.onScreen || !region || isDecoration(a)) return []
+    if (/bleed|off the (left|right|top|bottom|page)|tilt|rotat|overlap|on top of/i.test(a.instruction)) return []
+    return [{ index: i, region, quote: a.instruction.match(/["“]([^"”]{2,})["”]/)?.[1] ?? null }]
+  })
+}
+
 export function isDecoration(a: GroundedAction): boolean {
   if (!a.svgPaths?.length || a.textMarks?.length) return false
   if (a.layer === 'container') return false
