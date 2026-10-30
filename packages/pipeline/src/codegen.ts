@@ -159,8 +159,17 @@ export interface CodegenSession {
    * thinking message reset the watchdog).
    */
   lastProgress: () => number
-  /** When the agent last edited or wrote a file (ms epoch), or the current turn began. */
+  /**
+   * n95: when the agent last did work on the page (a tool call, a tool result,
+   * tool input being streamed, a turn end). Reply text is not work: once a
+   * build has written the page, minutes of reply words or thinking leave the
+   * page as it is, so they must not hold the run open.
+   */
+  lastWork: () => number
+  /** When the agent last edited or wrote a file (ms epoch), or the current turn began. An edit still being streamed counts. */
   lastEdit: () => number
+  /** n95: the last few agent messages, kind and time, so a turn that hangs leaves a record of where it sat. */
+  recent: () => Array<{ at: number; kind: string }>
   close: () => void
   /**
    * Resolves once the agent's message loop has ended, i.e. the subprocess is
@@ -197,6 +206,38 @@ export function movesTurnOn(msg: { type: string; message?: unknown; event?: unkn
     b.type !== 'thinking' && b.type !== 'redacted_thinking' && !(b.type === 'text' && !b.text?.trim()))
 }
 
+/**
+ * n95: does this message do work on the page? As movesTurnOn, but reply text
+ * (streamed or whole) is not work: a build that has written the page and then
+ * talks for minutes is not building.
+ */
+export function movesWorkOn(msg: { type: string; message?: unknown; event?: unknown }): boolean {
+  if (msg.type === 'user' || msg.type === 'result' || msg.type === 'tool_progress') return true
+  if (msg.type === 'stream_event') {
+    const e = msg.event as { type?: string; delta?: { type?: string } } | undefined
+    return e?.type === 'content_block_delta' && e.delta?.type === 'input_json_delta'
+  }
+  if (msg.type !== 'assistant') return false
+  const m = msg.message
+  const content = m && typeof m === 'object' ? (m as { content?: unknown }).content : undefined
+  if (!Array.isArray(content)) return false
+  return content.some((b: { type?: string }) => b.type === 'tool_use')
+}
+
+/** n95: a short name for an agent message, for the hang record ("stream:thinking_delta", "assistant:tool_use"). */
+export function messageKind(msg: { type: string; message?: unknown; event?: unknown; subtype?: unknown }): string {
+  if (msg.type === 'stream_event') {
+    const e = msg.event as { type?: string; delta?: { type?: string }; content_block?: { type?: string } } | undefined
+    return `stream:${e?.delta?.type ?? e?.content_block?.type ?? e?.type ?? '?'}`
+  }
+  if (msg.type === 'assistant') {
+    const m = msg.message
+    const content = m && typeof m === 'object' ? (m as { content?: unknown }).content : undefined
+    if (Array.isArray(content)) return `assistant:${content.map((b: { type?: string }) => b.type ?? '?').join('+')}`
+  }
+  return typeof msg.subtype === 'string' ? `${msg.type}:${msg.subtype}` : msg.type
+}
+
 /** The error a run rejects with when it was told to stop. */
 export function abortError(signal: AbortSignal): Error {
   const r: unknown = signal.reason
@@ -228,7 +269,11 @@ export function createCodegenSession(
   const toolList: string[] = []
   let lastSeen = Date.now()
   let lastMoved = lastSeen
+  let lastWorked = lastSeen
   let lastEdited = lastSeen
+  // n95: the tool whose input is streaming now, so a long Write being written counts as an edit
+  let streamingTool: string | null = null
+  const recentMsgs: Array<{ at: number; kind: string }> = []
   let lastEffort: SendOptions['effort'] | null = null
 
   async function* input(): AsyncGenerator<SDKUserMessage> {
@@ -275,6 +320,18 @@ export function createCodegenSession(
       for await (const msg of q) {
         lastSeen = Date.now()
         if (movesTurnOn(msg)) lastMoved = lastSeen
+        if (movesWorkOn(msg)) lastWorked = lastSeen
+        const kind = messageKind(msg as { type: string })
+        const prev = recentMsgs[recentMsgs.length - 1]
+        // runs of the same kind (thousands of thinking deltas) are one entry, stamped with the latest
+        if (prev && prev.kind === kind) prev.at = lastSeen
+        else { recentMsgs.push({ at: lastSeen, kind }); if (recentMsgs.length > 16) recentMsgs.shift() }
+        if (msg.type === 'stream_event') {
+          const e = msg.event as { type?: string; content_block?: { type?: string; name?: string }; delta?: { type?: string } }
+          if (e.type === 'content_block_start') streamingTool = e.content_block?.type === 'tool_use' ? e.content_block.name ?? null : null
+          else if (e.type === 'content_block_stop') streamingTool = null
+          else if (e.type === 'content_block_delta' && e.delta?.type === 'input_json_delta' && streamingTool && EDIT_TOOLS.has(streamingTool)) lastEdited = lastSeen
+        }
         if (msg.type === 'assistant') {
           for (const block of msg.message.content) {
             if (block.type === 'text') buffer += block.text
@@ -345,7 +402,7 @@ export function createCodegenSession(
           return
         }
         pending.push({ resolve, reject })
-        lastSeen = lastMoved = lastEdited = Date.now()
+        lastSeen = lastMoved = lastWorked = lastEdited = Date.now()
         inputQueue.push({
           type: 'user',
           parent_tool_use_id: null,
@@ -369,7 +426,9 @@ export function createCodegenSession(
     toolLog: () => [...toolList],
     lastActivity: () => lastSeen,
     lastProgress: () => lastMoved,
+    lastWork: () => lastWorked,
     lastEdit: () => lastEdited,
+    recent: () => recentMsgs.map((m) => ({ ...m })),
     close,
     closed,
   }
@@ -421,7 +480,9 @@ function scriptedSession(
     toolLog: () => [...toolList],
     lastActivity: () => lastSeen,
     lastProgress: () => lastSeen,
+    lastWork: () => lastSeen,
     lastEdit: () => lastEdited,
+    recent: () => toolList.slice(-16).map((t) => ({ at: lastSeen, kind: `tool:${t}` })),
     close: () => { ended = true; for (const c of closers.splice(0)) c() },
     closed: Promise.resolve(),
   }

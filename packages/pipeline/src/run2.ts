@@ -50,7 +50,7 @@ import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
-import { BUILD_AFTER_WRITE_MS, REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn, wroteThisTurn } from './turn-watch.js'
+import { BUILD_AFTER_WRITE_EDIT_MS, BUILD_AFTER_WRITE_MS, REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn, wroteThisTurn } from './turn-watch.js'
 import { areasBrief, cardsBrief, verifyCards, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
 import { tiltBrief, verifyTilts } from './tilt.js'
@@ -398,6 +398,7 @@ export async function runV2(
   const stallMs = Number(process.env.S2C_STALL_MS) > 0 ? Number(process.env.S2C_STALL_MS) : STALL_MS
   const repairEditMs = Number(process.env.S2C_REPAIR_EDIT_MS) > 0 ? Number(process.env.S2C_REPAIR_EDIT_MS) : REPAIR_EDIT_MS
   const afterWriteMs = Number(process.env.S2C_AFTER_WRITE_MS) > 0 ? Number(process.env.S2C_AFTER_WRITE_MS) : BUILD_AFTER_WRITE_MS
+  const afterWriteEditMs = Number(process.env.S2C_AFTER_WRITE_EDIT_MS) > 0 ? Number(process.env.S2C_AFTER_WRITE_EDIT_MS) : BUILD_AFTER_WRITE_EDIT_MS
   let repairStalled: string | null = null
   // n93: a build turn that wrote the page and then went quiet; the page on disk is kept and verified
   let buildStalled: string | null = null
@@ -890,18 +891,36 @@ export async function runV2(
         // a repair must leave time for the verify after it; a build only
         // must not sit silent (the cap still ends it)
         const marginMs = kind === 'repair' ? VERIFY_MARGIN_MS : 0
+        const watchFile = join(runDir, `watch-${tag}-${kind}.json`)
         return await watchTurn(
           s.send(content, kind === 'repair' ? { effort: 'low' } : undefined),
-          () => stallReason({
-            now: Date.now(),
-            // n21 (bento): a first build may think 150+ s before its one big Write; every streamed
-            // delta (thinking too) shows it is alive. Only a repair must show tool calls or words.
-            lastActivity: kind === 'build' ? s.lastActivity() : s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs,
-            // a repair is told the exact pixels: minutes of thought with no edit is a stall (n22)
-            ...(kind === 'repair' ? { lastEdit: s.lastEdit(), editMs: repairEditMs } : {}),
-            // n93: once a build has written the page, only real progress keeps it going
-            ...(kind === 'build' ? { wrote: wroteThisTurn(s.toolLog().slice(t0)), lastProgress: s.lastProgress(), afterWriteMs } : {}),
-          }),
+          () => {
+            const now = Date.now()
+            const wrote = kind === 'build' && wroteThisTurn(s.toolLog().slice(t0))
+            const why = stallReason({
+              now,
+              // n21 (bento): a first build may think 150+ s before its one big Write; every streamed
+              // delta (thinking too) shows it is alive. Only a repair must show tool calls or words.
+              lastActivity: kind === 'build' ? s.lastActivity() : s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs,
+              // a repair is told the exact pixels: minutes of thought with no edit is a stall (n22)
+              ...(kind === 'repair' ? { lastEdit: s.lastEdit(), editMs: repairEditMs } : {}),
+              // n93/n95: once a build has written the page, only work on it keeps it going (reply
+              // words are not work), and reads alone for minutes are not either
+              ...(wrote ? { wrote, lastProgress: s.lastWork(), afterWriteMs, lastEdit: s.lastEdit(), editMs: afterWriteEditMs, label: 'build' } : {}),
+            })
+            // n95: every look is written down, so a turn that hangs leaves where it sat and what it last streamed
+            try {
+              writeFileSync(watchFile, JSON.stringify({
+                kind, at: new Date(now).toISOString(), turnS: Math.round((now - started) / 1000), wrote,
+                quietS: Math.round((now - s.lastActivity()) / 1000), stillS: Math.round((now - s.lastProgress()) / 1000),
+                idleS: Math.round((now - s.lastWork()) / 1000), sinceEditS: Math.round((now - s.lastEdit()) / 1000),
+                tools: s.toolLog().slice(t0).slice(-12),
+                recent: s.recent().map((m) => ({ kind: m.kind, agoS: Math.round((now - m.at) / 1000) })),
+                ...(why ? { stopping: why } : {}),
+              }, null, 1))
+            } catch { /* the record must never end a turn */ }
+            return why
+          },
           Math.min(5_000, Math.max(50, Math.floor(stallMs / 4))),
         )
       } catch (e) {

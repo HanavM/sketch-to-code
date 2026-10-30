@@ -29,6 +29,14 @@ export const WATCH_EVERY_MS = 5_000
  * left a record. The page on disk is the build: verify that.
  */
 export const BUILD_AFTER_WRITE_MS = 120_000
+/**
+ * n95: a build that has written the page and then only reads, globs and talks
+ * (tool calls, so not quiet) gets this long without another edit. Florist
+ * (n94, first attempt) sat 6+ minutes after its edit and the n93 rule never
+ * fired: reply words counted as progress, and so would a loop of Reads. An
+ * edit still being streamed counts as an edit, so a long second Write is not cut.
+ */
+export const BUILD_AFTER_WRITE_EDIT_MS = 240_000
 
 export class TurnStalled extends Error {
   constructor(public readonly why: string) {
@@ -54,6 +62,8 @@ export interface StallInput {
   /** When the agent last moved the turn on (tool call, result, words; not thinking or pings). */
   lastProgress?: number
   afterWriteMs?: number
+  /** Who the lastEdit rule is about, for the reason ("repair", "build"). */
+  label?: string
 }
 
 /** Why this turn should be ended now, or null to let it run. */
@@ -67,7 +77,7 @@ export function stallReason(o: StallInput): string | null {
   }
   if (o.lastEdit !== undefined) {
     const sinceEdit = o.now - o.lastEdit
-    if (sinceEdit >= (o.editMs ?? REPAIR_EDIT_MS)) return `the repair went ${Math.round(sinceEdit / 1000)} s without an edit (thinking is not progress)`
+    if (sinceEdit >= (o.editMs ?? REPAIR_EDIT_MS)) return `the ${o.label ?? 'repair'} went ${Math.round(sinceEdit / 1000)} s without an edit (thinking is not progress)`
   }
   if (o.deadline !== undefined && Number.isFinite(o.deadline)) {
     const left = o.deadline - o.now
