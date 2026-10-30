@@ -12,7 +12,7 @@ import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { GroundedAction, GroundedInterpretation, InkColour } from './intent2.js'
 import { deltaE, hexOf, parseCssColor } from './palette.js'
 
-import { barBriefLine, barBuilt, barsOf, isBarInk } from './barlabels.js'
+import { barBriefLine, barBuilt, barPitchBrief, barRowsHint, barsOf, isBarInk } from './barlabels.js'
 const hex = (c: string) => { const p = parseCssColor(c); return p ? hexOf(p) : c }
 
 /**
@@ -39,7 +39,7 @@ export function notFlat(n: DomNode): string {
   return why.join(', ')
 }
 
-export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' | 'pageFill'>): string {
+export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' | 'pageFill'>, skip: ReadonlySet<string> = new Set()): string {
   const lines: string[] = []
   if (interp.pageFill) {
     const f = interp.pageFill
@@ -51,6 +51,8 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
   }
   interp.actions.forEach((a, i) => {
     for (const c of a.inkColours ?? []) {
+      // n122: an arc of a drawn ring chart is told with the chart, never as a filled blob of its own
+      if (skip.has(c.strokeId)) continue
       const at = `x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}x${String(c.box.h)}`
       if (c.paint === 'background' && c.split) {
         const sp = c.split, L = sp.line
@@ -91,6 +93,8 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
     }
   })
   if (!lines.length) return ''
+  // n122: bars stacked in one column are rows at the drawn pitch
+  for (const l of barPitchBrief(interp.actions)) lines.push(l)
   return `COLOURS FROM THE INK (the user coloured these in with a picked colour, so the value is exact; ` +
     `use these hex values as they are, never a palette near-miss and never a paler or brighter version; ` +
     `a typed colour word about the same block is overruled by these):\n${lines.join('\n')}\n\n`
@@ -188,6 +192,7 @@ export function verifyInkColours(
   actions: GroundedAction[],
   pageFill: GroundedInterpretation['pageFill'],
   after: DomSnapshot,
+  skip: ReadonlySet<string> = new Set(),
 ): InkColourVerdict {
   const checks: InkColourVerdict['checks'] = []
   const misses: string[] = []
@@ -213,6 +218,8 @@ export function verifyInkColours(
   actions.forEach((a, i) => {
     if (a.onScreen) return
     for (const c of a.inkColours ?? []) {
+      // n122: an arc of a drawn ring chart is checked with the chart (drawn-rings), never as a block per arc
+      if (skip.has(c.strokeId)) continue
       const b = c.box
       const pad = Math.max(12, Math.min(b.w, b.h) * 0.25)
       // the built element for that mark: about its size, centred on it (text: anything inside it)
@@ -279,7 +286,9 @@ export function verifyInkColours(
         const bar = barsOf([a]).find((x) => x.strokeId === c.strokeId)!
         const v = barBuilt(bar, after.nodes)
         checks.push({ what: `${what} (bar)`, want: hex(c.color), best: v.de, ok: v.ok })
-        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} with no words on it: a bar; ${v.de === null ? 'no thin block was built on that line' : `the nearest thin block on it is ΔE ${v.de.toFixed(0)} away`}: build a thin strip (6-10px tall) there with background ${hex(c.color)}; its label and amount stay dark text`)
+        if (!v.ok) misses.push(v.offBy !== undefined
+          ? `action ${String(i)}: ${what} was drawn in ${hex(c.color)} with no words on it: a bar; it was built ${String(Math.abs(v.offBy))}px ${v.offBy > 0 ? 'below' : 'above'} its drawn line (its centre at y ${String(bar.y + v.offBy)}, drawn at y ${String(bar.y)}): ${barRowsHint(barsOf([a]), after.nodes) ?? 'move its row so the bar sits on the drawn line'}; keep its colour, label and amount`
+          : `action ${String(i)}: ${what} was drawn in ${hex(c.color)} with no words on it: a bar; ${v.de === null ? 'no thin block was built on that line' : `the nearest thin block on it is ΔE ${v.de.toFixed(0)} away`}: build a thin strip (6-10px tall) there with background ${hex(c.color)}; its label and amount stay dark text`)
         continue
       }
       const at = closestAt(c.color, near, c.paint)

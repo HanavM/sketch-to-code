@@ -85,23 +85,92 @@ export function barBriefLine(action: number, c: InkLike): string {
 
 const alpha = (css: string) => { const m = /rgba?\([^)]*?[,/]\s*([\d.]+%?)\s*\)/.exec(css); return m ? (m[1]!.endsWith('%') ? parseFloat(m[1]!) / 100 : parseFloat(m[1]!)) : 1 }
 
-/** A thin block on the drawn line painting the bar's colour (its fill may be shorter than the drawn line: a part-full bar). */
-export function barBuilt(bar: Bar, nodes: readonly DomNode[]): { ok: boolean; de: number | null } {
+/** A thin block painting the bar's colour, its centre within `reach` px of y; returns its ΔE and its centre's offset. */
+function thinBlock(bar: Bar, nodes: readonly DomNode[], reach: number): { de: number; off: number } | null {
   const want = parseCssColor(bar.color)!
   const len = bar.x1 - bar.x0
-  let best: number | null = null
+  let best: { de: number; off: number } | null = null
   for (const n of nodes) {
     const r = n.rect
     if (r.h <= 0 || r.h > 28 || r.w < 8) continue
     const cy = r.y + r.h / 2
-    if (Math.abs(cy - bar.y) > 18) continue
+    if (Math.abs(cy - bar.y) > reach) continue
     if (r.x > bar.x1 + 24 || r.x + r.w < bar.x0 - 24 || r.w > len * 1.6 + 40) continue
     const bg = parseCssColor(n.style.backgroundColor)
     if (!bg || alpha(n.style.backgroundColor) < 0.5) continue
     const de = deltaE(bg, want)
-    if (best === null || de < best) best = de
+    const off = Math.round(cy - bar.y)
+    if (!best || de < best.de - 0.5 || (Math.abs(de - best.de) <= 0.5 && Math.abs(off) < Math.abs(best.off))) best = { de, off }
   }
-  return { ok: best !== null && best <= 12, de: best }
+  return best
+}
+
+/** How far a bar may sit from its drawn line and still be on it. */
+export const BAR_ON_PX = 18
+/** How far away a bar of the right colour is still read as that bar, built off its line (n122). */
+export const BAR_REACH_PX = 70
+
+/**
+ * A thin block on the drawn line painting the bar's colour (its fill may be shorter than the drawn line: a part-full
+ * bar). n122: when none is on the line but one of that colour sits within 70px, `offBy` says how far it was built
+ * off (positive: below), so the repair is told to move the row, not to build a second bar.
+ */
+export function barBuilt(bar: Bar, nodes: readonly DomNode[]): { ok: boolean; de: number | null; offBy?: number } {
+  const on = thinBlock(bar, nodes, BAR_ON_PX)
+  if (on && on.de <= 12) return { ok: true, de: on.de }
+  const off = thinBlock(bar, nodes, BAR_REACH_PX)
+  if (off && off.de <= 12 && Math.abs(off.off) > BAR_ON_PX) return { ok: false, de: on?.de ?? null, offBy: off.off }
+  return { ok: false, de: on?.de ?? null }
+}
+
+/** Bars drawn in one column (same start within 30px), three or more, top to bottom. */
+export function barColumns(bars: readonly Bar[]): Bar[][] {
+  const cols: Bar[][] = []
+  for (const b of [...bars].sort((p, q) => p.y - q.y)) {
+    const c = cols.find((k) => k[0]!.action === b.action && Math.abs(k[0]!.x0 - b.x0) <= 30)
+    if (c) c.push(b); else cols.push([b])
+  }
+  return cols.filter((c) => c.length >= 3)
+}
+
+const median = (v: number[]) => { const s = [...v].sort((a, b) => a - b); return s.length ? s[Math.floor((s.length - 1) / 2)]! : 0 }
+export const pitchOf = (col: readonly Bar[]) => median(col.slice(1).map((b, k) => b.y - col[k]!.y))
+
+/**
+ * n122: bars stacked in a column are rows of a list at the drawn pitch. Round 38 e3 (budget, n121 try 2): the six
+ * category rows were built 20-30px below their drawn lines and two repairs told "build a bar there" did not move
+ * them. Told up front: where each bar's line is, the pitch, and that the space above the first row is what was drawn.
+ */
+export function barPitchBrief(actions: readonly ActionLike[]): string[] {
+  return barColumns(barsOf(actions)).map((col) => {
+    const p = pitchOf(col)
+    return `- the ${String(col.length)} bars drawn from x ${String(col[0]!.x0)} are ROWS OF ONE LIST at the drawn pitch of about ${String(p)}px: ` +
+      `bar centres at y ${col.map((b) => String(b.y)).join(', ')}. Build each row ${String(p)}px tall (its label and amount above the bar, the bar at the row's foot) ` +
+      `so every bar lands on its drawn y; the first row starts where drawn (no extra heading margin or panel padding above it). Checked on the page`
+  })
+}
+
+/**
+ * n122: why a column of bars is off, said so a repair can act on it: all rows off by the same amount (the space above
+ * the first row), or the rows built at another pitch (row height or gap). Null when the bars are not a column or the
+ * offsets cannot be read.
+ */
+export function barRowsHint(bars: readonly Bar[], nodes: readonly DomNode[]): string | null {
+  for (const col of barColumns(bars)) {
+    const offs = col.map((b) => { const t = thinBlock(b, nodes, BAR_REACH_PX); return t && t.de <= 12 ? t.off : null })
+    const got = offs.map((o, k) => (o === null ? null : { y: col[k]!.y, o })).filter((x): x is { y: number; o: number } => x !== null)
+    if (got.length < 2 || !got.some((g) => Math.abs(g.o) > BAR_ON_PX)) continue
+    const os = got.map((g) => g.o)
+    const spread = Math.max(...os) - Math.min(...os)
+    const p = pitchOf(col)
+    if (spread <= 10) {
+      const m = Math.round(median(os))
+      return `all ${String(col.length)} bar rows are about ${String(Math.abs(m))}px ${m > 0 ? 'low' : 'high'} by the same amount, so the list starts ${m > 0 ? 'too low' : 'too high'}: ${m > 0 ? `take ${String(m)}px out of the space above the first row (the panel's top padding, the heading's bottom margin or a gap under it)` : `add ${String(-m)}px above the first row`}; keep the row spacing (${String(p)}px) and never use negative margins`
+    }
+    const builtPitch = Math.round((got.at(-1)!.y + got.at(-1)!.o - (got[0]!.y + got[0]!.o)) / Math.max(1, (got.at(-1)!.y - got[0]!.y) / (p || 1)))
+    return `the bar rows are built at a pitch of about ${String(builtPitch)}px, drawn ${String(p)}px (first row ${String(Math.abs(got[0]!.o))}px ${got[0]!.o > 0 ? 'low' : 'high'}): make every row exactly ${String(p)}px tall including its gap (label, amount and bar inside), so the bars land at y ${col.map((b) => String(b.y)).join(', ')}`
+  }
+  return null
 }
 
 export interface BarLabelVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }

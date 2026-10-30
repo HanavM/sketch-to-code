@@ -187,6 +187,9 @@ export const BIG_BLOCK_TOL_PX = 32
  * everything drawn inside it moves with it. Checked on any page with 2+ placed blocks, and when the whole-page drift
  * check passes only because too few other blocks are off (one panel 145px low among 8 blocks in place).
  */
+const insideBox = (a: Box, b: Box, slack: number) =>
+  a.x >= b.x - slack && a.y >= b.y - slack && a.x + a.w <= b.x + b.w + slack && a.y + a.h <= b.y + b.h + slack
+
 export function bigBlockDrift(
   fresh: DomNode[],
   placed: Array<{ index: number; region: Box; quote?: string | null }>,
@@ -198,6 +201,9 @@ export function bigBlockDrift(
     const r = p.region
     if (r.h < BIG_BLOCK_MIN_H || r.w < BIG_BLOCK_MIN_W) continue
     if (r.h > 0.8 * viewportH && r.y < 40) continue
+    // n122: a region inside a bigger drawn one is that panel's content (budget: the bar rows inside Categories, drawn
+    // at y 231), and matching it by size and x picks the panel round it, a false "120px high" that sent repairs after it
+    if (placed.some((q) => q !== p && q.region.w * q.region.h > r.w * r.h && !(q.region.h > 0.8 * viewportH && q.region.y < 40) && q.region.w < 0.9 * 1280 && insideBox(r, q.region, 8))) continue
     // by size and x only: a quote picks out a line of copy, not the panel round it
     const m = matchTop(fresh, r, null)
     if (m) offsets.push({ index: p.index, drawn: Math.round(m.drawn), built: Math.round(m.y), dy: Math.round(m.y - m.drawn) })

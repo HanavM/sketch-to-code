@@ -95,6 +95,15 @@ export function drawnRings(strokes: readonly StrokeLike[]): DrawnRing[] {
   return out
 }
 
+/**
+ * n122: the strokes that make up a drawn ring chart. The ink-colour pass reads each coloured arc as its own filled
+ * blob ("the outline drawn at ... coloured #f97316 (fill)"), told and checked four blocks the size of each arc that
+ * should not exist, which always failed and sent repairs after them. The ring is told and checked as one chart here.
+ */
+export function ringStrokeIds(strokes: readonly StrokeLike[] | undefined): Set<string> {
+  return new Set(drawnRings(strokes ?? []).flatMap((g) => g.strokeIds))
+}
+
 export function drawnRingBrief(strokes: readonly StrokeLike[] | undefined): string {
   const rings = drawnRings(strokes ?? [])
   if (!rings.length) return ''

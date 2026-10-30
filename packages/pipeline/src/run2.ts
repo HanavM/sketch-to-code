@@ -78,7 +78,7 @@ import { checklistBrief, verifyChecklists } from './checklist.js'
 import { calendarBrief, verifyCalendars } from './calendar.js'
 import { topBandsBrief, verifyTopBands } from './topbands.js'
 import { panelFootBrief, verifyPanelFeet } from './panelfoot.js'
-import { drawnRingBrief, verifyDrawnRings } from './drawnring.js'
+import { drawnRingBrief, ringStrokeIds, verifyDrawnRings } from './drawnring.js'
 import { rowMarksBrief, verifyRowMarks } from './rowmarks.js'
 import { progressBrief, verifyProgress } from './progress.js'
 import { hasFillerRows, rowTemplateBrief, verifyRowTemplate } from './rowtemplate.js'
@@ -638,7 +638,7 @@ export async function runV2(
       ...interp.actions.flatMap((a) => a.notes ?? []),
     ]) +
     keptMarksBrief(kept) +
-    inkColoursBrief(interp) +
+    inkColoursBrief(interp, ringStrokeIds(input.strokes)) +
     areasBrief(interp.actions, input.snapshot.viewport) +
     cardsBrief(interp.actions) +
     solidsBrief(interp.actions) +
@@ -1596,7 +1596,7 @@ export function verifyActions(
   }
 
   // n10: colours the ink stated (taps, coloured marks) reached their marks
-  const inkCol = verifyInkColours(actions, pageFill, after)
+  const inkCol = verifyInkColours(actions, pageFill, after, ringStrokeIds(depiction?.strokes))
   if (!inkCol.unverifiable) {
     details.push({ kind: 'ink-colours', verdict: inkCol })
     total++
