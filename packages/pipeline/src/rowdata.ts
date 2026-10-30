@@ -65,6 +65,8 @@ export function rowData(note: string): RowData | null {
   const slashRows = ROWSEP.test(text.replace(LEAD, ''))
   if (slashRows) text = text.replace(LEAD, '')
   // look tail and directions come off the copy (they apply to every row, they are not a row)
+  // n104: a dotted label placed by a position word ("Mia · 2:14 pm above; message") is a label over its item, no row of data
+  if (!slashRows && noteParts(text).place) return null
   const body = slashRows ? text : noteParts(text).copy
   const rows = (slashRows ? body.split(ROWSEP) : [body]).map((r) => {
     const copy = slashRows ? noteParts(r).copy : r

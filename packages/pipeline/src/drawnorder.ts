@@ -21,9 +21,9 @@ import type { ShapeMark } from './shapemark.js'
 import { wordsOf } from './ownwords.js'
 import { copyWords } from './linespan.js'
 
-interface NodeLike { id: string; text?: string; rect: BBox; textBox?: BBox; style?: { opacity?: string } }
+interface NodeLike { id: string; text?: string; rect: BBox; textBox?: BBox; style?: { opacity?: string; fontSize?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
-export interface DrawnOrderVerdict { satisfied: boolean; unverifiable?: boolean; reason: string; swapped?: Array<[string, string]>; far?: string[] }
+export interface DrawnOrderVerdict { satisfied: boolean; unverifiable?: boolean; reason: string; swapped?: Array<[string, string]>; far?: string[]; narrow?: string[] }
 
 const closed = (m: ShapeMark) => (m.shape === 'box' || m.shape === 'ellipse') && !m.area && !m.glyph && !m.card && !m.stat
 const holds = (a: BBox, b: BBox) => a !== b && b.x >= a.x - 2 && b.y >= a.y - 2 && b.x + b.w <= a.x + a.w + 2 && b.y + b.h <= a.y + a.h + 2 && a.w * a.h > b.w * b.h
@@ -57,22 +57,24 @@ export function drawnStacks(marks: readonly ShapeMark[]): ShapeMark[][] {
 export function drawnOrderBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>): string {
   const stacks = drawnStacks(actions.flatMap((a) => a.shapeMarks ?? []))
   if (!stacks.length) return ''
-  const lines = stacks.map((l) => `- top to bottom: ${l.map((m, i) => `${i + 1}. ${short(m)} drawn at y ${m.box.y}-${m.box.y + m.box.h}`).join('; ')}.`)
+  const lines = stacks.map((l) => `- top to bottom: ${l.map((m, i) => `${i + 1}. ${short(m)} drawn at y ${m.box.y}-${m.box.y + m.box.h}, x ${m.box.x}-${m.box.x + m.box.w} (${m.box.w}px wide)`).join('; ')}.`)
   return `DRAWN ORDER (from the drawing; checked on the page): these marks are drawn one under another. Build them in exactly this ` +
     `order, top to bottom, each one at about its drawn height, whatever order the notes were typed in (a note typed last still goes ` +
-    `where its box is drawn). Never move one above or below another to group by sender, side or kind:\n${lines.join('\n')}\n\n`
+    `where its box is drawn). Never move one above or below another to group by sender, side or kind. Each one is as wide as ` +
+    `its drawn box (n104: give it that width, or a max-width no narrower, so a message that fits the drawn width stays on one line; ` +
+    `never a narrow default bubble that wraps it):\n${lines.join('\n')}\n\n`
 }
 
-function found(m: ShapeMark, texts: Array<{ n: NodeLike; w: string[]; b: BBox }>): BBox | null {
+function found(m: ShapeMark, texts: Array<{ n: NodeLike; w: string[]; b: BBox }>): { b: BBox; n: NodeLike } | null {
   const need = new Set(want(m))
-  let best: { hit: number; area: number; b: BBox } | null = null
+  let best: { hit: number; area: number; b: BBox; n: NodeLike } | null = null
   for (const t of texts) {
     const hit = t.w.filter((x) => need.has(x)).length
     if (hit < Math.min(3, need.size) || hit / t.w.length < 0.8) continue
     const area = t.b.w * t.b.h
-    if (!best || hit > best.hit || (hit === best.hit && area < best.area)) best = { hit, area, b: t.b }
+    if (!best || hit > best.hit || (hit === best.hit && area < best.area)) best = { hit, area, b: t.b, n: t.n }
   }
-  return best?.b ?? null
+  return best ? { b: best.b, n: best.n } : null
 }
 
 export function verifyDrawnOrder(marks: readonly ShapeMark[], after: Snap): DrawnOrderVerdict {
@@ -85,9 +87,11 @@ export function verifyDrawnOrder(marks: readonly ShapeMark[], after: Snap): Draw
     .filter((t) => t.w.length > 0 && t.b.w > 1 && t.b.h > 1)
   const swapped: Array<[string, string]> = []
   const far: string[] = []
+  const narrow: string[] = []
   let judged = 0
   for (const l of stacks) {
-    const got = l.map((m) => ({ m, b: found(m, texts) })).filter((x): x is { m: ShapeMark; b: BBox } => !!x.b)
+    const got = l.map((m) => { const f = found(m, texts); return { m, b: f?.b ?? null, n: f?.n ?? null } })
+      .filter((x): x is { m: ShapeMark; b: BBox; n: NodeLike } => !!x.b)
     // one text claimed by two marks is no evidence for either
     const uniq = got.filter((x) => got.filter((y) => y.b === x.b).length === 1)
     if (uniq.length < 2) continue
@@ -102,13 +106,20 @@ export function verifyDrawnOrder(marks: readonly ShapeMark[], after: Snap): Draw
     for (const x of uniq) {
       const dy = Math.round((x.b.y + x.b.h / 2) - (x.m.box.y + x.m.box.h / 2))
       if (Math.abs(dy) > Math.max(80, x.m.box.h)) far.push(`${short(x.m)} drawn at y ${x.m.box.y}-${x.m.box.y + x.m.box.h} is built ${Math.abs(dy)}px ${dy > 0 ? 'lower' : 'higher'}`)
+      // n104: words wrapped onto more lines inside a bubble built much narrower than its drawn box
+      const fs = parseFloat(x.n.style?.fontSize ?? '') || 0
+      if (fs > 0 && x.b.h > fs * 2.1 && x.m.box.h < fs * 4 && x.b.w < 0.75 * (x.m.box.w - 32)) {
+        narrow.push(`${short(x.m)} drawn ${x.m.box.w}px wide is built ${Math.round(x.b.w)}px wide and wraps onto ${Math.max(2, Math.round(x.b.h / (fs * 1.35)))} lines`)
+      }
     }
   }
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'stacked marks not found on the page' }
-  if (!swapped.length && !far.length) return { satisfied: true, reason: `${stacks.reduce((s, l) => s + l.length, 0)} marks drawn one under another built in the drawn order, each near its drawn height` }
+  if (!swapped.length && !far.length && !narrow.length) return { satisfied: true, reason: `${stacks.reduce((s, l) => s + l.length, 0)} marks drawn one under another built in the drawn order, each near its drawn height` }
   const parts = [
     ...swapped.slice(0, 4).map(([a, b]) => `${a} is drawn above ${b} but built below it`),
     ...far.slice(0, 4),
+    ...narrow.slice(0, 4),
   ]
-  return { satisfied: false, swapped, far, reason: `${parts.join('; ')}: put each one back at its drawn height, in the drawn order top to bottom, changing nothing else` }
+  const fix = [swapped.length || far.length ? 'put each one back at its drawn height, in the drawn order top to bottom' : '', narrow.length ? 'make each narrow one as wide as its drawn box (width or max-width), so its words keep to the drawn lines' : ''].filter(Boolean).join('; ')
+  return { satisfied: false, swapped, far, narrow, reason: `${parts.join('; ')}: ${fix}, changing nothing else` }
 }

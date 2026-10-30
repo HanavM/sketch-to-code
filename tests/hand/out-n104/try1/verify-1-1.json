@@ -1,0 +1,724 @@
+[
+  {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <aside> at (0,0) 300x962 matches the sketch region",
+      "bestCandidate": {
+        "tag": "aside",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 300,
+          "h": 962
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (1,1) 300x897: the <aside> built for it sits 32px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 1px from the top of the page. The 4 drawn boxes below it ride on it, so the whole page from here down sits about 32px low. The cause is above it, at the top: take 32px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets. The rows keep the drawn pitch (66px top to top): keep each row's height and gap as they are.; the box drawn at (20,68) 259x41: the <div> built for it lands now, but its place hangs on the <aside> drawn at (1,1), which is 32px too low. When that one moves this one moves with it, so keep this one at its drawn top (68px): change the gap above it by the same amount the other way.; the box drawn at (19,130) 260x66: the <div> built for it lands now, but its place hangs on the <aside> drawn at (1,1), which is 32px too low. When that one moves this one moves with it, so keep this one at its drawn top (130px): change the gap above it by the same amount the other way.; the box drawn at (31,208) 39x39: the <span> built for it sits 20px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).; the box drawn at (30,272) 40x39: the <span> built for it sits 28px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <span> drawn at (31,208) above it; once that one is fixed this one is still 8px too low, so change only the spacing between them by that much.; the box drawn at (30,336) 40x38: the <span> built for it sits 36px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <span> drawn at (30,272) above it; once that one is fixed this one is still 8px too low, so change only the spacing between them by that much.; the box drawn at (30,399) 40x39: the <span> built for it sits 45px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <span> drawn at (30,336) above it; once that one is fixed this one is still 9px too low, so change only the spacing between them by that much.",
+      "marks": [
+        {
+          "strokeId": "s0",
+          "drawn": {
+            "x": 1,
+            "y": 1,
+            "w": 300,
+            "h": 897
+          },
+          "built": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 962
+          },
+          "dx": -1,
+          "dy": 32
+        },
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 20,
+            "y": 68,
+            "w": 259,
+            "h": 41
+          },
+          "built": {
+            "x": 0,
+            "y": 80,
+            "w": 300,
+            "h": 41
+          },
+          "dx": 1,
+          "dy": 12
+        },
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 19,
+            "y": 130,
+            "w": 260,
+            "h": 66
+          },
+          "built": {
+            "x": 19,
+            "y": 141,
+            "w": 262,
+            "h": 68
+          },
+          "dx": 1,
+          "dy": 12
+        },
+        {
+          "strokeId": "s6",
+          "drawn": {
+            "x": 31,
+            "y": 208,
+            "w": 39,
+            "h": 39
+          },
+          "built": {
+            "x": 35,
+            "y": 227,
+            "w": 40,
+            "h": 40
+          },
+          "dx": 5,
+          "dy": 20
+        },
+        {
+          "strokeId": "s7",
+          "drawn": {
+            "x": 30,
+            "y": 272,
+            "w": 40,
+            "h": 39
+          },
+          "built": {
+            "x": 35,
+            "y": 299,
+            "w": 40,
+            "h": 40
+          },
+          "dx": 5,
+          "dy": 28
+        },
+        {
+          "strokeId": "s8",
+          "drawn": {
+            "x": 30,
+            "y": 336,
+            "w": 40,
+            "h": 38
+          },
+          "built": {
+            "x": 35,
+            "y": 371,
+            "w": 40,
+            "h": 40
+          },
+          "dx": 5,
+          "dy": 36
+        },
+        {
+          "strokeId": "s9",
+          "drawn": {
+            "x": 30,
+            "y": 399,
+            "w": 40,
+            "h": 39
+          },
+          "built": {
+            "x": 35,
+            "y": 443,
+            "w": 40,
+            "h": 40
+          },
+          "dx": 5,
+          "dy": 45
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f5f3ff is on the page (ΔE 0.0)"
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h2> at (0,0) 300x60 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "h2",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 300,
+          "h": 60
+        }
+      }
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": false,
+    "nearest": 35,
+    "reason": "nothing near the drawing is the colour that was drawn (#e5e7eb); closest is ΔE 35.0 away"
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h2> at (0,0) 300x60 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "h2",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 300,
+          "h": 60
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (340,129) 451x52: the <div> built for it sits 30px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The line drawn at y=76 (the bar above it) is built where drawn (its bottom at y=76), so the header is right. The drift starts in the gap under that line: drawn, this box's top is 53px below it; built, 83px. So take 30px OUT of that gap only (the list's top margin or padding, the first row's top padding, a spacer or margin under the tab bar). Keep the heading and the tabs exactly as they are: do not shrink or move them. Never add space; no negative margins or relative offsets.",
+      "marks": [
+        {
+          "strokeId": "s12",
+          "drawn": {
+            "x": 340,
+            "y": 129,
+            "w": 451,
+            "h": 52
+          },
+          "built": {
+            "x": 332,
+            "y": 149,
+            "w": 451,
+            "h": 72
+          },
+          "dx": -8,
+          "dy": 30
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 5.7,
+    "reason": "#eef0f4 is on the page (ΔE 5.7)"
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (0,80) 300x41 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:7:9",
+        "rect": {
+          "x": 0,
+          "y": 80,
+          "w": 300,
+          "h": 41
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (865,219) 375x52: the <div> built for it sits 50px too low, and 30px of that is the <div> drawn at (340,129) above it, which sits 30px too low: it moves with the rows above when those are fixed, so do not move it on its own for that part. The other 20px is its own: change the gap between the last row and it by 20px (less space).",
+      "marks": [
+        {
+          "strokeId": "s13",
+          "drawn": {
+            "x": 865,
+            "y": 219,
+            "w": 375,
+            "h": 52
+          },
+          "built": {
+            "x": 873,
+            "y": 259,
+            "w": 375,
+            "h": 72
+          },
+          "dx": 8,
+          "dy": 50
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#6d28d9 is on the page (ΔE 0.0)"
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (19,213) 262x68 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:21:11",
+        "rect": {
+          "x": 19,
+          "y": 213,
+          "w": 262,
+          "h": 68
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (339,329) 362x51: nothing about that size was built near it; build what it stands for at that size, there",
+      "marks": [
+        {
+          "strokeId": "s17",
+          "drawn": {
+            "x": 339,
+            "y": 329,
+            "w": 362,
+            "h": 51
+          },
+          "built": null,
+          "dx": null,
+          "dy": null
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #eef0f4"
+  },
+  {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (19,285) 262x68 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:29:11",
+        "rect": {
+          "x": 19,
+          "y": 285,
+          "w": 262,
+          "h": 68
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (1033,419) 208x52: the <div> built for it sits 111px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <div> drawn at (865,219) above it; once that one is fixed this one is still 61px too low, so change only the spacing between them by that much.",
+      "marks": [
+        {
+          "strokeId": "s14",
+          "drawn": {
+            "x": 1033,
+            "y": 419,
+            "w": 208,
+            "h": 52
+          },
+          "built": {
+            "x": 1040,
+            "y": 520,
+            "w": 208,
+            "h": 72
+          },
+          "dx": 7,
+          "dy": 111
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #6d28d9"
+  },
+  {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (19,429) 262x68 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:45:11",
+        "rect": {
+          "x": 19,
+          "y": 429,
+          "w": 262,
+          "h": 68
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (344,534) 291x162: the <div> built for it sits 141px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <div> drawn at (340,129) above it; once that one is fixed this one is still 111px too low and 4px too far left, so change only the spacing between them by that much. It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 534px from the top of the page.",
+      "marks": [
+        {
+          "strokeId": "s15",
+          "drawn": {
+            "x": 344,
+            "y": 534,
+            "w": 291,
+            "h": 162
+          },
+          "built": {
+            "x": 332,
+            "y": 675,
+            "w": 291,
+            "h": 162
+          },
+          "dx": -12,
+          "dy": 141
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #c4b5fd"
+  },
+  {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (332,655) 916x182 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:88:11",
+        "rect": {
+          "x": 332,
+          "y": 655,
+          "w": 916,
+          "h": 182
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 7,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (330,799) 911x61: the <div> built for it sits 70px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <div> drawn at (344,534) above it; once that one is fixed this one is still 71px too high and 17px too far right, so change only the spacing between them by that much.",
+      "marks": [
+        {
+          "strokeId": "s16",
+          "drawn": {
+            "x": 330,
+            "y": 799,
+            "w": 911,
+            "h": 61
+          },
+          "built": {
+            "x": 332,
+            "y": 869,
+            "w": 916,
+            "h": 61
+          },
+          "dx": 5,
+          "dy": 70
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#dddddd is on the page (ΔE 0.0)"
+  },
+  {
+    "kind": "drift",
+    "verdict": {
+      "satisfied": false,
+      "reason": "7 of 7 blocks sit lower than drawn: action 1 top at 0px, drawn at 37px (37px high); action 2 top at 149px, drawn at 129px (20px low); action 3 top at 259px, drawn at 219px (40px low); action 4 top at 409px, drawn at 329px (80px low); action 5 top at 520px, drawn at 419px (101px low); action 6 top at 675px, drawn at 534px (141px low); action 7 top at 861px, drawn at 799px (62px low). Take out the extra vertical space the drawing does not have (page/body padding, a taller bar, bigger margins or gaps between rows, line-height on thin lines) so each block's top lands within 16px of its drawn y; fix it at the first block that is off, since every block under it moves with it. Remove space; never pull a block up with a negative margin, negative top or absolute position, which slides it over the heading or label above it. Do not change widths, colours or copy.",
+      "offsets": [
+        {
+          "index": 1,
+          "drawn": 37,
+          "built": 0,
+          "dy": -37
+        },
+        {
+          "index": 2,
+          "drawn": 129,
+          "built": 149,
+          "dy": 20
+        },
+        {
+          "index": 3,
+          "drawn": 219,
+          "built": 259,
+          "dy": 40
+        },
+        {
+          "index": 4,
+          "drawn": 329,
+          "built": 409,
+          "dy": 80
+        },
+        {
+          "index": 5,
+          "drawn": 419,
+          "built": 520,
+          "dy": 101
+        },
+        {
+          "index": 6,
+          "drawn": 534,
+          "built": 675,
+          "dy": 141
+        },
+        {
+          "index": 7,
+          "drawn": 799,
+          "built": 861,
+          "dy": 62
+        }
+      ]
+    }
+  },
+  {
+    "kind": "cards",
+    "verdict": {
+      "satisfied": false,
+      "reason": "the card drawn at (1,1) 300x897: the <aside> built for it has its bottom at 962 (drawn 898): set it to left 1px, top 1px, width 300px, height 897px exactly (box-sizing: border-box; change the card's own width/margin/padding-top of what is above it, not the parts inside)"
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "14 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "clear",
+    "verdict": {
+      "satisfied": true,
+      "reason": "no words sit on a form field"
+    }
+  },
+  {
+    "kind": "own-words",
+    "verdict": {
+      "satisfied": true,
+      "reason": "only typed words, none on top of each other",
+      "invented": [],
+      "overlaps": []
+    }
+  },
+  {
+    "kind": "typed-times",
+    "verdict": {
+      "satisfied": true,
+      "reason": "3 typed times shown as typed"
+    }
+  },
+  {
+    "kind": "directions",
+    "verdict": {
+      "satisfied": true,
+      "reason": "6 directions and look tails kept off the page"
+    }
+  },
+  {
+    "kind": "row-data",
+    "verdict": {
+      "satisfied": false,
+      "reason": "\"Mia · 2:14 pm\" runs cells of the row \"Mia · 2:14 pm\" together in one piece of text: make each cell its own element (name, details, side value as typed), no separators; the typed rows starting \"New logo is up, Ravi Patel\", \"sounds good, #support\", \"3 new tickets, Lena Ortiz\" are not on the page: fill the drawn rows with every typed row, in order; \"Ravi · 2:20 pm\" runs cells of the row \"Ravi · 2:20 pm\" together in one piece of text: make each cell its own element (name, details, side value as typed), no separators; \"Mia · 2:31 pm\" runs cells of the row \"Mia · 2:31 pm\" together in one piece of text: make each cell its own element (name, details, side value as typed), no separators; change nothing else"
+    }
+  },
+  {
+    "kind": "text-rules",
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 line drawn for words built as words, no rules"
+    }
+  },
+  {
+    "kind": "drawn-order",
+    "verdict": {
+      "satisfied": false,
+      "swapped": [],
+      "far": [
+        "\"Ravi · 2:20 pm above; Android is good …\" drawn at y 329-380 is built 91px lower",
+        "\"Great. Shipping at 5 then.\" drawn at y 419-471 is built 111px lower"
+      ],
+      "narrow": [],
+      "reason": "\"Ravi · 2:20 pm above; Android is good …\" drawn at y 329-380 is built 91px lower; \"Great. Shipping at 5 then.\" drawn at y 419-471 is built 111px lower: put each one back at its drawn height, in the drawn order top to bottom, changing nothing else"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": false,
+      "reason": "action 0: the box drawn at (30,336) 40x38 was coloured #fca5a5 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fca5a5; action 0: the box drawn at (30,399) 40x39 was coloured #93c5fd (fill); what was built there is ΔE 58 away: paint the block itself exactly #93c5fd; action 1: the line drawn at (300,76) 978x0 was coloured #e5e7eb (text colour); what was built there is ΔE 26 away: paint its text exactly #e5e7eb; action 3: the box drawn at (865,219) 375x52 was coloured #6d28d9 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #6d28d9; action 4: the box drawn at (339,329) 362x51 was coloured #eef0f4 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #eef0f4; action 5: the box drawn at (1033,419) 208x52 was coloured #6d28d9 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #6d28d9; action 6: the box drawn at (344,534) 291x162 was coloured #c4b5fd (fill); nothing that size was built there carrying a colour: paint the block itself exactly #c4b5fd; action 7: the box drawn at (330,799) 911x61 was coloured #dddddd (fill); nothing that size was built there carrying a colour: paint the block itself exactly #dddddd",
+      "checks": [
+        {
+          "what": "the box drawn at (1,1) 300x897 (flat panel)",
+          "want": "square corners, no shadow, no gradient",
+          "best": null,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (1,1) 300x897",
+          "want": "#f5f3ff",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the line drawn at (20,37) 90x0",
+          "want": "#1f2937",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (20,68) 259x41",
+          "want": "#dddddd",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (19,130) 260x66",
+          "want": "#6d28d9",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (31,208) 39x39",
+          "want": "#fcd34d",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (30,272) 40x39",
+          "want": "#6ee7b7",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (30,336) 40x38",
+          "want": "#fca5a5",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (30,399) 40x39",
+          "want": "#93c5fd",
+          "best": 57.54037440219496,
+          "ok": false
+        },
+        {
+          "what": "the line drawn at (300,76) 978x0",
+          "want": "#e5e7eb",
+          "best": 26.27671132291932,
+          "ok": false
+        },
+        {
+          "what": "the line drawn at (332,38) 154x0",
+          "want": "#1f2937",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (340,129) 451x52",
+          "want": "#eef0f4",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (865,219) 375x52",
+          "want": "#6d28d9",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (339,329) 362x51",
+          "want": "#eef0f4",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (1033,419) 208x52",
+          "want": "#6d28d9",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (344,534) 291x162",
+          "want": "#c4b5fd",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (330,799) 911x61",
+          "want": "#dddddd",
+          "best": null,
+          "ok": false
+        }
+      ]
+    }
+  }
+]
