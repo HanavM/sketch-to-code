@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T07:50Z | n104 position words in a note never printed | Labels above, no "above" printed, messages kept as copy; team chat 21.6, 30.7, 56.6 (wide swings).
 2026-10-30T06:55Z | n103 bubbles follow the drawn order | Drawn order told and checked; both tries kept it; team chat 43.8, 50.9 from printed directions.
 2026-10-30T06:45Z | n72 a fix reads the words typed earlier | Rows kept typed copy, none invented, both tries; team chat 37.8, 25.0 from first-build layout.
 2026-10-30T05:45Z | n102 a fix note about a set reaches every member | Bubbles kept words, all rows filled, nothing copied; team chat 60.6, row copy made up.
