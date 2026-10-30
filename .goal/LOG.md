@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T01:45Z | n96 write round 37 | Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet.
 2026-10-30T01:45Z | n95 quiet-build guard holds in live runs | Reply words and lone reads no longer keep a written build going; watch record per turn. Florist 75.5.
 2026-10-30T01:23Z | n94 plain panels flat; bar names every line | Flat panel told and checked, 3 of 3 flat; bar says 3 lines. Florist 74.9-77.6, vinyl 71.3.
 2026-10-30T00:36Z | n93 a quiet build after writing is ended, page kept | Stopped 120 s after last progress, page verified, record written; scripted e2e passes; timesheet live 57.8.
