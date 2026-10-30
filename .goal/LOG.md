@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T02:55Z | n97 sketch round 37 c1-c5 by hand | Market 87.3, ceramics 67.9, jazz 74.7, bakery 68.4, observatory 85.1; mean 76.7, 72 words.
 2026-10-30T01:45Z | n96 write round 37 | Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet.
 2026-10-30T01:45Z | n95 quiet-build guard holds in live runs | Reply words and lone reads no longer keep a written build going; watch record per turn. Florist 75.5.
 2026-10-30T01:23Z | n94 plain panels flat; bar names every line | Flat panel told and checked, 3 of 3 flat; bar says 3 lines. Florist 74.9-77.6, vinyl 71.3.
