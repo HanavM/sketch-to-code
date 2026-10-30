@@ -64,6 +64,38 @@ function valueIn(part: string): { value: string; rest: string[] } | null {
   return { value, rest }
 }
 
+// n100: a time of day (9:00, 2:14 pm, 10 AM) or a range of numbers (9:00 – 9:45, 12–14) is never a stat value
+const TIME = /(?<![\w.])\d{1,2}:\d{2}(?!\d)|(?<![\w.])\d{1,2}(?::\d{2})?\s*(?:am|pm|a\.m\.|p\.m\.)(?![\w])/i
+const RANGE = /\d\s*[–—-]\s*\d/
+const SENTENCE = /[\p{L}\d][.!?](?:\s+[\p{Lu}\p{N}]|\s*$)/u
+const hasLetters = (w: string) => /^\p{L}/u.test(w)
+
+/**
+ * n100: a note whose number sits among words is copy, not a stat (round 37: a calendar event "Standup 9:00 – 9:45"
+ * was built as a huge "9:00" over "Standup 9:45"; chat bubbles "Mia · 2:14 pm above; Copy is final. Can someone
+ * check..." became a big "2:14 pm" with the message dropped, and "Great. Shipping at 5 then." a big "5"). True when
+ * the note holds a time of day or a range, a sentence (sentence punctuation or more than six copy words in one
+ * phrase), or a number with copy words on both sides in the same phrase ("Shipping at 5 then").
+ * A note that says it is a stat ("stat", "big number", "huge 9:00") is kept as one.
+ */
+export function proseNumber(note: string): boolean {
+  if (!NUM.test(note)) return false
+  if (/\b(stat|stats|kpi|metric)\b/i.test(note) || /\b(big|huge|giant|large|massive|jumbo|bold)\s+(number|numeral|value|figure|digits?|[$£€]?\d)/i.test(note)) return false
+  if (TIME.test(note) || RANGE.test(note)) return true
+  const parts = note.split(/[;·•|]|,(?!\d{3}(?!\d))/).map((p) => p.trim()).filter(Boolean)
+  for (const p of parts) {
+    if (SENTENCE.test(p) && copyWords(p).filter(hasLetters).length >= 3) return true
+    if (copyWords(p).filter(hasLetters).length > 6) return true
+    const m = p.match(NUM)
+    if (!m) continue
+    const before = copyWords(p.slice(0, m.index!)).filter(hasLetters)
+    const afterWs = copyWords(p.slice(m.index! + m[0].length)).filter(hasLetters)
+    const after = afterWs.length && UNIT.test(afterWs[0]!) ? afterWs.slice(1) : afterWs
+    if (before.length && after.length) return true
+  }
+  return false
+}
+
 /**
  * The stat a box's notes give: a number and its label. Null unless both are there.
  * `notes` in the order they sit on the box (top first), so a label typed above the number reads as above.
@@ -71,6 +103,8 @@ function valueIn(part: string): { value: string; rest: string[] } | null {
 export function statOf(notes: readonly string[]): Stat | null {
   // n92: a box holding a progress bar note is a bar panel, not a stat card ("82%" is how full the bar is)
   if (!notes.length || notes.some((n) => ROWS.test(n) || !!progressOf(n))) return null
+  // n100: a box whose notes are copy with a number in it is that copy, never a stat card (see proseNumber)
+  if (notes.some(proseNumber)) return null
   let value: string | null = null, label: string[] = [], vi = -1, li = -1
   notes.forEach((n, i) => {
     // n90: a comma inside a number (3,800) is no break

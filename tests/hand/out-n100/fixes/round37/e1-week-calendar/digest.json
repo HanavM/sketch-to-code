@@ -1,0 +1,743 @@
+{
+  "round": 37,
+  "id": "e1-week-calendar",
+  "version": 3,
+  "stopped": null,
+  "likeness": 69,
+  "colour": 0.9920374040023651,
+  "structure": 0.9434996754821825,
+  "layout": 0.6631054721491084,
+  "strokes": {
+    "count": 20,
+    "pointsPerStroke": 3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "box": 9,
+      "dot": 7
+    },
+    "inkPx": 11156
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 83,
+  "notes": 15,
+  "longestNote": 13,
+  "noteTexts": [
+    "October 2026, bold",
+    "Day Week Month toggle, Week dark",
+    "+ New event",
+    "MON 26  TUE 27  WED 28  THU 29  FRI 30, one per column",
+    "5 day columns, hour rows 9 AM to 4 PM, faint lines",
+    "Standup 9:00 – 9:45",
+    "Design review 10:00 – 11:45",
+    "Lunch with Sam 12:00 – 1:00",
+    "Standup 9:00 – 9:45",
+    "Interviews 1:00 – 2:45",
+    "Demo day 3:00 – 4:00",
+    "now line",
+    "white, not grey",
+    "events: small bold title, time under, no big numbers",
+    "white pill, Week dark"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 344,
+    "firstReadingS": 79,
+    "readS": [
+      26,
+      12
+    ],
+    "buildS": [
+      222,
+      25
+    ],
+    "sketchingS": 59
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 84689,
+    "cacheRead": 349438,
+    "output": 25521,
+    "billed": 110210
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 832
+    },
+    {
+      "op": "note",
+      "at": 1471
+    },
+    {
+      "op": "stroke",
+      "at": 3297
+    },
+    {
+      "op": "note",
+      "at": 3971
+    },
+    {
+      "op": "pen",
+      "color": "#2563eb",
+      "at": 4335
+    },
+    {
+      "op": "stroke",
+      "at": 5766
+    },
+    {
+      "op": "stroke",
+      "at": 6232
+    },
+    {
+      "op": "note",
+      "at": 6858
+    },
+    {
+      "op": "pen",
+      "color": "#dddddd",
+      "at": 7220
+    },
+    {
+      "op": "stroke",
+      "at": 11232
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 11592
+    },
+    {
+      "op": "stroke",
+      "at": 14752
+    },
+    {
+      "op": "note",
+      "at": 15633
+    },
+    {
+      "op": "pen",
+      "color": "#dddddd",
+      "at": 15994
+    },
+    {
+      "op": "stroke",
+      "at": 27103
+    },
+    {
+      "op": "note",
+      "at": 27935
+    },
+    {
+      "op": "pen",
+      "color": "#dbeafe",
+      "at": 28303
+    },
+    {
+      "op": "stroke",
+      "at": 30437
+    },
+    {
+      "op": "stroke",
+      "at": 30906
+    },
+    {
+      "op": "note",
+      "at": 31622
+    },
+    {
+      "op": "pen",
+      "color": "#fde68a",
+      "at": 31984
+    },
+    {
+      "op": "stroke",
+      "at": 34554
+    },
+    {
+      "op": "stroke",
+      "at": 35023
+    },
+    {
+      "op": "note",
+      "at": 35748
+    },
+    {
+      "op": "pen",
+      "color": "#dcfce7",
+      "at": 36109
+    },
+    {
+      "op": "stroke",
+      "at": 38254
+    },
+    {
+      "op": "stroke",
+      "at": 38720
+    },
+    {
+      "op": "note",
+      "at": 39457
+    },
+    {
+      "op": "pen",
+      "color": "#dbeafe",
+      "at": 39817
+    },
+    {
+      "op": "stroke",
+      "at": 41956
+    },
+    {
+      "op": "stroke",
+      "at": 42437
+    },
+    {
+      "op": "note",
+      "at": 43142
+    },
+    {
+      "op": "pen",
+      "color": "#fce7f3",
+      "at": 43504
+    },
+    {
+      "op": "stroke",
+      "at": 46079
+    },
+    {
+      "op": "stroke",
+      "at": 46556
+    },
+    {
+      "op": "note",
+      "at": 47268
+    },
+    {
+      "op": "pen",
+      "color": "#ede9fe",
+      "at": 47631
+    },
+    {
+      "op": "stroke",
+      "at": 49779
+    },
+    {
+      "op": "stroke",
+      "at": 50265
+    },
+    {
+      "op": "note",
+      "at": 50987
+    },
+    {
+      "op": "pen",
+      "color": "#ef4444",
+      "at": 51350
+    },
+    {
+      "op": "stroke",
+      "at": 52461
+    },
+    {
+      "op": "note",
+      "at": 53145
+    },
+    {
+      "op": "run",
+      "at": 53263
+    },
+    {
+      "op": "note",
+      "at": 303938
+    },
+    {
+      "op": "note",
+      "at": 304625
+    },
+    {
+      "op": "note",
+      "at": 305259
+    },
+    {
+      "op": "run",
+      "at": 305344
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          40,
+          36
+        ],
+        [
+          180,
+          36
+        ]
+      ],
+      "n": 24,
+      "at": 832
+    },
+    {
+      "way": [
+        [
+          540,
+          17
+        ],
+        [
+          748,
+          17
+        ],
+        [
+          748,
+          54
+        ],
+        [
+          540,
+          54
+        ],
+        [
+          540,
+          17
+        ]
+      ],
+      "n": 83,
+      "at": 3297
+    },
+    {
+      "way": [
+        [
+          1110,
+          15
+        ],
+        [
+          1240,
+          15
+        ],
+        [
+          1240,
+          57
+        ],
+        [
+          1110,
+          57
+        ],
+        [
+          1110,
+          15
+        ]
+      ],
+      "n": 59,
+      "at": 5766
+    },
+    {
+      "way": [
+        [
+          1175,
+          48
+        ]
+      ],
+      "n": 1,
+      "at": 6232
+    },
+    {
+      "way": [
+        [
+          0,
+          72
+        ],
+        [
+          1280,
+          72
+        ]
+      ],
+      "n": 214,
+      "at": 11232
+    },
+    {
+      "way": [
+        [
+          124,
+          101
+        ],
+        [
+          1080,
+          101
+        ]
+      ],
+      "n": 160,
+      "at": 14752
+    },
+    {
+      "way": [
+        [
+          110,
+          132
+        ],
+        [
+          1240,
+          132
+        ],
+        [
+          1240,
+          898
+        ],
+        [
+          110,
+          898
+        ],
+        [
+          110,
+          132
+        ]
+      ],
+      "n": 633,
+      "at": 27103
+    },
+    {
+      "way": [
+        [
+          116,
+          140
+        ],
+        [
+          328,
+          140
+        ],
+        [
+          328,
+          228
+        ],
+        [
+          116,
+          228
+        ],
+        [
+          116,
+          140
+        ]
+      ],
+      "n": 101,
+      "at": 30437
+    },
+    {
+      "way": [
+        [
+          222,
+          216
+        ]
+      ],
+      "n": 1,
+      "at": 30906
+    },
+    {
+      "way": [
+        [
+          342,
+          240
+        ],
+        [
+          554,
+          240
+        ],
+        [
+          554,
+          410
+        ],
+        [
+          342,
+          410
+        ],
+        [
+          342,
+          240
+        ]
+      ],
+      "n": 127,
+      "at": 34554
+    },
+    {
+      "way": [
+        [
+          448,
+          398
+        ]
+      ],
+      "n": 1,
+      "at": 35023
+    },
+    {
+      "way": [
+        [
+          568,
+          430
+        ],
+        [
+          780,
+          430
+        ],
+        [
+          780,
+          518
+        ],
+        [
+          568,
+          518
+        ],
+        [
+          568,
+          430
+        ]
+      ],
+      "n": 101,
+      "at": 38254
+    },
+    {
+      "way": [
+        [
+          674,
+          506
+        ]
+      ],
+      "n": 1,
+      "at": 38720
+    },
+    {
+      "way": [
+        [
+          794,
+          140
+        ],
+        [
+          1006,
+          140
+        ],
+        [
+          1006,
+          228
+        ],
+        [
+          794,
+          228
+        ],
+        [
+          794,
+          140
+        ]
+      ],
+      "n": 101,
+      "at": 41956
+    },
+    {
+      "way": [
+        [
+          900,
+          216
+        ]
+      ],
+      "n": 1,
+      "at": 42437
+    },
+    {
+      "way": [
+        [
+          794,
+          530
+        ],
+        [
+          1006,
+          530
+        ],
+        [
+          1006,
+          700
+        ],
+        [
+          794,
+          700
+        ],
+        [
+          794,
+          530
+        ]
+      ],
+      "n": 127,
+      "at": 46079
+    },
+    {
+      "way": [
+        [
+          900,
+          688
+        ]
+      ],
+      "n": 1,
+      "at": 46556
+    },
+    {
+      "way": [
+        [
+          1020,
+          620
+        ],
+        [
+          1232,
+          620
+        ],
+        [
+          1232,
+          708
+        ],
+        [
+          1020,
+          708
+        ],
+        [
+          1020,
+          620
+        ]
+      ],
+      "n": 101,
+      "at": 49779
+    },
+    {
+      "way": [
+        [
+          1126,
+          696
+        ]
+      ],
+      "n": 1,
+      "at": 50265
+    },
+    {
+      "way": [
+        [
+          562,
+          373
+        ],
+        [
+          788,
+          373
+        ]
+      ],
+      "n": 39,
+      "at": 52461
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "October 2026, bold",
+      "whole": false,
+      "x": 110,
+      "y": 30,
+      "at": 1471
+    },
+    {
+      "text": "Day Week Month toggle, Week dark",
+      "whole": false,
+      "x": 640,
+      "y": 36,
+      "at": 3971
+    },
+    {
+      "text": "+ New event",
+      "whole": false,
+      "x": 1170,
+      "y": 32,
+      "at": 6858
+    },
+    {
+      "text": "MON 26  TUE 27  WED 28  THU 29  FRI 30, one per column",
+      "whole": false,
+      "x": 600,
+      "y": 95,
+      "at": 15633
+    },
+    {
+      "text": "5 day columns, hour rows 9 AM to 4 PM, faint lines",
+      "whole": false,
+      "x": 200,
+      "y": 860,
+      "at": 27935
+    },
+    {
+      "text": "Standup 9:00 – 9:45",
+      "whole": false,
+      "x": 176,
+      "y": 162,
+      "at": 31622
+    },
+    {
+      "text": "Design review 10:00 – 11:45",
+      "whole": false,
+      "x": 402,
+      "y": 262,
+      "at": 35748
+    },
+    {
+      "text": "Lunch with Sam 12:00 – 1:00",
+      "whole": false,
+      "x": 628,
+      "y": 452,
+      "at": 39457
+    },
+    {
+      "text": "Standup 9:00 – 9:45",
+      "whole": false,
+      "x": 854,
+      "y": 162,
+      "at": 43142
+    },
+    {
+      "text": "Interviews 1:00 – 2:45",
+      "whole": false,
+      "x": 854,
+      "y": 552,
+      "at": 47268
+    },
+    {
+      "text": "Demo day 3:00 – 4:00",
+      "whole": false,
+      "x": 1080,
+      "y": 642,
+      "at": 50987
+    },
+    {
+      "text": "now line",
+      "whole": false,
+      "x": 670,
+      "y": 385,
+      "at": 53145
+    },
+    {
+      "text": "white, not grey",
+      "whole": false,
+      "x": 300,
+      "y": 780,
+      "at": 303938
+    },
+    {
+      "text": "events: small bold title, time under, no big numbers",
+      "whole": false,
+      "x": 700,
+      "y": 600,
+      "at": 304625
+    },
+    {
+      "text": "white pill, Week dark",
+      "whole": false,
+      "x": 640,
+      "y": 30,
+      "at": 305259
+    }
+  ]
+}
