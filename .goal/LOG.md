@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T00:36Z | n93 a quiet build after writing is ended, page kept | Stopped 120 s after last progress, page verified, record written; scripted e2e passes; timesheet live 57.8.
 2026-10-30T00:35Z | n88 heading words wrap onto the lines drawn under them | Overflowing heading copy covers its bare lines; florist 69.0 to 79.2, 76.7; tide 78.1 unchanged (drift already fixed).
 2026-10-29T23:55Z | n92 progress bar and outlined pager | Bar, caption, outlined squares built; timesheet 55.1 to 67.8, 70.3; try 4 48.9 from header drift.
 2026-10-29T22:45Z | n91 lists the short way on timesheet and notifications | Ruled bands take own taps, two-line names; notifications 64 to 27 words at 74.5; timesheet 55.1.

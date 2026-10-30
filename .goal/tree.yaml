@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A heading drawn as three lines with its words typed on the first now builds on all three (florist 69 to 79); next, stopping builds that hang after writing the page."
+now: "A build that goes quiet after writing the page is now stopped in two minutes with the page kept; next, drawn plain panels built flat and the bar naming every line a note covers."
 round: 36
 round_scores: [53, 77, 76, 70, 79, 78, 72]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-10300016, until: "2026-10-30T01:46Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -171,10 +171,11 @@ nodes:
      result: "Ruled bands take own taps, two-line names; notifications 27 words at 74.5; timesheet 70 words, 55.1."}
   - {id: n92, parent: n89, kind: step, title: "A coloured line noted as a progress bar is a track with that much filled (never a big printed percent), small squares drawn in dark pen beside a date are outlined arrow buttons, and a label word like row in a note is never printed; re-sketch timesheet", status: done, branch: try/n3-ink-style,
      result: "Bar, caption and outlined pager built; timesheet 55.1 to 67.8, 70.3; try 4 48.9 from header drift."}
-  - {id: n93, parent: n4, kind: step, priority: next, title: "A build turn that has written the page and then goes quiet for minutes is ended with the page kept, its record and times written (timesheet hung 19 min after writing, n73 too)", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n93, parent: n4, kind: step, title: "A build turn that has written the page and then goes quiet for minutes is ended with the page kept, its record and times written (timesheet hung 19 min after writing, n73 too)", status: done, branch: try/n3-ink-style,
+     result: "Quiet build after its write ends at 120 s, page kept and checked; tested scripted; timesheet live 57.8, no hang."}
   - {id: n88, parent: n4, kind: step, title: "A header stays at its drawn lines (no tall header pushing the page down), a repair that lifts content never removes blocks, and a note on stacked heading lines covers every line; re-sketch tide swim and florist", status: done, branch: try/n3-ink-style,
      result: "Heading words that overflow their line wrap onto bare lines below; florist 69.0 to 79.2, 76.7; tide 78.1 as is."}
-  - {id: n94, parent: n2, kind: step, title: "A plain drawn panel is built flat (no rounded corners, shadow or fade unless asked), and the bar names every line a note covers the moment it is typed; re-sketch florist and vinyl", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n94, parent: n2, kind: step, priority: next, title: "A plain drawn panel is built flat (no rounded corners, shadow or fade unless asked), and the bar names every line a note covers the moment it is typed; re-sketch florist and vinyl", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: pruned, branch: try/n3-ink-style, result: "pruned: erasing one mark has not cost score or effort in rounds 34-36; keep open slots for row and drift gaps"}
