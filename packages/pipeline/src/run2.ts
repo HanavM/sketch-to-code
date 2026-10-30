@@ -1152,13 +1152,17 @@ export async function runV2(
   // worse (r32 c1, c2, c4): put the page back exactly as it was before the note, and say so
   let putBack: string | null = null
   const fixNow = lastFix as FixVerdict | null // set inside verifyRound
-  if (fixNow && (fixNow.overlaps.length || fixNow.noFill.length)) {
+  if (fixNow && (fixNow.overlaps.length || fixNow.noFill.length || fixNow.lost?.length || fixNow.copied?.length)) {
     const work = new Map([...captureWork(ctx.root, cp)].filter(([rel]) => !rel.startsWith('.sketch2code/') && !untrackedBefore.has(rel)))
     if (work.size) {
       revertWork(ctx.root, cp, work)
       putBack = fixNow.overlaps.length
         ? `the fix ran "${fixNow.overlaps[0]!.a.slice(0, 30)}" into "${fixNow.overlaps[0]!.b.slice(0, 30)}"`
-        : `the fix kept the ${fixNow.noFill[0]!.what} it was told to take away`
+        : fixNow.noFill.length
+          ? `the fix kept the ${fixNow.noFill[0]!.what} it was told to take away`
+          : fixNow.lost?.length
+            ? `the fix emptied "${fixNow.lost[0]!.text.slice(0, 30)}"`
+            : `the fix copied "${fixNow.copied![0]!.text.slice(0, 30)}" into ${fixNow.copied![0]!.now - fixNow.copied![0]!.was} more place(s)`
       stage('verify', `${putBack}: put the page back as it was before this note`)
       finalFailures = [`${putBack}, so the page was put back as it was before this note. Try saying it another way, or draw where it goes.`]
       bestScore = 0

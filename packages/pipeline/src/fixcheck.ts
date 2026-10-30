@@ -18,7 +18,13 @@
  *  3. A note that names parts ("bars", "cards", "links") on a wrapper is about
  *     those parts: codegen is told to change them, not the wrapper's own look.
  *
- * And a fix that still breaks rule 1 or 2 after its repair rounds is put back:
+ *  4. (n102) Copy is kept. A piece of the user's copy that was on the page
+ *     before the fix is never emptied (gone, with nothing written in its
+ *     place), and never copied into another member of a set (a name pasted
+ *     into the preview line under it). A note about a set ("chat bubbles:",
+ *     "each row:") reaches every member, each keeping its own words.
+ *
+ * And a fix that still breaks rule 1, 2 or 4 after its repair rounds is put back:
  * the page goes back to exactly how it was before the note, and the run says so.
  */
 import type { DomNode, DomSnapshot } from '@s2c/dom'
@@ -156,26 +162,107 @@ export function fixBrief(actions: readonly GroundedAction[], before: DomSnapshot
     const parts = PARTS.exec(note)?.[1]
     const nofill = NO_FILL.exec(note)?.[1]
     if (parts) lines.push(`- action ${i}: the note names the ${parts.toLowerCase()} inside ${a.targets[0]?.tag ?? 'it'}. Change the ${parts.toLowerCase()} themselves (their colour, size, place); leave the wrapper's own background, border and size as they are unless the note names the wrapper.`)
+    if (note && isSetNote(note)) lines.push(`- action ${i}: "${note.slice(0, 60)}" is about EVERY one of that set on the page, not just the one it sits on. Apply it to each member. Each member keeps exactly its own words: never empty a member, never move or copy one member's words (a name, a time, a title) into another member or into another line of the same member.`)
     if (nofill) lines.push(`- action ${i}: "no ${nofill.toLowerCase()}" means the element it sits on stops painting: transparent background, no gradient, no border, no shadow. Do not recolour it.`)
   }
   return (
     `THIS IS A FIX ON A BUILT PAGE. Change only what the notes ask. Every other piece of text stays where it is; ` +
     `two pieces of text that do not touch now must not touch after your edit (it will be measured, and an edit ` +
-    `that makes words run into each other is put back).\n` +
+    `that makes words run into each other is put back). Every piece of copy on the page keeps its words: never empty ` +
+    `a piece of text, and never copy words from one place into another (it is measured, and put back).\n` +
     (lines.length ? lines.join('\n') + '\n' : '') + '\n'
   )
 }
 
-export interface FixVerdict { overlaps: NewOverlap[]; noFill: NoFillMiss[]; failures: string[] }
+
+// ---------------------------------------------------------------- n102: copy is kept
+
+/** A note that asks for words to go away or be rewritten: emptied copy is then what was asked. */
+const DROPS_COPY = /\b(?:remove|delete|drop|hide|take out|cut|clear|empty|no (?:text|words|copy|label|caption|title|subtitle|preview|name|time)s?|without (?:the )?(?:text|words|copy|label|caption|title|subtitle|preview|name|time)s?)\b/i
+
+/** Own copy worth guarding: visible text with a source stamp and some letters in it. */
+function copyNodes(snap: DomSnapshot): Array<{ key: string; node: DomNode; box: Box }> {
+  const out: Array<{ key: string; node: DomNode; box: Box }> = []
+  for (const n of snap.nodes) {
+    const key = words(n)
+    if (!n.srcLoc || key.length < 4 || !/\p{L}{2,}/u.test(key)) continue
+    const b = boxOf(n)
+    if (b.w < 2 || b.h < 4) continue
+    if (n.style.opacity && Number(n.style.opacity) < 0.15) continue
+    out.push({ key, node: n, box: b })
+  }
+  return out
+}
+
+const norm = (s: string): string => s.toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/\s+/g, ' ').trim()
+
+export interface LostCopy { text: string }
+export interface CopiedCopy { text: string; was: number; now: number }
+
+/**
+ * Rule 4a: copy that was on the page and is gone after the fix, with nothing written where it sat
+ * (r37 e4: "chat bubbles: message text only" emptied both grey bubbles). Copy rewritten in place is
+ * fine: something else now reads there. A note that asks for words to go is exempt.
+ */
+export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): LostCopy[] {
+  const said = actions.flatMap((a) => [...(a.notes ?? [])]).join(' ')
+  if (DROPS_COPY.test(said)) return []
+  const now = copyNodes(after)
+  const all = norm(now.map((t) => t.key).join(' \u0001 '))
+  const out: LostCopy[] = []
+  const seen = new Set<string>()
+  for (const t of copyNodes(before)) {
+    const k = norm(t.key)
+    if (seen.has(k) || all.includes(k)) continue
+    seen.add(k)
+    // something else now reads where it sat: rewritten, not emptied
+    const area = Math.max(1, t.box.w * t.box.h)
+    if (now.some((u) => inter(u.box, t.box) / Math.min(area, Math.max(1, u.box.w * u.box.h)) >= 0.5)) continue
+    out.push({ text: t.key })
+  }
+  return out.slice(0, 6)
+}
+
+/**
+ * Rule 4b: a piece of copy that now shows in more places than before, when the fix note never typed it
+ * (r37 e4: "each row: name, small grey preview under" put each name into its own preview line).
+ */
+export function copiedCopy(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): CopiedCopy[] {
+  const said = norm(actions.flatMap((a) => [...(a.notes ?? [])]).join(' '))
+  if (/\b(?:add|more|another|copy|repeat|duplicate|same as|like this|again)\b/.test(said)) return []
+  const was = copyNodes(before), now = copyNodes(after)
+  const count = (list: typeof was, k: string): number => list.filter((u) => norm(u.key).includes(k)).length
+  const out: CopiedCopy[] = []
+  const seen = new Set<string>()
+  for (const t of was) {
+    const k = norm(t.key)
+    if (seen.has(k) || k.length < 4 || said.includes(k)) continue
+    seen.add(k)
+    const a = count(was, k), b = count(now, k)
+    if (b > a) out.push({ text: t.key, was: a, now: b })
+  }
+  return out.slice(0, 6)
+}
+
+/** A note about a whole set: "chat bubbles:", "each row:", "every card", "all events". */
+const SET_NOTE = /^\s*(?:(?:each|every|all(?: the)?)\s+[a-z]+|[a-z]+\s+(?:bubbles|rows|cards|events|items|messages|tiles|chips|pills|links|tabs|steps|names)|bubbles|rows|cards|events|items|messages)\s*:/i
+
+export function isSetNote(note: string): boolean { return SET_NOTE.test(note) }
+
+export interface FixVerdict { overlaps: NewOverlap[]; noFill: NoFillMiss[]; lost?: LostCopy[]; copied?: CopiedCopy[]; failures: string[] }
 
 /** Both measured rules, as repair-ready failure lines. Empty when the page was not built before the run. */
 export function verifyFix(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): FixVerdict {
   if (!isBuiltPage(before)) return { overlaps: [], noFill: [], failures: [] }
   const overlaps = newTextOverlaps(before, after)
   const noFill = noFillMisses(actions, before, after)
+  const lost = lostCopy(actions, before, after)
+  const copied = copiedCopy(actions, before, after)
   const failures = [
     ...overlaps.map((o) => `page (fix check): "${o.a.slice(0, 40)}" now runs into "${o.b.slice(0, 40)}" (${Math.round(o.share * 100)}% of the smaller one covered); before this fix they were apart. Keep the change the note asked for, and size or place it so they do not touch.`),
     ...noFill.map((m) => `action ${m.action} (fix check): the note says no ${m.what}, but the element behind "${m.target}" still paints a background, border or shadow. Make it transparent with no border or shadow; do not recolour it.`),
+    ...lost.map((l) => `page (fix check): "${l.text.slice(0, 50)}" was on the page before this fix and is now gone, with nothing in its place. Put its words back exactly where they were; change only what the note asked.`),
+    ...copied.map((c) => `page (fix check): "${c.text.slice(0, 50)}" now shows ${c.now} times (it showed ${c.was} before) and the note never typed it. Take the extra copies out: each piece of text keeps only its own words.`),
   ]
-  return { overlaps, noFill, failures }
+  return { overlaps, noFill, lost, copied, failures }
 }
