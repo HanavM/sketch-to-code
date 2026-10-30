@@ -389,26 +389,40 @@ function scriptedSession(
   let ended = false
   let turn = 0
   let lastSeen = Date.now()
+  let lastEdited = lastSeen
+  const toolList: string[] = []
+  const closers: Array<() => void> = []
+  // n93: a script reports its tool calls like the agent's stream, so a stalled build can be tested at no cost
+  const tool = (name: string, file?: string): void => {
+    lastSeen = Date.now()
+    if (EDIT_TOOLS.has(name)) lastEdited = lastSeen
+    toolList.push(`${name} ${file ?? ''}`.trim())
+    ev.onStage('codegen', `${name} ${file ?? ''}`.trim())
+  }
   return {
     async send(content: UserContent): Promise<string> {
       if (signal?.aborted) throw abortError(signal)
       if (ended) throw new Error('codegen session already closed')
-      lastSeen = Date.now()
+      lastSeen = lastEdited = Date.now()
       script.onCall?.('codegen', content.text.slice(0, 200))
       if (!script.codegen) throw new Error('scripted model: codegen is not scripted')
       ev.onStage('codegen', 'scripted edit')
-      const reply = await script.codegen({ root: appRoot, text: content.text, turn: ++turn })
+      const reply = await Promise.race([
+        script.codegen({ root: appRoot, text: content.text, turn: ++turn, tool }),
+        // closing (a stalled turn) or stopping ends a scripted turn that never returns, like the real one
+        new Promise<never>((_, reject) => { closers.push(() => reject(new Error('codegen session ended unexpectedly'))) }),
+      ])
       lastSeen = Date.now()
       if (signal?.aborted) throw abortError(signal)
       return reply
     },
     usage: () => ({ input: 0, cacheRead: 0, output: 0 }),
-    toolCalls: () => 0,
-    toolLog: () => [],
+    toolCalls: () => toolList.length,
+    toolLog: () => [...toolList],
     lastActivity: () => lastSeen,
     lastProgress: () => lastSeen,
-    lastEdit: () => lastSeen,
-    close: () => { ended = true },
+    lastEdit: () => lastEdited,
+    close: () => { ended = true; for (const c of closers.splice(0)) c() },
     closed: Promise.resolve(),
   }
 }

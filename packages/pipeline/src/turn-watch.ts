@@ -20,6 +20,15 @@ export const STALL_MS = 150_000
  */
 export const REPAIR_EDIT_MS = 180_000
 export const WATCH_EVERY_MS = 5_000
+/**
+ * n93: a build turn that has already written the page gets this long to do
+ * anything that moves it on (a tool call, a result, reply words). Thinking,
+ * pings and other stream noise after the Write do not count. Timesheet (n92
+ * try 3) wrote App.tsx at 156 s, then sat 19 minutes with the stream alive
+ * and no tool call or word; habits (n73) the same for 10+ minutes. Neither
+ * left a record. The page on disk is the build: verify that.
+ */
+export const BUILD_AFTER_WRITE_MS = 120_000
 
 export class TurnStalled extends Error {
   constructor(public readonly why: string) {
@@ -40,6 +49,11 @@ export interface StallInput {
   /** Time to leave before the cap (e.g. for the verify after a repair). */
   marginMs?: number
   stallMs?: number
+  /** n93: a build turn that has written a file this turn; held to afterWriteMs of real progress. */
+  wrote?: boolean
+  /** When the agent last moved the turn on (tool call, result, words; not thinking or pings). */
+  lastProgress?: number
+  afterWriteMs?: number
 }
 
 /** Why this turn should be ended now, or null to let it run. */
@@ -47,6 +61,10 @@ export function stallReason(o: StallInput): string | null {
   const stallMs = o.stallMs ?? STALL_MS
   const quiet = o.now - o.lastActivity
   if (quiet >= stallMs) return `the agent made no progress for ${Math.round(quiet / 1000)} s`
+  if (o.wrote && o.lastProgress !== undefined) {
+    const still = o.now - o.lastProgress
+    if (still >= (o.afterWriteMs ?? BUILD_AFTER_WRITE_MS)) return `the build wrote the page, then made no progress for ${Math.round(still / 1000)} s (thinking is not progress)`
+  }
   if (o.lastEdit !== undefined) {
     const sinceEdit = o.now - o.lastEdit
     if (sinceEdit >= (o.editMs ?? REPAIR_EDIT_MS)) return `the repair went ${Math.round(sinceEdit / 1000)} s without an edit (thinking is not progress)`
@@ -79,4 +97,10 @@ export function watchTurn<T>(turn: Promise<T>, check: () => string | null, every
       (e: unknown) => { if (!done) { done = true; clearInterval(timer); reject(e instanceof Error ? e : new Error(String(e))) } },
     )
   })
+}
+
+const WRITE_NAMES = new Set(['Edit', 'Write', 'MultiEdit', 'NotebookEdit'])
+/** n93: did these tool calls ("Write src/App.tsx", "Read ...") write or edit a file? */
+export function wroteThisTurn(toolLog: readonly string[]): boolean {
+  return toolLog.some((t) => WRITE_NAMES.has(t.split(' ')[0] ?? ''))
 }

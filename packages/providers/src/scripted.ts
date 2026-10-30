@@ -22,7 +22,13 @@ export interface ScriptedModel {
    * One codegen turn. Write files under `root` as the agent would, return the
    * agent's text reply.
    */
-  codegen?: (turn: { root: string; text: string; turn: number }) => string | Promise<string>
+  codegen?: (turn: {
+    root: string
+    text: string
+    turn: number
+    /** n93: report a tool call the way the agent's stream would ("Write", "src/App.tsx"): the watchdog sees it. */
+    tool?: (name: string, file?: string) => void
+  }) => string | Promise<string>
   /** Called with every call made, for the test to count and assert on. */
   onCall?: (kind: 'interpret' | 'codegen' | 'transcribe', detail: string) => void
 }

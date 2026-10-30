@@ -50,7 +50,7 @@ import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
 import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
-import { REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn } from './turn-watch.js'
+import { BUILD_AFTER_WRITE_MS, REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn, wroteThisTurn } from './turn-watch.js'
 import { areasBrief, cardsBrief, verifyCards, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
 import { tiltBrief, verifyTilts } from './tilt.js'
@@ -397,7 +397,10 @@ export async function runV2(
   }
   const stallMs = Number(process.env.S2C_STALL_MS) > 0 ? Number(process.env.S2C_STALL_MS) : STALL_MS
   const repairEditMs = Number(process.env.S2C_REPAIR_EDIT_MS) > 0 ? Number(process.env.S2C_REPAIR_EDIT_MS) : REPAIR_EDIT_MS
+  const afterWriteMs = Number(process.env.S2C_AFTER_WRITE_MS) > 0 ? Number(process.env.S2C_AFTER_WRITE_MS) : BUILD_AFTER_WRITE_MS
   let repairStalled: string | null = null
+  // n93: a build turn that wrote the page and then went quiet; the page on disk is kept and verified
+  let buildStalled: string | null = null
   let totalUsage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
 
   stage('safety', 'git checkpoint')
@@ -896,6 +899,8 @@ export async function runV2(
             lastActivity: kind === 'build' ? s.lastActivity() : s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs,
             // a repair is told the exact pixels: minutes of thought with no edit is a stall (n22)
             ...(kind === 'repair' ? { lastEdit: s.lastEdit(), editMs: repairEditMs } : {}),
+            // n93: once a build has written the page, only real progress keeps it going
+            ...(kind === 'build' ? { wrote: wroteThisTurn(s.toolLog().slice(t0)), lastProgress: s.lastProgress(), afterWriteMs } : {}),
           }),
           Math.min(5_000, Math.max(50, Math.floor(stallMs / 4))),
         )
@@ -982,7 +987,21 @@ export async function runV2(
         const brief = `${baseBrief}${instantNote}${scaffoldNote}${approach ? `${approach}\n\n` : ''}Implement every action now.`
         writeFileSync(join(runDir, `prompt-${tag}.txt`), brief)
         stage('codegen', 'Claude Code editing source')
-        saveReply(await metered('build', { text: brief, images }))
+        try {
+          saveReply(await metered('build', { text: brief, images }))
+        } catch (e) {
+          const live = session as CodegenSession | null
+          // a build that stalled before writing anything has nothing to keep
+          if (!(e instanceof TurnStalled) || !live || !wroteThisTurn(live.toolLog())) throw e
+          // n93: the page is written; stop the agent (no more edits can land) and verify what is on disk
+          buildStalled = e.why
+          stage('codegen', `build stopped: ${e.why}; keeping the page it wrote`)
+          totalUsage = addUsage(totalUsage, live.usage())
+          live.close()
+          await settleSession(live.closed)
+          // repairs, if any, get a fresh agent with the reading and actions
+          session = null
+        }
       } else {
         // the codemod wrote milliseconds ago; the client only waits 350ms after
         // the resnapshot event, which can beat Vite's watcher + HMR
@@ -1145,6 +1164,7 @@ export async function runV2(
     candidates,
     finishing: finishEdits,
     repairStalled,
+    buildStalled,
     ...(putBack ? { putBack } : {}),
   })
   const summary =
