@@ -1,0 +1,385 @@
+{
+  "round": 36,
+  "id": "c4-florist",
+  "version": 3,
+  "stopped": null,
+  "likeness": 79.2,
+  "colour": 0.9829796442540208,
+  "structure": 0.9452949748522063,
+  "layout": 0.8844996341696311,
+  "strokes": {
+    "count": 12,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 7,
+      "box": 2,
+      "dot": 3
+    },
+    "inkPx": 5326
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 31,
+  "notes": 5,
+  "longestNote": 10,
+  "noteTexts": [
+    "Petal, pink bold",
+    "Bouquets Weddings Subscriptions Contact",
+    "Fresh flowers, at your door by noon. huge bold",
+    "Seasonal bouquets cut every morning and delivered across the city.",
+    "Order a bouquet, white bold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 227,
+    "firstReadingS": 50,
+    "readS": [
+      23
+    ],
+    "buildS": [
+      175
+    ],
+    "sketchingS": 29
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 48481,
+    "cacheRead": 256529,
+    "output": 17064,
+    "billed": 65545
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#c24a7c",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 622
+    },
+    {
+      "op": "pen",
+      "color": "#2a2a2a",
+      "at": 994
+    },
+    {
+      "op": "stroke",
+      "at": 2467
+    },
+    {
+      "op": "pen",
+      "color": "#f5d6e2",
+      "at": 2834
+    },
+    {
+      "op": "stroke",
+      "at": 11205
+    },
+    {
+      "op": "pen",
+      "color": "#2a2a2a",
+      "at": 11567
+    },
+    {
+      "op": "stroke",
+      "at": 13318
+    },
+    {
+      "op": "stroke",
+      "at": 14768
+    },
+    {
+      "op": "stroke",
+      "at": 15668
+    },
+    {
+      "op": "pen",
+      "color": "#666666",
+      "at": 16030
+    },
+    {
+      "op": "stroke",
+      "at": 17667
+    },
+    {
+      "op": "stroke",
+      "at": 18469
+    },
+    {
+      "op": "pen",
+      "color": "#c24a7c",
+      "at": 18835
+    },
+    {
+      "op": "stroke",
+      "at": 20834
+    },
+    {
+      "op": "stroke",
+      "at": 21303
+    },
+    {
+      "op": "pen",
+      "color": "#f5d6e2",
+      "at": 21667
+    },
+    {
+      "op": "stroke",
+      "at": 22133
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 22500
+    },
+    {
+      "op": "stroke",
+      "at": 22974
+    },
+    {
+      "op": "note",
+      "at": 23619
+    },
+    {
+      "op": "note",
+      "at": 24294
+    },
+    {
+      "op": "note",
+      "at": 24985
+    },
+    {
+      "op": "note",
+      "at": 25726
+    },
+    {
+      "op": "note",
+      "at": 26385
+    },
+    {
+      "op": "run",
+      "at": 26514
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          80,
+          42
+        ],
+        [
+          133,
+          42
+        ]
+      ],
+      "n": 10,
+      "at": 622
+    },
+    {
+      "way": [
+        [
+          838,
+          44
+        ],
+        [
+          1200,
+          44
+        ]
+      ],
+      "n": 61,
+      "at": 2467
+    },
+    {
+      "way": [
+        [
+          2,
+          110
+        ],
+        [
+          640,
+          110
+        ],
+        [
+          640,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          110
+        ]
+      ],
+      "n": 475,
+      "at": 11205
+    },
+    {
+      "way": [
+        [
+          720,
+          290
+        ],
+        [
+          1180,
+          290
+        ]
+      ],
+      "n": 78,
+      "at": 13318
+    },
+    {
+      "way": [
+        [
+          720,
+          352
+        ],
+        [
+          1075,
+          352
+        ]
+      ],
+      "n": 60,
+      "at": 14768
+    },
+    {
+      "way": [
+        [
+          720,
+          415
+        ],
+        [
+          878,
+          415
+        ]
+      ],
+      "n": 27,
+      "at": 15668
+    },
+    {
+      "way": [
+        [
+          722,
+          453
+        ],
+        [
+          1137,
+          453
+        ]
+      ],
+      "n": 70,
+      "at": 17667
+    },
+    {
+      "way": [
+        [
+          722,
+          480
+        ],
+        [
+          841,
+          480
+        ]
+      ],
+      "n": 21,
+      "at": 18469
+    },
+    {
+      "way": [
+        [
+          722,
+          560
+        ],
+        [
+          942,
+          560
+        ],
+        [
+          942,
+          616
+        ],
+        [
+          722,
+          616
+        ],
+        [
+          722,
+          560
+        ]
+      ],
+      "n": 93,
+      "at": 20834
+    },
+    {
+      "way": [
+        [
+          832,
+          588
+        ]
+      ],
+      "n": 1,
+      "at": 21303
+    },
+    {
+      "way": [
+        [
+          320,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 22133
+    },
+    {
+      "way": [
+        [
+          1000,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 22974
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Petal, pink bold",
+      "whole": false,
+      "x": 106,
+      "y": 32,
+      "at": 23619
+    },
+    {
+      "text": "Bouquets Weddings Subscriptions Contact",
+      "whole": false,
+      "x": 1020,
+      "y": 34,
+      "at": 24294
+    },
+    {
+      "text": "Fresh flowers, at your door by noon. huge bold",
+      "whole": false,
+      "x": 950,
+      "y": 280,
+      "at": 24985
+    },
+    {
+      "text": "Seasonal bouquets cut every morning and delivered across the city.",
+      "whole": false,
+      "x": 930,
+      "y": 445,
+      "at": 25726
+    },
+    {
+      "text": "Order a bouquet, white bold",
+      "whole": false,
+      "x": 832,
+      "y": 588,
+      "at": 26385
+    }
+  ]
+}

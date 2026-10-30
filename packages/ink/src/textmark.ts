@@ -395,6 +395,10 @@ export const OWN_SENTENCE_WORDS = 6
 /** n55: a note this close (px) to two lines' distances counts as near both. */
 export const NOTE_TIE_PX = 6
 
+/** n88: average display glyph width in em, and how far typed words must overrun a line before it wraps. */
+export const COPY_CHAR_EM = 0.5
+export const COPY_OVERFLOW_SLACK = 1.25
+
 /** n33: centred display copy (a pull quote) may sit this close. */
 export const QUOTE_STACK_MIN_PITCH = 48
 
@@ -437,6 +441,11 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOp
     const theirs = nearOf(first)
     return mine.some((n) => !theirs.some((t) => t.x === n.x && t.y === n.y))
   }
+  // n88: the words typed on a line need more room than the line gives at this font size
+  const copyOverflows = (l: LineGeom, fontPx: number): boolean => nearOf(l).some((n) => {
+    const chars = (n.text ?? '').replace(/\s+/g, ' ').trim().length
+    return chars * COPY_CHAR_EM * fontPx > COPY_OVERFLOW_SLACK * (l.x1 - l.x0)
+  })
   const used = new Set<string>()
   const out: TextStack[] = []
   for (const first of ls) {
@@ -463,7 +472,13 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOp
       // built as 20px body text). Left-aligned lines this close stay rows of a list.
       const centredOnly = Math.abs((next.x0 + next.x1) / 2 - (first.x0 + first.x1) / 2) <= Math.max(24, 0.05 * w0) &&
         Math.abs(next.x0 - first.x0) > 40 && w0 >= 400
-      const minPitch = centredOnly ? QUOTE_STACK_MIN_PITCH : LINE_STACK_MIN_PITCH
+      // n88 (r36 c4): a heading set a little smaller (~56px, lines ~62px apart) is still one heading when the words
+      // typed on its first line cannot fit on it and the lines under it wrap shorter: "Fresh flowers, at your door
+      // by noon." on three lines 62px apart was read as three loose lines and built as one cut line. The lines under it
+      // must be bare (no words of their own): a column of short links, each with its note, stays apart
+      const overflowWrap = gap >= QUOTE_STACK_MIN_PITCH && gap < LINE_STACK_MIN_PITCH &&
+        wn <= (last.x1 - last.x0) * 1.05 && bare(next) && copyOverflows(first, gap / 1.1)
+      const minPitch = centredOnly || overflowWrap ? QUOTE_STACK_MIN_PITCH : LINE_STACK_MIN_PITCH
       // n44 (r32 c3): a paragraph's wrap line never starts a heading (the paragraph's second line and the
       // link 115px under it were read as a 105px heading)
       const firstHeld = stack.length === 1 && ls.some((o) => o !== first && o !== next && Math.abs(o.cy - first.cy) < 0.5 * gap &&
@@ -487,13 +502,18 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOp
     const pitch = stack[1]!.cy - stack[0]!.cy
     const after = ls.find((l) => !stack.includes(l) && Math.abs(l.cy - stack[stack.length - 1]!.cy - pitch) <= 0.25 * pitch &&
       Math.abs(l.x0 - first.x0) <= Math.max(40, 0.15 * w0) &&
-      l.x1 - l.x0 <= 1.15 * w0) // n41: a longer line under a heading is its subtitle, not a list's next row
+      l.x1 - l.x0 <= 1.15 * w0 && // n41: a longer line under a heading is its subtitle, not a list's next row
+      // n88 (r36 c4): a paragraph's wrap line under a heading is held tight by its first line: not a list's fourth row
+      !ls.some((o) => o !== l && !stack.includes(o) && Math.abs(o.cy - l.cy) >= 8 && Math.abs(o.cy - l.cy) < 0.5 * pitch &&
+        Math.min(o.x1, l.x1) > Math.max(o.x0, l.x0)))
     if (stack.length === 3 && after) continue
     for (const l of stack) used.add(l.id)
     const gaps = stack.slice(1).map((l, i) => l.cy - stack[i]!.cy).sort((a, b) => a - b)
     const p = gaps[Math.floor(gaps.length / 2)]!
     const x0 = Math.min(...stack.map((l) => l.x0))
     const x1 = Math.max(...stack.map((l) => l.x1))
+    const leftHeading = stack.every((l) => Math.abs(l.x0 - first.x0) <= Math.max(40, 0.15 * w0)) &&
+      !(Math.abs((stack[1]!.x0 + stack[1]!.x1) / 2 - (first.x0 + first.x1) / 2) <= Math.max(24, 0.05 * w0) && Math.abs(stack[1]!.x0 - first.x0) > 40)
     // n40: a level line drawn for a big heading line sits low on its letters. Of six hand-drawn
     // heading stacks (rounds 1, 31, 32) four were drawn on the baseline and two through the middle,
     // so centring the line box on the line built the letters about half a line low (r32 c1: NORTH's
@@ -506,7 +526,8 @@ function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOp
       box: { x: Math.round(x0), y: Math.round(stack[0]!.cy - p / 2 - lift), w: Math.round(x1 - x0), h: Math.round(p * stack.length) },
       linePitchPx: Math.round(p),
       // a centred statement under the heading band sets at about 1.3 line-height
-      fontPx: p < LINE_STACK_MIN_PITCH ? Math.round(p / 1.3) : fontForPitch(p),
+      // (n88: a left-aligned heading let in under the usual pitch by its overflowing words is heading type)
+      fontPx: p < LINE_STACK_MIN_PITCH && !leftHeading ? Math.round(p / 1.3) : fontForPitch(p),
       lineWidths: stack.map((l) => Math.round(l.x1 - l.x0)),
     })
   }

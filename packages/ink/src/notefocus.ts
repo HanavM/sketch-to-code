@@ -6,10 +6,13 @@
  * see bound is what the build is told.
  */
 import type { BBox, Stroke } from './types.js'
-import { isLevelLine, isTextMark, textStacks, type StackOpts } from './textmark.js'
+import { COPY_CHAR_EM, COPY_OVERFLOW_SLACK, isLevelLine, isTextMark, textStacks, type StackOpts } from './textmark.js'
 
 /** A text stack at least this big (font px) is one display heading for note focus. */
 export const GIANT_STACK_PX = 60
+
+/** n88: a stack this big (font px) or more is heading type: a note whose words overflow its line covers the stack. */
+export const STACK_COPY_MIN_FONT_PX = 28
 
 /** How far past the nearest stroke a stroke can sit and still be "right here". */
 export const NOTE_FOCUS_SLACK_PX = 24
@@ -131,6 +134,12 @@ export function noteFocus(
         focus = ids.filter((id) => focus.includes(id) || st.strokes.includes(id))
       }
     }
+  }
+  // n88: a note typed on one line of a heading-sized stack whose words cannot fit on the line(s) it landed on is
+  // about the whole stack: the copy wraps onto the lines drawn under it (see overflowStack).
+  if (focus.length > 0 && text) {
+    const more = overflowStack(strokes.filter((x) => ids.includes(x.id)), focus, text, stackOpts)
+    if (more.length) focus = ids.filter((id) => focus.includes(id) || more.includes(id))
   }
   // A note on the first line of a paragraph is about its wrap lines too: level lines
   // stepped tightly under it (under PARA_PITCH_PX), overlapping it and no longer than it.
@@ -534,3 +543,28 @@ export function stackJoin(a: string, b: string, stacks: Map<string, string[]>, i
 /** A stroke that says "a line of text goes here": a level line or a text squiggle (n40). */
 export const isTextLine = (points: Array<{ x: number; y: number }>): boolean =>
   points.length > 1 && (isLevelLine(points as Stroke['points']) || isTextMark(points as Stroke['points']))
+
+/**
+ * n88: the other lines of a heading-sized stack that a note's words need. Round 36 c4 (florist): "Fresh flowers,
+ * at your door by noon." typed on line 1 of three ~62px-pitched lines (font ~57px, under the giant-stack size)
+ * bound that line only, and the heading was built as one small cut line. When the typed words cannot fit on the
+ * stack lines the note already has (about COPY_CHAR_EM of the font per character, with slack), the note is about
+ * the whole stack. A title over a section heading, or a column of short links, keeps its own line: the words fit.
+ * Returns the stack's stroke ids not already in `have` (empty when nothing changes).
+ */
+export function overflowStack(
+  strokes: Array<{ id: string; points: Array<{ x: number; y: number }> }>,
+  have: string[], text: string, stackOpts: StackOpts = {},
+): string[] {
+  const chars = text.replace(/\s+/g, ' ').trim().length
+  if (!chars || have.length === 0) return []
+  const usable = strokes.filter((x) => x.points.length > 1) as Stroke[]
+  for (const st of textStacks(usable, stackOpts)) {
+    if (st.lines < 2 || st.fontPx < STACK_COPY_MIN_FONT_PX || !st.lineWidths) continue
+    const on = st.strokes.map((id, i) => (have.includes(id) ? (st.lineWidths![i] ?? 0) : -1)).filter((w) => w >= 0)
+    if (on.length === 0 || on.length === st.lines) continue
+    const room = on.reduce((a, b) => a + b, 0)
+    if (chars * COPY_CHAR_EM * st.fontPx > COPY_OVERFLOW_SLACK * room) return st.strokes.filter((id) => !have.includes(id))
+  }
+  return []
+}

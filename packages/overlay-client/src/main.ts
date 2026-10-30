@@ -7,7 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
-import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, rowSeed } from '@s2c/ink/notefocus'
+import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
 import { inkFills, isFillDot, pageFill, markFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
@@ -7670,6 +7670,16 @@ class Overlay {
       if (seed) {
         const group = this.clusterFrom(seed, d.at)
         d.anchor = { kind: 'strokes', strokeIds: group.map((s) => s.id) }
+        this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
+      }
+    }
+    // n88: words typed on a heading's first line that cannot fit on it wrap onto the stack's other lines (round 36
+    // c4: "Fresh flowers, at your door by noon." on three lines 62px apart bound line 1 only, built as one cut line)
+    if (!existing && d.anchor.kind === 'strokes') {
+      const marks = this.strokes.filter((st) => !isFillDot(st))
+      const more = overflowStack(marks, d.anchor.strokeIds, text, { notesAt: [...this.notesOnSketch(), { ...d.at, text }] })
+      if (more.length) {
+        d.anchor = { ...d.anchor, strokeIds: [...d.anchor.strokeIds, ...more] }
         this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
       }
     }
