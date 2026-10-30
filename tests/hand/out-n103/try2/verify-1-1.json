@@ -1,0 +1,542 @@
+[
+  {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <aside> at (0,0) 300x900 matches the sketch region",
+      "bestCandidate": {
+        "tag": "aside",
+        "srcLoc": "src/App.tsx:65:7",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 300,
+          "h": 900
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (31,208) 39x39: the <span> built for it sits 18px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).; the box drawn at (30,272) 40x39: the <span> built for it sits 14px too low, but only because the <span> drawn at (31,208) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.; the box drawn at (30,336) 40x38: the <span> built for it lands now, but its place hangs on the <span> drawn at (30,272), which is 14px too low. When that one moves this one moves with it, so keep this one at its drawn top (336px): change the gap above it by the same amount the other way.; the box drawn at (30,399) 40x39: the <span> built for it lands now, but its place hangs on the <span> drawn at (30,272), which is 14px too low. When that one moves this one moves with it, so keep this one at its drawn top (399px): change the gap above it by the same amount the other way.",
+      "marks": [
+        {
+          "strokeId": "s0",
+          "drawn": {
+            "x": 1,
+            "y": 1,
+            "w": 300,
+            "h": 897
+          },
+          "built": {
+            "x": 0,
+            "y": 0,
+            "w": 300,
+            "h": 900
+          },
+          "dx": -1,
+          "dy": 1
+        },
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 20,
+            "y": 68,
+            "w": 259,
+            "h": 41
+          },
+          "built": {
+            "x": 20,
+            "y": 76,
+            "w": 260,
+            "h": 41
+          },
+          "dx": 1,
+          "dy": 8
+        },
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 19,
+            "y": 130,
+            "w": 260,
+            "h": 66
+          },
+          "built": {
+            "x": 20,
+            "y": 133,
+            "w": 260,
+            "h": 68
+          },
+          "dx": 1,
+          "dy": 4
+        },
+        {
+          "strokeId": "s6",
+          "drawn": {
+            "x": 31,
+            "y": 208,
+            "w": 39,
+            "h": 39
+          },
+          "built": {
+            "x": 20,
+            "y": 225,
+            "w": 40,
+            "h": 40
+          },
+          "dx": -10,
+          "dy": 18
+        },
+        {
+          "strokeId": "s7",
+          "drawn": {
+            "x": 30,
+            "y": 272,
+            "w": 40,
+            "h": 39
+          },
+          "built": {
+            "x": 20,
+            "y": 285,
+            "w": 40,
+            "h": 40
+          },
+          "dx": -10,
+          "dy": 14
+        },
+        {
+          "strokeId": "s8",
+          "drawn": {
+            "x": 30,
+            "y": 336,
+            "w": 40,
+            "h": 38
+          },
+          "built": {
+            "x": 20,
+            "y": 345,
+            "w": 40,
+            "h": 40
+          },
+          "dx": -10,
+          "dy": 10
+        },
+        {
+          "strokeId": "s9",
+          "drawn": {
+            "x": 30,
+            "y": 399,
+            "w": 40,
+            "h": 39
+          },
+          "built": {
+            "x": 20,
+            "y": 405,
+            "w": 40,
+            "h": 40
+          },
+          "dx": -10,
+          "dy": 7
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f5f3ff is on the page (ΔE 0.0)"
+  },
+  {
+    "kind": "design",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (0,0) 300x76 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:66:9",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 300,
+          "h": 76
+        }
+      }
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": false,
+    "nearest": 35,
+    "reason": "nothing near the drawing is the colour that was drawn (#e5e7eb); closest is ΔE 35.0 away"
+  },
+  {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+      "bestCandidate": {
+        "tag": "main",
+        "srcLoc": "src/App.tsx:64:5",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 900
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (344,534) 291x162: the <div> built for it sits 50px too high and 57px too far left; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).; the box drawn at (340,129) 451x52 spans x 340 to 791; the <p> built for it spans 348 to 766: make it exactly 451px wide from x 340 (an exact px width with box-sizing: border-box, not a max-w class or page padding that rounds it), keeping what is inside it; the box drawn at (339,329) 362x51 spans x 339 to 701; the <p> built for it spans 348 to 696: make it exactly 362px wide from x 339 (an exact px width with box-sizing: border-box, not a max-w class or page padding that rounds it), keeping what is inside it",
+      "marks": [
+        {
+          "strokeId": "s12",
+          "drawn": {
+            "x": 340,
+            "y": 129,
+            "w": 451,
+            "h": 52
+          },
+          "built": {
+            "x": 348,
+            "y": 125,
+            "w": 418,
+            "h": 48
+          },
+          "dx": -8,
+          "dy": -6
+        },
+        {
+          "strokeId": "s13",
+          "drawn": {
+            "x": 865,
+            "y": 219,
+            "w": 375,
+            "h": 52
+          },
+          "built": {
+            "x": 868,
+            "y": 201,
+            "w": 380,
+            "h": 72
+          },
+          "dx": 6,
+          "dy": -8
+        },
+        {
+          "strokeId": "s17",
+          "drawn": {
+            "x": 339,
+            "y": 329,
+            "w": 362,
+            "h": 51
+          },
+          "built": {
+            "x": 348,
+            "y": 321,
+            "w": 348,
+            "h": 48
+          },
+          "dx": 2,
+          "dy": -9
+        },
+        {
+          "strokeId": "s14",
+          "drawn": {
+            "x": 1033,
+            "y": 419,
+            "w": 208,
+            "h": 52
+          },
+          "built": {
+            "x": 1028,
+            "y": 397,
+            "w": 220,
+            "h": 72
+          },
+          "dx": 1,
+          "dy": -12
+        },
+        {
+          "strokeId": "s15",
+          "drawn": {
+            "x": 344,
+            "y": 534,
+            "w": 291,
+            "h": 162
+          },
+          "built": {
+            "x": 332,
+            "y": 485,
+            "w": 200,
+            "h": 160
+          },
+          "dx": -57,
+          "dy": -50
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#eef0f4 is on the page (ΔE 0.0)"
+  },
+  {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <footer> at (300,836) 980x64 matches the sketch region",
+      "bestCandidate": {
+        "tag": "footer",
+        "srcLoc": "src/App.tsx:124:9",
+        "rect": {
+          "x": 300,
+          "y": 836,
+          "w": 980,
+          "h": 64
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (330,799) 911x61: the <footer> built for it sits 39px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <div> drawn at (344,534) above it; once that one is fixed this one is still 89px too low and 62px too far right, so change only the spacing between them by that much.",
+      "marks": [
+        {
+          "strokeId": "s16",
+          "drawn": {
+            "x": 330,
+            "y": 799,
+            "w": 911,
+            "h": 61
+          },
+          "built": {
+            "x": 300,
+            "y": 836,
+            "w": 980,
+            "h": 64
+          },
+          "dx": 5,
+          "dy": 39
+        }
+      ]
+    }
+  },
+  {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#dddddd is on the page (ΔE 0.0)"
+  },
+  {
+    "kind": "cards",
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 card built as panels at the drawn edges"
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "13 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "clear",
+    "verdict": {
+      "satisfied": true,
+      "reason": "no words sit on a form field"
+    }
+  },
+  {
+    "kind": "own-words",
+    "verdict": {
+      "satisfied": true,
+      "reason": "only typed words, none on top of each other",
+      "invented": [],
+      "overlaps": []
+    }
+  },
+  {
+    "kind": "typed-times",
+    "verdict": {
+      "satisfied": true,
+      "reason": "3 typed times shown as typed"
+    }
+  },
+  {
+    "kind": "directions",
+    "verdict": {
+      "satisfied": false,
+      "reason": "\"Copy is final. Can someone check the pricing page on mobile?\" (a direction of the note \"Mia · 2:14 pm above; Copy is final. Can someone check the pricing page on mobile?\") is printed on the page; \"Android is good too. One typo in the footer, fixed.\" (a direction of the note \"Ravi · 2:20 pm above; Android is good too. One typo in the footer, fixed.\") is printed on the page: remove that text (it is how the note asked the item to look or behave, not copy), keep the item's own words and apply what it asked; change nothing else"
+    }
+  },
+  {
+    "kind": "row-data",
+    "verdict": {
+      "satisfied": false,
+      "reason": "\"Mia · 2:14 pm above\" runs cells of the row \"Mia · 2:14 pm above\" together in one piece of text: make each cell its own element (name, details, side value as typed), no separators; the typed rows starting \"New logo is up, Ravi Patel\", \"sounds good, #support\", \"3 new tickets, Lena Ortiz\" are not on the page: fill the drawn rows with every typed row, in order; \"Mia · 2:31 pm above\" runs cells of the row \"Mia · 2:31 pm above\" together in one piece of text: make each cell its own element (name, details, side value as typed), no separators; \"Ravi · 2:20 pm above\" runs cells of the row \"Ravi · 2:20 pm above\" together in one piece of text: make each cell its own element (name, details, side value as typed), no separators; change nothing else"
+    }
+  },
+  {
+    "kind": "text-rules",
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 line drawn for words built as words, no rules"
+    }
+  },
+  {
+    "kind": "drawn-order",
+    "verdict": {
+      "satisfied": true,
+      "reason": "6 marks drawn one under another built in the drawn order, each near its drawn height"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": false,
+      "reason": "action 1: the line drawn at (300,76) 978x0 was coloured #e5e7eb (text colour); what was built there is ΔE 26 away: paint its text exactly #e5e7eb",
+      "checks": [
+        {
+          "what": "the box drawn at (1,1) 300x897 (flat panel)",
+          "want": "square corners, no shadow, no gradient",
+          "best": null,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (1,1) 300x897",
+          "want": "#f5f3ff",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the line drawn at (20,37) 90x0",
+          "want": "#1f2937",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (20,68) 259x41",
+          "want": "#dddddd",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (19,130) 260x66",
+          "want": "#6d28d9",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (31,208) 39x39",
+          "want": "#fcd34d",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (30,272) 40x39",
+          "want": "#6ee7b7",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (30,336) 40x38",
+          "want": "#fca5a5",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (30,399) 40x39",
+          "want": "#93c5fd",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the line drawn at (300,76) 978x0",
+          "want": "#e5e7eb",
+          "best": 26.27671132291932,
+          "ok": false
+        },
+        {
+          "what": "the line drawn at (332,38) 154x0",
+          "want": "#1f2937",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (340,129) 451x52",
+          "want": "#eef0f4",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (865,219) 375x52",
+          "want": "#6d28d9",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (339,329) 362x51",
+          "want": "#eef0f4",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (1033,419) 208x52",
+          "want": "#6d28d9",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (344,534) 291x162",
+          "want": "#c4b5fd",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        },
+        {
+          "what": "the box drawn at (330,799) 911x61",
+          "want": "#dddddd",
+          "best": 0,
+          "ok": true,
+          "strength": 1
+        }
+      ]
+    }
+  }
+]
