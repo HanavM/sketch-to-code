@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T12:50Z | n111 copy with dots or a number stays as typed | Reserve label and title-plus-details lines right; job board 59.1 to 61.3; hotel 69.4.
 2026-10-30T12:55Z | n78 grey-pen box is an outline | Grey-pen boxes built as thin grey frames, checked; hotel 31.6 to 73.7, job board 40.0 to 59.1.
 2026-10-30T11:45Z | n108 sketch round 38 e1-e5 by hand | Hotel 31.6, contacts 78.8, budget 33.6, jobs 40.0, call 91.2; round 38 mean 65.0, 47.5 words.
 2026-10-30T11:40Z | n110 strokes starting on the toolbar draw | Control row drawn through the bar, no button fired; e2e 3 of 3; call 91.2.
