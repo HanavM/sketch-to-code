@@ -50,6 +50,34 @@ const LEAD = new RegExp(`^\\s*(?:${NUMW}\\s+)?(?:rows?|items?|entries|lines?)\\s
 
 const clean = (s: string) => s.replace(/\s+/g, ' ').trim()
 
+/**
+ * n105: name / preview pairs split by commas. A sidebar note typed the short way, "#design / New logo is up,
+ * Ravi Patel / sounds good, #support / 3 new tickets", is rows of (name / preview) joined by ", ": split at
+ * slashes it gives "#design", "New logo is up, Ravi Patel", "sounds good, #support", "3 new tickets", so every
+ * inner piece holds one row's preview and the next row's name. Read that way it is one row per pair, the name
+ * and its preview as cells (the name first, the preview under it). Needs 3+ pieces, a comma in every inner
+ * piece and none in the outer two; otherwise null (rows split by slashes as before).
+ */
+function pairRows(parts: string[]): string[] | null {
+  if (parts.length < 3) return null
+  const inner = parts.slice(1, -1)
+  const outer = [parts[0]!, parts[parts.length - 1]!]
+  if (outer.some((p) => /,\s/.test(p) || /[·•|]/.test(p))) return null
+  if (!inner.every((p) => /,\s+\S/.test(p) && !/[·•|]/.test(p))) return null
+  const out: string[] = []
+  let name = parts[0]!.trim()
+  for (const p of inner) {
+    const k = p.lastIndexOf(',')
+    const preview = p.slice(0, k).trim(), next = p.slice(k + 1).trim()
+    // the next name is short (a person, a channel, a title): a long tail means the commas are inside the copy
+    if (!preview || !next || next.split(/\s+/).length > 4) return null
+    out.push(`${name} · ${preview}`)
+    name = next
+  }
+  out.push(`${name} · ${parts[parts.length - 1]!.trim()}`)
+  return out
+}
+
 /** The rows a note gives, or null when it gives none. */
 export function rowData(note: string): RowData | null {
   let text = note
@@ -68,7 +96,7 @@ export function rowData(note: string): RowData | null {
   // n104: a dotted label placed by a position word ("Mia · 2:14 pm above; message") is a label over its item, no row of data
   if (!slashRows && noteParts(text).place) return null
   const body = slashRows ? text : noteParts(text).copy
-  const rows = (slashRows ? body.split(ROWSEP) : [body]).map((r) => {
+  const rows = (slashRows ? pairRows(body.split(ROWSEP)) ?? body.split(ROWSEP) : [body]).map((r) => {
     const copy = slashRows ? noteParts(r).copy : r
     const cs = copy.split(CELL).map(clean).filter(Boolean)
     // a dotted row's last cell ends at ", ": what follows says how the row looks ("teal Refill"), it is no cell
