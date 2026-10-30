@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Job board</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f9fafb;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;position:relative}
+header{position:absolute;left:0;top:0;width:1280px;height:70px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 48px;gap:40px;font-size:15px}
+header b{font-size:21px;color:#0f766e}.q{width:520px;height:42px;border:1px solid #d1d5db;border-radius:8px;padding:0 16px;display:flex;align-items:center;color:#9ca3af}
+.filters{position:absolute;left:48px;top:100px;width:260px;height:760px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;font-size:15px}
+.filters b{display:block;font-size:14px;color:#6b7280;margin:22px 0 10px}.filters b:first-child{margin-top:0}
+.cb{display:flex;align-items:center;gap:10px;padding:7px 0}.cb i{width:18px;height:18px;border:2px solid #9ca3af;border-radius:4px}.cb i.on{background:#0f766e;border-color:#0f766e}
+.jobs{position:absolute;left:340px;top:100px;width:892px}
+.n{font-size:15px;color:#6b7280;margin-bottom:14px}
+.job{height:128px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;margin-bottom:16px;display:flex;align-items:center;padding:0 26px;gap:22px}
+.logo{width:60px;height:60px;border-radius:12px;background:#ccfbf1}.job div b{font-size:18px;display:block}.job div span{font-size:14px;color:#6b7280;display:block;margin-top:6px}
+.tag{margin-left:auto;padding:8px 14px;border-radius:16px;background:#f0fdfa;color:#0f766e;font-size:13px;font-weight:700}.apply{width:110px;height:42px;border-radius:8px;background:#0f766e;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<header data-r="header"><b>hirewell</b><div class="q" data-r="search">Search jobs, e.g. designer</div></header>
+<div class="filters" data-r="filters" data-must><b>Job type</b><div class="cb"><i class="on"></i>Full time</div><div class="cb"><i></i>Part time</div><div class="cb"><i class="on"></i>Remote</div>
+<b>Level</b><div class="cb"><i></i>Junior</div><div class="cb"><i class="on"></i>Mid</div><div class="cb"><i></i>Senior</div>
+<b>Salary</b><div class="cb"><i></i>$60k+</div><div class="cb"><i class="on"></i>$90k+</div><div class="cb"><i></i>$120k+</div></div>
+<div class="jobs" data-r="job-list" data-must><div class="n">128 jobs</div>
+<div class="job"><i class="logo"></i><div><b>Product designer</b><span>Fernway · Remote · $95k</span></div><span class="tag">New</span><div class="apply">Apply</div></div>
+<div class="job"><i class="logo" style="background:#fde68a"></i><div><b>Frontend engineer</b><span>Copperleaf · Berlin · $105k</span></div><span class="tag">Remote ok</span><div class="apply">Apply</div></div>
+<div class="job"><i class="logo" style="background:#ddd6fe"></i><div><b>Content writer</b><span>Northbeam · Remote · $70k</span></div><span class="tag">Part time</span><div class="apply">Apply</div></div>
+<div class="job"><i class="logo" style="background:#fecaca"></i><div><b>Data analyst</b><span>Tidewell · London · $90k</span></div><span class="tag">New</span><div class="apply">Apply</div></div>
+<div class="job"><i class="logo" style="background:#bfdbfe"></i><div><b>Support lead</b><span>Quillo · Remote · $80k</span></div><span class="tag">Urgent</span><div class="apply">Apply</div></div>
+</div>
+</body></html>

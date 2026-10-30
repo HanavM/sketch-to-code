@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Hotel booking</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2937;overflow:hidden;position:relative}
+header{position:absolute;left:0;top:0;width:1280px;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;border-bottom:1px solid #e5e7eb;font-size:15px}
+header b{font-size:22px;color:#be185d}
+.search{position:absolute;left:56px;top:100px;width:1168px;height:76px;border:1px solid #d1d5db;border-radius:38px;display:flex;align-items:center;padding:0 10px 0 36px;font-size:15px}
+.f{flex:1;border-right:1px solid #e5e7eb}.f:nth-child(3){border:none}.f small{display:block;font-size:12px;font-weight:700;color:#6b7280}
+.go{width:150px;height:56px;border-radius:28px;background:#be185d;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.count{position:absolute;left:56px;top:210px;font-size:20px;font-weight:700}
+.room{position:absolute;left:56px;width:720px;height:190px;border:1px solid #e5e7eb;border-radius:16px;display:flex;overflow:hidden}
+.room i{width:250px;height:100%;background:#fbcfe8}.room div{padding:22px 26px;flex:1;position:relative}.room b{font-size:20px;display:block}.room span{display:block;margin-top:8px;color:#6b7280;font-size:14px}.room em{position:absolute;right:26px;bottom:22px;font-style:normal;font-weight:800;font-size:22px}
+.cal{position:absolute;left:816px;top:250px;width:408px;height:600px;border:1px solid #e5e7eb;border-radius:16px;padding:26px}
+.cal b{font-size:18px}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:20px;text-align:center;font-size:14px}
+.d{height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%}.d.s{background:#be185d;color:#fff;font-weight:700}.d.r{background:#fce7f3;border-radius:0}
+.sum{position:absolute;left:26px;bottom:26px;width:356px;height:56px;border-radius:12px;background:#111827;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<header data-r="header"><b>staylo</b><span>Sign in</span></header>
+<div class="search" data-r="search" data-must><div class="f"><small>WHERE</small>Lisbon</div><div class="f"><small>DATES</small>Nov 12 – 16</div><div class="f"><small>GUESTS</small>2 adults</div><div class="go">Search</div></div>
+<div class="count" data-r="count">3 rooms available</div>
+<div class="room" data-r="room" data-must style="top:250px"><i></i><div><b>Garden double</b><span>Queen bed · courtyard view</span><em>$140</em></div></div>
+<div class="room" style="top:460px"><i style="background:#ddd6fe"></i><div><b>River suite</b><span>King bed · balcony</span><em>$230</em></div></div>
+<div class="room" style="top:670px"><i style="background:#bbf7d0"></i><div><b>Twin room</b><span>Two singles · quiet side</span><em>$120</em></div></div>
+<div class="cal" data-r="calendar" data-must><b>November 2026</b><div class="days">
+<div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
+<div class="d"></div><div class="d"></div><div class="d"></div><div class="d"></div><div class="d"></div><div class="d"></div><div class="d">1</div>
+<div class="d">2</div><div class="d">3</div><div class="d">4</div><div class="d">5</div><div class="d">6</div><div class="d">7</div><div class="d">8</div>
+<div class="d">9</div><div class="d">10</div><div class="d">11</div><div class="d s">12</div><div class="d r">13</div><div class="d r">14</div><div class="d r">15</div>
+<div class="d s">16</div><div class="d">17</div><div class="d">18</div><div class="d">19</div><div class="d">20</div><div class="d">21</div><div class="d">22</div>
+<div class="d">23</div><div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div><div class="d">28</div><div class="d">29</div>
+</div><div class="sum" data-r="reserve">Reserve · 4 nights</div></div>
+</body></html>

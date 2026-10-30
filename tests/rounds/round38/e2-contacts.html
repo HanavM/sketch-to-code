@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Contacts</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f8fafc;font-family:Helvetica,Arial,sans-serif;color:#0f172a;overflow:hidden;position:relative}
+.side{position:absolute;left:0;top:0;width:220px;height:900px;background:#0f172a;color:#cbd5e1;padding:30px 24px;font-size:15px}
+.side b{color:#fff;font-size:20px;display:block;margin-bottom:36px}.side div{padding:12px 14px;border-radius:8px;margin-bottom:4px}.side .on{background:#1e293b;color:#fff}
+.top{position:absolute;left:260px;top:34px;font-size:26px;font-weight:800}
+.add{position:absolute;left:720px;top:28px;width:150px;height:44px;border-radius:8px;background:#4f46e5;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.list{position:absolute;left:260px;top:100px;width:610px;height:760px;background:#fff;border:1px solid #e2e8f0;border-radius:12px}
+.row{display:flex;align-items:center;gap:16px;height:72px;padding:0 22px;border-bottom:1px solid #f1f5f9;font-size:15px}.row.sel{background:#eef2ff}
+.av{width:40px;height:40px;border-radius:50%;background:#c7d2fe}.row span{color:#64748b;margin-left:auto;font-size:14px}
+.detail{position:absolute;left:900px;top:100px;width:340px;height:760px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:34px 30px;text-align:center}
+.big{width:110px;height:110px;border-radius:50%;background:#a5b4fc;margin:0 auto}.detail h2{margin-top:20px;font-size:22px}.detail p{color:#64748b;margin-top:6px;font-size:15px}
+.kv{text-align:left;margin-top:34px;font-size:15px}.kv div{padding:14px 0;border-top:1px solid #f1f5f9}.kv small{display:block;color:#64748b;font-size:12px;margin-bottom:4px}
+.btns{display:flex;gap:12px;margin-top:26px}.btns div{flex:1;height:44px;border-radius:8px;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><b>Ledgerly</b><div>Dashboard</div><div class="on">Contacts</div><div>Deals</div><div>Reports</div></div>
+<div class="top" data-r="title">Contacts</div><div class="add" data-r="add">+ New contact</div>
+<div class="list" data-r="contact-list" data-must>
+<div class="row"><i class="av"></i>Amara Okafor<span>Northwind</span></div><div class="row sel"><i class="av"></i>Ben Hollis<span>Acme Co</span></div><div class="row"><i class="av"></i>Chen Wei<span>Blue Fin</span></div><div class="row"><i class="av"></i>Dana Price<span>Lumen</span></div><div class="row"><i class="av"></i>Elif Kaya<span>Orbit Labs</span></div><div class="row"><i class="av"></i>Felix Grant<span>Acme Co</span></div><div class="row"><i class="av"></i>Gina Ruiz<span>Tandem</span></div><div class="row"><i class="av"></i>Hugo Lind<span>Northwind</span></div><div class="row"><i class="av"></i>Isla Moore<span>Pebble</span></div><div class="row"><i class="av"></i>Jon Abe<span>Lumen</span></div></div>
+<div class="detail" data-r="detail" data-must><div class="big"></div><h2>Ben Hollis</h2><p>Head of buying, Acme Co</p>
+<div class="kv"><div><small>Email</small>ben@acme.co</div><div><small>Phone</small>+1 415 555 0182</div><div><small>Last contact</small>Oct 27, call</div></div>
+<div class="btns"><div>Email</div><div>Call</div></div></div>
+</body></html>

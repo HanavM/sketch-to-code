@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Budget</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fffbeb;font-family:Helvetica,Arial,sans-serif;color:#1c1917;overflow:hidden;position:relative}
+header{position:absolute;left:0;top:0;width:1280px;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;font-size:15px}
+header b{font-size:22px}
+h1{position:absolute;left:60px;top:110px;font-size:32px}
+.month{position:absolute;left:60px;top:160px;font-size:16px;color:#78716c}
+.donut{position:absolute;left:100px;top:240px;width:340px;height:340px;border-radius:50%;background:conic-gradient(#f97316 0 40%,#0d9488 40% 65%,#6366f1 65% 85%,#e7e5e4 85% 100%)}
+.hole{position:absolute;left:70px;top:70px;width:200px;height:200px;border-radius:50%;background:#fffbeb;display:flex;flex-direction:column;align-items:center;justify-content:center}.hole b{font-size:36px}.hole span{font-size:14px;color:#78716c}
+.legend{position:absolute;left:100px;top:640px;width:380px;font-size:15px}.legend div{display:flex;align-items:center;gap:12px;padding:8px 0}.legend i{width:14px;height:14px;border-radius:4px}.legend span{margin-left:auto;font-weight:700}
+.cats{position:absolute;left:560px;top:110px;width:660px;height:740px;background:#fff;border-radius:18px;padding:34px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.cats b{font-size:20px}.cat{margin-top:30px}.cat div{display:flex;justify-content:space-between;font-size:16px;font-weight:600}.cat small{color:#78716c;font-weight:400}
+.bar{height:12px;background:#f5f5f4;border-radius:6px;margin-top:10px}.bar i{display:block;height:12px;border-radius:6px}
+</style></head><body>
+<header data-r="header"><b>pocket</b><span>October ▾</span></header>
+<h1 data-r="title">Spending</h1><div class="month" data-r="month">October 2026</div>
+<div class="donut" data-r="donut" data-must><div class="hole"><b>$2,340</b><span>of $2,800</span></div></div>
+<div class="legend" data-r="legend"><div><i style="background:#f97316"></i>Rent<span>$1,120</span></div><div><i style="background:#0d9488"></i>Food<span>$700</span></div><div><i style="background:#6366f1"></i>Travel<span>$520</span></div></div>
+<div class="cats" data-r="categories" data-must><b>Categories</b>
+<div class="cat"><div>Rent<small>$1,120 of $1,120</small></div><div class="bar"><i style="width:100%;background:#f97316"></i></div></div>
+<div class="cat"><div>Food<small>$700 of $800</small></div><div class="bar"><i style="width:87%;background:#0d9488"></i></div></div>
+<div class="cat"><div>Travel<small>$520 of $400</small></div><div class="bar"><i style="width:100%;background:#dc2626"></i></div></div>
+<div class="cat"><div>Fun<small>$0 of $300</small></div><div class="bar"><i style="width:0"></i></div></div>
+<div class="cat"><div>Savings<small>$460 of $500</small></div><div class="bar"><i style="width:92%;background:#6366f1"></i></div></div>
+<div class="cat"><div>Bills<small>$150 of $180</small></div><div class="bar"><i style="width:83%;background:#a8a29e"></i></div></div>
+</div>
+</body></html>
