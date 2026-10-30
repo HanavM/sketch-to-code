@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T06:45Z | n72 a fix reads the words typed earlier | Rows kept typed copy, none invented, both tries; team chat 37.8, 25.0 from first-build layout.
 2026-10-30T05:45Z | n102 a fix note about a set reaches every member | Bubbles kept words, all rows filled, nothing copied; team chat 60.6, row copy made up.
 2026-10-30T04:25Z | n100 numbers among words are copy, not stat cards | Events and bubbles built as text first build; calendar 69.0 with fixes (was 64.5); set-fix brief reverted.
 2026-10-30T03:45Z | n98 sketch round 37 e1-e5 by hand | Calendar 64.5, files 74.9, tracking 62.7, chat 83.1, sales 94.7; round 37 mean 76.3, 67.5 words.
