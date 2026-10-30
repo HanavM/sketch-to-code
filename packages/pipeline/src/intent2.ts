@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { inkOutlineBox } from './inkcolour.js'
+import { inkGreyOutline, inkOutlineBox } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -844,6 +844,8 @@ export interface InkColour {
   split?: { colors: [string, string]; css: string; sides: [Array<{ x: number; y: number }>, Array<{ x: number; y: number }>]; dividerId: string; line: { a: { x: number; y: number }; z: { x: number; y: number } } }
   /** n91: lines ruled across the box cut it into bands; only the tapped bands are filled (top to bottom, color null = untouched). */
   bands?: Array<{ y0: number; y1: number; color: string | null }>
+  /** n78: paint 'border' from a box drawn in a light grey pen (no tap): a framed card / field / button, never a grey fill. */
+  frame?: true
 }
 
 export interface GroundedInterpretation {
@@ -1246,6 +1248,8 @@ export function groundInterpretation(
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)
       // n92: a small box drawn in dark ink (no tap) is an outlined control (arrow button, checkbox), not a dark block
       if (!flat && sm?.shape === 'box' && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
+      // n78: a box drawn in a light grey pen (no tap) is a frame: grey border, no grey fill
+      if (!flat && sm?.shape === 'box' && inkGreyOutline(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen', frame: true }); continue }
       inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })
     }
 

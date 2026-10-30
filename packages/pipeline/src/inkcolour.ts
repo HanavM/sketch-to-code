@@ -70,6 +70,10 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')}) exactly (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}): ${hex(c.fade.colors[0]!)} where it was tapped first, fading to ${hex(c.fade.colors.at(-1)!)} where it was tapped last; keep that direction and those stops, at full strength`)
         continue
       }
+      if (c.paint === 'border' && c.frame) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in a light grey pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)}, background white or the surface under it, NEVER filled ${hex(c.color)} or any grey; its words, images and controls sit inside the frame`)
+        continue
+      }
       if (c.paint === 'border') {
         lines.push(`- action ${String(i)}, the small box drawn at ${at} in dark ink (no colour tapped): an OUTLINED small control (an arrow / pager button, a checkbox, an icon button), about the drawn size: a thin 1px border (light grey, or ${hex(c.color)} if it reads as a strong outline), white or transparent background, never a dark or solid fill; a chevron or symbol typed next to it (‹ ›, +, ×) sits inside it in dark text`)
         continue
@@ -244,6 +248,17 @@ export function verifyInkColours(
         const v = fadeVerdict(c.fade, near)
         checks.push({ what: `${what} (fade)`, want: c.fade.css, best: v.worst, ok: v.ok })
         if (!v.ok) misses.push(`action ${String(i)}: ${what} was tapped as a fade, ${c.fade.colors.map(hex).join(' to ')} (first tap to last); ${v.why}: paint the block itself background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')})`)
+        continue
+      }
+      // n78: a grey-pen frame: the block there has a border and is not filled with the pen's grey
+      if (c.paint === 'border' && c.frame) {
+        const own = after.nodes.filter((n) => centreIn(n, b, pad) && n.rect.w >= b.w * 0.7 && n.rect.w <= b.w * 1.3 + 16 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 16)
+        const pen = parseCssColor(c.color)
+        const grey = own.filter((n) => { const g = parseCssColor(n.style.backgroundColor); return !!g && !!pen && alphaOf(n.style.backgroundColor) > 0.5 && deltaE(pen, g) <= SOLID_OK_DE })
+        const framed = own.some((n) => hasFrame(n))
+        const ok = !grey.length && framed
+        checks.push({ what: `${what} (grey outline)`, want: `1px border ${hex(c.color)}, no grey fill`, best: null, ok })
+        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in a light grey pen with no tap: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
         continue
       }
       // n92: an outlined control: something about the drawn size there with a border and no dark fill
@@ -430,4 +445,30 @@ export function inkOutlineBox(color: string | null | undefined, box: { w: number
   const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
   const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
   return lum < 70 && max - min < 48
+}
+
+/**
+ * n78: a box drawn in a light grey pen with no tap is an OUTLINE: a card, a field, a panel or a button with a thin
+ * grey border, never a grey block. A person reaches for a light grey pen to draw the faint frame they see, and taps
+ * when they want a fill. Round 38 e1 (hotel booking), e2 (contacts), e4 (job board): grey-pen room cards, the
+ * calendar, the search field and the Email / Call buttons were all built solid grey on a white page. Only a nearly
+ * neutral grey counts (a coloured pen still fills), and not the palest greys (a #f3f4f6 sidebar is a fill).
+ */
+export function inkGreyOutline(color: string | null | undefined, box: { w: number; h: number }): boolean {
+  if (!color || box.w < 16 || box.h < 12) return false
+  const p = parseCssColor(color)
+  if (!p) return false
+  const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  return max - min <= 20 && lum >= 150 && lum <= 236
+}
+
+/** n78: the block draws a frame: a visible border, an outline, or a 1px ring shadow. */
+export function hasFrame(n: DomNode): boolean {
+  const b = n.style.border
+  if (b && !/^\s*0px/.test(b) && !/\bnone\b/.test(b)) return true
+  const o = (n.style as Record<string, string | undefined>).outline
+  if (o && !/^\s*0px/.test(o) && !/\bnone\b/.test(o)) return true
+  const sh = n.style.boxShadow
+  return !!sh && /0px 0px 0px [1-3](?:\.\d+)?px/.test(sh)
 }
