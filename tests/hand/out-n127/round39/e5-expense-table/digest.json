@@ -1,0 +1,454 @@
+{
+  "round": 39,
+  "id": "e5-expense-table",
+  "version": 3,
+  "stopped": null,
+  "likeness": 62.6,
+  "colour": 0.9903174364264533,
+  "structure": 0.8717555089130025,
+  "layout": 0.8888421576806754,
+  "strokes": {
+    "count": 11,
+    "pointsPerStroke": 3.5,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 6,
+      "line": 4,
+      "dot": 1
+    },
+    "inkPx": 7650
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 44,
+  "notes": 8,
+  "longestNote": 26,
+  "noteTexts": [
+    "ledgerly",
+    "Overview, Expenses selected, Cards, Reports, Settings",
+    "Expenses",
+    "+ New expense",
+    "This month €3,482",
+    "Pending 4",
+    "Rejected 1",
+    "table DATE MERCHANT CATEGORY STATUS AMOUNT; 7 October rows like 28 Oct Rail Europe Travel €214.00; status pills Approved green, Pending yellow, Rejected red; Total €1,159.90"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 286,
+    "firstReadingS": 60,
+    "readS": [
+      22
+    ],
+    "buildS": [
+      213
+    ],
+    "sketchingS": 51
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 62489,
+    "cacheRead": 512731,
+    "output": 21429,
+    "billed": 83918
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f8fafc",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 6790
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 7157
+    },
+    {
+      "op": "stroke",
+      "at": 7836
+    },
+    {
+      "op": "note",
+      "at": 8486
+    },
+    {
+      "op": "pen",
+      "color": "#e0e7ff",
+      "at": 8853
+    },
+    {
+      "op": "stroke",
+      "at": 10621
+    },
+    {
+      "op": "note",
+      "at": 11382
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 11749
+    },
+    {
+      "op": "stroke",
+      "at": 12589
+    },
+    {
+      "op": "note",
+      "at": 13212
+    },
+    {
+      "op": "pen",
+      "color": "#4f46e5",
+      "at": 13579
+    },
+    {
+      "op": "stroke",
+      "at": 15242
+    },
+    {
+      "op": "stroke",
+      "at": 15708
+    },
+    {
+      "op": "note",
+      "at": 16345
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 16710
+    },
+    {
+      "op": "stroke",
+      "at": 19409
+    },
+    {
+      "op": "stroke",
+      "at": 22338
+    },
+    {
+      "op": "stroke",
+      "at": 25075
+    },
+    {
+      "op": "note",
+      "at": 25764
+    },
+    {
+      "op": "note",
+      "at": 26411
+    },
+    {
+      "op": "note",
+      "at": 27091
+    },
+    {
+      "op": "pen",
+      "color": "#cbd5e1",
+      "at": 27461
+    },
+    {
+      "op": "stroke",
+      "at": 30563
+    },
+    {
+      "op": "stroke",
+      "at": 33659
+    },
+    {
+      "op": "note",
+      "at": 34526
+    },
+    {
+      "op": "run",
+      "at": 38426
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          0,
+          0
+        ],
+        [
+          240,
+          0
+        ],
+        [
+          240,
+          900
+        ],
+        [
+          0,
+          900
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "n": 381,
+      "at": 6790
+    },
+    {
+      "way": [
+        [
+          24,
+          42
+        ],
+        [
+          100,
+          42
+        ]
+      ],
+      "n": 14,
+      "at": 7836
+    },
+    {
+      "way": [
+        [
+          24,
+          132
+        ],
+        [
+          215,
+          132
+        ],
+        [
+          215,
+          173
+        ],
+        [
+          24,
+          173
+        ],
+        [
+          24,
+          134
+        ]
+      ],
+      "n": 79,
+      "at": 10621
+    },
+    {
+      "way": [
+        [
+          290,
+          56
+        ],
+        [
+          420,
+          56
+        ]
+      ],
+      "n": 23,
+      "at": 12589
+    },
+    {
+      "way": [
+        [
+          1060,
+          36
+        ],
+        [
+          1230,
+          36
+        ],
+        [
+          1230,
+          82
+        ],
+        [
+          1060,
+          82
+        ],
+        [
+          1060,
+          38
+        ]
+      ],
+      "n": 72,
+      "at": 15242
+    },
+    {
+      "way": [
+        [
+          1080,
+          75
+        ]
+      ],
+      "n": 1,
+      "at": 15708
+    },
+    {
+      "way": [
+        [
+          290,
+          120
+        ],
+        [
+          590,
+          120
+        ],
+        [
+          590,
+          220
+        ],
+        [
+          290,
+          220
+        ],
+        [
+          290,
+          122
+        ]
+      ],
+      "n": 134,
+      "at": 19409
+    },
+    {
+      "way": [
+        [
+          610,
+          120
+        ],
+        [
+          910,
+          120
+        ],
+        [
+          910,
+          220
+        ],
+        [
+          610,
+          220
+        ],
+        [
+          610,
+          122
+        ]
+      ],
+      "n": 134,
+      "at": 22338
+    },
+    {
+      "way": [
+        [
+          930,
+          120
+        ],
+        [
+          1230,
+          120
+        ],
+        [
+          1230,
+          220
+        ],
+        [
+          930,
+          220
+        ],
+        [
+          930,
+          122
+        ]
+      ],
+      "n": 134,
+      "at": 25075
+    },
+    {
+      "way": [
+        [
+          290,
+          300
+        ],
+        [
+          1230,
+          300
+        ]
+      ],
+      "n": 158,
+      "at": 30563
+    },
+    {
+      "way": [
+        [
+          290,
+          693
+        ],
+        [
+          1230,
+          693
+        ]
+      ],
+      "n": 158,
+      "at": 33659
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "ledgerly",
+      "whole": false,
+      "x": 60,
+      "y": 30,
+      "at": 8486
+    },
+    {
+      "text": "Overview, Expenses selected, Cards, Reports, Settings",
+      "whole": false,
+      "x": 120,
+      "y": 200,
+      "at": 11382
+    },
+    {
+      "text": "Expenses",
+      "whole": false,
+      "x": 355,
+      "y": 42,
+      "at": 13212
+    },
+    {
+      "text": "+ New expense",
+      "whole": false,
+      "x": 1145,
+      "y": 59,
+      "at": 16345
+    },
+    {
+      "text": "This month €3,482",
+      "whole": false,
+      "x": 440,
+      "y": 170,
+      "at": 25764
+    },
+    {
+      "text": "Pending 4",
+      "whole": false,
+      "x": 760,
+      "y": 170,
+      "at": 26411
+    },
+    {
+      "text": "Rejected 1",
+      "whole": false,
+      "x": 1080,
+      "y": 170,
+      "at": 27091
+    },
+    {
+      "text": "table DATE MERCHANT CATEGORY STATUS AMOUNT; 7 October rows like 28 Oct Rail Europe Travel €214.00; status pills Approved green, Pending yellow, Rejected red; Total €1,159.90",
+      "whole": false,
+      "x": 760,
+      "y": 500,
+      "at": 34526
+    }
+  ]
+}

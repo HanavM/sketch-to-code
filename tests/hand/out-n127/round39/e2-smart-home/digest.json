@@ -1,0 +1,693 @@
+{
+  "round": 39,
+  "id": "e2-smart-home",
+  "version": 3,
+  "stopped": null,
+  "likeness": 76.4,
+  "colour": 0.8795288524285811,
+  "structure": 0.7477868202227049,
+  "layout": 0.7650672428774581,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 4.9,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 1,
+      "line": 3,
+      "box": 7,
+      "circle": 3
+    },
+    "inkPx": 10475
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 64,
+  "notes": 14,
+  "longestNote": 11,
+  "noteTexts": [
+    "Good evening",
+    "4 devices on · 21° outside",
+    "Living room",
+    "22° Heating, orange arc over grey track",
+    "−",
+    "+",
+    "Ceiling light / Kitchen · 80%, yellow icon, green toggle on",
+    "Speaker / Living room · playing",
+    "Lamp / Study · 40%",
+    "Fan / Bedroom · off, grey icon, toggle off",
+    "Front door / Locked",
+    "Kettle / Kitchen · off",
+    "right cards dark",
+    "hollow ring"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 902,
+    "firstReadingS": 116,
+    "readS": [
+      63,
+      10
+    ],
+    "buildS": [
+      550,
+      89
+    ],
+    "sketchingS": 190
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 136424,
+    "cacheRead": 1522881,
+    "output": 67212,
+    "billed": 203636
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#1b1b1d",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 458
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 842
+    },
+    {
+      "op": "stroke",
+      "at": 1947
+    },
+    {
+      "op": "note",
+      "at": 2574
+    },
+    {
+      "op": "pen",
+      "color": "#9ca3af",
+      "at": 2947
+    },
+    {
+      "op": "stroke",
+      "at": 3928
+    },
+    {
+      "op": "note",
+      "at": 4604
+    },
+    {
+      "op": "pen",
+      "color": "#27272a",
+      "at": 4977
+    },
+    {
+      "op": "stroke",
+      "at": 11549
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 11916
+    },
+    {
+      "op": "stroke",
+      "at": 12712
+    },
+    {
+      "op": "note",
+      "at": 13366
+    },
+    {
+      "op": "pen",
+      "color": "#f97316",
+      "at": 13735
+    },
+    {
+      "op": "stroke",
+      "at": 16746
+    },
+    {
+      "op": "note",
+      "at": 17627
+    },
+    {
+      "op": "pen",
+      "color": "#3f3f46",
+      "at": 17993
+    },
+    {
+      "op": "stroke",
+      "at": 19133
+    },
+    {
+      "op": "stroke",
+      "at": 20281
+    },
+    {
+      "op": "note",
+      "at": 20899
+    },
+    {
+      "op": "note",
+      "at": 21519
+    },
+    {
+      "op": "pen",
+      "color": "#fafafa",
+      "at": 21887
+    },
+    {
+      "op": "stroke",
+      "at": 25302
+    },
+    {
+      "op": "stroke",
+      "at": 28720
+    },
+    {
+      "op": "stroke",
+      "at": 32136
+    },
+    {
+      "op": "pen",
+      "color": "#27272a",
+      "at": 32503
+    },
+    {
+      "op": "stroke",
+      "at": 35915
+    },
+    {
+      "op": "stroke",
+      "at": 39331
+    },
+    {
+      "op": "stroke",
+      "at": 42750
+    },
+    {
+      "op": "note",
+      "at": 43663
+    },
+    {
+      "op": "note",
+      "at": 44418
+    },
+    {
+      "op": "note",
+      "at": 45157
+    },
+    {
+      "op": "note",
+      "at": 45995
+    },
+    {
+      "op": "note",
+      "at": 46698
+    },
+    {
+      "op": "note",
+      "at": 47467
+    },
+    {
+      "op": "run",
+      "at": 52962
+    },
+    {
+      "op": "note",
+      "at": 785970
+    },
+    {
+      "op": "note",
+      "at": 786592
+    },
+    {
+      "op": "run",
+      "at": 786831
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 458
+    },
+    {
+      "way": [
+        [
+          60,
+          70
+        ],
+        [
+          287,
+          70
+        ]
+      ],
+      "n": 39,
+      "at": 1947
+    },
+    {
+      "way": [
+        [
+          60,
+          108
+        ],
+        [
+          245,
+          108
+        ]
+      ],
+      "n": 32,
+      "at": 3928
+    },
+    {
+      "way": [
+        [
+          60,
+          170
+        ],
+        [
+          500,
+          170
+        ],
+        [
+          500,
+          830
+        ],
+        [
+          60,
+          830
+        ],
+        [
+          60,
+          172
+        ]
+      ],
+      "n": 367,
+      "at": 11549
+    },
+    {
+      "way": [
+        [
+          96,
+          212
+        ],
+        [
+          210,
+          212
+        ]
+      ],
+      "n": 20,
+      "at": 12712
+    },
+    {
+      "way": [
+        [
+          280,
+          260
+        ],
+        [
+          386,
+          304
+        ],
+        [
+          430,
+          410
+        ],
+        [
+          386,
+          516
+        ],
+        [
+          280,
+          560
+        ],
+        [
+          174,
+          516
+        ],
+        [
+          130,
+          410
+        ],
+        [
+          174,
+          304
+        ],
+        [
+          280,
+          262
+        ]
+      ],
+      "n": 153,
+      "at": 16746
+    },
+    {
+      "way": [
+        [
+          210,
+          640
+        ],
+        [
+          238,
+          652
+        ],
+        [
+          250,
+          680
+        ],
+        [
+          238,
+          708
+        ],
+        [
+          210,
+          720
+        ],
+        [
+          182,
+          708
+        ],
+        [
+          170,
+          680
+        ],
+        [
+          182,
+          652
+        ],
+        [
+          210,
+          641
+        ]
+      ],
+      "n": 41,
+      "at": 19133
+    },
+    {
+      "way": [
+        [
+          350,
+          640
+        ],
+        [
+          378,
+          652
+        ],
+        [
+          390,
+          680
+        ],
+        [
+          378,
+          708
+        ],
+        [
+          350,
+          720
+        ],
+        [
+          322,
+          708
+        ],
+        [
+          310,
+          680
+        ],
+        [
+          322,
+          652
+        ],
+        [
+          350,
+          641
+        ]
+      ],
+      "n": 41,
+      "at": 20281
+    },
+    {
+      "way": [
+        [
+          540,
+          170
+        ],
+        [
+          870,
+          170
+        ],
+        [
+          870,
+          370
+        ],
+        [
+          540,
+          370
+        ],
+        [
+          540,
+          172
+        ]
+      ],
+      "n": 177,
+      "at": 25302
+    },
+    {
+      "way": [
+        [
+          540,
+          400
+        ],
+        [
+          870,
+          400
+        ],
+        [
+          870,
+          600
+        ],
+        [
+          540,
+          600
+        ],
+        [
+          540,
+          402
+        ]
+      ],
+      "n": 177,
+      "at": 28720
+    },
+    {
+      "way": [
+        [
+          540,
+          630
+        ],
+        [
+          870,
+          630
+        ],
+        [
+          870,
+          830
+        ],
+        [
+          540,
+          830
+        ],
+        [
+          540,
+          632
+        ]
+      ],
+      "n": 177,
+      "at": 32136
+    },
+    {
+      "way": [
+        [
+          890,
+          170
+        ],
+        [
+          1220,
+          170
+        ],
+        [
+          1220,
+          370
+        ],
+        [
+          890,
+          370
+        ],
+        [
+          890,
+          172
+        ]
+      ],
+      "n": 177,
+      "at": 35915
+    },
+    {
+      "way": [
+        [
+          890,
+          400
+        ],
+        [
+          1220,
+          400
+        ],
+        [
+          1220,
+          600
+        ],
+        [
+          890,
+          600
+        ],
+        [
+          890,
+          402
+        ]
+      ],
+      "n": 177,
+      "at": 39331
+    },
+    {
+      "way": [
+        [
+          890,
+          630
+        ],
+        [
+          1220,
+          630
+        ],
+        [
+          1220,
+          830
+        ],
+        [
+          890,
+          830
+        ],
+        [
+          890,
+          632
+        ]
+      ],
+      "n": 177,
+      "at": 42750
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Good evening",
+      "whole": false,
+      "x": 170,
+      "y": 56,
+      "at": 2574
+    },
+    {
+      "text": "4 devices on · 21° outside",
+      "whole": false,
+      "x": 150,
+      "y": 96,
+      "at": 4604
+    },
+    {
+      "text": "Living room",
+      "whole": false,
+      "x": 150,
+      "y": 200,
+      "at": 13366
+    },
+    {
+      "text": "22° Heating, orange arc over grey track",
+      "whole": false,
+      "x": 280,
+      "y": 410,
+      "at": 17627
+    },
+    {
+      "text": "−",
+      "whole": false,
+      "x": 210,
+      "y": 680,
+      "at": 20899
+    },
+    {
+      "text": "+",
+      "whole": false,
+      "x": 350,
+      "y": 680,
+      "at": 21519
+    },
+    {
+      "text": "Ceiling light / Kitchen · 80%, yellow icon, green toggle on",
+      "whole": false,
+      "x": 700,
+      "y": 270,
+      "at": 43663
+    },
+    {
+      "text": "Speaker / Living room · playing",
+      "whole": false,
+      "x": 700,
+      "y": 500,
+      "at": 44418
+    },
+    {
+      "text": "Lamp / Study · 40%",
+      "whole": false,
+      "x": 700,
+      "y": 730,
+      "at": 45157
+    },
+    {
+      "text": "Fan / Bedroom · off, grey icon, toggle off",
+      "whole": false,
+      "x": 1050,
+      "y": 270,
+      "at": 45995
+    },
+    {
+      "text": "Front door / Locked",
+      "whole": false,
+      "x": 1050,
+      "y": 500,
+      "at": 46698
+    },
+    {
+      "text": "Kettle / Kitchen · off",
+      "whole": false,
+      "x": 1050,
+      "y": 730,
+      "at": 47467
+    },
+    {
+      "text": "right cards dark",
+      "whole": false,
+      "x": 1050,
+      "y": 330,
+      "at": 785970
+    },
+    {
+      "text": "hollow ring",
+      "whole": false,
+      "x": 360,
+      "y": 300,
+      "at": 786592
+    }
+  ]
+}
