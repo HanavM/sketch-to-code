@@ -1,0 +1,128 @@
+const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"]
+
+const NOVEMBER_2026_FIRST_WEEKDAY = 6 // Nov 1 2026 is a Sunday -> Monday-start index 6
+const NOVEMBER_2026_DAYS = 30
+
+const calendarCells = Array.from({ length: 42 }, (_, i) => {
+  const day = i - NOVEMBER_2026_FIRST_WEEKDAY + 1
+  return day >= 1 && day <= NOVEMBER_2026_DAYS ? day : null
+})
+
+const rooms = [
+  {
+    accent: "#f9cfe6",
+    name: "Garden double",
+    details: "Queen bed · courtyard view",
+    price: "$140",
+  },
+  {
+    accent: "#ddd6fe",
+    name: "River suite",
+    details: "King bed · balcony",
+    price: "$230",
+  },
+  {
+    accent: "#bbf7d0",
+    name: "Twin room",
+    details: "Two singles · quiet side",
+    price: "$120",
+  },
+]
+
+export default function App() {
+  return (
+    <main className="min-h-screen bg-white flow-root">
+      <header className="h-[72px] flex items-center justify-between px-14 border-b border-gray-200">
+        <span className="text-2xl font-bold text-[#be185d]">staylo</span>
+        <a href="#" className="text-right font-medium text-gray-900 hover:underline">
+          Sign in
+        </a>
+      </header>
+
+      <div className="px-14 pb-14">
+        <div className="mt-7 flex h-[76px] items-center rounded-xl border border-[#d1d5db] bg-white">
+          <div className="flex flex-1 items-stretch">
+            <div className="flex flex-1 flex-col justify-center px-6">
+              <span className="text-xs font-semibold text-gray-400">Where</span>
+              <span className="text-sm font-medium text-gray-900">Lisbon</span>
+            </div>
+            <div className="flex flex-1 flex-col justify-center border-l border-gray-200 px-6">
+              <span className="text-xs font-semibold text-gray-400">Dates</span>
+              <span className="text-sm font-medium text-gray-900">Nov 12 – 16</span>
+            </div>
+            <div className="flex flex-1 flex-col justify-center border-l border-gray-200 px-6">
+              <span className="text-xs font-semibold text-gray-400">Guests</span>
+              <span className="text-sm font-medium text-gray-900">2 adults</span>
+            </div>
+          </div>
+          <button className="mr-3 h-[57px] w-[151px] shrink-0 rounded-lg bg-[#be185d] font-semibold text-white">
+            Search
+          </button>
+        </div>
+
+        <h2 className="mt-11 text-left text-lg font-semibold text-gray-900">
+          3 rooms available
+        </h2>
+
+        <div className="mt-7 grid grid-cols-[1fr_408px] gap-10">
+          <div className="flex flex-col gap-5">
+            {rooms.map((room) => (
+              <div
+                key={room.name}
+                className="flex h-[190px] overflow-hidden rounded-xl border border-[#d1d5db] bg-white"
+              >
+                <div
+                  className="h-full w-[251px] shrink-0"
+                  style={{ background: room.accent }}
+                />
+                <div className="flex flex-1 items-start justify-between p-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">{room.name}</h3>
+                    <p className="mt-1 text-sm text-gray-500">{room.details}</p>
+                  </div>
+                  <span className="font-semibold text-gray-900">{room.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex h-[599px] w-full flex-col rounded-xl border border-[#d1d5db] bg-white p-6">
+            <h3 className="text-sm font-bold text-gray-900">November 2026</h3>
+            <div className="mt-4 grid grid-cols-7 text-center text-xs font-medium text-gray-400">
+              {WEEKDAYS.map((d, i) => (
+                <span key={i}>{d}</span>
+              ))}
+            </div>
+            <div className="mt-2 grid flex-1 grid-cols-7 grid-rows-6">
+              {calendarCells.map((day, i) => {
+                const isCircle = day === 12 || day === 16
+                const isBand = day === 13 || day === 14 || day === 15
+                return (
+                  <div key={i} className="flex items-center justify-center">
+                    {day && (
+                      <span
+                        className={
+                          "flex h-8 w-8 items-center justify-center text-sm " +
+                          (isCircle
+                            ? "rounded-full bg-[#be185d] font-bold text-white"
+                            : isBand
+                            ? "rounded-md bg-[#f9cfe6] text-gray-900"
+                            : "text-gray-700")
+                        }
+                      >
+                        {day}
+                      </span>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+            <button className="mt-auto h-[57px] w-full rounded-lg bg-[#111827] font-semibold text-white">
+              Reserve · 4 nights
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  )
+}

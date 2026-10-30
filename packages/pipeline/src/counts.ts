@@ -12,6 +12,8 @@
  * that many filled.
  */
 import type { DomSnapshot, DomNode } from '@s2c/dom'
+import { calendarOf } from './calendar.js'
+import { buttonLabel } from './buttonlabel.js'
 
 export interface CountClaim {
   n: number
@@ -36,6 +38,8 @@ export function countClaims(texts: readonly string[]): CountClaim[] {
   const seen = new Set<string>()
   const re = /(^|[^\w$#.,:/-])(\d{1,2}|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+((?:[a-z][a-z-]*\s+){0,2}?)([a-z]{3,}s)\b/gi
   for (const t of texts) {
+    // n113: a calendar's day numbers ("12 and 16 magenta circles") and a button label ("Reserve · 4 nights") are not counts
+    if (calendarOf(t) || buttonLabel(t)) continue
     for (const m of t.matchAll(re)) {
       const raw = m[2]!.toLowerCase()
       const n = /^\d/.test(raw) ? Number(raw) : WORDS[raw]!

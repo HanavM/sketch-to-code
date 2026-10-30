@@ -21,6 +21,7 @@
 interface NodeLike { id: string; text?: string; textBox?: unknown }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 import { progressOf } from './progress.js'
+import { calendarOf } from './calendar.js'
 export interface CopyVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
 
 /** Words that describe how copy looks (a trailing ", big bold yellow" tail), not the copy itself. */
@@ -131,6 +132,8 @@ export function typedCopyBrief(notes: readonly string[]): string {
   const seen = new Set<string>()
   for (const n of notes) {
     if (progressOf(n)) continue
+    // n113: a calendar note describes its block; calendar.ts tells its heading and days
+    if (calendarOf(n)) continue
     const p = noteParts(n)
     if ((!p.look && !p.directions.length && !p.place) || seen.has(n)) continue
     seen.add(n)
