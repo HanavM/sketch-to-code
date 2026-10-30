@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T09:15Z | n106 write round 38 | Ten fresh pages written, screenshotted, calibrated; eight harder than round 1. None sketched yet.
 2026-10-30T08:10Z | n105 name / preview pairs fill one row each | Sidebar rows right both tries, row check passed; team chat 66.9, 73.9 (was 21.6-56.6).
 2026-10-30T07:50Z | n104 position words in a note never printed | Labels above, no "above" printed, messages kept as copy; team chat 21.6, 30.7, 56.6 (wide swings).
 2026-10-30T06:55Z | n103 bubbles follow the drawn order | Drawn order told and checked; both tries kept it; team chat 43.8, 50.9 from printed directions.

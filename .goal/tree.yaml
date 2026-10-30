@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Sidebar lists typed as name / preview pairs now fill each row right (team chat 66.9 and 73.9 on first build); next, a fresh round 38 to test everything on new pages."
+now: "Round 38 is written: ten new pages to sketch by hand next, this time keeping each page to 50 words or fewer."
 round: 37
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-30T0854Z, until: '2026-10-30T10:25Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -195,7 +195,8 @@ nodes:
   - {id: n104, parent: n4, kind: step, title: "Direction words in a note (above, under, small) are never printed as copy, and a bubble is as wide as its drawn box so a message keeps to one line; re-sketch team chat", status: done, branch: try/n3-ink-style,
      result: "Position words never printed, messages stay copy; three builds 21.6, 30.7, 56.6: wide swings, no gain claimed."}
   - {id: n105, parent: n2, kind: step, title: "A sidebar note of name / preview pairs split by commas (#design / New logo is up, Ravi Patel / sounds good) fills each row with its own name and preview; re-sketch team chat", status: done, branch: try/n3-ink-style, result: "Pairs read as one row each, check passed both tries; team chat 66.9, 73.9 (was 21.6-56.6)."}
-  - {id: n106, parent: n1, kind: step, priority: next, title: "Write round 38: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch them in later steps aiming at 50 words or fewer a page", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n106, parent: n1, kind: step, title: "Write round 38: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch them in later steps aiming at 50 words or fewer a page", status: done, branch: try/n3-ink-style, result: "Ten fresh pages written, screenshotted, calibrated; eight harder than round 1. None sketched yet."}
+  - {id: n107, parent: n1, kind: step, priority: next, title: "Sketch round 38 pages c1-c5 by hand from screenshots only (never open their source), aiming at 50 words or fewer a page; record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: pruned, branch: try/n3-ink-style, result: "pruned: erasing one mark has not cost score or effort in rounds 34-36; keep open slots for row and drift gaps"}
