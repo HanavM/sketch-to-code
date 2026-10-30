@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Round 38 done by hand: average 65 (landing pages 75, app pages 55) with 19 strokes and 48 words a page; next, making a box drawn in a coloured pen an outline, not a solid block."
+now: "Grey-pen boxes now come out as thin outlines (hotel page 32 to 74); next, keeping typed copy like \"Reserve · 4 nights\" as a button label, not a big number."
 round: 38
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: n78-run, until: "2026-10-30T13:05Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -144,7 +144,7 @@ nodes:
      result: "Ten fresh pages written, screenshotted and calibrated; seven harder than round 1. None sketched yet."}
   - {id: n76, parent: n1, kind: step, title: "Sketch round 35 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: done, branch: try/n3-ink-style,
      result: "Kites 52.8, gelato 73.5, lighthouse 88.5, yoga 80.1, moons 85.8; mean 76.1, 19 strokes, 54 words."}
-  - {id: n78, parent: n3, kind: step, priority: next, title: "A box drawn in a coloured pen with no tap is an outline (border in the pen colour, no fill), and a 'no fill' fix keeps the border; re-sketch round 38 hotel booking and job board (grey-pen cards, calendar and search built solid grey)", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n78, parent: n3, kind: step, title: "A box drawn in a coloured pen with no tap is an outline (border in the pen colour, no fill), and a 'no fill' fix keeps the border; re-sketch round 38 hotel booking and job board (grey-pen cards, calendar and search built solid grey)", status: done, branch: try/n3-ink-style, result: "Grey-pen boxes built as thin grey frames, checked. Hotel 31.6 to 73.7, job board 40.0 to 59.1, same sketch."}
   - {id: n79, parent: n4, kind: step, title: "A fix note dropped beside or inside a built block binds to that block (never new content), and typed copy with commas (Pre-order, 38) is kept whole; re-sketch kite festival and moon phases", status: open, branch: try/n3-ink-style, result: null}
   - {id: n77, parent: n1, kind: step, title: "Sketch round 35 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Parking 83.2, library 73.6, workout 86.7, pharmacy 62.2, split bill 93.0; round 35 mean 77.9, 57.5 words."}
@@ -673,3 +673,5 @@ n72_resketch:   # same strokes, taps and notes as n98 replayed word for word, th
 n103_resketch:   # same strokes, taps and notes as n98 replayed word for word (replay.mjs); first build only, no fixes; tests/hand/N103.md on try/n3-ink-style
   - {page: r37 e4-team-chat, try: 1, likeness: 43.8, was: 57.4, strokes: 19, taps: 2, words: 99, notes: 11, minutes: 9.1, fixes: 0, first_read_s: 126, build_s: 418, tokens: 95456, note: "all 5 messages in drawn order, check passed; sidebar rows split wrong; was = n100 first build"}
   - {page: r37 e4-team-chat, try: 2, likeness: 50.9, was: 57.4, strokes: 19, taps: 2, words: 99, notes: 11, minutes: 7.7, fixes: 0, first_read_s: 139, build_s: 319, tokens: 68746, note: "drawn order kept; 'above' printed in time labels, bubbles wrap to 2 lines"}
+  - {id: n111, parent: n4, kind: step, priority: next, title: "Copy with dots or a number stays as typed: a button note like Reserve · 4 nights is the button label (no stat), and Fernway · Remote · $95k stays one line; re-sketch hotel and job board", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n112, parent: n2, kind: step, title: "A part drawn only in the first of a repeated set (Apply on card 1, an avatar in row 1) is built on every member, and a note of checkbox options in a side panel is a checkbox list; re-sketch job board and contacts", status: open, branch: try/n3-ink-style, result: null}
