@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A button drawn at the bottom of a tall panel now stays there and the calendar above keeps its natural size (hotel page up to 80); next, building a drawn donut chart at its drawn size on the budget page."
+now: "A donut drawn as coloured arcs is now built at its drawn size with its slices in the drawn order (budget page up to 65.6); next, a list note on one of three legend marks fills all three."
 round: 38
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "n118 run", until: "2026-10-30T18:16Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -219,7 +219,9 @@ nodes:
      result: "Top bars built at drawn heights 6 of 6 checks, no final drift; hotel 74.9, 68.7; budget 44.9."}
   - {id: n117, parent: n4, kind: step, title: "A calendar or list at the top of a tall drawn panel keeps natural rows (only fills when told), with the button drawn at the bottom staying there; the gap under the last top band is told; replay hotel twice", status: done, branch: try/n3-ink-style,
      result: "Panel button pinned where drawn, calendar natural rows, checked; hotel 76.9, 80.2 (was 74.9, 68.7)."}
-  - {id: n118, parent: n2, kind: step, priority: next, title: "A ring drawn inside a panel is built at its drawn size and place (a donut chart as big as drawn), and rows typed in a panel start at their drawn y; replay budget twice", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n118, parent: n2, kind: step, title: "A ring drawn inside a panel is built at its drawn size and place (a donut chart as big as drawn), and rows typed in a panel start at their drawn y; replay budget twice", status: done, branch: try/n3-ink-style, 
+     result: "Coloured arcs read as one chart: segments in drawn order and shares, round. Budget 44.9 to 65.6, 63.7."}
+  - {id: n119, parent: n2, kind: step, priority: next, title: "A note listing several items (Rent; Food; Travel) bound to one of a row of look-alike small marks spreads over them in order, and words beside a coloured bar stay dark; replay budget twice", status: open, branch: try/n3-ink-style, result: null}
   - {id: n114, parent: n2, kind: step, title: "A lone ring drawn at the top left of a typed list is row 1's own avatar (moved into the row, not an extra mark), and a note typed on the sidebar never binds to the list beside it; re-sketch contacts", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A calendar in a tall panel with a button drawn at its bottom was stretched to fill the panel, pushing the button ~30px below where drawn", found_on: "r38 e1 hotel (n116 try 2)", built: "n117: a smaller box drawn at a tall box's bottom is its foot, pinned at its drawn top; contents above keep natural rows; told and checked", helped: "yes: hotel 76.9, 80.2 (n116 74.9, 68.7); check caught a 29px-low button once and the repair pinned it"}
@@ -700,3 +702,6 @@ n112_resketch:   # same strokes, taps and notes as n108 replayed word for word (
 n117_resketch:   # same strokes, taps and notes as n108 replayed (replay.mjs); first Run only; tests/hand/N117.md on try/n3-ink-style
   - {page: r38 e1-hotel-booking, try: 1, likeness: 76.9, was: 74.9, strokes: 19, words: 56, notes: 10, minutes: 5.8, fixes: 0, first_read_s: 94, build_s: 254, tokens: 122833, note: "calendar natural rows; button first built 29px low, check named it, repair pinned it"}
   - {page: r38 e1-hotel-booking, try: 2, likeness: 80.2, was: 68.7, strokes: 19, words: 56, notes: 10, minutes: 7.8, fixes: 0, first_read_s: 127, build_s: 340, tokens: 124678, note: "calendar natural, button where drawn on first build; layout 96"}
+n118_resketch:   # same strokes, taps and notes as n108 replayed (replay.mjs); first Run only; tests/hand/N118.md on try/n3-ink-style
+  - {page: r38 e3-budget, try: 1, likeness: 65.6, was: 44.9, strokes: 20, words: 45, notes: 8, minutes: 8.8, fixes: 0, first_read_s: 123, build_s: 402, tokens: 157447, note: "slices in drawn order from 12 o'clock; chart clipped to an octagon; legend only Rent"}
+  - {page: r38 e3-budget, try: 2, likeness: 63.7, was: 44.9, strokes: 20, words: 45, notes: 8, minutes: 8.0, fixes: 0, first_read_s: 109, build_s: 371, tokens: 129407, note: "round chart, drawn order and shares; legend only Rent; amounts took bar colours"}
