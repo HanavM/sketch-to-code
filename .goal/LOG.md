@@ -1,4 +1,6 @@
 # Log (newest first)
+2026-10-30T11:45Z | n108 sketch round 38 e1-e5 by hand | Hotel 31.6, contacts 78.8, budget 33.6, jobs 40.0, call 91.2; round 38 mean 65.0, 47.5 words.
+2026-10-30T11:40Z | n110 strokes starting on the toolbar draw | Control row drawn through the bar, no button fired; e2e 3 of 3; call 91.2.
 2026-10-30T10:45Z | n107 sketch round 38 c1-c5 by hand | Tea 75.7, robot 85.3, film 77.4, dive 69.8, type 66.7; mean 75.0, 44 words.
 2026-10-30T09:15Z | n106 write round 38 | Ten fresh pages written, screenshotted, calibrated; eight harder than round 1. None sketched yet.
 2026-10-30T08:10Z | n105 name / preview pairs fill one row each | Sidebar rows right both tries, row check passed; team chat 66.9, 73.9 (was 21.6-56.6).
