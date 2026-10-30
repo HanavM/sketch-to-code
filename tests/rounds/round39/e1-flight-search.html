@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Flights</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f1f5f9;font-family:Helvetica,Arial,sans-serif;color:#0f172a;overflow:hidden;position:relative}
+header{position:absolute;left:0;top:0;width:1280px;height:220px;background:#1e3a8a;color:#fff;padding:32px 60px}header b{font-size:24px}
+.form{position:absolute;left:60px;top:110px;width:1160px;height:76px;background:#fff;border-radius:14px;display:flex;align-items:center;padding:0 12px;gap:12px;color:#0f172a}
+.f{flex:1;height:52px;border:1px solid #cbd5e1;border-radius:10px;padding:8px 14px;font-size:16px}.f small{display:block;font-size:12px;color:#64748b}
+.go{width:150px;height:52px;border-radius:10px;background:#f97316;color:#fff;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center}
+.side{position:absolute;left:60px;top:260px;width:260px;height:580px;background:#fff;border-radius:14px;padding:24px;font-size:15px}
+.side b{display:block;font-size:17px;margin:4px 0 14px}.side div{display:flex;gap:10px;align-items:center;padding:8px 0}.side i{width:18px;height:18px;border:2px solid #94a3b8;border-radius:4px}.side i.on{background:#1e3a8a;border-color:#1e3a8a}
+.res{position:absolute;left:350px;width:870px;height:120px;background:#fff;border-radius:14px;display:flex;align-items:center;padding:0 30px;gap:30px}
+.t{font-size:26px;font-weight:700}.t small{display:block;font-size:13px;color:#64748b;font-weight:400}
+.line{flex:1;height:2px;background:#cbd5e1;position:relative}.line span{position:absolute;left:0;right:0;top:-22px;text-align:center;font-size:13px;color:#64748b}
+.price{font-size:26px;font-weight:700;color:#1e3a8a;width:110px;text-align:right}
+</style></head><body>
+<header data-r="header"><b>skyhop</b></header>
+<div class="form" data-r="search" data-must><div class="f"><small>From</small>Lisbon</div><div class="f"><small>To</small>Oslo</div><div class="f"><small>Date</small>12 Dec</div><div class="go">Search</div></div>
+<div class="side" data-r="filters"><b>Stops</b><div><i class="on"></i>Direct</div><div><i class="on"></i>1 stop</div><div><i></i>2+ stops</div><b style="margin-top:22px">Airlines</b><div><i class="on"></i>Nordair</div><div><i></i>Tagus</div><div><i></i>Fjell</div></div>
+<div class="res" style="top:260px" data-r="result-1" data-must><div class="t">07:10<small>LIS</small></div><div class="line"><span>4h 05m · direct</span></div><div class="t">12:15<small>OSL</small></div><div class="price">€189</div></div>
+<div class="res" style="top:400px" data-r="result-2"><div class="t">09:40<small>LIS</small></div><div class="line"><span>6h 20m · 1 stop</span></div><div class="t">17:00<small>OSL</small></div><div class="price">€142</div></div>
+<div class="res" style="top:540px" data-r="result-3"><div class="t">13:25<small>LIS</small></div><div class="line"><span>4h 10m · direct</span></div><div class="t">18:35<small>OSL</small></div><div class="price">€231</div></div>
+<div class="res" style="top:680px" data-r="result-4"><div class="t">18:05<small>LIS</small></div><div class="line"><span>7h 45m · 1 stop</span></div><div class="t">02:50<small>OSL</small></div><div class="price">€118</div></div>
+</body></html>

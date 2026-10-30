@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Expenses</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;position:relative}
+aside{position:absolute;left:0;top:0;width:240px;height:900px;background:#f9fafb;border-right:1px solid #e5e7eb;padding:30px 24px;font-size:15px;color:#4b5563}
+aside b{display:block;font-size:20px;color:#111827;margin-bottom:34px}aside div{padding:12px 14px;border-radius:8px;margin-bottom:4px}aside div.on{background:#e0e7ff;color:#3730a3;font-weight:700}
+h1{position:absolute;left:290px;top:40px;font-size:28px}
+.new{position:absolute;left:1060px;top:36px;width:170px;height:46px;border-radius:8px;background:#4f46e5;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.stats{position:absolute;left:290px;top:120px;width:940px;display:flex;gap:20px}.st{flex:1;height:100px;border:1px solid #e5e7eb;border-radius:12px;padding:18px 22px;font-size:14px;color:#6b7280}.st b{display:block;font-size:28px;color:#111827;margin-top:8px}
+table{position:absolute;left:290px;top:260px;width:940px;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:13px;color:#6b7280;text-transform:uppercase;letter-spacing:1px;padding:12px 14px;border-bottom:2px solid #e5e7eb}
+td{padding:16px 14px;border-bottom:1px solid #f3f4f6}td.r,th.r{text-align:right}
+.pill{display:inline-block;padding:4px 12px;border-radius:12px;font-size:13px;font-weight:700}.ok{background:#dcfce7;color:#166534}.wait{background:#fef3c7;color:#92400e}.no{background:#fee2e2;color:#991b1b}
+tfoot td{font-weight:700;border-top:2px solid #e5e7eb;border-bottom:none}
+</style></head><body>
+<aside data-r="sidebar"><b>ledgerly</b><div>Overview</div><div class="on">Expenses</div><div>Cards</div><div>Reports</div><div>Settings</div></aside>
+<h1 data-r="title">Expenses</h1><div class="new" data-r="button">+ New expense</div>
+<div class="stats" data-r="stats"><div class="st">This month<b>€3,482</b></div><div class="st">Pending<b>4</b></div><div class="st">Rejected<b>1</b></div></div>
+<table data-r="table" data-must><thead><tr><th>Date</th><th>Merchant</th><th>Category</th><th>Status</th><th class="r">Amount</th></tr></thead><tbody>
+<tr><td>28 Oct</td><td>Rail Europe</td><td>Travel</td><td><span class="pill ok">Approved</span></td><td class="r">€214.00</td></tr>
+<tr><td>27 Oct</td><td>Café Lume</td><td>Meals</td><td><span class="pill wait">Pending</span></td><td class="r">€38.50</td></tr>
+<tr><td>25 Oct</td><td>Hotel Brisa</td><td>Travel</td><td><span class="pill ok">Approved</span></td><td class="r">€612.00</td></tr>
+<tr><td>24 Oct</td><td>Paper Co</td><td>Office</td><td><span class="pill no">Rejected</span></td><td class="r">€86.20</td></tr>
+<tr><td>22 Oct</td><td>Cloudbox</td><td>Software</td><td><span class="pill wait">Pending</span></td><td class="r">€49.00</td></tr>
+<tr><td>20 Oct</td><td>Taxi Azul</td><td>Travel</td><td><span class="pill wait">Pending</span></td><td class="r">€27.80</td></tr>
+<tr><td>18 Oct</td><td>Print Hub</td><td>Office</td><td><span class="pill ok">Approved</span></td><td class="r">€132.40</td></tr>
+</tbody><tfoot><tr><td colspan="4">Total</td><td class="r">€1,159.90</td></tr></tfoot></table>
+</body></html>
