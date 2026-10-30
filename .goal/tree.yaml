@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A bar that is empty because its row says $0 is no longer treated as a mistake (budget page 67.5 on average, was 57.7); next, ten fresh pages for round 39."
+now: "Ten fresh pages for round 39 are written and photographed; next, sketching the five landing pages by hand from their pictures only."
 round: 38
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-30T2157Z-n125, until: '2026-10-30T23:30Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -231,7 +231,9 @@ nodes:
      result: "Low panels now lifted in code when nothing is above; budget 54.5, 60.8, panel in place both, lift unneeded."}
   - {id: n124, parent: n4, kind: step, title: "A bar typed as zero ($0 of $300) is right to be empty, not flagged as a collapsed fill that costs two repair rounds; each category's words sit above their own bar; replay budget twice", status: done, branch: try/n3-ink-style, 
      result: "Zero rows excuse empty bars, 3 tests; budget 63.0, 76.2, 63.2 (was 54.5, 60.8), one repair each."}
-  - {id: n125, parent: n1, kind: step, priority: next, title: "Write round 39: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch them in later steps to test every feature since round 38", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n125, parent: n1, kind: step, title: "Write round 39: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch them in later steps to test every feature since round 38", status: done, branch: try/n3-ink-style, result: "Ten fresh pages written, screenshotted, calibrated; seven harder than round 1. None sketched yet."}
+  - {id: n126, parent: n1, kind: step, priority: next, title: "Sketch round 39 pages c1-c5 by hand from screenshots only (never open their source), aiming at 50 words or fewer a page; record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n127, parent: n1, kind: step, title: "Sketch round 39 pages e1-e5 by hand from screenshots only (never open their source), aiming at 50 words or fewer a page; record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
   - {id: n114, parent: n2, kind: step, title: "A lone ring drawn at the top left of a typed list is row 1's own avatar (moved into the row, not an extra mark), and a note typed on the sidebar never binds to the list beside it; re-sketch contacts", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A list note (Rent $1,120; Food $700; Travel $520) on one of three legend swatches gave words to the first only; two 14px swatches were not even read as boxes", found_on: "r38 e3 budget (n118)", built: "n119: closed marks from 10px (small boxes must fill their square); a semicolon list on one of a column or row of look-alikes spreads one item each in order, told and checked; its items are copy, not directions", helped: "legend yes: all 3 swatches labelled 2 of 2 (was 0 of 4); likeness no: 49.3, 30.7 (panel ~145px low, unrelated, unchecked)"}
