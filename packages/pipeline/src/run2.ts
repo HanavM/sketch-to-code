@@ -77,7 +77,8 @@ import { hasFillerRows, rowTemplateBrief, verifyRowTemplate } from './rowtemplat
 import { leanRepairNote } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
-import { fixBrief, verifyFix, type FixVerdict } from './fixcheck.js'
+import { fixBrief, isBuiltPage, verifyFix, type FixVerdict } from './fixcheck.js'
+import { earlierNotes, earlierNotesBrief, inventedCopy, inventedFailures } from './earlier.js'
 import { verifyOwnWords } from './ownwords.js'
 import type { RunContext, RunResult } from './run.js'
 import { deriveProbes, relocateProbes, type ProbeVerdict } from './probe.js'
@@ -431,6 +432,9 @@ export async function runV2(
   save('interpretation.json', interp)
   save('fidelity.json', fidelity)
   if (ev.notes.length) save('notes.json', ev.notes)
+  // n72: a fix on a built page can read the words typed for it earlier (made-up row copy, r37 e4)
+  const earlier = isBuiltPage(input.snapshot) ? earlierNotes(join(ctx.root, '.sketch2code', 'runs'), runId) : []
+  if (earlier.length) save('earlier-notes.json', earlier)
   if (interp.actions.length === 0) {
     throw new Error(
       `no valid actions${interp.rejected.length ? ` (rejected: ${interp.rejected.join('; ')})` : ''}`,
@@ -659,6 +663,7 @@ export async function runV2(
     linkLineBrief(interp.actions) +
     placedBrief(interp.placedNotes, input.snapshot.viewport) +
     fixBrief(interp.actions, input.snapshot) +
+    earlierNotesBrief(earlier) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
     (composition.length
       ? `MEASURED COMPOSITION (deterministic, from the strokes themselves — these are the\n` +
@@ -830,6 +835,11 @@ export async function runV2(
     // n37: a fix on a built page keeps words apart and takes a panel away when told to
     const fixed = verifyFix(interp.actions, input.snapshot, after)
     lastFix = fixed
+    const invented = inventedFailures(inventedCopy(input.snapshot, after, [
+      ...(input.notes ?? []).map((n) => n.text), ...interp.actions.flatMap((a) => a.notes ?? []),
+    ], earlier))
+    for (const f of invented) { stage('verify', f); result.failures.push(f) }
+    if (invented.length) result.score = Math.min(result.score, 0.99)
     for (const f of fixed.failures) {
       stage('verify', f)
       result.failures.push(f)
