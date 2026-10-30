@@ -901,7 +901,9 @@ export async function runV2(
 
     // a bar or fill placed right but rendered with no area passes every
     // placement check and shows nothing: that is a failure, not a pass
-    const collapsed = findCollapsedFills(input.snapshot, after)
+    const zeroBars: string[] = []
+    const collapsed = findCollapsedFills(input.snapshot, after, zeroBars)
+    for (const z of zeroBars) stage('verify', `not flagged: ${z}`)
     for (const c of collapsed) {
       stage('verify', `empty: ${c.srcLoc} renders with 0 ${c.axis}`)
       result.failures.push(describeCollapsed(c))
