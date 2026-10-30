@@ -1,0 +1,533 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "a30572db2267c68ab25d0bd1b9611eff5ec085fd",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A budgeting/spending dashboard: a top-left header with bold 'Pocket' brand, 'Spending' heading and gray 'October 2026' subheading, a top-right 'October' month dropdown, a thick multicolor donut chart showing $2,340 of $2,800 spent with a colored category legend (Rent/Food/Travel) below it, and a white 'Categories' card on the right listing six colored progress rows with spent/budget amounts per category, all on a pale yellow page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (60,38) 345x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:21:11",
+      "rect": {
+       "x": 60,
+       "y": 38,
+       "w": 345,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1c1917 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (1201,46) 6x16 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:56:21",
+      "rect": {
+       "x": 1200.96875,
+       "y": 46,
+       "w": 6.03125,
+       "h": 16
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1c1917 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (60,38) 345x697 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:20:9",
+      "rect": {
+       "x": 60,
+       "y": 38,
+       "w": 345,
+       "h": 697
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": false,
+    "nearest": 83.6,
+    "reason": "nothing near the drawing is the colour that was drawn (#f97316); closest is ΔE 83.6 away"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (124,649) 74x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:48:17",
+      "rect": {
+       "x": 124,
+       "y": 649,
+       "w": 74.328125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 100,
+        "y": 650,
+        "w": 14,
+        "h": 13
+       },
+       "built": {
+        "x": 100,
+        "y": 652.5,
+        "w": 14,
+        "h": 13
+       },
+       "dx": 0,
+       "dy": 3
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 100,
+        "y": 683,
+        "w": 14,
+        "h": 14
+       },
+       "built": {
+        "x": 100,
+        "y": 685,
+        "w": 14,
+        "h": 14
+       },
+       "dx": 0,
+       "dy": 2
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 100,
+        "y": 716,
+        "w": 15,
+        "h": 15
+       },
+       "built": {
+        "x": 100,
+        "y": 717.5,
+        "w": 15,
+        "h": 15
+       },
+       "dx": 0,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f97316 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x931 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:18:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 931
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 559,
+        "y": 110,
+        "w": 662,
+        "h": 741
+       },
+       "built": {
+        "x": 558,
+        "y": 110,
+        "w": 662,
+        "h": 741
+       },
+       "dx": -1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (558,38) 662x813 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:54:9",
+      "rect": {
+       "x": 558,
+       "y": 38,
+       "w": 662,
+       "h": 813
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f97316 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "22 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "drawn-rings",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 chart drawn as a ring at the drawn size and place"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "drawn-order",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 marks drawn one under another built in the drawn order, each near its drawn height"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the outline drawn at (270,275) 134x238 was coloured #f97316 (fill); what was built there is ΔE 84 away: paint the block itself exactly #f97316; action 2: the outline drawn at (159,487) 198x58 was coloured #0d9488 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #0d9488; action 2: the outline drawn at (136,333) 23x154 was coloured #6366f1 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #6366f1; action 2: the outline drawn at (159,275) 111x58 was coloured #e7e5e4 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #e7e5e4; action 5: the line drawn at (594,231) 592x0 was drawn in #f97316 with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #f97316; its label and amount stay dark text; action 5: the line drawn at (594,301) 515x0 was drawn in #0d9488 with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #0d9488; its label and amount stay dark text; action 5: the line drawn at (594,371) 592x0 was drawn in #dc2626 with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #dc2626; its label and amount stay dark text; action 5: the line drawn at (594,441) 592x0 was drawn in #f5f5f4 with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #f5f5f4; its label and amount stay dark text; action 5: the line drawn at (594,511) 545x0 was drawn in #6366f1 with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #6366f1; its label and amount stay dark text; action 5: the line drawn at (594,581) 491x0 was drawn in #a8a29e with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #a8a29e; its label and amount stay dark text",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#fefae8",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,38) 71x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,128) 146x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,169) 97x0",
+       "want": "#78716c",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1155,38) 65x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (270,275) 134x238",
+       "want": "#f97316",
+       "best": 83.5681769764184,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (159,487) 198x58",
+       "want": "#0d9488",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (136,333) 23x154",
+       "want": "#6366f1",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (159,275) 111x58",
+       "want": "#e7e5e4",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (100,650) 14x13",
+       "want": "#f97316",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (100,683) 14x14",
+       "want": "#0d9488",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (100,716) 15x15",
+       "want": "#6366f1",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (559,110) 662x741 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (559,110) 662x741",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (594,155) 103x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (594,231) 592x0 (bar)",
+       "want": "#f97316",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (594,301) 515x0 (bar)",
+       "want": "#0d9488",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (594,371) 592x0 (bar)",
+       "want": "#dc2626",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (594,441) 592x0 (bar)",
+       "want": "#f5f5f4",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (594,511) 545x0 (bar)",
+       "want": "#6366f1",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (594,581) 491x0 (bar)",
+       "want": "#a8a29e",
+       "best": null,
+       "ok": false
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 84406,
+   "cacheRead": 764623,
+   "output": 32420
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 46348,
+    "output": 16021,
+    "cacheRead": 245292,
+    "toolCalls": 7,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read s2c-hand-app/package.json",
+     "Write src/App.tsx",
+     "Glob"
+    ],
+    "ms": 193322
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 54612,
+    "output": 9103,
+    "cacheRead": 316864,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 110424
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 15866,
+    "output": 7296,
+    "cacheRead": 202467,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 90280
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

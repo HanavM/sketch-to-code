@@ -12,6 +12,7 @@ import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { GroundedAction, GroundedInterpretation, InkColour } from './intent2.js'
 import { deltaE, hexOf, parseCssColor } from './palette.js'
 
+import { barBriefLine, barBuilt, barsOf, isBarInk } from './barlabels.js'
 const hex = (c: string) => { const p = parseCssColor(c); return p ? hexOf(p) : c }
 
 /**
@@ -78,6 +79,8 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the small box drawn at ${at} in dark ink (no colour tapped): an OUTLINED small control (an arrow / pager button, a checkbox, an icon button), about the drawn size: a thin 1px border (light grey, or ${hex(c.color)} if it reads as a strong outline), white or transparent background, never a dark or solid fill; a chevron or symbol typed next to it (‹ ›, +, ×) sits inside it in dark text`)
         continue
       }
+      // n121: a coloured level line with no words is a bar; its label and amount stay dark
+      if (isBarInk(c, a)) { lines.push(barBriefLine(i, c)); continue }
       if (plainPanel(c, a)) {
         lines.push(`- action ${String(i)}, the box drawn at ${at}: a PLAIN FLAT PANEL, built as drawn: one block exactly there, background ${hex(c.color)} solid at full strength (opacity 1, no gradient, no fade, no tint), square corners (border-radius 0), no box-shadow, no border; it is a coloured area of the page, not a floating card. Its words and images sit inside it; text on it must stay readable against it`)
         continue
@@ -269,6 +272,14 @@ export function verifyInkColours(
         const ok = !dark.length && framed
         checks.push({ what: `${what} (outlined control)`, want: 'border, no dark fill', best: null, ok })
         if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in dark ink with no tap: an outlined small button (1px light border, white or transparent background); ${dark.length ? 'it was built with a dark solid fill' : 'nothing with a border was built there'}: give it a thin border and no dark fill, keep its symbol dark`)
+        continue
+      }
+      // n121: a bar is checked as a thin block of its colour on the drawn line, never as text of that colour
+      if (isBarInk(c, a)) {
+        const bar = barsOf([a]).find((x) => x.strokeId === c.strokeId)!
+        const v = barBuilt(bar, after.nodes)
+        checks.push({ what: `${what} (bar)`, want: hex(c.color), best: v.de, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} with no words on it: a bar; ${v.de === null ? 'no thin block was built on that line' : `the nearest thin block on it is ΔE ${v.de.toFixed(0)} away`}: build a thin strip (6-10px tall) there with background ${hex(c.color)}; its label and amount stay dark text`)
         continue
       }
       const at = closestAt(c.color, near, c.paint)
