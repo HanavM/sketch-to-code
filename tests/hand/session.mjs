@@ -296,6 +296,8 @@ const ops = {
       events: S.events, strokesDrawn: S.strokes, notesTyped: S.notes,
     }
     writeFileSync(join(S.dir, 'digest.json'), JSON.stringify(digest, null, 2))
+    // n120: keep the run records (each check's verdict) beside the digest; the app folder is wiped at the next open
+    try { writeFileSync(join(S.dir, 'runs.json'), JSON.stringify(runRecords(APP_DIR), null, 1)) } catch {}
     await sideBySide(p, spec.ref, S.dir)
     return { ok: true, digest: { ...digest, events: undefined, strokesDrawn: undefined } }
   },

@@ -126,11 +126,17 @@ export function verifyPageDrift(
   after: DomSnapshot,
   placed: Array<{ index: number; region: Box; quote?: string | null }>,
 ): DriftVerdict {
-  if (placed.length < 6) return { satisfied: true, unverifiable: true, reason: 'not a whole-page build', offsets: [] }
   if (before.truncated || after.truncated) {
     return { satisfied: true, unverifiable: true, reason: 'snapshot truncated', offsets: [] }
   }
   const fresh = freshNodes(before, after)
+  // n120: a big drawn panel is checked on any page with 2+ placed blocks: the budget page (5 placed actions, so "not a
+  // whole-page build") had its Categories panel built ~145px below its drawn top and every check passed
+  const big = bigBlockDrift(fresh, placed, after.viewport.h)
+  if (placed.length < 6) {
+    if (big) return big
+    return { satisfied: true, unverifiable: true, reason: 'not a whole-page build', offsets: [] }
+  }
   const offsets: DriftVerdict['offsets'] = []
   for (const p of placed) {
     // full-page backdrops and very tall blocks are anchored at the page top anyway
@@ -145,12 +151,14 @@ export function verifyPageDrift(
   if (off.length < Math.max(3, Math.ceil(0.25 * offsets.length))) {
     const shift = uniformShift(offsets)
     if (shift) return { satisfied: false, reason: shift, offsets }
+    if (big) return big
     return { satisfied: true, reason: `${offsets.length - off.length} of ${offsets.length} blocks within ${DRIFT_TOLERANCE_PX}px of their drawn top`, offsets }
   }
   const low = off.filter((o) => o.dy > 0).length
   // real drift runs one way and compounds down the page; blocks off in both directions are far more often a wrong
   // match than a wrong layout, and a repair turn chasing them cost round 7 e4 its 10-minute run (both n99 runs)
   if (low < off.length * 0.7 && low > off.length * 0.3) {
+    if (big) return big
     return { satisfied: true, unverifiable: true, reason: `${off.length} blocks off in both directions: likely mismatched, not drift`, offsets }
   }
   const way = low >= off.length * 0.7 ? 'lower than drawn' : 'higher than drawn'
@@ -166,5 +174,45 @@ export function verifyPageDrift(
         `negative margin, negative top or absolute position, which slides it over the heading or label above it. ` +
         `Do not change widths, colours or copy.`,
     offsets,
+  }
+}
+
+export const BIG_BLOCK_MIN_H = 160
+export const BIG_BLOCK_MIN_W = 200
+export const BIG_BLOCK_TOL_PX = 32
+
+/**
+ * n120: a big drawn block (a panel or card at least ~160px tall and ~200px wide) lands at its drawn top. One such
+ * block far off is never a stray mismatch the way a thin line can be: it is matched by its drawn size and x, and
+ * everything drawn inside it moves with it. Checked on any page with 2+ placed blocks, and when the whole-page drift
+ * check passes only because too few other blocks are off (one panel 145px low among 8 blocks in place).
+ */
+export function bigBlockDrift(
+  fresh: DomNode[],
+  placed: Array<{ index: number; region: Box; quote?: string | null }>,
+  viewportH: number,
+): DriftVerdict | null {
+  if (placed.length < 2) return null
+  const offsets: DriftVerdict['offsets'] = []
+  for (const p of placed) {
+    const r = p.region
+    if (r.h < BIG_BLOCK_MIN_H || r.w < BIG_BLOCK_MIN_W) continue
+    if (r.h > 0.8 * viewportH && r.y < 40) continue
+    // by size and x only: a quote picks out a line of copy, not the panel round it
+    const m = matchTop(fresh, r, null)
+    if (m) offsets.push({ index: p.index, drawn: Math.round(m.drawn), built: Math.round(m.y), dy: Math.round(m.y - m.drawn) })
+  }
+  const off = offsets.filter((o) => Math.abs(o.dy) > BIG_BLOCK_TOL_PX)
+  if (!off.length) return null
+  const list = off.map((o) => `action ${o.index} (a big drawn panel) top at ${o.built}px, drawn at ${o.drawn}px (${Math.abs(o.dy)}px ${o.dy > 0 ? 'low' : 'high'})`)
+  return {
+    satisfied: false,
+    reason:
+      `${list.join('; ')}. A big panel starts where it was drawn: its top within ${DRIFT_TOLERANCE_PX}px of the drawn y. ` +
+      `Find the space above it that the drawing does not have (it sits in a column or grid row that starts lower, a wrapper ` +
+      `with padding or a top margin, a heading placed above it that was drawn inside it, or it was stacked under a block ` +
+      `drawn beside it) and take that out, so the panel's top lands at its drawn y; what is inside it moves with it. ` +
+      `Never use a negative margin, negative top or absolute position. Do not change widths, colours or copy.`,
+    offsets: off,
   }
 }
