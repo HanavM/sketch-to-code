@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T18:07Z | n119 a list note spreads over look-alike swatches | Legend right 2 of 2 (was 0 of 4); budget 49.3, 30.7 from unchecked panel drift.
 2026-10-30T17:35Z | n118 a ring drawn in coloured arcs is that chart | Slices in drawn order and shares, drawn size, round; budget 65.6, 63.7 (was 44.9).
 2026-10-30T16:45Z | n117 button at a tall panel's bottom stays put | Calendar keeps natural rows, button pinned and checked; hotel 76.9, 80.2 (was 74.9, 68.7).
 2026-10-30T16:35Z | n116 top bars as tall as drawn | Bands right 6 of 6 checks, no final drift; hotel 74.9, 68.7; budget 44.9; no gain over 77.7.
