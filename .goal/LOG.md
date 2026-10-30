@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-30T14:20Z | n113 a calendar note gives the month | Calendar heading, Monday start, marks right 3 of 3; hotel 62.0, 45.0 from page drift; server-death gap.
 2026-10-30T13:20Z | n112 a part drawn once is on every member | Apply on all 5 job cards, checkbox list; job board 61.3 to 77.4; contacts 77.6.
 2026-10-30T12:50Z | n111 copy with dots or a number stays as typed | Reserve label and title-plus-details lines right; job board 59.1 to 61.3; hotel 69.4.
 2026-10-30T12:55Z | n78 grey-pen box is an outline | Grey-pen boxes built as thin grey frames, checked; hotel 31.6 to 73.7, job board 40.0 to 59.1.
