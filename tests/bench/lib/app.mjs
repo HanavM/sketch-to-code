@@ -353,8 +353,8 @@ export async function makeApp({ dir, port }) {
       const keep = (d) => { out.push(String(d)); if (logFile) try { appendFileSync(logFile, String(d)) } catch { /* best effort */ } }
       child.stdout.on('data', keep)
       child.stderr.on('data', keep)
-      let exited = false
-      child.on('exit', (code, sig) => { exited = true; if (logFile) try { appendFileSync(logFile, `\n[vite exited code=${String(code)} signal=${String(sig)}]\n`) } catch { /* best effort */ } })
+      let exited = false, exit = null
+      child.on('exit', (code, sig) => { exited = true; exit = { code, signal: sig, at: new Date().toISOString() }; if (logFile) try { appendFileSync(logFile, `\n[vite exited code=${String(code)} signal=${String(sig)}]\n`) } catch { /* best effort */ } })
 
       const stop = async () => {
         try { process.kill(-child.pid, 'SIGTERM') } catch { child.kill('SIGTERM') }
@@ -396,7 +396,8 @@ export async function makeApp({ dir, port }) {
       await new Promise((r) => setTimeout(r, 750))
       await fetch(new URL('/src/main.tsx', url)).catch(() => undefined)
 
-      return { url, port, dir, stop, log: () => out.join('') }
+      // n115: a caller waiting on a run can see the server has died (and how) instead of waiting forever
+      return { url, port, dir, stop, log: () => out.join(''), alive: () => !exited, exit: () => exit }
     },
   }
 }

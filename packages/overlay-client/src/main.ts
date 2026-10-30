@@ -1211,6 +1211,8 @@ const CLIENT_ID: string = (() => {
 })()
 /** If no SSE event lands for this long while running, assume the run died. */
 const RUNNING_WATCHDOG_MS = 10 * 60_000
+/** n115: how long the dev server may be unreachable mid-run before the run is ended. */
+const SERVER_GONE_MS = 8_000
 
 function css(strings: TemplateStringsArray): string {
   return strings.join('')
@@ -12596,8 +12598,57 @@ class Overlay {
     return d.clientId == null || d.clientId === CLIENT_ID
   }
 
+  /**
+   * n115: the dev server itself stopped while a change was being made. Found in
+   * round 38 (hotel): the server died right after an edit and the bar sat on
+   * "making your change" until the 10-minute watchdog, then said only "run may
+   * have died". When the event stream drops mid-run, ask the server if it is
+   * there; after SERVER_GONE_MS of no answer, end the run and say plainly what
+   * happened and what was kept. If it comes back, its 'running' event (or the
+   * next reload) picks the run up as before.
+   */
+  private serverCheck: ReturnType<typeof setInterval> | null = null
+
+  private watchServer() {
+    if (this.serverCheck) return
+    if (this.mode !== 'running' && !this.flight) return
+    const since = Date.now()
+    this.serverCheck = setInterval(() => {
+      if (this.mode !== 'running' && !this.flight) { this.stopServerWatch(); return }
+      fetch('/@s2c/ping', { cache: 'no-store' })
+        .then((r) => { if (r.ok) this.stopServerWatch() })
+        .catch(() => {
+          if (Date.now() - since < SERVER_GONE_MS) return
+          this.stopServerWatch()
+          this.serverGone()
+        })
+    }, 1000)
+  }
+
+  private stopServerWatch() {
+    if (this.serverCheck) clearInterval(this.serverCheck)
+    this.serverCheck = null
+  }
+
+  private serverGone() {
+    if (this.watchdog) clearTimeout(this.watchdog)
+    this.watchdog = null
+    const msg = 'the dev server stopped while making your change — the page on disk is kept as it was left; start the dev server again to carry on'
+    if (this.flight) {
+      this.status(msg, true)
+      this.endFlight()
+      this.status(msg, true)
+      return
+    }
+    this.dropOptimistic(true)
+    this.clearApplying()
+    this.setMode(this.restingMode())
+    this.status(msg, true)
+  }
+
   private connectEvents() {
     this.events = new EventSource(`/@s2c/events?client=${encodeURIComponent(CLIENT_ID)}`)
+    this.events.addEventListener('error', () => this.watchServer())
     this.events.addEventListener('stage', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { stage: string; detail?: string; clientId?: string }
       if (!this.mine(d)) return

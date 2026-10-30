@@ -1,3 +1,4 @@
+import { markInterruptedRuns } from './interrupted-runs.js'
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { existsSync, readFileSync } from 'node:fs'
@@ -367,8 +368,14 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           server.config.logger.warn('[s2c] @s2c/pipeline not installed — overlay runs in capture-only mode')
         })
 
+      // n115: runs cut short by a dev server that stopped mid-run get their record now
+      const interruptedRuns = markInterruptedRuns(root)
+      if (interruptedRuns.length) {
+        server.config.logger.warn(`[s2c] ${String(interruptedRuns.length)} run(s) were cut short when the dev server stopped; the page on disk was kept as they left it`)
+      }
+
       server.middlewares.use('/@s2c/ping', (_req, res) => {
-        sendJson(res, 200, { ok: true, root, allowDirty, engine, hasPipeline: runHandler !== null })
+        sendJson(res, 200, { ok: true, root, allowDirty, engine, hasPipeline: runHandler !== null, interruptedRuns })
       })
 
       server.middlewares.use('/@s2c/overlay.js', (_req, res) => {

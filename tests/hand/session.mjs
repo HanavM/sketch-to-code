@@ -228,15 +228,26 @@ const ops = {
     const status = await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '')
     if (!ready) { S.runs.push({ n, readMs, failed: true, status }); return { ok: false, readMs, status, readShot } }
     await safeEval(p, `${sr}.getElementById('confirm').click()`)
-    for (let i = 0; i < 1600; i++) {
-      const busy = await safeEval(p, () => document.getElementById('s2c-overlay-host')?.dataset.mode === 'running')
+    for (let i = 0; i < 1600 && S.server.alive(); i++) {
+      const busy = await safeEval(p, () => document.getElementById('s2c-overlay-host')?.dataset.mode === 'running').catch(() => false)
       if (!busy && i > 4) break
       await p.waitForTimeout(500)
     }
     // n21: a run that failed writes no record; the bar says so, so stop waiting
-    for (let i = 0; i < 1200 && runRecords(APP_DIR).length <= before; i++) {
-      if (i > 4 && /went wrong|couldn.t/i.test(await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? ''))) break
+    for (let i = 0; i < 1200 && runRecords(APP_DIR).length <= before && S.server.alive(); i++) {
+      if (i > 4 && /went wrong|couldn.t|dev server stopped/i.test(await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '').catch(() => ''))) break
       await p.waitForTimeout(500)
+    }
+    // n115: the app's dev server died mid-run. Stop waiting at once, keep the page on disk as the run
+    // left it, write down what happened, and start the server again so the page can be seen and scored.
+    let died = null
+    if (!S.server.alive()) {
+      await p.waitForTimeout(9000) // long enough for the overlay to notice and say so (SERVER_GONE_MS)
+      const bar = await statusLine(p).catch(() => '')
+      died = { exit: S.server.exit(), atMs: now() - t, bar: bar.slice(0, 200), logTail: S.server.log().slice(-4000) }
+      writeFileSync(join(S.dir, `run${n}-server-died.json`), JSON.stringify(died, null, 2))
+      S.server = await app.start()
+      died.restarted = true
     }
     const totalMs = now() - t
     const rec = runRecords(APP_DIR).slice(-1)[0] ?? null
@@ -249,8 +260,8 @@ const ops = {
     await drawMode(p)
     const codegen = rec?.tokens ?? null
     const interp = S.interpret[S.interpret.length - 1] ?? null
-    S.runs.push({ n, readMs, buildMs: totalMs - readMs, totalMs, codegen, interpret: interp, status: (await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '')).slice(0, 200), strokesSoFar: S.strokes.length, notesSoFar: S.notes.length })
-    return { ok: true, readMs, totalMs, readShot, resShot, reading: reading ? { ok: reading.ok, summary: String(reading.summary ?? reading.plain ?? '').slice(0, 400) } : null }
+    S.runs.push({ n, readMs, buildMs: totalMs - readMs, totalMs, codegen, interpret: interp, ...(died ? { serverDied: { exit: died.exit, atMs: died.atMs, bar: died.bar } } : {}), status: (await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '')).slice(0, 200), strokesSoFar: S.strokes.length, notesSoFar: S.notes.length })
+    return { ok: true, readMs, totalMs, readShot, resShot, ...(died ? { serverDied: died.exit, bar: died.bar } : {}), reading: reading ? { ok: reading.ok, summary: String(reading.summary ?? reading.plain ?? '').slice(0, 400) } : null }
   },
   async done({ stopped } = {}) {
     const p = S.page
