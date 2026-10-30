@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A line noted as a progress bar now builds as a real bar and small drawn squares as outlined buttons (timesheet 55 to 70); next, keeping the header at its drawn height so the page does not slide down."
+now: "A heading drawn as three lines with its words typed on the first now builds on all three (florist 69 to 79); next, stopping builds that hang after writing the page."
 round: 36
 round_scores: [53, 77, 76, 70, 79, 78, 72]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run n88", until: "2026-10-30T01:11Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -171,8 +171,10 @@ nodes:
      result: "Ruled bands take own taps, two-line names; notifications 27 words at 74.5; timesheet 70 words, 55.1."}
   - {id: n92, parent: n89, kind: step, title: "A coloured line noted as a progress bar is a track with that much filled (never a big printed percent), small squares drawn in dark pen beside a date are outlined arrow buttons, and a label word like row in a note is never printed; re-sketch timesheet", status: done, branch: try/n3-ink-style,
      result: "Bar, caption and outlined pager built; timesheet 55.1 to 67.8, 70.3; try 4 48.9 from header drift."}
-  - {id: n93, parent: n4, kind: step, title: "A build turn that has written the page and then goes quiet for minutes is ended with the page kept, its record and times written (timesheet hung 19 min after writing, n73 too)", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n88, parent: n4, kind: step, priority: next, title: "A header stays at its drawn lines (no tall header pushing the page down), a repair that lifts content never removes blocks, and a note on stacked heading lines covers every line; re-sketch tide swim and florist", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n93, parent: n4, kind: step, priority: next, title: "A build turn that has written the page and then goes quiet for minutes is ended with the page kept, its record and times written (timesheet hung 19 min after writing, n73 too)", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n88, parent: n4, kind: step, title: "A header stays at its drawn lines (no tall header pushing the page down), a repair that lifts content never removes blocks, and a note on stacked heading lines covers every line; re-sketch tide swim and florist", status: done, branch: try/n3-ink-style,
+     result: "Heading words that overflow their line wrap onto bare lines below; florist 69.0 to 79.2, 76.7; tide 78.1 as is."}
+  - {id: n94, parent: n2, kind: step, title: "A plain drawn panel is built flat (no rounded corners, shadow or fade unless asked), and the bar names every line a note covers the moment it is typed; re-sketch florist and vinyl", status: open, branch: try/n3-ink-style, result: null}
   - {id: n50, parent: n1, kind: step, title: "Sketch round 33 pages e1-e5 by hand from screenshots only, record every number, roll up the round", status: done, branch: try/n3-ink-style,
      result: "Todo 83.0, music 84.1, invoice 80.6, map 81.4, billing 69.3; round 33 mean 69.6, 14.5 strokes."}
   - {id: n52, parent: n4, kind: step, title: "Rub out one chosen mark: scrub over a mark to erase just it, and undo says what it took back (never a tap you did not mean); re-sketch the music player", status: pruned, branch: try/n3-ink-style, result: "pruned: erasing one mark has not cost score or effort in rounds 34-36; keep open slots for row and drift gaps"}
@@ -576,6 +578,11 @@ n91_resketch:   # same strokes and taps as n87, notes retyped the short way (rep
   - {page: r36 e3-timesheet, try: 2, likeness: 55.1, was: 61.5, strokes: 19, words: 70, notes: 9, minutes: 6.8, fixes: 0, first_read_s: 102, build_s: 302, tokens: 117862, note: "header and total grey, rows white; big 82% and dark nav squares remain"}
   - {page: r36 e5-notifications, try: 1, likeness: 74.1, was: 69.9, strokes: 9, words: 27, notes: 4, minutes: 2.9, fixes: 0, first_read_s: 47, build_s: 122, tokens: 74951, note: "rows fit drawn card; no grey sublines"}
   - {page: r36 e5-notifications, try: 2, likeness: 74.5, was: 69.9, strokes: 9, words: 27, notes: 4, minutes: 7.8, fixes: 0, first_read_s: 57, build_s: 409, tokens: 105046, note: "title over grey line every row; toggles on on off off on"}
+n88_resketch:   # same strokes, taps and notes as n86 before its fix notes, replayed word for word (replay.mjs); first build only, no fixes; tests/hand/N88.md on try/n3-ink-style
+  - {page: r36 c4-florist, try: before, likeness: 69.0, was: 63.0, strokes: 12, taps: 3, words: 31, notes: 5, minutes: 6.7, fixes: 0, first_read_s: 59, build_s: 337, tokens: 71132, note: "tool as of n92; heading one small centred line; was = n86 after a fix"}
+  - {page: r36 c4-florist, try: 1, likeness: 79.2, was: 63.0, strokes: 12, taps: 3, words: 31, notes: 5, minutes: 3.8, fixes: 0, first_read_s: 50, build_s: 175, tokens: 65545, note: "three-line heading on its lines; panel rounded with a shadow"}
+  - {page: r36 c4-florist, try: 2, likeness: 76.7, was: 63.0, strokes: 12, taps: 3, words: 31, notes: 5, minutes: 3.5, fixes: 0, first_read_s: 70, build_s: 135, tokens: 61535, note: "three lines, flat panel; header ~6px low"}
+  - {page: r36 c5-tide-swim, try: 1, likeness: 78.1, was: 60.9, strokes: 21, taps: 7, words: 47, notes: 8, minutes: 7.7, fixes: 0, first_read_s: 93, build_s: 367, tokens: 142809, note: "tool as of n92, unchanged by n88; nav and blocks where drawn; was = n86 after a fix"}
 n92_resketch:   # same strokes and taps as n87, n91 short notes (replay.mjs --notes, tests/hand/n92/); first build only, no fixes; tests/hand/N92.md on try/n3-ink-style
   - {page: r36 e3-timesheet, try: 1, likeness: 67.8, was: 55.1, strokes: 19, words: 70, notes: 9, minutes: 7.5, fixes: 0, first_read_s: 131, build_s: 318, tokens: 151512, note: "progress bar and outlined pager built; caption missing"}
   - {page: r36 e3-timesheet, try: 2, likeness: 70.3, was: 55.1, strokes: 19, words: 70, notes: 9, minutes: 7.2, fixes: 0, first_read_s: 97, build_s: 333, tokens: 116127, note: "bar right; a stat-card repair put a big 82% back (then fixed in code)"}
