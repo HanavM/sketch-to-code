@@ -63,7 +63,14 @@ export function topBandsBrief(marks: ShapeMark[], page: { w: number; h: number }
       `so it is ${b.bottom - b.top}px tall with its border or edge at y=${b.bottom}px (logo, links and buttons centred inside it, never padded taller)`
     : `a wide bar drawn at x=${b.x}, y=${b.top}, ${b.w}px wide and ${b.bottom - b.top}px tall: build it at that top and exactly that height (height: ${b.bottom - b.top}px, ` +
       `its contents centred inside), never padded taller`).join('; ')
-  return `\n\nTOP BANDS (where the page's top bars were drawn; everything under them hangs off these): ${each}. ` +
+  // n117: the gap under the last band, to the first thing drawn below it
+  const last = bands[bands.length - 1]!
+  const below = marks.filter((m) => m.box.y >= last.bottom + 4 && m.box.w * m.box.h > 0).map((m) => r(m.box.y)).sort((a, b) => a - b)[0]
+  const gap = below != null && below - last.bottom <= 160
+    ? ` Under the last band (bottom at y=${last.bottom}px) the first thing drawn starts at y=${below}px: leave exactly ${below - last.bottom}px between them ` +
+      `(that block's top at y=${below}px), not a default section padding.`
+    : ''
+  return `\n\nTOP BANDS (where the page's top bars were drawn; everything under them hangs off these): ${each}.${gap} ` +
     `Set each band's height explicitly (height, not padding) and put no extra margin or gap under it beyond what the drawing shows: ` +
     `a band that comes out even 10px taller pushes every block under it below its drawn place. ` +
     `This is checked on the page: each band's top and bottom within ${BAND_TOL_PX}px of the drawn ones.`
