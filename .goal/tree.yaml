@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Typed button labels and dotted job and room details now come out exactly as typed; next, building a part drawn once (an Apply button) on every card in the set."
+now: "A part drawn once on the first card (an Apply button) now appears on every card, and ticked options become checkboxes; next, a note that describes a calendar gives its look instead of being printed as a heading."
 round: 38
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-20261030T1236", until: "2026-10-30T14:06Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -209,8 +209,10 @@ nodes:
   - {id: n58, parent: n4, kind: step, title: "Text rows drawn inside a card keep their drawn lines' height (no 10-15px drift down the table), and a value typed after a label (Storage, 62 of 100 GB) stays beside it unless drawn apart; re-sketch invoice and billing", status: pruned, branch: try/n3-ink-style, result: "pruned: folded into n90 (whole page and rows at their drawn height)"}
   - {id: n111, parent: n4, kind: step, title: "Copy with dots or a number stays as typed: a button note like Reserve · 4 nights is the button label (no stat), and Fernway · Remote · $95k stays one line; re-sketch hotel and job board", status: done, branch: try/n3-ink-style,
      result: "Reserve label and title-plus-details lines right on both; job board 59.1 to 61.3; hotel 69.4 (calendar note printed)."}
-  - {id: n112, parent: n2, kind: step, priority: next, title: "A part drawn only in the first of a repeated set (Apply on card 1, an avatar in row 1) is built on every member, and a note of checkbox options in a side panel is a checkbox list; re-sketch job board and contacts", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n113, parent: n4, kind: step, title: "A note that says what a block is (November 2026 calendar, 12 and 16 circles) gives its copy and look, never printed whole as a heading; a calendar's week starts as drawn; re-sketch hotel", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n112, parent: n2, kind: step, title: "A part drawn only in the first of a repeated set (Apply on card 1, an avatar in row 1) is built on every member, and a note of checkbox options in a side panel is a checkbox list; re-sketch job board and contacts", status: done, branch: try/n3-ink-style, 
+     result: "Apply on all 5 job cards, checkbox list from panel top; job board 61.3 to 77.4; contacts avatars, 77.6."}
+  - {id: n113, parent: n4, kind: step, priority: next, title: "A note that says what a block is (November 2026 calendar, 12 and 16 circles) gives its copy and look, never printed whole as a heading; a calendar's week starts as drawn; re-sketch hotel", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n114, parent: n2, kind: step, title: "A lone ring drawn at the top left of a typed list is row 1's own avatar (moved into the row, not an extra mark), and a note typed on the sidebar never binds to the list beside it; re-sketch contacts", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "Drawing near the bottom of the page pressed toolbar buttons: a stroke flipped manual to auto, the half-drawn page built and notes were lost", found_on: "r38 e5 video call (n108)", built: "n110: in draw mode a press on the bar that travels is ink on the page; the button never fires, the bar stays put", helped: "yes: same strokes drawn cleanly, e5 91.2 (try 1 lost, unscored); e2e live-hud-ink 3 of 3"}
   - {gap: "A box in a coloured pen with no tap is built solid, not as an outline (cards, calendar, search field, outline buttons)", found_on: "r38 e1, e2, e4 (n108); r38 c3, c4 (n107)", built: "n78: a box in a light grey pen with no tap is a thin grey outline, told and checked", helped: "yes: hotel 31.6 to 73.7, job board 40.0 to 59.1 (same sketch)"}
@@ -681,3 +683,6 @@ n103_resketch:   # same strokes, taps and notes as n98 replayed word for word (r
 n111_resketch:   # same strokes, taps and notes as n108 replayed word for word (replay.mjs); first build only, no fixes; tests/hand/N111.md on try/n3-ink-style
   - {page: r38 e1-hotel-booking, try: 1, likeness: 69.4, was: 73.7, strokes: 19, words: 56, notes: 10, minutes: 9.0, fixes: 0, first_read_s: 123, build_s: 413, tokens: 158916, note: "Reserve · 4 nights one label; room titles and details lines right; calendar heading printed the note"}
   - {page: r38 e4-job-board, try: 1, likeness: 61.3, was: 59.1, strokes: 19, words: 77, notes: 10, minutes: 8.5, fixes: 0, first_read_s: 123, build_s: 385, tokens: 132724, note: "title plus whole details line on all 5 cards; checkbox lists; Apply only on card 1"}
+n112_resketch:   # same strokes, taps and notes as n108 replayed word for word (replay.mjs); first build only, no fixes; tests/hand/N112.md on try/n3-ink-style
+  - {page: r38 e4-job-board, try: 1, likeness: 77.4, was: 61.3, strokes: 19, words: 77, notes: 10, minutes: 8.5, fixes: 0, first_read_s: 130, build_s: 379, tokens: 150077, note: "Apply on all 5 cards; checkbox list with headings from panel top"}
+  - {page: r38 e2-contacts, try: 1, likeness: 77.6, was: 78.8, strokes: 19, words: 65, notes: 8, minutes: 8.1, fixes: 0, first_read_s: 145, build_s: 340, tokens: 123256, note: "avatars rows 2-10; drawn ring left above row 1; nav note bound to list (swing)"}
