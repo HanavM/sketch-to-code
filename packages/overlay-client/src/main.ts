@@ -2366,6 +2366,7 @@ class Overlay {
   private helpEl: HTMLElement
   private helpOpen = false
   /** Live bar drag: origin is the bar's top-left at pointerdown, in client px. */
+  private hudPress: { pointerId: number; x: number; y: number; onButton: boolean } | null = null
   private hudDrag: { pointerId: number; startX: number; startY: number; originX: number; originY: number } | null = null
 
   private mode: Mode = 'idle'
@@ -4256,6 +4257,19 @@ class Overlay {
     // a press that lands on a control belongs to that control — buttons must
     // keep behaving like buttons, so only the bar's own surface starts a drag
     const src = e.composedPath()[0]
+    const onGrip = src instanceof Element && !!src.closest('#hudGrip')
+    /*
+     * n110: in draw mode a pen stroke may start on the bar. Round 38 e5 (a video
+     * call): the row of call controls sits at the bottom of the page, right
+     * under the bar; drawing them pressed the bar's buttons — one stroke
+     * switched the run to auto, which built the half-drawn page and lost the
+     * notes. So, anywhere but the grip, a press is held as "maybe ink": it
+     * stays a click if it never travels, and becomes a stroke on the page the
+     * moment it does (onHudMove hands it to the canvas).
+     */
+    this.hudPress = this.mode === 'draw' && !onGrip
+      ? { pointerId: e.pointerId, x: e.clientX, y: e.clientY, onButton: !!(src instanceof Element && src.closest('button')) }
+      : null
     if (src instanceof Element && src.closest('button')) return
     const r = this.hud.getBoundingClientRect()
     // pin to the pixels it ALREADY occupies before the first move: swapping
@@ -4270,6 +4284,11 @@ class Overlay {
   }
 
   private onHudMove(e: PointerEvent) {
+    const hp = this.hudPress
+    if (hp && hp.pointerId === e.pointerId && (e.buttons & 1) && Math.hypot(e.clientX - hp.x, e.clientY - hp.y) > CLICK_SLOP) {
+      this.handInkThroughHud(e, hp)
+      return
+    }
     const d = this.hudDrag
     if (!d || e.pointerId !== d.pointerId) return
     // straight off the pointer delta — no rAF, no debounce: the bar has to be
@@ -4282,7 +4301,37 @@ class Overlay {
     if (this.penOpen) this.layoutPanel(this.penPanel)
   }
 
+  /**
+   * n110: a press on the bar (not its grip) travelled in draw mode: it was ink.
+   * The bar goes back where it was, the button under the press never fires,
+   * and the canvas takes the pointer from the press point on — so the stroke
+   * keeps every point, reads like any other, and its release ends it.
+   */
+  private handInkThroughHud(e: PointerEvent, hp: { pointerId: number; x: number; y: number; onButton: boolean }) {
+    this.hudPress = null
+    const d = this.hudDrag
+    if (d) {
+      this.hudDrag = null
+      this.hudPos = { x: d.originX, y: d.originY }
+      this.applyHudPos()
+    }
+    if (this.hud.hasPointerCapture(e.pointerId)) this.hud.releasePointerCapture(e.pointerId)
+    if (hp.onButton) {
+      // the release may still land on that button: swallow the one click it makes
+      const eat = (c: Event) => { c.stopPropagation(); c.preventDefault() }
+      // …and only that one: the eater goes once this press is released (a click
+      // fires in the same task as its release), so the next real click works
+      this.hud.addEventListener('click', eat, { capture: true, once: true })
+      window.addEventListener('pointerup', () => setTimeout(() => this.hud.removeEventListener('click', eat, { capture: true }), 0), { capture: true, once: true })
+    }
+    const at = (x: number, y: number) => ({ button: 0, buttons: 1, pointerId: e.pointerId, clientX: x, clientY: y, timeStamp: e.timeStamp }) as unknown as PointerEvent
+    this.onDown(at(hp.x, hp.y))
+    this.onMove(at(e.clientX, e.clientY))
+    this.status('drawing through the toolbar')
+  }
+
   private onHudUp(e: PointerEvent) {
+    if (this.hudPress?.pointerId === e.pointerId) this.hudPress = null
     const d = this.hudDrag
     if (!d || e.pointerId !== d.pointerId) return
     this.hudDrag = null
