@@ -55,3 +55,12 @@ describe('n146 a small dark ring with no tap is hollow', () => {
     expect(hollowBuilt(c, [ring] as never).ok).toBe(true)
   })
 })
+
+describe('n146 a hand ring with no clean shape still counts as a closed loop', () => {
+  it('closed when it ends near its start, open otherwise', async () => {
+    const { closedLoop } = await import('../src/intent2.js')
+    const ring = [[652, 626], [650, 633], [644, 637], [636, 637], [630, 633], [628, 626], [630, 619], [636, 615], [644, 615], [650, 619], [651, 624]].map(([x, y]) => ({ x: x!, y: y! }))
+    expect(closedLoop(ring)).toBe(true)
+    expect(closedLoop(ring.slice(0, 6))).toBe(false)
+  })
+})

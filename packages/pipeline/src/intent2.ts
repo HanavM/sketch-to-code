@@ -1304,16 +1304,22 @@ export function groundInterpretation(
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, taught: true }); continue
         }
       }
+      // n146: a small ring drawn in dark ink with no tap is an outlined ring (map marker, radio), never a dark dot. A hand
+      // ring that wobbles is often no clean shape (an outline blob), so a small closed stroke with no shape counts too.
+      if (!flat && ((sm?.shape === 'ellipse' && !sm.solid) || (!sm && closedLoop(st.points)))) {
+        const rb = sm?.box ?? box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        if (inkSmallRing(st.color, rb, own)) {
+          inkColours.push({ strokeId: st.id, mark: 'ring', paint: 'border', color: st.color, box: rb, how: 'pen', ring: { thickness: Math.max(2, Math.min(5, Math.round((rb.w + rb.h) / 2 * 0.15))) } })
+          continue
+        }
+      }
       // n129: a ring in a coloured pen noted as an arc, track or progress is the ring's line, not a coloured-in disc
       if (!flat && sm?.shape === 'ellipse' && !sm.solid) {
         const rb = sm.box
         const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
           (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
-        // n146: a small ring drawn in dark ink with no tap is an outlined ring (map marker, radio), never a dark dot
-        if (inkSmallRing(st.color, rb, own)) {
-          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', ring: { thickness: Math.max(2, Math.min(5, Math.round((rb.w + rb.h) / 2 * 0.15))) } })
-          continue
-        }
         if (rb.w >= 60 && rb.h >= 60 && ringNoted(own)) {
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen',
             hollow: { thickness: ringThickness((rb.w + rb.h) / 2), share: ringShare(own), track: trackColour(own) } })
@@ -1459,4 +1465,13 @@ export function dropPageInk(actions: Array<{ inkColours?: InkColour[] }>, pageCo
     if (kept.length) a.inkColours = kept
     else delete a.inkColours
   }
+}
+
+/** n146: a stroke that ends near where it started (a hand-drawn ring or blob), by its own size. */
+export function closedLoop(pts: ReadonlyArray<{ x: number; y: number }>): boolean {
+  if (pts.length < 6) return false
+  const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y)
+  const d = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys))
+  const a = pts[0]!, z = pts[pts.length - 1]!
+  return d > 0 && Math.hypot(a.x - z.x, a.y - z.y) <= Math.max(6, d * 0.35)
 }
