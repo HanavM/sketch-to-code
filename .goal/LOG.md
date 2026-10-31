@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T23:20Z | n165 table under its drawn rule, no invented button | Ring and box under the rule read as row 1 cells; gradebook 58.0, 68.0 no fixes (was 65.9).
 2026-10-31T22:49Z | n169 repairs act biggest first | Problems ranked, first edit at once, no stall: podcast 80.2, 85.7 with no fixes (was 38.9 stalled).
 2026-10-31T22:22Z | n168 list heading starts at the list edge | Heading on the rows' edge both tries: podcast 77.8 to 84.2 no fixes; 38.9 when the repair stalled.
 2026-10-31T21:39Z | n167 hollow ring on every row, no size words in titles | No fixes: podcast 75.7 to 77.8 (hollow rings, rows on start), dashboard 78.3 to 81.9 (title clean).

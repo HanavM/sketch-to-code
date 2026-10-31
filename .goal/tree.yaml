@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Fix rounds now tackle the biggest problems first and act at once; next, a gradebook table that grows a stray button."
+now: "The gradebook table no longer grows a stray button; next, retrying stuck repairs and keeping drawn headings their drawn length."
 round: 42
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run-2026-10-31T22:51Z", until: "2026-11-01T00:20Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -291,7 +291,9 @@ nodes:
      result: "Regatta 80.9, donuts 75.5, ski lodge 78.1, Bauhaus 86.5, bowling 84.0; mean 81.0, 17 strokes, 45 words."}
   - {id: n162, parent: n1, kind: step, title: "Sketch round 42 app pages e1-e5 by hand from screenshots only, at 50 words or fewer a page; record every number and roll up round 42", status: done, branch: try/n3-ink-style,
      result: "Podcast 82.9, quiz 87.3, cart 70.2, dashboard 82.6, gradebook 65.9; round 42 79.4, 15.5 strokes, 53.5 words."}
-  - {id: n165, parent: n4, kind: step, priority: next, title: "A fix note that asks for a made-up element to go is kept (emptying it is the fix, not a loss), and a pale box at a table column's top is that column's cell, never a button; replay gradebook", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n165, parent: n4, kind: step, title: "A fix note that asks for a made-up element to go is kept (emptying it is the fix, not a loss), and a pale box at a table column's top is that column's cell, never a button; replay gradebook", status: done, branch: try/n3-ink-style,
+     result: "No invented button, rows under drawn rule, no fixes: gradebook 58.0, 68.0 (was 65.9 with a fix)."}
+  - {id: n170, parent: n4, kind: step, priority: next, title: "A repair that makes no progress is retried fresh like a silent one, and a heading drawn as a line is built that long the first time; replay gradebook and podcast", status: open, branch: try/n3-ink-style, result: null}
   - {id: n166, parent: n4, kind: step, title: "A colour tap that lands on a toolbar button over drawn ink goes to the ink (never presses the button), and rows typed beside a drawn column run up to it; replay podcast and cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
   - {id: n154, parent: n2, kind: step, title: "A note typed just under a picture box is its caption below it (not text on the picture), and the box keeps its drawn height; replay hotel search", status: open, branch: try/n3-ink-style, result: null}
@@ -966,3 +968,6 @@ n168_resketch:   # same strokes, pens and first notes as n162 replayed (replay.m
 n169_resketch:   # same strokes, pens and first notes as n162 replayed (replay.mjs --bar 421,700); first Run only, no fixes; tests/hand/N169.md on try/n3-ink-style
   - {page: r42 e1-podcast-app, try: 1, likeness: 80.2, was: 84.2, strokes: 19, words: 50, notes: 8, minutes: 9.4, fixes: 0, first_read_s: 118, build_s: 444, tokens: 157085, note: "ten checks failed after build; both repairs edited at once, 57% to 96% passing"}
   - {page: r42 e1-podcast-app, try: 2, likeness: 85.7, was: 84.2, strokes: 19, words: 50, notes: 8, minutes: 5.8, fixes: 0, first_read_s: 113, build_s: 232, tokens: 97025, note: "repairs edited in 31 s and 19 s; best podcast yet, no stall"}
+n165_resketch:   # same strokes, pens and first notes as n162 replayed (replay.mjs); first Run only, no fixes; tests/hand/N165.md on try/n3-ink-style
+  - {page: r42 e5-gradebook, try: 1, likeness: 58.0, was: 65.9, strokes: 11, words: 46, notes: 7, minutes: 10.2, fixes: 0, first_read_s: 78, build_s: 530, tokens: 94247, note: "no button, ring on every row, tinted Average cells; header block tall, repair made no progress"}
+  - {page: r42 e5-gradebook, try: 2, likeness: 68.0, was: 65.9, strokes: 11, words: 46, notes: 7, minutes: 8.2, fixes: 0, first_read_s: 87, build_s: 405, tokens: 74752, note: "no button, rows on the target's rows; stalled repair retried fresh and finished"}
