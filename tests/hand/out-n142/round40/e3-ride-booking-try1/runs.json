@@ -1,0 +1,409 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "20f97e28baa0c15ff43fe4535b810ae6fa3b2bde",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/CityStreet.tsx"
+  ],
+  "reading": "The sketch is a full ride-booking screen: on the right a map background (grey terrain, thick white road grid) with a curved route and two location-pin markers, and on the left a white rounded card holding a 'Where to?' heading, two location inputs, a 'Choose a ride' list of three fare options, and a dark 'Confirm Standard' button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:13:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<svg> src/components/CityStreet.tsx:10:5 at (500,2) 778x896 sits on the drawn shape",
+     "claimed": "e3"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 0,
+    "score": 0.914704504377511,
+    "massSimilarity": 0.878149291967873,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:13:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 39,
+        "y": 39,
+        "w": 441,
+        "h": 822
+       },
+       "built": {
+        "x": 39,
+        "y": 39,
+        "w": 441,
+        "h": 822
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 70,
+        "y": 125,
+        "w": 380,
+        "h": 55
+       },
+       "built": {
+        "x": 70,
+        "y": 125,
+        "w": 380,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 69,
+        "y": 191,
+        "w": 381,
+        "h": 56
+       },
+       "built": {
+        "x": 69,
+        "y": 191,
+        "w": 381,
+        "h": 56
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 70,
+        "y": 306,
+        "w": 381,
+        "h": 85
+       },
+       "built": {
+        "x": 70,
+        "y": 306,
+        "w": 381,
+        "h": 85
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 69,
+        "y": 769,
+        "w": 381,
+        "h": 61
+       },
+       "built": {
+        "x": 69,
+        "y": 769,
+        "w": 381,
+        "h": 61
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f2f3f5 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "panel-feet",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 panel foot at the drawn place, contents above at natural size"
+    }
+   },
+   {
+    "kind": "routes",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 route line drawn"
+    }
+   },
+   {
+    "kind": "stats",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 stat card with the value at the left and the label in place"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the outline drawn at (651,2) 2x896 was coloured #ffffff (fill); nothing that size was built there carrying a colour: paint the block itself exactly #ffffff; action 0: the outline drawn at (1052,2) 2x896 was coloured #ffffff (fill); nothing that size was built there carrying a colour: paint the block itself exactly #ffffff; action 0: the outline drawn at (500,252) 778x2 was coloured #ffffff (fill); nothing that size was built there carrying a colour: paint the block itself exactly #ffffff; action 0: the outline drawn at (500,631) 778x2 was coloured #ffffff (fill); nothing that size was built there carrying a colour: paint the block itself exactly #ffffff; action 0: the outline drawn at (640,252) 416x378 was coloured #111827 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #111827; action 0: the outline drawn at (629,615) 23x22 was coloured #111827 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #111827; action 0: the outline drawn at (1053,239) 23x22 was coloured #111827 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #111827",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#e4e5e9",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (651,2) 2x896",
+       "want": "#ffffff",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (1052,2) 2x896",
+       "want": "#ffffff",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (500,252) 778x2",
+       "want": "#ffffff",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (500,631) 778x2",
+       "want": "#ffffff",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (640,252) 416x378",
+       "want": "#111827",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (629,615) 23x22",
+       "want": "#111827",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (1053,239) 23x22",
+       "want": "#111827",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (39,39) 441x822",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (70,125) 380x55",
+       "want": "#f2f3f5",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (69,191) 381x56",
+       "want": "#f2f3f5",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (70,306) 381x85",
+       "want": "#111827",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (69,769) 381x61",
+       "want": "#111827",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 82156,
+   "cacheRead": 617074,
+   "output": 33260
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 56228,
+    "output": 22120,
+    "cacheRead": 289085,
+    "toolCalls": 11,
+    "tools": [
+     "Read components/CityStreet.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Glob",
+     "Read src/main.tsx",
+     "Read s2c-hand-app/package.json",
+     "Edit components/CityStreet.tsx",
+     "Write src/App.tsx",
+     "Read s2c-hand-app/vite.config.ts"
+    ],
+    "ms": 258872
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 59188,
+    "output": 11140,
+    "cacheRead": 327989,
+    "toolCalls": 5,
+    "tools": [
+     "Read components/CityStreet.tsx",
+     "Edit components/CityStreet.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 124545
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

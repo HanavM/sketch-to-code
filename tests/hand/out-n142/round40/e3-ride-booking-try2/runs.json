@@ -1,0 +1,451 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "20f97e28baa0c15ff43fe4535b810ae6fa3b2bde",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/SketchShape.tsx"
+  ],
+  "reading": "The sketch shows a ride-booking card (white, rounded, soft shadow) on the left with a bold 'Where to?' heading, two location rows (Central Station, Airport Terminal 2), a 'Choose a ride' section listing three ride options with thumbnails and right-aligned prices, and a black 'Confirm Standard' button; on the right is a map background with thick white roads and a route path with a rounded corner connecting two marked points.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (70,306) 381x85 spans x 70 to 451; the <div> built for it spans 86 to 435: make it exactly 381px wide from x 70 (an exact px width with box-sizing: border-box, not a max-w class or page padding that rounds it), keeping what is inside it",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 39,
+        "y": 39,
+        "w": 441,
+        "h": 822
+       },
+       "built": {
+        "x": 39,
+        "y": 39,
+        "w": 441,
+        "h": 822
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 70,
+        "y": 125,
+        "w": 380,
+        "h": 55
+       },
+       "built": {
+        "x": 70,
+        "y": 125,
+        "w": 380,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 69,
+        "y": 191,
+        "w": 381,
+        "h": 56
+       },
+       "built": {
+        "x": 69,
+        "y": 191,
+        "w": 381,
+        "h": 56
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 70,
+        "y": 306,
+        "w": 381,
+        "h": 85
+       },
+       "built": {
+        "x": 86,
+        "y": 316,
+        "w": 349,
+        "h": 65
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 69,
+        "y": 769,
+        "w": 381,
+        "h": 61
+       },
+       "built": {
+        "x": 69,
+        "y": 769,
+        "w": 381,
+        "h": 61
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f2f3f5 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 629,
+        "y": 615,
+        "w": 23,
+        "h": 22
+       },
+       "built": {
+        "x": 629,
+        "y": 617,
+        "w": 23,
+        "h": 22
+       },
+       "dx": 0,
+       "dy": 2
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 1053,
+        "y": 239,
+        "w": 23,
+        "h": 21
+       },
+       "built": {
+        "x": 1053,
+        "y": 241,
+        "w": 23,
+        "h": 21
+       },
+       "dx": 0,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "panel-feet",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 panel foot at the drawn place, contents above at natural size"
+    }
+   },
+   {
+    "kind": "routes",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 route line drawn"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "stats",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 stat card with the value at the left and the label in place"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the box drawn at (70,306) 381x85 was coloured #111827 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #111827; action 1: the line drawn at (500,632) 778x0 was coloured #ffffff (text colour); what was built there is ΔE 92 away: paint its text exactly #ffffff",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#e4e5e9",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (39,39) 441x822",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (70,125) 380x55",
+       "want": "#f2f3f5",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (69,191) 381x56",
+       "want": "#f2f3f5",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (70,306) 381x85",
+       "want": "#111827",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (69,769) 381x61",
+       "want": "#111827",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (652,2) 0x896",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1053,2) 0x896",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (500,253) 778x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (500,632) 778x0",
+       "want": "#ffffff",
+       "best": 92.41794851402804,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (629,615) 23x22 (outlined control)",
+       "want": "border, no dark fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1053,239) 23x21 (outlined control)",
+       "want": "border, no dark fill",
+       "best": null,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 88798,
+   "cacheRead": 576952,
+   "output": 38711
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 60499,
+    "output": 24967,
+    "cacheRead": 166569,
+    "toolCalls": 8,
+    "tools": [
+     "Glob",
+     "Read components/SketchShape.tsx",
+     "Read src/App.tsx",
+     "Read s2c-hand-app/package.json",
+     "Glob",
+     "Glob",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 302473
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 56885,
+    "output": 9049,
+    "cacheRead": 205497,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 121152
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 10125,
+    "output": 4695,
+    "cacheRead": 204886,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 62252
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
