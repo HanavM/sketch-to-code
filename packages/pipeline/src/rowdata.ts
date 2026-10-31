@@ -103,6 +103,36 @@ export function commaDotCells(copy: string): string[] | null {
   return out
 }
 
+/**
+ * n144: rows typed after a colon and split by semicolons, each a dotted row ("rides: Standard 4 min away · 4 seats
+ * £18.40; Comfort 6 min away · extra room £24.10"). What comes before the colon says how the rows look. Null otherwise.
+ */
+export function semiRows(text: string): string[] | null {
+  const c = text.indexOf(':')
+  if (c < 0) return null
+  const parts = text.slice(c + 1).split(/\s*;\s*/).map(clean).filter(Boolean)
+  if (parts.length < 2 || !parts.every((p) => CELL.test(p))) return null
+  return parts
+}
+
+const PRICE_END = /^(.*\S)\s+((?:[£$€¥]\s?\d[\d.,]*)|(?:\d[\d.,]*\s?(?:€|kr|zł)))$/u
+const NAME_HEAD = /^(\p{Lu}[\p{L}'&-]*(?:\s+\p{Lu}[\p{L}'&-]*){0,2})\s+(\d.*)$/u
+/**
+ * n144: a dotted row typed without a dot after its name or before its price ("Standard 4 min away · 4 seats £18.40"):
+ * the capitalised name before the first number is its own cell, the price at the very end the side value, and what is
+ * between them one details line, dots kept.
+ * Round 40 e3: the three ride rows were built as "Standard 4 min away" bold and "4 seats £18.40" together at the right.
+ */
+export function splitEnds(cs: string[]): string[] {
+  // only a row that ends in a price run into it ("4 seats £18.40"); "Sertraline 50 mg · 1 tablet daily" keeps its cells
+  const last = PRICE_END.exec(cs[cs.length - 1]!)
+  const head = NAME_HEAD.exec(cs[0]!)
+  if (!last || !head || last[1]!.split(/\s+/).length > 5) return cs
+  // name | one details line (dots kept, printed as typed) | price
+  const meta = [head[2]!.trim(), ...cs.slice(1, -1), last[1]!.trim()]
+  return [head[1]!.trim(), meta.join(' · '), last[2]!.trim()]
+}
+
 /** The rows a note gives, or null when it gives none. */
 export function rowData(note: string): RowData | null {
   // n111: a button's label ("Reserve · 4 nights") is one piece of copy, no row of data
@@ -117,6 +147,9 @@ export function rowData(note: string): RowData | null {
   else if (plus && /like|more/i.test(plus[0]) && (/like/i.test(plus[0]) || CELL.test(text) || ROWSEP.test(text))) { more = n(plus[1]!); text = text.replace(plus[0], ' ') }
   else if (times) { total = Number(times[1] ?? times[2]); text = text.replace(times[0], ' ') }
   text = text.replace(/[,;:\s]+$/, '').replace(/^[,;:\s]+/, '')
+  // n144: rows split by semicolons after a colon ("3 rides, grey thumb: Standard ... £18.40; Comfort ... £24.10")
+  const semi = ROWSEP.test(text) ? null : semiRows(text)
+  if (semi) text = semi.join(' / ')
   const slashRows = ROWSEP.test(text.replace(LEAD, ''))
   if (slashRows) text = text.replace(LEAD, '')
   // look tail and directions come off the copy (they apply to every row, they are not a row)
@@ -130,7 +163,7 @@ export function rowData(note: string): RowData | null {
     const cs = copy.split(CELL).map(clean).filter(Boolean)
     // a dotted row's last cell ends at ", ": what follows says how the row looks ("teal Refill"), it is no cell
     if (cs.length >= 2) cs[cs.length - 1] = cs[cs.length - 1]!.split(/,\s+/)[0]!.trim()
-    return cs.filter(Boolean)
+    return (cs.length >= 2 ? splitEnds(cs) : cs).filter(Boolean)
   }).filter((r) => r.length)
   if (more) total = rows.length + more
   // n89: "5 rows like this, thin dividers" types no row: what follows the count is how the rows look
@@ -178,7 +211,7 @@ export function rowDataBrief(notes: readonly string[]): string {
     }
     const cells = Math.max(...d.rows.map((r) => r.length))
     if (cells >= 2) {
-      parts.push(`each quoted cell is its OWN text item (its own element) in that row's column or spot: in a card or list row the first is the name (stronger), the middle ones its details (smaller, muted, under or beside the name), the last its side value (at the row's right end, before any button); in a table, cell k sits under column header k. Never print the separators (·, •, |, /) or the cells run together on one line, EXCEPT inside a quoted cell that itself holds dots: that cell is ONE details line printed exactly as typed, dots and all, on one line (for example under the name), never split into columns or moved apart`)
+      parts.push(`each quoted cell is its OWN text item (its own element) in that row's column or spot: in a card or list row the first is the name (stronger), the middle ones its details (smaller, muted, on a second line UNDER the name when the drawn row is tall enough for two lines, else beside it), the last its side value (at the row's right end, before any button); in a table, cell k sits under column header k. Never print the separators (·, •, |, /) or the cells run together on one line, EXCEPT inside a quoted cell that itself holds dots: that cell is ONE details line printed exactly as typed, dots and all, on one line (for example under the name), never split into columns or moved apart`)
     } else if (d.rows.length >= 2) {
       parts.push(`a row typed as one run of words ("1 60 kg 10 90 s") is split across the drawn columns or header words in order, one value per column`)
     }

@@ -336,6 +336,14 @@ const COUNT_WORDS: Record<string, number> = { two: 2, three: 3, four: 4, five: 5
  * How many marks a note names as a group: "3 cards", "three frames", "all 3", "on both" give the
  * number; "all cards", "each tile", "every box" give 0 (all of the group). Null when it names none.
  */
+/** n144: a note that lists items after a colon (three or more, comma or slash separated): its words are copy. */
+export function listNote(text: string): boolean {
+  const c = text.indexOf(':')
+  if (c < 0) return false
+  const rest = text.slice(c + 1).replace(/\([^)]*\)/g, '')
+  return rest.split(/[,/;]/).filter((p) => p.trim().length > 0).length >= 3
+}
+
 export function groupCount(text: string): number | null {
   const t = ` ${text.toLowerCase()} `
   const num = String.raw`(\d|two|three|four|five|six|seven|eight|nine)`
@@ -350,6 +358,9 @@ export function groupCount(text: string): number | null {
     const n = /\d/.test(m[1]!) ? Number(m[1]) : COUNT_WORDS[m[1]!]!
     return n >= 2 && n <= 9 ? n : null
   }
+  // n144: a list note's "both" / "all" is about items it lists, not drawn marks. Round 40 e2: "checkbox list: 200 g
+  // ricotta, 2 eggs (both ticked orange, crossed out), ..." typed in empty space 120px right of the photo box joined it.
+  if (listNote(t)) return null
   if (/\bboth\b/.test(t)) return 2
   // n69: "every box", "all three cards" name a group; "every time I click it", "each day" are copy
   const every = /\b(?:all|each|every)\s+((?:the\s+)?(?:[a-z-]+\s+){0,2}[a-z]+s?)\b/.exec(t)

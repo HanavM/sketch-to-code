@@ -104,12 +104,22 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a ${hex(c.color)} pen (no colour tapped) on the dark ${hex(c.frameOn)} surface: an OUTLINED block exactly there (a button, a field, a list or a panel, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background TRANSPARENT so the dark surface shows through, NEVER filled ${hex(c.color)}, white or any grey; its words stay light and readable on the dark; rows inside it keep only their dividers`)
         continue
       }
+      if (c.paint === 'border' && c.frame && c.taught) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped (another box in that pen was tapped to fill it, so this one is not filled): an OUTLINED block exactly there (a picked row or option, a field, a card, whatever it holds): a 2px ${hex(c.color)} border, background white or the surface under it, NEVER filled ${hex(c.color)} or any dark or grey tint; its words stay dark on the light inside, laid out like its unpicked look-alikes`)
+        continue
+      }
       if (c.paint === 'border' && c.frame) {
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
         continue
       }
       if (c.paint === 'border') {
         lines.push(`- action ${String(i)}, the small box drawn at ${at} in dark ink (no colour tapped): an OUTLINED small control (an arrow / pager button, a checkbox, an icon button), about the drawn size: a thin 1px border (light grey, or ${hex(c.color)} if it reads as a strong outline), white or transparent background, never a dark or solid fill; a chevron or symbol typed next to it (‹ ›, +, ×) sits inside it in dark text`)
+        continue
+      }
+      // n144: a divider drawn in a pale pen with words over it: the pen is the rule's colour, never the words'
+      if (c.paint === 'text' && c.ruleOnly) {
+        lines.push(`- action ${String(i)}, the divider line drawn at ${at} in a pale ${hex(c.color)} pen: that colour is the RULE's colour only (a thin 1px ${hex(c.color)} line or border-bottom there). ` +
+          `The words typed over it are NOT ${hex(c.color)} and not any pale tint: they are ordinary dark, readable text (the page's usual text colour), as strong as the other labels`)
         continue
       }
       // n121: a coloured level line with no words is a bar; its label and amount stay dark
@@ -301,6 +311,14 @@ export function verifyInkColours(
           `build it as an SVG ring (circles with fill="none", stroke-width ${String(c.hollow.thickness)}) or put an inner disc in the surface colour on top so only a ${String(c.hollow.thickness)}px band shows; keep its size, place, colours and words`)
         continue
       }
+      // n144: words over a pale-pen divider are not painted that pale colour
+      if (c.paint === 'text' && c.ruleOnly) {
+        const pen = parseCssColor(c.color)
+        const pale = pen ? after.nodes.filter((n) => n.text.length > 0 && crosses(n.rect, band) && (() => { const t = parseCssColor(n.style.color ?? ''); return !!t && deltaE(t, pen) <= 12 })()) : []
+        checks.push({ what: `${what} (pale divider)`, want: `words not ${hex(c.color)}`, best: null, ok: pale.length === 0 })
+        if (pale.length) misses.push(`action ${String(i)}: ${what} is a divider drawn in a pale ${hex(c.color)} pen: only the rule is that colour, but the words "${pale[0]!.text.slice(0, 40)}" over it are painted ${hex(c.color)} and barely show: give them the page's ordinary dark text colour; keep their size, weight and place`)
+        continue
+      }
       // n140: a pen box round a big word: nothing about the box's size there is a block of the pen colour
       if (c.paint === 'text' && c.areaWord) {
         const v = areaWordBuilt(c, after.nodes)
@@ -331,8 +349,8 @@ export function verifyInkColours(
         const grey = own.filter((n) => { const g = parseCssColor(n.style.backgroundColor); return !!g && !!pen && alphaOf(n.style.backgroundColor) > 0.5 && deltaE(pen, g) <= SOLID_OK_DE })
         const framed = own.some((n) => hasFrame(n))
         const ok = !grey.length && framed
-        checks.push({ what: `${what} (light pen outline)`, want: `1px border ${hex(c.color)}, no ${hex(c.color)} fill`, best: null, ok })
-        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in a light pen with no tap: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
+        checks.push({ what: `${what} (${c.taught ? 'untapped pen outline' : 'light pen outline'})`, want: `border ${hex(c.color)}, no ${hex(c.color)} fill`, best: null, ok })
+        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in ${c.taught ? 'a dark pen with no tap (a box in the same pen was tapped, this one was not)' : 'a light pen with no tap'}: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
         continue
       }
       // n92: an outlined control: something about the drawn size there with a border and no dark fill
@@ -634,6 +652,24 @@ export function inkDarkOutline(color: string | null | undefined, box: { w: numbe
   if (sl >= 70 || lum < sl + 50) return false
   if (chroma > 30) return false
   return !notes.some((n) => ASKS_FILL.test(n) && !PALE_FILL.test(n))
+}
+
+/**
+ * n144: a box drawn in a dark pen with NO tap, on a light surface, when the person tapped another box drawn in that same
+ * pen (so they fill by tapping), is an OUTLINE: the picked row or option, a framed field, never a dark block. Round 40 e3
+ * (ride booking): the Confirm button was drawn in near-black and tapped; the picked "Standard" ride row was drawn in the
+ * same pen with no tap (the screenshot shows a dark-bordered white row) and was built as a solid near-black slab. Small
+ * controls are n92's; a note asking for a fill keeps the fill.
+ */
+export function inkTaughtOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined,
+  notes: readonly string[], sameInkTapped: boolean): boolean {
+  if (!color || !sameInkTapped || box.w < 64 || box.h < 24) return false
+  const p = parseCssColor(color), s = parseCssColor(behind ?? '#ffffff')
+  if (!p || !s) return false
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const sl = 0.299 * s.r + 0.587 * s.g + 0.114 * s.b
+  if (lum >= 90 || sl < 200) return false
+  return !notes.some((n) => ASKS_FILL.test(n))
 }
 
 /** n141: "pale fill", "light tint", "soft background": a tint of the pen colour, never a solid block of it. */

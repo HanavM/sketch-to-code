@@ -46,11 +46,11 @@ export function allTextColour(notes: string[]): AllText | null {
 export interface InkText { box: { x: number; y: number; w: number; h: number }; color: string }
 
 /** The text lines the ink coloured (pen colour on a line, or a colour tapped on text), far from the all-text colour. */
-export function inkTextOf(actions: ReadonlyArray<{ onScreen?: unknown; inkColours?: ReadonlyArray<{ paint: string; color: string; box: InkText['box'] }> }>, a: AllText | null): InkText[] {
+export function inkTextOf(actions: ReadonlyArray<{ onScreen?: unknown; inkColours?: ReadonlyArray<{ paint: string; color: string; box: InkText['box']; ruleOnly?: true }> }>, a: AllText | null): InkText[] {
   if (!a) return []
   const want = parseCssColor(a.hex)!
   return actions.flatMap((x) => x.onScreen ? [] : (x.inkColours ?? []))
-    .filter((c) => c.paint === 'text')
+    .filter((c) => c.paint === 'text' && !c.ruleOnly)
     .filter((c) => { const g = parseCssColor(c.color); return !!g && deltaE(g, want) > TOL })
     .map((c) => ({ box: c.box, color: c.color }))
 }

@@ -19,6 +19,19 @@ import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { ABOUT_LINE, BIG_WORD, copyWords } from './linespan.js'
 import { wordsOf } from './ownwords.js'
+import { parseCssColor, type Rgb } from './palette.js'
+import { contrast } from './textlook.js'
+
+/**
+ * n144: a pen colour that barely shows on the surface behind it (contrast under 1.8:1). Round 40 e2 (recipe): the top
+ * bar's border was drawn in a pale sand pen on the cream page and "Pantry bold" typed over it was built in that sand,
+ * all but invisible. A person draws a divider in the faint colour a divider is; the words over it stay ordinary text.
+ */
+export function paleOn(pen: string, bg: Rgb | null): boolean {
+  const p = parseCssColor(pen)
+  if (!p || !bg) return false
+  return contrast(p, bg) < 1.8
+}
 
 interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; style?: { fontSize?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
@@ -92,7 +105,7 @@ export function ruleLabelBrief(actions: ReadonlyArray<{ shapeMarks?: ShapeMark[]
         : m.rule.side === 'right' ? `RIGHT-aligned, ending near the column's right padding (about x ${String(h.x + h.w - 20)})`
           : `centred on x ${String(r1(h.x + h.w / 2))}`
       lines.push(`- action ${String(i)}: "${copyOf(m.words)}" (note "${m.words}") was typed just ABOVE a line drawn edge to edge across its column (x ${String(x0)} to ${String(x1)} at y ${String(y)}; column x ${String(h.x)} to ${String(h.x + h.w)}). ` +
-        `The line is a DIVIDER: a thin 1px rule in a light tone of the surface (a border-bottom is fine) across the column at y ${String(y)}, kept. The band above it is NOT a filled bar: it keeps the background of the page or column behind it, never the line's pen colour; the pen colour, if any, is the WORDS' colour. ` +
+        `The line is a DIVIDER: a thin 1px rule in a light tone of the surface (a border-bottom is fine) across the column at y ${String(y)}, kept. The band above it is NOT a filled bar: it keeps the background of the page or column behind it, never the line's pen colour (the pen colour, if any, is the words' colour, or the rule's alone when the COLOURS FROM THE INK say so). ` +
         `The words are ORDINARY text, about 14-18px (bold only if the note says bold), NEVER a big heading sized by the line's length, ` +
         `sitting in the space just above the rule (their middle about halfway between the top of that space and y ${String(y)}), ${where}.`)
     }

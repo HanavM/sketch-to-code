@@ -19,7 +19,7 @@ import { BIG_WORD, copyWords, lineAsksBig } from './linespan.js'
 import { wordsOf } from './ownwords.js'
 
 interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string; rule?: unknown }
-interface InkLike { strokeId?: string; paint: string; color: string; how?: string }
+interface InkLike { strokeId?: string; paint: string; color: string; how?: string; ruleOnly?: true }
 interface ActionLike { onScreen?: unknown; shapeMarks?: MarkLike[]; inkColours?: InkLike[]; textSize?: Array<{ lines: number; strokes: string[] }> }
 interface NodeLike { id: string; tag?: string; rect: BBox; text?: string; textBox?: BBox; parent?: string | null; style?: { fontSize?: string; borderBottom?: string; textDecoration?: string; backgroundColor?: string; color?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
@@ -54,7 +54,7 @@ export function linkLines(actions: readonly ActionLike[]): LinkLine[] {
       const len = Math.abs(m.to!.x - m.from!.x)
       if (len > 420 || len < 40) continue
       if (!LINK.test(m.words) || copyWords(m.words).length > 6) continue
-      const ink = (a.inkColours ?? []).find((c) => c.strokeId === m.strokeId && c.paint === 'text' && c.how !== 'tap')
+      const ink = (a.inkColours ?? []).find((c) => c.strokeId === m.strokeId && c.paint === 'text' && c.how !== 'tap' && !c.ruleOnly)
       if (!ink || dark(ink.color)) continue
       const x0 = Math.min(m.from!.x, m.to!.x)
       out.push({ strokeId: m.strokeId, words: m.words, color: ink.color, x0, x1: x0 + len, y: r(m.box.y), action: i })

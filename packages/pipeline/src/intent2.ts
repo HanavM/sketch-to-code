@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { areaWordInk, holdsBoxes, inkDarkOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
+import { areaWordInk, holdsBoxes, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -329,7 +329,7 @@ import { ringNoted, ringShare, ringThickness, trackColour } from './hollowring.j
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, markTextPlaces } from './textplace.js'
-import { markRuleLabels } from './ruleline.js'
+import { markRuleLabels, paleOn } from './ruleline.js'
 import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
 import { bindTiltNotes } from './tiltwords.js'
@@ -856,8 +856,12 @@ export interface InkColour {
   selected?: { tint: string; dot: boolean }
   /** n141: a frame drawn on a dark surface (this colour): transparent inside, never white or grey. */
   frameOn?: string
+  /** n144: paint 'border' + frame from a dark-pen box with no tap when a box in the same pen was tapped: outlined, never filled. */
+  taught?: true
   /** n136: paint 'text' from a level line a sentence was typed on: the words' colour, never a coloured bar. */
   copy?: true
+  /** n144: paint 'text' from a divider with words over it, drawn in a pen that barely shows on the page: the pen colours the rule only. */
+  ruleOnly?: true
   /** n140: paint 'text' from a box drawn in a pen (no tap) round a big word or number: the letters' colour, the box never filled. */
   areaWord?: { word: string | null; outlined: boolean }
 }
@@ -1292,6 +1296,11 @@ export function groundInterpretation(
         // n135: a strong-pen chip noted selected / active is a pale tint with a border in the pen colour, never a solid block
         const sel = selectedChip(st.color, rb, own)
         if (sel) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', selected: sel }); continue }
+        // n144: a dark-pen box with no tap, when a box in the same pen was tapped, is an outline (the picked row), never a slab
+        const sameInkTapped = [...ev.strokes.values()].some((o) => o.id !== st.id && o.color === st.color && (ev.fills ?? []).some((f) => f.target === o.id))
+        if (!sm.area && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? []) && inkTaughtOutline(st.color, rb, behind, own, sameInkTapped)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, taught: true }); continue
+        }
       }
       // n129: a ring in a coloured pen noted as an arc, track or progress is the ring's line, not a coloured-in disc
       if (!flat && sm?.shape === 'ellipse' && !sm.solid) {
@@ -1352,6 +1361,15 @@ export function groundInterpretation(
     if (shapeMarks.some((m) => m.wordsAt)) {
       const allShapes = [...ev.strokes.entries()].flatMap(([id, st]) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [{ ...s, strokeId: id }] : [] })
       markRuleLabels(shapeMarks, allShapes, snap.viewport)
+      // n144: a divider drawn in a pale pen (it barely shows on the page) colours only the rule, never the words over it
+      const bg = parseCssColor(pageFill(ev.fills ?? [])?.colors[0] ?? '#ffffff')
+      for (const m of shapeMarks) {
+        if (!m.rule) continue
+        for (const c of inkColours) {
+          if (c.strokeId !== m.strokeId || c.paint !== 'text' || c.how !== 'pen') continue
+          if (paleOn(c.color, bg)) c.ruleOnly = true
+        }
+      }
     }
     // n69: a box or ring with its own note keeps those words (one item of a list of look-alike marks)
     if (shapeMarks.length) markRowWords(shapeMarks, noteObjs, innerBoxes)
