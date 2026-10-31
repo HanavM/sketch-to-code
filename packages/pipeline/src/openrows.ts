@@ -41,6 +41,10 @@ export interface OpenRows {
   first: string
   /** what set the start: a drawn mark for row 1, or the last thing drawn */
   by: 'mark' | 'last'
+  /** n114: the small ring or square drawn for row 1, repeated on every row */
+  mark?: BBox
+  /** n114: no field drawn: the rows are led by the mark alone and run to the page's margin */
+  led?: boolean
 }
 
 export const OPEN_START_TOL_PX = 26
@@ -64,7 +68,7 @@ const inside = (b: BBox, p: { x: number; y: number }) => p.x >= b.x && p.x <= b.
 const xOver = (a: BBox, x0: number, x1: number) => Math.min(a.x + a.w, x1) - Math.max(a.x, x0) > 0
 
 /** Every rows note typed in open space, with where its rows go. */
-export function openRows(placed: readonly Spot[], shapes: readonly ShapeLike[], notes: readonly Spot[]): Map<Spot, OpenRows> {
+export function openRows(placed: readonly Spot[], shapes: readonly ShapeLike[], notes: readonly Spot[], viewW = 1280): Map<Spot, OpenRows> {
   const out = new Map<Spot, OpenRows>()
   for (const n of placed) {
     const items = openRowItems(n.text)
@@ -73,7 +77,11 @@ export function openRows(placed: readonly Spot[], shapes: readonly ShapeLike[], 
     if (shapes.some((s) => s.shape === 'box' && s.box.w >= 60 && s.box.h >= 40 && inside(s.box, n))) continue
     const field = shapes.filter((s) => s.shape === 'box' && s.box.w >= 280 && s.box.y + s.box.h < n.y && n.x >= s.box.x - 20 && n.x <= s.box.x + s.box.w + 20)
       .sort((a, b) => (b.box.y + b.box.h) - (a.box.y + a.box.h))[0]
-    if (!field) continue
+    if (!field) {
+      const led = ringLed(n, items.length, shapes, notes, viewW)
+      if (led) out.set(n, led)
+      continue
+    }
     const F = field.box
     // everything drawn under the field's top and above the note, in its span
     const between = shapes.filter((s) => s !== field && s.box.y >= F.y - 4 && s.box.y + s.box.h < n.y && xOver(s.box, F.x, F.x + F.w))
@@ -98,14 +106,80 @@ export function openRows(placed: readonly Spot[], shapes: readonly ShapeLike[], 
     }
     pitch = r(Math.max(36, Math.min(72, pitch)))
     if (n.y < firstMid - 20) continue // typed above where the rows go: nothing to move
-    out.set(n, { field: { x: r(F.x), y: r(F.y), w: r(F.w), h: r(F.h) }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!, by: small ? 'mark' : 'last' })
+    out.set(n, { field: { x: r(F.x), y: r(F.y), w: r(F.w), h: r(F.h) }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!, by: small ? 'mark' : 'last',
+      ...(small ? { mark: { x: r(lb.x), y: r(lb.y), w: r(lb.w), h: r(lb.h) } } : {}) })
   }
   return out
 }
 
+/** A small ring or square (12-56px, about as wide as tall): a row's own mark when it leads a list. */
+export const smallMark = (s: ShapeLike) => (s.shape === 'ellipse' || s.shape === 'box') && s.box.w >= 12 && s.box.w <= 56 && s.box.h >= 12 && s.box.h <= 56 &&
+  Math.abs(s.box.w - s.box.h) <= 0.3 * Math.max(s.box.w, s.box.h)
+
+/**
+ * n114: no wide field drawn above, but a lone small ring drawn above the note and to its left, with nothing drawn
+ * between: that ring is row 1's own mark (round 42 e1 podcast: a hollow ring at (308,343) under "Latest episodes", the
+ * rows typed at (760,460); the build made the ring a play button above row 1). The rows start level with it, run from
+ * its left to the page's right with the same margin it keeps from the panel or edge on its left, and carry the ring.
+ */
+function ringLed(n: Spot, k: number, shapes: readonly ShapeLike[], notes: readonly Spot[], viewW: number): OpenRows | null {
+  const ring = shapes.filter((s) => smallMark(s) && s.box.y + s.box.h < n.y - 8 && s.box.y + s.box.h > n.y - 320 && s.box.x + s.box.w < n.x)
+    .sort((a, b) => (b.box.y + b.box.h) - (a.box.y + a.box.h))[0]
+  if (!ring) return null
+  const R = ring.box
+  const x1 = Math.max(n.x + 200, R.x + 400)
+  // nothing else drawn between the ring and the note, and no other note typed there (that would be copy in that space)
+  if (shapes.some((s) => s !== ring && s.box.w >= 8 && s.box.y > R.y + R.h - 4 && s.box.y < n.y && xOver(s.box, R.x, x1) &&
+    !(s.box.w >= 60 && s.box.h >= 40 && inside(s.box, n)))) return null
+  if (notes.some((o) => o.text !== n.text && o.y > R.y + 8 && o.y < n.y - 8 && o.x >= R.x - 20 && o.x <= x1)) return null
+  // another small mark level with it on the left of the same row band: it is a row of icons, not a list's lead
+  if (shapes.some((s) => s !== ring && smallMark(s) && Math.abs((s.box.y + s.box.h / 2) - (R.y + R.h / 2)) < 12 && Math.abs(s.box.x - R.x) < 200)) return null
+  const cy = R.y + R.h / 2
+  const left = Math.max(0, ...shapes.filter((s) => s !== ring && s.box.w >= 60 && s.box.x + s.box.w <= R.x + 4 && s.box.y <= cy && s.box.y + s.box.h >= cy)
+    .map((s) => s.box.x + s.box.w))
+  const margin = Math.max(16, R.x - left)
+  const right = viewW - margin
+  if (right - R.x < 280) return null
+  const firstMid = r(cy)
+  if (n.y < firstMid + 20) return null
+  const foot = notes.filter((o) => o.text !== n.text && o.y > n.y + 20 && o.x >= R.x - 20 && o.x <= right).sort((a, b) => a.y - b.y)[0]
+  // the note typed in the list's middle: rows spread so it sits about half way down them
+  const pitch = r(Math.max(40, Math.min(72, foot ? (foot.y - 34 - firstMid) / (k - 0.5) : (2 * (n.y - firstMid)) / Math.max(1, k - 1))))
+  const items = openRowItems(n.text)!
+  return { field: { x: r(R.x), y: r(R.y), w: r(right - R.x), h: 0 }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!, by: 'mark', led: true,
+    mark: { x: r(R.x), y: r(R.y), w: r(R.w), h: r(R.h) } }
+}
+
+/** n114: the build is told a row's drawn mark is on every row, at its left, and is no element of its own. */
+export function rowMarkWords(m: BBox, firstMid: number, rows: number): string {
+  return `The small mark drawn at (${m.x},${m.y}) ${m.w}x${m.h} is row 1's OWN leading mark, not an element of its own: ` +
+    `build it inside row 1 at the row's left, its middle level with the row's words (y ${firstMid}), and REPEAT the same mark (same size, shape, colour, ` +
+    `hollow or filled as drawn) at the left of each of the ${rows} rows, with each row's words starting just right of it. Never a separate button, ` +
+    `icon or dot above, beside or on top of the rows, and never on the row's words`
+}
+
+/**
+ * n114: on the page, the drawn row mark sits at the left of (nearly) every row: count rows with a small near-square box
+ * whose middle is near the mark's x and inside that row's band. Null when it holds.
+ */
+export function checkRowMarks(m: BBox, firstMid: number, pitch: number, rows: number, after: Snap): string | null {
+  const mx = m.x + m.w / 2
+  const hit = new Set<number>()
+  for (const x of after.nodes ?? []) {
+    const b = x.rect
+    if (!(b.w >= 0.5 * m.w && b.w <= 2 * m.w + 8 && b.h >= 0.5 * m.h && b.h <= 2 * m.h + 8 && Math.abs(b.w - b.h) <= 0.35 * Math.max(b.w, b.h))) continue
+    if (Math.abs(b.x + b.w / 2 - mx) > Math.max(40, m.w)) continue
+    const i = Math.round((b.y + b.h / 2 - firstMid) / pitch)
+    if (i >= 0 && i < rows && Math.abs(b.y + b.h / 2 - (firstMid + i * pitch)) <= 0.45 * pitch) hit.add(i)
+  }
+  if (hit.size >= Math.max(2, rows - 1)) return null
+  return `the mark drawn at (${m.x},${m.y}) for row 1 shows at the left of only ${hit.size} of the ${rows} rows: put the same small mark at the left of every row ` +
+    `(middles about y ${firstMid}, ${firstMid + pitch}, ...), the row's words right of it, and no separate copy of it above the rows`
+}
+
 /** Place each open rows note at its first row (left edge of the field), and keep what was found on it. */
-export function markOpenRows<T extends Spot & { openRows?: OpenRows }>(placed: T[], shapes: readonly ShapeLike[], notes: readonly Spot[]): T[] {
-  const found = openRows(placed, shapes, notes)
+export function markOpenRows<T extends Spot & { openRows?: OpenRows }>(placed: T[], shapes: readonly ShapeLike[], notes: readonly Spot[], viewW = 1280): T[] {
+  const found = openRows(placed, shapes, notes, viewW)
   return placed.map((n) => {
     const o = found.get(n)
     return o ? { ...n, x: o.field.x + 8, y: o.firstMid, openRows: o } : n
@@ -116,10 +190,11 @@ export function openRowsBrief(notes: ReadonlyArray<Spot & { openRows?: OpenRows 
   const each = (notes ?? []).filter((n) => n.openRows).map((n) => {
     const o = n.openRows!
     const end = r(o.firstMid + (o.rows - 0.5) * o.pitch)
-    return `"${n.text}" (${o.rows} rows) was typed in open space at y ${o.typedY}, under the field drawn at (${o.field.x},${o.field.y}) ${o.field.w}x${o.field.h}. ` +
+    return `"${n.text}" (${o.rows} rows) was typed in open space at y ${o.typedY}, ${o.led ? `under a lone small mark drawn at (${o.mark!.x},${o.mark!.y}) with nothing else drawn between: the list starts there. Every row runs from x ${o.field.x} to x ${o.field.x + o.field.w} (the same margin on the right as the mark keeps on its left)` : `under the field drawn at (${o.field.x},${o.field.y}) ${o.field.w}x${o.field.h}`}. ` +
       `The rows run that field's FULL width: every row from x ${o.field.x} to x ${o.field.x + o.field.w} (its dividers too), never a narrower or centred column. ` +
       `${o.by === 'mark' ? 'The small mark drawn at the field\'s left under the last controls is row 1\'s own mark: ' : 'They start just under the last thing drawn: '}` +
-      `the first row's middle is at y ${o.firstMid}, rows about ${o.pitch}px apart, so the last ends by about y ${end + r(o.pitch / 2)}. Not at the note's typed spot`
+      `the first row's middle is at y ${o.firstMid}, rows about ${o.pitch}px apart, so the last ends by about y ${end + r(o.pitch / 2)}. Not at the note's typed spot` +
+      (o.mark ? `. ${rowMarkWords(o.mark, o.firstMid, o.rows)}` : '')
   })
   return each.length ? `ROWS TYPED IN OPEN SPACE (deterministic, from the drawing above them; checked on the page): ${each.join('; ')}.\n\n` : ''
 }
@@ -152,6 +227,8 @@ export function verifyOpenRows(notes: ReadonlyArray<Spot & { openRows?: OpenRows
     const bad: string[] = []
     if (Math.abs(cy - o.firstMid) > OPEN_START_TOL_PX) bad.push(`its middle is at y ${r(cy)}, not y ${o.firstMid}: move the rows ${cy > o.firstMid ? 'up' : 'down'} ${r(Math.abs(cy - o.firstMid))}px, rows about ${o.pitch}px apart`)
     if (row && row.rect.w < OPEN_WIDTH_SHARE * F.w) bad.push(`its row is ${r(row.rect.w)}px wide (x ${r(row.rect.x)} to ${r(row.rect.x + row.rect.w)}), but the rows run the drawn field's width: make every row x ${F.x} to ${F.x + F.w}`)
+    const mk = o.mark ? checkRowMarks(o.mark, o.firstMid, o.pitch, o.rows, after) : null
+    if (mk) bad.push(mk)
     if (bad.length) faults.push(`the first row "${o.first}": ${bad.join('; and ')}`)
   }
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'first open row not found on the page' }

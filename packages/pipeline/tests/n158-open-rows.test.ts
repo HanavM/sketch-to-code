@@ -29,7 +29,7 @@ describe('n158 rows typed in open space take the field above', () => {
   })
   it('checks start and width on the page', () => {
     const [p] = markOpenRows([{ text: ROWS, x: 640, y: 480 }], shapes, notes)
-    const good = { nodes: [node(undefined, 320, 300, 640, 48), node('Water the plants', 352, 316, 110, 16)] }
+    const good = { nodes: [node(undefined, 320, 300, 640, 48), node('Water the plants', 352, 316, 110, 16), ...[0, 1, 2, 3, 4, 5].map((i) => node(undefined, 320, 313 + i * p!.openRows!.pitch, 22, 22))] }
     expect(verifyOpenRows([p!], good).satisfied).toBe(true)
     const narrow = { nodes: [node(undefined, 320, 300, 320, 48), node('Water the plants', 352, 316, 110, 16)] }
     expect(verifyOpenRows([p!], narrow).reason).toContain('x 320 to 960')

@@ -9,6 +9,9 @@
  * --fixes (n37): after the first Run, type the same correction notes at the same spots and Run again,
  * so a change to how fix notes are handled is measured with the fix held still too.
  *
+ * --bar x,y (n114): where the toolbar's grip was dragged, for a digest whose moveBar event has no spot (n162 and
+ * before recorded none). A moveBar event is replayed at its time, so taps land on the drawing, not on a bar button.
+ *
  * --notes <file.json> (n80): the same strokes and taps, but the notes typed before the first Run are the ones in
  * that file ([{x, y, text}]), typed after the strokes in file order: a page re-noted the short way, drawing held still.
  */
@@ -26,9 +29,11 @@ const post = (body) => new Promise((ok, bad) => {
 })
 const call = async (body) => { const j = await post(body); if (j.ok === false) throw new Error(`${body.op}: ${j.error}`); return j }
 const firstRun = d.events.find((e) => e.op === 'run')?.at ?? Infinity
+const barArg = (() => { const i = process.argv.indexOf('--bar'); if (i === -1) return null; const [x, y] = process.argv[i + 1].split(',').map(Number); return { x, y } })()
 const notesArg = (() => { const i = process.argv.indexOf('--notes'); return i === -1 ? null : JSON.parse(readFileSync(process.argv[i + 1], 'utf8')) })()
 const ops = [
   ...d.strokesDrawn.map((s) => ({ at: s.at, op: { op: 'stroke', pts: s.way } })),
+  ...d.events.filter((e) => e.op === 'moveBar' && (e.x != null || barArg)).map((e) => ({ at: e.at - 0.75, op: { op: 'moveBar', ...(e.x != null ? { x: e.x, y: e.y } : barArg) } })),
   ...d.events.filter((e) => e.op === 'pen').map((e) => ({ at: e.at - 0.5, op: { op: 'pen', color: e.color ?? null } })),
   ...(notesArg ? notesArg.map((n, k) => ({ at: firstRun - 1 + k / 1000, op: { op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole } }))
     : d.notesTyped.map((n) => ({ at: n.at, op: { op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole } }))),

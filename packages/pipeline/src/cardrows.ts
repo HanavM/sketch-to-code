@@ -24,6 +24,7 @@ import { listNote, type BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { rowData } from './rowdata.js'
 import { sidePanels } from './sidelist.js'
+import { checkRowMarks, rowMarkWords } from './openrows.js'
 
 interface NodeLike { rect: BBox; text?: string; textBox?: BBox }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
@@ -45,6 +46,8 @@ export interface CardRows {
   rows: number
   /** first cell of the first row, if typed */
   firstCell: string | null
+  /** n114: the small ring or square drawn for row 1, repeated on every row */
+  mark?: BBox
 }
 
 export const START_TOL_PX = 28
@@ -108,7 +111,7 @@ export function cardRows(marks: readonly ShapeMark[], shapes: readonly Pick<Shap
       let pitch = Math.max(40, Math.min(72, Math.floor(room / n)))
       // a small ring, or a small square (an icon drawn as a box), at the left under the heading
       const ring = inCard.filter((s) => (s.shape === 'ellipse' || (s.shape === 'box' && Math.abs(s.box.w - s.box.h) <= 0.25 * Math.max(s.box.w, s.box.h))) && s.box.w >= 12 && s.box.w <= 56 && s.box.h >= 12 && s.box.h <= 56 &&
-        s.box.y >= headBottom - 4 && s.box.x + s.box.w / 2 <= C.x + C.w / 3).sort((a, b) => a.box.y - b.box.y)[0]
+        s.box.y + s.box.h / 2 >= h.y + 6 && s.box.x + s.box.w / 2 <= C.x + C.w / 3).sort((a, b) => a.box.y - b.box.y)[0]
       if (ring) {
         const cy = ring.box.y + ring.box.h / 2
         const s2 = r(cy - pitch / 2)
@@ -118,7 +121,7 @@ export function cardRows(marks: readonly ShapeMark[], shapes: readonly Pick<Shap
       if (t.y < start) continue // typed above where the rows go: nothing to move
       seen.add(t.text)
       out.push({ text: t.text, head: h.text, headY: h.y, card: { x: r(C.x), y: r(C.y), w: r(C.w), h: r(C.h) }, typedY: t.y, start, pitch, rows: n,
-        firstCell: rd.first })
+        firstCell: rd.first, ...(ring ? { mark: { x: r(ring.box.x), y: r(ring.box.y), w: r(ring.box.w), h: r(ring.box.h) } } : {}) })
     }
   }
   return out
@@ -146,7 +149,7 @@ export function cardRowsBrief(lists: readonly CardRows[]): string {
     return `"${l.text}" (${l.rows} rows) was typed in the card drawn at (${l.card.x},${l.card.y}) ${l.card.w}x${l.card.h} under its heading "${l.head}" (typed at y ${l.headY}), with no rows drawn: ` +
       `the rows start BELOW that heading, not where the note was typed (y ${l.typedY}) and never at the card's top. The heading stays at the card's top left as its own line; ` +
       `the first row's top is at y ${l.start} (its middle about y ${l.start + r(l.pitch / 2)}), rows about ${l.pitch}px apart, so the last ends by y ${end}. ` +
-      `No row sits beside, on or over the heading's words`
+      `No row sits beside, on or over the heading's words` + (l.mark ? `. ${rowMarkWords(l.mark, l.start + r(l.pitch / 2), l.rows)}` : '')
   })
   return `\n\nROWS UNDER A CARD HEADING (deterministic, from the drawing; checked on the page): ${each.join('; ')}.`
 }
@@ -182,6 +185,8 @@ export function verifyCardRows(lists: readonly CardRows[], after: Snap): CardRow
     } else if (Math.abs(cy - want) > START_TOL_PX) {
       faults.push(`the first row "${l.firstCell}" has its middle at y ${r(cy)} but was drawn to start under the heading: move the rows ${cy > want ? 'up' : 'down'} so its middle is about y ${r(want)}, rows about ${l.pitch}px apart`)
     }
+    const mk = l.mark ? checkRowMarks(l.mark, r(want), l.pitch, l.rows, after) : null
+    if (mk) faults.push(mk)
   }
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'card heading or first row not found on the page' }
   return faults.length

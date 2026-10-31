@@ -1446,7 +1446,7 @@ export function groundInterpretation(
   [...ev.strokes.values()].map((st) => bboxOf(st.points))),
   // n158: a rows note in open space takes the width of the field drawn above it, starting under the last thing drawn
   [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
-  ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })))
+  ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport.w)
 
   return {
     reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,

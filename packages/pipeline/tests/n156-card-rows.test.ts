@@ -74,7 +74,10 @@ describe('n156 rows typed in a card start under its heading', () => {
     const over = verifyCardRows(lists, { nodes: [text('Recent', 290, 335, 60, 18), text('Corner Grocer', 340, 338, 90, 14)] })
     expect(over.satisfied).toBe(false)
     expect(over.reason).toContain('over the card\'s heading')
-    const ok = verifyCardRows(lists, { nodes: [text('Recent', 300, 356, 60, 18), text('Corner Grocer', 370, 420, 90, 14)] })
+    const l = lists[0]!
+    // n114: the drawn ring is on every row
+    const rings = Array.from({ length: l.rows }, (_, i) => ({ rect: { x: l.mark!.x, y: l.start + Math.round(l.pitch / 2) + i * l.pitch - 12, w: 24, h: 24 } }))
+    const ok = verifyCardRows(lists, { nodes: [text('Recent', 300, 356, 60, 18), text('Corner Grocer', 370, 420, 90, 14), ...rings] })
     expect(ok.satisfied).toBe(true)
     expect(verifyCardRows(lists, { nodes: [] }).unverifiable).toBe(true)
   })

@@ -202,7 +202,7 @@ const ops = {
     await p.mouse.move(g.x, g.y); await p.mouse.down()
     for (let i = 1; i <= 12; i++) { await p.mouse.move(g.x + ((x - g.x) * i) / 12, g.y + ((y - g.y) * i) / 12); await p.waitForTimeout(16) }
     await p.mouse.up(); await p.waitForTimeout(250)
-    S.events.push({ op: 'moveBar', at: now() - (S.t0 ?? now()) })
+    S.events.push({ op: 'moveBar', x, y, at: now() - (S.t0 ?? now()) })
     return { ok: true }
   },
   /** n153: what the overlay holds right now (stroke ids, colours, boxes): no picture, no score. */
