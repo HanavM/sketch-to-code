@@ -23,7 +23,7 @@
  * handed over as its clean shape (cleanPath), never the wobble.
  */
 import type { BBox, PageFill, Point } from '@s2c/ink'
-import { resampleBySpacing } from '@s2c/ink'
+import { rdp, resampleBySpacing } from '@s2c/ink'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
@@ -90,7 +90,7 @@ export interface ShapeMark {
    * box only (n51): a shape drawn as its outline (a triangle, a mountain; or the side of a box a curve
    * cuts off, a wave): `box` is its bounds, `points` its outline in page px. Built clipped to it (outline.ts).
    */
-  outline?: { points: Array<{ x: number; y: number }>; corners?: number; cut?: { holder: string | null }; fill?: PageFill }
+  outline?: { points: Array<{ x: number; y: number }>; corners?: number; cut?: { holder: string | null }; fill?: PageFill; /** n128: drawn in this pen colour, no tap: its fill */ pen?: string }
 }
 
 const r1 = (v: number) => Math.round(v)
@@ -186,6 +186,10 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   // then a box, and clearly tighter than upright, it is a box drawn at that angle.
   const t = asTilted(pts, b)
   if (t) return t
+  // n128: a closed stroke of 5-7 straight sides joined at clear corners (a hexagon) is that polygon, not a
+  // ring: round 39 c1's eight hexagons all sat inside the ring band and were built as ovals. Left to
+  // outline.ts (polygonOutline), which builds it clipped to the drawn outline.
+  if (polygonSides(pts) !== null) return null
   // RING: every point near the ellipse inscribed in the box, corners empty
   const cx = b.x + b.w / 2, cy = b.y + b.h / 2, rx = b.w / 2, ry = b.h / 2
   const onRing = (p: { x: number; y: number }) => {
@@ -203,6 +207,60 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   const pill = asPill(pts, b, len)
   if (pill) return pill
   return null
+}
+
+/**
+ * n128: how many sides a closed stroke has when it is a polygon of 5-7 straight sides with clear corners, else null.
+ * Simplified at a tight tolerance (1.5% of the diagonal), a drawn ring keeps 10+ points with gentle turns; a
+ * hexagon keeps its 6 corners, each a turn of 30-110 degrees, every side a real share of the outline, and the
+ * ink stays within that tolerance of the straight sides all the way round.
+ */
+export function polygonSides(points: Array<{ x: number; y: number }>): number | null {
+  if (points.length < 6) return null
+  const b = bbox(points)
+  // small closed shapes (an avatar, a play button) drawn with a few straight moves are rings; and a shape
+  // much wider than tall with pointed ends is a pill (n45)
+  if (Math.min(b.w, b.h) < 60 || Math.max(b.w, b.h) > 2 * Math.min(b.w, b.h)) return null
+  const diag = Math.hypot(b.w, b.h)
+  const eps = Math.max(3, diag * 0.015)
+  const v = (rdp(points as Point[], eps) as Array<{ x: number; y: number }>).slice()
+  if (v.length > 3 && Math.hypot(v[0]!.x - v.at(-1)!.x, v[0]!.y - v.at(-1)!.y) <= Math.max(12, diag * 0.06)) v.pop()
+  // the pen often starts mid-side: a vertex whose turn is near straight is no corner
+  const turnAt = (q: Array<{ x: number; y: number }>, i: number) => {
+    const p = q[(i + q.length - 1) % q.length]!, c = q[i]!, n = q[(i + 1) % q.length]!
+    let d = Math.abs(Math.atan2(n.y - c.y, n.x - c.x) - Math.atan2(c.y - p.y, c.x - p.x)) * 180 / Math.PI
+    if (d > 180) d = 360 - d
+    return d
+  }
+  // a corner drawn a little round simplifies to two points close together: one corner, at their middle
+  const short = Math.max(14, diag * 0.07)
+  for (let i = 0; i < v.length && v.length > 3;) {
+    const a = v[i]!, c = v[(i + 1) % v.length]!
+    if (Math.hypot(c.x - a.x, c.y - a.y) < short) { v.splice(i, 1, { x: (a.x + c.x) / 2, y: (a.y + c.y) / 2 }); v.splice((i + 1) % (v.length), 1); i = 0 }
+    else i++
+  }
+  for (let i = 0; i < v.length && v.length > 3;) { if (turnAt(v, i) < 15) { v.splice(i, 1); i = 0 } else i++ }
+  const n = v.length
+  // an 8-cornered closed stroke is how a ring is drawn with a mouse in eight moves (rounds 31-39 drew
+  // dozens of rings that way): only 5-7 corners say polygon
+  if (n < 5 || n > 7) return null
+  let perim = 0
+  for (let i = 0; i < n; i++) perim += Math.hypot(v[(i + 1) % n]!.x - v[i]!.x, v[(i + 1) % n]!.y - v[i]!.y)
+  for (let i = 0; i < n; i++) {
+    const t = turnAt(v, i)
+    if (t < 30 || t > 110) return null
+    const side = Math.hypot(v[(i + 1) % n]!.x - v[i]!.x, v[(i + 1) % n]!.y - v[i]!.y)
+    if (side < perim / n * 0.4) return null
+  }
+  // straight sides: every ink point near one of them
+  const segDist = (p: { x: number; y: number }, a: { x: number; y: number }, c: { x: number; y: number }) => {
+    const dx = c.x - a.x, dy = c.y - a.y, L = dx * dx + dy * dy || 1
+    const t = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / L))
+    return Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy)
+  }
+  const near = points.filter((p) => { let d = Infinity; for (let i = 0; i < n; i++) d = Math.min(d, segDist(p, v[i]!, v[(i + 1) % n]!)); return d <= eps * 1.5 }).length
+  if (near / points.length < 0.95) return null
+  return n
 }
 
 function asPill(pts: Array<{ x: number; y: number }>, b: BBox, len: number): Omit<ShapeMark, 'strokeId'> | null {

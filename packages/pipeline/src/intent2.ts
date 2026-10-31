@@ -1089,6 +1089,10 @@ export function groundInterpretation(
             if (om) {
               const f = markFill(ev.fills ?? [], s.id)
               if (f) om.outline!.fill = f
+              // n128: no tap, drawn in a coloured pen: filled in that pen colour (round 39 c1 hexagons came out black),
+              // unless its own note keeps it an outline
+              else if (s.color && !ev.notes.some((n) => (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) &&
+                /\b(outlined?|hollow|empty|unfilled|line only|no fill)\b/i.test(n.text))) om.outline!.pen = s.color
               shapeMarks.push(om)
               continue
             }
@@ -1257,11 +1261,12 @@ export function groundInterpretation(
       if (!st.color) continue
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)
       // n92: a small box drawn in dark ink (no tap) is an outlined control (arrow button, checkbox), not a dark block
-      if (!flat && sm?.shape === 'box' && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
+      if (!flat && sm?.shape === 'box' && !sm.outline?.pen && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
       // n78: a box drawn in a light grey pen (no tap) is a frame: grey border, no grey fill
-      if (!flat && sm?.shape === 'box' && inkGreyOutline(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen', frame: true }); continue }
+      if (!flat && sm?.shape === 'box' && !sm.outline?.pen && inkGreyOutline(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen', frame: true }); continue }
       // n131: a box in a light coloured pen (no tap) on a light surface is an outline in that colour, never a tinted block
-      if (!flat && sm?.shape === 'box') {
+      // n128: a polygon drawn in a coloured pen and not noted as an outline is filled in its pen colour, light pens too
+      if (!flat && sm?.shape === 'box' && !sm.outline?.pen) {
         const rb = sm.box
         const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
           (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)

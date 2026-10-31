@@ -20,9 +20,10 @@
  * A box in its place is a failure the repair round can act on. Zero tokens.
  */
 import type { BBox } from '@s2c/ink'
-import { rdp } from '@s2c/ink'
+import { rdp, resampleBySpacing } from '@s2c/ink'
 import { clipPolygon } from './areas.js'
 import type { ShapeMark } from './shapemark.js'
+import { polygonSides } from './shapemark.js'
 
 type XY = { x: number; y: number }
 const r0 = (v: number) => Math.round(v)
@@ -72,7 +73,8 @@ export function polygonOutline(points: XY[]): { points: XY[]; corners: number } 
     const u = Math.atan2(c.y - p.y, c.x - p.x), v = Math.atan2(n.y - c.y, n.x - c.x)
     let d = Math.abs(v - u) * 180 / Math.PI
     if (d > 180) d = 360 - d
-    if (d >= 60) sharp++
+    // n128: a hexagon turns 60 degrees at each corner, an octagon 45: with 5+ sides a turn of 35+ is a corner
+    if (d >= (coarse.length >= 5 ? 35 : 60)) sharp++
   }
   if (sharp < 2) return null
   const fine = finePolygon(points)
@@ -88,7 +90,9 @@ export function outlineMark(strokeId: string, points: XY[], cut?: { points: XY[]
   }
   const o = polygonOutline(points)
   if (!o) return null
-  return { strokeId, shape: 'box', box: bboxOf(o.points), outline: { points: o.points, corners: o.corners } }
+  // n128: a 5-7 sided polygon (a hexagon) is named by its clean corner count, not the coarse simplification's
+  const sides = polygonSides(resampleBySpacing(points as never, 6) as XY[])
+  return { strokeId, shape: 'box', box: bboxOf(o.points), outline: { points: o.points, corners: sides ?? o.corners } }
 }
 
 /** clip-path: polygon(...) for the outline, in px relative to its own box. */
@@ -100,7 +104,7 @@ export function clipOf(m: Pick<ShapeMark, 'box' | 'outline'>): string {
 const what = (m: ShapeMark) => {
   const o = m.outline!
   if (o.cut) return 'shape a curve cuts off'
-  return o.corners === 3 ? 'triangle' : 'closed outline'
+  return o.corners === 3 ? 'triangle' : o.corners === 5 ? 'pentagon' : o.corners === 6 ? 'hexagon' : o.corners === 8 ? 'octagon' : 'closed outline'
 }
 
 export function outlineBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>): string {
@@ -116,7 +120,9 @@ export function outlineBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>): stri
         ? fill.colors.length > 1
           ? `background ${fill.css} (the fade runs the way it was tapped: ${fill.colors[0]} first)`
           : `background ${fill.css}`
-        : 'filled with the colour its notes give it'
+        : m.outline.pen
+          ? `background ${m.outline.pen} (the pen it was drawn in: a solid fill in exactly that colour, never black, grey or a default)`
+          : 'filled with the colour its notes give it'
       const cut = m.outline.cut
         ? ` It is the part of ${m.outline.cut.holder ? 'the box' : 'the page'} on the far side of the curve, closed along ${m.outline.cut.holder ? 'the box' : 'the page'}'s edge; the rest of ${m.outline.cut.holder ? 'the box' : 'the page'} keeps its own colour.`
         : ''
