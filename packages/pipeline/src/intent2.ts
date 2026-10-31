@@ -325,6 +325,7 @@ export function isPageLookNote(text: string): boolean {
 
 import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markStats, statOf } from './statcard.js'
+import { ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, markTextPlaces } from './textplace.js'
@@ -846,6 +847,8 @@ export interface InkColour {
   bands?: Array<{ y0: number; y1: number; color: string | null }>
   /** n78: paint 'border' from a box drawn in a light grey pen (no tap): a framed card / field / button, never a grey fill. */
   frame?: true
+  /** n129: paint 'border' from a ring drawn in a coloured pen and noted as an arc, track or progress: a hollow ring of this thickness, never a disc. */
+  hollow?: { thickness: number; share: number | null; track: string | null }
 }
 
 export interface GroundedInterpretation {
@@ -1250,6 +1253,17 @@ export function groundInterpretation(
       if (!flat && sm?.shape === 'box' && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
       // n78: a box drawn in a light grey pen (no tap) is a frame: grey border, no grey fill
       if (!flat && sm?.shape === 'box' && inkGreyOutline(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen', frame: true }); continue }
+      // n129: a ring in a coloured pen noted as an arc, track or progress is the ring's line, not a coloured-in disc
+      if (!flat && sm?.shape === 'ellipse' && !sm.solid) {
+        const rb = sm.box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        if (rb.w >= 60 && rb.h >= 60 && ringNoted(own)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen',
+            hollow: { thickness: ringThickness((rb.w + rb.h) / 2), share: ringShare(own), track: trackColour(own) } })
+          continue
+        }
+      }
       inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })
     }
 

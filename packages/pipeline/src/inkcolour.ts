@@ -73,6 +73,17 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')}) exactly (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}): ${hex(c.fade.colors[0]!)} where it was tapped first, fading to ${hex(c.fade.colors.at(-1)!)} where it was tapped last; keep that direction and those stops, at full strength`)
         continue
       }
+      // n129: a ring noted as an arc / track / progress is the ring's line: hollow, the words in its hole
+      if (c.paint === 'border' && c.hollow) {
+        const h = c.hollow, d = Math.round((c.box.w + c.box.h) / 2)
+        lines.push(`- action ${String(i)}, the ring drawn at ${at} in ${hex(c.color)} (no colour tapped) and noted as an arc / track / progress: a HOLLOW RING, never a filled disc: ` +
+          `outer edge exactly the drawn box (${String(d)}px across, centred where drawn), the ring's line about ${String(h.thickness)}px thick, its inside the surface under it (the panel or page colour), NEVER filled ${hex(c.color)}. ` +
+          `${h.share !== null ? `The ${hex(c.color)} arc covers ${String(Math.round(h.share * 100))}% of the ring clockwise from 12 o'clock with round ends; the rest is the track` : `The ${hex(c.color)} arc runs over the ring (as much of it as the notes say)`}, ` +
+          `on a track ring of the same thickness in ${h.track ? `${h.track} (a pale ${h.track})` : `a pale tint of ${hex(c.color)}`}. ` +
+          `Build it as an SVG (two <circle> elements, fill="none", stroke-width ${String(h.thickness)}, the arc with stroke-dasharray and stroke-linecap round, rotated -90deg) ` +
+          `or as a conic-gradient disc with an INNER DISC element on top in the surface colour leaving only the ${String(h.thickness)}px band showing. Words typed on the ring sit centred in its hole in dark or ink-coloured text, never white on the colour`)
+        continue
+      }
       if (c.paint === 'border' && c.frame) {
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a light grey pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)}, background white or the surface under it, NEVER filled ${hex(c.color)} or any grey; its words, images and controls sit inside the frame`)
         continue
@@ -258,6 +269,14 @@ export function verifyInkColours(
         const v = fadeVerdict(c.fade, near)
         checks.push({ what: `${what} (fade)`, want: c.fade.css, best: v.worst, ok: v.ok })
         if (!v.ok) misses.push(`action ${String(i)}: ${what} was tapped as a fade, ${c.fade.colors.map(hex).join(' to ')} (first tap to last); ${v.why}: paint the block itself background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')})`)
+        continue
+      }
+      // n129: a hollow ring: nothing about the drawn size there is a disc filled with the pen colour unless a hole sits on it
+      if (c.paint === 'border' && c.hollow) {
+        const v = hollowBuilt(c, after.nodes)
+        checks.push({ what: `${what} (hollow ring)`, want: `ring ${String(c.hollow.thickness)}px, no ${hex(c.color)} fill`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} and noted as an arc / track / progress: a hollow ring about ${String(c.hollow.thickness)}px thick, its words in the hole; ${v.why}: ` +
+          `build it as an SVG ring (circles with fill="none", stroke-width ${String(c.hollow.thickness)}) or put an inner disc in the surface colour on top so only a ${String(c.hollow.thickness)}px band shows; keep its size, place, colours and words`)
         continue
       }
       // n78: a grey-pen frame: the block there has a border and is not filled with the pen's grey
@@ -491,4 +510,39 @@ export function hasFrame(n: DomNode): boolean {
   if (o && !/^\s*0px/.test(o) && !/\bnone\b/.test(o)) return true
   const sh = n.style.boxShadow
   return !!sh && /0px 0px 0px [1-3](?:\.\d+)?px/.test(sh)
+}
+
+/**
+ * n129: a ring noted as an arc / track / progress is built hollow. Fails when a disc about the drawn size, centred on
+ * the drawn ring, paints the pen colour (a solid background, or a gradient carrying it) and nothing covers its middle
+ * (an inner element at most 97% and at least 50% of its size, centred, with an opaque fill of another colour), or when
+ * nothing at all about the drawn size was built there. An SVG ring (circles with fill none) paints no background and passes.
+ */
+export function hollowBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, d = (b.w + b.h) / 2, cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const centred = (n: DomNode, lo: number, hi: number, off: number) => {
+    const w = n.rect.w, h = n.rect.h
+    return w >= d * lo && w <= d * hi && h >= d * lo && h <= d * hi && Math.hypot(n.rect.x + w / 2 - cx, n.rect.y + h / 2 - cy) <= d * off
+  }
+  const near = nodes.filter((n) => centred(n, 0.7, 1.3, 0.2))
+  if (!near.length) return { ok: false, why: `nothing about ${String(Math.round(d))}px across was built centred on it` }
+  for (const n of near) {
+    const paints = painted(n, 'background').filter((css) => css && alphaOf(css) >= 0.6)
+    const penFill = paints.some((css) => { const g = parseCssColor(css); return !!g && deltaE(pen, g) <= 12 })
+    if (!penFill) continue
+    const R = n.rect, nd = (R.w + R.h) / 2, ncx = R.x + R.w / 2, ncy = R.y + R.h / 2
+    const hole = nodes.some((m) => {
+      if (m === n) return false
+      const md = (m.rect.w + m.rect.h) / 2
+      if (md > nd * 0.97 || md < nd * 0.5 || Math.abs(m.rect.w - m.rect.h) > 0.12 * md) return false
+      if (Math.hypot(m.rect.x + m.rect.w / 2 - ncx, m.rect.y + m.rect.h / 2 - ncy) > nd * 0.08) return false
+      const bg = m.style.backgroundColor
+      const g = parseCssColor(bg)
+      return !!g && alphaOf(bg) >= 0.9 && deltaE(pen, g) > 12
+    })
+    if (!hole) return { ok: false, why: `it was built as a solid ${hex(c.color)} disc ${String(Math.round(R.w))}px across with nothing covering its middle` }
+  }
+  return { ok: true, why: '' }
 }
