@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Bowling</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#1b1b3a;font-family:Helvetica,Arial,sans-serif;color:#fff;overflow:hidden;position:relative}
+.stripes{position:absolute;left:0;top:0;width:1280px;height:120px;display:flex;flex-direction:column}
+.stripes i{flex:1}
+h1{position:absolute;left:0;top:200px;width:1280px;text-align:center;font-size:120px;font-weight:900;font-style:italic;letter-spacing:-2px;color:#ffcf3f}
+.sub{position:absolute;left:0;top:360px;width:1280px;text-align:center;font-size:21px;color:#c9c9e6}
+.pins{position:absolute;left:470px;top:440px;width:340px;height:220px}
+.pin{position:absolute;width:44px;height:100px;background:#fff;border-radius:22px 22px 18px 18px}
+.pin::after{content:"";position:absolute;left:0;top:30px;width:44px;height:8px;background:#e8443a}
+.cta{position:absolute;left:530px;top:740px;width:220px;height:58px;border-radius:29px;background:#e8443a;font-weight:700;font-size:17px;display:flex;align-items:center;justify-content:center}
+.ball{position:absolute;left:180px;top:560px;width:150px;height:150px;border-radius:50%;background:#3a6df0}
+</style></head><body>
+<div class="stripes" data-r="stripes" data-must><i style="background:#e8443a"></i><i style="background:#ff8a3d"></i><i style="background:#ffcf3f"></i></div>
+<h1 data-r="headline" data-must>Strike Night</h1>
+<p class="sub" data-r="subhead">Tuesday league · 8 lanes · shoes included</p>
+<div class="pins" data-r="pins" data-must>
+<div class="pin" style="left:148px;top:0"></div><div class="pin" style="left:98px;top:50px"></div><div class="pin" style="left:198px;top:50px"></div>
+<div class="pin" style="left:48px;top:100px"></div><div class="pin" style="left:148px;top:100px"></div><div class="pin" style="left:248px;top:100px"></div></div>
+<div class="ball" data-r="ball"></div>
+<div class="cta" data-r="cta" data-must>Join a team</div>
+</body></html>

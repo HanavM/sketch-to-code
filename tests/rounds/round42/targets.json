@@ -1,0 +1,1087 @@
+{
+ "measured": "2026-10-31T18:23:57.960Z",
+ "targets": {
+  "c1-regatta": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 72,
+      "y": 29,
+      "w": 120,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 72,
+      "y": 170,
+      "w": 407,
+      "h": 202
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 76,
+      "y": 400,
+      "w": 430,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 76,
+      "y": 520,
+      "w": 210,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "sail-red",
+     "rect": {
+      "x": 720,
+      "y": 140,
+      "w": 150,
+      "h": 380
+     },
+     "must": true
+    },
+    {
+     "role": "sail-navy",
+     "rect": {
+      "x": 900,
+      "y": 220,
+      "w": 120,
+      "h": 300
+     },
+     "must": false
+    },
+    {
+     "role": "sail-yellow",
+     "rect": {
+      "x": 1060,
+      "y": 300,
+      "w": 90,
+      "h": 220
+     },
+     "must": false
+    },
+    {
+     "role": "sea",
+     "rect": {
+      "x": 0,
+      "y": 640,
+      "w": 1280,
+      "h": 260
+     },
+     "must": true
+    }
+   ]
+  },
+  "c2-donut-shop": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 84
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 606,
+      "y": 27,
+      "w": 64,
+      "h": 30
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 0,
+      "y": 134,
+      "w": 1280,
+      "h": 97
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 0,
+      "y": 247,
+      "w": 1280,
+      "h": 22
+     },
+     "must": false
+    },
+    {
+     "role": "donuts",
+     "rect": {
+      "x": 0,
+      "y": 339,
+      "w": 1280,
+      "h": 268
+     },
+     "must": true
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 530,
+      "y": 770,
+      "w": 220,
+      "h": 58
+     },
+     "must": true
+    }
+   ]
+  },
+  "c3-ski-lodge": {
+   "regions": [
+    {
+     "role": "sun",
+     "rect": {
+      "x": 96,
+      "y": 120,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "slope",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "trees",
+     "rect": {
+      "x": 180,
+      "y": 370,
+      "w": 68,
+      "h": 110
+     },
+     "must": false
+    },
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 27,
+      "w": 81,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 640,
+      "y": 150,
+      "w": 570,
+      "h": 182
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 760,
+      "y": 360,
+      "w": 450,
+      "h": 29
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 990,
+      "y": 470,
+      "w": 220,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "stats",
+     "rect": {
+      "x": 120,
+      "y": 690,
+      "w": 366,
+      "h": 56
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-shape-museum": {
+   "regions": [
+    {
+     "role": "logo",
+     "rect": {
+      "x": 60,
+      "y": 40,
+      "w": 173,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "circle",
+     "rect": {
+      "x": 640,
+      "y": 90,
+      "w": 420,
+      "h": 420
+     },
+     "must": true
+    },
+    {
+     "role": "square",
+     "rect": {
+      "x": 880,
+      "y": 380,
+      "w": 300,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "triangle",
+     "rect": {
+      "x": 560,
+      "y": 520,
+      "w": 320,
+      "h": 280
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 60,
+      "y": 140,
+      "w": 405,
+      "h": 383
+     },
+     "must": true
+    },
+    {
+     "role": "date",
+     "rect": {
+      "x": 64,
+      "y": 560,
+      "w": 176,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 64,
+      "y": 605,
+      "w": 420,
+      "h": 51
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 64,
+      "y": 730,
+      "w": 200,
+      "h": 56
+     },
+     "must": true
+    }
+   ]
+  },
+  "c5-bowling-league": {
+   "regions": [
+    {
+     "role": "stripes",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 120
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 0,
+      "y": 200,
+      "w": 1280,
+      "h": 138
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 0,
+      "y": 360,
+      "w": 1280,
+      "h": 24
+     },
+     "must": false
+    },
+    {
+     "role": "pins",
+     "rect": {
+      "x": 470,
+      "y": 440,
+      "w": 340,
+      "h": 220
+     },
+     "must": true
+    },
+    {
+     "role": "ball",
+     "rect": {
+      "x": 180,
+      "y": 560,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 530,
+      "y": 740,
+      "w": 220,
+      "h": 58
+     },
+     "must": true
+    }
+   ]
+  },
+  "e1-podcast-app": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 240,
+      "h": 810
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 24,
+      "y": 28,
+      "w": 192,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "show-header",
+     "rect": {
+      "x": 290,
+      "y": 40,
+      "w": 940,
+      "h": 200
+     },
+     "must": true
+    },
+    {
+     "role": "cover",
+     "rect": {
+      "x": 290,
+      "y": 40,
+      "w": 200,
+      "h": 200
+     },
+     "must": false
+    },
+    {
+     "role": "follow",
+     "rect": {
+      "x": 520,
+      "y": 173,
+      "w": 130,
+      "h": 40
+     },
+     "must": false
+    },
+    {
+     "role": "episodes-heading",
+     "rect": {
+      "x": 290,
+      "y": 280,
+      "w": 940,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "episodes",
+     "rect": {
+      "x": 290,
+      "y": 309,
+      "w": 940,
+      "h": 276
+     },
+     "must": true
+    },
+    {
+     "role": "player",
+     "rect": {
+      "x": 0,
+      "y": 810,
+      "w": 1280,
+      "h": 90
+     },
+     "must": true
+    }
+   ]
+  },
+  "e2-quiz": {
+   "regions": [
+    {
+     "role": "card",
+     "rect": {
+      "x": 290,
+      "y": 80,
+      "w": 700,
+      "h": 570
+     },
+     "must": true
+    },
+    {
+     "role": "counter",
+     "rect": {
+      "x": 338,
+      "y": 120,
+      "w": 604,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "progress",
+     "rect": {
+      "x": 338,
+      "y": 150,
+      "w": 604,
+      "h": 8
+     },
+     "must": true
+    },
+    {
+     "role": "question",
+     "rect": {
+      "x": 338,
+      "y": 194,
+      "w": 604,
+      "h": 36
+     },
+     "must": true
+    },
+    {
+     "role": "options",
+     "rect": {
+      "x": 338,
+      "y": 244,
+      "w": 604,
+      "h": 282
+     },
+     "must": true
+    },
+    {
+     "role": "back",
+     "rect": {
+      "x": 338,
+      "y": 560,
+      "w": 56,
+      "h": 50
+     },
+     "must": false
+    },
+    {
+     "role": "next",
+     "rect": {
+      "x": 792,
+      "y": 560,
+      "w": 150,
+      "h": 50
+     },
+     "must": true
+    }
+   ]
+  },
+  "e3-shopping-cart": {
+   "regions": [
+    {
+     "role": "header",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 72
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 60,
+      "y": 23,
+      "w": 60,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 60,
+      "y": 110,
+      "w": 147,
+      "h": 39
+     },
+     "must": true
+    },
+    {
+     "role": "items",
+     "rect": {
+      "x": 60,
+      "y": 180,
+      "w": 700,
+      "h": 423
+     },
+     "must": true
+    },
+    {
+     "role": "summary",
+     "rect": {
+      "x": 820,
+      "y": 180,
+      "w": 400,
+      "h": 291
+     },
+     "must": true
+    },
+    {
+     "role": "checkout",
+     "rect": {
+      "x": 850,
+      "y": 385,
+      "w": 340,
+      "h": 56
+     },
+     "must": true
+    }
+   ]
+  },
+  "e4-project-dashboard": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 64
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 40,
+      "y": 21,
+      "w": 91,
+      "h": 22
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 40,
+      "y": 96,
+      "w": 231,
+      "h": 32
+     },
+     "must": false
+    },
+    {
+     "role": "stats",
+     "rect": {
+      "x": 40,
+      "y": 150,
+      "w": 1200,
+      "h": 120
+     },
+     "must": true
+    },
+    {
+     "role": "donut-card",
+     "rect": {
+      "x": 40,
+      "y": 300,
+      "w": 400,
+      "h": 420
+     },
+     "must": true
+    },
+    {
+     "role": "tasks",
+     "rect": {
+      "x": 464,
+      "y": 300,
+      "w": 776,
+      "h": 420
+     },
+     "must": true
+    }
+   ]
+  },
+  "e5-gradebook": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 220,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 22,
+      "y": 28,
+      "w": 176,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 260,
+      "y": 40,
+      "w": 210,
+      "h": 34
+     },
+     "must": true
+    },
+    {
+     "role": "subtitle",
+     "rect": {
+      "x": 260,
+      "y": 86,
+      "w": 136,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "export",
+     "rect": {
+      "x": 1060,
+      "y": 40,
+      "w": 180,
+      "h": 44
+     },
+     "must": false
+    },
+    {
+     "role": "tabs",
+     "rect": {
+      "x": 260,
+      "y": 130,
+      "w": 980,
+      "h": 40
+     },
+     "must": false
+    },
+    {
+     "role": "table",
+     "rect": {
+      "x": 260,
+      "y": 200,
+      "w": 980,
+      "h": 442
+     },
+     "must": true
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-regatta": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.6988048947309806,
+    "structure": 0.39959978344098557,
+    "structureStrict": 0.39959978344098557,
+    "colourAligned": 0.6988048947309806,
+    "structureAligned": 0.39959978344098557,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6882465375342218,
+    "structure": 0.3387194453507105
+   }
+  },
+  "c2-donut-shop": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8258729842570369,
+    "structure": 0.6626448440006274,
+    "structureStrict": 0.6626448440006274,
+    "colourAligned": 0.8258729842570369,
+    "structureAligned": 0.6626448440006274,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7481209773542855,
+    "structure": 0.5126165735681953
+   }
+  },
+  "c3-ski-lodge": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8426510948632623,
+    "structure": 0.6832404832142378,
+    "structureStrict": 0.6832404832142378,
+    "colourAligned": 0.8426510948632623,
+    "structureAligned": 0.6832404832142378,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7393407162656378,
+    "structure": 0.5135099445403877
+   }
+  },
+  "c4-shape-museum": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7364737022306781,
+    "structure": 0.555488902214095,
+    "structureStrict": 0.555488902214095,
+    "colourAligned": 0.7364737022306781,
+    "structureAligned": 0.555488902214095,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7083109435436825,
+    "structure": 0.4497129805276275
+   }
+  },
+  "c5-bowling-league": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.2260849468196765,
+    "structure": 0.1612265419179956,
+    "structureStrict": 0.1612265419179956,
+    "colourAligned": 0.2260849468196765,
+    "structureAligned": 0.1612265419179956,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.34691077590208247,
+    "structure": 0.1799839940473762
+   }
+  },
+  "e1-podcast-app": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8845389601589215,
+    "structure": 0.6969012421107709,
+    "structureStrict": 0.6969012421107709,
+    "colourAligned": 0.8845389601589215,
+    "structureAligned": 0.6969012421107709,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7414722859980553,
+    "structure": 0.5131691378863711
+   }
+  },
+  "e2-quiz": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9553803246401592,
+    "structure": 0.8065823181299173,
+    "structureStrict": 0.8065823181299173,
+    "colourAligned": 0.9553803246401592,
+    "structureAligned": 0.8065823181299173,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7814244292256052,
+    "structure": 0.578709909346946
+   }
+  },
+  "e3-shopping-cart": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9717054001086217,
+    "structure": 0.7974516474486684,
+    "structureStrict": 0.7974516474486684,
+    "colourAligned": 0.9717054001086217,
+    "structureAligned": 0.7974516474486684,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7726532872744083,
+    "structure": 0.5811187265307516
+   }
+  },
+  "e4-project-dashboard": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.907002187745709,
+    "structure": 0.6794644824896117,
+    "structureStrict": 0.6794644824896117,
+    "colourAligned": 0.907002187745709,
+    "structureAligned": 0.6794644824896117,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7465749904717961,
+    "structure": 0.5057038393074648
+   }
+  },
+  "e5-gradebook": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.860818752338351,
+    "structure": 0.6438582477677105,
+    "structureStrict": 0.6438582477677105,
+    "colourAligned": 0.860818752338351,
+    "structureAligned": 0.6438582477677105,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7271211299358428,
+    "structure": 0.49583990987145565
+   }
+  }
+ }
+}
