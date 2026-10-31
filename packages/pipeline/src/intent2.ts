@@ -329,6 +329,7 @@ import { ringNoted, ringShare, ringThickness, trackColour } from './hollowring.j
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, markTextPlaces } from './textplace.js'
+import { markRuleLabels } from './ruleline.js'
 import { markRowWords } from './rowwords.js'
 import { bindTiltNotes } from './tiltwords.js'
 import { markOutlined } from './textlook.js'
@@ -1344,6 +1345,11 @@ export function groundInterpretation(
     if (shapeMarks.length) markCards(shapeMarks, innerBoxes, noteObjs, inkColours.filter((c) => c.how === 'tap').map((c) => ({ strokeId: c.strokeId, color: c.color })))
     // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low
     if (shapeMarks.length) markTextPlaces(shapeMarks, noteObjs, snap.viewport.w)
+    // n142: words typed just above a line drawn edge to edge of its column are a small label over a divider
+    if (shapeMarks.some((m) => m.wordsAt)) {
+      const allShapes = [...ev.strokes.entries()].flatMap(([id, st]) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [{ ...s, strokeId: id }] : [] })
+      markRuleLabels(shapeMarks, allShapes, snap.viewport)
+    }
     // n69: a box or ring with its own note keeps those words (one item of a list of look-alike marks)
     if (shapeMarks.length) markRowWords(shapeMarks, noteObjs, innerBoxes)
     actions.push({

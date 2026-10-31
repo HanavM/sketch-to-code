@@ -51,7 +51,7 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[], pageW = 12
       const ends = lineEnds(m, own, pageW)
       if (ends) { m.ends = ends; delete m.words; continue }
       const n = own[0]
-      if (n) m.words = n.text
+      if (n) { m.words = n.text; if (n.at) m.wordsAt = { x: r1(n.at.x), y: r1(n.at.y) } }
       continue
     }
     // n59: a slanted line with its own note still stands for those words (a line on a turned ticket)
@@ -186,6 +186,8 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
   const lines: string[] = []
   actions.forEach((a, i) => {
     for (const m of a.shapeMarks ?? []) {
+      // n142: words typed over a full-width divider are told by ruleLabelBrief
+      if (isLevel(m) && m.words && m.rule) continue
       if (isLevel(m) && m.words) {
         const col = columnOf(m, all)
         if (col) {
@@ -255,6 +257,7 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
   const faults: string[] = []
   let judged = 0
   for (const m of marks) {
+    if (isLevel(m) && m.words && m.rule) continue // n142: checked by rule-labels
     if (isLevel(m) && m.words) {
       const col = columnOf(m, marks)
       if (col) {

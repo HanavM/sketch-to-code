@@ -17,7 +17,7 @@ import type { BBox } from '@s2c/ink'
 import { baselineOf, wordsOf } from './ownwords.js'
 import { notHeading } from './linespread.js'
 
-interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string }
+interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string; rule?: unknown }
 interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; style?: { fontSize?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 export interface SpanVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
@@ -72,7 +72,7 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
   const misses: string[] = []
   let judged = 0
   for (const m of marks) {
-    if (!isLevel(m) || !m.words) continue
+    if (!isLevel(m) || !m.words || m.rule) continue // n142: words over a divider are not sized by it
     const len = Math.abs(m.to!.x - m.from!.x)
     // a line drawn as part of a multi-line stack is the stack check's (stacklines), except a giant word or two a
     // line (n57: "SLOW" over "WORK", 250px apart): the stack check only judges text of 3+ words, so nothing held it

@@ -12,7 +12,7 @@
 import type { BBox } from '@s2c/ink'
 import { copyWords } from './linespan.js'
 
-interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string; carries?: string }
+interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string; carries?: string; rule?: unknown }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; parent?: string | null; style?: { backgroundColor?: string; border?: string; borderBottom?: string; transform?: string; textDecoration?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 export interface RuleVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
@@ -23,6 +23,8 @@ const RULE_NOTE = /\b(dashed|dotted|rule|divider|separator|line|border|perforat\
 /** The words a line stands for, or null when it is a rule, an edge, or has no note of its own. */
 export function lineCopy(m: MarkLike): string | null {
   if (m.shape !== 'line' || m.edge || !m.from || !m.to) return null
+  // n142: a divider with words typed over it is a rule on the page, and the words sit above it
+  if (m.rule) return null
   const w = m.words ?? m.carries
   if (!w) return null
   if (RULE_NOTE.test(w)) return null

@@ -18,7 +18,7 @@ import type { BBox } from '@s2c/ink'
 import { BIG_WORD, copyWords, lineAsksBig } from './linespan.js'
 import { wordsOf } from './ownwords.js'
 
-interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string }
+interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string; rule?: unknown }
 interface InkLike { strokeId?: string; paint: string; color: string; how?: string }
 interface ActionLike { onScreen?: unknown; shapeMarks?: MarkLike[]; inkColours?: InkLike[]; textSize?: Array<{ lines: number; strokes: string[] }> }
 interface NodeLike { id: string; tag?: string; rect: BBox; text?: string; textBox?: BBox; parent?: string | null; style?: { fontSize?: string; borderBottom?: string; textDecoration?: string; backgroundColor?: string; color?: string } }
@@ -85,7 +85,7 @@ export function bodyLines(actions: readonly ActionLike[]): BodyLine[] {
   actions.forEach((a, i) => {
     if (a.onScreen) return
     for (const m of a.shapeMarks ?? []) {
-      if (!isLevel(m) || !m.words || !m.strokeId || stacked.has(m.strokeId)) continue
+      if (!isLevel(m) || !m.words || !m.strokeId || stacked.has(m.strokeId) || m.rule) continue
       const len = Math.abs(m.to!.x - m.from!.x)
       const fs = bodyLineFont(m.words, len)
       if (fs == null) continue

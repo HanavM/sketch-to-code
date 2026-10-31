@@ -60,6 +60,10 @@ export interface ShapeMark {
   outlined?: { colour: string | null }
   /** level line (n21): the words typed on it, which sit on its side of the box around it. */
   words?: string
+  /** n142: level line: where its own note was typed (page px). */
+  wordsAt?: { x: number; y: number }
+  /** n142: a level line run edge to edge of its column with its note typed just above it: a divider with a small label over it. */
+  rule?: { side: 'left' | 'centre' | 'right'; x: number; y: number; holder: BBox }
   /** n81: long level line with notes typed at its different ends (logo left, links right): each keeps its side. */
   ends?: Array<{ text: string; x: number; y: number; side: 'left' | 'centre' | 'right' }>
   /** n59: a line that is not level (a line on a turned ticket) with its own note: the words typed on it. */
