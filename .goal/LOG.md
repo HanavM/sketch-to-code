@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T18:45Z | n159 write round 42 | Ten fresh pages (regatta, donuts, ski lodge, Bauhaus, bowling; podcast, quiz, cart, dashboard, gradebook) screenshotted; none sketched.
 2026-10-31T18:22Z | n158 rows typed in open space take the field above | Full field width, row 1 level with drawn checkbox, checked. To-do 80.0, 86.7, no fixes; calendar 70.0 (untouched).
 2026-10-31T17:09Z | n157 title sized by the gap under it | Title capped by line gap, centred on its line, checked. To-do 65.9 to 84.7, 80.8, no fixes.
 2026-10-31T17:10Z | n156 rows under a card heading | Rows start under Recent, level with the drawn icon, checked. Bank 84.3 to 87.6, no fixes.
