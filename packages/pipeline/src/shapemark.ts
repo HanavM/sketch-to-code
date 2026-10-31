@@ -72,6 +72,8 @@ export interface ShapeMark {
   typed?: Array<{ text: string; x: number; y: number }>
   /** n155: tall side panel: the menu lists typed in it with no rows drawn, stacked from its top (sidelist.ts). */
   sideLists?: import('./sidelist.js').SideList[]
+  /** n156: card: the rows typed in it under its heading, which start below that heading (cardrows.ts). */
+  cardRows?: import('./cardrows.js').CardRows[]
   /**
    * box only (n31): drawn turned. `box` is then the space it takes on the page (its upright bounds);
    * the box itself is w x h, centred at (cx, cy), turned `deg` degrees (CSS rotate: + is clockwise).

@@ -330,6 +330,7 @@ import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solid
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
 import { markSideLists } from './sidelist.js'
+import { markCardRows } from './cardrows.js'
 import { markRuleLabels, paleOn } from './ruleline.js'
 import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
@@ -1423,6 +1424,10 @@ export function groundInterpretation(
   linkSame(actions.flatMap((a) => a.shapeMarks ?? []))
   // n155: a menu note typed in a side panel with no rows drawn stacks from the panel's top, above the button under it
   markSideLists(actions.flatMap((a) => a.shapeMarks ?? []),
+    [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
+    ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport)
+  // n156: a rows note typed in a card under its small heading starts below that heading, never over it
+  markCardRows(actions.flatMap((a) => a.shapeMarks ?? []),
     [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
     ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport)
 

@@ -82,6 +82,7 @@ import { calendarBrief, verifyCalendars } from './calendar.js'
 import { topBandsBrief, verifyTopBands } from './topbands.js'
 import { panelFootBrief, verifyPanelFeet } from './panelfoot.js'
 import { sideListBrief, sideListsOf, verifySideLists } from './sidelist.js'
+import { cardRowsBrief, cardRowsOf, verifyCardRows } from './cardrows.js'
 import { pairRowsBrief, verifyPairRows } from './pairrows.js'
 import { drawnRingBrief, ringStrokeIds, verifyDrawnRings } from './drawnring.js'
 import { rowMarksBrief, verifyRowMarks } from './rowmarks.js'
@@ -678,6 +679,7 @@ export async function runV2(
     topBandsBrief(interp.actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : []), input.snapshot.viewport) +
     panelFootBrief(interp.actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : [])) +
     sideListBrief(sideListsOf(interp.actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : []))) +
+    cardRowsBrief(cardRowsOf(interp.actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.shapeMarks ?? [] : []))) +
     pairRowsBrief(interp.actions, [...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? [])]) +
     drawnRingBrief(input.strokes) +
     routeBrief(input.strokes) +
@@ -1609,7 +1611,7 @@ export function verifyActions(
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after, { samples: hasSampleRows(typedNotes) || hasFillerRows(typedNotes) }) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
-    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes.filter((t) => !spreadNotes(allMarks).has(t)), after)], ['row-data', verifyRowData(typedNotes, after)], ['button-labels', verifyButtonLabels(typedNotes, after)], ['drawn-once', verifyDrawnOnce(allMarks, after)], ['checklists', verifyChecklists(typedNotes, after)], ['calendars', verifyCalendars(typedNotes, after)], ['top-bands', verifyTopBands(allMarks, after)], ['panel-feet', verifyPanelFeet(allMarks, after)], ['side-menus', verifySideLists(sideListsOf(allMarks), after)], ['pair-rows', verifyPairRows(actions, looseNotes, after)], ['drawn-rings', verifyDrawnRings(depiction?.strokes, after)], ['routes', verifyRoutes(depiction?.strokes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
+    ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes.filter((t) => !spreadNotes(allMarks).has(t)), after)], ['row-data', verifyRowData(typedNotes, after)], ['button-labels', verifyButtonLabels(typedNotes, after)], ['drawn-once', verifyDrawnOnce(allMarks, after)], ['checklists', verifyChecklists(typedNotes, after)], ['calendars', verifyCalendars(typedNotes, after)], ['top-bands', verifyTopBands(allMarks, after)], ['panel-feet', verifyPanelFeet(allMarks, after)], ['side-menus', verifySideLists(sideListsOf(allMarks), after)], ['card-rows', verifyCardRows(cardRowsOf(allMarks), after)], ['pair-rows', verifyPairRows(actions, looseNotes, after)], ['drawn-rings', verifyDrawnRings(depiction?.strokes, after)], ['routes', verifyRoutes(depiction?.strokes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)))],
     ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['progress', verifyProgress(typedNotes, after)], ['row-template', verifyRowTemplate(actions, depiction?.strokes, after)], ['body-lines', verifyBodyLines(actions, after)], ['drawn-order', verifyDrawnOrder(allMarks, after)], ['bar-labels', verifyBarLabels(actions, after, namedColourText(actions, looseNotes))]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
