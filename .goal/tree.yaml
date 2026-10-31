@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Round 41 is written: ten fresh pages (kites, vinyl bar, plants, chess, trail race, bank, calendar, to-do, files, hotel); next, sketching its five landing pages by hand."
+now: "Round 41 landing pages are sketched (average 81.6, 18 strokes, 50 words); next, sketching its five app pages by hand."
 round: 40
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-10-31T13:00Z n149", until: "2026-10-31T14:30Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -267,10 +267,18 @@ nodes:
   - {id: n146, parent: n4, kind: step, title: "A title typed at the left end of its drawn line stays left with its meta line, and a small ring drawn with no tap is hollow (white inside, dark edge); replay recipe and ride booking", status: done, branch: try/n3-ink-style,
      result: "Title left 2 of 2, markers hollow; recipe 83.2, 69.6 (75.8), ride 85.2 (87.7); no fixes."}
   - {id: n147, parent: n1, kind: step, title: "Write round 41: ten fresh pages (5 creative landing, 5 everyday app, most harder than round 1) and their screenshots, without sketching them; aim notes at 50 words or fewer when sketched", status: done, branch: try/n3-ink-style, result: "Ten fresh pages screenshotted (kites, vinyl bar, plants, chess, trail race; bank, calendar, to-do, files, hotel); six harder."}
-  - {id: n149, parent: n1, kind: step, priority: next, title: "Sketch round 41 landing pages c1-c5 by hand from screenshots only, at 50 words or fewer a page; record every number", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n150, parent: n1, kind: step, title: "Sketch round 41 app pages e1-e5 by hand from screenshots only, at 50 words or fewer a page; record every number and roll up round 41", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n149, parent: n1, kind: step, title: "Sketch round 41 landing pages c1-c5 by hand from screenshots only, at 50 words or fewer a page; record every number", status: done, branch: try/n3-ink-style,
+     result: "Kite 80.7, vinyl 87.9, plants 79.8, chess 78.7, trail 81.1; mean 81.6, 18 strokes, 50 words."}
+  - {id: n150, parent: n1, kind: step, priority: next, title: "Sketch round 41 app pages e1-e5 by hand from screenshots only, at 50 words or fewer a page; record every number and roll up round 41", status: open, branch: try/n3-ink-style, result: null}
   - {id: n148, parent: n4, kind: step, title: "A steps note bound to a numbered ring never prints its lead word (steps:), and the gap under a title holds the drawn rhythm (same sketch scored 83 and 70); replay recipe", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n151, parent: n2, kind: step, title: "A short line under a picture card is its words (name, price under), never a bar, and a lone slanted pen line is a thin line, never a filled box; replay plant shop and kite club", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n152, parent: n4, kind: step, title: "A fix note typed beside text binds to the nearest drawn line, not the element under it, a fix round that changes nothing says so, and a stacked heading sits on its drawn lines; replay chess night", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "Short drawn lines under picture cards (name, price) built as dark bars, their notes dropped; a fix added text but kept the bars", found_on: "r41 c3 (n149)", built: null, helped: null}
+  - {gap: "A lone slanted pen line (kite string) built as a thick filled bar (its bounding box)", found_on: "r41 c1 (n149)", built: null, helped: null}
+  - {gap: "A fix note typed beside the subhead bound to the headline element and joined a two-line heading onto one line; the next fix round changed nothing", found_on: "r41 c4 (n149)", built: null, helped: null}
+  - {gap: "A pill note with a date (Sunrise · 14 March) built as a stacked date chip; a pen box round 10K kept a thin border", found_on: "r41 c5 (n149)", built: null, helped: null}
+  - {gap: "A line drawn at the very bottom sits under the toolbar: its note bound to the mountains and the footer text was cut short", found_on: "r41 c5 (n149)", built: null, helped: null}
   - {gap: "A white or black pen box drawn round a big word (WAVE, 40) with no tap is built as a solid block; fix notes undo it, WAVE then shrinks", found_on: "r40 c2, c5 (n138)", built: "n140: a pen box (no tap) read as a big word's area gives its pen colour to the letters (outline stroke if noted), never a block; told and checked", helped: "yes, no fix needed: wave 85.8 (with a fix) to 89.1, venn 83.7 (with a fix) to 86.4; WAVE still ~2/3 of its box"}
   - {gap: "A white pen box with no tap (outline button) built solid white; the fix note bound to nothing and hollowed the planets instead", found_on: "r40 c4 (n138)", built: null, helped: null}
   - {gap: "A colour tap in the middle of a filled ring adds a darker inner disc on top", found_on: "r40 c4 (n138)", built: "n140: the brief says sketch dots are only where colour was tapped; a tapped ring is checked for an inner disc of another colour", helped: "yes: 4 of 4 planets plain on first build; observatory 79.6 (2 fixes) to 83.9 (none)"}
@@ -606,6 +614,12 @@ n44_resketch:   # same strokes, taps, notes and fix notes as n35 (replay --fixes
   - {page: r32 c5-bookshop, try: 1, likeness: 63.3, was: 72.9, strokes: 9, words: 34, minutes: 3.8, fixes: 0, build_s: 167, tokens: 41595, note: "italic regular, heading narrower than its line"}
   - {page: r32 c5-bookshop, try: 2, likeness: 62.4, was: 72.9, strokes: 9, words: 34, minutes: 4.0, fixes: 0, build_s: 188, tokens: 43426}
   - {page: r32 c5-bookshop, try: 3, likeness: 69.5, was: 72.9, strokes: 9, words: 34, minutes: 3.4, fixes: 0, build_s: 138, tokens: 50282, note: "told to size a regular heading to span its line"}
+round41_pages:   # n149 (c1-c5, tests/hand/N149.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n146. c1-c5 mean 81.6, median 18 strokes, 50 words; e1-e5 next (n150)
+  - {page: r41 c1-kite-club, likeness: 80.7, strokes: 19, words: 42, notes: 7, minutes: 11.2, fixes: 1, first_read_s: 101, build_s: 539, tokens: 234175, note: "kites, hill, button right; strings built as thick bars until a fix"}
+  - {page: r41 c2-vinyl-bar, likeness: 87.9, strokes: 19, words: 50, notes: 8, minutes: 9.3, fixes: 0, first_read_s: 85, build_s: 463, tokens: 145892, note: "right first build: record, hours, outline button"}
+  - {page: r41 c3-plant-shop, likeness: 79.8, strokes: 18, words: 50, notes: 9, minutes: 10.2, fixes: 1, first_read_s: 79, build_s: 483, tokens: 181048, note: "arches and plants right on all 3; name lines built as bars, text only after a fix"}
+  - {page: r41 c4-chess-night, likeness: 78.7, strokes: 10, words: 63, notes: 9, minutes: 11.8, fixes: 2, first_read_s: 57, build_s: 579, tokens: 174576, note: "checkerboard and outlined MATE right; fix joined heading on one line; second fix did nothing"}
+  - {page: r41 c5-trail-10k, likeness: 81.1, strokes: 16, words: 52, notes: 9, minutes: 7.1, fixes: 1, first_read_s: 85, build_s: 269, tokens: 126885, note: "sun, mountains, fade right; date pill stacked and 10K boxed until a fix"}
 round40_pages:   # n138 (c1-c5, tests/hand/N138.md) and n139 (e1-e5, tests/hand/N139.md) on try/n3-ink-style; hand-sketched from screenshots, tool as of n136. c1-c5 mean 81.5; e1-e5 mean 75.8. Round 40: mean 78.7, median 18 strokes, 61 words, 6.9 min
   - {page: r40 c1-tea-house, likeness: 82.4, strokes: 18, words: 61, notes: 9, minutes: 6.2, fixes: 1, first_read_s: 71, build_s: 270, tokens: 130538, note: "close first build; footer centred and low, steam thin; fix spread footer"}
   - {page: r40 c2-wave-fest, likeness: 85.8, strokes: 18, words: 43, notes: 7, minutes: 3.7, fixes: 1, first_read_s: 75, build_s: 118, tokens: 61764, note: "bars right first build; WAVE box a white block until fix, then smaller than drawn"}
