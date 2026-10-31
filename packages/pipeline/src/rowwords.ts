@@ -16,6 +16,7 @@ import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { wordsOf } from './ownwords.js'
 import { copyWords } from './linespan.js'
+import { noteParts } from './typedcopy.js'
 
 interface NoteLike { text: string; focus?: string[]; strokeIds?: string[] }
 interface NodeLike { id: string; text?: string; rect: BBox; textBox?: BBox }
@@ -45,16 +46,17 @@ export function isCopy(text: string): boolean {
 }
 
 /** Record each box's or ring's own note (in place): the note's focus is that mark alone. */
-export function markRowWords(marks: ShapeMark[], notes: NoteLike[]): void {
+export function markRowWords(marks: ShapeMark[], notes: NoteLike[], page: readonly BBox[] = []): void {
   for (const m of marks) {
     if (!closed(m) || m.own) continue
     const own = notes.filter((n) => n.focus?.length
       ? n.focus.length === 1 && n.focus[0] === m.strokeId
       : n.strokeIds?.length === 1 && n.strokeIds[0] === m.strokeId)
     const n = own.find((x) => isCopy(copyOf(x.text)))
-    if (n) m.own = copyOf(n.text)
+    // n130: the note's copy without its directions ("Biscuit selected, avatar" is "Biscuit")
+    if (n) m.own = (/[;\n]/.test(n.text) ? '' : noteParts(copyOf(n.text)).copy) || copyOf(n.text)
   }
-  spreadListNotes(marks, notes)
+  spreadListNotes(marks, notes, page)
   splitRowNotes(marks)
 }
 
@@ -63,6 +65,22 @@ export function listItems(text: string): string[] | null {
   if (!/[;\n]/.test(text)) return null
   const items = text.split(/\s*(?:;|\n)\s*/).map((t) => t.trim()).filter(Boolean)
   return items.length >= 2 && items.length <= 8 ? items : null
+}
+
+/**
+ * n130: a comma list of short items of one form ("Mon 14, Tue 15, Wed 16, Thu 17, Fri 18"): 3 to 8 items, each
+ * 1 to 3 words, all the same number of words, a digit in every item or in none, every item copy (not look words
+ * like "big, bold, dark"). Notes with semicolons are listItems' (n119). Null otherwise.
+ */
+export function commaItems(text: string): string[] | null {
+  if (/[;\n]/.test(text) || !text.includes(',')) return null
+  const items = text.split(/\s*,\s*/).map((t) => t.trim()).filter(Boolean)
+  if (items.length < 3 || items.length > 8) return null
+  const counts = items.map((t) => t.split(/\s+/).length)
+  if (counts.some((c) => c > 3) || new Set(counts).size > 1) return null
+  if (new Set(items.map((t) => /\d/.test(t))).size > 1) return null
+  if (!items.every((t) => isCopy(t) && copyWords(t).length === wordsOf(t).length)) return null
+  return items
 }
 
 /** Look-alike closed marks chained to a seed in one column or one row (same kind, about the same size, aligned). */
@@ -98,26 +116,74 @@ export function lineOfLookAlikes(seed: ShapeMark, pool: ShapeMark[]): { marks: S
  * other two bare. Spread only when the items are exactly as many as the marks in the line and no mark was typed
  * other words of its own. In place.
  */
-export function spreadListNotes(marks: ShapeMark[], notes: NoteLike[]): void {
+export function spreadListNotes(marks: ShapeMark[], notes: NoteLike[], page: readonly BBox[] = []): void {
   const pool = marks.filter((m) => closed(m))
   for (const n of notes) {
-    const items = listItems(copyOf(n.text))
+    const semi = listItems(copyOf(n.text))
+    const comma = semi ? null : commaItems(n.text)
+    const items = semi ?? comma
     if (!items || !items.every((t) => isCopy(t))) continue
     const ids = n.focus?.length ? n.focus : n.strokeIds ?? []
     const anchors = pool.filter((m) => ids.includes(m.strokeId))
     if (!anchors.length) continue
     for (const a of anchors) {
-      const line = lineOfLookAlikes(a, pool)
-      if (!line || line.marks.length !== items.length) continue
+      // n130: a lone small box with a comma list of items of one form is the first drawn of a row
+      const line = lineOfLookAlikes(a, pool) ?? (comma && a.box.w <= 260 && a.box.h <= 160 ? { marks: [a], axis: 'row' as const } : null)
+      if (!line) continue
       // every mark the note was bound to is in the line (a note on two far-apart marks is not a list for this line)
       if (anchors.some((x) => !line.marks.includes(x))) continue
+      // n130: fewer marks drawn than items (two days of a five-day row): the drawn marks are some of the row's items
+      // (which ones from where they sit after the row's start), the rest are built at the drawn size and pitch
+      const short = line.marks.length < items.length
+      if (!short && line.marks.length !== items.length) continue
+      if (short && !comma) continue
+      const first = short ? rowOffset(line.marks, line.axis, items.length, page) : 0
       const whole = copyOf(n.text).trim()
       const typedOwn = line.marks.filter((o) => o.own && o.own.trim() !== whole)
-      if (typedOwn.some((o) => o.own!.trim().toLowerCase() !== items[line.marks.indexOf(o)]!.toLowerCase())) continue
-      line.marks.forEach((o, i) => { o.own = items[i]!; o.listNote = n.text })
+      if (typedOwn.some((o) => o.own!.trim().toLowerCase() !== items[first + line.marks.indexOf(o)]!.toLowerCase())) continue
+      line.marks.forEach((o, i) => { o.own = items[first + i]!; o.listNote = n.text })
+      if (short) {
+        const ms = line.marks, h = line.axis === 'row'
+        const pitch = pitchOf(ms, line.axis)
+        const at = (h ? ms[0]!.box.x : ms[0]!.box.y) - first * pitch
+        for (const o of ms) o.rowList = { items, first, axis: line.axis, pitch: r1(pitch), start: r1(at), size: { w: r1(ms[0]!.box.w), h: r1(ms[0]!.box.h) } }
+      }
       break
     }
   }
+}
+
+/** n130: the centre-to-centre step of a line of marks (or a box and a small gap when one is drawn). */
+function pitchOf(ms: readonly ShapeMark[], axis: 'row' | 'column'): number {
+  const c = (m: ShapeMark) => axis === 'row' ? m.box.x + m.box.w / 2 : m.box.y + m.box.h / 2
+  if (ms.length >= 2) return (c(ms.at(-1)!) - c(ms[0]!)) / (ms.length - 1)
+  const s = axis === 'row' ? ms[0]!.box.w : ms[0]!.box.h
+  return s + Math.max(8, s * 0.08)
+}
+
+/**
+ * n130: which item the first drawn mark is, from where the row starts: the nearest left (or top) edge of other drawn
+ * marks in the same column of the page (a heading line, the boxes above or below) before the first mark, within the
+ * room the missing items need. 0 when nothing marks the start.
+ */
+export function rowOffset(ms: readonly ShapeMark[], axis: 'row' | 'column', count: number, page: readonly BBox[]): number {
+  const room = count - ms.length
+  if (room <= 0 || !page.length) return 0
+  const p = pitchOf(ms, axis), f = ms[0]!.box, last = ms.at(-1)!.box
+  const h = axis === 'row'
+  const lo = h ? f.x : f.y
+  const starts = page.filter((b) => {
+    if (ms.some((m) => Math.abs(m.box.x - b.x) <= 2 && Math.abs(m.box.y - b.y) <= 2 && Math.abs(m.box.w - b.w) <= 2)) return false
+    const s = h ? b.x : b.y
+    if (s >= lo - p * 0.4 || s < lo - p * (room + 0.5)) return false
+    // near the row on the other axis (above or below it, within a few rows' height), and not wrapping the whole row
+    const near = h ? b.y + b.h >= f.y - 4 * f.h && b.y <= f.y + 5 * f.h : b.x + b.w >= f.x - 4 * f.w && b.x <= f.x + 5 * f.w
+    const wraps = h ? b.x + b.w >= last.x + last.w : b.y + b.h >= last.y + last.h
+    return near && !(wraps && (h ? b.h : b.w) > (h ? f.h : f.w) * 1.6 && (h ? b.y <= f.y && b.y + b.h >= f.y + f.h : b.x <= f.x && b.x + b.w >= f.x + f.w))
+  }).map((b) => h ? b.x : b.y)
+  if (!starts.length) return 0
+  const start = Math.min(...starts)
+  return Math.max(0, Math.min(room, Math.round((lo - start) / p)))
 }
 
 /**
@@ -190,15 +256,35 @@ export function lookAlikeLists(marks: ShapeMark[]): ShapeMark[][] {
 const where = (m: ShapeMark) => `the ${m.shape === 'ellipse' ? 'ring' : 'box'} at (${r1(m.box.x)},${r1(m.box.y)}) ${r1(m.box.w)}x${r1(m.box.h)}`
 
 export function rowWordsBrief(actions: Array<{ shapeMarks?: ShapeMark[] }>): string {
-  const lists = lookAlikeLists(actions.flatMap((a) => a.shapeMarks ?? []))
-  if (!lists.length) return ''
+  const all = actions.flatMap((a) => a.shapeMarks ?? [])
+  const rows = rowListsBrief(all)
+  const lists = lookAlikeLists(all).filter((l) => !l.some((m) => m.rowList))
+  if (!lists.length) return rows
   const lines = lists.map((l) => {
     const items = l.map((m) => `  - ${where(m)}: ${m.own ? `"${m.own}"` : '(no words typed)'}`)
     return `- these ${l.length} marks look alike (one list or thread), but EACH was typed its OWN words, in this order:\n${items.join('\n')}\n` +
       `  Build each item with exactly its own words, beside or inside its own mark (keep a mark's look and position as drawn). ` +
       `If you map over an array, the array holds these exact texts in this order; never repeat one item's words in another, and never make up texts for them.`
   })
-  return `LOOK-ALIKE MARKS, EACH WITH ITS OWN WORDS (deterministic, from which mark each note was typed on; checked on the page):\n${lines.join('\n')}\n\n`
+  return rows + `LOOK-ALIKE MARKS, EACH WITH ITS OWN WORDS (deterministic, from which mark each note was typed on; checked on the page):\n${lines.join('\n')}\n\n`
+}
+
+/** n130: rows drawn short of their list: every item is one box of the row, the drawn ones where drawn. */
+function rowListsBrief(marks: readonly ShapeMark[]): string {
+  const seen = new Set<string>()
+  const lines: string[] = []
+  for (const m of marks) {
+    const r = m.rowList
+    if (!r || !m.listNote || seen.has(m.listNote)) continue
+    seen.add(m.listNote)
+    const drawn = marks.filter((o) => o.listNote === m.listNote && o.rowList).sort((a, b) => r.axis === 'row' ? a.box.x - b.box.x : a.box.y - b.box.y)
+    const row = r.axis === 'row'
+    lines.push(`- the note "${m.listNote}" lists ${String(r.items.length)} items, ONE PER BOX of one ${row ? 'row (left to right)' : 'column (top to bottom)'}: ${r.items.map((t) => `"${t}"`).join(', ')}. ` +
+      `${drawn.length > 1 ? `The ${String(drawn.length)} boxes drawn are` : 'The box drawn is'} ${drawn.map((o) => `${where(o)} = "${o.own}"`).join(', ')}; ` +
+      `build all ${String(r.items.length)} boxes alike, each about ${String(r.size.w)}x${String(r.size.h)}, ${String(r.pitch)}px apart ${row ? 'centre to centre' : 'top to top'}, the first (${JSON.stringify(r.items[0])}) at ${row ? 'x' : 'y'}≈${String(r.start)}, the drawn ones exactly where drawn (keep their fills and looks: a filled one is the selected item). ` +
+      `Each box shows ONLY its own item's words (split as typed, e.g. a small word over a bigger number); never the whole note, never one item's words in two boxes, never an extra number.`)
+  }
+  return lines.length ? `A LIST NOTE FOR A ROW DRAWN SHORT (deterministic, from the note's items and the drawn boxes; checked on the page):\n${lines.join('\n')}\n\n` : ''
 }
 
 /** Text pieces near a mark: beside it on its row (to the right, a little to the left) or inside it. */
@@ -216,10 +302,46 @@ function near(m: ShapeMark, nodes: NodeLike[], maxWords: number): NodeLike[] {
 
 export function verifyRowWords(marks: ShapeMark[], after: Snap): RowWordsVerdict {
   const lists = lookAlikeLists(marks)
-  if (!lists.length) return { satisfied: true, unverifiable: true, reason: 'no look-alike marks with their own words' }
+  const rowed = marks.filter((m) => m.rowList)
+  if (!lists.length && !rowed.length) return { satisfied: true, unverifiable: true, reason: 'no look-alike marks with their own words' }
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const misses: string[] = []
   let judged = 0
+  // n130: a row drawn short of its list: every item shows in the row's band, and no piece holds two items or the whole note
+  const doneNotes = new Set<string>()
+  for (const m of rowed) {
+    const r = m.rowList!
+    if (doneNotes.has(m.listNote!)) continue
+    doneNotes.add(m.listNote!)
+    const b = m.box, row = r.axis === 'row'
+    const inBand = after.nodes.filter((n) => {
+      const t = n.textBox ?? n.rect
+      if (!n.text || t.w < 2 || t.h < 2) return false
+      return row ? t.y + t.h / 2 >= b.y - 8 && t.y + t.h / 2 <= b.y + b.h + 8 : t.x + t.w / 2 >= b.x - 8 && t.x + t.w / 2 <= b.x + b.w + 8
+    })
+    const words = new Set(inBand.flatMap((n) => wordsOf(n.text!)))
+    const missing = r.items.filter((it) => { const w = copyWords(it); return w.length > 0 && w.filter((x) => words.has(x)).length / w.length < 0.7 })
+    const crowded = inBand.filter((n) => {
+      const got = new Set(wordsOf(n.text!))
+      return r.items.filter((it) => { const w = copyWords(it); return w.length > 0 && w.every((x) => got.has(x)) }).length >= 2
+    })
+    // a drawn box showing words of another item ("14" over "Wed 16"): the note's start was put in the box it was typed on
+    const foreign: string[] = []
+    for (const o of rowed.filter((x) => x.listNote === m.listNote)) {
+      const own = new Set(copyWords(o.own!)), ob = o.box
+      const other = new Set(r.items.filter((it) => it !== o.own).flatMap((it) => copyWords(it)).filter((w) => !own.has(w)))
+      const inside = after.nodes.filter((nd) => { const t = nd.textBox ?? nd.rect; const cx = t.x + t.w / 2, cy = t.y + t.h / 2; return !!nd.text && cx >= ob.x && cx <= ob.x + ob.w && cy >= ob.y && cy <= ob.y + ob.h })
+      const bad = [...new Set(inside.flatMap((nd) => wordsOf(nd.text!)).filter((w) => other.has(w)))]
+      if (bad.length) foreign.push(`${where(o)} is "${o.own}" but also shows "${bad.join(' ')}" from another item`)
+    }
+    judged++
+    if (foreign.length) misses.push(`${foreign.join('; ')}: each box of the row shows only its own item`)
+    if (missing.length || crowded.length) {
+      misses.push(`the row listed as ${r.items.map((t) => `"${t}"`).join(', ')} should be ${String(r.items.length)} look-alike boxes ${String(r.pitch)}px apart, each with only its own item: ` +
+        `${missing.length ? `${missing.map((t) => `"${t}"`).join(', ')} ${missing.length > 1 ? 'are' : 'is'} not in the row` : ''}${missing.length && crowded.length ? '; ' : ''}` +
+        `${crowded.length ? `"${crowded[0]!.text!.replace(/\s+/g, ' ').trim().slice(0, 60)}" holds more than one item` : ''}; keep the drawn boxes where drawn`)
+    }
+  }
   for (const l of lists) {
     const worded = l.filter((m) => m.own)
     const wrong: string[] = []

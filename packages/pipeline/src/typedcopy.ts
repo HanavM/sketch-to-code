@@ -39,6 +39,13 @@ export interface NoteParts {
   more?: string[]
 }
 
+/** n130: words that name the state or kind of an item, typed after a comma ("Biscuit selected, avatar"). */
+const STATE = /^(selected|active|current|highlighted|chosen|disabled|faded|dashed|avatar|avatars|icon|icons|image|picture|photo|thumbnail|logo|placeholder)$/i
+/** n130: a state word ending a short label. */
+const ON_STATE = /^(selected|active|current|highlighted|chosen)$/i
+/** n130: how many go in a row ("4 a row", "3 per row", "5 across"). */
+const PER_ROW = /^\d+\s+(?:(?:a|per|each|in\s+a)\s+(?:row|line)|across|columns?|cols?|wide)$/i
+
 /** Words that say where a label goes relative to its item (n104). */
 const PLACE = /^(above|below|under|underneath|beneath|over|atop|overhead|on|top|beside|alongside|next|to|it|the)$/i
 const PLACE_CORE = /^(above|below|under|underneath|beneath|over|atop|overhead|top|beside|alongside)$/i
@@ -87,6 +94,23 @@ export function noteParts(note: string): NoteParts {
     const tail = copy.slice(i + 1).trim()
     const words = tail.split(/\s+/).map((w) => w.replace(/[^\p{L}]/gu, '')).filter(Boolean)
     if (words.length && words.every((w) => LOOK.test(w))) { look = tail; copy = copy.slice(0, i).trim() }
+  }
+  // n130: comma tails that say what the item is or how many go in a row ("Biscuit selected, avatar", "..., 4 a row")
+  for (let k = 0; k < 3; k++) {
+    const j = copy.lastIndexOf(',')
+    if (j <= 0) break
+    const tail = copy.slice(j + 1).trim()
+    const words = tail.split(/\s+/).map((w) => w.replace(/[^\p{L}]/gu, '')).filter(Boolean)
+    const kind = words.length > 0 && words.length <= 3 && words.every((w) => STATE.test(w) || LOOK.test(w)) && words.some((w) => STATE.test(w))
+    if (!kind && !PER_ROW.test(tail)) break
+    directions.unshift(tail)
+    copy = copy.slice(0, j).trim()
+  }
+  // n130: a state word after a short label ("Biscuit selected") says which item is on, never copy
+  const lw = copy.split(/\s+/)
+  if (lw.length >= 2 && lw.length <= 4 && ON_STATE.test(lw.at(-1)!.replace(/[^\p{L}]/gu, '')) && !/^(not|un)/i.test(lw.at(-2)!)) {
+    directions.unshift(lw.at(-1)!)
+    copy = lw.slice(0, -1).join(' ')
   }
   const pt = placeTail(copy, more.length > 0)
   if (pt.place) { copy = pt.copy; look = [pt.look, look].filter(Boolean).join(', ') || null }

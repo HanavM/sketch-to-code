@@ -16,6 +16,7 @@
  * when typed above) it. A box whose only words are the big number and look words ("huge outlined 09, white")
  * stays an area. Told to the build and checked on the page. Zero tokens.
  */
+import { commaItems } from './rowwords.js'
 import type { ShapeMark } from './shapemark.js'
 import type { BBox } from '@s2c/ink'
 import { progressOf } from './progress.js'
@@ -108,6 +109,8 @@ export function statOf(notes: readonly string[]): Stat | null {
   if (notes.some(proseNumber)) return null
   // n111: a button label with a number in it ("Reserve · 4 nights") is the button's copy, never a stat
   if (notes.some((n) => !!buttonLabel(n))) return null
+  // n130: a comma list of items of one form ("Mon 14, Tue 15, Wed 16") is a row's items, never a value and its label
+  if (notes.some((n) => !!commaItems(n))) return null
   let value: string | null = null, label: string[] = [], vi = -1, li = -1
   notes.forEach((n, i) => {
     // n90: a comma inside a number (3,800) is no break

@@ -79,6 +79,8 @@ export interface ShapeMark {
   own?: string
   /** n119: the list note whose items were spread over this mark and its look-alikes, one each (its items are copy). */
   listNote?: string
+  /** n130: one of a row (or column) drawn with fewer boxes than its list note's items: the whole row, and where it starts. */
+  rowList?: { items: string[]; first: number; axis: 'row' | 'column'; pitch: number; start: number; size: { w: number; h: number } }
   /**
    * box only (n45): drawn wide with flat top and bottom and ends that bulge out (round or pointed,
    * the way a pill is drawn with a mouse): a pill, fully rounded ends.

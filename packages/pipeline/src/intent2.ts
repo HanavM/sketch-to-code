@@ -1302,7 +1302,7 @@ export function groundInterpretation(
     // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low
     if (shapeMarks.length) markTextPlaces(shapeMarks, noteObjs, snap.viewport.w)
     // n69: a box or ring with its own note keeps those words (one item of a list of look-alike marks)
-    if (shapeMarks.length) markRowWords(shapeMarks, noteObjs)
+    if (shapeMarks.length) markRowWords(shapeMarks, noteObjs, innerBoxes)
     actions.push({
       kind: a.kind,
       targets,

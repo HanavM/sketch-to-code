@@ -1,0 +1,10 @@
+{
+  "exit": {
+    "code": 1,
+    "signal": null,
+    "at": "2026-10-31T00:59:16.356Z"
+  },
+  "atMs": 59325,
+  "bar": "Making the change…",
+  "logTail": "[s2c] pipeline attached\nerror when starting dev server:\nError: Port 5302 is already in use\n    at Server.onError$1 (file:///tmp/s2c-hand-app/node_modules/vite/dist/node/chunks/config.js:15174:28)\n    at Server.emit (node:events:519:28)\n    at emitErrorNT (node:net:1977:8)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\n"
+}
