@@ -45,6 +45,8 @@ export interface OpenRows {
   mark?: BBox & { hollow?: string; round?: boolean }
   /** n114: no field drawn: the rows are led by the mark alone and run to the page's margin */
   led?: boolean
+  /** n166: no field drawn: a column of like boxes down the left leads the rows (one picture per row), a panel on the right ends them */
+  column?: { x: number; w: number; h: number; boxes: number; panelX?: number }
 }
 
 export const OPEN_START_TOL_PX = 26
@@ -57,6 +59,11 @@ const LISTY = /\b(rows?|list|items?|tasks?|todos?|entries|lines|checkbox(?:es)?|
 export function openRowItems(text: string): string[] | null {
   const m = LEAD.exec(text)
   if (!m || !LISTY.test(m[1]!)) return null
+  // n166: rows given whole, one per ';' (Linen throw, Sand, $89; Stoneware mug, Sage, $48; dividers): each capitalised
+  // segment with its own commas is a row; a lower-case segment (dividers) is a look for the list
+  const segs = m[2]!.split(';').map((s) => s.trim()).filter(Boolean)
+  const rowSegs = segs.filter((s) => /^[\p{Lu}\p{N}#$£€"'“]/u.test(s))
+  if (rowSegs.length >= 2 && rowSegs.length <= 12 && rowSegs.every((s) => /,\s/.test(s))) return rowSegs
   const parts = m[2]!.split(';')[0]!.split(/\s*,\s+/).map((s) => s.trim()).filter(Boolean)
   const caps = parts.filter((p) => /^[\p{Lu}\p{N}#$£€"'“]/u.test(p))
   // lower-case items are looks for the item before ("urgent orange right"), unless nothing is capitalised
@@ -78,7 +85,7 @@ export function openRows(placed: readonly Spot[], shapes: readonly ShapeLike[], 
     const field = shapes.filter((s) => s.shape === 'box' && s.box.w >= 280 && s.box.y + s.box.h < n.y && n.x >= s.box.x - 20 && n.x <= s.box.x + s.box.w + 20)
       .sort((a, b) => (b.box.y + b.box.h) - (a.box.y + a.box.h))[0]
     if (!field) {
-      const led = ringLed(n, items.length, shapes, notes, viewW)
+      const led = ringLed(n, items.length, shapes, notes, viewW) ?? columnLed(n, items, shapes, viewW)
       if (led) out.set(n, led)
       continue
     }
@@ -106,7 +113,7 @@ export function openRows(placed: readonly Spot[], shapes: readonly ShapeLike[], 
     }
     pitch = r(Math.max(36, Math.min(72, pitch)))
     if (n.y < firstMid - 20) continue // typed above where the rows go: nothing to move
-    out.set(n, { field: { x: r(F.x), y: r(F.y), w: r(F.w), h: r(F.h) }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!, by: small ? 'mark' : 'last',
+    out.set(n, { field: { x: r(F.x), y: r(F.y), w: r(F.w), h: r(F.h) }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!.split(/\s*,\s+/)[0]!, by: small ? 'mark' : 'last',
       ...(small ? { mark: { x: r(lb.x), y: r(lb.y), w: r(lb.w), h: r(lb.h), ...(lowest.shape === 'ellipse' ? { round: true } : {}) } } : {}) })
   }
   return out
@@ -146,8 +153,51 @@ function ringLed(n: Spot, k: number, shapes: readonly ShapeLike[], notes: readon
   // the note typed in the list's middle: rows spread so it sits about half way down them
   const pitch = r(Math.max(40, Math.min(72, foot ? (foot.y - 34 - firstMid) / (k - 0.5) : (2 * (n.y - firstMid)) / Math.max(1, k - 1))))
   const items = openRowItems(n.text)!
-  return { field: { x: r(R.x), y: r(R.y), w: r(right - R.x), h: 0 }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!, by: 'mark', led: true,
+  return { field: { x: r(R.x), y: r(R.y), w: r(right - R.x), h: 0 }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!.split(/\s*,\s+/)[0]!, by: 'mark', led: true,
     mark: { x: r(R.x), y: r(R.y), w: r(R.w), h: r(R.h), ...(ring.shape === 'ellipse' ? { round: true } : {}) } }
+}
+
+/**
+ * n166: no field drawn above, but a column of like boxes drawn down the left of the note (a picture per row) and,
+ * maybe, a panel drawn to its right. Round 42 e3 (cart, n162): three 96px thumbs at x 60, rows typed at (420,330),
+ * a stepper drawn at x 544-648 and the summary panel from x 820; the build ran the rows only to x 660 (price at 636),
+ * where the target's rows run up to the panel (price at 736, dividers to 750). The column says where rows start and
+ * how far apart; the panel on the right says where they end: about the column's own left margin short of it (at most
+ * 60px), or, with no panel, the same margin from the page's right edge.
+ */
+function columnLed(n: Spot, items: string[], shapes: readonly ShapeLike[], viewW: number): OpenRows | null {
+  const cands = shapes.filter((s) => s.shape === 'box' && s.box.w >= 24 && s.box.w <= 180 && s.box.h >= 24 && s.box.h <= 180 && s.box.x + s.box.w < n.x)
+  let best: ShapeLike[] = []
+  for (const a of cands) {
+    const like = cands.filter((b) => Math.abs(b.box.x - a.box.x) <= 16 && Math.abs(b.box.w - a.box.w) <= 0.25 * a.box.w && Math.abs(b.box.h - a.box.h) <= 0.25 * a.box.h)
+      .sort((p, q) => p.box.y - q.box.y)
+    // stacked, not overlapping
+    if (like.some((b, i) => i > 0 && b.box.y < like[i - 1]!.box.y + like[i - 1]!.box.h - 4)) continue
+    if (like.length > best.length) best = like
+  }
+  if (best.length < 2) return null
+  const top = best[0]!.box
+  const bot = best[best.length - 1]!.box
+  // the note is typed beside the column, between its first and last box (give or take a box)
+  if (n.y < top.y - 40 || n.y > bot.y + bot.h + 40) return null
+  const k = items.length
+  if (Math.abs(best.length - k) > 1) return null
+  const mids = best.map((b) => b.box.y + b.box.h / 2)
+  const gaps = mids.slice(1).map((m, i) => m - mids[i]!).sort((a, b) => a - b)
+  const pitch = r(gaps[Math.floor(gaps.length / 2)]!)
+  if (pitch < 36 || pitch > 220) return null
+  const firstMid = r(mids[0]!)
+  const left = top.x
+  const margin = Math.max(16, Math.min(60, left))
+  const y0 = top.y
+  const y1 = bot.y + bot.h
+  // the nearest wide box drawn to the right that shares the rows' height: the rows end short of it
+  const panel = shapes.filter((s) => s.shape === 'box' && s.box.w >= 120 && s.box.x > n.x && s.box.y < y1 && s.box.y + s.box.h > y0)
+    .sort((a, b) => a.box.x - b.box.x)[0]
+  const right = panel ? panel.box.x - margin : viewW - margin
+  if (right - left < 280) return null
+  return { field: { x: r(left), y: r(y0 - 4), w: r(right - left), h: 0 }, typedY: n.y, firstMid, pitch, rows: k,
+    first: items[0]!.split(/\s*,\s+/)[0]!, by: 'mark', column: { x: r(left), w: r(top.w), h: r(top.h), boxes: best.length, ...(panel ? { panelX: r(panel.box.x) } : {}) } }
 }
 
 /** n114: the build is told a row's drawn mark is on every row, at its left, and is no element of its own. */
@@ -193,6 +243,14 @@ export function openRowsBrief(notes: ReadonlyArray<Spot & { openRows?: OpenRows 
   const each = (notes ?? []).filter((n) => n.openRows).map((n) => {
     const o = n.openRows!
     const end = r(o.firstMid + (o.rows - 0.5) * o.pitch)
+    if (o.column) {
+      const c = o.column
+      return `"${n.text}" (${o.rows} rows) was typed in open space at y ${o.typedY}, beside the column of ${c.boxes} like boxes drawn at x ${c.x} (${c.w}x${c.h} each): ` +
+        `each box is its row's own picture, at the row's left. Row 1's middle is at y ${o.firstMid}, rows ${o.pitch}px apart (box to box), each row's words just right of its box. ` +
+        `Every row runs from x ${o.field.x} to x ${o.field.x + o.field.w}${c.panelX != null ? ` (just short of the panel drawn at x ${c.panelX})` : ' (the same margin on the right as on the left)'}, its dividers too, ` +
+        `never a narrower column: the row's last value (a price, a total, a time) sits at its RIGHT end, right-aligned to x ${o.field.x + o.field.w}. ` +
+        `Anything drawn inside a row's band (a control between the words and the end) stays where it was drawn, on every row. Not at the note's typed spot`
+    }
     return `"${n.text}" (${o.rows} rows) was typed in open space at y ${o.typedY}, ${o.led ? `under a lone small mark drawn at (${o.mark!.x},${o.mark!.y}) with nothing else drawn between: the list starts there. Every row runs from x ${o.field.x} to x ${o.field.x + o.field.w} (the same margin on the right as the mark keeps on its left)` : `under the field drawn at (${o.field.x},${o.field.y}) ${o.field.w}x${o.field.h}`}. ` +
       `The rows run that field's FULL width: every row from x ${o.field.x} to x ${o.field.x + o.field.w} (its dividers too), never a narrower or centred column. ` +
       `${o.by === 'mark' ? 'The small mark drawn at the field\'s left under the last controls is row 1\'s own mark: ' : 'They start just under the last thing drawn: '}` +

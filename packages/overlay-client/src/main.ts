@@ -4333,6 +4333,44 @@ class Overlay {
     this.status('drawing through the toolbar')
   }
 
+  /**
+   * n166: the bar never sits on the drawing. Round 42 e1 (podcast): the play button was drawn right under the bar
+   * (n110 lets ink pass through it), and the white tap that coloured it landed on the bar's "manual" button, which
+   * switched the overlay to test mode; every stroke after it was lost. So when a finished stroke runs under the
+   * bar, the bar moves to the nearest free spot (bottom, top, then the corners and sides) where no ink is, and says so.
+   * Its buttons stay buttons: a tap now lands on the ink because the bar is no longer over it.
+   */
+  private stepBarOffInk() {
+    if (this.mode !== 'draw' || this.hudHidden) return
+    const box = this.hudBox()
+    const r = box.getBoundingClientRect()
+    if (r.width === 0 || r.height === 0) return
+    const ink = this.strokes.map((st) => {
+      const xs = st.points.map((p) => p.x - window.scrollX)
+      const ys = st.points.map((p) => p.y - window.scrollY)
+      return { x0: Math.min(...xs) - 6, y0: Math.min(...ys) - 6, x1: Math.max(...xs) + 6, y1: Math.max(...ys) + 6 }
+    })
+    const hits = (x: number, y: number) => ink.some((b) => b.x0 < x + r.width && b.x1 > x && b.y0 < y + r.height && b.y1 > y)
+    if (!hits(r.left, r.top)) return
+    const W = window.innerWidth
+    const H = window.innerHeight
+    const m = 8
+    const spots = [
+      { x: (W - r.width) / 2, y: H - r.height - m }, { x: (W - r.width) / 2, y: m },
+      { x: W - r.width - m, y: H - r.height - m }, { x: m, y: H - r.height - m },
+      { x: W - r.width - m, y: m }, { x: m, y: m },
+      { x: W - r.width - m, y: (H - r.height) / 2 }, { x: m, y: (H - r.height) / 2 },
+    ].filter((p) => p.x >= 0 && p.y >= 0 && !hits(p.x, p.y))
+      .sort((a, b) => Math.hypot(a.x - r.left, a.y - r.top) - Math.hypot(b.x - r.left, b.y - r.top))
+    const to = spots[0]
+    if (!to) return
+    this.hudPos = this.clampHudPoint(to.x, to.y)
+    this.applyHudPos()
+    this.layoutFidelityPanel()
+    if (this.penOpen) this.layoutPanel(this.penPanel)
+    this.status('the toolbar moved off your drawing')
+  }
+
   private onHudUp(e: PointerEvent) {
     if (this.hudPress?.pointerId === e.pointerId) this.hudPress = null
     const d = this.hudDrag
@@ -8416,6 +8454,7 @@ class Overlay {
     this.live = null
     this.livePath = null
     this.renderInk()
+    this.stepBarOffInk()
     if (this.strokes.some((st) => st.anchor)) this.startTracking()
     // an open library is showing matches for what is drawn, so the drawing
     // growing is a new query
