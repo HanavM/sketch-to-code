@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T08:28Z | n141 white or grey pen box on a dark page is an outline | Right first build, no fixes: player 89.8 (86.1), wizard 83.7 (85.6), observatory button outlined 83.2.
 2026-10-31T07:52Z | n140 a pen box round a big word is its area | Letters take pen colour, no tap discs; no fixes: wave 89.1, observatory 83.9, venn 86.4.
 2026-10-31T07:38Z | n139 sketch round 40 app pages | Player 86.1, recipe 82.0, ride 72.3, inbox 53.0, wizard 85.6; round 40 mean 78.7.
 2026-10-31T06:35Z | n138 sketch round 40 landing pages | Tea 82.4, wave 85.8, cookies 76.0, observatory 79.6, venn 83.7; mean 81.5, 18 strokes, 51 words.
