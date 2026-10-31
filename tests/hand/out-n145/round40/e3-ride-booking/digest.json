@@ -1,0 +1,622 @@
+{
+  "round": 40,
+  "id": "e3-ride-booking",
+  "version": 3,
+  "stopped": null,
+  "likeness": 87.7,
+  "colour": 0.9894313799189942,
+  "structure": 0.9266460575717023,
+  "layout": 0.9367864442702605,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 3.8,
+    "simpleShare": 0.94,
+    "shapes": {
+      "dot": 5,
+      "line": 4,
+      "box": 5,
+      "freehand": 1,
+      "circle": 2
+    },
+    "inkPx": 10316
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 55,
+  "notes": 9,
+  "longestNote": 30,
+  "noteTexts": [
+    "white roads, thick",
+    "white card, soft shadow",
+    "route, rounded corner",
+    "Where to? bold",
+    "● Central Station",
+    "■ Airport, Terminal 2",
+    "Choose a ride",
+    "3 rides, grey thumb, price right: Standard 4 min away · 4 seats £18.40; Comfort 6 min away · extra room £24.10; XL 9 min away · 6 seats £31.70",
+    "Confirm Standard"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 369,
+    "firstReadingS": 113,
+    "readS": [
+      66
+    ],
+    "buildS": [
+      254
+    ],
+    "sketchingS": 49
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 73989,
+    "cacheRead": 334624,
+    "output": 28147,
+    "billed": 102136
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#e4e5e9",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 834
+    },
+    {
+      "op": "stroke",
+      "at": 3782
+    },
+    {
+      "op": "stroke",
+      "at": 6759
+    },
+    {
+      "op": "stroke",
+      "at": 9395
+    },
+    {
+      "op": "stroke",
+      "at": 12023
+    },
+    {
+      "op": "note",
+      "at": 12722
+    },
+    {
+      "op": "stroke",
+      "at": 20173
+    },
+    {
+      "op": "stroke",
+      "at": 20645
+    },
+    {
+      "op": "note",
+      "at": 21496
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 21861
+    },
+    {
+      "op": "stroke",
+      "at": 24466
+    },
+    {
+      "op": "note",
+      "at": 25404
+    },
+    {
+      "op": "stroke",
+      "at": 26045
+    },
+    {
+      "op": "stroke",
+      "at": 26680
+    },
+    {
+      "op": "note",
+      "at": 27461
+    },
+    {
+      "op": "pen",
+      "color": "#f2f3f5",
+      "at": 27826
+    },
+    {
+      "op": "stroke",
+      "at": 30723
+    },
+    {
+      "op": "stroke",
+      "at": 31205
+    },
+    {
+      "op": "stroke",
+      "at": 34091
+    },
+    {
+      "op": "stroke",
+      "at": 34569
+    },
+    {
+      "op": "note",
+      "at": 35496
+    },
+    {
+      "op": "note",
+      "at": 36435
+    },
+    {
+      "op": "note",
+      "at": 37273
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 37641
+    },
+    {
+      "op": "stroke",
+      "at": 40694
+    },
+    {
+      "op": "note",
+      "at": 42447
+    },
+    {
+      "op": "stroke",
+      "at": 45379
+    },
+    {
+      "op": "stroke",
+      "at": 45886
+    },
+    {
+      "op": "note",
+      "at": 46634
+    },
+    {
+      "op": "run",
+      "at": 46761
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          850,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          652,
+          2
+        ],
+        [
+          652,
+          898
+        ]
+      ],
+      "n": 150,
+      "at": 3782
+    },
+    {
+      "way": [
+        [
+          1053,
+          2
+        ],
+        [
+          1053,
+          898
+        ]
+      ],
+      "n": 150,
+      "at": 6759
+    },
+    {
+      "way": [
+        [
+          500,
+          253
+        ],
+        [
+          1278,
+          253
+        ]
+      ],
+      "n": 131,
+      "at": 9395
+    },
+    {
+      "way": [
+        [
+          500,
+          632
+        ],
+        [
+          1278,
+          632
+        ]
+      ],
+      "n": 131,
+      "at": 12023
+    },
+    {
+      "way": [
+        [
+          40,
+          40
+        ],
+        [
+          480,
+          40
+        ],
+        [
+          480,
+          860
+        ],
+        [
+          40,
+          860
+        ],
+        [
+          40,
+          42
+        ]
+      ],
+      "n": 420,
+      "at": 20173
+    },
+    {
+      "way": [
+        [
+          260,
+          680
+        ]
+      ],
+      "n": 1,
+      "at": 20645
+    },
+    {
+      "way": [
+        [
+          640,
+          253
+        ],
+        [
+          1000,
+          253
+        ],
+        [
+          1040,
+          268
+        ],
+        [
+          1055,
+          300
+        ],
+        [
+          1055,
+          630
+        ]
+      ],
+      "n": 129,
+      "at": 24466
+    },
+    {
+      "way": [
+        [
+          652,
+          626
+        ],
+        [
+          650,
+          633
+        ],
+        [
+          644,
+          637
+        ],
+        [
+          636,
+          637
+        ],
+        [
+          630,
+          633
+        ],
+        [
+          628,
+          626
+        ],
+        [
+          630,
+          619
+        ],
+        [
+          636,
+          615
+        ],
+        [
+          644,
+          615
+        ],
+        [
+          650,
+          619
+        ],
+        [
+          652,
+          626
+        ]
+      ],
+      "n": 11,
+      "at": 26045
+    },
+    {
+      "way": [
+        [
+          1076,
+          250
+        ],
+        [
+          1074,
+          257
+        ],
+        [
+          1068,
+          261
+        ],
+        [
+          1060,
+          261
+        ],
+        [
+          1054,
+          257
+        ],
+        [
+          1052,
+          250
+        ],
+        [
+          1054,
+          243
+        ],
+        [
+          1060,
+          239
+        ],
+        [
+          1068,
+          239
+        ],
+        [
+          1074,
+          243
+        ],
+        [
+          1076,
+          250
+        ]
+      ],
+      "n": 11,
+      "at": 26680
+    },
+    {
+      "way": [
+        [
+          70,
+          126
+        ],
+        [
+          450,
+          126
+        ],
+        [
+          450,
+          180
+        ],
+        [
+          70,
+          180
+        ],
+        [
+          70,
+          128
+        ]
+      ],
+      "n": 145,
+      "at": 30723
+    },
+    {
+      "way": [
+        [
+          400,
+          153
+        ]
+      ],
+      "n": 1,
+      "at": 31205
+    },
+    {
+      "way": [
+        [
+          70,
+          192
+        ],
+        [
+          450,
+          192
+        ],
+        [
+          450,
+          246
+        ],
+        [
+          70,
+          246
+        ],
+        [
+          70,
+          194
+        ]
+      ],
+      "n": 145,
+      "at": 34091
+    },
+    {
+      "way": [
+        [
+          400,
+          219
+        ]
+      ],
+      "n": 1,
+      "at": 34569
+    },
+    {
+      "way": [
+        [
+          70,
+          307
+        ],
+        [
+          450,
+          307
+        ],
+        [
+          450,
+          390
+        ],
+        [
+          70,
+          390
+        ],
+        [
+          70,
+          309
+        ]
+      ],
+      "n": 155,
+      "at": 40694
+    },
+    {
+      "way": [
+        [
+          70,
+          770
+        ],
+        [
+          450,
+          770
+        ],
+        [
+          450,
+          830
+        ],
+        [
+          70,
+          830
+        ],
+        [
+          70,
+          772
+        ]
+      ],
+      "n": 147,
+      "at": 45379
+    },
+    {
+      "way": [
+        [
+          400,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 45886
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "white roads, thick",
+      "whole": false,
+      "x": 1160,
+      "y": 253,
+      "at": 12722
+    },
+    {
+      "text": "white card, soft shadow",
+      "whole": false,
+      "x": 300,
+      "y": 60,
+      "at": 21496
+    },
+    {
+      "text": "route, rounded corner",
+      "whole": false,
+      "x": 820,
+      "y": 253,
+      "at": 25404
+    },
+    {
+      "text": "Where to? bold",
+      "whole": false,
+      "x": 138,
+      "y": 86,
+      "at": 27461
+    },
+    {
+      "text": "● Central Station",
+      "whole": false,
+      "x": 170,
+      "y": 153,
+      "at": 35496
+    },
+    {
+      "text": "■ Airport, Terminal 2",
+      "whole": false,
+      "x": 170,
+      "y": 219,
+      "at": 36435
+    },
+    {
+      "text": "Choose a ride",
+      "whole": false,
+      "x": 130,
+      "y": 284,
+      "at": 37273
+    },
+    {
+      "text": "3 rides, grey thumb, price right: Standard 4 min away · 4 seats £18.40; Comfort 6 min away · extra room £24.10; XL 9 min away · 6 seats £31.70",
+      "whole": false,
+      "x": 260,
+      "y": 470,
+      "at": 42447
+    },
+    {
+      "text": "Confirm Standard",
+      "whole": false,
+      "x": 260,
+      "y": 800,
+      "at": 46634
+    }
+  ]
+}
