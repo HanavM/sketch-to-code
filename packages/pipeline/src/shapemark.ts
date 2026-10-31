@@ -158,6 +158,9 @@ const polyArea = (pts: Array<{ x: number; y: number }>) => {
 const share = (pts: Array<{ x: number; y: number }>, near: (p: { x: number; y: number }) => boolean) =>
   pts.filter(near).length / pts.length
 
+/** n145: a closed stroke smaller than this (its short side) must fill its square to be a box, else it is a small ring. */
+export const SMALL_RING_PX = 32
+
 function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'strokeId'> | null {
   const b = bbox(pts)
   // n119: a swatch drawn about 14px wide often comes out 13.8px after the hand's wobble: small boxes count from 10px
@@ -177,7 +180,8 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   const allCorners = corners.every(([cx, cy]) => pts.some((p) => Math.hypot(p.x - cx, p.y - cy) <= cornerTol))
   const perim = 2 * (b.w + b.h)
   // n119: under 20px every point is near an edge and a corner, so a small box must also fill its square (a tiny ring fills ~79%)
-  const fillsSquare = m >= 20 || polyArea(pts) / Math.max(1, b.w * b.h) >= 0.86
+  // n145: up to 32px too: a 24px map-marker ring drawn as a rough octagon touched every edge and corner and was built square
+  const fillsSquare = m >= SMALL_RING_PX || polyArea(pts) / Math.max(1, b.w * b.h) >= 0.86
   if (b.w < 14 || b.h < 14) { if (!(m >= 10 && fillsSquare && gap <= 6 && Math.max(b.w, b.h) <= 3 * m)) return null }
   if (allCorners && fillsSquare && share(pts, onEdge) >= 0.92 && len <= perim * 1.6) {
     // n31: a box drawn turned a few degrees still passes upright; keep its angle when it fits much better
@@ -201,7 +205,8 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
     return r >= 0.78 && r <= 1.18
   }
   const ellPerim = Math.PI * (3 * (rx + ry) - Math.sqrt((3 * rx + ry) * (rx + 3 * ry)))
-  if (!allCorners && share(pts, onRing) >= 0.92 && len >= ellPerim * 0.85 && len <= ellPerim * 1.6) {
+  // n145: under 32px every point is near a corner, so a small ring that failed the box test may still be a ring
+  if ((!allCorners || m < SMALL_RING_PX) && share(pts, onRing) >= 0.92 && len >= ellPerim * 0.85 && len <= ellPerim * 1.6) {
     return { shape: 'ellipse', box: { x: r1(b.x), y: r1(b.y), w: r1(b.w), h: r1(b.h) } }
   }
   // n45: a PILL (round 32 c5: a button drawn wide with flat top and bottom and pointed ends, the

@@ -16,7 +16,7 @@
  *    no spot), and when its words are built on the page they are checked to sit
  *    near that height. Zero tokens.
  */
-import type { BBox } from '@s2c/ink'
+import { listNote, type BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
 import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
@@ -309,6 +309,35 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
 
 /** n29: a note typed in empty space, nothing drawn near it. */
 export interface PlacedNote { text: string; x: number; y: number }
+
+/** n145: a list starts this far under the spot its heading was typed at. */
+export const LIST_UNDER_HEADING_PX = 40
+
+/**
+ * n145: a list note typed in empty space below its heading starts right under that heading, not at the note's spot.
+ * Round 40 e2: "Ingredients bold" was typed at y 322 and the checkbox list note under it at y 440 (a person types a
+ * long note where there is room); the list was built from y 440, about 80px lower than the heading put it. The
+ * heading is a short note (four words or fewer, no colon) typed 50 to 220px above it, within 160px of its left,
+ * with no other note and no drawn mark between them (a mark between is where the list really starts). In place of
+ * the note's y, the list is told and checked at heading y + 40. Other placed notes keep their spot.
+ */
+export function listUnderHeading(placed: PlacedNote[], notes: readonly PlacedNote[], marks: readonly BBox[]): PlacedNote[] {
+  return placed.map((n) => {
+    if (!listNote(n.text)) return n
+    const heads = notes.filter((h) => h !== n && h.text !== n.text && !h.text.includes(':') &&
+      h.text.trim().split(/\s+/).length <= 4 && n.y - h.y >= 50 && n.y - h.y <= 220 && Math.abs(h.x - n.x) <= 160)
+      .sort((a, b) => b.y - a.y)
+    const h = heads[0]
+    if (!h) return n
+    const x0 = Math.min(h.x, n.x) - 40, x1 = Math.max(h.x, n.x) + 300
+    const between = notes.some((o) => o !== h && o !== n && o.text !== n.text && o.y > h.y + 8 && o.y < n.y - 8 && o.x >= x0 - 260 && o.x <= x1)
+    const inside = (b: BBox, p: PlacedNote) => p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h
+    const blocked = marks.some((b) => !(inside(b, h) && inside(b, n)) &&
+      b.y + b.h > h.y + 14 && b.y < n.y - 14 && b.x + b.w > x0 && b.x < x1)
+    if (between || blocked) return n
+    return { ...n, y: h.y + LIST_UNDER_HEADING_PX }
+  })
+}
 
 /** Which side of the page a spot is on (thirds). */
 const pageSide = (x: number, w: number): Side => (x < w / 3 ? 'left' : x > (w * 2) / 3 ? 'right' : 'centre')

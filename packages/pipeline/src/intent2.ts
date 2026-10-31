@@ -328,7 +328,7 @@ import { markStats, statOf } from './statcard.js'
 import { ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
-import { linkSame, markTextPlaces } from './textplace.js'
+import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
 import { markRuleLabels, paleOn } from './ruleline.js'
 import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
@@ -1414,9 +1414,12 @@ export function groundInterpretation(
   const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
   const page = pageFill(ev.fills ?? [])
   if (page) dropPageInk(actions, page.colors)
-  const placedNotes = ev.notes
+  const placedNotes = listUnderHeading(ev.notes
     .filter((n) => n.placed && n.at && !attached.has(n.id) && !isPageLookNote(n.text))
-    .map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) }))
+    .map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })),
+  // n145: a list note under its heading starts right under it (every typed note is a possible heading)
+  ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })),
+  [...ev.strokes.values()].map((st) => bboxOf(st.points)))
 
   return {
     reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,

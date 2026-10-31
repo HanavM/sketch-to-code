@@ -60,10 +60,30 @@ export function markRowWords(marks: ShapeMark[], notes: NoteLike[], page: readon
   splitRowNotes(marks)
 }
 
+/**
+ * n145: a list note's lead: one to three words before a colon that name the list ("steps:", "checkbox list:"), never
+ * shown as copy. Round 40 e2: the first step was built as "steps: Whisk ricotta, eggs, ...". A lead with a digit
+ * ("Total: $40") or a colon in a time ("10:30") is not a lead.
+ */
+export function listLead(text: string): { lead: string | null; body: string } {
+  const m = /^\s*([A-Za-z][A-Za-z -]{0,30}?)\s*:\s+(\S[\s\S]*)$/.exec(text)
+  if (!m || m[1]!.trim().split(/\s+/).length > 3) return { lead: null, body: text }
+  return { lead: m[1]!.trim(), body: m[2]!.trim() }
+}
+
 /** n119: a note's items split by semicolons or new lines ("Rent $1,120; Food $700; Travel $520"), or null. */
 export function listItems(text: string): string[] | null {
+  // n145: "steps: Whisk ... / Fold in flour and sugar; rest five minutes. / Fry ...": a short lead before a colon
+  // names the list (never printed), and spaced slashes split it, so a semicolon inside one step stays in that step
+  const { body } = listLead(text)
+  if (/\s\/\s/.test(body)) {
+    const items = body.split(/\s+\/\s+/).map((t) => t.trim()).filter(Boolean)
+    return items.length >= 2 && items.length <= 8 ? items : null
+  }
   if (!/[;\n]/.test(text)) return null
-  const items = text.split(/\s*(?:;|\n)\s*/).map((t) => t.trim()).filter(Boolean)
+  const split = (t: string) => t.split(/\s*(?:;|\n)\s*/).map((x) => x.trim()).filter(Boolean)
+  // label: value rows ("Mon: 9-5; Tue: 10-4") keep their first label
+  const items = body !== text && !split(body).some((t) => t.includes(':')) ? split(body) : split(text)
   return items.length >= 2 && items.length <= 8 ? items : null
 }
 
