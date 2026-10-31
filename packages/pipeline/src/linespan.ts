@@ -40,7 +40,14 @@ const isLevel = (m: MarkLike) => m.shape === 'line' && !m.edge && !!m.from && !!
  * 28px, running 577px. Words that would run under half the drawn length at body size (about 8.5px a letter at
  * 16px) on a line 300px or longer are a heading sized by the line.
  */
+/**
+ * n142: words about the line itself ("white roads, thick", "route, rounded corner"), not copy typed on it.
+ * Round 40 e3: "white roads, thick" on a road line was built as a giant "white roads" heading.
+ */
+export const ABOUT_LINE = /\b(roads?|routes?|streets?|path|track|rail|line|rule|divider|border|dashed|dotted|stripe|underline|progress|bar|slider)\b/i
+
 export function lineAsksBig(words: string, len: number): boolean {
+  if (ABOUT_LINE.test(words) && !/[A-Z][a-z]/.test(words.replace(/^\w/, ''))) return false
   if (BIG_WORD.test(words)) return true
   // n71: a table row of short values ("14:40 Lisbon TP 1351 B12 ...") or a line noted small is never a heading
   if (notHeading(words)) return false
@@ -52,6 +59,7 @@ export function lineAsksBig(words: string, len: number): boolean {
 
 /** n57: a giant word or two on a long line ("SLOW, giant outlined letters"): display type sized by its line. */
 export function isDisplay(words: string, len: number): boolean {
+  if (ABOUT_LINE.test(words) && !/[A-Z][a-z]/.test(words.replace(/^\w/, ''))) return false
   return BIG_WORD.test(words) && len >= 300 && copyWords(words).length >= 1 && copyWords(words).length <= 2
 }
 

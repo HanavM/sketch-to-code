@@ -330,6 +330,7 @@ import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solid
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, markTextPlaces } from './textplace.js'
 import { markRuleLabels } from './ruleline.js'
+import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
 import { bindTiltNotes } from './tiltwords.js'
 import { markOutlined } from './textlook.js'
@@ -1267,6 +1268,8 @@ export function groundInterpretation(
       if (tap && tb) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box, how: 'tap', bands: tb.bands }); continue }
       if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box: sm?.outline ? sm.box : box, how: 'tap', ...(fade && fade.colors.length > 1 ? { fade } : {}) }); continue }
       if (!st.color) continue
+      // n142: a route line's pen colour is the line's own (routeBrief), never a fill of the box round it
+      if (!sm && routeLines([st]).length) continue
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)
       // n92: a small box drawn in dark ink (no tap) is an outlined control (arrow button, checkbox), not a dark block
       if (!flat && sm?.shape === 'box' && !sm.outline?.pen && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }

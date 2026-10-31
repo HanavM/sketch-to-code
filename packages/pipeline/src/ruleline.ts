@@ -17,7 +17,7 @@
  */
 import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
-import { BIG_WORD, copyWords } from './linespan.js'
+import { ABOUT_LINE, BIG_WORD, copyWords } from './linespan.js'
 import { wordsOf } from './ownwords.js'
 
 interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; style?: { fontSize?: string } }
@@ -28,8 +28,6 @@ export interface RuleLabel { side: RuleSide; x: number; y: number; holder: BBox 
 
 const r1 = (v: number) => Math.round(v)
 const isLevel = (m: ShapeMark) => m.shape === 'line' && !m.edge && !!m.from && !!m.to && Math.abs(m.from.y - m.to.y) <= 2
-/** Words about the line itself, not copy over it (a road, a route, a track). */
-const ABOUT_LINE = /\b(roads?|routes?|path|track|rail|line|rule|divider|border|dashed|dotted|stripe|underline|progress|bar|slider)\b/i
 
 /** The column the line sits in: the smallest drawn box holding it, else the page, cut by upright lines and tall box edges. */
 export function ruleHolder(line: BBox, others: readonly ShapeMark[], viewport: { w: number; h: number }): BBox {
@@ -94,7 +92,7 @@ export function ruleLabelBrief(actions: ReadonlyArray<{ shapeMarks?: ShapeMark[]
         : m.rule.side === 'right' ? `RIGHT-aligned, ending near the column's right padding (about x ${String(h.x + h.w - 20)})`
           : `centred on x ${String(r1(h.x + h.w / 2))}`
       lines.push(`- action ${String(i)}: "${copyOf(m.words)}" (note "${m.words}") was typed just ABOVE a line drawn edge to edge across its column (x ${String(x0)} to ${String(x1)} at y ${String(y)}; column x ${String(h.x)} to ${String(h.x + h.w)}). ` +
-        `The line is a DIVIDER: a 1px rule (a border-bottom on the bar above it is fine) across the column at y ${String(y)}, kept. ` +
+        `The line is a DIVIDER: a thin 1px rule in a light tone of the surface (a border-bottom is fine) across the column at y ${String(y)}, kept. The band above it is NOT a filled bar: it keeps the background of the page or column behind it, never the line's pen colour; the pen colour, if any, is the WORDS' colour. ` +
         `The words are ORDINARY text, about 14-18px (bold only if the note says bold), NEVER a big heading sized by the line's length, ` +
         `sitting in the space just above the rule (their middle about halfway between the top of that space and y ${String(y)}), ${where}.`)
     }

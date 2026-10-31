@@ -98,3 +98,13 @@ describe('n142: a long open polyline is a route line', () => {
     expect(verifyRoutes([route], { nodes: [{ tag: 'svg', rect: { x: 0, y: 0, w: 1280, h: 900 } }, { tag: 'path', rect: { x: 638, y: 250, w: 420, h: 382 } }] }).satisfied).toBe(true)
   })
 })
+
+describe('n142: a note about the line itself is never a heading on it', () => {
+  it('"white roads, thick" on a long road line is not sized as a heading', async () => {
+    const { lineAsksBig, isDisplay } = await import('../src/linespan.js')
+    expect(lineAsksBig('white roads, thick', 778)).toBe(false)
+    expect(isDisplay('roads, big', 778)).toBe(false)
+    // copy that happens to hold the word stays copy when it reads as a title
+    expect(lineAsksBig('Fresh herbs, picked this morning', 916)).toBe(true)
+  })
+})
