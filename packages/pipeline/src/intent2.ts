@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
+import { areaWordInk, inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -854,6 +854,8 @@ export interface InkColour {
   selected?: { tint: string; dot: boolean }
   /** n136: paint 'text' from a level line a sentence was typed on: the words' colour, never a coloured bar. */
   copy?: true
+  /** n140: paint 'text' from a box drawn in a pen (no tap) round a big word or number: the letters' colour, the box never filled. */
+  areaWord?: { word: string | null; outlined: boolean }
 }
 
 export interface GroundedInterpretation {
@@ -1329,6 +1331,8 @@ export function groundInterpretation(
     if (shapeMarks.length && tapSolidAllowed) markTappedSolids(shapeMarks, inkColours)
     // n16: "huge outlined 09" on an area box stays hollow letters
     if (shapeMarks.length) markOutlined(shapeMarks, noteObjs)
+    // n140: a pen box (no tap) round a big word is that word's area: its pen colour is the letters' colour, never a block
+    if (shapeMarks.length) areaWordInk(shapeMarks, inkColours)
     // n54: a big box round 3+ other drawn marks is a card (white unless tapped), at the drawn edges
     if (shapeMarks.length) markCards(shapeMarks, innerBoxes, noteObjs, inkColours.filter((c) => c.how === 'tap').map((c) => ({ strokeId: c.strokeId, color: c.color })))
     // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low

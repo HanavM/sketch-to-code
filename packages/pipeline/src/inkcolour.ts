@@ -84,6 +84,14 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
           `or as a conic-gradient disc with an INNER DISC element on top in the surface colour leaving only the ${String(h.thickness)}px band showing. Words typed on the ring sit centred in its hole in dark or ink-coloured text, never white on the colour`)
         continue
       }
+      // n140: a pen box round a big word: the letters take the pen colour, the box is only where they sit
+      if (c.paint === 'text' && c.areaWord) {
+        const w = c.areaWord.word ? `"${c.areaWord.word}"` : 'the big word or number typed on it'
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in ${hex(c.color)} pen (no colour tapped) round ${w}: the pen colour is the LETTERS' colour, ` +
+          (c.areaWord.outlined ? `drawn as hollow outline letters (color transparent, -webkit-text-stroke in ${hex(c.color)})` : `color ${hex(c.color)}`) +
+          `. The box itself is NEVER a block: no ${hex(c.color)} background, no card, no border, no shadow; the page shows behind the letters`)
+        continue
+      }
       // n135: a selected chip: pale tint, pen-colour border, a small round mark if asked
       if (c.paint === 'border' && c.selected) {
         lines.push(`- action ${String(i)}, the box drawn at ${at} in ${hex(c.color)} pen (no colour tapped) and noted as the selected / active one: a SELECTED CHIP exactly there, NEVER a solid ${hex(c.color)} block: ` +
@@ -112,6 +120,8 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
     }
   })
   if (!lines.length) return ''
+  // n140: the dots in the sketch picture are where colour was tapped; the model drew them as inner discs
+  if (interp.actions.some((a) => (a.inkColours ?? []).some((c) => c.how === 'tap'))) lines.push(TAP_DOTS_LINE)
   // n122: bars stacked in one column are rows at the drawn pitch
   for (const l of barPitchBrief(interp.actions)) lines.push(l)
   return `COLOURS FROM THE INK (the user coloured these in with a picked colour, so the value is exact; ` +
@@ -286,6 +296,22 @@ export function verifyInkColours(
         if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} and noted as an arc / track / progress: a hollow ring about ${String(c.hollow.thickness)}px thick, its words in the hole; ${v.why}: ` +
           `build it as an SVG ring (circles with fill="none", stroke-width ${String(c.hollow.thickness)}) or put an inner disc in the surface colour on top so only a ${String(c.hollow.thickness)}px band shows; keep its size, place, colours and words`)
         continue
+      }
+      // n140: a pen box round a big word: nothing about the box's size there is a block of the pen colour
+      if (c.paint === 'text' && c.areaWord) {
+        const v = areaWordBuilt(c, after.nodes)
+        checks.push({ what: `${what} (big word's area)`, want: `letters ${hex(c.color)}, no ${hex(c.color)} block`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} pen round a big word with no tap: it only marks where the letters sit, and the letters are ${hex(c.color)}${c.areaWord.outlined ? ' outline (text stroke)' : ''}; ${v.why}: ` +
+          `take the background off that block (transparent, the page shows through) and give the letters ${c.areaWord.outlined ? `-webkit-text-stroke ${hex(c.color)}, color transparent` : `color ${hex(c.color)}`}, filling the box; keep their size and place`)
+        continue
+      }
+      // n140: a tapped ring is one solid disc: no smaller disc of another colour sits inside it where the tap dot was
+      if (c.paint === 'background' && c.how === 'tap' && c.mark === 'ring' && !c.fade && !c.split) {
+        const v = tapDotBuilt(c, after.nodes)
+        if (!v.ok) {
+          checks.push({ what: `${what} (no tap dot)`, want: 'one disc, no inner dot', best: null, ok: false })
+          misses.push(`action ${String(i)}: ${what} was tapped ${hex(c.color)}: one plain disc of that colour; ${v.why} (the dot in the sketch is only where the colour was tapped): remove that inner disc, keep the outer one`)
+        }
       }
       // n135: a selected chip: pale, framed, not a solid block of the pen colour
       if (c.paint === 'border' && c.selected) {
@@ -679,6 +705,60 @@ export function selectedBuilt(c: Pick<InkColour, 'box' | 'color' | 'selected'>, 
       n.rect.x >= host.x - 2 && n.rect.x + n.rect.w <= host.x + host.w * 0.5 && n.rect.y >= host.y - 2 && n.rect.y + n.rect.h <= host.y + host.h + 2 &&
       (painted(n, 'background').some((css) => alphaOf(css) >= 0.3) || ['svg', 'img'].includes(n.tag)))
     if (!dot) return { ok: false, why: 'no small round mark (avatar / dot) sits inside it at the left' }
+  }
+  return { ok: true, why: '' }
+}
+
+/**
+ * n140: a box drawn in a pen (no tap) round a big word or number is that word's AREA (n14), and its pen colour is the
+ * letters' colour. Round 40 c2 (wave festival): a white pen box round "WAVE, huge outlined letters" on a black page
+ * came out a solid white block with no word; c5 (venn studio): a black pen box round "40, giant black bold" on a yellow
+ * page came out a black block with a white 40. The area rule said "no fill" while the ink rule said "filled with the
+ * pen colour", and the fill won. Only area boxes for a big word (not rows), never when the box was tapped.
+ */
+export function areaWordInk(marks: ReadonlyArray<{ strokeId: string; shape: string; area?: true; areaOf?: string; word?: string; outlined?: { colour: string | null } }>, inks: InkColour[]): void {
+  for (const c of inks) {
+    if (c.how !== 'pen' || c.paint !== 'background' || c.fade || c.split || c.bands) continue
+    const m = marks.find((k) => k.strokeId === c.strokeId)
+    if (!m || m.shape !== 'box' || !m.area || m.areaOf === 'rows') continue
+    if (inks.some((o) => o.strokeId === c.strokeId && o.how === 'tap')) continue
+    c.paint = 'text'
+    c.areaWord = { word: m.word ?? null, outlined: !!m.outlined }
+    if (m.outlined && !m.outlined.colour) m.outlined.colour = hex(c.color)
+  }
+}
+
+/** n140: no block about the area box's size paints the pen colour (alpha 0.6+) as its own background. */
+export function areaWordBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const blocks = nodes.filter((n) => Math.abs(n.rect.x + n.rect.w / 2 - cx) <= Math.max(16, b.w * 0.25) && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= Math.max(16, b.h * 0.25) &&
+    n.rect.w >= b.w * 0.5 && n.rect.w <= b.w * 1.4 + 20 && n.rect.h >= b.h * 0.5 && n.rect.h <= b.h * 1.4 + 20)
+  const solid = blocks.find((n) => painted(n, 'background').some((css) => { const g = parseCssColor(css); return !!g && alphaOf(css) >= 0.6 && deltaE(pen, g) <= 12 }))
+  if (solid) return { ok: false, why: `a ${String(Math.round(solid.rect.w))}x${String(Math.round(solid.rect.h))} <${solid.tag}> there is a solid ${hex(c.color)} block` }
+  return { ok: true, why: '' }
+}
+
+/** n140: told once when anything was tapped: the dots in the sketch picture are taps, never parts of the design. */
+export const TAP_DOTS_LINE = '- the small round dots in the sketch picture (one inside a tapped mark, or alone on the page) only show WHERE a colour was tapped: ' +
+  'they are not part of the design. Never build a dot, an inner disc, a highlight, a crater or a shading spot where one sits; a tapped ring or box is ONE plain fill of its colour'
+
+/**
+ * n140: a tapped ring is one disc. Round 40 c4 (observatory): all four tapped planets came out with a second, darker
+ * disc where the tap dot was. Fails when an element wholly inside the ring, 15-80% of its size, roughly round, paints
+ * an opaque background of another colour and holds no words.
+ */
+export function tapDotBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, d = (b.w + b.h) / 2, want = parseCssColor(c.color)
+  if (!want || d < 24) return { ok: true, why: '' }
+  const pad = d * 0.08
+  for (const n of nodes) {
+    const r = n.rect, nd = (r.w + r.h) / 2
+    if (nd < d * 0.15 || nd > d * 0.8 || Math.abs(r.w - r.h) > nd * 0.25 || n.text.trim()) continue
+    if (r.x < b.x - pad || r.y < b.y - pad || r.x + r.w > b.x + b.w + pad || r.y + r.h > b.y + b.h + pad) continue
+    const css = painted(n, 'background').find((x) => { const g = parseCssColor(x); return !!g && alphaOf(x) >= 0.6 && deltaE(want, g) > 12 })
+    if (css) return { ok: false, why: `a ${String(Math.round(r.w))}px disc in ${hex(css)} sits inside it` }
   }
   return { ok: true, why: '' }
 }
