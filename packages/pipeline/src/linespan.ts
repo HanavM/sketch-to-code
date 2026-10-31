@@ -65,7 +65,9 @@ export function isDisplay(words: string, len: number): boolean {
 
 /** About the font-size (px) at which these words run the drawn length on one line (bold sans, ~0.56em a letter). */
 export function spanFontPx(words: string, len: number): number {
-  const chars = Math.max(1, copyWords(words).join(' ').length)
+  // n170: count every letter the copy shows, one-letter words and digits too ("Year 9 Science" is 14, not 12)
+  const raw = words.split(/[\s,;]+/).filter((t) => t && !STYLE.has(t.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '')))
+  const chars = Math.max(1, raw.join(' ').length || copyWords(words).join(' ').length)
   // n57: one short display word may run far bigger than a sentence (SLOW over 870px)
   return Math.round(Math.min(chars <= 6 ? 300 : 160, Math.max(18, len / (chars * 0.56))))
 }

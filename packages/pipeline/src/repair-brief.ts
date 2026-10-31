@@ -84,7 +84,11 @@ export function rankFailures(failures: string[]): string[] {
  * with `onlyFirst`, left for a later round), with a first edit asked for at once.
  */
 export function failureBrief(failures: string[], opts: { onlyFirst?: boolean } = {}): string {
-  if (failures.length < MANY_FAILURES) return `Verification against the live DOM found problems:\n${failures.join('\n')}`
+  if (failures.length < MANY_FAILURES) {
+    // n170: a fresh repair after a stalled one is held to a quick first edit, however few the problems
+    const quick = opts.onlyFirst ? 'Make your first Edit within a minute; do not read anything but the page file first.\n' : ''
+    return `${quick}Verification against the live DOM found problems:\n${failures.join('\n')}`
+  }
   const ranked = rankFailures(failures)
   const first = ranked.slice(0, FIX_FIRST)
   const rest = ranked.slice(FIX_FIRST)

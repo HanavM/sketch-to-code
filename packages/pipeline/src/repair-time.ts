@@ -27,3 +27,16 @@ export function repairFits(deadline: number | undefined, now: number, sends: Tur
   if (deadline === undefined || !Number.isFinite(deadline)) return true
   return deadline - now >= repairEstimateMs(sends) + VERIFY_MARGIN_MS
 }
+
+/**
+ * n170: a fresh repair after a stalled one is short on purpose: a new agent told only the biggest problems, held to
+ * a first edit within FRESH_REPAIR_MS. Round 42 e5 gradebook (n165 try 1): the repair sat silent 152 s (no tokens at
+ * all) and was not retried, because the stalled turn's own length made a retry look too long for the run cap.
+ * A stalled turn says nothing about how long a working repair takes, so it is not counted here.
+ */
+export const FRESH_REPAIR_MS = 90_000
+
+export function freshRepairFits(deadline: number | undefined, now: number): boolean {
+  if (deadline === undefined || !Number.isFinite(deadline)) return true
+  return deadline - now >= FRESH_REPAIR_MS + VERIFY_MARGIN_MS
+}

@@ -50,7 +50,7 @@ import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
 import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, marksMiss, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
-import { repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
+import { freshRepairFits, FRESH_REPAIR_MS, repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
 import { BUILD_AFTER_WRITE_EDIT_MS, BUILD_AFTER_WRITE_MS, REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn, wroteThisTurn } from './turn-watch.js'
 import { areasBrief, cardsBrief, verifyCards, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
@@ -956,7 +956,7 @@ export async function runV2(
       writeFileSync(join(runDir, `reply-${tag}-${++replies}.txt`), reply)
     // what each turn cost: a page's tokens alone could not say whether the
     // build or its repair rounds were the expensive part (round 1 c2: 91k)
-    const metered = async (kind: 'build' | 'repair', content: { text: string; images?: string[] }) => {
+    const metered = async (kind: 'build' | 'repair', content: { text: string; images?: string[] }, hold: { editMs?: number; stallMs?: number } = {}) => {
       const s = agent()
       const u0 = s.usage()
       const t0 = s.toolCalls()
@@ -976,9 +976,9 @@ export async function runV2(
               now,
               // n21 (bento): a first build may think 150+ s before its one big Write; every streamed
               // delta (thinking too) shows it is alive. Only a repair must show tool calls or words.
-              lastActivity: kind === 'build' ? s.lastActivity() : s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs,
+              lastActivity: kind === 'build' ? s.lastActivity() : s.lastProgress(), deadline: ctx.deadline, marginMs, stallMs: hold.stallMs ?? stallMs,
               // a repair is told the exact pixels: minutes of thought with no edit is a stall (n22)
-              ...(kind === 'repair' ? { lastEdit: s.lastEdit(), editMs: repairEditMs } : {}),
+              ...(kind === 'repair' ? { lastEdit: s.lastEdit(), editMs: hold.editMs ?? repairEditMs } : {}),
               // n93/n95: once a build has written the page, only work on it keeps it going (reply
               // words are not work), and reads alone for minutes are not either
               ...(wrote ? { wrote, lastProgress: s.lastWork(), afterWriteMs, lastEdit: s.lastEdit(), editMs: afterWriteEditMs, label: 'build' } : {}),
@@ -1153,17 +1153,19 @@ export async function runV2(
               `${context}${failureBrief(failures, { onlyFirst: retrying })}\n\n` +
               `Fix exactly these. Do not change anything already working.\n\n` +
               leanRepairNote(pageFiles.map((f) => `Write ${f}`)),
-          }))
+          }, retrying ? { editMs: FRESH_REPAIR_MS, stallMs: Math.min(stallMs, FRESH_REPAIR_MS) } : {}))
         } catch (e) {
           if (!(e instanceof TurnStalled)) throw e
           const turn = sends[sends.length - 1]
           const edited = !!turn?.tools.some((t) => /^(?:Write|Edit|MultiEdit)\b/.test(t))
-          if (!edited && !freshOnce && failures.length >= MANY_FAILURES && repairFits(ctx.deadline, Date.now(), sends)) {
+          // n170: any stall with no edit (silent "no progress" as well as reads without an edit), whatever the number of
+          // failures: n165 try 1 sat silent 152 s with 8 failures left and the run kept the build as it was.
+          if (!edited && !freshOnce && !retrying && freshRepairFits(ctx.deadline, Date.now())) {
             // n169 (podcast, n168 try 2): nine failures at once, 180 s of reads and no edit. Nothing on disk
             // changed, so a fresh agent told only the biggest few loses nothing and may fix the page.
             freshOnce = true
             freshRetry = true
-            stage('repair', `repair round ${round + 1} stopped: ${e.why}; nothing was edited, so a fresh repair gets the ${FIX_FIRST} biggest problems`)
+            stage('repair', `repair round ${round + 1} stopped: ${e.why}; nothing was edited, so a fresh repair gets ${failures.length >= MANY_FAILURES ? `the ${FIX_FIRST} biggest problems` : 'the same problems'}`)
             const live = session as CodegenSession | null
             if (live) {
               totalUsage = addUsage(totalUsage, live.usage())
