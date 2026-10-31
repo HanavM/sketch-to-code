@@ -85,7 +85,7 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         continue
       }
       if (c.paint === 'border' && c.frame) {
-        lines.push(`- action ${String(i)}, the box drawn at ${at} in a light grey pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)}, background white or the surface under it, NEVER filled ${hex(c.color)} or any grey; its words, images and controls sit inside the frame`)
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
         continue
       }
       if (c.paint === 'border') {
@@ -286,8 +286,8 @@ export function verifyInkColours(
         const grey = own.filter((n) => { const g = parseCssColor(n.style.backgroundColor); return !!g && !!pen && alphaOf(n.style.backgroundColor) > 0.5 && deltaE(pen, g) <= SOLID_OK_DE })
         const framed = own.some((n) => hasFrame(n))
         const ok = !grey.length && framed
-        checks.push({ what: `${what} (grey outline)`, want: `1px border ${hex(c.color)}, no grey fill`, best: null, ok })
-        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in a light grey pen with no tap: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
+        checks.push({ what: `${what} (light pen outline)`, want: `1px border ${hex(c.color)}, no ${hex(c.color)} fill`, best: null, ok })
+        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in a light pen with no tap: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
         continue
       }
       // n92: an outlined control: something about the drawn size there with a border and no dark fill
@@ -545,4 +545,66 @@ export function hollowBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly
     if (!hole) return { ok: false, why: `it was built as a solid ${hex(c.color)} disc ${String(Math.round(R.w))}px across with nothing covering its middle` }
   }
   return { ok: true, why: '' }
+}
+
+/**
+ * n131: a box drawn in a LIGHT coloured pen (no tap) on a white or near-white surface is an OUTLINE too, the same
+ * as n78's light grey: a field, a pill, a dashed "add" box or a slot area with a tinted border, never a tinted
+ * block. Round 39 e1 (flight search): slate-grey pen inputs (#cbd5e1, a touch too blue for n78) were built as grey
+ * blocks; e4 (vet booking): a mint pen pill and the mint pen slot area came out mint panels; e3 (focus timer): a pink
+ * pen "+ Add task, dashed" box came out a pink block. A person taps when they want the fill (the timer's pink tabs
+ * and Reset button were tapped and stay filled). Only light pens (luminance 180-236: not the palest tints, which
+ * are a pale panel), only boxes at least 16x12, only when the surface right behind is light (luminance 230+), and
+ * never when a note on the box asks for a fill.
+ */
+const ASKS_FILL = /\b(fill|filled|solid|background|bg|tinted|shaded|block of)\b/i
+export function inkLightOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined, notes: readonly string[] = []): boolean {
+  if (!color || box.w < 16 || box.h < 12) return false
+  const p = parseCssColor(color)
+  const s = parseCssColor(behind ?? '#ffffff')
+  if (!p || !s) return false
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const sl = 0.299 * s.r + 0.587 * s.g + 0.114 * s.b
+  if (lum < 180 || lum > 236 || sl < 230) return false
+  return !notes.some((n) => ASKS_FILL.test(n))
+}
+
+type Pt = { x: number; y: number }
+type StrokeLike = { id: string; points: readonly Pt[]; color?: string | null }
+const bbOf = (pts: readonly Pt[]) => {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+}
+const closedish = (pts: readonly Pt[]) => {
+  if (pts.length < 4) return false
+  let len = 0
+  for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+  const a = pts[0]!, z = pts[pts.length - 1]!
+  return Math.hypot(z.x - a.x, z.y - a.y) <= Math.max(28, len * 0.15)
+}
+/**
+ * n131: the colour of the surface right behind a mark: the smallest closed mark holding it that is tapped (its tap
+ * colour) or drawn in a pen that fills (white, dark or strong: its pen colour; a light pen holder is itself an
+ * outline and is looked through), else the page's tapped colour, else white.
+ */
+export function surfaceBehind(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ target: string | null; color: string; dotId?: string }>): string {
+  const b = bbOf(st.points)
+  const dots = new Set(fills.map((f) => f.dotId).filter(Boolean))
+  const holders = strokes
+    .filter((o) => o.id !== st.id && !dots.has(o.id) && closedish(o.points))
+    .map((o) => ({ o, ob: bbOf(o.points) }))
+    .filter(({ ob }) => ob.x - 6 <= b.x && ob.y - 6 <= b.y && ob.x + ob.w + 6 >= b.x + b.w && ob.y + ob.h + 6 >= b.y + b.h && ob.w * ob.h > b.w * b.h * 1.1)
+    .sort((p, q) => p.ob.w * p.ob.h - q.ob.w * q.ob.h)
+  for (const { o, ob } of holders) {
+    const tap = fills.filter((f) => f.target === o.id).pop()
+    if (tap) return tap.color
+    if (!o.color) continue
+    const p = parseCssColor(o.color)
+    if (!p) continue
+    const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+    if (lum >= 150 && lum <= 236 && ob.w >= 16 && ob.h >= 12) continue
+    return o.color
+  }
+  return fills.filter((f) => f.target === null).pop()?.color ?? '#ffffff'
 }

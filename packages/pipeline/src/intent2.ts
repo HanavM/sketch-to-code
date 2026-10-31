@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { inkGreyOutline, inkOutlineBox } from './inkcolour.js'
+import { inkGreyOutline, inkLightOutline, inkOutlineBox, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -1253,6 +1253,15 @@ export function groundInterpretation(
       if (!flat && sm?.shape === 'box' && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
       // n78: a box drawn in a light grey pen (no tap) is a frame: grey border, no grey fill
       if (!flat && sm?.shape === 'box' && inkGreyOutline(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen', frame: true }); continue }
+      // n131: a box in a light coloured pen (no tap) on a light surface is an outline in that colour, never a tinted block
+      if (!flat && sm?.shape === 'box') {
+        const rb = sm.box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        if (inkLightOutline(st.color, rb, surfaceBehind(st, [...ev.strokes.values()], ev.fills ?? []), own)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true }); continue
+        }
+      }
       // n129: a ring in a coloured pen noted as an arc, track or progress is the ring's line, not a coloured-in disc
       if (!flat && sm?.shape === 'ellipse' && !sm.solid) {
         const rb = sm.box

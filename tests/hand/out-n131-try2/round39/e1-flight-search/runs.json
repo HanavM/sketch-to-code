@@ -1,0 +1,526 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "0c4defad71188decb25f3bdfea018636eef0ff8c",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A flight-search page: a navy top navbar holding a 'skyhop' logo and a white search bar with From/To/Date fields and an orange Search button, a left sidebar of stop/airline filter checkboxes, and a stack of four white flight-result cards.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (0,0) 1280x220 matches the sketch region",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:20:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 220
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 1,
+        "y": 1,
+        "w": 1277,
+        "h": 220
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 220
+       },
+       "dx": 1,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e3a8a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (0,0) 1280x220 matches the sketch region",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:20:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 220
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s4",
+       "drawn": {
+        "x": 59,
+        "y": 109,
+        "w": 1161,
+        "h": 78
+       },
+       "built": {
+        "x": 58,
+        "y": 108,
+        "w": 1161,
+        "h": 78
+       },
+       "dx": -1,
+       "dy": -1
+      },
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 71,
+        "y": 121,
+        "w": 317,
+        "h": 53
+       },
+       "built": {
+        "x": 70,
+        "y": 120.5,
+        "w": 316.65625,
+        "h": 53
+       },
+       "dx": -1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 400,
+        "y": 121,
+        "w": 317,
+        "h": 54
+       },
+       "built": {
+        "x": 398.65625,
+        "y": 120.5,
+        "w": 316.671875,
+        "h": 53
+       },
+       "dx": -2,
+       "dy": -1
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 729,
+        "y": 121,
+        "w": 317,
+        "h": 53
+       },
+       "built": {
+        "x": 727.328125,
+        "y": 120.5,
+        "w": 316.671875,
+        "h": 53
+       },
+       "dx": -2,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 1058,
+        "y": 122,
+        "w": 151,
+        "h": 53
+       },
+       "built": {
+        "x": 1056,
+        "y": 120.5,
+        "w": 151,
+        "h": 53
+       },
+       "dx": -2,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#cbd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <aside> at (59,258) 262x581 matches the sketch region",
+     "bestCandidate": {
+      "tag": "aside",
+      "srcLoc": "src/App.tsx:48:9",
+      "rect": {
+       "x": 59,
+       "y": 258,
+       "w": 262,
+       "h": 581
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 59,
+        "y": 259,
+        "w": 262,
+        "h": 581
+       },
+       "built": {
+        "x": 59,
+        "y": 258,
+        "w": 262,
+        "h": 581
+       },
+       "dx": 0,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:19:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 350,
+        "y": 259,
+        "w": 871,
+        "h": 122
+       },
+       "built": {
+        "x": 349,
+        "y": 258,
+        "w": 874,
+        "h": 122
+       },
+       "dx": 1,
+       "dy": -1
+      },
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 349,
+        "y": 399,
+        "w": 871,
+        "h": 122
+       },
+       "built": {
+        "x": 349,
+        "y": 398,
+        "w": 874,
+        "h": 122
+       },
+       "dx": 2,
+       "dy": -1
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 349,
+        "y": 539,
+        "w": 871,
+        "h": 122
+       },
+       "built": {
+        "x": 349,
+        "y": 538,
+        "w": 874,
+        "h": 122
+       },
+       "dx": 2,
+       "dy": -1
+      },
+      {
+       "strokeId": "s16",
+       "drawn": {
+        "x": 349,
+        "y": 679,
+        "w": 871,
+        "h": 122
+       },
+       "built": {
+        "x": 349,
+        "y": 678,
+        "w": 874,
+        "h": 122
+       },
+       "dx": 2,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "22 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "typed-times",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 typed times shown as typed"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "11 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#eef2f8",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,1) 1277x220 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,1) 1277x220",
+       "want": "#1e3a8a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (59,109) 1161x78",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (71,121) 317x53 (light pen outline)",
+       "want": "1px border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (400,121) 317x54 (light pen outline)",
+       "want": "1px border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (729,121) 317x53 (light pen outline)",
+       "want": "1px border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1058,122) 151x53",
+       "want": "#f97316",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (59,259) 262x581 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (59,259) 262x581",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (350,259) 871x122",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 23324,
+   "cacheRead": 136816,
+   "output": 11902
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 35226,
+    "output": 11902,
+    "cacheRead": 136816,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 140279
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

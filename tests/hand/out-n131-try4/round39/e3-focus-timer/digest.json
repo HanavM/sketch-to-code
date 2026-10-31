@@ -1,0 +1,517 @@
+{
+  "round": 39,
+  "id": "e3-focus-timer",
+  "version": 3,
+  "stopped": null,
+  "likeness": 84.9,
+  "colour": 0.9915662530514837,
+  "structure": 0.9272827971586005,
+  "layout": 0.9802854469831214,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 3.4,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "box": 6,
+      "circle": 1,
+      "line": 1
+    },
+    "inkPx": 7182
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 48,
+  "notes": 8,
+  "longestNote": 24,
+  "noteTexts": [
+    "Focus",
+    "Short break, Long break",
+    "17:30 huge, Session 2 of 4; red arc 3/4 on pink track",
+    "Pause",
+    "Reset",
+    "Today",
+    "5 rows, round checks: Reply to Mia 1/1, Draft intro 2/2 red, struck; Edit chapter 3 1/4; Pick cover photo 0/1; Send invoice 0/1",
+    "+ Add task, dashed"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 475,
+    "firstReadingS": 86,
+    "readS": [
+      51
+    ],
+    "buildS": [
+      387
+    ],
+    "sketchingS": 37
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 76527,
+    "cacheRead": 548062,
+    "output": 37955,
+    "billed": 114482
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#fff0f1",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#fde2e6",
+      "at": 832
+    },
+    {
+      "op": "stroke",
+      "at": 4011
+    },
+    {
+      "op": "stroke",
+      "at": 4476
+    },
+    {
+      "op": "pen",
+      "color": "#e11d48",
+      "at": 4847
+    },
+    {
+      "op": "stroke",
+      "at": 6341
+    },
+    {
+      "op": "stroke",
+      "at": 6807
+    },
+    {
+      "op": "note",
+      "at": 7443
+    },
+    {
+      "op": "note",
+      "at": 8127
+    },
+    {
+      "op": "stroke",
+      "at": 11927
+    },
+    {
+      "op": "note",
+      "at": 12832
+    },
+    {
+      "op": "stroke",
+      "at": 15062
+    },
+    {
+      "op": "stroke",
+      "at": 15530
+    },
+    {
+      "op": "note",
+      "at": 16161
+    },
+    {
+      "op": "pen",
+      "color": "#fde2e6",
+      "at": 16527
+    },
+    {
+      "op": "stroke",
+      "at": 18078
+    },
+    {
+      "op": "stroke",
+      "at": 18545
+    },
+    {
+      "op": "note",
+      "at": 19188
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 19550
+    },
+    {
+      "op": "stroke",
+      "at": 27118
+    },
+    {
+      "op": "stroke",
+      "at": 27598
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 27962
+    },
+    {
+      "op": "stroke",
+      "at": 28616
+    },
+    {
+      "op": "note",
+      "at": 29276
+    },
+    {
+      "op": "note",
+      "at": 30239
+    },
+    {
+      "op": "pen",
+      "color": "#fbcfe8",
+      "at": 30606
+    },
+    {
+      "op": "stroke",
+      "at": 33795
+    },
+    {
+      "op": "note",
+      "at": 34459
+    },
+    {
+      "op": "run",
+      "at": 34573
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          150,
+          60
+        ],
+        [
+          590,
+          60
+        ],
+        [
+          590,
+          112
+        ],
+        [
+          150,
+          112
+        ],
+        [
+          150,
+          62
+        ]
+      ],
+      "n": 164,
+      "at": 4011
+    },
+    {
+      "way": [
+        [
+          450,
+          100
+        ]
+      ],
+      "n": 1,
+      "at": 4476
+    },
+    {
+      "way": [
+        [
+          155,
+          65
+        ],
+        [
+          298,
+          65
+        ],
+        [
+          298,
+          107
+        ],
+        [
+          155,
+          107
+        ],
+        [
+          155,
+          67
+        ]
+      ],
+      "n": 63,
+      "at": 6341
+    },
+    {
+      "way": [
+        [
+          180,
+          100
+        ]
+      ],
+      "n": 1,
+      "at": 6807
+    },
+    {
+      "way": [
+        [
+          370,
+          170
+        ],
+        [
+          511,
+          229
+        ],
+        [
+          570,
+          370
+        ],
+        [
+          511,
+          511
+        ],
+        [
+          370,
+          570
+        ],
+        [
+          229,
+          511
+        ],
+        [
+          170,
+          370
+        ],
+        [
+          229,
+          229
+        ],
+        [
+          370,
+          172
+        ]
+      ],
+      "n": 201,
+      "at": 11927
+    },
+    {
+      "way": [
+        [
+          170,
+          630
+        ],
+        [
+          420,
+          630
+        ],
+        [
+          420,
+          694
+        ],
+        [
+          170,
+          694
+        ],
+        [
+          170,
+          632
+        ]
+      ],
+      "n": 106,
+      "at": 15062
+    },
+    {
+      "way": [
+        [
+          200,
+          680
+        ]
+      ],
+      "n": 1,
+      "at": 15530
+    },
+    {
+      "way": [
+        [
+          440,
+          630
+        ],
+        [
+          570,
+          630
+        ],
+        [
+          570,
+          694
+        ],
+        [
+          440,
+          694
+        ],
+        [
+          440,
+          632
+        ]
+      ],
+      "n": 66,
+      "at": 18078
+    },
+    {
+      "way": [
+        [
+          460,
+          680
+        ]
+      ],
+      "n": 1,
+      "at": 18545
+    },
+    {
+      "way": [
+        [
+          700,
+          60
+        ],
+        [
+          1200,
+          60
+        ],
+        [
+          1200,
+          840
+        ],
+        [
+          700,
+          840
+        ],
+        [
+          700,
+          62
+        ]
+      ],
+      "n": 427,
+      "at": 27118
+    },
+    {
+      "way": [
+        [
+          1150,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 27598
+    },
+    {
+      "way": [
+        [
+          732,
+          115
+        ],
+        [
+          800,
+          115
+        ]
+      ],
+      "n": 12,
+      "at": 28616
+    },
+    {
+      "way": [
+        [
+          732,
+          447
+        ],
+        [
+          1168,
+          447
+        ],
+        [
+          1168,
+          498
+        ],
+        [
+          732,
+          498
+        ],
+        [
+          732,
+          449
+        ]
+      ],
+      "n": 164,
+      "at": 33795
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Focus",
+      "whole": false,
+      "x": 226,
+      "y": 86,
+      "at": 7443
+    },
+    {
+      "text": "Short break, Long break",
+      "whole": false,
+      "x": 450,
+      "y": 70,
+      "at": 8126
+    },
+    {
+      "text": "17:30 huge, Session 2 of 4; red arc 3/4 on pink track",
+      "whole": false,
+      "x": 370,
+      "y": 380,
+      "at": 12832
+    },
+    {
+      "text": "Pause",
+      "whole": false,
+      "x": 295,
+      "y": 662,
+      "at": 16161
+    },
+    {
+      "text": "Reset",
+      "whole": false,
+      "x": 505,
+      "y": 662,
+      "at": 19188
+    },
+    {
+      "text": "Today",
+      "whole": false,
+      "x": 765,
+      "y": 100,
+      "at": 29276
+    },
+    {
+      "text": "5 rows, round checks: Reply to Mia 1/1, Draft intro 2/2 red, struck; Edit chapter 3 1/4; Pick cover photo 0/1; Send invoice 0/1",
+      "whole": false,
+      "x": 950,
+      "y": 270,
+      "at": 30239
+    },
+    {
+      "text": "+ Add task, dashed",
+      "whole": false,
+      "x": 790,
+      "y": 473,
+      "at": 34459
+    }
+  ]
+}
