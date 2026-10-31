@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Sign up</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f5f3ff;font-family:Helvetica,Arial,sans-serif;color:#2e1065;overflow:hidden;position:relative}
+.steps{position:absolute;left:390px;top:60px;width:500px;height:40px}
+.dot{position:absolute;top:0;width:40px;height:40px;border-radius:50%;background:#ddd6fe;display:flex;align-items:center;justify-content:center;font-weight:700}.dot.on{background:#7c3aed;color:#fff}
+.ln{position:absolute;top:19px;height:3px;width:190px;background:#ddd6fe}.ln.on{background:#7c3aed}
+.sl{position:absolute;top:110px;font-size:14px;width:120px;text-align:center}
+.card{position:absolute;left:240px;top:170px;width:800px;height:660px;background:#fff;border-radius:20px;padding:40px}
+h1{font-size:30px;margin-bottom:8px}.sub{color:#6d28d9;font-size:16px;margin-bottom:30px}
+.pl{position:absolute;top:150px;width:226px;height:240px;border-radius:16px;border:2px solid #ede9fe;padding:24px}.pl b{display:block;font-size:20px}.pl em{display:block;font-style:normal;font-size:32px;font-weight:800;margin:16px 0}.pl span{font-size:14px;color:#6d28d9;line-height:1.6}
+.pl.on{border-color:#7c3aed;background:#f5f3ff}
+.ck{position:absolute;left:40px;top:430px;display:flex;gap:12px;align-items:center;font-size:16px}.ck i{width:22px;height:22px;border-radius:6px;background:#7c3aed}
+.f{position:absolute;top:480px;width:350px}.f label{display:block;font-size:14px;margin-bottom:8px}.f div{height:50px;border:1px solid #ddd6fe;border-radius:10px}
+.bk{position:absolute;left:40px;top:580px;width:140px;height:52px;border-radius:10px;border:2px solid #ddd6fe;display:flex;align-items:center;justify-content:center;font-weight:700}
+.nx{position:absolute;right:40px;top:580px;width:200px;height:52px;border-radius:10px;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+</style></head><body>
+<div class="steps" data-r="stepper" data-must><div class="dot on" style="left:0">1</div><div class="ln on" style="left:45px"></div><div class="dot on" style="left:240px">2</div><div class="ln" style="left:285px"></div><div class="dot" style="left:460px">3</div></div>
+<div class="sl" style="left:350px">Account</div><div class="sl" style="left:590px">Plan</div><div class="sl" style="left:810px">Pay</div>
+<div class="card" data-r="card" data-must><h1>Pick your plan</h1><div class="sub">You can change it any time.</div>
+<div class="pl" style="left:40px" data-r="plan-1"><b>Starter</b><em>Free</em><span>1 project<br>Basic support</span></div>
+<div class="pl on" style="left:287px" data-r="plan-2" data-must><b>Team</b><em>£12</em><span>10 projects<br>Shared boards<br>Priority support</span></div>
+<div class="pl" style="left:534px" data-r="plan-3"><b>Business</b><em>£40</em><span>Unlimited<br>SSO and audit</span></div>
+<div class="ck" data-r="checkbox"><i></i>Bill yearly and save 20%</div>
+
+<div class="bk" data-r="back">Back</div><div class="nx" data-r="button" data-must>Continue</div></div>
+</body></html>

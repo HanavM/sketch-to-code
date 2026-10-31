@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Player</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#121212;font-family:Helvetica,Arial,sans-serif;color:#fff;overflow:hidden;position:relative}
+aside{position:absolute;left:0;top:0;width:260px;height:900px;background:#000;padding:36px 28px;font-size:16px;color:#b3b3b3}
+aside b{display:block;color:#fff;font-size:22px;margin-bottom:40px}aside div{padding:12px 0}aside .on{color:#fff;font-weight:700}
+.art{position:absolute;left:320px;top:60px;width:260px;height:260px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#db2777)}
+.k{position:absolute;left:620px;top:150px;font-size:14px;color:#b3b3b3}h1{position:absolute;left:620px;top:175px;font-size:56px;font-weight:900}
+.by{position:absolute;left:620px;top:255px;font-size:16px;color:#b3b3b3}
+.play{position:absolute;left:620px;top:300px;width:64px;height:64px;border-radius:50%;background:#1ed760}
+.play::after{content:"";position:absolute;left:25px;top:20px;border-left:20px solid #000;border-top:12px solid transparent;border-bottom:12px solid transparent}
+.rows{position:absolute;left:320px;top:400px;width:900px}
+.r{display:flex;height:54px;align-items:center;font-size:16px;border-bottom:1px solid #222;color:#e5e5e5}.r span{width:50px;color:#b3b3b3}.r b{flex:1;font-weight:400}.r em{font-style:normal;color:#b3b3b3}.r.on b{color:#1ed760}
+.bar{position:absolute;left:0;top:810px;width:1280px;height:90px;background:#181818;border-top:1px solid #282828}
+.tr{position:absolute;left:440px;top:852px;width:440px;height:4px;border-radius:2px;background:#4d4d4d}.tr i{position:absolute;left:0;top:0;width:180px;height:4px;border-radius:2px;background:#fff}
+.kn{position:absolute;left:614px;top:846px;width:14px;height:14px;border-radius:50%;background:#fff}
+.now{position:absolute;left:24px;top:836px;font-size:15px}.now span{display:block;color:#b3b3b3;font-size:13px;margin-top:4px}
+</style></head><body>
+<aside data-r="sidebar" data-must><b>Tunebox</b><div>Home</div><div>Search</div><div class="on">Your library</div><div>Liked songs</div><div>Night drive</div><div>Focus mix</div></aside>
+<div class="art" data-r="album-art" data-must></div>
+<div class="k">ALBUM</div><h1 data-r="title" data-must>Neon Rivers</h1><div class="by" data-r="artist">Mira Sol · 2026 · 8 songs</div>
+<div class="play" data-r="play"></div>
+<div class="rows" data-r="track-list" data-must>
+<div class="r"><span>1</span><b>Opening lights</b><em>3:12</em></div>
+<div class="r on"><span>2</span><b>Neon rivers</b><em>4:05</em></div>
+<div class="r"><span>3</span><b>Cold harbour</b><em>3:48</em></div>
+<div class="r"><span>4</span><b>Slow signal</b><em>5:01</em></div>
+<div class="r"><span>5</span><b>Afterglow</b><em>3:27</em></div>
+<div class="r"><span>6</span><b>Paper moon</b><em>4:19</em></div>
+</div>
+<div class="bar" data-r="player-bar" data-must></div><div class="now">Neon rivers<span>Mira Sol</span></div>
+<div class="tr" data-r="progress"><i></i></div><div class="kn"></div>
+</body></html>

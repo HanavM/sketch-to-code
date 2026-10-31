@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Ride</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#e5e7eb;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;position:relative}
+.road{position:absolute;background:#fff}
+.route{position:absolute;left:640px;top:250px;width:420px;height:380px;border-top:8px solid #111827;border-right:8px solid #111827;border-radius:0 60px 0 0}
+.pin{position:absolute;width:28px;height:28px;border-radius:50%;border:7px solid #111827;background:#fff}
+.card{position:absolute;left:40px;top:40px;width:440px;height:820px;background:#fff;border-radius:18px;box-shadow:0 8px 30px #0002;padding:30px}
+.card h1{font-size:28px;margin-bottom:24px}
+.in{height:54px;border-radius:10px;background:#f3f4f6;display:flex;align-items:center;padding:0 18px;font-size:16px;margin-bottom:12px}.in i{width:12px;height:12px;margin-right:14px;background:#111827}.in.a i{border-radius:50%}
+.op{display:flex;align-items:center;height:84px;border-radius:12px;padding:0 16px;margin-top:12px;border:2px solid transparent}.op.on{border-color:#111827;background:#f9fafb}
+.op .ic{width:64px;height:40px;border-radius:8px;background:#d1d5db;margin-right:16px}.op div{flex:1;font-size:17px;font-weight:700}.op div span{display:block;font-weight:400;font-size:14px;color:#6b7280;margin-top:4px}.op b{font-size:18px}
+.go{position:absolute;left:30px;bottom:30px;width:380px;height:60px;border-radius:12px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+.h2{font-size:18px;font-weight:700;margin-top:28px}
+</style></head><body>
+<div class="road" style="left:500px;top:240px;width:780px;height:26px"></div><div class="road" style="left:1040px;top:0;width:26px;height:900px"></div>
+<div class="road" style="left:640px;top:0;width:24px;height:900px"></div><div class="road" style="left:500px;top:620px;width:780px;height:24px"></div>
+<div class="route" data-r="route" data-must></div>
+<div class="pin" style="left:626px;top:612px" data-r="pin-start"></div><div class="pin" style="left:1050px;top:236px" data-r="pin-end"></div>
+<div class="card" data-r="panel" data-must><h1>Where to?</h1>
+<div class="in a" data-r="from"><i></i>Central Station</div><div class="in" data-r="to"><i></i>Airport, Terminal 2</div>
+<div class="h2">Choose a ride</div>
+<div class="op on" data-r="option-1"><span class="ic"></span><div>Standard<span>4 min away · 4 seats</span></div><b>£18.40</b></div>
+<div class="op" data-r="option-2"><span class="ic"></span><div>Comfort<span>6 min away · extra room</span></div><b>£24.10</b></div>
+<div class="op" data-r="option-3"><span class="ic"></span><div>XL<span>9 min away · 6 seats</span></div><b>£31.70</b></div>
+<div class="go" data-r="button" data-must>Confirm Standard</div></div>
+</body></html>
