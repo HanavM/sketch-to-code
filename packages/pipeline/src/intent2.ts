@@ -332,6 +332,7 @@ import { linkSame, markTextPlaces } from './textplace.js'
 import { markRowWords } from './rowwords.js'
 import { bindTiltNotes } from './tiltwords.js'
 import { markOutlined } from './textlook.js'
+import { proseLineIds } from './barlabels.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
 import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
 
@@ -851,6 +852,8 @@ export interface InkColour {
   hollow?: { thickness: number; share: number | null; track: string | null }
   /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
   selected?: { tint: string; dot: boolean }
+  /** n136: paint 'text' from a level line a sentence was typed on: the words' colour, never a coloured bar. */
+  copy?: true
 }
 
 export interface GroundedInterpretation {
@@ -1291,6 +1294,11 @@ export function groundInterpretation(
       inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })
     }
 
+    // n136: coloured level lines a sentence was typed on are that paragraph's lines (its words' colour), never bars
+    {
+      const prose = proseLineIds(shapeMarks, ev.notes.map((n) => ({ text: n.text, ...(n.at ? { at: n.at } : {}) })))
+      for (const c of inkColours) if (c.paint === 'text' && c.how === 'pen' && c.mark === 'line' && prose.has(c.strokeId)) c.copy = true
+    }
     // destructive-width gate is ours, not the model's
     const targetArea = targets.reduce((acc, t) => acc + t.rect.w * t.rect.h, 0)
     const needsConfirm =

@@ -22,7 +22,7 @@ interface MarkLike {
   from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true
   words?: string; own?: string; listNote?: string; carries?: string; ends?: unknown[]
 }
-interface InkLike { strokeId: string; mark: string; paint: string; color: string; how: string; box: { x: number; y: number; w: number; h: number } }
+interface InkLike { strokeId: string; mark: string; paint: string; color: string; how: string; box: { x: number; y: number; w: number; h: number }; copy?: true }
 interface ActionLike { onScreen?: unknown; kind?: string; shapeMarks?: MarkLike[]; inkColours?: InkLike[]; textMarks?: string[] }
 
 export const BAR_MIN = 120
@@ -46,6 +46,8 @@ export function isBarInk(c: InkLike, a: ActionLike): boolean {
 
 function barShaped(c: InkLike, a: ActionLike): boolean {
   if (c.paint !== 'text' || c.how !== 'pen' || c.mark !== 'line') return false
+  // n136: a line a sentence was typed on (a paragraph drawn as lines) is where those words go, never a bar
+  if (c.copy) return false
   if ((a.textMarks ?? []).includes(c.strokeId)) return false
   const m = (a.shapeMarks ?? []).find((k) => k.strokeId === c.strokeId)
   if (!m || m.shape !== 'line' || m.edge || !m.from || !m.to) return false
@@ -216,4 +218,49 @@ export function verifyBarLabels(actions: readonly ActionLike[], after: DomSnapsh
     reason: `${String(off.length)} of ${String(judged.length)} words beside the bars drawn in colour took their bar's colour (${shown}${off.length > 6 ? ', …' : ''}); ` +
       `the user drew the bars in colour, not the words: set those labels and amounts to the block's normal dark text (the colour the other body text uses), keep the bars' colours, change nothing else`,
   }
+}
+
+/**
+ * n136: is this note a sentence of copy (a paragraph's words), not a bar's label and amount or a direction about bars?
+ * Round 39 c1 (honey co., n126/n128): the subtitle was drawn as two level lines in a brown pen and its sentence typed
+ * between them; both lines were read as coloured bars, so every build drew two brown strips under the words.
+ * A sentence: five or more words, nearly all of them words (at most one number, no money), not a list of label/value
+ * pairs, and not about bars, tracks, progress or meters.
+ */
+export function proseNote(text: string): boolean {
+  const t = text.trim()
+  const toks = t.split(/\s+/).filter(Boolean)
+  const words = toks.filter((w) => /^[\p{L}'’-]+[.,!?;:]?$/u.test(w))
+  if (words.length < 5 || words.length < toks.length * 0.8) return false
+  if (/[$€£¥%]/.test(t) || (t.match(/\d+/g)?.length ?? 0) > 1) return false
+  if (/;/.test(t) || /\b(bars?|tracks?|progress|meters?|sliders?|gauges?|chart|graph)\b/i.test(t)) return false
+  return true
+}
+
+interface LineLike { strokeId: string; shape: string; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true }
+
+/**
+ * n136: the level lines a sentence was typed on: a sentence note whose point sits over a level line's span, within
+ * 40px of it (on it, or between two lines of a paragraph), marks that line, and every line stacked with it (same
+ * start within 16px, rows no more than 48px apart), as copy. Returns their stroke ids.
+ */
+export function proseLineIds(marks: readonly LineLike[], notes: ReadonlyArray<{ text: string; at?: { x: number; y: number } }>): Set<string> {
+  const lines = marks.filter((m) => m.shape === 'line' && !m.edge && m.from && m.to && Math.abs(m.from.y - m.to.y) <= 4)
+    .map((m) => ({ id: m.strokeId, x0: Math.min(m.from!.x, m.to!.x), x1: Math.max(m.from!.x, m.to!.x), y: (m.from!.y + m.to!.y) / 2 }))
+  const out = new Set<string>()
+  for (const n of notes) {
+    if (!n.at || !proseNote(n.text)) continue
+    const hit = lines.filter((l) => n.at!.x >= l.x0 - 20 && n.at!.x <= l.x1 + 20 && Math.abs(n.at!.y - l.y) <= 40)
+    for (const h of hit) out.add(h.id)
+  }
+  // spread to the rest of each paragraph
+  let grew = true
+  while (grew) {
+    grew = false
+    for (const l of lines) {
+      if (out.has(l.id)) continue
+      if (lines.some((o) => out.has(o.id) && Math.abs(o.x0 - l.x0) <= 16 && Math.abs(o.y - l.y) <= 48)) { out.add(l.id); grew = true }
+    }
+  }
+  return out
 }
