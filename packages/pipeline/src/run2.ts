@@ -90,7 +90,7 @@ import { drawnRingBrief, ringStrokeIds, verifyDrawnRings } from './drawnring.js'
 import { rowMarksBrief, verifyRowMarks } from './rowmarks.js'
 import { progressBrief, verifyProgress } from './progress.js'
 import { hasFillerRows, rowTemplateBrief, verifyRowTemplate } from './rowtemplate.js'
-import { leanRepairNote } from './repair-brief.js'
+import { FIX_FIRST, MANY_FAILURES, failureBrief, leanRepairNote, touchedFiles as editedFiles } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import { fixBrief, isBuiltPage, verifyFix, type FixVerdict } from './fixcheck.js'
@@ -1100,6 +1100,10 @@ export async function runV2(
         await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
       }
 
+      // n169: a repair that stalls with no edit at all gets one fresh agent, told only the biggest problems
+      let freshRetry = false
+      let freshOnce = false
+      let pageFiles: string[] = []
       for (let round = 1; round <= 3; round++) {
         stage('verify', `round ${round}: snapshotting edited page`)
         let result = await verifyRound(`${tag}-${round}`)
@@ -1119,6 +1123,7 @@ export async function runV2(
         // closer to where they were drawn is progress too: one more round.
         const closer = preRepair?.miss != null && miss != null && miss < preRepair.miss - 12
         if (score > best || (score === best && closer)) best = score
+        else if (freshRetry) { /* the stalled turn changed nothing: this page is the one it was handed */ }
         else {
           await putBackIfWorse(miss, `${tag}-${round}`)
           stage('verify', 'no improvement — stopping')
@@ -1137,15 +1142,38 @@ export async function runV2(
             `ACTIONS:\n${JSON.stringify(interp.actions.map((a, i) => ({ action: i, ...a })), null, 2)}\n\n` +
             `Check the codemod edits against the failures below before changing anything — ` +
             `if an edit is already correct, leave it and say so.\n\n`
+        const retrying = freshRetry
+        freshRetry = false
+        if (session) pageFiles = editedFiles((session as CodegenSession).toolLog())
         try {
           saveReply(await metered('repair', {
             text:
-              `${context}Verification against the live DOM found problems:\n${failures.join('\n')}\n\n` +
+              `${context}${failureBrief(failures, { onlyFirst: retrying })}\n\n` +
               `Fix exactly these. Do not change anything already working.\n\n` +
-              leanRepairNote(session ? (session as CodegenSession).toolLog() : []),
+              leanRepairNote(pageFiles.map((f) => `Write ${f}`)),
           }))
         } catch (e) {
           if (!(e instanceof TurnStalled)) throw e
+          const turn = sends[sends.length - 1]
+          const edited = !!turn?.tools.some((t) => /^(?:Write|Edit|MultiEdit)\b/.test(t))
+          if (!edited && !freshOnce && failures.length >= MANY_FAILURES && repairFits(ctx.deadline, Date.now(), sends)) {
+            // n169 (podcast, n168 try 2): nine failures at once, 180 s of reads and no edit. Nothing on disk
+            // changed, so a fresh agent told only the biggest few loses nothing and may fix the page.
+            freshOnce = true
+            freshRetry = true
+            stage('repair', `repair round ${round + 1} stopped: ${e.why}; nothing was edited, so a fresh repair gets the ${FIX_FIRST} biggest problems`)
+            const live = session as CodegenSession | null
+            if (live) {
+              totalUsage = addUsage(totalUsage, live.usage())
+              live.close()
+              await settleSession(live.closed)
+            }
+            session = null
+            repairStalled = `${e.why} (nothing edited; retried with a fresh repair)`
+            // the stalled turn changed nothing, so it does not use up a round
+            round--
+            continue
+          }
           // keep the build: stop the agent (no more edits can land), then
           // verify what is on disk so the record says what the page really is
           repairStalled = e.why

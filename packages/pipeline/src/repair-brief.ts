@@ -35,3 +35,67 @@ export function leanRepairNote(toolLog: string[]): string {
     `and do not re-plan the page: read the file once if you need to, then Edit.`
   )
 }
+
+/**
+ * n169: a repair facing many failed checks at once acts biggest first.
+ *
+ * Round 42 e1 podcast (n168 try 2): the build ran the page past the screen
+ * (rows 72px apart, the player pushed off) and nine checks failed. The repair
+ * was handed all nine at once, in check order, read App.tsx, main.tsx, two
+ * Globs and the vite config, and went 180 s with no edit, so the build was kept
+ * as it was (38.9). A person facing that page fixes the one thing that pushed
+ * everything down first. So: rank the failures by how much of the page they
+ * move, put the few that matter most first, and ask for an edit straight away.
+ */
+export const MANY_FAILURES = 4
+export const FIX_FIRST = 3
+
+/** How much a failure costs the page: the pixels it moves, more for missing or off-screen parts. */
+export function failureWeight(f: string): number {
+  const s = f.toLowerCase()
+  let px = 0
+  // "sits 45px too low", "move the rows up 48px", "91px too lo(w)", "72px apart"
+  const near = /(\d{1,4})\s*px\s+(?:too|off|low|high|left|right|apart|past|below|above|further)/g
+  for (let m = near.exec(s); m; m = near.exec(s)) px = Math.max(px, Number(m[1]))
+  const moveBy = /\b(?:up|down|left|right)\s+(?:by\s+)?(?:about\s+)?(\d{1,4})\s*px/g
+  for (let m = moveBy.exec(s); m; m = moveBy.exec(s)) px = Math.max(px, Number(m[1]))
+  let w = px
+  if (/whole page|the page from here down|past the screen|off the screen|off screen|below the screen|past the bottom|pushed off/.test(s)) w += 200
+  if (/nothing (?:about that size |that size |near it )?(?:was )?built|has no element|no longer draws/.test(s)) w += 120
+  const de = /δe\s*(\d+(?:\.\d+)?)/.exec(s)
+  if (de) w = Math.max(w, Math.min(100, Number(de[1])))
+  if (/a rule you drew|drawn earlier/.test(s)) w = Math.max(w, 60)
+  // a colour is one class to change and moves nothing: after anything that moves the page
+  if (/^(?:action \d+ \()?(?:colour|ink-colours|solids)\b/.test(s)) w = Math.min(w || 60, 60)
+  return w || 30
+}
+
+/** Failures biggest first (stable for ties). */
+export function rankFailures(failures: string[]): string[] {
+  return failures
+    .map((f, i) => ({ f, i, w: failureWeight(f) }))
+    .sort((a, b) => b.w - a.w || a.i - b.i)
+    .map((x) => x.f)
+}
+
+/**
+ * The failures part of a repair message. A few failures go as they are. Many
+ * go ranked, the biggest FIX_FIRST marked to fix first, the rest after (or,
+ * with `onlyFirst`, left for a later round), with a first edit asked for at once.
+ */
+export function failureBrief(failures: string[], opts: { onlyFirst?: boolean } = {}): string {
+  if (failures.length < MANY_FAILURES) return `Verification against the live DOM found problems:\n${failures.join('\n')}`
+  const ranked = rankFailures(failures)
+  const first = ranked.slice(0, FIX_FIRST)
+  const rest = ranked.slice(FIX_FIRST)
+  const head =
+    `Verification against the live DOM found ${failures.length} problems. They are ranked biggest first: ` +
+    `the first ${first.length} move the most of the page, and fixing them often fixes the others. ` +
+    `Make your first Edit within a minute, starting with problem 1; do not read anything but the page file first.`
+  const list = (fs: string[], from: number) => fs.map((f, i) => `${from + i}. ${f}`).join('\n')
+  if (opts.onlyFirst || !rest.length) {
+    return `${head}\n\nFIX FIRST:\n${list(first, 1)}` +
+      (rest.length ? `\n\n(${rest.length} smaller problems are left for the next round; do not work on them now.)` : '')
+  }
+  return `${head}\n\nFIX FIRST:\n${list(first, 1)}\n\nTHEN, IF QUICK:\n${list(rest, first.length + 1)}`
+}
