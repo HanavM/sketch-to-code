@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { areaWordInk, inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
+import { areaWordInk, holdsBoxes, inkDarkOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -852,6 +852,8 @@ export interface InkColour {
   hollow?: { thickness: number; share: number | null; track: string | null }
   /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
   selected?: { tint: string; dot: boolean }
+  /** n141: a frame drawn on a dark surface (this colour): transparent inside, never white or grey. */
+  frameOn?: string
   /** n136: paint 'text' from a level line a sentence was typed on: the words' colour, never a coloured bar. */
   copy?: true
   /** n140: paint 'text' from a box drawn in a pen (no tap) round a big word or number: the letters' colour, the box never filled. */
@@ -1275,8 +1277,13 @@ export function groundInterpretation(
         const rb = sm.box
         const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
           (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
-        if (inkLightOutline(st.color, rb, surfaceBehind(st, [...ev.strokes.values()], ev.fills ?? []), own)) {
+        const behind = surfaceBehind(st, [...ev.strokes.values()], ev.fills ?? [])
+        if (inkLightOutline(st.color, rb, behind, own)) {
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true }); continue
+        }
+        // n141: a white, pale or grey pen box (no tap) on a dark surface is an outline too, background see-through
+        if (!sm.area && inkDarkOutline(st.color, rb, behind, own) && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? [])) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, frameOn: behind }); continue
         }
         // n135: a strong-pen chip noted selected / active is a pale tint with a border in the pen colour, never a solid block
         const sel = selectedChip(st.color, rb, own)

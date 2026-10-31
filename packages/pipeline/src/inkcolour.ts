@@ -100,6 +100,10 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
           `Its unselected look-alikes beside it keep their own drawn look`)
         continue
       }
+      if (c.paint === 'border' && c.frame && c.frameOn) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in a ${hex(c.color)} pen (no colour tapped) on the dark ${hex(c.frameOn)} surface: an OUTLINED block exactly there (a button, a field, a list or a panel, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background TRANSPARENT so the dark surface shows through, NEVER filled ${hex(c.color)}, white or any grey; its words stay light and readable on the dark; rows inside it keep only their dividers`)
+        continue
+      }
       if (c.paint === 'border' && c.frame) {
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
         continue
@@ -610,6 +614,31 @@ export function inkLightOutline(color: string | null | undefined, box: { w: numb
   return !notes.some((n) => ASKS_FILL.test(n))
 }
 
+/**
+ * n141: a box drawn in a pale or mid-grey pen (no tap) on a DARK surface is an OUTLINE, the dark-page twin of n78 /
+ * n131. Round 40 c4 (observatory): a white-pen "Book a night" box on a navy page came out a solid white button (the
+ * screenshot shows a white-bordered one); round 38 c3 (film fest) the same for "See the programme"; round 40 e1
+ * (music player): a #555 grey-pen box round the track list on a near-black page came out a grey slab under all six
+ * rows. Only when the surface right behind is dark (luminance under 70), the pen is clearly lighter than it (50+ more)
+ * and is a grey or a white (not a hue: a red pen box is a red block, a mint pen box a mint card), no note asks for a
+ * fill, and it holds no other drawn box (round 39 e1: a white pen search bar round three inputs on a blue hero is a
+ * white bar). Dark tiles drawn in a dark grey close to the page (a #3f3f46 video tile on #18181b) stay filled.
+ */
+export function inkDarkOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined, notes: readonly string[] = []): boolean {
+  if (!color || !behind || box.w < 16 || box.h < 12) return false
+  const p = parseCssColor(color), s = parseCssColor(behind)
+  if (!p || !s) return false
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const sl = 0.299 * s.r + 0.587 * s.g + 0.114 * s.b
+  const chroma = Math.max(p.r, p.g, p.b) - Math.min(p.r, p.g, p.b)
+  if (sl >= 70 || lum < sl + 50) return false
+  if (chroma > 30) return false
+  return !notes.some((n) => ASKS_FILL.test(n) && !PALE_FILL.test(n))
+}
+
+/** n141: "pale fill", "light tint", "soft background": a tint of the pen colour, never a solid block of it. */
+export const PALE_FILL = /\b(pale|light|soft|faint|subtle)\s+(fill|filled|background|bg|tint|tinted|shade|shaded)\b/i
+
 type Pt = { x: number; y: number }
 type StrokeLike = { id: string; points: readonly Pt[]; color?: string | null }
 const bbOf = (pts: readonly Pt[]) => {
@@ -650,6 +679,18 @@ export function surfaceBehind(st: StrokeLike, strokes: readonly StrokeLike[], fi
   return fills.filter((f) => f.target === null).pop()?.color ?? '#ffffff'
 }
 
+/** n141: another closed mark (not a tap dot) sits wholly inside this one: it is a holder (a bar, a panel), not a frame. */
+export function holdsBoxes(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ dotId?: string }> = []): boolean {
+  const b = bbOf(st.points)
+  const dots = new Set(fills.map((f) => f.dotId).filter(Boolean))
+  return strokes.some((o) => {
+    if (o.id === st.id || dots.has(o.id) || !closedish(o.points)) return false
+    const ob = bbOf(o.points)
+    if (ob.w < 8 || ob.h < 8) return false
+    return ob.x >= b.x - 4 && ob.y >= b.y - 4 && ob.x + ob.w <= b.x + b.w + 4 && ob.y + ob.h <= b.y + b.h + 4 && ob.w * ob.h < b.w * b.h * 0.9
+  })
+}
+
 /**
  * n134: a box drawn in a light pen (grey, n78, or any light hue on a light surface, n131) with no tap is a frame,
  * whatever the action it was read in: a "pet picker" read as a depiction traced the Luna pill and filled it mint.
@@ -660,7 +701,8 @@ export function penFrameBox(st: StrokeLike, strokes: readonly StrokeLike[], fill
   if (inkGreyOutline(st.color, box) && !notes.some((n) => ASKS_FILL.test(n))) return true
   // n135: a strong-pen chip noted selected is a box too (the Biscuit pill was traced inside a depicted pet picker)
   if (selectedChip(st.color, box, notes)) return true
-  return inkLightOutline(st.color, box, surfaceBehind(st, strokes, fills), notes)
+  const behind = surfaceBehind(st, strokes, fills)
+  return inkLightOutline(st.color, box, behind, notes) || (inkDarkOutline(st.color, box, behind, notes) && !holdsBoxes(st, strokes, fills))
 }
 
 /**
@@ -672,18 +714,19 @@ export function penFrameBox(st: StrokeLike, strokes: readonly StrokeLike[], fill
  * Tue day card and the Confirm button, and those stay solid). Words like avatar / dot / icon / photo on it add a
  * small round mark at its left, inside.
  */
-export const SELECTED_WORD = /\b(selected|active|chosen|current|picked|checked)\b/i
+export const SELECTED_WORD = /\b(selected|active|chosen|current|picked|checked|highlighted)\b/i
 const DOT_WORD = /\b(avatar|dot|icon|photo|pic|picture|thumb|thumbnail)\b/i
 export function selectedChip(color: string | null | undefined, box: { w: number; h: number }, notes: readonly string[]): { tint: string; dot: boolean } | null {
-  if (!color || box.w < 24 || box.h < 14 || box.w > 360 || box.h > 96) return null
+  // n141: a picked plan CARD too (round 40 e5: "Team picked, pale fill" on a 224x240 purple pen card came out solid purple)
+  if (!color || box.w < 24 || box.h < 14 || box.w > 480 || box.h > 420) return null
   const p = parseCssColor(color)
   if (!p) return null
   const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
   const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
   // strong and coloured: not a light pen (n131 already outlines those), not a near-neutral dark ink
   if (lum < 40 || lum >= 180 || max - min < 60) return null
-  if (!notes.some((n) => SELECTED_WORD.test(n))) return null
-  if (notes.some((n) => ASKS_FILL.test(n))) return null
+  if (!notes.some((n) => SELECTED_WORD.test(n) || PALE_FILL.test(n))) return null
+  if (notes.some((n) => ASKS_FILL.test(n) && !PALE_FILL.test(n))) return null
   const mix = (v: number) => Math.round(v * 0.14 + 255 * 0.86)
   return { tint: hexOf({ r: mix(p.r), g: mix(p.g), b: mix(p.b) }), dot: notes.some((n) => DOT_WORD.test(n)) }
 }

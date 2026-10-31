@@ -1,0 +1,563 @@
+{
+  "round": 40,
+  "id": "e1-music-player",
+  "version": 3,
+  "stopped": null,
+  "likeness": 89.8,
+  "colour": 0.9940625051000619,
+  "structure": 0.9435062349103451,
+  "layout": 0.741734179483573,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 4,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "box": 4,
+      "line": 2,
+      "circle": 2
+    },
+    "inkPx": 9346
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 57,
+  "notes": 8,
+  "longestNote": 22,
+  "noteTexts": [
+    "Neon Rivers, huge bold",
+    "ALBUM small grey",
+    "Mira Sol · 2026 · 8 songs",
+    "play",
+    "6 rows: Opening lights 3:12, Neon rivers 4:05 green, Cold harbour 3:48, Slow signal 5:01, Afterglow 3:27, Paper moon 4:19; numbered, dividers",
+    "Tunebox bold",
+    "nav: Home, Search, Your library bold white, Liked songs, Night drive, Focus mix",
+    "Neon rivers / Mira Sol"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 375,
+    "firstReadingS": 98,
+    "readS": [
+      55
+    ],
+    "buildS": [
+      275
+    ],
+    "sketchingS": 45
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 67792,
+    "cacheRead": 414811,
+    "output": 28681,
+    "billed": 96473
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#121212",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#000000",
+      "at": 833
+    },
+    {
+      "op": "stroke",
+      "at": 7192
+    },
+    {
+      "op": "stroke",
+      "at": 7657
+    },
+    {
+      "op": "pen",
+      "color": "#1c1c1c",
+      "at": 8024
+    },
+    {
+      "op": "stroke",
+      "at": 16077
+    },
+    {
+      "op": "stroke",
+      "at": 16540
+    },
+    {
+      "op": "pen",
+      "color": "#7c3aed",
+      "at": 16905
+    },
+    {
+      "op": "stroke",
+      "at": 20259
+    },
+    {
+      "op": "stroke",
+      "at": 20723
+    },
+    {
+      "op": "pen",
+      "color": "#db2777",
+      "at": 21091
+    },
+    {
+      "op": "stroke",
+      "at": 21560
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 21923
+    },
+    {
+      "op": "stroke",
+      "at": 23341
+    },
+    {
+      "op": "note",
+      "at": 24113
+    },
+    {
+      "op": "note",
+      "at": 24763
+    },
+    {
+      "op": "note",
+      "at": 25412
+    },
+    {
+      "op": "pen",
+      "color": "#1ed760",
+      "at": 25777
+    },
+    {
+      "op": "stroke",
+      "at": 26792
+    },
+    {
+      "op": "stroke",
+      "at": 27261
+    },
+    {
+      "op": "note",
+      "at": 27932
+    },
+    {
+      "op": "pen",
+      "color": "#555555",
+      "at": 28296
+    },
+    {
+      "op": "stroke",
+      "at": 35601
+    },
+    {
+      "op": "note",
+      "at": 37474
+    },
+    {
+      "op": "note",
+      "at": 38140
+    },
+    {
+      "op": "note",
+      "at": 39202
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 39577
+    },
+    {
+      "op": "stroke",
+      "at": 41264
+    },
+    {
+      "op": "stroke",
+      "at": 41879
+    },
+    {
+      "op": "note",
+      "at": 42624
+    },
+    {
+      "op": "run",
+      "at": 42788
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          900,
+          760
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          260,
+          2
+        ],
+        [
+          260,
+          808
+        ],
+        [
+          2,
+          808
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n": 355,
+      "at": 7192
+    },
+    {
+      "way": [
+        [
+          130,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 7657
+    },
+    {
+      "way": [
+        [
+          2,
+          810
+        ],
+        [
+          1278,
+          810
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          812
+        ]
+      ],
+      "n": 456,
+      "at": 16077
+    },
+    {
+      "way": [
+        [
+          1100,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 16540
+    },
+    {
+      "way": [
+        [
+          320,
+          60
+        ],
+        [
+          580,
+          60
+        ],
+        [
+          580,
+          320
+        ],
+        [
+          320,
+          320
+        ],
+        [
+          320,
+          62
+        ]
+      ],
+      "n": 173,
+      "at": 20259
+    },
+    {
+      "way": [
+        [
+          340,
+          80
+        ]
+      ],
+      "n": 1,
+      "at": 20723
+    },
+    {
+      "way": [
+        [
+          560,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 21560
+    },
+    {
+      "way": [
+        [
+          620,
+          215
+        ],
+        [
+          945,
+          215
+        ]
+      ],
+      "n": 55,
+      "at": 23341
+    },
+    {
+      "way": [
+        [
+          684,
+          332
+        ],
+        [
+          682,
+          344
+        ],
+        [
+          675,
+          355
+        ],
+        [
+          664,
+          362
+        ],
+        [
+          652,
+          364
+        ],
+        [
+          640,
+          362
+        ],
+        [
+          629,
+          355
+        ],
+        [
+          622,
+          344
+        ],
+        [
+          620,
+          332
+        ],
+        [
+          622,
+          320
+        ],
+        [
+          629,
+          309
+        ],
+        [
+          640,
+          302
+        ],
+        [
+          652,
+          300
+        ],
+        [
+          664,
+          302
+        ],
+        [
+          675,
+          309
+        ],
+        [
+          682,
+          320
+        ],
+        [
+          684,
+          332
+        ]
+      ],
+      "n": 33,
+      "at": 26792
+    },
+    {
+      "way": [
+        [
+          652,
+          332
+        ]
+      ],
+      "n": 1,
+      "at": 27261
+    },
+    {
+      "way": [
+        [
+          320,
+          400
+        ],
+        [
+          1220,
+          400
+        ],
+        [
+          1220,
+          724
+        ],
+        [
+          320,
+          724
+        ],
+        [
+          320,
+          402
+        ]
+      ],
+      "n": 409,
+      "at": 35601
+    },
+    {
+      "way": [
+        [
+          440,
+          853
+        ],
+        [
+          880,
+          853
+        ]
+      ],
+      "n": 74,
+      "at": 41264
+    },
+    {
+      "way": [
+        [
+          627,
+          853
+        ],
+        [
+          625,
+          858
+        ],
+        [
+          620,
+          860
+        ],
+        [
+          615,
+          858
+        ],
+        [
+          613,
+          853
+        ],
+        [
+          615,
+          848
+        ],
+        [
+          620,
+          846
+        ],
+        [
+          625,
+          848
+        ],
+        [
+          627,
+          853
+        ]
+      ],
+      "n": 9,
+      "at": 41879
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Neon Rivers, huge bold",
+      "whole": false,
+      "x": 760,
+      "y": 212,
+      "at": 24113
+    },
+    {
+      "text": "ALBUM small grey",
+      "whole": false,
+      "x": 640,
+      "y": 158,
+      "at": 24763
+    },
+    {
+      "text": "Mira Sol · 2026 · 8 songs",
+      "whole": false,
+      "x": 700,
+      "y": 264,
+      "at": 25412
+    },
+    {
+      "text": "play",
+      "whole": false,
+      "x": 652,
+      "y": 332,
+      "at": 27932
+    },
+    {
+      "text": "6 rows: Opening lights 3:12, Neon rivers 4:05 green, Cold harbour 3:48, Slow signal 5:01, Afterglow 3:27, Paper moon 4:19; numbered, dividers",
+      "whole": false,
+      "x": 700,
+      "y": 560,
+      "at": 37474
+    },
+    {
+      "text": "Tunebox bold",
+      "whole": false,
+      "x": 40,
+      "y": 48,
+      "at": 38140
+    },
+    {
+      "text": "nav: Home, Search, Your library bold white, Liked songs, Night drive, Focus mix",
+      "whole": false,
+      "x": 60,
+      "y": 200,
+      "at": 39202
+    },
+    {
+      "text": "Neon rivers / Mira Sol",
+      "whole": false,
+      "x": 60,
+      "y": 853,
+      "at": 42624
+    }
+  ]
+}
