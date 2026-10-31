@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T17:10Z | n156 rows under a card heading | Rows start under Recent, level with the drawn icon, checked. Bank 84.3 to 87.6, no fixes.
 2026-10-31T16:04Z | n155 side menu from the panel top | Menu starts under logo, ends above button. Bank 77.9 to 84.3 no fixes; file browser 76.5.
 2026-10-31T15:50Z | n153 chip under the pen, row list spread | Strokes from note chips drawn, row items one per card. File browser 58.4 to 78.2, no fixes.
 2026-10-31T14:48Z | n150 sketch round 41 app pages | Bank 77.9, calendar 81.2, to-do 76.8, files 58.4, hotel 77.0; round 41 mean 78.0, 17.5 strokes.
