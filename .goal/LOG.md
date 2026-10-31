@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T18:22Z | n158 rows typed in open space take the field above | Full field width, row 1 level with drawn checkbox, checked. To-do 80.0, 86.7, no fixes; calendar 70.0 (untouched).
 2026-10-31T17:09Z | n157 title sized by the gap under it | Title capped by line gap, centred on its line, checked. To-do 65.9 to 84.7, 80.8, no fixes.
 2026-10-31T17:10Z | n156 rows under a card heading | Rows start under Recent, level with the drawn icon, checked. Bank 84.3 to 87.6, no fixes.
 2026-10-31T16:04Z | n155 side menu from the panel top | Menu starts under logo, ends above button. Bank 77.9 to 84.3 no fixes; file browser 76.5.
