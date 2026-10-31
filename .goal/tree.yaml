@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A faint divider now colours only its line, a picked row stays an outline, and rows split into name, details and price (ride booking 87.9 first try); next, keeping a list right under its heading and small rings round."
+now: "A list now starts right under its heading, steps print without a lead word, and small map markers stay round (recipe 75.8, ride booking 87.7, first try); next, keeping a title left with its meta line and small rings hollow."
 round: 40
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-2026-10-31T10:55Z, until: "2026-10-31T12:24Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -262,7 +262,9 @@ nodes:
   - {id: n143, parent: n3, kind: step, title: "A ring noted soft glow is a round glow (never clipped in a square box), and a tapped planet or disc is flat unless a note asks for shading; replay round 40 observatory", status: open, branch: try/n3-ink-style, result: null}
   - {id: n144, parent: n4, kind: step, title: "A rule drawn in a pale pen colours only the rule, never the words over it; a long list note typed in empty space beside a box stays out of it; ride rows keep name and details on two lines and a picked outline row unfilled; replay round 40 recipe and ride booking", status: done, branch: try/n3-ink-style, 
      result: "Pale rule colours only the rule; list note placed; picked row outlined. Ride 50.6 to 87.9, recipe 74.6."}
-  - {id: n145, parent: n4, kind: step, priority: next, title: "A list note typed in empty space under its heading starts right under that heading (not at the note spot), a list lead like steps: is never printed, and a small ring stays round (map markers, dots); replay recipe and ride booking", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n145, parent: n4, kind: step, title: "A list note typed in empty space under its heading starts right under that heading (not at the note spot), a list lead like steps: is never printed, and a small ring stays round (map markers, dots); replay recipe and ride booking", status: done, branch: try/n3-ink-style, 
+     result: "List starts under its heading, steps without lead, small rings round; recipe 75.8, ride 87.7, no fixes."}
+  - {id: n146, parent: n4, kind: step, priority: next, title: "A title typed at the left end of its drawn line stays left with its meta line, and a small ring drawn with no tap is hollow (white inside, dark edge); replay recipe and ride booking", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A white or black pen box drawn round a big word (WAVE, 40) with no tap is built as a solid block; fix notes undo it, WAVE then shrinks", found_on: "r40 c2, c5 (n138)", built: "n140: a pen box (no tap) read as a big word's area gives its pen colour to the letters (outline stroke if noted), never a block; told and checked", helped: "yes, no fix needed: wave 85.8 (with a fix) to 89.1, venn 83.7 (with a fix) to 86.4; WAVE still ~2/3 of its box"}
   - {gap: "A white pen box with no tap (outline button) built solid white; the fix note bound to nothing and hollowed the planets instead", found_on: "r40 c4 (n138)", built: null, helped: null}
@@ -850,3 +852,6 @@ n142_resketch:   # same strokes, pens and first notes as n139 replayed (replay.m
 n144_resketch:   # same strokes, pens and first notes as n139 replayed (replay.mjs); first Run only, no fixes; tests/hand/N144.md on try/n3-ink-style
   - {page: r40 e2-recipe, try: 1, likeness: 74.6, was: 72.2, strokes: 15, words: 75, notes: 8, minutes: 7.5, fixes: 0, first_read_s: 113, build_s: 335, tokens: 119402, note: "Pantry dark and left; list beside the photo, placed low; steps: printed"}
   - {page: r40 e3-ride-booking, try: 1, likeness: 87.9, was: 50.6, strokes: 17, words: 55, notes: 9, minutes: 7.3, fixes: 0, first_read_s: 102, build_s: 336, tokens: 111914, note: "picked row outlined; rows name over details, price right; markers square"}
+n145_resketch:   # same strokes, pens and first notes as n139 replayed (replay.mjs); first Run only, no fixes; tests/hand/N145.md on try/n3-ink-style
+  - {page: r40 e2-recipe, try: 1, likeness: 75.8, was: 74.6, strokes: 15, words: 75, notes: 8, minutes: 5.9, fixes: 0, first_read_s: 125, build_s: 226, tokens: 133162, note: "list right under Ingredients; steps 1-3, no lead; title centred"}
+  - {page: r40 e3-ride-booking, try: 1, likeness: 87.7, was: 87.9, strokes: 17, words: 55, notes: 9, minutes: 6.2, fixes: 0, first_read_s: 113, build_s: 254, tokens: 102136, note: "markers round but filled, not hollow"}
