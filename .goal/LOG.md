@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T03:25Z | n133 label-value note is a panel's rows | Summary rows one line near top 2 of 2; vet 68.3, 77.0; flights control 82.8; Luna pill refilled.
 2026-10-31T02:17Z | n131 a light pen box is an outline | Light boxes outlined 4 of 4; vet 75.6, 70.6 (was 62.5); flights 85.6; timer 84.9, no fixes.
 2026-10-31T01:26Z | n130 a list note fills a row drawn short | Day row right 2 of 2, no direction words 3 of 3; vet 67.8, 60.7, 59.1 (was 62.5).
 2026-10-31T00:40Z | n129 a ring noted as an arc is hollow | Ring hollow first build 3 of 3, no fix; timer 83.2, smart home 73.1, 79.0.
