@@ -70,6 +70,8 @@ export interface ShapeMark {
   carries?: string
   /** big box (n21): notes typed at a spot inside it, page px. */
   typed?: Array<{ text: string; x: number; y: number }>
+  /** n155: tall side panel: the menu lists typed in it with no rows drawn, stacked from its top (sidelist.ts). */
+  sideLists?: import('./sidelist.js').SideList[]
   /**
    * box only (n31): drawn turned. `box` is then the space it takes on the page (its upright bounds);
    * the box itself is w x h, centred at (cx, cy), turned `deg` degrees (CSS rotate: + is clockwise).

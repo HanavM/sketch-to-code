@@ -329,6 +329,7 @@ import { ringNoted, ringShare, ringThickness, trackColour } from './hollowring.j
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
+import { markSideLists } from './sidelist.js'
 import { markRuleLabels, paleOn } from './ruleline.js'
 import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
@@ -1420,6 +1421,10 @@ export function groundInterpretation(
   // n61: the turned box and the lines drawn in it are often different actions; bind notes to those lines across them
   bindTiltNotes(actions.flatMap((a) => a.shapeMarks ?? []), ev.notes.map((n) => ({ text: n.text, ...(n.at ? { at: n.at } : {}) })))
   linkSame(actions.flatMap((a) => a.shapeMarks ?? []))
+  // n155: a menu note typed in a side panel with no rows drawn stacks from the panel's top, above the button under it
+  markSideLists(actions.flatMap((a) => a.shapeMarks ?? []),
+    [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
+    ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport)
 
   // A note the user typed must never be silently dropped because no action
   // claimed it — an unattached one still describes this run.
