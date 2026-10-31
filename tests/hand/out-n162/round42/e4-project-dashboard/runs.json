@@ -1,0 +1,659 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "0feed9f9f2a11d45a8c90d53a569f03c800a2867",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/DonutProgress.tsx"
+  ],
+  "reading": "The sketch is a project-tracking dashboard: a dark top navbar labeled 'Trackwise' with a teal avatar icon, a large 'Website relaunch' heading, a row of four stat cards (Open tasks, Done this week, Overdue, Days left), a 'Status' panel with a 55% donut chart (teal/orange/red), and a 'Due soon' panel listing five tasks with due-date pill tags.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (0,0) 1280x64 matches the sketch region",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:29:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 64
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 2,
+        "y": 1,
+        "w": 1276,
+        "h": 64
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 64
+       },
+       "dx": 0,
+       "dy": -1
+      },
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1205,
+        "y": 15,
+        "w": 35,
+        "h": 33
+       },
+       "built": {
+        "x": 1212,
+        "y": 14.5,
+        "w": 36,
+        "h": 35
+       },
+       "dx": 8,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e2330 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Website relaunch\" at (65,95) 230x33 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:39:11",
+      "rect": {
+       "x": 39,
+       "y": 93,
+       "w": 283,
+       "h": 38
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e2330 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (0,0) 1280x64 matches the sketch region",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:29:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 64
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 39,
+        "y": 149,
+        "w": 283,
+        "h": 121
+       },
+       "built": {
+        "x": 39,
+        "y": 149,
+        "w": 283.25,
+        "h": 121
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 345,
+        "y": 149,
+        "w": 284,
+        "h": 122
+       },
+       "built": {
+        "x": 345.25,
+        "y": 149,
+        "w": 283.25,
+        "h": 121
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 651,
+        "y": 149,
+        "w": 283,
+        "h": 121
+       },
+       "built": {
+        "x": 651.5,
+        "y": 149,
+        "w": 283.25,
+        "h": 121
+       },
+       "dx": 1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 958,
+        "y": 149,
+        "w": 283,
+        "h": 121
+       },
+       "built": {
+        "x": 957.75,
+        "y": 149,
+        "w": 283.25,
+        "h": 121
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (39,149) 1202x121 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:44:9",
+      "rect": {
+       "x": 39,
+       "y": 149,
+       "w": 1202,
+       "h": 121
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 3,
+    "score": 0.7959936606216904,
+    "massSimilarity": 0.7085623723167007,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:28:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 463,
+        "y": 299,
+        "w": 778,
+        "h": 422
+       },
+       "built": {
+        "x": 463,
+        "y": 298,
+        "w": 778,
+        "h": 422
+       },
+       "dx": 0,
+       "dy": -1
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 489,
+        "y": 361,
+        "w": 29,
+        "h": 29
+       },
+       "built": {
+        "x": 490,
+        "y": 361,
+        "w": 29,
+        "h": 29
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 cards built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "18 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "card-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card list under its heading"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "stats",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 stat cards with the value at the left and the label in place"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3: the outline drawn at (121,386) 239x240 was coloured #4fb3a9 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #4fb3a9",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f4f5f7",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (2,1) 1276x64",
+       "want": "#1e2330",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1204,14) 36x35",
+       "want": "#4fb3a9",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (40,112) 231x0",
+       "want": "#1e2330",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (121,386) 239x240",
+       "want": "#4fb3a9",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the ring drawn at (488,361) 30x30",
+       "want": "#c8cdd8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 95158,
+   "cacheRead": 1070507,
+   "output": 36257
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 66582,
+    "output": 26256,
+    "cacheRead": 227883,
+    "toolCalls": 8,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read components/DonutProgress.tsx",
+     "Read src/index.css",
+     "Read s2c-hand-app/package.json",
+     "Write components/DonutProgress.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 300570
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 60709,
+    "output": 8902,
+    "cacheRead": 482996,
+    "toolCalls": 7,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit components/DonutProgress.tsx",
+     "Read components/DonutProgress.tsx",
+     "Edit components/DonutProgress.tsx",
+     "Edit components/DonutProgress.tsx"
+    ],
+    "ms": 99298
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 4124,
+    "output": 1099,
+    "cacheRead": 359628,
+    "toolCalls": 4,
+    "tools": [
+     "Read components/DonutProgress.tsx",
+     "Edit components/DonutProgress.tsx",
+     "Read components/DonutProgress.tsx",
+     "Edit components/DonutProgress.tsx"
+    ],
+    "ms": 11970
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "a1dcc4c2e2072dab94e1427afd9b7d47e495d716",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/DonutProgress.tsx"
+  ],
+  "reading": "Two typed notes with no ink: one restyles the donut chart's ring (teal at 55%, remainder orange/red) and the other asks for a grey status dot to be added to every row of the Due soon list.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 4,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 5,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     }
+    ],
+    "satisfied": 5,
+    "total": 6,
+    "score": 0.8333333333333334
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "21 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 27035,
+   "cacheRead": 237034,
+   "output": 7903
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 15025,
+    "output": 4151,
+    "cacheRead": 120657,
+    "toolCalls": 4,
+    "tools": [
+     "Read components/DonutProgress.tsx",
+     "Read src/App.tsx",
+     "Edit components/DonutProgress.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 42239
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 19913,
+    "output": 3752,
+    "cacheRead": 116377,
+    "toolCalls": 3,
+    "tools": [
+     "Read components/DonutProgress.tsx",
+     "Edit components/DonutProgress.tsx",
+     "Edit components/DonutProgress.tsx"
+    ],
+    "ms": 34395
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

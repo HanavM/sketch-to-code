@@ -23,6 +23,7 @@
  *   deleteNote {text}           click a note's x (n35; counts as a fix)
  *   undo                        Ctrl+Z (counts as an erased stroke)
  *   moveNote {text, x, y}       drag a note chip onto another mark (n9; counts as a fix)
+ *   moveBar {x, y}              drag the toolbar by its grip (n162)
  *   look {name}                 screenshot of what is on screen now
  *   run                         Alt+R, wait for the reading, shot it, Go, wait
  *                               for the build, reload, shot the result
@@ -192,6 +193,16 @@ const ops = {
   async undo() {
     await S.page.keyboard.press('Control+z'); await S.page.waitForTimeout(200)
     S.undos++; S.events.push({ op: 'undo', at: now() - (S.t0 ?? now()) })
+    return { ok: true }
+  },
+  /** n162: drag the toolbar by its grip so its left edge sits near x,y (a person moving the bar off a part they need to draw). */
+  async moveBar({ x, y }) {
+    const p = S.page
+    const g = await p.evaluate(() => { const r = document.getElementById('s2c-overlay-host').shadowRoot.getElementById('hudGrip').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 } })
+    await p.mouse.move(g.x, g.y); await p.mouse.down()
+    for (let i = 1; i <= 12; i++) { await p.mouse.move(g.x + ((x - g.x) * i) / 12, g.y + ((y - g.y) * i) / 12); await p.waitForTimeout(16) }
+    await p.mouse.up(); await p.waitForTimeout(250)
+    S.events.push({ op: 'moveBar', at: now() - (S.t0 ?? now()) })
     return { ok: true }
   },
   /** n153: what the overlay holds right now (stroke ids, colours, boxes): no picture, no score. */
