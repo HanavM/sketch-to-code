@@ -1,0 +1,709 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "8434d20fb30b27cfbb267433d1cad38f3a00b905",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch lays out a weekly calendar app view: a toolbar with a bold \"March 9 – 13\" title, outlined Today/‹›/Week navigation buttons, and a teal \"+ New event\" button, above a day-by-hour grid (Mon 9 – Fri 13, 9am–5pm) populated with colored event cards (Stand-up x2, Design review, Dentist, Lunch with Ana, Focus time), each using the drawn fill color as its background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"March 9 – 13\" at (40,33) 85x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:41:9",
+      "rect": {
+       "x": 40,
+       "y": 31.5,
+       "w": 84.609375,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2937 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (40,32) 85x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:41:9",
+      "rect": {
+       "x": 40,
+       "y": 31.5,
+       "w": 84.609375,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #e5e7eb"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (890,24) 350x36 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:44:9",
+      "rect": {
+       "x": 890.3125,
+       "y": 23.5,
+       "w": 349.6875,
+       "h": 36
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1121,
+        "y": 23,
+        "w": 119,
+        "h": 37
+       },
+       "built": {
+        "x": 1123.84375,
+        "y": 23.5,
+        "w": 116.15625,
+        "h": 36
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#0f766e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (40,32) 85x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:41:9",
+      "rect": {
+       "x": 40,
+       "y": 31.5,
+       "w": 84.609375,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #e5e7eb"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (154,121) 206x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:80:11",
+      "rect": {
+       "x": 154,
+       "y": 120.5,
+       "w": 206,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (108,177) 213x74: the <div> built for it sits 43px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 108,
+        "y": 177,
+        "w": 213,
+        "h": 74
+       },
+       "built": {
+        "x": 159,
+        "y": 177,
+        "w": 197,
+        "h": 74
+       },
+       "dx": 43,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 17.5,
+    "reason": "#ccfbf1 is on the page (ΔE 17.5)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (374,117) 206x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:80:11",
+      "rect": {
+       "x": 374,
+       "y": 116.5,
+       "w": 206,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (563,178) 213x73: the <div> built for it sits 28px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 563,
+        "y": 178,
+        "w": 213,
+        "h": 73
+       },
+       "built": {
+        "x": 599,
+        "y": 178,
+        "w": 197,
+        "h": 73
+       },
+       "dx": 28,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 17.5,
+    "reason": "#ccfbf1 is on the page (ΔE 17.5)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (154,177) 206x608 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:105:11",
+      "rect": {
+       "x": 154,
+       "y": 177,
+       "w": 206,
+       "h": 608
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (335,257) 213x153: the <div> built for it sits 36px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 335,
+        "y": 257,
+        "w": 213,
+        "h": 153
+       },
+       "built": {
+        "x": 379,
+        "y": 257,
+        "w": 197,
+        "h": 153
+       },
+       "dx": 36,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#fde68a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (599,497) 197x114 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:110:15",
+      "rect": {
+       "x": 599,
+       "y": 497,
+       "w": 197,
+       "h": 114
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 7,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (792,417) 212x74: the <div> built for it sits 20px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 792,
+        "y": 417,
+        "w": 212,
+        "h": 74
+       },
+       "built": {
+        "x": 819,
+        "y": 417,
+        "w": 197,
+        "h": 74
+       },
+       "dx": 20,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 22.8,
+    "reason": "#fecdd3 is on the page (ΔE 22.8)"
+   },
+   {
+    "kind": "add",
+    "index": 8,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (599,497) 197x114 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:110:15",
+      "rect": {
+       "x": 599,
+       "y": 497,
+       "w": 197,
+       "h": 114
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 8,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 563,
+        "y": 497,
+        "w": 213,
+        "h": 114
+       },
+       "built": {
+        "x": 599,
+        "y": 497,
+        "w": 197,
+        "h": 114
+       },
+       "dx": 28,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 8,
+    "satisfied": true,
+    "nearest": 15,
+    "reason": "#e0e7ff is on the page (ΔE 15.0)"
+   },
+   {
+    "kind": "add",
+    "index": 9,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (814,177) 206x608 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:105:11",
+      "rect": {
+       "x": 814,
+       "y": 177,
+       "w": 206,
+       "h": 608
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 9,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 1020,
+        "y": 577,
+        "w": 213,
+        "h": 153
+       },
+       "built": {
+        "x": 1039,
+        "y": 577,
+        "w": 197,
+        "h": 153
+       },
+       "dx": 11,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 9,
+    "satisfied": true,
+    "nearest": 17.5,
+    "reason": "#ccfbf1 is on the page (ΔE 17.5)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 of 4 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 42,
+       "built": 42,
+       "dy": 0
+      },
+      {
+       "index": 1,
+       "drawn": 84,
+       "built": 42,
+       "dy": -42
+      },
+      {
+       "index": 2,
+       "drawn": 23,
+       "built": 24,
+       "dy": 0
+      },
+      {
+       "index": 9,
+       "drawn": 577,
+       "built": 577,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "32 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 table row at body size"
+    }
+   },
+   {
+    "kind": "typed-times",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 typed times shown as typed"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "line-ends",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Today\" was typed at the RIGHT end of the line from x 2 to 1278 (y 84) but ends at x 944: push it to the right so it ends near x 1246 (margin-left: auto or justify-content: space-between; never centred with the left-end words); \"Today\" was typed at the RIGHT end of the line from x 2 to 1278 (y 84) but ends at x 944: push it to the right so it ends near x 1246 (margin-left: auto or justify-content: space-between; never centred with the left-end words); change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 1: the line drawn at (2,84) 1276x0 was coloured #e5e7eb (text colour); what was built there is ΔE 9 away: paint its text exactly #e5e7eb; action 3: the line drawn at (2,84) 1276x0 was coloured #e5e7eb (text colour); what was built there is ΔE 9 away: paint its text exactly #e5e7eb",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (40,42) 144x0",
+       "want": "#1f2937",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,84) 1276x0",
+       "want": "#e5e7eb",
+       "best": 8.678317977303694,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (1121,23) 119x38",
+       "want": "#0f766e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (2,84) 1276x0",
+       "want": "#e5e7eb",
+       "best": 8.678317977303694,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (108,177) 213x74",
+       "want": "#ccfbf1",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (563,178) 214x73",
+       "want": "#ccfbf1",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (335,257) 213x153 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (335,257) 213x153",
+       "want": "#fde68a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (792,417) 212x74",
+       "want": "#fecdd3",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (563,497) 213x114",
+       "want": "#e0e7ff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1019,577) 213x153 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1019,577) 213x153",
+       "want": "#ccfbf1",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 39789,
+   "cacheRead": 411135,
+   "output": 22606
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 62395,
+    "output": 22606,
+    "cacheRead": 411135,
+    "toolCalls": 14,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Glob",
+     "Write src/App.tsx",
+     "Read src/App.tsx",
+     "Grep",
+     "Glob",
+     "Glob",
+     "Grep",
+     "Write src/App.tsx"
+    ],
+    "ms": 235022
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 0,
+    "tools": [],
+    "ms": 150018,
+    "stalled": "the agent made no progress for 150 s"
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": "the agent made no progress for 150 s",
+  "buildStalled": null
+ }
+]

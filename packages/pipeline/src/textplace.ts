@@ -16,6 +16,7 @@
  *    no spot), and when its words are built on the page they are checked to sit
  *    near that height. Zero tokens.
  */
+import type { OpenRows } from './openrows.js'
 import { listNote, type BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
@@ -316,7 +317,7 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
 }
 
 /** n29: a note typed in empty space, nothing drawn near it. */
-export interface PlacedNote { text: string; x: number; y: number }
+export interface PlacedNote { text: string; x: number; y: number; openRows?: OpenRows }
 
 /** n145: a list starts this far under the spot its heading was typed at. */
 export const LIST_UNDER_HEADING_PX = 40
@@ -355,7 +356,9 @@ const pageSide = (x: number, w: number): Side => (x < w / 3 ? 'left' : x > (w * 
  * date typed at the top right, with no mark near, was a whole-sketch note and was built
  * under the city name; "Lisbon", typed above the sun, bound to the sun and sat inside it.
  */
-export function placedBrief(notes: PlacedNote[] | undefined, viewport: { w: number; h: number }): string {
+export function placedBrief(all: PlacedNote[] | undefined, viewport: { w: number; h: number }): string {
+  // n158: an open rows note is told by its own brief (openrows.ts)
+  const notes = all?.filter((n) => !n.openRows)
   if (!notes?.length) return ''
   const lines = notes.map((n) => {
     const side = pageSide(n.x, viewport.w)
@@ -367,7 +370,8 @@ export function placedBrief(notes: PlacedNote[] | undefined, viewport: { w: numb
 }
 
 /** Placed copy is built within reach of where it was typed. Notes whose words are not on the page are not judged. */
-export function verifyPlaced(notes: PlacedNote[] | undefined, after: Snap): PlaceVerdict {
+export function verifyPlaced(all: PlacedNote[] | undefined, after: Snap): PlaceVerdict {
+  const notes = all?.filter((n) => !n.openRows)
   if (!notes?.length) return { satisfied: true, unverifiable: true, reason: 'no placed notes' }
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const faults: string[] = []

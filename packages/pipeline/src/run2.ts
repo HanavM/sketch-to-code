@@ -83,6 +83,7 @@ import { topBandsBrief, verifyTopBands } from './topbands.js'
 import { panelFootBrief, verifyPanelFeet } from './panelfoot.js'
 import { sideListBrief, sideListsOf, verifySideLists } from './sidelist.js'
 import { cardRowsBrief, cardRowsOf, verifyCardRows } from './cardrows.js'
+import { openRowsBrief, verifyOpenRows } from './openrows.js'
 import { titleCapBrief, titleCaps, verifyTitleCaps } from './titlecap.js'
 import { pairRowsBrief, verifyPairRows } from './pairrows.js'
 import { drawnRingBrief, ringStrokeIds, verifyDrawnRings } from './drawnring.js'
@@ -705,6 +706,7 @@ export async function runV2(
     lineEndsBrief(interp.actions) +
     linkLineBrief(interp.actions) +
     placedBrief(interp.placedNotes, input.snapshot.viewport) +
+    openRowsBrief(interp.placedNotes) +
     fixBrief(interp.actions, input.snapshot) +
     earlierNotesBrief(earlier) +
     `ACTIONS:\n${JSON.stringify(pending.map(({ a, i }) => ({ action: i, ...a })), null, 2)}\n\n` +
@@ -1609,7 +1611,7 @@ export function verifyActions(
   // n73: every note's text, once: typed times shown as typed, directions and look words never printed
   const typedNotes = [...new Set([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text), ...allMarks.flatMap((m) => [...(m.words ? [m.words] : []), ...(m.ends ?? []).map((e) => e.text)])])]
   for (const [kind, v] of [['areas', verifyAreaMarks(allMarks, after)], ['cards', verifyCards(allMarks, after)], ['edges', verifyEdges(allMarks, after)], ['words', verifyAreaWords(allMarks, after)], ['bands', verifyBands(allMarks, after)], ['solids', verifySolids(allMarks, after)], ['tilts', verifyTilts(allMarks, after)], ['tilt-words', verifyTiltWords(actions.filter((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen), after)], ['outlines', verifyOutlines(allMarks, after)], ['each', verifyEach(allMarks, after)], ['glyphs', verifyGlyphs(allMarks, after)],
-    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['rule-labels', verifyRuleLabels(allMarks, after)], ['typed-spot', verifyPlaced(typedSpots, after)],
+    ['outlined', verifyOutlined(allMarks, after)], ['readable', verifyReadable(after, { skip: namedColourText(actions, looseNotes) })], ['clear', verifyTextClearOfFields(before, after)], ['placed', verifyTextPlace(allMarks, after, after.viewport, strokeDividers(depiction?.strokes))], ['rule-labels', verifyRuleLabels(allMarks, after)], ['typed-spot', verifyPlaced(typedSpots, after)], ['open-rows', verifyOpenRows(typedSpots, after)],
     ['all-text', ((all) => ((own, ink) => verifyAllText(allTextColour(all), after, (n) => own(n) || ink(n)))(ownColourText(allTextColour(all), all), onInkText(inkTextOf(actions, allTextColour(all)))))([...looseNotes, ...actions.flatMap((a) => a.notes ?? [])])],
     ['own-words', allMarks.length ? verifyOwnWords([...looseNotes, ...actions.flatMap((a) => a.notes ?? []), ...(typedSpots ?? []).map((t) => t.text)], allMarks, before, after, { samples: hasSampleRows(typedNotes) || hasFillerRows(typedNotes) }) : { satisfied: true, unverifiable: true, reason: 'no drawn marks' }],
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
