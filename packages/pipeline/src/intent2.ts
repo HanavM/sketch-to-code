@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, surfaceBehind } from './inkcolour.js'
+import { inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -849,6 +849,8 @@ export interface InkColour {
   frame?: true
   /** n129: paint 'border' from a ring drawn in a coloured pen and noted as an arc, track or progress: a hollow ring of this thickness, never a disc. */
   hollow?: { thickness: number; share: number | null; track: string | null }
+  /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
+  selected?: { tint: string; dot: boolean }
 }
 
 export interface GroundedInterpretation {
@@ -1266,6 +1268,9 @@ export function groundInterpretation(
         if (inkLightOutline(st.color, rb, surfaceBehind(st, [...ev.strokes.values()], ev.fills ?? []), own)) {
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true }); continue
         }
+        // n135: a strong-pen chip noted selected / active is a pale tint with a border in the pen colour, never a solid block
+        const sel = selectedChip(st.color, rb, own)
+        if (sel) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', selected: sel }); continue }
       }
       // n129: a ring in a coloured pen noted as an arc, track or progress is the ring's line, not a coloured-in disc
       if (!flat && sm?.shape === 'ellipse' && !sm.solid) {

@@ -13,7 +13,7 @@ import type { BBox } from '@s2c/ink'
 import { copyWords } from './linespan.js'
 
 interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string; carries?: string }
-interface NodeLike { id: string; tag: string; rect: BBox; text?: string; parent?: string | null; style?: { backgroundColor?: string; border?: string; borderBottom?: string; transform?: string } }
+interface NodeLike { id: string; tag: string; rect: BBox; text?: string; parent?: string | null; style?: { backgroundColor?: string; border?: string; borderBottom?: string; transform?: string; textDecoration?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 export interface RuleVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
 
@@ -79,11 +79,14 @@ export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap,
         if (kind && distToSeg(c, a, z) > 18) kind = null
       } else if (n.style?.borderBottom && distToSeg({ x: c.x, y: r.y + r.h }, a, z) <= 22) {
         kind = 'an underline (bottom border) under the words'
+      } else if (/underline/.test(n.style?.textDecoration ?? '') && distToSeg({ x: c.x, y: r.y + r.h }, a, z) <= 22) {
+        // n135: a heading on a drawn line came out as an underlined link (text-decoration), which this never saw
+        kind = 'an underline (text-decoration) under the words'
       }
       if (!kind) continue
       faults.push(`the line drawn from (${String(Math.round(a.x))},${String(Math.round(a.y))}) to (${String(Math.round(z.x))},${String(Math.round(z.y))}) stands for the words "${lineCopy(m)!}" ` +
         `but a <${n.tag}> ${String(Math.round(r.w))}px wide at (${String(Math.round(r.x))},${String(Math.round(r.y))}) paints ${kind} along it: ` +
-        `the drawn line only says where those words sit; remove that rule${kind.startsWith('an underline') ? ' (no bottom border)' : ''} and keep the words`)
+        `the drawn line only says where those words sit; remove that rule${kind.startsWith('an underline') ? ' (no bottom border, text-decoration none; a heading, not a link)' : ''} and keep the words`)
       break
     }
   }

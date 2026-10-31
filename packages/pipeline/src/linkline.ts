@@ -25,10 +25,21 @@ interface NodeLike { id: string; tag?: string; rect: BBox; text?: string; textBo
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 export interface Verdict { satisfied: boolean; unverifiable?: boolean; reason: string }
 
-const LINK = /(→|->|›|»|\b(see|view|read|learn|explore|browse|shop|discover|visit|watch|more|all projects|our work)\b)/i
+/**
+ * n135: words read as a link only when they are phrased as one: an arrow anywhere, a link verb FIRST ("See our
+ * projects", "Learn more", "Visit the shop"), or ending in "more" / "all" / "our work". Round 39 e4 (vet booking):
+ * the heading "Book a visit" on a dark green pen line matched "visit" and was built (and checked) underlined.
+ */
+const LINK = /(→|->|›|»|^\s*(see|view|read|learn|explore|browse|shop|discover|visit|watch|find out|meet)\b|\b(more|all projects|our work|see all|view all)\s*[.!]?\s*$)/i
 const r = Math.round
 const isLevel = (m: MarkLike) => m.shape === 'line' && !m.edge && !!m.from && !!m.to && Math.abs(m.from.y - m.to.y) <= 4
-const dark = (hex: string) => /^#(0[0-9a-f]|1[0-9a-f]){3}$/i.test(hex)
+// n135: a dark ink by its lightness (a #14532d forest green heading line is dark ink, not a link colour)
+const dark = (hex: string) => {
+  const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex)
+  if (!m) return false
+  const [r0, g0, b0] = [m[1]!, m[2]!, m[3]!].map((h) => parseInt(h, 16)) as [number, number, number]
+  return 0.299 * r0 + 0.587 * g0 + 0.114 * b0 < 72
+}
 const quote = (w: string) => `"${w.replace(/,.*$/, '').trim()}"`
 
 export interface LinkLine { strokeId: string; words: string; color: string; x0: number; x1: number; y: number; action: number }

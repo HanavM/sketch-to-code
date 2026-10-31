@@ -84,6 +84,14 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
           `or as a conic-gradient disc with an INNER DISC element on top in the surface colour leaving only the ${String(h.thickness)}px band showing. Words typed on the ring sit centred in its hole in dark or ink-coloured text, never white on the colour`)
         continue
       }
+      // n135: a selected chip: pale tint, pen-colour border, a small round mark if asked
+      if (c.paint === 'border' && c.selected) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in ${hex(c.color)} pen (no colour tapped) and noted as the selected / active one: a SELECTED CHIP exactly there, NEVER a solid ${hex(c.color)} block: ` +
+          `background ${hex(c.selected.tint)} (a pale tint of the pen colour), a 2px solid ${hex(c.color)} border, the same corner rounding as its look-alikes, its words dark or ${hex(c.color)} (never white)` +
+          `${c.selected.dot ? `; a small round mark (avatar / dot, about ${String(Math.max(12, Math.round(c.box.h * 0.6)))}px, a ${hex(c.color)} tint or a soft disc) sits inside it at the left, before the words` : ''}. ` +
+          `Its unselected look-alikes beside it keep their own drawn look`)
+        continue
+      }
       if (c.paint === 'border' && c.frame) {
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
         continue
@@ -277,6 +285,13 @@ export function verifyInkColours(
         checks.push({ what: `${what} (hollow ring)`, want: `ring ${String(c.hollow.thickness)}px, no ${hex(c.color)} fill`, best: null, ok: v.ok })
         if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} and noted as an arc / track / progress: a hollow ring about ${String(c.hollow.thickness)}px thick, its words in the hole; ${v.why}: ` +
           `build it as an SVG ring (circles with fill="none", stroke-width ${String(c.hollow.thickness)}) or put an inner disc in the surface colour on top so only a ${String(c.hollow.thickness)}px band shows; keep its size, place, colours and words`)
+        continue
+      }
+      // n135: a selected chip: pale, framed, not a solid block of the pen colour
+      if (c.paint === 'border' && c.selected) {
+        const v = selectedBuilt(c, after.nodes)
+        checks.push({ what: `${what} (selected chip)`, want: `${hex(c.selected.tint)} fill, ${hex(c.color)} border`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} pen with no tap and noted selected: a selected chip (background ${hex(c.selected.tint)}, 2px ${hex(c.color)} border${c.selected.dot ? ', a small round avatar / dot inside at the left' : ''}); ${v.why}: restyle that one block so, keep its words, size and place; change nothing else`)
         continue
       }
       // n78: a grey-pen frame: the block there has a border and is not filled with the pen's grey
@@ -617,5 +632,53 @@ export function penFrameBox(st: StrokeLike, strokes: readonly StrokeLike[], fill
   notes: readonly string[], box: { w: number; h: number }): boolean {
   if (!st.color || fills.some((f) => f.target === st.id)) return false
   if (inkGreyOutline(st.color, box) && !notes.some((n) => ASKS_FILL.test(n))) return true
+  // n135: a strong-pen chip noted selected is a box too (the Biscuit pill was traced inside a depicted pet picker)
+  if (selectedChip(st.color, box, notes)) return true
   return inkLightOutline(st.color, box, surfaceBehind(st, strokes, fills), notes)
+}
+
+/**
+ * n135: a chip or pill drawn in a STRONG coloured pen (not light, not near-black) with no tap, whose own note
+ * says it is the selected / active / current one, is a SELECTED CHIP: a pale tint of the pen colour inside, a
+ * border in the pen colour, never a solid block of it. Round 39 e4 (vet booking): "Biscuit selected, avatar" on a
+ * mid-green pen pill came out a solid green block in every build (n127-n134); the screenshot shows a pale green pill
+ * with a green border and a round avatar. A person taps when they want the solid fill (the same sketch tapped the
+ * Tue day card and the Confirm button, and those stay solid). Words like avatar / dot / icon / photo on it add a
+ * small round mark at its left, inside.
+ */
+export const SELECTED_WORD = /\b(selected|active|chosen|current|picked|checked)\b/i
+const DOT_WORD = /\b(avatar|dot|icon|photo|pic|picture|thumb|thumbnail)\b/i
+export function selectedChip(color: string | null | undefined, box: { w: number; h: number }, notes: readonly string[]): { tint: string; dot: boolean } | null {
+  if (!color || box.w < 24 || box.h < 14 || box.w > 360 || box.h > 96) return null
+  const p = parseCssColor(color)
+  if (!p) return null
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
+  // strong and coloured: not a light pen (n131 already outlines those), not a near-neutral dark ink
+  if (lum < 40 || lum >= 180 || max - min < 60) return null
+  if (!notes.some((n) => SELECTED_WORD.test(n))) return null
+  if (notes.some((n) => ASKS_FILL.test(n))) return null
+  const mix = (v: number) => Math.round(v * 0.14 + 255 * 0.86)
+  return { tint: hexOf({ r: mix(p.r), g: mix(p.g), b: mix(p.b) }), dot: notes.some((n) => DOT_WORD.test(n)) }
+}
+
+/** n135: the built chip there is pale (not the pen colour), framed, and holds a small round mark when one was asked. */
+export function selectedBuilt(c: Pick<InkColour, 'box' | 'color' | 'selected'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, pen = parseCssColor(c.color)
+  if (!pen || !c.selected) return { ok: true, why: '' }
+  const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const own = nodes.filter((n) => Math.abs(n.rect.x + n.rect.w / 2 - cx) <= Math.max(14, b.w * 0.25) && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= Math.max(12, b.h * 0.35) &&
+    n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.4 + 16 && n.rect.h >= b.h * 0.5 && n.rect.h <= b.h * 1.5 + 16)
+  if (!own.length) return { ok: false, why: 'nothing about that size was built there' }
+  const solid = own.filter((n) => painted(n, 'background').some((css) => { const g = parseCssColor(css); return !!g && alphaOf(css) >= 0.6 && deltaE(pen, g) <= 12 }))
+  if (solid.length) return { ok: false, why: `it was built as a solid ${hex(c.color)} block` }
+  if (!own.some((n) => hasFrame(n))) return { ok: false, why: 'it has no border' }
+  if (c.selected.dot) {
+    const host = own[0]!.rect
+    const dot = nodes.some((n) => n.rect.w >= 8 && n.rect.w <= host.h + 4 && Math.abs(n.rect.w - n.rect.h) <= 3 &&
+      n.rect.x >= host.x - 2 && n.rect.x + n.rect.w <= host.x + host.w * 0.5 && n.rect.y >= host.y - 2 && n.rect.y + n.rect.h <= host.y + host.h + 2 &&
+      (painted(n, 'background').some((css) => alphaOf(css) >= 0.3) || ['svg', 'img'].includes(n.tag)))
+    if (!dot) return { ok: false, why: 'no small round mark (avatar / dot) sits inside it at the left' }
+  }
+  return { ok: true, why: '' }
 }

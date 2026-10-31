@@ -17,7 +17,7 @@ describe('n134 a light pen box with no tap is a frame even inside a depicted gro
     const luna = rect('luna', 226, 170, 150, 64, '#bbf7d0')
     expect(penFrameBox(luna, [luna], [page, { target: 'luna', color: '#bbf7d0', dotId: 'd1' }], [], { w: 150, h: 64 })).toBe(false)
     const bis = rect('bis', 60, 170, 150, 64, '#16a34a')
-    expect(penFrameBox(bis, [bis], [page], ['Biscuit selected'], { w: 150, h: 64 })).toBe(false)
+    expect(penFrameBox(bis, [bis], [page], ['Biscuit'], { w: 150, h: 64 })).toBe(false)
     expect(penFrameBox(luna, [luna], [page], ['Luna, filled mint'], { w: 150, h: 64 })).toBe(false)
     const grey = rect('g', 60, 60, 200, 40, '#d1d5db')
     expect(penFrameBox(grey, [grey], [], ['solid grey bar'], { w: 200, h: 40 })).toBe(false)
