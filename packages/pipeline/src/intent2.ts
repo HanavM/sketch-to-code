@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { areaWordInk, holdsBoxes, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
+import { areaWordInk, holdsBoxes, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -852,6 +852,8 @@ export interface InkColour {
   frame?: true
   /** n129: paint 'border' from a ring drawn in a coloured pen and noted as an arc, track or progress: a hollow ring of this thickness, never a disc. */
   hollow?: { thickness: number; share: number | null; track: string | null }
+  /** n146: paint 'border' from a small ring drawn in dark ink with no tap (a map marker, a radio): round, a line this thick, hollow. */
+  ring?: { thickness: number }
   /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
   selected?: { tint: string; dot: boolean }
   /** n141: a frame drawn on a dark surface (this colour): transparent inside, never white or grey. */
@@ -1307,6 +1309,11 @@ export function groundInterpretation(
         const rb = sm.box
         const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
           (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        // n146: a small ring drawn in dark ink with no tap is an outlined ring (map marker, radio), never a dark dot
+        if (inkSmallRing(st.color, rb, own)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', ring: { thickness: Math.max(2, Math.min(5, Math.round((rb.w + rb.h) / 2 * 0.15))) } })
+          continue
+        }
         if (rb.w >= 60 && rb.h >= 60 && ringNoted(own)) {
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen',
             hollow: { thickness: ringThickness((rb.w + rb.h) / 2), share: ringShare(own), track: trackColour(own) } })

@@ -137,6 +137,14 @@ function holderOf(line: ShapeMark, boxes: ShapeMark[], viewport: { w: number; h:
   // n29: a drawn divider (an upright line across the line's height) is a column edge.
   // Round 31 e2: the title line sat at the left of the reading pane, right of the
   // divider; measured against the page it read as right-aligned and was built so.
+  // n146: a big drawn box beside the line (a photo left of a title) is a column edge too. Round 40 e2 recipe: the title
+  // line sat at the left of the column right of the photo; measured against the page it read as right-aligned.
+  for (const o of boxes) {
+    const ob = o.box
+    if (ob.w < 120 || ob.h < 80 || ob.y > b.y + 2 || ob.y + ob.h < b.y - 2) continue
+    if (ob.x + ob.w <= b.x - 8 && ob.x + ob.w > h.x && ob.x + ob.w < h.x + h.w) h = { x: ob.x + ob.w, y: h.y, w: h.x + h.w - (ob.x + ob.w), h: h.h }
+    else if (ob.x >= b.x + b.w + 8 && ob.x > h.x && ob.x < h.x + h.w) h = { x: h.x, y: h.y, w: ob.x - h.x, h: h.h }
+  }
   for (const v of dividers) {
     const vx = v.box.x + v.box.w / 2
     if (v.box.y > b.y + 2 || v.box.y + v.box.h < b.y - 2 || vx <= h.x || vx >= h.x + h.w) continue

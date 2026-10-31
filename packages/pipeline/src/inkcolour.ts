@@ -112,6 +112,11 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
         continue
       }
+      if (c.paint === 'border' && c.ring) {
+        lines.push(`- action ${String(i)}, the small ring drawn at ${at} in ${hex(c.color)} (no colour tapped): a HOLLOW ROUND marker (a map pin end, a radio, a status ring), about ${String(Math.round((c.box.w + c.box.h) / 2))}px across, centred where drawn: ` +
+          `border-radius 50%, a ${String(c.ring.thickness)}px ${hex(c.color)} border, its inside white (or the surface under it), NEVER filled ${hex(c.color)} and never a square`)
+        continue
+      }
       if (c.paint === 'border') {
         lines.push(`- action ${String(i)}, the small box drawn at ${at} in dark ink (no colour tapped): an OUTLINED small control (an arrow / pager button, a checkbox, an icon button), about the drawn size: a thin 1px border (light grey, or ${hex(c.color)} if it reads as a strong outline), white or transparent background, never a dark or solid fill; a chevron or symbol typed next to it (‹ ›, +, ×) sits inside it in dark text`)
         continue
@@ -353,6 +358,13 @@ export function verifyInkColours(
         if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in ${c.taught ? 'a dark pen with no tap (a box in the same pen was tapped, this one was not)' : 'a light pen with no tap'}: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
         continue
       }
+      // n146: a small dark ring with no tap: no solid pen-coloured disc there with nothing covering its middle
+      if (c.paint === 'border' && c.ring) {
+        const v = hollowBuilt(c, after.nodes)
+        checks.push({ what: `${what} (hollow small ring)`, want: `ring ${String(c.ring.thickness)}px, no ${hex(c.color)} fill`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a small ring drawn in dark ink with no tap: a hollow round marker; ${v.why}: give it border-radius 50%, a ${String(c.ring.thickness)}px ${hex(c.color)} border and a white inside; keep its size and place`)
+        continue
+      }
       // n92: an outlined control: something about the drawn size there with a border and no dark fill
       if (c.paint === 'border') {
         const own = after.nodes.filter((n) => centreIn(n, b, Math.max(10, pad)) && n.rect.w >= b.w * 0.5 && n.rect.w <= b.w * 2 + 16 && n.rect.h >= b.h * 0.5 && n.rect.h <= b.h * 2 + 16)
@@ -547,6 +559,18 @@ export function inkOutlineBox(color: string | null | undefined, box: { w: number
   const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
   const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
   return lum < 70 && max - min < 48
+}
+
+/**
+ * n146: a small ring (14 to 40px) drawn in dark, nearly neutral ink with no tap is an OUTLINED ring: a map marker, a radio,
+ * a status ring: round, a few px of the pen colour, white or the surface inside. Like n92's small dark box, a person who
+ * wants it solid taps it. Round 40 e3 (ride booking): the two route-end markers were built as solid dark dots; the
+ * target's are hollow. A note on it asking for a fill (dot, solid, filled, avatar, photo) keeps the fill.
+ */
+export function inkSmallRing(color: string | null | undefined, box: { w: number; h: number }, own: readonly string[] = []): boolean {
+  if (!color || box.w > 40 || box.h > 40 || box.w < 14 || box.h < 14) return false
+  if (own.some((t) => /\b(dot|solid|filled|fill|avatar|photo|picture|image|bullet)\b/i.test(t))) return false
+  return inkOutlineBox(color, box)
 }
 
 /**
