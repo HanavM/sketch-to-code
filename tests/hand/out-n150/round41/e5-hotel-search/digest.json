@@ -1,0 +1,543 @@
+{
+  "round": 41,
+  "id": "e5-hotel-search",
+  "version": 3,
+  "stopped": null,
+  "likeness": 77,
+  "colour": 0.9633086851353803,
+  "structure": 0.8111177928645267,
+  "layout": 0.8198673858466372,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 2.7,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 7,
+      "box": 6,
+      "line": 3
+    },
+    "inkPx": 9961
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 76,
+  "notes": 9,
+  "longestNote": 16,
+  "noteTexts": [
+    "staybird bold",
+    "Find a place to stay, huge bold",
+    "Where Lisbon | Check in Apr 4 | Check out Apr 7 | Guests 2 adults",
+    "Search",
+    "Popular this week bold",
+    "Casa Azul / Alfama · 4.8 ★ / $120 / night",
+    "Rio Loft / Cais do Sodré · 4.6 ★ / $95 / night",
+    "Jardim House / Príncipe Real · 4.9 ★ / $160 / night",
+    "all cards: text under the colour box, not on it"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 347,
+    "firstReadingS": 88,
+    "readS": [
+      41,
+      19
+    ],
+    "buildS": [
+      189,
+      37
+    ],
+    "sketchingS": 60
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 69551,
+    "cacheRead": 352582,
+    "output": 24696,
+    "billed": 94247
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 464
+    },
+    {
+      "op": "pen",
+      "color": "#0c3d5e",
+      "at": 847
+    },
+    {
+      "op": "stroke",
+      "at": 10153
+    },
+    {
+      "op": "stroke",
+      "at": 10630
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 11014
+    },
+    {
+      "op": "stroke",
+      "at": 11730
+    },
+    {
+      "op": "note",
+      "at": 12503
+    },
+    {
+      "op": "stroke",
+      "at": 14023
+    },
+    {
+      "op": "note",
+      "at": 14955
+    },
+    {
+      "op": "stroke",
+      "at": 22258
+    },
+    {
+      "op": "stroke",
+      "at": 22754
+    },
+    {
+      "op": "note",
+      "at": 23818
+    },
+    {
+      "op": "pen",
+      "color": "#f43f5e",
+      "at": 24197
+    },
+    {
+      "op": "stroke",
+      "at": 25820
+    },
+    {
+      "op": "stroke",
+      "at": 26299
+    },
+    {
+      "op": "note",
+      "at": 26970
+    },
+    {
+      "op": "pen",
+      "color": "#1f2937",
+      "at": 27344
+    },
+    {
+      "op": "stroke",
+      "at": 28355
+    },
+    {
+      "op": "note",
+      "at": 29106
+    },
+    {
+      "op": "pen",
+      "color": "#a0c4d8",
+      "at": 29483
+    },
+    {
+      "op": "stroke",
+      "at": 33036
+    },
+    {
+      "op": "stroke",
+      "at": 33528
+    },
+    {
+      "op": "pen",
+      "color": "#e8c39f",
+      "at": 33899
+    },
+    {
+      "op": "stroke",
+      "at": 37457
+    },
+    {
+      "op": "stroke",
+      "at": 37959
+    },
+    {
+      "op": "pen",
+      "color": "#b8d8ae",
+      "at": 38335
+    },
+    {
+      "op": "stroke",
+      "at": 41892
+    },
+    {
+      "op": "stroke",
+      "at": 42385
+    },
+    {
+      "op": "note",
+      "at": 43159
+    },
+    {
+      "op": "note",
+      "at": 43927
+    },
+    {
+      "op": "note",
+      "at": 44758
+    },
+    {
+      "op": "run",
+      "at": 46860
+    },
+    {
+      "op": "note",
+      "at": 283439
+    },
+    {
+      "op": "run",
+      "at": 283539
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          850
+        ]
+      ],
+      "n": 1,
+      "at": 464
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          1278,
+          2
+        ],
+        [
+          1278,
+          300
+        ],
+        [
+          2,
+          300
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n": 526,
+      "at": 10153
+    },
+    {
+      "way": [
+        [
+          1200,
+          100
+        ]
+      ],
+      "n": 1,
+      "at": 10630
+    },
+    {
+      "way": [
+        [
+          80,
+          52
+        ],
+        [
+          165,
+          52
+        ]
+      ],
+      "n": 15,
+      "at": 11730
+    },
+    {
+      "way": [
+        [
+          80,
+          138
+        ],
+        [
+          451,
+          138
+        ]
+      ],
+      "n": 63,
+      "at": 14023
+    },
+    {
+      "way": [
+        [
+          80,
+          250
+        ],
+        [
+          1200,
+          250
+        ],
+        [
+          1200,
+          350
+        ],
+        [
+          80,
+          350
+        ],
+        [
+          80,
+          252
+        ]
+      ],
+      "n": 408,
+      "at": 22258
+    },
+    {
+      "way": [
+        [
+          1000,
+          340
+        ]
+      ],
+      "n": 1,
+      "at": 22754
+    },
+    {
+      "way": [
+        [
+          1026,
+          272
+        ],
+        [
+          1176,
+          272
+        ],
+        [
+          1176,
+          328
+        ],
+        [
+          1026,
+          328
+        ],
+        [
+          1026,
+          274
+        ]
+      ],
+      "n": 69,
+      "at": 25820
+    },
+    {
+      "way": [
+        [
+          1166,
+          320
+        ]
+      ],
+      "n": 1,
+      "at": 26299
+    },
+    {
+      "way": [
+        [
+          80,
+          402
+        ],
+        [
+          267,
+          402
+        ]
+      ],
+      "n": 32,
+      "at": 28355
+    },
+    {
+      "way": [
+        [
+          80,
+          436
+        ],
+        [
+          435,
+          436
+        ],
+        [
+          435,
+          636
+        ],
+        [
+          80,
+          636
+        ],
+        [
+          80,
+          438
+        ]
+      ],
+      "n": 185,
+      "at": 33036
+    },
+    {
+      "way": [
+        [
+          410,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 33528
+    },
+    {
+      "way": [
+        [
+          463,
+          436
+        ],
+        [
+          818,
+          436
+        ],
+        [
+          818,
+          636
+        ],
+        [
+          463,
+          636
+        ],
+        [
+          463,
+          438
+        ]
+      ],
+      "n": 185,
+      "at": 37457
+    },
+    {
+      "way": [
+        [
+          793,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 37959
+    },
+    {
+      "way": [
+        [
+          845,
+          436
+        ],
+        [
+          1200,
+          436
+        ],
+        [
+          1200,
+          636
+        ],
+        [
+          845,
+          636
+        ],
+        [
+          845,
+          438
+        ]
+      ],
+      "n": 185,
+      "at": 41892
+    },
+    {
+      "way": [
+        [
+          1175,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 42385
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "staybird bold",
+      "whole": false,
+      "x": 122,
+      "y": 52,
+      "at": 12503
+    },
+    {
+      "text": "Find a place to stay, huge bold",
+      "whole": false,
+      "x": 265,
+      "y": 138,
+      "at": 14955
+    },
+    {
+      "text": "Where Lisbon | Check in Apr 4 | Check out Apr 7 | Guests 2 adults",
+      "whole": false,
+      "x": 500,
+      "y": 300,
+      "at": 23818
+    },
+    {
+      "text": "Search",
+      "whole": false,
+      "x": 1101,
+      "y": 300,
+      "at": 26970
+    },
+    {
+      "text": "Popular this week bold",
+      "whole": false,
+      "x": 173,
+      "y": 402,
+      "at": 29106
+    },
+    {
+      "text": "Casa Azul / Alfama · 4.8 ★ / $120 / night",
+      "whole": false,
+      "x": 160,
+      "y": 685,
+      "at": 43159
+    },
+    {
+      "text": "Rio Loft / Cais do Sodré · 4.6 ★ / $95 / night",
+      "whole": false,
+      "x": 543,
+      "y": 685,
+      "at": 43927
+    },
+    {
+      "text": "Jardim House / Príncipe Real · 4.9 ★ / $160 / night",
+      "whole": false,
+      "x": 925,
+      "y": 685,
+      "at": 44758
+    },
+    {
+      "text": "all cards: text under the colour box, not on it",
+      "whole": false,
+      "x": 640,
+      "y": 690,
+      "at": 283439
+    }
+  ]
+}
