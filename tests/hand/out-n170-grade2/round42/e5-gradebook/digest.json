@@ -1,0 +1,432 @@
+{
+  "round": 42,
+  "id": "e5-gradebook",
+  "version": 3,
+  "stopped": null,
+  "likeness": 69.3,
+  "colour": 0.9919637214508795,
+  "structure": 0.8450266493850705,
+  "layout": 0.5530482537268037,
+  "strokes": {
+    "count": 11,
+    "pointsPerStroke": 3.2,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 3,
+      "dot": 3,
+      "line": 4,
+      "circle": 1
+    },
+    "inkPx": 5415
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 46,
+  "notes": 7,
+  "longestNote": 23,
+  "noteTexts": [
+    "Classbook white bold",
+    "Overview, Grades picked, Attendance, Messages",
+    "Year 9 Science big bold",
+    "28 students · Term 2",
+    "Export",
+    "tabs: Grades, Assignments, Notes",
+    "table: Student, Lab 1, Lab 2, Quiz, Project, Average; 7 made-up students, scores 60-98; average bold, green cell if high, red if low"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 440,
+    "firstReadingS": 82,
+    "readS": [
+      53
+    ],
+    "buildS": [
+      356
+    ],
+    "sketchingS": 30
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 84980,
+    "cacheRead": 861142,
+    "output": 35539,
+    "billed": 120519
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#24445e",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 6660
+    },
+    {
+      "op": "stroke",
+      "at": 7123
+    },
+    {
+      "op": "pen",
+      "color": "#1f2a37",
+      "at": 7495
+    },
+    {
+      "op": "stroke",
+      "at": 8555
+    },
+    {
+      "op": "pen",
+      "color": "#24445e",
+      "at": 8921
+    },
+    {
+      "op": "stroke",
+      "at": 10621
+    },
+    {
+      "op": "pen",
+      "color": "#e2e6ea",
+      "at": 10982
+    },
+    {
+      "op": "stroke",
+      "at": 14172
+    },
+    {
+      "op": "pen",
+      "color": "#24445e",
+      "at": 14539
+    },
+    {
+      "op": "stroke",
+      "at": 15155
+    },
+    {
+      "op": "pen",
+      "color": "#e2e6ea",
+      "at": 15518
+    },
+    {
+      "op": "stroke",
+      "at": 18704
+    },
+    {
+      "op": "pen",
+      "color": "#e8f5ec",
+      "at": 19069
+    },
+    {
+      "op": "stroke",
+      "at": 20772
+    },
+    {
+      "op": "stroke",
+      "at": 21240
+    },
+    {
+      "op": "pen",
+      "color": "#d4dbe2",
+      "at": 21604
+    },
+    {
+      "op": "stroke",
+      "at": 22338
+    },
+    {
+      "op": "stroke",
+      "at": 22806
+    },
+    {
+      "op": "note",
+      "at": 23568
+    },
+    {
+      "op": "note",
+      "at": 24377
+    },
+    {
+      "op": "note",
+      "at": 25094
+    },
+    {
+      "op": "note",
+      "at": 25769
+    },
+    {
+      "op": "note",
+      "at": 26421
+    },
+    {
+      "op": "note",
+      "at": 27184
+    },
+    {
+      "op": "note",
+      "at": 28070
+    },
+    {
+      "op": "run",
+      "at": 28188
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          220,
+          2
+        ],
+        [
+          220,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n": 371,
+      "at": 6660
+    },
+    {
+      "way": [
+        [
+          110,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 7123
+    },
+    {
+      "way": [
+        [
+          260,
+          57
+        ],
+        [
+          470,
+          57
+        ]
+      ],
+      "n": 36,
+      "at": 8555
+    },
+    {
+      "way": [
+        [
+          1060,
+          40
+        ],
+        [
+          1240,
+          40
+        ],
+        [
+          1240,
+          84
+        ],
+        [
+          1060,
+          84
+        ],
+        [
+          1060,
+          42
+        ]
+      ],
+      "n": 75,
+      "at": 10621
+    },
+    {
+      "way": [
+        [
+          260,
+          170
+        ],
+        [
+          1240,
+          170
+        ]
+      ],
+      "n": 164,
+      "at": 14172
+    },
+    {
+      "way": [
+        [
+          260,
+          167
+        ],
+        [
+          312,
+          167
+        ]
+      ],
+      "n": 10,
+      "at": 15155
+    },
+    {
+      "way": [
+        [
+          260,
+          242
+        ],
+        [
+          1240,
+          242
+        ]
+      ],
+      "n": 164,
+      "at": 18704
+    },
+    {
+      "way": [
+        [
+          1074,
+          243
+        ],
+        [
+          1240,
+          243
+        ],
+        [
+          1240,
+          299
+        ],
+        [
+          1074,
+          299
+        ],
+        [
+          1074,
+          245
+        ]
+      ],
+      "n": 75,
+      "at": 20772
+    },
+    {
+      "way": [
+        [
+          1225,
+          290
+        ]
+      ],
+      "n": 1,
+      "at": 21240
+    },
+    {
+      "way": [
+        [
+          296,
+          271
+        ],
+        [
+          292,
+          262
+        ],
+        [
+          283,
+          258
+        ],
+        [
+          274,
+          262
+        ],
+        [
+          270,
+          271
+        ],
+        [
+          274,
+          280
+        ],
+        [
+          283,
+          284
+        ],
+        [
+          292,
+          280
+        ],
+        [
+          296,
+          271
+        ]
+      ],
+      "n": 17,
+      "at": 22338
+    },
+    {
+      "way": [
+        [
+          283,
+          271
+        ]
+      ],
+      "n": 1,
+      "at": 22806
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Classbook white bold",
+      "whole": false,
+      "x": 70,
+      "y": 40,
+      "at": 23568
+    },
+    {
+      "text": "Overview, Grades picked, Attendance, Messages",
+      "whole": false,
+      "x": 110,
+      "y": 160,
+      "at": 24377
+    },
+    {
+      "text": "Year 9 Science big bold",
+      "whole": false,
+      "x": 365,
+      "y": 57,
+      "at": 25094
+    },
+    {
+      "text": "28 students · Term 2",
+      "whole": false,
+      "x": 330,
+      "y": 95,
+      "at": 25769
+    },
+    {
+      "text": "Export",
+      "whole": false,
+      "x": 1150,
+      "y": 62,
+      "at": 26421
+    },
+    {
+      "text": "tabs: Grades, Assignments, Notes",
+      "whole": false,
+      "x": 380,
+      "y": 139,
+      "at": 27184
+    },
+    {
+      "text": "table: Student, Lab 1, Lab 2, Quiz, Project, Average; 7 made-up students, scores 60-98; average bold, green cell if high, red if low",
+      "whole": false,
+      "x": 700,
+      "y": 440,
+      "at": 28070
+    }
+  ]
+}
