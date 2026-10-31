@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Lines drawn under a paragraph are now its words, not brown bars (honey page 88 and 80, was 78 and 63); next, ten fresh pages for round 40 to test everything since round 39."
+now: "Ten fresh pages for round 40 are ready (a tea house, a music festival, a music player, a ride booking and more); next, sketching the five landing pages by hand."
 round: 39
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38, 39 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: n137-run, until: "2026-10-31T06:33Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -250,7 +250,9 @@ nodes:
   - {id: n128, parent: n2, kind: step, title: "A closed stroke with 5-8 clear corners is that polygon (hexagon, not an oval), and a closed shape in a coloured pen noted solid is filled in its pen colour (not black); re-sketch honey co.", status: done, branch: try/n3-ink-style, 
      result: "Hexagons read as hexagons, filled in pen colour 2 of 2 (was 0 of 2); honey 77.5, 62.9."}
   - {id: n136, parent: n2, kind: step, title: "Lines drawn under a paragraph's typed words are where its words go, never brown bars as well, and a left column keeps its drawn tops; re-sketch honey co.", status: done, branch: try/n3-ink-style, result: "Sentence-noted lines are copy, not bars: no bars 2 of 2 (was 0 of 2); honey 88.0, 80.3."}
-  - {id: n137, parent: n1, kind: step, priority: next, title: "Write round 40: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch them in later steps to test every feature since round 39", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n137, parent: n1, kind: step, priority: next, title: "Write round 40: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch them in later steps to test every feature since round 39", status: done, branch: try/n3-ink-style, result: "Ten fresh pages written and screenshotted (tea, festival, cookies, observatory, venn; player, recipe, ride, support, wizard); six harder."}
+  - {id: n138, parent: n1, kind: step, priority: next, title: "Sketch round 40 landing pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n139, parent: n1, kind: step, title: "Sketch round 40 app pages e1-e5 by hand from screenshots only, record every number, roll up round 40", status: open, branch: try/n3-ink-style, result: null}
   - {id: n114, parent: n2, kind: step, title: "A lone ring drawn at the top left of a typed list is row 1's own avatar (moved into the row, not an extra mark), and a note typed on the sidebar never binds to the list beside it; re-sketch contacts", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A paragraph drawn as two brown pen lines with its sentence typed between them was built as the words plus two brown bars", found_on: "r39 c1 honey (n128)", built: "n136: a level line a sentence note sits on or between (and its stacked lines) is that paragraph's line, never a coloured bar", helped: "no bars 2 of 2 (was 0 of 2); honey 77.5, 62.9 to 88.0, 80.3; build 286-386 s to 141-181 s"}
