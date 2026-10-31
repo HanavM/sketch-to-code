@@ -180,6 +180,31 @@ export function fixBrief(actions: readonly GroundedAction[], before: DomSnapshot
 /** A note that asks for words to go away or be rewritten: emptied copy is then what was asked. */
 const DROPS_COPY = /\b(?:remove|delete|drop|hide|take out|cut|clear|empty|no (?:text|words|copy|label|caption|title|subtitle|preview|name|time)s?|without (?:the )?(?:text|words|copy|label|caption|title|subtitle|preview|name|time)s?)\b/i
 
+/** n165: element kinds a note asks to go: "no button", "not a badge", "remove the banner", "no buttons here". */
+const KINDS: Record<string, readonly string[]> = {
+  button: ['button'], buttons: ['button'], badge: [], badges: [], chip: [], chips: [], tag: [], tags: [], banner: [], toolbar: [],
+  link: ['a'], links: ['a'], icon: ['svg', 'i'], icons: ['svg', 'i'], tab: [], tabs: [], pill: [], pills: [], menu: ['nav'], dropdown: ['select'],
+}
+const DROPS_KIND = /\b(?:no|not an?|remove(?: the)?|delete(?: the)?|drop(?: the)?|without(?: the| a)?|get rid of(?: the)?)\s+(button|badge|chip|tag|banner|toolbar|link|icon|tab|pill|menu|dropdown)s?\b/gi
+
+export function dropsKinds(said: string): string[] {
+  const out = new Set<string>()
+  for (const m of said.matchAll(DROPS_KIND)) out.add(m[1]!.toLowerCase())
+  return [...out]
+}
+
+/** The node, or one of its first four ancestors, is that kind of element (by tag, or by a class naming it). */
+function isKind(n: DomNode, byId: Map<string, DomNode>, kinds: readonly string[]): boolean {
+  let x: DomNode | undefined = n
+  for (let i = 0; x && i < 5; i++, x = x.parent ? byId.get(x.parent) : undefined) {
+    for (const k of kinds) {
+      if ((KINDS[k] ?? []).includes(x.tag.toLowerCase())) return true
+      if (x.classes.some((c) => c.toLowerCase().includes(k))) return true
+    }
+  }
+  return false
+}
+
 /** Own copy worth guarding: visible text with a source stamp and some letters in it. */
 function copyNodes(snap: DomSnapshot): Array<{ key: string; node: DomNode; box: Box }> {
   const out: Array<{ key: string; node: DomNode; box: Box }> = []
@@ -207,6 +232,10 @@ export interface CopiedCopy { text: string; was: number; now: number }
 export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): LostCopy[] {
   const said = actions.flatMap((a) => [...(a.notes ?? [])]).join(' ')
   if (DROPS_COPY.test(said)) return []
+  // n165: a note that asks for a kind of element to go ("no button: ...") is answered by emptying it
+  const gone = dropsKinds(said)
+  const byId = new Map(before.nodes.map((n) => [n.id, n]))
+  const targets = actions.flatMap((a) => (a.targets ?? []).map((t) => t.rect)).filter(Boolean) as Box[]
   const now = copyNodes(after)
   const all = norm(now.map((t) => t.key).join(' \u0001 '))
   const out: LostCopy[] = []
@@ -218,6 +247,7 @@ export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot
     // something else now reads where it sat: rewritten, not emptied
     const area = Math.max(1, t.box.w * t.box.h)
     if (now.some((u) => inter(u.box, t.box) / Math.min(area, Math.max(1, u.box.w * u.box.h)) >= 0.5)) continue
+    if (gone.length && (isKind(t.node, byId, gone) || targets.some((b) => inter(b, t.box) >= 0.5 * area))) continue
     out.push({ text: t.key })
   }
   return out.slice(0, 6)

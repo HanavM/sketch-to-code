@@ -332,6 +332,7 @@ import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
 import { markSideLists } from './sidelist.js'
 import { markCardRows } from './cardrows.js'
 import { alignListHeadings, markOpenRows } from './openrows.js'
+import { markTableRows } from './tablerows.js'
 import { markRuleLabels, paleOn } from './ruleline.js'
 import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
@@ -889,7 +890,7 @@ export interface GroundedInterpretation {
   /** Typed notes that matched no single action — they apply to the run. */
   runNotes?: string[]
   /** n29: run notes typed in empty space, with the spot they were typed at (page px). */
-  placedNotes?: Array<{ text: string; x: number; y: number; openRows?: import('./openrows.js').OpenRows; leftAt?: number }>
+  placedNotes?: Array<{ text: string; x: number; y: number; openRows?: import('./openrows.js').OpenRows; leftAt?: number; table?: import('./tablerows.js').TableRows }>
   /**
    * Typed notes that describe the look of the WHOLE page ("bright yellow page",
    * "near-black page with a faint grid"), wherever they were typed. A person
@@ -1439,7 +1440,7 @@ export function groundInterpretation(
   const page = pageFill(ev.fills ?? [])
   if (page) dropPageInk(actions, page.colors)
   // n168: a short heading typed just above an open list starts at the list's left edge
-  const placedNotes = alignListHeadings(markOpenRows(listUnderHeading(ev.notes
+  const placedNotes0 = alignListHeadings(markOpenRows(listUnderHeading(ev.notes
     .filter((n) => n.placed && n.at && !attached.has(n.id) && !isPageLookNote(n.text))
     .map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })),
   // n145: a list note under its heading starts right under it (every typed note is a possible heading)
@@ -1448,6 +1449,9 @@ export function groundInterpretation(
   // n158: a rows note in open space takes the width of the field drawn above it, starting under the last thing drawn
   [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
   ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport.w))
+  // n165: a table note typed under a drawn header rule, with row 1's cells drawn hanging under it, is placed by them
+  const placedNotes = markTableRows(placedNotes0,
+    [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }))
 
   // n167: a small ring drawn in a pen with no tap that leads a list is a HOLLOW ring on every row (round 42 e1: the
   // purple ring was told "filled with" its pen and every row got a solid disc)

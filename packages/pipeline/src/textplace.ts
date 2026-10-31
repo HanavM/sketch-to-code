@@ -317,7 +317,7 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
 }
 
 /** n29: a note typed in empty space, nothing drawn near it. */
-export interface PlacedNote { text: string; x: number; y: number; openRows?: OpenRows; leftAt?: number }
+export interface PlacedNote { text: string; x: number; y: number; openRows?: OpenRows; leftAt?: number; table?: import('./tablerows.js').TableRows }
 
 /** n145: a list starts this far under the spot its heading was typed at. */
 export const LIST_UNDER_HEADING_PX = 40
@@ -358,7 +358,7 @@ const pageSide = (x: number, w: number): Side => (x < w / 3 ? 'left' : x > (w * 
  */
 export function placedBrief(all: PlacedNote[] | undefined, viewport: { w: number; h: number }): string {
   // n158: an open rows note is told by its own brief (openrows.ts)
-  const notes = all?.filter((n) => !n.openRows)
+  const notes = all?.filter((n) => !n.openRows && !n.table)
   if (!notes?.length) return ''
   const lines = notes.map((n) => {
     // n168: a heading typed just above a list starts at the list's left edge
@@ -376,7 +376,7 @@ export function placedBrief(all: PlacedNote[] | undefined, viewport: { w: number
 
 /** Placed copy is built within reach of where it was typed. Notes whose words are not on the page are not judged. */
 export function verifyPlaced(all: PlacedNote[] | undefined, after: Snap): PlaceVerdict {
-  const notes = all?.filter((n) => !n.openRows)
+  const notes = all?.filter((n) => !n.openRows && !n.table)
   if (!notes?.length) return { satisfied: true, unverifiable: true, reason: 'no placed notes' }
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const faults: string[] = []
