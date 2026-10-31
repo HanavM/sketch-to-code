@@ -1,0 +1,819 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "612ebd0f7caeaf05515e322b42a9abad6b6d3e62",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/BerrySugar.tsx",
+   "src/components/ChocolateChip.tsx",
+   "src/components/DoubleChocolate.tsx"
+  ],
+  "reading": "The sketch is a bakery landing section: a big bold headline \"Crumb Cookie Co.\" with a tagline below it, three round cookie icons (each with chip dots, drawn in distinct colours) captioned with product names and prices, and a pill-shaped \"Order a box\" button underneath, all on a soft pink page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Crumb Cookie Co.\" at (383,114) 515x72 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:9:9",
+      "rect": {
+       "x": 382.734375,
+       "y": 114,
+       "w": 514.515625,
+       "h": 72
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#5c2333 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Crumb Cookie Co.\" at (383,114) 515x72 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:9:9",
+      "rect": {
+       "x": 382.734375,
+       "y": 114,
+       "w": 514.515625,
+       "h": 72
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#a8445c is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (150,291) 260x323 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:23:11",
+      "rect": {
+       "x": 150,
+       "y": 291,
+       "w": 260,
+       "h": 323
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/App.tsx:25:15 at (150,291) 260x259 sits on the drawn shape",
+     "claimed": "e9"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 150,
+        "y": 290,
+        "w": 260,
+        "h": 259
+       },
+       "built": {
+        "x": 150,
+        "y": 291,
+        "w": 260,
+        "h": 259
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#5c2333 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 2,
+    "score": 0.6965257934056125,
+    "massSimilarity": 0.7093225620080178,
+    "flaws": [
+     "traced"
+    ],
+    "notes": [
+     "the output traces the ink (5.32 direction changes per unit length; a rebuilt form sits near 2.50 or below) — redraw it with smooth continuous curves instead of emitting the fitted stroke paths"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Classic chip, £2.50\" at (208,593) 144x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:31:13",
+      "rect": {
+       "x": 207.953125,
+       "y": 594,
+       "w": 144.078125,
+       "h": 19
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#5c2333 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (150,291) 260x259 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:24:13",
+      "rect": {
+       "x": 150,
+       "y": 291,
+       "w": 260,
+       "h": 259
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 510,
+        "y": 290,
+        "w": 260,
+        "h": 259
+       },
+       "built": {
+        "x": 510,
+        "y": 291,
+        "w": 260,
+        "h": 259
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 11.5,
+    "reason": "#f3e4cf is on the page (ΔE 11.5)"
+   },
+   {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.6954821132131932,
+    "massSimilarity": 0.7078315903045618,
+    "flaws": [
+     "traced"
+    ],
+    "notes": [
+     "the output traces the ink (4.41 direction changes per unit length; a rebuilt form sits near 2.50 or below) — redraw it with smooth continuous curves instead of emitting the fitted stroke paths"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Double dark, £2.80\" at (568,593) 145x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:44:13",
+      "rect": {
+       "x": 567.578125,
+       "y": 594,
+       "w": 144.828125,
+       "h": 19
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#5c2333 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (150,291) 260x259 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:24:13",
+      "rect": {
+       "x": 150,
+       "y": 291,
+       "w": 260,
+       "h": 259
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 870,
+        "y": 290,
+        "w": 260,
+        "h": 260
+       },
+       "built": {
+        "x": 870,
+        "y": 291,
+        "w": 260,
+        "h": 260
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d64a92 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 6,
+    "score": 0.7264817673727403,
+    "massSimilarity": 0.7521168105324862,
+    "flaws": [
+     "traced"
+    ],
+    "notes": [
+     "the output traces the ink (5.16 direction changes per unit length; a rebuilt form sits near 2.50 or below) — redraw it with smooth continuous curves instead of emitting the fitted stroke paths"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Berry sugar, £2.60\" at (930,594) 140x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:57:13",
+      "rect": {
+       "x": 929.78125,
+       "y": 595,
+       "w": 140.421875,
+       "h": 19
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#5c2333 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 8,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (520,719) 241x61 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:63:9",
+      "rect": {
+       "x": 519.5,
+       "y": 719,
+       "w": 241,
+       "h": 61
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 8,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s21",
+       "drawn": {
+        "x": 520,
+        "y": 719,
+        "w": 241,
+        "h": 61
+       },
+       "built": {
+        "x": 519.5,
+        "y": 719,
+        "w": 241,
+        "h": 61
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 8,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#5c2333 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 of 8 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 150,
+       "built": 150,
+       "dy": 0
+      },
+      {
+       "index": 1,
+       "drawn": 196,
+       "built": 197,
+       "dy": 1
+      },
+      {
+       "index": 3,
+       "drawn": 604,
+       "built": 604,
+       "dy": -1
+      },
+      {
+       "index": 4,
+       "drawn": 290,
+       "built": 291,
+       "dy": 1
+      },
+      {
+       "index": 5,
+       "drawn": 604,
+       "built": 604,
+       "dy": 0
+      },
+      {
+       "index": 6,
+       "drawn": 290,
+       "built": 291,
+       "dy": 1
+      },
+      {
+       "index": 7,
+       "drawn": 604,
+       "built": 605,
+       "dy": 1
+      },
+      {
+       "index": 8,
+       "drawn": 719,
+       "built": 719,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 coloured plain shapes built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "19 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#fce4e4",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (380,150) 520x0",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (478,196) 324x0",
+       "want": "#a8445c",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (150,290) 260x259",
+       "want": "#c8894b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (210,361) 30x29",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (300,401) 30x28",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (240,461) 30x28",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (215,604) 130x0",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (510,290) 260x259",
+       "want": "#7b4a2a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (580,371) 30x28",
+       "want": "#f3e4cf",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (670,391) 30x29",
+       "want": "#f3e4cf",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (619,460) 31x29",
+       "want": "#f3e4cf",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (575,604) 130x0",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (870,290) 260x261",
+       "want": "#e8c07a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (950,351) 30x29",
+       "want": "#d64a92",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (930,441) 30x29",
+       "want": "#d64a92",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (1020,441) 30x28",
+       "want": "#d64a92",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (935,604) 130x0",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (520,719) 241x61",
+       "want": "#5c2333",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 57730,
+   "cacheRead": 410728,
+   "output": 12750
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 35316,
+    "output": 9470,
+    "cacheRead": 198000,
+    "toolCalls": 10,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read components/ChocolateChip.tsx",
+     "Read components/DoubleChocolate.tsx",
+     "Read components/BerrySugar.tsx",
+     "Glob",
+     "Glob",
+     "Read src/index.css",
+     "Glob",
+     "Write src/App.tsx"
+    ],
+    "ms": 108003
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 35164,
+    "output": 3280,
+    "cacheRead": 212728,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 35336
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "de67f34728612c6d392013f388d8292b9c99ba74",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/BerrySugar.tsx",
+   "src/components/ChocolateChip.tsx",
+   "src/components/DoubleChocolate.tsx"
+  ],
+  "reading": "Two typed notes with no accompanying ink: one targets the chip container on the first cookie card asking for round chips instead of square ones, and a run-level note asks that every product card's name be bold with the price wrapped to a new line.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target text changed (old text gone)"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target text changed (old text gone)"
+     }
+    ],
+    "satisfied": 4,
+    "total": 4,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 25909,
+   "cacheRead": 168202,
+   "output": 5022
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 17210,
+    "output": 4658,
+    "cacheRead": 118192,
+    "toolCalls": 8,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/ChocolateChip.tsx",
+     "Read components/DoubleChocolate.tsx",
+     "Read components/BerrySugar.tsx",
+     "Edit components/ChocolateChip.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 47151
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 13721,
+    "output": 364,
+    "cacheRead": 50010,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 4123
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

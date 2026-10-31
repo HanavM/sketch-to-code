@@ -1,0 +1,587 @@
+{
+  "round": 40,
+  "id": "c2-wave-fest",
+  "version": 3,
+  "stopped": null,
+  "likeness": 85.8,
+  "colour": 0.9890354779416505,
+  "structure": 0.8728628141939982,
+  "layout": 0.7026244598386701,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 7,
+      "box": 7,
+      "line": 4
+    },
+    "inkPx": 7889
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 43,
+  "notes": 7,
+  "longestNote": 15,
+  "noteTexts": [
+    "WAVE, huge outlined letters",
+    "bars with rounded tops",
+    "14–16 August, bold",
+    "Dockside Park, open air",
+    "Mira Sol · The Low Tides · Otto Veil · Gamma Choir · Pale Static",
+    "Get tickets",
+    "not a white block: the word WAVE, hollow white outline letters"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 220,
+    "firstReadingS": 75,
+    "readS": [
+      30,
+      13
+    ],
+    "buildS": [
+      109,
+      9
+    ],
+    "sketchingS": 59
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 47248,
+    "cacheRead": 316900,
+    "output": 14516,
+    "billed": 61764
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#0a0a0a",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 459
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 834
+    },
+    {
+      "op": "stroke",
+      "at": 6166
+    },
+    {
+      "op": "note",
+      "at": 6850
+    },
+    {
+      "op": "pen",
+      "color": "#f43f5e",
+      "at": 7221
+    },
+    {
+      "op": "stroke",
+      "at": 9297
+    },
+    {
+      "op": "stroke",
+      "at": 9765
+    },
+    {
+      "op": "pen",
+      "color": "#f97316",
+      "at": 10128
+    },
+    {
+      "op": "stroke",
+      "at": 12865
+    },
+    {
+      "op": "stroke",
+      "at": 13332
+    },
+    {
+      "op": "pen",
+      "color": "#facc15",
+      "at": 13701
+    },
+    {
+      "op": "stroke",
+      "at": 16096
+    },
+    {
+      "op": "stroke",
+      "at": 16563
+    },
+    {
+      "op": "pen",
+      "color": "#22c55e",
+      "at": 16927
+    },
+    {
+      "op": "stroke",
+      "at": 19996
+    },
+    {
+      "op": "stroke",
+      "at": 20464
+    },
+    {
+      "op": "pen",
+      "color": "#3b82f6",
+      "at": 20837
+    },
+    {
+      "op": "stroke",
+      "at": 22681
+    },
+    {
+      "op": "stroke",
+      "at": 23146
+    },
+    {
+      "op": "note",
+      "at": 23830
+    },
+    {
+      "op": "pen",
+      "color": "#555555",
+      "at": 24195
+    },
+    {
+      "op": "stroke",
+      "at": 27917
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 28283
+    },
+    {
+      "op": "stroke",
+      "at": 29301
+    },
+    {
+      "op": "note",
+      "at": 29986
+    },
+    {
+      "op": "pen",
+      "color": "#999999",
+      "at": 30352
+    },
+    {
+      "op": "stroke",
+      "at": 31354
+    },
+    {
+      "op": "note",
+      "at": 32076
+    },
+    {
+      "op": "pen",
+      "color": "#dddddd",
+      "at": 32439
+    },
+    {
+      "op": "stroke",
+      "at": 34050
+    },
+    {
+      "op": "note",
+      "at": 35048
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 35420
+    },
+    {
+      "op": "stroke",
+      "at": 37742
+    },
+    {
+      "op": "stroke",
+      "at": 38221
+    },
+    {
+      "op": "note",
+      "at": 38917
+    },
+    {
+      "op": "run",
+      "at": 44428
+    },
+    {
+      "op": "note",
+      "at": 191128
+    },
+    {
+      "op": "run",
+      "at": 191199
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          300,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 459
+    },
+    {
+      "way": [
+        [
+          60,
+          95
+        ],
+        [
+          750,
+          95
+        ],
+        [
+          750,
+          272
+        ],
+        [
+          60,
+          272
+        ],
+        [
+          60,
+          95
+        ]
+      ],
+      "n": 291,
+      "at": 6166
+    },
+    {
+      "way": [
+        [
+          640,
+          470
+        ],
+        [
+          750,
+          470
+        ],
+        [
+          750,
+          650
+        ],
+        [
+          640,
+          650
+        ],
+        [
+          640,
+          470
+        ]
+      ],
+      "n": 97,
+      "at": 9297
+    },
+    {
+      "way": [
+        [
+          695,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 9765
+    },
+    {
+      "way": [
+        [
+          760,
+          350
+        ],
+        [
+          870,
+          350
+        ],
+        [
+          870,
+          650
+        ],
+        [
+          760,
+          650
+        ],
+        [
+          760,
+          350
+        ]
+      ],
+      "n": 137,
+      "at": 12865
+    },
+    {
+      "way": [
+        [
+          815,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 13332
+    },
+    {
+      "way": [
+        [
+          880,
+          410
+        ],
+        [
+          990,
+          410
+        ],
+        [
+          990,
+          650
+        ],
+        [
+          880,
+          650
+        ],
+        [
+          880,
+          410
+        ]
+      ],
+      "n": 117,
+      "at": 16096
+    },
+    {
+      "way": [
+        [
+          935,
+          530
+        ]
+      ],
+      "n": 1,
+      "at": 16563
+    },
+    {
+      "way": [
+        [
+          1000,
+          290
+        ],
+        [
+          1110,
+          290
+        ],
+        [
+          1110,
+          650
+        ],
+        [
+          1000,
+          650
+        ],
+        [
+          1000,
+          290
+        ]
+      ],
+      "n": 157,
+      "at": 19996
+    },
+    {
+      "way": [
+        [
+          1055,
+          470
+        ]
+      ],
+      "n": 1,
+      "at": 20464
+    },
+    {
+      "way": [
+        [
+          1120,
+          510
+        ],
+        [
+          1230,
+          510
+        ],
+        [
+          1230,
+          650
+        ],
+        [
+          1120,
+          650
+        ],
+        [
+          1120,
+          510
+        ]
+      ],
+      "n": 83,
+      "at": 22681
+    },
+    {
+      "way": [
+        [
+          1175,
+          580
+        ]
+      ],
+      "n": 1,
+      "at": 23146
+    },
+    {
+      "way": [
+        [
+          60,
+          651
+        ],
+        [
+          1220,
+          651
+        ]
+      ],
+      "n": 194,
+      "at": 27917
+    },
+    {
+      "way": [
+        [
+          60,
+          730
+        ],
+        [
+          255,
+          730
+        ]
+      ],
+      "n": 34,
+      "at": 29301
+    },
+    {
+      "way": [
+        [
+          60,
+          768
+        ],
+        [
+          250,
+          768
+        ]
+      ],
+      "n": 33,
+      "at": 31354
+    },
+    {
+      "way": [
+        [
+          480,
+          728
+        ],
+        [
+          890,
+          728
+        ]
+      ],
+      "n": 69,
+      "at": 34050
+    },
+    {
+      "way": [
+        [
+          960,
+          700
+        ],
+        [
+          1220,
+          700
+        ],
+        [
+          1220,
+          770
+        ],
+        [
+          960,
+          770
+        ],
+        [
+          960,
+          700
+        ]
+      ],
+      "n": 111,
+      "at": 37742
+    },
+    {
+      "way": [
+        [
+          1000,
+          735
+        ]
+      ],
+      "n": 1,
+      "at": 38221
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "WAVE, huge outlined letters",
+      "whole": false,
+      "x": 400,
+      "y": 180,
+      "at": 6850
+    },
+    {
+      "text": "bars with rounded tops",
+      "whole": false,
+      "x": 1055,
+      "y": 330,
+      "at": 23830
+    },
+    {
+      "text": "14–16 August, bold",
+      "whole": false,
+      "x": 150,
+      "y": 730,
+      "at": 29986
+    },
+    {
+      "text": "Dockside Park, open air",
+      "whole": false,
+      "x": 150,
+      "y": 768,
+      "at": 32076
+    },
+    {
+      "text": "Mira Sol · The Low Tides · Otto Veil · Gamma Choir · Pale Static",
+      "whole": false,
+      "x": 680,
+      "y": 728,
+      "at": 35048
+    },
+    {
+      "text": "Get tickets",
+      "whole": false,
+      "x": 1090,
+      "y": 735,
+      "at": 38917
+    },
+    {
+      "text": "not a white block: the word WAVE, hollow white outline letters",
+      "whole": false,
+      "x": 400,
+      "y": 230,
+      "at": 191128
+    }
+  ]
+}

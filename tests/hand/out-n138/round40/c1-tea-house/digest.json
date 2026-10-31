@@ -1,0 +1,700 @@
+{
+  "round": 40,
+  "id": "c1-tea-house",
+  "version": 3,
+  "stopped": null,
+  "likeness": 82.4,
+  "colour": 0.982495359795876,
+  "structure": 0.8674990885709917,
+  "layout": 0.6489905701635392,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 4.3,
+    "simpleShare": 0.94,
+    "shapes": {
+      "dot": 4,
+      "line": 10,
+      "box": 2,
+      "circle": 1,
+      "freehand": 1
+    },
+    "inkPx": 6401
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 61,
+  "notes": 9,
+  "longestNote": 19,
+  "noteTexts": [
+    "Kettle & Leaf, bold serif",
+    "Teas Visit Journal",
+    "Slow tea for fast days, big thin serif",
+    "Loose leaf greens and oolongs, poured at our counter or packed to brew at home. Open daily from seven.",
+    "Shop teas",
+    "Find us",
+    "footer: 12 Mill Lane · Mon–Sun · 7–19 · @kettleandleaf",
+    "footer sits on drawn line, spread left to right",
+    "thick rounded bars"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 370,
+    "firstReadingS": 71,
+    "readS": [
+      32,
+      13
+    ],
+    "buildS": [
+      249,
+      21
+    ],
+    "sketchingS": 55
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 103015,
+    "cacheRead": 360454,
+    "output": 27523,
+    "billed": 130538
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#163a2e",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 477
+    },
+    {
+      "op": "pen",
+      "color": "#f4efe0",
+      "at": 862
+    },
+    {
+      "op": "stroke",
+      "at": 1722
+    },
+    {
+      "op": "note",
+      "at": 2429
+    },
+    {
+      "op": "stroke",
+      "at": 3438
+    },
+    {
+      "op": "note",
+      "at": 4081
+    },
+    {
+      "op": "stroke",
+      "at": 5940
+    },
+    {
+      "op": "stroke",
+      "at": 6790
+    },
+    {
+      "op": "note",
+      "at": 7527
+    },
+    {
+      "op": "stroke",
+      "at": 9274
+    },
+    {
+      "op": "stroke",
+      "at": 10955
+    },
+    {
+      "op": "note",
+      "at": 12060
+    },
+    {
+      "op": "pen",
+      "color": "#e8b04b",
+      "at": 12425
+    },
+    {
+      "op": "stroke",
+      "at": 14326
+    },
+    {
+      "op": "stroke",
+      "at": 14799
+    },
+    {
+      "op": "note",
+      "at": 15481
+    },
+    {
+      "op": "pen",
+      "color": "#f4efe0",
+      "at": 15852
+    },
+    {
+      "op": "stroke",
+      "at": 17660
+    },
+    {
+      "op": "note",
+      "at": 18309
+    },
+    {
+      "op": "stroke",
+      "at": 23012
+    },
+    {
+      "op": "stroke",
+      "at": 23494
+    },
+    {
+      "op": "pen",
+      "color": "#163a2e",
+      "at": 23872
+    },
+    {
+      "op": "stroke",
+      "at": 26126
+    },
+    {
+      "op": "stroke",
+      "at": 26591
+    },
+    {
+      "op": "pen",
+      "color": "#e8b04b",
+      "at": 26957
+    },
+    {
+      "op": "stroke",
+      "at": 27706
+    },
+    {
+      "op": "stroke",
+      "at": 28467
+    },
+    {
+      "op": "stroke",
+      "at": 29260
+    },
+    {
+      "op": "pen",
+      "color": "#5f7a6e",
+      "at": 29624
+    },
+    {
+      "op": "stroke",
+      "at": 33215
+    },
+    {
+      "op": "note",
+      "at": 34114
+    },
+    {
+      "op": "run",
+      "at": 39226
+    },
+    {
+      "op": "note",
+      "at": 329693
+    },
+    {
+      "op": "note",
+      "at": 330331
+    },
+    {
+      "op": "run",
+      "at": 330405
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          720
+        ]
+      ],
+      "n": 1,
+      "at": 476
+    },
+    {
+      "way": [
+        [
+          80,
+          64
+        ],
+        [
+          222,
+          64
+        ]
+      ],
+      "n": 25,
+      "at": 1722
+    },
+    {
+      "way": [
+        [
+          1010,
+          60
+        ],
+        [
+          1200,
+          60
+        ]
+      ],
+      "n": 33,
+      "at": 3438
+    },
+    {
+      "way": [
+        [
+          80,
+          292
+        ],
+        [
+          580,
+          292
+        ]
+      ],
+      "n": 84,
+      "at": 5940
+    },
+    {
+      "way": [
+        [
+          80,
+          372
+        ],
+        [
+          220,
+          372
+        ]
+      ],
+      "n": 24,
+      "at": 6790
+    },
+    {
+      "way": [
+        [
+          80,
+          456
+        ],
+        [
+          532,
+          456
+        ]
+      ],
+      "n": 76,
+      "at": 9274
+    },
+    {
+      "way": [
+        [
+          80,
+          486
+        ],
+        [
+          510,
+          486
+        ]
+      ],
+      "n": 73,
+      "at": 10955
+    },
+    {
+      "way": [
+        [
+          80,
+          570
+        ],
+        [
+          280,
+          570
+        ],
+        [
+          280,
+          628
+        ],
+        [
+          80,
+          628
+        ],
+        [
+          80,
+          570
+        ]
+      ],
+      "n": 87,
+      "at": 14326
+    },
+    {
+      "way": [
+        [
+          150,
+          599
+        ]
+      ],
+      "n": 1,
+      "at": 14799
+    },
+    {
+      "way": [
+        [
+          300,
+          570
+        ],
+        [
+          480,
+          570
+        ],
+        [
+          480,
+          628
+        ],
+        [
+          300,
+          628
+        ],
+        [
+          300,
+          570
+        ]
+      ],
+      "n": 81,
+      "at": 17660
+    },
+    {
+      "way": [
+        [
+          1200,
+          390
+        ],
+        [
+          1194,
+          443
+        ],
+        [
+          1176,
+          494
+        ],
+        [
+          1148,
+          540
+        ],
+        [
+          1110,
+          578
+        ],
+        [
+          1064,
+          606
+        ],
+        [
+          1013,
+          624
+        ],
+        [
+          960,
+          630
+        ],
+        [
+          907,
+          624
+        ],
+        [
+          856,
+          606
+        ],
+        [
+          810,
+          578
+        ],
+        [
+          772,
+          540
+        ],
+        [
+          744,
+          494
+        ],
+        [
+          726,
+          443
+        ],
+        [
+          720,
+          390
+        ],
+        [
+          726,
+          337
+        ],
+        [
+          744,
+          286
+        ],
+        [
+          772,
+          240
+        ],
+        [
+          810,
+          202
+        ],
+        [
+          856,
+          174
+        ],
+        [
+          907,
+          156
+        ],
+        [
+          960,
+          150
+        ],
+        [
+          1013,
+          156
+        ],
+        [
+          1064,
+          174
+        ],
+        [
+          1110,
+          202
+        ],
+        [
+          1148,
+          240
+        ],
+        [
+          1176,
+          286
+        ],
+        [
+          1194,
+          337
+        ],
+        [
+          1200,
+          390
+        ]
+      ],
+      "n": 253,
+      "at": 23011
+    },
+    {
+      "way": [
+        [
+          790,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 23494
+    },
+    {
+      "way": [
+        [
+          850,
+          400
+        ],
+        [
+          1070,
+          400
+        ],
+        [
+          1070,
+          400
+        ],
+        [
+          1066,
+          439
+        ],
+        [
+          1055,
+          475
+        ],
+        [
+          1038,
+          506
+        ],
+        [
+          1015,
+          530
+        ],
+        [
+          988,
+          545
+        ],
+        [
+          960,
+          550
+        ],
+        [
+          932,
+          545
+        ],
+        [
+          905,
+          530
+        ],
+        [
+          882,
+          506
+        ],
+        [
+          865,
+          475
+        ],
+        [
+          854,
+          439
+        ],
+        [
+          850,
+          400
+        ]
+      ],
+      "n": 108,
+      "at": 26126
+    },
+    {
+      "way": [
+        [
+          960,
+          470
+        ]
+      ],
+      "n": 1,
+      "at": 26591
+    },
+    {
+      "way": [
+        [
+          919,
+          265
+        ],
+        [
+          919,
+          365
+        ]
+      ],
+      "n": 18,
+      "at": 27706
+    },
+    {
+      "way": [
+        [
+          959,
+          245
+        ],
+        [
+          959,
+          345
+        ]
+      ],
+      "n": 18,
+      "at": 28467
+    },
+    {
+      "way": [
+        [
+          999,
+          265
+        ],
+        [
+          999,
+          365
+        ]
+      ],
+      "n": 18,
+      "at": 29260
+    },
+    {
+      "way": [
+        [
+          80,
+          790
+        ],
+        [
+          1200,
+          790
+        ]
+      ],
+      "n": 188,
+      "at": 33215
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Kettle & Leaf, bold serif",
+      "whole": false,
+      "x": 150,
+      "y": 64,
+      "at": 2429
+    },
+    {
+      "text": "Teas Visit Journal",
+      "whole": false,
+      "x": 1100,
+      "y": 60,
+      "at": 4081
+    },
+    {
+      "text": "Slow tea for fast days, big thin serif",
+      "whole": false,
+      "x": 330,
+      "y": 292,
+      "at": 7527
+    },
+    {
+      "text": "Loose leaf greens and oolongs, poured at our counter or packed to brew at home. Open daily from seven.",
+      "whole": false,
+      "x": 300,
+      "y": 486,
+      "at": 12060
+    },
+    {
+      "text": "Shop teas",
+      "whole": false,
+      "x": 200,
+      "y": 599,
+      "at": 15481
+    },
+    {
+      "text": "Find us",
+      "whole": false,
+      "x": 390,
+      "y": 599,
+      "at": 18309
+    },
+    {
+      "text": "footer: 12 Mill Lane · Mon–Sun · 7–19 · @kettleandleaf",
+      "whole": false,
+      "x": 640,
+      "y": 790,
+      "at": 34114
+    },
+    {
+      "text": "footer sits on drawn line, spread left to right",
+      "whole": false,
+      "x": 640,
+      "y": 832,
+      "at": 329693
+    },
+    {
+      "text": "thick rounded bars",
+      "whole": false,
+      "x": 959,
+      "y": 300,
+      "at": 330331
+    }
+  ]
+}
