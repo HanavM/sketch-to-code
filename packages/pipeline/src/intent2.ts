@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { inkGreyOutline, inkLightOutline, inkOutlineBox, surfaceBehind } from './inkcolour.js'
+import { inkGreyOutline, inkLightOutline, inkOutlineBox, penFrameBox, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark } from './outline.js'
@@ -1109,8 +1109,13 @@ export function groundInterpretation(
           // n32: a box typed "big yellow quote mark" is the glyph, never a traced or filled box
           const glyphMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
             (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && glyphOf(n.text))
+          // n134: a box in a light pen with no tap on a light surface is a frame (n78/n131), never a depiction:
+          // round 39 e4 Luna pill, read inside a depicted "pet picker", was traced and filled mint 2 of 2 builds
+          const penFrame = shape?.shape === 'box' && !shape.tilt && penFrameBox(s, [...ev.strokes.values()], ev.fills ?? [],
+            ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
+              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text), shape.box)
           // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
-          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || shape.tilt || shape.pill)) {
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || shape.tilt || shape.pill)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }

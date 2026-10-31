@@ -608,3 +608,14 @@ export function surfaceBehind(st: StrokeLike, strokes: readonly StrokeLike[], fi
   }
   return fills.filter((f) => f.target === null).pop()?.color ?? '#ffffff'
 }
+
+/**
+ * n134: a box drawn in a light pen (grey, n78, or any light hue on a light surface, n131) with no tap is a frame,
+ * whatever the action it was read in: a "pet picker" read as a depiction traced the Luna pill and filled it mint.
+ */
+export function penFrameBox(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ target: string | null; color: string; dotId?: string }>,
+  notes: readonly string[], box: { w: number; h: number }): boolean {
+  if (!st.color || fills.some((f) => f.target === st.id)) return false
+  if (inkGreyOutline(st.color, box) && !notes.some((n) => ASKS_FILL.test(n))) return true
+  return inkLightOutline(st.color, box, surfaceBehind(st, strokes, fills), notes)
+}
