@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A ring drawn at the top of a list now stays hollow on every row and size words stay out of titles; next, lining up a list's heading with its rows."
+now: "A list's heading now starts where its rows start; next, making a fix round act quickly when many things are off at once."
 round: 42
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: n168-run, until: 2026-10-31T23:25Z}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -259,7 +259,9 @@ nodes:
      result: "Ring now on every row, none extra, no fixes: podcast 75.7 (rows 59px low), dashboard 78.3."}
   - {id: n167, parent: n2, kind: step, title: "A ring drawn hollow stays hollow when repeated on rows, open rows land on the drawn start (a stalled repair still moves them), and style words after a title are never printed; replay podcast and dashboard", status: done, branch: try/n3-ink-style,
      result: "Hollow rings on every row, rows on drawn start, big not printed; no fixes: podcast 75.7 to 77.8, dashboard 78.3 to 81.9."}
-  - {id: n168, parent: n2, kind: step, priority: next, title: "A heading typed just above a list lines up with the list's left edge, and a title typed with a size word (huge, big) keeps the size its drawn line gives; replay podcast", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n168, parent: n2, kind: step, title: "A heading typed just above a list lines up with the list's left edge, and a title typed with a size word (huge, big) keeps the size its drawn line gives; replay podcast", status: done, branch: try/n3-ink-style,
+     result: "Heading starts on the list edge both tries, checked. Podcast 77.8 to 84.2 no fixes; 38.9 when repair stalled."}
+  - {id: n169, parent: n4, kind: step, priority: next, title: "A repair facing many failed checks edits within a minute, biggest first (page pushed past the screen, footer off), and a title's size word never outgrows its drawn line; replay podcast", status: open, branch: try/n3-ink-style, result: null}
   - {id: n141, parent: n2, kind: step, title: "A white or grey pen box with no tap on a dark page is an outline, and a strong pen card noted picked or pale fill is a pale card; replay round 40 music player, signup wizard and observatory", status: done, branch: try/n3-ink-style, result: "All three right first build, no fixes: player 89.8 (86.1), wizard 83.7 (85.6 with fix), observatory 83.2."}
   - {id: n142, parent: n4, kind: step, title: "A note on a long divider line is normal-size text at the typed spot (never centred or a giant heading), a long note in empty space stays where typed, and a long open polyline is a route line; replay round 40 recipe, ride booking and support inbox", status: done, branch: try/n3-ink-style,
      result: "Divider labels small and left, route drawn, first builds: inbox 61.6 (53.0), recipe 72.2, ride 50.6."}
@@ -956,3 +958,6 @@ n167_resketch:   # same strokes, pens and first notes as n162 replayed (replay.m
   - {page: r42 e1-podcast-app, try: 1, likeness: 71.5, was: 75.7, strokes: 19, words: 50, notes: 8, minutes: 9.1, fixes: 0, first_read_s: 141, build_s: 404, tokens: 84537, note: "ring read as a small box: purple squares on rows; led to the ring reading fix, not counted"}
   - {page: r42 e1-podcast-app, try: 2, likeness: 77.8, was: 75.7, strokes: 19, words: 50, notes: 8, minutes: 5.7, fixes: 0, first_read_s: 122, build_s: 218, tokens: 90162, note: "hollow purple ring on every row, rows on the drawn start, every check passed, no repair"}
   - {page: r42 e4-project-dashboard, try: 1, likeness: 81.9, was: 78.3, strokes: 15, words: 49, notes: 9, minutes: 9.2, fixes: 0, first_read_s: 85, build_s: 467, tokens: 155579, note: "title Website relaunch alone, grey ring on every row, no fixes"}
+n168_resketch:   # same strokes, pens and first notes as n162 replayed (replay.mjs --bar 421,700); first Run only, no fixes; tests/hand/N168.md on try/n3-ink-style
+  - {page: r42 e1-podcast-app, try: 1, likeness: 84.2, was: 77.8, strokes: 19, words: 50, notes: 8, minutes: 7.4, fixes: 0, first_read_s: 130, build_s: 314, tokens: 142120, note: "heading on the ring's left edge, every check passed; title a little high"}
+  - {page: r42 e1-podcast-app, try: 2, likeness: 38.9, was: 77.8, strokes: 19, words: 50, notes: 8, minutes: 7.3, fixes: 0, first_read_s: 116, build_s: 320, tokens: 46056, note: "heading on edge; page ran past the screen, player off, repair stalled 180 s with no edit"}
