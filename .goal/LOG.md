@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T21:50Z | n167 hollow ring on every row, no size words in titles | No fixes: podcast 75.7 to 77.8 (hollow rings, rows on start), dashboard 78.3 to 81.9 (title clean).
 2026-10-31T20:56Z | n114 a lone ring leads its rows | Ring on every row, none extra, no fixes: podcast 75.7 (rows low), dashboard 78.3; was 82.9, 82.6 with fixes.
 2026-10-31T20:12Z | n162 sketch round 42 app pages | Podcast 82.9, quiz 87.3, cart 70.2, dashboard 82.6, gradebook 65.9; round 42 79.4, 15.5 strokes, 53.5 words.
 2026-10-31T19:11Z | n161 sketch round 42 landing pages | Regatta 80.9, donuts 75.5, ski lodge 78.1, Bauhaus 86.5, bowling 84.0; mean 81.0, 17 strokes, 45 words.
