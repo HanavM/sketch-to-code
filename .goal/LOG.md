@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T14:48Z | n150 sketch round 41 app pages | Bank 77.9, calendar 81.2, to-do 76.8, files 58.4, hotel 77.0; round 41 mean 78.0, 17.5 strokes.
 2026-10-31T13:56Z | n149 sketch round 41 landing pages | Kite 80.7, vinyl 87.9, plants 79.8, chess 78.7, trail 81.1; mean 81.6, median 18 strokes, 50 words.
 2026-10-31T13:20Z | n147 write round 41 | Ten fresh pages (kites, vinyl, plants, chess, trail 10K; bank, calendar, to-do, files, hotel) screenshotted; none sketched.
 2026-10-31T11:55Z | n146 title beside a photo stays left, small dark rings hollow | First builds, no fixes: recipe 83.2, 69.6 (75.8); ride booking 85.2 (87.7), markers hollow.
