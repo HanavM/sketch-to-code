@@ -16,7 +16,7 @@
  *    no spot), and when its words are built on the page they are checked to sit
  *    near that height. Zero tokens.
  */
-import type { OpenRows } from './openrows.js'
+import { HEADING_LEFT_TOL_PX, type OpenRows } from './openrows.js'
 import { listNote, type BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
@@ -317,7 +317,7 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
 }
 
 /** n29: a note typed in empty space, nothing drawn near it. */
-export interface PlacedNote { text: string; x: number; y: number; openRows?: OpenRows }
+export interface PlacedNote { text: string; x: number; y: number; openRows?: OpenRows; leftAt?: number }
 
 /** n145: a list starts this far under the spot its heading was typed at. */
 export const LIST_UNDER_HEADING_PX = 40
@@ -361,6 +361,11 @@ export function placedBrief(all: PlacedNote[] | undefined, viewport: { w: number
   const notes = all?.filter((n) => !n.openRows)
   if (!notes?.length) return ''
   const lines = notes.map((n) => {
+    // n168: a heading typed just above a list starts at the list's left edge
+    if (n.leftAt != null) {
+      return `- "${n.text}" was typed at (${n.x},${n.y}) just above the list that starts at x ${n.leftAt}: it is that list's heading. ` +
+        `Its words sit at about y ${n.y} and START at x ${n.leftAt}, left-aligned with the list's left edge (the row marks' left), never indented right of the rows or centred.`
+    }
     const side = pageSide(n.x, viewport.w)
     return `- "${n.text}" was typed at (${n.x},${n.y}) with nothing drawn near it. If those words are copy shown on the page, ` +
       `they sit right there: about y ${n.y}, ${side === 'left' ? `starting near x ${n.x}` : side === 'right' ? `on the right, around x ${n.x}` : `centred near x ${n.x}`}; ` +
@@ -383,6 +388,12 @@ export function verifyPlaced(all: PlacedNote[] | undefined, after: Snap): PlaceV
     const tb = t.textBox!
     const cy = tb.y + tb.h / 2
     const dx = n.x < tb.x ? tb.x - n.x : n.x > tb.x + tb.w ? n.x - (tb.x + tb.w) : 0
+    // n168: a list heading's words start at the list's left edge
+    if (n.leftAt != null && Math.abs(cy - n.y) <= 48 && Math.abs(tb.x - n.leftAt) > HEADING_LEFT_TOL_PX) {
+      faults.push(`"${n.text}" is the heading of the list under it, but its words start at x ${r1(tb.x)}, not at the list's left edge x ${n.leftAt}: ` +
+        `move them ${tb.x > n.leftAt ? 'left' : 'right'} ${r1(Math.abs(tb.x - n.leftAt))}px so they start at x ${n.leftAt}; change nothing else`)
+      continue
+    }
     if (Math.abs(cy - n.y) > 48 || dx > 120) {
       faults.push(`"${n.text}" was typed at (${n.x},${n.y}) with nothing drawn there, but its words sit at (${r1(tb.x)},${r1(cy)}): ` +
         `move them to about y ${n.y}${dx > 120 ? ` and x ${n.x}` : ''}; change nothing else`)

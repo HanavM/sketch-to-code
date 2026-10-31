@@ -239,3 +239,33 @@ export function verifyOpenRows(notes: ReadonlyArray<Spot & { openRows?: OpenRows
     ? { satisfied: false, reason: faults.join('; ') + '. Change only where the rows start, their spacing and width; not their copy or colours' }
     : { satisfied: true, reason: `${judged} open list${judged > 1 ? 's' : ''} under ${judged > 1 ? 'their fields' : 'its field'}, full width` }
 }
+
+/** n168: a list's heading: a short note typed in open space just above an open rows list. */
+export const HEADING_LEFT_TOL_PX = 14
+
+/**
+ * n168: a short heading typed in open space just above a list lines up with the list's left edge.
+ *
+ * Round 42 e1 (podcast, n162/n167): "Latest episodes" was typed at (365,291), over a ring drawn at (308,326) that leads
+ * the rows typed below. A person types a heading's note a little right of where its words start (the chip's grip
+ * sits left of the text); it was told "starting near x 365" and built about 60px right of the rows' left edge. In
+ * the target a list heading starts exactly where the list does. From the drawing alone: a placed note of four words or
+ * fewer, no colon, not itself a list, whose spot is 16-120px above the list's first row middle, within 200px right of
+ * (or 40px left of) the list's left edge, and in the list's left half. Its words start at the list's left edge (the
+ * row mark's left, or the field's). Told and checked on the page (left edge within 14px). Zero tokens.
+ */
+export function alignListHeadings<T extends Spot & { openRows?: OpenRows; leftAt?: number }>(placed: T[]): T[] {
+  const lists = placed.filter((n) => n.openRows)
+  if (!lists.length) return placed
+  return placed.map((n) => {
+    if (n.openRows || n.text.includes(':') || openRowItems(n.text)) return n
+    const words = n.text.trim().split(/\s+/).length
+    if (words < 1 || words > 4) return n
+    const L = lists.map((l) => l.openRows!).filter((o) => {
+      const above = o.firstMid - n.y
+      return above >= 16 && above <= 120 && n.x >= o.field.x - 40 && n.x <= o.field.x + 200 && n.x < o.field.x + o.field.w / 2
+    }).sort((a, b) => (a.firstMid - n.y) - (b.firstMid - n.y))[0]
+    if (!L || Math.abs(n.x - L.field.x) <= 4) return n
+    return { ...n, x: L.field.x, leftAt: L.field.x }
+  })
+}
