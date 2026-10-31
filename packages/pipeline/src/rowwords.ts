@@ -103,6 +103,33 @@ export function commaItems(text: string): string[] | null {
   return items
 }
 
+/**
+ * n153: a row's items typed as one note with a description round them: "folders, yellow icon: Client work 14 files,
+ * Invoices 32, Photos 208, Archive 9" (a lead before a colon that says what the cards are), or "Brief.docx 2 MB,
+ * Cover.png 4 MB, Budget.xlsx 1 MB, Logo.svg 80 KB; blue, green icons" (a look tail after a semicolon). Round 41 e4:
+ * both were printed whole inside one card of a row of four, the other three left empty. Items may differ in length
+ * (1 to 5 words) but a digit is in every item or in none. Only spread when the items are exactly as many as the
+ * look-alike marks in the line (spreadListNotes), so a sentence with commas never splits by chance. Null otherwise.
+ */
+export function rowListItems(text: string): string[] | null {
+  let body = text.trim()
+  const semi = body.lastIndexOf(';')
+  if (semi > 0) {
+    const tail = body.slice(semi + 1).trim()
+    if (tail && !isCopy(tail)) body = body.slice(0, semi).trim()
+    if (/[;\n]/.test(body)) return null
+  }
+  const colon = /^([^:]{1,60}?):\s+(\S[\s\S]*)$/.exec(body)
+  if (colon && !/\d/.test(colon[1]!) && wordsOf(colon[1]!).length <= 5) body = colon[2]!.trim()
+  if (!body.includes(',')) return null
+  const items = body.split(/\s*,\s*/).map((t) => t.trim()).filter(Boolean)
+  if (items.length < 3 || items.length > 8) return null
+  if (items.some((t) => t.split(/\s+/).length > 5)) return null
+  if (new Set(items.map((t) => /\d/.test(t))).size > 1) return null
+  if (!items.every((t) => isCopy(t))) return null
+  return items
+}
+
 /** Look-alike closed marks chained to a seed in one column or one row (same kind, about the same size, aligned). */
 export function lineOfLookAlikes(seed: ShapeMark, pool: ShapeMark[]): { marks: ShapeMark[]; axis: 'column' | 'row' } | null {
   const s = seed.box
@@ -139,9 +166,13 @@ export function lineOfLookAlikes(seed: ShapeMark, pool: ShapeMark[]): { marks: S
 export function spreadListNotes(marks: ShapeMark[], notes: NoteLike[], page: readonly BBox[] = []): void {
   const pool = marks.filter((m) => closed(m))
   for (const n of notes) {
-    const semi = listItems(copyOf(n.text))
+    let semi = listItems(copyOf(n.text))
+    // n153: "items; blue, green icons": a look tail after the semicolon is not an item
+    if (semi && !semi.every((t) => isCopy(t))) semi = null
     const comma = semi ? null : commaItems(n.text)
-    const items = semi ?? comma
+    // n153: a lead or a look tail round the items; spread only onto exactly as many drawn marks
+    const loose = semi || comma ? null : rowListItems(n.text)
+    const items = semi ?? comma ?? loose
     if (!items || !items.every((t) => isCopy(t))) continue
     const ids = n.focus?.length ? n.focus : n.strokeIds ?? []
     const anchors = pool.filter((m) => ids.includes(m.strokeId))
@@ -157,6 +188,7 @@ export function spreadListNotes(marks: ShapeMark[], notes: NoteLike[], page: rea
       const short = line.marks.length < items.length
       if (!short && line.marks.length !== items.length) continue
       if (short && !comma) continue
+      if (loose && line.marks.length < 3) continue
       const first = short ? rowOffset(line.marks, line.axis, items.length, page) : 0
       const whole = copyOf(n.text).trim()
       const typedOwn = line.marks.filter((o) => o.own && o.own.trim() !== whole)

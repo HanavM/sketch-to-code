@@ -194,6 +194,20 @@ const ops = {
     S.undos++; S.events.push({ op: 'undo', at: now() - (S.t0 ?? now()) })
     return { ok: true }
   },
+  /** n153: what the overlay holds right now (stroke ids, colours, boxes): no picture, no score. */
+  async marks() {
+    const w = await safeEval(S.page, () => window.__S2C_DEBUG__.wire())
+    const box = (pts) => { const xs = pts.map((q) => q.x), ys = pts.map((q) => q.y); return [Math.round(Math.min(...xs)), Math.round(Math.min(...ys)), Math.round(Math.max(...xs) - Math.min(...xs)), Math.round(Math.max(...ys) - Math.min(...ys))] }
+    return { ok: true, strokes: w.strokes.map((st) => ({ id: st.id, color: st.color ?? null, n: st.points.length, box: box(st.points) })) }
+  },
+  /** n153: what a press at x,y lands on inside the overlay (the canvas, or a chip, thread or bar in the way). */
+  async hit({ x, y }) {
+    const what = await safeEval(S.page, ([x, y]) => {
+      const el = document.getElementById('s2c-overlay-host').shadowRoot.elementFromPoint(x, y)
+      return el ? `${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''}${el.className && typeof el.className === 'string' ? '.' + el.className.split(' ').join('.') : ''}` : null
+    }, [x, y])
+    return { ok: true, what }
+  },
   async look({ name }) {
     const f = join(S.dir, `look-${String(++S.shots).padStart(2, '0')}-${name ?? 'now'}.png`)
     await S.page.screenshot({ path: f })

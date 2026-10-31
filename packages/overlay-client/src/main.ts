@@ -1935,6 +1935,7 @@ const STYLES = css`
     box-shadow: 0 2px 10px rgb(0 0 0 / 0.35); cursor: pointer;
   }
   .noteChip:hover { background: var(--s2c-active); }
+  .noteChip .noteGrip { flex: none; margin-left: -6px; padding: 0 2px; cursor: grab; opacity: 0.7; }
   .noteChip .noteText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .noteChip .noteDel {
     flex: none; width: 17px; height: 17px; padding: 0; border-radius: 999px;
@@ -2341,7 +2342,7 @@ class Overlay {
   /** n9: the amber threads from each note chip to the mark it is about. */
   private noteLinks!: SVGSVGElement
   /** A chip being dragged onto another mark; a drag is not a click. */
-  private noteDrag: { id: string; px: number; py: number; moved: boolean } | null = null
+  private noteDrag: { id: string; px: number; py: number; moved: boolean; grip?: boolean; down?: Pt; drew?: boolean } | null = null
   /** Open editor: null id = a new note, else the note being re-edited. */
   private noteDraft: {
     id: string | null
@@ -7911,7 +7912,12 @@ class Overlay {
         e.stopPropagation() // the chip itself opens the editor
         this.deleteNote(n.id)
       })
-      chip.append(text, del)
+      // n153: the grip is where a chip is dragged from; a pen stroke that starts on the chip's words is drawn
+      const grip = document.createElement('span')
+      grip.className = 'noteGrip'
+      grip.textContent = '⋮'
+      grip.title = 'drag to move this note onto another mark'
+      chip.append(grip, text, del)
       chip.addEventListener('click', () => {
         if (this.noteDrag?.moved) { this.noteDrag = null; return }
         this.editNote(n)
@@ -8029,14 +8035,31 @@ class Overlay {
   private wireNoteDrag(chip: HTMLElement, n: Note) {
     chip.addEventListener('pointerdown', (e) => {
       if ((e.target as HTMLElement).classList.contains('noteDel')) return
-      this.noteDrag = { id: n.id, px: e.clientX, py: e.clientY, moved: false }
+      const grip = (e.target as HTMLElement).classList.contains('noteGrip')
+      this.noteDrag = { id: n.id, px: e.clientX, py: e.clientY, moved: false, grip, down: this.toPage(e) }
       chip.setPointerCapture(e.pointerId)
       e.stopPropagation()
     })
     chip.addEventListener('pointermove', (e) => {
       const d = this.noteDrag
-      if (!d || d.id !== n.id) return
+      if (!d || d.id !== n.id || d.drew) return
       if (!d.moved && Math.hypot(e.clientX - d.px, e.clientY - d.py) < 5) return
+      /*
+       * n153: a pen stroke that happens to start on a chip is a stroke. Round 41 e4: a note typed on
+       * the sidebar put its chip over the spot where the first folder card's corner was drawn next;
+       * the press grabbed the chip, the card was never drawn, the note was dragged onto the wrong
+       * mark, and the next box (the card's folder icon) started on the moved chip and was lost too.
+       * In draw mode only the grip moves a chip; a press on its words that travels draws from there.
+       */
+      if (!d.grip && this.mode === 'draw' && d.down) {
+        d.moved = true
+        d.drew = true
+        if (chip.hasPointerCapture(e.pointerId)) chip.releasePointerCapture(e.pointerId)
+        this.beginStroke(e, d.down)
+        this.onMove(e)
+        setTimeout(() => { if (this.noteDrag === d) this.noteDrag = null }, 1500)
+        return
+      }
       d.moved = true
       chip.classList.add('dragging')
       chip.style.left = `${String(Math.round(e.clientX + window.scrollX + 10))}px`
@@ -8044,7 +8067,7 @@ class Overlay {
     })
     chip.addEventListener('pointerup', (e) => {
       const d = this.noteDrag
-      if (!d || d.id !== n.id) return
+      if (!d || d.id !== n.id || d.drew) return
       if (chip.hasPointerCapture(e.pointerId)) chip.releasePointerCapture(e.pointerId)
       if (!d.moved) { this.noteDrag = null; return }
       // keep `moved` set until the click that follows this pointerup is eaten
@@ -8269,7 +8292,11 @@ class Overlay {
     // rather than at pointerup: one slow deliberate stroke takes longer than
     // the settle period, and a run firing mid-line would read the drawing
     // half-made.
-    const p = this.toPage(e)
+    this.beginStroke(e, this.toPage(e))
+  }
+
+  /** A pen stroke starts at page point p (onDown; n153: also a drag that began on a chip's words). */
+  private beginStroke(e: PointerEvent, p: Pt) {
     // n16: a plain change already showing (an erase, a recolour, a caret with
     // its word) and a press somewhere else: that drawing is done, so it goes
     // to the code now, and this stroke starts a new one. Otherwise the two
@@ -8279,7 +8306,7 @@ class Overlay {
     this.canvas.setPointerCapture(e.pointerId)
     // a press that never travels is a click, and a click means "pick that up"
     // rather than "draw a dot" — see onUp
-    this.pressAt = { x: e.clientX, y: e.clientY, t: performance.now() }
+    this.pressAt = { x: p.x - window.scrollX, y: p.y - window.scrollY, t: performance.now() }
     // a trackpad hop: lands right back where the last gesture-sized stroke
     // ended, right after it ended — resume it instead of starting a new one
     if (shouldBridge(this.lastStrokeEnd, this.lastStrokeBig, p)) {
