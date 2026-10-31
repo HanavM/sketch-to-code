@@ -1,0 +1,524 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "a0cef640b15351fbb27be00f6f397b2f4697bcd3",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/CircleSquare.tsx"
+  ],
+  "reading": "The sketch is a Bauhaus-themed museum exhibition hero/poster: a small logo label, a huge tight headline 'BAU/HAUS/100', dated and body copy, a thick-outlined 'Book tickets' button, and an overlapping red circle, blue square and yellow triangle graphic on the right (with the circle-square overlap rendered near black), all on a warm beige page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Museum of Form\" at (60,40) 154x15 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:7:9",
+      "rect": {
+       "x": 60,
+       "y": 40,
+       "w": 154.40625,
+       "h": 16
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111111 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (62,117) 420x384 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:11:9",
+      "rect": {
+       "x": 62,
+       "y": 117,
+       "w": 420,
+       "h": 384
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111111 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"BAUHAUS100\" at (62,110) 327x397 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:11:9",
+      "rect": {
+       "x": 62,
+       "y": 117,
+       "w": 420,
+       "h": 384
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111111 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,560) 131x24 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:18:9",
+      "rect": {
+       "x": 64,
+       "y": 560,
+       "w": 130.765625,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#555555 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,604) 386x52 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:22:9",
+      "rect": {
+       "x": 64,
+       "y": 604,
+       "w": 386,
+       "h": 52
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 64,
+        "y": 729,
+        "w": 201,
+        "h": 57
+       },
+       "built": {
+        "x": 64,
+        "y": 729,
+        "w": 201,
+        "h": 57
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111111 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 640,
+        "y": 89,
+        "w": 420,
+        "h": 421
+       },
+       "built": {
+        "x": 640,
+        "y": 89,
+        "w": 420,
+        "h": 421
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 560,
+        "y": 519,
+        "w": 320,
+        "h": 281
+       },
+       "built": {
+        "x": 560,
+        "y": 519,
+        "w": 320,
+        "h": 281
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#da3b2c is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 shape built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 table row at body size"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the typed row starting \"100 huge black tight\" is not on the page: fill the drawn rows with every typed row, in order; change nothing else"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 5: the outline drawn at (879,379) 301x302 was coloured #1f4a9e (fill); nothing that size was built there carrying a colour: paint the block itself exactly #1f4a9e",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#eee8da",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,48) 172x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (62,202) 310x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (62,330) 404x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (62,458) 234x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,572) 176x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,617) 386x0",
+       "want": "#555555",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,643) 193x0",
+       "want": "#555555",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (64,729) 201x57",
+       "want": "#111111",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (640,89) 420x421",
+       "want": "#da3b2c",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (879,379) 301x302",
+       "want": "#1f4a9e",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (560,519) 320x281",
+       "want": "#f2c230",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 59847,
+   "cacheRead": 342810,
+   "output": 21874
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 45065,
+    "output": 18106,
+    "cacheRead": 175066,
+    "toolCalls": 7,
+    "tools": [
+     "Read components/CircleSquare.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Edit components/CircleSquare.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 215969
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 36656,
+    "output": 3768,
+    "cacheRead": 167744,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/CircleSquare.tsx",
+     "Edit components/CircleSquare.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 46564
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "1962045b39ae415606e14a31a3fc363e9f4dc919",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/CircleSquare.tsx"
+  ],
+  "reading": "The user added a typed note on the 'Book tickets' button asking for an outline-only style with dark text.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 1,
+    "total": 1,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 4299,
+   "cacheRead": 63161,
+   "output": 529
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 4828,
+    "output": 529,
+    "cacheRead": 63161,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 6387
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
