@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T13:20Z | n147 write round 41 | Ten fresh pages (kites, vinyl, plants, chess, trail 10K; bank, calendar, to-do, files, hotel) screenshotted; none sketched.
 2026-10-31T11:55Z | n146 title beside a photo stays left, small dark rings hollow | First builds, no fixes: recipe 83.2, 69.6 (75.8); ride booking 85.2 (87.7), markers hollow.
 2026-10-31T11:20Z | n145 list under its heading, no list lead, small rings round | First builds, no fixes: recipe 75.8 (was 74.6), ride booking 87.7 (87.9); all three gaps fixed.
 2026-10-31T10:08Z | n144 pale rule, list note, picked row, ride rows | First builds, no fixes: ride booking 87.9 (was 50.6), recipe 74.6 (was 72.2).
