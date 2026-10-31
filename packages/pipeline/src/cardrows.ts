@@ -47,7 +47,7 @@ export interface CardRows {
   /** first cell of the first row, if typed */
   firstCell: string | null
   /** n114: the small ring or square drawn for row 1, repeated on every row */
-  mark?: BBox
+  mark?: BBox & { hollow?: string; round?: boolean }
 }
 
 export const START_TOL_PX = 28
@@ -121,7 +121,7 @@ export function cardRows(marks: readonly ShapeMark[], shapes: readonly Pick<Shap
       if (t.y < start) continue // typed above where the rows go: nothing to move
       seen.add(t.text)
       out.push({ text: t.text, head: h.text, headY: h.y, card: { x: r(C.x), y: r(C.y), w: r(C.w), h: r(C.h) }, typedY: t.y, start, pitch, rows: n,
-        firstCell: rd.first, ...(ring ? { mark: { x: r(ring.box.x), y: r(ring.box.y), w: r(ring.box.w), h: r(ring.box.h) } } : {}) })
+        firstCell: rd.first, ...(ring ? { mark: { x: r(ring.box.x), y: r(ring.box.y), w: r(ring.box.w), h: r(ring.box.h), ...(ring.shape === 'ellipse' ? { round: true } : {}) } } : {}) })
     }
   }
   return out

@@ -81,6 +81,32 @@ function placeTail(copy: string, labelled: boolean): { copy: string; place: stri
   return { copy: rest, place, look: look || null }
 }
 
+/** n167: words that only ever say how big or heavy a line is, never its copy, when they end a note. */
+const SIZE_WEIGHT = /^(big|bigger|huge|giant|large|larger|massive|jumbo|enormous|bold|bolder|semibold|tiny|smaller|italic|caps|uppercase)$/i
+
+/**
+ * n167: a trailing run of look words with no comma before it, holding at least one size or weight word, after at least
+ * two words of copy: "Website relaunch big" -> copy "Website relaunch", look "big". Round 42 e4 printed "big" in the
+ * title. A run of only colour or place words is left alone ("Overdue 3 red" is read elsewhere), and so is a one-word
+ * copy ("Think big" stays copy).
+ */
+function bareLookTail(copy: string): { copy: string; look: string } | null {
+  if (copy.includes(',')) return null
+  const toks = copy.split(/\s+/).filter(Boolean)
+  let i = toks.length
+  while (i > 0) {
+    const w = toks[i - 1]!.replace(/[^\p{L}]/gu, '')
+    if (w && (LOOK.test(w) || SIZE_WEIGHT.test(w)) && !/^(and|text|size|label|heading|title|subtitle|headline|link|button|pill|chip|badge|left|right)$/i.test(w)) i--
+    else break
+  }
+  if (i === toks.length || i < 2) return null
+  const tail = toks.slice(i)
+  if (!tail.some((w) => SIZE_WEIGHT.test(w.replace(/[^\p{L}]/gu, '')))) return null
+  // "so big", "too bold": the look word is part of a phrase
+  if (/^(so|too|very|really|the|a|an|be|is|go|think|dream|stay|get)$/i.test(toks[i - 1]!.replace(/[^\p{L}]/gu, ''))) return null
+  return { copy: toks.slice(0, i).join(' '), look: tail.join(' ') }
+}
+
 /** Split a note into its copy, a trailing look tail and any directions after semicolons. */
 export function noteParts(note: string): NoteParts {
   const [head = '', ...rest] = note.split(';')
@@ -114,6 +140,8 @@ export function noteParts(note: string): NoteParts {
   }
   const pt = placeTail(copy, more.length > 0)
   if (pt.place) { copy = pt.copy; look = [pt.look, look].filter(Boolean).join(', ') || null }
+  // n167: a size or weight run typed straight after the copy with no comma ("Website relaunch big", "Slow Science huge bold")
+  if (!look && !pt.place) { const bt = bareLookTail(copy); if (bt) { copy = bt.copy; look = bt.look } }
   return { copy, look, directions, ...(pt.place ? { place: pt.place } : {}), ...(more.length ? { more } : {}) }
 }
 
@@ -142,6 +170,8 @@ export function directionStrings(notes: readonly string[]): { text: string; why:
     for (const d of p.directions) if (d.replace(/[^\p{L}\p{N}]/gu, '').length >= 3) out.push({ text: d, why: 'a direction', note: n })
     if (p.look && p.look.trim().split(/\s+/).length >= 2) out.push({ text: p.look, why: 'look words', note: n })
     if (p.look && p.copy && !p.place) out.push({ text: `${p.copy}, ${p.look}`, why: 'the raw note', note: n })
+    // n167: a look run typed with no comma: the note as typed, printed whole
+    if (p.look && p.copy && !p.place && !n.includes(',')) out.push({ text: `${p.copy} ${p.look}`, why: 'the raw note', note: n })
   }
   return out
 }

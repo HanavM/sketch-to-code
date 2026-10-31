@@ -41,8 +41,8 @@ export interface OpenRows {
   first: string
   /** what set the start: a drawn mark for row 1, or the last thing drawn */
   by: 'mark' | 'last'
-  /** n114: the small ring or square drawn for row 1, repeated on every row */
-  mark?: BBox
+  /** n114: the small ring or square drawn for row 1, repeated on every row (n167: hollow = its pen colour when drawn with no tap) */
+  mark?: BBox & { hollow?: string; round?: boolean }
   /** n114: no field drawn: the rows are led by the mark alone and run to the page's margin */
   led?: boolean
 }
@@ -107,7 +107,7 @@ export function openRows(placed: readonly Spot[], shapes: readonly ShapeLike[], 
     pitch = r(Math.max(36, Math.min(72, pitch)))
     if (n.y < firstMid - 20) continue // typed above where the rows go: nothing to move
     out.set(n, { field: { x: r(F.x), y: r(F.y), w: r(F.w), h: r(F.h) }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!, by: small ? 'mark' : 'last',
-      ...(small ? { mark: { x: r(lb.x), y: r(lb.y), w: r(lb.w), h: r(lb.h) } } : {}) })
+      ...(small ? { mark: { x: r(lb.x), y: r(lb.y), w: r(lb.w), h: r(lb.h), ...(lowest.shape === 'ellipse' ? { round: true } : {}) } } : {}) })
   }
   return out
 }
@@ -147,14 +147,17 @@ function ringLed(n: Spot, k: number, shapes: readonly ShapeLike[], notes: readon
   const pitch = r(Math.max(40, Math.min(72, foot ? (foot.y - 34 - firstMid) / (k - 0.5) : (2 * (n.y - firstMid)) / Math.max(1, k - 1))))
   const items = openRowItems(n.text)!
   return { field: { x: r(R.x), y: r(R.y), w: r(right - R.x), h: 0 }, typedY: n.y, firstMid, pitch, rows: k, first: items[0]!, by: 'mark', led: true,
-    mark: { x: r(R.x), y: r(R.y), w: r(R.w), h: r(R.h) } }
+    mark: { x: r(R.x), y: r(R.y), w: r(R.w), h: r(R.h), ...(ring.shape === 'ellipse' ? { round: true } : {}) } }
 }
 
 /** n114: the build is told a row's drawn mark is on every row, at its left, and is no element of its own. */
-export function rowMarkWords(m: BBox, firstMid: number, rows: number): string {
+export function rowMarkWords(m: BBox & { hollow?: string; round?: boolean }, firstMid: number, rows: number): string {
+  const look = m.hollow
+    ? `a HOLLOW ring: a thin ${m.hollow} outline, border-radius 50%, its inside the row's own background, NEVER a filled or solid disc, on every row alike`
+    : 'same size, shape, colour, hollow or filled as drawn'
   return `The small mark drawn at (${m.x},${m.y}) ${m.w}x${m.h} is row 1's OWN leading mark, not an element of its own: ` +
-    `build it inside row 1 at the row's left, its middle level with the row's words (y ${firstMid}), and REPEAT the same mark (same size, shape, colour, ` +
-    `hollow or filled as drawn) at the left of each of the ${rows} rows, with each row's words starting just right of it. Never a separate button, ` +
+    `build it inside row 1 at the row's left, its middle level with the row's words (y ${firstMid}), and REPEAT the same mark (same size and place; ${look}) ` +
+    `at the left of each of the ${rows} rows, with each row's words starting just right of it. Never a separate button, ` +
     `icon or dot above, beside or on top of the rows, and never on the row's words`
 }
 

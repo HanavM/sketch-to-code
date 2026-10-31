@@ -1448,6 +1448,13 @@ export function groundInterpretation(
   [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
   ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport.w)
 
+  // n167: a small ring drawn in a pen with no tap that leads a list is a HOLLOW ring on every row (round 42 e1: the
+  // purple ring was told "filled with" its pen and every row got a solid disc)
+  hollowRowMarks(actions, [
+    ...placedNotes.flatMap((n) => (n.openRows?.mark ? [n.openRows.mark] : [])),
+    ...actions.flatMap((a) => a.shapeMarks ?? []).flatMap((m) => (m.cardRows ?? []).flatMap((l) => (l.mark ? [l.mark] : []))),
+  ])
+
   return {
     reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,
     droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
@@ -1455,6 +1462,25 @@ export function groundInterpretation(
     ...(placedNotes.length ? { placedNotes } : {}),
     ...(pageNotes.length ? { pageNotes } : {}),
     ...(page ? { pageFill: page } : {}),
+  }
+}
+
+/**
+ * n167: a list's leading mark (a small ring drawn for row 1, see openrows / cardrows) drawn in a pen with no tap is a
+ * hollow ring: its pen fill is turned into a thin ring of that colour, and the mark is flagged hollow so the rows brief
+ * repeats it hollow on every row. In place.
+ */
+export function hollowRowMarks(actions: Array<{ inkColours?: InkColour[] }>, marks: Array<{ x: number; y: number; w: number; h: number; hollow?: string; round?: boolean }>): void {
+  if (!marks.length) return
+  const near = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) =>
+    Math.abs(a.x - b.x) <= 8 && Math.abs(a.y - b.y) <= 8 && Math.abs(a.w - b.w) <= 10 && Math.abs(a.h - b.h) <= 10
+  for (const a of actions) for (const c of a.inkColours ?? []) {
+    if (c.how !== 'pen' || (c.mark !== 'ring' && c.mark !== 'outline' && c.mark !== 'box')) continue
+    const m = marks.find((k) => near(k, c.box))
+    // a hand ring is often read as a small box by one reader and a ring by another: the list's own reading decides
+    if (!m || (c.mark === 'box' && !m.round)) continue
+    if (c.paint === 'background') { c.paint = 'border'; c.ring = { thickness: Math.max(2, Math.min(3, Math.round((c.box.w + c.box.h) / 2 * 0.08))) } }
+    if (c.paint === 'border' && c.ring) m.hollow = c.color
   }
 }
 

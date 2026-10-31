@@ -163,7 +163,7 @@ const share = (pts: Array<{ x: number; y: number }>, near: (p: { x: number; y: n
   pts.filter(near).length / pts.length
 
 /** n145: a closed stroke smaller than this (its short side) must fill its square to be a box, else it is a small ring. */
-export const SMALL_RING_PX = 32
+export const SMALL_RING_PX = 48
 
 function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'strokeId'> | null {
   const b = bbox(pts)
@@ -185,6 +185,7 @@ function asClosed(pts: Array<{ x: number; y: number }>): Omit<ShapeMark, 'stroke
   const perim = 2 * (b.w + b.h)
   // n119: under 20px every point is near an edge and a corner, so a small box must also fill its square (a tiny ring fills ~79%)
   // n145: up to 32px too: a 24px map-marker ring drawn as a rough octagon touched every edge and corner and was built square
+  // n167: up to 48px too: a 36px ring drawn as a 12-point circle at a list's left touched every corner and was built a square
   const fillsSquare = m >= SMALL_RING_PX || polyArea(pts) / Math.max(1, b.w * b.h) >= 0.86
   if (b.w < 14 || b.h < 14) { if (!(m >= 10 && fillsSquare && gap <= 6 && Math.max(b.w, b.h) <= 3 * m)) return null }
   if (allCorners && fillsSquare && share(pts, onEdge) >= 0.92 && len <= perim * 1.6) {

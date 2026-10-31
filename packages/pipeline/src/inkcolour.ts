@@ -362,7 +362,7 @@ export function verifyInkColours(
       if (c.paint === 'border' && c.ring) {
         const v = hollowBuilt(c, after.nodes)
         checks.push({ what: `${what} (hollow small ring)`, want: `ring ${String(c.ring.thickness)}px, no ${hex(c.color)} fill`, best: null, ok: v.ok })
-        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a small ring drawn in dark ink with no tap: a hollow round marker; ${v.why}: give it border-radius 50%, a ${String(c.ring.thickness)}px ${hex(c.color)} border and a white inside; keep its size and place`)
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a small ring drawn with no tap: a hollow round marker; ${v.why}: give it border-radius 50%, a ${String(c.ring.thickness)}px ${hex(c.color)} border and a white inside; keep its size and place`)
         continue
       }
       // n92: an outlined control: something about the drawn size there with a border and no dark fill
