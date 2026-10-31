@@ -1,0 +1,1087 @@
+{
+ "measured": "2026-10-31T12:57:16.700Z",
+ "targets": {
+  "c1-kite-club": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 90
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 72,
+      "y": 32,
+      "w": 76,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "kite-red",
+     "rect": {
+      "x": 739,
+      "y": 109,
+      "w": 283,
+      "h": 283
+     },
+     "must": true
+    },
+    {
+     "role": "kite-yellow",
+     "rect": {
+      "x": 1015,
+      "y": 275,
+      "w": 170,
+      "h": 170
+     },
+     "must": false
+    },
+    {
+     "role": "kite-blue",
+     "rect": {
+      "x": 841,
+      "y": 501,
+      "w": 127,
+      "h": 127
+     },
+     "must": false
+    },
+    {
+     "role": "tail",
+     "rect": {
+      "x": 877,
+      "y": 389,
+      "w": 59,
+      "h": 215
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 72,
+      "y": 230,
+      "w": 600,
+      "h": 168
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 76,
+      "y": 440,
+      "w": 440,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 76,
+      "y": 570,
+      "w": 200,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "hill",
+     "rect": {
+      "x": -100,
+      "y": 740,
+      "w": 1480,
+      "h": 400
+     },
+     "must": true
+    }
+   ]
+  },
+  "c2-vinyl-bar": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 88
+     },
+     "must": false
+    },
+    {
+     "role": "record",
+     "rect": {
+      "x": 640,
+      "y": 140,
+      "w": 560,
+      "h": 560
+     },
+     "must": true
+    },
+    {
+     "role": "label",
+     "rect": {
+      "x": 820,
+      "y": 320,
+      "w": 200,
+      "h": 200
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 80,
+      "y": 220,
+      "w": 284,
+      "h": 110
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 84,
+      "y": 360,
+      "w": 420,
+      "h": 54
+     },
+     "must": false
+    },
+    {
+     "role": "hours",
+     "rect": {
+      "x": 84,
+      "y": 480,
+      "w": 219,
+      "h": 101
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 84,
+      "y": 680,
+      "w": 200,
+      "h": 54
+     },
+     "must": true
+    }
+   ]
+  },
+  "c3-plant-shop": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 90
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 80,
+      "y": 32,
+      "w": 115,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 0,
+      "y": 140,
+      "w": 1280,
+      "h": 65
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 0,
+      "y": 219,
+      "w": 1280,
+      "h": 21
+     },
+     "must": false
+    },
+    {
+     "role": "products",
+     "rect": {
+      "x": 0,
+      "y": 300,
+      "w": 1280,
+      "h": 405
+     },
+     "must": true
+    },
+    {
+     "role": "card-1",
+     "rect": {
+      "x": 142,
+      "y": 300,
+      "w": 300,
+      "h": 405
+     },
+     "must": false
+    },
+    {
+     "role": "card-2",
+     "rect": {
+      "x": 490,
+      "y": 300,
+      "w": 300,
+      "h": 405
+     },
+     "must": false
+    },
+    {
+     "role": "card-3",
+     "rect": {
+      "x": 838,
+      "y": 300,
+      "w": 300,
+      "h": 405
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-chess-night": {
+   "regions": [
+    {
+     "role": "board",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 520,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 600,
+      "y": 120,
+      "w": 503,
+      "h": 270
+     },
+     "must": true
+    },
+    {
+     "role": "date",
+     "rect": {
+      "x": 606,
+      "y": 420,
+      "w": 221,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 606,
+      "y": 470,
+      "w": 520,
+      "h": 27
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 606,
+      "y": 600,
+      "w": 220,
+      "h": 58
+     },
+     "must": true
+    },
+    {
+     "role": "badge",
+     "rect": {
+      "x": 1005,
+      "y": 705,
+      "w": 190,
+      "h": 190
+     },
+     "must": false
+    }
+   ]
+  },
+  "c5-trail-10k": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 81
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 72,
+      "y": 32,
+      "w": 63,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "sun",
+     "rect": {
+      "x": 560,
+      "y": 250,
+      "w": 220,
+      "h": 220
+     },
+     "must": true
+    },
+    {
+     "role": "mountain-left",
+     "rect": {
+      "x": 180,
+      "y": 480,
+      "w": 760,
+      "h": 420
+     },
+     "must": true
+    },
+    {
+     "role": "mountain-right",
+     "rect": {
+      "x": 640,
+      "y": 560,
+      "w": 840,
+      "h": 340
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 72,
+      "y": 110,
+      "w": 294,
+      "h": 170
+     },
+     "must": true
+    },
+    {
+     "role": "date-pill",
+     "rect": {
+      "x": 80,
+      "y": 310,
+      "w": 186,
+      "h": 38
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 960,
+      "y": 150,
+      "w": 220,
+      "h": 60
+     },
+     "must": true
+    },
+    {
+     "role": "footer",
+     "rect": {
+      "x": 0,
+      "y": 846,
+      "w": 1280,
+      "h": 18
+     },
+     "must": false
+    }
+   ]
+  },
+  "e1-bank-home": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 230,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 278,
+      "y": 40,
+      "w": 954,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "balance-card",
+     "rect": {
+      "x": 278,
+      "y": 99,
+      "w": 440,
+      "h": 200
+     },
+     "must": true
+    },
+    {
+     "role": "spending-chart",
+     "rect": {
+      "x": 742,
+      "y": 99,
+      "w": 490,
+      "h": 200
+     },
+     "must": true
+    },
+    {
+     "role": "transactions",
+     "rect": {
+      "x": 278,
+      "y": 327,
+      "w": 954,
+      "h": 349
+     },
+     "must": true
+    }
+   ]
+  },
+  "e2-week-calendar": {
+   "regions": [
+    {
+     "role": "toolbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 85
+     },
+     "must": true
+    },
+    {
+     "role": "new-button",
+     "rect": {
+      "x": 1121,
+      "y": 24,
+      "w": 119,
+      "h": 36
+     },
+     "must": false
+    },
+    {
+     "role": "day-header",
+     "rect": {
+      "x": 100,
+      "y": 90,
+      "w": 1140,
+      "h": 87
+     },
+     "must": true
+    },
+    {
+     "role": "grid",
+     "rect": {
+      "x": 100,
+      "y": 170,
+      "w": 1140,
+      "h": 730
+     },
+     "must": true
+    },
+    {
+     "role": "event-1",
+     "rect": {
+      "x": 108,
+      "y": 178,
+      "w": 212,
+      "h": 72
+     },
+     "must": false
+    },
+    {
+     "role": "event-2",
+     "rect": {
+      "x": 336,
+      "y": 258,
+      "w": 212,
+      "h": 152
+     },
+     "must": true
+    },
+    {
+     "role": "event-3",
+     "rect": {
+      "x": 564,
+      "y": 498,
+      "w": 212,
+      "h": 112
+     },
+     "must": false
+    },
+    {
+     "role": "event-4",
+     "rect": {
+      "x": 1020,
+      "y": 578,
+      "w": 212,
+      "h": 152
+     },
+     "must": false
+    }
+   ]
+  },
+  "e3-todo": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 320,
+      "y": 70,
+      "w": 640,
+      "h": 45
+     },
+     "must": true
+    },
+    {
+     "role": "date",
+     "rect": {
+      "x": 320,
+      "y": 123,
+      "w": 640,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "add-task",
+     "rect": {
+      "x": 320,
+      "y": 171,
+      "w": 640,
+      "h": 54
+     },
+     "must": true
+    },
+    {
+     "role": "tabs",
+     "rect": {
+      "x": 320,
+      "y": 251,
+      "w": 640,
+      "h": 32
+     },
+     "must": false
+    },
+    {
+     "role": "list",
+     "rect": {
+      "x": 320,
+      "y": 295,
+      "w": 640,
+      "h": 354
+     },
+     "must": true
+    },
+    {
+     "role": "footer",
+     "rect": {
+      "x": 320,
+      "y": 671,
+      "w": 640,
+      "h": 16
+     },
+     "must": false
+    }
+   ]
+  },
+  "e4-file-browser": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 240,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "upload",
+     "rect": {
+      "x": 20,
+      "y": 259,
+      "w": 199,
+      "h": 44
+     },
+     "must": false
+    },
+    {
+     "role": "storage",
+     "rect": {
+      "x": 20,
+      "y": 603,
+      "w": 199,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "search",
+     "rect": {
+      "x": 280,
+      "y": 28,
+      "w": 904,
+      "h": 44
+     },
+     "must": true
+    },
+    {
+     "role": "avatar",
+     "rect": {
+      "x": 1200,
+      "y": 30,
+      "w": 40,
+      "h": 40
+     },
+     "must": false
+    },
+    {
+     "role": "breadcrumb",
+     "rect": {
+      "x": 280,
+      "y": 102,
+      "w": 960,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "file-grid",
+     "rect": {
+      "x": 280,
+      "y": 152,
+      "w": 960,
+      "h": 322
+     },
+     "must": true
+    }
+   ]
+  },
+  "e5-hotel-search": {
+   "regions": [
+    {
+     "role": "hero",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 80,
+      "y": 116,
+      "w": 1120,
+      "h": 45
+     },
+     "must": false
+    },
+    {
+     "role": "search-bar",
+     "rect": {
+      "x": 80,
+      "y": 250,
+      "w": 1120,
+      "h": 100
+     },
+     "must": true
+    },
+    {
+     "role": "search-button",
+     "rect": {
+      "x": 1026,
+      "y": 272,
+      "w": 150,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "section-title",
+     "rect": {
+      "x": 80,
+      "y": 390,
+      "w": 1120,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "cards",
+     "rect": {
+      "x": 80,
+      "y": 436,
+      "w": 1120,
+      "h": 281
+     },
+     "must": true
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-kite-club": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7529157755072992,
+    "structure": 0.6477120498518605,
+    "structureStrict": 0.6477120498518605,
+    "colourAligned": 0.7529157755072992,
+    "structureAligned": 0.6477120498518605,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6795508453057149,
+    "structure": 0.5052145649352898
+   }
+  },
+  "c2-vinyl-bar": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.08945099070258045,
+    "structure": 0.12468708905243583,
+    "structureStrict": 0.12468708905243583,
+    "colourAligned": 0.08945099070258045,
+    "structureAligned": 0.12468708905243583,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.2528460340000457,
+    "structure": 0.15607485143917113
+   }
+  },
+  "c3-plant-shop": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8692147908912778,
+    "structure": 0.6962896549459324,
+    "structureStrict": 0.6962896549459324,
+    "colourAligned": 0.8692147908912778,
+    "structureAligned": 0.6962896549459324,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7279732296007752,
+    "structure": 0.5223381400638524
+   }
+  },
+  "c4-chess-night": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7149962832287315,
+    "structure": 0.41715842462575187,
+    "structureStrict": 0.41715842462575187,
+    "colourAligned": 0.7149962832287315,
+    "structureAligned": 0.41715842462575187,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6761931252086211,
+    "structure": 0.36468205130341724
+   }
+  },
+  "c5-trail-10k": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.5975815454481069,
+    "structure": 0.610042879639753,
+    "structureStrict": 0.610042879639753,
+    "colourAligned": 0.5975815454481069,
+    "structureAligned": 0.610042879639753,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5964946400834443,
+    "structure": 0.4765715262780368
+   }
+  },
+  "e1-bank-home": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7776339418689386,
+    "structure": 0.5718706191392825,
+    "structureStrict": 0.5718706191392825,
+    "colourAligned": 0.7776339418689386,
+    "structureAligned": 0.5718706191392825,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6730998048864162,
+    "structure": 0.4718742852968639
+   }
+  },
+  "e2-week-calendar": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9732309694149957,
+    "structure": 0.7943341287067538,
+    "structureStrict": 0.7943341287067538,
+    "colourAligned": 0.9732309694149957,
+    "structureAligned": 0.7943341287067538,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7221115750101901,
+    "structure": 0.5755683518581703
+   }
+  },
+  "e3-todo": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.970123121556077,
+    "structure": 0.8975047854514231,
+    "structureStrict": 0.8975047854514231,
+    "colourAligned": 0.970123121556077,
+    "structureAligned": 0.8975047854514231,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7324243812779883,
+    "structure": 0.6371141182990189
+   }
+  },
+  "e4-file-browser": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9739591147133417,
+    "structure": 0.7918855112407727,
+    "structureStrict": 0.7918855112407727,
+    "colourAligned": 0.9739591147133417,
+    "structureAligned": 0.7918855112407727,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7250305875481637,
+    "structure": 0.5886816301220983
+   }
+  },
+  "e5-hotel-search": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7176470948019156,
+    "structure": 0.49421754487815456,
+    "structureStrict": 0.49421754487815456,
+    "colourAligned": 0.7176470948019156,
+    "structureAligned": 0.49421754487815456,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6496895165932901,
+    "structure": 0.43052346719238754
+   }
+  }
+ }
+}
