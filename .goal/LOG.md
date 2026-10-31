@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-10-31T10:08Z | n144 pale rule, list note, picked row, ride rows | First builds, no fixes: ride booking 87.9 (was 50.6), recipe 74.6 (was 72.2).
 2026-10-31T09:42Z | n142 words over a divider and route lines | First builds, no fixes: inbox title small, left 61.6 (53.0); recipe 72.2; ride route drawn 50.6.
 2026-10-31T08:28Z | n141 white or grey pen box on a dark page is an outline | Right first build, no fixes: player 89.8 (86.1), wizard 83.7 (85.6), observatory button outlined 83.2.
 2026-10-31T07:52Z | n140 a pen box round a big word is its area | Letters take pen colour, no tap discs; no fixes: wave 89.1, observatory 83.9, venn 86.4.
