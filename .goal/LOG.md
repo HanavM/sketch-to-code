@@ -1,5 +1,5 @@
 # Log (newest first)
-2026-10-31T19:20Z | n161 sketch round 42 landing pages | Regatta 80.9, donuts 75.5, ski lodge 78.1, Bauhaus 86.5, bowling 84.0; mean 81.0, 17 strokes, 45 words.
+2026-10-31T19:11Z | n161 sketch round 42 landing pages | Regatta 80.9, donuts 75.5, ski lodge 78.1, Bauhaus 86.5, bowling 84.0; mean 81.0, 17 strokes, 45 words.
 2026-10-31T18:45Z | n159 write round 42 | Ten fresh pages (regatta, donuts, ski lodge, Bauhaus, bowling; podcast, quiz, cart, dashboard, gradebook) screenshotted; none sketched.
 2026-10-31T18:22Z | n158 rows typed in open space take the field above | Full field width, row 1 level with drawn checkbox, checked. To-do 80.0, 86.7, no fixes; calendar 70.0 (untouched).
 2026-10-31T17:09Z | n157 title sized by the gap under it | Title capped by line gap, centred on its line, checked. To-do 65.9 to 84.7, 80.8, no fixes.
