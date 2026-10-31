@@ -1,0 +1,613 @@
+{
+  "round": 41,
+  "id": "c5-trail-10k",
+  "version": 3,
+  "stopped": null,
+  "likeness": 81.1,
+  "colour": 0.9511487916891418,
+  "structure": 0.9497519701272032,
+  "layout": 0.6621562725254315,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.8,
+    "simpleShare": 0.94,
+    "shapes": {
+      "dot": 7,
+      "line": 3,
+      "box": 3,
+      "circle": 2,
+      "freehand": 1
+    },
+    "inkPx": 6905
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 52,
+  "notes": 9,
+  "longestNote": 12,
+  "noteTexts": [
+    "ridgeline, bold",
+    "Route · Kit list · Results",
+    "10K, giant bold",
+    "Sunrise · 14 March, pill, yellow text",
+    "Enter the race, pill",
+    "START 6:10AM · 420M CLIMB · HOT DRINKS AT THE TOP, spaced",
+    "one line: Sunrise · 14 March",
+    "footer line is the text itself, no bar",
+    "no border round 10K"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 424,
+    "firstReadingS": 85,
+    "readS": [
+      43,
+      44
+    ],
+    "buildS": [
+      249,
+      20
+    ],
+    "sketchingS": 68
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 94938,
+    "cacheRead": 487807,
+    "output": 31947,
+    "billed": 126885
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ff9a5a",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 465
+    },
+    {
+      "op": "pen",
+      "color": "#fff1d6",
+      "at": 850
+    },
+    {
+      "op": "stroke",
+      "at": 1319
+    },
+    {
+      "op": "pen",
+      "color": "#2a1a3e",
+      "at": 1698
+    },
+    {
+      "op": "stroke",
+      "at": 2351
+    },
+    {
+      "op": "note",
+      "at": 3022
+    },
+    {
+      "op": "stroke",
+      "at": 4049
+    },
+    {
+      "op": "note",
+      "at": 4726
+    },
+    {
+      "op": "stroke",
+      "at": 7634
+    },
+    {
+      "op": "note",
+      "at": 8308
+    },
+    {
+      "op": "stroke",
+      "at": 10018
+    },
+    {
+      "op": "stroke",
+      "at": 10507
+    },
+    {
+      "op": "note",
+      "at": 11231
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 11606
+    },
+    {
+      "op": "stroke",
+      "at": 13652
+    },
+    {
+      "op": "stroke",
+      "at": 14142
+    },
+    {
+      "op": "note",
+      "at": 14831
+    },
+    {
+      "op": "pen",
+      "color": "#fff4d9",
+      "at": 15206
+    },
+    {
+      "op": "stroke",
+      "at": 17518
+    },
+    {
+      "op": "stroke",
+      "at": 18000
+    },
+    {
+      "op": "pen",
+      "color": "#6c4180",
+      "at": 18375
+    },
+    {
+      "op": "stroke",
+      "at": 24150
+    },
+    {
+      "op": "stroke",
+      "at": 24727
+    },
+    {
+      "op": "pen",
+      "color": "#3d2556",
+      "at": 25099
+    },
+    {
+      "op": "stroke",
+      "at": 30120
+    },
+    {
+      "op": "stroke",
+      "at": 30601
+    },
+    {
+      "op": "pen",
+      "color": "#ffd27a",
+      "at": 30980
+    },
+    {
+      "op": "stroke",
+      "at": 33070
+    },
+    {
+      "op": "note",
+      "at": 34005
+    },
+    {
+      "op": "run",
+      "at": 41892
+    },
+    {
+      "op": "note",
+      "at": 347245
+    },
+    {
+      "op": "note",
+      "at": 347978
+    },
+    {
+      "op": "note",
+      "at": 348636
+    },
+    {
+      "op": "run",
+      "at": 348801
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          90
+        ]
+      ],
+      "n": 1,
+      "at": 465
+    },
+    {
+      "way": [
+        [
+          60,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 1319
+    },
+    {
+      "way": [
+        [
+          72,
+          41
+        ],
+        [
+          135,
+          41
+        ]
+      ],
+      "n": 12,
+      "at": 2351
+    },
+    {
+      "way": [
+        [
+          1039,
+          41
+        ],
+        [
+          1208,
+          41
+        ]
+      ],
+      "n": 29,
+      "at": 4049
+    },
+    {
+      "way": [
+        [
+          75,
+          120
+        ],
+        [
+          368,
+          120
+        ],
+        [
+          368,
+          265
+        ],
+        [
+          75,
+          265
+        ],
+        [
+          75,
+          120
+        ]
+      ],
+      "n": 147,
+      "at": 7634
+    },
+    {
+      "way": [
+        [
+          80,
+          310
+        ],
+        [
+          266,
+          310
+        ],
+        [
+          266,
+          348
+        ],
+        [
+          80,
+          348
+        ],
+        [
+          80,
+          310
+        ]
+      ],
+      "n": 75,
+      "at": 10018
+    },
+    {
+      "way": [
+        [
+          95,
+          329
+        ]
+      ],
+      "n": 1,
+      "at": 10507
+    },
+    {
+      "way": [
+        [
+          960,
+          150
+        ],
+        [
+          1180,
+          150
+        ],
+        [
+          1180,
+          210
+        ],
+        [
+          960,
+          210
+        ],
+        [
+          960,
+          150
+        ]
+      ],
+      "n": 95,
+      "at": 13652
+    },
+    {
+      "way": [
+        [
+          975,
+          180
+        ]
+      ],
+      "n": 1,
+      "at": 14142
+    },
+    {
+      "way": [
+        [
+          780,
+          360
+        ],
+        [
+          776,
+          391
+        ],
+        [
+          763,
+          419
+        ],
+        [
+          742,
+          443
+        ],
+        [
+          716,
+          460
+        ],
+        [
+          686,
+          469
+        ],
+        [
+          654,
+          469
+        ],
+        [
+          624,
+          460
+        ],
+        [
+          598,
+          443
+        ],
+        [
+          577,
+          419
+        ],
+        [
+          564,
+          391
+        ],
+        [
+          560,
+          360
+        ],
+        [
+          564,
+          329
+        ],
+        [
+          577,
+          301
+        ],
+        [
+          598,
+          277
+        ],
+        [
+          624,
+          260
+        ],
+        [
+          654,
+          251
+        ],
+        [
+          686,
+          251
+        ],
+        [
+          716,
+          260
+        ],
+        [
+          742,
+          277
+        ],
+        [
+          763,
+          301
+        ],
+        [
+          776,
+          329
+        ],
+        [
+          780,
+          360
+        ]
+      ],
+      "n": 111,
+      "at": 17518
+    },
+    {
+      "way": [
+        [
+          640,
+          330
+        ]
+      ],
+      "n": 1,
+      "at": 18000
+    },
+    {
+      "way": [
+        [
+          180,
+          900
+        ],
+        [
+          560,
+          480
+        ],
+        [
+          940,
+          900
+        ],
+        [
+          180,
+          900
+        ]
+      ],
+      "n": 316,
+      "at": 24150
+    },
+    {
+      "way": [
+        [
+          500,
+          750
+        ]
+      ],
+      "n": 1,
+      "at": 24727
+    },
+    {
+      "way": [
+        [
+          640,
+          900
+        ],
+        [
+          1060,
+          560
+        ],
+        [
+          1280,
+          740
+        ],
+        [
+          1280,
+          900
+        ],
+        [
+          640,
+          900
+        ]
+      ],
+      "n": 272,
+      "at": 30120
+    },
+    {
+      "way": [
+        [
+          1100,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 30601
+    },
+    {
+      "way": [
+        [
+          349,
+          855
+        ],
+        [
+          930,
+          855
+        ]
+      ],
+      "n": 98,
+      "at": 33070
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "ridgeline, bold",
+      "whole": false,
+      "x": 100,
+      "y": 41,
+      "at": 3022
+    },
+    {
+      "text": "Route · Kit list · Results",
+      "whole": false,
+      "x": 1120,
+      "y": 41,
+      "at": 4726
+    },
+    {
+      "text": "10K, giant bold",
+      "whole": false,
+      "x": 220,
+      "y": 190,
+      "at": 8308
+    },
+    {
+      "text": "Sunrise · 14 March, pill, yellow text",
+      "whole": false,
+      "x": 175,
+      "y": 329,
+      "at": 11231
+    },
+    {
+      "text": "Enter the race, pill",
+      "whole": false,
+      "x": 1070,
+      "y": 180,
+      "at": 14831
+    },
+    {
+      "text": "START 6:10AM · 420M CLIMB · HOT DRINKS AT THE TOP, spaced",
+      "whole": false,
+      "x": 640,
+      "y": 855,
+      "at": 34005
+    },
+    {
+      "text": "one line: Sunrise · 14 March",
+      "whole": false,
+      "x": 175,
+      "y": 300,
+      "at": 347245
+    },
+    {
+      "text": "footer line is the text itself, no bar",
+      "whole": false,
+      "x": 640,
+      "y": 800,
+      "at": 347978
+    },
+    {
+      "text": "no border round 10K",
+      "whole": false,
+      "x": 400,
+      "y": 110,
+      "at": 348636
+    }
+  ]
+}
