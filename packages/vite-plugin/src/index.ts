@@ -73,6 +73,8 @@ export interface RunRequest {
   rawInterpretation?: unknown
   /** n191: plan targets re-pointed by a tap before Go. */
   retargets?: unknown
+  /** n192: plan actions struck with "skip" before Go. */
+  skips?: unknown
   /** Resemblance slider + per-aspect locks; validated in the pipeline. */
   fidelity?: unknown
   /** Notes typed while sketching, each anchored to an element/strokes/the run. */
@@ -1617,6 +1619,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     candidates: body.candidates,
                     instant: body.instant,
                     retargets: Array.isArray(body.retargets) ? body.retargets as Parameters<typeof m.runV2>[0]['retargets'] : undefined,
+                    skips: Array.isArray(body.skips) ? body.skips as Parameters<typeof m.runV2>[0]['skips'] : undefined,
                   },
                   { ...ctx, signal, deadline },
                 )

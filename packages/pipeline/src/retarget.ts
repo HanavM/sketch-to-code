@@ -71,3 +71,58 @@ export function applyRetargets(raw: RawInterpretation, snap: DomSnapshot, retarg
   }
   return { raw: out, applied, refused }
 }
+
+/**
+ * n192: "skip" on a plan row strikes that action before ✓ Go.
+ *
+ * Round 44 e3 replay (n192): the fix "delete texts 4 grey squares and 5 sliders" (the printed words of two
+ * notes) was read as two DELETE actions — the four grey tool squares and the five sliders, outright. A tap pick
+ * can only re-point a part; it cannot say "not this at all". So each plan row now has "skip": the client sends
+ * { action, ids } (ids = the targets the row showed, so a shifted index still finds its action), the action is
+ * dropped here before grounding, and the build is told plainly that the person struck that reading of their
+ * words, so the run notes it came from are not read as asking for it again.
+ */
+export interface Skip {
+  /** Index of the action as the plan showed it. */
+  action: number
+  /** The target ids the plan row showed (may be empty for an ADD). */
+  ids?: string[]
+}
+
+export interface SkipResult {
+  raw: RawInterpretation
+  struck: Array<{ action: number; kind: string; instruction: string }>
+  refused: string[]
+}
+
+const sameSet = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every((x) => b.includes(x))
+
+export function applySkips(raw: RawInterpretation, skips: readonly Skip[] | undefined): SkipResult {
+  const drop = new Set<number>()
+  const refused: string[] = []
+  for (const s of skips ?? []) {
+    if (typeof s?.action !== 'number') { refused.push('skip: no action'); continue }
+    const ids = Array.isArray(s.ids) ? s.ids.filter((x) => typeof x === 'string') : []
+    const at = raw.actions[s.action]
+    let i = s.action
+    // the client counts grounded actions; if the index no longer holds the ids the row showed, find the one that does
+    if (ids.length && !(at && sameSet(at.elements ?? [], ids))) {
+      const holder = raw.actions.findIndex((x, k) => !drop.has(k) && sameSet(x.elements ?? [], ids))
+      if (holder !== -1) i = holder
+    }
+    if (!raw.actions[i]) { refused.push(`skip ${String(s.action)}: no such action`); continue }
+    drop.add(i)
+  }
+  const struck = [...drop].sort((a, b) => a - b).map((k) => ({
+    action: k, kind: String(raw.actions[k]!.kind ?? ''), instruction: String(raw.actions[k]!.instruction ?? ''),
+  }))
+  return { raw: { ...raw, actions: raw.actions.filter((_, k) => !drop.has(k)) }, struck, refused }
+}
+
+/** The brief's word on struck actions: the build must not do them, whatever the run notes seem to say. */
+export function struckBrief(struck: SkipResult['struck']): string {
+  if (!struck.length) return ''
+  return `STRUCK FROM THE PLAN (the person read the plan and pressed "skip" on these before Go — they are a ` +
+    `MISREADING of their words: do NOT do them, and do not read their notes as asking for them; leave those ` +
+    `parts exactly as they are):\n${struck.map((s) => `- ${s.kind.toUpperCase()}: ${s.instruction}`).join('\n')}\n\n`
+}

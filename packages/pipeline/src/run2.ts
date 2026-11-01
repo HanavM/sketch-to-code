@@ -3,7 +3,7 @@
  * interpretV2()  — evidence → one multimodal call → grounded, validated intent
  * runV2()        — grounded intent → codegen → per-action verification
  */
-import { applyRetargets, type Retarget } from './retarget.js'
+import { applyRetargets, applySkips, struckBrief, type Retarget, type Skip } from './retarget.js'
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { encodePng, renderScene, type Stroke } from '@s2c/ink'
@@ -404,6 +404,8 @@ export async function runV2(
     instant?: string | null
     /** n191: plan targets the person re-pointed with a tap before ✓ Go. */
     retargets?: Retarget[]
+    /** n192: plan actions the person struck with "skip" before ✓ Go. */
+    skips?: Skip[]
   },
   ctx: RunContext,
   provider: PerceptionProvider = defaultPerceptionProvider(),
@@ -450,7 +452,13 @@ export async function runV2(
     save('retargets.json', { asked: input.retargets, applied: picked.applied, refused: picked.refused })
     stage('retarget', picked.applied.map((a) => `action ${String(a.action)}: ${a.from ?? 'none'} -> ${a.to}`).join('; ') || picked.refused.join('; '))
   }
-  const interp = groundInterpretation(picked.raw, ev, input.snapshot, input.mode ?? 'gesture')
+  // n192: actions the person struck on the plan are dropped (after the picks, which count the plan's indices)
+  const skipped = applySkips(picked.raw, input.skips)
+  if (input.skips?.length) {
+    save('skips.json', { asked: input.skips, struck: skipped.struck, refused: skipped.refused })
+    stage('skip', skipped.struck.map((x) => `action ${String(x.action)}: ${x.kind} ${x.instruction.slice(0, 60)}`).join('; ') || skipped.refused.join('; '))
+  }
+  const interp = groundInterpretation(skipped.raw, ev, input.snapshot, input.mode ?? 'gesture')
   // The slider decides how literally a depiction is taken, so it overrides the
   // interpreter's own verbatim/recognized guess — that guess was the tool's
   // opinion of the user's intent, and the user has now stated it.
@@ -640,6 +648,7 @@ export async function runV2(
       ? `THE USER ALSO TYPED (applies to the whole run — their exact words, and they ` +
         `outrank any reading of the ink):\n${interp.runNotes.map((n) => `- ${n}`).join('\n')}\n\n`
       : '') +
+    struckBrief(skipped.struck) +
     (interp.pageNotes?.length
       ? `PAGE LOOK (the user typed these about the whole page, wherever the note sits): ` +
         `apply them to the page itself — the outermost page wrapper / body background, filling at ` +

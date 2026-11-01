@@ -2113,6 +2113,8 @@ const STYLES = css`
   }
   #planCard .cInstr { color: var(--s2c-muted); margin-top: 2px; }
   #planCard .cPick { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 2px; font-size: 11px; }
+  #planCard .cSkip { margin-left: auto; font: inherit; font-size: 10.5px; padding: 1px 8px; border-radius: 999px; cursor: pointer; border: 1px solid var(--s2c-line); background: transparent; color: var(--s2c-text); flex: none; }
+  #planCard .cRow.skipped .cWhat, #planCard .cRow.skipped .cInstr, #planCard .cRow.skipped .cKind { text-decoration: line-through; opacity: .5; }
   #planCard .cPick button { font: inherit; font-size: 10.5px; padding: 1px 8px; border-radius: 999px; cursor: pointer; border: 1px solid var(--s2c-line); background: transparent; color: var(--s2c-text); }
   :host([data-picking]) { cursor: crosshair; }
   /* the RESOLVED colour, painted: naming a hex would be a picture of it */
@@ -2337,6 +2339,8 @@ class Overlay {
   private picking: { action: number; from: string } | null = null
   /** n191: the last tap's spot and pick, so a second tap on the same spot climbs to the part around it. */
   private lastPick: { action: number; from: string; x: number; y: number; el: Element } | null = null
+  /** n192: plan actions the person struck with "skip" (index -> the target ids the row showed), sent with ✓ Go. */
+  private skips = new Map<number, string[]>()
   /** Where the work is, in order — what the cursor visits. */
   private planStops: PlanStop[] = []
   private cursor: WorkCursor | null = null
@@ -8653,6 +8657,15 @@ class Overlay {
     })
   }
 
+  /** n192: "skip" on a plan row: ✓ Go leaves that action out, and the build is told it was a misreading. */
+  private toggleSkip(action: number, ids: string[]) {
+    if (this.skips.has(action)) this.skips.delete(action)
+    else this.skips.set(action, ids)
+    const n = this.skips.size
+    this.status(n ? `${n} step${n === 1 ? '' : 's'} skipped: ✓ Go leaves ${n === 1 ? 'it' : 'them'} out` : 'nothing skipped')
+    this.renderPlan()
+  }
+
   /** n191: "not this" on a plan row: the next press on the page picks the part this action is about. */
   private startPick(action: number, from: string) {
     this.picking = { action, from }
@@ -9241,7 +9254,16 @@ class Overlay {
       const what = document.createElement('span')
       what.className = 'cWhat'
       what.textContent = r.what
-      head.append(dot, kind, what)
+      // n192: "skip" strikes the whole action (a reading that is wrong outright, not just aimed at the wrong part)
+      const struck = this.skips.has(r.action)
+      row.classList.toggle('skipped', struck)
+      const sk = document.createElement('button')
+      sk.type = 'button'
+      sk.className = 'cSkip'
+      sk.dataset.skip = String(r.action)
+      sk.textContent = struck ? 'skipped (undo)' : 'skip'
+      sk.addEventListener('click', (e) => { e.stopPropagation(); this.toggleSkip(r.action, r.picks.map((p) => p.domId)) })
+      head.append(dot, kind, what, sk)
       row.appendChild(head)
       if (r.instruction) {
         const i = document.createElement('div')
@@ -9270,7 +9292,7 @@ class Overlay {
         row.appendChild(note)
       }
       // n191: each part the plan points at, by its look, with "not this": a tap on the page then picks the right one
-      for (const p of r.picks) {
+      for (const p of struck ? [] : r.picks) {
         const line = document.createElement('div')
         line.className = 'cPick'
         const name = document.createElement('span')
@@ -9320,6 +9342,25 @@ class Overlay {
           x: rect.x + rect.w / 2, y: rect.y + rect.h / 2, rect, color, kind, name,
         })
       }
+      const pushDetail = () => detail.push({
+        kind: spec.label,
+        color,
+        needsConfirm: a.needsConfirm === true,
+        what: a.targets.map((t) => this.targetName(t)).join(', ') ||
+          (a.region ? (a.depicts ? `new · ${a.depicts}` : 'new here') : ''),
+        instruction: a.instruction
+          ? (a.instruction.length > PLAN_INSTR_MAX
+              ? `${a.instruction.slice(0, PLAN_INSTR_MAX)}…`
+              : a.instruction)
+          : '',
+        swatch: a.color ? (a.color.nearest?.css ?? a.color.drawn) : '',
+        token: a.color ? (a.color.nearest ? a.color.nearest.token : a.color.drawn) : '',
+        notes: a.notes ?? [],
+        action: it.actions.indexOf(a),
+        picks: a.targets.map((t) => ({ domId: t.domId, name: this.targetName(t) })),
+      })
+      // n192: a struck action keeps its row (so skip can be undone) but marks nothing on the page
+      if (this.skips.has(it.actions.indexOf(a))) { pushDetail(); continue }
       for (const t of a.targets) {
         this.planSvg.appendChild(this.planRect(t.rect, color, `pOutline${a.needsConfirm ? ' wide' : ''}`))
         add(t.rect, this.targetName(t))
@@ -9341,27 +9382,11 @@ class Overlay {
       if (a.kind === 'swap' && a.targets.length === 2) {
         this.planArrow(a.targets[0]!.rect, a.targets[1]!.rect, color, true)
       }
+      pushDetail()
       // The words go in ONE card rather than onto the page. The user's typed
       // notes are the loudest line in it, for the same reason they were the
       // loudest line on a chip: everything else is a reading of the drawing,
       // and a typed note is not a reading of anything.
-      detail.push({
-        kind: spec.label,
-        color,
-        needsConfirm: a.needsConfirm === true,
-        what: a.targets.map((t) => this.targetName(t)).join(', ') ||
-          (a.region ? (a.depicts ? `new · ${a.depicts}` : 'new here') : ''),
-        instruction: a.instruction
-          ? (a.instruction.length > PLAN_INSTR_MAX
-              ? `${a.instruction.slice(0, PLAN_INSTR_MAX)}…`
-              : a.instruction)
-          : '',
-        swatch: a.color ? (a.color.nearest?.css ?? a.color.drawn) : '',
-        token: a.color ? (a.color.nearest ? a.color.nearest.token : a.color.drawn) : '',
-        notes: a.notes ?? [],
-        action: it.actions.indexOf(a),
-        picks: a.targets.map((t) => ({ domId: t.domId, name: this.targetName(t) })),
-      })
     }
     this.planStops = stops
     this.renderPlanCard(detail)
@@ -9375,6 +9400,7 @@ class Overlay {
     this.retargets = []
     this.picking = null
     this.lastPick = null
+    this.skips = new Map()
     delete this.host.dataset.picking
     this.renderPlan()
   }
@@ -12401,6 +12427,8 @@ class Overlay {
           rawInterpretation: this.v2?.raw,
           // n191: parts picked by a tap on the plan; the server swaps them in before grounding
           retargets: this.retargets.length ? this.retargets : undefined,
+          // n192: actions struck on the plan; the server drops them and tells the build they were a misreading
+          skips: this.skips.size ? [...this.skips].map(([action, ids]) => ({ action, ids })) : undefined,
           // the instant render already wrote and mounted this; the run should
           // refine it in place, not create a second component for one drawing
           instant: this.instant,

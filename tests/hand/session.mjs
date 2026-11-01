@@ -26,6 +26,7 @@
  *   moveBar {x, y}              drag the toolbar by its grip (n162)
  *   look {name}                 screenshot of what is on screen now
  *   run {hold?}                 (n191: hold stops at the plan; then pick {action, from, x, y} and go)
+ *   skip {action}               (n192: on a held plan, press "skip" on that action's row; counts as a pick)
  *   run                         Alt+R, wait for the reading, shot it, Go, wait
  *                               for the build, reload, shot the result
  *   done                        score (v3), side-by-side, metrics -> digest
@@ -277,6 +278,22 @@ const opsA = {
     const f = join(S.dir, `run${S.held?.n ?? 0}-picked.png`)
     await p.screenshot({ path: f })
     return { ok: true, status: await statusLine(p), plan: await safeEval(p, () => window.__S2C_DEBUG__?.planRows?.() ?? []), shot: f }
+  },
+  /** n192: on a held plan, press "skip" on one action's row: Go leaves it out. Counts as a pick. */
+  async skip({ action }) {
+    const p = S.page
+    const ok = await safeEval(p, (key) => {
+      const el = document.getElementById('s2c-overlay-host').shadowRoot.querySelector(`[data-skip="${key}"]`)
+      if (!el) return false
+      el.click(); return true
+    }, String(action))
+    if (!ok) return { ok: false, error: `no plan row ${action}` }
+    await p.waitForTimeout(300)
+    S.picks = (S.picks ?? 0) + 1
+    S.events.push({ op: 'skip', action, at: now() - (S.t0 ?? now()) })
+    const f = join(S.dir, `run${S.held?.n ?? 0}-skipped.png`)
+    await p.screenshot({ path: f })
+    return { ok: true, status: await statusLine(p), shot: f }
   },
   /** n191: press Go on a held plan. */
   async go() {
