@@ -18,6 +18,17 @@ export const RING_LINE = /\b(arcs?|track|progress|gauge|dial|hollow|ring|donut|d
 /** Words that ask for the disc itself. */
 const DISC = /\b(solid|filled|disc|disk|dot|blob|ball|avatar|button|badge|glow|glowing|sun|planet)\b/i
 
+/**
+ * n184: a pen with a clear hue (orange, yellow, teal), not a near-neutral writing pen (black, grey, white). A ring drawn
+ * in one, with no tap, is a flat disc in that colour, even inside a depicted group (holds on a climbing wall).
+ */
+export function colouredPen(color: string | null | undefined): boolean {
+  const m = /^#?([0-9a-f]{6})$/i.exec(color ?? '')
+  if (!m) return false
+  const v = parseInt(m[1]!, 16), r = (v >> 16) & 255, g = (v >> 8) & 255, b = v & 255
+  return Math.max(r, g, b) - Math.min(r, g, b) >= 60
+}
+
 export function ringNoted(texts: readonly string[]): boolean {
   return texts.some((t) => RING_LINE.test(t) && !DISC.test(t.replace(/\bfilled\s+(?:arc|part|share)\b/gi, '')))
 }

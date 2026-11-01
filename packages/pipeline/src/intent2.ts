@@ -325,7 +325,7 @@ export function isPageLookNote(text: string): boolean {
 
 import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markStats, statOf } from './statcard.js'
-import { ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
+import { colouredPen, ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
@@ -1140,8 +1140,15 @@ export function groundInterpretation(
           const penFrame = shape?.shape === 'box' && !shape.tilt && penFrameBox(s, [...ev.strokes.values()], ev.fills ?? [],
             ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
               (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text), shape.box)
+          // n184: a ring inside a depiction stays a ring: drawn in a coloured pen (no tap) it is a flat disc in that pen
+          // colour where drawn (round 43 c5: three holds in orange, yellow and teal pens, read as a depicted "climbing
+          // holds" group, were traced and built black and orange at random spots); noted as an outline, a stamp or a
+          // track it is a hollow ring (round 43 c4: the dark "outline stamp" ring was traced and filled a dark blob)
+          const penRing = shape?.shape === 'ellipse' && !(ev.fills ?? []).some((f) => f.target === s.id) && (colouredPen(s.color) ||
+            ringNoted(ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
+              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text)))
           // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
-          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || shape.tilt || shape.pill)) {
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || penRing || shape.tilt || shape.pill)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }
