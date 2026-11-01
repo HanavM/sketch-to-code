@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T01:40Z | n171 note above a button stays out of it | Total sits above Checkout both tries, button keeps its word: cart 74.8, 80.8, no fixes.
 2026-11-01T01:03Z | n166 toolbar steps off ink, rows run to the panel | Podcast 80.9 with no bar move; cart rows reach the panel: 42.5, 83.1 (was 70.2), no fixes.
 2026-10-31T23:51Z | n170 stalled repair retried, heading sized by its line | Headings span their line on first build 3 of 3; gradebook 66.8, 69.3 (best), podcast 78.5, no fixes.
 2026-10-31T23:20Z | n165 table under its drawn rule, no invented button | Ring and box under the rule read as row 1 cells; gradebook 58.0, 68.0 no fixes (was 65.9).
