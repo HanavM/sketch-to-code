@@ -1,0 +1,474 @@
+{
+  "round": 43,
+  "id": "e4-pet-adoption",
+  "version": 3,
+  "stopped": null,
+  "likeness": 70.2,
+  "colour": 0.9806466051150782,
+  "structure": 0.9578086965575007,
+  "layout": 0.738812317136656,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 3.5,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "line": 4,
+      "box": 7
+    },
+    "inkPx": 8260
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 48,
+  "notes": 6,
+  "longestNote": 18,
+  "noteTexts": [
+    "Pawhome bold",
+    "Dogs, Cats, Donate",
+    "18 dogs near you",
+    "filters: Animal (Dogs, Cats, Rabbits), Age (Puppy, Adult, Senior), Size (Small, Medium, Large); Dogs, Adult, Medium checked orange",
+    "pet cards: tinted picture top (peach, sage, blue, lilac), name bold, age · breed under",
+    "Biscuit, Juno, Pepper, Otis, Maple, Rio"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 290,
+    "firstReadingS": 70,
+    "readS": [
+      32
+    ],
+    "buildS": [
+      218
+    ],
+    "sketchingS": 40
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 66734,
+    "cacheRead": 522509,
+    "output": 23689,
+    "billed": 90423
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 463
+    },
+    {
+      "op": "pen",
+      "color": "#ececec",
+      "at": 832
+    },
+    {
+      "op": "stroke",
+      "at": 4845
+    },
+    {
+      "op": "pen",
+      "color": "#e07a3f",
+      "at": 5209
+    },
+    {
+      "op": "stroke",
+      "at": 5959
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 6326
+    },
+    {
+      "op": "stroke",
+      "at": 7277
+    },
+    {
+      "op": "pen",
+      "color": "#2a2a2a",
+      "at": 7644
+    },
+    {
+      "op": "stroke",
+      "at": 8743
+    },
+    {
+      "op": "pen",
+      "color": "#e4e4e4",
+      "at": 9110
+    },
+    {
+      "op": "stroke",
+      "at": 12543
+    },
+    {
+      "op": "stroke",
+      "at": 15982
+    },
+    {
+      "op": "stroke",
+      "at": 19442
+    },
+    {
+      "op": "stroke",
+      "at": 22877
+    },
+    {
+      "op": "stroke",
+      "at": 26313
+    },
+    {
+      "op": "stroke",
+      "at": 29747
+    },
+    {
+      "op": "pen",
+      "color": "#e07a3f",
+      "at": 30112
+    },
+    {
+      "op": "stroke",
+      "at": 30783
+    },
+    {
+      "op": "stroke",
+      "at": 31245
+    },
+    {
+      "op": "note",
+      "at": 31975
+    },
+    {
+      "op": "note",
+      "at": 32776
+    },
+    {
+      "op": "note",
+      "at": 33568
+    },
+    {
+      "op": "note",
+      "at": 34922
+    },
+    {
+      "op": "note",
+      "at": 36465
+    },
+    {
+      "op": "note",
+      "at": 37544
+    },
+    {
+      "op": "run",
+      "at": 37640
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 463
+    },
+    {
+      "way": [
+        [
+          2,
+          72
+        ],
+        [
+          1278,
+          72
+        ]
+      ],
+      "n": 214,
+      "at": 4845
+    },
+    {
+      "way": [
+        [
+          48,
+          36
+        ],
+        [
+          150,
+          36
+        ]
+      ],
+      "n": 18,
+      "at": 5959
+    },
+    {
+      "way": [
+        [
+          1058,
+          35
+        ],
+        [
+          1232,
+          35
+        ]
+      ],
+      "n": 30,
+      "at": 7277
+    },
+    {
+      "way": [
+        [
+          330,
+          120
+        ],
+        [
+          560,
+          120
+        ]
+      ],
+      "n": 39,
+      "at": 8743
+    },
+    {
+      "way": [
+        [
+          330,
+          160
+        ],
+        [
+          613,
+          160
+        ],
+        [
+          613,
+          412
+        ],
+        [
+          330,
+          412
+        ],
+        [
+          330,
+          162
+        ]
+      ],
+      "n": 179,
+      "at": 12543
+    },
+    {
+      "way": [
+        [
+          638,
+          160
+        ],
+        [
+          921,
+          160
+        ],
+        [
+          921,
+          412
+        ],
+        [
+          638,
+          412
+        ],
+        [
+          638,
+          162
+        ]
+      ],
+      "n": 179,
+      "at": 15982
+    },
+    {
+      "way": [
+        [
+          946,
+          160
+        ],
+        [
+          1229,
+          160
+        ],
+        [
+          1229,
+          412
+        ],
+        [
+          946,
+          412
+        ],
+        [
+          946,
+          162
+        ]
+      ],
+      "n": 179,
+      "at": 19442
+    },
+    {
+      "way": [
+        [
+          330,
+          437
+        ],
+        [
+          613,
+          437
+        ],
+        [
+          613,
+          689
+        ],
+        [
+          330,
+          689
+        ],
+        [
+          330,
+          439
+        ]
+      ],
+      "n": 179,
+      "at": 22877
+    },
+    {
+      "way": [
+        [
+          638,
+          437
+        ],
+        [
+          921,
+          437
+        ],
+        [
+          921,
+          689
+        ],
+        [
+          638,
+          689
+        ],
+        [
+          638,
+          439
+        ]
+      ],
+      "n": 179,
+      "at": 26313
+    },
+    {
+      "way": [
+        [
+          946,
+          437
+        ],
+        [
+          1229,
+          437
+        ],
+        [
+          1229,
+          689
+        ],
+        [
+          946,
+          689
+        ],
+        [
+          946,
+          439
+        ]
+      ],
+      "n": 179,
+      "at": 29747
+    },
+    {
+      "way": [
+        [
+          48,
+          140
+        ],
+        [
+          66,
+          140
+        ],
+        [
+          66,
+          158
+        ],
+        [
+          48,
+          158
+        ],
+        [
+          48,
+          142
+        ]
+      ],
+      "n": 13,
+      "at": 30783
+    },
+    {
+      "way": [
+        [
+          57,
+          149
+        ]
+      ],
+      "n": 1,
+      "at": 31245
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Pawhome bold",
+      "whole": false,
+      "x": 99,
+      "y": 36,
+      "at": 31975
+    },
+    {
+      "text": "Dogs, Cats, Donate",
+      "whole": false,
+      "x": 1145,
+      "y": 35,
+      "at": 32776
+    },
+    {
+      "text": "18 dogs near you",
+      "whole": false,
+      "x": 445,
+      "y": 120,
+      "at": 33568
+    },
+    {
+      "text": "filters: Animal (Dogs, Cats, Rabbits), Age (Puppy, Adult, Senior), Size (Small, Medium, Large); Dogs, Adult, Medium checked orange",
+      "whole": false,
+      "x": 57,
+      "y": 149,
+      "at": 34922
+    },
+    {
+      "text": "pet cards: tinted picture top (peach, sage, blue, lilac), name bold, age · breed under",
+      "whole": false,
+      "x": 471,
+      "y": 300,
+      "at": 36465
+    },
+    {
+      "text": "Biscuit, Juno, Pepper, Otis, Maple, Rio",
+      "whole": false,
+      "x": 780,
+      "y": 300,
+      "at": 37544
+    }
+  ]
+}

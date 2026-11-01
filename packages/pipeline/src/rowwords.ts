@@ -16,7 +16,7 @@ import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { wordsOf } from './ownwords.js'
 import { copyWords } from './linespan.js'
-import { noteParts } from './typedcopy.js'
+import { nameList, noteParts, specNote } from './typedcopy.js'
 
 interface NoteLike { text: string; focus?: string[]; strokeIds?: string[] }
 interface NodeLike { id: string; text?: string; rect: BBox; textBox?: BBox }
@@ -52,12 +52,46 @@ export function markRowWords(marks: ShapeMark[], notes: NoteLike[], page: readon
     const own = notes.filter((n) => n.focus?.length
       ? n.focus.length === 1 && n.focus[0] === m.strokeId
       : n.strokeIds?.length === 1 && n.strokeIds[0] === m.strokeId)
-    const n = own.find((x) => isCopy(copyOf(x.text)))
+    // n179: a note describing how a kind of item looks, or a list of names for a whole grid, is never one mark's words
+    const n = own.find((x) => isCopy(copyOf(x.text)) && !specNote(x.text) && !nameList(x.text))
     // n130: the note's copy without its directions ("Biscuit selected, avatar" is "Biscuit")
     if (n) m.own = (/[;\n]/.test(n.text) ? '' : noteParts(copyOf(n.text)).copy) || copyOf(n.text)
   }
+  // n179: a name list as long as a drawn grid first, so a row of the grid never takes it as a row's list
+  spreadNameGrid(marks, notes)
   spreadListNotes(marks, notes, page)
   splitRowNotes(marks)
+}
+
+/**
+ * n179 (round 43 e4 pets): "Biscuit, Juno, Pepper, Otis, Maple, Rio" typed on the second of six look-alike cards in
+ * two rows of three. A row holds only three, so the list was not spread, and the second card was given the whole
+ * list as its words (one build printed it). A list of names as many as the look-alike marks of the grid the note sits
+ * on is one name per mark, in reading order (rows top to bottom, each left to right). In place.
+ */
+export function spreadNameGrid(marks: ShapeMark[], notes: NoteLike[]): void {
+  const pool = marks.filter((m) => closed(m))
+  for (const n of notes) {
+    const items = nameList(n.text)
+    if (!items) continue
+    const ids = n.focus?.length ? n.focus : n.strokeIds ?? []
+    const anchor = pool.find((m) => ids.includes(m.strokeId))
+    if (!anchor || anchor.listNote) continue
+    const s = anchor.box
+    const like = pool.filter((o) => o.shape === anchor.shape && ratio(o.box.w, s.w) <= 1.3 && ratio(o.box.h, s.h) <= 1.3)
+    if (like.length !== items.length || like.some((o) => o.listNote)) continue
+    // the grid: every mark shares its row with others (same top within half a height) and the rows line up in columns
+    const rows: ShapeMark[][] = []
+    for (const o of [...like].sort((a, b) => a.box.y - b.box.y)) {
+      const r = rows.find((row) => Math.abs(row[0]!.box.y - o.box.y) <= s.h / 2)
+      if (r) r.push(o); else rows.push([o])
+    }
+    if (rows.length < 2 || new Set(rows.map((r) => r.length)).size > 1) continue
+    const ordered = rows.flatMap((r) => r.sort((a, b) => a.box.x - b.box.x))
+    const typedOwn = ordered.filter((o) => o.own && o.own.trim() !== n.text.trim())
+    if (typedOwn.some((o) => o.own!.trim().toLowerCase() !== items[ordered.indexOf(o)]!.toLowerCase())) continue
+    ordered.forEach((o, i) => { o.own = items[i]!; o.listNote = n.text })
+  }
 }
 
 /**
@@ -176,7 +210,7 @@ export function spreadListNotes(marks: ShapeMark[], notes: NoteLike[], page: rea
     if (!items || !items.every((t) => isCopy(t))) continue
     const ids = n.focus?.length ? n.focus : n.strokeIds ?? []
     const anchors = pool.filter((m) => ids.includes(m.strokeId))
-    if (!anchors.length) continue
+    if (!anchors.length || anchors.some((a) => a.listNote === n.text)) continue
     for (const a of anchors) {
       // n130: a lone small box with a comma list of items of one form is the first drawn of a row
       const line = lineOfLookAlikes(a, pool) ?? (comma && a.box.w <= 260 && a.box.h <= 160 ? { marks: [a], axis: 'row' as const } : null)

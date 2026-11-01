@@ -145,6 +145,46 @@ export function noteParts(note: string): NoteParts {
   return { copy, look, directions, ...(pt.place ? { place: pt.place } : {}), ...(more.length ? { more } : {}) }
 }
 
+
+/** n179: words that name a part of an item or how it looks, in a note that describes a kind of item. */
+const PART = /^(picture|pictures|image|images|photo|photos|thumbnail|thumb|name|names|title|titles|price|prices|label|labels|caption|captions|subtitle|top|bottom|under|below|above|beneath|left|right|corner|icon|icons|avatar|avatars|tag|tags|badge|badges|button|buttons|tinted|tint|bold|grey|gray|muted|small|big|line|lines|text|date|dates|age|breed|meta|rating|stars|footer|header|body|description|row|rows|column|columns|each|every|rounded|shadow|border|outline|filled|pale|light|dark)$/i
+
+/**
+ * n179 (round 43 e4 pets): "pet cards: tinted picture top (peach, sage, blue, lilac), name bold, age · breed under"
+ * says how every pet card is laid out; one build printed it whole as the first card's name. A note "<kind>: <how
+ * each looks>" whose part after the colon is lower-case words naming parts and looks is a description, never copy.
+ * A colon note whose list holds names ("filters: Animal (Dogs, Cats)") is not one.
+ */
+export function specNote(note: string): { kind: string; desc: string; lead: string } | null {
+  const m = /^\s*([\p{L}][\p{L}\s'-]{1,30}?)\s*:\s*(.+)$/u.exec(note)
+  if (!m || note.includes(';')) return null
+  const kind = m[1]!.trim(), desc = m[2]!.trim()
+  if (kind.split(/\s+/).length > 3 || /\p{Lu}/u.test(kind.slice(1))) return null
+  const words = desc.split(/[\s,()·/]+/).map((w) => w.replace(/[^\p{L}\p{N}]/gu, '')).filter(Boolean)
+  if (words.length < 3) return null
+  if (words.filter((w) => /^\p{Lu}/u.test(w)).length > 1 || /\d/.test(desc)) return null
+  if (words.filter((w) => PART.test(w)).length < 2) return null
+  const lead = desc.split(/[,(;]/)[0]!.trim()
+  return { kind, desc, lead: lead.split(/\s+/).length >= 2 ? lead : desc.split(/\s+/).slice(0, 4).join(' ') }
+}
+
+/**
+ * n179 (round 43 e4 pets): "Biscuit, Juno, Pepper, Otis, Maple, Rio" typed on the pet cards gives one name to each;
+ * one build printed the whole list as the second card's name. Three or more short capitalised items with commas
+ * are names for as many items, each printed alone, never the list as one line.
+ */
+export function nameList(note: string): string[] | null {
+  if (/[:;()]/.test(note)) return null
+  const items = note.split(',').map((t) => t.trim()).filter(Boolean)
+  if (items.length < 3) return null
+  for (const it of items) {
+    const ws = it.split(/\s+/)
+    if (ws.length > 3 || !/^\p{Lu}/u.test(it) || /[.!?]$/.test(it)) return null
+    if (ws.every((w) => LOOK.test(w.replace(/[^\p{L}]/gu, '')))) return null
+  }
+  return items
+}
+
 const TIME = /(?<![\d:])(\d{1,2}:\d{2}(?::\d{2})?(?:\s?[ap]\.?m\.?)?)(?![\d:])/gi
 
 /** Times typed in the notes' copy (14:32, 9:05 pm). */
@@ -160,6 +200,11 @@ export function directionStrings(notes: readonly string[]): { text: string; why:
   for (const n of notes) {
     // n92: a progress bar note is told and checked by progress.ts (its caption is copy, its percent is the fill)
     if (progressOf(n)) continue
+    // n179: a note describing how a kind of item looks, and a list of names one per item, are never one line of text
+    const sp = specNote(n)
+    if (sp) { out.push({ text: sp.lead, why: `a description of how the ${sp.kind} look`, note: n }); continue }
+    const nl = nameList(n)
+    if (nl) { out.push({ text: nl.slice(0, 3).join(', '), why: 'a list of names, one per item', note: n }); continue }
     const p = noteParts(n)
     if (!p.look && !p.directions.length && !p.place) continue
     // n104: the position word printed after the label ("2:14 pm above"), even when the label is split over spans
@@ -188,6 +233,20 @@ export function typedCopyBrief(notes: readonly string[]): string {
     if (progressOf(n)) continue
     // n113: a calendar note describes its block; calendar.ts tells its heading and days
     if (calendarOf(n)) continue
+    const sp = specNote(n)
+    if (sp && !seen.has(n)) {
+      seen.add(n)
+      lines.push(`- "${n}" DESCRIBES how each of the ${sp.kind} looks (its parts and their style): build that layout on EVERY one of them. ` +
+        `None of these words is text on the page: never print the note, "${sp.kind}" or "${sp.lead}" as a name, title or caption.`)
+      continue
+    }
+    const nl = nameList(n)
+    if (nl && !seen.has(n)) {
+      seen.add(n)
+      lines.push(`- "${n}" gives ${nl.length} names, one per item, in drawn order (left to right, then top to bottom): ${nl.map((t) => `"${t}"`).join(', ')}. ` +
+        'Each item shows only its own name; never print the list (or several names) as one line.')
+      continue
+    }
     const p = noteParts(n)
     if ((!p.look && !p.directions.length && !p.place) || seen.has(n)) continue
     seen.add(n)

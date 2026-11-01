@@ -584,7 +584,10 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     }
     const followers = placed.filter((o, j) => j !== i && hangsOn(j) && Math.abs(o.dy - p.dy) <= Math.max(12, Math.abs(p.dy) * 0.5)).length
     // the nearest level line drawn above it (a rule, a tab underline, a heading's line)
-    const line = level.filter((l) => l.from!.y <= b.y - 2).sort((a, c) => c.from!.y - a.from!.y)[0]
+    // n179 (round 43 e4 pets): only a line over the same column. The heading's line over the cards was taken for the
+    // filter checkbox far to its left, so the repair lifted the cards' column and they went 23px high.
+    const overCol = (l: ShapeMark) => Math.min(Math.max(l.from!.x, l.to!.x), b.x + b.w) - Math.max(Math.min(l.from!.x, l.to!.x), b.x) >= Math.min(b.w, 12)
+    const line = level.filter((l) => l.from!.y <= b.y - 2 && overCol(l)).sort((a, c) => c.from!.y - a.from!.y)[0]
     const sign = p.dy > 0 ? 'low' : 'high'
     const n = Math.abs(p.dy)
     const whole = followers ? ` The ${followers} drawn box${followers > 1 ? 'es' : ''} below it ride${followers > 1 ? '' : 's'} on it, so the whole page from here down sits about ${n}px ${sign}.` : ''
