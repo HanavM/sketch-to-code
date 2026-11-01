@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "List rows now stay small rows with the price at the right, and a pot drawn round stays round (pottery 71.7 to 84.8); next, a fresh round of ten pages to measure all of round 44's fixes."
-round: 44
+now: "Round 45 is written: ten fresh pages (desert camp, watchmaker, pizza, bike repair, candles; car rental, login code, audio mixer, profile, signup funnel); next, sketching its five landing pages by hand."
+round: 45
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79, 75]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0, round 44 is 75.1
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}, {round: 44, strokes: 17, words: 56.5, minutes: 10.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run n196 2026-11-01T17:50Z", until: "2026-11-01T19:19Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -339,7 +339,9 @@ nodes:
      result: "Untapped look-alikes and noted outlines built as outlines; cinema 79.7 to 82.9, pottery button outlined, rows ballooned."}
   - {id: n195, parent: n2, kind: step, title: "Rows typed on ruled list lines stay small rows (label left, amount right), never big headings, and a rounded pot shape keeps its round corners; replay pottery", status: done, branch: try/n3-ink-style,
      result: "Rows stay small, label left, price right; pot keeps round corners. Pottery 71.7 to 84.8, 76.4."}
-  - {id: n196, parent: n1, kind: step, priority: next, title: "Write round 45: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch in later steps", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n196, parent: n1, kind: step, title: "Write round 45: ten fresh pages (5 creative, 5 app, at least half harder than round 1) and screenshots, without sketching them; sketch in later steps", status: done, branch: try/n3-ink-style, result: "Ten fresh pages (dunes, watch, pizza, bike, candles; car rental, 2FA code, mixer, profile, funnel) screenshotted; six harder; none sketched."}
+  - {id: n197, parent: n1, kind: step, priority: next, title: "Sketch round 45 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n198, parent: n1, kind: step, title: "Sketch round 45 pages e1-e5 by hand from screenshots only (never open their source), record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
   - {id: n174, parent: n3, kind: step, title: "A tapped picture box is a flat fill (no invented diagonal shading), and a total line typed as label and amount keeps the amount at the right; replay cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
   - {id: n154, parent: n2, kind: step, title: "A note typed just under a picture box is its caption below it (not text on the picture), and the box keeps its drawn height; replay hotel search", status: open, branch: try/n3-ink-style, result: null}
