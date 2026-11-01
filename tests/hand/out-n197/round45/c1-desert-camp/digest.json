@@ -1,0 +1,560 @@
+{
+  "round": 45,
+  "id": "c1-desert-camp",
+  "version": 3,
+  "stopped": null,
+  "likeness": 80.3,
+  "colour": 0.9782727574607721,
+  "structure": 0.9531431801577416,
+  "layout": 0.5282239331165659,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 3.3,
+    "simpleShare": 0.88,
+    "shapes": {
+      "dot": 7,
+      "circle": 3,
+      "freehand": 2,
+      "line": 5
+    },
+    "inkPx": 9711
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 32,
+  "notes": 6,
+  "longestNote": 8,
+  "noteTexts": [
+    "DUNE CAMP bold spaced",
+    "Tents Night sky Book",
+    "Sleep under the / dunes, huge bold",
+    "Three nights in the Sahara, camel trek included.",
+    "Book a tent, cream text",
+    "dark brown front dune"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 299,
+    "firstReadingS": 138,
+    "readS": [
+      83
+    ],
+    "buildS": [
+      154
+    ],
+    "sketchingS": 61
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 84460,
+    "cacheRead": 186068,
+    "output": 21842,
+    "billed": 106302
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ffcf8c",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 467
+    },
+    {
+      "op": "pen",
+      "color": "#f6a96a",
+      "at": 844
+    },
+    {
+      "op": "stroke",
+      "at": 1315
+    },
+    {
+      "op": "pen",
+      "color": "#e07b40",
+      "at": 1700
+    },
+    {
+      "op": "stroke",
+      "at": 8281
+    },
+    {
+      "op": "stroke",
+      "at": 8762
+    },
+    {
+      "op": "pen",
+      "color": "#b9552c",
+      "at": 9152
+    },
+    {
+      "op": "stroke",
+      "at": 14900
+    },
+    {
+      "op": "stroke",
+      "at": 15380
+    },
+    {
+      "op": "pen",
+      "color": "#7a3019",
+      "at": 15756
+    },
+    {
+      "op": "stroke",
+      "at": 23783
+    },
+    {
+      "op": "stroke",
+      "at": 24272
+    },
+    {
+      "op": "pen",
+      "color": "#fff0c8",
+      "at": 24645
+    },
+    {
+      "op": "stroke",
+      "at": 27662
+    },
+    {
+      "op": "stroke",
+      "at": 28155
+    },
+    {
+      "op": "pen",
+      "color": "#3d1f14",
+      "at": 28531
+    },
+    {
+      "op": "stroke",
+      "at": 29445
+    },
+    {
+      "op": "stroke",
+      "at": 30550
+    },
+    {
+      "op": "stroke",
+      "at": 32595
+    },
+    {
+      "op": "stroke",
+      "at": 33680
+    },
+    {
+      "op": "stroke",
+      "at": 35277
+    },
+    {
+      "op": "stroke",
+      "at": 37033
+    },
+    {
+      "op": "stroke",
+      "at": 37511
+    },
+    {
+      "op": "note",
+      "at": 45689
+    },
+    {
+      "op": "note",
+      "at": 46412
+    },
+    {
+      "op": "note",
+      "at": 47219
+    },
+    {
+      "op": "note",
+      "at": 48085
+    },
+    {
+      "op": "note",
+      "at": 48817
+    },
+    {
+      "op": "note",
+      "at": 49558
+    },
+    {
+      "op": "run",
+      "at": 54546
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          90
+        ]
+      ],
+      "n": 1,
+      "at": 467
+    },
+    {
+      "way": [
+        [
+          640,
+          480
+        ]
+      ],
+      "n": 1,
+      "at": 1315
+    },
+    {
+      "way": [
+        [
+          2,
+          588
+        ],
+        [
+          200,
+          535
+        ],
+        [
+          350,
+          520
+        ],
+        [
+          550,
+          545
+        ],
+        [
+          800,
+          630
+        ],
+        [
+          800,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          588
+        ]
+      ],
+      "n": 368,
+      "at": 8281
+    },
+    {
+      "way": [
+        [
+          200,
+          690
+        ]
+      ],
+      "n": 1,
+      "at": 8762
+    },
+    {
+      "way": [
+        [
+          590,
+          700
+        ],
+        [
+          800,
+          610
+        ],
+        [
+          1070,
+          580
+        ],
+        [
+          1278,
+          600
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          590,
+          898
+        ],
+        [
+          590,
+          700
+        ]
+      ],
+      "n": 317,
+      "at": 14900
+    },
+    {
+      "way": [
+        [
+          1100,
+          680
+        ]
+      ],
+      "n": 1,
+      "at": 15380
+    },
+    {
+      "way": [
+        [
+          2,
+          845
+        ],
+        [
+          300,
+          745
+        ],
+        [
+          640,
+          720
+        ],
+        [
+          1000,
+          745
+        ],
+        [
+          1278,
+          835
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          845
+        ]
+      ],
+      "n": 452,
+      "at": 23783
+    },
+    {
+      "way": [
+        [
+          640,
+          840
+        ]
+      ],
+      "n": 1,
+      "at": 24272
+    },
+    {
+      "way": [
+        [
+          910,
+          150
+        ],
+        [
+          1016,
+          194
+        ],
+        [
+          1060,
+          300
+        ],
+        [
+          1016,
+          406
+        ],
+        [
+          910,
+          450
+        ],
+        [
+          804,
+          406
+        ],
+        [
+          760,
+          300
+        ],
+        [
+          804,
+          194
+        ],
+        [
+          910,
+          150
+        ]
+      ],
+      "n": 153,
+      "at": 27662
+    },
+    {
+      "way": [
+        [
+          910,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 28155
+    },
+    {
+      "way": [
+        [
+          72,
+          40
+        ],
+        [
+          230,
+          40
+        ]
+      ],
+      "n": 27,
+      "at": 29445
+    },
+    {
+      "way": [
+        [
+          985,
+          40
+        ],
+        [
+          1208,
+          40
+        ]
+      ],
+      "n": 38,
+      "at": 30550
+    },
+    {
+      "way": [
+        [
+          72,
+          210
+        ],
+        [
+          627,
+          210
+        ]
+      ],
+      "n": 94,
+      "at": 32595
+    },
+    {
+      "way": [
+        [
+          72,
+          288
+        ],
+        [
+          290,
+          288
+        ]
+      ],
+      "n": 37,
+      "at": 33680
+    },
+    {
+      "way": [
+        [
+          72,
+          364
+        ],
+        [
+          475,
+          364
+        ]
+      ],
+      "n": 68,
+      "at": 35277
+    },
+    {
+      "way": [
+        [
+          100,
+          440
+        ],
+        [
+          244,
+          440
+        ],
+        [
+          272,
+          468
+        ],
+        [
+          244,
+          496
+        ],
+        [
+          100,
+          496
+        ],
+        [
+          72,
+          468
+        ],
+        [
+          100,
+          440
+        ]
+      ],
+      "n": 77,
+      "at": 37033
+    },
+    {
+      "way": [
+        [
+          172,
+          468
+        ]
+      ],
+      "n": 1,
+      "at": 37511
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "DUNE CAMP bold spaced",
+      "whole": false,
+      "x": 80,
+      "y": 58,
+      "at": 45689
+    },
+    {
+      "text": "Tents Night sky Book",
+      "whole": false,
+      "x": 1000,
+      "y": 58,
+      "at": 46412
+    },
+    {
+      "text": "Sleep under the / dunes, huge bold",
+      "whole": false,
+      "x": 80,
+      "y": 185,
+      "at": 47219
+    },
+    {
+      "text": "Three nights in the Sahara, camel trek included.",
+      "whole": false,
+      "x": 80,
+      "y": 380,
+      "at": 48085
+    },
+    {
+      "text": "Book a tent, cream text",
+      "whole": false,
+      "x": 100,
+      "y": 455,
+      "at": 48817
+    },
+    {
+      "text": "dark brown front dune",
+      "whole": false,
+      "x": 400,
+      "y": 780,
+      "at": 49558
+    }
+  ]
+}
