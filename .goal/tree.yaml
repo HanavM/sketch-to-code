@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Rings drawn in a coloured pen now keep their colour and place, and an outline stamp stays hollow (letterpress up to 88); next, stat numbers typed big come out big."
+now: "Numbers typed big in a stats row now come out big with their small labels under (climbing gym up to 80); next, a fresh round of ten pages to test it all."
 round: 43
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run 2026-11-01T0932Z", until: "2026-11-01T11:01Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -319,7 +319,9 @@ nodes:
      result: "Letter A fills its box, no card; slant kept. Letterpress 78.3, gym 72.2, no fixes (was 69.0, 69.6 with fixes)."}
   - {id: n184, parent: n3, kind: step, title: "A ring drawn in a coloured pen with no tap is a flat disc in that pen colour (gym holds came out black), and a dark ring noted outline stamp stays a hollow ring, never a filled blob; replay climbing gym and letterpress", status: done, branch: try/n3-ink-style,
      result: "Pen rings stay rings in pictures: stamp hollow, holds in pen colours. Letterpress 88.7, 88.1; gym 75.7, 79.3."}
-  - {id: n185, parent: n2, kind: step, priority: next, title: "Numbers typed big bold with a label under (stats row: £14 day pass) come out big, each on its drawn line, label small beneath; replay climbing gym", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n185, parent: n2, kind: step, title: "Numbers typed big bold with a label under (stats row: £14 day pass) come out big, each on its drawn line, label small beneath; replay climbing gym", status: done, branch: try/n3-ink-style, 
+     result: "Stats row typed big now built big, labels under, not shrunk as a table row. Gym 77.7, 80.0 (was 79.3)."}
+  - {id: n186, parent: n1, kind: step, priority: next, title: "Write round 44: ten fresh pages (5 creative landing, 5 everyday app, at least half harder than round 1) and their screenshots, without sketching them; sketch them in later steps", status: open, branch: try/n3-ink-style, result: null}
   - {id: n174, parent: n3, kind: step, title: "A tapped picture box is a flat fill (no invented diagonal shading), and a total line typed as label and amount keeps the amount at the right; replay cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
   - {id: n154, parent: n2, kind: step, title: "A note typed just under a picture box is its caption below it (not text on the picture), and the box keeps its drawn height; replay hotel search", status: open, branch: try/n3-ink-style, result: null}
@@ -1061,3 +1063,7 @@ n184_resketch:   # n175 strokes, pens and first notes replayed (replay.mjs); fir
   - {page: r43 c4-letterpress, try: 2, likeness: 88.1, was: 78.3, strokes: 11, words: 48, notes: 7, minutes: 5.0, fixes: 0, first_read_s: 88, build_s: 210, tokens: 86627, note: "hollow stamp again; best letterpress"}
   - {page: r43 c5-climbing-gym, try: 1, likeness: 75.7, was: 72.2, strokes: 17, words: 47, notes: 7, minutes: 4.6, fixes: 0, first_read_s: 81, build_s: 195, tokens: 121102, note: "3 drawn holds in pen colours where drawn, 4 added, shaded; stats small"}
   - {page: r43 c5-climbing-gym, try: 2, likeness: 79.3, was: 72.2, strokes: 17, words: 47, notes: 7, minutes: 5.1, fixes: 0, first_read_s: 86, build_s: 216, tokens: 96507, note: "flat holds in pen colours where drawn, 7 in all; stats small"}
+n185_resketch:   # n175 strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N185.md on try/n3-ink-style
+  - {page: r43 c5-climbing-gym, try: 1, likeness: 74.7, was: 79.3, strokes: 17, words: 47, notes: 7, minutes: 7.4, fixes: 0, first_read_s: 90, build_s: 351, tokens: 139053, note: "stats 30px on first build, then the table-row repair shrank them to 15px"}
+  - {page: r43 c5-climbing-gym, try: 2, likeness: 77.7, was: 79.3, strokes: 17, words: 47, notes: 7, minutes: 4.9, fixes: 0, first_read_s: 84, build_s: 205, tokens: 89558, note: "stats big and bold, labels under; check passes"}
+  - {page: r43 c5-climbing-gym, try: 3, likeness: 80.0, was: 79.3, strokes: 17, words: 47, notes: 7, minutes: 5.0, fixes: 0, first_read_s: 93, build_s: 206, tokens: 92120, note: "stats big and bold, labels under; best gym; nav words run together"}
