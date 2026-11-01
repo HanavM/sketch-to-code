@@ -123,6 +123,16 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
         continue
       }
+      // n204: a big untapped ring in a neutral pen: the ring's line only
+      if (c.paint === 'border' && c.outlineRing) {
+        const d = Math.round((c.box.w + c.box.h) / 2), t = c.outlineRing.thickness
+        lines.push(`- action ${String(i)}, the ring drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped: an OUTLINE RING, just the drawn line: ` +
+          `outer edge exactly the drawn box (${String(d)}px across, centred where drawn), a ${String(t)}px ${hex(c.color)} line, its inside the surface under it (transparent), NEVER filled ${hex(c.color)} or any colour, ` +
+          `and NOTHING added inside it (no spokes, hub, dots, pattern or shading) unless a note asks. The WHOLE ring shows: build it as a div with border-radius 50%, box-sizing border-box, ` +
+          `width and height ${String(d)}px and a ${String(t)}px solid ${hex(c.color)} border, or as an SVG whose viewBox holds the whole circle (r = ${String(Math.round((d - t) / 2))}, stroke-width ${String(t)}); never clipped flat on any side by its box, overflow or viewBox. ` +
+          `Other strokes drawn across or between rings stay their own lines`)
+        continue
+      }
       if (c.paint === 'border' && c.ring) {
         lines.push(`- action ${String(i)}, the small ring drawn at ${at} in ${hex(c.color)} (no colour tapped): a HOLLOW ROUND marker (a map pin end, a radio, a status ring), about ${String(Math.round((c.box.w + c.box.h) / 2))}px across, centred where drawn: ` +
           `border-radius 50%, a ${String(c.ring.thickness)}px ${hex(c.color)} border, its inside white (or the surface under it), NEVER filled ${hex(c.color)} and never a square`)
@@ -375,6 +385,13 @@ export function verifyInkColours(
         else if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in ${c.taught ? 'a dark pen with no tap (a box in the same pen was tapped, this one was not)' : 'a light pen with no tap'}: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
         continue
       }
+      // n204: an outline ring: a ring about the drawn size there, not filled with the pen colour, not clipped by its box
+      if (c.paint === 'border' && c.outlineRing) {
+        const v = outlineRingBuilt(c, after.nodes)
+        checks.push({ what: `${what} (outline ring)`, want: `ring ${String(c.outlineRing.thickness)}px ${hex(c.color)}, no fill, whole`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a ring drawn in the ${hex(c.color)} pen with no tap: an outline ring; ${v.why}: build it as a div exactly ${String(Math.round((c.box.w + c.box.h) / 2))}px across with border-radius 50%, box-sizing border-box, a ${String(c.outlineRing.thickness)}px solid ${hex(c.color)} border and a transparent inside, nothing inside it; keep its size and place`)
+        continue
+      }
       // n146: a small dark ring with no tap: no solid pen-coloured disc there with nothing covering its middle
       if (c.paint === 'border' && c.ring) {
         const v = hollowBuilt(c, after.nodes)
@@ -622,6 +639,38 @@ export function hasFrame(n: DomNode): boolean {
  * (an inner element at most 97% and at least 50% of its size, centred, with an opaque fill of another colour), or when
  * nothing at all about the drawn size was built there. An SVG ring (circles with fill none) paints no background and passes.
  */
+/**
+ * n204: an outline ring was built: something round about the drawn size sits centred on it (a bordered round box, or an
+ * svg circle stroked near the pen colour), nothing there is a pen-coloured disc with no hole (hollowBuilt), and no svg
+ * circle there spills past the svg holding it (an svg clips at its own box, so that ring shows flat sides).
+ */
+export function outlineRingBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, d = (b.w + b.h) / 2, cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const near = (n: DomNode, lo: number, hi: number) => n.rect.w >= d * lo && n.rect.w <= d * hi && n.rect.h >= d * lo && n.rect.h <= d * hi &&
+    Math.hypot(n.rect.x + n.rect.w / 2 - cx, n.rect.y + n.rect.h / 2 - cy) <= d * 0.2
+  const penLike = (css: string | undefined) => { const g = parseCssColor(css ?? ''); return !!g && deltaE(pen, g) <= 25 }
+  const byId = new Map(nodes.map((n) => [n.id, n]))
+  const svgOf = (n: DomNode): DomNode | null => { let p = n.parent ? byId.get(n.parent) : undefined; while (p) { if (p.tag === 'svg') return p; p = p.parent ? byId.get(p.parent) : undefined } return null }
+  for (const n of nodes) {
+    if ((n.tag !== 'circle' && n.tag !== 'ellipse') || !near(n, 0.6, 1.4)) continue
+    const svg = svgOf(n)
+    if (!svg) continue
+    const R = n.rect, S = svg.rect, spill = Math.max(S.x - R.x, S.y - R.y, R.x + R.w - (S.x + S.w), R.y + R.h - (S.y + S.h))
+    if (spill > 3) return { ok: false, why: `its circle runs ${String(Math.round(spill))}px past the svg holding it, so the ring is cut flat at the svg's edge` }
+  }
+  const hb = hollowBuilt(c, nodes)
+  if (!hb.ok) return hb
+  if (nodes.some((n) => (n.tag === 'circle' || n.tag === 'ellipse') && near(n, 0.75, 1.25) && penLike(n.style.svgFill) && alphaOf(n.style.svgFill ?? '') >= 0.6))
+    return { ok: false, why: `it was built as an svg disc filled ${hex(c.color)}` }
+  const ring = nodes.some((n) => near(n, 0.8, 1.2) && (
+    ((n.tag === 'circle' || n.tag === 'ellipse') && penLike(n.style.svgStroke)) ||
+    (!!n.style.border && !/^\s*0px/.test(n.style.border) && penLike(n.style.border.replace(/^\s*[\d.]+px\s*/, '')) && /(?:50%|9999|[1-9]\d{1,3}(?:\.\d+)?px)/.test(n.style.borderRadius))))
+  if (!ring) return { ok: false, why: `no round ${hex(c.color)} outline about ${String(Math.round(d))}px across was built centred on it` }
+  return { ok: true, why: '' }
+}
+
 export function hollowBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
   const b = c.box, d = (b.w + b.h) / 2, cx = b.x + b.w / 2, cy = b.y + b.h / 2
   const pen = parseCssColor(c.color)

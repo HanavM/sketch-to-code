@@ -54,8 +54,9 @@ describe('n184: a dark ring noted outline stamp stays a hollow ring', () => {
     expect(ink).toMatchObject({ paint: 'border', color: '#2d2722' })
     expect(ink.hollow).toBeDefined()
   })
-  it('a dark ring with no such note inside a depiction is still traced as before', () => {
+  it('n204: a dark ring with no tap inside a depiction is no longer traced (and filled): it is an outline ring', () => {
     const a = ground([ring('r1', 400, 400, 60, '#1a1a1a', 3)], [], 'a face')
-    expect(a.svgPaths ?? []).toHaveLength(1)
+    expect(a.svgPaths ?? []).toHaveLength(0)
+    expect(a.inkColours!.find((k) => k.strokeId === 'r1')).toMatchObject({ paint: 'border', outlineRing: { thickness: 7 } })
   })
 })

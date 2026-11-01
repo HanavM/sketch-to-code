@@ -326,7 +326,7 @@ export function isPageLookNote(text: string): boolean {
 
 import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markStats, statOf } from './statcard.js'
-import { colouredPen, ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
+import { colouredPen, outlineRingPen, outlineRingThickness, ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
@@ -859,6 +859,8 @@ export interface InkColour {
   hollow?: { thickness: number; share: number | null; track: string | null }
   /** n146: paint 'border' from a small ring drawn in dark ink with no tap (a map marker, a radio): round, a line this thick, hollow. */
   ring?: { thickness: number }
+  /** n204: paint 'border' from a big ring drawn in a neutral pen (black, grey, white) with no tap: the ring's line only, nothing inside, never clipped. */
+  outlineRing?: { thickness: number }
   /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
   selected?: { tint: string; dot: boolean }
   /** n141: a frame drawn on a dark surface (this colour): transparent inside, never white or grey. */
@@ -1165,9 +1167,11 @@ export function groundInterpretation(
           // colour where drawn (round 43 c5: three holds in orange, yellow and teal pens, read as a depicted "climbing
           // holds" group, were traced and built black and orange at random spots); noted as an outline, a stamp or a
           // track it is a hollow ring (round 43 c4: the dark "outline stamp" ring was traced and filled a dark blob)
+          // n204: so does a big ring in a neutral pen with no tap (bike wheels, mixer knobs): an outline ring, never traced and filled
+          const ringOwn = shape?.shape === 'ellipse' ? ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
+              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text) : []
           const penRing = shape?.shape === 'ellipse' && !(ev.fills ?? []).some((f) => f.target === s.id) && (colouredPen(s.color) ||
-            ringNoted(ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
-              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text)))
+            ringNoted(ringOwn) || outlineRingPen(s.color, shape.box, ringOwn))
           // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
           if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || penRing || shape.tilt || shape.pill)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
@@ -1374,6 +1378,16 @@ export function groundInterpretation(
           continue
         }
       }
+      // n204: a big ring in a neutral pen with no tap is its line: an outline ring, nothing inside, never clipped
+      if (!flat && ((sm?.shape === 'ellipse' && !sm.solid) || (!sm && closedLoop(st.points)))) {
+        const rb = sm?.box ?? box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        if (outlineRingPen(st.color, rb, own)) {
+          inkColours.push({ strokeId: st.id, mark: 'ring', paint: 'border', color: st.color, box: rb, how: 'pen', outlineRing: { thickness: outlineRingThickness((rb.w + rb.h) / 2) } })
+          continue
+        }
+      }
       inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })
     }
 
@@ -1537,7 +1551,7 @@ export function hollowRowMarks(actions: Array<{ inkColours?: InkColour[] }>, mar
     // a hand ring is often read as a small box by one reader and a ring by another: the list's own reading decides
     if (!m || (c.mark === 'box' && !m.round)) continue
     if (c.paint === 'background') { c.paint = 'border'; c.ring = { thickness: Math.max(2, Math.min(3, Math.round((c.box.w + c.box.h) / 2 * 0.08))) } }
-    if (c.paint === 'border' && c.ring) m.hollow = c.color
+    if (c.paint === 'border' && (c.ring || c.outlineRing)) m.hollow = c.color
   }
 }
 

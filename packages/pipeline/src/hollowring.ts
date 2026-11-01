@@ -65,3 +65,30 @@ export function trackColour(texts: readonly string[]): string | null {
   }
   return null
 }
+
+/**
+ * n204: a big ring drawn in a NEUTRAL pen (black, grey, white: a writing pen, not a hue) with no tap is an OUTLINE RING:
+ * the drawn line, round, nothing inside it. Round 45 c4 (bike repair): two black rings for a bike's wheels, untapped,
+ * built as black discs with yellow spokes, clipped flat at the top and bottom; a fix note "thick black outline rings
+ * only, no fill or spokes" made rings but clipped their sides. Round 45 e3 (audio mixer): grey knob rings came out
+ * filled discs. A tap is how this tool fills a mark, so an untapped neutral ring is its line. Not when its own note
+ * asks for a disc, a picture or a dot (an avatar drawn as a circle stays a picture).
+ */
+const RING_DISC = /\b(solid|filled|fill|disc|disk|dot|blob|ball|avatar|photo|picture|image|portrait|logo|sun|planet|moon|glow|glowing|button)\b/i
+export function neutralPen(color: string | null | undefined): boolean {
+  const m = /^#?([0-9a-f]{6})$/i.exec(color ?? '')
+  if (!m) return false
+  const v = parseInt(m[1]!, 16), r = (v >> 16) & 255, g = (v >> 8) & 255, b = v & 255
+  return Math.max(r, g, b) - Math.min(r, g, b) <= 28
+}
+export function outlineRingPen(color: string | null | undefined, box: { w: number; h: number }, own: readonly string[] = []): boolean {
+  if (!neutralPen(color) || box.w < 44 || box.h < 44) return false
+  const ar = box.w / box.h
+  if (ar < 0.6 || ar > 1.67) return false
+  // "no fill or spokes", "without a fill" say what it is NOT
+  return !own.some((t) => RING_DISC.test(t.replace(/\b(?:no|without|never|not)\s+(?:an?\s+)?\w+(?:\s+(?:or|and|nor)\s+\w+)*/gi, '')))
+}
+/** The outline ring's line: about 6% of its size, 3 to 24px. */
+export function outlineRingThickness(d: number): number {
+  return Math.max(3, Math.min(24, Math.round(d * 0.06)))
+}
