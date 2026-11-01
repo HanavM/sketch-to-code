@@ -1,0 +1,470 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "9a5c5014e910573835643ca05f3e79c18ab8b196",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch is a pet-adoption listing page: a header with a bold orange 'Pawhome' logo and 'Dogs/Cats/Donate' nav links over a divider, a heading '18 dogs near you', a checkbox filter panel (Animal/Age/Size, with Dogs/Adult/Medium checked in orange), and a 2x3 grid of pet cards each with a tinted photo area, bold name, and age · breed line, named Biscuit, Juno, Pepper, Otis, Maple and Rio.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x72 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:57:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 72
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": false,
+    "nearest": 71.1,
+    "reason": "nothing near the drawing is the colour that was drawn (#ececec); closest is ΔE 71.1 away"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> at (1117,24) 32x23 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:61:11",
+      "rect": {
+       "x": 1117.3125,
+       "y": 24.25,
+       "w": 32.0625,
+       "h": 22.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #2a2a2a"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> at (1117,24) 32x23 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:61:11",
+      "rect": {
+       "x": 1117.3125,
+       "y": 24.25,
+       "w": 32.0625,
+       "h": 22.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (48,140) 19x19: the <span> built for it sits 39px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The line drawn at y=72 (the bar above it) is built where drawn (its bottom at y=72), so the header is right. The drift starts in the gap under that line: drawn, this box's top is 68px below it; built, 107px. So take 39px OUT of that gap only (the list's top margin or padding, the first row's top padding, a spacer or margin under the tab bar). Keep the heading and the tabs exactly as they are: do not shrink or move them. Never add space; no negative margins or relative offsets.",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 48,
+        "y": 140,
+        "w": 19,
+        "h": 19
+       },
+       "built": {
+        "x": 48,
+        "y": 179,
+        "w": 18,
+        "h": 18
+       },
+       "dx": 0,
+       "dy": 39
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e07a3f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,72) 1280x570 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:66:7",
+      "rect": {
+       "x": 0,
+       "y": 72,
+       "w": 1280,
+       "h": 570
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (329,436) 284x253: the <div> built for it sits 31px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 436px from the top of the page.; the box drawn at (637,436) 284x253: the <div> built for it sits 31px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 436px from the top of the page.; the box drawn at (945,436) 284x253: the <div> built for it sits 31px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 436px from the top of the page.",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 329,
+        "y": 159,
+        "w": 284,
+        "h": 253
+       },
+       "built": {
+        "x": 328,
+        "y": 174,
+        "w": 285.328125,
+        "h": 222
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 637,
+        "y": 159,
+        "w": 284,
+        "h": 253
+       },
+       "built": {
+        "x": 637.328125,
+        "y": 174,
+        "w": 285.328125,
+        "h": 222
+       },
+       "dx": 1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 945,
+        "y": 159,
+        "w": 284,
+        "h": 254
+       },
+       "built": {
+        "x": 946.65625,
+        "y": 174,
+        "w": 285.34375,
+        "h": 222
+       },
+       "dx": 2,
+       "dy": -1
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 329,
+        "y": 436,
+        "w": 284,
+        "h": 253
+       },
+       "built": {
+        "x": 328,
+        "y": 420,
+        "w": 285.328125,
+        "h": 222
+       },
+       "dx": 0,
+       "dy": -31
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 637,
+        "y": 436,
+        "w": 284,
+        "h": 253
+       },
+       "built": {
+        "x": 637.328125,
+        "y": 420,
+        "w": 285.328125,
+        "h": 222
+       },
+       "dx": 1,
+       "dy": -31
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 945,
+        "y": 436,
+        "w": 284,
+        "h": 253
+       },
+       "built": {
+        "x": 946.65625,
+        "y": 420,
+        "w": 285.34375,
+        "h": 222
+       },
+       "dx": 2,
+       "dy": -31
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e4e4e4 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "14 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"18 dogs near you\" was typed on a line drawn at the left, starting at x 330; its letters start at x 48: left-align them (text-align: left, drop any centring on it or its block) so the first letter starts at x 330; change nothing else"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "checklists",
+    "verdict": {
+     "satisfied": false,
+     "reason": "2 checkbox options (\"Dogs\", \"Cats\") have no box just left of their label: give every option its own small square box, ticked or not"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the box drawn at (48,140) 19x19 was coloured #e07a3f (fill); nothing that size was built there carrying a colour: paint the block itself exactly #e07a3f",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,72) 1276x0 (pale divider)",
+       "want": "words not #ececec",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (48,36) 102x0",
+       "want": "#e07a3f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1058,35) 174x0",
+       "want": "#222222",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (330,120) 230x0",
+       "want": "#2a2a2a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (48,140) 19x19",
+       "want": "#e07a3f",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (329,159) 284x253 (light pen outline)",
+       "want": "border #e4e4e4, no #e4e4e4 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (637,159) 284x253 (light pen outline)",
+       "want": "border #e4e4e4, no #e4e4e4 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (945,159) 284x254 (light pen outline)",
+       "want": "border #e4e4e4, no #e4e4e4 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (329,436) 284x253 (light pen outline)",
+       "want": "border #e4e4e4, no #e4e4e4 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (637,436) 284x253 (light pen outline)",
+       "want": "border #e4e4e4, no #e4e4e4 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (945,436) 284x253 (light pen outline)",
+       "want": "border #e4e4e4, no #e4e4e4 fill",
+       "best": null,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 20665,
+   "cacheRead": 133108,
+   "output": 11229
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 31894,
+    "output": 11229,
+    "cacheRead": 133108,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read s2c-hand-app/package.json",
+     "Write src/App.tsx"
+    ],
+    "ms": 131041
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 165017,
+    "stalled": "the agent made no progress for 154 s"
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 90013,
+    "stalled": "the repair went 90 s without an edit (thinking is not progress)"
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": "the repair went 90 s without an edit (thinking is not progress)",
+  "buildStalled": null
+ }
+]
