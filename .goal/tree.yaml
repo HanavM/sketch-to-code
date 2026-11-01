@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Headings now land exactly on the line drawn for them (pet page 81.8, its best yet); next, filter lists that drop the unticked boxes and card tints that drift."
+now: "Filter lists now show a visible box for every option, ticked or not; next, keeping card tint colours soft and steady from run to run."
 round: 43
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-11010629, until: "2026-11-01T07:59:10Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -310,7 +310,9 @@ nodes:
   - {id: n179, parent: n4, kind: step, title: "The page is built where it is drawn (pet cards and heading came 40px low), and a group note on a card is never printed as its name; replay pet adoption", status: done, branch: try/n3-ink-style, result: "Card notes never printed (tool had asked for them); drift traced per column. Pets 74.3, 70.2; boxes within 3px."}
   - {id: n180, parent: n4, kind: step, title: "A one-line heading sits on its drawn line (pets heading built 15-30px low), and tapped tints keep their drawn hue; replay pet adoption and sushi", status: done, branch: try/n3-ink-style,
      result: "Heading on and along its line, flush lines not centred labels, pale rule a divider: pets 81.8, 75.4 (was 74.8)."}
-  - {id: n181, parent: n2, kind: step, priority: next, title: "A filters note listing options with some checked builds an empty box for every unchecked option too, and tapped card tints keep their drawn hue; replay pet adoption and sushi", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n181, parent: n2, kind: step, title: "A filters note listing options with some checked builds an empty box for every unchecked option too, and tapped card tints keep their drawn hue; replay pet adoption and sushi", status: done, branch: try/n3-ink-style,
+     result: "Filter notes with a checked tail read as checkbox lists; all 9 boxes visible 4 of 4. Pets 76.7, 65.3."}
+  - {id: n182, parent: n3, kind: step, priority: next, title: "Card tints named in a note (peach, sage, blue, lilac) stay soft pastels run to run (one pets run came out mint and yellow), and picture tops keep their drawn height; replay pet adoption and sushi", status: open, branch: try/n3-ink-style, result: null}
   - {id: n177, parent: n2, kind: step, title: "A coloured box round one giant letter is that letter in that colour filling the box (never a card), and a filled shape with a slanted side keeps the slant; replay letterpress and climbing gym", status: open, branch: try/n3-ink-style, result: null}
   - {id: n174, parent: n3, kind: step, title: "A tapped picture box is a flat fill (no invented diagonal shading), and a total line typed as label and amount keeps the amount at the right; replay cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
@@ -321,6 +323,7 @@ nodes:
   - {id: n163, parent: n2, kind: step, title: "A filled box across the page bottom with only lines in it is a picture band (sea with stripes), never a footer, and no text is invented in it; replay regatta", status: open, branch: try/n3-ink-style, result: null}
   - {id: n164, parent: n4, kind: step, title: "Style words after a heading's copy (huge bold, right) are never printed, even when the copy has its own commas, and a heading never takes the line drawn under it; replay ski lodge", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A filters note naming the checked options after the list (Dogs, Adult, Medium checked) left the unticked boxes near-white, invisible", found_on: "r43 e4 (n176, n180)", built: "n181: checked tail and Heading (a, b, c) groups read as a checkbox list; every unticked option gets a visible grey box, checked on the page", helped: "all 9 boxes right in 4 of 4 runs; pets 76.7, 65.3 (score now set by card tints)"}
   - {gap: "A stroke started on a just-typed note's label deleted that note (its close button) and drew nothing, with no message; happened twice", found_on: "r43 e2 (n176)", built: null, helped: null}
   - {gap: "An orange tap inside a tiny checkbox was taken as a page tap and made an orange-to-white page fade", found_on: "r43 e4 (n176)", built: null, helped: null}
   - {gap: "An input note 'Your name above, Full name inside' was printed word for word, even after a fix", found_on: "r43 e2 (n176)", built: null, helped: null}
@@ -1034,3 +1037,8 @@ n180_resketch:   # n176 strokes, pens and first notes replayed (replay.mjs); fir
   - {page: r43 e4-pet-adoption, try: 4, likeness: 69.4, was: 74.8, strokes: 13, words: 48, notes: 6, minutes: 4.7, fixes: 0, first_read_s: 73, build_s: 206, tokens: 86038, note: "pale header rule now a divider, check passes; heading still centred"}
   - {page: r43 e4-pet-adoption, try: 5, likeness: 81.8, was: 74.8, strokes: 13, words: 48, notes: 6, minutes: 3.9, fixes: 0, first_read_s: 71, build_s: 162, tokens: 73951, note: "flush line not a label: heading exactly on its line, first build; best pets"}
   - {page: r43 e4-pet-adoption, try: 6, likeness: 75.4, was: 74.8, strokes: 13, words: 48, notes: 6, minutes: 3.9, fixes: 0, first_read_s: 111, build_s: 119, tokens: 68432, note: "heading exact again; unticked filter boxes missing"}
+n181_resketch:   # n176 strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N181.md on try/n3-ink-style
+  - {page: r43 e4-pet-adoption, try: 1, likeness: 73.5, was: 81.8, strokes: 13, words: 48, notes: 6, minutes: 8.0, fixes: 0, first_read_s: 97, build_s: 382, tokens: 148827, note: "grey box on all 9 options; new check wrongly failed (read the whole label)"}
+  - {page: r43 e4-pet-adoption, try: 2, likeness: 60.9, was: 81.8, strokes: 13, words: 48, notes: 6, minutes: 7.8, fixes: 0, first_read_s: 75, build_s: 393, tokens: 39369, note: "boxes right; check took nav Dogs, Cats for options, repair moved heading"}
+  - {page: r43 e4-pet-adoption, try: 3, likeness: 76.7, was: 81.8, strokes: 13, words: 48, notes: 6, minutes: 5.2, fixes: 0, first_read_s: 77, build_s: 231, tokens: 89985, note: "9 boxes, 3 ticked orange, 6 grey; check passes"}
+  - {page: r43 e4-pet-adoption, try: 4, likeness: 65.3, was: 81.8, strokes: 13, words: 48, notes: 6, minutes: 3.7, fixes: 0, first_read_s: 71, build_s: 146, tokens: 70605, note: "boxes right; card tints vivid mint and yellow, cards short"}

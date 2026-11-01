@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T07:08Z | n181 every filter option gets a visible box | All 9 boxes right 4 of 4 runs; pets 76.7, 65.3 no fixes; card tints now set the score.
 2026-11-01T06:30Z | n180 heading on and along its drawn line | Pets 81.8, 75.4 no fixes (was 74.8): heading exact on first build; pale rule no longer fails.
 2026-11-01T05:34Z | n179 card notes never printed, drift traced per column | Pets 74.3, 70.2 no fixes (control 74.8): names right both tries, boxes within 3px on try 2.
 2026-11-01T04:58Z | n178 note x draws, tiny box holds a tap | RSVP 87.0 no fixes, 17 strokes 38 words; pet checkbox filled both tries, 71.2, 66.6.
