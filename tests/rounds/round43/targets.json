@@ -1,0 +1,997 @@
+{
+ "measured": "2026-11-01T01:57:38.167Z",
+ "targets": {
+  "c1-balloon-festival": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 27,
+      "w": 114,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 64,
+      "y": 180,
+      "w": 600,
+      "h": 167
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 64,
+      "y": 390,
+      "w": 460,
+      "h": 30
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 64,
+      "y": 490,
+      "w": 230,
+      "h": 58
+     },
+     "must": true
+    },
+    {
+     "role": "balloons",
+     "rect": {
+      "x": 760,
+      "y": 130,
+      "w": 220,
+      "h": 260
+     },
+     "must": true
+    },
+    {
+     "role": "hills",
+     "rect": {
+      "x": 0,
+      "y": 720,
+      "w": 1280,
+      "h": 180
+     },
+     "must": true
+    }
+   ]
+  },
+  "c2-sushi-bar": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 84
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 70,
+      "y": 31,
+      "w": 84,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "sun",
+     "rect": {
+      "x": 720,
+      "y": 170,
+      "w": 440,
+      "h": 440
+     },
+     "must": true
+    },
+    {
+     "role": "chopsticks",
+     "rect": {
+      "x": 707,
+      "y": 537,
+      "w": 506,
+      "h": 134
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 70,
+      "y": 230,
+      "w": 600,
+      "h": 160
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 70,
+      "y": 430,
+      "w": 440,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 70,
+      "y": 530,
+      "w": 210,
+      "h": 54
+     },
+     "must": true
+    },
+    {
+     "role": "footer",
+     "rect": {
+      "x": 70,
+      "y": 800,
+      "w": 318,
+      "h": 16
+     },
+     "must": false
+    }
+   ]
+  },
+  "c3-night-skyline": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 27,
+      "w": 84,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "moon",
+     "rect": {
+      "x": 1040,
+      "y": 110,
+      "w": 110,
+      "h": 110
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 0,
+      "y": 150,
+      "w": 1280,
+      "h": 97
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 0,
+      "y": 262,
+      "w": 1280,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 530,
+      "y": 320,
+      "w": 220,
+      "h": 54
+     },
+     "must": true
+    },
+    {
+     "role": "skyline",
+     "rect": {
+      "x": 0,
+      "y": 600,
+      "w": 180,
+      "h": 300
+     },
+     "must": true
+    }
+   ]
+  },
+  "c4-letterpress": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 84
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 70,
+      "y": 28,
+      "w": 138,
+      "h": 27
+     },
+     "must": false
+    },
+    {
+     "role": "big-letter",
+     "rect": {
+      "x": 640,
+      "y": 110,
+      "w": 448,
+      "h": 620
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 70,
+      "y": 200,
+      "w": 520,
+      "h": 138
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 70,
+      "y": 420,
+      "w": 440,
+      "h": 30
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 70,
+      "y": 540,
+      "w": 200,
+      "h": 54
+     },
+     "must": true
+    },
+    {
+     "role": "stamp",
+     "rect": {
+      "x": 1047,
+      "y": 627,
+      "w": 166,
+      "h": 166
+     },
+     "must": false
+    }
+   ]
+  },
+  "c5-climbing-gym": {
+   "regions": [
+    {
+     "role": "wall",
+     "rect": {
+      "x": 640,
+      "y": 0,
+      "w": 640,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "holds",
+     "rect": {
+      "x": 820,
+      "y": 150,
+      "w": 46,
+      "h": 46
+     },
+     "must": false
+    },
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 27,
+      "w": 50,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 64,
+      "y": 190,
+      "w": 560,
+      "h": 254
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 64,
+      "y": 480,
+      "w": 440,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 64,
+      "y": 580,
+      "w": 220,
+      "h": 58
+     },
+     "must": true
+    },
+    {
+     "role": "prices",
+     "rect": {
+      "x": 64,
+      "y": 720,
+      "w": 305,
+      "h": 54
+     },
+     "must": false
+    }
+   ]
+  },
+  "e1-meal-planner": {
+   "regions": [
+    {
+     "role": "header",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 40,
+      "y": 23,
+      "w": 71,
+      "h": 24
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 40,
+      "y": 100,
+      "w": 143,
+      "h": 34
+     },
+     "must": true
+    },
+    {
+     "role": "week-grid",
+     "rect": {
+      "x": 40,
+      "y": 190,
+      "w": 1200,
+      "h": 422
+     },
+     "must": true
+    },
+    {
+     "role": "shopping",
+     "rect": {
+      "x": 40,
+      "y": 640,
+      "w": 1200,
+      "h": 118
+     },
+     "must": true
+    }
+   ]
+  },
+  "e2-event-rsvp": {
+   "regions": [
+    {
+     "role": "card",
+     "rect": {
+      "x": 340,
+      "y": 70,
+      "w": 600,
+      "h": 760
+     },
+     "must": true
+    },
+    {
+     "role": "banner",
+     "rect": {
+      "x": 340,
+      "y": 70,
+      "w": 600,
+      "h": 170
+     },
+     "must": true
+    },
+    {
+     "role": "choice",
+     "rect": {
+      "x": 380,
+      "y": 312,
+      "w": 520,
+      "h": 48
+     },
+     "must": true
+    },
+    {
+     "role": "fields",
+     "rect": {
+      "x": 380,
+      "y": 402,
+      "w": 520,
+      "h": 48
+     },
+     "must": false
+    },
+    {
+     "role": "send",
+     "rect": {
+      "x": 380,
+      "y": 660,
+      "w": 520,
+      "h": 54
+     },
+     "must": true
+    }
+   ]
+  },
+  "e3-crypto-portfolio": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 220,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 26,
+      "y": 30,
+      "w": 58,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "balance",
+     "rect": {
+      "x": 260,
+      "y": 40,
+      "w": 220,
+      "h": 94
+     },
+     "must": true
+    },
+    {
+     "role": "chart",
+     "rect": {
+      "x": 260,
+      "y": 180,
+      "w": 980,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "holdings",
+     "rect": {
+      "x": 260,
+      "y": 510,
+      "w": 980,
+      "h": 250
+     },
+     "must": true
+    }
+   ]
+  },
+  "e4-pet-adoption": {
+   "regions": [
+    {
+     "role": "header",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 72
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 48,
+      "y": 23,
+      "w": 103,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "filters",
+     "rect": {
+      "x": 48,
+      "y": 110,
+      "w": 240,
+      "h": 366
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 330,
+      "y": 104,
+      "w": 230,
+      "h": 32
+     },
+     "must": true
+    },
+    {
+     "role": "cards",
+     "rect": {
+      "x": 330,
+      "y": 160,
+      "w": 900,
+      "h": 530
+     },
+     "must": true
+    }
+   ]
+  },
+  "e5-course-player": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 32,
+      "y": 19,
+      "w": 68,
+      "h": 22
+     },
+     "must": false
+    },
+    {
+     "role": "video",
+     "rect": {
+      "x": 32,
+      "y": 90,
+      "w": 820,
+      "h": 460
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 32,
+      "y": 580,
+      "w": 267,
+      "h": 31
+     },
+     "must": true
+    },
+    {
+     "role": "description",
+     "rect": {
+      "x": 32,
+      "y": 670,
+      "w": 820,
+      "h": 51
+     },
+     "must": false
+    },
+    {
+     "role": "lessons",
+     "rect": {
+      "x": 880,
+      "y": 90,
+      "w": 368,
+      "h": 780
+     },
+     "must": true
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-balloon-festival": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.5117675788235011,
+    "structure": 0.5401342508077548,
+    "structureStrict": 0.5401342508077548,
+    "colourAligned": 0.5117675788235011,
+    "structureAligned": 0.5401342508077548,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5532264031065446,
+    "structure": 0.3912847529452583
+   }
+  },
+  "c2-sushi-bar": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.10852461688435511,
+    "structure": 0.1453057818931992,
+    "structureStrict": 0.1453057818931992,
+    "colourAligned": 0.10852461688435511,
+    "structureAligned": 0.1453057818931992,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.4296191246466362,
+    "structure": 0.282033727044131
+   }
+  },
+  "c3-night-skyline": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.15183491662851856,
+    "structure": 0.16172412039925468,
+    "structureStrict": 0.16172412039925468,
+    "colourAligned": 0.15183491662851856,
+    "structureAligned": 0.16172412039925468,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.460886211303565,
+    "structure": 0.2928243253311609
+   }
+  },
+  "c4-letterpress": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8325293412742149,
+    "structure": 0.6446812101762887,
+    "structureStrict": 0.6446812101762887,
+    "colourAligned": 0.8325293412742149,
+    "structureAligned": 0.6446812101762887,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5999987372459697,
+    "structure": 0.39976707144384405
+   }
+  },
+  "c5-climbing-gym": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.5958712941158346,
+    "structure": 0.50077632133841,
+    "structureStrict": 0.50077632133841,
+    "colourAligned": 0.5958712941158346,
+    "structureAligned": 0.50077632133841,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5754347632346627,
+    "structure": 0.3955801751312047
+   }
+  },
+  "e1-meal-planner": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9569646405111316,
+    "structure": 0.7295207929918294,
+    "structureStrict": 0.7295207929918294,
+    "colourAligned": 0.9569646405111316,
+    "structureAligned": 0.7295207929918294,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5690837494004639,
+    "structure": 0.4185964776281459
+   }
+  },
+  "e2-event-rsvp": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8919296479974372,
+    "structure": 0.7095365920297766,
+    "structureStrict": 0.7095365920297766,
+    "colourAligned": 0.8919296479974372,
+    "structureAligned": 0.7095365920297766,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5756150039747505,
+    "structure": 0.4044940465604395
+   }
+  },
+  "e3-crypto-portfolio": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.11395010949745144,
+    "structure": 0.15484747767941628,
+    "structureStrict": 0.15484747767941628,
+    "colourAligned": 0.11395010949745144,
+    "structureAligned": 0.15484747767941628,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.44639252301673643,
+    "structure": 0.3019268593666
+   }
+  },
+  "e4-pet-adoption": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9592660699261087,
+    "structure": 0.7223031540425513,
+    "structureStrict": 0.7223031540425513,
+    "colourAligned": 0.9592660699261087,
+    "structureAligned": 0.7223031540425513,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5649347672617581,
+    "structure": 0.4206961632468649
+   }
+  },
+  "e5-course-player": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7037320780214368,
+    "structure": 0.4734281897369643,
+    "structureStrict": 0.4734281897369643,
+    "colourAligned": 0.7037320780214368,
+    "structureAligned": 0.4734281897369643,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5619149406753999,
+    "structure": 0.36643745997365723
+   }
+  }
+ }
+}

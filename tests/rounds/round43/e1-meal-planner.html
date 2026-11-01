@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Meal planner</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fbfaf7;font-family:Helvetica,Arial,sans-serif;color:#24302a;overflow:hidden;position:relative}
+header{position:absolute;left:0;top:0;width:1280px;height:70px;border-bottom:1px solid #e8e6df;display:flex;align-items:center;padding:0 40px;font-size:15px}header b{font-size:21px;color:#3d7a57}header .btn{margin-left:auto;background:#3d7a57;color:#fff;padding:11px 20px;border-radius:8px;font-weight:700}
+h1{position:absolute;left:40px;top:100px;font-size:30px}.wk{position:absolute;left:40px;top:146px;font-size:15px;color:#7b857f}
+.grid{position:absolute;left:40px;top:190px;width:1200px;display:grid;grid-template-columns:110px repeat(7,1fr);gap:10px}
+.d{font-weight:700;font-size:14px;text-align:center;padding:8px 0;color:#57615b}.m{font-size:13px;font-weight:700;color:#7b857f;display:flex;align-items:center}
+.c{height:120px;border-radius:10px;padding:10px;font-size:13px;line-height:1.35;background:#eef3ee}.c.b{background:#fbeedd}.c.n{background:#e7eef8}.c.e{background:#fff;border:2px dashed #d9d6cc}
+.list{position:absolute;left:40px;top:640px;width:1200px;background:#fff;border:1px solid #e8e6df;border-radius:12px;padding:20px 24px}.list h2{font-size:17px;margin-bottom:14px}
+.list span{display:inline-block;margin:0 10px 10px 0;padding:8px 14px;border-radius:16px;background:#f1efe8;font-size:14px}
+</style></head><body>
+<header data-r="header"><b data-r="logo">Forkful</b><span class="btn">+ Add recipe</span></header>
+<h1 data-r="title" data-must>This week</h1><p class="wk">3 – 9 November</p>
+<div class="grid" data-r="week-grid" data-must>
+<i></i><div class="d">Mon</div><div class="d">Tue</div><div class="d">Wed</div><div class="d">Thu</div><div class="d">Fri</div><div class="d">Sat</div><div class="d">Sun</div>
+<div class="m">Breakfast</div><div class="c b">Oats &amp; berries</div><div class="c b">Yogurt bowl</div><div class="c b">Oats &amp; berries</div><div class="c b">Eggs on toast</div><div class="c b">Yogurt bowl</div><div class="c b">Pancakes</div><div class="c e"></div>
+<div class="m">Lunch</div><div class="c">Lentil soup</div><div class="c">Grain salad</div><div class="c">Lentil soup</div><div class="c">Wraps</div><div class="c e"></div><div class="c">Grain salad</div><div class="c">Roast leftovers</div>
+<div class="m">Dinner</div><div class="c n">Salmon &amp; rice</div><div class="c n">Veg curry</div><div class="c n">Pasta</div><div class="c n">Tacos</div><div class="c n">Pizza night</div><div class="c e"></div><div class="c n">Sunday roast</div></div>
+<div class="list" data-r="shopping" data-must><h2>Shopping list · 14 items</h2><span>Oats</span><span>Berries</span><span>Lentils</span><span>Salmon</span><span>Rice</span><span>Tortillas</span><span>Tomatoes</span><span>Spinach</span><span>Yogurt</span><span>Eggs</span></div>
+</body></html>
