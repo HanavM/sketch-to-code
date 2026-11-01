@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T09:30Z | n184 coloured-pen rings and outline stamp stay rings | Letterpress 88.7, 88.1 (was 78.3); gym 75.7, 79.3 (was 72.2); holds coloured, stamp hollow, no fixes.
 2026-11-01T08:20Z | n177 giant letter fills its box, slant kept | Letterpress 78.3, gym 72.2 with no fixes (was 69.0, 69.6 with fixes); letter and slant right.
 2026-11-01T07:25Z | n182 named card tints stay as named | Tints exact both runs, checked on page; pets 76.5, 74.7 no fixes (was 76.7, 65.3).
 2026-11-01T07:08Z | n181 every filter option gets a visible box | All 9 boxes right 4 of 4 runs; pets 76.7, 65.3 no fixes; card tints now set the score.
