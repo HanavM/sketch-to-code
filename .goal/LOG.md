@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T22:58Z | n203 code digits a comfortable size in their boxes | Digits target size, boxes outlined, no big-word clash; 2FA 86.5, 88.6 to 90.9, 89.6 no fix.
 2026-11-01T22:25Z | n201 a count on a drawn box repeats it beside it | Mixer 76.8 to 90.1, 89.9 no fix; 2FA digits in kept boxes, 86.5, 88.6 no fix.
 2026-11-01T21:40Z | n202 no giant word painted on a card | Card with parts never a big-word area; car rental 85.0, 85.1 no fix; bank home 92.2.
 2026-11-01T20:06Z | n200 delete fix removes only what it names | Only the named 500 deleted, cards kept; car rental 78.7 to 85.3, one fix, 68 words.
