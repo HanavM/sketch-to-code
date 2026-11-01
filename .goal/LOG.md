@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T20:06Z | n200 delete fix removes only what it names | Only the named 500 deleted, cards kept; car rental 78.7 to 85.3, one fix, 68 words.
 2026-11-01T19:45Z | n198 sketch round 45 app pages | Rental 78.7, 2FA 92.0, mixer 76.8, profile 84.6, funnel 84.7; round 45 83.6, 18 strokes, 54 words.
 2026-11-01T18:45Z | n197 sketch round 45 landing pages | Dunes 80.3, watch 90.5, pizza 79.8, bike 80.6, candles 88.2; mean 83.9, 18 strokes, 56 words.
 2026-11-01T18:00Z | n196 write round 45 | Ten fresh pages (dunes, watch, pizza, bike, candles; rental, code, mixer, profile, funnel) screenshotted; none sketched.
