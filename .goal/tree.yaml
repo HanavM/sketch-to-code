@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A total typed above a button now stays out of it; next, a quantity control drawn on one cart row shows on every row."
+now: "A control drawn once on the first row (a quantity stepper) now shows on every row; next, writing ten fresh pages for round 43."
 round: 42
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}]   # per round: {round, strokes, words, minutes}
-lock: {by: "run n172 2026-11-01T01:26Z", until: "2026-11-01T02:56Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -298,7 +298,9 @@ nodes:
   - {id: n166, parent: n4, kind: step, title: "A colour tap that lands on a toolbar button over drawn ink goes to the ink (never presses the button), and rows typed beside a drawn column run up to it; replay podcast and cart", status: done, branch: try/n3-ink-style,
      result: "Bar steps off drawn ink; rows reach the panel. Podcast 80.9 no bar move; cart 42.5, 83.1 (was 70.2), no fixes."}
   - {id: n171, parent: n4, kind: step, title: "A note typed just above a drawn button is its own line, never put inside the button (Total $199 went into Checkout), and a control drawn on row 1 repeats on every row; replay cart", status: done, branch: try/n3-ink-style, result: "Total now sits above the Checkout button both tries, Checkout kept: cart 74.8, 80.8, no fixes."}
-  - {id: n172, parent: n4, kind: step, priority: next, title: "A control drawn on row 1 of rows typed beside a column (a stepper) repeats on every row, its note's count only that row's value; replay cart", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n172, parent: n4, kind: step, title: "A control drawn on row 1 of rows typed beside a column (a stepper) repeats on every row, its note's count only that row's value; replay cart", status: done, branch: try/n3-ink-style, result: "Stepper on all three rows, values 1, 2, 1, both tries: cart 77.6, 81.5, no fixes."}
+  - {id: n173, parent: n1, kind: step, priority: next, title: "Write round 43: ten fresh pages (5 creative landing, 5 everyday app, at least half harder than round 1) and screenshots, without sketching them", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n174, parent: n3, kind: step, title: "A tapped picture box is a flat fill (no invented diagonal shading), and a total line typed as label and amount keeps the amount at the right; replay cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
   - {id: n154, parent: n2, kind: step, title: "A note typed just under a picture box is its caption below it (not text on the picture), and the box keeps its drawn height; replay hotel search", status: open, branch: try/n3-ink-style, result: null}
   - {id: n148, parent: n4, kind: step, title: "A steps note bound to a numbered ring never prints its lead word (steps:), and the gap under a title holds the drawn rhythm (same sketch scored 83 and 70); replay recipe", status: open, branch: try/n3-ink-style, result: null}
