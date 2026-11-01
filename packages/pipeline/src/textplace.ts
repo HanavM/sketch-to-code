@@ -236,7 +236,8 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
         for (const t of m.typed) {
           lines.push(`- action ${i}: the note "${t.text}" was typed at (${t.x},${t.y}), in ${where(m.box, t.x, t.y)} drawn at (${m.box.x},${m.box.y}) ${m.box.w}x${m.box.h}. ` +
             `If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y ${t.y}, not at the top or the middle of the box by default; ` +
-            `a note that only describes the box (its colours, what it holds) has no spot.`)
+            `a note that only describes the box (its colours, what it holds) has no spot.` +
+            ((u) => u ? ` They are their OWN line just ABOVE the smaller box drawn at (${u.x},${u.y}) ${u.w}x${u.h} (that box has its own words): never put them inside that box.` : '')(boxUnder(m.box, t, all)))
         }
       }
     }
@@ -244,6 +245,23 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
   return lines.length
     ? `WHERE THE WORDS SIT (deterministic, from where the lines were drawn and the notes typed; checked on the page):\n${lines.join('\n')}\n\n`
     : ''
+}
+
+/**
+ * n171: the smaller box drawn inside `holder` right under a spot typed in it: its top 4 to 70px below the spot, the
+ * spot over its span, the spot outside it. Round 42 e3 (cart): "Total $199 bold" typed 37px above the Checkout button.
+ */
+export function boxUnder(holder: BBox, t: { x: number; y: number }, marks: readonly ShapeMark[]): BBox | null {
+  const hits = marks.filter((b) => b.shape === 'box' && !b.area && b.box.w >= 40 && b.box.h >= 20 &&
+    b.box.w * b.box.h < holder.w * holder.h * 0.6 &&
+    b.box.x >= holder.x - 4 && b.box.y >= holder.y - 4 && b.box.x + b.box.w <= holder.x + holder.w + 4 && b.box.y + b.box.h <= holder.y + holder.h + 4 &&
+    t.x >= b.box.x && t.x <= b.box.x + b.box.w && b.box.y - t.y >= 4 && b.box.y - t.y <= 70)
+  return hits.sort((a, b) => a.box.y - b.box.y)[0]?.box ?? null
+}
+
+/** n171: the words of a note that are copy (capitalised, or with a digit): "Total $199 bold" gives total, $199. */
+export function copyTokens(text: string): string[] {
+  return text.split(/[\s,]+/).filter((w) => /\d|^[\p{Lu}$€£]/u.test(w)).map((w) => norm(w)).filter((w) => w.length >= 2)
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/[“”"'‘’.,!?:;]/g, '').replace(/\s+/g, ' ').trim()
@@ -300,6 +318,19 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
       }
     }
     for (const typed of m.typed ?? []) {
+      // n171: words typed just above a smaller box inside this one (a button) never land inside that box
+      const u = boxUnder(m.box, typed, marks)
+      if (u) {
+        const words = copyTokens(typed.text)
+        const inBox = words.length ? after.nodes.filter((n) => n.text && n.textBox && norm(n.text).split(' ').every((w) => words.includes(w)) &&
+          n.textBox.x + n.textBox.w / 2 >= u.x - 4 && n.textBox.x + n.textBox.w / 2 <= u.x + u.w + 4 &&
+          n.textBox.y + n.textBox.h / 2 >= u.y - 4 && n.textBox.y + n.textBox.h / 2 <= u.y + u.h + 4) : []
+        if (words.length) judged++
+        if (inBox.length) {
+          faults.push(`"${typed.text}" was typed at y ${typed.y}, ABOVE the box drawn at (${u.x},${u.y}) ${u.w}x${u.h}, but ${inBox.map((n) => `"${n.text}"`).join(', ')} sit${inBox.length > 1 ? '' : 's'} inside that box: ` +
+            `take them out and make them their own line just above it (at about y ${typed.y}); the box keeps only its own words; change nothing else`)
+        }
+      }
       const t = builtWords(typed.text, after, typed.y)
       if (!t) continue
       judged++

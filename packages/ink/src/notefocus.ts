@@ -106,8 +106,13 @@ export function noteFocus(
       const c = rects.get(container)!
       // the container's own X (an image box) shares its box: part of it, not contents
       const kids = ids.filter((id) => id !== container && rects.has(id) && contains(c, rects.get(id)!) && !sameBox(c, rects.get(id)!))
-      const bestKid = Math.min(...kids.map((id) => d.get(id) ?? Infinity))
-      const near = kids.filter((id) => (d.get(id) ?? Infinity) <= bestKid + NOTE_FOCUS_SLACK_PX)
+      // n171: a closed box in the container that holds its own note (Checkout typed in the button) keeps its words;
+      // a note typed outside it, in the container's open space, is its own line, never that box's. Round 42 e3
+      // (cart): "Total $199 bold", typed 37px above the drawn button, went into it and the word Checkout was lost.
+      const labelled = labelledBoxes(kids, at, strokes, stackOpts, text)
+      const open = kids.filter((id) => !labelled.has(id))
+      const bestKid = Math.min(...open.map((id) => d.get(id) ?? Infinity))
+      const near = open.filter((id) => (d.get(id) ?? Infinity) <= bestKid + NOTE_FOCUS_SLACK_PX)
       if (near.length > 0 && inside(at, union(near.map((id) => rects.get(id)!)), NOTE_ON_BLOCK_PX)) {
         focus = ids.filter((id) => focus.includes(id) || near.includes(id))
       } else focus = focus.filter((id) => !kids.includes(id))
@@ -172,6 +177,25 @@ export function noteFocus(
     if (g) focus = ids.filter((id) => focus.includes(id) || g.includes(id))
   }
   return focus.length > 0 && focus.length < ids.length ? focus : undefined
+}
+
+/**
+ * n171: of these marks, the closed boxes the point is outside of that hold another note typed inside them (a button
+ * with its label typed in it). Such a box has its words; a note typed near it but outside it is not about it.
+ */
+export function labelledBoxes(ids: string[], at: { x: number; y: number }, strokes: Stroke[], stackOpts: StackOpts, text?: string): Set<string> {
+  const out = new Set<string>()
+  const others = (stackOpts.notesAt ?? []).filter((n) => !(Math.abs(n.x - at.x) < 1 && Math.abs(n.y - at.y) < 1) && (text === undefined || n.text !== text))
+  if (!others.length) return out
+  for (const id of ids) {
+    const st = strokes.find((s) => s.id === id)
+    const r = st ? closedAnySize(st) : null
+    if (!r || r.w < 40 || r.h < 20) continue
+    const isIn = (p: { x: number; y: number }, pad: number) => p.x >= r.x - pad && p.x <= r.x + r.w + pad && p.y >= r.y - pad && p.y <= r.y + r.h + pad
+    if (isIn(at, 2)) continue
+    if (others.some((n) => isIn(n, -2))) out.add(id)
+  }
+  return out
 }
 
 /** Closed outline of any size (a 22px checkbox counts): its box, or null. */
