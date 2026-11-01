@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Numbers typed big in a stats row now come out big with their small labels under (climbing gym up to 80); next, a fresh round of ten pages to test it all."
+now: "Ten fresh pages for round 44 are ready (lanterns, cider, cinema, airline, pottery and five app screens); next, sketching them by hand."
 round: 43
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-n186, until: "2026-11-01T11:37Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -321,7 +321,9 @@ nodes:
      result: "Pen rings stay rings in pictures: stamp hollow, holds in pen colours. Letterpress 88.7, 88.1; gym 75.7, 79.3."}
   - {id: n185, parent: n2, kind: step, title: "Numbers typed big bold with a label under (stats row: £14 day pass) come out big, each on its drawn line, label small beneath; replay climbing gym", status: done, branch: try/n3-ink-style, 
      result: "Stats row typed big now built big, labels under, not shrunk as a table row. Gym 77.7, 80.0 (was 79.3)."}
-  - {id: n186, parent: n1, kind: step, priority: next, title: "Write round 44: ten fresh pages (5 creative landing, 5 everyday app, at least half harder than round 1) and their screenshots, without sketching them; sketch them in later steps", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n186, parent: n1, kind: step, title: "Write round 44: ten fresh pages (5 creative landing, 5 everyday app, at least half harder than round 1) and their screenshots, without sketching them; sketch them in later steps", status: done, branch: try/n3-ink-style, result: "Ten fresh pages (lanterns, cider, cinema, airline, pottery; gym schedule, reset, photo editor, alerts, tracker) screenshotted; none sketched."}
+  - {id: n187, parent: n1, kind: step, priority: next, title: "Sketch round 44 pages c1-c5 by hand from screenshots only (never open their source), record every number, log every gap", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n188, parent: n1, kind: step, title: "Sketch round 44 pages e1-e5 by hand from screenshots only (never open their source), record every number, roll up the round", status: open, branch: try/n3-ink-style, result: null}
   - {id: n174, parent: n3, kind: step, title: "A tapped picture box is a flat fill (no invented diagonal shading), and a total line typed as label and amount keeps the amount at the right; replay cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
   - {id: n154, parent: n2, kind: step, title: "A note typed just under a picture box is its caption below it (not text on the picture), and the box keeps its drawn height; replay hotel search", status: open, branch: try/n3-ink-style, result: null}

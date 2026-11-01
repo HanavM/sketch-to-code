@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T10:20Z | n186 write round 44 | Ten fresh pages (lanterns, cider, cinema, airline, pottery; schedule, reset, editor, alerts, tracker) screenshotted; none sketched.
 2026-11-01T10:10Z | n185 stats row typed big comes out big | Gym 77.7, 80.0 no fixes (was 75.7, 79.3); values 30px bold, labels under; table-row rule no longer shrinks them.
 2026-11-01T09:30Z | n184 coloured-pen rings and outline stamp stay rings | Letterpress 88.7, 88.1 (was 78.3); gym 75.7, 79.3 (was 72.2); holds coloured, stamp hollow, no fixes.
 2026-11-01T08:20Z | n177 giant letter fills its box, slant kept | Letterpress 78.3, gym 72.2 with no fixes (was 69.0, 69.6 with fixes); letter and slant right.
