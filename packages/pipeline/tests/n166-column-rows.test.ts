@@ -38,7 +38,9 @@ describe('n166 rows typed beside a drawn column run up to the panel', () => {
   })
   it('checks the row runs to the panel on the page', () => {
     const [p] = markOpenRows([{ text: ROWS, x: 420, y: 330 }], shapes, notes)
-    const good = { nodes: [node(undefined, 60, 202, 700, 96), node('Linen throw', 180, 226, 90, 18)] }
+    // n172: the stepper drawn on row 1 is on every row
+    const steppers = [234, 375, 516].map((y) => node(undefined, 538, y, 104, 32))
+    const good = { nodes: [node(undefined, 60, 202, 700, 96), node('Linen throw', 180, 226, 90, 18), ...steppers] }
     expect(verifyOpenRows([p!], good).satisfied).toBe(true)
     const short = { nodes: [node(undefined, 60, 202, 590, 96), node('Linen throw', 180, 226, 90, 18)] }
     expect(verifyOpenRows([p!], short).reason).toContain('x 60 to 760')
