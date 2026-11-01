@@ -8,6 +8,7 @@
  * ("Models never decide where" survives; "models never see the drawing
  * whole" — the v1 mistake — does not.)
  */
+import { narrowDelete } from './narrowdelete.js'
 import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
@@ -891,6 +892,8 @@ export interface GroundedInterpretation {
   droppedActions?: number
   unclear?: string
   actions: GroundedAction[]
+  /** n200: delete targets narrowed to the smaller element the delete note names, in plain words. */
+  narrowedDeletes?: string[]
   /** Typed notes that matched no single action — they apply to the run. */
   runNotes?: string[]
   /** n29: run notes typed in empty space, with the spot they were typed at (page px). */
@@ -1048,6 +1051,7 @@ export function groundInterpretation(
   }
 
   const actions: GroundedAction[] = []
+  const narrowed: string[] = []
   // n30: taps make solid discs unless some note asks for glows or blur (glass blobs keep their soft glow)
   const tapSolidAllowed = tapSolidsAllowed(ev.notes.map((n) => n.text))
   for (const [ai, a] of raw.actions.entries()) {
@@ -1056,7 +1060,20 @@ export function groundInterpretation(
       rejected.push(`'${a.kind}' is not allowed in design mode (creation only)`)
       continue
     }
-    const targets = (a.elements ?? []).map(toTarget).filter((t): t is GroundedTarget => t !== null)
+    let targets = (a.elements ?? []).map(toTarget).filter((t): t is GroundedTarget => t !== null)
+    // n200: a delete note that names text ("delete the huge grey 500") deletes only the element reading
+    // that, never the card the model picked around it
+    if (a.kind === 'delete') {
+      targets = targets.map((t) => {
+        const nd = narrowDelete(snap, t.domId, a.instruction, ev.notes.map((n) => ({ text: n.text, ...(n.at ? { at: n.at } : {}) })))
+        if (!nd) return t
+        narrowed.push(nd.why)
+        const n = nd.node
+        const sourced = n.srcLoc ? n : nearestSourced(snap, n)
+        return { domId: n.id, srcLoc: sourced?.srcLoc ?? null, tag: n.tag, text: n.text, subtreeText: subtreeText(n), classes: n.classes, rect: n.rect }
+      })
+      targets = targets.filter((t, i) => targets.findIndex((u) => u.domId === t.domId) === i)
+    }
     const dest = a.destElement ? (toTarget(a.destElement) ?? undefined) : undefined
 
     // region + paths from cited strokes — geometry computed here, never taken
@@ -1501,6 +1518,7 @@ export function groundInterpretation(
     ...(placedNotes.length ? { placedNotes } : {}),
     ...(pageNotes.length ? { pageNotes } : {}),
     ...(page ? { pageFill: page } : {}),
+    ...(narrowed.length ? { narrowedDeletes: narrowed } : {}),
   }
 }
 

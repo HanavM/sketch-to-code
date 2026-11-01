@@ -1,0 +1,619 @@
+{
+  "round": 45,
+  "id": "e1-car-rental",
+  "version": 3,
+  "stopped": null,
+  "likeness": 85.3,
+  "colour": 0.9927269422186467,
+  "structure": 0.9481128347069848,
+  "layout": 0.8918720002357872,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 10,
+      "box": 9
+    },
+    "inkPx": 15148
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 68,
+  "notes": 10,
+  "longestNote": 16,
+  "noteTexts": [
+    "Roadly bold teal",
+    "grey fields: Lisbon Airport | Nov 12 – Nov 16 | 10:00 am",
+    "Search",
+    "Car type: Small, Medium, SUV, Van; Gearbox: Automatic, Manual; checkbox rows, Small SUV Automatic ticked teal",
+    "Fiat 500 bold, 4 seats · Automatic",
+    "$38 big bold, per day",
+    "Select",
+    "VW Golf, 5 seats · Manual, $45, same as above",
+    "Toyota RAV4, 5 seats · Automatic, $72",
+    "delete the huge grey 500"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 561,
+    "firstReadingS": 111,
+    "readS": [
+      50,
+      7
+    ],
+    "buildS": [
+      219,
+      220
+    ],
+    "sketchingS": 66
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 104004,
+    "cacheRead": 694881,
+    "output": 25876,
+    "billed": 129880
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 860,
+      "y": 875,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#f3f4f6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 473
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 874
+    },
+    {
+      "op": "stroke",
+      "at": 8811
+    },
+    {
+      "op": "stroke",
+      "at": 9275
+    },
+    {
+      "op": "stroke",
+      "at": 17075
+    },
+    {
+      "op": "stroke",
+      "at": 17543
+    },
+    {
+      "op": "stroke",
+      "at": 23079
+    },
+    {
+      "op": "stroke",
+      "at": 23564
+    },
+    {
+      "op": "stroke",
+      "at": 30287
+    },
+    {
+      "op": "stroke",
+      "at": 30762
+    },
+    {
+      "op": "stroke",
+      "at": 37418
+    },
+    {
+      "op": "stroke",
+      "at": 37893
+    },
+    {
+      "op": "stroke",
+      "at": 44581
+    },
+    {
+      "op": "stroke",
+      "at": 45064
+    },
+    {
+      "op": "pen",
+      "color": "#0f766e",
+      "at": 45444
+    },
+    {
+      "op": "stroke",
+      "at": 47066
+    },
+    {
+      "op": "stroke",
+      "at": 47547
+    },
+    {
+      "op": "stroke",
+      "at": 49032
+    },
+    {
+      "op": "stroke",
+      "at": 49510
+    },
+    {
+      "op": "pen",
+      "color": "#dce3ee",
+      "at": 49880
+    },
+    {
+      "op": "stroke",
+      "at": 52461
+    },
+    {
+      "op": "stroke",
+      "at": 52942
+    },
+    {
+      "op": "note",
+      "at": 53725
+    },
+    {
+      "op": "note",
+      "at": 54723
+    },
+    {
+      "op": "note",
+      "at": 55398
+    },
+    {
+      "op": "note",
+      "at": 56835
+    },
+    {
+      "op": "note",
+      "at": 57704
+    },
+    {
+      "op": "note",
+      "at": 58464
+    },
+    {
+      "op": "note",
+      "at": 59123
+    },
+    {
+      "op": "note",
+      "at": 60059
+    },
+    {
+      "op": "note",
+      "at": 60945
+    },
+    {
+      "op": "run",
+      "at": 61138
+    },
+    {
+      "op": "note",
+      "at": 332560
+    },
+    {
+      "op": "run",
+      "at": 332654
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          315,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 473
+    },
+    {
+      "way": [
+        [
+          3,
+          3
+        ],
+        [
+          1277,
+          3
+        ],
+        [
+          1277,
+          69
+        ],
+        [
+          3,
+          69
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "n": 447,
+      "at": 8811
+    },
+    {
+      "way": [
+        [
+          900,
+          40
+        ]
+      ],
+      "n": 1,
+      "at": 9275
+    },
+    {
+      "way": [
+        [
+          40,
+          100
+        ],
+        [
+          1240,
+          100
+        ],
+        [
+          1240,
+          176
+        ],
+        [
+          40,
+          176
+        ],
+        [
+          40,
+          100
+        ]
+      ],
+      "n": 427,
+      "at": 17075
+    },
+    {
+      "way": [
+        [
+          390,
+          170
+        ]
+      ],
+      "n": 1,
+      "at": 17543
+    },
+    {
+      "way": [
+        [
+          40,
+          210
+        ],
+        [
+          300,
+          210
+        ],
+        [
+          300,
+          850
+        ],
+        [
+          40,
+          850
+        ],
+        [
+          40,
+          210
+        ]
+      ],
+      "n": 301,
+      "at": 23079
+    },
+    {
+      "way": [
+        [
+          170,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 23564
+    },
+    {
+      "way": [
+        [
+          330,
+          210
+        ],
+        [
+          1240,
+          210
+        ],
+        [
+          1240,
+          400
+        ],
+        [
+          330,
+          400
+        ],
+        [
+          330,
+          210
+        ]
+      ],
+      "n": 369,
+      "at": 30287
+    },
+    {
+      "way": [
+        [
+          800,
+          385
+        ]
+      ],
+      "n": 1,
+      "at": 30762
+    },
+    {
+      "way": [
+        [
+          330,
+          422
+        ],
+        [
+          1240,
+          422
+        ],
+        [
+          1240,
+          612
+        ],
+        [
+          330,
+          612
+        ],
+        [
+          330,
+          422
+        ]
+      ],
+      "n": 369,
+      "at": 37418
+    },
+    {
+      "way": [
+        [
+          800,
+          597
+        ]
+      ],
+      "n": 1,
+      "at": 37893
+    },
+    {
+      "way": [
+        [
+          330,
+          634
+        ],
+        [
+          1240,
+          634
+        ],
+        [
+          1240,
+          824
+        ],
+        [
+          330,
+          824
+        ],
+        [
+          330,
+          634
+        ]
+      ],
+      "n": 369,
+      "at": 44581
+    },
+    {
+      "way": [
+        [
+          800,
+          809
+        ]
+      ],
+      "n": 1,
+      "at": 45064
+    },
+    {
+      "way": [
+        [
+          1077,
+          112
+        ],
+        [
+          1227,
+          112
+        ],
+        [
+          1227,
+          164
+        ],
+        [
+          1077,
+          164
+        ],
+        [
+          1077,
+          112
+        ]
+      ],
+      "n": 69,
+      "at": 47066
+    },
+    {
+      "way": [
+        [
+          1150,
+          152
+        ]
+      ],
+      "n": 1,
+      "at": 47547
+    },
+    {
+      "way": [
+        [
+          1083,
+          314
+        ],
+        [
+          1213,
+          314
+        ],
+        [
+          1213,
+          360
+        ],
+        [
+          1083,
+          360
+        ],
+        [
+          1083,
+          314
+        ]
+      ],
+      "n": 61,
+      "at": 49032
+    },
+    {
+      "way": [
+        [
+          1148,
+          350
+        ]
+      ],
+      "n": 1,
+      "at": 49510
+    },
+    {
+      "way": [
+        [
+          357,
+          235
+        ],
+        [
+          597,
+          235
+        ],
+        [
+          597,
+          375
+        ],
+        [
+          357,
+          375
+        ],
+        [
+          357,
+          235
+        ]
+      ],
+      "n": 127,
+      "at": 52461
+    },
+    {
+      "way": [
+        [
+          477,
+          305
+        ]
+      ],
+      "n": 1,
+      "at": 52942
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Roadly bold teal",
+      "whole": false,
+      "x": 76,
+      "y": 35,
+      "at": 53725
+    },
+    {
+      "text": "grey fields: Lisbon Airport | Nov 12 – Nov 16 | 10:00 am",
+      "whole": false,
+      "x": 230,
+      "y": 139,
+      "at": 54723
+    },
+    {
+      "text": "Search",
+      "whole": false,
+      "x": 1150,
+      "y": 132,
+      "at": 55398
+    },
+    {
+      "text": "Car type: Small, Medium, SUV, Van; Gearbox: Automatic, Manual; checkbox rows, Small SUV Automatic ticked teal",
+      "whole": false,
+      "x": 170,
+      "y": 245,
+      "at": 56835
+    },
+    {
+      "text": "Fiat 500 bold, 4 seats · Automatic",
+      "whole": false,
+      "x": 690,
+      "y": 300,
+      "at": 57704
+    },
+    {
+      "text": "$38 big bold, per day",
+      "whole": false,
+      "x": 1180,
+      "y": 272,
+      "at": 58464
+    },
+    {
+      "text": "Select",
+      "whole": false,
+      "x": 1148,
+      "y": 330,
+      "at": 59123
+    },
+    {
+      "text": "VW Golf, 5 seats · Manual, $45, same as above",
+      "whole": false,
+      "x": 690,
+      "y": 512,
+      "at": 60059
+    },
+    {
+      "text": "Toyota RAV4, 5 seats · Automatic, $72",
+      "whole": false,
+      "x": 690,
+      "y": 724,
+      "at": 60945
+    },
+    {
+      "text": "delete the huge grey 500",
+      "whole": false,
+      "x": 860,
+      "y": 250,
+      "at": 332560
+    }
+  ]
+}
