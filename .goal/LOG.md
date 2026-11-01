@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T04:58Z | n178 note x draws, tiny box holds a tap | RSVP 87.0 no fixes, 17 strokes 38 words; pet checkbox filled both tries, 71.2, 66.6.
 2026-11-01T04:35Z | n176 sketch round 43 app pages | Meals 65.8, RSVP 91.5, crypto 84.5, pets 74.6, course 84.1; round 43 79.0, 17 strokes, 51 words.
 2026-11-01T03:40Z | n175 sketch round 43 landing pages | Balloons 85.4, sushi 88.8, skyline 76.6, letterpress 69.0, climbing 69.6; mean 77.9, 13 strokes, 51 words.
 2026-11-01T02:05Z | n173 write round 43 | Ten fresh pages (balloons, sushi, skyline, letterpress, climbing; meals, RSVP, crypto, pets, course) screenshotted; none sketched.
