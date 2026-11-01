@@ -15,7 +15,7 @@
  */
 import type { BBox } from '@s2c/ink'
 import { baselineOf, wordsOf } from './ownwords.js'
-import { notHeading } from './linespread.js'
+import { notHeading, ruledRow } from './linespread.js'
 
 interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string; rule?: unknown }
 interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; style?: { fontSize?: string } }
@@ -89,6 +89,7 @@ export function verifyLineSpan(marks: readonly MarkLike[], after: Snap, stacked:
     const inStack = !!m.strokeId && stacked.has(m.strokeId)
     if (inStack && !isDisplay(m.words, len)) continue
     if (!lineAsksBig(m.words, len)) continue
+    if (!BIG_WORD.test(m.words) && ruledRow(m, marks)) continue // n195: a list row is not sized by its line
     if (len < 200) continue
     const want = copyWords(m.words)
     // n57: a single giant word ("SLOW, giant ...") is checked too when the note asks for big type

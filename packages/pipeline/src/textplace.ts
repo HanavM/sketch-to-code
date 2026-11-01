@@ -21,7 +21,7 @@ import { listNote, type BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
 import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
-import { spreadCentres } from './linespread.js'
+import { labelValue, ruledRow, spreadCentres } from './linespread.js'
 import { outlinedOf } from './textlook.js'
 import { bindTiltNotes } from './tiltwords.js'
 import { lineEnds } from './lineends.js'
@@ -218,7 +218,9 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
         // n57: a giant word or two on a long line ("SLOW, giant outlined letters") is sized by the line as well
         // n170: a size word ("Year 9 Science big bold" on a 210px line) no longer skips this: the line still sets the
         // size (lines under 200px are the title cap's). Round 42 e5: built 261px long, fixed only by a repair.
-        if ((!stacked.has(m.strokeId) && lineAsksBig(m.words, len) && (!BIG_WORD.test(m.words) || len >= 200)) || isDisplay(m.words, len)) {
+        // n195: a line ruled in a list (one of 3+ alike lines stacked close) is a row, never sized up by its length
+        const row = !BIG_WORD.test(m.words) && !stacked.has(m.strokeId) && (ruledRow(m, all) || !!labelValue(m.words))
+        if (!row && ((!stacked.has(m.strokeId) && lineAsksBig(m.words, len) && (!BIG_WORD.test(m.words) || len >= 200)) || isDisplay(m.words, len))) {
           lines.push(`- action ${i}: "${m.words}" is a short phrase typed on a long line (${r1(len)}px, x ${m.box.x} to ${m.box.x + m.box.w}, y ${m.box.y}): the line sets its SIZE. ` +
             `It is a big heading on ONE line (white-space: nowrap) whose letters run about the drawn ${r1(len)}px: font-size about ${spanFontPx(m.words, len)}px (adjust so the width matches), ${BIG_WORD.test(m.words) && !/\b(bold|heavy|black)\b/i.test(m.words) ? 'weight as its note says' : 'bold'}, letters sitting on y ${m.box.y}` +
             (isDisplay(m.words, len)
@@ -228,6 +230,13 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
         const h = holderOf(m, boxes, viewport, divs)
         const side = sideOf(m.box, h)
         const x0 = m.box.x, x1 = m.box.x + m.box.w, y = m.box.y
+        // n195: a list row: body size, its label at the line's left end and its value at the right end
+        if (row) {
+          const lv = labelValue(m.words)
+          lines.push(`- action ${i}: "${m.words}" is typed on a ruled list line from x ${x0} to ${x1} at y ${y}: it is ONE ROW of a list, body size (about 15px, the same size as the other rows), never a heading. ` +
+            (lv ? `Its label "${lv.label}" starts at x ${x0} (left) and its value "${lv.value}" ends at x ${x1} (right), on one line (flex, justify-content: space-between, the row as wide as the line).` : `Its words start at x ${x0} (left).`))
+          continue
+        }
         const inBox = h.w === viewport.w && h.x === 0 ? 'on the page' : `in the box (or column) at (${r1(h.x)},${r1(h.y)}) ${r1(h.w)}x${r1(h.h)}`
         lines.push(side === 'left'
           ? `- action ${i}: "${m.words}" is typed on the level line drawn from x ${x0} to ${x1} at y ${y}, ${inBox}, ${r1(x0 - h.x)}px in from its LEFT edge: ` +

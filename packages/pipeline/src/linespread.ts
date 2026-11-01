@@ -67,9 +67,45 @@ export function isTableRow(words: string): boolean {
   return digits >= 2 && short >= items.length * 0.6
 }
 
-/** A line's words that must never be sized up by its length (a table row, or a note that says small). */
+/**
+ * n195: a list row typed as a label and its value ("Saturday mornings, $240 right", "Open studio, $25 right").
+ * Round 44 c5 (pottery): two of three such rows on ruled list lines about 480px long were built as 30-40px bold
+ * headings, because their few letters ran under half the line. A label (no digits, five words or fewer) then, after
+ * ", " (or a dot or bar), one value (a price, a number, a time, a percentage), look words aside, is a row: body size.
+ * Returns the label and the value, else null.
+ */
+const ROW_LOOK = /^(at|on|to|the|in|right|left|end|side|aligned|small|grey|gray|light|dark|bold|regular|muted|orange|red|green|blue|white|black|brown|teal|pink|purple|gold|yellow|cream|navy)$/
+const VALUE = /^(?:[$£€¥]\s?)?[+-]?\d[\d.,:]*\s?(?:%|k|m|am|pm|min|mins|h|hr|hrs|kg|km|mi|days?|nights?|pts?|\/mo|\/month|\/yr|each)?$/i
+export function labelValue(words: string): { label: string; value: string } | null {
+  const parts = words.split(/,\s+|\s*[·•|]\s*|\s+[–—-]\s+/).map((p) => p.split(/\s+/).filter((w) => w && !ROW_LOOK.test(w)).join(' ')).filter(Boolean)
+  if (parts.length !== 2) return null
+  const [label, value] = parts as [string, string]
+  if (/\d/.test(label) || label.split(/\s+/).length > 5 || !VALUE.test(value)) return null
+  return { label, value }
+}
+
+/** A line's words that must never be sized up by its length (a table row, a label and its value, or a note that says small). */
 export function notHeading(words: string): boolean {
-  return SMALL_WORD.test(words) || isTableRow(words)
+  return SMALL_WORD.test(words) || isTableRow(words) || !!labelValue(words)
+}
+
+/**
+ * n195: a line ruled in a list: one of three or more level lines, each with words, about the same length (within 20%)
+ * and left end (within 30px), stacked 18 to 90px apart. Its words are a row, never a heading sized by the line.
+ */
+export function ruledRow(m: MarkLike, marks: readonly MarkLike[]): boolean {
+  if (!isLevel(m) || !m.words) return false
+  const len = (k: MarkLike) => Math.abs(k.to!.x - k.from!.x)
+  const left = (k: MarkLike) => Math.min(k.from!.x, k.to!.x)
+  const kin = marks.filter((k) => isLevel(k) && !!k.words && Math.abs(len(k) - len(m)) <= 0.2 * Math.max(len(k), len(m)) && Math.abs(left(k) - left(m)) <= 30)
+    .sort((a, b) => a.box.y - b.box.y)
+  // walk up and down from m through neighbours 18-90px apart
+  const i = kin.indexOf(m)
+  if (i === -1) return false
+  let lo = i, hi = i
+  while (lo > 0 && kin[lo]!.box.y - kin[lo - 1]!.box.y >= 18 && kin[lo]!.box.y - kin[lo - 1]!.box.y <= 90) lo--
+  while (hi < kin.length - 1 && kin[hi + 1]!.box.y - kin[hi]!.box.y >= 18 && kin[hi + 1]!.box.y - kin[hi]!.box.y <= 90) hi++
+  return hi - lo + 1 >= 3
 }
 
 export interface SpreadRow { strokeId: string; items: string[]; centres: number[]; y: number; x0: number; x1: number }
@@ -171,15 +207,18 @@ export function verifyTableRows(marks: readonly MarkLike[], after: Snap): Spread
   const misses: string[] = []
   let judged = 0
   for (const m of marks) {
-    if (!isLevel(m) || !m.words || !isTableRow(m.words)) continue
-    const items = rowItems(m.words).map((w) => w.toLowerCase())
+    // n195: a list row (a label and its value, or a line ruled in a list) is held at body size too
+    const lv = isLevel(m) && m.words && !/\b(big|bigger|huge|large|giant|massive|heading|headline|title|display|hero)\b/i.test(m.words)
+      ? labelValue(m.words) ?? (ruledRow(m, marks) ? { label: rowItems(m.words).join(' '), value: '' } : null) : null
+    if (!isLevel(m) || !m.words || (!isTableRow(m.words) && !lv)) continue
+    const items = (isTableRow(m.words) ? rowItems(m.words) : [lv!.label, lv!.value].filter(Boolean).flatMap((p) => p.split(/\s+/))).map((w) => w.toLowerCase())
     const y = m.box.y
     const hits = after.nodes.filter((n) => n.textBox && leafText(n) && Math.abs(n.textBox.y + n.textBox.h / 2 - y) <= 40 &&
       items.some((w) => w.length >= 2 && leafText(n).toLowerCase().includes(w)) && leafText(n).length <= 40)
     if (!hits.length) continue
     judged++
     const big = hits.map((n) => parseFloat(n.style?.fontSize ?? '') || 0).filter((f) => f > 22)
-    if (big.length) misses.push(`the table row "${rowItems(m.words).join(' ')}" at y ${r1(y)} is built at ${r1(Math.max(...big))}px: set its values at body size (about 15px), keep its columns and row height; change nothing else`)
+    if (big.length) misses.push(`the ${lv && !isTableRow(m.words) ? 'list' : 'table'} row "${lv && !isTableRow(m.words) ? m.words : rowItems(m.words).join(' ')}" at y ${r1(y)} is built at ${r1(Math.max(...big))}px: set its values at body size (about 15px), keep its columns and row height; change nothing else`)
   }
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'no table row found' }
   return misses.length ? { satisfied: false, reason: misses.join('; ') } : { satisfied: true, reason: `${String(judged)} table row${judged > 1 ? 's' : ''} at body size` }

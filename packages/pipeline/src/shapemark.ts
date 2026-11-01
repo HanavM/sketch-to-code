@@ -95,6 +95,11 @@ export interface ShapeMark {
    */
   pill?: true
   /**
+   * box only (n195): the corners were drawn round (the stroke cuts each corner of its box): about this radius, px.
+   * Round 44 c5: a pot drawn as a rounded shape was cleaned to a square path and built as a square block.
+   */
+  radius?: number
+  /**
    * box only (n51): a shape drawn as its outline (a triangle, a mountain; or the side of a box a curve
    * cuts off, a wave): `box` is its bounds, `points` its outline in page px. Built clipped to it (outline.ts).
    */
@@ -387,7 +392,27 @@ function rawShapeOf(points: Array<{ x: number; y: number }>): Omit<ShapeMark, 's
   if (points.length < 2) return null
   const pts = resampleBySpacing(points as Point[], 6) as Array<{ x: number; y: number }>
   if (pts.length < 4) return null
-  return asLine(pts) ?? asClosed(pts)
+  const m = asLine(pts) ?? asClosed(pts)
+  if (m?.shape === 'box' && !m.pill && !m.tilt) {
+    const r = cornerRadius(points, m.box)
+    if (r) return { ...m, radius: r }
+  }
+  return m
+}
+
+/**
+ * n195: how round a box's corners were drawn. An arc of radius r passes about 0.41 r from its box corner; a square
+ * corner drawn by hand passes a few px from it. The median of the four corners' gaps gives r; corners cut by 12px or
+ * less (or under 6% of the short side) are square. Capped at half the short side.
+ */
+export function cornerRadius(points: ReadonlyArray<{ x: number; y: number }>, b: BBox): number | null {
+  const pts = resampleBySpacing(points as Point[], 3) as Array<{ x: number; y: number }>
+  const cs = [[b.x, b.y], [b.x + b.w, b.y], [b.x + b.w, b.y + b.h], [b.x, b.y + b.h]] as const
+  const gaps = cs.map(([cx, cy]) => Math.min(...pts.map((p) => Math.hypot(p.x - cx, p.y - cy)))).sort((a, z) => a - z)
+  const gap = (gaps[1]! + gaps[2]!) / 2
+  const short = Math.min(b.w, b.h)
+  if (gap <= 12 || gap < 0.06 * short) return null
+  return r1(Math.min(short / 2, gap / (Math.SQRT2 - 1)))
 }
 
 export const isShapeMark = (points: Array<{ x: number; y: number }>): boolean => shapeOf(points) !== null
@@ -405,6 +430,12 @@ export function cleanPath(m: Omit<ShapeMark, 'strokeId'>, origin: { x: number; y
   if (m.shape === 'box' && m.pill) {
     const r = r1(h / 2)
     return `M ${X(x + r)} ${Y(y)} H ${X(x + w - r)} A ${r} ${r} 0 0 1 ${X(x + w - r)} ${Y(y + h)} H ${X(x + r)} A ${r} ${r} 0 0 1 ${X(x + r)} ${Y(y)} Z`
+  }
+  // n195: a box drawn with round corners keeps them
+  if (m.shape === 'box' && m.radius) {
+    const r = m.radius
+    return `M ${X(x + r)} ${Y(y)} H ${X(x + w - r)} A ${r} ${r} 0 0 1 ${X(x + w)} ${Y(y + r)} V ${Y(y + h - r)} A ${r} ${r} 0 0 1 ${X(x + w - r)} ${Y(y + h)} ` +
+      `H ${X(x + r)} A ${r} ${r} 0 0 1 ${X(x)} ${Y(y + h - r)} V ${Y(y + r)} A ${r} ${r} 0 0 1 ${X(x + r)} ${Y(y)} Z`
   }
   if (m.shape === 'box') return `M ${X(x)} ${Y(y)} H ${X(x + w)} V ${Y(y + h)} H ${X(x)} Z`
   const rx = r1(w / 2), ry = r1(h / 2)
