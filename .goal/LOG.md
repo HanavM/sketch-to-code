@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T17:48Z | n195 list rows stay rows, round pot stays round | Label-and-price rows small, price right; pot rounded. Pottery 71.7 to 84.8, 76.4; no fixes.
 2026-11-01T17:25Z | n194 untapped and noted outlines stay outlines | Cinema pills right first build, 79.7 to 82.9; pottery button outlined, 71.7 (rows ballooned).
 2026-11-01T16:55Z | n189 note under a short line binds to that line | Notes right at once 32 to 42 of 44; cider 76.5 to 88.6, no moves, no fix.
 2026-11-01T15:20Z | n193 place a target-less fix step by a tap | Place-it built; live sky re-pointed to canvas by one tap; photo editor 73.8 to 91.7.
