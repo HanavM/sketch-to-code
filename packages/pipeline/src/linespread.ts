@@ -221,5 +221,5 @@ export function verifyTableRows(marks: readonly MarkLike[], after: Snap): Spread
     if (big.length) misses.push(`the ${lv && !isTableRow(m.words) ? 'list' : 'table'} row "${lv && !isTableRow(m.words) ? m.words : rowItems(m.words).join(' ')}" at y ${r1(y)} is built at ${r1(Math.max(...big))}px: set its values at body size (about 15px), keep its columns and row height; change nothing else`)
   }
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'no table row found' }
-  return misses.length ? { satisfied: false, reason: misses.join('; ') } : { satisfied: true, reason: `${String(judged)} table row${judged > 1 ? 's' : ''} at body size` }
+  return misses.length ? { satisfied: false, reason: misses.join('; ') } : { satisfied: true, reason: `${String(judged)} row${judged > 1 ? "s" : ""} (table or list) at body size` }
 }
