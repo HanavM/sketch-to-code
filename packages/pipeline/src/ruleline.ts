@@ -161,3 +161,23 @@ export function verifyRuleLabels(marks: readonly ShapeMark[], after: Snap): Rule
   if (!judged) return { satisfied: true, unverifiable: true, reason: 'no words over a divider found on the page' }
   return misses.length ? { satisfied: false, reason: misses.join('; ') } : { satisfied: true, reason: `${String(judged)} label${judged > 1 ? 's' : ''} over a divider small and in place` }
 }
+
+/**
+ * n180: a pale line drawn across most of the page with no words on it (r43 pets: the header's #ececec rule) is a
+ * divider: its pen colours the rule only, never text. Read as a text colour it failed every run.
+ */
+export function markPaleDividers(
+  marks: ReadonlyArray<{ strokeId: string; shape: string; box: { w: number; h: number }; words?: string; wordsAt?: unknown; typed?: readonly unknown[]; carries?: string }>,
+  inks: Array<{ strokeId?: string; paint: string; color: string; how?: string; ruleOnly?: true }>,
+  bg: Rgb | null,
+  viewportW: number,
+): void {
+  for (const m of marks) {
+    if (m.shape !== 'line' || m.box.h > 8 || m.box.w < viewportW * 0.6) continue
+    if (m.words || m.wordsAt || m.typed?.length || m.carries) continue
+    for (const c of inks) {
+      if (c.strokeId !== m.strokeId || c.paint !== 'text' || c.how !== 'pen') continue
+      if (paleOn(c.color, bg)) c.ruleOnly = true
+    }
+  }
+}

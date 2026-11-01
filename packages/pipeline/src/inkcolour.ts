@@ -124,7 +124,7 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
       // n144: a divider drawn in a pale pen with words over it: the pen is the rule's colour, never the words'
       if (c.paint === 'text' && c.ruleOnly) {
         lines.push(`- action ${String(i)}, the divider line drawn at ${at} in a pale ${hex(c.color)} pen: that colour is the RULE's colour only (a thin 1px ${hex(c.color)} line or border-bottom there). ` +
-          `The words typed over it are NOT ${hex(c.color)} and not any pale tint: they are ordinary dark, readable text (the page's usual text colour), as strong as the other labels`)
+          `Any words over it are NOT ${hex(c.color)} and not any pale tint: they are ordinary dark, readable text (the page's usual text colour), as strong as the other labels`)
         continue
       }
       // n121: a coloured level line with no words is a bar; its label and amount stay dark

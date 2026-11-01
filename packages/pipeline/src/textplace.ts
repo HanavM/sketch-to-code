@@ -119,7 +119,12 @@ export function columnOf(line: ShapeMark, marks: ShapeMark[]): ShapeMark | null 
   const b = line.box
   const cx = b.x + b.w / 2
   const solidish = marks.filter((o) => o !== line && (o.shape === 'ellipse' || (o.shape === 'box' && !o.area)) && o.box.w >= 40 && o.box.h >= 24 && o.box.w <= 480)
-  const fits = (o: ShapeMark, top: number, bottom: number) =>
+  // n180: a line clearly shorter than the mark that starts (or ends) on the mark's edge is flush with that edge, not
+  // centred over it (r43 pets: "18 dogs near you" drawn from x 330 to 560 over a card at 329-613 was told "CENTRED
+  // on x 471", and every build indented the heading 40-60px).
+  const flush = (o: ShapeMark) => b.w < o.box.w - 24 &&
+    (Math.abs(b.x - o.box.x) <= 6 || Math.abs(b.x + b.w - (o.box.x + o.box.w)) <= 6)
+  const fits = (o: ShapeMark, top: number, bottom: number) => !flush(o) &&
     Math.abs(o.box.x + o.box.w / 2 - cx) <= Math.max(10, 0.1 * o.box.w) && b.w <= o.box.w * 1.6 &&
     ((b.y >= bottom - 4 && b.y - bottom <= 120) || (b.y <= top + 4 && top - b.y <= 60))
   const best = solidish.filter((o) => fits(o, o.box.y, o.box.y + o.box.h))

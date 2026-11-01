@@ -333,7 +333,7 @@ import { markSideLists } from './sidelist.js'
 import { markCardRows } from './cardrows.js'
 import { alignListHeadings, markOpenRows } from './openrows.js'
 import { markTableRows } from './tablerows.js'
-import { markRuleLabels, paleOn } from './ruleline.js'
+import { markRuleLabels, paleOn, markPaleDividers } from './ruleline.js'
 import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
 import { bindTiltNotes } from './tiltwords.js'
@@ -1387,6 +1387,13 @@ export function groundInterpretation(
           if (paleOn(c.color, bg)) c.ruleOnly = true
         }
       }
+    }
+    // n180: a pale line drawn across most of the page with no words on it (pets: the header's #ececec rule) is a
+    // divider: its pen colours the rule only. Read as text colour it failed every run ("paint its text #ececec",
+    // no text there to paint) and spent a repair on a check no build could pass.
+    if (shapeMarks.length) {
+      const bg = parseCssColor(pageFill(ev.fills ?? [])?.colors[0] ?? '#ffffff')
+      markPaleDividers(shapeMarks, inkColours, bg, snap.viewport.w)
     }
     // n69: a box or ring with its own note keeps those words (one item of a list of look-alike marks)
     if (shapeMarks.length) markRowWords(shapeMarks, noteObjs, innerBoxes)
