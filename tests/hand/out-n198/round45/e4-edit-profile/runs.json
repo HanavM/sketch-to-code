@@ -1,0 +1,751 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "35ad7695619a4a4432eaca5faddcdda69181b457",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch adds a full 'Edit profile' page: a white top navbar with bold site title 'Ledger' and a small amber avatar icon, below it a white page card titled 'Edit profile' in large bold text containing an amber avatar placeholder with a bold 'Change photo' button, a row of First/Last name inputs (Maya / Okafor), an Email input (maya@ledger.io), a Bio textarea (Designer in Lagos. Likes maps.), and Cancel/Save buttons at the bottom, with the page background set to a light gray.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (0,0) 1280x66 matches the sketch region",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:9:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 66
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 3,
+        "y": 2,
+        "w": 1275,
+        "h": 66
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 66
+       },
+       "dx": 0,
+       "dy": -2
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 1204,
+        "y": 16,
+        "w": 36,
+        "h": 35
+       },
+       "built": {
+        "x": 1204,
+        "y": 15,
+        "w": 36,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:8:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 289,
+        "y": 109,
+        "w": 702,
+        "h": 742
+       },
+       "built": {
+        "x": 289,
+        "y": 107,
+        "w": 702,
+        "h": 762
+       },
+       "dx": 0,
+       "dy": 8
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (337,155) 606x36 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:15:9",
+      "rect": {
+       "x": 337,
+       "y": 155,
+       "w": 606,
+       "h": 36
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 335,
+        "y": 207,
+        "w": 96,
+        "h": 94
+       },
+       "built": {
+        "x": 337,
+        "y": 205,
+        "w": 96,
+        "h": 94
+       },
+       "dx": 2,
+       "dy": -2
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 453,
+        "y": 235,
+        "w": 133,
+        "h": 39
+       },
+       "built": {
+        "x": 455,
+        "y": 232.5,
+        "w": 133,
+        "h": 39
+       },
+       "dx": 2,
+       "dy": -2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#fbbf24 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (337,205) 606x94 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:17:9",
+      "rect": {
+       "x": 337,
+       "y": 205,
+       "w": 606,
+       "h": 94
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 335,
+        "y": 349,
+        "w": 295,
+        "h": 47
+       },
+       "built": {
+        "x": 337,
+        "y": 348,
+        "w": 293,
+        "h": 47
+       },
+       "dx": 1,
+       "dy": -1
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 650,
+        "y": 349,
+        "w": 296,
+        "h": 47
+       },
+       "built": {
+        "x": 650,
+        "y": 348,
+        "w": 293,
+        "h": 47
+       },
+       "dx": -1,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#cbd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (337,324) 606x71 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:24:9",
+      "rect": {
+       "x": 337,
+       "y": 324,
+       "w": 606,
+       "h": 71
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 334,
+        "y": 443,
+        "w": 611,
+        "h": 48
+       },
+       "built": {
+        "x": 337,
+        "y": 444,
+        "w": 606,
+        "h": 48
+       },
+       "dx": 1,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#cbd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (337,420) 606x72 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:45:9",
+      "rect": {
+       "x": 337,
+       "y": 420,
+       "w": 606,
+       "h": 72
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 335,
+        "y": 537,
+        "w": 610,
+        "h": 92
+       },
+       "built": {
+        "x": 337,
+        "y": 540,
+        "w": 606,
+        "h": 92
+       },
+       "dx": 0,
+       "dy": 3
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#cbd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (689,774) 121x47 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:63:11",
+      "rect": {
+       "x": 689,
+       "y": 774,
+       "w": 121,
+       "h": 47
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 691,
+        "y": 767,
+        "w": 121,
+        "h": 47
+       },
+       "built": {
+        "x": 689,
+        "y": 774,
+        "w": 121,
+        "h": 47
+       },
+       "dx": -2,
+       "dy": 7
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#cbd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (689,774) 121x47 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:63:11",
+      "rect": {
+       "x": 689,
+       "y": 774,
+       "w": 121,
+       "h": 47
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 824,
+        "y": 766,
+        "w": 121,
+        "h": 47
+       },
+       "built": {
+        "x": 822,
+        "y": 774,
+        "w": 121,
+        "h": 47
+       },
+       "dx": -2,
+       "dy": 8
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111827 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 of 8 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 2,
+       "built": 0,
+       "dy": -2
+      },
+      {
+       "index": 1,
+       "drawn": 109,
+       "built": 107,
+       "dy": -2
+      },
+      {
+       "index": 2,
+       "drawn": 207,
+       "built": 324,
+       "dy": 117
+      },
+      {
+       "index": 3,
+       "drawn": 349,
+       "built": 324,
+       "dy": -25
+      },
+      {
+       "index": 4,
+       "drawn": 443,
+       "built": 444,
+       "dy": 1
+      },
+      {
+       "index": 5,
+       "drawn": 537,
+       "built": 540,
+       "dy": 3
+      },
+      {
+       "index": 6,
+       "drawn": 767,
+       "built": 774,
+       "dy": 7
+      },
+      {
+       "index": 7,
+       "drawn": 766,
+       "built": 774,
+       "dy": 8
+      }
+     ]
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 coloured plain shapes built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box at (335,349) 295x47 should show \"First name label above; Maya\" but has no words beside or inside it; the box at (650,349) 296x47 should show \"Last name label above; Okafor\" but has no words beside or inside it. The 2 look-alike marks each carry their OWN typed words, in this order: \"First name label above; Maya\", \"Last name label above; Okafor\": put exactly those texts on those items (fix the array or props the list maps over; never repeat one item's words, never make texts up), keeping every item's look, size and position"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "14 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f8fafc",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (3,2) 1275x66",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (1204,16) 36x36",
+       "want": "#fbbf24",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (289,109) 702x742 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (289,109) 702x742",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (335,162) 136x0",
+       "want": "#111827",
+       "best": 0.7854447045135652,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (334,207) 97x95",
+       "want": "#fbbf24",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (453,235) 133x39 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (335,349) 295x47 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (650,349) 296x47 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (334,443) 611x48 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (335,537) 610x92 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (691,767) 121x47 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (824,766) 121x47",
+       "want": "#111827",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 56676,
+   "cacheRead": 431254,
+   "output": 18261
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 34883,
+    "output": 11223,
+    "cacheRead": 173287,
+    "toolCalls": 7,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Read s2c-hand-app/package.json",
+     "Write src/App.tsx"
+    ],
+    "ms": 132977
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 40054,
+    "output": 7038,
+    "cacheRead": 257967,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 89545
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
