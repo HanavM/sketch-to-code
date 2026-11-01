@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T14:55Z | n191 plan shows and lets a tap pick the part a fix changes | Parts named by look; tap re-points; delivery 66.5 to 70.6, route stays orange, avatar peach.
 2026-11-01T13:50Z | n190 fix changes only what it names | Orange no longer lost to size class; unnamed colours checked; delivery 47.0 to 66.5, photo editor 70.1.
 2026-11-01T12:45Z | n188 sketch round 44 app pages | Schedule 68.5, reset 74.9, editor 68.1, alerts 70.3, tracker 47.0; round 44 75.1, 17 strokes, 57 words.
 2026-11-01T11:45Z | n187 sketch round 44 landing pages | Lanterns 89.1, cider 76.5, cinema 87.5, airline 82.8, pottery 85.9; mean 84.4, 16 strokes, 53 words.
