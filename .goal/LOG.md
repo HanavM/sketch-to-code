@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T06:30Z | n180 heading on and along its drawn line | Pets 81.8, 75.4 no fixes (was 74.8): heading exact on first build; pale rule no longer fails.
 2026-11-01T05:34Z | n179 card notes never printed, drift traced per column | Pets 74.3, 70.2 no fixes (control 74.8): names right both tries, boxes within 3px on try 2.
 2026-11-01T04:58Z | n178 note x draws, tiny box holds a tap | RSVP 87.0 no fixes, 17 strokes 38 words; pet checkbox filled both tries, 71.2, 66.6.
 2026-11-01T04:35Z | n176 sketch round 43 app pages | Meals 65.8, RSVP 91.5, crypto 84.5, pets 74.6, course 84.1; round 43 79.0, 17 strokes, 51 words.
