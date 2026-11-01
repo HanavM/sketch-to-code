@@ -1,0 +1,1177 @@
+{
+ "measured": "2026-11-01T10:10:42.662Z",
+ "targets": {
+  "c1-lantern-festival": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 60,
+      "y": 34,
+      "w": 1160,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 60,
+      "y": 34,
+      "w": 72,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "lantern-1",
+     "rect": {
+      "x": 760,
+      "y": 200,
+      "w": 150,
+      "h": 190
+     },
+     "must": true
+    },
+    {
+     "role": "lantern-2",
+     "rect": {
+      "x": 980,
+      "y": 120,
+      "w": 110,
+      "h": 140
+     },
+     "must": false
+    },
+    {
+     "role": "lantern-3",
+     "rect": {
+      "x": 1050,
+      "y": 400,
+      "w": 130,
+      "h": 165
+     },
+     "must": false
+    },
+    {
+     "role": "lantern-4",
+     "rect": {
+      "x": 820,
+      "y": 500,
+      "w": 90,
+      "h": 115
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 60,
+      "y": 220,
+      "w": 600,
+      "h": 220
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 60,
+      "y": 470,
+      "w": 430,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 60,
+      "y": 590,
+      "w": 220,
+      "h": 58
+     },
+     "must": true
+    },
+    {
+     "role": "date",
+     "rect": {
+      "x": 300,
+      "y": 590,
+      "w": 91,
+      "h": 58
+     },
+     "must": false
+    },
+    {
+     "role": "water",
+     "rect": {
+      "x": 0,
+      "y": 780,
+      "w": 1280,
+      "h": 120
+     },
+     "must": true
+    }
+   ]
+  },
+  "c2-cider-orchard": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 80,
+      "y": 27,
+      "w": 189,
+      "h": 27
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 80,
+      "y": 220,
+      "w": 540,
+      "h": 136
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 80,
+      "y": 400,
+      "w": 440,
+      "h": 30
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 80,
+      "y": 520,
+      "w": 210,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "leaf",
+     "rect": {
+      "x": 960,
+      "y": 120,
+      "w": 90,
+      "h": 50
+     },
+     "must": false
+    },
+    {
+     "role": "apple",
+     "rect": {
+      "x": 760,
+      "y": 170,
+      "w": 400,
+      "h": 400
+     },
+     "must": true
+    },
+    {
+     "role": "facts",
+     "rect": {
+      "x": 0,
+      "y": 700,
+      "w": 1280,
+      "h": 200
+     },
+     "must": true
+    }
+   ]
+  },
+  "c3-retro-cinema": {
+   "regions": [
+    {
+     "role": "curtain-left",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 200,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "curtain-right",
+     "rect": {
+      "x": 1080,
+      "y": 0,
+      "w": 200,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "marquee",
+     "rect": {
+      "x": 290,
+      "y": 60,
+      "w": 700,
+      "h": 150
+     },
+     "must": true
+    },
+    {
+     "role": "screen",
+     "rect": {
+      "x": 290,
+      "y": 260,
+      "w": 700,
+      "h": 330
+     },
+     "must": true
+    },
+    {
+     "role": "film-title",
+     "rect": {
+      "x": 330,
+      "y": 300,
+      "w": 620,
+      "h": 48
+     },
+     "must": false
+    },
+    {
+     "role": "showtimes",
+     "rect": {
+      "x": 290,
+      "y": 640,
+      "w": 700,
+      "h": 60
+     },
+     "must": true
+    },
+    {
+     "role": "footer",
+     "rect": {
+      "x": 290,
+      "y": 760,
+      "w": 700,
+      "h": 17
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-paper-airline": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 70,
+      "y": 36,
+      "w": 1140,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 70,
+      "y": 36,
+      "w": 82,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "sun",
+     "rect": {
+      "x": 1020,
+      "y": 110,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "cloud-1",
+     "rect": {
+      "x": 820,
+      "y": 200,
+      "w": 180,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "cloud-2",
+     "rect": {
+      "x": 960,
+      "y": 520,
+      "w": 220,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "flight-path",
+     "rect": {
+      "x": 171,
+      "y": 438,
+      "w": 488,
+      "h": 224
+     },
+     "must": false
+    },
+    {
+     "role": "plane",
+     "rect": {
+      "x": 622,
+      "y": 271,
+      "w": 296,
+      "h": 238
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 70,
+      "y": 150,
+      "w": 520,
+      "h": 139
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 70,
+      "y": 310,
+      "w": 420,
+      "h": 27
+     },
+     "must": false
+    },
+    {
+     "role": "search-bar",
+     "rect": {
+      "x": 70,
+      "y": 680,
+      "w": 1140,
+      "h": 110
+     },
+     "must": true
+    }
+   ]
+  },
+  "c5-pottery-class": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 80,
+      "y": 26,
+      "w": 95,
+      "h": 24
+     },
+     "must": false
+    },
+    {
+     "role": "photo",
+     "rect": {
+      "x": 0,
+      "y": 76,
+      "w": 620,
+      "h": 824
+     },
+     "must": true
+    },
+    {
+     "role": "pot",
+     "rect": {
+      "x": 190,
+      "y": 330,
+      "w": 240,
+      "h": 280
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 700,
+      "y": 220,
+      "w": 480,
+      "h": 123
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 700,
+      "y": 370,
+      "w": 440,
+      "h": 29
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 700,
+      "y": 480,
+      "w": 200,
+      "h": 54
+     },
+     "must": true
+    },
+    {
+     "role": "class-list",
+     "rect": {
+      "x": 700,
+      "y": 600,
+      "w": 480,
+      "h": 141
+     },
+     "must": true
+    }
+   ]
+  },
+  "e1-class-schedule": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 64
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 36,
+      "y": 20,
+      "w": 103,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 36,
+      "y": 96,
+      "w": 204,
+      "h": 32
+     },
+     "must": true
+    },
+    {
+     "role": "week",
+     "rect": {
+      "x": 36,
+      "y": 138,
+      "w": 95,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "view-tabs",
+     "rect": {
+      "x": 880,
+      "y": 100,
+      "w": 362,
+      "h": 42
+     },
+     "must": false
+    },
+    {
+     "role": "schedule",
+     "rect": {
+      "x": 36,
+      "y": 190,
+      "w": 1208,
+      "h": 670
+     },
+     "must": true
+    },
+    {
+     "role": "class-mon-yoga",
+     "rect": {
+      "x": 105,
+      "y": 255,
+      "w": 214,
+      "h": 110
+     },
+     "must": false
+    }
+   ]
+  },
+  "e2-password-reset": {
+   "regions": [
+    {
+     "role": "logo",
+     "rect": {
+      "x": 0,
+      "y": 90,
+      "w": 1280,
+      "h": 28
+     },
+     "must": false
+    },
+    {
+     "role": "card",
+     "rect": {
+      "x": 440,
+      "y": 170,
+      "w": 400,
+      "h": 460
+     },
+     "must": true
+    },
+    {
+     "role": "icon",
+     "rect": {
+      "x": 608,
+      "y": 210,
+      "w": 64,
+      "h": 64
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 480,
+      "y": 296,
+      "w": 320,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "help",
+     "rect": {
+      "x": 480,
+      "y": 339,
+      "w": 320,
+      "h": 45
+     },
+     "must": false
+    },
+    {
+     "role": "email-field",
+     "rect": {
+      "x": 480,
+      "y": 412,
+      "w": 320,
+      "h": 50
+     },
+     "must": true
+    },
+    {
+     "role": "button",
+     "rect": {
+      "x": 480,
+      "y": 480,
+      "w": 320,
+      "h": 52
+     },
+     "must": true
+    },
+    {
+     "role": "back-link",
+     "rect": {
+      "x": 0,
+      "y": 670,
+      "w": 1280,
+      "h": 17
+     },
+     "must": false
+    }
+   ]
+  },
+  "e3-photo-editor": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 24,
+      "y": 18,
+      "w": 80,
+      "h": 20
+     },
+     "must": false
+    },
+    {
+     "role": "export",
+     "rect": {
+      "x": 1146,
+      "y": 11,
+      "w": 110,
+      "h": 34
+     },
+     "must": true
+    },
+    {
+     "role": "toolbar",
+     "rect": {
+      "x": 0,
+      "y": 56,
+      "w": 64,
+      "h": 844
+     },
+     "must": true
+    },
+    {
+     "role": "photo",
+     "rect": {
+      "x": 104,
+      "y": 96,
+      "w": 780,
+      "h": 560
+     },
+     "must": true
+    },
+    {
+     "role": "crop-box",
+     "rect": {
+      "x": 184,
+      "y": 156,
+      "w": 620,
+      "h": 440
+     },
+     "must": false
+    },
+    {
+     "role": "filmstrip",
+     "rect": {
+      "x": 104,
+      "y": 690,
+      "w": 780,
+      "h": 170
+     },
+     "must": true
+    },
+    {
+     "role": "adjust-panel",
+     "rect": {
+      "x": 920,
+      "y": 56,
+      "w": 360,
+      "h": 844
+     },
+     "must": true
+    }
+   ]
+  },
+  "e4-notification-settings": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 260,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 28,
+      "y": 34,
+      "w": 79,
+      "h": 22
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 320,
+      "y": 50,
+      "w": 182,
+      "h": 34
+     },
+     "must": true
+    },
+    {
+     "role": "subtitle",
+     "rect": {
+      "x": 320,
+      "y": 96,
+      "w": 225,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "toggle-list",
+     "rect": {
+      "x": 320,
+      "y": 150,
+      "w": 860,
+      "h": 430
+     },
+     "must": true
+    },
+    {
+     "role": "save",
+     "rect": {
+      "x": 1020,
+      "y": 640,
+      "w": 160,
+      "h": 48
+     },
+     "must": true
+    }
+   ]
+  },
+  "e5-delivery-tracker": {
+   "regions": [
+    {
+     "role": "map",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 760,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "route",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 760,
+      "h": 900
+     },
+     "must": false
+    },
+    {
+     "role": "truck-pin",
+     "rect": {
+      "x": 418,
+      "y": 420,
+      "w": 26,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "panel",
+     "rect": {
+      "x": 760,
+      "y": 0,
+      "w": 520,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "status",
+     "rect": {
+      "x": 800,
+      "y": 70,
+      "w": 440,
+      "h": 39
+     },
+     "must": false
+    },
+    {
+     "role": "progress",
+     "rect": {
+      "x": 800,
+      "y": 159,
+      "w": 440,
+      "h": 8
+     },
+     "must": false
+    },
+    {
+     "role": "timeline",
+     "rect": {
+      "x": 800,
+      "y": 203,
+      "w": 440,
+      "h": 344
+     },
+     "must": true
+    },
+    {
+     "role": "driver-card",
+     "rect": {
+      "x": 800,
+      "y": 770,
+      "w": 440,
+      "h": 84
+     },
+     "must": true
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-lantern-festival": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.21047822582428954,
+    "structure": 0.17206140367890688,
+    "structureStrict": 0.17206140367890688,
+    "colourAligned": 0.21047822582428954,
+    "structureAligned": 0.17206140367890688,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.40222964259388067,
+    "structure": 0.2114908265949911
+   }
+  },
+  "c2-cider-orchard": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7204761056594884,
+    "structure": 0.6201483115649945,
+    "structureStrict": 0.6201483115649945,
+    "colourAligned": 0.7204761056594884,
+    "structureAligned": 0.6201483115649945,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6608613140718957,
+    "structure": 0.47024758304204084
+   }
+  },
+  "c3-retro-cinema": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.33892960393223037,
+    "structure": 0.21616858298866617,
+    "structureStrict": 0.21616858298866617,
+    "colourAligned": 0.33892960393223037,
+    "structureAligned": 0.21616858298866617,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.482778032658123,
+    "structure": 0.22149364464692728
+   }
+  },
+  "c4-paper-airline": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8733585116378006,
+    "structure": 0.7005098666497941,
+    "structureStrict": 0.7005098666497941,
+    "colourAligned": 0.8733585116378006,
+    "structureAligned": 0.7005098666497941,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6942385426384742,
+    "structure": 0.5007361719205214
+   }
+  },
+  "c5-pottery-class": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.736978860915136,
+    "structure": 0.6556900228398619,
+    "structureStrict": 0.6556900228398619,
+    "colourAligned": 0.736978860915136,
+    "structureAligned": 0.6556900228398619,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6614455700940209,
+    "structure": 0.48853877092161824
+   }
+  },
+  "e1-class-schedule": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9554778981259157,
+    "structure": 0.6696056883465378,
+    "structureStrict": 0.6696056883465378,
+    "colourAligned": 0.9554778981259157,
+    "structureAligned": 0.6696056883465378,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6897382618969519,
+    "structure": 0.47701934802756646
+   }
+  },
+  "e2-password-reset": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9453368244453778,
+    "structure": 0.8574715405216758,
+    "structureStrict": 0.8574715405216758,
+    "colourAligned": 0.9453368244453778,
+    "structureAligned": 0.8574715405216758,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6978464761295045,
+    "structure": 0.5635086096716283
+   }
+  },
+  "e3-photo-editor": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.3554886145727676,
+    "structure": 0.3205916499759506,
+    "structureStrict": 0.3205916499759506,
+    "colourAligned": 0.3554886145727676,
+    "structureAligned": 0.3205916499759506,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5017052645304441,
+    "structure": 0.299618317555644
+   }
+  },
+  "e4-notification-settings": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9831060138487269,
+    "structure": 0.8325704255194567,
+    "structureStrict": 0.8325704255194567,
+    "colourAligned": 0.9831060138487269,
+    "structureAligned": 0.8325704255194567,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6810340490201783,
+    "structure": 0.5492603870223506
+   }
+  },
+  "e5-delivery-tracker": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9224122417473859,
+    "structure": 0.7004299842109846,
+    "structureStrict": 0.7004299842109846,
+    "colourAligned": 0.9224122417473859,
+    "structureAligned": 0.7004299842109846,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7048803181973935,
+    "structure": 0.4868158931538077
+   }
+  }
+ }
+}
