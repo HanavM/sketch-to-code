@@ -67,8 +67,11 @@ describe('n102: a fix about a set keeps every member\'s copy', () => {
     expect(v.failures.join('\n')).toMatch(/now shows 2 times/)
   })
 
-  it('an unchanged page passes', () => {
+  it('an unchanged page loses and copies nothing (n190: it is reported as changing nothing instead)', () => {
     const p = snap([b1, b2, head, name1, prev1])
-    expect(verifyFix([act('chat bubbles: grey', b1)], p, p).failures).toHaveLength(0)
+    const v = verifyFix([act('chat bubbles: grey', b1)], p, p)
+    expect(v.lost ?? []).toHaveLength(0)
+    expect(v.copied ?? []).toHaveLength(0)
+    expect(v.unchanged).toBe(true)
   })
 })

@@ -17,7 +17,7 @@
  * be filled, what an interior should look like — stays with the model and the
  * repair loop, which now has the measurements to ask for it precisely.
  */
-import { appPalette, deltaE, hexOf, parseCssColor, type PaletteEntry } from './palette.js'
+import { appPalette, deltaE, hexOf, isColorValue, parseCssColor, type PaletteEntry } from './palette.js'
 import type { DomSnapshot } from '@s2c/dom'
 
 export interface FinishEdit {
@@ -74,6 +74,10 @@ export function finishSource(code: string, palette: PaletteEntry[], asked: Reado
         if (d < bestD) { bestD = d; best = entry }
       }
       if (!best || bestD > SNAP_MAX_DELTA_E) return lit
+      // n190: the literal is already the token (a no-op logged as a snap), or the token is not a colour at all
+      if (best.token === lit) return lit
+      const inner = /\[(.*)\]$/.exec(best.token.slice(prefix.length + 1))
+      if (inner && !isColorValue(inner[1]!)) return lit
       edits.push({ kind: 'colour-snapped', detail: `${hexOf(rgb)} → ${best.token} (ΔE ${bestD.toFixed(1)})` })
       return best.token
     })

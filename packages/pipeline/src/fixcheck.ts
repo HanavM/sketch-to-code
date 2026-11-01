@@ -29,7 +29,7 @@
  */
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { GroundedAction } from './intent2.js'
-import { parseCssColor } from './palette.js'
+import { deltaE, hexOf, parseCssColor } from './palette.js'
 
 type Box = { x: number; y: number; w: number; h: number }
 
@@ -156,6 +156,7 @@ const PARTS = /\b(bars|cards|rows|items|links|icons|buttons|tiles|columns|lines|
 export function fixBrief(actions: readonly GroundedAction[], before: DomSnapshot): string {
   if (!isBuiltPage(before)) return ''
   const lines: string[] = []
+  const kept = keptColours(before)
   for (const [i, a] of actions.entries()) {
     if (a.kind !== 'modify' || !a.targets.length) continue
     const note = (a.notes ?? []).join(' ')
@@ -170,7 +171,9 @@ export function fixBrief(actions: readonly GroundedAction[], before: DomSnapshot
     `two pieces of text that do not touch now must not touch after your edit (it will be measured, and an edit ` +
     `that makes words run into each other is put back). Every piece of copy on the page keeps its words: never empty ` +
     `a piece of text, and never copy words from one place into another (it is measured, and put back).\n` +
-    (lines.length ? lines.join('\n') + '\n' : '') + '\n'
+    (lines.length ? lines.join('\n') + '\n' : '') +
+    // n190: name the colours that stay, so a note about one part never repaints another (r44 e5, e3)
+    (kept.length ? `Colours not named in the notes stay exactly as they are (measured; a colour changed that no note names is put back). The page's colours now: ${kept.join('; ')}.\n` : '') + '\n'
   )
 }
 
@@ -229,8 +232,10 @@ export interface CopiedCopy { text: string; was: number; now: number }
  * (r37 e4: "chat bubbles: message text only" emptied both grey bubbles). Copy rewritten in place is
  * fine: something else now reads there. A note that asks for words to go is exempt.
  */
-export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): LostCopy[] {
-  const said = actions.flatMap((a) => [...(a.notes ?? [])]).join(' ')
+export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot, runNotes: readonly string[] = []): LostCopy[] {
+  // n190: a note typed on the whole sketch is a run note, not an action's: "delete texts 4 grey squares" (r44 e3)
+  // was put back as "emptied copy" because only action notes were read
+  const said = [...actions.flatMap((a) => [...(a.notes ?? [])]), ...runNotes].join(' ')
   if (DROPS_COPY.test(said)) return []
   // n165: a note that asks for a kind of element to go ("no button: ...") is answered by emptying it
   const gone = dropsKinds(said)
@@ -257,8 +262,8 @@ export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot
  * Rule 4b: a piece of copy that now shows in more places than before, when the fix note never typed it
  * (r37 e4: "each row: name, small grey preview under" put each name into its own preview line).
  */
-export function copiedCopy(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): CopiedCopy[] {
-  const said = norm(actions.flatMap((a) => [...(a.notes ?? [])]).join(' '))
+export function copiedCopy(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot, runNotes: readonly string[] = []): CopiedCopy[] {
+  const said = norm([...actions.flatMap((a) => [...(a.notes ?? [])]), ...runNotes].join(' '))
   if (/\b(?:add|more|another|copy|repeat|duplicate|same as|like this|again)\b/.test(said)) return []
   const was = copyNodes(before), now = copyNodes(after)
   const count = (list: typeof was, k: string): number => list.filter((u) => norm(u.key).includes(k)).length
@@ -279,20 +284,201 @@ const SET_NOTE = /^\s*(?:(?:each|every|all(?: the)?)\s+[a-z]+|[a-z]+\s+(?:bubble
 
 export function isSetNote(note: string): boolean { return SET_NOTE.test(note) }
 
-export interface FixVerdict { overlaps: NewOverlap[]; noFill: NoFillMiss[]; lost?: LostCopy[]; copied?: CopiedCopy[]; failures: string[] }
+export interface FixVerdict { overlaps: NewOverlap[]; noFill: NoFillMiss[]; lost?: LostCopy[]; copied?: CopiedCopy[]; recoloured?: Recolour[]; unchanged?: boolean; failures: string[] }
 
 /** Both measured rules, as repair-ready failure lines. Empty when the page was not built before the run. */
-export function verifyFix(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): FixVerdict {
+export function verifyFix(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot, runNotes: readonly string[] = []): FixVerdict {
   if (!isBuiltPage(before)) return { overlaps: [], noFill: [], failures: [] }
+  // n190: a fix that moved nothing says so (r44 e3: one icon file edited, every check satisfied, page the same)
+  const said = [...actions.flatMap((a) => a.notes ?? []), ...runNotes].join(' ').trim()
+  if (said && pageUnchanged(before, after)) {
+    return { overlaps: [], noFill: [], unchanged: true, failures: [
+      `page (fix check): this fix changed nothing visible on the page; the note asked: "${said.slice(0, 90)}". Make the change it asks for so it shows on the page, or leave the page as it is if it already shows it.`,
+    ] }
+  }
+  const recoloured = unaskedRecolours(actions, before, after, runNotes)
   const overlaps = newTextOverlaps(before, after)
   const noFill = noFillMisses(actions, before, after)
-  const lost = lostCopy(actions, before, after)
-  const copied = copiedCopy(actions, before, after)
+  const lost = lostCopy(actions, before, after, runNotes)
+  const copied = copiedCopy(actions, before, after, runNotes)
   const failures = [
     ...overlaps.map((o) => `page (fix check): "${o.a.slice(0, 40)}" now runs into "${o.b.slice(0, 40)}" (${Math.round(o.share * 100)}% of the smaller one covered); before this fix they were apart. Keep the change the note asked for, and size or place it so they do not touch.`),
     ...noFill.map((m) => `action ${m.action} (fix check): the note says no ${m.what}, but the element behind "${m.target}" still paints a background, border or shadow. Make it transparent with no border or shadow; do not recolour it.`),
     ...lost.map((l) => `page (fix check): "${l.text.slice(0, 50)}" was on the page before this fix and is now gone, with nothing in its place. Put its words back exactly where they were; change only what the note asked.`),
     ...copied.map((c) => `page (fix check): "${c.text.slice(0, 50)}" now shows ${c.now} times (it showed ${c.was} before) and the note never typed it. Take the extra copies out: each piece of text keeps only its own words.`),
+    ...recoloured.map((r) => `page (fix check): the ${r.prop === 'text' ? 'text colour' : r.prop === 'stroke' ? 'line colour' : 'fill'} of ${r.what} changed from ${r.was} to ${r.now}, and no fix note names it. Put its colour back to ${r.was}; change only what the note names.`),
   ]
-  return { overlaps, noFill, lost, copied, failures }
+  return { overlaps, noFill, lost, copied, recoloured, failures }
+}
+
+
+// ---------------------------------------------------------------- n190: a fix changes only what it names
+
+/**
+ * Round 44 (n188): a fix typed on the whole sketch changed things it never named. "grey track to right edge"
+ * (the progress bar) also turned r44 e5's orange arrival line black; "4 grey squares under it" (a tool column)
+ * greyed r44 e3's four coloured thumbnails. And a fix that moved nothing at all ("thumbnails back to pen
+ * colours ...") still reported its checks satisfied. Both are measured here from the page before and after.
+ */
+
+const COLOUR_FAMILIES: Array<[string, RegExp]> = [
+  ['grey', /\b(?:gr[ae]y|silver|slate|muted|neutral)\b/i],
+  ['black', /\b(?:black|dark|charcoal|ink|near-black)\b/i],
+  ['white', /\b(?:white|light|pale|off-white|cream)\b/i],
+  ['red', /\b(?:red|crimson|scarlet|maroon|coral)\b/i],
+  ['orange', /\b(?:orange|amber|rust|tangerine|peach)\b/i],
+  ['yellow', /\b(?:yellow|gold|golden|mustard|lemon)\b/i],
+  ['green', /\b(?:green|lime|mint|olive|emerald|sage|forest)\b/i],
+  ['teal', /\b(?:teal|cyan|aqua|turquoise)\b/i],
+  ['blue', /\b(?:blue|navy|indigo|sky|azure|cobalt)\b/i],
+  ['purple', /\b(?:purple|violet|lilac|lavender|plum|magenta)\b/i],
+  ['pink', /\b(?:pink|rose|blush|fuchsia)\b/i],
+  ['brown', /\b(?:brown|tan|beige|wood|chocolate|coffee)\b/i],
+]
+
+/** A rough colour family a person would name ("grey", "orange") for an rgb value. */
+export function colourFamily(c: { r: number; g: number; b: number }): string {
+  const r = c.r / 255, g = c.g / 255, b = c.b / 255
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn
+  const sat = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1))
+  if (l > 0.93) return 'white'
+  if (l < 0.12) return 'black'
+  if (sat < 0.15) return l < 0.3 ? 'black' : l > 0.88 ? 'white' : 'grey'
+  let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4
+  h = (h * 60 + 360) % 360
+  if (h < 15 || h >= 345) return l > 0.75 ? 'pink' : 'red'
+  if (h < 40) return l < 0.4 ? 'brown' : 'orange'
+  if (h < 65) return 'yellow'
+  if (h < 160) return 'green'
+  if (h < 195) return 'teal'
+  if (h < 255) return 'blue'
+  if (h < 300) return 'purple'
+  return 'pink'
+}
+
+/** Colour families a note names. */
+export function namedFamilies(note: string): Set<string> {
+  const out = new Set<string>()
+  for (const [f, re] of COLOUR_FAMILIES) if (re.test(note)) out.add(f)
+  for (const m of note.matchAll(/#[0-9a-f]{3,6}\b/gi)) { const c = parseCssColor(m[0]); if (c) out.add(colourFamily(c)) }
+  return out
+}
+
+/** The note is about every colour on the page ("all text white", "whole page darker", "new palette"). */
+const WHOLE_LOOK = /\b(?:all|every|everything|whole page|entire page|theme|palette|colou?rs|dark mode|light mode|invert)\b/i
+
+function visible(n: DomNode): boolean {
+  return n.rect.w >= 2 && n.rect.h >= 2 && !(n.style.opacity && Number(n.style.opacity) < 0.15)
+}
+
+const r4 = (v: number): number => Math.round(v / 3)
+function signature(n: DomNode): string {
+  const s = n.style
+  return [n.tag, r4(n.rect.x), r4(n.rect.y), r4(n.rect.w), r4(n.rect.h), words(n), s.backgroundColor, words(n) ? s.color : '',
+    s.backgroundImage ?? '', s.border ?? '', s.borderBottom ?? '', s.boxShadow ?? '', s.opacity ?? '', s.transform ?? '',
+    s.fontSize, s.fontWeight, s.borderRadius, s.clipPath ?? '', s.filter ?? '', s.textStroke ?? '', s.svgStroke ?? '', s.svgFill ?? ''].join('|')
+}
+
+/** Nothing a person could see changed between the two pages (same elements, places, words and looks). */
+export function pageUnchanged(before: DomSnapshot, after: DomSnapshot): boolean {
+  const a = before.nodes.filter(visible).map(signature).sort()
+  const b = after.nodes.filter(visible).map(signature).sort()
+  if (a.length !== b.length) return false
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false
+  return true
+}
+
+export interface Recolour { what: string; prop: 'background' | 'text' | 'stroke' | 'fill'; was: string; now: string }
+
+/** The same element before and after: same tag and words, and (nearly) the same box. */
+function matchNode(n: DomNode, pool: readonly DomNode[]): DomNode | null {
+  let best: DomNode | null = null, bestD = Infinity
+  for (const m of pool) {
+    if (m.tag !== n.tag || words(m) !== words(n)) continue
+    const d = Math.abs(m.rect.x - n.rect.x) + Math.abs(m.rect.y - n.rect.y) + Math.abs(m.rect.w - n.rect.w) + Math.abs(m.rect.h - n.rect.h)
+    if (d < bestD) { bestD = d; best = m }
+  }
+  if (best && bestD <= 12) return best
+  // n190: an svg shape a fix lengthened (r44 e5's route run off to the right edge) is still the same shape
+  if (/^(?:path|line|polyline|polygon)$/i.test(n.tag)) {
+    const near = pool.filter((m) => m.tag === n.tag && inter(m.rect, n.rect) >= 0.6 * Math.max(1, n.rect.w * n.rect.h))
+    if (near.length === 1) return near[0]!
+  }
+  return null
+}
+
+const solid = (css: string | undefined): { r: number; g: number; b: number } | null => {
+  if (!css || /^rgba\([^)]*,\s*0(?:\.0+)?\s*\)$/.test(css) || css === 'transparent') return null
+  return parseCssColor(css)
+}
+
+/**
+ * Elements whose fill or text colour changed in a fix that never asked for it: outside every mark the fix
+ * notes sit on, and (for a note on the whole page) changed to a colour the notes never name.
+ */
+export function unaskedRecolours(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot, runNotes: readonly string[] = []): Recolour[] {
+  const said = [...actions.flatMap((a) => [a.instruction, ...(a.notes ?? [])]), ...runNotes].join(' ')
+  if (WHOLE_LOOK.test([...actions.flatMap((a) => a.notes ?? []), ...runNotes].join(' '))) return []
+  const named = namedFamilies(said)
+  const area = before.viewport.w * before.viewport.h
+  const targets = actions.flatMap((a) => (a.targets ?? []).map((t) => t.rect)).filter((r): r is Box => !!r && r.w * r.h < area * 0.5)
+  const saidLow = said.toLowerCase()
+  const pool = after.nodes.filter(visible)
+  const out: Recolour[] = []
+  const seen = new Set<string>()
+  for (const n of before.nodes) {
+    if (!visible(n) || n.rect.w * n.rect.h >= area * 0.5) continue
+    const m = matchNode(n, pool)
+    if (!m) continue
+    const w = words(n)
+    const paint = (x: DomNode, prop: Recolour['prop']): string | undefined =>
+      prop === 'background' ? x.style.backgroundColor : prop === 'text' ? x.style.color : prop === 'stroke' ? x.style.svgStroke : x.style.svgFill
+    for (const prop of ['background', 'text', 'stroke', 'fill'] as const) {
+      if (prop === 'text' && !w) continue
+      const a = solid(paint(n, prop))
+      const b = solid(paint(m, prop))
+      if (!a || !b || deltaE(a, b) < 12) continue
+      const fam = colourFamily(b)
+      // inside or over a mark a fix note sits on: that is what the note is about
+      if (targets.some((t) => inter(t, n.rect) >= 0.5 * Math.min(n.rect.w * n.rect.h, t.w * t.h))) continue
+      // the note names its words ("Call button blue")
+      if (w && w.length >= 3 && saidLow.includes(w.toLowerCase().slice(0, 24))) continue
+      // a whole-sketch note naming the colour it now has could be about it; anything else is unasked
+      if (!targets.length && named.has(fam) && !named.has(colourFamily(a))) {
+        // named colour, but the element already had a strong colour of its own the note never names: still unasked
+        const own = colourFamily(a)
+        if (['grey', 'black', 'white'].includes(own)) continue
+      }
+      const what = w ? `"${w.slice(0, 30)}"` : `the ${n.tag === 'path' || n.tag === 'line' ? `drawn ${n.tag}` : n.tag} at ${Math.round(n.rect.x)},${Math.round(n.rect.y)} (${Math.round(n.rect.w)}x${Math.round(n.rect.h)})`
+      const key = `${what}|${prop}`
+      if (seen.has(key)) continue
+      seen.add(key)
+      out.push({ what, prop, was: hexOf(a), now: hexOf(b) })
+    }
+  }
+  return out.slice(0, 6)
+}
+
+/** The page's own strong colours, so a fix brief can say: keep these unless the note names them. */
+export function keptColours(before: DomSnapshot, max = 8): string[] {
+  const out: string[] = []
+  const seen = new Set<string>()
+  for (const n of before.nodes) {
+    if (!visible(n)) continue
+    const w = words(n)
+    for (const [prop, css] of [['fill', n.style.backgroundColor ?? n.style.svgFill], ['text', w ? n.style.color : ''], ['line', n.style.svgStroke], ['fill', n.style.svgFill]] as const) {
+      const c = solid(css)
+      if (!c) continue
+      const fam = colourFamily(c)
+      if (['grey', 'black', 'white'].includes(fam)) continue
+      const hex = hexOf(c)
+      const what = w ? `"${w.slice(0, 24)}"` : `${n.tag} ${Math.round(n.rect.w)}x${Math.round(n.rect.h)} at ${Math.round(n.rect.x)},${Math.round(n.rect.y)}`
+      const key = `${hex}|${prop}|${w ? w : ''}`
+      if (seen.has(key)) continue
+      seen.add(key)
+      out.push(`${prop} ${hex} (${fam}) on ${what}`)
+      if (out.length >= max) return out
+    }
+  }
+  return out
 }

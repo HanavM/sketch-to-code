@@ -120,6 +120,9 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           ...(cs.filter && cs.filter !== 'none' ? { filter: cs.filter.slice(0, 60) } : {}),
           ...(cs.transform && cs.transform !== 'none' ? { transform: cs.transform.slice(0, 80) } : {}),
           ...(parseFloat(cs.getPropertyValue('-webkit-text-stroke-width')) > 0 ? { textStroke: cs.getPropertyValue('-webkit-text-stroke-width') } : {}),
+          // n190: an svg shape's own paint (a drawn route, a ring): a fix that repaints it is measured too
+          ...(/^(?:path|line|polyline|polygon|circle|ellipse|rect)$/i.test(tag) && cs.stroke && cs.stroke !== 'none' ? { svgStroke: cs.stroke } : {}),
+          ...(/^(?:path|polygon|circle|ellipse|rect)$/i.test(tag) && cs.fill && cs.fill !== 'none' ? { svgFill: cs.fill } : {}),
         },
         parent: parentId,
         depth,

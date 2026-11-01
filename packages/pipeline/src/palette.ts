@@ -180,6 +180,15 @@ export function appPalette(snap: DomSnapshot): PaletteEntry[] {
   return [...byToken.values()].sort((a, b) => b.count - a.count)
 }
 
+/** The inside of an arbitrary value names a colour: '#ea580c', 'rgb(...)', 'hsl(...)', 'color:var(--x)'. */
+export function isColorValue(v: string): boolean {
+  const x = v.trim().toLowerCase()
+  if (x.startsWith('color:')) return true
+  if (/^#[0-9a-f]{3,8}$/.test(x)) return true
+  if (/^(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/.test(x)) return true
+  return false
+}
+
 /**
  * 'text-red-600' / 'bg-white' / 'text-[#ff0000]' are colours; 'text-sm',
  * 'text-center' and 'bg-cover' are not. Tailwind colour utilities end in a
@@ -187,7 +196,10 @@ export function appPalette(snap: DomSnapshot): PaletteEntry[] {
  */
 function isColorClass(cls: string, prefix: string): boolean {
   const rest = cls.slice(prefix.length)
-  if (rest.startsWith('[')) return true
+  // n190: 'text-[15px]' and 'bg-[url(...)]' are arbitrary values too, but not colours. Counted as colours, a
+  // 15px grey label put 'text-[15px]' in the palette as grey, and the finishing pass then "snapped" a typed
+  // orange (text-[#ea580c]) onto it: the class lost its colour and r44 e5's orange arrival line came out black.
+  if (rest.startsWith('[')) return isColorValue(rest.slice(1, rest.lastIndexOf(']') > 0 ? rest.lastIndexOf(']') : undefined))
   if (/-\d{2,3}$/.test(rest)) return true
   return ['white', 'black', 'transparent', 'current', 'inherit'].includes(rest)
 }

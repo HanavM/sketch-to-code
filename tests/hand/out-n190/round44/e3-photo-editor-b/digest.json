@@ -1,0 +1,656 @@
+{
+  "round": 44,
+  "id": "e3-photo-editor",
+  "version": 3,
+  "stopped": null,
+  "likeness": 70.1,
+  "colour": 0.916630054255373,
+  "structure": 0.7905838502198935,
+  "layout": 0.5152316309309696,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 3.2,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "box": 9,
+      "line": 4
+    },
+    "inkPx": 10165
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 71,
+  "notes": 10,
+  "longestNote": 16,
+  "noteTexts": [
+    "Darkroom bold",
+    "File Edit View",
+    "Export bold dark text",
+    "4 grey squares below",
+    "peach fading to pale orange",
+    "Adjust bold",
+    "5 sliders, white knobs: Exposure Contrast Warmth Saturation Vignette",
+    "thumbnails filled in pen colours, first has yellow border; no rounded crop",
+    "left: solid yellow square, 4 grey squares under it, no text; sky fades to pale orange",
+    "bottom thumbnails back to pen colours; delete texts 4 grey squares and 5 sliders"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 513,
+    "firstReadingS": 117,
+    "readS": [
+      71,
+      42
+    ],
+    "buildS": [
+      281,
+      67
+    ],
+    "sketchingS": 52
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 105158,
+    "cacheRead": 560863,
+    "output": 40522,
+    "billed": 145680
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 930,
+      "y": 850,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#252429",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#f7a48c",
+      "at": 838
+    },
+    {
+      "op": "stroke",
+      "at": 7332
+    },
+    {
+      "op": "stroke",
+      "at": 7797
+    },
+    {
+      "op": "pen",
+      "color": "#41705b",
+      "at": 8163
+    },
+    {
+      "op": "stroke",
+      "at": 14499
+    },
+    {
+      "op": "stroke",
+      "at": 14963
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 15331
+    },
+    {
+      "op": "stroke",
+      "at": 21684
+    },
+    {
+      "op": "pen",
+      "color": "#facc15",
+      "at": 22049
+    },
+    {
+      "op": "stroke",
+      "at": 23314
+    },
+    {
+      "op": "stroke",
+      "at": 23782
+    },
+    {
+      "op": "stroke",
+      "at": 24583
+    },
+    {
+      "op": "stroke",
+      "at": 25048
+    },
+    {
+      "op": "pen",
+      "color": "#f39f8a",
+      "at": 25418
+    },
+    {
+      "op": "stroke",
+      "at": 27906
+    },
+    {
+      "op": "pen",
+      "color": "#7ca1c6",
+      "at": 28274
+    },
+    {
+      "op": "stroke",
+      "at": 30716
+    },
+    {
+      "op": "pen",
+      "color": "#c3a37a",
+      "at": 31078
+    },
+    {
+      "op": "stroke",
+      "at": 33533
+    },
+    {
+      "op": "pen",
+      "color": "#8fbe8d",
+      "at": 33898
+    },
+    {
+      "op": "stroke",
+      "at": 36331
+    },
+    {
+      "op": "pen",
+      "color": "#eeeeee",
+      "at": 36700
+    },
+    {
+      "op": "stroke",
+      "at": 37383
+    },
+    {
+      "op": "stroke",
+      "at": 38202
+    },
+    {
+      "op": "stroke",
+      "at": 38801
+    },
+    {
+      "op": "pen",
+      "color": "#3a3a40",
+      "at": 39169
+    },
+    {
+      "op": "stroke",
+      "at": 40470
+    },
+    {
+      "op": "note",
+      "at": 41172
+    },
+    {
+      "op": "note",
+      "at": 41856
+    },
+    {
+      "op": "note",
+      "at": 42566
+    },
+    {
+      "op": "note",
+      "at": 43237
+    },
+    {
+      "op": "note",
+      "at": 43956
+    },
+    {
+      "op": "note",
+      "at": 44615
+    },
+    {
+      "op": "note",
+      "at": 45597
+    },
+    {
+      "op": "note",
+      "at": 46391
+    },
+    {
+      "op": "run",
+      "at": 46518
+    },
+    {
+      "op": "note",
+      "at": 400441
+    },
+    {
+      "op": "note",
+      "at": 401284
+    },
+    {
+      "op": "run",
+      "at": 401413
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1000,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          104,
+          96
+        ],
+        [
+          884,
+          96
+        ],
+        [
+          884,
+          404
+        ],
+        [
+          104,
+          404
+        ],
+        [
+          104,
+          96
+        ]
+      ],
+      "n": 363,
+      "at": 7332
+    },
+    {
+      "way": [
+        [
+          140,
+          130
+        ]
+      ],
+      "n": 1,
+      "at": 7797
+    },
+    {
+      "way": [
+        [
+          104,
+          404
+        ],
+        [
+          884,
+          404
+        ],
+        [
+          884,
+          656
+        ],
+        [
+          104,
+          656
+        ],
+        [
+          104,
+          404
+        ]
+      ],
+      "n": 345,
+      "at": 14499
+    },
+    {
+      "way": [
+        [
+          140,
+          630
+        ]
+      ],
+      "n": 1,
+      "at": 14963
+    },
+    {
+      "way": [
+        [
+          184,
+          156
+        ],
+        [
+          804,
+          156
+        ],
+        [
+          804,
+          596
+        ],
+        [
+          184,
+          596
+        ],
+        [
+          184,
+          156
+        ]
+      ],
+      "n": 353,
+      "at": 21684
+    },
+    {
+      "way": [
+        [
+          1146,
+          11
+        ],
+        [
+          1256,
+          11
+        ],
+        [
+          1256,
+          45
+        ],
+        [
+          1146,
+          45
+        ],
+        [
+          1146,
+          11
+        ]
+      ],
+      "n": 49,
+      "at": 23314
+    },
+    {
+      "way": [
+        [
+          1240,
+          28
+        ]
+      ],
+      "n": 1,
+      "at": 23782
+    },
+    {
+      "way": [
+        [
+          16,
+          78
+        ],
+        [
+          48,
+          78
+        ],
+        [
+          48,
+          110
+        ],
+        [
+          16,
+          110
+        ],
+        [
+          16,
+          78
+        ]
+      ],
+      "n": 21,
+      "at": 24583
+    },
+    {
+      "way": [
+        [
+          32,
+          94
+        ]
+      ],
+      "n": 1,
+      "at": 25048
+    },
+    {
+      "way": [
+        [
+          103,
+          689
+        ],
+        [
+          289,
+          689
+        ],
+        [
+          289,
+          861
+        ],
+        [
+          103,
+          861
+        ],
+        [
+          103,
+          689
+        ]
+      ],
+      "n": 121,
+      "at": 27906
+    },
+    {
+      "way": [
+        [
+          303,
+          690
+        ],
+        [
+          486,
+          690
+        ],
+        [
+          486,
+          860
+        ],
+        [
+          303,
+          860
+        ],
+        [
+          303,
+          690
+        ]
+      ],
+      "n": 119,
+      "at": 30716
+    },
+    {
+      "way": [
+        [
+          502,
+          690
+        ],
+        [
+          685,
+          690
+        ],
+        [
+          685,
+          860
+        ],
+        [
+          502,
+          860
+        ],
+        [
+          502,
+          690
+        ]
+      ],
+      "n": 119,
+      "at": 33533
+    },
+    {
+      "way": [
+        [
+          701,
+          690
+        ],
+        [
+          884,
+          690
+        ],
+        [
+          884,
+          860
+        ],
+        [
+          701,
+          860
+        ],
+        [
+          701,
+          690
+        ]
+      ],
+      "n": 119,
+      "at": 36331
+    },
+    {
+      "way": [
+        [
+          24,
+          28
+        ],
+        [
+          104,
+          28
+        ]
+      ],
+      "n": 14,
+      "at": 37383
+    },
+    {
+      "way": [
+        [
+          128,
+          28
+        ],
+        [
+          253,
+          28
+        ]
+      ],
+      "n": 22,
+      "at": 38202
+    },
+    {
+      "way": [
+        [
+          950,
+          95
+        ],
+        [
+          1000,
+          95
+        ]
+      ],
+      "n": 9,
+      "at": 38801
+    },
+    {
+      "way": [
+        [
+          950,
+          160
+        ],
+        [
+          1250,
+          160
+        ]
+      ],
+      "n": 51,
+      "at": 40470
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Darkroom bold",
+      "whole": false,
+      "x": 40,
+      "y": 42,
+      "at": 41172
+    },
+    {
+      "text": "File Edit View",
+      "whole": false,
+      "x": 150,
+      "y": 42,
+      "at": 41856
+    },
+    {
+      "text": "Export bold dark text",
+      "whole": false,
+      "x": 1170,
+      "y": 60,
+      "at": 42566
+    },
+    {
+      "text": "4 grey squares below",
+      "whole": false,
+      "x": 20,
+      "y": 130,
+      "at": 43237
+    },
+    {
+      "text": "peach fading to pale orange",
+      "whole": false,
+      "x": 300,
+      "y": 120,
+      "at": 43956
+    },
+    {
+      "text": "Adjust bold",
+      "whole": false,
+      "x": 960,
+      "y": 110,
+      "at": 44615
+    },
+    {
+      "text": "5 sliders, white knobs: Exposure Contrast Warmth Saturation Vignette",
+      "whole": false,
+      "x": 960,
+      "y": 176,
+      "at": 45597
+    },
+    {
+      "text": "thumbnails filled in pen colours, first has yellow border; no rounded crop",
+      "whole": true,
+      "x": 500,
+      "y": 880,
+      "at": 46391
+    },
+    {
+      "text": "left: solid yellow square, 4 grey squares under it, no text; sky fades to pale orange",
+      "whole": true,
+      "x": 500,
+      "y": 880,
+      "at": 400441
+    },
+    {
+      "text": "bottom thumbnails back to pen colours; delete texts 4 grey squares and 5 sliders",
+      "whole": true,
+      "x": 500,
+      "y": 880,
+      "at": 401284
+    }
+  ]
+}

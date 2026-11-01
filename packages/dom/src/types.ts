@@ -51,6 +51,9 @@ export interface DomNode {
     transform?: string
     /** Set only when the letters are stroked (n16: an outlined big word must stay hollow): '2px'. */
     textStroke?: string
+    /** n190: set only on an svg shape that paints a stroke / a fill: 'rgb(234, 88, 12)'. */
+    svgStroke?: string
+    svgFill?: string
   }
   /** Parent DomNode id, or null for the root. */
   parent: string | null

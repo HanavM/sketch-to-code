@@ -906,7 +906,7 @@ export async function runV2(
       result.score = Math.min(result.score, 0.99)
     }
     // n37: a fix on a built page keeps words apart and takes a panel away when told to
-    const fixed = verifyFix(interp.actions, input.snapshot, after)
+    const fixed = verifyFix(interp.actions, input.snapshot, after, [...(interp.runNotes ?? []), ...(interp.placedNotes ?? []).map((p) => p.text), ...(interp.pageNotes ?? [])])
     lastFix = fixed
     const invented = inventedFailures(inventedCopy(input.snapshot, after, [
       ...(input.notes ?? []).map((n) => n.text), ...interp.actions.flatMap((a) => a.notes ?? []),
