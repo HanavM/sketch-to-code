@@ -16,6 +16,7 @@
  */
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import { deltaE, hexOf, parseCssColor, type Rgb } from './palette.js'
+import { BIG_WORD } from './linespan.js'
 
 interface MarkLike {
   strokeId?: string; shape: string; box: { x: number; y: number; w: number; h: number }
@@ -237,6 +238,25 @@ export function proseNote(text: string): boolean {
   return true
 }
 
+/**
+ * n199: is this note a heading's words with its look ("Fired at 900 / degrees, huge bold")? Round 45 c3 (pizza oven,
+ * n197): the headline was drawn as two red level lines with that note typed between them; it failed the sentence test
+ * (a number, a slash, two style words), so both lines were read as red bars and every build painted a red bar over and
+ * under the headline. A heading note: the copy before its first comma has a real word (two letters or more) and at
+ * most one number, no money or percent, nothing about bars; and either its look asks for big type (huge, heading,
+ * title ...) or the copy is split into lines with " / ".
+ */
+export function headingNote(text: string): boolean {
+  const t = text.trim()
+  const i = t.indexOf(',')
+  const copy = i === -1 ? t : t.slice(0, i)
+  const tail = i === -1 ? '' : t.slice(i + 1)
+  if (!/\p{L}{2,}/u.test(copy)) return false
+  if (/[$€£¥%]/.test(t) || (copy.match(/\d+/g)?.length ?? 0) > 1) return false
+  if (/;/.test(t) || /\b(bars?|tracks?|progress|meters?|sliders?|gauges?|chart|graph|divider|rule|underline\w*|stripe)\b/i.test(t)) return false
+  return BIG_WORD.test(tail) || /\s\/\s/.test(copy)
+}
+
 interface LineLike { strokeId: string; shape: string; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true }
 
 /**
@@ -248,18 +268,23 @@ export function proseLineIds(marks: readonly LineLike[], notes: ReadonlyArray<{ 
   const lines = marks.filter((m) => m.shape === 'line' && !m.edge && m.from && m.to && Math.abs(m.from.y - m.to.y) <= 4)
     .map((m) => ({ id: m.strokeId, x0: Math.min(m.from!.x, m.to!.x), x1: Math.max(m.from!.x, m.to!.x), y: (m.from!.y + m.to!.y) / 2 }))
   const out = new Set<string>()
+  // n199: a heading's lines sit further apart (big type): its note reaches 64px and its lines stack up to 120px apart
+  const big = new Set<string>()
   for (const n of notes) {
-    if (!n.at || !proseNote(n.text)) continue
-    const hit = lines.filter((l) => n.at!.x >= l.x0 - 20 && n.at!.x <= l.x1 + 20 && Math.abs(n.at!.y - l.y) <= 40)
-    for (const h of hit) out.add(h.id)
+    if (!n.at) continue
+    const head = !proseNote(n.text) && headingNote(n.text)
+    if (!head && !proseNote(n.text)) continue
+    const hit = lines.filter((l) => n.at!.x >= l.x0 - 20 && n.at!.x <= l.x1 + 20 && Math.abs(n.at!.y - l.y) <= (head ? 64 : 40))
+    for (const h of hit) { out.add(h.id); if (head) big.add(h.id) }
   }
-  // spread to the rest of each paragraph
+  // spread to the rest of each paragraph (or heading)
   let grew = true
   while (grew) {
     grew = false
     for (const l of lines) {
       if (out.has(l.id)) continue
-      if (lines.some((o) => out.has(o.id) && Math.abs(o.x0 - l.x0) <= 16 && Math.abs(o.y - l.y) <= 48)) { out.add(l.id); grew = true }
+      const o = lines.find((o) => out.has(o.id) && Math.abs(o.x0 - l.x0) <= 16 && Math.abs(o.y - l.y) <= (big.has(o.id) ? 120 : 48))
+      if (o) { out.add(l.id); if (big.has(o.id)) big.add(l.id); grew = true }
     }
   }
   return out

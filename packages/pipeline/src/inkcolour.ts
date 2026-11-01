@@ -140,6 +140,11 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
       }
       // n121: a coloured level line with no words is a bar; its label and amount stay dark
       if (isBarInk(c, a)) { lines.push(barBriefLine(i, c)); continue }
+      // n199: a coloured line a heading or sentence was typed on is where those words go: their colour, never a bar
+      if (c.paint === 'text' && c.mark === 'line' && c.copy) {
+        lines.push(`- action ${String(i)}, the level line drawn at x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}px long in ${hex(c.color)}: it stands for a line of the words typed by it; those WORDS are coloured ${hex(c.color)} and sit on that line. The pen line itself is never painted: no bar, strip, rule, border or underline in ${hex(c.color)} (or any colour) above, on or under the words (checked on the page)`)
+        continue
+      }
       if (plainPanel(c, a)) {
         lines.push(`- action ${String(i)}, the box drawn at ${at}: a PLAIN FLAT PANEL, built as drawn: one block exactly there, background ${hex(c.color)} solid at full strength (opacity 1, no gradient, no fade, no tint), square corners (border-radius 0), no box-shadow, no border; it is a coloured area of the page, not a floating card. Its words and images sit inside it; text on it must stay readable against it`)
         continue

@@ -55,9 +55,12 @@ const paints = (css: string | undefined) => {
   return !a || Number(a[1]) > 0.15
 }
 
-export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap, skip: ReadonlySet<string> = new Set()): RuleVerdict {
+export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap, skip: ReadonlySet<string> = new Set(), copy: ReadonlySet<string> = new Set()): RuleVerdict {
+  // n199: a coloured line a heading or sentence was typed by (the note bound to the whole stack, not one line) is
+  // checked too: its words are that note's, it must not come back as a bar or rule
+  const wordsOf = (m: MarkLike): string | null => lineCopy(m) ?? (m.strokeId && copy.has(m.strokeId) && !m.rule && !m.edge && m.from && m.to ? 'its words' : null)
   // n62: a link drawn on a coloured line is meant to be underlined (linkline.ts)
-  const lines = marks.filter((m) => lineCopy(m) !== null && !(m.strokeId && skip.has(m.strokeId)))
+  const lines = marks.filter((m) => wordsOf(m) !== null && !(m.strokeId && skip.has(m.strokeId)))
   if (!lines.length) return { satisfied: true, unverifiable: true, reason: 'no drawn lines carrying words' }
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const byId = new Map(after.nodes.map((n) => [n.id, n]))
@@ -75,7 +78,7 @@ export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap,
         // its own thickness: a turned bar's upright bounds grow by its width times the turn
         const turn = Math.abs(turnOf(n, byId)) * Math.PI / 180
         const own = r.h - r.w * Math.tan(Math.min(turn, 0.6))
-        const thin = own <= 4.5
+        const thin = own <= 10.5 // n199: a 6-10px strip is a bar too
         if (n.tag === 'hr') kind = 'a rule (<hr>)'
         else if (thin && (paints(n.style?.backgroundColor) || !!n.style?.border || !!n.style?.borderBottom)) kind = 'a thin bar'
         if (kind && distToSeg(c, a, z) > 18) kind = null
@@ -86,7 +89,7 @@ export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap,
         kind = 'an underline (text-decoration) under the words'
       }
       if (!kind) continue
-      faults.push(`the line drawn from (${String(Math.round(a.x))},${String(Math.round(a.y))}) to (${String(Math.round(z.x))},${String(Math.round(z.y))}) stands for the words "${lineCopy(m)!}" ` +
+      faults.push(`the line drawn from (${String(Math.round(a.x))},${String(Math.round(a.y))}) to (${String(Math.round(z.x))},${String(Math.round(z.y))}) stands for ${lineCopy(m) ? `the words "${lineCopy(m)!}"` : 'words typed by it'} ` +
         `but a <${n.tag}> ${String(Math.round(r.w))}px wide at (${String(Math.round(r.x))},${String(Math.round(r.y))}) paints ${kind} along it: ` +
         `the drawn line only says where those words sit; remove that rule${kind.startsWith('an underline') ? ' (no bottom border, text-decoration none; a heading, not a link)' : ''} and keep the words`)
       break
