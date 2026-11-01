@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Card tints named in a note now come out exactly as named every run; next, making one giant coloured letter fill its box instead of turning into a card."
+now: "A giant letter now fills its box and a slanted panel keeps its slant; next, rings drawn in a coloured pen keep that colour and an outline stamp stays hollow."
 round: 43
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-n177, until: "2026-11-01T08:52:24Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -315,7 +315,9 @@ nodes:
   - {id: n182, parent: n3, kind: step, title: "Card tints named in a note (peach, sage, blue, lilac) stay soft pastels run to run (one pets run came out mint and yellow), and picture tops keep their drawn height; replay pet adoption and sushi", status: done, branch: try/n3-ink-style,
      result: "Named tints fixed and checked: exact both runs; pets 76.5, 74.7 no fixes (was 76.7, 65.3)."}
   - {id: n183, parent: n4, kind: step, title: "A list typed in open space starts level with its note, and the heading and cards land on their drawn lines (pets came about 15px low); replay pet adoption", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n177, parent: n2, kind: step, priority: next, title: "A coloured box round one giant letter is that letter in that colour filling the box (never a card), and a filled shape with a slanted side keeps the slant; replay letterpress and climbing gym", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n177, parent: n2, kind: step, title: "A coloured box round one giant letter is that letter in that colour filling the box (never a card), and a filled shape with a slanted side keeps the slant; replay letterpress and climbing gym", status: done, branch: try/n3-ink-style,
+     result: "Letter A fills its box, no card; slant kept. Letterpress 78.3, gym 72.2, no fixes (was 69.0, 69.6 with fixes)."}
+  - {id: n184, parent: n3, kind: step, priority: next, title: "A ring drawn in a coloured pen with no tap is a flat disc in that pen colour (gym holds came out black), and a dark ring noted outline stamp stays a hollow ring, never a filled blob; replay climbing gym and letterpress", status: open, branch: try/n3-ink-style, result: null}
   - {id: n174, parent: n3, kind: step, title: "A tapped picture box is a flat fill (no invented diagonal shading), and a total line typed as label and amount keeps the amount at the right; replay cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
   - {id: n154, parent: n2, kind: step, title: "A note typed just under a picture box is its caption below it (not text on the picture), and the box keeps its drawn height; replay hotel search", status: open, branch: try/n3-ink-style, result: null}
@@ -325,6 +327,8 @@ nodes:
   - {id: n163, parent: n2, kind: step, title: "A filled box across the page bottom with only lines in it is a picture band (sea with stripes), never a footer, and no text is invented in it; replay regatta", status: open, branch: try/n3-ink-style, result: null}
   - {id: n164, parent: n4, kind: step, title: "Style words after a heading's copy (huge bold, right) are never printed, even when the copy has its own commas, and a heading never takes the line drawn under it; replay ski lodge", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A coloured box round one giant letter (letter A) became a coloured card with the letter knocked out", found_on: "r43 c4 (n175)", built: "n177: a named letter is a big word; its box is an area, pen colour on the letter, size checked by font-size", helped: "letterpress 69.0 with a fix to 78.3 with none, 19 fewer words"}
+  - {gap: "A filled panel drawn with one slanted side was built as a straight split", found_on: "r43 c5 (n175)", built: "n177: a big four-corner stroke with an empty bounding-box corner is built clipped to its drawn outline", helped: "climbing gym 69.6 with 2 fixes to 72.2 with none, slant right first build"}
   - {gap: "A filters note naming the checked options after the list (Dogs, Adult, Medium checked) left the unticked boxes near-white, invisible", found_on: "r43 e4 (n176, n180)", built: "n181: checked tail and Heading (a, b, c) groups read as a checkbox list; every unticked option gets a visible grey box, checked on the page", helped: "all 9 boxes right in 4 of 4 runs; pets 76.7, 65.3 (score now set by card tints)"}
   - {gap: "A stroke started on a just-typed note's label deleted that note (its close button) and drew nothing, with no message; happened twice", found_on: "r43 e2 (n176)", built: null, helped: null}
   - {gap: "An orange tap inside a tiny checkbox was taken as a page tap and made an orange-to-white page fade", found_on: "r43 e4 (n176)", built: null, helped: null}
@@ -1044,3 +1048,9 @@ n181_resketch:   # n176 strokes, pens and first notes replayed (replay.mjs); fir
   - {page: r43 e4-pet-adoption, try: 2, likeness: 60.9, was: 81.8, strokes: 13, words: 48, notes: 6, minutes: 7.8, fixes: 0, first_read_s: 75, build_s: 393, tokens: 39369, note: "boxes right; check took nav Dogs, Cats for options, repair moved heading"}
   - {page: r43 e4-pet-adoption, try: 3, likeness: 76.7, was: 81.8, strokes: 13, words: 48, notes: 6, minutes: 5.2, fixes: 0, first_read_s: 77, build_s: 231, tokens: 89985, note: "9 boxes, 3 ticked orange, 6 grey; check passes"}
   - {page: r43 e4-pet-adoption, try: 4, likeness: 65.3, was: 81.8, strokes: 13, words: 48, notes: 6, minutes: 3.7, fixes: 0, first_read_s: 71, build_s: 146, tokens: 70605, note: "boxes right; card tints vivid mint and yellow, cards short"}
+n177_resketch:   # n175 strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N177.md on try/n3-ink-style
+  - {page: r43 c4-letterpress, try: 1, likeness: 56.3, was: 69.0, strokes: 11, words: 48, notes: 7, minutes: 4.5, fixes: 0, first_read_s: 66, build_s: 199, tokens: 100622, note: "no card, red A, but half the box; size check fooled by the line box"}
+  - {page: r43 c4-letterpress, try: 2, likeness: 72.0, was: 69.0, strokes: 11, words: 48, notes: 7, minutes: 5.3, fixes: 0, first_read_s: 75, build_s: 242, tokens: 90608, note: "A fills the box; check wrongly called it spilling"}
+  - {page: r43 c4-letterpress, try: 3, likeness: 78.3, was: 69.0, strokes: 11, words: 48, notes: 7, minutes: 8.8, fixes: 0, first_read_s: 97, build_s: 431, tokens: 55527, note: "A fills the box, red, no card, check passes; stamp ring filled dark"}
+  - {page: r43 c5-climbing-gym, try: 1, likeness: 72.2, was: 69.6, strokes: 17, words: 47, notes: 7, minutes: 7.7, fixes: 0, first_read_s: 101, build_s: 359, tokens: 133676, note: "panel slanted as drawn on first build; holds black, orange, teal"}
+
