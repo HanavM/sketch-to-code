@@ -326,6 +326,7 @@ export function isPageLookNote(text: string): boolean {
 
 import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markStats, statOf } from './statcard.js'
+import { slantOf, slantThickness } from './slantline.js'
 import { colouredPen, outlineRingPen, outlineRingThickness, ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
@@ -861,6 +862,8 @@ export interface InkColour {
   ring?: { thickness: number }
   /** n204: paint 'border' from a big ring drawn in a neutral pen (black, grey, white) with no tap: the ring's line only, nothing inside, never clipped. */
   outlineRing?: { thickness: number }
+  /** n151: paint 'border' from a lone straight slanted line in a pen with no tap: a thin line start to end, never its bounding box filled. */
+  slant?: { from: { x: number; y: number }; to: { x: number; y: number }; length: number; deg: number; thickness: number }
   /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
   selected?: { tint: string; dot: boolean }
   /** n141: a frame drawn on a dark surface (this colour): transparent inside, never white or grey. */
@@ -1314,6 +1317,21 @@ export function groundInterpretation(
       // n142: a route line's pen colour is the line's own (routeBrief), never a fill of the box round it
       if (!sm && routeLines([st]).length) continue
       const flat = sm?.shape === 'line' || textMarks.includes(st.id)
+      // n151: a lone straight slanted line (a kite string, a bike's crossbar) is a thin line from start to end, never a
+      // filled box over its bounding box, inside a depicted picture too; page-spanning colour edges stay edges
+      if (!textMarks.includes(st.id) && (!sm || (sm.shape === 'line' && !sm.edge))) {
+        const sl = slantOf(st.points)
+        // a slanted line across most of the page is the edge between two colours (areas.ts marks it later)
+        if (sl && Math.abs(sl.to.x - sl.from.x) < snap.viewport.w * 0.6 && Math.abs(sl.to.y - sl.from.y) < snap.viewport.h * 0.6) {
+          const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id)).map((n) => n.text)
+          const touches = (r: { x: number; y: number; w: number; h: number }) => [sl.from, sl.to].some((p) => p.x >= r.x - 20 && p.x <= r.x + r.w + 20 && p.y >= r.y - 20 && p.y <= r.y + r.h + 20)
+          const ring = citedStrokes.filter((o) => o.id !== st.id && o.color === st.color).map((o) => shapeMarks.find((m) => m.strokeId === o.id) ?? shapeOf(o.points))
+            .find((m) => m?.shape === 'ellipse' && outlineRingPen(st.color, m.box) && touches(m.box))
+          inkColours.push({ strokeId: st.id, mark: 'line', paint: 'border', color: st.color, box, how: 'pen',
+            slant: { ...sl, thickness: slantThickness(own, ring ? outlineRingThickness((ring.box.w + ring.box.h) / 2) : null) } })
+          continue
+        }
+      }
       // n92: a small box drawn in dark ink (no tap) is an outlined control (arrow button, checkbox), not a dark block
       if (!flat && sm?.shape === 'box' && !sm.outline?.pen && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
       // n78: a box drawn in a light grey pen (no tap) is a frame: grey border, no grey fill

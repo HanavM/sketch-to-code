@@ -12,6 +12,7 @@ import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { GroundedAction, GroundedInterpretation, InkColour } from './intent2.js'
 import { deltaE, hexOf, parseCssColor } from './palette.js'
 
+import { slantBrief, slantBuilt } from './slantline.js'
 import { barBriefLine, barBuilt, barPitchBrief, barRowsHint, barsOf, isBarInk } from './barlabels.js'
 const hex = (c: string) => { const p = parseCssColor(c); return p ? hexOf(p) : c }
 
@@ -123,6 +124,8 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
         continue
       }
+      // n151: a lone slanted pen line: a thin line start to end, never its bounding box filled
+      if (c.paint === 'border' && c.slant) { lines.push(slantBrief(i, hex(c.color), c.slant, c.box)); continue }
       // n204: a big untapped ring in a neutral pen: the ring's line only
       if (c.paint === 'border' && c.outlineRing) {
         const d = Math.round((c.box.w + c.box.h) / 2), t = c.outlineRing.thickness
@@ -383,6 +386,13 @@ export function verifyInkColours(
         checks.push({ what: `${what} (${c.penOutline ? `pen outline, ${c.penOutline}` : c.taught ? 'untapped pen outline' : 'light pen outline'})`, want: `border ${hex(c.color)}, no ${hex(c.color)} fill`, best: null, ok })
         if (!ok && c.penOutline) misses.push(`action ${String(i)}: ${what} was drawn in the ${hex(c.color)} pen with no tap (${c.penOutline === 'said' ? 'its note says outline' : 'a mark in that pen was tapped, this one was not'}): an outlined block; ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 2px ${hex(c.color)} border and a transparent background${c.pill ? ', round ends' : ''}, words readable on the surface; keep its size and place`)
         else if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in ${c.taught ? 'a dark pen with no tap (a box in the same pen was tapped, this one was not)' : 'a light pen with no tap'}: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
+        continue
+      }
+      // n151: a slanted line: no unrotated pen-coloured slab over its bounding box
+      if (c.paint === 'border' && c.slant) {
+        const v = slantBuilt(c, after.nodes)
+        checks.push({ what: `${what} (slanted line)`, want: `thin ${hex(c.color)} line at ${String(c.slant.deg)}deg`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is one slanted line drawn in the ${hex(c.color)} pen; ${v.why}: replace that block with a thin line from (${String(c.slant.from.x)},${String(c.slant.from.y)}) to (${String(c.slant.to.x)},${String(c.slant.to.y)}): a div ${String(c.slant.length)}px wide and ${String(c.slant.thickness)}px tall, background ${hex(c.color)}, left ${String(c.slant.from.x)}px, top ${String(Math.round(c.slant.from.y - c.slant.thickness / 2))}px, transform-origin 0 50%, transform rotate(${String(c.slant.deg)}deg)`)
         continue
       }
       // n204: an outline ring: a ring about the drawn size there, not filled with the pen colour, not clipped by its box
