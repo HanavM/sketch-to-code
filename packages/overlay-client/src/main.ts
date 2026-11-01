@@ -7,7 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
-import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
+import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, isNoteLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
 import { inkFills, isFillDot, pageFill, markFill } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
@@ -992,6 +992,9 @@ interface Box { x: number; y: number; w: number; h: number }
  * A note typed further off is now PLACED: its words are built where typed.
  */
 const NOTE_NEAR_PX = 48
+/** n189: a short line this close to the typed point seeds the note over a newer mark at least the margin further off. */
+const NOTE_LINE_SEED_PX = 32
+const NOTE_LINE_SEED_MARGIN_PX = 12
 /** Two strokes belong to the same drawing if their boxes are this close… */
 const NOTE_CLUSTER_PX = 120
 /** …and were drawn this close in time. A shape drawn now on top of one drawn
@@ -7432,6 +7435,19 @@ class Overlay {
       if (isFillDot(st)) continue
       // later strokes overwrite earlier ones: this.strokes is in draw order
       if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
+    }
+    // n189: typed just beside a short line, with the newest mark in reach clearly further off: the line seeds. Round 44
+    // c4: "Deals Routes My trips", typed 17px under the nav line, seeded on the sun ring drawn later 43px away, and the
+    // nav line (drawn half a minute earlier, so not in the ring's cluster) lost its words.
+    if (seed) {
+      const ds = this.boxDist(boxes.get(seed)!, x, y)
+      let line: Stroke | null = null, dl = Infinity
+      for (const st of this.strokes) {
+        if (isFillDot(st) || !isNoteLine(st.points)) continue
+        const dd = this.boxDist(boxes.get(st)!, x, y)
+        if (dd < dl) { dl = dd; line = st }
+      }
+      if (line && line !== seed && dl <= NOTE_LINE_SEED_PX && ds >= dl + NOTE_LINE_SEED_MARGIN_PX) seed = line
     }
     // n69: typed on the row of a list mark (an ingredient right of its checkbox), further than the usual reach
     if (!seed) {

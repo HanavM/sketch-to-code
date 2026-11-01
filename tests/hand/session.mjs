@@ -213,6 +213,20 @@ const opsA = {
     const box = (pts) => { const xs = pts.map((q) => q.x), ys = pts.map((q) => q.y); return [Math.round(Math.min(...xs)), Math.round(Math.min(...ys)), Math.round(Math.max(...xs) - Math.min(...xs)), Math.round(Math.max(...ys) - Math.min(...ys))] }
     return { ok: true, strokes: w.strokes.map((st) => ({ id: st.id, color: st.color ?? null, n: st.points.length, box: box(st.points) })) }
   },
+  /** n189: what each note is bound to, as the build is told: the box (and draw index) of every stroke its thread shows. */
+  async bound() {
+    const w = await safeEval(S.page, () => window.__S2C_DEBUG__.wire())
+    const order = w.strokes.map((st) => st.id)
+    const box = (pts) => { const xs = pts.map((q) => q.x), ys = pts.map((q) => q.y); return [Math.round(Math.min(...xs)), Math.round(Math.min(...ys)), Math.round(Math.max(...xs) - Math.min(...xs)), Math.round(Math.max(...ys) - Math.min(...ys))] }
+    return {
+      ok: true,
+      notes: w.notes.map((n) => {
+        if (n.anchor.kind !== 'strokes') return { text: n.text, kind: n.anchor.kind, marks: [] }
+        const ids = n.anchor.focus ?? n.anchor.strokeIds
+        return { text: n.text, kind: 'strokes', all: n.anchor.strokeIds.map((id) => order.indexOf(id)), marks: ids.map((id) => ({ i: order.indexOf(id), box: box(w.strokes.find((st) => st.id === id)?.points ?? []) })) }
+      }),
+    }
+  },
   /** n153: what a press at x,y lands on inside the overlay (the canvas, or a chip, thread or bar in the way). */
   async hit({ x, y }) {
     const what = await safeEval(S.page, ([x, y]) => {

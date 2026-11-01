@@ -72,6 +72,7 @@ export function noteFocus(
     if (onLine.length === 1 && !otherLines && ids.every((id) => id === onLine[0] || (d.get(id) ?? Infinity) > 12)) return onLine[0] === ids[0] && ids.length === 1 ? undefined : [onLine[0]!]
     focus = ids.filter((id) => (d.get(id) ?? Infinity) <= best + NOTE_FOCUS_SLACK_PX)
     focus = dropFarSideLines(focus, d, best, at, strokes, stackOpts)
+    if (!(text && (AREA_NOUN.test(text) || itemList(text)))) focus = nearestLineWins(focus, d, best, strokes)
     // Typed inside two drawn outlines, one within the other (a near ridge over a far one,
     // an inner ring): the note is about the innermost one, as with containers below.
     const boxed = boxes(strokes, ids)
@@ -113,8 +114,16 @@ export function noteFocus(
       const open = kids.filter((id) => !labelled.has(id))
       const bestKid = Math.min(...open.map((id) => d.get(id) ?? Infinity))
       const near = open.filter((id) => (d.get(id) ?? Infinity) <= bestKid + NOTE_FOCUS_SLACK_PX)
+      // n189: typed just beside a short line inside the container (a stat's words under its line in a band, a heading's
+      // words over its line in a panel): the note is that line's, never the container's. Round 44 c2 and c3: five notes
+      // typed 16-25px from their line bound to the band or panel around it, and had to be dragged onto the line.
+      const lineKids = near.filter((id) => isLineId(id, strokes) && (d.get(id) ?? Infinity) <= LINE_REACH_PX)
+      const onShape = near.some((id) => !isLineId(id, strokes) && (d.get(id) ?? Infinity) === 0 && rects.get(id)!.h >= 20 && rects.get(id)!.w >= 20)
       if (near.length > 0 && inside(at, union(near.map((id) => rects.get(id)!)), NOTE_ON_BLOCK_PX)) {
         focus = ids.filter((id) => focus.includes(id) || near.includes(id))
+      } else if (lineKids.length > 0 && !onShape && !(text && (AREA_NOUN.test(text) || itemList(text))) &&
+        Math.min(...lineKids.map((id) => d.get(id)!)) === bestKid) {
+        focus = dropFarSideLines(ids.filter((id) => lineKids.includes(id)), d, bestKid, at, strokes, stackOpts)
       } else focus = focus.filter((id) => !kids.includes(id))
     }
     // Typed inside a small box that sits inside a bigger one (a badge or a button on a
@@ -313,6 +322,73 @@ export const FAR_SIDE_RATIO = 2
 /** n55: ... and at least this many px further. */
 export const FAR_SIDE_MIN_PX = 10
 
+/** n189: how much farther a separate, separately noted row line on the other side must be before it leaves a note. */
+export const FAR_SIDE_ROW_PX = 6
+
+/** n189: how far from a short line a note can be typed and still be that line's words (over or under it). */
+export const LINE_REACH_PX = 28
+
+/** n189: a note naming an area (a panel, band, card) is about that area, even typed beside a line in it. */
+const AREA_NOUN = /\b(panels?|bands?|box(es)?|cards?|sections?|blocks?|backgrounds?|bg|areas?|strips?|footer|header|sidebar|banner|container|half|column|frame|page)\b/i
+
+/**
+ * n189: a text line or any short flat stroke (20px or more, about level): a stat's 36px line under a number counts,
+ * though it is under the 40px a text line needs. Round 44 c2: "12" and "40" typed under their short lines in a band.
+ */
+export const isNoteLine = (points: Array<{ x: number; y: number }>): boolean => {
+  if (points.length < 2) return false
+  if (isTextLine(points)) return true
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of points) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  const a = points[0]!, b = points[points.length - 1]!
+  return x1 - x0 >= 20 && y1 - y0 <= Math.max(6, 0.15 * (x1 - x0)) && Math.hypot(b.x - a.x, b.y - a.y) >= 0.8 * (x1 - x0)
+}
+
+/**
+ * n189: a line that words go on: a short flat stroke with no other line laid over it. Two lines drawn on the same spot
+ * (a track and its fill) are a progress bar, never a text line (round 42 e2: "Score 4" typed over the quiz bar).
+ */
+const isLineId = (id: string, strokes: Stroke[]): boolean => {
+  const st = strokes.find((x) => x.id === id)
+  if (!st || !isNoteLine(st.points)) return false
+  const r = rectOf(st.points)
+  return !strokes.some((o) => {
+    if (o.id === id || !isNoteLine(o.points)) return false
+    const q = rectOf(o.points)
+    return Math.abs(q.y + q.h / 2 - (r.y + r.h / 2)) <= 6 && Math.min(q.x + q.w, r.x + r.w) - Math.max(q.x, r.x) > 0.5 * Math.min(q.w, r.w)
+  })
+}
+
+const rectOf = (pts: Array<{ x: number; y: number }>): BBox => {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+}
+
+/**
+ * n189: a note that lists several short items (a colon list, or three or more comma parts of one or two words:
+ * "Profile, Account, Notifications bold dark, Billing stacked") names a column of things, not one line's words.
+ */
+export function itemList(text: string): boolean {
+  if (listNote(text)) return true
+  const parts = text.split(',').map((p) => p.trim()).filter(Boolean)
+  return parts.length >= 3 && parts.filter((p) => p.split(/\s+/).length <= 2).length >= 3
+}
+
+/**
+ * n189: typed beside a short line, outside every mark: when that line is the nearest mark, the note is about lines only,
+ * never a box, ring or shape a little further off. Round 44: a date typed under its line also took the button beside
+ * it (c1), a logo note under its line took the colour block below (c5, 18px vs 19px). Lines in reach stay (a stack's
+ * own rules extend it later).
+ */
+function nearestLineWins(focus: string[], d: Map<string, number>, best: number, strokes: Stroke[]): string[] {
+  if (focus.length < 2 || best <= 0) return focus
+  const lines = focus.filter((id) => isLineId(id, strokes) && (d.get(id) ?? Infinity) <= LINE_REACH_PX)
+  if (lines.length === 0) return focus
+  if (Math.min(...lines.map((id) => d.get(id)!)) > best) return focus
+  return focus.filter((id) => isLineId(id, strokes))
+}
+
 /**
  * n55: a note typed between two text lines, clearly nearer one of them, is about that one only,
  * when the other belongs to another block: it sits a block gap away (more than a paragraph's wrap
@@ -339,13 +415,16 @@ function dropFarSideLines(
   for (const [id, l] of line) {
     if (id === nearest[0]) continue
     const df = d.get(id) ?? Infinity
-    if (df < Math.max(FAR_SIDE_RATIO * best, best + FAR_SIDE_MIN_PX)) continue
     const side = Math.sign(l.cy - at.y)
     if (sideNear !== 0 && side === sideNear) continue
     const blockGap = Math.abs(l.cy - near.cy) > PARA_PITCH_PX
     const xs = l.pts.map((p) => p.x), ys = l.pts.map((p) => p.y)
     const r = { x: Math.min(...xs), y: Math.min(...ys), w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) }
     const ownNote = others.some((q) => distToRect(q, r) < df)
+    // n189: a list row line on the other side that has its own note, a row apart, goes as soon as it is clearly
+    // farther (round 44 c5: "Tuesday evenings" typed 17px under its row and 31px over the next took both rows)
+    if (blockGap && ownNote && df >= best + FAR_SIDE_ROW_PX) { drop.add(id); continue }
+    if (df < Math.max(FAR_SIDE_RATIO * best, best + FAR_SIDE_MIN_PX)) continue
     if (blockGap || ownNote) drop.add(id)
   }
   return drop.size ? focus.filter((id) => !drop.has(id)) : focus

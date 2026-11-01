@@ -1,0 +1,500 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "967170299029358c873c5c236ffe0fc2716ee61b",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/TheaterStage.tsx"
+  ],
+  "reading": "This is a vintage cinema homepage design: a dark page background with bright/dark red vertical curtain stripes flanking the sides, a yellow 'THE ROXY' title banner with a white dashed border at top, a cream info card below showing tonight's film title and description, three ticket-style showtime buttons (two yellow, one dark) under it, and a small footer line for pricing/address.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#a81e2c is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 0,
+    "score": 0.9906835058067751,
+    "massSimilarity": 0.9866907225811072,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <svg> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "svg",
+      "srcLoc": "src/components/TheaterStage.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 290,
+        "y": 59,
+        "w": 700,
+        "h": 152
+       },
+       "built": {
+        "x": 290,
+        "y": 59,
+        "w": 700,
+        "h": 152
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f2c230 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <svg> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "svg",
+      "srcLoc": "src/components/TheaterStage.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 289,
+        "y": 259,
+        "w": 702,
+        "h": 332
+       },
+       "built": {
+        "x": 289,
+        "y": 259,
+        "w": 702,
+        "h": 332
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1a1012 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <svg> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "svg",
+      "srcLoc": "src/components/TheaterStage.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 292,
+        "y": 639,
+        "w": 216,
+        "h": 62
+       },
+       "built": {
+        "x": 290,
+        "y": 639,
+        "w": 216,
+        "h": 62
+       },
+       "dx": -2,
+       "dy": 0
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 531,
+        "y": 639,
+        "w": 219,
+        "h": 61
+       },
+       "built": {
+        "x": 529.5,
+        "y": 639.5,
+        "w": 219,
+        "h": 61
+       },
+       "dx": -1,
+       "dy": 1
+      },
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 771,
+        "y": 640,
+        "w": 218,
+        "h": 61
+       },
+       "built": {
+        "x": 772,
+        "y": 639.5,
+        "w": 218,
+        "h": 61
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f2c230 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Seats from $9\" at (540,755) 93x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:64:9",
+      "rect": {
+       "x": 540.046875,
+       "y": 757,
+       "w": 93.40625,
+       "h": 14
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#a8a0a0 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 table row at body size"
+    }
+   },
+   {
+    "kind": "typed-times",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 typed times shown as typed"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the sentence \"Seats from $9 · 112 Main Street\" was drawn as one line 212px long (x 534 to 746, y 769); its letters run 99px (47% of the line): take its font-size from 14px to about 30px so it runs the drawn length on one line; keep its colour, weight and left edge; change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the outline drawn at (1,2) 200x896 was coloured #a81e2c (fill); nothing that size was built there carrying a colour: paint the block itself exactly #a81e2c; action 0: the outline drawn at (1079,1) 199x897 was coloured #a81e2c (fill); nothing that size was built there carrying a colour: paint the block itself exactly #a81e2c",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#140a0c",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (1,2) 200x896",
+       "want": "#a81e2c",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (1079,1) 199x897",
+       "want": "#a81e2c",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (290,59) 700x152 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (290,59) 700x152",
+       "want": "#f2c230",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (289,259) 702x332 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (289,259) 702x332",
+       "want": "#f1e8d8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (292,639) 216x62",
+       "want": "#f2c230",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (530,639) 221x61",
+       "want": "#f2c230",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (771,640) 218x61",
+       "want": "#f2c230",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (534,769) 212x0",
+       "want": "#a8a0a0",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 48257,
+   "cacheRead": 564673,
+   "output": 15108
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 32563,
+    "output": 11548,
+    "cacheRead": 200198,
+    "toolCalls": 8,
+    "tools": [
+     "Glob",
+     "Read components/TheaterStage.tsx",
+     "Read src/App.tsx",
+     "Glob",
+     "Glob",
+     "Read src/index.css",
+     "Edit components/TheaterStage.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 128089
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 26474,
+    "output": 2080,
+    "cacheRead": 186930,
+    "toolCalls": 4,
+    "tools": [
+     "Edit components/TheaterStage.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 19918
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 4328,
+    "output": 1480,
+    "cacheRead": 177545,
+    "toolCalls": 3,
+    "tools": [
+     "Read components/TheaterStage.tsx",
+     "Edit components/TheaterStage.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 14033
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
