@@ -1,0 +1,447 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "ff67e2877537b787317af508ab8bff5e7aaff62f",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A cart page: header bar with bold 'Loom' logo and 'Cart (3)' label, a big bold 'Your cart' heading, a 3-item cart list (Linen throw, Stoneware mug w/ quantity stepper, Oak tray) with colored thumbnail placeholders and dividers, and an order summary panel with Summary heading, subtotal/shipping lines, bold total, and a black Checkout button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (50,22) 49x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:27:9",
+      "rect": {
+       "x": 50,
+       "y": 21.5,
+       "w": 48.6875,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": false,
+    "nearest": 65.1,
+    "reason": "nothing near the drawing is the colour that was drawn (#e8e8e8); closest is ΔE 65.1 away"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Your cart\" at (60,128) 161x44 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:32:9",
+      "rect": {
+       "x": 60,
+       "y": 130,
+       "w": 1160,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #222222"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,72) 1280x623 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:31:7",
+      "rect": {
+       "x": 0,
+       "y": 72,
+       "w": 1280,
+       "h": 623
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (544,229) 104x41: the <div> built for it sits 153px too low and 32px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The cause is above it, at the top: drawn, its top is 99px below the line drawn at y=130; built, it is 252px below that line's spot. So take 153px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.",
+     "marks": [
+      {
+       "strokeId": "s2",
+       "drawn": {
+        "x": 59,
+        "y": 201,
+        "w": 97,
+        "h": 97
+       },
+       "built": {
+        "x": 60,
+        "y": 212,
+        "w": 97,
+        "h": 97
+       },
+       "dx": 1,
+       "dy": 11
+      },
+      {
+       "strokeId": "s4",
+       "drawn": {
+        "x": 60,
+        "y": 342,
+        "w": 97,
+        "h": 97
+       },
+       "built": {
+        "x": 60,
+        "y": 354,
+        "w": 97,
+        "h": 97
+       },
+       "dx": 0,
+       "dy": 12
+      },
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 59,
+        "y": 483,
+        "w": 97,
+        "h": 97
+       },
+       "built": {
+        "x": 60,
+        "y": 496,
+        "w": 97,
+        "h": 97
+       },
+       "dx": 1,
+       "dy": 13
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 544,
+        "y": 229,
+        "w": 104,
+        "h": 41
+       },
+       "built": {
+        "x": 576,
+        "y": 382,
+        "w": 104,
+        "h": 41
+       },
+       "dx": 32,
+       "dy": 153
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e8e3dc is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (60,130) 1160x40 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:32:9",
+      "rect": {
+       "x": 60,
+       "y": 130,
+       "w": 1160,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (819,179) 401x292: the <div> built for it sits 58px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 179px from the top of the page. The 1 drawn box below it rides on it, so the whole page from here down sits about 58px low. The cause is above it, at the top: drawn, its top is 49px below the line drawn at y=130; built, it is 107px below that line's spot. So take 58px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.; the box drawn at (849,384) 341x58: the <div> built for it sits 31px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <div> drawn at (819,179) it sits in; once that one is fixed this one is still 27px too high, so change only the spacing between them by that much.",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 819,
+        "y": 179,
+        "w": 401,
+        "h": 292
+       },
+       "built": {
+        "x": 819,
+        "y": 190,
+        "w": 401,
+        "h": 385
+       },
+       "dx": 0,
+       "dy": 58
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 849,
+        "y": 384,
+        "w": 341,
+        "h": 58
+       },
+       "built": {
+        "x": 849,
+        "y": 415,
+        "w": 341,
+        "h": 58
+       },
+       "dx": 0,
+       "dy": 31
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f5f3ef is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the card drawn at (849,384) 341x58: the <div> built for it has its top at 415 (drawn 384), bottom at 473 (drawn 442): set it to left 849px, top 384px, width 341px, height 58px exactly (box-sizing: border-box; change the card's own width/margin/padding-top of what is above it, not the parts inside)"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "21 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "open-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 open list under its field, full width"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "panel-feet",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the panel's foot drawn at y=384px is built at y=354px (30px high): pin it at y=384px (margin-top:auto in a 292px flex column), and keep what is above it at its natural size. Change only those; do not change widths, colours or copy"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "line-ends",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 group of words kept at their end of a long line"
+    }
+   },
+   {
+    "kind": "stats",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the stat card drawn at (849,384) 341x58: its label \"Total\" sits outside the card: put it inside, under the value, left-aligned; change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the line drawn at (2,72) 1276x0 was coloured #e8e8e8 (text colour); what was built there is ΔE 57 away: paint its text exactly #e8e8e8; action 2: the box drawn at (544,229) 104x41 was drawn in a light pen with no tap: an outlined block (thin #dddddd border, white background); nothing that size with a border was built there: give it a 1px #dddddd border and a white / transparent background, keep its content inside; action 3: the line drawn at (850,317) 340x0 was coloured #dddddd (text colour); what was built there is ΔE 53 away: paint its text exactly #dddddd",
+     "checks": [
+      {
+       "what": "the line drawn at (2,72) 1276x0",
+       "want": "#e8e8e8",
+       "best": 57.222771649459744,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (60,130) 147x0",
+       "want": "#222222",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (59,201) 97x97",
+       "want": "#e8e3dc",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (60,342) 97x97",
+       "want": "#c8d6cf",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (59,483) 97x97",
+       "want": "#d8c6b4",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (544,229) 104x41 (light pen outline)",
+       "want": "border #dddddd, no #dddddd fill",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (819,179) 401x292 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (819,179) 401x292",
+       "want": "#f5f3ef",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (850,317) 340x0",
+       "want": "#dddddd",
+       "best": 53.41520248678247,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (849,384) 341x58",
+       "want": "#111111",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 85636,
+   "cacheRead": 274597,
+   "output": 37744
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 57460,
+    "output": 23361,
+    "cacheRead": 136233,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 279278
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 65920,
+    "output": 14383,
+    "cacheRead": 138364,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 178488
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
