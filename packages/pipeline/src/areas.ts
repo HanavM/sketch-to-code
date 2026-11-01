@@ -18,6 +18,7 @@
  *
  * Both are deterministic: zero tokens.
  */
+import { isBoxCharsNote } from './repeatmark.js'
 import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { parseCssColor, hexOf, deltaE } from './palette.js'
@@ -72,6 +73,10 @@ export function markAreasAndEdges(
     // build painted a giant "500" across the card. A box that holds a drawn mark of its own and carries two or
     // more notes is a card of several parts; its big words belong to their own spots inside it.
     if (holdsMarks(m.box, inner) >= 1 && said.length >= 2) continue
+    // n203 (round 45 e2 two-factor): "4, 8, 1 big bold in first three boxes" typed in a code box read as a big word's
+    // area: the check asked for a 101px "4" filling the box and its border gone. Characters for a row of drawn boxes
+    // sit inside them at a comfortable size, boxes kept (repeatmark.ts); never an area.
+    if (said.some((n) => isBoxCharsNote(n.text))) continue
     if (said.length && said.some((n) => isAreaNote(n.text)) && !said.some((n) => THING.test(n.text))) m.area = true
     else if (said.length && said.some((n) => isRowsNote(n.text)) && !said.some((n) => THING.test(n.text))) { m.area = true; m.areaOf = 'rows' }
   }

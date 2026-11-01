@@ -21,7 +21,7 @@ import { shapeOf } from './shapemark.js'
 
 interface Box { x: number; y: number; w: number; h: number }
 interface NoteLike { text: string; at?: { x: number; y: number }; anchor?: { kind: string; strokeIds?: string[]; focus?: string[] } }
-interface NodeLike { id: string; parent?: string | null; rect: Box; text?: string; style?: { backgroundColor?: string; border?: string } }
+interface NodeLike { id: string; parent?: string | null; rect: Box; text?: string; textBox?: Box; style?: { backgroundColor?: string; border?: string; fontSize?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 
 export interface RepeatPlan {
@@ -201,6 +201,14 @@ export interface BoxChars { note: string; chars: string[]; boxes: Box[] }
 const CHAR_LIST = /^\s*([A-Za-z0-9](?:\s*[,\s]\s*[A-Za-z0-9]){1,11})\b/
 const IN_BOXES = /\bin(?:to)?\s+(?:the\s+)?(?:(?:first|1st)\s+(\d{1,2}|two|three|four|five|six|seven|eight|nine|ten)\s+|(\d{1,2}|two|three|four|five|six|seven|eight|nine|ten)\s+|these\s+|each\s+of\s+the\s+)?(?:boxes|squares|cells|slots|fields)\b/i
 
+/** n203: a note that lists single characters for a row of drawn boxes ("4, 8, 1 big bold in first three boxes"). */
+export function isBoxCharsNote(text: string): boolean {
+  const cl = CHAR_LIST.exec(text)
+  if (!IN_BOXES.test(text) || !cl) return false
+  const chars = cl[1]!.split(/\s*[,\s]\s*/).filter(Boolean)
+  return chars.length >= 2 && chars.every((c) => c.length === 1)
+}
+
 export function boxCharsOf(notes: readonly NoteLike[], strokes: readonly Stroke[]): BoxChars[] {
   const boxes = strokes.filter((s) => s.points.length > 1).map((s) => { const sh = shapeOf(s.points); return sh?.shape === 'box' ? r(sh.box) : null })
     .filter((b): b is Box => !!b && b.w >= 20 && b.h >= 20 && b.w <= 200 && b.h <= 200)
@@ -227,12 +235,26 @@ export function boxCharsOf(notes: readonly NoteLike[], strokes: readonly Stroke[
   return out
 }
 
+/** n203: a character's comfortable size inside its drawn box: about 45% of the box's smaller side, capped at 58%. */
+const side = (b: BoxChars) => Math.min(...b.boxes.map((x) => Math.min(x.w, x.h)))
+export const charPx = (b: BoxChars) => Math.max(10, Math.round(side(b) * 0.45))
+export const charMax = (b: BoxChars) => Math.max(12, Math.round(side(b) * 0.58))
+const lum = (c: string) => { const m = /rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/.exec(c); return m ? (0.2126 * Number(m[1]) + 0.7152 * Number(m[2]) + 0.0722 * Number(m[3])) / 255 : null }
+/** A border a person can see: at least 1px and not near-white (or near the page's white). */
+export const borderShows = (border: string | undefined) => {
+  if (!border) return false
+  const w = parseFloat(border); const l = lum(border)
+  return w >= 0.9 && (l === null || l < 0.9) && !/rgba\([^)]*,\s*0(?:\.0?\d)?\)/.test(border)
+}
+
 export function boxCharsBrief(list: readonly BoxChars[]): string {
   if (!list.length) return ''
   return `CHARACTERS IN DRAWN BOXES (deterministic; checked on the page):\n` + list.map((b) =>
     `- ${q(b.note.slice(0, 100))}: the ${String(b.boxes.length)} drawn boxes in a row (${b.boxes.map((x) => `${String(x.x)},${String(x.y)} ${String(x.w)}x${String(x.h)}`).join('; ')}) ALL stay, each at its drawn size and spot, ` +
     `with the look the other boxes have. Put ${b.chars.map((c, k) => `${q(c)} centred inside box ${String(k + 1)}`).join(', ')}; leave the other ${String(b.boxes.length - b.chars.length)} empty. ` +
-    `Size or weight words in the note are the character's look INSIDE its box (as big as fits); never replace a box with a bare character, and never print the note's words.`).join('\n') + '\n\n'
+    `Size or weight words in the note are the character's look INSIDE its box: "big" means as big as fits COMFORTABLY, a font-size of about ${String(charPx(b))}px (never above ${String(charMax(b))}px), with clear room round it; ` +
+    `bold is the weight. Every box shows a visible outline (a 1-2px grey border a person can see on the page, never near-white or only a faint fill), as drawn. ` +
+    `Never replace a box with a bare character, and never print the note's words.`).join('\n') + '\n\n'
 }
 
 export function verifyBoxChars(list: readonly BoxChars[] | undefined, after: Snap): RepeatVerdict {
@@ -248,9 +270,21 @@ export function verifyBoxChars(list: readonly BoxChars[] | undefined, after: Sna
       const paints = (n: NodeLike) => !n.style || !!n.style.border || (!!n.style.backgroundColor && !/rgba\([^)]*,\s*0\)|transparent/.test(n.style.backgroundColor))
       const holder = after.nodes.some((n) => paints(n) && n.rect.w >= box.w * 0.75 && n.rect.w <= box.w * 1.4 && n.rect.h >= box.h * 0.75 && n.rect.h <= box.h * 1.4 &&
         Math.abs(n.rect.x + n.rect.w / 2 - cx) <= box.w * 0.4 && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= box.h * 0.4)
-      const glyph = after.nodes.some((n) => (n.text ?? '').trim() === c && Math.abs(n.rect.x + n.rect.w / 2 - cx) <= box.w * 0.6 && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= box.h * 0.6)
-      if (!holder || !glyph) problems.push(`${q(c)} belongs centred inside drawn box ${String(k + 1)} (${String(box.w)}x${String(box.h)} at ${String(box.x)},${String(box.y)})${holder ? '' : ': the box is gone, put it back at its drawn size'}`)
+      const glyphs = after.nodes.filter((n) => (n.text ?? '').trim() === c && Math.abs(n.rect.x + n.rect.w / 2 - cx) <= box.w * 0.6 && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= box.h * 0.6)
+      const glyph = glyphs.length > 0
+      if (!holder || !glyph) { problems.push(`${q(c)} belongs centred inside drawn box ${String(k + 1)} (${String(box.w)}x${String(box.h)} at ${String(box.x)},${String(box.y)})${holder ? '' : ': the box is gone, put it back at its drawn size'}`); return }
+      // n203: as big as fits comfortably, never oversized
+      const fs = Math.min(...glyphs.map((n) => parseFloat(n.style?.fontSize ?? '') || (n.textBox?.h ?? n.rect.h) / 1.2))
+      if (fs > charMax(b) + 0.5) problems.push(`${q(c)} in box ${String(k + 1)} is ${String(Math.round(fs))}px, too big for its ${String(box.w)}x${String(box.h)} box: make every code character about ${String(charPx(b))}px (bold kept)`)
     })
+    // n203: the drawn boxes show as outlines a person can see
+    const faint = b.boxes.filter((box) => {
+      const cx = box.x + box.w / 2, cy = box.y + box.h / 2
+      const near = after.nodes.filter((n) => n.style && n.rect.w >= box.w * 0.75 && n.rect.w <= box.w * 1.4 && n.rect.h >= box.h * 0.75 && n.rect.h <= box.h * 1.4 &&
+        Math.abs(n.rect.x + n.rect.w / 2 - cx) <= box.w * 0.4 && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= box.h * 0.4)
+      return near.length > 0 && !near.some((n) => borderShows(n.style?.border))
+    })
+    if (faint.length) problems.push(`${String(faint.length)} of the ${String(b.boxes.length)} drawn code boxes have no visible outline: give every box a 1-2px grey border (e.g. #d1d5db or darker), as drawn`)
   }
   return problems.length
     ? { satisfied: false, reason: problems.slice(0, 4).join('; ') + '; change nothing else' }
