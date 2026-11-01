@@ -53,3 +53,12 @@ describe('n185 stats row typed as one note', () => {
     expect(verifyStatRows(['Crux bold'], { nodes: [] })).toMatchObject({ unverifiable: true })
   })
 })
+
+import { isTableRow, notHeading } from '../src/linespread.js'
+describe('n185 a stats row is never a body-size table row', () => {
+  it('lets the gym note be big', () => {
+    expect(isTableRow(GYM)).toBe(false)
+    expect(notHeading(GYM)).toBe(false)
+    expect(isTableRow('14:40 Lisbon TP 1351 B12 Boarding')).toBe(true)
+  })
+})

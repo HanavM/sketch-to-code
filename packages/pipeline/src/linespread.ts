@@ -21,6 +21,7 @@
  * Zero tokens.
  */
 import type { BBox } from '@s2c/ink'
+import { statRowOf } from './statrow.js'
 
 interface MarkLike { strokeId?: string; shape: string; box: BBox; from?: { x: number; y: number }; to?: { x: number; y: number }; edge?: true; words?: string }
 interface NodeLike { id: string; rect: BBox; text?: string; textBox?: BBox; style?: { fontSize?: string } }
@@ -57,6 +58,8 @@ export function spreadCentres(words: string, x0: number, x1: number): number[] |
 
 /** A row of table values: four or more items, two or more with digits in them, mostly short. */
 export function isTableRow(words: string): boolean {
+  // n185: a row of stats typed big ("£14 day pass, £52 monthly, 6–23 open daily; big bold, label under") is no table row
+  if (statRowOf(words)) return false
   const items = rowItems(words)
   if (items.length < 4) return false
   const digits = items.filter((w) => /\d/.test(w)).length
