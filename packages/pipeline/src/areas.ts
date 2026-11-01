@@ -67,6 +67,11 @@ export function markAreasAndEdges(
     if (holdsMarks(m.box, inner) >= CARD_MIN_MARKS) continue
     const own = notes.filter((n) => n.focus?.includes(m.strokeId))
     const said = own.length ? own : boxes.length === 1 ? notes.filter((n) => !n.focus?.length || n.focus.includes(m.strokeId)) : []
+    // n202 (round 45 e1 car rental): a listing card drawn as a box round a picture box and a Select button, its
+    // notes "Fiat 500 bold, 4 seats · Automatic" and "$38 big bold, per day", read as a big word's area: the
+    // build painted a giant "500" across the card. A box that holds a drawn mark of its own and carries two or
+    // more notes is a card of several parts; its big words belong to their own spots inside it.
+    if (holdsMarks(m.box, inner) >= 1 && said.length >= 2) continue
     if (said.length && said.some((n) => isAreaNote(n.text)) && !said.some((n) => THING.test(n.text))) m.area = true
     else if (said.length && said.some((n) => isRowsNote(n.text)) && !said.some((n) => THING.test(n.text))) { m.area = true; m.areaOf = 'rows' }
   }
@@ -87,7 +92,9 @@ export function markAreasAndEdges(
     if (!m.area || m.areaOf === 'rows') continue
     const own = notes.filter((n) => n.focus?.includes(m.strokeId))
     const said = own.length ? own : boxes.length === 1 ? notes : []
-    for (const n of said) {
+    // n202: the word comes from the note that asks for a big word, never from a plain copy note beside it
+    const big = said.filter((n) => isAreaNote(n.text))
+    for (const n of big.length ? big : said) {
       const w = bigWordOf(n.text)
       if (w) { m.word = w; break }
     }

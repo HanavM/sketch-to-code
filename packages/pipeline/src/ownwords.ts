@@ -21,7 +21,7 @@ import type { BBox } from '@s2c/ink'
 interface NodeLike { id: string; parent?: string | null; rect: BBox; text?: string; textBox?: BBox; style?: { opacity?: string; fontSize?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 interface MarkLike { box: BBox; shape?: string; words?: string; from?: { x: number; y: number }; to?: { x: number; y: number } }
-export interface OwnWordsVerdict { satisfied: boolean; unverifiable?: boolean; reason: string; invented?: string[]; overlaps?: Array<{ a: string; b: string; share: number }> }
+export interface OwnWordsVerdict { satisfied: boolean; unverifiable?: boolean; reason: string; invented?: string[]; echoes?: Array<{ big: string; of: string }>; overlaps?: Array<{ a: string; b: string; share: number }> }
 
 const say = (n: NodeLike) => (n.text ?? '').replace(/\s+/g, ' ').trim()
 const boxOf = (n: NodeLike): BBox => n.textBox ?? n.rect
@@ -147,8 +147,26 @@ export function verifyOwnWords(typed: readonly string[], marks: readonly MarkLik
     }
   }
 
+  // n202: a blown-up echo. Part of a typed line copied out at twice its size or more and painted over it
+  // ("500" from "Fiat 500", round 45 e1) is a decoration nobody drew: take the copy out, keep the line.
+  const fsOf = (n: NodeLike) => parseFloat(n.style?.fontSize ?? '') || 0
+  const echoes: Array<{ big: string; of: string }> = []
+  for (const o of overlaps) {
+    const A = now.find((t) => t.key === o.a)!, B = now.find((t) => t.key === o.b)!
+    for (const [big, small] of [[A, B], [B, A]] as const) {
+      if (was.has(big.key) || echoes.some((e) => e.big === big.key)) continue
+      const fb = fsOf(big.node), fsm = fsOf(small.node)
+      if (!fb || !fsm || fb < fsm * 2) continue
+      const wb = wordsOf(big.key), ws = new Set(wordsOf(small.key))
+      if (!wb.length || wb.length >= ws.size || !wb.every((w) => ws.has(w))) continue
+      echoes.push({ big: big.key, of: small.key })
+    }
+  }
   const q = (s: string) => `"${s.slice(0, 48)}"`
   const lines: string[] = []
+  for (const e of echoes.slice(0, 2)) {
+    lines.push(`${q(e.big)} is a blown-up copy of words from ${q(e.of)}, painted over it as a big decoration nobody drew. Take the big copy out entirely; keep ${q(e.of)} as typed`)
+  }
   for (const k of invented.slice(0, 4)) {
     const runs = overlaps.find((o) => o.a === k || o.b === k)
     const other = runs ? (runs.a === k ? runs.b : runs.a) : null
@@ -158,6 +176,7 @@ export function verifyOwnWords(typed: readonly string[], marks: readonly MarkLik
   }
   for (const o of overlaps.slice(0, 4)) {
     if (invented.includes(o.a) || invented.includes(o.b)) continue
+    if (echoes.some((e) => e.big === o.a || e.big === o.b)) continue
     // n60: both typed on their own drawn lines (SLOW over WORK): each sits on its line; shrink, never push one down
     const la = lineOf(o.a, marks), lb = lineOf(o.b, marks)
     if (la && lb && la !== lb) {
@@ -168,6 +187,6 @@ export function verifyOwnWords(typed: readonly string[], marks: readonly MarkLik
     }
     lines.push(`${q(o.a)} runs into ${q(o.b)} (${String(Math.round(o.share * 100))}% of the smaller one covered). Keep both where drawn but size or space them so they do not touch`)
   }
-  if (!lines.length) return { satisfied: true, reason: 'only typed words, none on top of each other', invented, overlaps }
-  return { satisfied: false, reason: lines.join('; '), invented, overlaps }
+  if (!lines.length) return { satisfied: true, reason: 'only typed words, none on top of each other', invented, overlaps, echoes }
+  return { satisfied: false, reason: lines.join('; '), invented, overlaps, echoes }
 }
