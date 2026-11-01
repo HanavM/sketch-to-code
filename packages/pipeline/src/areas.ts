@@ -24,7 +24,9 @@ import { parseCssColor, hexOf, deltaE } from './palette.js'
 import { statClause } from './statcard.js'
 
 const BIG = /\b(huge|giant|big|bigger|large|massive|oversized|enormous|display|jumbo|outsized)\b/i
-const WORDY = /\b(number|numeral|digits?|word|words|headline|heading|title|letters|type|wordmark|logo ?type)\b|\d|\b[A-Z]{2,}\b/
+// n177: "giant red serif letter A filling the box" (round 43 c4 letterpress) named one letter, which none of these
+// matched: the red-pen box became a red card with the A knocked out in cream. One letter is a word too.
+const WORDY = /\b(number|numeral|digits?|word|words|headline|heading|title|letters?|initial|monogram|glyph|character|type|wordmark|logo ?type)\b|\d|\b[A-Z]{2,}\b/
 // what a box IS when it is a thing of its own; "outlined 09" is the letters' outline, not a frame
 const THING = /\b(card|cards|panel|tile|frame|framed|border|bordered|button|btn|badge|pill|chip|input|field|search|modal|dialog|window|boxed|container|sheet|sticker|banner|filled|fill|background|bg|backdrop|shadow|photos?|pictures?|images?|img|charts?|graphs?|maps?|videos?|table|grid|list|form|block|plate|slab|avatars?|thumbnails?|icons?)\b|\boutlined (box|card|panel|frame|rectangle)\b/i
 
@@ -218,6 +220,9 @@ export function bandOf(text: string, viewport: { w: number; h: number }): { px: 
 export function bigWordOf(text: string): string | null {
   const q = text.match(/["“']([^"”']{1,24})["”']/)
   if (q) return q[1]!.trim()
+  // n177: "letter A", "initial M", "monogram K": that one character
+  const one = text.match(/\b(?:letter|initial|monogram|glyph|character|numeral)\s+([A-Za-z0-9&])(?![\w'’])/i)
+  if (one) return one[1]!
   const num = text.match(/(?<![\w.])\d+(?:[.,:]\d+)*%?(?!\w)/)
   if (num) return num[0]
   const caps = text.match(/\b[A-Z][A-Z0-9&]{1,}(?:\s+[A-Z][A-Z0-9&]+)*\b/)
@@ -476,11 +481,18 @@ export function verifyAreaWords(marks: ShapeMark[], after: Snap): AreaVerdict {
     const dx = (g.x + g.w / 2) - (b.x + b.w / 2), dy = (g.y + g.h / 2) - (b.y + b.h / 2)
     const fillW = g.w / b.w, fillH = g.h / b.h
     const off = Math.abs(dx) > b.w * 0.15 || Math.abs(dy) > b.h * 0.2
-    const small = fillW < 0.72 && fillH < 0.72
-    const spill = fillW > 1.3 || fillH > 1.45
+    // n177: one or two characters: the line box is much taller than the ink (a 320px serif A drew a 230px letter in
+    // a 431px box and passed on its line box), so the font-size itself must be near what fills the box
+    const short = [...m.word!].length <= 2
+    const wantFs = fillFontPx(m.word!, b)
+    const tiny = short && fs > 0 && fs < wantFs * 0.8
+    // ...and its line box (font-size x line-height) is taller than its ink, so it never "spills" by that box alone
+    const small = short ? tiny : fillW < 0.72 && fillH < 0.72
+    const spill = short && fs > 0 ? fs > wantFs * 1.3 : fillW > 1.3 || fillH > 1.45
     if (!off && !small && !spill) continue
     const scale = Math.min(b.w / g.w, (b.h * 1.1) / g.h)
-    const fix = fs ? ` (font-size about ${Math.round(fs * scale)}px instead of ${Math.round(fs)}px)` : ''
+    const fix = tiny ? ` (font-size about ${wantFs}px instead of ${Math.round(fs)}px, line-height 1: its capital is then about the box's height)`
+      : fs ? ` (font-size about ${Math.round(fs * scale)}px instead of ${Math.round(fs)}px)` : ''
     faults.push(
       `${what} must fill that box, but its letters sit at (${Math.round(g.x)},${Math.round(g.y)}) ${Math.round(g.w)}x${Math.round(g.h)}` +
       `${off ? `, ${Math.round(Math.abs(dx))}px ${dx > 0 ? 'right' : 'left'} and ${Math.round(Math.abs(dy))}px ${dy > 0 ? 'below' : 'above'} its middle` : ''}` +

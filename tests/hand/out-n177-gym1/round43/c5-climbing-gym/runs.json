@@ -1,0 +1,521 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "2b3b12cea7d8fd87bde0e976da4d5d8b70d0f9c0",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/ClimbingHold.tsx"
+  ],
+  "reading": "A gym-promo hero section: left column has a 'Crux' logo, a huge tight bold 'CLIMB / AFTER / WORK' headline, supporting body copy, an orange 'Day pass' CTA button, and a row of three price/hours stats; right side is a navy angled panel acting as the hero image, topped with bold white nav text 'Classes Prices Open late' and scattered colored climbing-hold icons (expand the three drawn to seven).",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"Crux\" at (64,21) 54x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:30:7",
+      "rect": {
+       "x": 64,
+       "y": 20,
+       "w": 54,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1a1a1a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (64,176) 248x255 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:34:7",
+      "rect": {
+       "x": 64,
+       "y": 176,
+       "w": 248.046875,
+       "h": 255
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1a1a1a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"CLIMBAFTERWORK\" at (64,171) 248x264 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:34:7",
+      "rect": {
+       "x": 64,
+       "y": 176,
+       "w": 248.046875,
+       "h": 255
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#444444 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,482) 371x21 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:45:7",
+      "rect": {
+       "x": 64,
+       "y": 482,
+       "w": 370.78125,
+       "h": 21
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 64,
+        "y": 579,
+        "w": 221,
+        "h": 59
+       },
+       "built": {
+        "x": 64,
+        "y": 579,
+        "w": 221,
+        "h": 59
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ff5a36 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"day pass\" at (64,724) 51x15 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:58:9",
+      "rect": {
+       "x": 64,
+       "y": 724,
+       "w": 52.390625,
+       "h": 16
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1a1a1a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x920 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:29:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 920
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 640,
+        "y": 2,
+        "w": 638,
+        "h": 896
+       },
+       "built": {
+        "x": 640,
+        "y": 2,
+        "w": 638,
+        "h": 896
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2f3a4d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"Classes Prices Open late\" at (978,24) 264x24 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:81:9",
+      "rect": {
+       "x": 978,
+       "y": 22,
+       "w": 264.046875,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (640,2) 638x896 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:69:7",
+      "rect": {
+       "x": 640,
+       "y": 2,
+       "w": 638,
+       "h": 896
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/App.tsx:85:9 at (820,151) 178x303 sits on the drawn shape",
+     "claimed": "e20"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ff5a36 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 7,
+    "score": 0.48153422520735656,
+    "massSimilarity": 0.40219175029622356,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "only 40% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 shape built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the table row \"14 day pass 52 monthly 6–23 open daily big bold label under\" at y 738 is built at 30px: set its values at body size (about 15px), keep its columns and row height; change nothing else"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the typed row starting \"WORK, huge black tight caps\" is not on the page: fill the drawn rows with every typed row, in order; change nothing else"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 7: the outline drawn at (820,151) 46x45 was coloured #ff5a36 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #ff5a36; action 7: the outline drawn at (960,260) 38x38 was coloured #ffd23f (fill); nothing that size was built there carrying a colour: paint the block itself exactly #ffd23f; action 7: the outline drawn at (879,400) 55x53 was coloured #3ccfae (fill); nothing that size was built there carrying a colour: paint the block itself exactly #3ccfae",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f2f2ee",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,40) 50x0",
+       "want": "#1a1a1a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,232) 290x0",
+       "want": "#1a1a1a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,317) 306x0",
+       "want": "#1a1a1a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,402) 290x0",
+       "want": "#1a1a1a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,493) 390x0",
+       "want": "#444444",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (64,579) 221x59",
+       "want": "#ff5a36",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (64,738) 53x0",
+       "want": "#1a1a1a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (184,738) 53x0",
+       "want": "#1a1a1a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (298,738) 70x0",
+       "want": "#1a1a1a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (640,2) 638x896",
+       "want": "#2f3a4d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (820,151) 46x45",
+       "want": "#ff5a36",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (960,260) 38x38",
+       "want": "#ffd23f",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (879,400) 55x53",
+       "want": "#3ccfae",
+       "best": null,
+       "ok": false
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 89993,
+   "cacheRead": 545543,
+   "output": 31954
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 67130,
+    "output": 26702,
+    "cacheRead": 203796,
+    "toolCalls": 7,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Glob",
+     "Read components/ClimbingHold.tsx",
+     "Edit components/ClimbingHold.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 301567
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 54817,
+    "output": 5252,
+    "cacheRead": 341747,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read components/ClimbingHold.tsx",
+     "Edit components/ClimbingHold.tsx"
+    ],
+    "ms": 54021
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

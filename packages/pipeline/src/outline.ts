@@ -82,6 +82,28 @@ export function polygonOutline(points: XY[]): { points: XY[]; corners: number } 
   return { points: fine, corners: coarse.length }
 }
 
+/**
+ * n177: a big closed stroke with four corners where one or two of its bounding box's corners are clearly left
+ * empty (one side drawn slanted) is that slanted shape, not an upright box. Round 43 c5 (climbing gym): the dark
+ * panel drawn from (755,2) across to the right edge and down to (640,898) passed the box test (the box tolerance
+ * grows with size: 20% of the short side) and was built as a straight split at 640. Two corners must be hit
+ * closely, so a box drawn with rounded or sloppy corners (all four a little off) stays a box. Null when it is a box.
+ */
+export function slantedQuad(points: XY[]): { points: XY[]; corners: number } | null {
+  if (points.length < 4) return null
+  const b = bboxOf(points)
+  const m = Math.min(b.w, b.h)
+  if (m < 120) return null
+  const o = polygonOutline(points)
+  if (!o || o.corners !== 4) return null
+  const miss = ([cx, cy]: [number, number]) => Math.min(...points.map((p) => Math.hypot(p.x - cx, p.y - cy)))
+  const misses = ([[b.x, b.y], [b.x + b.w, b.y], [b.x, b.y + b.h], [b.x + b.w, b.y + b.h]] as Array<[number, number]>).map(miss)
+  const far = Math.max(40, m * 0.1), near = Math.max(12, m * 0.04)
+  if (Math.max(...misses) < far) return null
+  if (misses.filter((d) => d <= near).length < 2) return null
+  return o
+}
+
 /** The outline mark for a cited stroke, or null. `cut` is the region this curve cuts off a box (ink splitRegions). */
 export function outlineMark(strokeId: string, points: XY[], cut?: { points: XY[]; box: BBox; holder: string | null }): ShapeMark | null {
   if (cut) {

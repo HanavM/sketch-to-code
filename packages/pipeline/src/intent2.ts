@@ -19,7 +19,7 @@ import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from '
 import { areaWordInk, holdsBoxes, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
-import { outlineMark } from './outline.js'
+import { outlineMark, slantedQuad } from './outline.js'
 import { findInsertSlot, type InsertSlot } from './insert-slot.js'
 
 // ---------- model-facing output schema ----------
@@ -1103,7 +1103,8 @@ export function groundInterpretation(
           const shape = shapeOf(s.points, pagePoints)
           // n51: a closed outline with a few sharp corners (a triangle, a mountain) is built clipped to
           // that outline, never as a box, and never as a traced path (round 33 c5: mountains built as boxes)
-          if (!shape) {
+          // n177: a big box with one side drawn slanted keeps the slant (round 43 c5: the climbing gym's dark panel)
+          if (!shape || (shape.shape === 'box' && !shape.tilt && !shape.pill && slantedQuad(s.points))) {
             const om = outlineMark(s.id, s.points)
             if (om) {
               const f = markFill(ev.fills ?? [], s.id)
