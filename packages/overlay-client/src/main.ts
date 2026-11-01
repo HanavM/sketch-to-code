@@ -392,6 +392,9 @@ interface PlanStop {
 }
 
 /** One row of "here is what I am about to do", for the plan card. */
+/** n193: the id a tap-placed target carries in the plan (it had none before the tap). */
+const PLACED = 'placed'
+
 interface PlanDetail {
   kind: string
   color: string
@@ -2334,11 +2337,12 @@ class Overlay {
   private misreadCard: HTMLElement
   private planDetail: PlanDetail[] = []
   /** n191: plan targets the person re-pointed with a tap, sent with ✓ Go. */
-  private retargets: Array<{ action: number; from: string | null; srcLoc: string; rect: { x: number; y: number; w: number; h: number } }> = []
+  private retargets: Array<{ action: number; from: string | null; srcLoc: string; rect: { x: number; y: number; w: number; h: number }; instruction?: string }> = []
   /** n191: waiting for the tap that picks the part an action is about. */
-  private picking: { action: number; from: string } | null = null
+  /** n193: `from` null = a step with no target (design the sky) is being given its place by a tap. */
+  private picking: { action: number; from: string | null } | null = null
   /** n191: the last tap's spot and pick, so a second tap on the same spot climbs to the part around it. */
-  private lastPick: { action: number; from: string; x: number; y: number; el: Element } | null = null
+  private lastPick: { action: number; from: string | null; x: number; y: number; el: Element } | null = null
   /** n192: plan actions the person struck with "skip" (index -> the target ids the row showed), sent with ✓ Go. */
   private skips = new Map<number, string[]>()
   /** Where the work is, in order — what the cursor visits. */
@@ -8667,10 +8671,10 @@ class Overlay {
   }
 
   /** n191: "not this" on a plan row: the next press on the page picks the part this action is about. */
-  private startPick(action: number, from: string) {
+  private startPick(action: number, from: string | null) {
     this.picking = { action, from }
     this.host.dataset.picking = '1'
-    this.status('tap the part you meant on the page')
+    this.status(from === null ? 'tap where this goes on the page (the part it should change or sit in)' : 'tap the part you meant on the page')
     this.renderPlanCard(this.planDetail)
   }
 
@@ -8700,12 +8704,17 @@ class Overlay {
     this.lastPick = { action: pick.action, from: pick.from, x: e.clientX, y: e.clientY, el }
     // a second tap for the same target replaces the first
     this.retargets = this.retargets.filter((t) => !(t.action === pick.action && t.from === pick.from))
-    this.retargets.push({ action: pick.action, from: pick.from, srcLoc, rect })
+    this.retargets.push({ action: pick.action, from: pick.from, srcLoc, rect, ...(pick.from === null ? { instruction: a.instruction } : {}) })
     const own = [...el.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE).map((n) => n.textContent ?? '').join(' ').trim()
-    const picked: V2Target = { domId: pick.from, srcLoc, rect, tag: el.tagName.toLowerCase(), text: own.slice(0, 80) }
-    a.targets = a.targets.map((t) => (t.domId === pick.from ? picked : t))
+    // n193: a step with no target gets the tapped part as its place (shown as a pick keyed PLACED, so a re-tap replaces it)
+    const picked: V2Target = { domId: pick.from ?? PLACED, srcLoc, rect, tag: el.tagName.toLowerCase(), text: own.slice(0, 80) }
+    a.targets = pick.from === null
+      ? [...a.targets.filter((t) => t.domId !== PLACED), picked]
+      : a.targets.map((t) => (t.domId === pick.from ? picked : t))
     this.renderPlan()
-    this.status(`picked: ${this.targetName(picked).replace(/^\S+ · /, '')}. ✓ Go changes that instead (not this again, same spot: the part around it)`)
+    this.status(pick.from === null
+      ? `placed on: ${this.targetName(picked).replace(/^\S+ · /, '')}. ✓ Go does it there (place it again, same spot: the part around it)`
+      : `picked: ${this.targetName(picked).replace(/^\S+ · /, '')}. ✓ Go changes that instead (not this again, same spot: the part around it)`)
   }
 
   /**
@@ -9262,7 +9271,7 @@ class Overlay {
       sk.className = 'cSkip'
       sk.dataset.skip = String(r.action)
       sk.textContent = struck ? 'skipped (undo)' : 'skip'
-      sk.addEventListener('click', (e) => { e.stopPropagation(); this.toggleSkip(r.action, r.picks.map((p) => p.domId)) })
+      sk.addEventListener('click', (e) => { e.stopPropagation(); this.toggleSkip(r.action, r.picks.map((p) => p.domId).filter((d) => d !== PLACED)) })
       head.append(dot, kind, what, sk)
       row.appendChild(head)
       if (r.instruction) {
@@ -9299,10 +9308,30 @@ class Overlay {
         name.textContent = `→ ${p.name.replace(/^\S+ · /, '')}`
         const b = document.createElement('button')
         b.type = 'button'
-        b.dataset.pick = `${String(r.action)}:${p.domId}`
-        const waiting = this.picking?.action === r.action && this.picking.from === p.domId
-        b.textContent = waiting ? 'tap the page…' : this.retargets.some((t) => t.action === r.action && t.from === p.domId) ? 'picked ✓ (again?)' : 'not this'
-        b.addEventListener('click', (e) => { e.stopPropagation(); this.startPick(r.action, p.domId) })
+        // n193: the part a tap placed a target-less step on is re-placed, not re-pointed (from stays null)
+        const placed = p.domId === PLACED
+        const from = placed ? null : p.domId
+        b.dataset.pick = `${String(r.action)}:${placed ? 'new' : p.domId}`
+        const waiting = this.picking?.action === r.action && this.picking.from === from
+        b.textContent = waiting ? 'tap the page…'
+          : placed ? 'placed ✓ (again?)'
+          : this.retargets.some((t) => t.action === r.action && t.from === p.domId) ? 'picked ✓ (again?)' : 'not this'
+        b.addEventListener('click', (e) => { e.stopPropagation(); this.startPick(r.action, from) })
+        line.append(name, b)
+        row.appendChild(line)
+      }
+      // n193 (round 44 e3: "design the sky" had no target, so nothing could be re-pointed and the sky went into
+      // the crop frame): a step that points at nothing gets "place it", and the next tap on the page says where
+      if (!struck && r.picks.length === 0) {
+        const line = document.createElement('div')
+        line.className = 'cPick'
+        const name = document.createElement('span')
+        name.textContent = '→ no part picked: the build decides where'
+        const b = document.createElement('button')
+        b.type = 'button'
+        b.dataset.pick = `${String(r.action)}:new`
+        b.textContent = this.picking?.action === r.action && this.picking.from === null ? 'tap the page…' : 'place it'
+        b.addEventListener('click', (e) => { e.stopPropagation(); this.startPick(r.action, null) })
         line.append(name, b)
         row.appendChild(line)
       }

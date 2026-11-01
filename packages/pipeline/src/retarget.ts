@@ -26,6 +26,8 @@ export interface Retarget {
   srcLoc: string
   /** Page box of the tapped element, to tell apart the copies of one stamp. */
   rect: { x: number; y: number; w: number; h: number }
+  /** n193: the action's words as the plan showed them, to find a target-less action whose index shifted. */
+  instruction?: string
 }
 
 export interface RetargetResult {
@@ -56,17 +58,31 @@ export function applyRetargets(raw: RawInterpretation, snap: DomSnapshot, retarg
     // the client counts grounded actions; a raw action the grounding dropped shifts them, so the one holding
     // the old id wins over the index
     const holder = r.from ? out.actions.findIndex((x) => (x.elements ?? []).includes(r.from!)) : -1
-    const at = r.from && !(out.actions[r.action]?.elements ?? []).includes(r.from) && holder !== -1 ? holder : r.action
+    // n193: a target-less action has no id to find it by; its words do (the grounding keeps them as read)
+    const said = !r.from && typeof r.instruction === 'string' && r.instruction
+      ? out.actions.findIndex((x) => x.instruction === r.instruction) : -1
+    const at = r.from && !(out.actions[r.action]?.elements ?? []).includes(r.from) && holder !== -1 ? holder
+      : said !== -1 && out.actions[r.action]?.instruction !== r.instruction ? said : r.action
     const a = out.actions[at]
     if (!a || typeof r.srcLoc !== 'string' || !r.rect) { refused.push(`retarget ${String(r.action)}: no such action`); continue }
     const to = nodeForTap(snap, r.srcLoc, r.rect)
     if (!to) { refused.push(`retarget ${String(r.action)}: tapped element ${r.srcLoc} is not on the page`); continue }
+    // n193: a step with no target (design the sky, add four squares) placed by a tap: for a new thing the tapped
+    // part is where it goes (its container), and the build is told to do it there and nowhere else
+    if (r.from === null && (a.kind === 'add' || a.kind === 'design')) {
+      const was = a.destElement && a.destElement !== to ? a.destElement : null
+      a.destElement = to
+      a.instruction = `${a.instruction}${a.instruction ? ' ' : ''}(The person tapped ${to} as the place this goes: ` +
+        `do it in and on ${to} — if it is a look (a colour, a fade, a sky), it is ${to}'s own look — and in no other element${was ? `, not ${was}` : ''}.)`
+      applied.push({ action: at, from: null, to })
+      continue
+    }
     const els = a.elements ?? []
     const i = r.from ? els.indexOf(r.from) : -1
     const next = i === -1 ? [...els, to] : els.map((e, k) => (k === i ? to : e))
     a.elements = [...new Set(next)]
     // the person's tap outranks the reading: say so where the build reads it
-    a.instruction = `${a.instruction}${a.instruction ? ' ' : ''}(The person tapped ${to} as the part this is about${r.from && r.from !== to ? `, not ${r.from}: leave ${r.from} exactly as it is` : ''}.)`
+    a.instruction = `${a.instruction}${a.instruction ? ' ' : ''}(The person tapped ${to} as the part this is about${r.from && r.from !== to ? `, not ${r.from}: leave ${r.from} exactly as it is` : r.from === null ? ': do it there and in no other element' : ''}.)`
     applied.push({ action: at, from: r.from, to })
   }
   return { raw: out, applied, refused }
