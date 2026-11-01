@@ -1,0 +1,557 @@
+{
+  "round": 43,
+  "id": "c2-sushi-bar",
+  "version": 3,
+  "stopped": null,
+  "likeness": 88.8,
+  "colour": 0.989840754800375,
+  "structure": 0.95244955097804,
+  "layout": 0.7060431160587646,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 4.5,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "line": 9,
+      "box": 1,
+      "circle": 1
+    },
+    "inkPx": 4788
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 51,
+  "notes": 8,
+  "longestNote": 11,
+  "noteTexts": [
+    "KAIDO bold spaced caps",
+    "MENU OMAKASE VISIT spaced caps",
+    "Twelve seats, one / counter, huge serif",
+    "Omakase from the morning market, two sittings a night.",
+    "RESERVE bold spaced, outline",
+    "Tue–Sat · 18:00 and 20:30 · 4 Harbour Lane, small spaced",
+    "two thick chopsticks",
+    "chopsticks pale tan as drawn, thinner, round ends"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 290,
+    "firstReadingS": 72,
+    "readS": [
+      37,
+      9
+    ],
+    "buildS": [
+      172,
+      18
+    ],
+    "sketchingS": 54
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 71787,
+    "cacheRead": 454640,
+    "output": 20751,
+    "billed": 92538
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#15110e",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 459
+    },
+    {
+      "op": "pen",
+      "color": "#f3ead8",
+      "at": 829
+    },
+    {
+      "op": "stroke",
+      "at": 1522
+    },
+    {
+      "op": "stroke",
+      "at": 2689
+    },
+    {
+      "op": "stroke",
+      "at": 4658
+    },
+    {
+      "op": "stroke",
+      "at": 5756
+    },
+    {
+      "op": "pen",
+      "color": "#bdb3a3",
+      "at": 6120
+    },
+    {
+      "op": "stroke",
+      "at": 7672
+    },
+    {
+      "op": "stroke",
+      "at": 8254
+    },
+    {
+      "op": "pen",
+      "color": "#f3ead8",
+      "at": 8620
+    },
+    {
+      "op": "stroke",
+      "at": 10554
+    },
+    {
+      "op": "pen",
+      "color": "#8a8277",
+      "at": 10918
+    },
+    {
+      "op": "stroke",
+      "at": 12273
+    },
+    {
+      "op": "pen",
+      "color": "#c51030",
+      "at": 12637
+    },
+    {
+      "op": "stroke",
+      "at": 16838
+    },
+    {
+      "op": "stroke",
+      "at": 17306
+    },
+    {
+      "op": "pen",
+      "color": "#d9b07a",
+      "at": 17669
+    },
+    {
+      "op": "stroke",
+      "at": 19572
+    },
+    {
+      "op": "stroke",
+      "at": 21473
+    },
+    {
+      "op": "note",
+      "at": 30362
+    },
+    {
+      "op": "note",
+      "at": 31050
+    },
+    {
+      "op": "note",
+      "at": 31828
+    },
+    {
+      "op": "note",
+      "at": 32655
+    },
+    {
+      "op": "note",
+      "at": 33357
+    },
+    {
+      "op": "note",
+      "at": 34182
+    },
+    {
+      "op": "note",
+      "at": 34876
+    },
+    {
+      "op": "run",
+      "at": 34982
+    },
+    {
+      "op": "note",
+      "at": 253685
+    },
+    {
+      "op": "run",
+      "at": 253767
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          400,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 459
+    },
+    {
+      "way": [
+        [
+          70,
+          42
+        ],
+        [
+          153,
+          42
+        ]
+      ],
+      "n": 15,
+      "at": 1522
+    },
+    {
+      "way": [
+        [
+          960,
+          42
+        ],
+        [
+          1210,
+          42
+        ]
+      ],
+      "n": 43,
+      "at": 2689
+    },
+    {
+      "way": [
+        [
+          70,
+          270
+        ],
+        [
+          606,
+          270
+        ]
+      ],
+      "n": 90,
+      "at": 4658
+    },
+    {
+      "way": [
+        [
+          70,
+          350
+        ],
+        [
+          298,
+          350
+        ]
+      ],
+      "n": 39,
+      "at": 5756
+    },
+    {
+      "way": [
+        [
+          70,
+          442
+        ],
+        [
+          462,
+          442
+        ]
+      ],
+      "n": 66,
+      "at": 7672
+    },
+    {
+      "way": [
+        [
+          70,
+          470
+        ],
+        [
+          114,
+          470
+        ]
+      ],
+      "n": 8,
+      "at": 8254
+    },
+    {
+      "way": [
+        [
+          70,
+          530
+        ],
+        [
+          280,
+          530
+        ],
+        [
+          280,
+          584
+        ],
+        [
+          70,
+          584
+        ],
+        [
+          70,
+          530
+        ]
+      ],
+      "n": 89,
+      "at": 10554
+    },
+    {
+      "way": [
+        [
+          70,
+          808
+        ],
+        [
+          387,
+          808
+        ]
+      ],
+      "n": 54,
+      "at": 12273
+    },
+    {
+      "way": [
+        [
+          1160,
+          390
+        ],
+        [
+          1156,
+          433
+        ],
+        [
+          1143,
+          474
+        ],
+        [
+          1123,
+          512
+        ],
+        [
+          1096,
+          546
+        ],
+        [
+          1062,
+          573
+        ],
+        [
+          1024,
+          593
+        ],
+        [
+          983,
+          606
+        ],
+        [
+          940,
+          610
+        ],
+        [
+          897,
+          606
+        ],
+        [
+          856,
+          593
+        ],
+        [
+          818,
+          573
+        ],
+        [
+          784,
+          546
+        ],
+        [
+          757,
+          512
+        ],
+        [
+          737,
+          474
+        ],
+        [
+          724,
+          433
+        ],
+        [
+          720,
+          390
+        ],
+        [
+          724,
+          347
+        ],
+        [
+          737,
+          306
+        ],
+        [
+          757,
+          268
+        ],
+        [
+          784,
+          234
+        ],
+        [
+          818,
+          207
+        ],
+        [
+          856,
+          187
+        ],
+        [
+          897,
+          174
+        ],
+        [
+          940,
+          170
+        ],
+        [
+          983,
+          174
+        ],
+        [
+          1024,
+          187
+        ],
+        [
+          1062,
+          207
+        ],
+        [
+          1096,
+          234
+        ],
+        [
+          1123,
+          268
+        ],
+        [
+          1143,
+          306
+        ],
+        [
+          1156,
+          347
+        ],
+        [
+          1160,
+          390
+        ]
+      ],
+      "n": 225,
+      "at": 16838
+    },
+    {
+      "way": [
+        [
+          940,
+          390
+        ]
+      ],
+      "n": 1,
+      "at": 17306
+    },
+    {
+      "way": [
+        [
+          710,
+          665
+        ],
+        [
+          1210,
+          541
+        ]
+      ],
+      "n": 87,
+      "at": 19572
+    },
+    {
+      "way": [
+        [
+          730,
+          705
+        ],
+        [
+          1230,
+          581
+        ]
+      ],
+      "n": 87,
+      "at": 21473
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "KAIDO bold spaced caps",
+      "whole": false,
+      "x": 80,
+      "y": 60,
+      "at": 30362
+    },
+    {
+      "text": "MENU OMAKASE VISIT spaced caps",
+      "whole": false,
+      "x": 970,
+      "y": 60,
+      "at": 31050
+    },
+    {
+      "text": "Twelve seats, one / counter, huge serif",
+      "whole": false,
+      "x": 80,
+      "y": 250,
+      "at": 31828
+    },
+    {
+      "text": "Omakase from the morning market, two sittings a night.",
+      "whole": false,
+      "x": 80,
+      "y": 455,
+      "at": 32655
+    },
+    {
+      "text": "RESERVE bold spaced, outline",
+      "whole": false,
+      "x": 90,
+      "y": 557,
+      "at": 33357
+    },
+    {
+      "text": "Tue–Sat · 18:00 and 20:30 · 4 Harbour Lane, small spaced",
+      "whole": false,
+      "x": 80,
+      "y": 825,
+      "at": 34182
+    },
+    {
+      "text": "two thick chopsticks",
+      "whole": false,
+      "x": 1000,
+      "y": 700,
+      "at": 34876
+    },
+    {
+      "text": "chopsticks pale tan as drawn, thinner, round ends",
+      "whole": false,
+      "x": 1100,
+      "y": 620,
+      "at": 253685
+    }
+  ]
+}

@@ -1,0 +1,529 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "359b5670dad6a5f2c41b9a2a2a71c3ed8539bd66",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Letter.tsx"
+  ],
+  "reading": "This is a letterpress studio landing page: a header with a logo and nav/tagline, a hero section with a big italic headline, a line of body copy, a dark 'See the shop' button, a giant red letter-A mark inside a square box, and a tilted 'Since 1987' stamp badge near a circle.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x83 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:6:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 83
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (70,189) 480x423 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:19:9",
+      "rect": {
+       "x": 70,
+       "y": 189,
+       "w": 480,
+       "h": 422.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Wedding suites, posters and ca\" at (70,426) 383x22 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:26:11",
+      "rect": {
+       "x": 70,
+       "y": 423,
+       "w": 480,
+       "h": 28.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (70,423) 480x29 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:26:11",
+      "rect": {
+       "x": 70,
+       "y": 423,
+       "w": 480,
+       "h": 28.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (70,540) 201x55: the <button> built for it sits 17px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The line drawn at y=435 is itself built 17px too low (its bottom at y=452): that part of the drift is above the line (the heading's size or margin, the tab bar's padding or height): take 17px there. The gap under the line is right; keep it. Never push anything further down; no negative margins or relative offsets.",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 70,
+        "y": 540,
+        "w": 201,
+        "h": 55
+       },
+       "built": {
+        "x": 70,
+        "y": 556.5,
+        "w": 201,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": 17
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (70,189) 480x138 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:20:11",
+      "rect": {
+       "x": 70,
+       "y": 189,
+       "w": 480,
+       "h": 138
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d2452f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.9934148098853963,
+    "massSimilarity": 0.9905925855505663,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (1052,633) 155x154 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:44:9",
+      "rect": {
+       "x": 1052.0692138671875,
+       "y": 633.0142211914062,
+       "w": 154.861572265625,
+       "h": 153.9715576171875
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 1059,
+        "y": 640,
+        "w": 141,
+        "h": 140
+       },
+       "built": {
+        "x": 1052.0692138671875,
+        "y": 633.0142211914062,
+        "w": 154.861572265625,
+        "h": 153.9715576171875
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#efe5d0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,41) 137x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (993,41) 217x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,83) 1276x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,235) 430x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,304) 480x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,435) 385x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (70,540) 201x55",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (645,199) 439x431",
+       "want": "#d2452f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (1059,640) 141x140 (hollow ring)",
+       "want": "ring 8px, no #2d2722 fill",
+       "best": null,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 73914,
+   "cacheRead": 543453,
+   "output": 30106
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 49342,
+    "output": 19350,
+    "cacheRead": 181569,
+    "toolCalls": 8,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read components/Letter.tsx",
+     "Read src/main.tsx",
+     "Edit components/Letter.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 227018
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 51210,
+    "output": 9441,
+    "cacheRead": 239879,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit components/Letter.tsx"
+    ],
+    "ms": 120139
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 3468,
+    "output": 1315,
+    "cacheRead": 122005,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 15822
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "22314a6e92cc3187d97f87a6ed86b685d1c60233",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Letter.tsx"
+  ],
+  "reading": "Two typed notes with no ink: redo the letter-A graphic as one big red A filling its box with no square behind it, and add a line break after 'hand,' in the headline.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     }
+    ],
+    "satisfied": 1,
+    "total": 2,
+    "score": 0.5
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 15074,
+   "cacheRead": 180521,
+   "output": 2631
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 8531,
+    "output": 1949,
+    "cacheRead": 135966,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/Letter.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit components/Letter.tsx"
+    ],
+    "ms": 20719
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 9174,
+    "output": 682,
+    "cacheRead": 44555,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 9512
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

@@ -1,0 +1,522 @@
+{
+  "round": 43,
+  "id": "c3-night-skyline",
+  "version": 3,
+  "stopped": null,
+  "likeness": 76.6,
+  "colour": 0.9776940817481097,
+  "structure": 0.898886235302667,
+  "layout": 0.39159057401978814,
+  "strokes": {
+    "count": 12,
+    "pointsPerStroke": 4.7,
+    "simpleShare": 0.92,
+    "shapes": {
+      "dot": 5,
+      "freehand": 1,
+      "line": 4,
+      "box": 1,
+      "circle": 1
+    },
+    "inkPx": 6216
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 34,
+  "notes": 7,
+  "longestNote": 7,
+  "noteTexts": [
+    "Rooftop bold",
+    "Bars Map Tonight",
+    "The city after ten, huge bold",
+    "Thirty rooftops, one pass, open till late.",
+    "Get the pass, dark bold text, pill",
+    "flat moon",
+    "flat skyline, a few tiny yellow windows"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 374,
+    "firstReadingS": 72,
+    "readS": [
+      33
+    ],
+    "buildS": [
+      287
+    ],
+    "sketchingS": 54
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 84739,
+    "cacheRead": 624525,
+    "output": 29232,
+    "billed": 113971
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#0e1e3e",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 461
+    },
+    {
+      "op": "pen",
+      "color": "#1e3760",
+      "at": 831
+    },
+    {
+      "op": "stroke",
+      "at": 1289
+    },
+    {
+      "op": "pen",
+      "color": "#081020",
+      "at": 1661
+    },
+    {
+      "op": "stroke",
+      "at": 13414
+    },
+    {
+      "op": "stroke",
+      "at": 13878
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 14238
+    },
+    {
+      "op": "stroke",
+      "at": 14946
+    },
+    {
+      "op": "stroke",
+      "at": 15895
+    },
+    {
+      "op": "stroke",
+      "at": 18180
+    },
+    {
+      "op": "pen",
+      "color": "#b8c8e0",
+      "at": 18540
+    },
+    {
+      "op": "stroke",
+      "at": 19962
+    },
+    {
+      "op": "pen",
+      "color": "#ffcd55",
+      "at": 20322
+    },
+    {
+      "op": "stroke",
+      "at": 22329
+    },
+    {
+      "op": "stroke",
+      "at": 22795
+    },
+    {
+      "op": "pen",
+      "color": "#f6f0d4",
+      "at": 23164
+    },
+    {
+      "op": "stroke",
+      "at": 24630
+    },
+    {
+      "op": "stroke",
+      "at": 25095
+    },
+    {
+      "op": "note",
+      "at": 34146
+    },
+    {
+      "op": "note",
+      "at": 34824
+    },
+    {
+      "op": "note",
+      "at": 35527
+    },
+    {
+      "op": "note",
+      "at": 36342
+    },
+    {
+      "op": "note",
+      "at": 37133
+    },
+    {
+      "op": "note",
+      "at": 37787
+    },
+    {
+      "op": "note",
+      "at": 38623
+    },
+    {
+      "op": "run",
+      "at": 38850
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          60
+        ]
+      ],
+      "n": 1,
+      "at": 461
+    },
+    {
+      "way": [
+        [
+          400,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 1289
+    },
+    {
+      "way": [
+        [
+          2,
+          600
+        ],
+        [
+          180,
+          600
+        ],
+        [
+          180,
+          480
+        ],
+        [
+          300,
+          480
+        ],
+        [
+          300,
+          650
+        ],
+        [
+          500,
+          650
+        ],
+        [
+          500,
+          420
+        ],
+        [
+          640,
+          420
+        ],
+        [
+          640,
+          570
+        ],
+        [
+          860,
+          570
+        ],
+        [
+          860,
+          460
+        ],
+        [
+          990,
+          460
+        ],
+        [
+          990,
+          620
+        ],
+        [
+          1278,
+          620
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          600
+        ]
+      ],
+      "n": 679,
+      "at": 13414
+    },
+    {
+      "way": [
+        [
+          640,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 13878
+    },
+    {
+      "way": [
+        [
+          64,
+          40
+        ],
+        [
+          148,
+          40
+        ]
+      ],
+      "n": 15,
+      "at": 14946
+    },
+    {
+      "way": [
+        [
+          1040,
+          40
+        ],
+        [
+          1216,
+          40
+        ]
+      ],
+      "n": 30,
+      "at": 15895
+    },
+    {
+      "way": [
+        [
+          313,
+          198
+        ],
+        [
+          967,
+          198
+        ]
+      ],
+      "n": 110,
+      "at": 18180
+    },
+    {
+      "way": [
+        [
+          468,
+          273
+        ],
+        [
+          812,
+          273
+        ]
+      ],
+      "n": 58,
+      "at": 19962
+    },
+    {
+      "way": [
+        [
+          530,
+          320
+        ],
+        [
+          750,
+          320
+        ],
+        [
+          750,
+          374
+        ],
+        [
+          530,
+          374
+        ],
+        [
+          530,
+          320
+        ]
+      ],
+      "n": 93,
+      "at": 22329
+    },
+    {
+      "way": [
+        [
+          640,
+          347
+        ]
+      ],
+      "n": 1,
+      "at": 22795
+    },
+    {
+      "way": [
+        [
+          1150,
+          165
+        ],
+        [
+          1147,
+          182
+        ],
+        [
+          1139,
+          197
+        ],
+        [
+          1127,
+          209
+        ],
+        [
+          1112,
+          217
+        ],
+        [
+          1095,
+          220
+        ],
+        [
+          1078,
+          217
+        ],
+        [
+          1063,
+          209
+        ],
+        [
+          1051,
+          197
+        ],
+        [
+          1043,
+          182
+        ],
+        [
+          1040,
+          165
+        ],
+        [
+          1043,
+          148
+        ],
+        [
+          1051,
+          133
+        ],
+        [
+          1063,
+          121
+        ],
+        [
+          1078,
+          113
+        ],
+        [
+          1095,
+          110
+        ],
+        [
+          1112,
+          113
+        ],
+        [
+          1127,
+          121
+        ],
+        [
+          1139,
+          133
+        ],
+        [
+          1147,
+          148
+        ],
+        [
+          1150,
+          165
+        ]
+      ],
+      "n": 61,
+      "at": 24630
+    },
+    {
+      "way": [
+        [
+          1095,
+          165
+        ]
+      ],
+      "n": 1,
+      "at": 25095
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Rooftop bold",
+      "whole": false,
+      "x": 70,
+      "y": 58,
+      "at": 34146
+    },
+    {
+      "text": "Bars Map Tonight",
+      "whole": false,
+      "x": 1050,
+      "y": 58,
+      "at": 34824
+    },
+    {
+      "text": "The city after ten, huge bold",
+      "whole": false,
+      "x": 330,
+      "y": 180,
+      "at": 35527
+    },
+    {
+      "text": "Thirty rooftops, one pass, open till late.",
+      "whole": false,
+      "x": 480,
+      "y": 290,
+      "at": 36342
+    },
+    {
+      "text": "Get the pass, dark bold text, pill",
+      "whole": false,
+      "x": 560,
+      "y": 347,
+      "at": 37133
+    },
+    {
+      "text": "flat moon",
+      "whole": false,
+      "x": 1100,
+      "y": 230,
+      "at": 37787
+    },
+    {
+      "text": "flat skyline, a few tiny yellow windows",
+      "whole": false,
+      "x": 700,
+      "y": 760,
+      "at": 38623
+    }
+  ]
+}
