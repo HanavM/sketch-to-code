@@ -1,0 +1,562 @@
+{
+  "round": 44,
+  "id": "c3-retro-cinema",
+  "version": 3,
+  "stopped": null,
+  "likeness": 82.9,
+  "colour": 0.9821851093669729,
+  "structure": 0.7984775264914308,
+  "layout": 0.7614784236782599,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.3,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "box": 4,
+      "line": 3,
+      "circle": 3
+    },
+    "inkPx": 10564
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 41,
+  "notes": 8,
+  "longestNote": 8,
+  "noteTexts": [
+    "curtains, vertical stripes dark and bright red",
+    "THE ROXY, huge bold spaced, white dashed border",
+    "Tonight: Casablanca, big serif bold",
+    "Restored print, 35mm, with a live organ intro.",
+    "5:30 yellow",
+    "8:00 dark",
+    "10:15 yellow",
+    "Seats from $9 · 112 Main Street"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 297,
+    "firstReadingS": 103,
+    "readS": [
+      56
+    ],
+    "buildS": [
+      192
+    ],
+    "sketchingS": 49
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 80236,
+    "cacheRead": 432101,
+    "output": 21578,
+    "billed": 101814
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#140a0c",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 475
+    },
+    {
+      "op": "pen",
+      "color": "#a81e2c",
+      "at": 865
+    },
+    {
+      "op": "stroke",
+      "at": 7400
+    },
+    {
+      "op": "stroke",
+      "at": 7865
+    },
+    {
+      "op": "stroke",
+      "at": 14429
+    },
+    {
+      "op": "stroke",
+      "at": 14893
+    },
+    {
+      "op": "pen",
+      "color": "#f2c230",
+      "at": 15268
+    },
+    {
+      "op": "stroke",
+      "at": 20498
+    },
+    {
+      "op": "stroke",
+      "at": 20977
+    },
+    {
+      "op": "pen",
+      "color": "#f1e8d8",
+      "at": 21345
+    },
+    {
+      "op": "stroke",
+      "at": 27599
+    },
+    {
+      "op": "stroke",
+      "at": 28079
+    },
+    {
+      "op": "pen",
+      "color": "#1a1012",
+      "at": 28443
+    },
+    {
+      "op": "stroke",
+      "at": 30005
+    },
+    {
+      "op": "stroke",
+      "at": 31483
+    },
+    {
+      "op": "pen",
+      "color": "#f2c230",
+      "at": 31850
+    },
+    {
+      "op": "stroke",
+      "at": 33697
+    },
+    {
+      "op": "stroke",
+      "at": 35549
+    },
+    {
+      "op": "stroke",
+      "at": 36029
+    },
+    {
+      "op": "stroke",
+      "at": 37862
+    },
+    {
+      "op": "pen",
+      "color": "#a8a0a0",
+      "at": 38230
+    },
+    {
+      "op": "stroke",
+      "at": 39315
+    },
+    {
+      "op": "note",
+      "at": 40293
+    },
+    {
+      "op": "note",
+      "at": 41273
+    },
+    {
+      "op": "note",
+      "at": 42211
+    },
+    {
+      "op": "note",
+      "at": 43217
+    },
+    {
+      "op": "note",
+      "at": 43924
+    },
+    {
+      "op": "note",
+      "at": 44614
+    },
+    {
+      "op": "note",
+      "at": 45347
+    },
+    {
+      "op": "note",
+      "at": 46258
+    },
+    {
+      "op": "run",
+      "at": 46435
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 475
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          200,
+          2
+        ],
+        [
+          200,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 365,
+      "at": 7400
+    },
+    {
+      "way": [
+        [
+          100,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 7865
+    },
+    {
+      "way": [
+        [
+          1080,
+          2
+        ],
+        [
+          1278,
+          2
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          1080,
+          898
+        ],
+        [
+          1080,
+          2
+        ]
+      ],
+      "n": 365,
+      "at": 14429
+    },
+    {
+      "way": [
+        [
+          1180,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 14893
+    },
+    {
+      "way": [
+        [
+          290,
+          60
+        ],
+        [
+          990,
+          60
+        ],
+        [
+          990,
+          210
+        ],
+        [
+          290,
+          210
+        ],
+        [
+          290,
+          60
+        ]
+      ],
+      "n": 285,
+      "at": 20498
+    },
+    {
+      "way": [
+        [
+          640,
+          190
+        ]
+      ],
+      "n": 1,
+      "at": 20977
+    },
+    {
+      "way": [
+        [
+          290,
+          260
+        ],
+        [
+          990,
+          260
+        ],
+        [
+          990,
+          590
+        ],
+        [
+          290,
+          590
+        ],
+        [
+          290,
+          260
+        ]
+      ],
+      "n": 345,
+      "at": 27599
+    },
+    {
+      "way": [
+        [
+          640,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 28079
+    },
+    {
+      "way": [
+        [
+          330,
+          324
+        ],
+        [
+          718,
+          324
+        ]
+      ],
+      "n": 66,
+      "at": 30005
+    },
+    {
+      "way": [
+        [
+          330,
+          376
+        ],
+        [
+          688,
+          376
+        ]
+      ],
+      "n": 61,
+      "at": 31483
+    },
+    {
+      "way": [
+        [
+          320,
+          640
+        ],
+        [
+          480,
+          640
+        ],
+        [
+          510,
+          670
+        ],
+        [
+          480,
+          700
+        ],
+        [
+          320,
+          700
+        ],
+        [
+          290,
+          670
+        ],
+        [
+          320,
+          640
+        ]
+      ],
+      "n": 83,
+      "at": 33697
+    },
+    {
+      "way": [
+        [
+          560,
+          640
+        ],
+        [
+          720,
+          640
+        ],
+        [
+          750,
+          670
+        ],
+        [
+          720,
+          700
+        ],
+        [
+          560,
+          700
+        ],
+        [
+          530,
+          670
+        ],
+        [
+          560,
+          640
+        ]
+      ],
+      "n": 83,
+      "at": 35549
+    },
+    {
+      "way": [
+        [
+          640,
+          688
+        ]
+      ],
+      "n": 1,
+      "at": 36029
+    },
+    {
+      "way": [
+        [
+          800,
+          640
+        ],
+        [
+          960,
+          640
+        ],
+        [
+          990,
+          670
+        ],
+        [
+          960,
+          700
+        ],
+        [
+          800,
+          700
+        ],
+        [
+          770,
+          670
+        ],
+        [
+          800,
+          640
+        ]
+      ],
+      "n": 83,
+      "at": 37862
+    },
+    {
+      "way": [
+        [
+          534,
+          769
+        ],
+        [
+          746,
+          769
+        ]
+      ],
+      "n": 36,
+      "at": 39315
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "curtains, vertical stripes dark and bright red",
+      "whole": false,
+      "x": 100,
+      "y": 300,
+      "at": 40293
+    },
+    {
+      "text": "THE ROXY, huge bold spaced, white dashed border",
+      "whole": false,
+      "x": 330,
+      "y": 110,
+      "at": 41273
+    },
+    {
+      "text": "Tonight: Casablanca, big serif bold",
+      "whole": false,
+      "x": 340,
+      "y": 305,
+      "at": 42211
+    },
+    {
+      "text": "Restored print, 35mm, with a live organ intro.",
+      "whole": false,
+      "x": 340,
+      "y": 392,
+      "at": 43217
+    },
+    {
+      "text": "5:30 yellow",
+      "whole": false,
+      "x": 330,
+      "y": 670,
+      "at": 43924
+    },
+    {
+      "text": "8:00 dark",
+      "whole": false,
+      "x": 570,
+      "y": 665,
+      "at": 44614
+    },
+    {
+      "text": "10:15 yellow",
+      "whole": false,
+      "x": 810,
+      "y": 670,
+      "at": 45347
+    },
+    {
+      "text": "Seats from $9 · 112 Main Street",
+      "whole": false,
+      "x": 550,
+      "y": 786,
+      "at": 46258
+    }
+  ]
+}

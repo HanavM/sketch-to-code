@@ -16,7 +16,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { areaWordInk, holdsBoxes, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
+import { areaWordInk, holdsBoxes, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkPenOutline, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark, slantedQuad } from './outline.js'
@@ -864,6 +864,10 @@ export interface InkColour {
   frameOn?: string
   /** n144: paint 'border' + frame from a dark-pen box with no tap when a box in the same pen was tapped: outlined, never filled. */
   taught?: true
+  /** n194: paint 'border' + frame from a pen box with no tap whose note says outline ('said'), or left untapped when a box in that pen was tapped ('taught'): any pen, any surface. */
+  penOutline?: 'said' | 'taught'
+  /** n194: the outlined box was drawn as a pill: keep it round-ended. */
+  pill?: true
   /** n136: paint 'text' from a level line a sentence was typed on: the words' colour, never a coloured bar. */
   copy?: true
   /** n144: paint 'text' from a divider with words over it, drawn in a pen that barely shows on the page: the pen colours the rule only. */
@@ -1314,6 +1318,21 @@ export function groundInterpretation(
         const sameInkTapped = [...ev.strokes.values()].some((o) => o.id !== st.id && o.color === st.color && (ev.fills ?? []).some((f) => f.target === o.id))
         if (!sm.area && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? []) && inkTaughtOutline(st.color, rb, behind, own, sameInkTapped)) {
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, taught: true }); continue
+        }
+        // n194: any pen, any surface: a box whose own note says outline, or one left untapped when a box in that pen was
+        // tapped, is an outline in the pen colour (cinema pills, pottery "dark outline" button), never a block of it
+        // 'taught' only from a tapped LOOK-ALIKE in the same pen (about the same size): the picked one of a row of pills,
+        // not a lantern drawn beside a tapped button (round 44 c1: untapped orange lanterns are filled glows)
+        const twin = [...ev.strokes.values()].some((o) => {
+          if (o.id === st.id || o.color !== st.color || !(ev.fills ?? []).some((f) => f.target === o.id)) return false
+          const ob = bboxOf(o.points)
+          // a box redrawn on the same spot is the same box (round 38 film fest: the blue frame drawn twice, tapped once)
+          const ix = Math.max(0, Math.min(ob.x + ob.w, rb.x + rb.w) - Math.max(ob.x, rb.x)), iy = Math.max(0, Math.min(ob.y + ob.h, rb.y + rb.h) - Math.max(ob.y, rb.y))
+          return ob.w >= rb.w * 0.75 && ob.w <= rb.w * 1.33 && ob.h >= rb.h * 0.75 && ob.h <= rb.h * 1.33 && ix * iy < 0.3 * rb.w * rb.h
+        })
+        const po = !sm.area && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? []) ? inkPenOutline(st.color, rb, behind, own, twin) : null
+        if (po) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, penOutline: po, frameOn: behind, ...(sm.pill ? { pill: true as const } : {}) }); continue
         }
       }
       // n146: a small ring drawn in dark ink with no tap is an outlined ring (map marker, radio), never a dark dot. A hand

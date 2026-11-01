@@ -100,6 +100,17 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
           `Its unselected look-alikes beside it keep their own drawn look`)
         continue
       }
+      // n194: no tap = outline in the pen colour (any pen, any surface)
+      if (c.paint === 'border' && c.frame && c.penOutline) {
+        const dark = (() => { const q = parseCssColor(c.frameOn ?? '#ffffff'); return !!q && 0.299 * q.r + 0.587 * q.g + 0.114 * q.b < 110 })()
+        lines.push(`- action ${String(i)}, the ${c.pill ? 'pill' : 'box'} drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped (` +
+          (c.penOutline === 'said' ? 'its note says it is an outline' : 'another mark in that pen was tapped to fill it, this one was not') +
+          `): an OUTLINED block exactly there (a button, a chip, a field or a card, whatever it holds): a 2px solid ${hex(c.color)} border, ` +
+          `background transparent so the ${hex(c.frameOn ?? '#ffffff')} surface behind shows through, NEVER filled ${hex(c.color)} or any tint of it, and never a bare label with no border` +
+          `${c.pill ? ', fully round ends (border-radius 9999px), the same size as its tapped look-alike' : ''}; ` +
+          `its words in ${hex(c.color)} or another colour that reads on ${dark ? 'the dark' : 'the light'} surface (never ${dark ? 'dark' : 'white'} text)`)
+        continue
+      }
       if (c.paint === 'border' && c.frame && c.frameOn) {
         lines.push(`- action ${String(i)}, the box drawn at ${at} in a ${hex(c.color)} pen (no colour tapped) on the dark ${hex(c.frameOn)} surface: an OUTLINED block exactly there (a button, a field, a list or a panel, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background TRANSPARENT so the dark surface shows through, NEVER filled ${hex(c.color)}, white or any grey; its words stay light and readable on the dark; rows inside it keep only their dividers`)
         continue
@@ -354,8 +365,9 @@ export function verifyInkColours(
         const grey = own.filter((n) => { const g = parseCssColor(n.style.backgroundColor); return !!g && !!pen && alphaOf(n.style.backgroundColor) > 0.5 && deltaE(pen, g) <= SOLID_OK_DE })
         const framed = own.some((n) => hasFrame(n))
         const ok = !grey.length && framed
-        checks.push({ what: `${what} (${c.taught ? 'untapped pen outline' : 'light pen outline'})`, want: `border ${hex(c.color)}, no ${hex(c.color)} fill`, best: null, ok })
-        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in ${c.taught ? 'a dark pen with no tap (a box in the same pen was tapped, this one was not)' : 'a light pen with no tap'}: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
+        checks.push({ what: `${what} (${c.penOutline ? `pen outline, ${c.penOutline}` : c.taught ? 'untapped pen outline' : 'light pen outline'})`, want: `border ${hex(c.color)}, no ${hex(c.color)} fill`, best: null, ok })
+        if (!ok && c.penOutline) misses.push(`action ${String(i)}: ${what} was drawn in the ${hex(c.color)} pen with no tap (${c.penOutline === 'said' ? 'its note says outline' : 'a mark in that pen was tapped, this one was not'}): an outlined block; ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 2px ${hex(c.color)} border and a transparent background${c.pill ? ', round ends' : ''}, words readable on the surface; keep its size and place`)
+        else if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in ${c.taught ? 'a dark pen with no tap (a box in the same pen was tapped, this one was not)' : 'a light pen with no tap'}: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
         continue
       }
       // n146: a small dark ring with no tap: no solid pen-coloured disc there with nothing covering its middle
@@ -694,6 +706,28 @@ export function inkTaughtOutline(color: string | null | undefined, box: { w: num
   const sl = 0.299 * s.r + 0.587 * s.g + 0.114 * s.b
   if (lum >= 90 || sl < 200) return false
   return !notes.some((n) => ASKS_FILL.test(n))
+}
+
+/**
+ * n194: no tap = an outline in the pen colour, tap = a fill, for ANY pen on ANY surface. Round 44 c3 (retro cinema): three
+ * show-time pills drawn in a yellow pen on a dark page, the middle one tapped yellow; the two untapped ones were built
+ * filled yellow (n128's coloured-pen rule) and the fix note turned them into bare text with no border at all. c5 (pottery):
+ * a dark-pen "Book a seat, bold, dark outline" button was built as a filled dark pill. n144 covered only dark pens on a
+ * light page, n131 / n141 only light or grey pens.
+ *  - 'said': the box's own note says outline / outlined / border only / ghost / hollow (not about its letters), and asks no fill;
+ *  - 'taught': another box in the same pen was tapped (the person fills by tapping), and no note on this one asks for a fill.
+ * Only button-to-card sized boxes (40x20 up to 560x300); the pen must show against the surface behind it.
+ */
+const OUTLINE_SAID = /\b(outline|outlined|outline[- ]only|border[- ]only|bordered|ghost|hollow|frame only|line only)\b/i
+const LETTERS_SAID = /\b(outlined|hollow|outline)\s+(letters?|text|words?|type|numbers?|digits?|font)\b/i
+export function inkPenOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined,
+  notes: readonly string[], sameInkTapped: boolean): 'said' | 'taught' | null {
+  if (!color || box.w < 40 || box.h < 20 || box.w > 560 || box.h > 300) return null
+  const p = parseCssColor(color), s = parseCssColor(behind ?? '#ffffff')
+  if (!p || !s || deltaE(p, s) < 12) return null
+  if (notes.some((n) => ASKS_FILL.test(n) && !/\boutline only\b/i.test(n))) return null
+  if (notes.some((n) => OUTLINE_SAID.test(n) && !LETTERS_SAID.test(n))) return 'said'
+  return sameInkTapped ? 'taught' : null
 }
 
 /** n141: "pale fill", "light tint", "soft background": a tint of the pen colour, never a solid block of it. */
