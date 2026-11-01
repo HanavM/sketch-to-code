@@ -3,6 +3,7 @@
  * interpretV2()  — evidence → one multimodal call → grounded, validated intent
  * runV2()        — grounded intent → codegen → per-action verification
  */
+import { applyRetargets, type Retarget } from './retarget.js'
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { encodePng, renderScene, type Stroke } from '@s2c/ink'
@@ -401,6 +402,8 @@ export async function runV2(
     candidates?: number
     /** Component the instant render already wrote and mounted, if any. */
     instant?: string | null
+    /** n191: plan targets the person re-pointed with a tap before ✓ Go. */
+    retargets?: Retarget[]
   },
   ctx: RunContext,
   provider: PerceptionProvider = defaultPerceptionProvider(),
@@ -441,7 +444,13 @@ export async function runV2(
   const ev = buildEvidence(input.strokes, input.snapshot, input.notes ?? [])
   writeFileSync(join(runDir, 'evidence.png'), ev.png)
   writeFileSync(join(runDir, 'evidence.json'), ev.brief)
-  const interp = groundInterpretation(input.rawInterpretation, ev, input.snapshot, input.mode ?? 'gesture')
+  // n191: a part the person picked on the plan replaces the one the reading chose
+  const picked = applyRetargets(input.rawInterpretation, input.snapshot, input.retargets)
+  if (input.retargets?.length) {
+    save('retargets.json', { asked: input.retargets, applied: picked.applied, refused: picked.refused })
+    stage('retarget', picked.applied.map((a) => `action ${String(a.action)}: ${a.from ?? 'none'} -> ${a.to}`).join('; ') || picked.refused.join('; '))
+  }
+  const interp = groundInterpretation(picked.raw, ev, input.snapshot, input.mode ?? 'gesture')
   // The slider decides how literally a depiction is taken, so it overrides the
   // interpreter's own verbatim/recognized guess — that guess was the tool's
   // opinion of the user's intent, and the user has now stated it.

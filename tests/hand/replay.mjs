@@ -9,6 +9,8 @@
  * --fixes (n37): after the first Run, type the same correction notes at the same spots and Run again,
  * so a change to how fix notes are handled is measured with the fix held still too.
  *
+ * --hold-fix (n191): with --fixes, stop at the fix run's plan (session op run {hold}); then pick / go / done by hand.
+ *
  * --bar x,y (n114): where the toolbar's grip was dragged, for a digest whose moveBar event has no spot (n162 and
  * before recorded none). A moveBar event is replayed at its time, so taps land on the drawing, not on a bar button.
  *
@@ -46,6 +48,11 @@ console.log('run', JSON.stringify(run).slice(0, 400))
 if (process.argv.includes('--fixes')) {
   const fixes = d.notesTyped.filter((n) => n.at > firstRun).sort((a, b) => a.at - b.at)
   for (const n of fixes) { const r = await call({ op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole }); console.log('fix', JSON.stringify(n.text), '->', r.status ?? '') }
+  if (fixes.length && process.argv.includes('--hold-fix')) {
+    // n191: stop at the fix's plan so a person can read it, pick parts (op pick) and press Go (op go), then done
+    await call({ op: 'look', name: 'fix-threads' }); const r2 = await call({ op: 'run', hold: true })
+    console.log('held', JSON.stringify(r2, null, 1)); process.exit(0)
+  }
   if (fixes.length) { await call({ op: 'look', name: 'fix-threads' }); const r2 = await call({ op: 'run' }); console.log('run2', JSON.stringify(r2).slice(0, 600)) }
 }
 const done = await call({ op: 'done' })

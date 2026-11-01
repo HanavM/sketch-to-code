@@ -19,6 +19,7 @@ import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type Hold
 import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { warmInIdle, warmStrokes } from './warm-pen.js'
+import { lookName } from './target-look.js'
 import { alreadySo, boxDist, isRole, pickOther, placedAgainst, type PartInfo, type PartLook } from './fix-subject.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
@@ -400,6 +401,9 @@ interface PlanDetail {
   swatch: string
   token: string
   notes: string[]
+  /** n191: the action's index, and each target the plan points at, so a tap can re-point one. */
+  action: number
+  picks: Array<{ domId: string; name: string }>
 }
 
 /** The pen Claude is holding: where it is, where it is going, and its tail. */
@@ -2108,6 +2112,9 @@ const STYLES = css`
     color: var(--s2c-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   #planCard .cInstr { color: var(--s2c-muted); margin-top: 2px; }
+  #planCard .cPick { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 2px; font-size: 11px; }
+  #planCard .cPick button { font: inherit; font-size: 10.5px; padding: 1px 8px; border-radius: 999px; cursor: pointer; border: 1px solid var(--s2c-line); background: transparent; color: var(--s2c-text); }
+  :host([data-picking]) { cursor: crosshair; }
   /* the RESOLVED colour, painted: naming a hex would be a picture of it */
   #planCard .cSwatch {
     flex: none; width: 12px; height: 12px; border-radius: 3px;
@@ -2324,6 +2331,12 @@ class Overlay {
   /** Plain-language card for a run that did not do everything (see showMisread). */
   private misreadCard: HTMLElement
   private planDetail: PlanDetail[] = []
+  /** n191: plan targets the person re-pointed with a tap, sent with ✓ Go. */
+  private retargets: Array<{ action: number; from: string | null; srcLoc: string; rect: { x: number; y: number; w: number; h: number } }> = []
+  /** n191: waiting for the tap that picks the part an action is about. */
+  private picking: { action: number; from: string } | null = null
+  /** n191: the last tap's spot and pick, so a second tap on the same spot climbs to the part around it. */
+  private lastPick: { action: number; from: string; x: number; y: number; el: Element } | null = null
   /** Where the work is, in order — what the cursor visits. */
   private planStops: PlanStop[] = []
   private cursor: WorkCursor | null = null
@@ -2532,7 +2545,11 @@ class Overlay {
     this.planCard = document.createElement('div')
     this.planCard.id = 'planCard'
     this.planCard.setAttribute('role', 'status')
+    this.planCard.addEventListener('pointerdown', (e) => e.stopPropagation())
     this.shadow.appendChild(this.planCard)
+    // n191: after "not this", the next press on the page picks the part meant. Capture on the window, so it
+    // runs before the ink layer, the plan layer or the page itself can take the press.
+    window.addEventListener('pointerdown', (e) => this.onPickTap(e), true)
 
     // What went wrong, in words a non-coder can act on, and one button that
     // puts the files back. The status line can't hold it: it is a 316px
@@ -3176,6 +3193,8 @@ class Overlay {
       // the last reading's outcome, as the server answered it: lets the bench's
       // --read-only mode measure readings without paying for codegen (s2c-056)
       reading: () => this.lastReading,
+      // n191: the plan as the card shows it, one row per action with the parts it points at
+      planRows: () => this.planDetail.map((d) => ({ action: d.action, kind: d.kind, instruction: d.instruction, notes: d.notes, picks: d.picks })),
       // which /api paths the page asked for and nothing answered, and how each
       // one failed — the only observable side of the fetch watcher
       apiMisses: () => [...this.apiMisses.entries()].map(([path, how]) => ({ path, how })),
@@ -8604,7 +8623,76 @@ class Overlay {
   /** `e2 · <button> "Sign up"` — the id the reading cited, then what it is. */
   private targetName(t: V2Target): string {
     const text = (t.text || t.subtreeText || '').trim().replace(/\s+/g, ' ')
-    return `${t.domId} · <${t.tag}>${text ? ` "${text.slice(0, 24)}"` : ''}`
+    if (text) return `${t.domId} · <${t.tag}> "${text.slice(0, 24)}"`
+    // n191: a part with no words is named by its look ("orange line"), so a wrong pick is seen before Go
+    const el = this.pageElementFor(t)
+    return `${t.domId} · ${el ? this.lookOf(el, t.rect) : `<${t.tag}>`}`
+  }
+
+  /** n191: the live element a plan target stands for (same stamp, nearest box). */
+  private pageElementFor(t: V2Target): Element | null {
+    if (!t.srcLoc) return null
+    let best: { el: Element; d: number } | null = null
+    for (const el of document.querySelectorAll(`[data-s2c="${CSS.escape(t.srcLoc)}"]`)) {
+      if (el === this.host || this.host.contains(el)) continue
+      const r = el.getBoundingClientRect()
+      const d = Math.abs(r.left + window.scrollX - t.rect.x) + Math.abs(r.top + window.scrollY - t.rect.y) + Math.abs(r.width - t.rect.w) + Math.abs(r.height - t.rect.h)
+      if (!best || d < best.d) best = { el, d }
+    }
+    return best?.el ?? null
+  }
+
+  private lookOf(el: Element, rect: { w: number; h: number }): string {
+    const cs = getComputedStyle(el)
+    const radius = parseFloat(cs.borderTopLeftRadius) || 0
+    return lookName({
+      tag: el.tagName, w: rect.w, h: rect.h, radius,
+      fill: el instanceof SVGElement ? cs.fill : cs.backgroundColor,
+      stroke: el instanceof SVGElement ? cs.stroke : undefined,
+      color: cs.color,
+    })
+  }
+
+  /** n191: "not this" on a plan row: the next press on the page picks the part this action is about. */
+  private startPick(action: number, from: string) {
+    this.picking = { action, from }
+    this.host.dataset.picking = '1'
+    this.status('tap the part you meant on the page')
+    this.renderPlanCard(this.planDetail)
+  }
+
+  private onPickTap(e: PointerEvent) {
+    const pick = this.picking
+    if (!pick || this.mode !== 'preview') return
+    let el = document.elementsFromPoint(e.clientX, e.clientY)
+      .find((x) => x !== this.host && !this.host.contains(x) && x.hasAttribute('data-s2c'))
+    // n191 (e5 replay): a tap in the middle of the avatar landed on its tiny icon. Tapping the same spot again
+    // picks the stamped part around the last pick, as many times as it takes.
+    const last = this.lastPick
+    if (el && last && last.action === pick.action && last.from === pick.from &&
+        Math.abs(last.x - e.clientX) <= 8 && Math.abs(last.y - e.clientY) <= 8) {
+      const up = last.el.parentElement?.closest('[data-s2c]')
+      if (up && up !== document.body && up !== document.documentElement) el = up
+    }
+    e.preventDefault()
+    e.stopPropagation()
+    this.picking = null
+    delete this.host.dataset.picking
+    const it = this.v2?.interpretation
+    const a = it?.actions[pick.action]
+    if (!el || !a) { this.status('nothing built there to pick: the plan is unchanged'); this.renderPlan(); return }
+    const r = el.getBoundingClientRect()
+    const rect = { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height }
+    const srcLoc = el.getAttribute('data-s2c') ?? ''
+    this.lastPick = { action: pick.action, from: pick.from, x: e.clientX, y: e.clientY, el }
+    // a second tap for the same target replaces the first
+    this.retargets = this.retargets.filter((t) => !(t.action === pick.action && t.from === pick.from))
+    this.retargets.push({ action: pick.action, from: pick.from, srcLoc, rect })
+    const own = [...el.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE).map((n) => n.textContent ?? '').join(' ').trim()
+    const picked: V2Target = { domId: pick.from, srcLoc, rect, tag: el.tagName.toLowerCase(), text: own.slice(0, 80) }
+    a.targets = a.targets.map((t) => (t.domId === pick.from ? picked : t))
+    this.renderPlan()
+    this.status(`picked: ${this.targetName(picked).replace(/^\S+ · /, '')}. ✓ Go changes that instead (not this again, same spot: the part around it)`)
   }
 
   /**
@@ -9181,6 +9269,21 @@ class Overlay {
         note.textContent = n
         row.appendChild(note)
       }
+      // n191: each part the plan points at, by its look, with "not this": a tap on the page then picks the right one
+      for (const p of r.picks) {
+        const line = document.createElement('div')
+        line.className = 'cPick'
+        const name = document.createElement('span')
+        name.textContent = `→ ${p.name.replace(/^\S+ · /, '')}`
+        const b = document.createElement('button')
+        b.type = 'button'
+        b.dataset.pick = `${String(r.action)}:${p.domId}`
+        const waiting = this.picking?.action === r.action && this.picking.from === p.domId
+        b.textContent = waiting ? 'tap the page…' : this.retargets.some((t) => t.action === r.action && t.from === p.domId) ? 'picked ✓ (again?)' : 'not this'
+        b.addEventListener('click', (e) => { e.stopPropagation(); this.startPick(r.action, p.domId) })
+        line.append(name, b)
+        row.appendChild(line)
+      }
       return row
     }))
   }
@@ -9256,6 +9359,8 @@ class Overlay {
         swatch: a.color ? (a.color.nearest?.css ?? a.color.drawn) : '',
         token: a.color ? (a.color.nearest ? a.color.nearest.token : a.color.drawn) : '',
         notes: a.notes ?? [],
+        action: it.actions.indexOf(a),
+        picks: a.targets.map((t) => ({ domId: t.domId, name: this.targetName(t) })),
       })
     }
     this.planStops = stops
@@ -9267,6 +9372,10 @@ class Overlay {
   /** The one place `this.v2` changes, so the plan can never outlive it. */
   private setV2(v: V2Preview | null) {
     this.v2 = v
+    this.retargets = []
+    this.picking = null
+    this.lastPick = null
+    delete this.host.dataset.picking
     this.renderPlan()
   }
 
@@ -12290,6 +12399,8 @@ class Overlay {
           screenshot,
           overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
           rawInterpretation: this.v2?.raw,
+          // n191: parts picked by a tap on the plan; the server swaps them in before grounding
+          retargets: this.retargets.length ? this.retargets : undefined,
           // the instant render already wrote and mounted this; the run should
           // refine it in place, not create a second component for one drawing
           instant: this.instant,

@@ -25,6 +25,7 @@
  *   moveNote {text, x, y}       drag a note chip onto another mark (n9; counts as a fix)
  *   moveBar {x, y}              drag the toolbar by its grip (n162)
  *   look {name}                 screenshot of what is on screen now
+ *   run {hold?}                 (n191: hold stops at the plan; then pick {action, from, x, y} and go)
  *   run                         Alt+R, wait for the reading, shot it, Go, wait
  *                               for the build, reload, shot the result
  *   done                        score (v3), side-by-side, metrics -> digest
@@ -98,7 +99,7 @@ function scoringSpec(round, id) {
   return { id, ref: `${dir}ref/${id}.png`, regions: targets[id].regions, baseline: calibration[id].blank, viewport: { width: 1280, height: 900 } }
 }
 
-const ops = {
+const opsA = {
   async open({ round, id }) {
     if (S?.page) await S.page.close().catch(() => {})
     if (S?.server) await S.server.stop().catch(() => {})
@@ -224,7 +225,7 @@ const ops = {
     await S.page.screenshot({ path: f })
     return { ok: true, file: f }
   },
-  async run() {
+  async run({ hold } = {}) {
     const p = S.page
     const before = runRecords(APP_DIR).length
     const n = S.runs.length + 1
@@ -252,6 +253,40 @@ const ops = {
     const reading = await safeEval(p, () => window.__S2C_DEBUG__?.reading?.() ?? null)
     const status = await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '')
     if (!ready) { S.runs.push({ n, readMs, failed: true, status }); return { ok: false, readMs, status, readShot } }
+    // n191: stop at the plan, as a person reads it before Go: what each action points at, by its look
+    if (hold) {
+      S.held = { n, t, before, readMs, reading }
+      const plan = await safeEval(p, () => window.__S2C_DEBUG__?.planRows?.() ?? [])
+      return { ok: true, held: true, readMs, readShot, plan, reading: reading ? String(reading.summary ?? reading.plain ?? '').slice(0, 400) : null }
+    }
+    return finishRun({ n, t, before, readMs, reading })
+  },
+  /** n191: on a held plan, press "not this" on one part (action:domId) and tap the part meant at x,y. Counts as a pick. */
+  async pick({ action, from, x, y }) {
+    const p = S.page
+    const b = await safeEval(p, (key) => {
+      const el = document.getElementById('s2c-overlay-host').shadowRoot.querySelector(`[data-pick="${key}"]`)
+      if (!el) return null
+      const r = el.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }
+    }, `${action}:${from}`)
+    if (!b) return { ok: false, error: `no plan part ${action}:${from}` }
+    await p.mouse.click(b.x, b.y); await p.waitForTimeout(200)
+    await p.mouse.click(x, y); await p.waitForTimeout(300)
+    S.picks = (S.picks ?? 0) + 1
+    S.events.push({ op: 'pick', action, from, x, y, at: now() - (S.t0 ?? now()) })
+    const f = join(S.dir, `run${S.held?.n ?? 0}-picked.png`)
+    await p.screenshot({ path: f })
+    return { ok: true, status: await statusLine(p), plan: await safeEval(p, () => window.__S2C_DEBUG__?.planRows?.() ?? []), shot: f }
+  },
+  /** n191: press Go on a held plan. */
+  async go() {
+    if (!S.held) return { ok: false, error: 'no held plan' }
+    const h = S.held; S.held = null
+    return finishRun(h)
+  },
+}
+async function finishRun({ n, t, before, readMs, reading }) {
+    const p = S.page
     await safeEval(p, `${sr}.getElementById('confirm').click()`)
     for (let i = 0; i < 1600 && S.server.alive(); i++) {
       const busy = await safeEval(p, () => document.getElementById('s2c-overlay-host')?.dataset.mode === 'running').catch(() => false)
@@ -286,8 +321,10 @@ const ops = {
     const codegen = rec?.tokens ?? null
     const interp = S.interpret[S.interpret.length - 1] ?? null
     S.runs.push({ n, readMs, buildMs: totalMs - readMs, totalMs, codegen, interpret: interp, ...(died ? { serverDied: { exit: died.exit, atMs: died.atMs, bar: died.bar } } : {}), status: (await safeEval(p, () => document.getElementById('s2c-overlay-host')?.shadowRoot?.getElementById('status')?.textContent ?? '')).slice(0, 200), strokesSoFar: S.strokes.length, notesSoFar: S.notes.length })
+    const readShot = join(S.dir, `run${n}-reading.png`)
     return { ok: true, readMs, totalMs, readShot, resShot, ...(died ? { serverDied: died.exit, bar: died.bar } : {}), reading: reading ? { ok: reading.ok, summary: String(reading.summary ?? reading.plain ?? '').slice(0, 400) } : null }
-  },
+}
+const ops2 = {
   async done({ stopped } = {}) {
     const p = S.page
     const endAt = now()
@@ -316,7 +353,7 @@ const ops = {
         readS: S.runs.map((r) => Math.round(r.readMs / 1000)), buildS: S.runs.map((r) => (r.buildMs == null ? null : Math.round(r.buildMs / 1000))),
         sketchingS: Math.round((drawMs) / 1000),
       },
-      corrections: Math.max(0, S.runs.length - 1), runs: S.runs.length,
+      corrections: Math.max(0, S.runs.length - 1), runs: S.runs.length, picks: S.picks ?? 0,
       tokens: { input: sum('input'), cacheRead: sum('cacheRead'), output: sum('output'), billed: sum('input') + sum('output') },
       events: S.events, strokesDrawn: S.strokes, notesTyped: S.notes,
     }
@@ -342,6 +379,7 @@ createServer((req, res) => {
   req.on('end', async () => {
     try {
       const cmd = JSON.parse(body || '{}')
+      const ops = { ...opsA, ...ops2 }
       if (!ops[cmd.op]) throw new Error(`unknown op ${cmd.op}`)
       if (cmd.op !== 'open' && !S) throw new Error('open a page first')
       const out = await ops[cmd.op](cmd)

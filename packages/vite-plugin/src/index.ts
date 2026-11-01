@@ -71,6 +71,8 @@ export interface RunRequest {
   overrides?: Record<string, string>
   /** Confirmed raw interpretation (model engine) — re-grounded server-side. */
   rawInterpretation?: unknown
+  /** n191: plan targets re-pointed by a tap before Go. */
+  retargets?: unknown
   /** Resemblance slider + per-aspect locks; validated in the pipeline. */
   fidelity?: unknown
   /** Notes typed while sketching, each anchored to an element/strokes/the run. */
@@ -1614,6 +1616,7 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     notes: body.notes as Parameters<typeof m.runV2>[0]['notes'],
                     candidates: body.candidates,
                     instant: body.instant,
+                    retargets: Array.isArray(body.retargets) ? body.retargets as Parameters<typeof m.runV2>[0]['retargets'] : undefined,
                   },
                   { ...ctx, signal, deadline },
                 )
