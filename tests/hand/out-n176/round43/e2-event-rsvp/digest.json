@@ -1,0 +1,737 @@
+{
+  "round": 43,
+  "id": "e2-event-rsvp",
+  "version": 3,
+  "stopped": null,
+  "likeness": 91.5,
+  "colour": 0.9925681675878605,
+  "structure": 0.9561853331203483,
+  "layout": 0.9719485042424962,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 3.5,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "box": 11,
+      "line": 3
+    },
+    "inkPx": 11557
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 51,
+  "notes": 13,
+  "longestNote": 9,
+  "noteTexts": [
+    "Sat 22 Nov · 7 pm · The Glasshouse",
+    "Maya & Tom's party big bold",
+    "Will you come?",
+    "Yes",
+    "Maybe",
+    "No",
+    "Your name above, Full name inside",
+    "Email above, you@example.com inside",
+    "Guests above, Just me inside",
+    "Send RSVP",
+    "Maybe",
+    "Will you come?",
+    "labels Your name, Email, Guests sit above their boxes"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 490,
+    "firstReadingS": 138,
+    "readS": [
+      54,
+      13
+    ],
+    "buildS": [
+      264,
+      60
+    ],
+    "sketchingS": 98
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 93203,
+    "cacheRead": 689314,
+    "output": 36273,
+    "billed": 129476
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#eef0f5",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#e2e4ee",
+      "at": 840
+    },
+    {
+      "op": "stroke",
+      "at": 8863
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 9246
+    },
+    {
+      "op": "stroke",
+      "at": 9724
+    },
+    {
+      "op": "pen",
+      "color": "#5b5bd6",
+      "at": 10098
+    },
+    {
+      "op": "stroke",
+      "at": 14844
+    },
+    {
+      "op": "stroke",
+      "at": 15323
+    },
+    {
+      "op": "pen",
+      "color": "#e4e4fa",
+      "at": 15703
+    },
+    {
+      "op": "stroke",
+      "at": 16809
+    },
+    {
+      "op": "note",
+      "at": 17674
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 18044
+    },
+    {
+      "op": "stroke",
+      "at": 19358
+    },
+    {
+      "op": "note",
+      "at": 20109
+    },
+    {
+      "op": "pen",
+      "color": "#4a5060",
+      "at": 20481
+    },
+    {
+      "op": "stroke",
+      "at": 21244
+    },
+    {
+      "op": "note",
+      "at": 21928
+    },
+    {
+      "op": "pen",
+      "color": "#5b5bd6",
+      "at": 22302
+    },
+    {
+      "op": "stroke",
+      "at": 23975
+    },
+    {
+      "op": "stroke",
+      "at": 24460
+    },
+    {
+      "op": "note",
+      "at": 25109
+    },
+    {
+      "op": "pen",
+      "color": "#d4d4de",
+      "at": 25478
+    },
+    {
+      "op": "stroke",
+      "at": 27158
+    },
+    {
+      "op": "note",
+      "at": 27806
+    },
+    {
+      "op": "stroke",
+      "at": 29494
+    },
+    {
+      "op": "note",
+      "at": 30130
+    },
+    {
+      "op": "stroke",
+      "at": 33779
+    },
+    {
+      "op": "note",
+      "at": 34566
+    },
+    {
+      "op": "stroke",
+      "at": 38219
+    },
+    {
+      "op": "note",
+      "at": 39005
+    },
+    {
+      "op": "stroke",
+      "at": 42666
+    },
+    {
+      "op": "note",
+      "at": 43521
+    },
+    {
+      "op": "pen",
+      "color": "#20263a",
+      "at": 43890
+    },
+    {
+      "op": "stroke",
+      "at": 47603
+    },
+    {
+      "op": "stroke",
+      "at": 48097
+    },
+    {
+      "op": "note",
+      "at": 48802
+    },
+    {
+      "op": "stroke",
+      "at": 68057
+    },
+    {
+      "op": "pen",
+      "color": "#d4d4de",
+      "at": 76290
+    },
+    {
+      "op": "stroke",
+      "at": 77995
+    },
+    {
+      "op": "note",
+      "at": 78649
+    },
+    {
+      "op": "pen",
+      "color": "#4a5060",
+      "at": 79017
+    },
+    {
+      "op": "note",
+      "at": 79730
+    },
+    {
+      "op": "run",
+      "at": 83619
+    },
+    {
+      "op": "note",
+      "at": 409399
+    },
+    {
+      "op": "run",
+      "at": 409484
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          340,
+          70
+        ],
+        [
+          940,
+          70
+        ],
+        [
+          940,
+          830
+        ],
+        [
+          340,
+          830
+        ],
+        [
+          340,
+          72
+        ]
+      ],
+      "n": 454,
+      "at": 8863
+    },
+    {
+      "way": [
+        [
+          920,
+          810
+        ]
+      ],
+      "n": 1,
+      "at": 9724
+    },
+    {
+      "way": [
+        [
+          340,
+          70
+        ],
+        [
+          940,
+          70
+        ],
+        [
+          940,
+          240
+        ],
+        [
+          340,
+          240
+        ],
+        [
+          340,
+          72
+        ]
+      ],
+      "n": 257,
+      "at": 14844
+    },
+    {
+      "way": [
+        [
+          920,
+          225
+        ]
+      ],
+      "n": 1,
+      "at": 15323
+    },
+    {
+      "way": [
+        [
+          380,
+          115
+        ],
+        [
+          607,
+          115
+        ]
+      ],
+      "n": 39,
+      "at": 16809
+    },
+    {
+      "way": [
+        [
+          380,
+          152
+        ],
+        [
+          678,
+          152
+        ]
+      ],
+      "n": 51,
+      "at": 19358
+    },
+    {
+      "way": [
+        [
+          380,
+          296
+        ],
+        [
+          482,
+          296
+        ]
+      ],
+      "n": 18,
+      "at": 21244
+    },
+    {
+      "way": [
+        [
+          380,
+          312
+        ],
+        [
+          545,
+          312
+        ],
+        [
+          545,
+          360
+        ],
+        [
+          380,
+          360
+        ],
+        [
+          380,
+          314
+        ]
+      ],
+      "n": 73,
+      "at": 23975
+    },
+    {
+      "way": [
+        [
+          530,
+          350
+        ]
+      ],
+      "n": 1,
+      "at": 24460
+    },
+    {
+      "way": [
+        [
+          557,
+          312
+        ],
+        [
+          723,
+          312
+        ],
+        [
+          723,
+          360
+        ],
+        [
+          557,
+          360
+        ],
+        [
+          557,
+          314
+        ]
+      ],
+      "n": 73,
+      "at": 27158
+    },
+    {
+      "way": [
+        [
+          735,
+          312
+        ],
+        [
+          900,
+          312
+        ],
+        [
+          900,
+          360
+        ],
+        [
+          735,
+          360
+        ],
+        [
+          735,
+          314
+        ]
+      ],
+      "n": 73,
+      "at": 29494
+    },
+    {
+      "way": [
+        [
+          380,
+          402
+        ],
+        [
+          900,
+          402
+        ],
+        [
+          900,
+          450
+        ],
+        [
+          380,
+          450
+        ],
+        [
+          380,
+          404
+        ]
+      ],
+      "n": 191,
+      "at": 33779
+    },
+    {
+      "way": [
+        [
+          380,
+          492
+        ],
+        [
+          900,
+          492
+        ],
+        [
+          900,
+          540
+        ],
+        [
+          380,
+          540
+        ],
+        [
+          380,
+          494
+        ]
+      ],
+      "n": 191,
+      "at": 38219
+    },
+    {
+      "way": [
+        [
+          380,
+          582
+        ],
+        [
+          900,
+          582
+        ],
+        [
+          900,
+          630
+        ],
+        [
+          380,
+          630
+        ],
+        [
+          380,
+          584
+        ]
+      ],
+      "n": 191,
+      "at": 42666
+    },
+    {
+      "way": [
+        [
+          380,
+          660
+        ],
+        [
+          900,
+          660
+        ],
+        [
+          900,
+          714
+        ],
+        [
+          380,
+          714
+        ],
+        [
+          380,
+          662
+        ]
+      ],
+      "n": 193,
+      "at": 47603
+    },
+    {
+      "way": [
+        [
+          885,
+          705
+        ]
+      ],
+      "n": 1,
+      "at": 48097
+    },
+    {
+      "way": [
+        [
+          723,
+          360
+        ],
+        [
+          557,
+          360
+        ],
+        [
+          557,
+          312
+        ],
+        [
+          723,
+          312
+        ],
+        [
+          723,
+          358
+        ]
+      ],
+      "n": 73,
+      "at": 68057
+    },
+    {
+      "way": [
+        [
+          640,
+          312
+        ],
+        [
+          723,
+          312
+        ],
+        [
+          723,
+          360
+        ],
+        [
+          557,
+          360
+        ],
+        [
+          557,
+          312
+        ],
+        [
+          638,
+          312
+        ]
+      ],
+      "n": 73,
+      "at": 77995
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Sat 22 Nov · 7 pm · The Glasshouse",
+      "whole": false,
+      "x": 490,
+      "y": 115,
+      "at": 17674
+    },
+    {
+      "text": "Maya & Tom's party big bold",
+      "whole": false,
+      "x": 530,
+      "y": 152,
+      "at": 20109
+    },
+    {
+      "text": "Will you come?",
+      "whole": false,
+      "x": 430,
+      "y": 296,
+      "at": 21928
+    },
+    {
+      "text": "Yes",
+      "whole": false,
+      "x": 462,
+      "y": 336,
+      "at": 25109
+    },
+    {
+      "text": "Maybe",
+      "whole": false,
+      "x": 640,
+      "y": 336,
+      "at": 27806
+    },
+    {
+      "text": "No",
+      "whole": false,
+      "x": 817,
+      "y": 336,
+      "at": 30130
+    },
+    {
+      "text": "Your name above, Full name inside",
+      "whole": false,
+      "x": 640,
+      "y": 426,
+      "at": 34566
+    },
+    {
+      "text": "Email above, you@example.com inside",
+      "whole": false,
+      "x": 640,
+      "y": 516,
+      "at": 39005
+    },
+    {
+      "text": "Guests above, Just me inside",
+      "whole": false,
+      "x": 640,
+      "y": 606,
+      "at": 43521
+    },
+    {
+      "text": "Send RSVP",
+      "whole": false,
+      "x": 640,
+      "y": 687,
+      "at": 48802
+    },
+    {
+      "text": "Maybe",
+      "whole": false,
+      "x": 640,
+      "y": 336,
+      "at": 78649
+    },
+    {
+      "text": "Will you come?",
+      "whole": false,
+      "x": 430,
+      "y": 290,
+      "at": 79730
+    },
+    {
+      "text": "labels Your name, Email, Guests sit above their boxes",
+      "whole": true,
+      "x": 640,
+      "y": 790,
+      "at": 409399
+    }
+  ]
+}
