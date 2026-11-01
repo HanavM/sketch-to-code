@@ -2342,7 +2342,7 @@ class Overlay {
   /** n9: the amber threads from each note chip to the mark it is about. */
   private noteLinks!: SVGSVGElement
   /** A chip being dragged onto another mark; a drag is not a click. */
-  private noteDrag: { id: string; px: number; py: number; moved: boolean; grip?: boolean; down?: Pt; drew?: boolean } | null = null
+  private noteDrag: { id: string; px: number; py: number; moved: boolean; grip?: boolean; down?: Pt; drew?: boolean; del?: boolean } | null = null
   /** Open editor: null id = a new note, else the note being re-edited. */
   private noteDraft: {
     id: string | null
@@ -7916,9 +7916,12 @@ class Overlay {
   }
 
   private deleteNote(id: string) {
+    const gone = this.notes.find((n) => n.id === id)
     this.notes = this.notes.filter((n) => n.id !== id)
-    if (this.noteDraft?.id === id) this.closeNote('note deleted')
-    else this.status('note deleted')
+    // n178: say which note went, so a delete you did not mean is seen at once
+    const said = gone ? `note deleted: "${gone.text.length > 40 ? `${gone.text.slice(0, 40)}…` : gone.text}"` : 'note deleted'
+    if (this.noteDraft?.id === id) this.closeNote(said)
+    else this.status(said)
     this.renderNotes()
     this.sync()
   }
@@ -7948,6 +7951,8 @@ class Overlay {
       del.title = 'delete this note'
       del.addEventListener('click', (e) => {
         e.stopPropagation() // the chip itself opens the editor
+        // n178: a pen stroke that started on the x drew; it never deletes the note
+        if (this.noteDrag?.id === n.id && (this.noteDrag.drew || this.noteDrag.moved)) { this.noteDrag = null; return }
         this.deleteNote(n.id)
       })
       // n153: the grip is where a chip is dragged from; a pen stroke that starts on the chip's words is drawn
@@ -8072,9 +8077,16 @@ class Overlay {
    */
   private wireNoteDrag(chip: HTMLElement, n: Note) {
     chip.addEventListener('pointerdown', (e) => {
-      if ((e.target as HTMLElement).classList.contains('noteDel')) return
+      /*
+       * n178: round 43 e2 (RSVP): a box drawn from where a just-typed note's x sat came back round to its
+       * start, so the press and the lift were both on the x: the note was deleted, the box never drawn, and
+       * nothing said so (twice). In draw mode a press on the x that travels draws, like a press on the words;
+       * only a press that stays put is a click on the x. Out of draw mode the x stays a plain button.
+       */
+      if ((e.target as HTMLElement).classList.contains('noteDel') && this.mode !== 'draw') return
       const grip = (e.target as HTMLElement).classList.contains('noteGrip')
-      this.noteDrag = { id: n.id, px: e.clientX, py: e.clientY, moved: false, grip, down: this.toPage(e) }
+      const del = (e.target as HTMLElement).classList.contains('noteDel')
+      this.noteDrag = { id: n.id, px: e.clientX, py: e.clientY, moved: false, grip, down: this.toPage(e), ...(del ? { del } : {}) }
       chip.setPointerCapture(e.pointerId)
       e.stopPropagation()
     })
@@ -8107,6 +8119,13 @@ class Overlay {
       const d = this.noteDrag
       if (!d || d.id !== n.id || d.drew) return
       if (chip.hasPointerCapture(e.pointerId)) chip.releasePointerCapture(e.pointerId)
+      if (!d.moved && d.del) {
+        // n178: a press on the x that stayed put is the click on the x (the capture would send the click to the chip)
+        d.moved = true
+        setTimeout(() => { if (this.noteDrag === d) this.noteDrag = null }, 0)
+        this.deleteNote(n.id)
+        return
+      }
       if (!d.moved) { this.noteDrag = null; return }
       // keep `moved` set until the click that follows this pointerup is eaten
       setTimeout(() => { if (this.noteDrag === d) this.noteDrag = null }, 0)

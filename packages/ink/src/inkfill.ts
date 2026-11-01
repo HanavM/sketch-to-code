@@ -42,6 +42,24 @@ function closedOutline(pts: Point[]): boolean {
   return Math.hypot(z.x - a.x, z.y - a.y) <= Math.max(28, len * 0.15)
 }
 
+/**
+ * n178: a small closed mark (a checkbox, a radio, a swatch) holds a tap too. Round 43 e4 (pet adoption): an
+ * orange tap in an 18px checkbox was read as a page tap and, with the white page tap, made an orange-to-white
+ * page fade. Under 20px the plain closing rule is too loose (a short tick would "close"), so a small mark must
+ * really go round: ink at least about its perimeter and ends that meet.
+ */
+export const SMALL_HOLDER_PX = 10
+function smallClosed(pts: Point[]): boolean {
+  if (pts.length < 4) return false
+  const b = bboxOf(pts)
+  if (b.w < SMALL_HOLDER_PX || b.h < SMALL_HOLDER_PX || (b.w >= 20 && b.h >= 20)) return false
+  let len = 0
+  for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+  if (len < 1.5 * (b.w + b.h)) return false
+  const a = pts[0]!, z = pts[pts.length - 1]!
+  return Math.hypot(z.x - a.x, z.y - a.y) <= Math.max(6, len * 0.15)
+}
+
 export interface InkFill {
   /** The tap stroke. */
   dotId: string
@@ -148,7 +166,7 @@ export const RECOLOUR_PX = 48
  * or the page. A later tap on the same mark wins (a person re-colouring).
  */
 export function inkFills<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[], page?: { w: number; h: number }): InkFill[] {
-  const outlines = strokes.filter((s) => !isFillDot(s) && closedOutline(s.points))
+  const outlines = strokes.filter((s) => !isFillDot(s) && (closedOutline(s.points) || smallClosed(s.points)))
   // n51: regions a curve cuts off a box (or the page) hold taps like any outline
   const cuts = splitRegions(strokes, page)
   const shapes: Array<{ id: string; pts: Array<{ x: number; y: number }>; box: BBox; region?: XY[] }> = [
