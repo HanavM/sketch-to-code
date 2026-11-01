@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T22:25Z | n201 a count on a drawn box repeats it beside it | Mixer 76.8 to 90.1, 89.9 no fix; 2FA digits in kept boxes, 86.5, 88.6 no fix.
 2026-11-01T21:40Z | n202 no giant word painted on a card | Card with parts never a big-word area; car rental 85.0, 85.1 no fix; bank home 92.2.
 2026-11-01T20:06Z | n200 delete fix removes only what it names | Only the named 500 deleted, cards kept; car rental 78.7 to 85.3, one fix, 68 words.
 2026-11-01T19:45Z | n198 sketch round 45 app pages | Rental 78.7, 2FA 92.0, mixer 76.8, profile 84.6, funnel 84.7; round 45 83.6, 18 strokes, 54 words.
