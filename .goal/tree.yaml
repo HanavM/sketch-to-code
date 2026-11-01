@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Filter lists now show a visible box for every option, ticked or not; next, keeping card tint colours soft and steady from run to run."
+now: "Card tints named in a note now come out exactly as named every run; next, making one giant coloured letter fill its box instead of turning into a card."
 round: 43
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-n182, until: "2026-11-01T08:35Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -312,8 +312,10 @@ nodes:
      result: "Heading on and along its line, flush lines not centred labels, pale rule a divider: pets 81.8, 75.4 (was 74.8)."}
   - {id: n181, parent: n2, kind: step, title: "A filters note listing options with some checked builds an empty box for every unchecked option too, and tapped card tints keep their drawn hue; replay pet adoption and sushi", status: done, branch: try/n3-ink-style,
      result: "Filter notes with a checked tail read as checkbox lists; all 9 boxes visible 4 of 4. Pets 76.7, 65.3."}
-  - {id: n182, parent: n3, kind: step, priority: next, title: "Card tints named in a note (peach, sage, blue, lilac) stay soft pastels run to run (one pets run came out mint and yellow), and picture tops keep their drawn height; replay pet adoption and sushi", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n177, parent: n2, kind: step, title: "A coloured box round one giant letter is that letter in that colour filling the box (never a card), and a filled shape with a slanted side keeps the slant; replay letterpress and climbing gym", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n182, parent: n3, kind: step, title: "Card tints named in a note (peach, sage, blue, lilac) stay soft pastels run to run (one pets run came out mint and yellow), and picture tops keep their drawn height; replay pet adoption and sushi", status: done, branch: try/n3-ink-style,
+     result: "Named tints fixed and checked: exact both runs; pets 76.5, 74.7 no fixes (was 76.7, 65.3)."}
+  - {id: n183, parent: n4, kind: step, title: "A list typed in open space starts level with its note, and the heading and cards land on their drawn lines (pets came about 15px low); replay pet adoption", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n177, parent: n2, kind: step, priority: next, title: "A coloured box round one giant letter is that letter in that colour filling the box (never a card), and a filled shape with a slanted side keeps the slant; replay letterpress and climbing gym", status: open, branch: try/n3-ink-style, result: null}
   - {id: n174, parent: n3, kind: step, title: "A tapped picture box is a flat fill (no invented diagonal shading), and a total line typed as label and amount keeps the amount at the right; replay cart", status: open, branch: try/n3-ink-style, result: null}
   - {id: n160, parent: n2, kind: step, title: "A tag typed after a row (urgent orange right) is that word in that colour at the row's right, never a dot; replay to-do", status: open, branch: try/n3-ink-style, result: null}
   - {id: n154, parent: n2, kind: step, title: "A note typed just under a picture box is its caption below it (not text on the picture), and the box keeps its drawn height; replay hotel search", status: open, branch: try/n3-ink-style, result: null}
