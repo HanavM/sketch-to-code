@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T11:45Z | n187 sketch round 44 landing pages | Lanterns 89.1, cider 76.5, cinema 87.5, airline 82.8, pottery 85.9; mean 84.4, 16 strokes, 53 words.
 2026-11-01T10:20Z | n186 write round 44 | Ten fresh pages (lanterns, cider, cinema, airline, pottery; schedule, reset, editor, alerts, tracker) screenshotted; none sketched.
 2026-11-01T10:10Z | n185 stats row typed big comes out big | Gym 77.7, 80.0 no fixes (was 75.7, 79.3); values 30px bold, labels under; table-row rule no longer shrinks them.
 2026-11-01T09:30Z | n184 coloured-pen rings and outline stamp stay rings | Letterpress 88.7, 88.1 (was 78.3); gym 75.7, 79.3 (was 72.2); holds coloured, stamp hollow, no fixes.
