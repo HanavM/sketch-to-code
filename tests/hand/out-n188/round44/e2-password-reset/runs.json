@@ -1,0 +1,571 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "085e611760597a4183acdc7aaa1279cb7d2adb77",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A password-reset card: a white panel holding a blue octagon icon, a 'Northwind' brand mark above it, a 'Forgot your password?' heading, an explanatory sentence, an email input with placeholder text, a filled blue 'Send reset link' button, and a 'Back to sign in' link below.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (439,173) 402x462 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:6:7",
+      "rect": {
+       "x": 439,
+       "y": 173,
+       "w": 402,
+       "h": 462
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 439,
+        "y": 169,
+        "w": 402,
+        "h": 462
+       },
+       "built": {
+        "x": 439,
+        "y": 173,
+        "w": 402,
+        "h": 462
+       },
+       "dx": 0,
+       "dy": 4
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (588,92) 103x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:4:7",
+      "rect": {
+       "x": 588.3125,
+       "y": 92,
+       "w": 103.359375,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 608,
+        "y": 210,
+        "w": 64,
+        "h": 64
+       },
+       "built": {
+        "x": 608,
+        "y": 214,
+        "w": 64,
+        "h": 64
+       },
+       "dx": 0,
+       "dy": 4
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 14,
+    "reason": "#dbe8fc is on the page (ΔE 14.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Northwind\" at (588,94) 103x24 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:4:7",
+      "rect": {
+       "x": 588.3125,
+       "y": 92,
+       "w": 103.359375,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2563eb is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": false,
+     "reason": "new <h1> \"Forgot your password?\" at (505,317) 270x29 is 19px below its drawn line: a line drawn for one line of words marks the middle of its letters (drawn at y 312, the letters' middle is at y 332). Move it up 19px by changing the space above it (take out margin, padding or gap there), not its font size; keep its side, and anything below it that already sits where it was drawn stays there",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:9:9",
+      "rect": {
+       "x": 505.234375,
+       "y": 316,
+       "w": 269.515625,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1b2433 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (608,214) 64x64 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:7:9",
+      "rect": {
+       "x": 608,
+       "y": 214,
+       "w": 64,
+       "h": 64
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#64748b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (505,316) 270x32 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:9:9",
+      "rect": {
+       "x": 505.234375,
+       "y": 316,
+       "w": 269.515625,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 479,
+        "y": 411,
+        "w": 321,
+        "h": 52
+       },
+       "built": {
+        "x": 479,
+        "y": 415,
+        "w": 322,
+        "h": 52
+       },
+       "dx": 1,
+       "dy": 4
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#cbd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (486,357) 308x40 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:13:9",
+      "rect": {
+       "x": 486,
+       "y": 357,
+       "w": 308,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 479,
+        "y": 479,
+        "w": 321,
+        "h": 53
+       },
+       "built": {
+        "x": 479,
+        "y": 483,
+        "w": 322,
+        "h": 53
+       },
+       "dx": 1,
+       "dy": 4
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2563eb is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"← Back to sign in\" at (583,674) 114x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:28:7",
+      "rect": {
+       "x": 583.015625,
+       "y": 673,
+       "w": 113.953125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2563eb is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 of 6 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 169,
+       "built": 173,
+       "dy": 4
+      },
+      {
+       "index": 1,
+       "drawn": 210,
+       "built": 214,
+       "dy": 4
+      },
+      {
+       "index": 4,
+       "drawn": 361,
+       "built": 377,
+       "dy": 16
+      },
+      {
+       "index": 5,
+       "drawn": 411,
+       "built": 415,
+       "dy": 4
+      },
+      {
+       "index": 6,
+       "drawn": 479,
+       "built": 483,
+       "dy": 4
+      },
+      {
+       "index": 7,
+       "drawn": 679,
+       "built": 683,
+       "dy": 4
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box at (479,411) 321x52 should show \"you@example.com placeholder\" but has no words beside or inside it. The 2 look-alike marks each carry their OWN typed words, in this order: \"you@example.com placeholder\", \"Send reset link\": put exactly those texts on those items (fix the array or props the list maps over; never repeat one item's words, never make texts up), keeping every item's look, size and position"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "11 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#edf1f6",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (439,169) 402x462 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (439,169) 402x462",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (608,210) 64x65",
+       "want": "#dbe8fc",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (581,104) 118x0",
+       "want": "#2563eb",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (495,312) 290x0",
+       "want": "#1b2433",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (486,350) 308x0",
+       "want": "#64748b",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (616,373) 48x0",
+       "want": "#64748b",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (479,411) 321x52 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (479,479) 321x53",
+       "want": "#2563eb",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (582,679) 116x0",
+       "want": "#2563eb",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 42858,
+   "cacheRead": 271514,
+   "output": 12923
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 28822,
+    "output": 9697,
+    "cacheRead": 130168,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 118075
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 26959,
+    "output": 3226,
+    "cacheRead": 141346,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 37507
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

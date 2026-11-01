@@ -1,0 +1,567 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "085e611760597a4183acdc7aaa1279cb7d2adb77",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/MapDelivery.tsx"
+  ],
+  "reading": "The sketch adds a delivery-tracking screen: a map panel with a white street grid and a thick orange route (dot markers at the route ends/bends), an order-status header (order number, 'Out for delivery' heading, arrival time, and a progress bar), a 4-step vertical delivery timeline, and a driver info row with avatar, name and a 'Call' button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1241x898 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:13:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1241,
+       "h": 898
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/App.tsx:14:9 at (1,1) 760x897 sits on the drawn shape",
+     "claimed": "e4"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#dfe9dc is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 0,
+    "score": 0.6707487493925663,
+    "massSimilarity": 0.5296410705608092,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (800,53) 308x111 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:20:9",
+      "rect": {
+       "x": 800,
+       "y": 53,
+       "w": 308,
+       "h": 111
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ea580c is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <rect> at (1,289) 760x2 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "rect",
+      "srcLoc": "src/components/MapDelivery.tsx:25:7",
+      "rect": {
+       "x": 1,
+       "y": 289,
+       "w": 760,
+       "h": 1.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d1d5db is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <rect> at (1,884) 760x14 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "rect",
+      "srcLoc": "src/components/MapDelivery.tsx:31:7",
+      "rect": {
+       "x": 1,
+       "y": 884,
+       "w": 760,
+       "h": 14
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 800,
+        "y": 769,
+        "w": 441,
+        "h": 86
+       },
+       "built": {
+        "x": 800,
+        "y": 769,
+        "w": 441,
+        "h": 86
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 819,
+        "y": 786,
+        "w": 52,
+        "h": 52
+       },
+       "built": {
+        "x": 819.9365844726562,
+        "y": 786.9365844726562,
+        "w": 52.1268310546875,
+        "h": 52.1268310546875
+       },
+       "dx": 1,
+       "dy": 1
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 1124,
+        "y": 791,
+        "w": 94,
+        "h": 41
+       },
+       "built": {
+        "x": 1122,
+        "y": 791.5,
+        "w": 94,
+        "h": 41
+       },
+       "dx": -2,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d1d5db is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "tilts",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 box built turned as drawn"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 table row at body size"
+    }
+   },
+   {
+    "kind": "typed-times",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 typed times shown as typed"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "routes",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 route line drawn"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the line drawn at (812,215) 0x330 was coloured #d1d5db (text colour); nothing that size was built there carrying a colour: paint its text exactly #d1d5db",
+     "checks": [
+      {
+       "what": "the outline drawn at (1,1) 760x897",
+       "want": "#dfe9dc",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (608,168) 24x25",
+       "want": "#16a34a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (148,768) 24x25 (hollow small ring)",
+       "want": "ring 4px, no #1b2232 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (800,53) 86x0",
+       "want": "#6b7280",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (800,90) 251x0",
+       "want": "#1b2232",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (800,124) 220x0",
+       "want": "#ea580c",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (800,163) 308x0",
+       "want": "#ea580c",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (812,215) 0x330",
+       "want": "#d1d5db",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (800,769) 441x86 (light pen outline)",
+       "want": "border #d1d5db, no #d1d5db fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (819,786) 52x52 (light pen outline)",
+       "want": "border #fed7aa, no #fed7aa fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (1123,791) 96x41",
+       "want": "#1b2232",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 116543,
+   "cacheRead": 1234703,
+   "output": 42878
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 79862,
+    "output": 31801,
+    "cacheRead": 371350,
+    "toolCalls": 12,
+    "tools": [
+     "Read components/MapDelivery.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Glob",
+     "Glob",
+     "Read src/index.css",
+     "Read s2c-hand-app/package.json",
+     "Edit components/MapDelivery.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 358941
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 65513,
+    "output": 5347,
+    "cacheRead": 536363,
+    "toolCalls": 7,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read components/MapDelivery.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 61935
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 14046,
+    "output": 5730,
+    "cacheRead": 326990,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 63302
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "49e70118d413460cddeae78328cd65ca5650b48a",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/MapDelivery.tsx"
+  ],
+  "reading": "There are no ink strokes, only a typed styling note: give the route's end marker a dark filled-circle look, make the driver avatar a plain peach filled circle, and color the route track grey, extending it to the map's right edge.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "no observable change on target or its file"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "no observable change on target or its file"
+     }
+    ],
+    "satisfied": 1,
+    "total": 3,
+    "score": 0.3333333333333333
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 30672,
+   "cacheRead": 184494,
+   "output": 7570
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 16330,
+    "output": 4469,
+    "cacheRead": 97582,
+    "toolCalls": 5,
+    "tools": [
+     "Read components/MapDelivery.tsx",
+     "Read src/App.tsx",
+     "Edit components/MapDelivery.tsx",
+     "Edit components/MapDelivery.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 44067
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 21912,
+    "output": 3101,
+    "cacheRead": 86912,
+    "toolCalls": 2,
+    "tools": [
+     "Read components/MapDelivery.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 39216
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/App.tsx",
+    "edits": [
+     {
+      "kind": "colour-snapped",
+      "detail": "#6b7280 → text-[13px] (ΔE 0.0)"
+     },
+     {
+      "kind": "colour-snapped",
+      "detail": "#ea580c → text-[15px] (ΔE 0.0)"
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
