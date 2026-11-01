@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-01T16:55Z | n189 note under a short line binds to that line | Notes right at once 32 to 42 of 44; cider 76.5 to 88.6, no moves, no fix.
 2026-11-01T15:20Z | n193 place a target-less fix step by a tap | Place-it built; live sky re-pointed to canvas by one tap; photo editor 73.8 to 91.7.
 2026-11-01T15:05Z | n192 skip a wrong step in the fix plan | Slider-name deletion struck with one tap; photo editor 70.1 to 73.8; sky still in crop frame.
 2026-11-01T14:55Z | n191 plan shows and lets a tap pick the part a fix changes | Parts named by look; tap re-points; delivery 66.5 to 70.6, route stays orange, avatar peach.
