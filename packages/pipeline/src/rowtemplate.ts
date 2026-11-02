@@ -120,13 +120,15 @@ export function templateIn(container: Box, strokes: readonly Stroke[]): Omit<Row
 }
 
 /** Every "N rows like this" note whose mark holds a drawn first row. */
-export function rowTemplates(actions: readonly ActionLike[], strokes: readonly Stroke[]): RowTemplate[] {
+export function rowTemplates(actions: readonly ActionLike[], strokes: readonly Stroke[], skip?: ReadonlySet<string>): RowTemplate[] {
   const out: RowTemplate[] = []
   const seen = new Set<string>()
   for (const a of actions) {
     if (a.onScreen || !a.region) continue
     for (const note of a.notes ?? []) {
       if (seen.has(note)) continue
+      // n214: a count listing its items on drawn lines is told by drawnlist.ts: its rows go on the lines, not at a drawn row's height
+      if (skip?.has(note)) continue
       const c = likeCount(note)
       if (!c) continue
       const t = templateIn(a.region, strokes)
@@ -177,8 +179,8 @@ export function stackedName(note: string): boolean {
   return STACK.test(note)
 }
 
-export function rowTemplateBrief(actions: readonly ActionLike[], strokes: readonly Stroke[]): string {
-  const ts = rowTemplates(actions, strokes)
+export function rowTemplateBrief(actions: readonly ActionLike[], strokes: readonly Stroke[], skip?: ReadonlySet<string>): string {
+  const ts = rowTemplates(actions, strokes, skip)
   if (!ts.length) return ''
   const lines = ts.map((t) => {
     const texts = t.parts.filter((p) => p.kind === 'text').length
@@ -200,9 +202,9 @@ export function rowTemplateBrief(actions: readonly ActionLike[], strokes: readon
 const leaves = (s: Snap) => s.nodes.filter((x) => (x.text ?? '').trim()).map((x) => ({ x, b: x.textBox ?? x.rect }))
 
 /** Text sits in each drawn column on the row's line, and rows step at about the drawn pitch. */
-export function verifyRowTemplate(actions: readonly ActionLike[], strokes: readonly Stroke[] | undefined, after: Snap): RowTemplateVerdict {
+export function verifyRowTemplate(actions: readonly ActionLike[], strokes: readonly Stroke[] | undefined, after: Snap, skip?: ReadonlySet<string>): RowTemplateVerdict {
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
-  const ts = strokes ? rowTemplates(actions, strokes) : []
+  const ts = strokes ? rowTemplates(actions, strokes, skip) : []
   if (!ts.length) return { satisfied: true, unverifiable: true, reason: 'no drawn row template' }
   const L = leaves(after)
   const problems: string[] = []

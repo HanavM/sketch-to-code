@@ -119,6 +119,8 @@ export function drawnLists(notes: readonly NoteLike[], strokes: readonly Stroke[
     const over = marks.find((m) => m !== home && m.box.h <= 10 && Math.abs(m.box.y - H.y) <= 6 && Math.abs(m.box.x - H.x) <= 12 && m.box.w < H.w * 0.95 && m.box.w >= 8 && m.color !== home.color)
     const knob = marks.find((m) => (m.shape === 'ellipse' || m.shape === 'box') && m.box.w >= 8 && m.box.w <= 44 && Math.abs(m.box.h - m.box.w) <= m.box.w * 0.4 &&
       Math.abs(m.box.y + m.box.h / 2 - H.y) <= 10 && m.box.x + m.box.w / 2 >= H.x && m.box.x + m.box.w / 2 <= H.x + H.w)
+    // a lone plain line may just be a word's line in a drawn row: that is the row template's
+    if (ysDrawn.length < 2 && !over && !knob) continue
     // copies past the last drawn line: the drawn pitch, else what fits above the next mark below
     let pitch = ysDrawn.length >= 2 ? (ysDrawn[ysDrawn.length - 1]! - ysDrawn[0]!) / (ysDrawn.length - 1) : 0
     if (!pitch) {

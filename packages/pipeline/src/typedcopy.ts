@@ -20,6 +20,7 @@
 
 interface NodeLike { id: string; text?: string; textBox?: unknown }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
+import { countedItems } from './drawnlist.js'
 import { progressOf } from './progress.js'
 import { calendarOf } from './calendar.js'
 export interface CopyVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
@@ -245,6 +246,13 @@ export function typedCopyBrief(notes: readonly string[]): string {
       seen.add(n)
       lines.push(`- "${n}" gives ${nl.length} names, one per item, in drawn order (left to right, then top to bottom): ${nl.map((t) => `"${t}"`).join(', ')}. ` +
         'Each item shows only its own name; never print the list (or several names) as one line.')
+      continue
+    }
+    // n214: a count listing its items: the items are the text, never the count, the lead or a share
+    const counted = countedItems(n)
+    if (counted && !seen.has(n)) {
+      seen.add(n)
+      lines.push(`- "${n}": the text on the page is the ${String(counted.n)} items: ${counted.items.map((i) => `"${i.label}"${i.value ? ` with "${i.value}"` : ''}`).join(', ')}. The count, the words before the colon and any share (half, 70%) are directions: never print them.`)
       continue
     }
     const p = noteParts(n)

@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 import type { Stroke } from '@s2c/ink'
 import { countedItems, drawnListBrief, drawnLists, verifyDrawnLists } from '../src/drawnlist.js'
 import { hasSampleRows, rowData } from '../src/rowdata.js'
-import { hasFillerRows } from '../src/rowtemplate.js'
+import { hasFillerRows, rowTemplateBrief } from '../src/rowtemplate.js'
+import { typedCopyBrief } from '../src/typedcopy.js'
 
 const NOTE = 'x4 down: Loan amount $24,000 half; Term 60 months 70%; Interest rate 6.4% 30%; Down payment $4,000 20%; values bold right'
 const line = (id: string, x0: number, x1: number, y: number, color?: string): Stroke => ({ id, points: [{ x: x0, y }, { x: x1, y }], ...(color ? { color } : {}) })
@@ -67,9 +68,11 @@ describe('a count with its items is those items (n214)', () => {
     expect(l!.ys[0]).toBe(200)
     // the like line at 500 is the only other level, so it counts as line 2
     expect(l!.drawn).toBe(2)
-    const [o] = drawnLists([{ text: '3 sliders: Bass 10%, Mid 20%, Treble 30%', at: { x: 100, y: 180 } }], [line('a', 100, 500, 200)], vp)
+    const [o] = drawnLists([{ text: '3 sliders: Bass 10%, Mid 20%, Treble 30%', at: { x: 100, y: 180 } }], [line('a', 100, 500, 200, '#ddd'), line('f', 100, 200, 200, '#059669')], vp)
     expect(o!.drawn).toBe(1)
     expect(o!.ys).toEqual([200, 296, 392])
+    // a lone plain line is a word's line in a drawn row: not a list
+    expect(drawnLists([{ text: '3 sliders: Bass 10%, Mid 20%, Treble 30%', at: { x: 100, y: 180 } }], [line('a', 100, 500, 200)], vp)).toHaveLength(0)
   })
   it('passes the typed rows on their lines', () => {
     expect(verifyDrawnLists(drawnLists(notes, strokes, vp), { nodes: good() }).satisfied).toBe(true)
@@ -84,6 +87,12 @@ describe('a count with its items is those items (n214)', () => {
     expect(printed.reason).toMatch(/prints the count's words/)
     const off = verifyDrawnLists(lists, { nodes: good().map((n) => (n.text === 'Term' ? { ...n, textBox: { ...n.textBox!, y: 240 } } : n)) })
     expect(off.reason).toMatch(/"Term" sits at y 250/)
+  })
+  it('takes a listed note out of the row template and says the items are the text', () => {
+    const noteWithBox = [{ notes: [NOTE], region: { x: 40, y: 200, w: 660, h: 460 } }] as never
+    expect(rowTemplateBrief(noteWithBox, strokes, new Set([NOTE]))).toBe('')
+    expect(typedCopyBrief([NOTE])).toMatch(/the text on the page is the 4 items: "Loan amount" with "\$24,000"/)
+    expect(typedCopyBrief([NOTE])).not.toMatch(/"x4 down: Loan amount \$24,000 half" and/)
   })
   it('fails a missing track and a wrong filled part', () => {
     const lists = drawnLists(notes, strokes, vp)
