@@ -101,6 +101,11 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
           `Its unselected look-alikes beside it keep their own drawn look`)
         continue
       }
+      // n212: the box is lines: a same-pen line crosses it, so it can't be filled
+      if (c.paint === 'border' && c.frame && c.linesOnly) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped and no note, with a line in the same pen crossing it: LINES ONLY (court markings, a window frame, a plan), a div exactly there, a 2px ${hex(c.color)} border, background transparent so the ${hex(c.frameOn ?? '#ffffff')} surface shows through, no shadow, no radius. NEVER filled ${hex(c.color)} or any colour, never a card or panel, and NO words or anything else inside it: no note gave it any, so invent none. The lines drawn across it stay visible on top`)
+        continue
+      }
       // n194: no tap = outline in the pen colour (any pen, any surface)
       if (c.paint === 'border' && c.frame && c.penOutline) {
         const dark = (() => { const q = parseCssColor(c.frameOn ?? '#ffffff'); return !!q && 0.299 * q.r + 0.587 * q.g + 0.114 * q.b < 110 })()
@@ -374,6 +379,13 @@ export function verifyInkColours(
         const v = selectedBuilt(c, after.nodes)
         checks.push({ what: `${what} (selected chip)`, want: `${hex(c.selected.tint)} fill, ${hex(c.color)} border`, best: null, ok: v.ok })
         if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} pen with no tap and noted selected: a selected chip (background ${hex(c.selected.tint)}, 2px ${hex(c.color)} border${c.selected.dot ? ', a small round avatar / dot inside at the left' : ''}); ${v.why}: restyle that one block so, keep its words, size and place; change nothing else`)
+        continue
+      }
+      // n212: lines only: a bordered box, not filled, and no words inside that no note gave
+      if (c.paint === 'border' && c.frame && c.linesOnly) {
+        const v = linesOnlyBuilt(c, after.nodes)
+        checks.push({ what: `${what} (lines only)`, want: `2px ${hex(c.color)} border, no fill, no words`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a box in the ${hex(c.color)} pen with a same-pen line across it and no note: lines only; ${v.why}: make it one empty div exactly there, a 2px ${hex(c.color)} border, background transparent, nothing inside; change nothing else`)
         continue
       }
       // n78: a grey-pen frame: the block there has a border and is not filled with the pen's grey
@@ -681,6 +693,23 @@ export function outlineRingBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: rea
   return { ok: true, why: '' }
 }
 
+/** n212: a border at the drawn box in the pen colour, nothing there painted the pen colour, no typed words inside. */
+export function linesOnlyBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const inBox = (n: DomNode) => n.rect.x >= b.x - 8 && n.rect.y >= b.y - 8 && n.rect.x + n.rect.w <= b.x + b.w + 8 && n.rect.y + n.rect.h <= b.y + b.h + 8
+  const size = (n: DomNode) => n.rect.w >= b.w * 0.6 && n.rect.h >= b.h * 0.6
+  const penLike = (css: string | undefined) => { const g = parseCssColor(css ?? ''); return !!g && deltaE(pen, g) <= SOLID_OK_DE }
+  const slab = nodes.find((n) => size(n) && inBox(n) && penLike(n.style.backgroundColor) && alphaOf(n.style.backgroundColor) > 0.5)
+  if (slab) return { ok: false, why: `it was built as a block filled ${hex(c.color)}` }
+  const words = nodes.find((n) => inBox(n) && (n.text ?? '').trim().length > 0)
+  if (words) return { ok: false, why: `it holds the words "${(words.text ?? '').trim().slice(0, 40)}", which no note gave it` }
+  const framed = nodes.some((n) => size(n) && inBox(n) && hasFrame(n) && penLike((n.style.border ?? '').replace(/^\s*[\d.]+px\s*\w*\s*/, '')))
+  const drawn = nodes.some((n) => (n.tag === 'rect' || n.tag === 'polyline' || n.tag === 'path') && size(n) && inBox(n) && penLike(n.style.svgStroke))
+  if (!framed && !drawn) return { ok: false, why: `no ${hex(c.color)} border was built at the drawn box` }
+  return { ok: true, why: '' }
+}
+
 export function hollowBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
   const b = c.box, d = (b.w + b.h) / 2, cx = b.x + b.w / 2, cy = b.y + b.h / 2
   const pen = parseCssColor(c.color)
@@ -752,6 +781,34 @@ export function inkDarkOutline(color: string | null | undefined, box: { w: numbe
   if (sl >= 70 || lum < sl + 50) return false
   if (chroma > 30) return false
   return !notes.some((n) => ASKS_FILL.test(n) && !PALE_FILL.test(n))
+}
+
+/**
+ * n212: a box whose own line would vanish if it were filled is its line. Round 46 c4 (tennis club): a white-pen box on a
+ * green court, a white line drawn through it and out the far side, no note on it. It was built as a solid white card
+ * with two invented blurbs, the line lost under it; a fix note had to say "white lines only". A filled white box would
+ * hide a white line, so a person drawing both means lines: court markings, a window frame, a floor plan. Only a big
+ * box (a chip or a marker has its own rules) on a filled surface it shows against, with no tap and no note of its own,
+ * and a same-pen line that crosses its edge or spans most of it. In 177 hand sketches this is this box and no other.
+ */
+export const LINES_BOX_MIN_W = 100, LINES_BOX_MIN_H = 60
+export function linesOnlyBox(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ target: string | null; color: string; dotId?: string }>,
+  own: readonly string[], box: { x: number; y: number; w: number; h: number }): boolean {
+  if (!st.color || own.length || box.w < LINES_BOX_MIN_W || box.h < LINES_BOX_MIN_H) return false
+  if (fills.some((f) => f.target === st.id)) return false
+  const behind = surfaceBehind(st, strokes, fills), p = parseCssColor(st.color), s = parseCssColor(behind)
+  const holder = strokes.some((o) => o.id !== st.id && closedish(o.points) && (() => { const ob = bbOf(o.points); return ob.x - 6 <= box.x && ob.y - 6 <= box.y && ob.x + ob.w + 6 >= box.x + box.w && ob.y + ob.h + 6 >= box.y + box.h && ob.w * ob.h > box.w * box.h * 1.1 })())
+  const pageTapped = fills.some((f) => f.target === null)
+  if (!p || !s || !(holder || pageTapped) || deltaE(p, s) <= 20) return false
+  const dots = new Set(fills.map((f) => f.dotId).filter(Boolean))
+  return strokes.some((o) => {
+    if (o.id === st.id || dots.has(o.id) || o.color !== st.color || closedish(o.points) || o.points.length < 2) return false
+    const b = bbOf(o.points)
+    if (Math.max(b.w, b.h) < 40 || Math.min(b.w, b.h) > 12) return false   // a straight rule, level or upright
+    if (b.x > box.x + box.w || b.x + b.w < box.x || b.y > box.y + box.h || b.y + b.h < box.y) return false
+    const out = Math.max(box.x - b.x, box.y - b.y, b.x + b.w - box.x - box.w, b.y + b.h - box.y - box.h)
+    return out >= 12 || b.w >= box.w * 0.6 || b.h >= box.h * 0.6
+  })
 }
 
 /**

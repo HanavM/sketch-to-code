@@ -17,7 +17,7 @@ import {
 } from '@s2c/ink'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
-import { areaWordInk, holdsBoxes, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkPenOutline, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
+import { areaWordInk, holdsBoxes, linesOnlyBox, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkPenOutline, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
 import { isTextMark, textStacks, type TextStack } from './textmark.js'
 import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
 import { outlineMark, slantedQuad } from './outline.js'
@@ -866,6 +866,8 @@ export interface InkColour {
   slant?: { from: { x: number; y: number }; to: { x: number; y: number }; length: number; deg: number; thickness: number }
   /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
   selected?: { tint: string; dot: boolean }
+  /** n212: paint 'border' + frame: a same-pen line crosses this untapped, un-noted box, so it is lines only: empty, see-through, no words. */
+  linesOnly?: true
   /** n141: a frame drawn on a dark surface (this colour): transparent inside, never white or grey. */
   frameOn?: string
   /** n144: paint 'border' + frame from a dark-pen box with no tap when a box in the same pen was tapped: outlined, never filled. */
@@ -1166,6 +1168,11 @@ export function groundInterpretation(
           const penFrame = shape?.shape === 'box' && !shape.tilt && penFrameBox(s, [...ev.strokes.values()], ev.fills ?? [],
             ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
               (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text), shape.box)
+          // n212: a same-pen line crosses this un-noted box on a filled surface: its lines, never traced and filled white
+          // (round 46 c4: the court lines, read inside a depicted "panel", were traced and built a solid white block)
+          const linesBox = shape?.shape === 'box' && !shape.tilt && linesOnlyBox(s, [...ev.strokes.values()], ev.fills ?? [],
+            ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
+              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text), shape.box)
           // n184: a ring inside a depiction stays a ring: drawn in a coloured pen (no tap) it is a flat disc in that pen
           // colour where drawn (round 43 c5: three holds in orange, yellow and teal pens, read as a depicted "climbing
           // holds" group, were traced and built black and orange at random spots); noted as an outline, a stamp or a
@@ -1176,7 +1183,7 @@ export function groundInterpretation(
           const penRing = shape?.shape === 'ellipse' && !(ev.fills ?? []).some((f) => f.target === s.id) && (colouredPen(s.color) ||
             ringNoted(ringOwn) || outlineRingPen(s.color, shape.box, ringOwn))
           // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
-          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || penRing || shape.tilt || shape.pill)) {
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || linesBox || penRing || shape.tilt || shape.pill)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
             continue
           }
@@ -1343,6 +1350,10 @@ export function groundInterpretation(
         const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
           (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
         const behind = surfaceBehind(st, [...ev.strokes.values()], ev.fills ?? [])
+        // n212: a same-pen line crosses it and no note is on it: the box is lines, on the surface behind it
+        if (linesOnlyBox(st, [...ev.strokes.values()], ev.fills ?? [], own, rb)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, linesOnly: true, frameOn: behind }); continue
+        }
         if (inkLightOutline(st.color, rb, behind, own)) {
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true }); continue
         }

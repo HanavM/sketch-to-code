@@ -50,9 +50,11 @@ const LIKE = new RegExp(`(?:^|[^\\w$#.,:/-])${NUMW}\\s+(?:more\\s+)?like\\s+(?:t
 const TIMES = /(?:^|[\s,;(])(?:x|×)\s?(\d{1,2})\b/i
 
 /** How many of the mark a note asks for, its noun and its names; null when it asks for none. */
-export function repeatCount(note: string): { n: number; noun: string | null; names: string[] } | null {
+export function repeatCount(note: string): { n: number; noun: string | null; names: string[]; axis?: 'x' | 'y' } | null {
   let n = 0, noun: string | null = null, tail = ''
-  const c = note.match(COUNT)
+  // n212: a note that opens with the count ("x3 stacked: 6 clay courts / 14 coaches") is that count, whatever numbers its items hold
+  const lead = /^\s*(?:x|×)\s?\d{1,2}\b/i.test(note)
+  const c = lead ? null : note.match(COUNT)
   if (c && !NOT.test(c[2]!.toLowerCase())) {
     // a bare plural count ("3 colours") is not a repeat; it needs a list (colon) or "like this" after it
     if (!c[3]) return null
@@ -65,10 +67,18 @@ export function repeatCount(note: string): { n: number; noun: string | null; nam
   if (n < 2 || n > 12) return null
   // n215: "x6 rows: ..." goes down a table; the small ring it was typed on is one row's picture, never copied sideways
   if (noun === 'rows' || noun === 'row' || /^\s*rows?\b/i.test(tail)) return null
-  // the names: the comma list right after a colon, up to a ';' or '.', when it has exactly n entries
-  const list = /^\s*:?\s*([^;.]+)/.exec(tail)?.[1] ?? ''
-  const names = list.split(/\s*,\s*/).map((s) => s.trim()).filter((s) => s && s.split(/\s+/).length <= 3)
-  return { n, noun, names: names.length === n ? names : [] }
+  // n212: "x3 stacked: a / b / c": a direction word after the count says the way the copies go, and is never a name or printed
+  const way = /^\s*(stacked|down|vertically|across|side by side|in a row|in a column)\b\s*(?=:|\s|$)/i.exec(tail)
+  const axis: 'x' | 'y' | undefined = way ? (/^(stacked|down|vertically|in a column)$/i.test(way[1]!) ? 'y' : 'x') : undefined
+  if (way) tail = tail.slice(way[0].length)
+  // the names: the comma list right after a colon, up to a ';' or '.', when it has exactly n entries; a list split by
+  // slashes keeps its commas and may run longer ("$39 a month, all courts")
+  const slashed = /\s\/\s/.test(tail)
+  const list = /^\s*:?\s*([^;]+)/.exec(tail)?.[1] ?? ''
+  const names = slashed
+    ? list.split(/\s+\/\s+/).map((s) => s.trim()).filter((s) => s && s.split(/\s+/).length <= 8)
+    : (/^\s*:?\s*([^;.]+)/.exec(tail)?.[1] ?? '').split(/\s*,\s*/).map((s) => s.trim()).filter((s) => s && s.split(/\s+/).length <= 3)
+  return { n, noun, names: names.length === n ? names : [], ...(axis ? { axis } : {}) }
 }
 
 const bboxOf = (pts: ReadonlyArray<{ x: number; y: number }>): Box => {
@@ -116,11 +126,12 @@ export function repeatPlans(notes: readonly NoteLike[], strokes: readonly Stroke
     }
     let axis: 'x' | 'y' | null = null, gap = 0
     const gx = fit(rightLimit - m.x, m.w)
-    if (gx !== null && (want.n - 1) * gx + want.n * m.w <= rightLimit - m.x) { axis = 'x'; gap = gx }
-    else {
-      const gy = fit(downLimit - m.y, m.h)
-      if (gy !== null && m.w >= m.h * 1.5) { axis = 'y'; gap = gy }
-    }
+    const gy = fit(downLimit - m.y, m.h)
+    const fitsX = gx !== null && (want.n - 1) * gx + want.n * m.w <= rightLimit - m.x
+    // n212: a typed direction goes first ("x3 stacked"), and a stack needs no wide box
+    if (want.axis === 'y' && gy !== null) { axis = 'y'; gap = gy }
+    else if (fitsX) { axis = 'x'; gap = gx! }
+    else if (gy !== null && m.w >= m.h * 1.5) { axis = 'y'; gap = gy }
     if (!axis) continue
     used.add(pick.id)
     out.push({
@@ -149,13 +160,13 @@ export function repeatBrief(plans: readonly RepeatPlan[]): string {
         (/\bdifferent\b|\bvar(?:y|ied|ying)\b|\brandom\b/i.test(p.note) ? ' Where the note asks for different positions or values, vary them per copy, inside the same drawn track.' : '')
       : ''
     return `- ${q(p.note.slice(0, 120))}: the drawn box at x ${String(p.mark.x)}, y ${String(p.mark.y)}, ${String(p.mark.w)}x${String(p.mark.h)}px is ${thing} 1 of ${String(p.n)}. ` +
-      `Build exactly ${String(p.n)} separate ${thing}s ${p.axis === 'x' ? 'side by side in one row' : 'stacked in one column'}, every one ${String(p.mark.w)}x${String(p.mark.h)}px (the drawn size), ${String(p.gap)}px apart: ` +
+      `Build exactly ${String(p.n)} separate ${p.noun ? `${thing}s` : 'copies'} ${p.axis === 'x' ? 'side by side in one row' : 'stacked in one column'}, every one ${String(p.mark.w)}x${String(p.mark.h)}px (the drawn size), ${String(p.gap)}px apart: ` +
       `${thing} k's top-left at ${p.axis === 'x' ? `x ${String(p.mark.x)} + (k-1) x ${String(p.mark.w + p.gap)}, y ${String(p.mark.y)}` : `x ${String(p.mark.x)}, y ${String(p.mark.y)} + (k-1) x ${String(p.mark.h + p.gap)}`} ` +
       `(the last at ${String(last.x)},${String(last.y)}). They are SIBLINGS filling the open space ${p.axis === 'x' ? 'to the right of' : 'below'} the drawn one: never put copies inside the drawn box, never shrink them, and leave nothing else in that space.` +
       ins + (p.names.length ? ` Their names, one per ${thing} in order: ${p.names.map(q).join(', ')}.` : '')
   })
   return `REPEATED MARK (a count typed on one drawn box; deterministic; checked on the page):\n${lines.join('\n')}\n` +
-    `Never print the count, the noun list's separators or "like this".\n\n`
+    `Never print the count, the noun list's separators, a direction word ("stacked", "down") or "like this".\n\n`
 }
 
 export interface RepeatVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }

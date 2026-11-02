@@ -154,6 +154,8 @@ export function rowData(note: string): RowData | null {
   else if (plus && /like|more/i.test(plus[0]) && (/like/i.test(plus[0]) || CELL.test(text) || ROWSEP.test(text))) { more = n(plus[1]!); text = text.replace(plus[0], ' ') }
   else if (times) { total = Number(times[1] ?? times[2]); text = text.replace(times[0], ' ') }
   text = text.replace(/[,;:\s]+$/, '').replace(/^[,;:\s]+/, '')
+  // n212: the way a count goes ("x3 stacked: a / b / c") is not the first row's words
+  if (times) text = text.replace(/^(?:stacked|down|vertically|across|side by side|in a row|in a column)\s*:\s*/i, '')
   // n144: rows split by semicolons after a colon ("3 rides, grey thumb: Standard ... £18.40; Comfort ... £24.10")
   const semi = ROWSEP.test(text) ? null : semiRows(text)
   if (semi) text = semi.join(' / ')
