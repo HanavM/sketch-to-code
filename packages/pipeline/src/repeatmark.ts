@@ -20,6 +20,7 @@ import type { Stroke } from '@s2c/ink'
 import { shapeOf } from './shapemark.js'
 import { colourName } from './explain.js'
 import { deltaE, parseCssColor } from './palette.js'
+import { cellRows, countedItems } from './drawnlist.js'
 
 interface Box { x: number; y: number; w: number; h: number }
 interface NoteLike { text: string; at?: { x: number; y: number }; anchor?: { kind: string; strokeIds?: string[]; focus?: string[] } }
@@ -48,6 +49,14 @@ export interface RepeatPlan {
   items?: CardItem[]
   /** n225: captions go under the box, outside it. */
   captionsUnder?: boolean
+  /** n227: one per copy: the cells typed for that row, in order. */
+  rows?: string[][]
+  /** n227: how every row looks, the words before the colon ("colour square left"). */
+  look?: string
+  /** n227: the pen the row's box was drawn in: its thin edge. */
+  edge?: string
+  /** n227: one colour per row, from the chart the sketch tapped, for a colour mark the look asks for. */
+  swatches?: string[]
 }
 
 export interface CardItem { picture: string; caption: string; paint?: string }
@@ -90,6 +99,17 @@ export function cardItems(note: string, n: number): { items: CardItem[]; head: s
   return { items, head: note.slice(0, c) }
 }
 
+/** n227: the rows a count lists, whole ("x4 down, colour square left: Rent, $960; Food, $600; ..."), with the words before the colon. */
+export function listedRows(note: string): { rows: string[][]; look: string } | null {
+  if (!/^\s*(?:x|×)\s?\d{1,2}\s+(?:stacked|down|vertically|in a column)\b/i.test(note)) return null
+  const rows = cellRows(note) ?? countedItems(note)?.items.map((i) => (i.value ? [i.label, i.value] : [i.label]))
+  if (!rows) return null
+  const look = /^\s*(?:x|×)\s?\d{1,2}\s+(?:stacked|down|vertically|in a column)\b[,\s]*([^:]*):/i.exec(note)?.[1]?.trim() ?? ''
+  return { rows, look }
+}
+const ROW_MAX_H = 120
+const COLOUR_MARK = /\b(colou?r|swatch|square|dot|chip)\b/i
+
 const NUMW = '(\\d{1,2}|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)'
 const NUM: Record<string, number> = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 }
 const num = (s: string) => (/^\d/.test(s) ? Number(s) : NUM[s.toLowerCase()] ?? 0)
@@ -118,7 +138,7 @@ export function repeatCount(note: string): { n: number; noun: string | null; nam
   // n215: "x6 rows: ..." goes down a table; the small ring it was typed on is one row's picture, never copied sideways
   if (noun === 'rows' || noun === 'row' || /^\s*rows?\b/i.test(tail)) return null
   // n212: "x3 stacked: a / b / c": a direction word after the count says the way the copies go, and is never a name or printed
-  const way = /^\s*(stacked|down|vertically|across|side by side|in a row|in a column)\b\s*(?=:|\s|$)/i.exec(tail)
+  const way = /^\s*(stacked|down|vertically|across|side by side|in a row|in a column)\b\s*(?=[:,]|\s|$)/i.exec(tail)
   const axis: 'x' | 'y' | undefined = way ? (/^(stacked|down|vertically|in a column)$/i.test(way[1]!) ? 'y' : 'x') : undefined
   if (way) tail = tail.slice(way[0].length)
   // the names: the comma list right after a colon, up to a ';' or '.', when it has exactly n entries; a list split by
@@ -164,10 +184,16 @@ export function repeatPlans(notes: readonly NoteLike[], strokes: readonly Stroke
     if (!pick || used.has(pick.id)) continue
     const m = pick.box
     // a wide panel holding a drawn row is a list (rowtemplate.ts), never repeated sideways
-    if (m.w >= vp.w * 0.5) continue
     const insideMarks = marks.filter((o) => o.id !== pick.id && within(o.box, m) && o.box.w * o.box.h < m.w * m.h * 0.6)
+    // n227: one flat box with its rows typed and a way down IS one row: repeat it, however wide. A taller box is the panel they go in.
+    const listed = want.axis === 'y' && m.h <= ROW_MAX_H && m.w >= m.h * 2.5 && !insideMarks.length ? listedRows(note.text) : null
+    const rowsHere = listed?.rows.length === want.n ? listed : null
+    if (m.w >= vp.w * 0.5 && !rowsHere) continue
+    // n227: look-alike boxes already drawn under it are the next rows, at their drawn pitch
+    const drawnNext = rowsHere ? boxes.filter((o) => o.id !== pick.id && o.box.y > m.y + m.h * 0.5 && Math.abs(o.box.x - m.x) <= 24 &&
+      Math.abs(o.box.w - m.w) <= m.w * 0.15 && Math.abs(o.box.h - m.h) <= m.h * 0.4).sort((a, b) => a.box.y - b.box.y).slice(0, want.n - 1) : []
     // open space to the right: up to the nearest drawn mark overlapping the box's band, else the page edge
-    const others = marks.filter((o) => o.id !== pick.id && !insideMarks.includes(o) && !within(m, o.box, 2))
+    const others = marks.filter((o) => o.id !== pick.id && !insideMarks.includes(o) && !within(m, o.box, 2) && !drawnNext.includes(o))
     const overlapY = (o: Box) => Math.min(o.y + o.h, m.y + m.h) - Math.max(o.y, m.y)
     const overlapX = (o: Box) => Math.min(o.x + o.w, m.x + m.w) - Math.max(o.x, m.x)
     const rightLimit = Math.min(vp.w - 8, ...others.filter((o) => o.box.x >= m.x + m.w - 4 && overlapY(o.box) > m.h * 0.3).map((o) => o.box.x - 8))
@@ -182,7 +208,8 @@ export function repeatPlans(notes: readonly NoteLike[], strokes: readonly Stroke
     const gy = fit(downLimit - m.y, m.h)
     const fitsX = gx !== null && (want.n - 1) * gx + want.n * m.w <= rightLimit - m.x
     // n212: a typed direction goes first ("x3 stacked"), and a stack needs no wide box
-    if (want.axis === 'y' && gy !== null) { axis = 'y'; gap = gy }
+    if (drawnNext.length) { axis = 'y'; gap = Math.max(0, Math.round((drawnNext[drawnNext.length - 1]!.box.y - m.y) / drawnNext.length - m.h)) }
+    else if (want.axis === 'y' && gy !== null) { axis = 'y'; gap = gy }
     else if (fitsX) { axis = 'x'; gap = gx! }
     else if (gy !== null && m.w >= m.h * 1.5) { axis = 'y'; gap = gy }
     if (!axis) continue
@@ -195,12 +222,19 @@ export function repeatPlans(notes: readonly NoteLike[], strokes: readonly Stroke
       const paint = inks.find((c) => colourName(c) === named)
       return { ...it, ...(paint ? { paint } : {}) }
     })
+    // n227: a colour mark in each row takes the colours tapped in a ring, in the order they were tapped, when there is one per row
+    const rings = marks.filter((o) => o.shape === 'ellipse')
+    const swatches = rowsHere && COLOUR_MARK.test(rowsHere.look)
+      ? rings.map((o) => [...new Set(taps.filter((t) => contains(o.box, t.points[0]!, 0)).map((t) => t.color!))].filter((c) => !(fillTap?.color === c))).find((c) => c.length === want.n)
+      : undefined
     out.push({
       note: note.text, n: want.n, noun: want.noun, names: items ? [] : want.names, mark: m, axis, gap,
       ...(fillTap?.color ? { fill: fillTap.color } : {}),
       ...(FRAME_WORD.test(head) && pick.color && !otherColourFrame(head, pick.color) ? { frame: pick.color } : {}),
       ...(items ? { items } : {}),
       ...(UNDER_WORD.test(head) ? { captionsUnder: true } : {}),
+      ...(rowsHere ? { rows: rowsHere.rows, ...(rowsHere.look ? { look: rowsHere.look } : {}), ...(pick.color ? { edge: pick.color } : {}) } : {}),
+      ...(swatches ? { swatches } : {}),
       insides: insideMarks.sort((a, b) => a.box.y - b.box.y || a.box.x - b.box.x).slice(0, 8).map((o) => ({
         kind: o.shape === 'ellipse' ? 'ring' : o.shape === 'box' ? 'box' : o.shape === 'line' ? 'line' : 'mark',
         dx: o.box.x - m.x, dy: o.box.y - m.y, w: o.box.w, h: o.box.h,
@@ -230,6 +264,17 @@ function cardBrief(p: RepeatPlan): string {
     : '')
 }
 
+/** n227: each row's cells go in its own copy of the drawn box. */
+function rowsBrief(p: RepeatPlan): string {
+  const rows = p.rows
+  if (!rows) return ''
+  const said = rows.map((r, k) => `row ${String(k + 1)} (top at y ${String(at(p, k).y)}): ${r.map(q).join(' at the left, then ')}${p.swatches ? `, its colour mark ${p.swatches[k]!}` : ''}`).join('; ')
+  return ` Every copy is one row of this list, with its own background${p.fill ? ` ${p.fill}` : ''}${p.edge ? ` and a 1px ${p.edge} border` : ''}, and holds ONE row only, vertically centred in it: ${said}. ` +
+    `In a row with two cells the first starts near the box's left and the last ends near its right edge. ` +
+    (p.look ? `Every row looks: ${q(p.look)}: those words are never printed. ` : '') +
+    `These rows are all there is: never put two rows in one box, never add a row or make up a label or figure.`
+}
+
 export function repeatBrief(plans: readonly RepeatPlan[]): string {
   if (!plans.length) return ''
   const lines = plans.map((p) => {
@@ -243,7 +288,7 @@ export function repeatBrief(plans: readonly RepeatPlan[]): string {
       `Build exactly ${String(p.n)} separate ${p.noun ? `${thing}s` : 'copies'} ${p.axis === 'x' ? 'side by side in one row' : 'stacked in one column'}, every one ${String(p.mark.w)}x${String(p.mark.h)}px (the drawn size), ${String(p.gap)}px apart: ` +
       `${thing} k's top-left at ${p.axis === 'x' ? `x ${String(p.mark.x)} + (k-1) x ${String(p.mark.w + p.gap)}, y ${String(p.mark.y)}` : `x ${String(p.mark.x)}, y ${String(p.mark.y)} + (k-1) x ${String(p.mark.h + p.gap)}`} ` +
       `(the last at ${String(last.x)},${String(last.y)}). They are SIBLINGS filling the open space ${p.axis === 'x' ? 'to the right of' : 'below'} the drawn one: never put copies inside the drawn box, never shrink them, and leave nothing else in that space.` +
-      ins + (p.names.length ? ` Their names, one per ${thing} in order: ${p.names.map(q).join(', ')}.` : '') + cardBrief(p)
+      ins + (p.names.length ? ` Their names, one per ${thing} in order: ${p.names.map(q).join(', ')}.` : '') + cardBrief(p) + rowsBrief(p)
   })
   return `REPEATED MARK (a count typed on one drawn box; deterministic; checked on the page):\n${lines.join('\n')}\n` +
     `Never print the count, the noun list's separators, a direction word ("stacked", "down") or "like this".\n\n`
@@ -291,6 +336,23 @@ function cardFaults(p: RepeatPlan, after: Snap): string[] {
   return out
 }
 
+/** n227: each typed row sits in its own copy, never two in one box. */
+function rowFaults(p: RepeatPlan, after: Snap): string[] {
+  if (!p.rows) return []
+  const out: string[] = []
+  const low = (s: string) => s.trim().toLowerCase()
+  p.rows.forEach((row, k) => {
+    const top = at(p, k).y
+    for (const cell of row) {
+      const t = after.nodes.filter((n) => low(n.text ?? '') === low(cell))[0] ?? after.nodes.filter((n) => low(n.text ?? '').includes(low(cell)))[0]
+      if (!t) { out.push(`row ${String(k + 1)}'s ${q(cell)} is not on the page: print it as typed in copy ${String(k + 1)}`); continue }
+      const b = t.textBox ?? t.rect, mid = b.y + b.h / 2
+      if (mid < top - 16 || mid > top + p.mark.h + 16) out.push(`${q(cell)} is at y ${String(Math.round(mid))}: it belongs to row ${String(k + 1)}, from y ${String(top)} to ${String(top + p.mark.h)}, one row per box`)
+    }
+  })
+  return out
+}
+
 export interface RepeatVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
 
 /** N look-alike boxes of about the drawn size along the drawn row (or column), none shrunk inside the first. */
@@ -315,7 +377,7 @@ export function verifyRepeats(plans: readonly RepeatPlan[] | undefined, after: S
       problems.push(`${q(p.note.slice(0, 40))} asks for ${String(p.n)} ${thing} at the drawn size (${String(m.w)}x${String(m.h)}px) ${p.axis === 'x' ? 'side by side from' : 'stacked down from'} x ${String(m.x)}, y ${String(m.y)}; the page has ${String(spots.length)}: ` +
         `build them as siblings ${String(p.gap)}px apart in the open space ${p.axis === 'x' ? 'to the right' : 'below'}, never small copies inside the first`)
     }
-    problems.push(...cardFaults(p, after))
+    problems.push(...cardFaults(p, after), ...rowFaults(p, after))
   }
   return problems.length
     ? { satisfied: false, reason: problems.join('; ') + '; change nothing else' }
