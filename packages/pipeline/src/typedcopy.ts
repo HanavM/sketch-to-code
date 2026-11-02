@@ -20,7 +20,7 @@
 
 interface NodeLike { id: string; text?: string; textBox?: unknown }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
-import { countedItems } from './drawnlist.js'
+import { cellRows, countedItems } from './drawnlist.js'
 import { progressOf } from './progress.js'
 import { calendarOf } from './calendar.js'
 export interface CopyVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
@@ -201,6 +201,8 @@ export function directionStrings(notes: readonly string[]): { text: string; why:
   for (const n of notes) {
     // n92: a progress bar note is told and checked by progress.ts (its caption is copy, its percent is the fill)
     if (progressOf(n)) continue
+    // n215: rows with cells listed after a count are all typed copy (row data tells and checks them)
+    if (cellRows(n)) continue
     // n179: a note describing how a kind of item looks, and a list of names one per item, are never one line of text
     const sp = specNote(n)
     if (sp) { out.push({ text: sp.lead, why: `a description of how the ${sp.kind} look`, note: n }); continue }
@@ -232,6 +234,8 @@ export function typedCopyBrief(notes: readonly string[]): string {
   const seen = new Set<string>()
   for (const n of notes) {
     if (progressOf(n)) continue
+    // n215: rows with cells listed after a count are all typed copy (row data tells and checks them)
+    if (cellRows(n)) continue
     // n113: a calendar note describes its block; calendar.ts tells its heading and days
     if (calendarOf(n)) continue
     const sp = specNote(n)

@@ -81,7 +81,25 @@ export function countedItems(note: string): CountedItems | null {
   const isItem = (s: string) => /^[\p{Lu}\p{N}$£€¥#"'“]/u.test(s)
   const items = segs.filter(isItem)
   if (items.length !== n) return null
+  // n215: "x6 rows: Ana Ruiz, Design lead, Active; Ben Cole, ...": each item has its own cells, so these are table rows (cellRows)
+  if (items.every((i) => /,\s/.test(i))) return null
   return { n, items: items.map(parseItem), looks: segs.filter((s) => !isItem(s)) }
+}
+
+/**
+ * n215: a count listing rows that each have cells, split by commas ("x6 rows: Ana Ruiz, Design lead, Active; Ben Cole,
+ * Engineer, Active; ..."): the typed cells of a table. Every cell is copy, even a word that could be a direction
+ * elsewhere ("Active", "Off"). Round 46 e2: the status column was told as a direction and left off the page.
+ */
+export function cellRows(note: string): string[][] | null {
+  const m = LEAD_X.exec(note) ?? LEAD_N.exec(note)
+  if (!m) return null
+  const n = /^\d/.test(m[1]!) ? Number(m[1]) : WORDN[m[1]!.toLowerCase()] ?? 0
+  if (n < 2) return null
+  const segs = m[2]!.trim().split(/\s*;\s*/).map((s) => s.trim()).filter(Boolean)
+  const rows = segs.filter((s) => /^[\p{Lu}\p{N}$£€¥#"'“]/u.test(s))
+  if (rows.length !== n || !rows.every((s) => /,\s/.test(s))) return null
+  return rows.map((s) => s.split(/\s*,\s+/).map((c) => c.trim()).filter(Boolean))
 }
 
 const r = Math.round

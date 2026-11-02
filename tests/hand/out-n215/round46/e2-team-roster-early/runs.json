@@ -1,0 +1,397 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "6487ed776d11169e44c7e24509e690b8f32d84f5",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch shows a dashboard page: a dark left sidebar with brand 'Northwind' and nav links (Overview, Team, Projects, Billing, Settings), a main panel with a bold 'Team members' heading and a '6 people, 4 active now' subtitle, an indigo '+ Invite member' button top-right, and a team table card with NAME/ROLE/STATUS columns, six named member rows with avatar icons and status, plus an overflow menu.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <aside> at (0,0) 220x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "aside",
+      "srcLoc": "src/App.tsx:21:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 220,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 1,
+        "y": 2,
+        "w": 220,
+        "h": 896
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 220,
+        "h": 900
+       },
+       "dx": -1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#0f172a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 220x68 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:22:9",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 220,
+       "h": 68
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1050,
+        "y": 45,
+        "w": 181,
+        "h": 49
+       },
+       "built": {
+        "x": 1050,
+        "y": 45,
+        "w": 181,
+        "h": 49
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#4f46e5 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:20:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 269,
+        "y": 169,
+        "w": 961,
+        "h": 562
+       },
+       "built": {
+        "x": 269,
+        "y": 169,
+        "w": 961,
+        "h": 562
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 290,
+        "y": 255,
+        "w": 53,
+        "h": 53
+       },
+       "built": {
+        "x": 290.83587646484375,
+        "y": 255.5482635498047,
+        "w": 53.3282470703125,
+        "h": 53.90345764160156
+       },
+       "dx": 1,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e2e8f0 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "tilts",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 box built turned as drawn"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "24 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 placed words where drawn"
+    }
+   },
+   {
+    "kind": "typed-spot",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 typed word where typed"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Active\" (a direction of the note \"x6 rows: Ana Ruiz, Design lead, Active; Ben Cole, Engineer, Active; Chi Ng, Engineer, Away; Dev Patel, Product, Active; Eva Moss, Support, Off; Finn Lee, Engineer, Active\") is printed on the page: remove that text (it is how the note asked the item to look or behave, not copy), keep the item's own words and apply what it asked; change nothing else"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the typed rows starting \"Ana Ruiz, Design lead, Active\", \"Ben Cole, Engineer, Active\", \"Chi Ng, Engineer, Away\", \"Dev Patel, Product, Active\" are not on the page: fill the drawn rows with every typed row, in order; change nothing else"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "tap-dots",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 taps are small dots, nothing painted round them"
+    }
+   },
+   {
+    "kind": "repeat-mark",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 copies at the drawn size, side by side"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f8fafc",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,2) 220x896 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,2) 220x896",
+       "want": "#0f172a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1050,45) 181x49",
+       "want": "#4f46e5",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (269,169) 961x562 (light pen outline)",
+       "want": "border #e2e8f0, no #e2e8f0 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (270,240) 960x0 (pale divider)",
+       "want": "words not #e2e8f0",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (270,320) 960x0 (pale divider)",
+       "want": "words not #e2e8f0",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (294,259) 43x44",
+       "want": "#c7d2fe",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 92939,
+   "cacheRead": 312249,
+   "output": 27441
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 65288,
+    "output": 22564,
+    "cacheRead": 90164,
+    "toolCalls": 4,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 269595
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 50918,
+    "output": 3401,
+    "cacheRead": 111988,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 40371
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 4174,
+    "output": 1476,
+    "cacheRead": 110097,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 18427
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

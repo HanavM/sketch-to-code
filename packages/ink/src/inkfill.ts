@@ -166,6 +166,57 @@ export const RECOLOUR_PX = 48
  * or the page. A later tap on the same mark wins (a person re-colouring).
  */
 export function inkFills<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[], page?: { w: number; h: number }): InkFill[] {
+  const all = allTaps(strokes, page)
+  const dots = new Set(dotsOf(all, strokes).map((d) => d.dotId))
+  return dots.size ? all.filter((f) => !dots.has(f.dotId)) : all
+}
+
+/**
+ * n215: taps lined up inside a mark are small dots there, never a fill of it.
+ *
+ * Round 46 e2 (team roster): a table box with two ruled lines and a green, an amber and a grey tap down its status
+ * column. A tap fills what it lands in, so the lines read as bands: the first row went bright green and the rest of
+ * the table grey. A fill is one colour (or two, a fade or a split), tapped once: nobody fills a box with three
+ * taps in a straight column. So: three or more taps in one mark, in a straight column or row, in at least two
+ * colours, in a mark holding other drawn parts, are dots where they landed. Not when ruled lines give each tap its own
+ * band: that is painted rows (n91). In 170 earlier sketches this is the only mark of that kind, and a single
+ * off-colour tap (a pale fill in a darker outline, 175 of them) stays a fill.
+ */
+export interface TapDot { dotId: string; color: string; at: XY; target: string; box: BBox }
+/** How far off a straight column or row a hand's taps may land, px. */
+export const TAP_COLUMN_PX = 14
+
+export function tapDots<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[], page?: { w: number; h: number }): TapDot[] {
+  return dotsOf(allTaps(strokes, page), strokes)
+}
+
+function dotsOf<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(taps: InkFill[], strokes: S[]): TapDot[] {
+  const out: TapDot[] = []
+  const byMark = new Map<string, InkFill[]>()
+  for (const f of taps) if (f.target && f.box && !f.region) byMark.set(f.target, [...(byMark.get(f.target) ?? []), f])
+  for (const [target, mine] of byMark) {
+    if (mine.length < 3 || new Set(mine.map((f) => f.color.toLowerCase())).size < 2) continue
+    const xs = mine.map((f) => f.at.x), ys = mine.map((f) => f.at.y)
+    const column = Math.max(...xs) - Math.min(...xs) <= TAP_COLUMN_PX
+    const row = Math.max(...ys) - Math.min(...ys) <= TAP_COLUMN_PX
+    if (!column && !row) continue
+    const hb = mine[0]!.box!
+    const parts = strokes.filter((s) => s.id !== target && !isFillDot(s) && s.points.length > 0 && (() => {
+      const b = bboxOf(s.points)
+      return b.x >= hb.x - 8 && b.y >= hb.y - 8 && b.x + b.w <= hb.x + hb.w + 8 && b.y + b.h <= hb.y + hb.h + 8
+    })())
+    if (!parts.length) continue
+    // ruled lines between every tap and the next: each has its own band, painted rows (n91)
+    const line = (s: S) => { const b = bboxOf(s.points); return column ? b.h <= 14 && b.w >= hb.w * 0.7 : b.w <= 14 && b.h >= hb.h * 0.7 }
+    const cuts = parts.filter(line).map((s) => { const b = bboxOf(s.points); return column ? b.y + b.h / 2 : b.x + b.w / 2 })
+    const along = (column ? ys : xs).slice().sort((p, q) => p - q)
+    if (cuts.length && along.every((v, k) => k === 0 || cuts.some((c) => c > along[k - 1]! && c < v))) continue
+    for (const f of mine) out.push({ dotId: f.dotId, color: f.color, at: f.at, target, box: hb })
+  }
+  return out
+}
+
+function allTaps<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[], page?: { w: number; h: number }): InkFill[] {
   const outlines = strokes.filter((s) => !isFillDot(s) && (closedOutline(s.points) || smallClosed(s.points)))
   // n51: regions a curve cuts off a box (or the page) hold taps like any outline
   const cuts = splitRegions(strokes, page)

@@ -95,6 +95,8 @@ import { rowMarksBrief, verifyRowMarks } from './rowmarks.js'
 import { progressBrief, verifyProgress } from './progress.js'
 import { hasFillerRows, rowTemplateBrief, verifyRowTemplate } from './rowtemplate.js'
 import { drawnListBrief, drawnLists, verifyDrawnLists, type DrawnList } from './drawnlist.js'
+import { tapDotsBrief, verifyTapDots } from './tapdots.js'
+import { tapDots, type TapDot } from '@s2c/ink'
 import { boxCharsBrief, boxCharsOf, repeatBrief, repeatPlans, verifyBoxChars, verifyRepeats, type BoxChars, type RepeatPlan } from './repeatmark.js'
 import { FIX_FIRST, MANY_FAILURES, failureBrief, leanRepairNote, touchedFiles as editedFiles } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
@@ -724,6 +726,8 @@ export async function runV2(
     boxCharsBrief(boxCharsOf(input.notes ?? [], input.strokes)) +
     // n214: a count with its items typed after it: those items, one per drawn line
     drawnListBrief(drawnLists(input.notes ?? [], input.strokes, input.snapshot.viewport)) +
+    // n215: taps lined up inside a mark are small dots there, never a fill of it
+    tapDotsBrief(tapDots(input.strokes, input.snapshot.viewport)) +
     rowMarksBrief([...new Set([
       ...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? []),
       ...interp.actions.flatMap((a) => a.notes ?? []),
@@ -877,7 +881,7 @@ export async function runV2(
       [...(interp.pageNotes ?? []), ...(interp.runNotes ?? [])],
       interp.pageFill,
       interp.placedNotes,
-      { repeats: repeatPlans(input.notes ?? [], input.strokes, input.snapshot.viewport), boxChars: boxCharsOf(input.notes ?? [], input.strokes), lists: drawnLists(input.notes ?? [], input.strokes, input.snapshot.viewport) },
+      { repeats: repeatPlans(input.notes ?? [], input.strokes, input.snapshot.viewport), boxChars: boxCharsOf(input.notes ?? [], input.strokes), lists: drawnLists(input.notes ?? [], input.strokes, input.snapshot.viewport), dots: tapDots(input.strokes, input.snapshot.viewport) },
     )
 
     // the drawn strokes a scaffold handed over must still be drawn where they were
@@ -1461,7 +1465,7 @@ export function verifyActions(
   /** n29: words typed in empty space, checked to be built where typed. */
   typedSpots?: PlacedNote[],
   /** n201: counts typed on one drawn box, and characters typed for a row of drawn boxes. */
-  drawnCounts?: { repeats?: RepeatPlan[]; boxChars?: BoxChars[]; lists?: DrawnList[] },
+  drawnCounts?: { repeats?: RepeatPlan[]; boxChars?: BoxChars[]; lists?: DrawnList[]; dots?: TapDot[] },
 ): { score: number; failures: string[]; detail: unknown } {
   const failures: string[] = []
   let satisfied = 0
@@ -1687,7 +1691,7 @@ export function verifyActions(
     ['stack-lines', verifyStackLines(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? a.textSize ?? [] : []), after)],
     ['line-span', verifyLineSpan(allMarks, after, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : [])))],
     ['row-span', verifyRowSpan(allMarks, after)], ['row-words', verifyRowWords(allMarks, after)], ['line-spread', verifyLineSpread(allMarks, after)], ['table-rows', verifyTableRows(allMarks, after)], ['typed-times', verifyTypedTimes(typedNotes, after)], ['directions', verifyNoDirections(typedNotes.filter((t) => !spreadNotes(allMarks).has(t)), after)], ['row-data', verifyRowData(typedNotes, after)], ['button-labels', verifyButtonLabels(typedNotes, after)], ['tints', verifyTints(typedNotes, after)], ['drawn-once', verifyDrawnOnce(allMarks, after)], ['checklists', verifyChecklists(typedNotes, after)], ['calendars', verifyCalendars(typedNotes, after)], ['top-bands', verifyTopBands(allMarks, after)], ['panel-feet', verifyPanelFeet(allMarks, after)], ['side-menus', verifySideLists(sideListsOf(allMarks), after)], ['card-rows', verifyCardRows(cardRowsOf(allMarks), after)], ['title-caps', verifyTitleCaps(titleCaps(allMarks, new Set(actions.flatMap((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen ? (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes) : []))), after)], ['pair-rows', verifyPairRows(actions, looseNotes, after)], ['drawn-rings', verifyDrawnRings(depiction?.strokes, after)], ['routes', verifyRoutes(depiction?.strokes, after)], ['text-rules', verifyTextLinesNotRules(allMarks, after, new Set(linkLines(actions).map((l) => l.strokeId)), new Set(actions.flatMap((a) => (a.inkColours ?? []).filter((c) => c.copy && c.mark === 'line').map((c) => c.strokeId))))],
-    ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['stat-rows', verifyStatRows(typedNotes, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['progress', verifyProgress(typedNotes, after)], ['row-template', verifyRowTemplate(actions, depiction?.strokes, after, new Set((drawnCounts?.lists ?? []).map((l) => l.note)))], ['repeat-mark', verifyRepeats(drawnCounts?.repeats, after)], ['box-chars', verifyBoxChars(drawnCounts?.boxChars, after)], ['drawn-list', verifyDrawnLists(drawnCounts?.lists, after)], ['body-lines', verifyBodyLines(actions, after)], ['drawn-order', verifyDrawnOrder(allMarks, after)], ['bar-labels', verifyBarLabels(actions, after, namedColourText(actions, looseNotes))]] as const) {
+    ['link-lines', verifyLinkLines(actions, after)], ['line-ends', verifyLineEnds(allMarks, after)], ['stats', verifyStats(allMarks, after)], ['stat-rows', verifyStatRows(typedNotes, after)], ['row-marks', verifyRowMarks(typedNotes, after)], ['progress', verifyProgress(typedNotes, after)], ['row-template', verifyRowTemplate(actions, depiction?.strokes, after, new Set((drawnCounts?.lists ?? []).map((l) => l.note)))], ['tap-dots', verifyTapDots(drawnCounts?.dots, after)], ['repeat-mark', verifyRepeats(drawnCounts?.repeats, after)], ['box-chars', verifyBoxChars(drawnCounts?.boxChars, after)], ['drawn-list', verifyDrawnLists(drawnCounts?.lists, after)], ['body-lines', verifyBodyLines(actions, after)], ['drawn-order', verifyDrawnOrder(allMarks, after)], ['bar-labels', verifyBarLabels(actions, after, namedColourText(actions, looseNotes))]] as const) {
     if (v.unverifiable) continue
     details.push({ kind, verdict: v })
     total++

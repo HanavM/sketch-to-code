@@ -8,7 +8,7 @@ import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-c
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
 import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, isNoteLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
-import { inkFills, isFillDot, pageFill, markFill } from '@s2c/ink/inkfill'
+import { inkFills, isFillDot, pageFill, markFill, tapDots } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
@@ -4427,7 +4427,8 @@ class Overlay {
       this.renderInk()
       this.sync()
       const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
-      this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' — spotlight: the centre tap glows out to the taps round it' : ' — gradient from the first tap to this one') : ''}`)
+      if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (taps in a line are dots, never a fill)`)
+      else this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' — spotlight: the centre tap glows out to the taps round it' : ' — gradient from the first tap to this one') : ''}`)
       this.scheduleAuto()
       return
     }
@@ -8079,6 +8080,8 @@ class Overlay {
     const NS = 'http://www.w3.org/2000/svg'
     svg.replaceChildren()
     let maxX = 1, maxY = 1
+    // n215: five notes on one table stacked five amber tints: it looked painted amber. One tint a mark.
+    const tinted = new Set<string>()
     for (const n of this.notes) {
       const t = this.noteTarget(n)
       if (!t) continue
@@ -8095,6 +8098,9 @@ class Overlay {
       rect.setAttribute('height', String(Math.round(t.h + 8)))
       rect.setAttribute('rx', '6')
       rect.dataset.note = n.id
+      const tintKey = `${String(Math.round(t.x))},${String(Math.round(t.y))},${String(Math.round(t.w))},${String(Math.round(t.h))}`
+      if (tinted.has(tintKey)) rect.style.fill = 'none'
+      tinted.add(tintKey)
       const line = document.createElementNS(NS, 'line')
       line.setAttribute('x1', String(Math.round(cx)))
       line.setAttribute('y1', String(Math.round(cy)))
@@ -8275,6 +8281,12 @@ class Overlay {
    * in its colour, and the page tint (or gradient) behind everything. Half
    * strength, so the marks and the page under them still read.
    */
+  /** n215: the tap just made is one of a line of taps inside a mark: dots there, so nothing is filled. */
+  private lastTapIsDot(): boolean {
+    const last = this.strokes[this.strokes.length - 1]
+    return !!last && tapDots(this.strokes, { w: window.innerWidth, h: window.innerHeight }).some((d) => d.dotId === last.id)
+  }
+
   private fillLayer(): SVGElement[] {
     const NS = 'http://www.w3.org/2000/svg'
     const fills = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight })
@@ -8480,7 +8492,8 @@ class Overlay {
         this.renderInk()
         this.sync()
         const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
-        this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${((look) => look?.split ? ' (this side of the line drawn across it)' : (look?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : '')(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target, this.strokes))}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
+        if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (taps in a line are dots, never a fill)`)
+        else this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${((look) => look?.split ? ' (this side of the line drawn across it)' : (look?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : '')(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target, this.strokes))}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
         this.scheduleAuto()
         return
       }

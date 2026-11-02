@@ -63,6 +63,8 @@ export function repeatCount(note: string): { n: number; noun: string | null; nam
     n = num(l[1]!); tail = note.slice((l.index ?? 0) + l[0].length)
   }
   if (n < 2 || n > 12) return null
+  // n215: "x6 rows: ..." goes down a table; the small ring it was typed on is one row's picture, never copied sideways
+  if (noun === 'rows' || noun === 'row' || /^\s*rows?\b/i.test(tail)) return null
   // the names: the comma list right after a colon, up to a ';' or '.', when it has exactly n entries
   const list = /^\s*:?\s*([^;.]+)/.exec(tail)?.[1] ?? ''
   const names = list.split(/\s*,\s*/).map((s) => s.trim()).filter((s) => s && s.split(/\s+/).length <= 3)

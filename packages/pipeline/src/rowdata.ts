@@ -23,7 +23,7 @@
  */
 import { noteParts } from './typedcopy.js'
 import { buttonLabel } from './buttonlabel.js'
-import { countedItems } from './drawnlist.js'
+import { cellRows, countedItems } from './drawnlist.js'
 
 interface NodeLike { id: string; rect: { x: number; y: number; w: number; h: number }; text?: string; textBox?: { x: number; y: number; w: number; h: number }; style?: { fontSize?: string; fontWeight?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
@@ -138,6 +138,9 @@ export function splitEnds(cs: string[]): string[] {
 export function rowData(note: string): RowData | null {
   // n111: a button's label ("Reserve · 4 nights") is one piece of copy, no row of data
   if (buttonLabel(note)) return null
+  // n215: a count listing rows with cells: every cell is typed copy
+  const cells0 = cellRows(note)
+  if (cells0) return { note, rows: cells0, total: null }
   // n214: a count with that many items after it ("x4 down: A $1; B $2; C $3; D $4") IS those rows: nothing to sample
   const listed = countedItems(note)
   if (listed) return { note, rows: listed.items.map((i) => (i.value ? [i.label, i.value] : [i.label])), total: null }
