@@ -1,0 +1,559 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "69126c86e15e4f80fc9ecc3e79b5f4bf65f6c4a7",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/BarberPole.tsx"
+  ],
+  "reading": "A dark full-page barbershop landing design: a cream vertical bar on the left decorated with red-and-blue barber-pole stripes, a bold 'SHARP & SONS' logo and spaced 'PRICES BOOK' nav at top, a huge bold two-line hero heading 'CLEAN CUTS. / NO CHAT.', a divider, a four-row price list with gold right-aligned prices and thin rules, and a cream card on the right with a 'Walk in' heading, hours copy, and a red 'Book a chair' button.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 150x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:13:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 150,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 9.5,
+    "reason": "#f4eee0 is on the page (ΔE 9.5)"
+   },
+   {
+    "kind": "composition",
+    "index": 0,
+    "score": 0.8806171638791187,
+    "massSimilarity": 0.8294530912558841,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (150,0) 1130x188 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:21:9",
+      "rect": {
+       "x": 150,
+       "y": 0,
+       "w": 1130,
+       "h": 188
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #f4eee0"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (150,0) 1130x188 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:21:9",
+      "rect": {
+       "x": 150,
+       "y": 0,
+       "w": 1130,
+       "h": 188
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #f4eee0"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <rect> at (0,0) 150x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "rect",
+      "srcLoc": "src/components/BarberPole.tsx:44:1",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 150,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 9.5,
+    "reason": "#f4eee0 is on the page (ΔE 9.5)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (210,402) 1000x1 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:42:11",
+      "rect": {
+       "x": 210,
+       "y": 402,
+       "w": 1000,
+       "h": 1
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": false,
+    "nearest": 100,
+    "reason": "nothing near the drawing is the colour that was drawn (#f4eee0); closest is ΔE 100.0 away"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <rect> at (0,0) 150x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "rect",
+      "srcLoc": "src/components/BarberPole.tsx:44:1",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 150,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 9.5,
+    "reason": "#f4eee0 is on the page (ΔE 9.5)"
+   },
+   {
+    "kind": "design",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <rect> at (0,0) 150x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "rect",
+      "srcLoc": "src/components/BarberPole.tsx:44:1",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 150,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 839,
+        "y": 439,
+        "w": 371,
+        "h": 302
+       },
+       "built": {
+        "x": 839,
+        "y": 439,
+        "w": 371,
+        "h": 302
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s16",
+       "drawn": {
+        "x": 869,
+        "y": 659,
+        "w": 311,
+        "h": 57
+       },
+       "built": {
+        "x": 870,
+        "y": 659,
+        "w": 310,
+        "h": 57
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111111 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 of 4 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 2,
+       "drawn": 40,
+       "built": 94,
+       "dy": 54
+      },
+      {
+       "index": 4,
+       "drawn": 402,
+       "built": 403,
+       "dy": 1
+      },
+      {
+       "index": 5,
+       "drawn": 459,
+       "built": 481,
+       "dy": 22
+      },
+      {
+       "index": 6,
+       "drawn": 439,
+       "built": 439,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "stack-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "heading lines on their drawn lines at the drawn size"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row (table or list) at body size"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "12 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "panel-feet",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 panel foot at the drawn place, contents above at natural size"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "drawn-list",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 typed rows on their drawn lines, nothing invented"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the line drawn at (1060,40) 150x0 was coloured #f4eee0 (text colour); nothing that size was built there carrying a colour: paint its text exactly #f4eee0; action 4: the line drawn at (210,402) 1000x0 was coloured #f4eee0 (text colour); nothing that size was built there carrying a colour: paint its text exactly #f4eee0",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (1,2) 150x895",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (210,40) 177x0",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1060,40) 150x0",
+       "want": "#f4eee0",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (210,188) 790x0",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (210,304) 547x0",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (210,402) 1000x0",
+       "want": "#f4eee0",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (210,460) 560x0",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (210,520) 560x0",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (210,580) 560x0",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (210,640) 560x0",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (839,439) 372x302 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (839,439) 372x302",
+       "want": "#f4eee0",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (869,659) 311x57",
+       "want": "#c1121f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 108685,
+   "cacheRead": 1217235,
+   "output": 38399
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 78557,
+    "output": 31460,
+    "cacheRead": 308370,
+    "toolCalls": 9,
+    "tools": [
+     "Glob",
+     "Read components/BarberPole.tsx",
+     "Read src/App.tsx",
+     "Glob",
+     "Glob",
+     "Read src/index.css",
+     "Edit components/BarberPole.tsx",
+     "Write src/App.tsx",
+     "Glob"
+    ],
+    "ms": 393568
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 60568,
+    "output": 4634,
+    "cacheRead": 443586,
+    "toolCalls": 6,
+    "tools": [
+     "Read components/BarberPole.tsx",
+     "Edit components/BarberPole.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 53604
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 7959,
+    "output": 2305,
+    "cacheRead": 465279,
+    "toolCalls": 5,
+    "tools": [
+     "Read components/BarberPole.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 23556
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/BarberPole.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 0 H 150 V 895 H 0 Z…\""
+     },
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 0 H 150 V 895 H 0 Z…\""
+     }
+    ]
+   },
+   {
+    "file": "src/components/BarberPole.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 0 H 150 V 895 H 0 Z…\""
+     },
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 0 H 150 V 895 H 0 Z…\""
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

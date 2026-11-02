@@ -1,0 +1,526 @@
+{
+  "round": 47,
+  "id": "c3-barber-shop",
+  "version": 3,
+  "stopped": null,
+  "likeness": 70.3,
+  "colour": 0.9419096707152433,
+  "structure": 0.677911910627129,
+  "layout": 0.5084452833313553,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 4,
+      "box": 3,
+      "line": 11
+    },
+    "inkPx": 9440
+  },
+  "erased": 0,
+  "notesMoved": 2,
+  "words": 60,
+  "notes": 8,
+  "longestNote": 21,
+  "noteTexts": [
+    "SHARP & SONS bold",
+    "PRICES BOOK spaced",
+    "CLEAN CUTS. / NO CHAT. huge bold",
+    "x4 down: Haircut $30; Beard trim $18; Hot towel shave $35; Father and son $50; gold prices right, thin rule under",
+    "red and blue diagonal barber stripes",
+    "Walk in bold",
+    "Tuesday to Saturday, 9 till 7. Second chair free most mornings.",
+    "Book a chair white bold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 612,
+    "firstReadingS": 120,
+    "readS": [
+      64
+    ],
+    "buildS": [
+      474
+    ],
+    "sketchingS": 74
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 119619,
+    "cacheRead": 1229176,
+    "output": 45042,
+    "billed": 164661
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#f4eee0",
+      "at": 840
+    },
+    {
+      "op": "stroke",
+      "at": 7111
+    },
+    {
+      "op": "stroke",
+      "at": 7576
+    },
+    {
+      "op": "stroke",
+      "at": 8547
+    },
+    {
+      "op": "stroke",
+      "at": 9425
+    },
+    {
+      "op": "stroke",
+      "at": 12095
+    },
+    {
+      "op": "stroke",
+      "at": 14074
+    },
+    {
+      "op": "stroke",
+      "at": 17325
+    },
+    {
+      "op": "stroke",
+      "at": 19342
+    },
+    {
+      "op": "stroke",
+      "at": 21358
+    },
+    {
+      "op": "stroke",
+      "at": 23395
+    },
+    {
+      "op": "stroke",
+      "at": 25410
+    },
+    {
+      "op": "stroke",
+      "at": 29643
+    },
+    {
+      "op": "stroke",
+      "at": 30105
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 30474
+    },
+    {
+      "op": "stroke",
+      "at": 31225
+    },
+    {
+      "op": "stroke",
+      "at": 32459
+    },
+    {
+      "op": "pen",
+      "color": "#c1121f",
+      "at": 32829
+    },
+    {
+      "op": "stroke",
+      "at": 35343
+    },
+    {
+      "op": "stroke",
+      "at": 35810
+    },
+    {
+      "op": "note",
+      "at": 36706
+    },
+    {
+      "op": "note",
+      "at": 37464
+    },
+    {
+      "op": "note",
+      "at": 38663
+    },
+    {
+      "op": "note",
+      "at": 40893
+    },
+    {
+      "op": "note",
+      "at": 42152
+    },
+    {
+      "op": "note",
+      "at": 42983
+    },
+    {
+      "op": "note",
+      "at": 44563
+    },
+    {
+      "op": "note",
+      "at": 45687
+    },
+    {
+      "op": "moveNote",
+      "at": 54537
+    },
+    {
+      "op": "moveNote",
+      "at": 55241
+    },
+    {
+      "op": "run",
+      "at": 55456
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          700,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          150,
+          2
+        ],
+        [
+          150,
+          896
+        ],
+        [
+          2,
+          896
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 349,
+      "at": 7111
+    },
+    {
+      "way": [
+        [
+          75,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 7576
+    },
+    {
+      "way": [
+        [
+          210,
+          40
+        ],
+        [
+          387,
+          40
+        ]
+      ],
+      "n": 31,
+      "at": 8547
+    },
+    {
+      "way": [
+        [
+          1060,
+          40
+        ],
+        [
+          1210,
+          40
+        ]
+      ],
+      "n": 26,
+      "at": 9425
+    },
+    {
+      "way": [
+        [
+          210,
+          188
+        ],
+        [
+          1000,
+          188
+        ]
+      ],
+      "n": 133,
+      "at": 12095
+    },
+    {
+      "way": [
+        [
+          210,
+          304
+        ],
+        [
+          757,
+          304
+        ]
+      ],
+      "n": 92,
+      "at": 14074
+    },
+    {
+      "way": [
+        [
+          210,
+          402
+        ],
+        [
+          1210,
+          402
+        ]
+      ],
+      "n": 168,
+      "at": 17325
+    },
+    {
+      "way": [
+        [
+          210,
+          460
+        ],
+        [
+          770,
+          460
+        ]
+      ],
+      "n": 94,
+      "at": 19342
+    },
+    {
+      "way": [
+        [
+          210,
+          520
+        ],
+        [
+          770,
+          520
+        ]
+      ],
+      "n": 94,
+      "at": 21358
+    },
+    {
+      "way": [
+        [
+          210,
+          580
+        ],
+        [
+          770,
+          580
+        ]
+      ],
+      "n": 94,
+      "at": 23395
+    },
+    {
+      "way": [
+        [
+          210,
+          640
+        ],
+        [
+          770,
+          640
+        ]
+      ],
+      "n": 94,
+      "at": 25410
+    },
+    {
+      "way": [
+        [
+          840,
+          440
+        ],
+        [
+          1210,
+          440
+        ],
+        [
+          1210,
+          740
+        ],
+        [
+          840,
+          740
+        ],
+        [
+          840,
+          440
+        ]
+      ],
+      "n": 225,
+      "at": 29643
+    },
+    {
+      "way": [
+        [
+          1025,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 30105
+    },
+    {
+      "way": [
+        [
+          870,
+          487
+        ],
+        [
+          974,
+          487
+        ]
+      ],
+      "n": 18,
+      "at": 31225
+    },
+    {
+      "way": [
+        [
+          870,
+          540
+        ],
+        [
+          1146,
+          540
+        ]
+      ],
+      "n": 47,
+      "at": 32458
+    },
+    {
+      "way": [
+        [
+          870,
+          660
+        ],
+        [
+          1180,
+          660
+        ],
+        [
+          1180,
+          716
+        ],
+        [
+          870,
+          716
+        ],
+        [
+          870,
+          660
+        ]
+      ],
+      "n": 123,
+      "at": 35343
+    },
+    {
+      "way": [
+        [
+          1025,
+          688
+        ]
+      ],
+      "n": 1,
+      "at": 35810
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "SHARP & SONS bold",
+      "whole": false,
+      "x": 215,
+      "y": 60,
+      "at": 36706
+    },
+    {
+      "text": "PRICES BOOK spaced",
+      "whole": false,
+      "x": 1070,
+      "y": 60,
+      "at": 37464
+    },
+    {
+      "text": "CLEAN CUTS. / NO CHAT. huge bold",
+      "whole": false,
+      "x": 220,
+      "y": 212,
+      "at": 38663
+    },
+    {
+      "text": "x4 down: Haircut $30; Beard trim $18; Hot towel shave $35; Father and son $50; gold prices right, thin rule under",
+      "whole": false,
+      "x": 220,
+      "y": 480,
+      "at": 40893
+    },
+    {
+      "text": "red and blue diagonal barber stripes",
+      "whole": false,
+      "x": 40,
+      "y": 520,
+      "at": 42152
+    },
+    {
+      "text": "Walk in bold",
+      "whole": false,
+      "x": 880,
+      "y": 505,
+      "at": 42983
+    },
+    {
+      "text": "Tuesday to Saturday, 9 till 7. Second chair free most mornings.",
+      "whole": false,
+      "x": 880,
+      "y": 560,
+      "at": 44563
+    },
+    {
+      "text": "Book a chair white bold",
+      "whole": false,
+      "x": 900,
+      "y": 730,
+      "at": 45687
+    }
+  ]
+}
