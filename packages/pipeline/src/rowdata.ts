@@ -21,6 +21,7 @@
  *   column and look.
  * Zero tokens.
  */
+import { isCardList } from './repeatmark.js'
 import { noteParts } from './typedcopy.js'
 import { buttonLabel } from './buttonlabel.js'
 import { countedRow } from './countrow.js'
@@ -141,6 +142,8 @@ export function rowData(note: string): RowData | null {
   if (buttonLabel(note)) return null
   // n223: a count across is one row of items (countrow.ts): no rows of data
   if (countedRow(note)) return null
+  // n225: a count of cards, each a picture and a caption (repeatmark.ts): no rows of data
+  if (isCardList(note)) return null
   // n215: a count listing rows with cells: every cell is typed copy
   const cells0 = cellRows(note)
   if (cells0) return { note, rows: cells0, total: null }

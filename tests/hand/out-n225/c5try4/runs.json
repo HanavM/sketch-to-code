@@ -1,0 +1,450 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "75b7eb9b48c52a60a24d06f10c7d7a00e0beabf2",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/FlashTattoo.tsx",
+   "src/components/SunBadge.tsx"
+  ],
+  "reading": "This is a dark-themed landing page for a tattoo/flash-art book: a logo wordmark top-left, a badge-style sun/octagon emblem with brand text top-right, a huge italic serif hero line, a large cream panel meant to hold a row of four labeled flash-art cards (only one card box was sketched as a template), and a black button reading 'Book a session'. A page-wide black background color tap was also made.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Inkwell\" at (70,28) 72x26 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:14:7",
+      "rect": {
+       "x": 70,
+       "y": 25,
+       "w": 72.21875,
+       "h": 33
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 7.6,
+    "reason": "#f9f3e7 is on the page (ΔE 7.6)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (860,38) 350x382 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:21:7",
+      "rect": {
+       "x": 860,
+       "y": 37.625,
+       "w": 350,
+       "h": 382
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 860,
+        "y": 70,
+        "w": 349,
+        "h": 349
+       },
+       "built": {
+        "x": 860,
+        "y": 70,
+        "w": 349,
+        "h": 349
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s4",
+       "drawn": {
+        "x": 900,
+        "y": 110,
+        "w": 269,
+        "h": 270
+       },
+       "built": {
+        "x": 900,
+        "y": 110,
+        "w": 269,
+        "h": 270
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 7.6,
+    "reason": "#f9f3e7 is on the page (ΔE 7.6)"
+   },
+   {
+    "kind": "composition",
+    "index": 1,
+    "score": 0.17100161052666135,
+    "massSimilarity": 0.24428801503808772,
+    "flaws": [
+     "mirrored",
+     "over-regularized",
+     "displaced"
+    ],
+    "notes": [
+     "the sketch is lopsided left-to-right (asymmetry 0.84) but the output is near-symmetric (0.06) — you mirrored one side; keep the two sides different the way they were drawn",
+     "the sketch's mass sits unevenly top-to-bottom (asymmetry 0.89); the output evened it out (0.31)",
+     "proportions changed: the sketch is 237.52:1 (w:h), the output 2.73:1",
+     "only 24% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h2> \"Ink that lasts.\" at (70,103) 583x111 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h2",
+      "srcLoc": "src/App.tsx:43:7",
+      "rect": {
+       "x": 70,
+       "y": 124,
+       "w": 583.46875,
+       "h": 69
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 7.6,
+    "reason": "#f9f3e7 is on the page (ΔE 7.6)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:13:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f9f3e7 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 3,
+    "score": 0.5771306642609276,
+    "massSimilarity": 0.5387580918013253,
+    "flaws": [
+     "mirrored"
+    ],
+    "notes": [
+     "the sketch is lopsided left-to-right (asymmetry 0.28) but the output is near-symmetric (0.06) — you mirrored one side; keep the two sides different the way they were drawn"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <svg> at (1,429) 1276x468 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "svg",
+      "srcLoc": "src/components/FlashTattoo.tsx:10:5",
+      "rect": {
+       "x": 1,
+       "y": 429,
+       "w": 1276,
+       "h": 468
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 70,
+        "y": 809,
+        "w": 1141,
+        "h": 62
+       },
+       "built": {
+        "x": 69,
+        "y": 809,
+        "w": 1141,
+        "h": 62
+       },
+       "dx": -1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#171717 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "inner-ring",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 disc in its ring, centred"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "repeat-mark",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 copies at the drawn size, side by side"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#171717",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,38) 80x0",
+       "want": "#f9f3e7",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (860,70) 349x349 (outline ring)",
+       "want": "ring 21px #f9f3e7, no fill, whole",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (899,110) 271x270",
+       "want": "#d9283c",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (1041,38) 169x1",
+       "want": "#f9f3e7",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (70,184) 583x0",
+       "want": "#f9f3e7",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (1,429) 1276x468",
+       "want": "#f9f3e7",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (69,479) 261x261",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (69,809) 1141x62",
+       "want": "#171717",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 92923,
+   "cacheRead": 808456,
+   "output": 37698
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 64303,
+    "output": 25659,
+    "cacheRead": 395694,
+    "toolCalls": 14,
+    "tools": [
+     "Glob",
+     "Read components/SunBadge.tsx",
+     "Read components/FlashTattoo.tsx",
+     "Read src/App.tsx",
+     "Glob",
+     "Read s2c-hand-app/package.json",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Edit components/SunBadge.tsx",
+     "Edit components/FlashTattoo.tsx",
+     "Edit src/App.tsx",
+     "Read components/SunBadge.tsx",
+     "Read components/FlashTattoo.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 312361
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 57044,
+    "output": 7746,
+    "cacheRead": 275899,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit components/SunBadge.tsx"
+    ],
+    "ms": 95607
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 9274,
+    "output": 4293,
+    "cacheRead": 136863,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 55899
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

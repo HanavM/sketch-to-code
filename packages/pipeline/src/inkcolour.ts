@@ -411,7 +411,7 @@ export function verifyInkColours(
       if (c.paint === 'border' && c.outlineRing) {
         const v = outlineRingBuilt(c, after.nodes)
         checks.push({ what: `${what} (outline ring)`, want: `ring ${String(c.outlineRing.thickness)}px ${hex(c.color)}, no fill, whole`, best: null, ok: v.ok })
-        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a ring drawn in the ${hex(c.color)} pen with no tap: an outline ring; ${v.why}: build it as a div exactly ${String(Math.round((c.box.w + c.box.h) / 2))}px across with border-radius 50%, box-sizing border-box, a ${String(c.outlineRing.thickness)}px solid ${hex(c.color)} border and a transparent inside, nothing inside it; keep its size and place`)
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a ring drawn in the ${hex(c.color)} pen with no tap: an outline ring; ${v.why}: build it as a div exactly ${String(Math.round((c.box.w + c.box.h) / 2))}px across with border-radius 50%, box-sizing border-box, a ${String(c.outlineRing.thickness)}px solid ${hex(c.color)} border and a transparent inside, nothing inside it but what was drawn there; keep its size and place`)
         continue
       }
       // n146: a small dark ring with no tap: no solid pen-coloured disc there with nothing covering its middle
@@ -689,7 +689,9 @@ export function outlineRingBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: rea
   const ring = nodes.some((n) => near(n, 0.8, 1.2) && (
     ((n.tag === 'circle' || n.tag === 'ellipse') && penLike(n.style.svgStroke)) ||
     (!!n.style.border && !/^\s*0px/.test(n.style.border) && penLike(n.style.border.replace(/^\s*[\d.]+px\s*/, '')) && /(?:50%|9999|[1-9]\d{1,3}(?:\.\d+)?px)/.test(n.style.borderRadius))))
-  if (!ring) return { ok: false, why: `no round ${hex(c.color)} outline about ${String(Math.round(d))}px across was built centred on it` }
+  // n225: a pen-coloured disc with a centred cover over its middle looks the same as a border (hollowBuilt has seen the cover)
+  const covered = nodes.some((n) => near(n, 0.8, 1.2) && penLike(n.style.backgroundColor) && /(?:50%|9999|[1-9]\d{1,3}(?:\.\d+)?px)/.test(n.style.borderRadius))
+  if (!ring && !covered) return { ok: false, why: `no round ${hex(c.color)} outline about ${String(Math.round(d))}px across was built centred on it` }
   return { ok: true, why: '' }
 }
 

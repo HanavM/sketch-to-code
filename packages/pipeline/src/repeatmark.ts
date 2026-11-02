@@ -18,10 +18,12 @@
  */
 import type { Stroke } from '@s2c/ink'
 import { shapeOf } from './shapemark.js'
+import { colourName } from './explain.js'
+import { deltaE, parseCssColor } from './palette.js'
 
 interface Box { x: number; y: number; w: number; h: number }
 interface NoteLike { text: string; at?: { x: number; y: number }; anchor?: { kind: string; strokeIds?: string[]; focus?: string[] } }
-interface NodeLike { id: string; parent?: string | null; rect: Box; text?: string; textBox?: Box; style?: { backgroundColor?: string; border?: string; fontSize?: string } }
+interface NodeLike { id: string; tag?: string; parent?: string | null; rect: Box; text?: string; textBox?: Box; style?: { backgroundColor?: string; border?: string; fontSize?: string; boxShadow?: string; outline?: string } }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 
 export interface RepeatPlan {
@@ -38,6 +40,54 @@ export interface RepeatPlan {
   gap: number
   /** The drawn marks inside the first copy, as offsets from its top-left. */
   insides: Array<{ kind: 'ring' | 'box' | 'line' | 'mark'; dx: number; dy: number; w: number; h: number }>
+  /** n225: the colour tapped inside the drawn box: every copy is painted it, whatever the words say. */
+  fill?: string
+  /** n225: the note asks for frames: the pen colour the box was drawn in is each copy's border. */
+  frame?: string
+  /** n225: one per copy: what is pictured in it and its caption. */
+  items?: CardItem[]
+  /** n225: captions go under the box, outside it. */
+  captionsUnder?: boolean
+}
+
+export interface CardItem { picture: string; caption: string; paint?: string }
+
+const FRAME_WORD = /\b(frames?|framed|borders?|bordered|outlined)\b/i
+const UNDER_WORD = /\b(?:captions?|names?|labels?|titles?|words?)\s+(?:under|underneath|below)\b|\b(?:under|underneath|below)\s+(?:each|it|them|the\s+(?:box|card|frame)(?:es|s)?)\b/i
+
+/** n225: the cards a note that opens with a count lists, each a picture and a caption; never a table's rows. */
+export function cardList(note: string): CardItem[] | null {
+  const lead = /^\s*(?:x|×)\s?(\d{1,2})\b/i.exec(note)
+  if (!lead) return null
+  const c = cardItems(note, Number(lead[1]))
+  return c && !/\b(rows?|down|stacked)\b/i.test(c.head.replace(/\bin (?:a |one )?row\b/i, '')) ? c.items : null
+}
+export const isCardList = (note: string) => !!cardList(note)
+
+/** n225: "white border" on a box drawn in a dark pen: the words name the frame's colour, so the pen is not it. */
+function otherColourFrame(head: string, pen: string): boolean {
+  const said = /\b(white|black|grey|gray|red|orange|yellow|green|blue|purple|pink|gold|silver)\s+(?:frames?|borders?|outlines?)\b/i.exec(head)?.[1]?.toLowerCase()
+  return !!said && said.replace('gray', 'grey') !== colourName(pen)
+}
+
+/**
+ * n225 (round 47 c5 tattoo parlor, n221): "x4 in a row, dark frames, captions under: black diamond, Diamond $80; red
+ * circle, Red sun $60; ..." on one box drawn in a dark pen and tapped white. The first card came out red (its words
+ * painted it), the copies frameless, the captions upper-case inside. The words before the colon say how every copy
+ * looks; the words after it are, per copy, a picture in lower case and a caption.
+ */
+export function cardItems(note: string, n: number): { items: CardItem[]; head: string } | null {
+  const c = note.indexOf(':')
+  if (c < 0) return null
+  const segs = note.slice(c + 1).split(/\s*;\s*/).map((t) => t.trim()).filter(Boolean)
+  if (segs.length !== n) return null
+  const items: CardItem[] = []
+  for (const t of segs) {
+    const m = /^([\p{Ll}][^,]*?),\s+([\p{Lu}\p{N}$£€¥#].*)$/u.exec(t)
+    if (!m) return null
+    items.push({ picture: m[1]!.trim(), caption: m[2]!.trim() })
+  }
+  return { items, head: note.slice(0, c) }
 }
 
 const NUMW = '(\\d{1,2}|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)'
@@ -94,8 +144,11 @@ const contains = (c: Box, p: { x: number; y: number }, pad = 10) => p.x >= c.x -
 export function repeatPlans(notes: readonly NoteLike[], strokes: readonly Stroke[], vp: { w: number; h: number }): RepeatPlan[] {
   const marks = strokes.filter((s) => s.points.length > 1).map((s) => {
     const sh = shapeOf(s.points)
-    return { id: s.id, box: sh?.box ? r(sh.box) : r(bboxOf(s.points)), shape: sh?.shape ?? null }
+    return { id: s.id, box: sh?.box ? r(sh.box) : r(bboxOf(s.points)), shape: sh?.shape ?? null, color: s.color ?? null }
   }).filter((m) => m.box.w + m.box.h > 6)
+  // n225: taps (one spot with a pen colour), and every pen colour used, for naming a picture's paint
+  const taps = strokes.filter((s) => s.color && (s.points.length === 1 || (bboxOf(s.points).w + bboxOf(s.points).h) <= 6))
+  const inks = [...new Set(strokes.map((s) => s.color).filter((c): c is string => !!c))]
   const boxes = marks.filter((m) => m.shape === 'box' && m.box.w >= 40 && m.box.h >= 40)
   const out: RepeatPlan[] = []
   const used = new Set<string>()
@@ -134,8 +187,20 @@ export function repeatPlans(notes: readonly NoteLike[], strokes: readonly Stroke
     else if (gy !== null && m.w >= m.h * 1.5) { axis = 'y'; gap = gy }
     if (!axis) continue
     used.add(pick.id)
+    const cards = cardItems(note.text, want.n)
+    const head = cards?.head ?? note.text
+    const fillTap = taps.filter((t) => contains(m, t.points[0]!, 0) && !insideMarks.some((o) => contains(o.box, t.points[0]!, 0))).pop()
+    const items = cards?.items.map((it) => {
+      const named = /^\S+/.exec(it.picture)?.[0]?.toLowerCase()
+      const paint = inks.find((c) => colourName(c) === named)
+      return { ...it, ...(paint ? { paint } : {}) }
+    })
     out.push({
-      note: note.text, n: want.n, noun: want.noun, names: want.names, mark: m, axis, gap,
+      note: note.text, n: want.n, noun: want.noun, names: items ? [] : want.names, mark: m, axis, gap,
+      ...(fillTap?.color ? { fill: fillTap.color } : {}),
+      ...(FRAME_WORD.test(head) && pick.color && !otherColourFrame(head, pick.color) ? { frame: pick.color } : {}),
+      ...(items ? { items } : {}),
+      ...(UNDER_WORD.test(head) ? { captionsUnder: true } : {}),
       insides: insideMarks.sort((a, b) => a.box.y - b.box.y || a.box.x - b.box.x).slice(0, 8).map((o) => ({
         kind: o.shape === 'ellipse' ? 'ring' : o.shape === 'box' ? 'box' : o.shape === 'line' ? 'line' : 'mark',
         dx: o.box.x - m.x, dy: o.box.y - m.y, w: o.box.w, h: o.box.h,
@@ -150,6 +215,21 @@ const at = (p: RepeatPlan, k: number) => p.axis === 'x'
   ? { x: p.mark.x + k * (p.mark.w + p.gap), y: p.mark.y }
   : { x: p.mark.x, y: p.mark.y + k * (p.mark.h + p.gap) }
 
+/** n225: how every copy looks, and what each one holds. */
+function cardBrief(p: RepeatPlan): string {
+  const look = [
+    p.fill ? `painted ${p.fill} (the tap in the drawn box), the first one too: no word in the note colours a card` : '',
+    p.frame ? `with a 2px solid ${p.frame} border, the pen the box was drawn in (box-sizing: border-box, so it stays the drawn size), no shadow; this border is asked for, whatever a line above says about no border` : '',
+  ].filter(Boolean).join(', ')
+  const items = p.items ?? []
+  const said = items.map((it, k) => `${String(k + 1)}: ${it.picture}${it.paint ? ` (${it.paint})` : ''}, ${q(it.caption)}`).join('; ')
+  return (look ? ` Every copy is ${look}.` : '') + (items.length
+    ? ` In each, in order, one flat shape centred in the box, about half its width, in the colour named, then its caption, printed exactly as typed (same capitals, no text-transform): ${said}. ` +
+      `A bar is wider than tall. ` +
+      (p.captionsUnder ? `Each caption goes BELOW its box, outside the frame, one line, centred under it, so the box stays its drawn size and holds only the shape.` : `Each caption goes inside its box, under the shape.`)
+    : '')
+}
+
 export function repeatBrief(plans: readonly RepeatPlan[]): string {
   if (!plans.length) return ''
   const lines = plans.map((p) => {
@@ -163,10 +243,52 @@ export function repeatBrief(plans: readonly RepeatPlan[]): string {
       `Build exactly ${String(p.n)} separate ${p.noun ? `${thing}s` : 'copies'} ${p.axis === 'x' ? 'side by side in one row' : 'stacked in one column'}, every one ${String(p.mark.w)}x${String(p.mark.h)}px (the drawn size), ${String(p.gap)}px apart: ` +
       `${thing} k's top-left at ${p.axis === 'x' ? `x ${String(p.mark.x)} + (k-1) x ${String(p.mark.w + p.gap)}, y ${String(p.mark.y)}` : `x ${String(p.mark.x)}, y ${String(p.mark.y)} + (k-1) x ${String(p.mark.h + p.gap)}`} ` +
       `(the last at ${String(last.x)},${String(last.y)}). They are SIBLINGS filling the open space ${p.axis === 'x' ? 'to the right of' : 'below'} the drawn one: never put copies inside the drawn box, never shrink them, and leave nothing else in that space.` +
-      ins + (p.names.length ? ` Their names, one per ${thing} in order: ${p.names.map(q).join(', ')}.` : '')
+      ins + (p.names.length ? ` Their names, one per ${thing} in order: ${p.names.map(q).join(', ')}.` : '') + cardBrief(p)
   })
   return `REPEATED MARK (a count typed on one drawn box; deterministic; checked on the page):\n${lines.join('\n')}\n` +
     `Never print the count, the noun list's separators, a direction word ("stacked", "down") or "like this".\n\n`
+}
+
+const framed = (n: NodeLike) => {
+  const st = n.style ?? {}
+  const on = (v?: string) => !!v && !/^\s*0px/.test(v) && !/\bnone\b/.test(v)
+  return on(st.border) || on(st.outline) || (!!st.boxShadow && /0px 0px 0px [1-3](?:\.\d+)?px/.test(st.boxShadow))
+}
+/** n225: the fill, frame and captions asked for, copy by copy. */
+function cardFaults(p: RepeatPlan, after: Snap): string[] {
+  const m = p.mark, out: string[] = []
+  const fill = p.fill ? parseCssColor(p.fill) : null
+  for (let k = 0; k < p.n; k++) {
+    const c = at(p, k)
+    const here = after.nodes.filter((n) => Math.abs(n.rect.x - c.x) <= 24 && Math.abs(n.rect.y - c.y) <= 24 && Math.abs(n.rect.w - m.w) <= m.w * 0.2 && Math.abs(n.rect.h - m.h) <= m.h * 0.3)
+    if (!here.length) continue // the count check above says what is missing
+    if (fill && !here.some((n) => { const b = parseCssColor(n.style?.backgroundColor ?? ''); return !!b && deltaE(b, fill) <= 10 })) {
+      out.push(`copy ${String(k + 1)} of ${q(p.note.slice(0, 30))} at x ${String(c.x)} must be painted ${p.fill!} (the tap); no word in the note colours it`)
+    }
+    if (p.frame && !here.some(framed)) out.push(`copy ${String(k + 1)} of ${q(p.note.slice(0, 30))} at x ${String(c.x)} has no border: give it 2px solid ${p.frame}, box-sizing: border-box`)
+    const it = p.items?.[k]
+    if (!it) continue
+    // n225 (try 4): four empty frames with their captions passed every check; a card holds its picture
+    const held = after.nodes.some((n) => {
+      const b = n.rect
+      if (b.w < m.w * 0.15 || b.h < m.h * 0.08 || b.w > m.w * 0.95 || b.h > m.h * 0.95) return false
+      if (b.x < c.x - 4 || b.y < c.y - 4 || b.x + b.w > c.x + m.w + 4 || b.y + b.h > c.y + m.h + 4) return false
+      if (n.text?.trim()) return false
+      if (/^(svg|polygon|circle|ellipse|path|rect|img)$/i.test(n.tag ?? '')) return true
+      const bg = parseCssColor(n.style?.backgroundColor ?? '')
+      return !!bg && (!fill || deltaE(bg, fill) > 10)
+    })
+    if (!held) out.push(`copy ${String(k + 1)} at x ${String(c.x)} is empty: draw ${it.picture}${it.paint ? ` (${it.paint})` : ''} centred in it, about half its width`)
+    const want = it.caption.toLowerCase()
+    const t = after.nodes.filter((n) => n.text?.trim().toLowerCase() === want)[0]
+    if (!t) { out.push(`the caption ${q(it.caption)} is not on the page: print it as typed`); continue }
+    const b = t.textBox ?? t.rect, mid = b.x + b.w / 2
+    if (p.captionsUnder && p.axis === 'x') {
+      if (b.y < c.y + m.h - 4) out.push(`the caption ${q(it.caption)} sits inside its box (top at y ${String(Math.round(b.y))}, the box ends at y ${String(c.y + m.h)}): it goes below the box, outside the frame`)
+      else if (mid < c.x - 12 || mid > c.x + m.w + 12) out.push(`the caption ${q(it.caption)} is not under its box (x ${String(c.x)} to ${String(c.x + m.w)})`)
+    }
+  }
+  return out
 }
 
 export interface RepeatVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
@@ -193,6 +315,7 @@ export function verifyRepeats(plans: readonly RepeatPlan[] | undefined, after: S
       problems.push(`${q(p.note.slice(0, 40))} asks for ${String(p.n)} ${thing} at the drawn size (${String(m.w)}x${String(m.h)}px) ${p.axis === 'x' ? 'side by side from' : 'stacked down from'} x ${String(m.x)}, y ${String(m.y)}; the page has ${String(spots.length)}: ` +
         `build them as siblings ${String(p.gap)}px apart in the open space ${p.axis === 'x' ? 'to the right' : 'below'}, never small copies inside the first`)
     }
+    problems.push(...cardFaults(p, after))
   }
   return problems.length
     ? { satisfied: false, reason: problems.join('; ') + '; change nothing else' }

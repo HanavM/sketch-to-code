@@ -13,6 +13,7 @@
  * the drawn size. Colour words are eyeballed, so the check is a colour family
  * (a generous distance from a reference), not a hex. Zero tokens.
  */
+import { isCardList } from './repeatmark.js'
 import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { deltaE, hexOf, parseCssColor, type Rgb } from './palette.js'
@@ -40,6 +41,8 @@ export interface Solid { word: string; hex: string; noun: string; tol: number; t
 
 /** "lime badge NEW" → {word: lime, noun: badge}; null when the note gives no fill colour for a plain thing. */
 export function solidOf(text: string): Solid | null {
+  // n225: "x4 ...: black diamond, Diamond $80; red circle, ..." names the shape in each card, never paints the box it was typed on
+  if (isCardList(text)) return null
   const t = ` ${text.toLowerCase()} `
   // a glass card or a glow is see-through on purpose: not a solid fill
   if (/\b(glass|frosted|translucent|transparent|see-through|blurred|blurry|glow|glowing|ghost)\b/.test(t)) return null

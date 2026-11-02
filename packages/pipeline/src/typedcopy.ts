@@ -20,6 +20,7 @@
 
 interface NodeLike { id: string; text?: string; textBox?: unknown }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
+import { cardList } from './repeatmark.js'
 import { countedRow } from './countrow.js'
 import { endPair } from './endpair.js'
 import { cellRows, countedItems } from './drawnlist.js'
@@ -312,6 +313,13 @@ export function typedCopyBrief(notes: readonly string[]): string {
     if (across && !seen.has(n)) {
       seen.add(n)
       lines.push(`- "${n}": the text on the page is the ${String(across.n)} items, side by side: ${across.items.map((i) => `"${i.main}"${i.under ? ` with "${i.under}" under it` : ''}`).join(', ')}. The count, the words before the colon, the comma between an item's two lines and the look words are never printed.`)
+      continue
+    }
+    // n225: a count of cards, each a picture and a caption: only the captions are text
+    const cards = cardList(n)
+    if (cards && !seen.has(n)) {
+      seen.add(n)
+      lines.push(`- "${n}": the only text on the page from this note is the ${String(cards.length)} captions: ${cards.map((i) => `"${i.caption}"`).join(', ')}. Everything else in it says what to draw and how it looks; never print it.`)
       continue
     }
     // n214: a count listing its items: the items are the text, never the count, the lead or a share
