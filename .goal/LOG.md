@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T21:45Z | n247 a page drawn inside the screen stays inside it | Fits one screen 3 builds of 3, unscrolled; budget 89.5 to 93.6; wifi 60.1, 57.3, no clear gain.
 2026-11-02T21:01Z | n244 a drawn box keeps its size when a count fills it | Panel, rows, toggles right 2 of 2, no fix; wifi 55 to 64.2, 56; 73 words, was 115.
 2026-11-02T20:05Z | n238 sketch round 48 app pages | Flashcards 66.8, laundry 70.1, rota 73.2, sleep 85, wifi 55; round 75.8, 19 strokes, 75 words.
 2026-11-02T19:08Z | n237 sketch round 48 landing pages | Pinwheel 81.6, cactus 83.2, typewriter 87.4, railway 78.8, puppet 76.3; mean 81.5, 19 strokes, 66 words.

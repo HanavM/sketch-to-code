@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "A drawn panel now keeps its size and its rows and toggles come right first build; next, stop a page running just past the screen."
+now: "A page drawn inside the screen now stays inside it; next, a short label or stat keeps all its words where they were typed."
 round: 48
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79, 75, 84, 78, 82, 76]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0, round 44 is 75.1, round 45 is 83.6
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}, {round: 44, strokes: 17, words: 56.5, minutes: 10.1}, {round: 45, strokes: 18, words: 54, minutes: 8.5}, {round: 46, strokes: 16.5, words: 56, minutes: 7.6}, {round: 47, strokes: 18, words: 59.5, minutes: 8.9}, {round: 48, strokes: 19, words: 75, minutes: 10.1}]   # per round: {round, strokes, words, minutes}
-lock: {by: step-run, until: "2026-11-02T22:32Z"}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -412,7 +412,8 @@ nodes:
   - {id: n244, parent: n2, kind: step, priority: next, title: "A drawn box keeps its drawn size when a count fills it, its rows sharing the height evenly, and what is drawn below it stays there; rows take a drawn toggle pill as a toggle with no invented words; replay wifi", status: done, branch: try/n3-ink-style, result: "Panel, button, rows, toggles right 2 builds of 2, no fix; wifi 55 to 64.2, 56; 73 words, was 115."}
   - {id: n245, parent: n3, kind: step, title: "A page tap is one flat colour, never a fade to a far tap; a tap on a ring body is a slice, inside the hole is the hole; no invented dot in a ring; replay sleep tracker", status: open, branch: try/n3-ink-style, result: null}
   - {id: n246, parent: n2, kind: step, title: "A short bar label stays one line, a stat keeps all its words in typed order, and a sentence beside a box stays outside it, not replacing its words; replay rota", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n247, parent: n4, kind: step, title: "A page sketched inside the screen stays inside it: told, checked and repaired, so it never runs a few pixels past and shows scrolled; replay wifi", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n247, parent: n4, kind: step, title: "A page sketched inside the screen stays inside it: told, checked and repaired, so it never runs a few pixels past and shows scrolled; replay wifi", status: done, branch: try/n3-ink-style, result: "Fits one screen 3 builds of 3, unscrolled; budget 89.5 to 93.6; wifi 60.1, 57.3, no clear gain."}
+  - {id: n249, parent: n4, kind: step, title: "A colour check never fails on what is right: the chart card and a colour that is on the page sent repairs (about 58k tokens per wifi build); and trace why wifi layout stays under 40 with every part right", status: open, branch: try/n3-ink-style, result: null}
   - {id: n248, parent: n2, kind: step, title: "Look words on a small drawn card (white, filled bars) are never printed on the page; replay wifi", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
   - {gap: "A card stack drawn back to front came out with the front card at the back", found_on: "r48 e1 (n238)", built: null, helped: null}
@@ -731,6 +732,7 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A page tap under a later shape was taken by that shape, page stayed white", found_on: "r48 c5 (n237)", built: null, helped: null}
   - {gap: "A drawn, tapped, noted button was never built and nothing said so, through two fixes", found_on: "r48 c5 (n237)", built: null, helped: null}
   - {gap: "A fix broke what was right (beam made a box, puppet stripped of head and colours); style words after a count were printed; no way back from a bad fix", found_on: "r48 c5 (n237)", built: null, helped: null}
+  - {gap: "A page drawn inside the screen ran a little past it and came back scrolled; nothing checked its height", found_on: "r48 e5 (n244)", built: "n247: told one screen, page height measured and checked", helped: "Fits 3 builds of 3; budget 89.5 to 93.6; wifi no clear gain; demo tests/hand/out-n247/n247-demo.gif"}
 baseline_pages:   # hand-sketched, v3
   - {page: r1 c1-sunset-hero, likeness: 52.1, strokes: 8, words: 41, minutes: 4.9, fixes: 1, tokens: 60222}
   - {page: r1 e1-login, likeness: 71.1, strokes: 7, words: 25, minutes: 10.0, fixes: 0, tokens: 101705}
@@ -751,6 +753,7 @@ n8_resketch:   # same strokes and notes as baseline, tool with exact counts + ke
   - {page: r12 c4-diagonal-split, likeness: 49.9, was: 49.7, strokes: 9, words: 52, minutes: 10.2, fixes: 1, tokens: 104676}
   - {page: r8 c2-orbit-type, likeness: 73.9, was: 71.0, strokes: 10, words: 32, minutes: 5.4, fixes: 0, tokens: 54207}
 notes:
+  - "2026-11-02 n247 ~306k billed (wifi 141k, 124k; budget 41k). Replay output lands in tests/hand/out/round<N>/<id>, not tests/hand/out/<id>; the failure text from a check is not kept in runs.json."
   - "2026-11-02 n244 ~586k billed (wifi 121k, 147k; night market 169k, 148k). Check rules against kept screenshots first: sharing every box would have hurt two of three pages."
   - "2026-11-02 n238 ~918k billed (flashcards 200k, laundry 125k, rota 197k, sleep 137k, wifi 260k). Round 48 whole 1.77M billed. Keep credentials out of command output: never print the environment."
   - "2026-11-02 n226 ~207k billed (budget 53k, 53k, 61k, 41k). Never rm -rf /tmp/s2c-hand-app with a session up: its open fails with spawnSync git ENOENT; stop the session first."
@@ -1381,6 +1384,10 @@ n228_resketch:   # earlier strokes, pens and first notes replayed (replay.mjs); 
   - {page: r47 e2-timesheet, try: 2, likeness: 58.2, was: 87.2, strokes: 14, words: 46, notes: 9, fixes: 0, first_read_s: 128, build_s: 428, total_s: 559, tokens: 62873, note: "pair right; layout off and the repair stopped twice with no edit"}
   - {page: r47 e2-timesheet, try: 3, likeness: 91.9, was: 87.2, strokes: 14, words: 46, notes: 9, fixes: 0, first_read_s: 106, build_s: 335, total_s: 443, tokens: 110670, note: "logo word missing"}
   - {page: r47 e5-budget-donut, try: 1, likeness: 76.0, was: 90.3, strokes: 19, words: 53, notes: 10, fixes: 0, first_read_s: 100, build_s: 243, total_s: 346, tokens: 86705, note: "band right; was 90.3 after three fixes and three more boxes; donut and rows await n226, n227"}
+n247_resketch:   # earlier strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N247.md on try/n3-ink-style
+  - {page: r48 e5-wifi-devices, try: 1, likeness: 60.1, was: 64.2, strokes: 19, words: 73, notes: 9, fixes: 0, first_read_s: 95, build_s: 276, total_s: 373, tokens: 141109, note: "ends at 900, unscrolled; two repairs"}
+  - {page: r48 e5-wifi-devices, try: 2, likeness: 57.3, was: 56.0, strokes: 19, words: 73, notes: 9, fixes: 0, first_read_s: 95, build_s: 302, total_s: 399, tokens: 123875, note: "ends at 900, unscrolled; two repairs"}
+  - {page: r47 e5-budget-donut, try: 1, likeness: 93.6, was: 89.5, strokes: 16, words: 40, notes: null, fixes: 0, first_read_s: 97, build_s: 102, total_s: 202, tokens: 41089, note: "control: ended at 920, now 900, no repair"}
 n244_resketch:   # earlier strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N244.md on try/n3-ink-style
   - {page: r48 e5-wifi-devices, try: 1, likeness: 64.2, was: 55.0, strokes: 19, words: 73, notes: 9, fixes: 0, first_read_s: 89, build_s: 231, total_s: 322, tokens: 121273, note: "panel and button where drawn, six even rows, right toggles; every check passed"}
   - {page: r48 e5-wifi-devices, try: 2, likeness: 56.0, was: 55.0, strokes: 19, words: 73, notes: 9, fixes: 0, first_read_s: 102, build_s: 422, total_s: 527, tokens: 147109, note: "same rows and toggles; page ran 18px past the screen and shows scrolled up"}
