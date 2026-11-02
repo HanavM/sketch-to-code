@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T10:24Z | n217 write round 47 | Ten fresh pages written, screenshotted, calibrated; six harder than round 1; none sketched.
 2026-11-02T10:13Z | n219 pattern colours stay flat | No grey in 4 of 4 builds; date side fixed; chess 84.6, 84.8, 82.0, 89.0; no fix.
 2026-11-02T09:50Z | n218 heading lines land where drawn | Heading on its lines, date one piece; chess 85.7, 74.9 (grey squares); ski 80.2; no fix.
 2026-11-02T08:24Z | n164 style words after a heading never printed | Off the page in all four builds; chess 59.5 to 79.3, 83.3, no fix; ski 80.4, 77.7.
