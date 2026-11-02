@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T16:45Z | n225 a repeated card keeps its tap, frame and captions | Frames, pictures, captions right, disc centred, no fix; tattoo 72.9 to 81.3; varies 77-85.
 2026-11-02T15:26Z | n224 a figure in one stroke keeps its outline | Fish and rings right in 2 builds of 2, no fix; aquarium 82.2, 82.1 at 43 words; skyline 80.1.
 2026-11-02T14:58Z | n231 last small try after two stopped repairs | Edited 3 of 3 in 8-10 s; timesheet 83.6, gradebook 73.3; stops forced, not real.
 2026-11-02T14:30Z | n228 name and value at a bar's two ends | Right 5 builds of 6, no fix; words 59 to 32, 51 to 46, 92 to 53.
