@@ -1,0 +1,590 @@
+{
+  "round": 48,
+  "id": "c1-pinwheel-toys",
+  "version": 3,
+  "stopped": null,
+  "likeness": 81.6,
+  "colour": 0.9801123377568549,
+  "structure": 0.9539323761290283,
+  "layout": 0.6639772713348335,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 9,
+      "box": 7,
+      "circle": 1,
+      "line": 2
+    },
+    "inkPx": 7738
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 41,
+  "notes": 7,
+  "longestNote": 11,
+  "noteTexts": [
+    "Whirligig bold serif",
+    "Toys, Workshop, Stockists",
+    "Toys that run / on wind, huge bold",
+    "Hand-folded pinwheels and kites, made in our barn since 1982. grey",
+    "Shop the barn white bold pill",
+    "Free shipping over $40 bold",
+    "Open Sat and Sun bold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 401,
+    "firstReadingS": 113,
+    "readS": [
+      68
+    ],
+    "buildS": [
+      262
+    ],
+    "sketchingS": 70
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 107277,
+    "cacheRead": 622383,
+    "output": 30348,
+    "billed": 137625
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#fff6e6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 475
+    },
+    {
+      "op": "pen",
+      "color": "#7fb069",
+      "at": 872
+    },
+    {
+      "op": "stroke",
+      "at": 9061
+    },
+    {
+      "op": "stroke",
+      "at": 9551
+    },
+    {
+      "op": "pen",
+      "color": "#e5572e",
+      "at": 9935
+    },
+    {
+      "op": "stroke",
+      "at": 12380
+    },
+    {
+      "op": "stroke",
+      "at": 12869
+    },
+    {
+      "op": "pen",
+      "color": "#2e86ab",
+      "at": 13250
+    },
+    {
+      "op": "stroke",
+      "at": 15687
+    },
+    {
+      "op": "stroke",
+      "at": 16167
+    },
+    {
+      "op": "pen",
+      "color": "#6b4c93",
+      "at": 16569
+    },
+    {
+      "op": "stroke",
+      "at": 19005
+    },
+    {
+      "op": "stroke",
+      "at": 19514
+    },
+    {
+      "op": "pen",
+      "color": "#f5ad2e",
+      "at": 19915
+    },
+    {
+      "op": "stroke",
+      "at": 22368
+    },
+    {
+      "op": "stroke",
+      "at": 22852
+    },
+    {
+      "op": "pen",
+      "color": "#8a5a2b",
+      "at": 23239
+    },
+    {
+      "op": "stroke",
+      "at": 25736
+    },
+    {
+      "op": "stroke",
+      "at": 26216
+    },
+    {
+      "op": "pen",
+      "color": "#22375e",
+      "at": 26595
+    },
+    {
+      "op": "stroke",
+      "at": 27490
+    },
+    {
+      "op": "stroke",
+      "at": 27987
+    },
+    {
+      "op": "stroke",
+      "at": 29789
+    },
+    {
+      "op": "stroke",
+      "at": 31091
+    },
+    {
+      "op": "pen",
+      "color": "#e5572e",
+      "at": 31473
+    },
+    {
+      "op": "stroke",
+      "at": 33573
+    },
+    {
+      "op": "stroke",
+      "at": 34071
+    },
+    {
+      "op": "note",
+      "at": 34834
+    },
+    {
+      "op": "note",
+      "at": 35545
+    },
+    {
+      "op": "note",
+      "at": 36474
+    },
+    {
+      "op": "note",
+      "at": 37389
+    },
+    {
+      "op": "note",
+      "at": 38187
+    },
+    {
+      "op": "note",
+      "at": 38938
+    },
+    {
+      "op": "note",
+      "at": 39673
+    },
+    {
+      "op": "run",
+      "at": 44933
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          740
+        ]
+      ],
+      "n": 1,
+      "at": 475
+    },
+    {
+      "way": [
+        [
+          2,
+          790
+        ],
+        [
+          1278,
+          790
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          790
+        ]
+      ],
+      "n": 463,
+      "at": 9061
+    },
+    {
+      "way": [
+        [
+          640,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 9551
+    },
+    {
+      "way": [
+        [
+          680,
+          228
+        ],
+        [
+          890,
+          228
+        ],
+        [
+          890,
+          428
+        ],
+        [
+          680,
+          228
+        ]
+      ],
+      "n": 117,
+      "at": 12380
+    },
+    {
+      "way": [
+        [
+          830,
+          280
+        ]
+      ],
+      "n": 1,
+      "at": 12869
+    },
+    {
+      "way": [
+        [
+          1100,
+          228
+        ],
+        [
+          1100,
+          438
+        ],
+        [
+          900,
+          438
+        ],
+        [
+          1100,
+          228
+        ]
+      ],
+      "n": 117,
+      "at": 15687
+    },
+    {
+      "way": [
+        [
+          1050,
+          380
+        ]
+      ],
+      "n": 1,
+      "at": 16167
+    },
+    {
+      "way": [
+        [
+          680,
+          438
+        ],
+        [
+          880,
+          438
+        ],
+        [
+          680,
+          648
+        ],
+        [
+          680,
+          438
+        ]
+      ],
+      "n": 117,
+      "at": 19005
+    },
+    {
+      "way": [
+        [
+          730,
+          490
+        ]
+      ],
+      "n": 1,
+      "at": 19514
+    },
+    {
+      "way": [
+        [
+          890,
+          450
+        ],
+        [
+          1100,
+          648
+        ],
+        [
+          890,
+          648
+        ],
+        [
+          890,
+          450
+        ]
+      ],
+      "n": 117,
+      "at": 22368
+    },
+    {
+      "way": [
+        [
+          940,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 22852
+    },
+    {
+      "way": [
+        [
+          882,
+          462
+        ],
+        [
+          898,
+          462
+        ],
+        [
+          898,
+          790
+        ],
+        [
+          882,
+          790
+        ],
+        [
+          882,
+          462
+        ]
+      ],
+      "n": 117,
+      "at": 25736
+    },
+    {
+      "way": [
+        [
+          890,
+          720
+        ]
+      ],
+      "n": 1,
+      "at": 26216
+    },
+    {
+      "way": [
+        [
+          890,
+          414
+        ],
+        [
+          907,
+          421
+        ],
+        [
+          914,
+          438
+        ],
+        [
+          907,
+          455
+        ],
+        [
+          890,
+          462
+        ],
+        [
+          873,
+          455
+        ],
+        [
+          866,
+          438
+        ],
+        [
+          873,
+          421
+        ],
+        [
+          890,
+          414
+        ]
+      ],
+      "n": 25,
+      "at": 27490
+    },
+    {
+      "way": [
+        [
+          890,
+          438
+        ]
+      ],
+      "n": 1,
+      "at": 27987
+    },
+    {
+      "way": [
+        [
+          64,
+          210
+        ],
+        [
+          540,
+          210
+        ]
+      ],
+      "n": 80,
+      "at": 29789
+    },
+    {
+      "way": [
+        [
+          64,
+          288
+        ],
+        [
+          350,
+          288
+        ]
+      ],
+      "n": 49,
+      "at": 31091
+    },
+    {
+      "way": [
+        [
+          64,
+          550
+        ],
+        [
+          294,
+          550
+        ],
+        [
+          294,
+          608
+        ],
+        [
+          64,
+          608
+        ],
+        [
+          64,
+          550
+        ]
+      ],
+      "n": 97,
+      "at": 33573
+    },
+    {
+      "way": [
+        [
+          180,
+          580
+        ]
+      ],
+      "n": 1,
+      "at": 34071
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Whirligig bold serif",
+      "whole": false,
+      "x": 64,
+      "y": 36,
+      "at": 34834
+    },
+    {
+      "text": "Toys, Workshop, Stockists",
+      "whole": false,
+      "x": 1000,
+      "y": 36,
+      "at": 35545
+    },
+    {
+      "text": "Toys that run / on wind, huge bold",
+      "whole": false,
+      "x": 70,
+      "y": 230,
+      "at": 36474
+    },
+    {
+      "text": "Hand-folded pinwheels and kites, made in our barn since 1982. grey",
+      "whole": false,
+      "x": 64,
+      "y": 450,
+      "at": 37389
+    },
+    {
+      "text": "Shop the barn white bold pill",
+      "whole": false,
+      "x": 120,
+      "y": 580,
+      "at": 38187
+    },
+    {
+      "text": "Free shipping over $40 bold",
+      "whole": false,
+      "x": 64,
+      "y": 835,
+      "at": 38938
+    },
+    {
+      "text": "Open Sat and Sun bold",
+      "whole": false,
+      "x": 1000,
+      "y": 835,
+      "at": 39673
+    }
+  ]
+}

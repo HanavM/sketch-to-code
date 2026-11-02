@@ -1,0 +1,707 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "c14ffa63dde970e56493ff3c5e6391db6eaf04b9",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A dark-green, gold-and-cream landing page for a typewriter repair shop: a serif site title and nav at top, a huge serif headline and body copy, a bold gold 'Book a repair' button, two rows of circular typewriter-key icons (6 keys 'QWERTY', 5 keys 'ASDFG'), and a full-width gold footer bar with 'Same week service' and '12 Mill Lane'.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"We fix the keys that stick\" at (64,109) 1130x128 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:27:7",
+      "rect": {
+       "x": 0,
+       "y": 127,
+       "w": 1280,
+       "h": 92
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 12.4,
+    "reason": "#f3ecd8 is on the page (ΔE 12.4)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,395) 1280x47 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:34:7",
+      "rect": {
+       "x": 0,
+       "y": 395,
+       "w": 1280,
+       "h": 47
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 920,
+        "y": 379,
+        "w": 296,
+        "h": 63
+       },
+       "built": {
+        "x": 919,
+        "y": 379,
+        "w": 297,
+        "h": 63
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d9a441 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,395) 1280x47 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:34:7",
+      "rect": {
+       "x": 0,
+       "y": 395,
+       "w": 1280,
+       "h": 47
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 130,
+        "y": 510,
+        "w": 94,
+        "h": 96
+       },
+       "built": {
+        "x": 130,
+        "y": 510,
+        "w": 96,
+        "h": 96
+       },
+       "dx": 1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 1030,
+        "y": 510,
+        "w": 95,
+        "h": 96
+       },
+       "built": {
+        "x": 1031,
+        "y": 510,
+        "w": 96,
+        "h": 96
+       },
+       "dx": 2,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 12.4,
+    "reason": "#f3ecd8 is on the page (ΔE 12.4)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (130,510) 997x96 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:43:7",
+      "rect": {
+       "x": 130,
+       "y": 510,
+       "w": 997,
+       "h": 96
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 221,
+        "y": 650,
+        "w": 83,
+        "h": 83
+       },
+       "built": {
+        "x": 221,
+        "y": 650,
+        "w": 83,
+        "h": 83
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 940,
+        "y": 650,
+        "w": 83,
+        "h": 83
+       },
+       "built": {
+        "x": 941,
+        "y": 650,
+        "w": 83,
+        "h": 83
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 12.4,
+    "reason": "#f3ecd8 is on the page (ΔE 12.4)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (221,650) 803x83 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:52:7",
+      "rect": {
+       "x": 221,
+       "y": 650,
+       "w": 803,
+       "h": 83
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 2,
+        "y": 799,
+        "w": 1276,
+        "h": 99
+       },
+       "built": {
+        "x": 0,
+        "y": 799,
+        "w": 1280,
+        "h": 99
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d9a441 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 coloured plain shapes built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "20 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"x6 across: QWERTY\" asked for 6 rows like the typed one; the page has 1 in its column and look: add sample rows of the same kind (made-up values, varied) until there are 6, at the same pitch; \"x5 across: ASDFG\" asked for 5 rows like the typed one; the page has 1 in its column and look: add sample rows of the same kind (made-up values, varied) until there are 5, at the same pitch; change nothing else"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#203a36",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,178) 1132x0",
+       "want": "#f3ecd8",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (920,379) 297x63",
+       "want": "#d9a441",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (130,510) 96x96",
+       "want": "#112420",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (1030,510) 97x96",
+       "want": "#112420",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (221,650) 84x84",
+       "want": "#112420",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (939,650) 84x84",
+       "want": "#112420",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (2,799) 1276x99",
+       "want": "#d9a441",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 55053,
+   "cacheRead": 529224,
+   "output": 17939
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 36065,
+    "output": 12889,
+    "cacheRead": 134664,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 154433
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 26427,
+    "output": 983,
+    "cacheRead": 62436,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 11034
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 10500,
+    "output": 4067,
+    "cacheRead": 332124,
+    "toolCalls": 6,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 45335
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "f8c3517a59a8f4002fd41ee7c6a7e319a8464543",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "Two typed notes ask to break up the cramped keyboard-row labels into individual letter keys: the 'QWERTY' ring should become one large letter per ring (Q, W, E, R, T, Y), and the 'ASDFG' ring should become one large letter per ring (A, S, D, F, G).",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 2,
+    "total": 2,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "29 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 18799,
+   "cacheRead": 139851,
+   "output": 4474
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 10804,
+    "output": 2992,
+    "cacheRead": 64999,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 33821
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 12469,
+    "output": 1482,
+    "cacheRead": 74852,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 16965
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "57aba937327d55f2c425751090e95b419311ede1",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The typed note explains the keyboard mockup: keep only the single-letter \"key ring\" caps — a 6-letter row (Q W E R T Y) and a 5-letter row (A S D F G) spaced apart as already drawn — and delete the multi-letter/word-labeled keys (RIBBON, SPOOL, LEVER, CARRIAGE, PLATEN, RETURN, SPACE, SHIFT, MARGIN).",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"RIBBON\" gone"
+     },
+     {
+      "index": 1,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"SPOOL\" gone"
+     },
+     {
+      "index": 2,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"LEVER\" gone"
+     },
+     {
+      "index": 3,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"CARRIAGE\" gone"
+     },
+     {
+      "index": 4,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"PLATEN\" gone"
+     },
+     {
+      "index": 5,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"RETURN\" gone"
+     },
+     {
+      "index": 6,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"SPACE\" gone"
+     },
+     {
+      "index": 7,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"SHIFT\" gone"
+     },
+     {
+      "index": 8,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "<div> \"MARGIN\" gone"
+     }
+    ],
+    "satisfied": 9,
+    "total": 9,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "20 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 9034,
+   "cacheRead": 69401,
+   "output": 1954
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 10988,
+    "output": 1954,
+    "cacheRead": 69401,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 23998
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": [
+    {
+     "index": 0,
+     "reason": "<div> renders 20 times from one template — editing it would hit every instance"
+    }
+   ]
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
