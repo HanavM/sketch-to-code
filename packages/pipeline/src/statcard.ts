@@ -21,6 +21,7 @@ import type { ShapeMark } from './shapemark.js'
 import type { BBox } from '@s2c/ink'
 import { progressOf } from './progress.js'
 import { buttonLabel } from './buttonlabel.js'
+import { BAR_MAX_H, BAR_MIN_RATIO, BAR_MIN_W, endPair } from './endpair.js'
 
 /** Words that only say how text looks; they are never copy. */
 const LOOK = /^(big|bigger|huge|giant|large|massive|jumbo|display|small|smaller|tiny|little|medium|grey|gray|light|dark|bold|bolder|regular|italic|caps|uppercase|lowercase|spaced|muted|faint|thin|thick|normal|size|text|and|centred|centered|left|right|aligned|underlined|outlined|serif|sans|mono|white|black|red|orange|yellow|lime|green|teal|cyan|blue|navy|indigo|purple|violet|pink|magenta|brown|beige|cream|gold|silver|pale|bright|deep|soft|number|numeral|digits?|label|value|stat|figure|in|on|the|a)$/i
@@ -164,6 +165,17 @@ export function markStats(marks: ShapeMark[], notes: NoteLike[], inner: BBox[] =
   const order = said0 ?? statOrder(pageNotes)
   const boxes = marks.filter((m) => m.shape === 'box' && !m.tilt && !m.glyph)
   for (const m of boxes) {
+    // n228: a name and a value typed on a long thin bar go to its two ends (endpair.ts): never a stat card, and never an
+    // area that only marks where a big number sits ("Total hours, 40 big" lost its band and came out huge in the middle)
+    if (m.box.w >= BAR_MIN_W && m.box.w >= BAR_MIN_RATIO * m.box.h && m.box.h <= BAR_MAX_H) {
+      const typed = notes.filter((n) => n.focus?.includes(m.strokeId))
+      const said = typed.length ? typed : boxes.length === 1 ? notes.filter((n) => !n.focus?.length) : []
+      if (said.some((n) => endPair(n.text))) {
+        delete m.area; delete m.areaOf; delete m.word; delete m.outlined
+        if (!m.card) m.card = { fill: null }
+        continue
+      }
+    }
     if (m.box.w > STAT_MAX.w || m.box.h > STAT_MAX.h || m.box.w < 80 || m.box.h < 40) continue
     if (inner.filter((o) => inside(o, m.box)).length >= 2) continue // drawn parts inside: their own notes say what they are
     const own = notes.filter((n) => n.focus?.includes(m.strokeId))

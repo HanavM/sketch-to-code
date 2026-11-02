@@ -180,14 +180,25 @@ export function drawnListBrief(lists: readonly DrawnList[]): string {
     return `- ${q(l.note.slice(0, 120))} lists its ${String(l.n)} rows, typed by the person: ${rows}. ` + parts +
       `Each label starts at x ${String(l.x)}` + (l.valueRight ? `; each value ENDS at x ${String(l.x + l.w)} (right aligned, on the label's level)` : '') + '. ' +
       (l.looks.length ? `Every row looks: ${l.looks.map(q).join(', ')}. ` : '') +
+      (madeUpCells(l) ? `Those words name what fills the rest of each row and the person left the figures out on purpose: make up plausible numbers for them, in the columns the header gives. ` : '') +
       (l.drawn < l.n ? `${String(l.n - l.drawn)} of these rows have no line drawn: add them at the pitch given. ` : '')
   })
   return `LISTED ROWS ON DRAWN LINES (a count with its items typed after it; deterministic; checked on the page):\n${lines.join('\n')}\n` +
-    `These rows are exactly what was typed: never add a row or make up a label or figure, and never print the count, the words before the colon, or a share such as "half" or "70%". ` +
+    `These rows are exactly what was typed: never add a row or make up a label or figure (unless told above), and never print the count, the words before the colon, or a share such as "half" or "70%". ` +
     `This overrides any other reading of the note.\n\n`
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').trim()
+
+/**
+ * n228: "x5 rows: Website redo, Client calls, ...; hours, totals bold" names what fills the rest of each row and leaves
+ * the numbers out on purpose. Round 47's timesheet built a whole table from that, then a repair ("4 is not one of the
+ * typed rows: take it out") stripped every cell. Only for rows typed with no values of their own.
+ */
+const DATA_WORD = /\b(hours?|totals?|prices?|amounts?|numbers?|figures?|scores?|counts?|sums?|costs?|data)\b/i
+export const madeUpCells = (l: { items: readonly ListedItem[]; looks: readonly string[] }): boolean =>
+  l.items.every((i) => !i.value) && l.looks.some((s) => DATA_WORD.test(s))
+const NUMERIC = /^[-−+]?[$£€¥]?\d[\d,.:]*\s?(?:%|h|hrs?|k)?$/i
 
 export const DRAWN_LIST_TOL_PX = 26
 
@@ -231,6 +242,7 @@ export function verifyDrawnLists(lists: readonly DrawnList[] | undefined, after:
         if (/^(x|×)\d|^down\b|:\s/.test(t) && !known.has(t)) faults.push(`${q(n.text!.trim())} prints the count's words: print ${q(l.items[0]!.label)} only`)
         continue
       }
+      if (madeUpCells(l) && NUMERIC.test(t)) continue
       faults.push(`${q(n.text!.trim().slice(0, 40))} is not one of the typed rows: take it out`)
     }
   }

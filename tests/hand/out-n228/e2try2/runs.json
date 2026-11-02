@@ -1,0 +1,560 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "e222f04ab46a6d2238d69a2c09217794edd9e980",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch lays out a full timesheet page: a dark full-height sidebar nav with a 'Clockwise' bold brand label and Timesheet/Projects/Reports/Team links, a teal 'Submit week' button top-right, a 'My timesheet' big bold heading with 'Week of March 9' subheading, a data table (Project, Mon, Tue, Wed, Thu, Fri, Total columns; 5 rows: Website redo, Client calls, Hiring, Admin, Training; totals bold; Total column highlighted cream), a dark navy 'Total hours: 40' summary bar, and a dashed-border note field labeled 'Add a note for your manager'.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <aside> at (0,0) 220x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "aside",
+      "srcLoc": "src/App.tsx:16:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 220,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 1,
+        "y": 2,
+        "w": 220,
+        "h": 896
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 220,
+        "h": 900
+       },
+       "dx": -1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#223a5e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (24,40) 172x28 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:17:9",
+      "rect": {
+       "x": 24,
+       "y": 40,
+       "w": 172,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (1040,39) 200x51: the <button> built for it sits 27px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1040,
+        "y": 39,
+        "w": 200,
+        "h": 51
+       },
+       "built": {
+        "x": 1093.3125,
+        "y": 40,
+        "w": 147.6875,
+        "h": 48
+       },
+       "dx": 27,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2a9d8f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (24,108) 172x140 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:18:9",
+      "rect": {
+       "x": 24,
+       "y": 108,
+       "w": 172,
+       "h": 140
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (259,139) 839x64: the <div> built for it sits 19px too high and 72px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The cause is above it, at the top: add 19px to the space above it (the list's top margin, or the gap under what sits above it). Never pull it further up.",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 259,
+        "y": 139,
+        "w": 839,
+        "h": 64
+       },
+       "built": {
+        "x": 260,
+        "y": 120,
+        "w": 981,
+        "h": 64
+       },
+       "dx": 72,
+       "dy": -19
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 6.2,
+    "reason": "#edf0f6 is on the page (ΔE 6.2)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:15:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (1097,140) 144x373 is 373px tall; the <col> built for it is 269px tall (104px short), top at y 209 (drawn 140): give it an exact height of 373px (height, not min-height from its content; box-sizing: border-box, padding inside) with its top at y 140 (take 69px out of the gap above it, never a negative margin); keep its width and what is inside it.",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 1097,
+        "y": 140,
+        "w": 144,
+        "h": 373
+       },
+       "built": {
+        "x": 1096,
+        "y": 209,
+        "w": 144,
+        "h": 269
+       },
+       "dx": -1,
+       "dy": 17
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d5d8e0 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (260,503) 981x82 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:91:9",
+      "rect": {
+       "x": 260,
+       "y": 503,
+       "w": 981,
+       "h": 82
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (260,599) 980x82: the <textarea> built for it sits 50px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 260,
+        "y": 599,
+        "w": 980,
+        "h": 82
+       },
+       "built": {
+        "x": 285,
+        "y": 658,
+        "w": 931,
+        "h": 64
+       },
+       "dx": 1,
+       "dy": 50
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 18.6,
+    "reason": "#223a5e is on the page (ΔE 18.6)"
+   },
+   {
+    "kind": "design",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (260,609) 981x140 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:96:9",
+      "rect": {
+       "x": 260,
+       "y": 609,
+       "w": 981,
+       "h": 140
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (259,709) 982x122: the <div> built for it sits 91px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <textarea> drawn at (260,599) above it; once that one is fixed this one is still 141px too high, so change only the spacing between them by that much. It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 709px from the top of the page.",
+     "marks": [
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 259,
+        "y": 709,
+        "w": 982,
+        "h": 122
+       },
+       "built": {
+        "x": 260,
+        "y": 609,
+        "w": 981,
+        "h": 140
+       },
+       "dx": 1,
+       "dy": -91
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": false,
+    "nearest": 26,
+    "reason": "nothing near the drawing is the colour that was drawn (#b5b8c4); closest is ΔE 26.0 away"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3 (a big drawn panel) top at 208px, drawn at 140px (68px low). A big panel starts where it was drawn: its top within 16px of the drawn y. Find the space above it that the drawing does not have (it sits in a column or grid row that starts lower, a wrapper with padding or a top margin, a heading placed above it that was drawn inside it, or it was stacked under a block drawn beside it) and take that out, so the panel's top lands at its drawn y; what is inside it moves with it. Never use a negative margin, negative top or absolute position. Do not change widths, colours or copy.",
+     "offsets": [
+      {
+       "index": 3,
+       "drawn": 140,
+       "built": 208,
+       "dy": 68
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the card drawn at (260,599) 980x82: the <div> built for it has its top at 503 (drawn 599), bottom at 585 (drawn 681): set it to left 260px, top 599px, width 980px, height 82px exactly (box-sizing: border-box; change the card's own width/margin/padding-top of what is above it, not the parts inside)"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "53 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box at (260,599) 980x82 should show \"Total hours\" but shows the words of another item (\"dashed: Add a note for your manager\"); the box at (259,709) 982x122 should show \"dashed: Add a note for your manager\" but has no words beside or inside it. The 2 look-alike marks each carry their OWN typed words, in this order: \"Total hours\", \"dashed: Add a note for your manager\": put exactly those texts on those items (fix the array or props the list maps over; never repeat one item's words, never make texts up), keeping every item's look, size and position"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the wide bar drawn at y=139-203px is built at y=158-178px: set its top to 139px and its height to 64px (take out the extra space above it or the padding inside it); the top band drawn to end at y=264px ends at y=88px (176px too short): set its height to 264px so its bottom edge is at 264px; everything under it moves with it; the top band drawn to end at y=326px ends at y=344px (18px too tall): set its height to 62px so its bottom edge is at 326px; everything under it moves with it. Change only those heights and the one space above; never a negative margin or absolute position; do not change widths, colours or copy"
+    }
+   },
+   {
+    "kind": "drawn-list",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Website redo\" sits at y 276; its line is at y 264, so its words go at about y 232; \"Client calls\" sits at y 321; its line is at y 326, so its words go at about y 294; \"Project\" is not one of the typed rows: take it out; \"Mon\" is not one of the typed rows: take it out; \"Tue\" is not one of the typed rows: take it out; \"Wed\" is not one of the typed rows: take it out; \"Thu\" is not one of the typed rows: take it out; \"Fri\" is not one of the typed rows: take it out; change nothing else"
+    }
+   },
+   {
+    "kind": "end-pair",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Total hours\" spills out of its bar (y 599 to 681): smaller, inside it; \"40\" spills out of its bar (y 599 to 681): smaller, inside it; change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3: the box drawn at (1097,140) 144x373 was coloured #fdf3d8 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fdf3d8; action 4: the box drawn at (260,599) 980x82 was coloured #223a5e (fill); what was built there is ΔE 80 away: paint the block itself exactly #223a5e",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,2) 220x896 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,2) 220x896",
+       "want": "#223a5e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1040,39) 200x51",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (259,139) 839x64",
+       "want": "#edf0f6",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1097,140) 144x373",
+       "want": "#fdf3d8",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (260,264) 980x0 (pale divider)",
+       "want": "words not #d5d8e0",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (260,326) 980x0 (pale divider)",
+       "want": "words not #d5d8e0",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (260,599) 980x82",
+       "want": "#223a5e",
+       "best": 79.6146767262301,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (259,709) 982x122 (light pen outline)",
+       "want": "border #b5b8c4, no #b5b8c4 fill",
+       "best": null,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 28886,
+   "cacheRead": 173603,
+   "output": 15350
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 44236,
+    "output": 15350,
+    "cacheRead": 173603,
+    "toolCalls": 7,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Glob",
+     "Write src/App.tsx"
+    ],
+    "ms": 176385
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 155026,
+    "stalled": "the agent made no progress for 154 s"
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 90009,
+    "stalled": "the repair went 90 s without an edit (thinking is not progress)"
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": "the repair went 90 s without an edit (thinking is not progress)",
+  "buildStalled": null
+ }
+]

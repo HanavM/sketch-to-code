@@ -21,6 +21,7 @@
 interface NodeLike { id: string; text?: string; textBox?: unknown }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
 import { countedRow } from './countrow.js'
+import { endPair } from './endpair.js'
 import { cellRows, countedItems } from './drawnlist.js'
 import { progressOf } from './progress.js'
 import { calendarOf } from './calendar.js'
@@ -248,6 +249,8 @@ export function directionStrings(notes: readonly string[]): { text: string; why:
     if (progressOf(n)) continue
     // n215: rows with cells listed after a count are all typed copy (row data tells and checks them)
     if (cellRows(n) || countedRow(n)) continue
+    // n228: a name, a value and how it looks: only the look words are not copy, and they are never one line with the rest
+    if (endPair(n)) continue
     // n179: a note describing how a kind of item looks, and a list of names one per item, are never one line of text
     const sp = specNote(n)
     if (sp) { out.push({ text: sp.lead, why: `a description of how the ${sp.kind} look`, note: n }); continue }
@@ -295,6 +298,13 @@ export function typedCopyBrief(notes: readonly string[]): string {
       seen.add(n)
       lines.push(`- "${n}" gives ${nl.length} names, one per item, in drawn order (left to right, then top to bottom): ${nl.map((t) => `"${t}"`).join(', ')}. ` +
         'Each item shows only its own name; never print the list (or several names) as one line.')
+      continue
+    }
+    // n228: a name and a value: two pieces of text, whatever else the note could be read as
+    const pair = endPair(n)
+    if (pair && !seen.has(n)) {
+      seen.add(n)
+      lines.push(`- "${n}": the text on the page is "${pair.name}" and "${pair.value}", two separate pieces. The comma${pair.looks.length ? ' and the look words are' : ' is'} not printed.`)
       continue
     }
     // n223: a count across: the items are the text, in one row
