@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T11:45Z | n221 sketch round 47 landing pages | Circus 78.2, aquarium 82.6, barber 70.3, origami 80.1, tattoo 72.9; mean 76.8, 18 strokes, 60 words.
 2026-11-02T10:24Z | n217 write round 47 | Ten fresh pages written, screenshotted, calibrated; six harder than round 1; none sketched.
 2026-11-02T10:13Z | n219 pattern colours stay flat | No grey in 4 of 4 builds; date side fixed; chess 84.6, 84.8, 82.0, 89.0; no fix.
 2026-11-02T09:50Z | n218 heading lines land where drawn | Heading on its lines, date one piece; chess 85.7, 74.9 (grey squares); ski 80.2; no fix.
