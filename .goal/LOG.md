@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T17:59Z | n226 colours tapped round a ring are slices | Real slices 4 builds of 4, no fix; budget 83.9 to 89.5; words 53 to 40; two false checks removed.
 2026-11-02T17:20Z | n227 a count down repeats one box | Four boxes, right rows and colours, no fix; budget 76.0 to 83.9, 79.0; donut still a fade.
 2026-11-02T16:45Z | n225 a repeated card keeps its tap, frame and captions | Frames, pictures, captions right, disc centred, no fix; tattoo 72.9 to 81.3; varies 77-85.
 2026-11-02T15:26Z | n224 a figure in one stroke keeps its outline | Fish and rings right in 2 builds of 2, no fix; aquarium 82.2, 82.1 at 43 words; skyline 80.1.
