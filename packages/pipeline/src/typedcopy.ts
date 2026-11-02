@@ -92,20 +92,48 @@ const SIZE_WEIGHT = /^(big|bigger|huge|giant|large|larger|massive|jumbo|enormous
  * copy ("Think big" stays copy).
  */
 function bareLookTail(copy: string): { copy: string; look: string } | null {
-  if (copy.includes(',')) return null
   const toks = copy.split(/\s+/).filter(Boolean)
   let i = toks.length
   while (i > 0) {
     const w = toks[i - 1]!.replace(/[^\p{L}]/gu, '')
+    // n164: a word ending a sentence is the copy's own ("Every Friday, after dark. huge bold")
+    if (i < toks.length && /[.!?…]["'”’)]?$/.test(toks[i - 1]!)) break
     if (w && (LOOK.test(w) || SIZE_WEIGHT.test(w)) && !/^(and|text|size|label|heading|title|subtitle|headline|link|button|pill|chip|badge|left|right)$/i.test(w)) i--
     else break
   }
   if (i === toks.length || i < 2) return null
   const tail = toks.slice(i)
   if (!tail.some((w) => SIZE_WEIGHT.test(w.replace(/[^\p{L}]/gu, '')))) return null
+  // n164: copy with its own commas keeps a one-word tail ("Think small, dream big"); two or more look words are a tail
+  if (copy.includes(',') && tail.length < 2) return null
   // "so big", "too bold": the look word is part of a phrase
   if (/^(so|too|very|really|the|a|an|be|is|go|think|dream|stay|get)$/i.test(toks[i - 1]!.replace(/[^\p{L}]/gu, ''))) return null
   return { copy: toks.slice(0, i).join(' '), look: tail.join(' ') }
+}
+
+/**
+ * n164: ", MATE outlined only" after copy holding MATE: the word or two named, then only look words. The named words must
+ * be in the copy before the comma, exactly as typed, so "Bold, bold move" and "Sam, Sam white" style copy is judged by
+ * the look words too: at least one must follow, and the copy before must keep something besides them.
+ */
+function scopedLook(copy: string): { copy: string; direction: string } | null {
+  const j = copy.lastIndexOf(',')
+  if (j <= 0) return null
+  const tail = copy.slice(j + 1).trim()
+  const toks = tail.split(/\s+/).filter(Boolean)
+  if (toks.length < 2 || toks.length > 5) return null
+  const clean = toks.map((w) => w.replace(/[^\p{L}\p{N}]/gu, ''))
+  let e = clean.length
+  if (/^only$/i.test(clean[e - 1]!)) e--
+  let n = 0
+  while (n < e && !LOOK.test(clean[n]!)) n++
+  if (n < 1 || n > 2 || n === e) return null
+  if (!clean.slice(n, e).every((w) => LOOK.test(w) || SIZE_WEIGHT.test(w))) return null
+  const head = copy.slice(0, j).split(/[\s/]+/).map((w) => w.replace(/[^\p{L}\p{N}]/gu, ''))
+  if (!clean.slice(0, n).every((w) => head.includes(w))) return null
+  // the word must have another word beside it in the copy: "Sam, Sam white" names the only word there is
+  if (head.filter(Boolean).length <= n) return null
+  return { copy: copy.slice(0, j).trim(), direction: tail }
 }
 
 /** Split a note into its copy, a trailing look tail and any directions after semicolons. */
@@ -122,6 +150,22 @@ export function noteParts(note: string): NoteParts {
     const words = tail.split(/\s+/).map((w) => w.replace(/[^\p{L}]/gu, '')).filter(Boolean)
     if (words.length && words.every((w) => LOOK.test(w))) { look = tail; copy = copy.slice(0, i).trim() }
   }
+  // n164: a second look tail before the first ("First tracks, / warm fire, huge bold, right"): only one was taken, so
+  // "huge bold" was printed as a third heading line. It must hold a size or weight word, so "Red, green, blue" stays copy.
+  for (let k = 0; look && k < 2; k++) {
+    const j = copy.lastIndexOf(',')
+    if (j <= 0) break
+    const tail = copy.slice(j + 1).trim()
+    const words = tail.split(/\s+/).map((w) => w.replace(/[^\p{L}]/gu, '')).filter(Boolean)
+    // a value is copy: "Paid, 612 big, +3% green" is a stat with its number
+    if (/\d/.test(tail) || !words.length || !words.every((w) => LOOK.test(w) || SIZE_WEIGHT.test(w)) || !words.some((w) => SIZE_WEIGHT.test(w))) break
+    look = `${tail}, ${look}`
+    copy = copy.slice(0, j).trim()
+  }
+  // n164: a look given to one word of the copy ("CHECK / MATE huge bold caps, MATE outlined only"): how that word looks,
+  // never copy. Round 41 c4 printed "MATE HUGE BOLD CAPS, MATE OUTLINED ONLY" as the second heading line.
+  const sc = scopedLook(copy)
+  if (sc) { directions.unshift(sc.direction); copy = sc.copy }
   // n130: comma tails that say what the item is or how many go in a row ("Biscuit selected, avatar", "..., 4 a row")
   for (let k = 0; k < 3; k++) {
     const j = copy.lastIndexOf(',')
