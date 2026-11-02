@@ -1,10 +1,10 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Round 47 finished: 81.6 average and 18 strokes, but 59.5 words against the 50 limit; building what its app pages lacked next."
+now: "One row across now builds right with no fix, cutting 14 to 23 words a page; next, the other things round 47 lacked, to bring words under 50."
 round: 47
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79, 75, 84, 78, 82]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0, round 44 is 75.1, round 45 is 83.6
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}, {round: 44, strokes: 17, words: 56.5, minutes: 10.1}, {round: 45, strokes: 18, words: 54, minutes: 8.5}, {round: 46, strokes: 16.5, words: 56, minutes: 7.6}, {round: 47, strokes: 18, words: 59.5, minutes: 8.9}]   # per round: {round, strokes, words, minutes}
-lock: {by: step-run-1237, until: '2026-11-02T14:07Z'}
+lock: null
 asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
@@ -388,14 +388,16 @@ nodes:
   - {id: n220, parent: n4, kind: step, title: "A look given to one word of a heading (MATE outlined only) is checked on the page, not just kept off it; replay chess night", status: open, branch: try/n3-ink-style, result: null}
   - {id: n221, parent: n1, kind: step, priority: next, title: "Sketch round 47 landing pages (c1-c5) by hand from screenshots only, one stroke at a time; record every number", status: done, branch: try/n3-ink-style, result: "Circus 78.2, aquarium 82.6, barber 70.3, origami 80.1, tattoo 72.9; mean 76.8, 18 strokes, 60 words."}
   - {id: n222, parent: n1, kind: step, title: "Sketch round 47 app pages (e1-e5) by hand from screenshots only; record every number and the round table", status: done, branch: try/n3-ink-style, result: "Parking 84, timesheet 87.2, poll 78.5, video 92, budget 90.3; round 81.6, 18 strokes, 59.5 words."}
-  - {id: n223, parent: n4, kind: step, title: "Items after a count across are all printed in a row spread over the page width, never stacked, squeezed into the drawn line or dropped; replay origami, aquarium, circus", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n223, parent: n4, kind: step, title: "Items after a count across are all printed in a row spread over the page width, never stacked, squeezed into the drawn line or dropped; replay origami, aquarium, circus", status: done, branch: try/n3-ink-style, result: "Row right 6 builds of 6, no fix; words 65 to 50, 66 to 43, 50 to 36."}
   - {id: n224, parent: n2, kind: step, title: "A filled freehand outline keeps its outline (a fish body with its tail in one stroke), and an untapped pen-colour ring stays an outline; a fix on a shape never removes it; replay aquarium", status: open, branch: try/n3-ink-style, result: null}
   - {id: n225, parent: n3, kind: step, title: "A repeated card keeps its tapped fill, drawn frame and captions under it (no colour taken from words in the note); a circle drawn in a ring stays centred; replay tattoo parlor", status: open, branch: try/n3-ink-style, result: null}
   - {id: n226, parent: n2, kind: step, title: "A ring with several colour taps inside is a slice chart: round, flat slices, hole kept, never a square fade, first build and in the preview; replay budget donut", status: open, branch: try/n3-ink-style, result: null}
   - {id: n227, parent: n4, kind: step, title: "A count down on one drawn box repeats the box instead of squeezing rows inside; listed rows fill drawn boxes in order, none invented; a run that changes nothing says so; replay budget donut", status: open, branch: try/n3-ink-style, result: null}
   - {id: n228, parent: n4, kind: step, title: "A name and value typed with a comma on a bar or above one go to its two ends, comma not printed; a big number stays inside its bar; replay poll, budget, timesheet", status: open, branch: try/n3-ink-style, result: null}
   - {id: n229, parent: n3, kind: step, title: "An untapped box hugging a tapped box is its border, never a fill on top; row words do not take the pen colour of the line under them; replay video call, parking", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n230, parent: n3, kind: step, title: "A band tapped a colour keeps it, never white like the button above it, and the colour check catches a lost tap; replay aquarium", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "A tapped band came out white in one build of two, merged with the white button above; the colour check passed it", found_on: "r47 c2 (n223)", built: null, helped: null}
   - {gap: "A ring with four colour taps became a square gradient, in the preview and the first build; a fix note made a true donut", found_on: "r47 e5 (n222)", built: null, helped: null}
   - {gap: "x4 down on one drawn card squeezed the rows inside it; three cards drawn after were filled with invented rows; a further fix changed nothing and said nothing", found_on: "r47 e5 (n222)", built: null, helped: null}
   - {gap: "A box drawn just around a tapped tile became a solid fill over it, hiding the tile and its circle", found_on: "r47 e4 (n222)", built: null, helped: null}
@@ -404,7 +406,7 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A number noted big filled and overflowed its bar, centred instead of at its end", found_on: "r47 e2 (n222)", built: null, helped: null}
   - {gap: "An untapped outline button beside a tapped one came out filled", found_on: "r47 e3 (n222)", built: null, helped: null}
   - {gap: "Dragging a free note onto a box left it bound to the whole sketch; only deleting and retyping it worked", found_on: "r47 e5 (n222)", built: null, helped: null}
-  - {gap: "A count across on one line stacked the items, squeezed them inside the line, or dropped two of three", found_on: "r47 c1, c2, c4 (n221)", built: null, helped: null}
+  - {gap: "A count across on one line stacked the items, squeezed them inside the line, or dropped two of three", found_on: "r47 c1, c2, c4 (n221)", built: "n223: a count across is one row over the page, told and checked; rival readings step aside", helped: "row right 6 builds of 6, no fix; circus 78.2 to 80.9, 81.3 at 50 words; origami 80.1 to 87.2, 85.0 at 36; aquarium 82.6 to 77.3, 80.6 at 43, was 66"}
   - {gap: "A filled outline of a fish body and tail in one stroke became a plain rectangle", found_on: "r47 c2 (n221)", built: null, helped: null}
   - {gap: "Untapped pen-colour rings became a filled dot and a tilted square; the fix note removed both", found_on: "r47 c2 (n221)", built: null, helped: null}
   - {gap: "A repeated card lost its tapped fill to a colour named in the note, and lost its frame and captions under", found_on: "r47 c5 (n221)", built: null, helped: null}
@@ -709,6 +711,7 @@ n8_resketch:   # same strokes and notes as baseline, tool with exact counts + ke
   - {page: r12 c4-diagonal-split, likeness: 49.9, was: 49.7, strokes: 9, words: 52, minutes: 10.2, fixes: 1, tokens: 104676}
   - {page: r8 c2-orbit-type, likeness: 73.9, was: 71.0, strokes: 10, words: 32, minutes: 5.4, fixes: 0, tokens: 54207}
 notes:
+  - "2026-11-02 n223 ~746k billed in counted replays (circus 137k, 145k; aquarium 138k, 130k; origami 119k, 77k). Run folders are wiped by the next run: read a prompt before the next replay starts."
   - "2026-11-02 n222 ~689k billed (parking 157k, timesheet 125k, poll 81k, video 91k, budget 236k). Round 47 whole 1.49M billed."
   - "2026-11-02 n219 ~240k billed in counted replays (chess 78k, 73k, 48k, 41k). Build prompts are kept in /tmp/s2c-hand-app/.sketch2code/runs/*/prompt-1.txt: read them, they show what the build was told."
   - "2026-11-02 n218 ~490k billed in counted replays (chess 111k, 115k, 103k, 67k; ski 95k), plus two replays cut off by a short time limit and one read-only debug run, uncounted. Give a replay at least 9 minutes; never pkill -f."
@@ -1313,3 +1316,10 @@ n219_resketch:   # earlier strokes, pens and first notes replayed (replay.mjs); 
   - {page: r41 c4-chess-night, try: 2, likeness: 84.8, was: 74.9, strokes: 10, words: 42, notes: 6, fixes: 0, first_read_s: 61, build_s: 162, total_s: 225, tokens: 73461, note: "pattern rule only: flat; date far right"}
   - {page: r41 c4-chess-night, try: 3, likeness: 82.0, was: 74.9, strokes: 10, words: 42, notes: 6, fixes: 0, first_read_s: 51, build_s: 340, total_s: 394, tokens: 48066, note: "all rules: flat; date left, high and big; shadow pushed the page"}
   - {page: r41 c4-chess-night, try: 4, likeness: 89.0, was: 74.9, strokes: 10, words: 42, notes: 6, fixes: 0, first_read_s: 60, build_s: 144, total_s: 206, tokens: 40550, note: "all rules: flat; date where drawn; every check passes"}
+n223_resketch:   # earlier strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N223.md on try/n3-ink-style
+  - {page: r47 c1-circus-tent, try: 1, likeness: 80.9, was: 78.2, strokes: 19, words: 50, notes: 7, fixes: 0, first_read_s: 96, build_s: 402, total_s: 501, tokens: 136542}
+  - {page: r47 c1-circus-tent, try: 2, likeness: 81.3, was: 78.2, strokes: 19, words: 50, notes: 7, fixes: 0, first_read_s: 113, build_s: 406, total_s: 522, tokens: 145328}
+  - {page: r47 c2-aquarium, try: 1, likeness: 77.3, was: 82.6, strokes: 18, words: 43, notes: 7, fixes: 0, first_read_s: 78, build_s: 386, total_s: 466, tokens: 138277, note: "row right; tapped band white; was 82.6 with a fix note"}
+  - {page: r47 c2-aquarium, try: 2, likeness: 80.6, was: 82.6, strokes: 18, words: 43, notes: 7, fixes: 0, first_read_s: 90, build_s: 352, total_s: 444, tokens: 129854, note: "row right; band right; fish still boxes"}
+  - {page: r47 c4-origami-studio, try: 1, likeness: 87.2, was: 80.1, strokes: 18, words: 36, notes: 6, fixes: 0, first_read_s: 113, build_s: 232, total_s: 348, tokens: 119474, note: "early code, rival tells still on"}
+  - {page: r47 c4-origami-studio, try: 2, likeness: 85.0, was: 80.1, strokes: 18, words: 36, notes: 6, fixes: 0, first_read_s: 99, build_s: 165, total_s: 266, tokens: 77014}
