@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T07:54Z | n213 fix keeps what worked | Fill miss and split text keep the fix; tennis 65.0 to 87.4, 85.6; part put-back not seen live.
 2026-11-02T06:50Z | n212 box crossed by a same-pen line is lines | Court lines, net, three tiles; tennis 65.0 to 87.0, 86.1 with no fix, 44 words.
 2026-11-02T06:08Z | n215 taps in a line are small dots | Dots, white table, status words back; roster 88.9 with fix to 90.4, 90.7 with none.
 2026-11-02T05:19Z | n214 items after a count are the items | Typed rows on their drawn lines, none invented; loan 55.9 to 74.0, 72.8; no fix, 51 words.
