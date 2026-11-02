@@ -1,0 +1,530 @@
+{
+  "round": 47,
+  "id": "e2-timesheet",
+  "version": 3,
+  "stopped": null,
+  "likeness": 87.2,
+  "colour": 0.9918229538267084,
+  "structure": 0.9012521057595825,
+  "layout": 0.8553498279958284,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "box": 6,
+      "line": 2
+    },
+    "inkPx": 11836
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 51,
+  "notes": 10,
+  "longestNote": 12,
+  "noteTexts": [
+    "Clockwise bold",
+    "Timesheet, Projects, Reports, Team",
+    "My timesheet big bold",
+    "Week of March 9",
+    "Submit week",
+    "Project, Mon, Tue, Wed, Thu, Fri, Total",
+    "x5 rows: Website redo, Client calls, Hiring, Admin, Training; hours, totals bold",
+    "Total hours, 40 big",
+    "dashed: Add a note for your manager",
+    "40 far right, medium size"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 522,
+    "firstReadingS": 106,
+    "readS": [
+      48,
+      15
+    ],
+    "buildS": [
+      359,
+      9
+    ],
+    "sketchingS": 91
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 87854,
+    "cacheRead": 559901,
+    "output": 36718,
+    "billed": 124572
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 700,
+      "y": 868,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#223a5e",
+      "at": 846
+    },
+    {
+      "op": "stroke",
+      "at": 7480
+    },
+    {
+      "op": "stroke",
+      "at": 7958
+    },
+    {
+      "op": "pen",
+      "color": "#2a9d8f",
+      "at": 8341
+    },
+    {
+      "op": "stroke",
+      "at": 10192
+    },
+    {
+      "op": "stroke",
+      "at": 10675
+    },
+    {
+      "op": "pen",
+      "color": "#edf0f6",
+      "at": 11053
+    },
+    {
+      "op": "stroke",
+      "at": 16531
+    },
+    {
+      "op": "stroke",
+      "at": 17007
+    },
+    {
+      "op": "pen",
+      "color": "#fdf3d8",
+      "at": 17380
+    },
+    {
+      "op": "stroke",
+      "at": 20730
+    },
+    {
+      "op": "stroke",
+      "at": 21209
+    },
+    {
+      "op": "pen",
+      "color": "#d5d8e0",
+      "at": 21581
+    },
+    {
+      "op": "stroke",
+      "at": 24780
+    },
+    {
+      "op": "stroke",
+      "at": 27998
+    },
+    {
+      "op": "pen",
+      "color": "#223a5e",
+      "at": 28373
+    },
+    {
+      "op": "stroke",
+      "at": 34729
+    },
+    {
+      "op": "stroke",
+      "at": 35214
+    },
+    {
+      "op": "pen",
+      "color": "#b5b8c4",
+      "at": 35596
+    },
+    {
+      "op": "stroke",
+      "at": 42198
+    },
+    {
+      "op": "note",
+      "at": 42957
+    },
+    {
+      "op": "note",
+      "at": 43931
+    },
+    {
+      "op": "note",
+      "at": 44737
+    },
+    {
+      "op": "note",
+      "at": 45562
+    },
+    {
+      "op": "note",
+      "at": 46310
+    },
+    {
+      "op": "note",
+      "at": 47281
+    },
+    {
+      "op": "note",
+      "at": 48719
+    },
+    {
+      "op": "note",
+      "at": 49508
+    },
+    {
+      "op": "note",
+      "at": 50542
+    },
+    {
+      "op": "run",
+      "at": 58298
+    },
+    {
+      "op": "note",
+      "at": 474408
+    },
+    {
+      "op": "run",
+      "at": 474527
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1262,
+          885
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          220,
+          2
+        ],
+        [
+          220,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 371,
+      "at": 7480
+    },
+    {
+      "way": [
+        [
+          110,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 7958
+    },
+    {
+      "way": [
+        [
+          1040,
+          40
+        ],
+        [
+          1240,
+          40
+        ],
+        [
+          1240,
+          90
+        ],
+        [
+          1040,
+          90
+        ],
+        [
+          1040,
+          40
+        ]
+      ],
+      "n": 83,
+      "at": 10192
+    },
+    {
+      "way": [
+        [
+          1140,
+          65
+        ]
+      ],
+      "n": 1,
+      "at": 10675
+    },
+    {
+      "way": [
+        [
+          260,
+          140
+        ],
+        [
+          1098,
+          140
+        ],
+        [
+          1098,
+          202
+        ],
+        [
+          260,
+          202
+        ],
+        [
+          260,
+          140
+        ]
+      ],
+      "n": 301,
+      "at": 16531
+    },
+    {
+      "way": [
+        [
+          680,
+          171
+        ]
+      ],
+      "n": 1,
+      "at": 17007
+    },
+    {
+      "way": [
+        [
+          1098,
+          140
+        ],
+        [
+          1240,
+          140
+        ],
+        [
+          1240,
+          512
+        ],
+        [
+          1098,
+          512
+        ],
+        [
+          1098,
+          140
+        ]
+      ],
+      "n": 173,
+      "at": 20730
+    },
+    {
+      "way": [
+        [
+          1168,
+          330
+        ]
+      ],
+      "n": 1,
+      "at": 21209
+    },
+    {
+      "way": [
+        [
+          260,
+          264
+        ],
+        [
+          1240,
+          264
+        ]
+      ],
+      "n": 164,
+      "at": 24780
+    },
+    {
+      "way": [
+        [
+          260,
+          326
+        ],
+        [
+          1240,
+          326
+        ]
+      ],
+      "n": 164,
+      "at": 27998
+    },
+    {
+      "way": [
+        [
+          260,
+          600
+        ],
+        [
+          1240,
+          600
+        ],
+        [
+          1240,
+          680
+        ],
+        [
+          260,
+          680
+        ],
+        [
+          260,
+          600
+        ]
+      ],
+      "n": 353,
+      "at": 34729
+    },
+    {
+      "way": [
+        [
+          750,
+          640
+        ]
+      ],
+      "n": 1,
+      "at": 35214
+    },
+    {
+      "way": [
+        [
+          260,
+          710
+        ],
+        [
+          1240,
+          710
+        ],
+        [
+          1240,
+          830
+        ],
+        [
+          260,
+          830
+        ],
+        [
+          260,
+          710
+        ]
+      ],
+      "n": 367,
+      "at": 42198
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Clockwise bold",
+      "whole": false,
+      "x": 26,
+      "y": 42,
+      "at": 42957
+    },
+    {
+      "text": "Timesheet, Projects, Reports, Team",
+      "whole": false,
+      "x": 26,
+      "y": 100,
+      "at": 43931
+    },
+    {
+      "text": "My timesheet big bold",
+      "whole": false,
+      "x": 260,
+      "y": 55,
+      "at": 44737
+    },
+    {
+      "text": "Week of March 9",
+      "whole": false,
+      "x": 260,
+      "y": 100,
+      "at": 45562
+    },
+    {
+      "text": "Submit week",
+      "whole": false,
+      "x": 1100,
+      "y": 65,
+      "at": 46310
+    },
+    {
+      "text": "Project, Mon, Tue, Wed, Thu, Fri, Total",
+      "whole": false,
+      "x": 300,
+      "y": 171,
+      "at": 47281
+    },
+    {
+      "text": "x5 rows: Website redo, Client calls, Hiring, Admin, Training; hours, totals bold",
+      "whole": false,
+      "x": 300,
+      "y": 232,
+      "at": 48719
+    },
+    {
+      "text": "Total hours, 40 big",
+      "whole": false,
+      "x": 300,
+      "y": 640,
+      "at": 49508
+    },
+    {
+      "text": "dashed: Add a note for your manager",
+      "whole": false,
+      "x": 300,
+      "y": 740,
+      "at": 50542
+    },
+    {
+      "text": "40 far right, medium size",
+      "whole": false,
+      "x": 750,
+      "y": 640,
+      "at": 474408
+    }
+  ]
+}

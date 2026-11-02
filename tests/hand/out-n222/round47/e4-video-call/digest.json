@@ -1,0 +1,728 @@
+{
+  "round": 47,
+  "id": "e4-video-call",
+  "version": 3,
+  "stopped": null,
+  "likeness": 92,
+  "colour": 0.9731688944277468,
+  "structure": 0.950269140141528,
+  "layout": 0.8582078802818837,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 3.4,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 9,
+      "box": 7,
+      "circle": 2
+    },
+    "inkPx": 10876
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 58,
+  "notes": 15,
+  "longestNote": 9,
+  "noteTexts": [
+    "Design review bold",
+    "24:18",
+    "same white circle centred in all 4 tiles",
+    "Priya, small dark chip",
+    "Marcus, small dark chip",
+    "Lena, small dark chip",
+    "Tom, small dark chip",
+    "Chat bold",
+    "Priya: can you see the slides?",
+    "Tom: yes, looks good",
+    "Lena: next page please",
+    "x4 across",
+    "Leave",
+    "yellow border only, brown tile inside, white circle centred",
+    "full pill"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 359,
+    "firstReadingS": 108,
+    "readS": [
+      56,
+      24
+    ],
+    "buildS": [
+      145,
+      48
+    ],
+    "sketchingS": 87
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 66715,
+    "cacheRead": 282973,
+    "output": 24128,
+    "billed": 90843
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 120,
+      "y": 855,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#16191f",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#3b5b8c",
+      "at": 838
+    },
+    {
+      "op": "stroke",
+      "at": 5736
+    },
+    {
+      "op": "stroke",
+      "at": 6219
+    },
+    {
+      "op": "pen",
+      "color": "#7e5190",
+      "at": 6597
+    },
+    {
+      "op": "stroke",
+      "at": 11537
+    },
+    {
+      "op": "stroke",
+      "at": 12016
+    },
+    {
+      "op": "pen",
+      "color": "#417d6d",
+      "at": 12386
+    },
+    {
+      "op": "stroke",
+      "at": 17303
+    },
+    {
+      "op": "stroke",
+      "at": 17782
+    },
+    {
+      "op": "pen",
+      "color": "#a0633f",
+      "at": 18154
+    },
+    {
+      "op": "stroke",
+      "at": 23102
+    },
+    {
+      "op": "stroke",
+      "at": 23582
+    },
+    {
+      "op": "pen",
+      "color": "#ffd23f",
+      "at": 23953
+    },
+    {
+      "op": "stroke",
+      "at": 28971
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 29354
+    },
+    {
+      "op": "stroke",
+      "at": 30803
+    },
+    {
+      "op": "stroke",
+      "at": 31286
+    },
+    {
+      "op": "pen",
+      "color": "#22262e",
+      "at": 31660
+    },
+    {
+      "op": "stroke",
+      "at": 37406
+    },
+    {
+      "op": "stroke",
+      "at": 37883
+    },
+    {
+      "op": "pen",
+      "color": "#333a46",
+      "at": 38251
+    },
+    {
+      "op": "stroke",
+      "at": 39274
+    },
+    {
+      "op": "stroke",
+      "at": 39770
+    },
+    {
+      "op": "pen",
+      "color": "#e53935",
+      "at": 40145
+    },
+    {
+      "op": "stroke",
+      "at": 41851
+    },
+    {
+      "op": "stroke",
+      "at": 42335
+    },
+    {
+      "op": "note",
+      "at": 43067
+    },
+    {
+      "op": "note",
+      "at": 43705
+    },
+    {
+      "op": "note",
+      "at": 44518
+    },
+    {
+      "op": "note",
+      "at": 45255
+    },
+    {
+      "op": "note",
+      "at": 45974
+    },
+    {
+      "op": "note",
+      "at": 46681
+    },
+    {
+      "op": "note",
+      "at": 47406
+    },
+    {
+      "op": "note",
+      "at": 48087
+    },
+    {
+      "op": "note",
+      "at": 48876
+    },
+    {
+      "op": "note",
+      "at": 49586
+    },
+    {
+      "op": "note",
+      "at": 50289
+    },
+    {
+      "op": "note",
+      "at": 50946
+    },
+    {
+      "op": "note",
+      "at": 51586
+    },
+    {
+      "op": "run",
+      "at": 51947
+    },
+    {
+      "op": "note",
+      "at": 262217
+    },
+    {
+      "op": "note",
+      "at": 262906
+    },
+    {
+      "op": "run",
+      "at": 262987
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1262,
+          885
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          30,
+          60
+        ],
+        [
+          500,
+          60
+        ],
+        [
+          500,
+          390
+        ],
+        [
+          30,
+          390
+        ],
+        [
+          30,
+          60
+        ]
+      ],
+      "n": 267,
+      "at": 5736
+    },
+    {
+      "way": [
+        [
+          120,
+          120
+        ]
+      ],
+      "n": 1,
+      "at": 6219
+    },
+    {
+      "way": [
+        [
+          515,
+          60
+        ],
+        [
+          985,
+          60
+        ],
+        [
+          985,
+          390
+        ],
+        [
+          515,
+          390
+        ],
+        [
+          515,
+          60
+        ]
+      ],
+      "n": 267,
+      "at": 11537
+    },
+    {
+      "way": [
+        [
+          600,
+          120
+        ]
+      ],
+      "n": 1,
+      "at": 12016
+    },
+    {
+      "way": [
+        [
+          30,
+          405
+        ],
+        [
+          500,
+          405
+        ],
+        [
+          500,
+          735
+        ],
+        [
+          30,
+          735
+        ],
+        [
+          30,
+          405
+        ]
+      ],
+      "n": 267,
+      "at": 17303
+    },
+    {
+      "way": [
+        [
+          120,
+          470
+        ]
+      ],
+      "n": 1,
+      "at": 17782
+    },
+    {
+      "way": [
+        [
+          515,
+          405
+        ],
+        [
+          985,
+          405
+        ],
+        [
+          985,
+          735
+        ],
+        [
+          515,
+          735
+        ],
+        [
+          515,
+          405
+        ]
+      ],
+      "n": 267,
+      "at": 23102
+    },
+    {
+      "way": [
+        [
+          600,
+          470
+        ]
+      ],
+      "n": 1,
+      "at": 23582
+    },
+    {
+      "way": [
+        [
+          512,
+          402
+        ],
+        [
+          988,
+          402
+        ],
+        [
+          988,
+          738
+        ],
+        [
+          512,
+          738
+        ],
+        [
+          512,
+          402
+        ]
+      ],
+      "n": 271,
+      "at": 28971
+    },
+    {
+      "way": [
+        [
+          265,
+          170
+        ],
+        [
+          305,
+          180
+        ],
+        [
+          320,
+          225
+        ],
+        [
+          305,
+          265
+        ],
+        [
+          265,
+          280
+        ],
+        [
+          225,
+          265
+        ],
+        [
+          210,
+          225
+        ],
+        [
+          225,
+          180
+        ],
+        [
+          265,
+          170
+        ]
+      ],
+      "n": 59,
+      "at": 30803
+    },
+    {
+      "way": [
+        [
+          265,
+          225
+        ]
+      ],
+      "n": 1,
+      "at": 31286
+    },
+    {
+      "way": [
+        [
+          1000,
+          60
+        ],
+        [
+          1250,
+          60
+        ],
+        [
+          1250,
+          750
+        ],
+        [
+          1000,
+          750
+        ],
+        [
+          1000,
+          60
+        ]
+      ],
+      "n": 315,
+      "at": 37406
+    },
+    {
+      "way": [
+        [
+          1125,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 37883
+    },
+    {
+      "way": [
+        [
+          412,
+          790
+        ],
+        [
+          435,
+          800
+        ],
+        [
+          444,
+          822
+        ],
+        [
+          435,
+          845
+        ],
+        [
+          412,
+          854
+        ],
+        [
+          389,
+          845
+        ],
+        [
+          380,
+          822
+        ],
+        [
+          389,
+          800
+        ],
+        [
+          412,
+          790
+        ]
+      ],
+      "n": 33,
+      "at": 39274
+    },
+    {
+      "way": [
+        [
+          412,
+          822
+        ]
+      ],
+      "n": 1,
+      "at": 39770
+    },
+    {
+      "way": [
+        [
+          760,
+          790
+        ],
+        [
+          910,
+          790
+        ],
+        [
+          910,
+          854
+        ],
+        [
+          760,
+          854
+        ],
+        [
+          760,
+          790
+        ]
+      ],
+      "n": 73,
+      "at": 41851
+    },
+    {
+      "way": [
+        [
+          835,
+          822
+        ]
+      ],
+      "n": 1,
+      "at": 42335
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Design review bold",
+      "whole": false,
+      "x": 30,
+      "y": 30,
+      "at": 43067
+    },
+    {
+      "text": "24:18",
+      "whole": false,
+      "x": 1130,
+      "y": 30,
+      "at": 43705
+    },
+    {
+      "text": "same white circle centred in all 4 tiles",
+      "whole": false,
+      "x": 265,
+      "y": 205,
+      "at": 44518
+    },
+    {
+      "text": "Priya, small dark chip",
+      "whole": false,
+      "x": 44,
+      "y": 362,
+      "at": 45255
+    },
+    {
+      "text": "Marcus, small dark chip",
+      "whole": false,
+      "x": 529,
+      "y": 362,
+      "at": 45974
+    },
+    {
+      "text": "Lena, small dark chip",
+      "whole": false,
+      "x": 44,
+      "y": 707,
+      "at": 46681
+    },
+    {
+      "text": "Tom, small dark chip",
+      "whole": false,
+      "x": 529,
+      "y": 707,
+      "at": 47406
+    },
+    {
+      "text": "Chat bold",
+      "whole": false,
+      "x": 1018,
+      "y": 90,
+      "at": 48087
+    },
+    {
+      "text": "Priya: can you see the slides?",
+      "whole": false,
+      "x": 1018,
+      "y": 128,
+      "at": 48876
+    },
+    {
+      "text": "Tom: yes, looks good",
+      "whole": false,
+      "x": 1018,
+      "y": 161,
+      "at": 49586
+    },
+    {
+      "text": "Lena: next page please",
+      "whole": false,
+      "x": 1018,
+      "y": 194,
+      "at": 50289
+    },
+    {
+      "text": "x4 across",
+      "whole": false,
+      "x": 412,
+      "y": 822,
+      "at": 50946
+    },
+    {
+      "text": "Leave",
+      "whole": false,
+      "x": 835,
+      "y": 822,
+      "at": 51586
+    },
+    {
+      "text": "yellow border only, brown tile inside, white circle centred",
+      "whole": false,
+      "x": 750,
+      "y": 570,
+      "at": 262217
+    },
+    {
+      "text": "full pill",
+      "whole": false,
+      "x": 835,
+      "y": 822,
+      "at": 262906
+    }
+  ]
+}
