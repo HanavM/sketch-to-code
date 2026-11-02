@@ -165,10 +165,14 @@ function holderOf(line: ShapeMark, boxes: ShapeMark[], viewport: { w: number; h:
  * drawn first and claimed by no action (round 31 e2), yet it still splits the page.
  */
 export function strokeDividers(strokes: Array<{ id: string; points: Array<{ x: number; y: number }> }> | undefined): ShapeMark[] {
-  return uprights((strokes ?? []).flatMap((st) => {
+  const marks = (strokes ?? []).flatMap((st) => {
     const m = st.points.length > 1 ? shapeOf(st.points) : null
     return m ? [{ ...m, strokeId: st.id }] : []
-  }))
+  })
+  // n219: a big box among the strokes is a column edge too, whichever action holds it. Round 41 c4 (chess night): the
+  // checkerboard panel was read as an outline, so no action held a box, and "Every Thursday, 7pm" at the left of the
+  // column right of it was measured against the page: told right-aligned, built at the far right or wrapped.
+  return [...uprights(marks), ...marks.filter((m) => isBox(m) && m.box.w >= 120 && m.box.h >= 80)]
 }
 
 /** Upright drawn lines: column dividers. */
@@ -194,8 +198,8 @@ type ActionLike = { shapeMarks?: ShapeMark[]; textSize?: Array<{ lines: number; 
 
 export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: number }, dividers: ShapeMark[] = []): string {
   const all = actions.flatMap((a) => a.shapeMarks ?? [])
-  const boxes = all.filter(isBox)
-  const divs = [...uprights(all), ...dividers]
+  const boxes = [...all.filter(isBox), ...dividers.filter(isBox)]
+  const divs = [...uprights(all), ...uprights(dividers)]
   const stacked = new Set(actions.flatMap((a) => (a.textSize ?? []).filter((t) => t.lines >= 2).flatMap((t) => t.strokes)))
   const lines: string[] = []
   actions.forEach((a, i) => {
@@ -295,8 +299,8 @@ function builtWords(text: string, after: Snap, y: number): NodeLike | null {
  */
 export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: number; h: number }, dividers: ShapeMark[] = []): PlaceVerdict {
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
-  const boxes = marks.filter(isBox)
-  const divs = [...uprights(marks), ...dividers]
+  const boxes = [...marks.filter(isBox), ...dividers.filter(isBox)]
+  const divs = [...uprights(marks), ...uprights(dividers)]
   const faults: string[] = []
   let judged = 0
   for (const m of marks) {

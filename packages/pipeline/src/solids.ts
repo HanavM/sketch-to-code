@@ -18,7 +18,7 @@ import type { ShapeMark } from './shapemark.js'
 import { deltaE, hexOf, parseCssColor, type Rgb } from './palette.js'
 
 /** Eyeball colour words → a reference and how far a built colour may sit from it. */
-const COLOURS: Record<string, { hex: string; tol: number }> = {
+export const COLOURS: Record<string, { hex: string; tol: number }> = {
   white: { hex: '#ffffff', tol: 8 }, 'off-white': { hex: '#f6f4ee', tol: 10 }, cream: { hex: '#f3ead8', tol: 14 },
   ivory: { hex: '#f8f5e9', tol: 12 }, beige: { hex: '#e8dcc4', tol: 16 },
   black: { hex: '#111111', tol: 14 }, charcoal: { hex: '#2b2b2b', tol: 16 }, navy: { hex: '#1b2a4e', tol: 22 },

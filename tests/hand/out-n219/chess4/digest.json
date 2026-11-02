@@ -1,0 +1,424 @@
+{
+  "round": 41,
+  "id": "c4-chess-night",
+  "version": 3,
+  "stopped": null,
+  "likeness": 89,
+  "colour": 0.9763490528872485,
+  "structure": 0.9410204370049463,
+  "layout": 0.8474509465345776,
+  "strokes": {
+    "count": 10,
+    "pointsPerStroke": 4.2,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 3,
+      "box": 2,
+      "line": 4,
+      "circle": 1
+    },
+    "inkPx": 5510
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 42,
+  "notes": 6,
+  "longestNote": 13,
+  "noteTexts": [
+    "checkerboard: black and cream squares, 4 across, 7 down",
+    "CHECK / MATE huge bold caps, MATE outlined only",
+    "Every Thursday, 7pm, bold",
+    "Blitz games, coffee and a board for every level at the corner café.",
+    "Save a seat",
+    "Free entry, tilted white"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 206,
+    "firstReadingS": 60,
+    "readS": [
+      34
+    ],
+    "buildS": [
+      144
+    ],
+    "sketchingS": 29
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 24731,
+    "cacheRead": 227069,
+    "output": 15819,
+    "billed": 40550
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f4f0e8",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#151515",
+      "at": 831
+    },
+    {
+      "op": "stroke",
+      "at": 9281
+    },
+    {
+      "op": "note",
+      "at": 10160
+    },
+    {
+      "op": "stroke",
+      "at": 12036
+    },
+    {
+      "op": "stroke",
+      "at": 13587
+    },
+    {
+      "op": "note",
+      "at": 14377
+    },
+    {
+      "op": "stroke",
+      "at": 15472
+    },
+    {
+      "op": "note",
+      "at": 16221
+    },
+    {
+      "op": "pen",
+      "color": "#555555",
+      "at": 16593
+    },
+    {
+      "op": "stroke",
+      "at": 18521
+    },
+    {
+      "op": "note",
+      "at": 19497
+    },
+    {
+      "op": "pen",
+      "color": "#151515",
+      "at": 19866
+    },
+    {
+      "op": "stroke",
+      "at": 21992
+    },
+    {
+      "op": "stroke",
+      "at": 22456
+    },
+    {
+      "op": "note",
+      "at": 23121
+    },
+    {
+      "op": "pen",
+      "color": "#e94f3d",
+      "at": 23488
+    },
+    {
+      "op": "stroke",
+      "at": 25292
+    },
+    {
+      "op": "stroke",
+      "at": 25758
+    },
+    {
+      "op": "note",
+      "at": 26474
+    },
+    {
+      "op": "run",
+      "at": 26608
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          800,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          520,
+          2
+        ],
+        [
+          520,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 471,
+      "at": 9281
+    },
+    {
+      "way": [
+        [
+          604,
+          245
+        ],
+        [
+          1105,
+          245
+        ]
+      ],
+      "n": 85,
+      "at": 12036
+    },
+    {
+      "way": [
+        [
+          606,
+          378
+        ],
+        [
+          990,
+          378
+        ]
+      ],
+      "n": 65,
+      "at": 13587
+    },
+    {
+      "way": [
+        [
+          606,
+          433
+        ],
+        [
+          826,
+          433
+        ]
+      ],
+      "n": 38,
+      "at": 15472
+    },
+    {
+      "way": [
+        [
+          606,
+          483
+        ],
+        [
+          1126,
+          483
+        ]
+      ],
+      "n": 88,
+      "at": 18521
+    },
+    {
+      "way": [
+        [
+          606,
+          600
+        ],
+        [
+          826,
+          600
+        ],
+        [
+          826,
+          658
+        ],
+        [
+          606,
+          658
+        ],
+        [
+          606,
+          600
+        ]
+      ],
+      "n": 95,
+      "at": 21992
+    },
+    {
+      "way": [
+        [
+          630,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 22456
+    },
+    {
+      "way": [
+        [
+          1180,
+          800
+        ],
+        [
+          1176,
+          825
+        ],
+        [
+          1165,
+          847
+        ],
+        [
+          1147,
+          865
+        ],
+        [
+          1125,
+          876
+        ],
+        [
+          1100,
+          880
+        ],
+        [
+          1075,
+          876
+        ],
+        [
+          1053,
+          865
+        ],
+        [
+          1035,
+          847
+        ],
+        [
+          1024,
+          825
+        ],
+        [
+          1020,
+          800
+        ],
+        [
+          1024,
+          775
+        ],
+        [
+          1035,
+          753
+        ],
+        [
+          1053,
+          735
+        ],
+        [
+          1075,
+          724
+        ],
+        [
+          1100,
+          720
+        ],
+        [
+          1125,
+          724
+        ],
+        [
+          1147,
+          735
+        ],
+        [
+          1165,
+          753
+        ],
+        [
+          1176,
+          775
+        ],
+        [
+          1180,
+          800
+        ]
+      ],
+      "n": 81,
+      "at": 25292
+    },
+    {
+      "way": [
+        [
+          1060,
+          770
+        ]
+      ],
+      "n": 1,
+      "at": 25758
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "checkerboard: black and cream squares, 4 across, 7 down",
+      "whole": false,
+      "x": 260,
+      "y": 450,
+      "at": 10160
+    },
+    {
+      "text": "CHECK / MATE huge bold caps, MATE outlined only",
+      "whole": false,
+      "x": 850,
+      "y": 245,
+      "at": 14377
+    },
+    {
+      "text": "Every Thursday, 7pm, bold",
+      "whole": false,
+      "x": 716,
+      "y": 433,
+      "at": 16221
+    },
+    {
+      "text": "Blitz games, coffee and a board for every level at the corner café.",
+      "whole": false,
+      "x": 860,
+      "y": 483,
+      "at": 19497
+    },
+    {
+      "text": "Save a seat",
+      "whole": false,
+      "x": 716,
+      "y": 629,
+      "at": 23121
+    },
+    {
+      "text": "Free entry, tilted white",
+      "whole": false,
+      "x": 1100,
+      "y": 800,
+      "at": 26474
+    }
+  ]
+}

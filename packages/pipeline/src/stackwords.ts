@@ -19,7 +19,7 @@ export interface StackWordsVerdict { satisfied: boolean; unverifiable?: boolean;
 type ActionLike = { shapeMarks?: ShapeMark[]; notes?: string[] }
 
 export interface StackPiece { text: string; x0: number; x1: number; y: number }
-export interface WordStack { pieces: StackPiece[]; fontPx: number; pitch: number }
+export interface WordStack { pieces: StackPiece[]; fontPx: number; pitch: number; note: string }
 
 const clean = (s: string) => s.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '')
 const norm = (s: string) => s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
@@ -63,7 +63,7 @@ export function wordStacks(actions: readonly ActionLike[]): WordStack[] {
     if (!texts) continue
     const pieces = marks.map((m, k) => ({ text: texts[k]!, x0: m.box.x, x1: m.box.x + m.box.w, y: m.box.y }))
     const pitch = Math.round((pieces[pieces.length - 1]!.y - pieces[0]!.y) / (pieces.length - 1))
-    out.push({ pieces, pitch, fontPx: stackFont(pieces, pitch) })
+    out.push({ pieces, pitch, fontPx: stackFont(pieces, pitch), note })
   }
   return out
 }
