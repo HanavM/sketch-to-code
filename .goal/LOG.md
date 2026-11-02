@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T03:40Z | n210 sketch round 46 landing pages | Rocket 90.6, greenhouse 86.0, domino 86.2, tennis 65.0, paint 72.3; mean 80.0, 17 strokes, 44 words.
 2026-11-02T02:05Z | n209 write round 46 | Ten fresh pages (rocket, greenhouse, dominoes, tennis, paint; library, roster, thermostat, booking, loan); six harder; none sketched.
 2026-11-02T01:10Z | n208 top bar keeps its drawn height | Shift check names the too-tall bar; bike repair 89.3, 86.0, every block at its drawn top.
 2026-11-02T00:47Z | n207 drawn cards keep their drawn height | Box heights checked on the page; bike cards full height both tries, 88.4 and 80.5 (tall top bar).
