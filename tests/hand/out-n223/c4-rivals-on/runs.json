@@ -1,0 +1,540 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "3204ff8e5abbb80d7bcb42c3b03c5281513ede17",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "This is a landing-page design for a paper-folding (origami) class business: a header with a bold 'Fold' logo and a 'Classes / Paper / Contact' nav, a hero section with four colored triangle fold-icons, a bold headline 'Learn to fold anything', supporting copy about the classes, a dark 'See classes' CTA button with a divider beneath it, and a stats row (seats, day, price) near the bottom, all on a warm off-white page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"Fold\" at (70,21) 54x31 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:6:9",
+      "rect": {
+       "x": 70,
+       "y": 17,
+       "w": 53.90625,
+       "h": 39
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2933 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Classes\" at (1002,26) 60x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:18:11",
+      "rect": {
+       "x": 1002,
+       "y": 24,
+       "w": 60.109375,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2933 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:3:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 120,
+        "y": 121,
+        "w": 360,
+        "h": 339
+       },
+       "built": {
+        "x": 120,
+        "y": 121,
+        "w": 360,
+        "h": 339
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 300,
+        "y": 230,
+        "w": 300,
+        "h": 230
+       },
+       "built": {
+        "x": 300,
+        "y": 230,
+        "w": 300,
+        "h": 230
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 620,
+        "y": 100,
+        "w": 239,
+        "h": 359
+       },
+       "built": {
+        "x": 620,
+        "y": 100,
+        "w": 239,
+        "h": 359
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 880,
+        "y": 159,
+        "w": 280,
+        "h": 301
+       },
+       "built": {
+        "x": 880,
+        "y": 159,
+        "w": 280,
+        "h": 301
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e5582e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (70,507) 410x148 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:74:9",
+      "rect": {
+       "x": 70,
+       "y": 507,
+       "w": 410.25,
+       "h": 148
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2933 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Small evening classes in paper\" at (862,534) 317x44 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:83:9",
+      "rect": {
+       "x": 840,
+       "y": 532,
+       "w": 360,
+       "h": 48
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2933 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (70,507) 410x148 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:74:9",
+      "rect": {
+       "x": 70,
+       "y": 507,
+       "w": 410.25,
+       "h": 148
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 840,
+        "y": 660,
+        "w": 221,
+        "h": 59
+       },
+       "built": {
+        "x": 840,
+        "y": 660,
+        "w": 221,
+        "h": 59
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2933 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"12 seats a night\" at (70,800) 117x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:122:11",
+      "rect": {
+       "x": 70,
+       "y": 798,
+       "w": 117.03125,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2933 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 shapes built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "stack-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "heading lines on their drawn lines at the drawn size"
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 rows of words within their drawn line"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row (table or list) at body size"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Thursdays\" (a direction of the note \"x3 spaced across: 12 seats a night; Thursdays; $40 a class\") is printed on the page; \"$40 a class\" (a direction of the note \"x3 spaced across: 12 seats a night; Thursdays; $40 a class\") is printed on the page: remove that text (it is how the note asked the item to look or behave, not copy), keep the item's own words and apply what it asked; change nothing else"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "count-row",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 items in one row over the span"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f3f0e9",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,36) 46x0",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1002,36) 208x0",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (120,121) 360x339",
+       "want": "#e5582e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (300,230) 300x230",
+       "want": "#f5a914",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (620,100) 239x359",
+       "want": "#2b3460",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (880,159) 280x301",
+       "want": "#689cbd",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (70,556) 424x0",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,630) 291x0",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (840,544) 354x0",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (840,660) 221x59",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (70,771) 1140x0",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,810) 1056x0",
+       "want": "#1f2933",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 88248,
+   "cacheRead": 483560,
+   "output": 19751
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 59998,
+    "output": 17852,
+    "cacheRead": 164431,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 208638
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 46920,
+    "output": 1622,
+    "cacheRead": 213578,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 17598
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 1081,
+    "output": 277,
+    "cacheRead": 105551,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 3491
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

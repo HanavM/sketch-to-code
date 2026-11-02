@@ -18,6 +18,7 @@
  * Told to the build, and checked on the page: the items at their lines, nothing invented between them. Zero tokens.
  */
 import type { Stroke } from '@s2c/ink'
+import { countedRow } from './countrow.js'
 import { shapeOf } from './shapemark.js'
 
 export interface ListedItem { label: string; value?: string; share?: number }
@@ -67,6 +68,8 @@ function parseItem(raw: string): ListedItem {
 
 /** The items a count lists, or null when the note does not list exactly that many. */
 export function countedItems(note: string): CountedItems | null {
+  // n223: a count across is one row (countrow.ts), never rows down the page
+  if (countedRow(note)) return null
   const m = LEAD_X.exec(note) ?? LEAD_N.exec(note)
   if (!m) return null
   const n = /^\d/.test(m[1]!) ? Number(m[1]) : WORDN[m[1]!.toLowerCase()] ?? 0
@@ -92,6 +95,8 @@ export function countedItems(note: string): CountedItems | null {
  * elsewhere ("Active", "Off"). Round 46 e2: the status column was told as a direction and left off the page.
  */
 export function cellRows(note: string): string[][] | null {
+  // n223: "x3 across: June 4, Opening night; 7pm, ..." is one row whose items have two lines, not a table
+  if (countedRow(note)) return null
   const m = LEAD_X.exec(note) ?? LEAD_N.exec(note)
   if (!m) return null
   const n = /^\d/.test(m[1]!) ? Number(m[1]) : WORDN[m[1]!.toLowerCase()] ?? 0

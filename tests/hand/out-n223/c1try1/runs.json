@@ -1,0 +1,640 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "3204ff8e5abbb80d7bcb42c3b03c5281513ede17",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/CircusTent.tsx"
+  ],
+  "reading": "A circus-site hero: header with 'Big Top' logo and 'Shows / Tickets / Visit' nav, a huge bold two-line headline 'The circus is back.', a body paragraph, a red 'Get tickets' pill button, a dark-purple full-width info band with three event stats, and an illustrated circus tent (red striped roof, purple doorway, flag on pole) on a cream page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Big Top\" at (64,24) 87x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:8:11",
+      "rect": {
+       "x": 64,
+       "y": 23,
+       "w": 87.234375,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2c1b4d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Shows\" at (1006,29) 53x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:12:13",
+      "rect": {
+       "x": 1006.375,
+       "y": 27,
+       "w": 52.59375,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2c1b4d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (64,176) 477x168 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:18:9",
+      "rect": {
+       "x": 64,
+       "y": 176,
+       "w": 477.34375,
+       "h": 168
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2c1b4d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,483) 460x56 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:26:9",
+      "rect": {
+       "x": 64,
+       "y": 483,
+       "w": 460,
+       "h": 56
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2c1b4d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,483) 460x56 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:26:9",
+      "rect": {
+       "x": 64,
+       "y": 483,
+       "w": 460,
+       "h": 56
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s16",
+       "drawn": {
+        "x": 65,
+        "y": 569,
+        "w": 228,
+        "h": 63
+       },
+       "built": {
+        "x": 64,
+        "y": 569,
+        "w": 230,
+        "h": 63
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d92a3a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <section> at (0,649) 1280x248 matches the sketch region",
+     "bestCandidate": {
+      "tag": "section",
+      "srcLoc": "src/App.tsx:42:9",
+      "rect": {
+       "x": 0,
+       "y": 649,
+       "w": 1280,
+       "h": 248
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 1,
+        "y": 649,
+        "w": 1276,
+        "h": 248
+       },
+       "built": {
+        "x": 0,
+        "y": 649,
+        "w": 1280,
+        "h": 248
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2c1b4d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x71 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:7:9",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 71
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/components/CircusTent.tsx:16:5 at (639,150) 562x499 sits on the drawn shape",
+     "claimed": "e15"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 640,
+        "y": 222,
+        "w": 560,
+        "h": 426
+       },
+       "built": {
+        "x": 640,
+        "y": 222,
+        "w": 560,
+        "h": 426
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 859,
+        "y": 499,
+        "w": 122,
+        "h": 150
+       },
+       "built": {
+        "x": 859,
+        "y": 499,
+        "w": 122,
+        "h": 150
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 909,
+        "y": 150,
+        "w": 60,
+        "h": 36
+       },
+       "built": {
+        "x": 909,
+        "y": 150,
+        "w": 60,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2c1b4d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 6,
+    "score": 0.03557321217696474,
+    "massSimilarity": 0.050818874538521186,
+    "flaws": [
+     "unfilled",
+     "over-regularized",
+     "displaced"
+    ],
+    "notes": [
+     "the output uses 1 fill value(s) — that reads as a flat cut-out. Give the form at least 2 values (a body tone, a shadow side, a highlight) so it reads as an object rather than a silhouette",
+     "the sketch's mass sits unevenly top-to-bottom (asymmetry 0.85); the output evened it out (0.00)",
+     "proportions changed: the sketch is 0.01:1 (w:h), the output 0.00:1",
+     "only 5% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 of 5 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 1,
+       "drawn": 38,
+       "built": 39,
+       "dy": 1
+      },
+      {
+       "index": 2,
+       "drawn": 176,
+       "built": 176,
+       "dy": 0
+      },
+      {
+       "index": 3,
+       "drawn": 483,
+       "built": 483,
+       "dy": 0
+      },
+      {
+       "index": 4,
+       "drawn": 569,
+       "built": 569,
+       "dy": 0
+      },
+      {
+       "index": 5,
+       "drawn": 649,
+       "built": 649,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 shapes built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "stack-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "heading lines on their drawn lines at the drawn size"
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "count-row",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 items in one row over the span"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 6: the outline drawn at (908,150) 1x78 was coloured #2c1b4d; the block has that colour but shows only about 35% of it in its middle (opacity 0.35), so it reads faint: make it opacity 1 with the solid colour, and soften only its edge (blur at most 4px)",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#fff6e3",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,38) 88x0",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1016,38) 200x0",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,232) 501x0",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,316) 210x0",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,484) 400x0",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,513) 192x0",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (64,569) 230x63",
+       "want": "#d92a3a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1,649) 1276x248 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,649) 1276x248",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (64,716) 96x0",
+       "want": "#ffb90a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (640,222) 560x426",
+       "want": "#d92a3a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (859,499) 122x150",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (908,150) 1x78",
+       "want": "#2c1b4d",
+       "best": 0,
+       "ok": false,
+       "strength": 0.35
+      },
+      {
+       "what": "the outline drawn at (909,150) 60x36",
+       "want": "#ffb90a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 87679,
+   "cacheRead": 934991,
+   "output": 33506
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 51877,
+    "output": 18981,
+    "cacheRead": 227867,
+    "toolCalls": 8,
+    "tools": [
+     "Read components/CircusTent.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Read s2c-hand-app/package.json",
+     "Write components/CircusTent.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 230463
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 51390,
+    "output": 7165,
+    "cacheRead": 372839,
+    "toolCalls": 6,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/CircusTent.tsx",
+     "Edit components/CircusTent.tsx",
+     "Edit components/CircusTent.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 86825
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 17918,
+    "output": 7360,
+    "cacheRead": 334285,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/CircusTent.tsx",
+     "Read src/main.tsx",
+     "Edit src/App.tsx",
+     "Edit components/CircusTent.tsx"
+    ],
+    "ms": 81701
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/CircusTent.tsx",
+    "edits": [
+     {
+      "kind": "position-yields",
+      "detail": "a hard-coded relative now yields to an absolute/fixed className"
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

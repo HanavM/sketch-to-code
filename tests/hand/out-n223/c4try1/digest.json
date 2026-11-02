@@ -1,0 +1,505 @@
+{
+  "round": 47,
+  "id": "c4-origami-studio",
+  "version": 3,
+  "stopped": null,
+  "likeness": 85,
+  "colour": 0.9893929851408322,
+  "structure": 0.9571385370249542,
+  "layout": 0.6861772348421665,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "circle": 4,
+      "line": 7,
+      "box": 1
+    },
+    "inkPx": 7994
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 36,
+  "notes": 6,
+  "longestNote": 11,
+  "noteTexts": [
+    "Fold bold",
+    "Classes Paper Contact",
+    "Learn to fold / anything, huge bold",
+    "Small evening classes in paper folding. All paper included.",
+    "See classes white bold",
+    "x3 spaced across: 12 seats a night; Thursdays; $40 a class"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 266,
+    "firstReadingS": 99,
+    "readS": [
+      59
+    ],
+    "buildS": [
+      165
+    ],
+    "sketchingS": 41
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 57155,
+    "cacheRead": 253745,
+    "output": 19859,
+    "billed": 77014
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f3f0e9",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 469
+    },
+    {
+      "op": "pen",
+      "color": "#e5582e",
+      "at": 856
+    },
+    {
+      "op": "stroke",
+      "at": 4452
+    },
+    {
+      "op": "stroke",
+      "at": 4935
+    },
+    {
+      "op": "pen",
+      "color": "#f5a914",
+      "at": 5312
+    },
+    {
+      "op": "stroke",
+      "at": 8180
+    },
+    {
+      "op": "stroke",
+      "at": 8649
+    },
+    {
+      "op": "pen",
+      "color": "#2b3460",
+      "at": 9018
+    },
+    {
+      "op": "stroke",
+      "at": 12263
+    },
+    {
+      "op": "stroke",
+      "at": 12732
+    },
+    {
+      "op": "pen",
+      "color": "#689cbd",
+      "at": 13103
+    },
+    {
+      "op": "stroke",
+      "at": 16254
+    },
+    {
+      "op": "stroke",
+      "at": 16730
+    },
+    {
+      "op": "pen",
+      "color": "#1f2933",
+      "at": 17098
+    },
+    {
+      "op": "stroke",
+      "at": 17697
+    },
+    {
+      "op": "stroke",
+      "at": 18776
+    },
+    {
+      "op": "stroke",
+      "at": 20453
+    },
+    {
+      "op": "stroke",
+      "at": 21764
+    },
+    {
+      "op": "stroke",
+      "at": 23234
+    },
+    {
+      "op": "stroke",
+      "at": 25271
+    },
+    {
+      "op": "stroke",
+      "at": 25751
+    },
+    {
+      "op": "stroke",
+      "at": 29417
+    },
+    {
+      "op": "stroke",
+      "at": 32835
+    },
+    {
+      "op": "note",
+      "at": 33580
+    },
+    {
+      "op": "note",
+      "at": 34371
+    },
+    {
+      "op": "note",
+      "at": 35450
+    },
+    {
+      "op": "note",
+      "at": 36823
+    },
+    {
+      "op": "note",
+      "at": 37795
+    },
+    {
+      "op": "note",
+      "at": 39099
+    },
+    {
+      "op": "run",
+      "at": 39269
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 469
+    },
+    {
+      "way": [
+        [
+          120,
+          460
+        ],
+        [
+          300,
+          120
+        ],
+        [
+          480,
+          460
+        ],
+        [
+          120,
+          460
+        ]
+      ],
+      "n": 189,
+      "at": 4452
+    },
+    {
+      "way": [
+        [
+          250,
+          380
+        ]
+      ],
+      "n": 1,
+      "at": 4935
+    },
+    {
+      "way": [
+        [
+          300,
+          460
+        ],
+        [
+          450,
+          230
+        ],
+        [
+          600,
+          460
+        ],
+        [
+          300,
+          460
+        ]
+      ],
+      "n": 143,
+      "at": 8180
+    },
+    {
+      "way": [
+        [
+          450,
+          390
+        ]
+      ],
+      "n": 1,
+      "at": 8649
+    },
+    {
+      "way": [
+        [
+          620,
+          100
+        ],
+        [
+          860,
+          100
+        ],
+        [
+          740,
+          460
+        ],
+        [
+          620,
+          100
+        ]
+      ],
+      "n": 167,
+      "at": 12263
+    },
+    {
+      "way": [
+        [
+          740,
+          200
+        ]
+      ],
+      "n": 1,
+      "at": 12732
+    },
+    {
+      "way": [
+        [
+          880,
+          460
+        ],
+        [
+          1020,
+          160
+        ],
+        [
+          1160,
+          460
+        ],
+        [
+          880,
+          460
+        ]
+      ],
+      "n": 158,
+      "at": 16254
+    },
+    {
+      "way": [
+        [
+          1020,
+          370
+        ]
+      ],
+      "n": 1,
+      "at": 16730
+    },
+    {
+      "way": [
+        [
+          70,
+          36
+        ],
+        [
+          116,
+          36
+        ]
+      ],
+      "n": 9,
+      "at": 17697
+    },
+    {
+      "way": [
+        [
+          1002,
+          36
+        ],
+        [
+          1210,
+          36
+        ]
+      ],
+      "n": 36,
+      "at": 18776
+    },
+    {
+      "way": [
+        [
+          70,
+          556
+        ],
+        [
+          494,
+          556
+        ]
+      ],
+      "n": 72,
+      "at": 20453
+    },
+    {
+      "way": [
+        [
+          70,
+          630
+        ],
+        [
+          361,
+          630
+        ]
+      ],
+      "n": 50,
+      "at": 21764
+    },
+    {
+      "way": [
+        [
+          840,
+          544
+        ],
+        [
+          1194,
+          544
+        ]
+      ],
+      "n": 60,
+      "at": 23234
+    },
+    {
+      "way": [
+        [
+          840,
+          660
+        ],
+        [
+          1060,
+          660
+        ],
+        [
+          1060,
+          718
+        ],
+        [
+          840,
+          718
+        ],
+        [
+          840,
+          660
+        ]
+      ],
+      "n": 95,
+      "at": 25271
+    },
+    {
+      "way": [
+        [
+          950,
+          689
+        ]
+      ],
+      "n": 1,
+      "at": 25751
+    },
+    {
+      "way": [
+        [
+          70,
+          771
+        ],
+        [
+          1210,
+          771
+        ]
+      ],
+      "n": 191,
+      "at": 29417
+    },
+    {
+      "way": [
+        [
+          70,
+          810
+        ],
+        [
+          1126,
+          810
+        ]
+      ],
+      "n": 177,
+      "at": 32835
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Fold bold",
+      "whole": false,
+      "x": 75,
+      "y": 56,
+      "at": 33580
+    },
+    {
+      "text": "Classes Paper Contact",
+      "whole": false,
+      "x": 1020,
+      "y": 56,
+      "at": 34371
+    },
+    {
+      "text": "Learn to fold / anything, huge bold",
+      "whole": false,
+      "x": 80,
+      "y": 578,
+      "at": 35450
+    },
+    {
+      "text": "Small evening classes in paper folding. All paper included.",
+      "whole": false,
+      "x": 850,
+      "y": 565,
+      "at": 36823
+    },
+    {
+      "text": "See classes white bold",
+      "whole": false,
+      "x": 860,
+      "y": 735,
+      "at": 37795
+    },
+    {
+      "text": "x3 spaced across: 12 seats a night; Thursdays; $40 a class",
+      "whole": false,
+      "x": 80,
+      "y": 830,
+      "at": 39099
+    }
+  ]
+}

@@ -16,6 +16,7 @@
  *    no spot), and when its words are built on the page they are checked to sit
  *    near that height. Zero tokens.
  */
+import { countedRow } from './countrow.js'
 import { HEADING_LEFT_TOL_PX, type OpenRows } from './openrows.js'
 import { listNote, type BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
@@ -52,6 +53,8 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[], pageW = 12
       const ends = lineEnds(m, own, pageW)
       if (ends) { m.ends = ends; delete m.words; continue }
       const n = own[0]
+      // n223: a count across with its items is told and checked as one row (countrow.ts): the line is only where it starts
+      if (n && countedRow(n.text)) { delete m.words; m.rowStart = true; continue }
       if (n) { m.words = n.text; if (n.at) m.wordsAt = { x: r1(n.at.x), y: r1(n.at.y) } }
       continue
     }

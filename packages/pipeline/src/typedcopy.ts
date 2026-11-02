@@ -20,6 +20,7 @@
 
 interface NodeLike { id: string; text?: string; textBox?: unknown }
 interface Snap { nodes: NodeLike[]; truncated?: boolean }
+import { countedRow } from './countrow.js'
 import { cellRows, countedItems } from './drawnlist.js'
 import { progressOf } from './progress.js'
 import { calendarOf } from './calendar.js'
@@ -246,7 +247,7 @@ export function directionStrings(notes: readonly string[]): { text: string; why:
     // n92: a progress bar note is told and checked by progress.ts (its caption is copy, its percent is the fill)
     if (progressOf(n)) continue
     // n215: rows with cells listed after a count are all typed copy (row data tells and checks them)
-    if (cellRows(n)) continue
+    if (cellRows(n) || countedRow(n)) continue
     // n179: a note describing how a kind of item looks, and a list of names one per item, are never one line of text
     const sp = specNote(n)
     if (sp) { out.push({ text: sp.lead, why: `a description of how the ${sp.kind} look`, note: n }); continue }
@@ -279,7 +280,7 @@ export function typedCopyBrief(notes: readonly string[]): string {
   for (const n of notes) {
     if (progressOf(n)) continue
     // n215: rows with cells listed after a count are all typed copy (row data tells and checks them)
-    if (cellRows(n)) continue
+    if (cellRows(n) || countedRow(n)) continue
     // n113: a calendar note describes its block; calendar.ts tells its heading and days
     if (calendarOf(n)) continue
     const sp = specNote(n)
@@ -294,6 +295,13 @@ export function typedCopyBrief(notes: readonly string[]): string {
       seen.add(n)
       lines.push(`- "${n}" gives ${nl.length} names, one per item, in drawn order (left to right, then top to bottom): ${nl.map((t) => `"${t}"`).join(', ')}. ` +
         'Each item shows only its own name; never print the list (or several names) as one line.')
+      continue
+    }
+    // n223: a count across: the items are the text, in one row
+    const across = countedRow(n)
+    if (across && !seen.has(n)) {
+      seen.add(n)
+      lines.push(`- "${n}": the text on the page is the ${String(across.n)} items, side by side: ${across.items.map((i) => `"${i.main}"${i.under ? ` with "${i.under}" under it` : ''}`).join(', ')}. The count, the words before the colon, the comma between an item's two lines and the look words are never printed.`)
       continue
     }
     // n214: a count listing its items: the items are the text, never the count, the lead or a share

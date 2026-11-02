@@ -23,6 +23,7 @@
  */
 import { noteParts } from './typedcopy.js'
 import { buttonLabel } from './buttonlabel.js'
+import { countedRow } from './countrow.js'
 import { cellRows, countedItems } from './drawnlist.js'
 
 interface NodeLike { id: string; rect: { x: number; y: number; w: number; h: number }; text?: string; textBox?: { x: number; y: number; w: number; h: number }; style?: { fontSize?: string; fontWeight?: string } }
@@ -138,6 +139,8 @@ export function splitEnds(cs: string[]): string[] {
 export function rowData(note: string): RowData | null {
   // n111: a button's label ("Reserve · 4 nights") is one piece of copy, no row of data
   if (buttonLabel(note)) return null
+  // n223: a count across is one row of items (countrow.ts): no rows of data
+  if (countedRow(note)) return null
   // n215: a count listing rows with cells: every cell is typed copy
   const cells0 = cellRows(note)
   if (cells0) return { note, rows: cells0, total: null }

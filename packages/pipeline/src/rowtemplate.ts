@@ -19,6 +19,7 @@
  *   the drawn pitch.
  * Zero tokens.
  */
+import { countedRow } from './countrow.js'
 import { countedItems } from './drawnlist.js'
 import type { Stroke } from '@s2c/ink'
 import { rowData } from './rowdata.js'
@@ -62,6 +63,8 @@ const num = (s: string) => (/^\d/.test(s) ? Number(s) : NUM[s.toLowerCase()] ?? 
 export function likeCount(note: string): { total: number; typed: boolean } | null {
   const m = note.match(LIKE) ?? note.match(TIMES)
   if (!m) return null
+  // n223: a count across is one row of items (countrow.ts), never rows like this
+  if (countedRow(note)) return null
   // n214: "x4 down: A; B; C; D" lists its rows: they are typed, none to invent
   if (countedItems(note)) return { total: num(m[1]!), typed: true }
   const total = num(m[1]!)

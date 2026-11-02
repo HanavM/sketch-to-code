@@ -11,6 +11,7 @@
  * built page: a repeated group with exactly that many members, or with exactly
  * that many filled.
  */
+import { countedRow } from './countrow.js'
 import type { DomSnapshot, DomNode } from '@s2c/dom'
 import { calendarOf } from './calendar.js'
 import { buttonLabel } from './buttonlabel.js'
@@ -40,6 +41,8 @@ export function countClaims(texts: readonly string[]): CountClaim[] {
   for (const t of texts) {
     // n113: a calendar's day numbers ("12 and 16 magenta circles") and a button label ("Reserve · 4 nights") are not counts
     if (calendarOf(t) || buttonLabel(t)) continue
+    // n223: "x3 across: 12 seats a night; Thursdays; ..." lists copy: its numbers are words to print, not things to build
+    if (countedRow(t)) continue
     for (const m of t.matchAll(re)) {
       const raw = m[2]!.toLowerCase()
       const n = /^\d/.test(raw) ? Number(raw) : WORDS[raw]!
