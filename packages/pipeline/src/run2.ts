@@ -31,7 +31,7 @@ import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
 } from './candidates.js'
-import { brokenPartName, partBack, type FilePair } from './partback.js'
+import { brokenPartName, onlyFillStayed, partBack, type FilePair } from './partback.js'
 import { execFileSync } from 'node:child_process'
 import { buildScaffold, lostStrokes, restoreLostStrokes, scaffoldDir, type Scaffold } from './scaffold.js'
 import { askedHexes, finishSource, paletteFor } from './finish.js'
@@ -1304,7 +1304,14 @@ export async function runV2(
     const work = new Map([...captureWork(ctx.root, cp)].filter(([rel]) => !rel.startsWith('.sketch2code/') && !untrackedBefore.has(rel)))
     // n213: first try putting back only the edits that hold the broken words; the page is checked again, and
     // the whole put-back below still runs if that did not clear it
-    const parts = work.size ? partBack(workPairs(ctx.root, cp, work), fixNow) : null
+    // n213: only one note of several failed to take a fill away: nothing broke, so nothing goes back
+    const noteCount = new Set([...interp.actions.flatMap((a) => a.notes ?? []), ...(interp.runNotes ?? []), ...(interp.placedNotes ?? []).map((p) => p.text), ...(interp.pageNotes ?? [])]).size
+    const manyNotes = noteCount > 1
+    if (work.size && onlyFillStayed(fixNow, noteCount)) {
+      partlyBack = `the ${fixNow.noFill[0]!.what} behind "${fixNow.noFill[0]!.target.slice(0, 30)}" stayed; the rest of the fix was kept`
+      stage('verify', partlyBack)
+    }
+    const parts = work.size && !partlyBack ? partBack(workPairs(ctx.root, cp, work), fixNow, manyNotes) : null
     if (parts) {
       const name = brokenPartName(fixNow)
       applyWork(ctx.root, new Map(parts.files.map((f) => [f.rel, f.content])))
@@ -1312,7 +1319,7 @@ export async function runV2(
       await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
       const again = await verifyRound('part-back')
       const still = lastFix as FixVerdict | null
-      if (still && !still.unchanged && !still.overlaps.length && !still.noFill.length && !still.lost?.length && !still.copied?.length) {
+      if (still && !still.unchanged && (manyNotes || !still.noFill.length) && !still.overlaps.length && !still.lost?.length && !still.copied?.length) {
         partlyBack = `the fix broke ${name}, so that part was put back and the rest of the fix kept`
         stage('verify', partlyBack)
         bestScore = again.score

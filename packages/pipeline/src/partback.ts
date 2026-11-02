@@ -80,9 +80,10 @@ const lineSets = (lines: readonly string[], keys: readonly string[]): number[] =
 }
 
 /** The broken parts a fix check named, or null when one of them cannot be mended by putting source back. */
-function brokenKeys(v: FixVerdict): { gone: string[][]; extra: string[][]; touching: string[][] } | null {
-  // a panel it was told to take away is still there: nothing to put back, the note just did not happen
-  if (v.noFill.length) return null
+function brokenKeys(v: FixVerdict, keepOtherNotes: boolean): { gone: string[][]; extra: string[][]; touching: string[][] } | null {
+  // a panel it was told to take away is still there: nothing to put back for it. With no other note to keep, the
+  // whole put-back stands (n37); with others, that one note just did not happen and the rest of the fix is kept
+  if (v.noFill.length && !keepOtherNotes) return null
   return {
     gone: (v.lost ?? []).map((l) => keysOf(l.text)),
     extra: (v.copied ?? []).map((c) => keysOf(c.text)),
@@ -102,8 +103,8 @@ export interface PartBack {
  * The fix with only its broken parts put back, or null when that is not possible: a part cannot be found in the
  * source, a part is not a whole piece of the tree, or every edit would go back (that is the whole put-back).
  */
-export function partBack(pairs: readonly FilePair[], verdict: FixVerdict): PartBack | null {
-  const broken = brokenKeys(verdict)
+export function partBack(pairs: readonly FilePair[], verdict: FixVerdict, keepOtherNotes = false): PartBack | null {
+  const broken = brokenKeys(verdict, keepOtherNotes)
   if (!broken) return null
   const wanted = [...broken.gone, ...broken.extra, ...broken.touching]
   if (!wanted.length) return null
@@ -141,6 +142,15 @@ export function partBack(pairs: readonly FilePair[], verdict: FixVerdict): PartB
   // an emptied or copied part that is nowhere in an edit cannot be mended from here
   if ([...broken.gone, ...broken.extra].some((keys) => !found.has(wanted.indexOf(keys)))) return null
   return { files, undone, kept }
+}
+
+/**
+ * n213 (found live, r46 c4 replay): "white lines only" read on a box inside the green court, the court kept its green,
+ * and that one miss threw away the other note's three tiles. A fix with more than one note keeps the rest when the
+ * only trouble is a fill that stayed.
+ */
+export function onlyFillStayed(v: FixVerdict, noteCount: number): boolean {
+  return noteCount > 1 && v.noFill.length > 0 && !v.overlaps.length && !v.lost?.length && !v.copied?.length
 }
 
 /** The part a person is told about, in their words. */

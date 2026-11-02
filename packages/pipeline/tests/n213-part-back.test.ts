@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import { lostCopy, type FixVerdict } from '../src/fixcheck.js'
-import { diffHunks, partBack } from '../src/partback.js'
+import { diffHunks, onlyFillStayed, partBack } from '../src/partback.js'
 
 const OLD = `export default function App() {
   return (
@@ -59,6 +59,20 @@ describe('a fix that breaks one part puts back only that part (n213)', () => {
 
   it('a panel it was told to drop cannot be mended by putting source back', () => {
     expect(partBack([{ rel: 'a', old: OLD, now: FIX }], verdict({ noFill: [{ action: 0, what: 'panel', target: 'x' }] }))).toBeNull()
+  })
+
+  it('with other notes to keep, a fill that stayed does not throw them away', () => {
+    const miss = verdict({ noFill: [{ action: 0, what: 'fill', target: 'court' }] })
+    expect(onlyFillStayed(miss, 2)).toBe(true)
+    expect(onlyFillStayed(miss, 1)).toBe(false)
+    expect(onlyFillStayed({ ...miss, lost: [{ text: 'x y' }] }, 2)).toBe(false)
+    expect(onlyFillStayed(verdict({}), 2)).toBe(false)
+    // and a broken part alongside it still goes back by itself
+    const a = OLD.replace('<p className="text-sm">First', '\n\n\n<p className="text-sm">First')
+    const b = FIX.replace('<p className="text-sm"></p>', '\n\n\n<p className="text-sm"></p>')
+    const both = { ...miss, lost: [{ text: 'First week free' }] }
+    expect(partBack([{ rel: 'a', old: a, now: b }], both, true)).not.toBeNull()
+    expect(partBack([{ rel: 'a', old: a, now: b }], both, false)).toBeNull()
   })
 
   it('a lost word found in no edit gives up, not a guess', () => {
