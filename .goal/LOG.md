@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T00:47Z | n207 drawn cards keep their drawn height | Box heights checked on the page; bike cards full height both tries, 88.4 and 80.5 (tall top bar).
 2026-11-02T00:50Z | n151 slanted pen line is a thin line | Kite strings, bike crossbar thin slanted lines first build; kite 74.3 no fix, bike 82.8, 77.1.
 2026-11-01T23:48Z | n204 untapped neutral rings stay outline rings | Whole black and grey outline rings, no spokes; bike 80.6 with fix to 85.9, 88.2 no fix; mixer 89.2.
 2026-11-01T23:20Z | n199 heading pen line is its words, never a bar | Heading lines never bars; pizza 79.8 with fix to 84.2, 84.8 no fix, 49 words.
