@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T23:37Z | n249 why right pages score low on layout | Tiny words decide it; rows start where typed; false checks gone; rota 83.3, 76.4; wifi 69.4.
 2026-11-02T22:31Z | n246 short typed words stay as typed | Bars one line, stats whole, sentence beside button; rota 72.8, wifi 64.7, sleep 62.9; likeness barely moved.
 2026-11-02T21:25Z | n247 a page drawn inside the screen stays inside it | Fits one screen 3 builds of 3, unscrolled; budget 89.5 to 93.6; wifi 60.1, 57.3, no clear gain.
 2026-11-02T21:01Z | n244 a drawn box keeps its size when a count fills it | Panel, rows, toggles right 2 of 2, no fix; wifi 55 to 64.2, 56; 73 words, was 115.
