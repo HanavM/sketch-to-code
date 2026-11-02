@@ -1,0 +1,548 @@
+{
+  "round": 46,
+  "id": "c5-paint-store",
+  "version": 3,
+  "stopped": null,
+  "likeness": 72.3,
+  "colour": 0.9801016591759162,
+  "structure": 0.9129979472589298,
+  "layout": 0.5329727087054186,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "circle": 3,
+      "box": 2,
+      "line": 6
+    },
+    "inkPx": 5286
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 56,
+  "notes": 8,
+  "longestNote": 15,
+  "noteTexts": [
+    "SWATCH bold spaced",
+    "Colours Samples Stores",
+    "Find the colour / of your room, huge bold",
+    "Order five free sample cards. Paint arrives in two days.",
+    "Get samples white bold",
+    "THIS SEASON",
+    "x6 in a row: navy, teal, mustard, peach, coral, grey",
+    "3 white shadowed cards, name under: Harbour No. 214, Mustard No. 087, Clay No. 131"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 381,
+    "firstReadingS": 81,
+    "readS": [
+      38
+    ],
+    "buildS": [
+      290
+    ],
+    "sketchingS": 53
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 70700,
+    "cacheRead": 431677,
+    "output": 27440,
+    "billed": 98140
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#faf7f2",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 463
+    },
+    {
+      "op": "pen",
+      "color": "#2b6f97",
+      "at": 847
+    },
+    {
+      "op": "stroke",
+      "at": 3928
+    },
+    {
+      "op": "stroke",
+      "at": 4402
+    },
+    {
+      "op": "pen",
+      "color": "#e8c36a",
+      "at": 4776
+    },
+    {
+      "op": "stroke",
+      "at": 7790
+    },
+    {
+      "op": "stroke",
+      "at": 8274
+    },
+    {
+      "op": "pen",
+      "color": "#e77052",
+      "at": 8645
+    },
+    {
+      "op": "stroke",
+      "at": 11692
+    },
+    {
+      "op": "stroke",
+      "at": 12171
+    },
+    {
+      "op": "pen",
+      "color": "#264653",
+      "at": 12545
+    },
+    {
+      "op": "stroke",
+      "at": 13555
+    },
+    {
+      "op": "stroke",
+      "at": 14038
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 14409
+    },
+    {
+      "op": "stroke",
+      "at": 15204
+    },
+    {
+      "op": "stroke",
+      "at": 16307
+    },
+    {
+      "op": "stroke",
+      "at": 18104
+    },
+    {
+      "op": "stroke",
+      "at": 19727
+    },
+    {
+      "op": "stroke",
+      "at": 20523
+    },
+    {
+      "op": "stroke",
+      "at": 22573
+    },
+    {
+      "op": "stroke",
+      "at": 23058
+    },
+    {
+      "op": "pen",
+      "color": "#55524d",
+      "at": 23432
+    },
+    {
+      "op": "stroke",
+      "at": 25093
+    },
+    {
+      "op": "note",
+      "at": 31895
+    },
+    {
+      "op": "note",
+      "at": 32591
+    },
+    {
+      "op": "note",
+      "at": 33488
+    },
+    {
+      "op": "note",
+      "at": 34493
+    },
+    {
+      "op": "note",
+      "at": 35251
+    },
+    {
+      "op": "note",
+      "at": 35977
+    },
+    {
+      "op": "note",
+      "at": 36937
+    },
+    {
+      "op": "note",
+      "at": 38136
+    },
+    {
+      "op": "run",
+      "at": 43236
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 463
+    },
+    {
+      "way": [
+        [
+          620,
+          258
+        ],
+        [
+          805,
+          212
+        ],
+        [
+          870,
+          478
+        ],
+        [
+          675,
+          522
+        ],
+        [
+          620,
+          258
+        ]
+      ],
+      "n": 157,
+      "at": 3928
+    },
+    {
+      "way": [
+        [
+          700,
+          400
+        ]
+      ],
+      "n": 1,
+      "at": 4402
+    },
+    {
+      "way": [
+        [
+          814,
+          204
+        ],
+        [
+          1001,
+          204
+        ],
+        [
+          1001,
+          474
+        ],
+        [
+          814,
+          474
+        ],
+        [
+          814,
+          204
+        ]
+      ],
+      "n": 153,
+      "at": 7790
+    },
+    {
+      "way": [
+        [
+          880,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 8274
+    },
+    {
+      "way": [
+        [
+          1012,
+          218
+        ],
+        [
+          1200,
+          258
+        ],
+        [
+          1145,
+          522
+        ],
+        [
+          957,
+          482
+        ],
+        [
+          1012,
+          218
+        ]
+      ],
+      "n": 155,
+      "at": 11692
+    },
+    {
+      "way": [
+        [
+          1080,
+          380
+        ]
+      ],
+      "n": 1,
+      "at": 12171
+    },
+    {
+      "way": [
+        [
+          105,
+          640
+        ],
+        [
+          130,
+          650
+        ],
+        [
+          140,
+          675
+        ],
+        [
+          130,
+          700
+        ],
+        [
+          105,
+          710
+        ],
+        [
+          80,
+          700
+        ],
+        [
+          70,
+          675
+        ],
+        [
+          80,
+          650
+        ],
+        [
+          105,
+          640
+        ]
+      ],
+      "n": 33,
+      "at": 13555
+    },
+    {
+      "way": [
+        [
+          105,
+          675
+        ]
+      ],
+      "n": 1,
+      "at": 14038
+    },
+    {
+      "way": [
+        [
+          70,
+          40
+        ],
+        [
+          183,
+          40
+        ]
+      ],
+      "n": 20,
+      "at": 15204
+    },
+    {
+      "way": [
+        [
+          986,
+          40
+        ],
+        [
+          1210,
+          40
+        ]
+      ],
+      "n": 38,
+      "at": 16307
+    },
+    {
+      "way": [
+        [
+          70,
+          214
+        ],
+        [
+          546,
+          214
+        ]
+      ],
+      "n": 80,
+      "at": 18104
+    },
+    {
+      "way": [
+        [
+          70,
+          283
+        ],
+        [
+          477,
+          283
+        ]
+      ],
+      "n": 69,
+      "at": 19727
+    },
+    {
+      "way": [
+        [
+          70,
+          609
+        ],
+        [
+          182,
+          609
+        ]
+      ],
+      "n": 20,
+      "at": 20523
+    },
+    {
+      "way": [
+        [
+          70,
+          450
+        ],
+        [
+          290,
+          450
+        ],
+        [
+          290,
+          508
+        ],
+        [
+          70,
+          508
+        ],
+        [
+          70,
+          450
+        ]
+      ],
+      "n": 95,
+      "at": 22573
+    },
+    {
+      "way": [
+        [
+          180,
+          495
+        ]
+      ],
+      "n": 1,
+      "at": 23058
+    },
+    {
+      "way": [
+        [
+          70,
+          363
+        ],
+        [
+          481,
+          363
+        ]
+      ],
+      "n": 70,
+      "at": 25093
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "SWATCH bold spaced",
+      "whole": false,
+      "x": 75,
+      "y": 60,
+      "at": 31895
+    },
+    {
+      "text": "Colours Samples Stores",
+      "whole": false,
+      "x": 995,
+      "y": 60,
+      "at": 32591
+    },
+    {
+      "text": "Find the colour / of your room, huge bold",
+      "whole": false,
+      "x": 75,
+      "y": 236,
+      "at": 33488
+    },
+    {
+      "text": "Order five free sample cards. Paint arrives in two days.",
+      "whole": false,
+      "x": 75,
+      "y": 383,
+      "at": 34493
+    },
+    {
+      "text": "Get samples white bold",
+      "whole": false,
+      "x": 90,
+      "y": 470,
+      "at": 35251
+    },
+    {
+      "text": "THIS SEASON",
+      "whole": false,
+      "x": 75,
+      "y": 626,
+      "at": 35977
+    },
+    {
+      "text": "x6 in a row: navy, teal, mustard, peach, coral, grey",
+      "whole": false,
+      "x": 90,
+      "y": 690,
+      "at": 36937
+    },
+    {
+      "text": "3 white shadowed cards, name under: Harbour No. 214, Mustard No. 087, Clay No. 131",
+      "whole": false,
+      "x": 850,
+      "y": 440,
+      "at": 38136
+    }
+  ]
+}

@@ -1,0 +1,610 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "cdf597ce1a7fd101c13c940fc45571937c355c8c",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/DominoTiles.tsx"
+  ],
+  "reading": "This sketches a board-game café homepage header and hero: a bold 'DOMINO' logo and 'Menu Games Find us' nav links top corners, an orange decorative octagon shape, a trio of rounded domino tiles with specific pips and a cream divider, a big bold headline 'Coffee, cake & tiles', a descriptive sentence, an orange 'Book a table' button with white bold text, and a small caption about opening hours, all on a warm cream page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"DOMINO\" at (70,24) 110x31 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:14:7",
+      "rect": {
+       "x": 70,
+       "y": 27,
+       "w": 110.1875,
+       "h": 26
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e1e1e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Games\" at (1054,25) 82x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:26:9",
+      "rect": {
+       "x": 1053.734375,
+       "y": 28,
+       "w": 81.59375,
+       "h": 48
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e1e1e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (881,160) 299x298 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:9:7",
+      "rect": {
+       "x": 881,
+       "y": 160,
+       "w": 299,
+       "h": 298
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 881,
+        "y": 160,
+        "w": 299,
+        "h": 298
+       },
+       "built": {
+        "x": 881,
+        "y": 160,
+        "w": 299,
+        "h": 298
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#db432b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <svg> at (119,140) 609x330 matches the sketch region",
+     "bestCandidate": {
+      "tag": "svg",
+      "srcLoc": "src/components/DominoTiles.tsx:41:5",
+      "rect": {
+       "x": 119,
+       "y": 140,
+       "w": 609,
+       "h": 330
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<svg> src/components/DominoTiles.tsx:41:5 at (119,140) 609x330 sits on the drawn shape",
+     "claimed": "e9"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 301,
+        "y": 149,
+        "w": 215,
+        "h": 321
+       },
+       "built": {
+        "x": 300.6356201171875,
+        "y": 149.4643096923828,
+        "w": 214.728759765625,
+        "h": 321.0714111328125
+       },
+       "dx": 0,
+       "dy": 1
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 543,
+        "y": 139,
+        "w": 185,
+        "h": 318
+       },
+       "built": {
+        "x": 542.15673828125,
+        "y": 139.98533630371094,
+        "w": 185.6865234375,
+        "h": 318.02935791015625
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 11.3,
+    "reason": "#1e1e1e is on the page (ΔE 11.3)"
+   },
+   {
+    "kind": "composition",
+    "index": 3,
+    "score": 0.5147636908311333,
+    "massSimilarity": 0.4496624154730475,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "proportions changed: the sketch is 0.50:1 (w:h), the output 1.85:1",
+     "only 45% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Coffee, cake & tiles\" at (70,515) 693x90 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:32:7",
+      "rect": {
+       "x": 70,
+       "y": 523,
+       "w": 692.5625,
+       "h": 74
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e1e1e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"A board-game cafe with two hun\" at (70,634) 461x19 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:39:7",
+      "rect": {
+       "x": 70,
+       "y": 633,
+       "w": 461.390625,
+       "h": 21
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e1e1e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (861,620) 239x65 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:46:7",
+      "rect": {
+       "x": 861,
+       "y": 620,
+       "w": 239,
+       "h": 65
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 861,
+        "y": 620,
+        "w": 239,
+        "h": 65
+       },
+       "built": {
+        "x": 861,
+        "y": 620,
+        "w": 239,
+        "h": 65
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#db432b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Open daily 9am to midnight\" at (861,710) 182x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:53:7",
+      "rect": {
+       "x": 860,
+       "y": 712,
+       "w": 183,
+       "h": 14
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#6e6458 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 of 5 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 40,
+       "built": 40,
+       "dy": 0
+      },
+      {
+       "index": 2,
+       "drawn": 160,
+       "built": 160,
+       "dy": 0
+      },
+      {
+       "index": 5,
+       "drawn": 644,
+       "built": 644,
+       "dy": 0
+      },
+      {
+       "index": 6,
+       "drawn": 620,
+       "built": 620,
+       "dy": 0
+      },
+      {
+       "index": 7,
+       "drawn": 719,
+       "built": 719,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "tilts",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 boxes built turned as drawn"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3: the outline drawn at (119,140) 152x301 was coloured #1e1e1e (fill); nothing that size was built there carrying a colour: paint the block itself exactly #1e1e1e; action 3: the box drawn at (301,150) 211x320 was coloured #1e1e1e (fill); nothing that size was built there carrying a colour: paint the block itself exactly #1e1e1e; action 3: the box drawn at (543,142) 185x314 was coloured #1e1e1e (fill); nothing that size was built there carrying a colour: paint the block itself exactly #1e1e1e",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f6e8d6",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,40) 98x0",
+       "want": "#1e1e1e",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (998,40) 212x0",
+       "want": "#1e1e1e",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (880,160) 300x299",
+       "want": "#db432b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (119,140) 152x301",
+       "want": "#1e1e1e",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (301,150) 211x320",
+       "want": "#1e1e1e",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (543,142) 185x314",
+       "want": "#1e1e1e",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (70,560) 696x0",
+       "want": "#1e1e1e",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,644) 456x0",
+       "want": "#1e1e1e",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (860,620) 241x65",
+       "want": "#db432b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (860,719) 183x0",
+       "want": "#6e6458",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 83539,
+   "cacheRead": 697732,
+   "output": 31292
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 57153,
+    "output": 22176,
+    "cacheRead": 195234,
+    "toolCalls": 8,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read components/DominoTiles.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Write components/DominoTiles.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 251427
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 46024,
+    "output": 4952,
+    "cacheRead": 250684,
+    "toolCalls": 4,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit components/DominoTiles.tsx",
+     "Edit components/DominoTiles.tsx",
+     "Edit components/DominoTiles.tsx"
+    ],
+    "ms": 55026
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 11654,
+    "output": 4164,
+    "cacheRead": 251814,
+    "toolCalls": 4,
+    "tools": [
+     "Read components/DominoTiles.tsx",
+     "Read src/App.tsx",
+     "Edit components/DominoTiles.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 37488
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
