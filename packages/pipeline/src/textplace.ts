@@ -21,7 +21,7 @@ import { listNote, type BBox } from '@s2c/ink'
 import { shapeOf, type ShapeMark } from './shapemark.js'
 import { rowBrief } from './rowspan.js'
 import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
-import { labelValue, ruledRow, spreadCentres } from './linespread.js'
+import { labelValue, ruledRow, spreadCentres, whenLine } from './linespread.js'
 import { outlinedOf } from './textlook.js'
 import { bindTiltNotes } from './tiltwords.js'
 import { lineEnds } from './lineends.js'
@@ -219,7 +219,7 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
         // n170: a size word ("Year 9 Science big bold" on a 210px line) no longer skips this: the line still sets the
         // size (lines under 200px are the title cap's). Round 42 e5: built 261px long, fixed only by a repair.
         // n195: a line ruled in a list (one of 3+ alike lines stacked close) is a row, never sized up by its length
-        const row = !BIG_WORD.test(m.words) && !stacked.has(m.strokeId) && (ruledRow(m, all) || !!labelValue(m.words))
+        const row = !BIG_WORD.test(m.words) && !stacked.has(m.strokeId) && (ruledRow(m, all) || (!!labelValue(m.words) && !whenLine(m.words)))
         if (!row && ((!stacked.has(m.strokeId) && lineAsksBig(m.words, len) && (!BIG_WORD.test(m.words) || len >= 200)) || isDisplay(m.words, len))) {
           lines.push(`- action ${i}: "${m.words}" is a short phrase typed on a long line (${r1(len)}px, x ${m.box.x} to ${m.box.x + m.box.w}, y ${m.box.y}): the line sets its SIZE. ` +
             `It is a big heading on ONE line (white-space: nowrap) whose letters run about the drawn ${r1(len)}px: font-size about ${spanFontPx(m.words, len)}px (adjust so the width matches), ${BIG_WORD.test(m.words) && !/\b(bold|heavy|black)\b/i.test(m.words) ? 'weight as its note says' : 'bold'}, letters sitting on y ${m.box.y}` +

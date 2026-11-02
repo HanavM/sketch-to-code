@@ -84,6 +84,18 @@ export function labelValue(words: string): { label: string; value: string } | nu
   return { label, value }
 }
 
+/**
+ * n218: a day and a time on a line of its own ("Every Thursday, 7pm") is one phrase, not a label and its value.
+ * Round 41 c4: the two were built at the two ends of the line, three builds in a row. Ruled in a list ("Monday, 9am")
+ * it stays a row.
+ */
+const DAY = /(?:^|\s)(?:mon|tues?|wed(?:nes)?|thu(?:rs?)?|fri|sat(?:ur)?|sun)(?:day)?s?$|(?:^|\s)(?:tonight|today|tomorrow|weekends?|weekdays?|nightly|daily|weekly)$/i
+const CLOCK = /^\d{1,2}(?:[:.]\d{2})?\s?(?:am|pm)$|^\d{1,2}:\d{2}$/i
+export function whenLine(words: string): boolean {
+  const lv = labelValue(words)
+  return !!lv && DAY.test(lv.label) && CLOCK.test(lv.value)
+}
+
 /** A line's words that must never be sized up by its length (a table row, a label and its value, or a note that says small). */
 export function notHeading(words: string): boolean {
   return SMALL_WORD.test(words) || isTableRow(words) || !!labelValue(words)
@@ -209,7 +221,7 @@ export function verifyTableRows(marks: readonly MarkLike[], after: Snap): Spread
   for (const m of marks) {
     // n195: a list row (a label and its value, or a line ruled in a list) is held at body size too
     const lv = isLevel(m) && m.words && !/\b(big|bigger|huge|large|giant|massive|heading|headline|title|display|hero)\b/i.test(m.words)
-      ? labelValue(m.words) ?? (ruledRow(m, marks) ? { label: rowItems(m.words).join(' '), value: '' } : null) : null
+      ? ((whenLine(m.words) && !ruledRow(m, marks) ? null : labelValue(m.words)) ?? (ruledRow(m, marks) ? { label: rowItems(m.words).join(' '), value: '' } : null)) : null
     if (!isLevel(m) || !m.words || (!isTableRow(m.words) && !lv)) continue
     const items = (isTableRow(m.words) ? rowItems(m.words) : [lv!.label, lv!.value].filter(Boolean).flatMap((p) => p.split(/\s+/))).map((w) => w.toLowerCase())
     const y = m.box.y
