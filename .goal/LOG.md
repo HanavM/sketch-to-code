@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T02:05Z | n209 write round 46 | Ten fresh pages (rocket, greenhouse, dominoes, tennis, paint; library, roster, thermostat, booking, loan); six harder; none sketched.
 2026-11-02T01:10Z | n208 top bar keeps its drawn height | Shift check names the too-tall bar; bike repair 89.3, 86.0, every block at its drawn top.
 2026-11-02T00:47Z | n207 drawn cards keep their drawn height | Box heights checked on the page; bike cards full height both tries, 88.4 and 80.5 (tall top bar).
 2026-11-02T00:50Z | n151 slanted pen line is a thin line | Kite strings, bike crossbar thin slanted lines first build; kite 74.3 no fix, bike 82.8, 77.1.
