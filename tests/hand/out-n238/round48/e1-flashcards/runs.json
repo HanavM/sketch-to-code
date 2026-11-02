@@ -1,0 +1,562 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "ca6a21e9bf0000589867718ca86c321adadb4e52",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "This is a flashcard study screen: a white header bar with title/subtitle/exit, a progress bar ('Card 16 of 40'), a stacked flashcard showing a Spanish vocabulary question with a flip hint, a row of three coloured recall-rating buttons, and a 'Skip this card' link below them.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x68 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:4:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 68
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 2,
+        "y": 1,
+        "w": 1276,
+        "h": 68
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 68
+       },
+       "dx": 0,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (240,108) 1040x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:14:7",
+      "rect": {
+       "x": 240,
+       "y": 108,
+       "w": 1040,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 240,
+        "y": 109,
+        "w": 800,
+        "h": 16
+       },
+       "built": {
+        "x": 240,
+        "y": 110,
+        "w": 800,
+        "h": 16
+       },
+       "dx": 0,
+       "dy": 1
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 240,
+        "y": 109,
+        "w": 320,
+        "h": 16
+       },
+       "built": {
+        "x": 240,
+        "y": 110,
+        "w": 320,
+        "h": 16
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 15.3,
+    "reason": "#d8e2f7 is on the page (ΔE 15.3)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:3:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (309,204) 702x422 spans x 309 to 1011; the <div> built for it spans 289 to 1031: make it exactly 702px wide from x 309 (an exact px width with box-sizing: border-box, not a max-w class or page padding that rounds it), keeping what is inside it",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 329,
+        "y": 219,
+        "w": 702,
+        "h": 422
+       },
+       "built": {
+        "x": 329,
+        "y": 222,
+        "w": 702,
+        "h": 422
+       },
+       "dx": 0,
+       "dy": 3
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 309,
+        "y": 204,
+        "w": 702,
+        "h": 422
+       },
+       "built": {
+        "x": 289,
+        "y": 192,
+        "w": 742,
+        "h": 452
+       },
+       "dx": 0,
+       "dy": 3
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 289,
+        "y": 189,
+        "w": 702,
+        "h": 422
+       },
+       "built": {
+        "x": 289,
+        "y": 192,
+        "w": 702,
+        "h": 422
+       },
+       "dx": 0,
+       "dy": 3
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#c8d6f3 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (289,662) 701x66 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:77:7",
+      "rect": {
+       "x": 289,
+       "y": 662,
+       "w": 701,
+       "h": 66
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 289,
+        "y": 659,
+        "w": 231,
+        "h": 66
+       },
+       "built": {
+        "x": 289,
+        "y": 662,
+        "w": 231,
+        "h": 66
+       },
+       "dx": 0,
+       "dy": 3
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 524,
+        "y": 659,
+        "w": 231,
+        "h": 66
+       },
+       "built": {
+        "x": 524,
+        "y": 662,
+        "w": 231,
+        "h": 66
+       },
+       "dx": 0,
+       "dy": 3
+      },
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 760,
+        "y": 659,
+        "w": 231,
+        "h": 65
+       },
+       "built": {
+        "x": 759,
+        "y": 662,
+        "w": 231,
+        "h": 66
+       },
+       "dx": -1,
+       "dy": 4
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e4572e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#eaf1fd",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (2,1) 1276x68",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,109) 800x16",
+       "want": "#d8e2f7",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,109) 320x16",
+       "want": "#2f62e6",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (329,219) 702x422 (fade)",
+       "want": "linear-gradient(293deg, #dde5f8, #ffffff)",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (289,189) 702x422",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (289,659) 231x66",
+       "want": "#e4572e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (524,659) 231x66",
+       "want": "#f4a814",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (760,659) 231x65",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 75704,
+   "cacheRead": 169988,
+   "output": 17315
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 53681,
+    "output": 16576,
+    "cacheRead": 117713,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Edit src/App.tsx"
+    ],
+    "ms": 199492
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 39338,
+    "output": 739,
+    "cacheRead": 52275,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 8153
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "de47a543d795b148f66d3e8725b67f11d5d6cb37",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "Two typed notes with no accompanying ink: make the front-most card white with its text centred, and centre the 'Card 16 of 40' label under the progress bar.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 2,
+    "total": 2,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 60230,
+   "cacheRead": 271583,
+   "output": 28278
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 45024,
+    "output": 20159,
+    "cacheRead": 106971,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 234093
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 43484,
+    "output": 8119,
+    "cacheRead": 164612,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 94010
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

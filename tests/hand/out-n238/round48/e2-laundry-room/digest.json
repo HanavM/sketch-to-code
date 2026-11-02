@@ -1,0 +1,505 @@
+{
+  "round": 48,
+  "id": "e2-laundry-room",
+  "version": 3,
+  "stopped": null,
+  "likeness": 70.1,
+  "colour": 0.9750531658274787,
+  "structure": 0.7787988084829388,
+  "layout": 0.5497677327067052,
+  "strokes": {
+    "count": 12,
+    "pointsPerStroke": 4.1,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "box": 5,
+      "line": 1,
+      "circle": 1
+    },
+    "inkPx": 6603
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 72,
+  "notes": 7,
+  "longestNote": 40,
+  "noteTexts": [
+    "Spin bold white",
+    "x4 down: Machines, History, Wallet, Help",
+    "Building C laundry big bold",
+    "3 free, 2 running, 1 out of order",
+    "Add money white bold",
+    "x6, 3 across: Washer 1, Ready now, Free; Washer 2, 22 min left, Running orange; Washer 3, Ready now, Free; Dryer 4, 8 min left, Running orange; Dryer 5, Reported today, Out of order grey; Dryer 6, Ready now, Free",
+    "all: thick grey ring, no dot"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 393,
+    "firstReadingS": 79,
+    "readS": [
+      41,
+      13
+    ],
+    "buildS": [
+      239,
+      31
+    ],
+    "sketchingS": 70
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 96023,
+    "cacheRead": 493166,
+    "output": 28802,
+    "billed": 124825
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f1f5f6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 468
+    },
+    {
+      "op": "pen",
+      "color": "#124e5c",
+      "at": 839
+    },
+    {
+      "op": "stroke",
+      "at": 7599
+    },
+    {
+      "op": "stroke",
+      "at": 8061
+    },
+    {
+      "op": "pen",
+      "color": "#17333c",
+      "at": 8431
+    },
+    {
+      "op": "stroke",
+      "at": 9829
+    },
+    {
+      "op": "pen",
+      "color": "#124e5c",
+      "at": 10197
+    },
+    {
+      "op": "stroke",
+      "at": 12161
+    },
+    {
+      "op": "stroke",
+      "at": 12629
+    },
+    {
+      "op": "pen",
+      "color": "#d5dfe3",
+      "at": 12993
+    },
+    {
+      "op": "stroke",
+      "at": 16832
+    },
+    {
+      "op": "stroke",
+      "at": 20712
+    },
+    {
+      "op": "pen",
+      "color": "#9eb1b6",
+      "at": 21076
+    },
+    {
+      "op": "stroke",
+      "at": 22879
+    },
+    {
+      "op": "pen",
+      "color": "#e8f0f1",
+      "at": 23242
+    },
+    {
+      "op": "stroke",
+      "at": 23710
+    },
+    {
+      "op": "pen",
+      "color": "#2a9d8f",
+      "at": 24072
+    },
+    {
+      "op": "stroke",
+      "at": 26178
+    },
+    {
+      "op": "stroke",
+      "at": 26645
+    },
+    {
+      "op": "note",
+      "at": 27344
+    },
+    {
+      "op": "note",
+      "at": 28111
+    },
+    {
+      "op": "note",
+      "at": 28799
+    },
+    {
+      "op": "note",
+      "at": 29513
+    },
+    {
+      "op": "note",
+      "at": 30170
+    },
+    {
+      "op": "note",
+      "at": 31479
+    },
+    {
+      "op": "run",
+      "at": 37596
+    },
+    {
+      "op": "note",
+      "at": 328374
+    },
+    {
+      "op": "run",
+      "at": 328548
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          700,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 468
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          240,
+          2
+        ],
+        [
+          240,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 379,
+      "at": 7599
+    },
+    {
+      "way": [
+        [
+          120,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 8061
+    },
+    {
+      "way": [
+        [
+          290,
+          62
+        ],
+        [
+          628,
+          62
+        ]
+      ],
+      "n": 57,
+      "at": 9829
+    },
+    {
+      "way": [
+        [
+          1010,
+          42
+        ],
+        [
+          1230,
+          42
+        ],
+        [
+          1230,
+          92
+        ],
+        [
+          1010,
+          92
+        ],
+        [
+          1010,
+          42
+        ]
+      ],
+      "n": 91,
+      "at": 12161
+    },
+    {
+      "way": [
+        [
+          1040,
+          67
+        ]
+      ],
+      "n": 1,
+      "at": 12629
+    },
+    {
+      "way": [
+        [
+          290,
+          140
+        ],
+        [
+          580,
+          140
+        ],
+        [
+          580,
+          460
+        ],
+        [
+          290,
+          460
+        ],
+        [
+          290,
+          140
+        ]
+      ],
+      "n": 203,
+      "at": 16832
+    },
+    {
+      "way": [
+        [
+          930,
+          510
+        ],
+        [
+          1220,
+          510
+        ],
+        [
+          1220,
+          830
+        ],
+        [
+          930,
+          830
+        ],
+        [
+          930,
+          510
+        ]
+      ],
+      "n": 203,
+      "at": 20712
+    },
+    {
+      "way": [
+        [
+          505,
+          265
+        ],
+        [
+          500,
+          292
+        ],
+        [
+          484,
+          314
+        ],
+        [
+          462,
+          330
+        ],
+        [
+          435,
+          335
+        ],
+        [
+          408,
+          330
+        ],
+        [
+          386,
+          314
+        ],
+        [
+          370,
+          292
+        ],
+        [
+          365,
+          265
+        ],
+        [
+          370,
+          238
+        ],
+        [
+          386,
+          216
+        ],
+        [
+          408,
+          200
+        ],
+        [
+          435,
+          195
+        ],
+        [
+          462,
+          200
+        ],
+        [
+          484,
+          216
+        ],
+        [
+          500,
+          238
+        ],
+        [
+          505,
+          265
+        ]
+      ],
+      "n": 81,
+      "at": 22879
+    },
+    {
+      "way": [
+        [
+          435,
+          265
+        ]
+      ],
+      "n": 1,
+      "at": 23710
+    },
+    {
+      "way": [
+        [
+          310,
+          394
+        ],
+        [
+          560,
+          394
+        ],
+        [
+          560,
+          434
+        ],
+        [
+          310,
+          434
+        ],
+        [
+          310,
+          394
+        ]
+      ],
+      "n": 99,
+      "at": 26178
+    },
+    {
+      "way": [
+        [
+          340,
+          414
+        ]
+      ],
+      "n": 1,
+      "at": 26645
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Spin bold white",
+      "whole": false,
+      "x": 60,
+      "y": 45,
+      "at": 27344
+    },
+    {
+      "text": "x4 down: Machines, History, Wallet, Help",
+      "whole": false,
+      "x": 40,
+      "y": 130,
+      "at": 28111
+    },
+    {
+      "text": "Building C laundry big bold",
+      "whole": false,
+      "x": 320,
+      "y": 85,
+      "at": 28799
+    },
+    {
+      "text": "3 free, 2 running, 1 out of order",
+      "whole": false,
+      "x": 290,
+      "y": 102,
+      "at": 29513
+    },
+    {
+      "text": "Add money white bold",
+      "whole": false,
+      "x": 1060,
+      "y": 67,
+      "at": 30170
+    },
+    {
+      "text": "x6, 3 across: Washer 1, Ready now, Free; Washer 2, 22 min left, Running orange; Washer 3, Ready now, Free; Dryer 4, 8 min left, Running orange; Dryer 5, Reported today, Out of order grey; Dryer 6, Ready now, Free",
+      "whole": false,
+      "x": 310,
+      "y": 160,
+      "at": 31479
+    },
+    {
+      "text": "all: thick grey ring, no dot",
+      "whole": false,
+      "x": 435,
+      "y": 265,
+      "at": 328374
+    }
+  ]
+}
