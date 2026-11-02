@@ -31,6 +31,8 @@ import { describeCollapsed, findCollapsedFills } from './collapsed.js'
 import {
   APPROACHES, applyWork, captureWork, pickBest, revertWork, touchedFiles, untrackedFiles, type Attempt,
 } from './candidates.js'
+import { brokenPartName, partBack, type FilePair } from './partback.js'
+import { execFileSync } from 'node:child_process'
 import { buildScaffold, lostStrokes, restoreLostStrokes, scaffoldDir, type Scaffold } from './scaffold.js'
 import { askedHexes, finishSource, paletteFor } from './finish.js'
 import { compositionBrief, compositionFromSource, compositionFromStrokes, scoreComposition } from './composition.js'
@@ -1296,10 +1298,31 @@ export async function runV2(
   // n37: a fix that still runs words together or keeps a panel it was told to drop made the page
   // worse (r32 c1, c2, c4): put the page back exactly as it was before the note, and say so
   let putBack: string | null = null
+  let partlyBack: string | null = null
   const fixNow = lastFix as FixVerdict | null // set inside verifyRound
   if (fixNow && (fixNow.overlaps.length || fixNow.noFill.length || fixNow.lost?.length || fixNow.copied?.length)) {
     const work = new Map([...captureWork(ctx.root, cp)].filter(([rel]) => !rel.startsWith('.sketch2code/') && !untrackedBefore.has(rel)))
-    if (work.size) {
+    // n213: first try putting back only the edits that hold the broken words; the page is checked again, and
+    // the whole put-back below still runs if that did not clear it
+    const parts = work.size ? partBack(workPairs(ctx.root, cp, work), fixNow) : null
+    if (parts) {
+      const name = brokenPartName(fixNow)
+      applyWork(ctx.root, new Map(parts.files.map((f) => [f.rel, f.content])))
+      stage('verify', `the fix broke ${name}: putting back only that part (${parts.undone} edit(s)), keeping the other ${parts.kept}`)
+      await sleepUnlessStopped(HMR_SETTLE_MS, ctx.signal)
+      const again = await verifyRound('part-back')
+      const still = lastFix as FixVerdict | null
+      if (still && !still.unchanged && !still.overlaps.length && !still.noFill.length && !still.lost?.length && !still.copied?.length) {
+        partlyBack = `the fix broke ${name}, so that part was put back and the rest of the fix kept`
+        stage('verify', partlyBack)
+        bestScore = again.score
+        finalFailures = again.failures
+      } else {
+        stage('verify', 'putting back that part did not clear it')
+        applyWork(ctx.root, work)
+      }
+    }
+    if (work.size && !partlyBack) {
       revertWork(ctx.root, cp, work)
       putBack = fixNow.overlaps.length
         ? `the fix ran "${fixNow.overlaps[0]!.a.slice(0, 30)}" into "${fixNow.overlaps[0]!.b.slice(0, 30)}"`
@@ -1335,6 +1358,7 @@ export async function runV2(
     repairStalled,
     buildStalled,
     ...(putBack ? { putBack } : {}),
+    ...(partlyBack ? { partlyBack } : {}),
   })
   const summary =
     // A dropped action leads, because it is the thing most worth knowing and a
@@ -1347,6 +1371,7 @@ export async function runV2(
       : interp.rejected.length
         ? `(${String(interp.rejected.length)} detail(s) ignored: ${interp.rejected[0]}${interp.rejected.length > 1 ? ', …' : ''}) · `
         : '') +
+    (partlyBack ? `${partlyBack} · ` : '') +
     `[v2] ${Math.round(Math.max(0, bestScore) * 100)}% verified · ${files.length} file(s) · ` +
     // the backend engines write their own receipts, and they name a file that
     // did not exist a moment ago — more use to the user than a count
@@ -1763,4 +1788,17 @@ function namedColourText(actions: Array<{ notes?: string[] }>, loose: string[]) 
     const words = (n.text ?? '').toLowerCase().match(/[\p{L}\p{N}]{3,}/gu) ?? []
     return words.length > 0 && notes.some((t) => words.slice(0, 3).some((w) => t.includes(w)))
   }
+}
+
+/** n213: each edited file as it was at the checkpoint and as it is now. A file new in this run has no old side and is left out. */
+function workPairs(root: string, cp: { sha: string }, work: ReadonlyMap<string, string | null>): FilePair[] {
+  const prefix = execFileSync('git', ['rev-parse', '--show-prefix'], { cwd: root, encoding: 'utf8' }).trim()
+  const out: FilePair[] = []
+  for (const [rel, now] of work) {
+    if (now === null) continue
+    try {
+      out.push({ rel, now, old: execFileSync('git', ['show', `${cp.sha}:${prefix}${rel}`], { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024 }) })
+    } catch { /* not in the checkpoint */ }
+  }
+  return out
 }

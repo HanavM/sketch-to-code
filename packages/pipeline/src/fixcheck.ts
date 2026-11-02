@@ -227,6 +227,15 @@ const norm = (s: string): string => s.toLowerCase().replace(/[\u2018\u2019]/g, "
 export interface LostCopy { text: string }
 export interface CopiedCopy { text: string; was: number; now: number }
 
+const wordsOf = (s: string): string[] => s.split(/[^\p{L}\p{N}$%]+/u).filter((w) => w.length > 0)
+
+/** At least four words, and at least 70% of them now read in pieces of text that were not on the page before. */
+function splitUp(text: string, freshWords: ReadonlySet<string>): boolean {
+  const ws = [...new Set(wordsOf(text))]
+  if (ws.length < 4) return false
+  return ws.filter((w) => freshWords.has(w)).length / ws.length >= 0.7
+}
+
 /**
  * Rule 4a: copy that was on the page and is gone after the fix, with nothing written where it sat
  * (r37 e4: "chat bubbles: message text only" emptied both grey bubbles). Copy rewritten in place is
@@ -243,6 +252,8 @@ export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot
   const targets = actions.flatMap((a) => (a.targets ?? []).map((t) => t.rect)).filter(Boolean) as Box[]
   const now = copyNodes(after)
   const all = norm(now.map((t) => t.key).join(' \u0001 '))
+  const had = new Set(copyNodes(before).map((t) => norm(t.key)))
+  const freshWords = new Set(now.filter((t) => !had.has(norm(t.key))).flatMap((t) => wordsOf(norm(t.key))))
   const out: LostCopy[] = []
   const seen = new Set<string>()
   for (const t of copyNodes(before)) {
@@ -252,6 +263,8 @@ export function lostCopy(actions: readonly GroundedAction[], before: DomSnapshot
     // something else now reads where it sat: rewritten, not emptied
     const area = Math.max(1, t.box.w * t.box.h)
     if (now.some((u) => inter(u.box, t.box) / Math.min(area, Math.max(1, u.box.w * u.box.h)) >= 0.5)) continue
+    // n213: split up, not emptied: "3 tiles, one per stat" took one long line apart into three tiles (r46 c4)
+    if (splitUp(k, freshWords)) continue
     if (gone.length && (isKind(t.node, byId, gone) || targets.some((b) => inter(b, t.box) >= 0.5 * area))) continue
     out.push({ text: t.key })
   }
