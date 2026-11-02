@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T08:24Z | n164 style words after a heading never printed | Off the page in all four builds; chess 59.5 to 79.3, 83.3, no fix; ski 80.4, 77.7.
 2026-11-02T07:54Z | n213 fix keeps what worked | Fill miss and split text keep the fix; tennis 65.0 to 87.4, 85.6; part put-back not seen live.
 2026-11-02T06:50Z | n212 box crossed by a same-pen line is lines | Court lines, net, three tiles; tennis 65.0 to 87.0, 86.1 with no fix, 44 words.
 2026-11-02T06:08Z | n215 taps in a line are small dots | Dots, white table, status words back; roster 88.9 with fix to 90.4, 90.7 with none.
