@@ -391,9 +391,7 @@ missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BA
   - {gap: "A drawn search box and button did not keep drawn widths; four covers wider than drawn", found_on: "r46 e1 (n211)", built: null, helped: null}
   - {gap: "A note inside a drawn ring (Heating to 22) never appeared", found_on: "r46 e3 (n211)", built: null, helped: null}
   - {gap: "A nav item got an invented active pill, and a row's value went on a second line under its name", found_on: "r46 e2, e3 (n211)", built: null, helped: null}
-  - {gap: "An untapped white-pen box drawn on the green court became a filled white card with two invented blurbs", found_on: "r46 c4 (n210)", built: null, helped: null}
   - {gap: "A fix read right (court lines only; three stat tiles) was put back whole because one part emptied old text; the page did not change", found_on: "r46 c4 (n210)", built: null, helped: null}
-  - {gap: "A count phrased 'x3 stacked:' on one tile printed 'stacked:' and gave one tile, not three", found_on: "r46 c4 (n210)", built: null, helped: null}
   - {gap: "Swatch boxes noted as white shadowed cards with names under lost the white card; the swatches became the cards", found_on: "r46 c5 (n210)", built: null, helped: null}
   - {gap: "A short nav line noted bold built at headline size and wrapped; each domino tile built twice (a shadow shape behind) and its divider split in two", found_on: "r46 c3 (n210)", built: null, helped: null}
   - {gap: "Top bar built 93px where the drawing gives it 79px; the shift check named a vague space and two repairs never took it out", found_on: "r45 c4 (n207)", built: "a page shift right under a full-width top bar names that bar, its built height and its drawn height, asking for exactly that (n208)", helped: "bike repair 89.3 and 86.0, every block at its drawn top, vs 88.4 and 80.5 (n208)"}
