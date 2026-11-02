@@ -51,8 +51,36 @@ export function finePolygon(points: XY[], cap = 48): XY[] {
   return pts
 }
 
+/** n224: the most corners a drawn figure may have, and the turn that counts as a hard corner, in degrees. */
+const MANY_CORNERS = 20
+const HARD_TURN = 60
+
 /**
- * A closed stroke that is a plain polygon with sharp corners (3-8 sides): its outline, or null.
+ * n224: a figure drawn with a mouse in straight moves: its gentle corners are the hand's, so they are rounded off (a fish's
+ * back, not eight facets); its hard corners are meant (the tail's tips, the waist) and stay exactly where they were drawn.
+ */
+export function softenGentle(poly: XY[], passes = 2): XY[] {
+  let cur = poly.map((p) => ({ ...p, hard: false }))
+  cur.forEach((c, i) => {
+    const p = cur[(i + cur.length - 1) % cur.length]!, n = cur[(i + 1) % cur.length]!
+    let d = Math.abs(Math.atan2(n.y - c.y, n.x - c.x) - Math.atan2(c.y - p.y, c.x - p.x)) * 180 / Math.PI
+    if (d > 180) d = 360 - d
+    c.hard = d >= HARD_TURN
+  })
+  for (let k = 0; k < passes; k++) {
+    const next: typeof cur = []
+    cur.forEach((c, i) => {
+      if (c.hard) { next.push(c); return }
+      const p = cur[(i + cur.length - 1) % cur.length]!, n = cur[(i + 1) % cur.length]!
+      next.push({ x: c.x + (p.x - c.x) * 0.25, y: c.y + (p.y - c.y) * 0.25, hard: false }, { x: c.x + (n.x - c.x) * 0.25, y: c.y + (n.y - c.y) * 0.25, hard: false })
+    })
+    cur = next
+  }
+  return cur.map((c) => ({ x: r0(c.x), y: r0(c.y) }))
+}
+
+/**
+ * A closed stroke that is a plain polygon with sharp corners (3-8 sides), or a figure with more (n224): its outline, or null.
  * Call only for strokes that are not a box, a ring or a pill (shapeOf returned null).
  */
 export function polygonOutline(points: XY[]): { points: XY[]; corners: number } | null {
@@ -65,9 +93,9 @@ export function polygonOutline(points: XY[]): { points: XY[]; corners: number } 
   const diag = Math.hypot(b.w, b.h)
   const coarse = (rdp(points as never, Math.max(8, diag * 0.03)) as XY[]).slice()
   if (coarse.length > 3 && Math.hypot(coarse[0]!.x - coarse.at(-1)!.x, coarse[0]!.y - coarse.at(-1)!.y) <= Math.max(28, len * 0.15)) coarse.pop()
-  if (coarse.length < 3 || coarse.length > 8) return null
+  if (coarse.length < 3 || coarse.length > MANY_CORNERS) return null
   // sharp corners: a smooth blob simplifies to many gentle turns; a triangle or mountain to a few hard ones
-  let sharp = 0
+  let sharp = 0, hard = 0
   for (let i = 0; i < coarse.length; i++) {
     const p = coarse[(i + coarse.length - 1) % coarse.length]!, c = coarse[i]!, n = coarse[(i + 1) % coarse.length]!
     const u = Math.atan2(c.y - p.y, c.x - p.x), v = Math.atan2(n.y - c.y, n.x - c.x)
@@ -75,9 +103,14 @@ export function polygonOutline(points: XY[]): { points: XY[]; corners: number } 
     if (d > 180) d = 360 - d
     // n128: a hexagon turns 60 degrees at each corner, an octagon 45: with 5+ sides a turn of 35+ is a corner
     if (d >= (coarse.length >= 5 ? 35 : 60)) sharp++
+    if (d >= HARD_TURN) hard++
   }
   if (sharp < 2) return null
-  const fine = finePolygon(points)
+  // n224: more than 8 corners is a drawn figure only with 3+ hard corners (a fish's tail and waist, a star, a speech
+  // bubble), and not a scribble going over itself. A ring drawn in many moves has gentle turns and stays a ring.
+  const many = coarse.length > 8
+  if (many && (hard < 3 || len > 1.6 * 2 * (b.w + b.h))) return null
+  const fine = many ? softenGentle(finePolygon(points)) : finePolygon(points)
   if (area(fine) < 0.15 * b.w * b.h) return null
   return { points: fine, corners: coarse.length }
 }

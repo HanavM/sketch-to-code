@@ -353,8 +353,19 @@ export function tiltOf(points: P[]): { deg: number; w: number; h: number; cx: nu
   return { deg: best, w: r1(ub.w), h: r1(ub.h), cx: r1(mid.x), cy: r1(mid.y), aabb: { x: r1(ab.x), y: r1(ab.y), w: r1(ab.w), h: r1(ab.h) } }
 }
 
+/**
+ * n224: about as far from its centre all the way round, so a ring: a square's sides come in to 71% of its corners, a
+ * ring drawn in 8 moves stays above 90%. Round 47 c2: a 58px bubble drawn that way was built as a turned square.
+ */
+function roundAllRound(pts: P[], b: BBox): boolean {
+  if (b.w > b.h * 1.25 || b.h > b.w * 1.25) return false
+  const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const rs = (resampleBySpacing(pts as Point[], 4) as P[]).map((p) => Math.hypot(p.x - cx, p.y - cy))
+  return Math.min(...rs) >= 0.8 * Math.max(...rs)
+}
+
 function asTilted(pts: P[], b: BBox): Omit<ShapeMark, 'strokeId'> | null {
-  if (b.w < 40 || b.h < 30) return null
+  if (b.w < 40 || b.h < 30 || roundAllRound(pts, b)) return null
   const t = tiltOf(pts)
   if (!t) return null
   const { aabb, ...tilt } = t

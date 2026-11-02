@@ -92,3 +92,18 @@ export function outlineRingPen(color: string | null | undefined, box: { w: numbe
 export function outlineRingThickness(d: number): number {
   return Math.max(3, Math.min(24, Math.round(d * 0.06)))
 }
+
+/**
+ * n224: a note on the page saying the round things are outlines ("small outline bubbles") goes for every untapped ring
+ * of that page, wherever the note landed: it can only sit on one. Round 47 c2 (aquarium): two bubbles in a pale pen,
+ * the note bound to one, built as a dot and a turned square; the fix note added words and removed both.
+ */
+const PAGE_RINGS = /\b(?:outlined?|hollow|empty|unfilled)\s+(?:\w+\s+)?(?:bubbles|rings|circles|dots|balls|discs|disks|coins|beads|wheels|holes)\b/i
+export function pageRingsOutlined(texts: readonly string[]): boolean {
+  return texts.some((t) => PAGE_RINGS.test(t))
+}
+/** The line of such a ring, up to 120px across (a bigger one is a part of the page, not one of these). */
+export function pageRingThickness(box: { w: number; h: number }): number | null {
+  if (box.w > 120 || box.h > 120) return null
+  return Math.max(2, Math.min(5, Math.round((box.w + box.h) / 2 * 0.07)))
+}

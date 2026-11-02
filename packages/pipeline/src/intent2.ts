@@ -327,7 +327,7 @@ export function isPageLookNote(text: string): boolean {
 import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
 import { markStats, statOf } from './statcard.js'
 import { slantOf, slantThickness } from './slantline.js'
-import { colouredPen, outlineRingPen, outlineRingThickness, ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
+import { colouredPen, outlineRingPen, outlineRingThickness, pageRingsOutlined, pageRingThickness, ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
 import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
 import { glyphOf, markEach, markGlyphs } from './each.js'
 import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
@@ -1181,7 +1181,7 @@ export function groundInterpretation(
           const ringOwn = shape?.shape === 'ellipse' ? ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
               (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text) : []
           const penRing = shape?.shape === 'ellipse' && !(ev.fills ?? []).some((f) => f.target === s.id) && (colouredPen(s.color) ||
-            ringNoted(ringOwn) || outlineRingPen(s.color, shape.box, ringOwn))
+            ringNoted(ringOwn) || outlineRingPen(s.color, shape.box, ringOwn) || (pageRingsOutlined(ev.notes.map((n) => n.text)) && pageRingThickness(shape.box) !== null))
           // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
           if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || linesBox || penRing || shape.tilt || shape.pill)) {
             shapeMarks.push({ strokeId: s.id, ...shape })
@@ -1383,6 +1383,14 @@ export function groundInterpretation(
         const po = !sm.area && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? []) ? inkPenOutline(st.color, rb, behind, own, twin) : null
         if (po) {
           inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, penOutline: po, frameOn: behind, ...(sm.pill ? { pill: true as const } : {}) }); continue
+        }
+      }
+      // n224: a note calling the page's round things outlines goes for every untapped ring (two bubbles, one note)
+      if (!flat && sm?.shape === 'ellipse' && !sm.solid && pageRingsOutlined(noteObjs.map((n) => n.text))) {
+        const t = pageRingThickness(sm.box)
+        if (t !== null) {
+          inkColours.push({ strokeId: st.id, mark: 'ring', paint: 'border', color: st.color, box: sm.box, how: 'pen', ring: { thickness: t } })
+          continue
         }
       }
       // n146: a small ring drawn in dark ink with no tap is an outlined ring (map marker, radio), never a dark dot. A hand
