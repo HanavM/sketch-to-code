@@ -13,8 +13,9 @@ import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
   isFillDot, inkFills, pageFill, markFill, splitRegions, splitCss, tapBands,
-  type BBox, type InkFill, type SplitRegion, type Stroke,
+  type BBox, type InkFill, type SliceChart, type SplitRegion, type Stroke,
 } from '@s2c/ink'
+import { asksFade, typedSlices } from './slicechart.js'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
 import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
 import { areaWordInk, holdsBoxes, linesOnlyBox, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkPenOutline, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
@@ -852,6 +853,8 @@ export interface InkColour {
    * outline cut along the divider, page px, in the order of colors.
    */
   split?: { colors: [string, string]; css: string; sides: [Array<{ x: number; y: number }>, Array<{ x: number; y: number }>]; dividerId: string; line: { a: { x: number; y: number }; z: { x: number; y: number } } }
+  /** n226: three or more colours tapped round a ring: a slice chart, flat, never a fade. */
+  slices?: SliceChart
   /** n91: lines ruled across the box cut it into bands; only the tapped bands are filled (top to bottom, color null = untouched). */
   bands?: Array<{ y0: number; y1: number; color: string | null }>
   /** n78: paint 'border' from a box drawn in a light grey pen (no tap): a framed card / field / button, never a grey fill. */
@@ -1307,7 +1310,13 @@ export function groundInterpretation(
       const mark = sm?.outline ? 'outline' : sm ? (sm.shape === 'ellipse' ? 'ring' : sm.shape) : textMarks.includes(st.id) ? 'text line' : 'outline'
       const tap = (ev.fills ?? []).filter((f) => f.target === st.id).pop()
       // n51: taps far apart on one mark make a fade from the first towards the last
-      const fade = tap ? markFill(ev.fills ?? [], st.id, [...ev.strokes.values()]) : null
+      const ownTexts = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id)).map((n) => n.text)
+      const fade = tap ? markFill(ev.fills ?? [], st.id, [...ev.strokes.values()], { noSlices: asksFade(ownTexts) }) : null
+      // n226: colours tapped round a ring are its slices, at the typed shares when there are any
+      if (tap && fade?.slices) {
+        inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box, how: 'tap', slices: typedSlices(fade.slices, ownTexts, ev.notes.map((n) => n.text)) })
+        continue
+      }
       // n59: a divider across the mark with a colour tapped each side: two solid fills, in the built block's own frame
       if (tap && fade?.split) {
         const sp = fade.split

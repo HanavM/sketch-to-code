@@ -8,7 +8,7 @@ import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-c
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
 import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, isNoteLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
-import { inkFills, isFillDot, pageFill, markFill, tapDots } from '@s2c/ink/inkfill'
+import { inkFills, isFillDot, pageFill, markFill, sliceWedges, tapDots } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
@@ -8360,6 +8360,19 @@ class Overlay {
         })
         continue
       }
+      // n226: colours tapped round a ring show as its flat slices, hole kept, as they will be built
+      if (look?.slices) {
+        for (const w of sliceWedges(look.slices)) {
+          const part = this.inkPath()
+          part.setAttribute('d', w.d)
+          part.style.fill = w.color
+          part.style.stroke = 'none'
+          part.style.opacity = '0.5'
+          part.classList.add('fillMark')
+          out.push(part)
+        }
+        continue
+      }
       if (look && look.colors.length > 1) {
         const defs = document.createElementNS(NS, 'defs')
         const g = document.createElementNS(NS, 'linearGradient')
@@ -8493,7 +8506,7 @@ class Overlay {
         this.sync()
         const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
         if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (taps in a line are dots, never a fill)`)
-        else this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${((look) => look?.split ? ' (this side of the line drawn across it)' : (look?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : '')(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target, this.strokes))}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
+        else this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${((look) => look?.split ? ' (this side of the line drawn across it)' : look?.slices ? ` (a slice of the chart, ${String(look.slices.parts.length)} slices now)` : (look?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : '')(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target, this.strokes))}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
         this.scheduleAuto()
         return
       }

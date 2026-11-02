@@ -33,5 +33,6 @@ export {
   noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX, distToRect, union as bboxUnionAll, boxes as boxStrokes,
   groupCount, listNote, rowSeed, oneOfLookAlikes, ROW_NOTE_REACH_PX,
 } from './notefocus.js'
-export { isFillDot, inkFills, tapDots, TAP_COLUMN_PX, pageFill, spotlight, markFill, splitRegions, dividerSplit, splitCss, clipHalf, tapBands, FILL_DOT_PX, RECOLOUR_PX } from './inkfill.js'
+export type { SliceChart, SlicePart } from './inkfill.js'
+export { isFillDot, inkFills, tapDots, TAP_COLUMN_PX, pageFill, spotlight, markFill, sliceChart, sliceShares, sliceCss, sliceWedges, splitRegions, dividerSplit, splitCss, clipHalf, tapBands, FILL_DOT_PX, RECOLOUR_PX } from './inkfill.js'
 export type { TapDot, InkFill, PageFill, SplitRegion, FillSplit, TapBands } from './inkfill.js'

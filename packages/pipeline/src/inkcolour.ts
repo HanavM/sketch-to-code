@@ -10,6 +10,8 @@
  */
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { GroundedAction, GroundedInterpretation, InkColour } from './intent2.js'
+import { sliceBrief, sliceHow, sliceVerdict } from './slicechart.js'
+import { sliceCss } from '@s2c/ink'
 import { deltaE, hexOf, parseCssColor } from './palette.js'
 
 import { slantBrief, slantBuilt } from './slantline.js'
@@ -24,7 +26,7 @@ const hex = (c: string) => { const p = parseCssColor(c); return p ? hexOf(p) : c
  */
 const ASKS_LOOK = /\b(card|round|rounded|curved|soft|shadow|shadowed|lifted|raised|floating|elevated|glass|frosted|blur|glow|pill|bubble)\b/i
 export function plainPanel(c: InkColour, a: Pick<GroundedAction, 'notes' | 'shapeMarks'>): boolean {
-  if (c.paint !== 'background' || c.mark !== 'box' || c.fade || c.split || c.bands) return false
+  if (c.paint !== 'background' || c.mark !== 'box' || c.fade || c.split || c.bands || c.slices) return false
   if (c.box.w < 200 || c.box.h < 150) return false
   const m = a.shapeMarks?.find((k) => k.strokeId === c.strokeId)
   if (m && (m.pill || m.tilt || m.outline || m.glyph)) return false
@@ -55,6 +57,10 @@ export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' |
       // n122: an arc of a drawn ring chart is told with the chart, never as a filled blob of its own
       if (skip.has(c.strokeId)) continue
       const at = `x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}x${String(c.box.h)}`
+      if (c.paint === 'background' && c.slices) {
+        lines.push(`- action ${String(i)}, ${sliceBrief(c.slices, at)}`)
+        continue
+      }
       if (c.paint === 'background' && c.split) {
         const sp = c.split, L = sp.line
         lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: a straight divider is drawn across it from (${String(L.a.x)},${String(L.a.y)}) to (${String(L.z.x)},${String(L.z.y)}) and a different colour was tapped on each side, so it is TWO SOLID FILLS meeting at that line, never a fade: ` +
@@ -248,7 +254,7 @@ const SOLID_OK_DE = 2.5
 export function inkHexes(interp: Pick<GroundedInterpretation, 'actions' | 'pageFill'>): string[] {
   const out: string[] = []
   for (const c of interp.pageFill?.colors ?? []) out.push(c)
-  for (const a of interp.actions) for (const c of a.inkColours ?? []) out.push(c.color)
+  for (const a of interp.actions) for (const c of a.inkColours ?? []) out.push(...(c.slices ? c.slices.parts.map((x) => x.color) : [c.color]))
   return out
 }
 
@@ -312,6 +318,13 @@ export function verifyInkColours(
         ? n.text.length > 0 && crosses(n.rect, band)
         : centreIn(n, b, pad) && n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.5 + 20 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 20)
       const what = `the ${c.mark} drawn at (${String(b.x)},${String(b.y)}) ${String(b.w)}x${String(b.h)}`
+      // n226: colours tapped round a ring: flat slices, round, at the drawn size, hole kept
+      if (c.slices && c.paint === 'background') {
+        const v = sliceVerdict(c.slices, after.nodes)
+        checks.push({ what: `${what} (slices)`, want: sliceCss(c.slices), best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} had ${String(c.slices.parts.length)} colours tapped round it: a slice chart. ${v.why}: ${sliceHow(c.slices)}; change nothing else`)
+        continue
+      }
       // n59: two solid fills either side of a drawn divider: a hard-stop gradient on the block, or two solid parts
       if (c.split && c.paint === 'background') {
         const v = splitVerdict(c.split, near, after.nodes)
@@ -367,7 +380,7 @@ export function verifyInkColours(
         continue
       }
       // n140: a tapped ring is one solid disc: no smaller disc of another colour sits inside it where the tap dot was
-      if (c.paint === 'background' && c.how === 'tap' && c.mark === 'ring' && !c.fade && !c.split) {
+      if (c.paint === 'background' && c.how === 'tap' && c.mark === 'ring' && !c.fade && !c.split && !c.slices) {
         const v = tapDotBuilt(c, after.nodes)
         if (!v.ok) {
           checks.push({ what: `${what} (no tap dot)`, want: 'one disc, no inner dot', best: null, ok: false })
@@ -978,7 +991,7 @@ export function selectedBuilt(c: Pick<InkColour, 'box' | 'color' | 'selected'>, 
  */
 export function areaWordInk(marks: ReadonlyArray<{ strokeId: string; shape: string; area?: true; areaOf?: string; word?: string; outlined?: { colour: string | null } }>, inks: InkColour[]): void {
   for (const c of inks) {
-    if (c.how !== 'pen' || c.paint !== 'background' || c.fade || c.split || c.bands) continue
+    if (c.how !== 'pen' || c.paint !== 'background' || c.fade || c.split || c.bands || c.slices) continue
     const m = marks.find((k) => k.strokeId === c.strokeId)
     if (!m || m.shape !== 'box' || !m.area || m.areaOf === 'rows') continue
     if (inks.some((o) => o.strokeId === c.strokeId && o.how === 'tap')) continue

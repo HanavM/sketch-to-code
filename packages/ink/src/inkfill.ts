@@ -257,7 +257,7 @@ function allTaps<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[]
  * n51: what one mark is filled with from its taps: one colour, or a fade from the first tap towards
  * the last (two taps far apart on a banner, a sky). Null when nothing was tapped on it.
  */
-export function markFill<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(fills: InkFill[], target: string, strokes?: S[]): PageFill | null {
+export function markFill<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(fills: InkFill[], target: string, strokes?: S[], opts?: { noSlices?: boolean }): PageFill | null {
   const mine = fills.filter((f) => f.target === target)
   if (!mine.length) return null
   // n59: a straight divider across the mark with a different colour tapped on each side is two fills
@@ -270,9 +270,102 @@ export function markFill<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(fill
         const css = splitCss(split, { cx: b.x + b.w / 2, cy: b.y + b.h / 2, w: b.w, h: b.h, deg: 0 })
         return { colors: [...split.colors], css, split }
       }
+      // n226: three or more colours tapped round a ring are its slices, never a fade
+      if (!opts?.noSlices) {
+        const chart = sliceChart(holder, mine, strokes)
+        if (chart) return { colors: chart.parts.map((x) => x.color), css: sliceCss(chart), slices: chart }
+      }
     }
   }
   return fadeOf(mine)
+}
+
+/**
+ * n226: a ring with several colours tapped round it is a slice chart. Round 47 e5 (budget, n222): four taps round a ring
+ * made a square fade, in the preview and in the first build; only a fix note got a real donut. Fades are one colour
+ * going into another, so three colours spread round the middle of a round mark say slices. From the ink alone: the
+ * mark is round (a circle fills about 0.79 of its bounding box, a box all of it), at least three different colours,
+ * each tap off the very middle, and no gap between neighbouring taps over 200 degrees (taps down one side, or in a
+ * line through the middle, stay a fade). Each slice runs clockwise, half way to its neighbours' taps; the boundary
+ * nearest 12 o'clock is turned to 12 when within 30 degrees, as people start a chart at the top. A round mark drawn
+ * inside on the same centre is the hole.
+ */
+export interface SlicePart { color: string; startDeg: number; sweepDeg: number; tapOrder: number }
+export interface SliceChart {
+  cx: number
+  cy: number
+  d: number
+  hole: { d: number; color: string | null } | null
+  /** Clockwise, from the slice starting at parts[0].startDeg. */
+  parts: SlicePart[]
+}
+export const SLICE_MAX_GAP_DEG = 200
+const clock = (p: XY, cx: number, cy: number) => ((Math.atan2(p.x - cx, -(p.y - cy)) * 180) / Math.PI + 360) % 360
+function roundMark(points: readonly XY[]): { cx: number; cy: number; d: number } | null {
+  if (points.length < 5) return null
+  const b = bboxOf(points as Point[])
+  if (b.w < 40 || b.h < 40 || Math.max(b.w, b.h) > 1.3 * Math.min(b.w, b.h)) return null
+  const a = points[0]!, z = points[points.length - 1]!
+  if (Math.hypot(a.x - z.x, a.y - z.y) > 0.25 * Math.max(b.w, b.h)) return null
+  let area = 0
+  points.forEach((p, i) => { const q = points[(i + 1) % points.length]!; area += p.x * q.y - q.x * p.y })
+  if (Math.abs(area) / 2 > 0.88 * b.w * b.h) return null
+  return { cx: b.x + b.w / 2, cy: b.y + b.h / 2, d: (b.w + b.h) / 2 }
+}
+export function sliceChart<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(holder: S, taps: ReadonlyArray<Pick<InkFill, 'color' | 'at'>>, strokes: readonly S[]): SliceChart | null {
+  if (taps.length < 3 || new Set(taps.map((t) => t.color.toLowerCase())).size < 3) return null
+  const ring = roundMark(holder.points)
+  if (!ring) return null
+  if (taps.some((t) => Math.hypot(t.at.x - ring.cx, t.at.y - ring.cy) < 0.1 * ring.d)) return null
+  const sorted = taps.map((t, tapOrder) => ({ color: t.color, tapOrder, deg: clock(t.at, ring.cx, ring.cy) })).sort((a, b) => a.deg - b.deg)
+  const gap = (k: number) => (sorted[(k + 1) % sorted.length]!.deg - sorted[k]!.deg + 360) % 360
+  if (sorted.some((_, k) => gap(k) > SLICE_MAX_GAP_DEG)) return null
+  // the boundary before each slice is half way back to the slice before it
+  const starts = sorted.map((_, k) => (sorted[k]!.deg - gap((k + sorted.length - 1) % sorted.length) / 2 + 360) % 360)
+  const nearest = starts.reduce((best, x) => { const o = x > 180 ? x - 360 : x; return Math.abs(o) < Math.abs(best) ? o : best }, 360)
+  const turn = Math.abs(nearest) <= 30 ? nearest : 0
+  const parts = sorted.map((t, k) => ({ color: t.color, tapOrder: t.tapOrder, startDeg: Math.round((starts[k]! - turn + 360) % 360), sweepDeg: Math.round((gap(k) + gap((k + sorted.length - 1) % sorted.length)) / 2) }))
+  const low = parts.reduce((m, x, k) => (x.startDeg < parts[m]!.startDeg ? k : m), 0)
+  const ordered = [...parts.slice(low), ...parts.slice(0, low)]
+  ordered[ordered.length - 1]!.sweepDeg += 360 - ordered.reduce((a, x) => a + x.sweepDeg, 0)
+  let hole: SliceChart['hole'] = null
+  for (const s of strokes) {
+    if (s.id === holder.id) continue
+    const m = roundMark(s.points)
+    if (!m || m.d < 0.2 * ring.d || m.d > 0.85 * ring.d || Math.hypot(m.cx - ring.cx, m.cy - ring.cy) > 0.12 * ring.d) continue
+    if (!hole || m.d > hole.d) hole = { d: Math.round(m.d), color: s.color ?? null }
+  }
+  return { cx: Math.round(ring.cx), cy: Math.round(ring.cy), d: Math.round(ring.d), hole, parts: ordered }
+}
+/** n226: the chart with typed shares (in parts order): from 12 o'clock, each slice its share of the turn. */
+export function sliceShares(chart: SliceChart, shares: readonly number[]): SliceChart {
+  if (shares.length !== chart.parts.length) return chart
+  const sum = shares.reduce((a, b) => a + b, 0) || 1
+  // the parts in clock order from 12: the tap first clockwise of 12 is the first slice; parts are already clockwise
+  let at = 0
+  const parts = chart.parts.map((x, k) => { const sweepDeg = Math.round((shares[k]! / sum) * 360); const o = { ...x, startDeg: at, sweepDeg }; at += sweepDeg; return o })
+  parts[parts.length - 1]!.sweepDeg += 360 - at
+  return { ...chart, parts }
+}
+export function sliceCss(chart: Pick<SliceChart, 'parts'>): string {
+  const from = chart.parts[0]!.startDeg
+  let at = 0
+  const stops = chart.parts.map((x) => { const o = `${x.color} ${String(at)}deg ${String(at + x.sweepDeg)}deg`; at += x.sweepDeg; return o })
+  return `conic-gradient(${from ? `from ${String(from)}deg, ` : ''}${stops.join(', ')})`
+}
+/** n226: one flat band per slice, for the sketch's own preview: what is shown is what will be built. */
+export function sliceWedges(chart: SliceChart): Array<{ color: string; d: string }> {
+  const R = chart.d / 2, r = (chart.hole?.d ?? 0) / 2
+  const pt = (rad: number, deg: number) => `${(chart.cx + rad * Math.sin((deg * Math.PI) / 180)).toFixed(1)} ${(chart.cy - rad * Math.cos((deg * Math.PI) / 180)).toFixed(1)}`
+  return chart.parts.map((x) => {
+    const steps = Math.max(2, Math.ceil(x.sweepDeg / 6)), out: string[] = [], back: string[] = []
+    for (let k = 0; k <= steps; k++) {
+      const a = x.startDeg + (x.sweepDeg * k) / steps
+      out.push(pt(R, a))
+      back.unshift(pt(r, a))
+    }
+    return { color: x.color, d: `M ${out.join(' L ')} L ${back.join(' L ')} Z` }
+  })
 }
 
 /**
@@ -412,6 +505,8 @@ export interface PageFill {
   radial?: { x: number; y: number; r: number }
   /** n59: two solid fills either side of a drawn divider, not a fade. */
   split?: FillSplit
+  /** n226: three or more colours tapped round a ring: flat slices. */
+  slices?: SliceChart
 }
 
 export function spotlight(page: Array<Pick<InkFill, 'color' | 'at'>>): PageFill | null {

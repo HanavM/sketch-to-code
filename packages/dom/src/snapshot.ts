@@ -110,7 +110,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           fontSize: cs.fontSize,
           fontWeight: cs.fontWeight,
           borderRadius: cs.borderRadius,
-          ...(cs.backgroundImage && cs.backgroundImage !== 'none' ? { backgroundImage: cs.backgroundImage.slice(0, 240) } : {}),
+          ...(cs.backgroundImage && cs.backgroundImage !== 'none' ? { backgroundImage: cs.backgroundImage.slice(0, /conic/.test(cs.backgroundImage) ? 900 : 240) } : {}),
           ...(cs.clipPath && cs.clipPath !== 'none' ? { clipPath: cs.clipPath.slice(0, 1600) } : {}),
           ...(cs.borderTopWidth && parseFloat(cs.borderTopWidth) > 0 && cs.borderTopStyle !== 'none' ? { border: `${cs.borderTopWidth} ${cs.borderTopColor}` } : {}),
           ...(cs.borderBottomWidth && parseFloat(cs.borderBottomWidth) > 0 && cs.borderBottomStyle !== 'none' ? { borderBottom: `${cs.borderBottomWidth} ${cs.borderBottomColor}` } : {}),
