@@ -471,6 +471,8 @@ interface SnapLike {
 export const ROW_SHIFT_PX = 12
 /** n54: each side of a box 300px or wider lands within this many px of its drawn side. */
 export const BOX_EDGE_PX = 8
+/** n207: a box drawn 60px or taller is built within this many px (or 12%) of its drawn height. */
+export const BOX_HEIGHT_PX = 16
 
 export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: SnapLike, page: ShapeMark[] = marks): MarkVerdict {
   // n32: a box noted as a quote mark is a glyph (checked by verifyGlyphs), not a box-sized element
@@ -769,6 +771,27 @@ export function verifyShapeMarks(marks: ShapeMark[], before: SnapLike, after: Sn
     misses.push(`the box drawn at (${o.drawn.x},${o.drawn.y}) ${o.drawn.w}x${o.drawn.h} spans x ${o.drawn.x} to ${o.drawn.x + o.drawn.w}; the <${p.tag}> built for it spans ` +
       `${r1(o.built.x)} to ${r1(o.built.x + o.built.w)}: make it exactly ${o.drawn.w}px wide from x ${o.drawn.x} (an exact px width with box-sizing: border-box, ` +
       `not a max-w class or page padding that rounds it), keeping what is inside it`)
+  }
+  // n207 (round 45 c4 bike repair, n151 try 2): three service cards drawn 222px tall were built 168px tall and
+  // 33px low at the top. Only their centres were compared (6px off), so every check passed and the cards came out
+  // short. A box drawn 60px or taller keeps its drawn height (within BOX_HEIGHT_PX or 12%) and its drawn top.
+  for (const o of out) {
+    if (!o.built || o.drawn.h < 60 || o.drawn.w < 40) continue
+    const m = boxes.find((q) => q.strokeId === o.strokeId)
+    if (!m || m.card || m.area || m.shape === 'ellipse') continue
+    const p = placed.find((q) => q.m.strokeId === o.strokeId)
+    if (!p || Math.abs(p.dx) > p.slack || Math.abs(p.dy) > p.slack) continue // already told to move
+    const dh = r1(o.built.h - o.drawn.h), dt = r1(o.built.y - o.drawn.y)
+    if (Math.abs(dh) <= Math.max(BOX_HEIGHT_PX, o.drawn.h * 0.12)) continue
+    // a row of look-alike boxes all short the same way is told once, on the first (leftmost) one
+    const twins = out.filter((q) => q !== o && q.built && Math.abs(q.drawn.y - o.drawn.y) <= 12 && Math.abs(q.drawn.h - o.drawn.h) <= 12 &&
+      Math.abs(r1(q.built.h - q.drawn.h) - dh) <= 8)
+    if (twins.some((q) => q.drawn.x < o.drawn.x)) continue
+    const row = twins.length ? ` The ${twins.length} look-alike box${twins.length > 1 ? 'es' : ''} beside it ${twins.length > 1 ? 'are' : 'is'} built the same way: give every one of them the same height and top.` : ''
+    misses.push(`the box drawn at (${o.drawn.x},${o.drawn.y}) ${o.drawn.w}x${o.drawn.h} is ${o.drawn.h}px tall; the <${p.tag}> built for it is ${r1(o.built.h)}px tall ` +
+      `(${Math.abs(dh)}px ${dh < 0 ? 'short' : 'too tall'}), top at y ${r1(o.built.y)}${Math.abs(dt) > 4 ? ` (drawn ${o.drawn.y})` : ''}: give it an exact height of ${o.drawn.h}px ` +
+      `(height, not min-height from its content; box-sizing: border-box, padding inside) with its top at y ${o.drawn.y}` +
+      `${Math.abs(dt) > 4 ? ` (${dt > 0 ? `take ${dt}px out of` : `add ${-dt}px to`} the gap above it, never a negative margin)` : ''}; keep its width and what is inside it.${row}`)
   }
   // n56 (round 33 c4 herb farm): three circles drawn in a row were each built 24px high, inside the 28px slack a
   // lone box gets, so the row passed while the whole middle of the page sat visibly high. Three or more boxes
