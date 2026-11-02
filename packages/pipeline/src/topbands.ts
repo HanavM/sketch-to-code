@@ -18,6 +18,7 @@
  * bottom) within 10px of its y and nothing of the band's contents below it; each bar has a built element of about its
  * width whose top and bottom are within 10px of the drawn ones. Zero tokens.
  */
+import { countedRow } from './countrow.js'
 import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 
@@ -32,9 +33,10 @@ export const BAND_TOL_PX = 10
 const r = Math.round
 
 /** Bands drawn at the top of the page, top to bottom. `page` is the page (viewport) size in px. */
-export function topBands(marks: Array<Pick<ShapeMark, 'shape' | 'box' | 'from' | 'to'> & Partial<Pick<ShapeMark, 'edge' | 'area' | 'tilt'>>>, page: { w: number; h: number }): TopBand[] {
+export function topBands(marks: Array<Pick<ShapeMark, 'shape' | 'box' | 'from' | 'to'> & Partial<Pick<ShapeMark, 'edge' | 'area' | 'tilt' | 'words'>>>, page: { w: number; h: number }): TopBand[] {
   const zone = Math.max(200, 0.4 * page.h)
-  const rules = marks.filter((m) => m.shape === 'line' && !m.edge && m.box.w >= 0.6 * page.w && m.box.h <= 12 &&
+  // n249 (rota): the line under a count across marks that row's place, not the bottom of a 190px top bar
+  const rules = marks.filter((m) => m.shape === 'line' && !m.edge && !(m.words && countedRow(m.words)) && m.box.w >= 0.6 * page.w && m.box.h <= 12 &&
     (!m.from || !m.to || Math.abs(m.to.y - m.from.y) <= Math.max(8, 0.03 * m.box.w)) && m.box.y + m.box.h / 2 <= zone)
     .sort((a, b) => a.box.y - b.box.y)
   const bars = marks.filter((m) => m.shape === 'box' && !m.area && !m.tilt && m.box.w >= 0.5 * page.w && m.box.h >= 20 && m.box.h <= 140 && m.box.y <= zone)

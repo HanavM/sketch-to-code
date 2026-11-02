@@ -49,6 +49,8 @@ export interface OpenRows {
   column?: { x: number; w: number; h: number; boxes: number; panelX?: number }
   /** n172: a control drawn inside row 1's band (a stepper), repeated on every row; its note's own words and per-row values */
   controls?: RowControl[]
+  /** n249: the field is a band across the whole page, so the rows' first cells start where the note was typed */
+  startX?: number
 }
 
 export interface RowControl { x: number; y: number; w: number; h: number; label?: string; values?: string[] }
@@ -302,9 +304,16 @@ export function markOpenRows<T extends Spot & { openRows?: OpenRows }>(placed: T
   const found = openRows(placed, shapes, notes, viewW)
   return placed.map((n) => {
     const o = found.get(n)
-    return o ? { ...n, x: o.field.x + 8, y: o.firstMid, openRows: o } : n
+    if (!o) return n
+    // n249 (rota, n250): a band across the whole page says nothing about the rows' left edge; with no mark or column to go by, the spot typed does
+    if (!o.mark && !o.column && !o.led && o.field.w >= 0.9 * viewW && n.x >= o.field.x + START_MIN_PX && n.x <= o.field.x + START_MAX_PX) o.startX = n.x
+    return { ...n, x: o.startX ?? o.field.x + 8, y: o.firstMid, openRows: o }
   })
 }
+
+const START_MIN_PX = 24
+const START_MAX_PX = 120
+export const OPEN_START_X_TOL_PX = 16
 
 export function openRowsBrief(notes: ReadonlyArray<Spot & { openRows?: OpenRows }> | undefined): string {
   const each = (notes ?? []).filter((n) => n.openRows).map((n) => {
@@ -320,7 +329,9 @@ export function openRowsBrief(notes: ReadonlyArray<Spot & { openRows?: OpenRows 
         (o.controls ?? []).map((c) => `. ${rowControlWords(c, o.firstMid, o.pitch, openRowItems(n.text) ?? [])}`).join('')
     }
     return `"${n.text}" (${o.rows} rows) was typed in open space at y ${o.typedY}, ${o.led ? `under a lone small mark drawn at (${o.mark!.x},${o.mark!.y}) with nothing else drawn between: the list starts there. Every row runs from x ${o.field.x} to x ${o.field.x + o.field.w} (the same margin on the right as the mark keeps on its left)` : `under the field drawn at (${o.field.x},${o.field.y}) ${o.field.w}x${o.field.h}`}. ` +
-      `The rows run that field's FULL width: every row from x ${o.field.x} to x ${o.field.x + o.field.w} (its dividers too), never a narrower or centred column. ` +
+      (o.startX != null
+        ? `Each row's dividers run the field's full width, x ${o.field.x} to x ${o.field.x + o.field.w}, but the first cell of every row STARTS at x ${o.startX}, where the note was typed; each cell's element is only as wide as its own words (a tap on a name picks that name), never a box the width of the row with padding pushing its words in. `
+        : `The rows run that field's FULL width: every row from x ${o.field.x} to x ${o.field.x + o.field.w} (its dividers too), never a narrower or centred column. `) +
       `${o.by === 'mark' ? 'The small mark drawn at the field\'s left under the last controls is row 1\'s own mark: ' : 'They start just under the last thing drawn: '}` +
       `the first row's middle is at y ${o.firstMid}, rows about ${o.pitch}px apart, so the last ends by about y ${end + r(o.pitch / 2)}. Not at the note's typed spot` +
       (o.mark ? `. ${rowMarkWords(o.mark, o.firstMid, o.rows)}` : '')
@@ -355,7 +366,8 @@ export function verifyOpenRows(notes: ReadonlyArray<Spot & { openRows?: OpenRows
       .sort((a, b) => b.rect.w - a.rect.w)[0]
     const bad: string[] = []
     if (Math.abs(cy - o.firstMid) > OPEN_START_TOL_PX) bad.push(`its middle is at y ${r(cy)}, not y ${o.firstMid}: move the rows ${cy > o.firstMid ? 'up' : 'down'} ${r(Math.abs(cy - o.firstMid))}px, rows about ${o.pitch}px apart`)
-    if (row && row.rect.w < OPEN_WIDTH_SHARE * F.w) bad.push(`its row is ${r(row.rect.w)}px wide (x ${r(row.rect.x)} to ${r(row.rect.x + row.rect.w)}), but the rows run the drawn field's width: make every row x ${F.x} to ${F.x + F.w}`)
+    if (o.startX != null && Math.abs(tb.x - o.startX) > OPEN_START_X_TOL_PX) bad.push(`its words start at x ${r(tb.x)}, not x ${o.startX} where the rows were typed: start every row's first cell at x ${o.startX}`)
+    if (o.startX == null && row && row.rect.w < OPEN_WIDTH_SHARE * F.w) bad.push(`its row is ${r(row.rect.w)}px wide (x ${r(row.rect.x)} to ${r(row.rect.x + row.rect.w)}), but the rows run the drawn field's width: make every row x ${F.x} to ${F.x + F.w}`)
     const mk = o.mark ? checkRowMarks(o.mark, o.firstMid, o.pitch, o.rows, after) : null
     if (mk) bad.push(mk)
     for (const c of o.controls ?? []) { const ck = checkRowControls(c, o.firstMid, o.pitch, o.rows, after); if (ck) bad.push(ck) }

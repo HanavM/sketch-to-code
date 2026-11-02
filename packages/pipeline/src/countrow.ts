@@ -60,6 +60,10 @@ export function countedRow(note: string): CountedRow | null {
     // no semicolons: a comma list, with any look after a further ';' kept apart
     const [first, ...rest] = segs
     segs = [...(first ?? '').split(/\s*,\s+/).map((s) => s.trim()).filter(Boolean), ...rest]
+    // n249 (rota): "x8 across: 8am 10am 12pm 2pm 4pm 6pm 8pm 10pm, grey bold": one-word items split by spaces. Read as one
+    // table row with 7 samples to invent, so a check failed on a page that was right and sent a repair.
+    const spaced = segs[0]?.split(/\s+/) ?? []
+    if (segs.filter(isItem).length === 1 && spaced.length === n && spaced.every(isItem)) segs = [...spaced, ...segs.slice(1)]
     const items = segs.filter(isItem)
     if (items.length !== n) return null
     return { n, items: items.map((main) => ({ main })), looks: segs.filter((s) => !isItem(s)) }
@@ -74,6 +78,14 @@ export function countedRow(note: string): CountedRow | null {
     }),
     looks: segs.filter((s) => !isItem(s)),
   }
+}
+
+/** n249 (rota): a pale pen says where a row goes, not what colour its words are: #dfe5ea words on white were told, checked as wrong for not being that colour, then checked as unreadable for being it. */
+function paleInk(css: string): boolean {
+  const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i.exec(css)
+  if (!m) return false
+  const [a, b, c] = [m[1]!, m[2]!, m[3]!].map((h) => parseInt(h, 16))
+  return 0.299 * a! + 0.587 * b! + 0.114 * c! > 190
 }
 
 const r = Math.round
@@ -107,7 +119,7 @@ export function countRows(notes: readonly NoteLike[], strokes: readonly Stroke[]
     }
     // too little room for one column each: leave it to the other readings
     if (x1 - H.x < c.n * 60) continue
-    out.push({ ...c, note: note.text, y: r(y), x0: r(H.x), x1: r(x1), ...(home.color ? { colour: home.color } : {}) })
+    out.push({ ...c, note: note.text, y: r(y), x0: r(H.x), x1: r(x1), ...(home.color && !paleInk(home.color) ? { colour: home.color } : {}) })
   }
   return out
 }

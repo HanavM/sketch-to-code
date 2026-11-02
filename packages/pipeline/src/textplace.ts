@@ -16,6 +16,7 @@
  *    no spot), and when its words are built on the page they are checked to sit
  *    near that height. Zero tokens.
  */
+import { rowData } from './rowdata.js'
 import { countedRow } from './countrow.js'
 import { HEADING_LEFT_TOL_PX, type OpenRows } from './openrows.js'
 import { listNote, type BBox } from '@s2c/ink'
@@ -29,7 +30,7 @@ import { lineEnds } from './lineends.js'
 
 interface NoteLike { text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }
 interface NodeLike { id: string; tag: string; rect: BBox; text?: string; textBox?: BBox }
-interface Snap { nodes: NodeLike[]; truncated?: boolean }
+interface Snap { nodes: NodeLike[]; truncated?: boolean; viewport?: { w: number; h: number } }
 export interface PlaceVerdict { satisfied: boolean; unverifiable?: boolean; reason: string }
 
 export type Side = 'left' | 'centre' | 'right'
@@ -438,6 +439,16 @@ export function listUnderHeading(placed: PlacedNote[], notes: readonly PlacedNot
   })
 }
 
+export const PLACED_ROW_X_TOL_PX = 16
+export const PLACED_ROW_Y_TOL_PX = 28
+/** n249: the first cells of a note typed in open space on the left that lists rows ("x6 down: Maya, Barista; Tom, Barista"), or null. */
+export function placedRowsOf(n: { text: string; x: number }, viewW: number): string[] | null {
+  if (n.x >= viewW / 3) return null
+  const d = rowData(n.text)
+  if (!d || d.rows.length < 2 || d.total !== null) return null
+  return d.rows.map((r) => r[0]!)
+}
+
 /** Which side of the page a spot is on (thirds). */
 const pageSide = (x: number, w: number): Side => (x < w / 3 ? 'left' : x > (w * 2) / 3 ? 'right' : 'centre')
 
@@ -457,6 +468,11 @@ export function placedBrief(all: PlacedNote[] | undefined, viewport: { w: number
         `Its words sit at about y ${n.y} and START at x ${n.leftAt}, left-aligned with the list's left edge (the row marks' left), never indented right of the rows or centred.`
     }
     const side = pageSide(n.x, viewport.w)
+    if (placedRowsOf(n, viewport.w)) {
+      return `- "${n.text}" was typed at (${n.x},${n.y}) with nothing drawn near it: these are rows, and that spot is where they start. ` +
+        `The first cell of every row STARTS at x ${n.x}, left-aligned, whatever else runs across the row; row 1's words are centred at about y ${n.y}, the next rows under it at the drawn pitch. ` +
+        `Each cell's element is only as wide as its own words (a tap on a name picks that name), never a box the width of the row with padding pushing its words in; a row's divider is its own element.`
+    }
     return `- "${n.text}" was typed at (${n.x},${n.y}) with nothing drawn near it. If those words are copy shown on the page, ` +
       `they sit right there: about y ${n.y}, ${side === 'left' ? `starting near x ${n.x}` : side === 'right' ? `on the right, around x ${n.x}` : `centred near x ${n.x}`}; ` +
       `never moved under or into another block. A note that only describes the page has no spot.`
@@ -472,6 +488,23 @@ export function verifyPlaced(all: PlacedNote[] | undefined, after: Snap): PlaceV
   const faults: string[] = []
   let judged = 0
   for (const n of notes) {
+    // n249 (rota, n250): rows typed in open space start at the spot typed
+    const rows = placedRowsOf(n, after.viewport?.w ?? 1280)
+    if (rows) {
+      const first = rows[0]!.toLowerCase()
+      const hit = after.nodes.find((x) => (x.text ?? '').trim().toLowerCase() === first && x.textBox)
+      if (hit) {
+        judged++
+        const tb = hit.textBox!
+        const cy = tb.y + tb.h / 2
+        const off = Math.abs(tb.x - n.x) > PLACED_ROW_X_TOL_PX
+        if (off || Math.abs(cy - n.y) > PLACED_ROW_Y_TOL_PX) {
+          faults.push(`the rows typed at (${n.x},${n.y}) start at x ${n.x}, row 1 at about y ${n.y}, but "${rows[0]}" sits at (${r1(tb.x)},${r1(cy)}): ` +
+            `${off ? `start every row's first cell at x ${n.x}` : `move the rows' words so row 1 is at about y ${n.y}`}, each cell only as wide as its words; change nothing else`)
+        }
+        continue
+      }
+    }
     const t = builtWords(n.text, after, n.y)
     if (!t) continue
     judged++

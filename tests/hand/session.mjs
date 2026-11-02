@@ -391,9 +391,27 @@ const ops2 = {
     writeFileSync(join(S.dir, 'digest.json'), JSON.stringify(digest, null, 2))
     // n120: keep the run records (each check's verdict) beside the digest; the app folder is wiped at the next open
     try { writeFileSync(join(S.dir, 'runs.json'), JSON.stringify(runRecords(APP_DIR), null, 1)) } catch {}
+    // n249: why the layout number is what it is, region by region; and the page as built. Written at done, after the sketching.
+    try { writeFileSync(join(S.dir, 'layout.json'), JSON.stringify(explainLayout(spec.regions, score), null, 0).replace(/\},\{/g, '},\n{')) } catch {}
+    try { writeFileSync(join(S.dir, 'built-App.tsx'), readFileSync(join(APP_DIR, 'src/App.tsx'))) } catch {}
     await sideBySide(p, spec.ref, S.dir)
     return { ok: true, digest: { ...digest, events: undefined, strokesDrawn: undefined } }
   },
+}
+
+/** n249: each region's fate in the (unchanged) layout score: its IoU credit, or the nearest box on the page and why it earned 0. */
+function explainLayout(regions, score) {
+  const box = (r) => ({ x: r.x, y: r.y, w: r.w, h: r.h })
+  const iou = (a, b) => { const x = Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)), y = Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y)), i = x * y; return i > 0 ? i / (a.w * a.h + b.w * b.h - i) : 0 }
+  const els = (score.boxes ?? []).map(([, x, y, w, h]) => ({ x, y, w, h }))
+  const got = new Map([...(score.matched ?? []).map((m) => [m.role, { credit: m.iou, el: m.found.rect }]), ...(score.groupMatched ?? []).map((g) => [g.role, { credit: g.iou, el: g.rect, parts: g.parts }])])
+  return { layout: score.regionScoreGrouped ?? score.regionScore, regions: regions.map((r) => {
+    const g = got.get(r.role)
+    if (g) return { role: r.role, credit: Math.round(g.credit * 100) / 100, want: box(r.rect), el: g.el, ...(g.parts ? { parts: g.parts } : {}) }
+    let best = null, bi = 0
+    for (const e of els) { const v = iou(r.rect, e); if (v > bi) { bi = v; best = e } }
+    return { role: r.role, credit: 0, want: box(r.rect), nearest: best, nearestIou: Math.round(bi * 100) / 100 }
+  }) }
 }
 
 async function sideBySide(p, ref, dir) {

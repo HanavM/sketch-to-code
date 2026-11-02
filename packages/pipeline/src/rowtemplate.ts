@@ -80,7 +80,7 @@ const NOUN = '(?:rows?|items?|entries|cards?|lines?|emails?|messages?|people|one
 const LIKE = new RegExp(`\\b${NUMW}\\s+(?:${NOUN}\\s+)?(?:just\\s+)?like\\s+(?:this|that|it|the\\s+first(?:\\s+one)?)\\b`, 'i')
 const TIMES = /(?:^|[\s,;(])(?:x|×)\s?(\d{1,2})\b/i
 /** n244: space kept under the last row, and how much taller than the row's own pitch a shared row must be to be worth sharing. */
-const SHARE_PAD_PX = 12
+const SHARE_PAD_PX = 24
 const SHARE_MIN = 1.25
 const num = (s: string) => (/^\d/.test(s) ? Number(s) : NUM[s.toLowerCase()] ?? 0)
 

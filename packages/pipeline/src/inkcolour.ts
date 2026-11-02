@@ -366,7 +366,8 @@ export function verifyInkColours(
       // n144: words over a pale-pen divider are not painted that pale colour
       if (c.paint === 'text' && c.ruleOnly) {
         const pen = parseCssColor(c.color)
-        const pale = pen ? after.nodes.filter((n) => n.text.length > 0 && crosses(n.rect, band) && (() => { const t = parseCssColor(n.style.color ?? ''); return !!t && deltaE(t, pen) <= 12 })()) : []
+        // n249 (rota): only words on the line: a near-white label on a dark bar drawn under it is no pale word over the divider
+        const pale = pen ? after.nodes.filter((n) => n.text.length > 0 && crosses(n.rect, band) && Math.abs(n.rect.y + n.rect.h / 2 - (b.y + b.h / 2)) <= 24 && (() => { const t = parseCssColor(n.style.color ?? ''); return !!t && deltaE(t, pen) <= 12 })()) : []
         checks.push({ what: `${what} (pale divider)`, want: `words not ${hex(c.color)}`, best: null, ok: pale.length === 0 })
         if (pale.length) misses.push(`action ${String(i)}: ${what} is a divider drawn in a pale ${hex(c.color)} pen: only the rule is that colour, but the words "${pale[0]!.text.slice(0, 40)}" over it are painted ${hex(c.color)} and barely show: give them the page's ordinary dark text colour; keep their size, weight and place`)
         continue
@@ -470,6 +471,16 @@ export function verifyInkColours(
       if (hit && st && !ok) {
         misses.push(`action ${String(i)}: ${what} was coloured ${hex(c.color)}; the block has that colour but shows only about ${String(Math.round(st.strength * 100))}% of it in its middle (${[st.opacity < 1 ? `opacity ${st.opacity.toFixed(2)}` : '', st.blur ? `blur ${String(Math.round(st.blur))}px` : '', alphaOf(at!.css) < 1 ? `see-through colour ${alphaOf(at!.css).toFixed(2)}` : ''].filter(Boolean).join(', ')}), so it reads faint: make it opacity 1 with the solid colour, and soften only its edge (blur at most ${String(maxBlur(b))}px)`)
         continue
+      }
+      // n249 (wifi): a box outlined in a pale pen, built white with that outline: right, and it sent a repair each build
+      if (!ok && c.paint !== 'text') {
+        const pen = parseCssColor(c.color)
+        const outlined = pen && pen.r * 0.299 + pen.g * 0.587 + pen.b * 0.114 > 190 && near.some((n) => {
+          const m = /rgba?\([^)]*\)/.exec(n.style.border ?? '')
+          const got = m ? parseCssColor(m[0]) : null
+          return !!got && deltaE(got, pen) <= SOLID_OK_DE
+        })
+        if (outlined) { checks[checks.length - 1]!.ok = true; continue }
       }
       if (!ok) misses.push(`action ${String(i)}: ${what} was coloured ${hex(c.color)}${c.paint === 'text' ? ' (text colour)' : ' (fill)'}; ${best === null ? 'nothing that size was built there carrying a colour' : `what was built there is ΔE ${best.toFixed(0)} away`}: paint ${c.paint === 'text' ? 'its text' : 'the block itself'} exactly ${hex(c.color)}`)
     }

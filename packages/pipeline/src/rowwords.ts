@@ -46,6 +46,18 @@ export function isCopy(text: string): boolean {
 }
 
 /** Record each box's or ring's own note (in place): the note's focus is that mark alone. */
+/**
+ * n248/n249 (wifi): "white, filled bars" typed on a small card says how it looks. Taken as that card's words, a check
+ * failed on a right page and sent a repair (about 45k tokens) that printed them. All lower case, every comma part opening on a look word.
+ */
+const LOOK_OPENERS = /^(?:white|black|grey|gray|red|orange|yellow|green|teal|blue|navy|purple|pink|brown|gold|cream|dark|light|pale|bright|filled|solid|empty|hollow|outlined|plain|flat|rounded|bold|faint|thin|thick)\b/
+export function looksOnly(text: string): boolean {
+  const t = text.trim()
+  if (!t || t !== t.toLowerCase() || /[:;.!?\d]/.test(t)) return false
+  const parts = t.split(/\s*,\s*/).filter(Boolean)
+  return parts.every((p) => LOOK_OPENERS.test(p) && p.split(/\s+/).length <= 3)
+}
+
 export function markRowWords(marks: ShapeMark[], notes: NoteLike[], page: readonly BBox[] = []): void {
   for (const m of marks) {
     if (!closed(m) || m.own) continue
@@ -53,7 +65,7 @@ export function markRowWords(marks: ShapeMark[], notes: NoteLike[], page: readon
       ? n.focus.length === 1 && n.focus[0] === m.strokeId
       : n.strokeIds?.length === 1 && n.strokeIds[0] === m.strokeId)
     // n179: a note describing how a kind of item looks, or a list of names for a whole grid, is never one mark's words
-    const n = own.find((x) => isCopy(copyOf(x.text)) && !specNote(x.text) && !nameList(x.text))
+    const n = own.find((x) => isCopy(copyOf(x.text)) && !specNote(x.text) && !nameList(x.text) && !looksOnly(x.text))
     // n130: the note's copy without its directions ("Biscuit selected, avatar" is "Biscuit")
     if (n) m.own = (/[;\n]/.test(n.text) ? '' : noteParts(copyOf(n.text)).copy) || copyOf(n.text)
   }

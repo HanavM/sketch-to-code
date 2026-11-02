@@ -9,6 +9,7 @@
  * line, about its length, may paint a thin rule (an hr, a 1-4px tall filled bar, or a bottom border under
  * the words). A rule there is a failure the repair round can act on. Zero tokens.
  */
+import { countedRow } from './countrow.js'
 import type { BBox } from '@s2c/ink'
 import { copyWords } from './linespan.js'
 
@@ -60,7 +61,8 @@ export function verifyTextLinesNotRules(marks: readonly MarkLike[], after: Snap,
   // checked too: its words are that note's, it must not come back as a bar or rule
   const wordsOf = (m: MarkLike): string | null => lineCopy(m) ?? (m.strokeId && copy.has(m.strokeId) && !m.rule && !m.edge && m.from && m.to ? 'its words' : null)
   // n62: a link drawn on a coloured line is meant to be underlined (linkline.ts)
-  const lines = marks.filter((m) => wordsOf(m) !== null && !(m.strokeId && skip.has(m.strokeId)))
+  // n249: a line under a count across only says where that row goes (countrow.ts), and a row's border near it is no fault
+  const lines = marks.filter((m) => wordsOf(m) !== null && !(m.strokeId && skip.has(m.strokeId)) && !(m.words && countedRow(m.words)))
   if (!lines.length) return { satisfied: true, unverifiable: true, reason: 'no drawn lines carrying words' }
   if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated' }
   const byId = new Map(after.nodes.map((n) => [n.id, n]))

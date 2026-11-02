@@ -15,6 +15,7 @@
  * asking for big type (big, huge, heading ...) keeps the heading rule. Told in the brief and checked on the
  * page: size, sitting above the rule, side. Zero tokens.
  */
+import { countedRow } from './countrow.js'
 import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { ABOUT_LINE, BIG_WORD, copyWords } from './linespan.js'
@@ -174,7 +175,8 @@ export function markPaleDividers(
 ): void {
   for (const m of marks) {
     if (m.shape !== 'line' || m.box.h > 8 || m.box.w < viewportW * 0.6) continue
-    if (m.words || m.wordsAt || m.typed?.length || m.carries) continue
+    // n249: words listed as a count across are told by their own brief; a pale pen on their line never colours them
+    if ((m.words && !countedRow(m.words)) || m.wordsAt || m.typed?.length || m.carries) continue
     for (const c of inks) {
       if (c.strokeId !== m.strokeId || c.paint !== 'text' || c.how !== 'pen') continue
       if (paleOn(c.color, bg)) c.ruleOnly = true

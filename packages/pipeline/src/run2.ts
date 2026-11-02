@@ -137,6 +137,8 @@ export interface SendCost {
   ms: number
   /** Set when the turn was ended for making no progress: why. */
   stalled?: string
+  /** n249: what a repair turn was sent to fix (each failed check, cut short), so a run says what its repairs cost it for. */
+  why?: string[]
 }
 
 export interface InterpretV2Result {
@@ -1080,6 +1082,7 @@ export async function runV2(
           tools: s.toolLog().slice(t0, t0 + 40),
           ms: Date.now() - started,
           ...(stalled ? { stalled } : {}),
+          ...(kind === 'repair' && lastFailures.length ? { why: lastFailures.slice(0, 12).map((f) => f.slice(0, 200)) } : {}),
         })
         // per turn, so a run the cap stops still says where its time went
         save('sends.json', sends)

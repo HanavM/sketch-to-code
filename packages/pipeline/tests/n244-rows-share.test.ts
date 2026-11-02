@@ -16,7 +16,7 @@ const names = ['Living room TV', "Hanna's phone", 'Work laptop', 'Printer', 'The
 describe('n244: a drawn box keeps its size when a count fills it', () => {
   it('six rows share the panel evenly (wifi)', () => {
     const t = rowTemplates(acts, strokes)[0]!
-    expect(t).toMatchObject({ total: 6, cy: 344, pitch: 84, shared: true })
+    expect(t).toMatchObject({ total: 6, cy: 344, pitch: 82, shared: true })
     expect(t.cy + (t.total - 0.5) * t.pitch).toBeLessThanOrEqual(820)
   })
   it('a pill at the row end, under figures, is a toggle; off rows are told', () => {
