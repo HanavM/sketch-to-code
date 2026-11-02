@@ -281,6 +281,11 @@ export function resolveNotes(
     if (anchor?.kind === 'strokes') {
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
       const focus = noteFocus(ids, anchor.focus, n.at, strokes, text, stackOpts)
+      // n246: a sentence typed beside a box stays beside it, text at that spot, never the box's words
+      if (ids.length && n.at && !anchor.focus?.length && besideSentence(text, n.at, strokes.filter((st) => (focus ?? ids).includes(st.id)).map((st) => bboxOf(st.points)))) {
+        out.push({ id: n.id, text, scope: 'run', placed: true, at: { x: n.at.x, y: n.at.y }, ...withRefs })
+        continue
+      }
       out.push(ids.length
         ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs, ...(n.at ? { at: { x: n.at.x, y: n.at.y } } : {}) }
         : { id: n.id, text, scope: 'run', ...withRefs })
@@ -343,7 +348,7 @@ import { bindTiltNotes } from './tiltwords.js'
 import { markOutlined } from './textlook.js'
 import { proseLineIds } from './barlabels.js'
 export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
-import { noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
+import { besideSentence, noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
 
 export function buildEvidence(allStrokes: Stroke[], snap: DomSnapshot, notes: TypedNote[] = []): Evidence {
   // n10: a coloured tap is a fill, not a mark: it never reaches the reading as

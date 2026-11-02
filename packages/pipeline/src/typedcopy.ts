@@ -230,7 +230,26 @@ export function nameList(note: string): string[] | null {
     if (ws.length > 3 || !/^\p{Lu}/u.test(it) || /[.!?]$/.test(it)) return null
     if (ws.every((w) => LOOK.test(w.replace(/[^\p{L}]/gu, '')))) return null
   }
-  return items
+  return items.map((it) => nameItem(it).name)
+}
+
+/** n246: a name and the look words typed after it ("Drift bold" is the name Drift, bold). */
+function nameItem(item: string): { name: string; looks: string[] } {
+  const ws = item.split(/\s+/)
+  let cut = ws.length
+  while (cut > 1 && LOOK.test(ws[cut - 1]!.replace(/[^\p{L}]/gu, ''))) cut--
+  return { name: ws.slice(0, cut).join(' '), looks: ws.slice(cut) }
+}
+
+/**
+ * n246: round 48: "Drift bold, Week, Month, Goals right" was told as four names, look words in: "Drift bold" and
+ * "Goals right" were printed on the sleep page, and on the rota "right" moved only the last name. A name's look words
+ * only style it, and "right" on the last name puts the names after the first at the bar's right end, as typed.
+ */
+export function nameListLooks(note: string): { raw: string[]; lastRight: boolean } {
+  const items = note.split(',').map((t) => t.trim()).filter(Boolean)
+  const raw = items.filter((it) => nameItem(it).looks.length)
+  return { raw, lastRight: items.length > 0 && nameItem(items[items.length - 1]!).looks.some((w) => /^right$/i.test(w)) }
 }
 
 const TIME = /(?<![\d:])(\d{1,2}:\d{2}(?::\d{2})?(?:\s?[ap]\.?m\.?)?)(?![\d:])/gi
@@ -256,7 +275,11 @@ export function directionStrings(notes: readonly string[]): { text: string; why:
     const sp = specNote(n)
     if (sp) { out.push({ text: sp.lead, why: `a description of how the ${sp.kind} look`, note: n }); continue }
     const nl = nameList(n)
-    if (nl) { out.push({ text: nl.slice(0, 3).join(', '), why: 'a list of names, one per item', note: n }); continue }
+    if (nl) {
+      out.push({ text: nl.slice(0, 3).join(', '), why: 'a list of names, one per item', note: n })
+      for (const raw of nameListLooks(n).raw) out.push({ text: raw, why: 'a name with its look words', note: n })
+      continue
+    }
     const p = noteParts(n)
     if (!p.look && !p.directions.length && !p.place) continue
     // n104: the position word printed after the label ("2:14 pm above"), even when the label is split over spans
@@ -298,7 +321,9 @@ export function typedCopyBrief(notes: readonly string[]): string {
     if (nl && !seen.has(n)) {
       seen.add(n)
       lines.push(`- "${n}" gives ${nl.length} names, one per item, in drawn order (left to right, then top to bottom): ${nl.map((t) => `"${t}"`).join(', ')}. ` +
-        'Each item shows only its own name; never print the list (or several names) as one line.')
+        'Each item shows only its own name; never print the list (or several names) as one line.' +
+        (nameListLooks(n).raw.length ? ` Look words typed with a name (${nameListLooks(n).raw.map((t) => `"${t}"`).join(', ')}) only style that name; never print them.` : '') +
+        (nameListLooks(n).lastRight ? ` "right" on the last name: the first name stays at the left and the names after it sit together at the bar's right end, in typed order.` : ''))
       continue
     }
     // n228: a name and a value: two pieces of text, whatever else the note could be read as

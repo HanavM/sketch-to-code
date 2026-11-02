@@ -72,6 +72,8 @@ export interface ShapeMark {
   carries?: string
   /** big box (n21): notes typed at a spot inside it, page px. */
   typed?: Array<{ text: string; x: number; y: number }>
+  /** n246: a short label typed at one end of a long thin bar: it stays at that end. */
+  barLabel?: { text: string; side: 'left' | 'right' }
   /** n155: tall side panel: the menu lists typed in it with no rows drawn, stacked from its top (sidelist.ts). */
   sideLists?: import('./sidelist.js').SideList[]
   /** n156: card: the rows typed in it under its heading, which start below that heading (cardrows.ts). */

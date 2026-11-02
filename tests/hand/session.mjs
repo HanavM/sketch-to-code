@@ -173,7 +173,7 @@ const opsA = {
     for (let i = 1; i <= 12; i++) { await p.mouse.move(box.x + ((tx - box.x) * i) / 12, box.y + ((ty - box.y) * i) / 12); await p.waitForTimeout(16) }
     await p.mouse.up(); await p.waitForTimeout(250)
     S.noteMoves = (S.noteMoves ?? 0) + 1
-    S.events.push({ op: 'moveNote', at: now() - (S.t0 ?? now()) })
+    S.events.push({ op: 'moveNote', at: now() - (S.t0 ?? now()), text, x, y }) // n246: what moved, so a replay can move it too
     return { ok: true, status: await statusLine(p) }
   },
   /** n35: click a note chip's x (found by the start of its text); counts as a fix. */

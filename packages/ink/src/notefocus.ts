@@ -682,3 +682,21 @@ export function overflowStack(
   }
   return []
 }
+
+
+/**
+ * n246: a whole sentence typed beside a box, outside it, stays beside it. Round 48 e4 (sleep): "Friday was your
+ * shortest night, 4 hours 20." typed 30px right of the "Set a bedtime" button was bound to the button as its nearest
+ * mark; it became the button's words and "Set a bedtime" vanished. A sentence (at least 4 words of its own, ending in
+ * . ! or ?) whose spot is outside every mark it would bind to is text at that spot, on no mark. An instruction ("make
+ * this bigger.") is still about the mark, and so is anything typed on a mark or a line.
+ */
+const ORDER_WORD = /^(make|change|move|put|add|remove|delete|drop|use|turn|set|fix|keep|shrink|grow|swap|align|centre|center|show|hide|give|take|no|not|don'?t|should|this|these|that|those)\b/i
+export function besideSentence(text: string | undefined, at: { x: number; y: number } | undefined, boxes: readonly BBox[]): boolean {
+  if (!text || !at || boxes.length === 0) return false
+  const t = text.trim()
+  if (!/[.!?]$/.test(t) || ORDER_WORD.test(t)) return false
+  if (t.split(/\s+/).filter((w) => /\p{L}/u.test(w)).length < 4) return false
+  const GAP = 12
+  return boxes.every((r) => r.h > 6 && r.w > 6 && (at.x < r.x - GAP || at.x > r.x + r.w + GAP || at.y < r.y - GAP || at.y > r.y + r.h + GAP))
+}

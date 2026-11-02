@@ -2,7 +2,9 @@
  * Replay a hand sketch (n32): the same strokes, pen colours and notes a person drew in an earlier
  * step, in the same order, through a running session.mjs, then Run once and score. Used to measure a
  * tool change on an already-sketched page with the sketch held still. Correction notes typed after the
- * first Run, and note drags, are left out (the point is whether the first build now gets it right).
+ * first Run are left out (the point is whether the first build now gets it right). A note dragged before
+ * the first Run is part of the sketch: replayed when its event says what moved (n246; before n246 the
+ * session did not record that, so older digests lose the drag).
  *
  *   node tests/hand/replay.mjs <digest.json> [--port 5390] [--fixes]
  *
@@ -36,6 +38,7 @@ const notesArg = (() => { const i = process.argv.indexOf('--notes'); return i ==
 const ops = [
   ...d.strokesDrawn.map((s) => ({ at: s.at, op: { op: 'stroke', pts: s.way } })),
   ...d.events.filter((e) => e.op === 'moveBar' && (e.x != null || barArg)).map((e) => ({ at: e.at - 0.75, op: { op: 'moveBar', ...(e.x != null ? { x: e.x, y: e.y } : barArg) } })),
+  ...d.events.filter((e) => e.op === 'moveNote' && e.text && e.x != null).map((e) => ({ at: e.at, op: { op: 'moveNote', text: e.text, x: e.x, y: e.y } })),
   ...d.events.filter((e) => e.op === 'pen').map((e) => ({ at: e.at - 0.5, op: { op: 'pen', color: e.color ?? null } })),
   ...(notesArg ? notesArg.map((n, k) => ({ at: firstRun - 1 + k / 1000, op: { op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole } }))
     : d.notesTyped.map((n) => ({ at: n.at, op: { op: 'note', x: n.x, y: n.y, text: n.text, whole: n.whole } }))),

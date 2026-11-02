@@ -39,7 +39,7 @@ export const BAR_MAX_H = 120
 export const ABOVE_PX = 44
 export const END_X_TOL = 48
 
-const VALUE = /^[-−+]?[$£€¥]?\d[\d,.:]*(?:%|k|m|\+|°[cf]?)?(?:\s(?:kg|lb|km|mi|min|mins|h|hrs?|hours?|days?|pts|gb|mb|tb))?$/i
+const VALUE = /^[-−+]?[$£€¥]?\d[\d,.:]*(?:%|k|m|\+|°[cf]?)?(?:\s(?:kg|lb|km|mi|min|mins|h|hrs?|hours?|days?|pts|gb|mb|tb|mbps|gbps|kbps))?$/i
 const LOOK = /^(big|bigger|huge|giant|large|medium|small|smaller|tiny|bold|bolder|light|grey|gray|muted|dark|white|black|right|far|size)$/i
 
 /** The name and value of a "Name, value" note, or null when the note is anything else. */

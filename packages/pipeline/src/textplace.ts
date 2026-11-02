@@ -44,6 +44,19 @@ const ownNotes = (m: ShapeMark, notes: NoteLike[]) => notes.filter((n) => n.focu
   ? n.focus.length === 1 && n.focus[0] === m.strokeId
   : n.strokeIds?.length === 1 && n.strokeIds[0] === m.strokeId)
 
+const BAR_LABEL_MIN_W = 280
+/** n246: the end of a long thin bar its one short note was typed at; null when it has more notes, a list or a pair. */
+export function barLabelSide(m: Pick<ShapeMark, 'box'>, own: NoteLike[]): { text: string; side: 'left' | 'right' } | null {
+  const b = m.box
+  if (b.w < BAR_LABEL_MIN_W || b.h > 100 || b.w < 3.5 * b.h || own.length !== 1) return null
+  const n = own[0]!
+  if (!n.at || n.at.y < b.y - 4 || n.at.y > b.y + b.h + 4 || n.at.x < b.x - 4 || n.at.x > b.x + b.w + 4) return null
+  const text = n.text.trim()
+  if (/[,;:\n·•|]/.test(text) || text.split(/\s+/).length > 5) return null
+  const fx = (n.at.x - b.x) / b.w
+  return fx <= 0.25 ? { text, side: 'left' } : fx >= 0.75 ? { text, side: 'right' } : null
+}
+
 /** Record the words typed on each level line, and where notes were typed inside each big box (in place). */
 export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[], pageW = 1280): void {
   for (const m of marks) {
@@ -63,6 +76,12 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[], pageW = 12
       const n = ownNotes(m, notes)[0]
       if (n) m.carries = n.text
       continue
+    }
+    // n246: a short label typed at one end of a long thin bar stays at that end (round 48 rota: "8 to 2" typed at a
+    // shift bar's left came out centred in every bar, in both builds)
+    if (m.shape === 'box' && !m.area && !m.stat) {
+      const side = barLabelSide(m, ownNotes(m, notes))
+      if (side) m.barLabel = side
     }
     if (m.shape !== 'box' || m.area || m.solid || m.box.w < 120 || m.box.h < 100) continue
     const b = m.box
@@ -253,6 +272,11 @@ export function textPlaceBrief(actions: ActionLike[], viewport: { w: number; h: 
               `the words are RIGHT-aligned and end at x ${x1} (text-align: right).`
             : `- action ${i}: "${m.words}" is typed on the level line drawn from x ${x0} to ${x1} at y ${y}, centred ${inBox}: centre the words on x ${r1((x0 + x1) / 2)}; ${rowBrief(m.words, x0, x1)}.`)
       }
+      if (m.barLabel) {
+        const l = m.barLabel, b = m.box
+        lines.push(`- action ${i}: the words "${l.text}" were typed at the ${l.side.toUpperCase()} end of the long bar drawn at (${b.x},${b.y}) ${b.w}x${b.h}: inside the bar, on ONE line (white-space: nowrap), vertically centred, ` +
+          (l.side === 'left' ? `starting about 12-16px in from its left edge (near x ${b.x + 14}), text-align: left; never centred in the bar.` : `ending about 12-16px in from its right edge (near x ${b.x + b.w - 14}), text-align: right; never centred in the bar.`))
+      }
       if (m.typed?.length) {
         for (const t of m.typed) {
           lines.push(`- action ${i}: the note "${t.text}" was typed at (${t.x},${t.y}), in ${where(m.box, t.x, t.y)} drawn at (${m.box.x},${m.box.y}) ${m.box.w}x${m.box.h}. ` +
@@ -336,6 +360,18 @@ export function verifyTextPlace(marks: ShapeMark[], after: Snap, viewport: { w: 
       }
       if (side === 'right' && Math.abs(tb.x + tb.w - x1) > 24) {
         faults.push(`"${m.words}" was typed on a line drawn at the right, ending at x ${x1}; its letters end at x ${r1(tb.x + tb.w)}: right-align them so they end at x ${x1}; change nothing else`)
+      }
+    }
+    // n246: a bar's short label sits at the end it was typed at
+    if (m.barLabel) {
+      const b = m.box, want = copyTokens(m.barLabel.text).join(' ')
+      const hit = !want ? undefined : after.nodes.filter((n) => n.textBox && n.textBox.w > 0 && copyTokens(n.text ?? '').join(' ') === want &&
+        n.textBox.y + n.textBox.h > b.y - 4 && n.textBox.y < b.y + b.h + 4 && n.textBox.x + n.textBox.w > b.x && n.textBox.x < b.x + b.w)[0]
+      if (hit) {
+        judged++
+        const tb = hit.textBox!
+        if (m.barLabel.side === 'left' && tb.x > b.x + Math.max(40, b.w * 0.15)) faults.push(`"${m.barLabel.text}" was typed at the LEFT end of the bar at (${b.x},${b.y}) ${b.w}x${b.h}; its letters start at x ${r1(tb.x)}: left-align them so the first letter is near x ${b.x + 14} (drop centring); change nothing else`)
+        if (m.barLabel.side === 'right' && tb.x + tb.w < b.x + b.w - Math.max(40, b.w * 0.15)) faults.push(`"${m.barLabel.text}" was typed at the RIGHT end of the bar at (${b.x},${b.y}) ${b.w}x${b.h}; its letters end at x ${r1(tb.x + tb.w)}: right-align them to end near x ${b.x + b.w - 14}; change nothing else`)
       }
     }
     for (const typed of m.typed ?? []) {

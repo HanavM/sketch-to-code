@@ -7,7 +7,7 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
-import { noteFocus, groupCount, giantStacks, stackJoin, isTextLine, isNoteLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
+import { besideSentence, noteFocus, groupCount, giantStacks, stackJoin, isTextLine, isNoteLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
 import { inkFills, isFillDot, pageFill, markFill, sliceWedges, tapDots } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
@@ -8040,12 +8040,15 @@ class Overlay {
     const own = { ...n.at, text: n.text ?? '' }
     const others = this.notesOnSketch().filter((o) => !(o.x === n.at.x && o.y === n.at.y))
     const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text, { notesAt: [...others, own] }) ?? ids
-    return marks.filter((s) => focus.includes(s.id))
+    const got = marks.filter((s) => focus.includes(s.id))
+    // n246: a sentence typed beside a box is text at that spot, on no mark; the bar says so, as the build reads it
+    if (!n.anchor.focus?.length && besideSentence(n.text, n.at, got.map((s) => bboxOfPoints(s.points)))) return []
+    return got
   }
 
   /** "on this box", "on this ring", "on these 2 lines": the mark in plain words. */
   private markLabel(marks: Stroke[]): string {
-    if (marks.length === 0) return 'whole sketch'
+    if (marks.length === 0) return 'here, as text'
     const words = marks.map((m) => markWord(m.points))
     const same = words.every((w) => w === words[0])
     if (marks.length === 1) return `on this ${words[0]!}`

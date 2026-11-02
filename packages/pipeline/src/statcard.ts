@@ -28,7 +28,8 @@ const LOOK = /^(big|bigger|huge|giant|large|massive|jumbo|display|small|smaller|
 // copy words a label keeps even though LOOK lists them ("on loan", "in stock"): only dropped when alone
 const KEEP_SMALL = /^(on|in|the|a|and)$/i
 const NUM = /(?<![\w.])[$£€]?\d+(?:[.,:]\d+)*%?(?![\w])/
-const UNIT = /^(kg|g|lb|lbs|km|mi|m|min|mins|h|hrs?|hours?|days?|weeks?|months?|years?|steps|kcal|cal|gb|mb|tb|pts|points|items|users|people|%|x)$/i
+// n246: speeds and rates are units too: "412 Mbps" lost its Mbps and printed the whole note as the label
+const UNIT = /^(kg|g|lb|lbs|km|mi|m|min|mins|h|hrs?|hours?|days?|weeks?|months?|years?|steps|kcal|cal|gb|mb|tb|kb|gbps|mbps|kbps|ms|fps|mph|kph|kwh|kw|pts|points|items|users|people|%|x)$/i
 const ROWS = /\b(\d+|two|three|four|five|six)\s+(rows|lines|items|entries)\b|\brows?\s*:|\brows like this\b|\bx\d+\b|\s\/\s/i
 
 const MONTH = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|january|february|march|april|june|july|august|september|october|november|december)\.?\s+$/i
@@ -69,7 +70,8 @@ function valueIn(part: string): { value: string; rest: string[] } | null {
 
 // n100: a time of day (9:00, 2:14 pm, 10 AM) or a range of numbers (9:00 – 9:45, 12–14) is never a stat value
 const TIME = /(?<![\w.])\d{1,2}:\d{2}(?!\d)|(?<![\w.])\d{1,2}(?::\d{2})?\s*(?:am|pm|a\.m\.|p\.m\.)(?![\w])/i
-const RANGE = /\d\s*[–—-]\s*\d/
+// n246: "8 to 2" on a shift's bar is a range too: it came out a big 8 over a small "to 2", and survived a fix
+const RANGE = /\d\s*(?:am|pm)?\s*(?:[–—-]|\bto\b)\s*\d/i
 const SENTENCE = /[\p{L}\d][.!?](?:\s+[\p{Lu}\p{N}]|\s*$)/u
 const hasLetters = (w: string) => /^\p{L}/u.test(w)
 
@@ -86,6 +88,9 @@ export function proseNumber(note: string): boolean {
   if (/\b(stat|stats|kpi|metric)\b/i.test(note) || /\b(big|huge|giant|large|massive|jumbo|bold)\s+(number|numeral|value|figure|digits?|[$£€]?\d)/i.test(note)) return false
   if (TIME.test(note) || RANGE.test(note)) return true
   const parts = note.split(/[;·•|]|,(?!\d{3}(?!\d))/).map((p) => p.trim()).filter(Boolean)
+  // n246: a sentence with a comma is still a sentence: "Friday was your shortest night, 4 hours 20." became a big
+  // "4 hours" over the rest, in place of the button's own words
+  if (/[.!?]\s*$/.test(note) && copyWords(note).filter(hasLetters).length >= 3) return true
   for (const p of parts) {
     if (SENTENCE.test(p) && copyWords(p).filter(hasLetters).length >= 3) return true
     if (copyWords(p).filter(hasLetters).length > 6) return true
@@ -113,6 +118,8 @@ export function statOf(notes: readonly string[]): Stat | null {
   // n130: a comma list of items of one form ("Mon 14, Tue 15, Wed 16") is a row's items, never a value and its label
   if (notes.some((n) => !!commaItems(n))) return null
   let value: string | null = null, label: string[] = [], vi = -1, li = -1
+  // n246: in one note too, words typed before the number read above it ("Download now, 412 Mbps", "Upload, 38 Mbps")
+  let wordsFirst = false
   notes.forEach((n, i) => {
     // n90: a comma inside a number (3,800) is no break
     const parts = n.split(/[;·•|]|,(?!\d{3}(?!\d))/).map((p) => p.trim()).filter(Boolean)
@@ -120,6 +127,7 @@ export function statOf(notes: readonly string[]): Stat | null {
       const v = value === null ? valueIn(p) : null
       if (v) {
         value = v.value; vi = i
+        if (label.length && li === i) wordsFirst = true
         if (v.rest.length && !label.length) { label = v.rest; li = i }
         continue
       }
@@ -130,7 +138,7 @@ export function statOf(notes: readonly string[]): Stat | null {
   if (value === null || !label.length) return null
   const text = label.join(' ')
   if (text.length > 40 || label.length > 6) return null
-  return { value, label: text, ...(li < vi ? { labelAbove: true } : {}) }
+  return { value, label: text, ...(li < vi || wordsFirst ? { labelAbove: true } : {}) }
 }
 
 const inside = (o: BBox, b: BBox) => o.x >= b.x - 4 && o.y >= b.y - 4 && o.x + o.w <= b.x + b.w + 4 && o.y + o.h <= b.y + b.h + 4 &&
@@ -194,8 +202,11 @@ const q = (s: string) => `"${s}"`
 export function statClause(m: ShapeMark): string {
   if (!m.stat) return ''
   const b = m.box, s = m.stat
-  const px = Math.max(28, Math.min(56, Math.round(b.h * 0.36)))
-  return ` It is a STAT CARD: the value ${q(s.value)} big and bold (about ${px}px, it must fit inside the card, never overflow), LEFT-aligned ` +
+  // n246: a value with its unit stays on one line, so its size also answers to the card's width ("38 Mbps" at 47px
+  // in a 240px card wrapped to two lines and pushed its label over the top edge)
+  const fit = Math.floor((b.w - 48) / (0.62 * Math.max(1, s.value.length)))
+  const px = Math.max(20, Math.min(56, Math.round(b.h * 0.36), fit))
+  return ` It is a STAT CARD: the value ${q(s.value)} big and bold (about ${px}px, ONE line, white-space: nowrap, it must fit inside the card, never overflow), LEFT-aligned ` +
     `with its first character near x ${b.x + 24}, and the label ${q(s.label)} smaller (14-16px, a muted grey that reads on the card) ` +
     `${s.labelAbove ? 'just ABOVE the value' : 'just UNDER the value'}, also left-aligned at the same x; padding about 20-24px; nothing else in it ` +
     `(no icon, no caption, no trend, no centring). Look words typed in its notes (big, grey, bold) only style these two; never print them. ` +
@@ -232,6 +243,8 @@ export function verifyStats(marks: readonly ShapeMark[], after: Snap): StatVerdi
     judged++
     const tb = v.textBox!
     const out = tb.x < b.x - 6 || tb.y < b.y - 6 || tb.x + tb.w > b.x + b.w + 6 || tb.y + tb.h > b.y + b.h + 6
+    // n246: a one-line value is under half the card's height at the told size; much more means it wrapped
+    if (!out && /\s/.test(s.value) && tb.h > b.h * 0.7) faults.push(`${where}: its value ${q(s.value)} wrapped onto two lines (${Math.round(tb.h)}px tall): keep it on ONE line (white-space: nowrap), a smaller font if needed, the label still inside the card`)
     if (out) faults.push(`${where}: its value ${q(s.value)} spans (${Math.round(tb.x)},${Math.round(tb.y)}) ${Math.round(tb.w)}x${Math.round(tb.h)}, outside the card: make it fit inside (smaller font, padding 20-24px)`)
     else if (tb.x > b.x + b.w * 0.4) faults.push(`${where}: its value ${q(s.value)} starts at x ${Math.round(tb.x)}, not at the card's left: left-align it, first character near x ${b.x + 24} (no centring)`)
     const l = leaf(s.label, b, after)
