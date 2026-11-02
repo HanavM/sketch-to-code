@@ -1798,7 +1798,7 @@ function namedColourText(actions: Array<{ notes?: string[] }>, loose: string[]) 
 }
 
 /** n213: each edited file as it was at the checkpoint and as it is now. A file new in this run has no old side and is left out. */
-function workPairs(root: string, cp: { sha: string }, work: ReadonlyMap<string, string | null>): FilePair[] {
+export function workPairs(root: string, cp: { sha: string }, work: ReadonlyMap<string, string | null>): FilePair[] {
   const prefix = execFileSync('git', ['rev-parse', '--show-prefix'], { cwd: root, encoding: 'utf8' }).trim()
   const out: FilePair[] = []
   for (const [rel, now] of work) {

@@ -1,6 +1,12 @@
+import { execFileSync } from 'node:child_process'
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
+import { applyWork } from '../src/candidates.js'
 import { lostCopy, type FixVerdict } from '../src/fixcheck.js'
+import { workPairs } from '../src/run2.js'
 import { diffHunks, onlyFillStayed, partBack } from '../src/partback.js'
 
 const OLD = `export default function App() {
@@ -133,5 +139,30 @@ describe('split up is not emptied (n213)', () => {
     const short = node('s', { x: 900, y: 300, w: 300, h: 40 }, 'First week free')
     const other = node('o', { x: 900, y: 700, w: 300, h: 40 }, 'free for a first week')
     expect(lostCopy([], snap([keep, short]), snap([keep, other])).map((l) => l.text)).toEqual([short.text])
+  })
+})
+
+describe('put back in a real git tree (n213)', () => {
+  it('reads each file from the checkpoint, leaves new files out, and the put-back lands on disk', () => {
+    const root = mkdtempSync(join(tmpdir(), 'n213-'))
+    const git = (...a: string[]): string => execFileSync('git', ['-c', 'user.name=t', '-c', 'user.email=t@t', ...a], { cwd: root, encoding: 'utf8' }).trim()
+    git('init', '-q')
+    mkdirSync(join(root, 'src'))
+    const old = OLD.replace('<p className="text-sm">First', '\n\n\n<p className="text-sm">First')
+    const now = FIX.replace('<p className="text-sm"></p>', '\n\n\n<p className="text-sm"></p>')
+    writeFileSync(join(root, 'src/App.tsx'), old)
+    git('add', '-A'); git('commit', '-qm', 'x')
+    const sha = git('rev-parse', 'HEAD')
+    writeFileSync(join(root, 'src/App.tsx'), now)
+    writeFileSync(join(root, 'src/New.tsx'), 'export {}\n')
+    const work = new Map<string, string | null>([['src/App.tsx', now], ['src/New.tsx', 'export {}\n'], ['src/Gone.tsx', null]])
+    const pairs = workPairs(root, { sha }, work)
+    expect(pairs.map((p) => p.rel)).toEqual(['src/App.tsx'])
+    expect(pairs[0]!.old).toBe(old)
+    const r = partBack(pairs, verdict({ lost: [{ text: 'First week free' }] }))!
+    applyWork(root, new Map(r.files.map((f) => [f.rel, f.content])))
+    const disk = readFileSync(join(root, 'src/App.tsx'), 'utf8')
+    expect(disk).toContain('First week free')
+    expect(disk).toContain('border-2 border-white')
   })
 })

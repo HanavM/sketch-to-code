@@ -1,0 +1,515 @@
+{
+  "round": 46,
+  "id": "c4-tennis-club",
+  "version": 3,
+  "stopped": null,
+  "likeness": 82.5,
+  "colour": 0.9814587256915879,
+  "structure": 0.9156062254241839,
+  "layout": 0.7385905715167949,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 3.1,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 4,
+      "dot": 4,
+      "line": 5,
+      "circle": 1
+    },
+    "inkPx": 7243
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 58,
+  "notes": 9,
+  "longestNote": 18,
+  "noteTexts": [
+    "Baseline Tennis bold",
+    "Courts Coaching Join, bold",
+    "Six courts. Open till ten. huge bold",
+    "x3 stacked: 6 clay and hard courts / 14 coaches on staff / $39 a month, all courts",
+    "thin white border inside",
+    "Become a member white bold",
+    "First week free",
+    "white lines only, no fill or text",
+    "3 tiles, one per stat, big number"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 424,
+    "firstReadingS": 104,
+    "readS": [
+      70,
+      20
+    ],
+    "buildS": [
+      216,
+      78
+    ],
+    "sketchingS": 40
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 123960,
+    "cacheRead": 772004,
+    "output": 33422,
+    "billed": 157382
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#2e8a57",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 7459
+    },
+    {
+      "op": "stroke",
+      "at": 7941
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 8309
+    },
+    {
+      "op": "stroke",
+      "at": 12727
+    },
+    {
+      "op": "stroke",
+      "at": 14376
+    },
+    {
+      "op": "pen",
+      "color": "#d4f53c",
+      "at": 14743
+    },
+    {
+      "op": "stroke",
+      "at": 15755
+    },
+    {
+      "op": "stroke",
+      "at": 16221
+    },
+    {
+      "op": "pen",
+      "color": "#f0f3f8",
+      "at": 16587
+    },
+    {
+      "op": "stroke",
+      "at": 19638
+    },
+    {
+      "op": "stroke",
+      "at": 20104
+    },
+    {
+      "op": "pen",
+      "color": "#16213e",
+      "at": 20468
+    },
+    {
+      "op": "stroke",
+      "at": 21442
+    },
+    {
+      "op": "stroke",
+      "at": 22509
+    },
+    {
+      "op": "stroke",
+      "at": 25142
+    },
+    {
+      "op": "stroke",
+      "at": 27290
+    },
+    {
+      "op": "stroke",
+      "at": 27754
+    },
+    {
+      "op": "pen",
+      "color": "#4a5568",
+      "at": 28119
+    },
+    {
+      "op": "stroke",
+      "at": 28904
+    },
+    {
+      "op": "note",
+      "at": 29619
+    },
+    {
+      "op": "note",
+      "at": 30303
+    },
+    {
+      "op": "note",
+      "at": 31125
+    },
+    {
+      "op": "note",
+      "at": 32304
+    },
+    {
+      "op": "note",
+      "at": 33120
+    },
+    {
+      "op": "note",
+      "at": 33903
+    },
+    {
+      "op": "note",
+      "at": 34607
+    },
+    {
+      "op": "run",
+      "at": 34750
+    },
+    {
+      "op": "note",
+      "at": 322815
+    },
+    {
+      "op": "note",
+      "at": 323512
+    },
+    {
+      "op": "run",
+      "at": 323623
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          70,
+          270
+        ],
+        [
+          830,
+          270
+        ],
+        [
+          830,
+          710
+        ],
+        [
+          70,
+          710
+        ],
+        [
+          70,
+          270
+        ]
+      ],
+      "n": 401,
+      "at": 7459
+    },
+    {
+      "way": [
+        [
+          150,
+          650
+        ]
+      ],
+      "n": 1,
+      "at": 7941
+    },
+    {
+      "way": [
+        [
+          200,
+          390
+        ],
+        [
+          700,
+          390
+        ],
+        [
+          700,
+          590
+        ],
+        [
+          200,
+          590
+        ],
+        [
+          200,
+          390
+        ]
+      ],
+      "n": 233,
+      "at": 12727
+    },
+    {
+      "way": [
+        [
+          452,
+          280
+        ],
+        [
+          452,
+          702
+        ]
+      ],
+      "n": 71,
+      "at": 14376
+    },
+    {
+      "way": [
+        [
+          655,
+          330
+        ],
+        [
+          680,
+          340
+        ],
+        [
+          690,
+          365
+        ],
+        [
+          680,
+          390
+        ],
+        [
+          655,
+          400
+        ],
+        [
+          630,
+          390
+        ],
+        [
+          620,
+          365
+        ],
+        [
+          630,
+          340
+        ],
+        [
+          655,
+          330
+        ]
+      ],
+      "n": 33,
+      "at": 15755
+    },
+    {
+      "way": [
+        [
+          655,
+          365
+        ]
+      ],
+      "n": 1,
+      "at": 16221
+    },
+    {
+      "way": [
+        [
+          880,
+          270
+        ],
+        [
+          1210,
+          270
+        ],
+        [
+          1210,
+          400
+        ],
+        [
+          880,
+          400
+        ],
+        [
+          880,
+          270
+        ]
+      ],
+      "n": 155,
+      "at": 19638
+    },
+    {
+      "way": [
+        [
+          1150,
+          380
+        ]
+      ],
+      "n": 1,
+      "at": 20104
+    },
+    {
+      "way": [
+        [
+          70,
+          40
+        ],
+        [
+          250,
+          40
+        ]
+      ],
+      "n": 31,
+      "at": 21442
+    },
+    {
+      "way": [
+        [
+          993,
+          40
+        ],
+        [
+          1210,
+          40
+        ]
+      ],
+      "n": 37,
+      "at": 22509
+    },
+    {
+      "way": [
+        [
+          70,
+          166
+        ],
+        [
+          848,
+          166
+        ]
+      ],
+      "n": 131,
+      "at": 25142
+    },
+    {
+      "way": [
+        [
+          70,
+          760
+        ],
+        [
+          310,
+          760
+        ],
+        [
+          310,
+          820
+        ],
+        [
+          70,
+          820
+        ],
+        [
+          70,
+          760
+        ]
+      ],
+      "n": 101,
+      "at": 27290
+    },
+    {
+      "way": [
+        [
+          190,
+          810
+        ]
+      ],
+      "n": 1,
+      "at": 27754
+    },
+    {
+      "way": [
+        [
+          340,
+          788
+        ],
+        [
+          451,
+          788
+        ]
+      ],
+      "n": 20,
+      "at": 28904
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Baseline Tennis bold",
+      "whole": false,
+      "x": 75,
+      "y": 60,
+      "at": 29619
+    },
+    {
+      "text": "Courts Coaching Join, bold",
+      "whole": false,
+      "x": 1000,
+      "y": 60,
+      "at": 30303
+    },
+    {
+      "text": "Six courts. Open till ten. huge bold",
+      "whole": false,
+      "x": 75,
+      "y": 190,
+      "at": 31125
+    },
+    {
+      "text": "x3 stacked: 6 clay and hard courts / 14 coaches on staff / $39 a month, all courts",
+      "whole": false,
+      "x": 900,
+      "y": 300,
+      "at": 32304
+    },
+    {
+      "text": "thin white border inside",
+      "whole": false,
+      "x": 90,
+      "y": 680,
+      "at": 33120
+    },
+    {
+      "text": "Become a member white bold",
+      "whole": false,
+      "x": 90,
+      "y": 790,
+      "at": 33903
+    },
+    {
+      "text": "First week free",
+      "whole": false,
+      "x": 345,
+      "y": 808,
+      "at": 34607
+    },
+    {
+      "text": "white lines only, no fill or text",
+      "whole": false,
+      "x": 220,
+      "y": 570,
+      "at": 322815
+    },
+    {
+      "text": "3 tiles, one per stat, big number",
+      "whole": false,
+      "x": 1100,
+      "y": 330,
+      "at": 323512
+    }
+  ]
+}
