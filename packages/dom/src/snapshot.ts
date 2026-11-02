@@ -137,6 +137,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
   return {
     nodes,
     viewport: { w: win.innerWidth, h: win.innerHeight, scrollX: sx, scrollY: sy },
+    ...(doc.documentElement ? { doc: { w: doc.documentElement.scrollWidth, h: doc.documentElement.scrollHeight } } : {}),
     url: win.location.href,
     takenAt: Date.now(),
     truncated,

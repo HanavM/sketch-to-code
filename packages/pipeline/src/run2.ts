@@ -46,6 +46,7 @@ import { recolorPropOf } from './plain-reading.js'
 import { styleFaults } from './style.js'
 import { evaluateConstraints, loadConstraints } from './constraints.js'
 import { verifyDesignPlacement, verifyOps } from './verify.js'
+import { fitScreenBrief, screenFit, verifyFitsScreen } from './fitscreen.js'
 import { decorationCandidates, verifyShapeAnchor } from './shape-anchor.js'
 import { verifyPageDrift } from './drift.js'
 import { liftPanel, planPanelLifts, type PanelLift } from './panellift.js'
@@ -735,6 +736,8 @@ export async function runV2(
     rowTemplateBrief(interp.actions, input.strokes, new Set(drawnLists(input.notes ?? [], input.strokes, input.snapshot.viewport).map((l) => l.note))) +
     // n201: a count on one drawn box repeats it beside it; characters for a row of drawn boxes go inside them
     repeatBrief(repeatPlans(input.notes ?? [], input.strokes, input.snapshot.viewport)) +
+    // n247: a page drawn inside the screen does not scroll
+    fitScreenBrief(screenFit(input.strokes, [...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? [])], input.snapshot.viewport, repeatPlans(input.notes ?? [], input.strokes, input.snapshot.viewport)), input.snapshot.viewport) +
     innerRingBrief(input.strokes) +
     boxCharsBrief(boxCharsOf(input.notes ?? [], input.strokes)) +
     // n214: a count with its items typed after it: those items, one per drawn line
@@ -950,6 +953,13 @@ export async function runV2(
     if (!held.unverifiable && !held.satisfied) {
       stage('verify', held.reason)
       result.failures.push(`page (drawn earlier): ${held.reason}`)
+      result.score = Math.min(result.score, 0.99)
+    }
+    // n247: a page drawn inside the screen does not run past it (and so never comes back scrolled)
+    const fits = verifyFitsScreen(screenFit(input.strokes, [...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? [])], input.snapshot.viewport, repeatPlans(input.notes ?? [], input.strokes, input.snapshot.viewport)), input.snapshot, after)
+    if (!fits.unverifiable && !fits.satisfied) {
+      stage('verify', fits.reason)
+      result.failures.push(`page (fits the screen): ${fits.reason}`)
       result.score = Math.min(result.score, 0.99)
     }
     // n37: a fix on a built page keeps words apart and takes a panel away when told to

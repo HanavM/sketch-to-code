@@ -63,6 +63,8 @@ export interface DomNode {
 export interface DomSnapshot {
   nodes: DomNode[]
   viewport: { w: number; h: number; scrollX: number; scrollY: number }
+  /** n247: the document's full size (scrollWidth, scrollHeight): a page taller than the viewport scrolls. */
+  doc?: { w: number; h: number }
   url: string
   takenAt: number
   /** True when the walker hit the node cap and dropped elements. */
