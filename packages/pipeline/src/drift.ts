@@ -96,7 +96,39 @@ export const SHIFT_MEDIAN_PX = 8
  * them are off the same way by SHIFT_MIN_PX or more (n113 run: heads +6, cards 8-11px low, likeness 72 vs 77), and their median offset is SHIFT_MEDIAN_PX or more: a page built
  * in place scatters its offsets around zero, a shifted one does not.
  */
-export function uniformShift(offsets: DriftVerdict['offsets']): string | null {
+/**
+ * n208: the space a shifted page carries is very often the top bar itself, built taller than drawn (round 45 c4 bike
+ * repair: header built 93px, the hero drawn to start at 79, so every block below rode 14px low; the generic "find that
+ * one space" told two repair rounds nothing they could act on and neither took it out). When the first block that is
+ * off sits right under a full-width bar at the very top (its bottom within a few px of that block's built top), name
+ * the bar with its built height and the height the drawing gives it. Zero tokens.
+ */
+export const BAR_ABUT_PX = 8
+export function barCause(fresh: DomNode[], first: { built: number; dy: number; drawn: number }, viewportW = 1280): string | null {
+  if (first.dy === 0) return null
+  let best: DomNode | null = null
+  let bestD = Infinity
+  for (const n of fresh) {
+    const r = n.rect
+    if (r.y > 4 || r.w < 0.6 * viewportW || r.h < 24 || r.h > 200) continue
+    const d = Math.abs(r.y + r.h - first.built)
+    if (d > BAR_ABUT_PX) continue
+    if (d < bestD || (d === bestD && best && r.h < best.rect.h)) { bestD = d; best = n }
+  }
+  if (!best) return null
+  const h = Math.round(best.rect.h)
+  const want = Math.round(h - first.dy)
+  if (want < 20) return null
+  const words = (best.text ?? '').replace(/\s+/g, ' ').trim().slice(0, 24)
+  return (
+    ` The space is the top bar: the <${best.tag}>${words ? ` holding "${words}"` : ''} at the very top (${best.srcLoc}) is built ` +
+    `${h}px tall, and the drawing has it ${want}px tall (the block under it is drawn starting at ${first.drawn}px). ` +
+    `Set that bar's height to exactly ${want}px (height: ${want}px; ${first.dy > 0 ? 'lower its vertical padding, line-height or min-height' : 'add vertical padding'}), ` +
+    `keep its words vertically centred in it, and leave every block under it alone: they move up with it.`
+  )
+}
+
+export function uniformShift(offsets: DriftVerdict['offsets'], fresh: DomNode[] = [], viewportW = 1280): string | null {
   const body = offsets.filter((o) => o.drawn >= 40)
   if (body.length < 6) return null
   const low = body.filter((o) => o.dy >= SHIFT_MIN_PX)
@@ -117,7 +149,8 @@ export function uniformShift(offsets: DriftVerdict['offsets']): string | null {
     `(a taller bar, page padding, a margin under the header). Find that one space above action ${first.index} and ` +
     `${med > 0 ? 'take it out' : 'add it back'} so its top lands at ${first.drawn}px; everything under it moves with it. ` +
     `Change only that one spacing; never use a negative margin, negative top or absolute position. ` +
-    `Do not change widths, colours or copy.`
+    `Do not change widths, colours or copy.` +
+    (barCause(fresh, first, viewportW) ?? '')
   )
 }
 
@@ -149,7 +182,7 @@ export function verifyPageDrift(
   }
   const off = offsets.filter((o) => Math.abs(o.dy) > DRIFT_TOLERANCE_PX)
   if (off.length < Math.max(3, Math.ceil(0.25 * offsets.length))) {
-    const shift = uniformShift(offsets)
+    const shift = uniformShift(offsets, fresh, after.viewport.w)
     if (shift) return { satisfied: false, reason: shift, offsets }
     if (big) return big
     return { satisfied: true, reason: `${offsets.length - off.length} of ${offsets.length} blocks within ${DRIFT_TOLERANCE_PX}px of their drawn top`, offsets }
@@ -172,7 +205,8 @@ export function verifyPageDrift(
       `gaps between rows, line-height on thin lines) so each block's top lands within ${DRIFT_TOLERANCE_PX}px of its drawn y; ` +
       `fix it at the first block that is off, since every block under it moves with it. Remove space; never pull a block up with a ` +
         `negative margin, negative top or absolute position, which slides it over the heading or label above it. ` +
-        `Do not change widths, colours or copy.`,
+        `Do not change widths, colours or copy.` +
+        (() => { const f = [...off].sort((a, b) => a.drawn - b.drawn)[0]; return f && f.drawn >= 40 ? (barCause(fresh, f, after.viewport.w) ?? '') : '' })(),
     offsets,
   }
 }
