@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T00:50Z | n151 slanted pen line is a thin line | Kite strings, bike crossbar thin slanted lines first build; kite 74.3 no fix, bike 82.8, 77.1.
 2026-11-01T23:48Z | n204 untapped neutral rings stay outline rings | Whole black and grey outline rings, no spokes; bike 80.6 with fix to 85.9, 88.2 no fix; mixer 89.2.
 2026-11-01T23:20Z | n199 heading pen line is its words, never a bar | Heading lines never bars; pizza 79.8 with fix to 84.2, 84.8 no fix, 49 words.
 2026-11-01T22:58Z | n203 code digits a comfortable size in their boxes | Digits target size, boxes outlined, no big-word clash; 2FA 86.5, 88.6 to 90.9, 89.6 no fix.
