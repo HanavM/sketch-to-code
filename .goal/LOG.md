@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-02T18:12Z | n235 write round 48 | Ten fresh pages written, screenshotted, calibrated; six harder than round 1; none sketched.
 2026-11-02T17:59Z | n226 colours tapped round a ring are slices | Real slices 4 builds of 4, no fix; budget 83.9 to 89.5; words 53 to 40; two false checks removed.
 2026-11-02T17:20Z | n227 a count down repeats one box | Four boxes, right rows and colours, no fix; budget 76.0 to 83.9, 79.0; donut still a fade.
 2026-11-02T16:45Z | n225 a repeated card keeps its tap, frame and captions | Frames, pictures, captions right, disc centred, no fix; tattoo 72.9 to 81.3; varies 77-85.
