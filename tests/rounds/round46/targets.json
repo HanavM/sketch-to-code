@@ -1,0 +1,1287 @@
+{
+ "measured": "2026-11-02T01:56:54.846Z",
+ "targets": {
+  "c1-rocket-launch": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 25,
+      "w": 130,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 64,
+      "y": 190,
+      "w": 560,
+      "h": 151
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 64,
+      "y": 370,
+      "w": 440,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 64,
+      "y": 470,
+      "w": 230,
+      "h": 60
+     },
+     "must": true
+    },
+    {
+     "role": "nose",
+     "rect": {
+      "x": 860,
+      "y": 110,
+      "w": 120,
+      "h": 130
+     },
+     "must": true
+    },
+    {
+     "role": "rocket",
+     "rect": {
+      "x": 860,
+      "y": 230,
+      "w": 120,
+      "h": 380
+     },
+     "must": true
+    },
+    {
+     "role": "window",
+     "rect": {
+      "x": 890,
+      "y": 300,
+      "w": 60,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "flame",
+     "rect": {
+      "x": 880,
+      "y": 610,
+      "w": 80,
+      "h": 150
+     },
+     "must": true
+    },
+    {
+     "role": "ground",
+     "rect": {
+      "x": 0,
+      "y": 800,
+      "w": 1280,
+      "h": 100
+     },
+     "must": false
+    }
+   ]
+  },
+  "c2-greenhouse": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 70,
+      "y": 27,
+      "w": 115,
+      "h": 27
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 70,
+      "y": 210,
+      "w": 520,
+      "h": 141
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 70,
+      "y": 380,
+      "w": 430,
+      "h": 59
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 70,
+      "y": 490,
+      "w": 190,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "cta-2",
+     "rect": {
+      "x": 280,
+      "y": 490,
+      "w": 190,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "greenhouse",
+     "rect": {
+      "x": 640,
+      "y": 140,
+      "w": 520,
+      "h": 600
+     },
+     "must": true
+    },
+    {
+     "role": "base",
+     "rect": {
+      "x": 610,
+      "y": 740,
+      "w": 580,
+      "h": 40
+     },
+     "must": false
+    }
+   ]
+  },
+  "c3-domino-cafe": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 70,
+      "y": 26,
+      "w": 99,
+      "h": 28
+     },
+     "must": false
+    },
+    {
+     "role": "domino-1",
+     "rect": {
+      "x": 120,
+      "y": 140,
+      "w": 150,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "domino-2",
+     "rect": {
+      "x": 296,
+      "y": 146,
+      "w": 218,
+      "h": 327
+     },
+     "must": true
+    },
+    {
+     "role": "domino-3",
+     "rect": {
+      "x": 540,
+      "y": 141,
+      "w": 190,
+      "h": 318
+     },
+     "must": true
+    },
+    {
+     "role": "red-disc",
+     "rect": {
+      "x": 880,
+      "y": 160,
+      "w": 300,
+      "h": 300
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 70,
+      "y": 520,
+      "w": 700,
+      "h": 76
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 70,
+      "y": 630,
+      "w": 520,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 860,
+      "y": 620,
+      "w": 240,
+      "h": 64
+     },
+     "must": true
+    },
+    {
+     "role": "hours",
+     "rect": {
+      "x": 860,
+      "y": 710,
+      "w": 183,
+      "h": 17
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-tennis-club": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 70,
+      "y": 26,
+      "w": 181,
+      "h": 28
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 70,
+      "y": 130,
+      "w": 1140,
+      "h": 71
+     },
+     "must": true
+    },
+    {
+     "role": "court",
+     "rect": {
+      "x": 70,
+      "y": 270,
+      "w": 760,
+      "h": 440
+     },
+     "must": true
+    },
+    {
+     "role": "ball",
+     "rect": {
+      "x": 620,
+      "y": 330,
+      "w": 70,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "stat-1",
+     "rect": {
+      "x": 880,
+      "y": 270,
+      "w": 330,
+      "h": 130
+     },
+     "must": true
+    },
+    {
+     "role": "stat-2",
+     "rect": {
+      "x": 880,
+      "y": 425,
+      "w": 330,
+      "h": 130
+     },
+     "must": false
+    },
+    {
+     "role": "stat-3",
+     "rect": {
+      "x": 880,
+      "y": 580,
+      "w": 330,
+      "h": 130
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 70,
+      "y": 760,
+      "w": 240,
+      "h": 60
+     },
+     "must": true
+    },
+    {
+     "role": "note",
+     "rect": {
+      "x": 340,
+      "y": 778,
+      "w": 111,
+      "h": 20
+     },
+     "must": false
+    }
+   ]
+  },
+  "c5-paint-store": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 70,
+      "y": 26,
+      "w": 114,
+      "h": 28
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 70,
+      "y": 180,
+      "w": 520,
+      "h": 139
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 70,
+      "y": 350,
+      "w": 430,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 70,
+      "y": 450,
+      "w": 220,
+      "h": 58
+     },
+     "must": true
+    },
+    {
+     "role": "card-1",
+     "rect": {
+      "x": 603,
+      "y": 201,
+      "w": 294,
+      "h": 417
+     },
+     "must": true
+    },
+    {
+     "role": "card-2",
+     "rect": {
+      "x": 800,
+      "y": 190,
+      "w": 220,
+      "h": 380
+     },
+     "must": true
+    },
+    {
+     "role": "card-3",
+     "rect": {
+      "x": 923,
+      "y": 201,
+      "w": 294,
+      "h": 417
+     },
+     "must": true
+    },
+    {
+     "role": "chips-label",
+     "rect": {
+      "x": 70,
+      "y": 600,
+      "w": 113,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "chips",
+     "rect": {
+      "x": 70,
+      "y": 640,
+      "w": 510,
+      "h": 70
+     },
+     "must": false
+    }
+   ]
+  },
+  "e1-library-search": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "search",
+     "rect": {
+      "x": 40,
+      "y": 100,
+      "w": 900,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "search-button",
+     "rect": {
+      "x": 960,
+      "y": 100,
+      "w": 140,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "filters",
+     "rect": {
+      "x": 40,
+      "y": 186,
+      "w": 438,
+      "h": 37
+     },
+     "must": false
+    },
+    {
+     "role": "count",
+     "rect": {
+      "x": 40,
+      "y": 250,
+      "w": 151,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "book-1",
+     "rect": {
+      "x": 40,
+      "y": 290,
+      "w": 270,
+      "h": 471
+     },
+     "must": true
+    },
+    {
+     "role": "book-2",
+     "rect": {
+      "x": 340,
+      "y": 290,
+      "w": 270,
+      "h": 471
+     },
+     "must": false
+    },
+    {
+     "role": "book-3",
+     "rect": {
+      "x": 640,
+      "y": 290,
+      "w": 270,
+      "h": 471
+     },
+     "must": false
+    },
+    {
+     "role": "book-4",
+     "rect": {
+      "x": 940,
+      "y": 290,
+      "w": 270,
+      "h": 471
+     },
+     "must": false
+    }
+   ]
+  },
+  "e2-team-roster": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 220,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 270,
+      "y": 50,
+      "w": 247,
+      "h": 39
+     },
+     "must": true
+    },
+    {
+     "role": "subtitle",
+     "rect": {
+      "x": 270,
+      "y": 110,
+      "w": 165,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "add-button",
+     "rect": {
+      "x": 1050,
+      "y": 46,
+      "w": 180,
+      "h": 48
+     },
+     "must": true
+    },
+    {
+     "role": "table",
+     "rect": {
+      "x": 270,
+      "y": 170,
+      "w": 960,
+      "h": 560
+     },
+     "must": true
+    },
+    {
+     "role": "table-head",
+     "rect": {
+      "x": 270,
+      "y": 180,
+      "w": 960,
+      "h": 50
+     },
+     "must": false
+    },
+    {
+     "role": "row-1",
+     "rect": {
+      "x": 270,
+      "y": 240,
+      "w": 960,
+      "h": 80
+     },
+     "must": true
+    },
+    {
+     "role": "row-2",
+     "rect": {
+      "x": 270,
+      "y": 320,
+      "w": 960,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "row-3",
+     "rect": {
+      "x": 270,
+      "y": 400,
+      "w": 960,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "row-4",
+     "rect": {
+      "x": 270,
+      "y": 480,
+      "w": 960,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "row-5",
+     "rect": {
+      "x": 270,
+      "y": 560,
+      "w": 960,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "row-6",
+     "rect": {
+      "x": 270,
+      "y": 640,
+      "w": 960,
+      "h": 80
+     },
+     "must": false
+    }
+   ]
+  },
+  "e3-thermostat": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 40,
+      "y": 34,
+      "w": 149,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "subtitle",
+     "rect": {
+      "x": 40,
+      "y": 74,
+      "w": 146,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "dial",
+     "rect": {
+      "x": 150,
+      "y": 180,
+      "w": 520,
+      "h": 520
+     },
+     "must": true
+    },
+    {
+     "role": "temperature",
+     "rect": {
+      "x": 150,
+      "y": 360,
+      "w": 520,
+      "h": 138
+     },
+     "must": true
+    },
+    {
+     "role": "target-label",
+     "rect": {
+      "x": 150,
+      "y": 510,
+      "w": 520,
+      "h": 21
+     },
+     "must": false
+    },
+    {
+     "role": "minus",
+     "rect": {
+      "x": 250,
+      "y": 760,
+      "w": 80,
+      "h": 80
+     },
+     "must": false
+    },
+    {
+     "role": "plus",
+     "rect": {
+      "x": 490,
+      "y": 760,
+      "w": 80,
+      "h": 80
+     },
+     "must": true
+    },
+    {
+     "role": "rooms",
+     "rect": {
+      "x": 800,
+      "y": 180,
+      "w": 420,
+      "h": 520
+     },
+     "must": true
+    }
+   ]
+  },
+  "e4-doctor-booking": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "doctor",
+     "rect": {
+      "x": 40,
+      "y": 100,
+      "w": 1200,
+      "h": 100
+     },
+     "must": true
+    },
+    {
+     "role": "calendar",
+     "rect": {
+      "x": 30,
+      "y": 220,
+      "w": 650,
+      "h": 640
+     },
+     "must": true
+    },
+    {
+     "role": "month",
+     "rect": {
+      "x": 60,
+      "y": 240,
+      "w": 148,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "days",
+     "rect": {
+      "x": 50,
+      "y": 290,
+      "w": 604,
+      "h": 530
+     },
+     "must": false
+    },
+    {
+     "role": "slots",
+     "rect": {
+      "x": 720,
+      "y": 220,
+      "w": 520,
+      "h": 640
+     },
+     "must": true
+    },
+    {
+     "role": "book-button",
+     "rect": {
+      "x": 750,
+      "y": 770,
+      "w": 460,
+      "h": 60
+     },
+     "must": true
+    }
+   ]
+  },
+  "e5-loan-calculator": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 50,
+      "y": 110,
+      "w": 360,
+      "h": 45
+     },
+     "must": true
+    },
+    {
+     "role": "amount",
+     "rect": {
+      "x": 50,
+      "y": 220,
+      "w": 620,
+      "h": 18
+     },
+     "must": true
+    },
+    {
+     "role": "term",
+     "rect": {
+      "x": 50,
+      "y": 340,
+      "w": 620,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "rate",
+     "rect": {
+      "x": 50,
+      "y": 460,
+      "w": 620,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "down",
+     "rect": {
+      "x": 50,
+      "y": 580,
+      "w": 620,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "result",
+     "rect": {
+      "x": 740,
+      "y": 110,
+      "w": 490,
+      "h": 620
+     },
+     "must": true
+    },
+    {
+     "role": "apply",
+     "rect": {
+      "x": 780,
+      "y": 640,
+      "w": 410,
+      "h": 60
+     },
+     "must": true
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-rocket-launch": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.20023887240258487,
+    "structure": 0.18147274711821507,
+    "structureStrict": 0.18147274711821507,
+    "colourAligned": 0.20023887240258487,
+    "structureAligned": 0.18147274711821507,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.3806540265412786,
+    "structure": 0.24390398301251295
+   }
+  },
+  "c2-greenhouse": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8706883553772038,
+    "structure": 0.5680847985839063,
+    "structureStrict": 0.5680847985839063,
+    "colourAligned": 0.8706883553772038,
+    "structureAligned": 0.5680847985839063,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7015608206525159,
+    "structure": 0.4159958859263915
+   }
+  },
+  "c3-domino-cafe": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7598275903472638,
+    "structure": 0.54534595994462,
+    "structureStrict": 0.54534595994462,
+    "colourAligned": 0.7598275903472638,
+    "structureAligned": 0.54534595994462,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6713917818201672,
+    "structure": 0.42621046417368635
+   }
+  },
+  "c4-tennis-club": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.789708490362595,
+    "structure": 0.5497283957960653,
+    "structureStrict": 0.5497283957960653,
+    "colourAligned": 0.789708490362595,
+    "structureAligned": 0.5497283957960653,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6754662007144261,
+    "structure": 0.4349199103101177
+   }
+  },
+  "c5-paint-store": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8759722330125308,
+    "structure": 0.6243953631240325,
+    "structureStrict": 0.6243953631240325,
+    "colourAligned": 0.8759722330125308,
+    "structureAligned": 0.6243953631240325,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.7013889947848673,
+    "structure": 0.47080788770413634
+   }
+  },
+  "e1-library-search": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7559140267245341,
+    "structure": 0.5456790580149719,
+    "structureStrict": 0.5456790580149719,
+    "colourAligned": 0.7559140267245341,
+    "structureAligned": 0.5456790580149719,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.656739732773343,
+    "structure": 0.4444108333608308
+   }
+  },
+  "e2-team-roster": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.826257985323322,
+    "structure": 0.6421137542793853,
+    "structureStrict": 0.6421137542793853,
+    "colourAligned": 0.826257985323322,
+    "structureAligned": 0.6421137542793853,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.655813555671271,
+    "structure": 0.4594443492270987
+   }
+  },
+  "e3-thermostat": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.13543048288043957,
+    "structure": 0.14395389505201908,
+    "structureStrict": 0.14395389505201908,
+    "colourAligned": 0.13543048288043957,
+    "structureAligned": 0.14395389505201908,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.335870167317562,
+    "structure": 0.2100164586699442
+   }
+  },
+  "e4-doctor-booking": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9582219419814038,
+    "structure": 0.6535802551414543,
+    "structureStrict": 0.6535802551414543,
+    "colourAligned": 0.9582219419814038,
+    "structureAligned": 0.6535802551414543,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6856399001199223,
+    "structure": 0.4390614808274662
+   }
+  },
+  "e5-loan-calculator": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9491934737703219,
+    "structure": 0.6400306618625172,
+    "structureStrict": 0.6400306618625172,
+    "colourAligned": 0.9491934737703219,
+    "structureAligned": 0.6400306618625172,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6920267886908475,
+    "structure": 0.4657237471552469
+   }
+  }
+ }
+}
