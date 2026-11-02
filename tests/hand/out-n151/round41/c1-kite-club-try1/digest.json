@@ -1,0 +1,578 @@
+{
+  "round": 41,
+  "id": "c1-kite-club",
+  "version": 3,
+  "stopped": null,
+  "likeness": 74.3,
+  "colour": 0.9718968864350485,
+  "structure": 0.8725342590133236,
+  "layout": 0.6995218448879179,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 0.95,
+    "shapes": {
+      "dot": 6,
+      "line": 8,
+      "box": 1,
+      "circle": 3,
+      "freehand": 1
+    },
+    "inkPx": 7014
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 36,
+  "notes": 6,
+  "longestNote": 14,
+  "noteTexts": [
+    "updraft, bold",
+    "Classes · Fly days · Shop",
+    "Learn to fly on Sundays. huge bold",
+    "Beginner kite classes on the hill, kites included. Bring a coat and a friend.",
+    "Book a class, white text",
+    "green hill"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 502,
+    "firstReadingS": 103,
+    "readS": [
+      67
+    ],
+    "buildS": [
+      397
+    ],
+    "sketchingS": 38
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 89180,
+    "cacheRead": 932920,
+    "output": 40638,
+    "billed": 129818
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#bfe4f6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 461
+    },
+    {
+      "op": "pen",
+      "color": "#0f2a4a",
+      "at": 831
+    },
+    {
+      "op": "stroke",
+      "at": 1505
+    },
+    {
+      "op": "note",
+      "at": 2144
+    },
+    {
+      "op": "stroke",
+      "at": 3203
+    },
+    {
+      "op": "note",
+      "at": 3877
+    },
+    {
+      "op": "stroke",
+      "at": 5875
+    },
+    {
+      "op": "stroke",
+      "at": 7370
+    },
+    {
+      "op": "note",
+      "at": 8189
+    },
+    {
+      "op": "pen",
+      "color": "#34557a",
+      "at": 8567
+    },
+    {
+      "op": "stroke",
+      "at": 10140
+    },
+    {
+      "op": "stroke",
+      "at": 11187
+    },
+    {
+      "op": "note",
+      "at": 12238
+    },
+    {
+      "op": "pen",
+      "color": "#ff5c4d",
+      "at": 12609
+    },
+    {
+      "op": "stroke",
+      "at": 14491
+    },
+    {
+      "op": "stroke",
+      "at": 14958
+    },
+    {
+      "op": "note",
+      "at": 15729
+    },
+    {
+      "op": "stroke",
+      "at": 18410
+    },
+    {
+      "op": "stroke",
+      "at": 18890
+    },
+    {
+      "op": "pen",
+      "color": "#ffc93c",
+      "at": 19259
+    },
+    {
+      "op": "stroke",
+      "at": 21089
+    },
+    {
+      "op": "stroke",
+      "at": 21553
+    },
+    {
+      "op": "pen",
+      "color": "#3373d9",
+      "at": 21921
+    },
+    {
+      "op": "stroke",
+      "at": 23390
+    },
+    {
+      "op": "stroke",
+      "at": 23855
+    },
+    {
+      "op": "pen",
+      "color": "#0f2a4a",
+      "at": 24218
+    },
+    {
+      "op": "stroke",
+      "at": 25292
+    },
+    {
+      "op": "stroke",
+      "at": 26178
+    },
+    {
+      "op": "pen",
+      "color": "#5fb769",
+      "at": 26545
+    },
+    {
+      "op": "stroke",
+      "at": 34548
+    },
+    {
+      "op": "stroke",
+      "at": 35027
+    },
+    {
+      "op": "note",
+      "at": 35854
+    },
+    {
+      "op": "run",
+      "at": 36036
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          300,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 461
+    },
+    {
+      "way": [
+        [
+          72,
+          45
+        ],
+        [
+          148,
+          45
+        ]
+      ],
+      "n": 14,
+      "at": 1505
+    },
+    {
+      "way": [
+        [
+          1000,
+          46
+        ],
+        [
+          1208,
+          46
+        ]
+      ],
+      "n": 36,
+      "at": 3203
+    },
+    {
+      "way": [
+        [
+          72,
+          295
+        ],
+        [
+          620,
+          295
+        ]
+      ],
+      "n": 92,
+      "at": 5875
+    },
+    {
+      "way": [
+        [
+          72,
+          380
+        ],
+        [
+          430,
+          380
+        ]
+      ],
+      "n": 61,
+      "at": 7370
+    },
+    {
+      "way": [
+        [
+          76,
+          453
+        ],
+        [
+          473,
+          453
+        ]
+      ],
+      "n": 67,
+      "at": 10140
+    },
+    {
+      "way": [
+        [
+          76,
+          482
+        ],
+        [
+          288,
+          482
+        ]
+      ],
+      "n": 36,
+      "at": 11187
+    },
+    {
+      "way": [
+        [
+          76,
+          570
+        ],
+        [
+          276,
+          570
+        ],
+        [
+          276,
+          626
+        ],
+        [
+          76,
+          626
+        ],
+        [
+          76,
+          570
+        ]
+      ],
+      "n": 85,
+      "at": 14491
+    },
+    {
+      "way": [
+        [
+          110,
+          598
+        ]
+      ],
+      "n": 1,
+      "at": 14958
+    },
+    {
+      "way": [
+        [
+          880,
+          108
+        ],
+        [
+          1021,
+          249
+        ],
+        [
+          880,
+          390
+        ],
+        [
+          739,
+          249
+        ],
+        [
+          880,
+          108
+        ]
+      ],
+      "n": 133,
+      "at": 18410
+    },
+    {
+      "way": [
+        [
+          880,
+          200
+        ]
+      ],
+      "n": 1,
+      "at": 18890
+    },
+    {
+      "way": [
+        [
+          1100,
+          275
+        ],
+        [
+          1185,
+          360
+        ],
+        [
+          1100,
+          445
+        ],
+        [
+          1015,
+          360
+        ],
+        [
+          1100,
+          275
+        ]
+      ],
+      "n": 81,
+      "at": 21089
+    },
+    {
+      "way": [
+        [
+          1100,
+          330
+        ]
+      ],
+      "n": 1,
+      "at": 21553
+    },
+    {
+      "way": [
+        [
+          905,
+          502
+        ],
+        [
+          968,
+          565
+        ],
+        [
+          905,
+          628
+        ],
+        [
+          842,
+          565
+        ],
+        [
+          905,
+          502
+        ]
+      ],
+      "n": 61,
+      "at": 23390
+    },
+    {
+      "way": [
+        [
+          890,
+          590
+        ]
+      ],
+      "n": 1,
+      "at": 23855
+    },
+    {
+      "way": [
+        [
+          880,
+          392
+        ],
+        [
+          933,
+          603
+        ]
+      ],
+      "n": 37,
+      "at": 25292
+    },
+    {
+      "way": [
+        [
+          1101,
+          447
+        ],
+        [
+          1075,
+          592
+        ]
+      ],
+      "n": 26,
+      "at": 26178
+    },
+    {
+      "way": [
+        [
+          0,
+          840
+        ],
+        [
+          160,
+          790
+        ],
+        [
+          320,
+          758
+        ],
+        [
+          480,
+          744
+        ],
+        [
+          640,
+          740
+        ],
+        [
+          800,
+          744
+        ],
+        [
+          960,
+          758
+        ],
+        [
+          1120,
+          790
+        ],
+        [
+          1280,
+          840
+        ],
+        [
+          1280,
+          900
+        ],
+        [
+          0,
+          900
+        ],
+        [
+          0,
+          840
+        ]
+      ],
+      "n": 452,
+      "at": 34548
+    },
+    {
+      "way": [
+        [
+          640,
+          850
+        ]
+      ],
+      "n": 1,
+      "at": 35027
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "updraft, bold",
+      "whole": false,
+      "x": 110,
+      "y": 45,
+      "at": 2144
+    },
+    {
+      "text": "Classes · Fly days · Shop",
+      "whole": false,
+      "x": 1100,
+      "y": 46,
+      "at": 3877
+    },
+    {
+      "text": "Learn to fly on Sundays. huge bold",
+      "whole": false,
+      "x": 300,
+      "y": 295,
+      "at": 8189
+    },
+    {
+      "text": "Beginner kite classes on the hill, kites included. Bring a coat and a friend.",
+      "whole": false,
+      "x": 250,
+      "y": 453,
+      "at": 12238
+    },
+    {
+      "text": "Book a class, white text",
+      "whole": false,
+      "x": 176,
+      "y": 598,
+      "at": 15729
+    },
+    {
+      "text": "green hill",
+      "whole": false,
+      "x": 640,
+      "y": 800,
+      "at": 35854
+    }
+  ]
+}
