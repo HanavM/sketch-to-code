@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { markFill, sliceChart, sliceCss, sliceShares, sliceWedges, type Stroke } from '@s2c/ink'
+import { verifyColor } from '../src/run2.js'
 import { asksFade, conicStops, sliceVerdict, typedAmounts, typedShares, typedSlices } from '../src/slicechart.js'
 
 const S = (id: string, w: number[][], color: string | null = null) => ({ id, color, points: w.map(([x, y]) => ({ x: x!, y: y!, t: 0, p: 0.5 })) }) as unknown as Stroke
@@ -80,5 +81,11 @@ describe('n226: colours tapped round a ring are its slices', () => {
     expect(sliceVerdict(c, [disc]).ok).toBe(false)
     const svg = c.parts.map((x, k) => node(70 + k, 210, 400, 400, { svgStroke: x.color }))
     expect(sliceVerdict(c, svg as never).ok).toBe(true)
+  })
+  it('a pen colour in the chart\'s stops is on the page', () => {
+    const a = { color: { drawn: '#2a9d8f' }, region: { x: 70, y: 210, w: 420, h: 420 }, targets: [] } as never
+    const chartNode = node(70, 210, 420, 420, { color: 'rgb(0, 0, 0)', backgroundImage: 'conic-gradient(rgb(42, 157, 143) 0deg, rgb(42, 157, 143) 144deg, rgb(38, 70, 83) 144deg)' })
+    expect(verifyColor(a, { nodes: [chartNode] } as never).satisfied).toBe(true)
+    expect(verifyColor(a, { nodes: [node(70, 210, 420, 420, { color: 'rgb(0, 0, 0)' })] } as never).satisfied).toBe(false)
   })
 })

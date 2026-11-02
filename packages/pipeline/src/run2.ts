@@ -1471,7 +1471,9 @@ export function verifyColor(
   })
   let best = Infinity
   for (const n of inside) {
-    for (const css of [n.style.color, n.style.backgroundColor]) {
+    // n226: a colour in a slice chart's stops, or on an svg shape, is on the page too
+    const stops = (n.style.backgroundImage ?? '').match(/rgba?\([^)]*\)/g) ?? []
+    for (const css of [n.style.color, n.style.backgroundColor, n.style.svgFill, n.style.svgStroke, ...stops]) {
       const got = css ? parseCssColor(css) : null
       if (got) best = Math.min(best, deltaE(want, got))
     }

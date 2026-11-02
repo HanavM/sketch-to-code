@@ -344,10 +344,15 @@ function rowFaults(p: RepeatPlan, after: Snap): string[] {
   p.rows.forEach((row, k) => {
     const top = at(p, k).y
     for (const cell of row) {
-      const t = after.nodes.filter((n) => low(n.text ?? '') === low(cell))[0] ?? after.nodes.filter((n) => low(n.text ?? '').includes(low(cell)))[0]
-      if (!t) { out.push(`row ${String(k + 1)}'s ${q(cell)} is not on the page: print it as typed in copy ${String(k + 1)}`); continue }
-      const b = t.textBox ?? t.rect, mid = b.y + b.h / 2
-      if (mid < top - 16 || mid > top + p.mark.h + 16) out.push(`${q(cell)} is at y ${String(Math.round(mid))}: it belongs to row ${String(k + 1)}, from y ${String(top)} to ${String(top + p.mark.h)}, one row per box`)
+      // n226: the same words can stand elsewhere too (a chart's "$600" and the Food row's): one in this row's box is enough
+      const exact = after.nodes.filter((n) => low(n.text ?? '') === low(cell))
+      const found = exact.length ? exact : after.nodes.filter((n) => low(n.text ?? '').includes(low(cell)))
+      if (!found.length) { out.push(`row ${String(k + 1)}'s ${q(cell)} is not on the page: print it as typed in copy ${String(k + 1)}`); continue }
+      const midOf = (n: (typeof found)[number]) => { const b = n.textBox ?? n.rect; return b.y + b.h / 2 }
+      const inRow = (y: number) => y >= top - 16 && y <= top + p.mark.h + 16
+      if (found.some((n) => inRow(midOf(n)))) continue
+      const mid = midOf(found[0]!)
+      if (!inRow(mid)) out.push(`${q(cell)} is at y ${String(Math.round(mid))}: it belongs to row ${String(k + 1)}, from y ${String(top)} to ${String(top + p.mark.h)}, one row per box`)
     }
   })
   return out

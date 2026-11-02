@@ -68,4 +68,16 @@ describe('n227: a count down on one drawn box repeats the box', () => {
     expect(v.satisfied).toBe(false)
     expect(v.reason).toContain('one row per box')
   })
+  it('the same words elsewhere (a chart hole\'s $600) are no fault when the row has its own', () => {
+    const P = plan()[0]!
+    const y = (k: number) => P.mark.y + k * (P.mark.h + P.gap) + P.mark.h / 2 - 10
+    const cells = P.rows!.flatMap((r, k) => r.map((t) => ({ ...leaf(t, 600, y(k)), textBox: { x: 600, y: y(k), w: 80, h: 20 } })))
+    const hole = { ...leaf('$600', 240, 400), textBox: { x: 240, y: 400, w: 80, h: 20 } }
+    const cards = [0, 1, 2, 3].map((k) => ({ ...cardAt(y(k) - P.mark.h / 2 + 10) }))
+    const v = verifyRepeats([P], { nodes: [hole, ...cells, ...cards] } as never)
+    expect(JSON.stringify(v)).not.toMatch(/belongs to row/)
+    // with the row's own gone, the one in the hole is still a fault
+    const off = verifyRepeats([P], { nodes: [hole, ...cells.filter((c) => c.text !== '$600'), ...cards] } as never)
+    expect(JSON.stringify(off)).toMatch(/belongs to row 2/)
+  })
 })
