@@ -36,7 +36,14 @@ export function repairFits(deadline: number | undefined, now: number, sends: Tur
  */
 export const FRESH_REPAIR_MS = 90_000
 
-export function freshRepairFits(deadline: number | undefined, now: number): boolean {
+/**
+ * n231: when the fresh repair stalls too, one last agent is told a single problem and handed the page's text, so it has
+ * nothing to read and little to weigh. It gets longer than the fresh repair: stopping it leaves the page as it is, and
+ * timesheet (n228 try 2) and gradebook (n165) both stopped at 90 s and kept a page with 14 faults.
+ */
+export const LAST_REPAIR_MS = 150_000
+
+export function freshRepairFits(deadline: number | undefined, now: number, ms: number = FRESH_REPAIR_MS): boolean {
   if (deadline === undefined || !Number.isFinite(deadline)) return true
-  return deadline - now >= FRESH_REPAIR_MS + VERIFY_MARGIN_MS
+  return deadline - now >= ms + VERIFY_MARGIN_MS
 }

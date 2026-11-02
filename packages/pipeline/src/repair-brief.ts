@@ -103,3 +103,25 @@ export function failureBrief(failures: string[], opts: { onlyFirst?: boolean } =
   }
   return `${head}\n\nFIX FIRST:\n${list(first, 1)}\n\nTHEN, IF QUICK:\n${list(rest, first.length + 1)}`
 }
+
+/**
+ * n231: the last try after two repairs thought with no edit. One problem, the biggest, and the page's own text in the
+ * message, so there is nothing to read first. Fixing the biggest often fixes others; the next round sees what is left.
+ */
+export const LAST_REPAIR_PAGE_CHARS = 60_000
+
+export function lastRepairBrief(failures: string[], pages: { file: string; text: string }[]): string {
+  const [one] = rankFailures(failures)
+  const left = failures.length - 1
+  const shown = pages.filter((p) => p.text.length <= LAST_REPAIR_PAGE_CHARS)
+  const page = shown.map((p) => `${p.file}:\n\`\`\`\n${p.text}\n\`\`\``).join('\n\n')
+  return (
+    `Two repairs of this page stopped before making any edit, so this one is small. Fix this one problem, with one or ` +
+    `two Edits, now. Do not plan the rest of the page and do not read anything` +
+    (shown.length ? ': the page is below.' : ' but the page file.') +
+    `\n\nPROBLEM:\n${one ?? ''}` +
+    (left > 0 ? `\n\n(${left} other problems are for the next round, and fixing this one may fix some of them.)` : '') +
+    (page ? `\n\nTHE PAGE AS IT IS NOW:\n${page}` : '') +
+    `\n\nChange the element it names directly, with exact arbitrary values (mt-[12px], h-[48px]). Keep everything else as it is.`
+  )
+}

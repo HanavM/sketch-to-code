@@ -53,7 +53,7 @@ import { inkColoursBrief, inkHexes, verifyInkColours } from './inkcolour.js'
 import { verifyShapeMarks, verifyTextClearOfFields, loadKeptMarks, saveKeptMarks, mergeKeptMarks, marksInPlace, keptMarksBrief, verifyKeptMarks, marksMiss, type KeptMark } from './shapemark.js'
 import { countClaims, countsBrief, verifyCounts } from './counts.js'
 import { fillClaims, verifyFills, type FillVerdict } from './fills.js'
-import { freshRepairFits, FRESH_REPAIR_MS, repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
+import { freshRepairFits, FRESH_REPAIR_MS, LAST_REPAIR_MS, repairFits, VERIFY_MARGIN_MS } from './repair-time.js'
 import { BUILD_AFTER_WRITE_EDIT_MS, BUILD_AFTER_WRITE_MS, REPAIR_EDIT_MS, STALL_MS, TurnStalled, stallReason, watchTurn, wroteThisTurn } from './turn-watch.js'
 import { areasBrief, cardsBrief, verifyCards, verifyAreaMarks, verifyAreaWords, verifyBands, verifyEdges } from './areas.js'
 import { solidsBrief, verifySolids } from './solids.js'
@@ -104,7 +104,7 @@ import { drawnListBrief, drawnLists, verifyDrawnLists, type DrawnList } from './
 import { tapDotsBrief, verifyTapDots } from './tapdots.js'
 import { tapDots, type TapDot } from '@s2c/ink'
 import { boxCharsBrief, boxCharsOf, repeatBrief, repeatPlans, verifyBoxChars, verifyRepeats, type BoxChars, type RepeatPlan } from './repeatmark.js'
-import { FIX_FIRST, MANY_FAILURES, failureBrief, leanRepairNote, touchedFiles as editedFiles } from './repair-brief.js'
+import { FIX_FIRST, MANY_FAILURES, failureBrief, lastRepairBrief, leanRepairNote, touchedFiles as editedFiles } from './repair-brief.js'
 import { verifyInsertSlot } from './insert-slot.js'
 import { explainRun } from './explain.js'
 import { fixBrief, isBuiltPage, verifyFix, type FixVerdict } from './fixcheck.js'
@@ -438,6 +438,8 @@ export async function runV2(
   const repairEditMs = Number(process.env.S2C_REPAIR_EDIT_MS) > 0 ? Number(process.env.S2C_REPAIR_EDIT_MS) : REPAIR_EDIT_MS
   const afterWriteMs = Number(process.env.S2C_AFTER_WRITE_MS) > 0 ? Number(process.env.S2C_AFTER_WRITE_MS) : BUILD_AFTER_WRITE_MS
   const afterWriteEditMs = Number(process.env.S2C_AFTER_WRITE_EDIT_MS) > 0 ? Number(process.env.S2C_AFTER_WRITE_EDIT_MS) : BUILD_AFTER_WRITE_EDIT_MS
+  // n231 bench knob: this many repair turns stop at once with no edit, to try the stall path on a real page
+  let forcedStalls = Number(process.env.S2C_FORCE_REPAIR_STALLS) > 0 ? Number(process.env.S2C_FORCE_REPAIR_STALLS) : 0
   let repairStalled: string | null = null
   // n93: a build turn that wrote the page and then went quiet; the page on disk is kept and verified
   let buildStalled: string | null = null
@@ -1025,6 +1027,7 @@ export async function runV2(
           () => {
             const now = Date.now()
             const wrote = kind === 'build' && wroteThisTurn(s.toolLog().slice(t0))
+            if (kind === 'repair' && forcedStalls > 0) { forcedStalls--; return 'forced stop with no edit (bench)' }
             const why = stallReason({
               now,
               // n21 (bento): a first build may think 150+ s before its one big Write; every streamed
@@ -1157,7 +1160,11 @@ export async function runV2(
 
       // n169: a repair that stalls with no edit at all gets one fresh agent, told only the biggest problems
       let freshRetry = false
-      let freshOnce = false
+      // n231: 1 = a fresh repair told the biggest few; 2 = a last one told one problem and handed the page
+      let freshTries = 0
+      // n231: the one-problem turn just edited. One fix often leaves the share of checks passing the same (gradebook
+      // stayed 83% and the run stopped there), so that alone does not end the run: one more round sees what is left.
+      let smallStep = false
       let pageFiles: string[] = []
       for (let round = 1; round <= 3; round++) {
         stage('verify', `round ${round}: snapshotting edited page`)
@@ -1179,11 +1186,13 @@ export async function runV2(
         const closer = preRepair?.miss != null && miss != null && miss < preRepair.miss - 12
         if (score > best || (score === best && closer)) best = score
         else if (freshRetry) { /* the stalled turn changed nothing: this page is the one it was handed */ }
+        else if (smallStep && score === best) { /* see smallStep */ }
         else {
           await putBackIfWorse(miss, `${tag}-${round}`)
           stage('verify', 'no improvement — stopping')
           break
         }
+        smallStep = false
         if (score >= 1 || round === 3) break
         if (!repairFits(ctx.deadline, Date.now(), sends)) {
           stage('repair', 'not enough time left before the run cap for a repair turn: keeping this build')
@@ -1191,34 +1200,44 @@ export async function runV2(
         }
         stage('repair', `round ${round + 1}`)
         preRepair = { work: captureWork(ctx.root, cp), miss, span: spanMisses(lastVerify), fails: new Set(lastFailures.map(failKind)) }
+        const retrying = freshRetry
+        const lastTry = retrying && freshTries === 2
         const context = session
           ? ''
-          : `READING (user-confirmed): ${interp.reading}\n\n${codemodNote}` +
+          : lastTry
+            ? ''
+            : `READING (user-confirmed): ${interp.reading}\n\n${codemodNote}` +
             `ACTIONS:\n${JSON.stringify(interp.actions.map((a, i) => ({ action: i, ...a })), null, 2)}\n\n` +
             `Check the codemod edits against the failures below before changing anything — ` +
             `if an edit is already correct, leave it and say so.\n\n`
-        const retrying = freshRetry
         freshRetry = false
         if (session) pageFiles = editedFiles((session as CodegenSession).toolLog())
         try {
+          const freshMs = lastTry ? LAST_REPAIR_MS : FRESH_REPAIR_MS
           saveReply(await metered('repair', {
-            text:
-              `${context}${failureBrief(failures, { onlyFirst: retrying })}\n\n` +
-              `Fix exactly these. Do not change anything already working.\n\n` +
-              leanRepairNote(pageFiles.map((f) => `Write ${f}`)),
-          }, retrying ? { editMs: FRESH_REPAIR_MS, stallMs: Math.min(stallMs, FRESH_REPAIR_MS) } : {}))
+            text: lastTry
+              ? lastRepairBrief(failures, pageFiles.flatMap((f) => {
+                try { return [{ file: f, text: readFileSync(join(ctx.root, f), 'utf8') }] } catch { return [] }
+              }))
+              : `${context}${failureBrief(failures, { onlyFirst: retrying || freshTries > 0 })}\n\n` +
+                `Fix exactly these. Do not change anything already working.\n\n` +
+                leanRepairNote(pageFiles.map((f) => `Write ${f}`)),
+          }, retrying ? { editMs: freshMs, stallMs: Math.min(stallMs, freshMs) } : {}))
+          if (lastTry) smallStep = true
         } catch (e) {
           if (!(e instanceof TurnStalled)) throw e
           const turn = sends[sends.length - 1]
           const edited = !!turn?.tools.some((t) => /^(?:Write|Edit|MultiEdit)\b/.test(t))
           // n170: any stall with no edit (silent "no progress" as well as reads without an edit), whatever the number of
           // failures: n165 try 1 sat silent 152 s with 8 failures left and the run kept the build as it was.
-          if (!edited && !freshOnce && !retrying && freshRepairFits(ctx.deadline, Date.now())) {
+          // n231: and a fresh repair that stalls gets one last, smaller try (timesheet, gradebook: 14 faults kept)
+          const nextTry = freshTries + 1
+          if (!edited && nextTry <= 2 && freshRepairFits(ctx.deadline, Date.now(), nextTry === 2 ? LAST_REPAIR_MS : FRESH_REPAIR_MS)) {
             // n169 (podcast, n168 try 2): nine failures at once, 180 s of reads and no edit. Nothing on disk
             // changed, so a fresh agent told only the biggest few loses nothing and may fix the page.
-            freshOnce = true
+            freshTries = nextTry
             freshRetry = true
-            stage('repair', `repair round ${round + 1} stopped: ${e.why}; nothing was edited, so a fresh repair gets ${failures.length >= MANY_FAILURES ? `the ${FIX_FIRST} biggest problems` : 'the same problems'}`)
+            stage('repair', `repair round ${round + 1} stopped: ${e.why}; nothing was edited, so a fresh repair gets ${nextTry === 2 ? 'only the biggest problem and the page' : failures.length >= MANY_FAILURES ? `the ${FIX_FIRST} biggest problems` : 'the same problems'}`)
             const live = session as CodegenSession | null
             if (live) {
               totalUsage = addUsage(totalUsage, live.usage())
@@ -1226,7 +1245,7 @@ export async function runV2(
               await settleSession(live.closed)
             }
             session = null
-            repairStalled = `${e.why} (nothing edited; retried with a fresh repair)`
+            repairStalled = `${e.why} (nothing edited; try ${nextTry} with a fresh repair)`
             // the stalled turn changed nothing, so it does not use up a round
             round--
             continue
