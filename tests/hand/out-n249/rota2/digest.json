@@ -1,0 +1,696 @@
+{
+  "round": 48,
+  "id": "e3-shift-rota",
+  "version": 3,
+  "stopped": null,
+  "likeness": 83.3,
+  "colour": 0.9920761286576856,
+  "structure": 0.9503727963694203,
+  "layout": 0.6147772960640023,
+  "strokes": {
+    "count": 20,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 9,
+      "dot": 9,
+      "line": 2
+    },
+    "inkPx": 13153
+  },
+  "erased": 0,
+  "notesMoved": 1,
+  "words": 66,
+  "notes": 12,
+  "longestNote": 16,
+  "noteTexts": [
+    "Rota bold white, Week, People, Swaps right",
+    "Thursday shifts big bold",
+    "Publish white bold",
+    "x8 across: 8am 10am 12pm 2pm 4pm 6pm 8pm 10pm, grey bold",
+    "x6 down, ruled rows: Maya, Barista; Tom, Barista; Ines, Kitchen; Sam, Kitchen; Ravi, Floor; Jo, Floor",
+    "8 to 2",
+    "10 to 4",
+    "10 to 6",
+    "4 to 10",
+    "2 to 10",
+    "8 to 12",
+    "6 people, 42 hours, Cost $780"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 216,
+    "firstReadingS": 99,
+    "readS": [
+      40
+    ],
+    "buildS": [
+      115
+    ],
+    "sketchingS": 61
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 54741,
+    "cacheRead": 180694,
+    "output": 15093,
+    "billed": 69834
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#2b2e45",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 7975
+    },
+    {
+      "op": "stroke",
+      "at": 8459
+    },
+    {
+      "op": "pen",
+      "color": "#1d2533",
+      "at": 8825
+    },
+    {
+      "op": "stroke",
+      "at": 9996
+    },
+    {
+      "op": "pen",
+      "color": "#f2243e",
+      "at": 10359
+    },
+    {
+      "op": "stroke",
+      "at": 12194
+    },
+    {
+      "op": "stroke",
+      "at": 12662
+    },
+    {
+      "op": "pen",
+      "color": "#2a9d8f",
+      "at": 13029
+    },
+    {
+      "op": "stroke",
+      "at": 16094
+    },
+    {
+      "op": "stroke",
+      "at": 16559
+    },
+    {
+      "op": "pen",
+      "color": "#f28c00",
+      "at": 16920
+    },
+    {
+      "op": "stroke",
+      "at": 19996
+    },
+    {
+      "op": "stroke",
+      "at": 20462
+    },
+    {
+      "op": "pen",
+      "color": "#3a86ff",
+      "at": 20825
+    },
+    {
+      "op": "stroke",
+      "at": 24661
+    },
+    {
+      "op": "stroke",
+      "at": 25127
+    },
+    {
+      "op": "pen",
+      "color": "#8338ec",
+      "at": 25491
+    },
+    {
+      "op": "stroke",
+      "at": 28579
+    },
+    {
+      "op": "stroke",
+      "at": 29044
+    },
+    {
+      "op": "pen",
+      "color": "#2a9d8f",
+      "at": 29412
+    },
+    {
+      "op": "stroke",
+      "at": 33249
+    },
+    {
+      "op": "stroke",
+      "at": 33712
+    },
+    {
+      "op": "pen",
+      "color": "#f28c00",
+      "at": 34078
+    },
+    {
+      "op": "stroke",
+      "at": 36378
+    },
+    {
+      "op": "stroke",
+      "at": 36843
+    },
+    {
+      "op": "pen",
+      "color": "#ecf1f4",
+      "at": 37207
+    },
+    {
+      "op": "stroke",
+      "at": 45484
+    },
+    {
+      "op": "stroke",
+      "at": 45946
+    },
+    {
+      "op": "note",
+      "at": 46749
+    },
+    {
+      "op": "note",
+      "at": 47480
+    },
+    {
+      "op": "note",
+      "at": 48132
+    },
+    {
+      "op": "note",
+      "at": 48897
+    },
+    {
+      "op": "note",
+      "at": 49787
+    },
+    {
+      "op": "note",
+      "at": 50428
+    },
+    {
+      "op": "note",
+      "at": 51067
+    },
+    {
+      "op": "note",
+      "at": 51704
+    },
+    {
+      "op": "note",
+      "at": 52351
+    },
+    {
+      "op": "note",
+      "at": 53008
+    },
+    {
+      "op": "note",
+      "at": 53635
+    },
+    {
+      "op": "note",
+      "at": 54338
+    },
+    {
+      "op": "pen",
+      "color": "#dfe5ea",
+      "at": 54707
+    },
+    {
+      "op": "stroke",
+      "at": 57976
+    },
+    {
+      "op": "moveNote",
+      "at": 58651,
+      "text": "x8 across: 8am 10am 12pm 2pm 4pm 6pm 8pm 10pm, grey bold",
+      "x": 740,
+      "y": 190
+    },
+    {
+      "op": "run",
+      "at": 58778
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          1278,
+          2
+        ],
+        [
+          1278,
+          76
+        ],
+        [
+          2,
+          76
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 451,
+      "at": 7975
+    },
+    {
+      "way": [
+        [
+          600,
+          38
+        ]
+      ],
+      "n": 1,
+      "at": 8459
+    },
+    {
+      "way": [
+        [
+          40,
+          120
+        ],
+        [
+          293,
+          120
+        ]
+      ],
+      "n": 43,
+      "at": 9996
+    },
+    {
+      "way": [
+        [
+          1040,
+          100
+        ],
+        [
+          1240,
+          100
+        ],
+        [
+          1240,
+          146
+        ],
+        [
+          1040,
+          146
+        ],
+        [
+          1040,
+          100
+        ]
+      ],
+      "n": 83,
+      "at": 12194
+    },
+    {
+      "way": [
+        [
+          1070,
+          123
+        ]
+      ],
+      "n": 1,
+      "at": 12662
+    },
+    {
+      "way": [
+        [
+          240,
+          211
+        ],
+        [
+          660,
+          211
+        ],
+        [
+          660,
+          261
+        ],
+        [
+          240,
+          261
+        ],
+        [
+          240,
+          211
+        ]
+      ],
+      "n": 157,
+      "at": 16094
+    },
+    {
+      "way": [
+        [
+          600,
+          236
+        ]
+      ],
+      "n": 1,
+      "at": 16559
+    },
+    {
+      "way": [
+        [
+          520,
+          301
+        ],
+        [
+          940,
+          301
+        ],
+        [
+          940,
+          351
+        ],
+        [
+          520,
+          351
+        ],
+        [
+          520,
+          301
+        ]
+      ],
+      "n": 157,
+      "at": 19996
+    },
+    {
+      "way": [
+        [
+          880,
+          326
+        ]
+      ],
+      "n": 1,
+      "at": 20462
+    },
+    {
+      "way": [
+        [
+          380,
+          391
+        ],
+        [
+          940,
+          391
+        ],
+        [
+          940,
+          441
+        ],
+        [
+          380,
+          441
+        ],
+        [
+          380,
+          391
+        ]
+      ],
+      "n": 203,
+      "at": 24661
+    },
+    {
+      "way": [
+        [
+          880,
+          416
+        ]
+      ],
+      "n": 1,
+      "at": 25127
+    },
+    {
+      "way": [
+        [
+          800,
+          481
+        ],
+        [
+          1220,
+          481
+        ],
+        [
+          1220,
+          531
+        ],
+        [
+          800,
+          531
+        ],
+        [
+          800,
+          481
+        ]
+      ],
+      "n": 157,
+      "at": 28579
+    },
+    {
+      "way": [
+        [
+          1160,
+          506
+        ]
+      ],
+      "n": 1,
+      "at": 29044
+    },
+    {
+      "way": [
+        [
+          660,
+          571
+        ],
+        [
+          1220,
+          571
+        ],
+        [
+          1220,
+          621
+        ],
+        [
+          660,
+          621
+        ],
+        [
+          660,
+          571
+        ]
+      ],
+      "n": 203,
+      "at": 33249
+    },
+    {
+      "way": [
+        [
+          1160,
+          596
+        ]
+      ],
+      "n": 1,
+      "at": 33712
+    },
+    {
+      "way": [
+        [
+          240,
+          661
+        ],
+        [
+          520,
+          661
+        ],
+        [
+          520,
+          711
+        ],
+        [
+          240,
+          711
+        ],
+        [
+          240,
+          661
+        ]
+      ],
+      "n": 111,
+      "at": 36378
+    },
+    {
+      "way": [
+        [
+          460,
+          686
+        ]
+      ],
+      "n": 1,
+      "at": 36843
+    },
+    {
+      "way": [
+        [
+          2,
+          780
+        ],
+        [
+          1278,
+          780
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          780
+        ]
+      ],
+      "n": 467,
+      "at": 45484
+    },
+    {
+      "way": [
+        [
+          640,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 45946
+    },
+    {
+      "way": [
+        [
+          240,
+          190
+        ],
+        [
+          1240,
+          190
+        ]
+      ],
+      "n": 168,
+      "at": 57976
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Rota bold white, Week, People, Swaps right",
+      "whole": false,
+      "x": 200,
+      "y": 38,
+      "at": 46749
+    },
+    {
+      "text": "Thursday shifts big bold",
+      "whole": false,
+      "x": 60,
+      "y": 100,
+      "at": 47480
+    },
+    {
+      "text": "Publish white bold",
+      "whole": false,
+      "x": 1080,
+      "y": 123,
+      "at": 48132
+    },
+    {
+      "text": "x8 across: 8am 10am 12pm 2pm 4pm 6pm 8pm 10pm, grey bold",
+      "whole": false,
+      "x": 300,
+      "y": 181,
+      "at": 48897
+    },
+    {
+      "text": "x6 down, ruled rows: Maya, Barista; Tom, Barista; Ines, Kitchen; Sam, Kitchen; Ravi, Floor; Jo, Floor",
+      "whole": false,
+      "x": 40,
+      "y": 225,
+      "at": 49787
+    },
+    {
+      "text": "8 to 2",
+      "whole": false,
+      "x": 280,
+      "y": 236,
+      "at": 50428
+    },
+    {
+      "text": "10 to 4",
+      "whole": false,
+      "x": 560,
+      "y": 326,
+      "at": 51067
+    },
+    {
+      "text": "10 to 6",
+      "whole": false,
+      "x": 420,
+      "y": 416,
+      "at": 51704
+    },
+    {
+      "text": "4 to 10",
+      "whole": false,
+      "x": 840,
+      "y": 506,
+      "at": 52351
+    },
+    {
+      "text": "2 to 10",
+      "whole": false,
+      "x": 700,
+      "y": 596,
+      "at": 53008
+    },
+    {
+      "text": "8 to 12",
+      "whole": false,
+      "x": 280,
+      "y": 686,
+      "at": 53635
+    },
+    {
+      "text": "6 people, 42 hours, Cost $780",
+      "whole": false,
+      "x": 200,
+      "y": 840,
+      "at": 54338
+    }
+  ]
+}

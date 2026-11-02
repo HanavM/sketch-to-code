@@ -1,0 +1,627 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "14d63a55e3d9b6db1367288a489068d71f284d4f",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch is a weekly rota/schedule page: a dark navy header bar with the title and nav links, a 'Thursday shifts' heading and a red 'Publish' button beside it, a grey time-axis header row, a 6-row staff schedule grid where each row (Maya/Barista, Tom/Barista, Ines/Kitchen, Sam/Kitchen, Ravi/Floor, Jo/Floor) has a colored shift block labeled with its time span, and a light-grey footer summarizing totals.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x190 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:15:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 190
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s0",
+       "drawn": {
+        "x": 2,
+        "y": 1,
+        "w": 1276,
+        "h": 76
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 76
+       },
+       "dx": 0,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2b2e45 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Thursday shifts\" at (40,102) 229x36 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:25:9",
+      "rect": {
+       "x": 40,
+       "y": 102,
+       "w": 229.3125,
+       "h": 36
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1d2533 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (1029,26) 211x24 matches the sketch region",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:18:11",
+      "rect": {
+       "x": 1029.28125,
+       "y": 26,
+       "w": 210.71875,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1040,
+        "y": 99,
+        "w": 200,
+        "h": 47
+       },
+       "built": {
+        "x": 1040,
+        "y": 99,
+        "w": 200,
+        "h": 47
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f2243e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"8am\" at (240,181) 30x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:45:11",
+      "rect": {
+       "x": 240,
+       "y": 180,
+       "w": 30.03125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "reason": "a pale pen only places a row across"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:14:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 240,
+        "y": 210,
+        "w": 421,
+        "h": 51
+       },
+       "built": {
+        "x": 240,
+        "y": 208.5,
+        "w": 421,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": -1
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 519,
+        "y": 300,
+        "w": 421,
+        "h": 52
+       },
+       "built": {
+        "x": 519,
+        "y": 298.5,
+        "w": 421,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": -1
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 380,
+        "y": 390,
+        "w": 561,
+        "h": 52
+       },
+       "built": {
+        "x": 380,
+        "y": 388.5,
+        "w": 561,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": -1
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 800,
+        "y": 480,
+        "w": 420,
+        "h": 52
+       },
+       "built": {
+        "x": 800,
+        "y": 478.5,
+        "w": 420,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": -1
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 660,
+        "y": 570,
+        "w": 561,
+        "h": 52
+       },
+       "built": {
+        "x": 660,
+        "y": 568.5,
+        "w": 561,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": -1
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 240,
+        "y": 660,
+        "w": 281,
+        "h": 52
+       },
+       "built": {
+        "x": 240,
+        "y": 673,
+        "w": 281,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": 13
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2a9d8f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,640) 1280x119 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:51:11",
+      "rect": {
+       "x": 0,
+       "y": 640,
+       "w": 1280,
+       "h": 119
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 2,
+        "y": 779,
+        "w": 1276,
+        "h": 119
+       },
+       "built": {
+        "x": 0,
+        "y": 759,
+        "w": 1280,
+        "h": 119
+       },
+       "dx": 0,
+       "dy": -20
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 5.6,
+    "reason": "#ecf1f4 is on the page (ΔE 5.6)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 of 4 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 1,
+       "built": 0,
+       "dy": -1
+      },
+      {
+       "index": 2,
+       "drawn": 99,
+       "built": 99,
+       "dy": 0
+      },
+      {
+       "index": 3,
+       "drawn": 190,
+       "built": 190,
+       "dy": 0
+      },
+      {
+       "index": 5,
+       "drawn": 779,
+       "built": 759,
+       "dy": -20
+      }
+     ]
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "19 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 placed words where drawn"
+    }
+   },
+   {
+    "kind": "open-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 open list under its field, full width"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "count-row",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 items in one row over the span"
+    }
+   },
+   {
+    "kind": "drawn-order",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 marks drawn one under another built in the drawn order, each near its drawn height"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "11 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "the box drawn at (2,1) 1276x76",
+       "want": "#2b2e45",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (40,120) 253x0",
+       "want": "#1d2533",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1040,99) 200x47",
+       "want": "#f2243e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (240,190) 1000x0 (pale divider)",
+       "want": "words not #dfe5ea",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (239,210) 421x51",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (519,300) 421x52",
+       "want": "#f28c00",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (380,390) 561x52",
+       "want": "#3a86ff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (800,480) 420x52",
+       "want": "#8338ec",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (660,570) 561x52",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,660) 281x52",
+       "want": "#f28c00",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (2,779) 1276x119",
+       "want": "#ecf1f4",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 61287,
+   "cacheRead": 421033,
+   "output": 14497
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 37921,
+    "output": 11379,
+    "cacheRead": 152875,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 126006
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 37863,
+    "output": 3118,
+    "cacheRead": 268158,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 30750,
+    "why": [
+     "action 4 (add, drawn boxes): the box drawn at (380,390) 561x52: the <div> built for it sits 19px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or pad",
+     "action 5 (add, drawn boxes): the box drawn at (2,779) 1276x119: the <div> built for it lands now, but its place hangs on the <div> drawn at (240,660), which is 43px too low. When that one moves this o",
+     "page (colours from the ink): action 4: the box drawn at (240,660) 281x52 was coloured #f28c00 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #f28c00"
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

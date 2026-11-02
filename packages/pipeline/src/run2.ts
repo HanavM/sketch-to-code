@@ -80,6 +80,7 @@ import { lineEndsBrief, verifyLineEnds } from './lineends.js'
 import { verifyStats } from './statcard.js'
 import { statRowBrief, verifyStatRows } from './statrow.js'
 import { typedCopyBrief, verifyNoDirections, verifyTypedTimes } from './typedcopy.js'
+import { countedRow } from './countrow.js'
 import { hasSampleRows, rowDataBrief, verifyRowData } from './rowdata.js'
 import { buttonLabelBrief, verifyButtonLabels } from './buttonlabel.js'
 import { drawnOnceBrief, verifyDrawnOnce } from './drawnonce.js'
@@ -1474,13 +1475,19 @@ export function verifyColor(
   if (!want) return { satisfied: true, reason: 'no readable colour intent to check' }
   const box = a.region ?? a.targets[0]?.rect ?? a.dest?.rect
   if (!box) return { satisfied: true, reason: 'nothing to look in' }
+  // n249 (rota): a pale pen on the line of a count across says where the row goes, not its words' colour (countrow.ts)
+  if (want.r * 0.299 + want.g * 0.587 + want.b * 0.114 > 190 && a.notes?.some((t) => countedRow(t))) return { satisfied: true, reason: 'a pale pen only places a row across' }
 
   const inside = after.nodes.filter((n) => {
-    const cx = n.rect.x + n.rect.w / 2
-    const cy = n.rect.y + n.rect.h / 2
-    // a generous margin: a decoration is often positioned just outside the
-    // box the ink occupied
-    return cx >= box.x - 40 && cx <= box.x + box.w + 40 && cy >= box.y - 40 && cy <= box.y + box.h + 40
+    // n249 (wifi): a heading's element can run far past its words; the words are what was drawn, so its text box counts too
+    return [n.rect, n.textBox].some((b) => {
+      if (!b) return false
+      const cx = b.x + b.w / 2
+      const cy = b.y + b.h / 2
+      // a generous margin: a decoration is often positioned just outside the
+      // box the ink occupied
+      return cx >= box.x - 40 && cx <= box.x + box.w + 40 && cy >= box.y - 40 && cy <= box.y + box.h + 40
+    })
   })
   let best = Infinity
   for (const n of inside) {

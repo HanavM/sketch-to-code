@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { verifyColor } from '../src/run2.js'
 import { countedRow, countRows } from '../src/countrow.js'
 import { rowData } from '../src/rowdata.js'
 import { topBands } from '../src/topbands.js'
@@ -100,10 +101,33 @@ describe('n249: open rows under a band across the page', () => {
     expect(off.satisfied).toBe(false)
     expect(off.reason).toContain('start every row')
   })
+  it('take their pitch from one box per row drawn beside them', () => {
+    const bars = [210, 300, 390, 480, 570, 660].map((y, k) => ({ shape: 'box', box: { x: 240 + k * 10, y, w: 400, h: 52 } }))
+    const p = markOpenRows([note], [band, ...bars] as never, [note] as never, 1280)
+    expect(p[0]!.openRows).toMatchObject({ startX: 40, pitch: 90, firstMid: 225 })
+    expect(p[0]!.y).toBe(225)
+  })
+  it('a different number of boxes says nothing about the pitch', () => {
+    const bars = [210, 300, 390].map((y) => ({ shape: 'box', box: { x: 240, y, w: 400, h: 52 } }))
+    expect(markOpenRows([note], [band, ...bars] as never, [note] as never, 1280)[0]!.openRows!.pitch).not.toBe(90)
+  })
   it('a field that is a real panel keeps its full-width rows', () => {
     const panel = { shape: 'box', box: { x: 300, y: 100, w: 600, h: 80 } }
     const n = { text: ROWS, x: 340, y: 225 }
     const p = markOpenRows([n], [panel] as never, [n] as never, 1280)
     expect(p[0]!.openRows?.startX).toBeUndefined()
+  })
+})
+
+describe('n249: the drawn-colour check', () => {
+  const node = (rect: object, color: string, textBox?: object) => ({ rect, textBox, text: 'x', style: { color } })
+  const act = (css: string, notes: string[]) => ({ color: { drawn: css }, region: { x: 260, y: 30, w: 330, h: 20 }, targets: [], notes })
+  it('finds a heading by its words when its element runs far past them', () => {
+    const wide = node({ x: 260, y: 30, w: 982, h: 40 }, 'rgb(30,36,54)', { x: 260, y: 32, w: 287, h: 35 })
+    expect(verifyColor(act('#1e2436', []) as never, { nodes: [wide] } as never).satisfied).toBe(true)
+  })
+  it('never asks a counted row for its line\'s pale pen; other pale colours are still checked', () => {
+    expect(verifyColor(act('#dfe5ea', [HOURS]) as never, { nodes: [] } as never).satisfied).toBe(true)
+    expect(verifyColor(act('#dfe5ea', ['Hello']) as never, { nodes: [] } as never).satisfied).toBe(false)
   })
 })

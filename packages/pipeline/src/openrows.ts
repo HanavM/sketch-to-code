@@ -307,8 +307,24 @@ export function markOpenRows<T extends Spot & { openRows?: OpenRows }>(placed: T
     if (!o) return n
     // n249 (rota, n250): a band across the whole page says nothing about the rows' left edge; with no mark or column to go by, the spot typed does
     if (!o.mark && !o.column && !o.led && o.field.w >= 0.9 * viewW && n.x >= o.field.x + START_MIN_PX && n.x <= o.field.x + START_MAX_PX) o.startX = n.x
+    // n249 (rota): look-alike boxes drawn one under another beside the rows, as many as the rows, say the pitch: a row's words stand level with its box
+    if (o.startX != null) {
+      const step = besideBoxes(n, o.rows, shapes)
+      if (step) { o.pitch = step.pitch; o.firstMid = Math.abs(n.y - step.mid) <= 30 ? n.y : step.mid }
+    }
     return { ...n, x: o.startX ?? o.field.x + 8, y: o.firstMid, openRows: o }
   })
+}
+
+/** Boxes to the right of a note, one per row and evenly stepped down from about its height: the pitch and the first box's middle. */
+function besideBoxes(n: Spot, rows: number, shapes: readonly ShapeLike[]): { pitch: number; mid: number } | null {
+  const boxes = shapes.filter((s) => s.shape === 'box' && s.box.x > n.x && s.box.h >= 16 && s.box.h <= 120 && s.box.y + s.box.h >= n.y - 40).sort((a, b) => a.box.y - b.box.y)
+  if (boxes.length !== rows || rows < 2) return null
+  const tops = boxes.map((b) => b.box.y + b.box.h / 2)
+  if (Math.abs(tops[0]! - n.y) > 60) return null
+  const pitch = (tops[rows - 1]! - tops[0]!) / (rows - 1)
+  if (pitch < 24 || tops.some((t, k) => Math.abs(t - (tops[0]! + k * pitch)) > 0.12 * pitch)) return null
+  return { pitch: r(pitch), mid: r(tops[0]!) }
 }
 
 const START_MIN_PX = 24
