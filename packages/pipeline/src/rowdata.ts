@@ -160,6 +160,13 @@ export function rowData(note: string): RowData | null {
   else if (plus && /like|more/i.test(plus[0]) && (/like/i.test(plus[0]) || CELL.test(text) || ROWSEP.test(text))) { more = n(plus[1]!); text = text.replace(plus[0], ' ') }
   else if (times) { total = Number(times[1] ?? times[2]); text = text.replace(times[0], ' ') }
   text = text.replace(/[,;:\s]+$/, '').replace(/^[,;:\s]+/, '')
+  // n244 (r37 c1 replayed): "5 rows like this, thin dividers: A Row A, B Row B, ..." types all its rows after a look and a colon, by commas.
+  // The look and the whole list were taken for one row, so four rows were invented and the typed ones never printed
+  if (total !== null && !/[;/·•|]/.test(text)) {
+    const colon = /^([^:]{0,40}):\s*(.+)$/.exec(text)
+    const items = colon?.[2]!.split(/,\s+/).map(clean).filter(Boolean) ?? []
+    if (items.length === total) return { note, rows: items.map((i) => [i]), total: null }
+  }
   // n212: the way a count goes ("x3 stacked: a / b / c") is not the first row's words
   if (times) text = text.replace(/^(?:stacked|down|vertically|across|side by side|in a row|in a column)\s*:\s*/i, '')
   // n144: rows split by semicolons after a colon ("3 rides, grey thumb: Standard ... £18.40; Comfort ... £24.10")
@@ -273,7 +280,9 @@ export function verifyRowData(notes: readonly string[], after: Snap): RowDataVer
       const missing: string[] = []
       for (const r of d.rows) {
         const first = norm(r[0]!)
-        const hit = first.length >= 1 ? L.find((l) => l.t === first) ?? L.find((l) => first.length >= 3 && l.t.includes(first)) : undefined
+        const hit = first.length >= 1 ? L.find((l) => l.t === first) ?? L.find((l) => first.length >= 3 && l.t.includes(first))
+          // n244: a row typed as one run of words is told to split across the drawn columns: its start and its end on one line
+          ?? L.find((l) => l.t.length >= 3 && first.startsWith(`${l.t} `) && L.some((o) => o !== l && first.endsWith(` ${o.t}`) && Math.abs(o.b.y + o.b.h / 2 - (l.b.y + l.b.h / 2)) <= 12)) : undefined
         if (!hit) { missing.push(r[0]!); continue }
         ys.push(hit.b.y)
       }

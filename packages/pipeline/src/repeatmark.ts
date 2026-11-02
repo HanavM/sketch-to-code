@@ -189,6 +189,8 @@ export function repeatPlans(notes: readonly NoteLike[], strokes: readonly Stroke
     const listed = want.axis === 'y' && m.h <= ROW_MAX_H && m.w >= m.h * 2.5 && !insideMarks.length ? listedRows(note.text) : null
     const rowsHere = listed?.rows.length === want.n ? listed : null
     if (m.w >= vp.w * 0.5 && !rowsHere) continue
+    // n244 (r48 e5): a box half the page tall or more, with a way down, is where the list goes: never copies of a whole sidebar
+    if (want.axis === 'y' && m.h >= vp.h * 0.5) continue
     // n227: look-alike boxes already drawn under it are the next rows, at their drawn pitch
     const drawnNext = rowsHere ? boxes.filter((o) => o.id !== pick.id && o.box.y > m.y + m.h * 0.5 && Math.abs(o.box.x - m.x) <= 24 &&
       Math.abs(o.box.w - m.w) <= m.w * 0.15 && Math.abs(o.box.h - m.h) <= m.h * 0.4).sort((a, b) => a.box.y - b.box.y).slice(0, want.n - 1) : []

@@ -1,0 +1,729 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "43f87edf29978e1928086700f610d927d912b938",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/HangingGlowing.tsx"
+  ],
+  "reading": "The sketch designs a night food-market landing page: a dark navy page background, a header with an amber 'LANTERN ST' logo and a white nav reading 'Food Stalls Map Visit', a decorative string of four glowing lanterns, a huge bold hero headline 'Every Friday, after dark.' with supporting body copy, two pill buttons ('See this week' filled amber, 'Get the map' outlined), and a dark card titled 'Tonight's stalls' listing 5 food-stall rows with dividers.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"LANTERN ST\" at (64,26) 136x23 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:17:9",
+      "rect": {
+       "x": 64,
+       "y": 24,
+       "w": 136.25,
+       "h": 28.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffb347 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Food\" at (1017,28) 35x19 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:22:13",
+      "rect": {
+       "x": 1017.359375,
+       "y": 27,
+       "w": 35.4375,
+       "h": 22.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (64,0) 1152x77 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:16:7",
+      "rect": {
+       "x": 64,
+       "y": 0,
+       "w": 1152,
+       "h": 76.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/components/HangingGlowing.tsx:25:5 at (2,129) 1276x65 sits on the drawn shape",
+     "claimed": "e10"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s4",
+       "drawn": {
+        "x": 140,
+        "y": 130,
+        "w": 64,
+        "h": 63
+       },
+       "built": {
+        "x": 140,
+        "y": 129.6875,
+        "w": 64,
+        "h": 63
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 420,
+        "y": 130,
+        "w": 64,
+        "h": 64
+       },
+       "built": {
+        "x": 420,
+        "y": 129.6875,
+        "w": 64,
+        "h": 64
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 701,
+        "y": 130,
+        "w": 63,
+        "h": 63
+       },
+       "built": {
+        "x": 701,
+        "y": 129.6875,
+        "w": 63,
+        "h": 63
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 981,
+        "y": 130,
+        "w": 63,
+        "h": 64
+       },
+       "built": {
+        "x": 981,
+        "y": 129.6875,
+        "w": 63,
+        "h": 64
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ff6b3d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 2,
+    "score": 0,
+    "massSimilarity": 0,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "no drawn geometry found in the generated source"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (64,277) 570x414 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:35:9",
+      "rect": {
+       "x": 64,
+       "y": 276.5,
+       "w": 570,
+       "h": 414
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 13.1,
+    "reason": "#fff3dc is on the page (ΔE 13.1)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,538) 440x58 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:39:11",
+      "rect": {
+       "x": 64,
+       "y": 537.5,
+       "w": 440,
+       "h": 58
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#b8bcd8 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,538) 440x58 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:39:11",
+      "rect": {
+       "x": 64,
+       "y": 537.5,
+       "w": 440,
+       "h": 58
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 68,
+        "y": 639,
+        "w": 201,
+        "h": 57
+       },
+       "built": {
+        "x": 64,
+        "y": 633.5,
+        "w": 201,
+        "h": 57
+       },
+       "dx": -4,
+       "dy": -5
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffb347 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,538) 440x58 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:39:11",
+      "rect": {
+       "x": 64,
+       "y": 537.5,
+       "w": 440,
+       "h": 58
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 290,
+        "y": 640,
+        "w": 171,
+        "h": 57
+       },
+       "built": {
+        "x": 287,
+        "y": 633.5,
+        "w": 171,
+        "h": 57
+       },
+       "dx": -3,
+       "dy": -6
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (64,277) 1152x469 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:34:7",
+      "rect": {
+       "x": 64,
+       "y": 276.5,
+       "w": 1152,
+       "h": 469
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 879,
+        "y": 329,
+        "w": 331,
+        "h": 422
+       },
+       "built": {
+        "x": 885,
+        "y": 323.5,
+        "w": 331,
+        "h": 422
+       },
+       "dx": 6,
+       "dy": -5
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 of 6 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 1,
+       "drawn": 40,
+       "built": 38,
+       "dy": -2
+      },
+      {
+       "index": 3,
+       "drawn": 282,
+       "built": 277,
+       "dy": -5
+      },
+      {
+       "index": 4,
+       "drawn": 542,
+       "built": 538,
+       "dy": -5
+      },
+      {
+       "index": 5,
+       "drawn": 639,
+       "built": 634,
+       "dy": -6
+      },
+      {
+       "index": 6,
+       "drawn": 640,
+       "built": 634,
+       "dy": -6
+      },
+      {
+       "index": 7,
+       "drawn": 329,
+       "built": 325,
+       "dy": -5
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "18 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the typed rows starting \"Hand-pulled noodles Row A\", \"Grilled corn Row B\", \"Bubble tea Row B\", \"Dumplings Row C\" are not on the page: fill the drawn rows with every typed row, in order; change nothing else"
+    }
+   },
+   {
+    "kind": "card-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card list under its heading"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "row-template",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn row template kept: columns where drawn, rows at the drawn pitch"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "18 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#161b3a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,40) 146x0",
+       "want": "#ffb347",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (990,40) 226x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (2,150) 1276x2",
+       "want": "#6b7090",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (140,130) 64x63",
+       "want": "#ff6b3d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (420,130) 64x64",
+       "want": "#ffb347",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (701,130) 63x63",
+       "want": "#ff6b3d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (981,130) 63x64",
+       "want": "#ffb347",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (64,345) 570x0",
+       "want": "#fff3dc",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,440) 442x0",
+       "want": "#fff3dc",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (68,543) 435x0",
+       "want": "#b8bcd8",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (68,572) 105x0",
+       "want": "#b8bcd8",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (68,639) 201x57",
+       "want": "#ffb347",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (290,640) 171x57 (light pen outline)",
+       "want": "border #ffffff, no #ffffff fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (879,329) 332x422",
+       "want": "#232a5a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (908,369) 144x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (908,423) 146x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1133,423) 49x0",
+       "want": "#ffb347",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 102525,
+   "cacheRead": 1290345,
+   "output": 35610
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 67137,
+    "output": 25770,
+    "cacheRead": 473296,
+    "toolCalls": 12,
+    "tools": [
+     "Glob",
+     "Read components/HangingGlowing.tsx",
+     "Read src/App.tsx",
+     "Read s2c-hand-app/package.json",
+     "Glob",
+     "Read src/index.css",
+     "Edit components/HangingGlowing.tsx",
+     "Write src/App.tsx",
+     "Read components/HangingGlowing.tsx",
+     "Edit components/HangingGlowing.tsx",
+     "Edit components/HangingGlowing.tsx",
+     "Read components/HangingGlowing.tsx"
+    ],
+    "ms": 296693
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 65844,
+    "output": 9111,
+    "cacheRead": 508920,
+    "toolCalls": 7,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/HangingGlowing.tsx",
+     "Edit components/HangingGlowing.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 103092
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 5154,
+    "output": 729,
+    "cacheRead": 308129,
+    "toolCalls": 3,
+    "tools": [
+     "Read components/HangingGlowing.tsx",
+     "Edit components/HangingGlowing.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 7547
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
