@@ -1,12 +1,11 @@
 goal_hash: eaf762c530b22621cfce2832bad13b318bed94e2
 goal_state: working
-now: "Style words no longer print in headings (chess night 59.5 to about 80 with no fix); next, one-word heading lines landing where drawn, then a new round."
+now: "Heading lines now land where they are drawn and a day and time stay together; next, fixing grey squares in patterns, then a new round."
 round: 46
 round_scores: [53, 77, 76, 70, 79, 78, 72, 76, 65, 72, 79, 78, 79, 79, 75, 84, 78]   # round 0 = hand baseline on 10 pool pages; then rounds 31-43 (fresh rounds); round 34 is 79.5, round 35 is 77.9, round 36 is 72.3, round 37 is 76.3, round 38 is 65.0, round 39 is 72.4, round 40 is 78.7, round 41 is 78.0, round 42 is 79.4, round 43 is 79.0, round 44 is 75.1, round 45 is 83.6
 round_medians: [{round: 0, strokes: 9, words: 43, minutes: 5.8}, {round: 31, strokes: 18.5, words: 43.5, minutes: 6.1}, {round: 32, strokes: 11, words: 36.5, minutes: 4.2}, {round: 33, strokes: 14.5, words: 44.5, minutes: 6.3}, {round: 34, strokes: 15.5, words: 47.5, minutes: 5.7}, {round: 35, strokes: 17.5, words: 57.5, minutes: 8.0}, {round: 36, strokes: 19, words: 66.5, minutes: 8.1}, {round: 37, strokes: 19, words: 67.5, minutes: 8.5}, {round: 38, strokes: 19, words: 47.5, minutes: 7.7}, {round: 39, strokes: 14, words: 47.5, minutes: 5.7}, {round: 40, strokes: 18, words: 61, minutes: 6.9}, {round: 41, strokes: 17.5, words: 51, minutes: 9.7}, {round: 42, strokes: 15.5, words: 53.5, minutes: 7.7}, {round: 43, strokes: 17, words: 51, minutes: 7.2}, {round: 44, strokes: 17, words: 56.5, minutes: 10.1}, {round: 45, strokes: 18, words: 54, minutes: 8.5}, {round: 46, strokes: 16.5, words: 56, minutes: 7.6}]   # per round: {round, strokes, words, minutes}
-lock: {by: run-n218, until: "2026-11-02T10:24Z"}
-asks:
-  - "Starting the next run was denied by a permission check on 2026-11-02 at the end of n164: can you allow this task to start itself, or start it by hand?"
+lock: null
+asks: []
 handled:
   - "2026-10-27 GOAL.md changed (tests find missing features; hand-drawn sketches from screenshots only): archived the old tree and log to .goal/archive/2026-10-27-creative-rounds-autoplan/ and started a new tree. Old INBOX notes (no daily cap; push agent every step; round/round_scores; log ease alongside likeness) carry over as standing rules."
 criteria:
@@ -384,8 +383,12 @@ nodes:
   - {id: n164, parent: n4, kind: step, title: "Style words after a heading's copy (huge bold, right) are never printed, even when the copy has its own commas, and a heading never takes the line drawn under it; replay ski lodge", status: done, branch: try/n3-ink-style, result: "Style words off the page all four builds; chess 59.5 to 79.3, 83.3, no fix; ski 80.4, 77.7."}
   - {id: n216, parent: n4, kind: step, title: "A fix note saying no fill on lines already drawn leaves those lines alone, and a fix's lines are checked to be still there; replay tennis club fix", status: open, branch: try/n3-ink-style, result: null}
   - {id: n217, parent: n1, kind: step, title: "Write round 47: ten fresh pages (5 creative landing, 5 everyday app, harder than round 1) and their screenshots, without sketching them", status: open, branch: try/n3-ink-style, result: null}
-  - {id: n218, parent: n4, kind: step, title: "Two one-word heading lines land on their drawn lines at the drawn size and clear the line under them, and a comma line (Every Thursday, 7pm) stays one piece; replay chess night", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n218, parent: n4, kind: step, title: "Two one-word heading lines land on their drawn lines at the drawn size and clear the line under them, and a comma line (Every Thursday, 7pm) stays one piece; replay chess night", status: done, branch: try/n3-ink-style, result: "Heading on its lines, date one piece, both real builds; chess 85.7, 74.9 (grey squares); ski 80.2."}
+  - {id: n219, parent: n3, kind: step, title: "Named colours in a drawn pattern (black and cream squares) are flat and those colours, never grey fades, and the page is checked for them; replay chess night", status: open, branch: try/n3-ink-style, result: null}
+  - {id: n220, parent: n4, kind: step, title: "A look given to one word of a heading (MATE outlined only) is checked on the page, not just kept off it; replay chess night", status: open, branch: try/n3-ink-style, result: null}
 missing_features:   # {gap, found_on, built, helped}; full list in tests/hand/BASELINE.md on try/n1-hand-bench
+  - {gap: "Two short heading lines under one note had no drawn place or size told or checked: CHECK half size, MATE on the date line", found_on: "r41 c4 (n164)", built: "lines with one note saying which words go where are told and checked piece by piece (n218)", helped: "both real builds on their lines, structure 86 to 92; likeness 79.3, 83.3 to 85.7, 74.9 (other fault)"}
+  - {gap: "A day and a time on one line were split to its two ends as a list row: Every Thursday ... 7pm", found_on: "r41 c4 (n213, n164)", built: "a day and a time on a line of their own are one phrase; ruled in a list they stay a row (n218)", helped: "one piece in all four builds, was split in three of three"}
   - {gap: "A white box with a white line through it on a green court was built a solid white card with invented text", found_on: "r46 c4 (n210)", built: "a box with no tap or note, on a filled surface, with a same-pen line crossing it is lines only: told, never traced, checked on the page (n212)", helped: "tennis club 65.0 to 87.0 and 86.1 with no fix, 58 to 44 words (n212); demo tests/hand/out-n212/n212-demo.gif"}
   - {gap: "A direction word after a count (x3 stacked: a / b / c) made one tile and printed stacked:", found_on: "r46 c4 (n210)", built: "a note opening with a count is that count; the word sets the direction and is never printed; slashes split the items (n212)", helped: "three tiles at the drawn size in both replays (n212)"}
   - {gap: "Items after a count on a drawn line were invented: Vehicle price, Monthly budget, Trade-in rows with made-up figures; the three other drawn lines ignored", found_on: "r46 e5 (n211)", built: "a count with that many items after it is those items, verbatim, one per drawn line with its filled part and knob; told and checked, no sample rows (n214); demo tests/hand/out-n214/n214-demo.gif", helped: "loan calculator 55.9 with a fix to 74.0 and 72.8 with none; 68 to 51 words; build about half the time (n214)"}
@@ -683,6 +686,7 @@ n8_resketch:   # same strokes and notes as baseline, tool with exact counts + ke
   - {page: r12 c4-diagonal-split, likeness: 49.9, was: 49.7, strokes: 9, words: 52, minutes: 10.2, fixes: 1, tokens: 104676}
   - {page: r8 c2-orbit-type, likeness: 73.9, was: 71.0, strokes: 10, words: 32, minutes: 5.4, fixes: 0, tokens: 54207}
 notes:
+  - "2026-11-02 n218 ~490k billed in counted replays (chess 111k, 115k, 103k, 67k; ski 95k), plus two replays cut off by a short time limit and one read-only debug run, uncounted. Give a replay at least 9 minutes; never pkill -f."
   - "Hand session: node tests/hand/session.mjs (needs npm ci + npm run build; chromium at /opt/pw-browsers/chromium-1243). Drive it with curl -d JSON ops open/stroke/note/pen/undo/look/run/done on localhost:5390. Stop it with fuser -k 5390/tcp 5302/tcp, never pkill -f (it kills the calling shell)."
   - "Don't open target HTML, targets.json, effects.json, autoplan files or round NOTES while sketching. Only ref/*.png. The session loads targets.json itself, only to score at done."
   - "Merging try/n1-hand-bench into agent is a big merge (agent was cut from seed2tree; ~1,700 files differ). Do it when the first feature is proven, with tests run on the merge."
@@ -1259,6 +1263,10 @@ n213_resketch:   # earlier strokes, pens, first notes and fix notes replayed (re
   - {page: r46 e4-doctor-booking, try: 1, likeness: 79.9, was: 79.5, strokes: 18, words: 56, notes: 11, minutes: 6.7, fixes: 1, first_read_s: 105, build_s: 280, tokens: 119471, note: "fix kept"}
   - {page: r42 e5-gradebook, try: 1, likeness: 68.2, was: 65.9, strokes: 11, words: 60, notes: 9, minutes: 12.4, fixes: 1, first_read_s: 85, build_s: 622, tokens: 103151, note: "fix kept"}
   - {page: r41 c4-chess-night, try: 1, likeness: 59.5, was: 78.7, strokes: 10, words: 63, notes: 9, minutes: 8.0, fixes: 1, first_read_s: 76, build_s: 327, tokens: 147894, note: "not this change: first build printed style words, shaded squares"}
+n218_resketch:   # earlier strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N218.md on try/n3-ink-style
+  - {page: r41 c4-chess-night, try: 1, likeness: 85.7, was: 79.3, strokes: 10, words: 42, notes: 6, fixes: 0, first_read_s: 54, build_s: 289, total_s: 346, tokens: 102950}
+  - {page: r41 c4-chess-night, try: 2, likeness: 74.9, was: 83.3, strokes: 10, words: 42, notes: 6, fixes: 0, first_read_s: 46, build_s: 196, total_s: 244, tokens: 67084}
+  - {page: r42 c3-ski-lodge, try: 1, likeness: 80.2, was: 80.4, strokes: 19, words: 44, notes: 7, fixes: 0, first_read_s: 82, build_s: 206, total_s: 290, tokens: 94722}
 n164_resketch:   # earlier strokes, pens and first notes replayed (replay.mjs); first Run only, no fixes; tests/hand/N164.md on try/n3-ink-style
   - {page: r41 c4-chess-night, try: 1, likeness: 79.3, was: 59.5, strokes: 10, words: 42, notes: 6, fixes: 0, first_read_s: 60, build_s: 170, total_s: 232, tokens: 90509}
   - {page: r41 c4-chess-night, try: 2, likeness: 83.3, was: 59.5, strokes: 10, words: 42, notes: 6, fixes: 0, first_read_s: 55, build_s: 222, total_s: 279, tokens: 87413}
