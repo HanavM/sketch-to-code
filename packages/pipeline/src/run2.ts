@@ -1498,7 +1498,9 @@ export function verifyColor(
   for (const n of inside) {
     // n226: a colour in a slice chart's stops, or on an svg shape, is on the page too
     const stops = (n.style.backgroundImage ?? '').match(/rgba?\([^)]*\)/g) ?? []
-    for (const css of [n.style.color, n.style.backgroundColor, n.style.svgFill, n.style.svgStroke, ...stops]) {
+    // n268 (library search): a pale header rule built right, as a bottom border, failed here and cost a repair of about 40k tokens
+    const edges = [n.style.border, n.style.borderBottom].flatMap((b) => b?.match(/rgba?\([^)]*\)/g) ?? [])
+    for (const css of [n.style.color, n.style.backgroundColor, n.style.svgFill, n.style.svgStroke, ...stops, ...edges]) {
       const got = css ? parseCssColor(css) : null
       if (got) best = Math.min(best, deltaE(want, got))
     }

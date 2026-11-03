@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { directionStrings, lookNote, typedCopyBrief, verifyNoDirections } from '../src/typedcopy.js'
 import { looksOnly, markRowWords } from '../src/rowwords.js'
 import { markUnderWords, underWordsBrief, verifyUnderWords } from '../src/underbox.js'
+import { verifyColor } from '../src/run2.js'
 import type { ShapeMark } from '../src/shapemark.js'
 
 const box = (id: string, x: number, y: number, w: number, h: number) => ({ strokeId: id, shape: 'box', box: { x, y, w, h } }) as unknown as ShapeMark
@@ -65,5 +66,17 @@ describe('n268: words typed under a drawn box', () => {
     expect(inside.reason).toContain('below y 670')
     expect(verifyUnderWords(m, { nodes: [node('The Deep Blue', 60, 684)] }).satisfied).toBe(true)
     expect(verifyUnderWords(m, { nodes: [] }).unverifiable).toBe(true)
+  })
+})
+
+describe('n268: a drawn colour built as a border', () => {
+  const action = { color: { drawn: '#e5e7eb' }, region: { x: 0, y: 70, w: 1280, h: 1 }, targets: [] } as never
+  const page = (style: object) => ({ nodes: [{ rect: { x: 0, y: 0, w: 1280, h: 70 }, style: { color: 'rgb(15, 23, 42)', backgroundColor: 'rgb(255, 255, 255)', ...style } }] }) as never
+  it('is on the page', () => {
+    expect(verifyColor(action, page({ borderBottom: '1px rgb(229, 231, 235)' })).satisfied).toBe(true)
+    expect(verifyColor(action, page({ border: '1px rgb(229, 231, 235)' })).satisfied).toBe(true)
+  })
+  it('and no border of it still fails', () => {
+    expect(verifyColor(action, page({ color: 'rgb(15, 23, 42)', backgroundColor: 'rgb(15, 23, 42)' })).satisfied).toBe(false)
   })
 })
