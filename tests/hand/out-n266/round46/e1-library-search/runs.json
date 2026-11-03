@@ -1,0 +1,805 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "802dd45447f4957d578b2a7bc3675ee025bfadca",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "This sketches a library search page: a header bar, a search bar with button, a filter-chip row, a results-count line, and a 4-column grid of book cards each with a cover, title, author and status pill, all labeled by typed notes.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (40,21) 103x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:5:9",
+      "rect": {
+       "x": 40,
+       "y": 20.5,
+       "w": 102.671875,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": false,
+    "nearest": 73.8,
+    "reason": "nothing near the drawing is the colour that was drawn (#e5e7eb); closest is ΔE 73.8 away"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x70 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:4:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 70
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 41,
+        "y": 99,
+        "w": 899,
+        "h": 58
+       },
+       "built": {
+        "x": 40,
+        "y": 99,
+        "w": 899,
+        "h": 58
+       },
+       "dx": -1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s2",
+       "drawn": {
+        "x": 960,
+        "y": 99,
+        "w": 140,
+        "h": 57
+       },
+       "built": {
+        "x": 959,
+        "y": 99.5,
+        "w": 140,
+        "h": 57
+       },
+       "dx": -1,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ccd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (40,99) 899x58 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:14:11",
+      "rect": {
+       "x": 40,
+       "y": 99,
+       "w": 899,
+       "h": 58
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s4",
+       "drawn": {
+        "x": 40,
+        "y": 186,
+        "w": 58,
+        "h": 37
+       },
+       "built": {
+        "x": 40,
+        "y": 185.5,
+        "w": 58.046875,
+        "h": 37
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 110,
+        "y": 185,
+        "w": 82,
+        "h": 38
+       },
+       "built": {
+        "x": 110.046875,
+        "y": 185,
+        "w": 84.296875,
+        "h": 38
+       },
+       "dx": 1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 206,
+        "y": 186,
+        "w": 85,
+        "h": 37
+       },
+       "built": {
+        "x": 206.34375,
+        "y": 185.5,
+        "w": 87.390625,
+        "h": 37
+       },
+       "dx": 2,
+       "dy": 0
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 304,
+        "y": 185,
+        "w": 91,
+        "h": 38
+       },
+       "built": {
+        "x": 305.734375,
+        "y": 185,
+        "w": 92.96875,
+        "h": 38
+       },
+       "dx": 3,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 410,
+        "y": 186,
+        "w": 66,
+        "h": 37
+       },
+       "built": {
+        "x": 410.703125,
+        "y": 185.5,
+        "w": 68.984375,
+        "h": 37
+       },
+       "dx": 2,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f1f4f8 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:3:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 39,
+        "y": 289,
+        "w": 271,
+        "h": 381
+       },
+       "built": {
+        "x": 40,
+        "y": 289,
+        "w": 279,
+        "h": 381
+       },
+       "dx": 5,
+       "dy": 0
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 339,
+        "y": 289,
+        "w": 272,
+        "h": 382
+       },
+       "built": {
+        "x": 347,
+        "y": 289,
+        "w": 279,
+        "h": 382
+       },
+       "dx": 12,
+       "dy": 0
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 639,
+        "y": 289,
+        "w": 271,
+        "h": 382
+       },
+       "built": {
+        "x": 654,
+        "y": 289,
+        "w": 279,
+        "h": 382
+       },
+       "dx": 19,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 939,
+        "y": 289,
+        "w": 272,
+        "h": 382
+       },
+       "built": {
+        "x": 961,
+        "y": 289,
+        "w": 279,
+        "h": 382
+       },
+       "dx": 26,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#0f7490 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 coloured plain shapes built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "line-ends",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 group of words kept at their end of a long line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "16 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "the line drawn at (1,70) 1277x0 (pale divider)",
+       "want": "words not #e5e7eb",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (41,99) 899x58 (light pen outline)",
+       "want": "border #ccd5e1, no #ccd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (960,99) 140x57",
+       "want": "#2563eb",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (39,186) 58x37",
+       "want": "#1e293b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (110,185) 82x38",
+       "want": "#f1f4f8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (206,186) 85x37",
+       "want": "#f1f4f8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (304,185) 91x38",
+       "want": "#f1f4f8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (410,186) 66x37",
+       "want": "#f1f4f8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (39,289) 271x381 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (39,289) 271x381",
+       "want": "#0f7490",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (339,289) 272x382 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (339,289) 272x382",
+       "want": "#f59e0b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (639,289) 271x382 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (639,289) 271x382",
+       "want": "#7c3aed",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (939,289) 272x382 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (939,289) 272x382",
+       "want": "#334155",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 57636,
+   "cacheRead": 453241,
+   "output": 14723
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 36289,
+    "output": 10867,
+    "cacheRead": 149211,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 123460
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 29874,
+    "output": 1824,
+    "cacheRead": 110313,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 20909,
+    "why": [
+     "action 0 (colour): nothing near the drawing is the colour that was drawn (#e5e7eb); closest is ΔE 73.8 away",
+     "page (look-alike marks each with their own words): the box at (39,289) 271x381 should show \"four covers solid\" but shows the words of another item (\"Salt and Tide\"). The 4 look-alike marks each carry "
+    ]
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 6196,
+    "output": 2032,
+    "cacheRead": 193717,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 22114,
+    "why": [
+     "action 0 (colour): nothing near the drawing is the colour that was drawn (#e5e7eb); closest is ΔE 73.8 away",
+     "page (words where drawn or typed): \"four covers solid\" was typed at y 450 in the box drawn at (39,289) 271x381, but its words sit at y 576 (too low by 126px): move them to about y 450 (e.g. push them "
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "eefd6e0d771c8d622c895ea9f8ab3c9c94113b2e",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "No ink was drawn, only two typed notes: a page-wide note saying each book card's words (title, author, status) belong below a solid cover block and never inside it, applied to the first three cards; and a separate note on the fourth card (Coral Atlas) saying to leave that one as currently drawn, i.e. unchanged.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     }
+    ],
+    "satisfied": 1,
+    "total": 4,
+    "score": 0.25
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "23 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 35978,
+   "cacheRead": 152956,
+   "output": 14884
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 22016,
+    "output": 8090,
+    "cacheRead": 66662,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 88538
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 28846,
+    "output": 6794,
+    "cacheRead": 86294,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 81864,
+    "why": [
+     "action 0 (MODIFY): target not found and old text still absent",
+     "action 0 (MODIFY): target not found and old text still absent",
+     "action 1 (MODIFY): target not found and old text still absent"
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "07a7405cf86c721b23c80396ea96352f4366feb7",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "Two typed notes with no ink: rename the first book's title to \"The Deep Blue\", and make all four book covers extend to a consistent height (reaching the line near the bottom of the info block) with the title/author/status text placed beneath them.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 4,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     }
+    ],
+    "satisfied": 5,
+    "total": 5,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "22 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 9745,
+   "cacheRead": 122638,
+   "output": 3439
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 13184,
+    "output": 3439,
+    "cacheRead": 122638,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 40849
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

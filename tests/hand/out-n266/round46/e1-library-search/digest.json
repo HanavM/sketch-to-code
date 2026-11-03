@@ -1,0 +1,932 @@
+{
+  "round": 46,
+  "id": "e1-library-search",
+  "version": 3,
+  "stopped": null,
+  "likeness": 64.4,
+  "colour": 0.9138838006782299,
+  "structure": 0.8177741265779945,
+  "layout": 0.6913338212939124,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 6.1,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 1,
+      "circle": 7,
+      "dot": 2,
+      "box": 4
+    },
+    "inkPx": 9612
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 94,
+  "notes": 28,
+  "longestNote": 7,
+  "noteTexts": [
+    "City Library bold",
+    "My loans · Sign out",
+    "Search books, authors, topics grey",
+    "Search white bold",
+    "All white",
+    "Fiction",
+    "History",
+    "Science",
+    "Kids",
+    "pale chips solid",
+    "128 results for \"ocean\"",
+    "four covers solid",
+    "The Deep Blue bold",
+    "Mara Lind grey",
+    "Available green pill",
+    "Salt and Tide bold",
+    "J. Okafor grey",
+    "On loan red pill",
+    "Night Swimmers bold",
+    "Ella Brandt grey",
+    "Available green pill",
+    "Coral Atlas bold",
+    "Dr. R. Shah grey",
+    "Available green pill",
+    "words below covers as typed, none inside",
+    "as drawn",
+    "first title is The Deep Blue",
+    "all covers reach here, words under them"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 676,
+    "firstReadingS": 133,
+    "readS": [
+      73,
+      99,
+      25
+    ],
+    "buildS": [
+      169,
+      172,
+      42
+    ],
+    "sketchingS": 96
+  },
+  "corrections": 2,
+  "runs": 3,
+  "picks": 0,
+  "tokens": {
+    "input": 134323,
+    "cacheRead": 757718,
+    "output": 50652,
+    "billed": 184975
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 4010
+    },
+    {
+      "op": "pen",
+      "color": "#ccd5e1",
+      "at": 4376
+    },
+    {
+      "op": "stroke",
+      "at": 10008
+    },
+    {
+      "op": "pen",
+      "color": "#2563eb",
+      "at": 10385
+    },
+    {
+      "op": "stroke",
+      "at": 11792
+    },
+    {
+      "op": "stroke",
+      "at": 12276
+    },
+    {
+      "op": "pen",
+      "color": "#1e293b",
+      "at": 12644
+    },
+    {
+      "op": "stroke",
+      "at": 13524
+    },
+    {
+      "op": "stroke",
+      "at": 13992
+    },
+    {
+      "op": "pen",
+      "color": "#f1f4f8",
+      "at": 14375
+    },
+    {
+      "op": "stroke",
+      "at": 15390
+    },
+    {
+      "op": "stroke",
+      "at": 16424
+    },
+    {
+      "op": "stroke",
+      "at": 17490
+    },
+    {
+      "op": "stroke",
+      "at": 18424
+    },
+    {
+      "op": "pen",
+      "color": "#0f7490",
+      "at": 18797
+    },
+    {
+      "op": "stroke",
+      "at": 22876
+    },
+    {
+      "op": "pen",
+      "color": "#f59e0b",
+      "at": 23244
+    },
+    {
+      "op": "stroke",
+      "at": 27342
+    },
+    {
+      "op": "pen",
+      "color": "#7c3aed",
+      "at": 27710
+    },
+    {
+      "op": "stroke",
+      "at": 31792
+    },
+    {
+      "op": "pen",
+      "color": "#334155",
+      "at": 32158
+    },
+    {
+      "op": "stroke",
+      "at": 36224
+    },
+    {
+      "op": "note",
+      "at": 36911
+    },
+    {
+      "op": "note",
+      "at": 37588
+    },
+    {
+      "op": "note",
+      "at": 38315
+    },
+    {
+      "op": "note",
+      "at": 38992
+    },
+    {
+      "op": "note",
+      "at": 39651
+    },
+    {
+      "op": "note",
+      "at": 40295
+    },
+    {
+      "op": "note",
+      "at": 40941
+    },
+    {
+      "op": "note",
+      "at": 41588
+    },
+    {
+      "op": "note",
+      "at": 42237
+    },
+    {
+      "op": "note",
+      "at": 42944
+    },
+    {
+      "op": "note",
+      "at": 43672
+    },
+    {
+      "op": "note",
+      "at": 44387
+    },
+    {
+      "op": "note",
+      "at": 45131
+    },
+    {
+      "op": "note",
+      "at": 45881
+    },
+    {
+      "op": "note",
+      "at": 46572
+    },
+    {
+      "op": "note",
+      "at": 47330
+    },
+    {
+      "op": "note",
+      "at": 48029
+    },
+    {
+      "op": "note",
+      "at": 48706
+    },
+    {
+      "op": "note",
+      "at": 49406
+    },
+    {
+      "op": "note",
+      "at": 50191
+    },
+    {
+      "op": "note",
+      "at": 50957
+    },
+    {
+      "op": "note",
+      "at": 51682
+    },
+    {
+      "op": "note",
+      "at": 52392
+    },
+    {
+      "op": "note",
+      "at": 53074
+    },
+    {
+      "op": "run",
+      "at": 59935
+    },
+    {
+      "op": "note",
+      "at": 313059
+    },
+    {
+      "op": "note",
+      "at": 313680
+    },
+    {
+      "op": "run",
+      "at": 313754
+    },
+    {
+      "op": "note",
+      "at": 596520
+    },
+    {
+      "op": "note",
+      "at": 597216
+    },
+    {
+      "op": "run",
+      "at": 597292
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          0,
+          70
+        ],
+        [
+          1279,
+          70
+        ]
+      ],
+      "n": 214,
+      "at": 4010
+    },
+    {
+      "way": [
+        [
+          68,
+          100
+        ],
+        [
+          912,
+          100
+        ],
+        [
+          930,
+          108
+        ],
+        [
+          940,
+          128
+        ],
+        [
+          930,
+          148
+        ],
+        [
+          912,
+          156
+        ],
+        [
+          68,
+          156
+        ],
+        [
+          50,
+          148
+        ],
+        [
+          40,
+          128
+        ],
+        [
+          50,
+          108
+        ],
+        [
+          68,
+          100
+        ]
+      ],
+      "n": 311,
+      "at": 10008
+    },
+    {
+      "way": [
+        [
+          988,
+          100
+        ],
+        [
+          1072,
+          100
+        ],
+        [
+          1090,
+          108
+        ],
+        [
+          1100,
+          128
+        ],
+        [
+          1090,
+          148
+        ],
+        [
+          1072,
+          156
+        ],
+        [
+          988,
+          156
+        ],
+        [
+          970,
+          148
+        ],
+        [
+          960,
+          128
+        ],
+        [
+          970,
+          108
+        ],
+        [
+          988,
+          100
+        ]
+      ],
+      "n": 57,
+      "at": 11792
+    },
+    {
+      "way": [
+        [
+          975,
+          128
+        ]
+      ],
+      "n": 1,
+      "at": 12276
+    },
+    {
+      "way": [
+        [
+          58,
+          186
+        ],
+        [
+          80,
+          186
+        ],
+        [
+          92,
+          192
+        ],
+        [
+          97,
+          204
+        ],
+        [
+          92,
+          216
+        ],
+        [
+          80,
+          223
+        ],
+        [
+          58,
+          223
+        ],
+        [
+          46,
+          216
+        ],
+        [
+          40,
+          204
+        ],
+        [
+          46,
+          192
+        ],
+        [
+          58,
+          186
+        ]
+      ],
+      "n": 25,
+      "at": 13524
+    },
+    {
+      "way": [
+        [
+          50,
+          204
+        ]
+      ],
+      "n": 1,
+      "at": 13992
+    },
+    {
+      "way": [
+        [
+          127,
+          186
+        ],
+        [
+          175,
+          186
+        ],
+        [
+          193,
+          204
+        ],
+        [
+          175,
+          223
+        ],
+        [
+          127,
+          223
+        ],
+        [
+          109,
+          204
+        ],
+        [
+          127,
+          186
+        ]
+      ],
+      "n": 33,
+      "at": 15390
+    },
+    {
+      "way": [
+        [
+          223,
+          186
+        ],
+        [
+          274,
+          186
+        ],
+        [
+          292,
+          204
+        ],
+        [
+          274,
+          223
+        ],
+        [
+          223,
+          223
+        ],
+        [
+          205,
+          204
+        ],
+        [
+          223,
+          186
+        ]
+      ],
+      "n": 35,
+      "at": 16424
+    },
+    {
+      "way": [
+        [
+          322,
+          186
+        ],
+        [
+          379,
+          186
+        ],
+        [
+          397,
+          204
+        ],
+        [
+          379,
+          223
+        ],
+        [
+          322,
+          223
+        ],
+        [
+          304,
+          204
+        ],
+        [
+          322,
+          186
+        ]
+      ],
+      "n": 37,
+      "at": 17490
+    },
+    {
+      "way": [
+        [
+          427,
+          186
+        ],
+        [
+          460,
+          186
+        ],
+        [
+          478,
+          204
+        ],
+        [
+          460,
+          223
+        ],
+        [
+          427,
+          223
+        ],
+        [
+          409,
+          204
+        ],
+        [
+          427,
+          186
+        ]
+      ],
+      "n": 29,
+      "at": 18424
+    },
+    {
+      "way": [
+        [
+          40,
+          290
+        ],
+        [
+          310,
+          290
+        ],
+        [
+          310,
+          670
+        ],
+        [
+          40,
+          670
+        ],
+        [
+          40,
+          290
+        ]
+      ],
+      "n": 217,
+      "at": 22876
+    },
+    {
+      "way": [
+        [
+          340,
+          290
+        ],
+        [
+          610,
+          290
+        ],
+        [
+          610,
+          670
+        ],
+        [
+          340,
+          670
+        ],
+        [
+          340,
+          290
+        ]
+      ],
+      "n": 217,
+      "at": 27342
+    },
+    {
+      "way": [
+        [
+          640,
+          290
+        ],
+        [
+          910,
+          290
+        ],
+        [
+          910,
+          670
+        ],
+        [
+          640,
+          670
+        ],
+        [
+          640,
+          290
+        ]
+      ],
+      "n": 217,
+      "at": 31792
+    },
+    {
+      "way": [
+        [
+          940,
+          290
+        ],
+        [
+          1210,
+          290
+        ],
+        [
+          1210,
+          670
+        ],
+        [
+          940,
+          670
+        ],
+        [
+          940,
+          290
+        ]
+      ],
+      "n": 217,
+      "at": 36224
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "City Library bold",
+      "whole": false,
+      "x": 40,
+      "y": 24,
+      "at": 36911
+    },
+    {
+      "text": "My loans · Sign out",
+      "whole": false,
+      "x": 1112,
+      "y": 24,
+      "at": 37587
+    },
+    {
+      "text": "Search books, authors, topics grey",
+      "whole": false,
+      "x": 66,
+      "y": 118,
+      "at": 38315
+    },
+    {
+      "text": "Search white bold",
+      "whole": false,
+      "x": 1003,
+      "y": 118,
+      "at": 38992
+    },
+    {
+      "text": "All white",
+      "whole": false,
+      "x": 60,
+      "y": 194,
+      "at": 39651
+    },
+    {
+      "text": "Fiction",
+      "whole": false,
+      "x": 129,
+      "y": 194,
+      "at": 40295
+    },
+    {
+      "text": "History",
+      "whole": false,
+      "x": 225,
+      "y": 194,
+      "at": 40941
+    },
+    {
+      "text": "Science",
+      "whole": false,
+      "x": 324,
+      "y": 194,
+      "at": 41588
+    },
+    {
+      "text": "Kids",
+      "whole": false,
+      "x": 429,
+      "y": 194,
+      "at": 42237
+    },
+    {
+      "text": "pale chips solid",
+      "whole": false,
+      "x": 420,
+      "y": 255,
+      "at": 42944
+    },
+    {
+      "text": "128 results for \"ocean\"",
+      "whole": false,
+      "x": 40,
+      "y": 251,
+      "at": 43672
+    },
+    {
+      "text": "four covers solid",
+      "whole": false,
+      "x": 130,
+      "y": 450,
+      "at": 44387
+    },
+    {
+      "text": "The Deep Blue bold",
+      "whole": false,
+      "x": 40,
+      "y": 684,
+      "at": 45131
+    },
+    {
+      "text": "Mara Lind grey",
+      "whole": false,
+      "x": 40,
+      "y": 710,
+      "at": 45881
+    },
+    {
+      "text": "Available green pill",
+      "whole": false,
+      "x": 50,
+      "y": 740,
+      "at": 46572
+    },
+    {
+      "text": "Salt and Tide bold",
+      "whole": false,
+      "x": 340,
+      "y": 684,
+      "at": 47330
+    },
+    {
+      "text": "J. Okafor grey",
+      "whole": false,
+      "x": 340,
+      "y": 710,
+      "at": 48029
+    },
+    {
+      "text": "On loan red pill",
+      "whole": false,
+      "x": 350,
+      "y": 740,
+      "at": 48706
+    },
+    {
+      "text": "Night Swimmers bold",
+      "whole": false,
+      "x": 640,
+      "y": 684,
+      "at": 49406
+    },
+    {
+      "text": "Ella Brandt grey",
+      "whole": false,
+      "x": 640,
+      "y": 710,
+      "at": 50191
+    },
+    {
+      "text": "Available green pill",
+      "whole": false,
+      "x": 650,
+      "y": 740,
+      "at": 50957
+    },
+    {
+      "text": "Coral Atlas bold",
+      "whole": false,
+      "x": 940,
+      "y": 684,
+      "at": 51682
+    },
+    {
+      "text": "Dr. R. Shah grey",
+      "whole": false,
+      "x": 940,
+      "y": 710,
+      "at": 52392
+    },
+    {
+      "text": "Available green pill",
+      "whole": false,
+      "x": 950,
+      "y": 740,
+      "at": 53074
+    },
+    {
+      "text": "words below covers as typed, none inside",
+      "whole": false,
+      "x": 320,
+      "y": 800,
+      "at": 313059
+    },
+    {
+      "text": "as drawn",
+      "whole": false,
+      "x": 1215,
+      "y": 480,
+      "at": 313680
+    },
+    {
+      "text": "first title is The Deep Blue",
+      "whole": false,
+      "x": 175,
+      "y": 580,
+      "at": 596520
+    },
+    {
+      "text": "all covers reach here, words under them",
+      "whole": false,
+      "x": 475,
+      "y": 670,
+      "at": 597216
+    }
+  ]
+}

@@ -1,0 +1,545 @@
+{
+  "round": 45,
+  "id": "c2-watchmaker",
+  "version": 3,
+  "stopped": null,
+  "likeness": 85.6,
+  "colour": 0.9481159947889078,
+  "structure": 0.9147898474474884,
+  "layout": 0.7370213419952459,
+  "strokes": {
+    "count": 12,
+    "pointsPerStroke": 3.3,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "line": 7,
+      "circle": 2,
+      "box": 1
+    },
+    "inkPx": 3874
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 52,
+  "notes": 14,
+  "longestNote": 10,
+  "noteTexts": [
+    "Atelier Vos bold serif spaced",
+    "WATCHES",
+    "STRAPS",
+    "REPAIRS",
+    "VISIT",
+    "SINCE 1952 gold spaced",
+    "Time, made by / hand huge italic serif",
+    "Each movement is assembled and tuned in our Basel workshop.",
+    "SEE THE COLLECTION gold bold",
+    "button hollow, gold outline",
+    "hub round dot",
+    "logo here, bigger",
+    "gold border round button",
+    "hub gold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 452,
+    "firstReadingS": 90,
+    "readS": [
+      59,
+      33,
+      21
+    ],
+    "buildS": [
+      231,
+      42,
+      10
+    ],
+    "sketchingS": 56
+  },
+  "corrections": 2,
+  "runs": 3,
+  "picks": 0,
+  "tokens": {
+    "input": 135654,
+    "cacheRead": 644543,
+    "output": 35425,
+    "billed": 171079
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#12302b",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 474
+    },
+    {
+      "op": "pen",
+      "color": "#2f4a44",
+      "at": 855
+    },
+    {
+      "op": "stroke",
+      "at": 4884
+    },
+    {
+      "op": "pen",
+      "color": "#c9a24d",
+      "at": 5255
+    },
+    {
+      "op": "stroke",
+      "at": 9936
+    },
+    {
+      "op": "pen",
+      "color": "#efe6d3",
+      "at": 10305
+    },
+    {
+      "op": "stroke",
+      "at": 10784
+    },
+    {
+      "op": "pen",
+      "color": "#12302b",
+      "at": 11154
+    },
+    {
+      "op": "stroke",
+      "at": 11750
+    },
+    {
+      "op": "stroke",
+      "at": 12334
+    },
+    {
+      "op": "stroke",
+      "at": 12916
+    },
+    {
+      "op": "stroke",
+      "at": 13516
+    },
+    {
+      "op": "stroke",
+      "at": 14332
+    },
+    {
+      "op": "stroke",
+      "at": 15302
+    },
+    {
+      "op": "pen",
+      "color": "#c9a24d",
+      "at": 15669
+    },
+    {
+      "op": "stroke",
+      "at": 16334
+    },
+    {
+      "op": "stroke",
+      "at": 18365
+    },
+    {
+      "op": "note",
+      "at": 19022
+    },
+    {
+      "op": "note",
+      "at": 19643
+    },
+    {
+      "op": "note",
+      "at": 20254
+    },
+    {
+      "op": "note",
+      "at": 20873
+    },
+    {
+      "op": "note",
+      "at": 21484
+    },
+    {
+      "op": "note",
+      "at": 22140
+    },
+    {
+      "op": "note",
+      "at": 22796
+    },
+    {
+      "op": "note",
+      "at": 23475
+    },
+    {
+      "op": "note",
+      "at": 24174
+    },
+    {
+      "op": "run",
+      "at": 30668
+    },
+    {
+      "op": "note",
+      "at": 331685
+    },
+    {
+      "op": "note",
+      "at": 332327
+    },
+    {
+      "op": "note",
+      "at": 332965
+    },
+    {
+      "op": "run",
+      "at": 333119
+    },
+    {
+      "op": "note",
+      "at": 418318
+    },
+    {
+      "op": "note",
+      "at": 418946
+    },
+    {
+      "op": "run",
+      "at": 419012
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1150,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 474
+    },
+    {
+      "way": [
+        [
+          0,
+          90
+        ],
+        [
+          1279,
+          90
+        ]
+      ],
+      "n": 214,
+      "at": 4884
+    },
+    {
+      "way": [
+        [
+          390,
+          200
+        ],
+        [
+          510,
+          232
+        ],
+        [
+          598,
+          320
+        ],
+        [
+          630,
+          440
+        ],
+        [
+          598,
+          560
+        ],
+        [
+          510,
+          648
+        ],
+        [
+          390,
+          680
+        ],
+        [
+          270,
+          648
+        ],
+        [
+          182,
+          560
+        ],
+        [
+          150,
+          440
+        ],
+        [
+          182,
+          320
+        ],
+        [
+          270,
+          232
+        ],
+        [
+          390,
+          200
+        ]
+      ],
+      "n": 253,
+      "at": 9936
+    },
+    {
+      "way": [
+        [
+          300,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 10784
+    },
+    {
+      "way": [
+        [
+          390,
+          236
+        ],
+        [
+          390,
+          276
+        ]
+      ],
+      "n": 8,
+      "at": 11750
+    },
+    {
+      "way": [
+        [
+          186,
+          440
+        ],
+        [
+          226,
+          440
+        ]
+      ],
+      "n": 8,
+      "at": 12334
+    },
+    {
+      "way": [
+        [
+          554,
+          440
+        ],
+        [
+          594,
+          440
+        ]
+      ],
+      "n": 8,
+      "at": 12916
+    },
+    {
+      "way": [
+        [
+          390,
+          604
+        ],
+        [
+          390,
+          644
+        ]
+      ],
+      "n": 8,
+      "at": 13516
+    },
+    {
+      "way": [
+        [
+          390,
+          440
+        ],
+        [
+          293,
+          358
+        ]
+      ],
+      "n": 22,
+      "at": 14332
+    },
+    {
+      "way": [
+        [
+          390,
+          440
+        ],
+        [
+          543,
+          351
+        ]
+      ],
+      "n": 31,
+      "at": 15302
+    },
+    {
+      "way": [
+        [
+          390,
+          428
+        ],
+        [
+          402,
+          440
+        ],
+        [
+          390,
+          452
+        ],
+        [
+          378,
+          440
+        ],
+        [
+          390,
+          428
+        ]
+      ],
+      "n": 13,
+      "at": 16334
+    },
+    {
+      "way": [
+        [
+          740,
+          580
+        ],
+        [
+          970,
+          580
+        ],
+        [
+          970,
+          636
+        ],
+        [
+          740,
+          636
+        ],
+        [
+          740,
+          580
+        ]
+      ],
+      "n": 95,
+      "at": 18365
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Atelier Vos bold serif spaced",
+      "whole": false,
+      "x": 576,
+      "y": 34,
+      "at": 19022
+    },
+    {
+      "text": "WATCHES",
+      "whole": false,
+      "x": 276,
+      "y": 36,
+      "at": 19643
+    },
+    {
+      "text": "STRAPS",
+      "whole": false,
+      "x": 430,
+      "y": 36,
+      "at": 20254
+    },
+    {
+      "text": "REPAIRS",
+      "whole": false,
+      "x": 800,
+      "y": 36,
+      "at": 20873
+    },
+    {
+      "text": "VISIT",
+      "whole": false,
+      "x": 945,
+      "y": 36,
+      "at": 21484
+    },
+    {
+      "text": "SINCE 1952 gold spaced",
+      "whole": false,
+      "x": 740,
+      "y": 261,
+      "at": 22140
+    },
+    {
+      "text": "Time, made by / hand huge italic serif",
+      "whole": false,
+      "x": 740,
+      "y": 320,
+      "at": 22796
+    },
+    {
+      "text": "Each movement is assembled and tuned in our Basel workshop.",
+      "whole": false,
+      "x": 740,
+      "y": 476,
+      "at": 23475
+    },
+    {
+      "text": "SEE THE COLLECTION gold bold",
+      "whole": false,
+      "x": 754,
+      "y": 600,
+      "at": 24174
+    },
+    {
+      "text": "button hollow, gold outline",
+      "whole": false,
+      "x": 800,
+      "y": 650,
+      "at": 331685
+    },
+    {
+      "text": "hub round dot",
+      "whole": false,
+      "x": 420,
+      "y": 470,
+      "at": 332327
+    },
+    {
+      "text": "logo here, bigger",
+      "whole": false,
+      "x": 576,
+      "y": 62,
+      "at": 332965
+    },
+    {
+      "text": "gold border round button",
+      "whole": false,
+      "x": 980,
+      "y": 608,
+      "at": 418318
+    },
+    {
+      "text": "hub gold",
+      "whole": false,
+      "x": 420,
+      "y": 500,
+      "at": 418946
+    }
+  ]
+}
