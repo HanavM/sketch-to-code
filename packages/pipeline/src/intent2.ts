@@ -344,6 +344,7 @@ import { markTableRows } from './tablerows.js'
 import { markRuleLabels, paleOn, markPaleDividers } from './ruleline.js'
 import { routeLines } from './routeline.js'
 import { markRowWords } from './rowwords.js'
+import { markUnderWords } from './underbox.js'
 import { bindTiltNotes } from './tiltwords.js'
 import { markOutlined } from './textlook.js'
 import { proseLineIds } from './barlabels.js'
@@ -1506,6 +1507,8 @@ export function groundInterpretation(
     }
     // n69: a box or ring with its own note keeps those words (one item of a list of look-alike marks)
     if (shapeMarks.length) markRowWords(shapeMarks, noteObjs, innerBoxes)
+    // n268: words typed in open space under a box of real size stay under it
+    if (shapeMarks.length) markUnderWords(shapeMarks, ev.notes)
     actions.push({
       kind: a.kind,
       targets,

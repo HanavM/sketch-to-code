@@ -25,6 +25,7 @@ import { rowBrief } from './rowspan.js'
 import { BIG_WORD, isDisplay, lineAsksBig, spanFontPx } from './linespan.js'
 import { labelValue, ruledRow, spreadCentres, whenLine } from './linespread.js'
 import { outlinedOf } from './textlook.js'
+import { lookNote } from './typedcopy.js'
 import { bindTiltNotes } from './tiltwords.js'
 import { lineEnds } from './lineends.js'
 
@@ -86,7 +87,8 @@ export function markTextPlaces(marks: ShapeMark[], notes: NoteLike[], pageW = 12
     }
     if (m.shape !== 'box' || m.area || m.solid || m.box.w < 120 || m.box.h < 100) continue
     const b = m.box
-    const typed = ownNotes(m, notes)
+    // n268: a note saying how a kind of thing looks has no words to place
+    const typed = ownNotes(m, notes).filter((n) => !lookNote(n.text))
       .filter((n) => n.at && n.at.x >= b.x - 4 && n.at.x <= b.x + b.w + 4 && n.at.y >= b.y - 4 && n.at.y <= b.y + b.h + 4)
       .map((n) => ({ text: n.text, x: r1(n.at!.x), y: r1(n.at!.y) }))
     if (typed.length) m.typed = typed

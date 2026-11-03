@@ -262,9 +262,57 @@ export function typedTimes(notes: readonly string[]): string[] {
 }
 
 /** Strings that must never be text on the page: directions, multi-word look tails, raw notes that carried them. */
+/**
+ * n268: the words before a trailing run of lower-case look words, however they were typed ("Mara Lind grey", "The Deep
+ * Blue bold", "On loan red pill"). A capital stops it, so "Deep Blue" is kept whole.
+ */
+export function withoutLookTail(text: string): string {
+  const words = text.trim().split(/\s+/)
+  while (words.length > 1 && words.at(-1) === words.at(-1)!.toLowerCase() && LOOK.test(words.at(-1)!.replace(/[^\p{L}]/gu, ''))) words.pop()
+  return words.join(' ')
+}
+
+/** n268: words that say how a whole kind of thing looks, typed after its name. */
+const FILL_WORD = /^(solid|flat|hollow|filled|plain|empty|outlined)$/
+const TAIL_WORD = /^(solid|flat|hollow|filled|plain|empty|outlined|rounded|round|square|dashed|dotted|striped|thick|thin|bold|big|small|huge|tiny|dark|light|pale|bright|faint|white|black|grey|gray|red|orange|yellow|green|teal|cyan|blue|navy|indigo|purple|violet|pink|brown|beige|cream|gold|silver)$/
+const HOW_MANY = /^(all|every|each|both|two|three|four|five|six|seven|eight|nine|ten|\d+)$/
+/**
+ * n268 (library search): "four covers solid" typed on the first of four covers says how they look. It was taken as the
+ * first cover's words, and a check then demanded it on the page, replacing the title The Deep Blue. The same for
+ * "pale chips solid" and "tracks thick black". A count or "all", then a plural (or one thing plus a fill word), then look
+ * words. Copy with a look word stays copy: "results grey", "Four Seasons bold", "All white". Returns the thing's name.
+ */
+export function lookNote(text: string): string | null {
+  const t = text.trim()
+  if (!t || /[:;,.!?"]/.test(t)) return null
+  const words = t.split(/\s+/)
+  if (words.length < 2 || words.length > 6) return null
+  if (words.slice(1).some((w) => w !== w.toLowerCase())) return null
+  const first = words[0]!.toLowerCase()
+  const capital = words[0] !== first
+  let i = 0
+  const many = HOW_MANY.test(first)
+  if (many) i++
+  if (words[i]?.toLowerCase() === 'the') i++
+  let adjectives = 0
+  while (i < words.length - 2 && TAIL_WORD.test(words[i]!.toLowerCase())) { i++; adjectives++ }
+  const noun = words[i]?.toLowerCase()
+  if (!noun || !/^[a-z]{3,}$/.test(noun) || TAIL_WORD.test(noun)) return null
+  const tail = words.slice(i + 1).map((w) => w.toLowerCase())
+  if (!tail.length || !tail.every((w) => TAIL_WORD.test(w))) return null
+  const plural = /[^su]s$/.test(noun) && noun !== 'news'
+  const fill = tail.some((w) => FILL_WORD.test(w))
+  // a capital opens a title as easily as a note: only a fill word says it is a look ("Four covers solid", not "Four seasons bold")
+  if (capital && !(many && fill)) return null
+  if (plural && (many || fill || tail.length >= 2)) return noun
+  return !plural && !many && !adjectives && fill ? noun : null
+}
+
 export function directionStrings(notes: readonly string[]): { text: string; why: string; note: string }[] {
   const out: { text: string; why: string; note: string }[] = []
   for (const n of notes) {
+    // n268: "four covers solid" says how a kind of thing looks; none of it is text
+    if (lookNote(n)) { out.push({ text: n.trim(), why: 'how a kind of thing looks', note: n }); continue }
     // n92: a progress bar note is told and checked by progress.ts (its caption is copy, its percent is the fill)
     if (progressOf(n)) continue
     // n215: rows with cells listed after a count are all typed copy (row data tells and checks them)
@@ -305,6 +353,9 @@ export function typedCopyBrief(notes: readonly string[]): string {
   }
   const seen = new Set<string>()
   for (const n of notes) {
+    // n268: a note about how a whole kind of thing looks prints nothing
+    const kindLook = lookNote(n)
+    if (kindLook) { lines.push(`- "${n}": says how the ${kindLook} look. None of these words is text on the page: never print them as a title, name or caption; each item keeps its own typed words.`); continue }
     if (progressOf(n)) continue
     // n215: rows with cells listed after a count are all typed copy (row data tells and checks them)
     if (cellRows(n) || countedRow(n)) continue

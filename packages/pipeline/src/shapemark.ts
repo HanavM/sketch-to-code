@@ -89,6 +89,8 @@ export interface ShapeMark {
   glyph?: { char: string; name: string }
   /** n69: box or ring with its own note: the words typed for it (one item of a list of look-alike marks). */
   own?: string
+  /** n268: words typed in open space right under this box: they stay below its bottom edge. */
+  under?: Array<{ text: string; copy: string; y: number }>
   /** n119: the list note whose items were spread over this mark and its look-alikes, one each (its items are copy). */
   listNote?: string
   /** n130: one of a row (or column) drawn with fewer boxes than its list note's items: the whole row, and where it starts. */

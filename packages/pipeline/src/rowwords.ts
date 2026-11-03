@@ -16,7 +16,7 @@ import type { BBox } from '@s2c/ink'
 import type { ShapeMark } from './shapemark.js'
 import { wordsOf } from './ownwords.js'
 import { copyWords } from './linespan.js'
-import { nameList, noteParts, specNote } from './typedcopy.js'
+import { lookNote, nameList, noteParts, specNote, withoutLookTail } from './typedcopy.js'
 
 interface NoteLike { text: string; focus?: string[]; strokeIds?: string[] }
 interface NodeLike { id: string; text?: string; rect: BBox; textBox?: BBox }
@@ -53,6 +53,7 @@ export function isCopy(text: string): boolean {
 const LOOK_OPENERS = /^(?:white|black|grey|gray|red|orange|yellow|green|teal|blue|navy|purple|pink|brown|gold|cream|dark|light|pale|bright|filled|solid|empty|hollow|outlined|plain|flat|rounded|bold|faint|thin|thick)\b/
 export function looksOnly(text: string): boolean {
   const t = text.trim()
+  if (lookNote(t)) return true
   if (!t || t !== t.toLowerCase() || /[:;.!?\d]/.test(t)) return false
   const parts = t.split(/\s*,\s*/).filter(Boolean)
   return parts.every((p) => LOOK_OPENERS.test(p) && p.split(/\s+/).length <= 3)
@@ -65,9 +66,11 @@ export function markRowWords(marks: ShapeMark[], notes: NoteLike[], page: readon
       ? n.focus.length === 1 && n.focus[0] === m.strokeId
       : n.strokeIds?.length === 1 && n.strokeIds[0] === m.strokeId)
     // n179: a note describing how a kind of item looks, or a list of names for a whole grid, is never one mark's words
-    const n = own.find((x) => isCopy(copyOf(x.text)) && !specNote(x.text) && !nameList(x.text) && !looksOnly(x.text))
+    // n268: a capitalised name of colour words ("The Deep Blue bold") is copy: its capitals say so
+    const titled = (t: string) => /^\p{Lu}/u.test(t) && withoutLookTail(t).split(/\s+/).length >= 2
+    const n = own.find((x) => (isCopy(copyOf(x.text)) || titled(x.text)) && !specNote(x.text) && !nameList(x.text) && !looksOnly(x.text))
     // n130: the note's copy without its directions ("Biscuit selected, avatar" is "Biscuit")
-    if (n) m.own = (/[;\n]/.test(n.text) ? '' : noteParts(copyOf(n.text)).copy) || copyOf(n.text)
+    if (n) m.own = isCopy(copyOf(n.text)) ? (/[;\n]/.test(n.text) ? '' : noteParts(copyOf(n.text)).copy) || copyOf(n.text) : withoutLookTail(copyOf(n.text))
   }
   // n179: a name list as long as a drawn grid first, so a row of the grid never takes it as a row's list
   spreadNameGrid(marks, notes)
