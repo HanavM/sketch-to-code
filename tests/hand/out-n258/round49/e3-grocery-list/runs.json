@@ -1,0 +1,770 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "4532a41377130acc637fb93c7d9de3014121608e",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A grocery/shopping-basket page: a header with \"Basket\" title, \"Lists\"/\"Recipes\" nav, a \"Saturday shop\" heading and a \"$46.20\" price, two side-by-side checklist cards (\"Produce\" with 4 items, two checked/struck-through, and \"Dairy\" with 3 items, one checked/struck-through), and a bottom row with an \"Add an item\" input and an \"Add\" button.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:16:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 59,
+        "y": 169,
+        "w": 562,
+        "h": 601
+       },
+       "built": {
+        "x": 59,
+        "y": 169,
+        "w": 562,
+        "h": 601
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 60,
+        "y": 169,
+        "w": 561,
+        "h": 57
+       },
+       "built": {
+        "x": 59,
+        "y": 169,
+        "w": 562,
+        "h": 58
+       },
+       "dx": 0,
+       "dy": 1
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 84,
+        "y": 256,
+        "w": 30,
+        "h": 31
+       },
+       "built": {
+        "x": 84,
+        "y": 256,
+        "w": 30,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 84,
+        "y": 336,
+        "w": 31,
+        "h": 31
+       },
+       "built": {
+        "x": 84,
+        "y": 336,
+        "w": 30,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 84,
+        "y": 416,
+        "w": 30,
+        "h": 30
+       },
+       "built": {
+        "x": 84,
+        "y": 416,
+        "w": 30,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 84,
+        "y": 496,
+        "w": 30,
+        "h": 30
+       },
+       "built": {
+        "x": 84,
+        "y": 496,
+        "w": 30,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2a9d8f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:16:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s2",
+       "drawn": {
+        "x": 649,
+        "y": 169,
+        "w": 562,
+        "h": 602
+       },
+       "built": {
+        "x": 649,
+        "y": 169,
+        "w": 562,
+        "h": 602
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 649,
+        "y": 169,
+        "w": 561,
+        "h": 58
+       },
+       "built": {
+        "x": 649,
+        "y": 169,
+        "w": 561,
+        "h": 58
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 674,
+        "y": 256,
+        "w": 30,
+        "h": 30
+       },
+       "built": {
+        "x": 674,
+        "y": 256,
+        "w": 30,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 674,
+        "y": 336,
+        "w": 30,
+        "h": 30
+       },
+       "built": {
+        "x": 674,
+        "y": 336,
+        "w": 30,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 674,
+        "y": 415,
+        "w": 31,
+        "h": 31
+       },
+       "built": {
+        "x": 674,
+        "y": 416,
+        "w": 30,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e9c46a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <input> at (60,799) 1001x58 matches the sketch region",
+     "bestCandidate": {
+      "tag": "input",
+      "srcLoc": "src/App.tsx:121:7",
+      "rect": {
+       "x": 60,
+       "y": 799,
+       "w": 1001,
+       "h": 58
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s16",
+       "drawn": {
+        "x": 60,
+        "y": 799,
+        "w": 1001,
+        "h": 58
+       },
+       "built": {
+        "x": 60,
+        "y": 799,
+        "w": 1001,
+        "h": 58
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#c9c7bd is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (1080,799) 130x57 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:128:7",
+      "rect": {
+       "x": 1080,
+       "y": 799,
+       "w": 130,
+       "h": 57
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 1080,
+        "y": 799,
+        "w": 130,
+        "h": 57
+       },
+       "built": {
+        "x": 1080,
+        "y": 799,
+        "w": 130,
+        "h": 57
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#264653 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "fills",
+    "checked": [
+     {
+      "claim": {
+       "kind": "quoted",
+       "hex": "#2a9d8f",
+       "noun": "bar",
+       "copy": "Produce"
+      },
+      "got": "#2a9d8f",
+      "ok": true
+     },
+     {
+      "claim": {
+       "kind": "quoted",
+       "hex": "#e9c46a",
+       "noun": "bar",
+       "copy": "Dairy"
+      },
+      "got": "#e9c46a",
+      "ok": true
+     }
+    ]
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 cards built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "15 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 placed words where drawn"
+    }
+   },
+   {
+    "kind": "typed-spot",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 typed words where typed"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "16 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f7f6f1",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (59,169) 562x602 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (59,169) 562x602",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (60,169) 561x57",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (84,256) 30x31",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (84,336) 31x31",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (84,416) 30x30",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (84,496) 30x30",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (649,169) 562x602 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (649,169) 562x602",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (649,169) 561x58",
+       "want": "#e9c46a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (674,256) 30x30 (light pen outline)",
+       "want": "border #e9c46a, no #e9c46a fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (674,336) 30x30 (light pen outline)",
+       "want": "border #e9c46a, no #e9c46a fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (674,415) 31x31 (light pen outline)",
+       "want": "border #e9c46a, no #e9c46a fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (60,799) 1001x58 (light pen outline)",
+       "want": "border #c9c7bd, no #c9c7bd fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1080,799) 130x57",
+       "want": "#264653",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 77238,
+   "cacheRead": 434428,
+   "output": 24761
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 53528,
+    "output": 19491,
+    "cacheRead": 236472,
+    "toolCalls": 8,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Grep",
+     "Read src/main.tsx",
+     "Glob",
+     "Write src/App.tsx"
+    ],
+    "ms": 212053
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 48471,
+    "output": 5270,
+    "cacheRead": 197956,
+    "toolCalls": 3,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 59430,
+    "why": [
+     "page (look-alike marks each with their own words): the box at (59,169) 562x601 should show \"Bananas struck\" but shows \"Basket\"; the box at (649,169) 562x602 should show \"Milk struck\" but shows \"Lists\"",
+     "page (colours from the ink): action 0: the box drawn at (84,256) 30x31 was coloured #2a9d8f (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2a9d8f; action ",
+     "src/App.tsx:66:13: 2 filled boxes render with 0 width, so nothing shows (class \"flex items-center justify-center\"). A % width inside a parent with no set width resolves to 0: give it an explicit px wi"
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/App.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M3 8.5L6.5 12L13 4.5…\""
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "76a2951fe8641f7b2f9d9f26fbac2fd79a3fce37",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "Three typed notes refine the two shopping-list sections: hide the debug word \"struck\" from item labels in Produce, give the unchecked Lemons/Tomatoes checkboxes an outline, and make the checked Milk checkbox a solid fill.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     }
+    ],
+    "satisfied": 3,
+    "total": 4,
+    "score": 0.75
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "15 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 20558,
+   "cacheRead": 172332,
+   "output": 4282
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 12552,
+    "output": 3144,
+    "cacheRead": 66609,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 31812
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 12288,
+    "output": 1138,
+    "cacheRead": 105723,
+    "toolCalls": 3,
+    "tools": [
+     "Read",
+     "Read src/App.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 14159,
+    "why": [
+     "action 2 (MODIFY): target not found and old text still absent"
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
