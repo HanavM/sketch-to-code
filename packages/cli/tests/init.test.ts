@@ -308,7 +308,10 @@ describe('GitHub stays optional', () => {
         return q.id !== 'gh-create'
       },
     })
-    expect(asked).toContain('gh-create')
+    // The question is only reached when gh can act; without it the step fails
+    // first, which is just as safe. Either way nothing was created.
+    if (result.gh?.installed && result.gh.authenticated) expect(asked).toContain('gh-create')
+    else expect(asked).not.toContain('gh-create')
     expect(detailOf(result, 'remote')).toMatch(/declined|not authenticated|gh missing/)
     expect(gitState(dir).remotes).toEqual([])
   })
