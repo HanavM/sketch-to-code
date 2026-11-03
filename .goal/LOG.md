@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-03T01:58Z | n257 sketch round 49 landing pages | Ferris 82, umbrellas 69.4, huts 79.6, cassette 79.5, truck 78.4; mean 77.8, 20 strokes, 62 words.
 2026-11-03T00:50Z | n253 write round 49 | Ten fresh pages written, screenshotted, calibrated; six harder than round 1; none sketched.
 2026-11-03T00:41Z | n254 where the words go; taps, drawing order, flat colours | First sketches under 50; fixes add rest; sleep 85.6, puppet 90.1, railway 87.8, no fix.
 2026-11-02T23:37Z | n249 why right pages score low on layout | Tiny words decide it; rows start where typed; false checks gone; rota 83.3, 76.4; wifi 69.4.
