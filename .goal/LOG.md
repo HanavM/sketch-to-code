@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-03T00:50Z | n253 write round 49 | Ten fresh pages written, screenshotted, calibrated; six harder than round 1; none sketched.
 2026-11-03T00:41Z | n254 where the words go; taps, drawing order, flat colours | First sketches under 50; fixes add rest; sleep 85.6, puppet 90.1, railway 87.8, no fix.
 2026-11-02T23:37Z | n249 why right pages score low on layout | Tiny words decide it; rows start where typed; false checks gone; rota 83.3, 76.4; wifi 69.4.
 2026-11-02T22:31Z | n246 short typed words stay as typed | Bars one line, stats whole, sentence beside button; rota 72.8, wifi 64.7, sleep 62.9; likeness barely moved.
