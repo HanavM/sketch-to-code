@@ -216,6 +216,20 @@ function dotsOf<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(taps: InkFill
   return out
 }
 
+/** n245: how far off a mark's line a tap in the same pen still counts as on its ink, px (a hand's slip, a ring's body). */
+export const TAP_ON_INK_PX = 14
+
+function inkDistance(p: XY, pts: ReadonlyArray<{ x: number; y: number }>): number {
+  let best = Infinity
+  for (let k = 0; k < pts.length; k++) {
+    const a = pts[k]!, z = pts[(k + 1) % pts.length]!
+    const dx = z.x - a.x, dy = z.y - a.y, len = dx * dx + dy * dy
+    const t = len ? Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / len)) : 0
+    best = Math.min(best, Math.hypot(p.x - (a.x + t * dx), p.y - (a.y + t * dy)))
+  }
+  return best
+}
+
 function allTaps<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[], page?: { w: number; h: number }): InkFill[] {
   const outlines = strokes.filter((s) => !isFillDot(s) && (closedOutline(s.points) || smallClosed(s.points)))
   // n51: regions a curve cuts off a box (or the page) hold taps like any outline
@@ -225,17 +239,32 @@ function allTaps<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[]
     ...cuts.map((c) => ({ id: c.id, pts: c.points, box: c.box, region: c.points })),
   ]
   const out: InkFill[] = []
+  const drawnAt = new Map(strokes.map((s, k) => [s.id, k]))
   for (const d of strokes) {
     if (!isFillDot(d)) continue
     const b = bboxOf(d.points)
     const at = { x: Math.round(b.x + b.w / 2), y: Math.round(b.y + b.h / 2) }
+    const tapAt = drawnAt.get(d.id) ?? 0
     let best: (typeof shapes)[number] | null = null, bestA = Infinity
     for (const o of shapes) {
       const ob = o.box
+      // n239: a tap fills what was there when it was made: a shape drawn over that spot later did not get it
+      if (!o.region && (drawnAt.get(o.id) ?? 0) > tapAt) continue
       if (at.x < ob.x || at.x > ob.x + ob.w || at.y < ob.y || at.y > ob.y + ob.h) continue
       if (!pointInPolygon({ ...at, t: 0 }, o.pts as Point[])) continue
       const area = o.region ? Math.abs(polygonArea(o.region as never)) : ob.w * ob.h
       if (area < bestA) { best = o; bestA = area }
+    }
+    // n245: a tap on a mark's own ink, in its own pen, is that mark's, even a hair outside the line (never the page's)
+    if (!best) {
+      let nearest = TAP_ON_INK_PX + 1
+      for (const o of shapes) {
+        if (o.region || (drawnAt.get(o.id) ?? 0) > tapAt) continue
+        const mark = strokes.find((s) => s.id === o.id)
+        if (!mark?.color || mark.color.toLowerCase() !== d.color?.toLowerCase()) continue
+        const dist = inkDistance(at, o.pts)
+        if (dist < nearest) { best = o; nearest = dist }
+      }
     }
     const fill: InkFill = { dotId: d.id, color: d.color!, at, target: best?.id ?? null }
     if (best) {
@@ -249,6 +278,18 @@ function allTaps<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[]
       if (i >= 0) out.splice(i, 1)
     }
     out.push(fill)
+  }
+  // n245: a tap on a mark's own line in its own pen, with one other colour tapped well inside it, only touched the line:
+  // the line stays that colour, the other tap fills inside. Never a fade across the mark.
+  for (const f of [...out]) {
+    if (!f.target || f.region) continue
+    const mark = strokes.find((s) => s.id === f.target)
+    if (!mark?.color || mark.color.toLowerCase() !== f.color.toLowerCase()) continue
+    const mine = out.filter((o) => o.target === f.target)
+    if (mine.length !== 2 || inkDistance(f.at, mark.points) > TAP_ON_INK_PX) continue
+    const other = mine.find((o) => o !== f)!
+    if (other.color.toLowerCase() === f.color.toLowerCase() || inkDistance(other.at, mark.points) <= TAP_ON_INK_PX) continue
+    out.splice(out.indexOf(f), 1)
   }
   return out
 }

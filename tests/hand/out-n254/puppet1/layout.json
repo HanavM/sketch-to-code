@@ -1,0 +1,12 @@
+{"layout":0.6360711002623128,"regions":[{"role":"curtain-left","credit":0.87,"want":{"x":0,"y":0,"w":352,"h":720},"el":{"x":1,"y":89,"w":352,"h":631}},
+{"role":"curtain-right","credit":0.87,"want":{"x":928,"y":0,"w":352,"h":720},"el":{"x":927,"y":89,"w":351,"h":631}},
+{"role":"spotlight","credit":1,"want":{"x":390,"y":90,"w":500,"h":630},"el":{"x":390,"y":90,"w":500,"h":630}},
+{"role":"valance","credit":0.97,"want":{"x":0,"y":0,"w":1280,"h":90},"el":{"x":2,"y":1,"w":1276,"h":90}},
+{"role":"headline","credit":0,"want":{"x":360,"y":150,"w":560,"h":139},"nearest":{"x":390,"y":90,"w":500,"h":630},"nearestIou":0.21},
+{"role":"subhead","credit":0,"want":{"x":430,"y":380,"w":420,"h":25},"nearest":{"x":440,"y":392,"w":400,"h":24},"nearestIou":0.35},
+{"role":"puppet-head","credit":0.98,"want":{"x":600,"y":480,"w":80,"h":80},"el":{"x":601,"y":480,"w":78,"h":80}},
+{"role":"puppet-body","credit":1,"want":{"x":575,"y":560,"w":130,"h":160},"el":{"x":575,"y":560,"w":130,"h":160}},
+{"role":"floor","credit":0.98,"want":{"x":0,"y":720,"w":1280,"h":180},"el":{"x":2,"y":719,"w":1276,"h":179}},
+{"role":"cta","credit":0.96,"want":{"x":520,"y":756,"w":240,"h":56},"el":{"x":519,"y":755,"w":241,"h":58}},
+{"role":"foot-1","credit":0,"want":{"x":64,"y":824,"w":133,"h":20},"nearest":{"x":64,"y":833,"w":134,"h":24},"nearestIou":0.33},
+{"role":"foot-2","credit":0,"want":{"x":1040,"y":824,"w":102,"h":20},"nearest":{"x":1040,"y":833,"w":102,"h":24},"nearestIou":0.33}]}

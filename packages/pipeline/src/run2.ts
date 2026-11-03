@@ -66,6 +66,7 @@ import { verifyBarLabels } from './barlabels.js'
 import { allTextBrief, allTextColour, inkTextOf, onInkText, ownColourText, verifyAllText } from './alltext.js'
 import { ruleLabelBrief, verifyRuleLabels } from './ruleline.js'
 import { routeBrief, verifyRoutes } from './routeline.js'
+import { flatLookBrief, stackBrief } from './stackorder.js'
 import { placedBrief, strokeDividers, textPlaceBrief, verifyPlaced, verifyTextPlace, type PlacedNote } from './textplace.js'
 import { textLookBrief, verifyOutlined, verifyReadable } from './textlook.js'
 import { verifyStackLines } from './stacklines.js'
@@ -735,6 +736,8 @@ export async function runV2(
     stackWordsBrief(wordStacks(interp.actions.filter((a) => (a.kind === 'add' || a.kind === 'design') && !a.onScreen) as never)) +
     pairRowsBrief(interp.actions, [...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? [])]) +
     drawnRingBrief(input.strokes) +
+    stackBrief(input.strokes) +
+    flatLookBrief([...(input.notes ?? []).map((n) => n.text), ...(interp.runNotes ?? []), ...(interp.pageNotes ?? [])]) +
     routeBrief(input.strokes) +
     rowTemplateBrief(interp.actions, input.strokes, new Set(drawnLists(input.notes ?? [], input.strokes, input.snapshot.viewport).map((l) => l.note))) +
     // n201: a count on one drawn box repeats it beside it; characters for a row of drawn boxes go inside them
