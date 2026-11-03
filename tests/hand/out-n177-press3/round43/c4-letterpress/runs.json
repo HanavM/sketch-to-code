@@ -1,0 +1,459 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "2b3b12cea7d8fd87bde0e976da4d5d8b70d0f9c0",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Button.tsx",
+   "src/components/Divider.tsx",
+   "src/components/StampBadge.tsx"
+  ],
+  "reading": "A letterpress-shop hero page: a text logo top-left and nav-style text top-right over a full-width divider, a big italic headline and body copy with a dark filled 'See the shop' button on the left, and on the right a tall square panel meant to hold a giant red serif letter A, with a small tilted circular 'Since 1987' stamp badge overlapping its bottom-right corner. The whole page is tinted cream.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Inkwell Press\" at (70,31) 134x26 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:8:7",
+      "rect": {
+       "x": 70,
+       "y": 28,
+       "w": 133.859375,
+       "h": 33
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Cards Posters Workshop\" at (993,33) 157x18 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:16:7",
+      "rect": {
+       "x": 993,
+       "y": 30,
+       "w": 157.078125,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": false,
+     "reason": "new <div> \"A\" at (674,70) 379x689 is 332px below its drawn line: a line drawn for one line of words marks the middle of its letters (drawn at y 83, the letters' middle is at y 415). Move it up 332px by changing the space above it (take out margin, padding or gap there), not its font size; keep its side, and anything below it that already sits where it was drawn stays there",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:52:7",
+      "rect": {
+       "x": 645,
+       "y": 199,
+       "w": 438,
+       "h": 431
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (70,189) 480x207 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:25:7",
+      "rect": {
+       "x": 70,
+       "y": 189,
+       "w": 480,
+       "h": 207
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Printed by hand,one sheet at a\" at (70,187) 416x211 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:25:7",
+      "rect": {
+       "x": 70,
+       "y": 189,
+       "w": 480,
+       "h": 207
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (70,423) 302x23 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:34:7",
+      "rect": {
+       "x": 70,
+       "y": 423,
+       "w": 301.96875,
+       "h": 22.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (645,199) 438x431 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:52:7",
+      "rect": {
+       "x": 645,
+       "y": 199,
+       "w": 438,
+       "h": 431
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 645,
+        "y": 199,
+        "w": 438,
+        "h": 431
+       },
+       "built": {
+        "x": 645,
+        "y": 199,
+        "w": 438,
+        "h": 431
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d2452f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (1050,631) 159x158 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:69:7",
+      "rect": {
+       "x": 1049.9439697265625,
+       "y": 630.8695068359375,
+       "w": 159.112060546875,
+       "h": 158.260986328125
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "areas",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 area box built with no card"
+    }
+   },
+   {
+    "kind": "words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 big word filling its box"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the 2-line text drawn at x 70, y 189 (480x138, lines 69px apart, drawn 430 then 480px long) is built 211px tall, about 3 lines: it wrapped into more lines than drawn. Remove any forced line break (<br>) inside it: a forced break that leaves a line wider than the block wraps that line again. Give the block the drawn width (480px or a little more), line-height 69px, and let the words wrap on their own into 2 lines; if they still take more, take the font-size down a little (never under 54px)"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the sentence \"Wedding suites\" was drawn as one line 385px long (x 70 to 455, y 435); its letters run 302px (78% of the line): take its font-size from 15px to about 19px so it runs the drawn length on one line; keep its colour, weight and left edge; change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the outline drawn at (2,82) 1276x2 was coloured #2d2722 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2d2722; action 5: the outline drawn at (70,540) 201x55 was coloured #2d2722 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2d2722; action 7: the outline drawn at (1059,640) 141x140 was coloured #2d2722 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2d2722",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#efe5d0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,41) 137x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (993,41) 217x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (2,82) 1276x2",
+       "want": "#2d2722",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (70,235) 430x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,304) 480x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,435) 385x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (70,540) 201x55",
+       "want": "#2d2722",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (645,199) 438x431 (big word's area)",
+       "want": "letters #d2452f, no #d2452f block",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (1059,640) 141x140",
+       "want": "#2d2722",
+       "best": null,
+       "ok": false
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 24941,
+   "cacheRead": 227878,
+   "output": 13921
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 38862,
+    "output": 13921,
+    "cacheRead": 227878,
+    "toolCalls": 11,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read components/Divider.tsx",
+     "Read components/Button.tsx",
+     "Read components/StampBadge.tsx",
+     "Read src/index.css",
+     "Glob",
+     "Glob",
+     "Edit components/Divider.tsx",
+     "Edit components/StampBadge.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 154798
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 180023,
+    "stalled": "the repair went 180 s without an edit (thinking is not progress)"
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/Divider.tsx",
+     "Read components/Button.tsx",
+     "Read components/StampBadge.tsx"
+    ],
+    "ms": 90005,
+    "stalled": "the repair went 90 s without an edit (thinking is not progress)"
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": "the repair went 90 s without an edit (thinking is not progress)",
+  "buildStalled": null
+ }
+]

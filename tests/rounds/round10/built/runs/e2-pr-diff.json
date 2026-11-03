@@ -1,0 +1,186 @@
+{
+  "id": "e2-pr-diff",
+  "at": "2026-10-23T13:19:03.736Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.794311196389691,
+    "overallV2": 0.794311196389691,
+    "overallV1": 0.7271361685112115,
+    "colour": 0.996668167313905,
+    "structure": 0.952907017079211,
+    "structureStrict": 0.9019673408664903,
+    "colourAligned": 0.996668167313905,
+    "structureAligned": 0.952907017079211,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.907018174396284
+    },
+    "layout": 0.665755429647574
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 44257,
+    "output": 26931,
+    "cacheRead": 365905
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46997,
+      "output": 17747,
+      "cacheRead": 165902,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 181863
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 7330,
+      "output": 2713,
+      "cacheRead": 187970,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 27689
+    }
+  ],
+  "reading": "The sketch builds a GitHub-style pull-request page: a header with title/PR-number/Open-button/merge-line, a tab bar with counts, a file-tree sidebar, a large unified diff viewer, and a review-comment thread beneath it.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        36,
+        24,
+        1208,
+        71
+      ],
+      "paths": [],
+      "instruction": "Build the PR header block as 4 separate live-text elements, exact sizes/positions in page px: 1216x31 at 32,24, 26px regular (not bold) #1f2328 text \"Add retry "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        36,
+        128,
+        1208,
+        38
+      ],
+      "paths": [],
+      "instruction": "Build the tab bar as 8 separate live-text elements, exact sizes/positions: 145x37 at 32,128, 14px #656d76 \"Conversation\"; 118x37 at 181,128, 14px #656d76 \"Commi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        36,
+        190,
+        242,
+        130
+      ],
+      "paths": [],
+      "instruction": "Build a file-tree sidebar list with 5 live-text rows, each 250x26px: at 32,190 13px #1f2328 \"▾ src\"; at 32,216 (row highlighted with #ddf4ff fill, 6px rounded c"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        304,
+        193,
+        941,
+        440
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Build a unified code-diff viewer panel matching this large sketched rectangle, with a file header row and diff lines, exact content: header 946x42 at 301,191, #"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        419,
+        436,
+        811,
+        92
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Build a review-comment thread box below the diff, sized/positioned per this sketched rectangle, with live text: reviewer name \"mo-review\", a \"commented 2 hours "
+    }
+  ],
+  "rejected": []
+}

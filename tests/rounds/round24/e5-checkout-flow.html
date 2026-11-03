@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Checkout flow</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f6f7f9;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:14px}
+.top{height:64px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;padding:0 60px;justify-content:space-between}.top b{font:800 20px Helvetica}.top span{color:#64748b}
+.steps{position:absolute;left:60px;top:96px;width:700px;display:flex;align-items:center}.steps .s{display:flex;align-items:center;gap:10px;font-weight:600}.steps .s i{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px;font-weight:700;border:2px solid #cbd5e1;color:#94a3b8}.steps .s.done i{background:#16a34a;border-color:#16a34a;color:#fff}.steps .s.on i{border-color:#4f46e5;color:#4f46e5}.steps .s.off{color:#94a3b8}.steps .ln{flex:1;height:2px;background:#cbd5e1;margin:0 14px}.steps .ln.done{background:#16a34a}
+.card{position:absolute;left:60px;width:700px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px}.card h3{font:700 18px Helvetica;margin-bottom:16px}
+.lab{display:block;font:600 13px Helvetica;margin-bottom:6px;color:#334155}.in{height:44px;border:1px solid #cbd5e1;border-radius:8px;padding:0 14px;display:flex;align-items:center;color:#0f172a;margin-bottom:6px;position:relative}.in.err{border:2px solid #dc2626;background:#fef2f2}.msg{color:#dc2626;font-size:12px;margin-bottom:12px}
+.brand{position:absolute;right:10px;top:10px;width:40px;height:24px;border-radius:4px;background:linear-gradient(90deg,#eb001b 0 50%,#f79e1b 50%)}
+.row{display:flex;gap:16px}.row>div{flex:1}
+.rc{display:flex;align-items:center;gap:14px;border:1px solid #cbd5e1;border-radius:10px;padding:14px 16px;margin-bottom:10px}.rc.on{border:2px solid #4f46e5;background:#eef2ff}.rc i{width:18px;height:18px;border-radius:50%;border:2px solid #94a3b8}.rc.on i{border:5px solid #4f46e5}.rc div{flex:1}.rc small{display:block;color:#64748b;margin-top:2px}.rc b.p{font-weight:700}
+.sw{display:flex;align-items:center;gap:12px;margin-top:6px;color:#334155}.sw i{width:40px;height:22px;border-radius:11px;background:#4f46e5;position:relative}.sw i::after{content:"";position:absolute;right:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff}
+.sum{position:absolute;left:800px;top:96px;width:420px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:24px}.sum h3{font:700 18px Helvetica;margin-bottom:16px}
+.it{display:flex;align-items:center;gap:14px;margin-bottom:14px}.it .th{width:64px;height:64px;border-radius:10px;position:relative}.it .th b{position:absolute;right:-6px;top:-6px;width:20px;height:20px;border-radius:50%;background:#64748b;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center}.it .n{flex:1}.it .n small{display:block;color:#64748b;margin-top:3px}
+.promo{display:flex;gap:8px;margin:16px 0}.promo span{flex:1;height:42px;border:1px dashed #94a3b8;border-radius:8px;padding:12px;color:#94a3b8}.promo b{padding:12px 16px;border-radius:8px;background:#e2e8f0;color:#334155}
+.li{display:flex;justify-content:space-between;padding:6px 0;color:#475569}.li.dis{color:#16a34a}.tot{display:flex;justify-content:space-between;border-top:1px solid #e2e8f0;margin-top:10px;padding-top:14px;font:800 20px Helvetica}
+.pay{margin-top:18px;height:52px;border-radius:10px;background:#a5b4fc;color:#fff;font:700 16px Helvetica;display:flex;align-items:center;justify-content:center}.lock{text-align:center;color:#64748b;font-size:12px;margin-top:10px}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>◒ Loomly</b><span>🔒 Secure checkout</span></div>
+<div class="steps" data-r="stepper" data-must><div class="s done"><i>✓</i>Cart</div><div class="ln done"></div><div class="s done"><i>✓</i>Shipping</div><div class="ln done"></div><div class="s on"><i>3</i>Payment</div><div class="ln"></div><div class="s off"><i>4</i>Review</div></div>
+<div class="card" style="top:150px" data-r="payment-card" data-must><h3>Card details</h3><span class="lab">Card number</span><div class="in">5412 7512 3412 3456<i class="brand"></i></div><div style="height:12px"></div>
+<div class="row"><div><span class="lab">Expiry</span><div class="in err">13 / 24</div><div class="msg">⚠ Month must be 01–12</div></div><div><span class="lab">CVC</span><div class="in">•••</div></div></div>
+<span class="lab">Name on card</span><div class="in">Dana Whitfield</div><div class="sw"><i></i>Billing address same as shipping</div></div>
+<div class="card" style="top:540px" data-r="delivery-options"><h3>Delivery speed</h3>
+<div class="rc"><i></i><div>Standard<small>5–7 business days</small></div><b class="p">Free</b></div>
+<div class="rc on"><i></i><div>Express<small>2 business days · arrives Thu</small></div><b class="p">$9.00</b></div>
+<div class="rc"><i></i><div>Overnight<small>Order by 4pm</small></div><b class="p">$24.00</b></div></div>
+<div class="sum" data-r="order-summary" data-must><h3>Order summary</h3>
+<div class="it"><div class="th" style="background:linear-gradient(135deg,#fde68a,#f59e0b)"><b>1</b></div><div class="n">Linen throw<small>Sand · 130×170</small></div><b>$89.00</b></div>
+<div class="it"><div class="th" style="background:linear-gradient(135deg,#bfdbfe,#3b82f6)"><b>2</b></div><div class="n">Cotton pillow cover<small>Indigo · 50×50</small></div><b>$58.00</b></div>
+<div class="it"><div class="th" style="background:linear-gradient(135deg,#d9f99d,#65a30d)"><b>1</b></div><div class="n">Wool blanket<small>Moss · queen</small></div><b>$140.00</b></div>
+<div class="promo"><span>Gift card or code</span><b>Apply</b></div>
+<div class="li"><span>Subtotal</span><span>$287.00</span></div><div class="li dis"><span>WELCOME10</span><span>−$28.70</span></div><div class="li"><span>Express shipping</span><span>$9.00</span></div><div class="li"><span>Tax</span><span>$22.14</span></div>
+<div class="tot"><span>Total</span><span>$289.44</span></div><div class="pay">Pay $289.44</div><div class="lock">Payments are encrypted and secure</div></div>
+</body></html>

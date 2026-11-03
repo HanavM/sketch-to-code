@@ -1,0 +1,180 @@
+{
+ "c1-riso-poster": {
+  "found": {
+   "gradient": 2,
+   "tilt": 3,
+   "blend": 4,
+   "huge-type": 2,
+   "uppercase-display": 2,
+   "mono": 5,
+   "motion": 1,
+   "overlap": 6
+  },
+  "names": [
+   "blend",
+   "gradient",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c2-brutal-grid": {
+  "found": {
+   "mono": 24,
+   "huge-type": 2,
+   "motion": 2,
+   "vertical-type": 1,
+   "tilt": 1,
+   "hard-shadow": 1,
+   "overlap": 1
+  },
+  "names": [
+   "hard-shadow",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c3-aurora-glass": {
+  "found": {
+   "blur": 3,
+   "motion": 3,
+   "bleed": 2,
+   "gradient-text": 1,
+   "glass": 3,
+   "tilt": 3,
+   "soft-shadow": 3,
+   "gradient": 1,
+   "overlap": 32
+  },
+  "names": [
+   "bleed",
+   "blur",
+   "glass",
+   "gradient",
+   "gradient-text",
+   "motion",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "c4-paper-cutout": {
+  "found": {
+   "gradient": 1,
+   "motion": 1,
+   "serif": 5,
+   "italic": 2,
+   "clip-shape": 3,
+   "tilt": 1,
+   "mask": 1,
+   "hard-shadow": 1,
+   "vertical-type": 1,
+   "mono": 1,
+   "overlap": 12
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "hard-shadow",
+   "italic",
+   "mask",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c5-tilted-phone": {
+  "found": {
+   "hollow-type": 1,
+   "huge-type": 1,
+   "hard-shadow": 1,
+   "3d": 2,
+   "soft-shadow": 4,
+   "gradient": 1,
+   "motion": 3,
+   "overlap": 15
+  },
+  "names": [
+   "3d",
+   "gradient",
+   "hard-shadow",
+   "hollow-type",
+   "huge-type",
+   "motion",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e1-week-calendar": {
+  "found": {
+   "stripes-or-layers": 1,
+   "soft-shadow": 1,
+   "overlap": 11
+  },
+  "names": [
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e2-team-chat": {
+  "found": {
+   "mono": 1,
+   "overlap": 1
+  },
+  "names": [
+   "mono",
+   "overlap"
+  ]
+ },
+ "e3-spreadsheet": {
+  "found": {
+   "italic": 1,
+   "mono": 1,
+   "soft-shadow": 1,
+   "overlap": 18
+  },
+  "names": [
+   "italic",
+   "mono",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e4-checkout": {
+  "found": {
+   "serif": 1,
+   "tilt": 1,
+   "gradient": 1,
+   "soft-shadow": 1,
+   "mono": 1,
+   "overlap": 9
+  },
+  "names": [
+   "gradient",
+   "mono",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e5-code-review": {
+  "found": {
+   "mono": 44
+  },
+  "names": [
+   "mono"
+  ]
+ }
+}

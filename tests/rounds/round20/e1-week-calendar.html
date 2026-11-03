@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Week calendar</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#202533;font-size:13px}
+.side{position:absolute;left:0;top:0;width:250px;height:900px;border-right:1px solid #e5e8ef;padding:20px}
+.new{padding:12px 18px;border-radius:12px;background:#4f46e5;color:#fff;font-weight:700;display:inline-block;margin-bottom:22px}
+.mini b{display:block;margin-bottom:10px}.mini .d{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:11px;color:#6b7385}.mini .d span{height:26px;line-height:26px;border-radius:50%}.mini .d .t{background:#4f46e5;color:#fff;font-weight:700}.mini .d .w{background:#eef0ff}
+.cals{margin-top:26px}.cals div{display:flex;align-items:center;gap:10px;padding:7px 0}.cals i{width:14px;height:14px;border-radius:4px}
+.top{position:absolute;left:250px;top:0;width:1030px;height:64px;border-bottom:1px solid #e5e8ef;display:flex;align-items:center;padding:0 22px;gap:14px}.top b{font-size:20px}.top .seg{margin-left:auto;display:flex;border:1px solid #d7dbe5;border-radius:9px}.top .seg span{padding:8px 14px}.top .seg .on{background:#202533;color:#fff;border-radius:8px}
+.days{position:absolute;left:310px;top:64px;width:970px;height:56px;display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid #e5e8ef;text-align:center;padding-top:8px;color:#6b7385}.days b{display:block;font-size:20px;color:#202533}.days .t b{color:#fff;background:#4f46e5;width:34px;height:34px;line-height:34px;border-radius:50%;margin:2px auto 0}
+.hrs{position:absolute;left:250px;top:120px;width:60px;color:#9aa1b2;font-size:11px;text-align:right;padding-right:8px}.hrs div{height:64px}
+.grid{position:absolute;left:310px;top:120px;width:970px;height:780px;background:repeating-linear-gradient(180deg,#eef0f4 0 1px,transparent 1px 64px),repeating-linear-gradient(90deg,#eef0f4 0 1px,transparent 1px 138.5px)}
+.ev{position:absolute;border-radius:8px;padding:6px 8px;font-size:12px;border-left:4px solid;overflow:hidden}.ev b{display:block}
+.now{position:absolute;left:587px;top:400px;width:139px;height:2px;background:#ef4444}.now:before{content:"";position:absolute;left:-6px;top:-5px;width:12px;height:12px;border-radius:50%;background:#ef4444}
+.pop{position:absolute;left:760px;top:250px;width:290px;background:#fff;border-radius:12px;box-shadow:0 18px 44px rgba(0,0,0,.18);padding:18px;border:1px solid #e5e8ef}.pop b{font-size:16px}.pop p{color:#6b7385;margin:8px 0 14px;line-height:1.5}.pop .av{display:flex;gap:-4px}.pop .av i{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-right:-8px;background:#f59e0b}.pop .av i:nth-child(2){background:#10b981}.pop .av i:nth-child(3){background:#6366f1}.pop .j{float:right;margin-top:-28px;padding:7px 14px;border-radius:8px;background:#4f46e5;color:#fff;font-weight:700}
+</style></head><body>
+<div class="side" data-r="sidebar"><div class="new">＋ New event</div><div class="mini" data-r="mini-month"><b>October 2026</b><div class="d"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span class="w">19</span><span class="w">20</span><span class="t">21</span><span class="w">22</span><span class="w">23</span><span class="w">24</span><span class="w">25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span></div></div>
+<div class="cals" data-r="calendars"><div><i style="background:#4f46e5"></i>Work</div><div><i style="background:#10b981"></i>Personal</div><div><i style="background:#f59e0b"></i>Team rituals</div><div><i style="border:2px solid #9aa1b2"></i>Holidays</div></div></div>
+<div class="top" data-r="toolbar"><b>19 – 25 Oct 2026</b><span>‹ ›</span><span>Today</span><div class="seg"><span>Day</span><span class="on">Week</span><span>Month</span></div></div>
+<div class="days" data-r="day-header"><div>MON<b>19</b></div><div>TUE<b>20</b></div><div class="t">WED<b>21</b></div><div>THU<b>22</b></div><div>FRI<b>23</b></div><div>SAT<b>24</b></div><div>SUN<b>25</b></div></div>
+<div class="hrs"><div>8 AM</div><div>9 AM</div><div>10 AM</div><div>11 AM</div><div>12 PM</div><div>1 PM</div><div>2 PM</div><div>3 PM</div><div>4 PM</div><div>5 PM</div><div>6 PM</div><div>7 PM</div></div>
+<div class="grid" data-r="week-grid" data-must></div>
+<div class="ev" style="left:314px;top:184px;width:130px;height:60px;background:#eef0ff;border-color:#4f46e5"><b>Standup</b>9:00 – 9:45</div>
+<div class="ev" style="left:452px;top:248px;width:130px;height:124px;background:#ecfdf5;border-color:#10b981"><b>Dentist</b>10:00 – 12:00</div>
+<div class="ev" style="left:591px;top:184px;width:68px;height:124px;background:#eef0ff;border-color:#4f46e5"><b>Design crit</b>9–11</div>
+<div class="ev" style="left:660px;top:216px;width:66px;height:92px;background:#fff7ed;border-color:#f59e0b"><b>1:1 Ada</b>9:30</div>
+<div class="ev" style="left:591px;top:440px;width:134px;height:60px;background:#eef0ff;border-color:#4f46e5"><b>Sprint review</b>2:00 – 3:00</div>
+<div class="ev" style="left:729px;top:312px;width:132px;height:188px;background:#4f46e5;color:#fff;border-color:#312e81;box-shadow:0 0 0 2px #fff,0 0 0 4px #4f46e5" data-r="selected-event"><b>Offsite planning</b>11:00 – 2:00</div>
+<div class="ev" style="left:868px;top:568px;width:130px;height:92px;background:#fff7ed;border-color:#f59e0b"><b>Team drinks</b>4:00 – 5:30</div>
+<div class="ev" style="left:1006px;top:248px;width:130px;height:60px;background:#ecfdf5;border-color:#10b981"><b>Climbing</b>10:00</div>
+<div class="now" data-r="now-line"></div>
+<div class="pop" data-r="event-popover" data-must><b>Offsite planning</b><p>Thu 22 Oct · 11:00 – 2:00<br>Room Ballast, 3rd floor · Agenda in doc</p><div class="av"><i></i><i></i><i></i></div><span class="j">Join</span></div>
+</body></html>

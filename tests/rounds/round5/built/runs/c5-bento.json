@@ -1,0 +1,174 @@
+{
+  "id": "c5-bento",
+  "at": "2026-10-21T23:18:10.013Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7755172884858682,
+    "overallV2": 0.7755172884858682,
+    "overallV1": 0.7413563540802647,
+    "colour": 0.8782840124590916,
+    "structure": 0.642687847717751,
+    "structureStrict": 0.5616304355221271,
+    "colourAligned": 0.8782840124590916,
+    "structureAligned": 0.642687847717751,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9326256738903541
+    },
+    "layout": 0.9541408452849625
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "mono",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": [
+      "bleed",
+      "blur",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 24550,
+    "output": 12715,
+    "cacheRead": 151850
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 26076,
+      "output": 8298,
+      "cacheRead": 141869,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 82114
+    }
+  ],
+  "reading": "The sketch lays out a 7-panel grid of content cards (hero, stat callout, progress ring, quote, bar chart, code block, and CTA card), each annotated with a typed note specifying its background, text sizes/weights, colors, and copy. A run-level note sets the overall page style: black background, Helvetica type, white text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        714,
+        434
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large hero card: near-black background with soft color glows — indigo glow in the top-left corner, pink glow in the bottom-right corner. Huge 76px bold title st"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        783,
+        43,
+        454,
+        204
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "White card with black text: huge 96px bold title \"2.4×\" and body text \"faster first paint than Prism 1\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        783,
+        274,
+        214,
+        203
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Near-black card centered with a 140px circular progress-ring widget: a green arc covering 72% of the circle starting from the top, the remaining track near-blac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1023,
+        273,
+        214,
+        203
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Vivid yellow card with bold black 20px quote text: “It feels like the page is reading my mind.”"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        504,
+        464,
+        353
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Near-black card containing a bar chart titled \"Weekly builds\" with 7 indigo bars at heights 30%, 45%, 40%, 62%, 70%, 88%, and 100% of the tallest bar."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        533,
+        503,
+        414,
+        354
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Near-black card showing a mono 15px code snippet in grey: \"import { sketch } from 'prism'\", a blank line, \"sketch('hero')\", \"  .fill('glow')\", \"  .ship()\" — col"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        973,
+        503,
+        263,
+        354
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Card with an indigo-to-darker-indigo gradient background, empty in its upper area; at the bottom, a bold 30px heading \"Ready when you are.\" followed by a full-w"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

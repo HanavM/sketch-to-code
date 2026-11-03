@@ -1,0 +1,447 @@
+{
+  "round": 43,
+  "id": "c4-letterpress",
+  "version": 3,
+  "stopped": null,
+  "likeness": 56.3,
+  "colour": 0.9566563648364684,
+  "structure": 0.7763042414254554,
+  "layout": 0.5810063596991197,
+  "strokes": {
+    "count": 11,
+    "pointsPerStroke": 4.1,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "line": 6,
+      "box": 2,
+      "circle": 1
+    },
+    "inkPx": 5605
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 48,
+  "notes": 7,
+  "longestNote": 12,
+  "noteTexts": [
+    "Inkwell Press bold serif",
+    "Cards Posters Workshop, serif",
+    "Printed by hand, / one sheet at a time, huge italic serif",
+    "Wedding suites, posters and cards on a 1910 press. serif",
+    "See the shop, cream text",
+    "giant red serif letter A filling the box",
+    "Since 1987, tilted, outline stamp"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 267,
+    "firstReadingS": 66,
+    "readS": [
+      38
+    ],
+    "buildS": [
+      199
+    ],
+    "sketchingS": 29
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 80100,
+    "cacheRead": 332589,
+    "output": 20522,
+    "billed": 100622
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#efe5d0",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 463
+    },
+    {
+      "op": "pen",
+      "color": "#2d2722",
+      "at": 841
+    },
+    {
+      "op": "stroke",
+      "at": 1686
+    },
+    {
+      "op": "stroke",
+      "at": 2753
+    },
+    {
+      "op": "stroke",
+      "at": 6770
+    },
+    {
+      "op": "stroke",
+      "at": 8436
+    },
+    {
+      "op": "stroke",
+      "at": 10236
+    },
+    {
+      "op": "stroke",
+      "at": 11768
+    },
+    {
+      "op": "stroke",
+      "at": 13654
+    },
+    {
+      "op": "stroke",
+      "at": 14121
+    },
+    {
+      "op": "stroke",
+      "at": 15921
+    },
+    {
+      "op": "pen",
+      "color": "#d2452f",
+      "at": 16285
+    },
+    {
+      "op": "stroke",
+      "at": 21604
+    },
+    {
+      "op": "note",
+      "at": 22338
+    },
+    {
+      "op": "note",
+      "at": 23104
+    },
+    {
+      "op": "note",
+      "at": 24012
+    },
+    {
+      "op": "note",
+      "at": 24844
+    },
+    {
+      "op": "note",
+      "at": 25563
+    },
+    {
+      "op": "note",
+      "at": 26432
+    },
+    {
+      "op": "note",
+      "at": 27289
+    },
+    {
+      "op": "run",
+      "at": 27403
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          400,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 463
+    },
+    {
+      "way": [
+        [
+          70,
+          41
+        ],
+        [
+          207,
+          41
+        ]
+      ],
+      "n": 24,
+      "at": 1686
+    },
+    {
+      "way": [
+        [
+          993,
+          41
+        ],
+        [
+          1210,
+          41
+        ]
+      ],
+      "n": 37,
+      "at": 2753
+    },
+    {
+      "way": [
+        [
+          2,
+          83
+        ],
+        [
+          1278,
+          83
+        ]
+      ],
+      "n": 214,
+      "at": 6770
+    },
+    {
+      "way": [
+        [
+          70,
+          235
+        ],
+        [
+          500,
+          235
+        ]
+      ],
+      "n": 73,
+      "at": 8436
+    },
+    {
+      "way": [
+        [
+          70,
+          304
+        ],
+        [
+          550,
+          304
+        ]
+      ],
+      "n": 81,
+      "at": 10236
+    },
+    {
+      "way": [
+        [
+          70,
+          435
+        ],
+        [
+          455,
+          435
+        ]
+      ],
+      "n": 65,
+      "at": 11768
+    },
+    {
+      "way": [
+        [
+          70,
+          540
+        ],
+        [
+          270,
+          540
+        ],
+        [
+          270,
+          594
+        ],
+        [
+          70,
+          594
+        ],
+        [
+          70,
+          540
+        ]
+      ],
+      "n": 85,
+      "at": 13654
+    },
+    {
+      "way": [
+        [
+          170,
+          567
+        ]
+      ],
+      "n": 1,
+      "at": 14121
+    },
+    {
+      "way": [
+        [
+          1200,
+          710
+        ],
+        [
+          1197,
+          732
+        ],
+        [
+          1187,
+          751
+        ],
+        [
+          1171,
+          767
+        ],
+        [
+          1152,
+          777
+        ],
+        [
+          1130,
+          780
+        ],
+        [
+          1108,
+          777
+        ],
+        [
+          1089,
+          767
+        ],
+        [
+          1073,
+          751
+        ],
+        [
+          1063,
+          732
+        ],
+        [
+          1060,
+          710
+        ],
+        [
+          1063,
+          688
+        ],
+        [
+          1073,
+          669
+        ],
+        [
+          1089,
+          653
+        ],
+        [
+          1108,
+          643
+        ],
+        [
+          1130,
+          640
+        ],
+        [
+          1152,
+          643
+        ],
+        [
+          1171,
+          653
+        ],
+        [
+          1187,
+          669
+        ],
+        [
+          1197,
+          688
+        ],
+        [
+          1200,
+          710
+        ]
+      ],
+      "n": 81,
+      "at": 15921
+    },
+    {
+      "way": [
+        [
+          646,
+          200
+        ],
+        [
+          1083,
+          200
+        ],
+        [
+          1083,
+          629
+        ],
+        [
+          646,
+          629
+        ],
+        [
+          646,
+          200
+        ]
+      ],
+      "n": 291,
+      "at": 21604
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Inkwell Press bold serif",
+      "whole": false,
+      "x": 80,
+      "y": 60,
+      "at": 22338
+    },
+    {
+      "text": "Cards Posters Workshop, serif",
+      "whole": false,
+      "x": 1000,
+      "y": 60,
+      "at": 23104
+    },
+    {
+      "text": "Printed by hand, / one sheet at a time, huge italic serif",
+      "whole": false,
+      "x": 80,
+      "y": 215,
+      "at": 24012
+    },
+    {
+      "text": "Wedding suites, posters and cards on a 1910 press. serif",
+      "whole": false,
+      "x": 80,
+      "y": 455,
+      "at": 24844
+    },
+    {
+      "text": "See the shop, cream text",
+      "whole": false,
+      "x": 90,
+      "y": 567,
+      "at": 25563
+    },
+    {
+      "text": "giant red serif letter A filling the box",
+      "whole": false,
+      "x": 860,
+      "y": 400,
+      "at": 26432
+    },
+    {
+      "text": "Since 1987, tilted, outline stamp",
+      "whole": false,
+      "x": 1130,
+      "y": 700,
+      "at": 27289
+    }
+  ]
+}

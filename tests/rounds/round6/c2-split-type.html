@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Split type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4f1ea;font-family:Helvetica,Arial,sans-serif;color:#111}
+.w{position:absolute;left:40px;font-size:260px;font-weight:900;letter-spacing:-10px;line-height:1;white-space:nowrap}
+.top{top:120px;clip-path:inset(0 0 50% 0)}
+.bot{top:120px;clip-path:inset(50% 0 0 0);transform:translateX(70px);color:#e11d48}
+.v{position:absolute;left:1180px;top:120px;writing-mode:vertical-rl;font-size:15px;letter-spacing:6px;text-transform:uppercase}
+.rule{position:absolute;left:40px;top:252px;width:1120px;height:3px;background:#111}
+.row{position:absolute;left:40px;top:470px;width:1120px;height:2px;background:#111}
+.cols{position:absolute;left:40px;top:500px;width:1120px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;font-size:17px;line-height:1.5}
+.cols b{display:block;font-size:13px;letter-spacing:3px;margin-bottom:10px}
+.big{position:absolute;left:40px;top:690px;font-size:110px;font-weight:900;letter-spacing:-5px;line-height:1;transform:skewX(-12deg)}
+.dot{position:absolute;left:880px;top:700px;width:110px;height:110px;border-radius:50%;background:#e11d48}
+.logo{position:absolute;left:40px;top:40px;font-size:16px;font-weight:900;letter-spacing:4px}
+.date{position:absolute;right:120px;top:40px;font-size:15px}
+</style></head><body>
+<div class="logo" data-r="logo">KINETIK</div><div class="date" data-r="date">Vol. 06 — Oct 2026</div>
+<div class="w top" data-r="word-top" data-must>BREAK</div>
+<div class="w bot" data-r="word-bottom" data-must>BREAK</div>
+<div class="rule" data-r="rule"></div>
+<div class="v" data-r="vertical">A type festival · Lisbon</div>
+<div class="row" data-r="row-rule"></div>
+<div class="cols" data-r="cols"><p><b>01 DAY</b>Talks on motion, rhythm and the split letter.</p><p><b>02 DAY</b>Workshops: variable fonts and kinetic posters.</p><p><b>03 DAY</b>Night show with live-coded type on the river.</p></div>
+<div class="big" data-r="tickets" data-must>Tickets →</div>
+<div class="dot" data-r="dot"></div>
+</body></html>

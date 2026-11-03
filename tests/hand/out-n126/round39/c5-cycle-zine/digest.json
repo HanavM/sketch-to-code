@@ -1,0 +1,390 @@
+{
+  "round": 39,
+  "id": "c5-cycle-zine",
+  "version": 3,
+  "stopped": null,
+  "likeness": 68.7,
+  "colour": 0.8974203820827892,
+  "structure": 0.6527832195568168,
+  "layout": 0.8121077073902706,
+  "strokes": {
+    "count": 8,
+    "pointsPerStroke": 5.4,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "box": 2,
+      "circle": 1,
+      "line": 3
+    },
+    "inkPx": 6156
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 35,
+  "notes": 5,
+  "longestNote": 13,
+  "noteTexts": [
+    "black and yellow vertical stripes, even, thin",
+    "07, giant red numerals, slight tilt",
+    "NEW ISSUE, yellow, tilted",
+    "CLIMB SEASON, big bold caps",
+    "Seven passes, one bad knee and the best coffee stop in the Alps."
+  ],
+  "time": {
+    "firstStrokeToDoneS": 281,
+    "firstReadingS": 64,
+    "readS": [
+      33
+    ],
+    "buildS": [
+      210
+    ],
+    "sketchingS": 38
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 55718,
+    "cacheRead": 531859,
+    "output": 21920,
+    "billed": 77638
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#fde047",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 837
+    },
+    {
+      "op": "stroke",
+      "at": 8603
+    },
+    {
+      "op": "note",
+      "at": 9364
+    },
+    {
+      "op": "pen",
+      "color": "#e11d48",
+      "at": 9730
+    },
+    {
+      "op": "stroke",
+      "at": 15371
+    },
+    {
+      "op": "note",
+      "at": 16166
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 16530
+    },
+    {
+      "op": "stroke",
+      "at": 18622
+    },
+    {
+      "op": "stroke",
+      "at": 19091
+    },
+    {
+      "op": "note",
+      "at": 19898
+    },
+    {
+      "op": "stroke",
+      "at": 21940
+    },
+    {
+      "op": "note",
+      "at": 22760
+    },
+    {
+      "op": "stroke",
+      "at": 24726
+    },
+    {
+      "op": "stroke",
+      "at": 25325
+    },
+    {
+      "op": "note",
+      "at": 26414
+    },
+    {
+      "op": "run",
+      "at": 31244
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          800,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          420,
+          2
+        ],
+        [
+          420,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n": 439,
+      "at": 8603
+    },
+    {
+      "way": [
+        [
+          490,
+          70
+        ],
+        [
+          1000,
+          70
+        ],
+        [
+          1000,
+          490
+        ],
+        [
+          490,
+          490
+        ],
+        [
+          490,
+          72
+        ]
+      ],
+      "n": 311,
+      "at": 15371
+    },
+    {
+      "way": [
+        [
+          1210,
+          165
+        ],
+        [
+          1207,
+          187
+        ],
+        [
+          1199,
+          208
+        ],
+        [
+          1185,
+          225
+        ],
+        [
+          1168,
+          239
+        ],
+        [
+          1147,
+          247
+        ],
+        [
+          1125,
+          250
+        ],
+        [
+          1103,
+          247
+        ],
+        [
+          1082,
+          239
+        ],
+        [
+          1065,
+          225
+        ],
+        [
+          1051,
+          208
+        ],
+        [
+          1043,
+          187
+        ],
+        [
+          1040,
+          165
+        ],
+        [
+          1043,
+          143
+        ],
+        [
+          1051,
+          123
+        ],
+        [
+          1065,
+          105
+        ],
+        [
+          1082,
+          91
+        ],
+        [
+          1103,
+          83
+        ],
+        [
+          1125,
+          80
+        ],
+        [
+          1147,
+          83
+        ],
+        [
+          1168,
+          91
+        ],
+        [
+          1185,
+          105
+        ],
+        [
+          1199,
+          122
+        ],
+        [
+          1207,
+          143
+        ],
+        [
+          1210,
+          165
+        ]
+      ],
+      "n": 97,
+      "at": 18622
+    },
+    {
+      "way": [
+        [
+          1125,
+          165
+        ]
+      ],
+      "n": 1,
+      "at": 19091
+    },
+    {
+      "way": [
+        [
+          520,
+          632
+        ],
+        [
+          1082,
+          632
+        ]
+      ],
+      "n": 95,
+      "at": 21940
+    },
+    {
+      "way": [
+        [
+          524,
+          704
+        ],
+        [
+          1055,
+          704
+        ]
+      ],
+      "n": 90,
+      "at": 24726
+    },
+    {
+      "way": [
+        [
+          524,
+          733
+        ],
+        [
+          570,
+          733
+        ]
+      ],
+      "n": 9,
+      "at": 25325
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "black and yellow vertical stripes, even, thin",
+      "whole": false,
+      "x": 210,
+      "y": 450,
+      "at": 9364
+    },
+    {
+      "text": "07, giant red numerals, slight tilt",
+      "whole": false,
+      "x": 745,
+      "y": 280,
+      "at": 16166
+    },
+    {
+      "text": "NEW ISSUE, yellow, tilted",
+      "whole": false,
+      "x": 1125,
+      "y": 140,
+      "at": 19898
+    },
+    {
+      "text": "CLIMB SEASON, big bold caps",
+      "whole": false,
+      "x": 800,
+      "y": 615,
+      "at": 22760
+    },
+    {
+      "text": "Seven passes, one bad knee and the best coffee stop in the Alps.",
+      "whole": false,
+      "x": 790,
+      "y": 718,
+      "at": 26414
+    }
+  ]
+}

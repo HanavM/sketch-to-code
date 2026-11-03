@@ -1,0 +1,231 @@
+{
+  "round": 5,
+  "id": "e5-data-grid",
+  "version": 3,
+  "stopped": null,
+  "likeness": 13.7,
+  "colour": 0.9745652351791079,
+  "structure": 0.6777763202059539,
+  "layout": 0.4562623372590769,
+  "strokes": {
+    "count": 6,
+    "pointsPerStroke": 3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "box": 2
+    },
+    "inkPx": 6428
+  },
+  "erased": 0,
+  "words": 45,
+  "notes": 8,
+  "longestNote": 12,
+  "noteTexts": [
+    "Budget 2027 green, File Edit View Insert Data menu",
+    "D4 =SUM(B4:C4)",
+    "spreadsheet grid A-H, 24 numbered rows",
+    "light blue header: Team Jan Feb Total Owner Status Notes Q1 goal",
+    "5 teams with budgets",
+    "selected cell",
+    "sheet tabs Q1-Q4, Summary",
+    "title small, menu on same line"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 398,
+    "firstReadingS": 62,
+    "readS": [
+      37,
+      11
+    ],
+    "buildS": [
+      271,
+      37
+    ],
+    "sketchingS": 42
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 54432,
+    "cacheRead": 398647,
+    "output": 32049,
+    "billed": 86481
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 1409
+    },
+    {
+      "op": "stroke",
+      "at": 2324
+    },
+    {
+      "op": "stroke",
+      "at": 14058
+    },
+    {
+      "op": "stroke",
+      "at": 17941
+    },
+    {
+      "op": "stroke",
+      "at": 19440
+    },
+    {
+      "op": "stroke",
+      "at": 20692
+    },
+    {
+      "op": "note",
+      "at": 21392
+    },
+    {
+      "op": "note",
+      "at": 22028
+    },
+    {
+      "op": "note",
+      "at": 22696
+    },
+    {
+      "op": "note",
+      "at": 23424
+    },
+    {
+      "op": "note",
+      "at": 24047
+    },
+    {
+      "op": "note",
+      "at": 24667
+    },
+    {
+      "op": "note",
+      "at": 25307
+    },
+    {
+      "op": "run",
+      "at": 25373
+    },
+    {
+      "op": "note",
+      "at": 341046
+    },
+    {
+      "op": "run",
+      "at": 341148
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          20,
+          26
+        ],
+        [
+          360,
+          26
+        ]
+      ],
+      "n": 58,
+      "at": 1409
+    },
+    {
+      "way": [
+        [
+          10,
+          68
+        ],
+        [
+          170,
+          68
+        ]
+      ],
+      "n": 28,
+      "at": 2324
+    },
+    {
+      "way": [
+        [
+          0,
+          86
+        ],
+        [
+          1278,
+          86
+        ],
+        [
+          1278,
+          836
+        ],
+        [
+          0,
+          836
+        ],
+        [
+          0,
+          86
+        ]
+      ],
+      "n": 677,
+      "at": 14058
+    },
+    {
+      "way": [
+        [
+          46,
+          130
+        ],
+        [
+          1270,
+          130
+        ]
+      ],
+      "n": 205,
+      "at": 17941
+    },
+    {
+      "way": [
+        [
+          508,
+          206
+        ],
+        [
+          662,
+          206
+        ],
+        [
+          662,
+          236
+        ],
+        [
+          508,
+          236
+        ],
+        [
+          508,
+          206
+        ]
+      ],
+      "n": 63,
+      "at": 19440
+    },
+    {
+      "way": [
+        [
+          60,
+          877
+        ],
+        [
+          340,
+          877
+        ]
+      ],
+      "n": 48,
+      "at": 20692
+    }
+  ]
+}

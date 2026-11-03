@@ -1,0 +1,352 @@
+{
+  "id": "c5-neon-grid",
+  "at": "2026-10-25T16:59:33.198Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9116557612872789,
+    "overallV2": 0.9116557612872789,
+    "overallV1": 0.9007583698461985,
+    "colour": 0.9798065273451139,
+    "structure": 0.9624741379182926,
+    "structureStrict": 0.9335039309103276,
+    "colourAligned": 0.9798065273451139,
+    "structureAligned": 0.9624741379182926,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9841187773309296
+    },
+    "layout": 0.7801396066083225,
+    "layoutV1": 0.6551412561853709,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      -1268,
+      -103,
+      3815,
+      603
+    ],
+    [
+      0,
+      48,
+      30,
+      103,
+      16
+    ],
+    [
+      0,
+      981,
+      30,
+      68,
+      16
+    ],
+    [
+      0,
+      1089,
+      30,
+      46,
+      16
+    ],
+    [
+      0,
+      1175,
+      30,
+      57,
+      16
+    ],
+    [
+      0,
+      444,
+      124,
+      393,
+      392
+    ],
+    [
+      6,
+      444,
+      124,
+      393,
+      392
+    ],
+    [
+      7,
+      443,
+      124,
+      394,
+      393
+    ],
+    [
+      0,
+      0,
+      317,
+      1280,
+      156
+    ],
+    [
+      0,
+      0,
+      480,
+      1280,
+      51
+    ],
+    [
+      0,
+      532,
+      581,
+      220,
+      56
+    ],
+    [
+      0,
+      52,
+      826,
+      173,
+      27
+    ],
+    [
+      0,
+      1064,
+      826,
+      97,
+      27
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.9999868033836125,
+      "parts": 4,
+      "rect": {
+        "x": 48,
+        "y": 30,
+        "w": 1184.015625,
+        "h": 16
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "italic",
+      "mask",
+      "mono",
+      "motion",
+      "overlap",
+      "stripes-or-layers",
+      "uppercase-display"
+    ],
+    "missing": [],
+    "extra": [
+      "blend"
+    ]
+  },
+  "tokens": {
+    "input": 45400,
+    "output": 24502,
+    "cacheRead": 435315
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 53970,
+      "output": 14043,
+      "cacheRead": 432231,
+      "toolCalls": 15,
+      "tools": [
+        "Read components/RetroSun.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/RetroSun.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 139922
+    }
+  ],
+  "reading": "The sketch is a synthwave music-site hero: a full-page gradient background with a hard-edge cut and grain texture, a nav bar (OUTRUN.FM / TRACKS / TOUR / MERCH), a striped gradient retro sun, a tilted neon grid floor, a giant glowing 'NIGHTDRIVE' headline, a flickering neon 'the new album' line, a glowing outlined 'PLAY NOW' button, and two HUD-style stat lines (HI-SCORE and 1UP) at the bottom — all specified precisely by the user's typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        1,
+        1277,
+        496
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Style the whole page (home/hero) exactly per the user's note: 'whole page: near-black indigo (#0b0221) to dark plum (#2a0845) gradient down to 56% (the edge at "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        34,
+        1176,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add the site nav bar in place of this top squiggle, per the user's note: cyan 'OUTRUN.FM' at the left, then 'TRACKS', 'TOUR', 'MERCH' links pushed to the far ri"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        444,
+        124,
+        393,
+        392
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Draw a retro synthwave sun: a big vivid soft yellow (#ffe259, top) to vivid pink (#ff4e8a, bottom) gradient circle, cut into 7 hard horizontal stripes across it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        1,
+        1277,
+        496
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a perspective grid floor behind the other hero content, per the user's note: one 2080x700px div (its untransformed size) with its top-left at -400,500 (runn"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 132
+        }
+      ],
+      "region": [
+        8,
+        316,
+        1152,
+        158
+      ],
+      "paths": [],
+      "instruction": "Add the hero headline in place of this wavy line, per the user's note: giant italic heavy uppercase off-white (#e0f7ff) to sky blue (#6ad4ff, stop at 48%, fully"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 31
+        }
+      ],
+      "region": [
+        8,
+        478,
+        1152,
+        37
+      ],
+      "paths": [],
+      "instruction": "Add a neon subtitle in place of this wavy line, per the user's note: 34px letters #37f3ff, one line 'the new album', centred (a 1280px-wide box with top-left at"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        532,
+        581,
+        216,
+        54
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Turn this rounded rectangle into a call-to-action button, per the user's note: near-black indigo background, cyan text '▶ PLAY NOW' (220x56px, square corners: b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        826,
+        165,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a HUD-style lead line in place of this wavy line, per the user's note: mono soft yellow 'HI-SCORE 0098430', text colour #ffe259 (NOT the page's white text),"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [],
+      "region": [
+        1064,
+        826,
+        89,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a HUD-style lead line in place of this wavy line, per the user's note: mono pink '♥ ♥ ♥ 1UP', text colour #ff4e8a (NOT the page's white text), set at 18px ("
+    }
+  ],
+  "rejected": []
+}

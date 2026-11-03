@@ -1,0 +1,463 @@
+{
+  "round": 33,
+  "id": "e1-todo",
+  "version": 3,
+  "stopped": null,
+  "likeness": 83,
+  "colour": 0.9971642071900625,
+  "structure": 0.9794581649744217,
+  "layout": 0.7134605832804051,
+  "strokes": {
+    "count": 12,
+    "pointsPerStroke": 3.5,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 7,
+      "line": 2,
+      "dot": 3
+    },
+    "inkPx": 3852
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 43,
+  "notes": 9,
+  "longestNote": 7,
+  "noteTexts": [
+    "Today, bold navy",
+    "Add a task… placeholder, lavender border",
+    "Water the plants, done: struck grey",
+    "Call the dentist",
+    "Buy oat milk",
+    "Send invoice, done: struck grey",
+    "Book train to Leeds",
+    "thin grey divider under each row",
+    "3 left · Clear done, small grey"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 148,
+    "firstReadingS": 82,
+    "readS": [
+      46
+    ],
+    "buildS": [
+      58
+    ],
+    "sketchingS": 44
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 49811,
+    "cacheRead": 122034,
+    "output": 9233,
+    "billed": 59044
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 6466
+    },
+    {
+      "op": "stroke",
+      "at": 7174
+    },
+    {
+      "op": "stroke",
+      "at": 10592
+    },
+    {
+      "op": "stroke",
+      "at": 11340
+    },
+    {
+      "op": "stroke",
+      "at": 12073
+    },
+    {
+      "op": "stroke",
+      "at": 12808
+    },
+    {
+      "op": "stroke",
+      "at": 13559
+    },
+    {
+      "op": "stroke",
+      "at": 14308
+    },
+    {
+      "op": "stroke",
+      "at": 15108
+    },
+    {
+      "op": "pen",
+      "color": "#eef2ff",
+      "at": 15487
+    },
+    {
+      "op": "stroke",
+      "at": 15959
+    },
+    {
+      "op": "pen",
+      "color": "#6366f1",
+      "at": 16331
+    },
+    {
+      "op": "stroke",
+      "at": 16809
+    },
+    {
+      "op": "stroke",
+      "at": 17294
+    },
+    {
+      "op": "note",
+      "at": 25580
+    },
+    {
+      "op": "note",
+      "at": 26267
+    },
+    {
+      "op": "note",
+      "at": 26941
+    },
+    {
+      "op": "note",
+      "at": 27593
+    },
+    {
+      "op": "note",
+      "at": 28228
+    },
+    {
+      "op": "note",
+      "at": 28894
+    },
+    {
+      "op": "note",
+      "at": 29546
+    },
+    {
+      "op": "note",
+      "at": 30245
+    },
+    {
+      "op": "note",
+      "at": 30928
+    },
+    {
+      "op": "run",
+      "at": 36673
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          360,
+          110
+        ],
+        [
+          920,
+          110
+        ],
+        [
+          920,
+          632
+        ],
+        [
+          360,
+          632
+        ],
+        [
+          360,
+          112
+        ]
+      ],
+      "n": 361,
+      "at": 6466
+    },
+    {
+      "way": [
+        [
+          400,
+          162
+        ],
+        [
+          486,
+          162
+        ]
+      ],
+      "n": 15,
+      "at": 7174
+    },
+    {
+      "way": [
+        [
+          400,
+          205
+        ],
+        [
+          880,
+          205
+        ],
+        [
+          880,
+          255
+        ],
+        [
+          400,
+          255
+        ],
+        [
+          400,
+          207
+        ]
+      ],
+      "n": 177,
+      "at": 10592
+    },
+    {
+      "way": [
+        [
+          400,
+          288
+        ],
+        [
+          422,
+          288
+        ],
+        [
+          422,
+          310
+        ],
+        [
+          400,
+          310
+        ],
+        [
+          400,
+          289
+        ]
+      ],
+      "n": 17,
+      "at": 11340
+    },
+    {
+      "way": [
+        [
+          400,
+          346
+        ],
+        [
+          422,
+          346
+        ],
+        [
+          422,
+          368
+        ],
+        [
+          400,
+          368
+        ],
+        [
+          400,
+          347
+        ]
+      ],
+      "n": 17,
+      "at": 12073
+    },
+    {
+      "way": [
+        [
+          400,
+          404
+        ],
+        [
+          422,
+          404
+        ],
+        [
+          422,
+          426
+        ],
+        [
+          400,
+          426
+        ],
+        [
+          400,
+          405
+        ]
+      ],
+      "n": 17,
+      "at": 12808
+    },
+    {
+      "way": [
+        [
+          400,
+          462
+        ],
+        [
+          422,
+          462
+        ],
+        [
+          422,
+          484
+        ],
+        [
+          400,
+          484
+        ],
+        [
+          400,
+          463
+        ]
+      ],
+      "n": 17,
+      "at": 13559
+    },
+    {
+      "way": [
+        [
+          400,
+          520
+        ],
+        [
+          422,
+          520
+        ],
+        [
+          422,
+          542
+        ],
+        [
+          400,
+          542
+        ],
+        [
+          400,
+          521
+        ]
+      ],
+      "n": 17,
+      "at": 14308
+    },
+    {
+      "way": [
+        [
+          400,
+          588
+        ],
+        [
+          511,
+          588
+        ]
+      ],
+      "n": 20,
+      "at": 15108
+    },
+    {
+      "way": [
+        [
+          150,
+          750
+        ]
+      ],
+      "n": 1,
+      "at": 15959
+    },
+    {
+      "way": [
+        [
+          411,
+          299
+        ]
+      ],
+      "n": 1,
+      "at": 16809
+    },
+    {
+      "way": [
+        [
+          411,
+          473
+        ]
+      ],
+      "n": 1,
+      "at": 17294
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Today, bold navy",
+      "whole": false,
+      "x": 440,
+      "y": 150,
+      "at": 25580
+    },
+    {
+      "text": "Add a task… placeholder, lavender border",
+      "whole": false,
+      "x": 500,
+      "y": 230,
+      "at": 26267
+    },
+    {
+      "text": "Water the plants, done: struck grey",
+      "whole": false,
+      "x": 480,
+      "y": 299,
+      "at": 26941
+    },
+    {
+      "text": "Call the dentist",
+      "whole": false,
+      "x": 480,
+      "y": 357,
+      "at": 27593
+    },
+    {
+      "text": "Buy oat milk",
+      "whole": false,
+      "x": 480,
+      "y": 415,
+      "at": 28228
+    },
+    {
+      "text": "Send invoice, done: struck grey",
+      "whole": false,
+      "x": 480,
+      "y": 473,
+      "at": 28894
+    },
+    {
+      "text": "Book train to Leeds",
+      "whole": false,
+      "x": 480,
+      "y": 531,
+      "at": 29546
+    },
+    {
+      "text": "thin grey divider under each row",
+      "whole": false,
+      "x": 640,
+      "y": 560,
+      "at": 30245
+    },
+    {
+      "text": "3 left · Clear done, small grey",
+      "whole": false,
+      "x": 455,
+      "y": 600,
+      "at": 30928
+    }
+  ]
+}

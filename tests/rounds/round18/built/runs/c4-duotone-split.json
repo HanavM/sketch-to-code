@@ -1,0 +1,476 @@
+{
+  "id": "c4-duotone-split",
+  "at": "2026-10-24T22:34:06.973Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8132020105348661,
+    "overallV2": 0.8132020105348661,
+    "overallV1": 0.7305821084480528,
+    "colour": 0.9618690403378278,
+    "structure": 0.9161835065764024,
+    "structureStrict": 0.7565699691254132,
+    "colourAligned": 0.9618690403378278,
+    "structureAligned": 0.9161835065764024,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9250261371419681
+    },
+    "layout": 0.6163081159740643,
+    "layoutV1": 0.5770839780430298,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      600,
+      0,
+      680,
+      900
+    ],
+    [
+      1,
+      600,
+      0,
+      680,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1272,
+      894
+    ],
+    [
+      3,
+      598,
+      0,
+      674,
+      894
+    ],
+    [
+      3,
+      0,
+      2,
+      738,
+      890
+    ],
+    [
+      0,
+      30,
+      306,
+      14,
+      56
+    ],
+    [
+      0,
+      30,
+      402,
+      14,
+      65
+    ],
+    [
+      0,
+      30,
+      508,
+      14,
+      86
+    ],
+    [
+      0,
+      90,
+      186,
+      114,
+      30
+    ],
+    [
+      0,
+      90,
+      230,
+      601,
+      391
+    ],
+    [
+      10,
+      90,
+      230,
+      601,
+      196
+    ],
+    [
+      10,
+      90,
+      426,
+      601,
+      196
+    ],
+    [
+      0,
+      100,
+      670,
+      352,
+      90
+    ],
+    [
+      0,
+      100,
+      790,
+      163,
+      24
+    ],
+    [
+      0,
+      1113,
+      62,
+      107,
+      14
+    ],
+    [
+      0,
+      1113,
+      81,
+      107,
+      14
+    ],
+    [
+      0,
+      1080,
+      100,
+      140,
+      14
+    ],
+    [
+      0,
+      820,
+      430,
+      110,
+      182
+    ],
+    [
+      18,
+      820,
+      430,
+      110,
+      110
+    ],
+    [
+      18,
+      820,
+      540,
+      110,
+      72
+    ],
+    [
+      0,
+      1080,
+      690,
+      140,
+      140
+    ],
+    [
+      21,
+      1090,
+      700,
+      120,
+      120
+    ],
+    [
+      21,
+      1090,
+      700,
+      120,
+      120
+    ],
+    [
+      21,
+      1120,
+      743,
+      60,
+      33
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "caption",
+      "iou": 0.3922413793103448,
+      "parts": 3,
+      "rect": {
+        "x": 1080,
+        "y": 62,
+        "w": 140,
+        "h": 52
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 80344,
+    "output": 41245,
+    "cacheRead": 252519
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 86894,
+      "output": 26074,
+      "cacheRead": 238802,
+      "toolCalls": 9,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 287777
+    }
+  ],
+  "reading": "The sketch is a magazine-style hero split: a cream angled panel on the left carries vertical section labels, a lead line, a huge italic 'Dusk Hours' headline, a short paragraph and a link; a dark gradient panel on the right carries glowing orange/peach light spots under a striped overlay, three small monospace caption lines, a '07 of twenty-four' index label, and a circular SVG progress ring. Typed notes give exact colours, positions and copy for every piece, which I followed verbatim over my own reading of the squiggles.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        3,
+        1272,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Draw a flat cream (#f5e9d7) cut-out shape, ONE solid fill with no gradient/shading/texture of its own; keep only the fill, the drawn outline strokes themselves "
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14"
+          ],
+          "lines": 2,
+          "fontPx": 58
+        }
+      ],
+      "region": [
+        824,
+        458,
+        102,
+        8
+      ],
+      "paths": [],
+      "instruction": "Build a background block, 680x900px with top-left at 600,0 (position absolute), cut to a slanted shape via clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%) "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        4,
+        738,
+        892
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Add wide-spaced vertical section labels 'FILMS', 'STILLS', 'JOURNAL' on the cream block, text colour #101820 (near-black, not the page's cream), each its own el"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        738,
+        890
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a wide-spaced lead line reading 'ÉCLIPSE' on the cream block, text colour #101820 (near-black, not the page's cream), set at 20px (a large lead line, not sm"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 178
+        }
+      ],
+      "region": [
+        5,
+        5,
+        738,
+        890
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a giant Georgia italic bold (font-weight 700) serif headline reading 'Dusk Hours', set tight-set in exactly 2 lines keeping these breaks ('Dusk' / 'Hours', "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        5,
+        5,
+        738,
+        890
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add dark grey (#3a3a3a, not the page's cream text) body copy on the cream block reading: \"A photographer's year spent chasing the twenty minutes after sunset, a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        738,
+        890
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a bold link reading 'VIEW THE SERIES →' with a 2px underline (no box, not a button), text colour #101820 (near-black, not the page's cream), on the cream bl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        904,
+        60,
+        312,
+        58
+      ],
+      "paths": [],
+      "instruction": "Add three small monospace caption lines on the dark block, 12px, colour #cbb9a3, each a real one-line element (white-space nowrap, min-width not fixed width, so"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14"
+          ],
+          "lines": 2,
+          "fontPx": 58
+        }
+      ],
+      "region": [
+        824,
+        522,
+        63,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add an italic peach (#ffb37a, not the page's cream text) label reading '07 of twenty-four' on the dark block, no fill/bar of its own. The '07' is hollow (outlin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1083,
+        693,
+        133,
+        133
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Add an inline SVG circular progress indicator (no picture, box, window, border or background — only the SVG's own shapes show), 140x140px, top-left at page 1080"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

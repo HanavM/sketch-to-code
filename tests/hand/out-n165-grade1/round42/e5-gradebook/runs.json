@@ -1,0 +1,440 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "c311b37d23c3f3d9a6096cd05f649cd74dff3631",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/AvatarIcon.tsx"
+  ],
+  "reading": "The sketch lays out a gradebook page: a dark navy sidebar nav (Classbook / Overview / Grades-active / Attendance / Messages), a bold 'Year 9 Science' heading with a '28 students · Term 2' subtitle, an Export button top-right, a tab bar (Grades active, Assignments, Notes), and a students grades table (Student, Lab 1, Lab 2, Quiz, Project, Average) with 7 made-up students, bold averages colour-coded green/red for high/low scores, and small avatar icons per row.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <aside> at (0,0) 220x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "aside",
+      "srcLoc": "src/App.tsx:18:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 220,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s0",
+       "drawn": {
+        "x": 1,
+        "y": 1,
+        "w": 220,
+        "h": 897
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 220,
+        "h": 900
+       },
+       "dx": -1,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#24445e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Year 9 Science\" at (260,49) 261x44 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:31:13",
+      "rect": {
+       "x": 260,
+       "y": 51,
+       "w": 261.171875,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1f2a37 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> at (16,150) 188x36 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:21:11",
+      "rect": {
+       "x": 16,
+       "y": 150,
+       "w": 188,
+       "h": 36
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (1060,39) 181x45: the <path> built for it sits 225px too low and 37px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The cause is above it, at the top: take 225px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1060,
+        "y": 39,
+        "w": 181,
+        "h": 45
+       },
+       "built": {
+        "x": 1096.6014404296875,
+        "y": 258,
+        "w": 182.306884765625,
+        "h": 56
+       },
+       "dx": 37,
+       "dy": 225
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#24445e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (220,0) 1060x170 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:29:9",
+      "rect": {
+       "x": 220,
+       "y": 0,
+       "w": 1060,
+       "h": 170
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e2e6ea is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (220,170) 1060x72 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:39:9",
+      "rect": {
+       "x": 220,
+       "y": 170,
+       "w": 1060,
+       "h": 72
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<svg> src/components/AvatarIcon.tsx:11:5 at (220,258) 1060x56 sits on the drawn shape",
+     "claimed": "e31"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the ring drawn at (270,258) 26x26: the <div> built for it sits 15px too low, and 225px of that is the <path> drawn at (1060,39) above it, which sits 225px too low: it moves with the rows above when those are fixed, so do not move it on its own for that part. The other 210px is its own: change the gap between the last row and it by 210px (more space).",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 270,
+        "y": 258,
+        "w": 26,
+        "h": 26
+       },
+       "built": {
+        "x": 260,
+        "y": 273,
+        "w": 26,
+        "h": 26
+       },
+       "dx": -10,
+       "dy": 15
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 13.6,
+    "reason": "#e8f5ec is on the page (ΔE 13.6)"
+   },
+   {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.9831016181601677,
+    "massSimilarity": 0.9758594545145253,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the ring drawn at (270,258) 26x26, tapped #d4dbe2 has no element of about that size painting a fill there: build it as one #d4dbe2 element exactly at that box, border-radius 50%, opaque"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "table-rule",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 table under its drawn header rule"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Maya Patel\" is words nobody typed, on no drawn mark. Take it out; \"Liam Chen\" is words nobody typed, on no drawn mark. Take it out; \"Zara Ahmed\" is words nobody typed, on no drawn mark. Take it out; \"Noah Williams\" is words nobody typed, on no drawn mark. Take it out",
+     "invented": [
+      "Maya Patel",
+      "Liam Chen",
+      "Zara Ahmed",
+      "Noah Williams",
+      "Priya Shah",
+      "Ethan Brooks",
+      "Sofia Garcia"
+     ],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the heading \"year science\" was drawn as one line 210px long (x 260 to 470, y 57); its letters run 261px, past the line: take its font-size from 36px down to about 29px so it fits the drawn length on one line. Keep its block exactly 40px tall (line-height 40px) so nothing under it moves; change nothing else"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"28 students · Term 2\" runs cells of the row \"28 students · Term 2\" together in one piece of text: make each cell its own element (name, details, side value as typed), no separators; change nothing else"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the box drawn at (1060,39) 181x45 was drawn in a dark pen with no tap (a box in the same pen was tapped, this one was not): an outlined block (thin #24445e border, white background); nothing that size with a border was built there: give it a 1px #24445e border and a white / transparent background, keep its content inside; action 3: the line drawn at (260,170) 980x0 was coloured #e2e6ea (text colour); what was built there is ΔE 44 away: paint its text exactly #e2e6ea; action 3: the line drawn at (260,242) 980x0 was coloured #e2e6ea (text colour); what was built there is ΔE 44 away: paint its text exactly #e2e6ea; action 4: the outline drawn at (1073,243) 167x57 was coloured #e8f5ec (fill); nothing that size was built there carrying a colour: paint the block itself exactly #e8f5ec",
+     "checks": [
+      {
+       "what": "the box drawn at (1,1) 220x897 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,1) 220x897",
+       "want": "#24445e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (260,57) 210x0",
+       "want": "#1f2a37",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1060,39) 181x45 (untapped pen outline)",
+       "want": "border #24445e, no #24445e fill",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (260,170) 980x0",
+       "want": "#e2e6ea",
+       "best": 43.85218201655639,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (260,167) 52x0",
+       "want": "#24445e",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (260,242) 980x0",
+       "want": "#e2e6ea",
+       "best": 43.85218201655639,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (1073,243) 167x57",
+       "want": "#e8f5ec",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the ring drawn at (270,257) 26x27",
+       "want": "#d4dbe2",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 54420,
+   "cacheRead": 196526,
+   "output": 31534
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 85954,
+    "output": 31534,
+    "cacheRead": 196526,
+    "toolCalls": 10,
+    "tools": [
+     "Glob",
+     "Read components/AvatarIcon.tsx",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Glob",
+     "Glob",
+     "Edit components/AvatarIcon.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 360791
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 165019,
+    "stalled": "the agent made no progress for 152 s"
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": "the agent made no progress for 152 s",
+  "buildStalled": null
+ }
+]

@@ -1,3 +1,4 @@
+import { appendFileSync } from 'node:fs'
 import { query } from '@anthropic-ai/claude-agent-sdk'
 import type { SDKUserMessage } from '@anthropic-ai/claude-agent-sdk'
 import { scriptedModel } from './scripted.js'
@@ -14,8 +15,14 @@ import type { InterpretRequest, InterpretResponse, PerceptionProvider, TextRegio
  * intermittent: fine while the model answered in one step, broken the moment
  * it took two. With tools:[] the model can't wander, so the extra turns buy
  * nothing but that headroom.
+ *
+ * 2026-10-21 (n41): 4 was still too tight. Traced design readings: the first
+ * StructuredOutput call often wraps the answer as {"actions": {...}} and is
+ * rejected, so a good reading already takes 3 turns; one more bad attempt
+ * (bad JSON, a missing key) and turn 4 ends it in error_max_turns. 6 leaves
+ * two retries; a retry costs only when it happens.
  */
-const PERCEPTION_MAX_TURNS = 4
+const PERCEPTION_MAX_TURNS = 6
 
 /**
  * s2c-056: a perception call had no time limit. With the API unreachable the
@@ -24,10 +31,13 @@ const PERCEPTION_MAX_TURNS = 4
  * only after 179 s; the bench page gave up at 100 s). Two minutes is past every
  * reading the rough bench timed; past it the person gets "press ▶ Run to try
  * again" and the cause. S2C_READING_TIMEOUT_MS overrides it.
+ * n41 (2026-10-21): round-3 design readings take 60-75s with ONE schema retry
+ * (6-7k output tokens each attempt), so a second retry passes 120s and timed
+ * out; three minutes leaves room for two.
  */
 export function perceptionTimeoutMs(env: Record<string, string | undefined> = process.env): number {
   const n = Number(env.S2C_READING_TIMEOUT_MS)
-  return Number.isFinite(n) && n > 0 ? n : 120_000
+  return Number.isFinite(n) && n > 0 ? n : 180_000
 }
 
 /** Run one perception query under the time limit; the timer is cleared either way. */
@@ -82,6 +92,9 @@ export function createClaudeCodeProvider(): PerceptionProvider {
           persistSession: false,
           settingSources: [],
           systemPrompt: req.prompt,
+          // the full text of each StructuredOutput attempt: the CLI cuts a bad
+          // attempt's raw input to 2048 chars, too short to salvage a page reading
+          includePartialMessages: true,
           env: cleanEnv(),
           outputFormat: { type: 'json_schema', schema: req.schema },
         },
@@ -89,15 +102,43 @@ export function createClaudeCodeProvider(): PerceptionProvider {
       let raw: unknown = {}
       const usage = { input: 0, cacheRead: 0, output: 0 }
       let failure: string | null = 'the model session ended without an answer'
+      let lastAttempt: unknown = undefined
+      const streamed = streamedInputs()
+      try {
       for await (const msg of q) {
+        traceReading(msg)
+        streamed.see(msg)
+        const attempt = structuredAttempt(msg)
+        if (attempt !== undefined) lastAttempt = streamed.full(attempt)
         if (msg.type === 'result') {
           failure = readingFailure(msg)
           if (!failure) raw = (msg as { structured_output?: unknown }).structured_output
+          else {
+            // round 1 (2026-10-20): 1 of 9 page readings ran out of turns
+            // re-sending the same answer with `"unclear": ,` (bad JSON); a
+            // third of readings first wrapped the answer as {"actions": {...}}.
+            // The answer itself was right both times: recover it here.
+            // n83 (round 6 e4): the final attempt's stream can be missing from what we saw, leaving only its
+            // 2048-char cut; every earlier attempt carried the same answer with the same one fault, so the
+            // newest one that repairs stands
+            let saved = salvageReading(lastAttempt, req.schema)
+            for (const t of streamed.texts()) {
+              if (saved !== undefined) break
+              saved = salvageReading({ __unparsedToolInput: { raw: t } }, req.schema)
+            }
+            if (saved !== undefined) { raw = saved; failure = null }
+          }
           const u = msg.usage
           usage.input += (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0)
           usage.cacheRead += u.cache_read_input_tokens ?? 0
           usage.output += u.output_tokens ?? 0
         }
+      }
+      } catch (err) {
+        // round 3 c4 (2026-10-21): after a failed result the SDK also throws
+        // "Claude Code returned an error result"; a salvaged answer stands
+        if (failure) throw new PerceptionFailure(`${failure}; ${err instanceof Error ? err.message : String(err)}`.slice(0, 400), usage)
+        if (raw === undefined || (raw && typeof raw === 'object' && Object.keys(raw).length === 0)) throw err
       }
       // s2c-056: a reading that ended in error used to come back as raw {},
       // which interpretV2 reported as "interpreter returned malformed output":
@@ -193,6 +234,69 @@ export function createClaudeCodeProvider(): PerceptionProvider {
   }
 }
 
+/**
+ * Collects the streamed JSON of each StructuredOutput call. A bad attempt
+ * reaches the assistant message as {__unparsedToolInput: {raw}} with raw cut
+ * to 2048 chars (round 3 c4: 2748-char answers, `"unclear": ,` the only fault,
+ * failed 5 retries and could not be salvaged); full() swaps in the whole text.
+ */
+export function streamedInputs() {
+  let buf: string | null = null
+  let last: string | null = null
+  const all: string[] = []
+  return {
+    /** every finished StructuredOutput text, newest first */
+    texts(): string[] { return [...all].reverse() },
+    see(msg: unknown): void {
+      const m = msg as { type?: string; event?: { type?: string; content_block?: { type?: string; name?: string }; delta?: { type?: string; partial_json?: string } } }
+      if (m.type !== 'stream_event' || !m.event) return
+      const e = m.event
+      if (e.type === 'content_block_start') buf = e.content_block?.type === 'tool_use' && e.content_block.name === 'StructuredOutput' ? '' : null
+      else if (e.type === 'content_block_delta' && buf !== null && e.delta?.type === 'input_json_delta') buf += e.delta.partial_json ?? ''
+      else if (e.type === 'content_block_stop' && buf !== null) { last = buf; all.push(buf); buf = null }
+    },
+    full(attempt: unknown): unknown {
+      const raw = (attempt as { __unparsedToolInput?: { raw?: unknown } } | null)?.__unparsedToolInput?.raw
+      if (typeof raw !== 'string' || last === null || last.length <= raw.length || !last.startsWith(raw)) return attempt
+      return { __unparsedToolInput: { raw: last } }
+    },
+  }
+}
+
+/** The input of a StructuredOutput tool call in an assistant message, if any. */
+function structuredAttempt(msg: unknown): unknown {
+  const m = msg as { type?: string; message?: { content?: Array<{ type?: string; name?: string; input?: unknown }> } }
+  if (m.type !== 'assistant' || !Array.isArray(m.message?.content)) return undefined
+  const call = m.message.content.find((c) => c.type === 'tool_use' && c.name === 'StructuredOutput')
+  return call?.input
+}
+
+/**
+ * Recover an answer from the model's last StructuredOutput attempt when the SDK
+ * gave up on it: unwrap {"<key>": {...the answer...}}, and repair JSON whose
+ * only fault is an empty value (`"unclear": ,` -> null). Returns undefined
+ * unless the result has every top-level key the schema requires.
+ */
+export function salvageReading(attempt: unknown, schema: unknown): unknown {
+  const required = ((schema as { required?: unknown })?.required ?? []) as string[]
+  const complete = (o: unknown): o is Record<string, unknown> =>
+    !!o && typeof o === 'object' && !Array.isArray(o) && required.every((k) => k in (o as object))
+  let cand: unknown = attempt
+  const unparsed = (cand as { __unparsedToolInput?: { raw?: unknown } } | null)?.__unparsedToolInput?.raw
+  if (typeof unparsed === 'string') {
+    try {
+      cand = JSON.parse(unparsed.replace(/:\s*(?=[,}\]])/g, ': null'))
+    } catch { return undefined }
+  }
+  if (required.length === 0) return undefined
+  if (complete(cand)) return cand
+  if (cand && typeof cand === 'object') {
+    const vals = Object.values(cand as object)
+    if (vals.length === 1 && complete(vals[0])) return vals[0]
+  }
+  return undefined
+}
+
 /** A model call that ended without a usable answer; carries what it cost. */
 export class PerceptionFailure extends Error {
   constructor(message: string, readonly usage: { input: number; cacheRead: number; output: number }) {
@@ -235,4 +339,14 @@ export function cleanEnv(): Record<string, string | undefined> {
   env.CLAUDE_CODE_DISABLE_AUTO_MEMORY = '1'
   env.CLAUDE_AGENT_SDK_CLIENT_APP = 'sketch-to-code/0.1.0'
   return env
+}
+
+/** S2C_TRACE_READING=<file>: append every SDK message of a reading as one JSON line (debugging failed readings). */
+function traceReading(msg: unknown): void {
+  const file = process.env.S2C_TRACE_READING
+  if (!file) return
+  try {
+    const line = JSON.stringify(msg, (_k, v) => (typeof v === 'string' && v.length > 4000 ? v.slice(0, 4000) + '…' : v))
+    appendFileSync(file, line + '\n')
+  } catch { /* tracing never breaks a reading */ }
 }

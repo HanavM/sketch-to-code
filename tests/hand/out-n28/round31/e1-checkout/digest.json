@@ -1,0 +1,680 @@
+{
+  "round": 31,
+  "id": "e1-checkout",
+  "version": 3,
+  "stopped": null,
+  "likeness": 84.3,
+  "colour": 0.9945296899667274,
+  "structure": 0.9698795158937585,
+  "layout": 0.805407423599682,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 3.4,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 10,
+      "line": 4,
+      "dot": 4
+    },
+    "inkPx": 10479
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 40,
+  "notes": 15,
+  "longestNote": 8,
+  "noteTexts": [
+    "Kettle&Co",
+    "Contact",
+    "Email",
+    "Delivery",
+    "First name",
+    "Last name",
+    "Address",
+    "City",
+    "Postcode",
+    "Pay now",
+    "Stovetop kettle, Copper below; $64.00 at right",
+    "Pour-over set, Matte black; $38.00",
+    "Subtotal $102.00, Shipping Free",
+    "Total $102.00 bold",
+    "left boxes are inputs, words are grey placeholders"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 437,
+    "firstReadingS": 99,
+    "readS": [
+      33
+    ],
+    "buildS": [
+      331
+    ],
+    "sketchingS": 73
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 90257,
+    "cacheRead": 383290,
+    "output": 30608,
+    "billed": 120865
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 8647
+    },
+    {
+      "op": "stroke",
+      "at": 12591
+    },
+    {
+      "op": "stroke",
+      "at": 14922
+    },
+    {
+      "op": "stroke",
+      "at": 17238
+    },
+    {
+      "op": "stroke",
+      "at": 21157
+    },
+    {
+      "op": "stroke",
+      "at": 23488
+    },
+    {
+      "op": "stroke",
+      "at": 25822
+    },
+    {
+      "op": "stroke",
+      "at": 29791
+    },
+    {
+      "op": "stroke",
+      "at": 31022
+    },
+    {
+      "op": "stroke",
+      "at": 32256
+    },
+    {
+      "op": "stroke",
+      "at": 34039
+    },
+    {
+      "op": "stroke",
+      "at": 34821
+    },
+    {
+      "op": "stroke",
+      "at": 35511
+    },
+    {
+      "op": "stroke",
+      "at": 36204
+    },
+    {
+      "op": "pen",
+      "color": "#f3f4f6",
+      "at": 46580
+    },
+    {
+      "op": "stroke",
+      "at": 47056
+    },
+    {
+      "op": "pen",
+      "color": "#141a2a",
+      "at": 47428
+    },
+    {
+      "op": "stroke",
+      "at": 47908
+    },
+    {
+      "op": "pen",
+      "color": "#d1d5db",
+      "at": 48287
+    },
+    {
+      "op": "stroke",
+      "at": 48773
+    },
+    {
+      "op": "stroke",
+      "at": 49255
+    },
+    {
+      "op": "note",
+      "at": 49923
+    },
+    {
+      "op": "note",
+      "at": 50545
+    },
+    {
+      "op": "note",
+      "at": 51175
+    },
+    {
+      "op": "note",
+      "at": 51810
+    },
+    {
+      "op": "note",
+      "at": 52443
+    },
+    {
+      "op": "note",
+      "at": 53075
+    },
+    {
+      "op": "note",
+      "at": 53717
+    },
+    {
+      "op": "note",
+      "at": 54347
+    },
+    {
+      "op": "note",
+      "at": 55001
+    },
+    {
+      "op": "note",
+      "at": 55642
+    },
+    {
+      "op": "note",
+      "at": 56395
+    },
+    {
+      "op": "note",
+      "at": 57111
+    },
+    {
+      "op": "note",
+      "at": 57815
+    },
+    {
+      "op": "note",
+      "at": 58511
+    },
+    {
+      "op": "note",
+      "at": 59256
+    },
+    {
+      "op": "run",
+      "at": 65663
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          702,
+          2
+        ],
+        [
+          1277,
+          2
+        ],
+        [
+          1277,
+          897
+        ],
+        [
+          702,
+          897
+        ],
+        [
+          702,
+          4
+        ]
+      ],
+      "n": 491,
+      "at": 8647
+    },
+    {
+      "way": [
+        [
+          64,
+          160
+        ],
+        [
+          636,
+          160
+        ],
+        [
+          636,
+          205
+        ],
+        [
+          64,
+          205
+        ],
+        [
+          64,
+          162
+        ]
+      ],
+      "n": 206,
+      "at": 12591
+    },
+    {
+      "way": [
+        [
+          64,
+          282
+        ],
+        [
+          343,
+          282
+        ],
+        [
+          343,
+          328
+        ],
+        [
+          64,
+          328
+        ],
+        [
+          64,
+          284
+        ]
+      ],
+      "n": 110,
+      "at": 14922
+    },
+    {
+      "way": [
+        [
+          357,
+          282
+        ],
+        [
+          636,
+          282
+        ],
+        [
+          636,
+          328
+        ],
+        [
+          357,
+          328
+        ],
+        [
+          357,
+          284
+        ]
+      ],
+      "n": 110,
+      "at": 17238
+    },
+    {
+      "way": [
+        [
+          64,
+          342
+        ],
+        [
+          636,
+          342
+        ],
+        [
+          636,
+          388
+        ],
+        [
+          64,
+          388
+        ],
+        [
+          64,
+          344
+        ]
+      ],
+      "n": 206,
+      "at": 21157
+    },
+    {
+      "way": [
+        [
+          64,
+          402
+        ],
+        [
+          343,
+          402
+        ],
+        [
+          343,
+          448
+        ],
+        [
+          64,
+          448
+        ],
+        [
+          64,
+          404
+        ]
+      ],
+      "n": 110,
+      "at": 23488
+    },
+    {
+      "way": [
+        [
+          357,
+          402
+        ],
+        [
+          636,
+          402
+        ],
+        [
+          636,
+          448
+        ],
+        [
+          357,
+          448
+        ],
+        [
+          357,
+          404
+        ]
+      ],
+      "n": 110,
+      "at": 25822
+    },
+    {
+      "way": [
+        [
+          64,
+          484
+        ],
+        [
+          636,
+          484
+        ],
+        [
+          636,
+          538
+        ],
+        [
+          64,
+          538
+        ],
+        [
+          64,
+          486
+        ]
+      ],
+      "n": 209,
+      "at": 29791
+    },
+    {
+      "way": [
+        [
+          757,
+          56
+        ],
+        [
+          821,
+          56
+        ],
+        [
+          821,
+          120
+        ],
+        [
+          757,
+          120
+        ],
+        [
+          757,
+          58
+        ]
+      ],
+      "n": 44,
+      "at": 31022
+    },
+    {
+      "way": [
+        [
+          757,
+          142
+        ],
+        [
+          821,
+          142
+        ],
+        [
+          821,
+          206
+        ],
+        [
+          757,
+          206
+        ],
+        [
+          757,
+          144
+        ]
+      ],
+      "n": 44,
+      "at": 32256
+    },
+    {
+      "way": [
+        [
+          757,
+          298
+        ],
+        [
+          1224,
+          298
+        ]
+      ],
+      "n": 79,
+      "at": 34039
+    },
+    {
+      "way": [
+        [
+          64,
+          70
+        ],
+        [
+          170,
+          70
+        ]
+      ],
+      "n": 19,
+      "at": 34821
+    },
+    {
+      "way": [
+        [
+          64,
+          135
+        ],
+        [
+          138,
+          135
+        ]
+      ],
+      "n": 13,
+      "at": 35511
+    },
+    {
+      "way": [
+        [
+          64,
+          258
+        ],
+        [
+          142,
+          258
+        ]
+      ],
+      "n": 14,
+      "at": 36204
+    },
+    {
+      "way": [
+        [
+          1000,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 47056
+    },
+    {
+      "way": [
+        [
+          350,
+          511
+        ]
+      ],
+      "n": 1,
+      "at": 47908
+    },
+    {
+      "way": [
+        [
+          789,
+          88
+        ]
+      ],
+      "n": 1,
+      "at": 48773
+    },
+    {
+      "way": [
+        [
+          789,
+          174
+        ]
+      ],
+      "n": 1,
+      "at": 49255
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Kettle&Co",
+      "whole": false,
+      "x": 110,
+      "y": 58,
+      "at": 49923
+    },
+    {
+      "text": "Contact",
+      "whole": false,
+      "x": 100,
+      "y": 123,
+      "at": 50545
+    },
+    {
+      "text": "Email",
+      "whole": false,
+      "x": 200,
+      "y": 182,
+      "at": 51175
+    },
+    {
+      "text": "Delivery",
+      "whole": false,
+      "x": 100,
+      "y": 246,
+      "at": 51810
+    },
+    {
+      "text": "First name",
+      "whole": false,
+      "x": 150,
+      "y": 305,
+      "at": 52443
+    },
+    {
+      "text": "Last name",
+      "whole": false,
+      "x": 450,
+      "y": 305,
+      "at": 53075
+    },
+    {
+      "text": "Address",
+      "whole": false,
+      "x": 200,
+      "y": 365,
+      "at": 53717
+    },
+    {
+      "text": "City",
+      "whole": false,
+      "x": 150,
+      "y": 425,
+      "at": 54347
+    },
+    {
+      "text": "Postcode",
+      "whole": false,
+      "x": 450,
+      "y": 425,
+      "at": 55001
+    },
+    {
+      "text": "Pay now",
+      "whole": false,
+      "x": 330,
+      "y": 511,
+      "at": 55642
+    },
+    {
+      "text": "Stovetop kettle, Copper below; $64.00 at right",
+      "whole": false,
+      "x": 930,
+      "y": 88,
+      "at": 56395
+    },
+    {
+      "text": "Pour-over set, Matte black; $38.00",
+      "whole": false,
+      "x": 930,
+      "y": 174,
+      "at": 57111
+    },
+    {
+      "text": "Subtotal $102.00, Shipping Free",
+      "whole": false,
+      "x": 930,
+      "y": 252,
+      "at": 57815
+    },
+    {
+      "text": "Total $102.00 bold",
+      "whole": false,
+      "x": 930,
+      "y": 328,
+      "at": 58511
+    },
+    {
+      "text": "left boxes are inputs, words are grey placeholders",
+      "whole": true,
+      "x": 300,
+      "y": 700,
+      "at": 59256
+    }
+  ]
+}

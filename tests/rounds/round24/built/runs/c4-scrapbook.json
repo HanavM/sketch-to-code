@@ -1,0 +1,521 @@
+{
+  "id": "c4-scrapbook",
+  "at": "2026-10-26T11:43:22.144Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9181760290450425,
+    "overallV2": 0.9181760290450425,
+    "overallV1": 0.895186282783381,
+    "colour": 0.994875708803721,
+    "structure": 0.9442951796161801,
+    "structureStrict": 0.913183080281572,
+    "colourAligned": 0.994875708803721,
+    "structureAligned": 0.9442951796161801,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9856239763743759
+    },
+    "layout": 0.8960957250619246,
+    "layoutV1": 0.8960957250619246,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      612
+    ],
+    [
+      2,
+      0,
+      0,
+      1280,
+      96
+    ],
+    [
+      3,
+      74,
+      29,
+      90,
+      39
+    ],
+    [
+      3,
+      881,
+      36,
+      325,
+      24
+    ],
+    [
+      5,
+      881,
+      36,
+      35,
+      24
+    ],
+    [
+      5,
+      948,
+      36,
+      73,
+      24
+    ],
+    [
+      5,
+      1053,
+      36,
+      72,
+      24
+    ],
+    [
+      5,
+      1157,
+      36,
+      49,
+      24
+    ],
+    [
+      2,
+      0,
+      170,
+      1280,
+      442
+    ],
+    [
+      10,
+      74,
+      170,
+      458,
+      221
+    ],
+    [
+      11,
+      74,
+      317,
+      236,
+      74
+    ],
+    [
+      12,
+      56,
+      307,
+      300,
+      100
+    ],
+    [
+      13,
+      64,
+      307,
+      285,
+      99
+    ],
+    [
+      10,
+      74,
+      431,
+      392,
+      58
+    ],
+    [
+      10,
+      74,
+      564,
+      183,
+      48
+    ],
+    [
+      0,
+      440,
+      600,
+      240,
+      140
+    ],
+    [
+      17,
+      450,
+      615,
+      190,
+      95
+    ],
+    [
+      17,
+      622,
+      692,
+      24,
+      26
+    ],
+    [
+      0,
+      544,
+      92,
+      340,
+      319
+    ],
+    [
+      20,
+      559,
+      108,
+      305,
+      251
+    ],
+    [
+      20,
+      586,
+      325,
+      284,
+      85
+    ],
+    [
+      0,
+      845,
+      158,
+      319,
+      388
+    ],
+    [
+      23,
+      863,
+      173,
+      285,
+      323
+    ],
+    [
+      23,
+      859,
+      473,
+      263,
+      71
+    ],
+    [
+      0,
+      673,
+      442,
+      342,
+      291
+    ],
+    [
+      26,
+      690,
+      456,
+      311,
+      225
+    ],
+    [
+      26,
+      687,
+      666,
+      302,
+      66
+    ],
+    [
+      0,
+      638,
+      84,
+      124,
+      58
+    ],
+    [
+      0,
+      928,
+      142,
+      124,
+      50
+    ],
+    [
+      0,
+      995,
+      555,
+      210,
+      200
+    ],
+    [
+      31,
+      1016,
+      576,
+      165,
+      107
+    ],
+    [
+      0,
+      314,
+      674,
+      182,
+      182
+    ],
+    [
+      33,
+      314,
+      674,
+      182,
+      182
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 56882,
+    "output": 32833,
+    "cacheRead": 239980
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 61629,
+      "output": 21204,
+      "cacheRead": 225292,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 227541
+    }
+  ],
+  "reading": "A hero section is sketched: a wavy top-bar for the nav/logo, a big circled headline, an intro paragraph, a CTA button, a hand-drawn dashed arrow, three tilted photo cards, two strips of sticky tape crossing them, a sticky-note callout, and a circular dashed badge — all styled per the typed notes (cream page with ruled-paper overlay, specific colors, fonts, SVGs and exact positions/sizes).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        55,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar (the wavy stroke across the very top of the page): bold italic 26px Georgia serif logo text \"roamlog\" on the left, followed by nav links: Tri"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 68
+        }
+      ],
+      "region": [
+        78,
+        170,
+        423,
+        223
+      ],
+      "paths": [],
+      "instruction": "Hero headline in huge Helvetica heavy, tight-set letters (line-height 0.98), set in exactly 3 lines that must keep these breaks and never rewrap: \"Keep the trip"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        74,
+        430,
+        392,
+        58
+      ],
+      "paths": [],
+      "instruction": "Intro paragraph below the headline, serif text: \"Drop in pictures, tickets and scribbles; roamlog lays them out into a book you can hold.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        563,
+        179,
+        42
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Call-to-action button: dark navy (#2b2622) block with cream text \"Start a scrapbook\", with a hard solid opaque orange shadow offset 4px down-right, no blur; tex"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        444,
+        603,
+        233,
+        133
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A dashed arrow annotation drawn as this exact inline SVG (no picture, no box, no border/outline/frame around it, no background — only the SVG's own shapes show)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        547,
+        95,
+        334,
+        313
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A 340x319px white (#ffffff) photo card floating like a separate piece of paper, position absolute top-left at 544,92, square corners, box-shadow rgba(43,38,34,0"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        848,
+        161,
+        312,
+        381
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A 319x388px white (#ffffff) photo card floating like a separate piece of paper, position absolute top-left at 845,158, square corners, box-shadow rgba(43,38,34,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        676,
+        445,
+        336,
+        285
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "A 342x291px white (#ffffff) photo card floating like a separate piece of paper, position absolute top-left at 673,442, square corners, box-shadow rgba(43,38,34,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        642,
+        87,
+        116,
+        51
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A see-through soft yellow (#f7d97a at 60% opacity) strip of sticky tape, 120x34px, top-left at 640,96 before rotation, then rotated -12deg about its centre (lie"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        932,
+        145,
+        117,
+        43
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A see-through soft yellow (#f7d97a at 60% opacity) strip of sticky tape, 120x34px, top-left at 930,150 before rotation, then rotated 8deg about its centre (lies"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        998,
+        558,
+        203,
+        193
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "A floating sticky-note card, 210x200px, top-left at 995,555, untransformed top-left at 1000,560 before rotating -3deg about its centre (tilted 3° anticlockwise)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        317,
+        678,
+        175,
+        175
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "A floating round badge, 182x182px, top-left at 314,674, a circle 150px across (border-radius 50%, never a square) rotated 14° anticlockwise, with a 3px dashed #"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

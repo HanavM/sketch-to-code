@@ -54,7 +54,7 @@ export function unclassified(spec) {
  */
 export function notesFor(spec, mode) {
   const notes = spec.notes ?? []
-  if (mode === 'all') return notes.map((n) => ({ at: n.at, text: n.text }))
+  if (mode === 'all') return notes.map((n) => ({ at: n.at, text: n.text, ...(n.whole ? { whole: true } : {}) }))
   if (mode === 'none') return []
   const bad = unclassified(spec)
   if (bad.length) {
@@ -62,7 +62,7 @@ export function notesFor(spec, mode) {
   }
   return notes
     .filter((n) => typeof n.content === 'string' && n.content.trim())
-    .map((n) => ({ at: n.at, text: n.content.trim() }))
+    .map((n) => ({ at: n.at, text: n.content.trim(), ...(n.whole ? { whole: true } : {}) }))
 }
 
 /** Words typed on this page in this mode. */

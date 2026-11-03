@@ -1,0 +1,504 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "46f66cb99c010e027ee1c65a62363ec2a0e7ab32",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/PotVase.tsx"
+  ],
+  "reading": "This is a full landing-page layout: a branded header (logo + nav), a left hero panel showing a cream pot on an orange-brown background, and a right-side content block with a bold headline, intro copy, a 'Book a seat' button, and a list of three class offerings with prices.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": false,
+     "reason": "new <span> \"Kiln & Co\" at (80,39) 79x21 is 12px below its drawn line: a line drawn for one line of words marks the middle of its letters (drawn at y 38, the letters' middle is at y 50). Move it up 12px by changing the space above it (take out margin, padding or gap there), not its font size; keep its side, and anything below it that already sits where it was drawn stays there",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:7:9",
+      "rect": {
+       "x": 80,
+       "y": 36,
+       "w": 79.015625,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": false,
+     "reason": "new <a> \"Studio\" at (1031,39) 54x21 is 12px below its drawn line: a line drawn for one line of words marks the middle of its letters (drawn at y 38, the letters' middle is at y 50). Move it up 12px by changing the space above it (take out margin, padding or gap there), not its font size; keep its side, and anything below it that already sits where it was drawn stays there",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:10:11",
+      "rect": {
+       "x": 1031.375,
+       "y": 36,
+       "w": 54.265625,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x919 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 919
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": false,
+    "nearest": 52.3,
+    "reason": "nothing near the drawing is the colour that was drawn (#c46b45); closest is ΔE 52.3 away"
+   },
+   {
+    "kind": "composition",
+    "index": 2,
+    "score": 0.8719039752700191,
+    "massSimilarity": 0.81700567895717,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (700,242) 480x124 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:21:11",
+      "rect": {
+       "x": 700,
+       "y": 242,
+       "w": 480,
+       "h": 124
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": false,
+     "reason": "new <span> \"the clay\" at (700,301) 216x68 is 49px above its drawn line: a line drawn for one line of words marks the middle of its letters (drawn at y 384, the letters' middle is at y 335). Move it down 49px by changing the space above it (add margin there), not its font size; keep its side, and anything below it that already sits where it was drawn stays there",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:23:13",
+      "rect": {
+       "x": 700,
+       "y": 304,
+       "w": 480,
+       "h": 62
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (700,392) 344x24 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:26:11",
+      "rect": {
+       "x": 700,
+       "y": 392,
+       "w": 344,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (700,479) 201x55: the <button> built for it sits 23px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The line drawn at y=384 is itself built 18px too high (its bottom at y=366): that part of the drift is above the line (the heading's size or margin, the tab bar's padding or height): add 18px there. The other 41px is in the gap under the line (drawn 95px, built 136px): take it out of the list's top margin or the first row's padding. Never push anything further down; no negative margins or relative offsets.",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 700,
+        "y": 479,
+        "w": 201,
+        "h": 55
+       },
+       "built": {
+        "x": 700,
+        "y": 502,
+        "w": 201,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": 23
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <ul> at (700,646) 480x220 matches the sketch region",
+     "bestCandidate": {
+      "tag": "ul",
+      "srcLoc": "src/App.tsx:34:11",
+      "rect": {
+       "x": 700,
+       "y": 646,
+       "w": 480,
+       "h": 219.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": false,
+     "reason": "5 of 6 blocks sit lower than drawn: action 2 top at 96px, drawn at 75px (21px low); action 3 top at 242px, drawn at 221px (21px low); action 4 top at 404px, drawn at 384px (20px low); action 5 top at 502px, drawn at 479px (23px low); action 6 top at 646px, drawn at 622px (24px low). Take out the extra vertical space the drawing does not have (page/body padding, a taller bar, bigger margins or gaps between rows, line-height on thin lines) so each block's top lands within 16px of its drawn y; fix it at the first block that is off, since every block under it moves with it. Remove space; never pull a block up with a negative margin, negative top or absolute position, which slides it over the heading or label above it. Do not change widths, colours or copy.",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 38,
+       "built": 50,
+       "dy": 12
+      },
+      {
+       "index": 2,
+       "drawn": 75,
+       "built": 96,
+       "dy": 21
+      },
+      {
+       "index": 3,
+       "drawn": 221,
+       "built": 242,
+       "dy": 21
+      },
+      {
+       "index": 4,
+       "drawn": 384,
+       "built": 404,
+       "dy": 20
+      },
+      {
+       "index": 5,
+       "drawn": 479,
+       "built": 502,
+       "dy": 23
+      },
+      {
+       "index": 6,
+       "drawn": 622,
+       "built": 646,
+       "dy": 24
+      }
+     ]
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the words \"Classes Studio Gift cards\" were typed on one line drawn 220px long, from x 980 to 1200 (centre x 1090, y 38), but the row of 3 pieces runs from x 933 to 1200 (267px), spread past the line: keep every piece of that row within x 980 to 1200, in the order typed, as one centred group with even gaps (justify-content: center and a fixed gap of about 12px; drop justify-between / space-between, ml-auto, flex-1 spacers or full-width sides that push items to the edges). Keep the row's height, sizes and colours; change nothing else"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the outline drawn at (1,75) 620x823 was coloured #c46b45 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #c46b45; action 2: the outline drawn at (191,330) 239x278 was coloured #efe0d0 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #efe0d0",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#faf3ea",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (80,38) 94x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (980,38) 220x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (1,75) 620x823",
+       "want": "#c46b45",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (191,330) 239x278",
+       "want": "#efe0d0",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (700,252) 476x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,314) 208x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,384) 344x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (700,479) 201x55 (pen outline, said)",
+       "want": "border #3a2a20, no #3a2a20 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,623) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,671) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,718) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 52153,
+   "cacheRead": 395898,
+   "output": 32574
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 70823,
+    "output": 29211,
+    "cacheRead": 198037,
+    "toolCalls": 8,
+    "tools": [
+     "Read components/PotVase.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/main.tsx",
+     "Read src/index.css",
+     "Glob",
+     "Edit components/PotVase.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 344537
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 0,
+    "tools": [],
+    "ms": 150022,
+    "stalled": "the agent made no progress for 150 s"
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 13904,
+    "output": 3363,
+    "cacheRead": 197861,
+    "toolCalls": 7,
+    "tools": [
+     "Read components/PotVase.tsx",
+     "Glob",
+     "Read components/PotVase.tsx",
+     "Grep",
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 46988
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/PotVase.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 190 255 H 429 V 533 H …\""
+     }
+    ]
+   }
+  ],
+  "repairStalled": "the agent made no progress for 150 s (nothing edited; retried with a fresh repair)",
+  "buildStalled": null
+ }
+]

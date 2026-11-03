@@ -1,0 +1,634 @@
+{
+  "round": 48,
+  "id": "c5-puppet-theater",
+  "version": 3,
+  "stopped": null,
+  "likeness": 85,
+  "colour": 0.9875761538498204,
+  "structure": 0.9219323366313869,
+  "layout": 0.6360711002623128,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 3.2,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 9,
+      "box": 7,
+      "circle": 1,
+      "line": 2
+    },
+    "inkPx": 13518
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 43,
+  "notes": 8,
+  "longestNote": 8,
+  "noteTexts": [
+    "THE STRINGS bold serif spaced",
+    "x8 vertical stripes, alternate darker",
+    "x8 vertical stripes, alternate darker",
+    "Small stage, huge / drama big bold serif",
+    "Marionette plays for grown-ups, five nights a week.",
+    "Get seats bold pill",
+    "Thu to Mon, 8 pm",
+    "Doors at 7:30"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 419,
+    "firstReadingS": 140,
+    "readS": [
+      84
+    ],
+    "buildS": [
+      277
+    ],
+    "sketchingS": 58
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 95928,
+    "cacheRead": 597329,
+    "output": 33842,
+    "billed": 129770
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#1a1024",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 479
+    },
+    {
+      "op": "pen",
+      "color": "#d9a441",
+      "at": 849
+    },
+    {
+      "op": "stroke",
+      "at": 8906
+    },
+    {
+      "op": "stroke",
+      "at": 9369
+    },
+    {
+      "op": "pen",
+      "color": "#5a3a23",
+      "at": 9741
+    },
+    {
+      "op": "stroke",
+      "at": 18324
+    },
+    {
+      "op": "stroke",
+      "at": 18788
+    },
+    {
+      "op": "pen",
+      "color": "#a0122f",
+      "at": 19151
+    },
+    {
+      "op": "stroke",
+      "at": 25055
+    },
+    {
+      "op": "stroke",
+      "at": 25520
+    },
+    {
+      "op": "stroke",
+      "at": 31445
+    },
+    {
+      "op": "stroke",
+      "at": 31923
+    },
+    {
+      "op": "pen",
+      "color": "#4f4040",
+      "at": 32292
+    },
+    {
+      "op": "stroke",
+      "at": 38095
+    },
+    {
+      "op": "stroke",
+      "at": 38577
+    },
+    {
+      "op": "pen",
+      "color": "#f2c9a0",
+      "at": 38939
+    },
+    {
+      "op": "stroke",
+      "at": 40077
+    },
+    {
+      "op": "stroke",
+      "at": 40558
+    },
+    {
+      "op": "pen",
+      "color": "#2e86ab",
+      "at": 40921
+    },
+    {
+      "op": "stroke",
+      "at": 42838
+    },
+    {
+      "op": "stroke",
+      "at": 43304
+    },
+    {
+      "op": "pen",
+      "color": "#d9a441",
+      "at": 43666
+    },
+    {
+      "op": "stroke",
+      "at": 45778
+    },
+    {
+      "op": "stroke",
+      "at": 46256
+    },
+    {
+      "op": "pen",
+      "color": "#ffe6c7",
+      "at": 46624
+    },
+    {
+      "op": "stroke",
+      "at": 48455
+    },
+    {
+      "op": "stroke",
+      "at": 49440
+    },
+    {
+      "op": "note",
+      "at": 50168
+    },
+    {
+      "op": "note",
+      "at": 50893
+    },
+    {
+      "op": "note",
+      "at": 51689
+    },
+    {
+      "op": "note",
+      "at": 52437
+    },
+    {
+      "op": "note",
+      "at": 53354
+    },
+    {
+      "op": "note",
+      "at": 54048
+    },
+    {
+      "op": "note",
+      "at": 54725
+    },
+    {
+      "op": "note",
+      "at": 55389
+    },
+    {
+      "op": "run",
+      "at": 55525
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          460,
+          640
+        ]
+      ],
+      "n": 1,
+      "at": 479
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          1278,
+          2
+        ],
+        [
+          1278,
+          90
+        ],
+        [
+          2,
+          90
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 457,
+      "at": 8906
+    },
+    {
+      "way": [
+        [
+          1100,
+          45
+        ]
+      ],
+      "n": 1,
+      "at": 9369
+    },
+    {
+      "way": [
+        [
+          2,
+          720
+        ],
+        [
+          1278,
+          720
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          720
+        ]
+      ],
+      "n": 487,
+      "at": 18324
+    },
+    {
+      "way": [
+        [
+          640,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 18788
+    },
+    {
+      "way": [
+        [
+          2,
+          90
+        ],
+        [
+          352,
+          90
+        ],
+        [
+          352,
+          720
+        ],
+        [
+          2,
+          720
+        ],
+        [
+          2,
+          90
+        ]
+      ],
+      "n": 327,
+      "at": 25055
+    },
+    {
+      "way": [
+        [
+          176,
+          400
+        ]
+      ],
+      "n": 1,
+      "at": 25520
+    },
+    {
+      "way": [
+        [
+          928,
+          90
+        ],
+        [
+          1278,
+          90
+        ],
+        [
+          1278,
+          720
+        ],
+        [
+          928,
+          720
+        ],
+        [
+          928,
+          90
+        ]
+      ],
+      "n": 327,
+      "at": 31445
+    },
+    {
+      "way": [
+        [
+          1104,
+          400
+        ]
+      ],
+      "n": 1,
+      "at": 31923
+    },
+    {
+      "way": [
+        [
+          590,
+          90
+        ],
+        [
+          690,
+          90
+        ],
+        [
+          890,
+          720
+        ],
+        [
+          390,
+          720
+        ],
+        [
+          590,
+          90
+        ]
+      ],
+      "n": 321,
+      "at": 38095
+    },
+    {
+      "way": [
+        [
+          520,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 38577
+    },
+    {
+      "way": [
+        [
+          640,
+          480
+        ],
+        [
+          660,
+          485
+        ],
+        [
+          675,
+          500
+        ],
+        [
+          680,
+          520
+        ],
+        [
+          675,
+          540
+        ],
+        [
+          660,
+          555
+        ],
+        [
+          640,
+          560
+        ],
+        [
+          620,
+          555
+        ],
+        [
+          605,
+          540
+        ],
+        [
+          600,
+          520
+        ],
+        [
+          605,
+          500
+        ],
+        [
+          620,
+          485
+        ],
+        [
+          640,
+          480
+        ]
+      ],
+      "n": 41,
+      "at": 40077
+    },
+    {
+      "way": [
+        [
+          640,
+          520
+        ]
+      ],
+      "n": 1,
+      "at": 40558
+    },
+    {
+      "way": [
+        [
+          607,
+          560
+        ],
+        [
+          673,
+          560
+        ],
+        [
+          705,
+          720
+        ],
+        [
+          575,
+          720
+        ],
+        [
+          607,
+          560
+        ]
+      ],
+      "n": 88,
+      "at": 42838
+    },
+    {
+      "way": [
+        [
+          640,
+          650
+        ]
+      ],
+      "n": 1,
+      "at": 43304
+    },
+    {
+      "way": [
+        [
+          520,
+          756
+        ],
+        [
+          760,
+          756
+        ],
+        [
+          760,
+          812
+        ],
+        [
+          520,
+          812
+        ],
+        [
+          520,
+          756
+        ]
+      ],
+      "n": 99,
+      "at": 45778
+    },
+    {
+      "way": [
+        [
+          740,
+          784
+        ]
+      ],
+      "n": 1,
+      "at": 46256
+    },
+    {
+      "way": [
+        [
+          395,
+          185
+        ],
+        [
+          885,
+          185
+        ]
+      ],
+      "n": 83,
+      "at": 48455
+    },
+    {
+      "way": [
+        [
+          547,
+          253
+        ],
+        [
+          733,
+          253
+        ]
+      ],
+      "n": 32,
+      "at": 49440
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "THE STRINGS bold serif spaced",
+      "whole": false,
+      "x": 520,
+      "y": 45,
+      "at": 50168
+    },
+    {
+      "text": "x8 vertical stripes, alternate darker",
+      "whole": false,
+      "x": 176,
+      "y": 300,
+      "at": 50893
+    },
+    {
+      "text": "x8 vertical stripes, alternate darker",
+      "whole": false,
+      "x": 1104,
+      "y": 300,
+      "at": 51689
+    },
+    {
+      "text": "Small stage, huge / drama big bold serif",
+      "whole": false,
+      "x": 420,
+      "y": 205,
+      "at": 52436
+    },
+    {
+      "text": "Marionette plays for grown-ups, five nights a week.",
+      "whole": false,
+      "x": 440,
+      "y": 392,
+      "at": 53354
+    },
+    {
+      "text": "Get seats bold pill",
+      "whole": false,
+      "x": 590,
+      "y": 784,
+      "at": 54048
+    },
+    {
+      "text": "Thu to Mon, 8 pm",
+      "whole": false,
+      "x": 64,
+      "y": 833,
+      "at": 54725
+    },
+    {
+      "text": "Doors at 7:30",
+      "whole": false,
+      "x": 1040,
+      "y": 833,
+      "at": 55389
+    }
+  ]
+}

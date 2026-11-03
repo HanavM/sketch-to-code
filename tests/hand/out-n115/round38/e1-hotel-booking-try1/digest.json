@@ -1,0 +1,679 @@
+{
+  "round": 38,
+  "id": "e1-hotel-booking",
+  "version": 3,
+  "stopped": null,
+  "likeness": 77.7,
+  "colour": 0.9925190363145331,
+  "structure": 0.8924120444256828,
+  "layout": 0.8292987404045973,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 3.3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "box": 10,
+      "dot": 5
+    },
+    "inkPx": 15342
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 56,
+  "notes": 10,
+  "longestNote": 11,
+  "noteTexts": [
+    "staylo, bold",
+    "Sign in",
+    "Where Lisbon, Dates Nov 12 – 16, Guests 2 adults",
+    "Search",
+    "3 rooms available",
+    "Garden double, Queen bed · courtyard view, $140",
+    "River suite, King bed · balcony, $230",
+    "Twin room, Two singles · quiet side, $120",
+    "November 2026 calendar, 12 and 16 magenta circles, 13–15 pale pink",
+    "Reserve · 4 nights"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 446,
+    "firstReadingS": 110,
+    "readS": [
+      47
+    ],
+    "buildS": [
+      334
+    ],
+    "sketchingS": 65
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 103045,
+    "cacheRead": 538281,
+    "output": 31995,
+    "billed": 135040
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#be185d",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 647
+    },
+    {
+      "op": "note",
+      "at": 1294
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 1666
+    },
+    {
+      "op": "stroke",
+      "at": 2261
+    },
+    {
+      "op": "note",
+      "at": 2880
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 3244
+    },
+    {
+      "op": "stroke",
+      "at": 7263
+    },
+    {
+      "op": "pen",
+      "color": "#d1d5db",
+      "at": 7647
+    },
+    {
+      "op": "stroke",
+      "at": 14981
+    },
+    {
+      "op": "note",
+      "at": 15781
+    },
+    {
+      "op": "pen",
+      "color": "#be185d",
+      "at": 16145
+    },
+    {
+      "op": "stroke",
+      "at": 17747
+    },
+    {
+      "op": "stroke",
+      "at": 18217
+    },
+    {
+      "op": "note",
+      "at": 18847
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 19216
+    },
+    {
+      "op": "stroke",
+      "at": 20150
+    },
+    {
+      "op": "note",
+      "at": 20840
+    },
+    {
+      "op": "pen",
+      "color": "#d1d5db",
+      "at": 21214
+    },
+    {
+      "op": "stroke",
+      "at": 26713
+    },
+    {
+      "op": "stroke",
+      "at": 32267
+    },
+    {
+      "op": "stroke",
+      "at": 37789
+    },
+    {
+      "op": "pen",
+      "color": "#f9cfe6",
+      "at": 38153
+    },
+    {
+      "op": "stroke",
+      "at": 41066
+    },
+    {
+      "op": "stroke",
+      "at": 41531
+    },
+    {
+      "op": "pen",
+      "color": "#ddd6fe",
+      "at": 41894
+    },
+    {
+      "op": "stroke",
+      "at": 44806
+    },
+    {
+      "op": "stroke",
+      "at": 45287
+    },
+    {
+      "op": "pen",
+      "color": "#bbf7d0",
+      "at": 45649
+    },
+    {
+      "op": "stroke",
+      "at": 48553
+    },
+    {
+      "op": "stroke",
+      "at": 49036
+    },
+    {
+      "op": "note",
+      "at": 49935
+    },
+    {
+      "op": "note",
+      "at": 50741
+    },
+    {
+      "op": "note",
+      "at": 51600
+    },
+    {
+      "op": "pen",
+      "color": "#d1d5db",
+      "at": 51965
+    },
+    {
+      "op": "stroke",
+      "at": 58055
+    },
+    {
+      "op": "note",
+      "at": 58900
+    },
+    {
+      "op": "pen",
+      "color": "#111827",
+      "at": 59261
+    },
+    {
+      "op": "stroke",
+      "at": 62000
+    },
+    {
+      "op": "stroke",
+      "at": 62484
+    },
+    {
+      "op": "note",
+      "at": 63197
+    },
+    {
+      "op": "run",
+      "at": 63329
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          56,
+          36
+        ],
+        [
+          120,
+          36
+        ]
+      ],
+      "n": 12,
+      "at": 647
+    },
+    {
+      "way": [
+        [
+          1178,
+          36
+        ],
+        [
+          1224,
+          36
+        ]
+      ],
+      "n": 9,
+      "at": 2261
+    },
+    {
+      "way": [
+        [
+          2,
+          72
+        ],
+        [
+          1278,
+          72
+        ]
+      ],
+      "n": 214,
+      "at": 7263
+    },
+    {
+      "way": [
+        [
+          57,
+          101
+        ],
+        [
+          1223,
+          101
+        ],
+        [
+          1223,
+          175
+        ],
+        [
+          57,
+          175
+        ],
+        [
+          57,
+          101
+        ]
+      ],
+      "n": 413,
+      "at": 14981
+    },
+    {
+      "way": [
+        [
+          1063,
+          110
+        ],
+        [
+          1213,
+          110
+        ],
+        [
+          1213,
+          166
+        ],
+        [
+          1063,
+          166
+        ],
+        [
+          1063,
+          110
+        ]
+      ],
+      "n": 69,
+      "at": 17747
+    },
+    {
+      "way": [
+        [
+          1138,
+          138
+        ]
+      ],
+      "n": 1,
+      "at": 18217
+    },
+    {
+      "way": [
+        [
+          56,
+          221
+        ],
+        [
+          224,
+          221
+        ]
+      ],
+      "n": 29,
+      "at": 20150
+    },
+    {
+      "way": [
+        [
+          57,
+          251
+        ],
+        [
+          775,
+          251
+        ],
+        [
+          775,
+          439
+        ],
+        [
+          57,
+          439
+        ],
+        [
+          57,
+          251
+        ]
+      ],
+      "n": 303,
+      "at": 26713
+    },
+    {
+      "way": [
+        [
+          57,
+          461
+        ],
+        [
+          775,
+          461
+        ],
+        [
+          775,
+          649
+        ],
+        [
+          57,
+          649
+        ],
+        [
+          57,
+          461
+        ]
+      ],
+      "n": 303,
+      "at": 32267
+    },
+    {
+      "way": [
+        [
+          57,
+          671
+        ],
+        [
+          775,
+          671
+        ],
+        [
+          775,
+          859
+        ],
+        [
+          57,
+          859
+        ],
+        [
+          57,
+          671
+        ]
+      ],
+      "n": 303,
+      "at": 37789
+    },
+    {
+      "way": [
+        [
+          57,
+          251
+        ],
+        [
+          307,
+          251
+        ],
+        [
+          307,
+          439
+        ],
+        [
+          57,
+          439
+        ],
+        [
+          57,
+          251
+        ]
+      ],
+      "n": 147,
+      "at": 41066
+    },
+    {
+      "way": [
+        [
+          182,
+          345
+        ]
+      ],
+      "n": 1,
+      "at": 41531
+    },
+    {
+      "way": [
+        [
+          57,
+          461
+        ],
+        [
+          307,
+          461
+        ],
+        [
+          307,
+          649
+        ],
+        [
+          57,
+          649
+        ],
+        [
+          57,
+          461
+        ]
+      ],
+      "n": 147,
+      "at": 44806
+    },
+    {
+      "way": [
+        [
+          182,
+          555
+        ]
+      ],
+      "n": 1,
+      "at": 45287
+    },
+    {
+      "way": [
+        [
+          57,
+          671
+        ],
+        [
+          307,
+          671
+        ],
+        [
+          307,
+          859
+        ],
+        [
+          57,
+          859
+        ],
+        [
+          57,
+          671
+        ]
+      ],
+      "n": 147,
+      "at": 48553
+    },
+    {
+      "way": [
+        [
+          182,
+          765
+        ]
+      ],
+      "n": 1,
+      "at": 49036
+    },
+    {
+      "way": [
+        [
+          817,
+          251
+        ],
+        [
+          1223,
+          251
+        ],
+        [
+          1223,
+          849
+        ],
+        [
+          817,
+          849
+        ],
+        [
+          817,
+          251
+        ]
+      ],
+      "n": 337,
+      "at": 58055
+    },
+    {
+      "way": [
+        [
+          843,
+          767
+        ],
+        [
+          1199,
+          767
+        ],
+        [
+          1199,
+          823
+        ],
+        [
+          843,
+          823
+        ],
+        [
+          843,
+          767
+        ]
+      ],
+      "n": 137,
+      "at": 62000
+    },
+    {
+      "way": [
+        [
+          1021,
+          795
+        ]
+      ],
+      "n": 1,
+      "at": 62484
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "staylo, bold",
+      "whole": false,
+      "x": 88,
+      "y": 36,
+      "at": 1294
+    },
+    {
+      "text": "Sign in",
+      "whole": false,
+      "x": 1200,
+      "y": 36,
+      "at": 2880
+    },
+    {
+      "text": "Where Lisbon, Dates Nov 12 – 16, Guests 2 adults",
+      "whole": false,
+      "x": 400,
+      "y": 138,
+      "at": 15781
+    },
+    {
+      "text": "Search",
+      "whole": false,
+      "x": 1138,
+      "y": 125,
+      "at": 18847
+    },
+    {
+      "text": "3 rooms available",
+      "whole": false,
+      "x": 140,
+      "y": 221,
+      "at": 20840
+    },
+    {
+      "text": "Garden double, Queen bed · courtyard view, $140",
+      "whole": false,
+      "x": 540,
+      "y": 300,
+      "at": 49935
+    },
+    {
+      "text": "River suite, King bed · balcony, $230",
+      "whole": false,
+      "x": 540,
+      "y": 510,
+      "at": 50741
+    },
+    {
+      "text": "Twin room, Two singles · quiet side, $120",
+      "whole": false,
+      "x": 540,
+      "y": 720,
+      "at": 51600
+    },
+    {
+      "text": "November 2026 calendar, 12 and 16 magenta circles, 13–15 pale pink",
+      "whole": false,
+      "x": 1020,
+      "y": 420,
+      "at": 58900
+    },
+    {
+      "text": "Reserve · 4 nights",
+      "whole": false,
+      "x": 1021,
+      "y": 782,
+      "at": 63197
+    }
+  ]
+}

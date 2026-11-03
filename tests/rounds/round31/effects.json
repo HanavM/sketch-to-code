@@ -1,0 +1,92 @@
+{
+ "c1-citrus-launch": {
+  "found": {
+   "tilt": 1,
+   "huge-type": 1,
+   "overlap": 2
+  },
+  "names": [
+   "huge-type",
+   "overlap",
+   "tilt"
+  ]
+ },
+ "c2-night-gallery": {
+  "found": {
+   "gradient": 3,
+   "serif": 1,
+   "italic": 1
+  },
+  "names": [
+   "gradient",
+   "italic",
+   "serif"
+  ]
+ },
+ "c3-stacked-cards": {
+  "found": {
+   "tilt": 3,
+   "soft-shadow": 3,
+   "mono": 3,
+   "overlap": 4
+  },
+  "names": [
+   "mono",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "c4-poster-grid": {
+  "found": {
+   "huge-type": 1
+  },
+  "names": [
+   "huge-type"
+  ]
+ },
+ "c5-spotlight-quote": {
+  "found": {
+   "huge-type": 1,
+   "serif": 2,
+   "italic": 1
+  },
+  "names": [
+   "huge-type",
+   "italic",
+   "serif"
+  ]
+ },
+ "e1-checkout": {
+  "found": {},
+  "names": []
+ },
+ "e2-inbox": {
+  "found": {},
+  "names": []
+ },
+ "e3-kanban": {
+  "found": {},
+  "names": []
+ },
+ "e4-weather": {
+  "found": {
+   "huge-type": 1,
+   "gradient": 3
+  },
+  "names": [
+   "gradient",
+   "huge-type"
+  ]
+ },
+ "e5-profile": {
+  "found": {
+   "gradient": 1,
+   "overlap": 1
+  },
+  "names": [
+   "gradient",
+   "overlap"
+  ]
+ }
+}

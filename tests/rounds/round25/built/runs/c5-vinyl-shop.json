@@ -1,0 +1,605 @@
+{
+  "id": "c5-vinyl-shop",
+  "at": "2026-10-26T14:12:32.836Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8974020547644569,
+    "overallV2": 0.8974020547644569,
+    "overallV1": 0.8661235698311645,
+    "colour": 0.9763470450662703,
+    "structure": 0.8718705625457402,
+    "structureStrict": 0.8126317306350912,
+    "colourAligned": 0.9763470450662703,
+    "structureAligned": 0.8718705625457402,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9422008695076143
+    },
+    "layout": 0.9311741980636675,
+    "layoutV1": 0.8402935073704182,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      120,
+      60,
+      158,
+      26
+    ],
+    [
+      0,
+      847,
+      60,
+      373,
+      26
+    ],
+    [
+      3,
+      847,
+      60,
+      60,
+      26
+    ],
+    [
+      3,
+      935,
+      60,
+      46,
+      26
+    ],
+    [
+      3,
+      1009,
+      60,
+      111,
+      26
+    ],
+    [
+      3,
+      1148,
+      60,
+      72,
+      26
+    ],
+    [
+      0,
+      120,
+      170,
+      453,
+      453
+    ],
+    [
+      8,
+      160,
+      480,
+      373,
+      64
+    ],
+    [
+      8,
+      160,
+      556,
+      373,
+      27
+    ],
+    [
+      0,
+      400,
+      190,
+      420,
+      420
+    ],
+    [
+      11,
+      535,
+      325,
+      150,
+      150
+    ],
+    [
+      11,
+      604,
+      394,
+      12,
+      12
+    ],
+    [
+      0,
+      636,
+      148,
+      145,
+      306
+    ],
+    [
+      0,
+      743,
+      128,
+      56,
+      56
+    ],
+    [
+      0,
+      888,
+      200,
+      367,
+      157
+    ],
+    [
+      16,
+      888,
+      200,
+      367,
+      52
+    ],
+    [
+      16,
+      888,
+      252,
+      367,
+      52
+    ],
+    [
+      16,
+      888,
+      305,
+      367,
+      52
+    ],
+    [
+      0,
+      884,
+      380,
+      322,
+      75
+    ],
+    [
+      0,
+      883,
+      473,
+      154,
+      90
+    ],
+    [
+      21,
+      883,
+      527,
+      14,
+      36
+    ],
+    [
+      21,
+      903,
+      491,
+      14,
+      72
+    ],
+    [
+      21,
+      923,
+      513,
+      14,
+      50
+    ],
+    [
+      21,
+      943,
+      473,
+      14,
+      90
+    ],
+    [
+      21,
+      963,
+      536,
+      14,
+      27
+    ],
+    [
+      21,
+      983,
+      500,
+      14,
+      63
+    ],
+    [
+      21,
+      1003,
+      522,
+      14,
+      41
+    ],
+    [
+      21,
+      1023,
+      482,
+      14,
+      81
+    ],
+    [
+      0,
+      1049,
+      569,
+      211,
+      211
+    ],
+    [
+      30,
+      1126,
+      641,
+      51,
+      33
+    ],
+    [
+      30,
+      1124,
+      663,
+      66,
+      48
+    ],
+    [
+      0,
+      120,
+      700,
+      860,
+      68
+    ],
+    [
+      33,
+      120,
+      700,
+      203,
+      68
+    ],
+    [
+      34,
+      134,
+      714,
+      40,
+      40
+    ],
+    [
+      34,
+      184,
+      724,
+      113,
+      21
+    ],
+    [
+      33,
+      339,
+      700,
+      203,
+      68
+    ],
+    [
+      37,
+      353,
+      714,
+      40,
+      40
+    ],
+    [
+      37,
+      403,
+      724,
+      96,
+      21
+    ],
+    [
+      33,
+      558,
+      700,
+      203,
+      68
+    ],
+    [
+      40,
+      572,
+      714,
+      40,
+      40
+    ],
+    [
+      40,
+      622,
+      724,
+      93,
+      21
+    ],
+    [
+      33,
+      777,
+      700,
+      203,
+      68
+    ],
+    [
+      43,
+      791,
+      714,
+      40,
+      40
+    ],
+    [
+      43,
+      841,
+      724,
+      89,
+      21
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.999687597625742,
+      "parts": 2,
+      "rect": {
+        "x": 120,
+        "y": 60,
+        "w": 1100.34375,
+        "h": 26
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "overlap",
+      "stripes-or-layers",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 52485,
+    "output": 20266,
+    "cacheRead": 210478
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 58686,
+      "output": 14214,
+      "cacheRead": 207394,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 149354
+    }
+  ],
+  "reading": "A record-shop landing page mockup: a top nav with wordmark and four nav items, a gradient hero block with a bold title and shadow, a circular contour-map graphic with coloured discs, a small dot and a rotated grey arm/needle shape, a diagonal slanted-band gradient overlay across the whole page, a large three-line uppercase heading with a paragraph underneath, a bar chart, a rotated sunburst price badge, and a row of four dark song/playlist tiles with small logo discs. Every piece is fully specified by the typed notes, which take precedence over the rough sketch shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s5"
+      ],
+      "instruction": "Add one 1280x900px fully see-through layer positioned absolute at 0,0, behind all content, holding nothing, painted with exactly background: linear-gradient(115"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a top navigation row. First a 22px font-weight 900 uppercase wordmark \"GROOVE HUT\" (letter-spacing 1px, #1a1410) at 120,60 sized 158x26. Then, in the same r"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Add a large hero block with a diagonal gradient fill from vivid blue #2b5bd7 (top-left) to vivid purple #7a2bd7 (bottom-right). Inside it, a huge 64px bold titl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "Add a 420x420px block at 400,190 as a circular (border-radius 50%) contour-map pattern: many thin concentric near-black rings on a see-through ground, cut off a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Add a small solid near-black circular dot, exactly 56x56px (border-radius 50%, not smaller)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s5"
+      ],
+      "instruction": "Add one plain solid flat light-grey #c9c9c9 bar, 12x330px, top-left at 770,150 before rotation, fully opaque, with no border, then rotated transform: rotate(24d"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 47
+        }
+      ],
+      "region": [
+        888,
+        200,
+        324,
+        155
+      ],
+      "paths": [],
+      "instruction": "Add a huge Helvetica heavy uppercase heading set tight (line-height 0.95), in exactly three lines that each stay whole on one line (white-space: nowrap, no max-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        884,
+        380,
+        322,
+        74
+      ],
+      "paths": [],
+      "instruction": "Add body copy text: \"Hand-graded used vinyl and new pressings, shipped flat in stiff mailers. Listen to every side before you buy.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        883,
+        473,
+        147,
+        84
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add a bar chart of 8 near-black bars with heights 40/80/56/100/30/70/46/90% of the tallest bar (tallest = 90px); each bar 14px wide, 6px gap between bars, no la"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1070,
+        590,
+        170,
+        170
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a round 178x178px badge at 1066,586 (border-radius 50%) painted with exactly background: radial-gradient(circle, #e8522a 60%, transparent 61%), repeating-co"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        123,
+        703,
+        854,
+        62
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Add a row of 4 equal filled tiles (4-column grid, 16px gap), each 203x68px, square corners (border-radius 0, not pills), solid near-black #1a1410 fill, no borde"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

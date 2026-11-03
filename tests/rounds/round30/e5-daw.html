@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Music studio</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#17181c;font-family:Inter,Helvetica,Arial,sans-serif;color:#d8dbe2;font-size:12px}
+.top{position:absolute;left:0;top:0;width:1280px;height:58px;background:#202127;border-bottom:1px solid #2d2f36;display:flex;align-items:center;gap:12px;padding:0 18px}.top b{font-size:15px;color:#fff}
+.tr{display:flex;gap:6px;margin-left:120px}.tr span{width:34px;height:34px;border-radius:8px;background:#2d2f36;text-align:center;line-height:34px;font-size:14px}.tr .rec{background:#e5484d;color:#fff}
+.lcd{margin-left:16px;padding:7px 14px;background:#0d0e11;border-radius:8px;font:700 18px 'Courier New',monospace;color:#7ee787;letter-spacing:2px}.bpm{padding:7px 12px;background:#0d0e11;border-radius:8px;font:700 14px 'Courier New'}
+.heads{position:absolute;left:0;top:58px;width:220px;height:560px;background:#1c1d22;border-right:1px solid #2d2f36}
+.heads div{height:80px;border-bottom:1px solid #2d2f36;padding:12px 14px;position:relative}.heads div b{display:block;color:#fff;font-size:13px}.heads div small{color:#8b8f99}.heads div::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}
+.heads .ms{position:absolute;right:12px;top:14px;display:flex;gap:4px}.heads .ms span{width:22px;height:20px;border-radius:4px;background:#2d2f36;text-align:center;line-height:20px;font-size:10px;font-weight:700}
+.ruler{position:absolute;left:220px;top:58px;width:1060px;height:28px;background:#1c1d22;border-bottom:1px solid #2d2f36;background-image:linear-gradient(90deg,#3a3c44 1px,#0000 1px);background-size:132px 100%;color:#8b8f99;padding-left:4px;line-height:28px;font-size:11px;word-spacing:118px}
+.lanes{position:absolute;left:220px;top:86px;width:1060px;height:532px;background:linear-gradient(90deg,#24252b 1px,#0000 1px) 0 0/33px 100%,#18191d}
+.clip{position:absolute;height:68px;border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;color:#111;padding:3px 8px}
+.clip svg{position:absolute;left:0;top:18px}
+.ph{position:absolute;left:640px;top:58px;width:2px;height:560px;background:#fff}.ph::before{content:"";position:absolute;left:-7px;top:0;border:8px solid #0000;border-top:10px solid #fff}
+.loop{position:absolute;left:484px;top:58px;width:264px;height:8px;background:#f5a524aa}
+.mixer{position:absolute;left:0;top:618px;width:1280px;height:282px;background:#202127;border-top:1px solid #2d2f36;display:flex;padding:14px 18px;gap:12px}
+.ch{width:92px;height:250px;background:#17181c;border-radius:8px;position:relative;padding:8px;text-align:center}.ch b{display:block;color:#fff;font-size:11px}
+.ch .knob{width:34px;height:34px;border-radius:50%;margin:10px auto;background:conic-gradient(var(--c) 0 var(--k),#2d2f36 0);position:relative}.ch .knob::after{content:"";position:absolute;inset:6px;border-radius:50%;background:#17181c}
+.ch .fd{position:absolute;left:24px;top:96px;width:6px;height:130px;background:#2d2f36;border-radius:3px}.ch .cap{position:absolute;left:14px;width:26px;height:14px;background:#d8dbe2;border-radius:3px}
+.ch .meter{position:absolute;left:56px;top:96px;width:10px;height:130px;background:linear-gradient(0deg,#3fb950,#f5a524 75%,#e5484d);border-radius:2px;-webkit-mask:linear-gradient(0deg,#000 var(--m),#0000 var(--m))}
+.ch .meter2{position:absolute;left:70px;top:96px;width:10px;height:130px;background:linear-gradient(0deg,#3fb950,#f5a524 75%,#e5484d);border-radius:2px;-webkit-mask:linear-gradient(0deg,#000 calc(var(--m) - 8%),#0000 0)}
+.fx{margin-left:auto;width:300px;height:250px;background:#17181c;border-radius:8px;padding:12px}.fx h4{color:#fff;font-size:12px}.fx svg{margin-top:10px}
+</style></head><body>
+<div class="top" data-r="transport-bar"><b>Night Drive — v4</b><div class="tr"><span>⏮</span><span>▶</span><span>■</span><span class="rec">●</span><span>⟲</span></div><span class="lcd">02:14.360</span><span class="bpm">104 BPM</span><span class="bpm">4/4</span></div>
+<div class="heads" data-r="track-headers" data-must>
+<div style="--c:#f5a524"><b>Drums</b><small>Kit · Live</small><span class="ms"><span>M</span><span>S</span><span style="background:#e5484d;color:#fff">R</span></span></div>
+<div style="--c:#3fb950"><b>Bass</b><small>Synth bass</small><span class="ms"><span>M</span><span>S</span><span>R</span></span></div>
+<div style="--c:#58a6ff"><b>Keys</b><small>Rhodes</small><span class="ms"><span style="background:#58a6ff;color:#111">M</span><span>S</span><span>R</span></span></div>
+<div style="--c:#bc8cff"><b>Vocal</b><small>Lead · comp</small><span class="ms"><span>M</span><span style="background:#f5a524;color:#111">S</span><span>R</span></span></div>
+<div style="--c:#ff7b72"><b>FX</b><small>Risers</small><span class="ms"><span>M</span><span>S</span><span>R</span></span></div>
+<div style="--c:#7ee787"><b>Pad</b><small>Strings</small><span class="ms"><span>M</span><span>S</span><span>R</span></span></div>
+<div style="--c:#8b8f99;height:80px"><b>+ Add track</b></div></div>
+<div class="ruler" data-r="bar-ruler">1 2 3 4 5 6 7 8 9</div>
+<div class="lanes" data-r="arrange-lanes" data-must>
+<div class="clip" style="left:4px;top:6px;width:520px;background:#f5a524">Beat A<svg width="520" height="50"><path d="M0 25 L8 5 L16 45 L24 20 L40 25 L48 8 L56 42 L64 22 L80 25 L88 4 L96 46 L104 21 L120 25 L128 6 L136 44 L144 22 L160 25 L168 5 L176 45 L184 20 L200 25 L208 8 L216 42 L224 22 L240 25 L248 4 L256 46 L264 21 L280 25 L288 6 L296 44 L304 22 L320 25 L328 5 L336 45 L344 20 L360 25 L368 8 L376 42 L384 22 L400 25 L408 4 L416 46 L424 21 L440 25 L448 6 L456 44 L464 22 L480 25 L488 5 L496 45 L504 20 L520 25" stroke="#0006" fill="none" stroke-width="2"/></svg></div>
+<div class="clip" style="left:528px;top:6px;width:388px;background:#f5a524">Beat B</div>
+<div class="clip" style="left:136px;top:86px;width:520px;background:#3fb950">Bass line<svg width="520" height="50"><g fill="#0005"><rect x="10" y="30" width="40" height="6"/><rect x="60" y="20" width="30" height="6"/><rect x="100" y="30" width="60" height="6"/><rect x="170" y="10" width="20" height="6"/><rect x="200" y="30" width="40" height="6"/><rect x="250" y="20" width="30" height="6"/><rect x="300" y="30" width="60" height="6"/><rect x="370" y="14" width="40" height="6"/><rect x="420" y="30" width="80" height="6"/></g></svg></div>
+<div class="clip" style="left:4px;top:166px;width:784px;background:#58a6ff">Rhodes chords</div>
+<div class="clip" style="left:268px;top:246px;width:252px;background:#bc8cff">Verse 1</div><div class="clip" style="left:528px;top:246px;width:260px;background:#bc8cff;outline:2px solid #fff">Chorus (comp 3)</div>
+<div class="clip" style="left:500px;top:326px;width:140px;background:linear-gradient(90deg,#ff7b7200,#ff7b72)">Riser</div>
+<div class="clip" style="left:4px;top:406px;width:1040px;background:#7ee787;opacity:.75">Strings</div></div>
+<div class="loop" data-r="loop-range"></div><div class="ph" data-r="playhead" data-must></div>
+<div class="mixer" data-r="mixer" data-must>
+<div class="ch" style="--c:#f5a524;--k:60%;--m:78%"><b>Drums</b><div class="knob"></div><i class="fd"></i><i class="cap" style="top:130px"></i><i class="meter"></i><i class="meter2"></i></div>
+<div class="ch" style="--c:#3fb950;--k:45%;--m:64%"><b>Bass</b><div class="knob"></div><i class="fd"></i><i class="cap" style="top:150px"></i><i class="meter"></i><i class="meter2"></i></div>
+<div class="ch" style="--c:#58a6ff;--k:50%;--m:40%"><b>Keys</b><div class="knob"></div><i class="fd"></i><i class="cap" style="top:170px"></i><i class="meter"></i><i class="meter2"></i></div>
+<div class="ch" style="--c:#bc8cff;--k:70%;--m:88%"><b>Vocal</b><div class="knob"></div><i class="fd"></i><i class="cap" style="top:116px"></i><i class="meter"></i><i class="meter2"></i></div>
+<div class="ch" style="--c:#ff7b72;--k:30%;--m:20%"><b>FX</b><div class="knob"></div><i class="fd"></i><i class="cap" style="top:190px"></i><i class="meter"></i><i class="meter2"></i></div>
+<div class="ch" style="--c:#7ee787;--k:55%;--m:50%"><b>Pad</b><div class="knob"></div><i class="fd"></i><i class="cap" style="top:160px"></i><i class="meter"></i><i class="meter2"></i></div>
+<div class="ch" style="--c:#fff;--k:50%;--m:82%;width:110px"><b>Master</b><div class="knob"></div><i class="fd"></i><i class="cap" style="top:126px"></i><i class="meter"></i><i class="meter2"></i></div>
+<div class="fx" data-r="eq-panel"><h4>EQ · Vocal</h4><svg width="276" height="190"><g stroke="#2d2f36"><line x1="0" y1="95" x2="276" y2="95"/><line x1="69" y1="0" x2="69" y2="190"/><line x1="138" y1="0" x2="138" y2="190"/><line x1="207" y1="0" x2="207" y2="190"/></g><path d="M0 150 C 30 150, 40 95, 80 95 S 120 60, 150 50 S 190 110, 220 100 S 260 80, 276 80" stroke="#bc8cff" stroke-width="3" fill="none"/><path d="M0 150 C 30 150, 40 95, 80 95 S 120 60, 150 50 S 190 110, 220 100 S 260 80, 276 80 L276 190 L0 190Z" fill="#bc8cff22"/><g fill="#fff"><circle cx="80" cy="95" r="6"/><circle cx="150" cy="50" r="6"/><circle cx="220" cy="100" r="6"/></g></svg></div>
+</div>
+</body></html>

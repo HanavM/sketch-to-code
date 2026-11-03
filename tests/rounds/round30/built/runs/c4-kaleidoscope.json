@@ -1,0 +1,432 @@
+{
+  "id": "c4-kaleidoscope",
+  "at": "2026-10-27T21:27:42.790Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9338617113885579,
+    "overallV2": 0.9338617113885579,
+    "overallV1": 0.9141444376987402,
+    "colour": 0.9851749880023184,
+    "structure": 0.9322765172103975,
+    "structureStrict": 0.8828424350855165,
+    "colourAligned": 0.9851749880023184,
+    "structureAligned": 0.9322765172103975,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9653401457900586
+    },
+    "layout": 0.8936006302724525,
+    "layoutV1": 0.8936006302724525,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      640,
+      90,
+      720,
+      720
+    ],
+    [
+      1,
+      760,
+      210,
+      480,
+      480
+    ],
+    [
+      1,
+      880,
+      330,
+      240,
+      240
+    ],
+    [
+      1,
+      880,
+      330,
+      240,
+      240
+    ],
+    [
+      0,
+      76,
+      32,
+      1128,
+      30
+    ],
+    [
+      6,
+      76,
+      32,
+      62,
+      30
+    ],
+    [
+      6,
+      965,
+      35,
+      239,
+      24
+    ],
+    [
+      8,
+      965,
+      35,
+      67,
+      24
+    ],
+    [
+      8,
+      1064,
+      35,
+      54,
+      24
+    ],
+    [
+      8,
+      1150,
+      35,
+      54,
+      24
+    ],
+    [
+      0,
+      80,
+      230,
+      549,
+      142
+    ],
+    [
+      12,
+      80,
+      230,
+      549,
+      71
+    ],
+    [
+      12,
+      80,
+      301,
+      549,
+      71
+    ],
+    [
+      14,
+      80,
+      293,
+      245,
+      86
+    ],
+    [
+      0,
+      72,
+      540,
+      430,
+      58
+    ],
+    [
+      0,
+      76,
+      664,
+      134,
+      54
+    ],
+    [
+      0,
+      304,
+      663,
+      140,
+      54
+    ],
+    [
+      0,
+      75,
+      803,
+      304,
+      31
+    ],
+    [
+      19,
+      75,
+      803,
+      67,
+      31
+    ],
+    [
+      19,
+      154,
+      803,
+      75,
+      31
+    ],
+    [
+      19,
+      241,
+      803,
+      72,
+      31
+    ],
+    [
+      19,
+      325,
+      803,
+      54,
+      31
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "blend",
+      "clip-shape",
+      "gradient",
+      "gradient-text",
+      "mask",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 66355,
+    "output": 34213,
+    "cacheRead": 385940
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 71369,
+      "output": 19847,
+      "cacheRead": 341262,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx",
+        "Grep",
+        "Glob"
+      ],
+      "ms": 224908
+    }
+  ],
+  "ease": {
+    "marks": 12,
+    "captured": 12,
+    "notes": 11,
+    "words": 803,
+    "drawMs": 54600,
+    "readingMs": 131335,
+    "runMs": 357819
+  },
+  "reading": "A hero section sketch: a top navbar bar, a cluster of overlapping circles/triangles forming a layered pinwheel+ring+triangle graphic bleeding off the right edge, a big two-line gradient headline, a lavender paragraph, two pill buttons, and a row of four filled tag pills, all specified in detail by typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        76,
+        47,
+        1128,
+        9
+      ],
+      "paths": [],
+      "instruction": "Build the page navbar: 20px \"prism°\" wordmark first on the left, then nav links Features, Gallery, Pricing pushed to the far right (849px gap from the logo); se"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        93,
+        635,
+        714
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add a 720px solid round pinwheel disc (border-radius 50%, filled right to its middle — not a donut, not a ring, no hole, no labels, no legend) positioned at 640"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        93,
+        635,
+        714
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add a 480x480px block at 760,210, border-radius 50%, filled with background: repeating-conic-gradient(from 15deg, #1b0b3a 0deg, #1b0b3a 15deg, #ffffff 15deg, #f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        93,
+        635,
+        714
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Add a vivid amber (#ffb800) angled cut-out shape, one flat fill, no gradient/shading/texture (clip-path polygon; the drawn outline is not kept as a visible stro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        93,
+        635,
+        714
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add a light-like (screen blend mode) vivid pink (#ff3d7f) angled cut-out shape, one flat fill, no gradient/shading/texture (clip-path polygon; the drawn outline"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 77
+        }
+      ],
+      "region": [
+        80,
+        230,
+        504,
+        169
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy headline set tight (line-height 0.92): \"Make every pattern yours\", set in exactly 2 lines — \"Make every\" / \"pattern yours\" (keep the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        76,
+        540,
+        422,
+        58
+      ],
+      "paths": [],
+      "instruction": "Add lavender (#cfc6ff, not the page's default white) body text: \"Symmetry tools for designers. Pick a slice, set the mirrors, and export endless patterns as SVG"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        76,
+        664,
+        126,
+        47
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a white pill button labeled \"Start free\" in bold near-black (#1b0b3a) text (not the page's default white). About 134x54px, fully rounded capsule (border-rad"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        304,
+        663,
+        133,
+        47
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Add an outlined pill button labeled \"See demo\" with a 2px white border, bold text. About 140x54px, fully rounded capsule (border-radius 27px, not square corners"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        75,
+        803,
+        272,
+        25
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Add a row of 4 filled pill tags, 12px apart, each 31px tall, fully rounded (border-radius 999px), see-through white fill (background: rgba(255,255,255,0.1)), no"
+    }
+  ],
+  "rejected": []
+}

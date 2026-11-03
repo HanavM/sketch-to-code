@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Team chat</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2330;font-size:14px}
+.rail{position:absolute;left:0;top:0;width:68px;height:900px;background:#1e1b3a;padding:16px 12px}.rail i{display:block;width:44px;height:44px;border-radius:12px;background:#3b3770;margin-bottom:12px}.rail i:first-child{background:#f97316}
+.ch{position:absolute;left:68px;top:0;width:250px;height:900px;background:#2a2650;color:#c9c6ec;padding:18px 0}.ch b{display:block;color:#fff;font-size:18px;padding:0 18px 18px}.ch small{display:block;padding:10px 18px 6px;font-size:11px;letter-spacing:1px;color:#8d89c2}.ch div{padding:6px 18px;display:flex;justify-content:space-between}.ch .on{background:#5b54d6;color:#fff}.ch em{font-style:normal;background:#ef4444;color:#fff;border-radius:9px;padding:0 7px;font-size:11px;font-weight:700}
+.hd{position:absolute;left:318px;top:0;width:582px;height:60px;border-bottom:1px solid #e6e8ee;display:flex;align-items:center;padding:0 20px;gap:10px}.hd b{font-size:17px}.hd span{color:#7a8094}
+.msgs{position:absolute;left:318px;top:60px;width:582px;height:700px;padding:16px 20px}
+.m{display:flex;gap:12px;margin-bottom:18px}.m i{flex:none;width:38px;height:38px;border-radius:9px}.m b{margin-right:8px}.m small{color:#9aa0b3}.m p{margin-top:4px;line-height:1.45}
+.code{margin-top:6px;background:#f5f6fa;border:1px solid #e6e8ee;border-radius:8px;padding:10px;font:12px/1.5 "Courier New",monospace;color:#b4235a}
+.re{display:flex;gap:6px;margin-top:6px}.re span{padding:2px 8px;border-radius:12px;border:1px solid #d7dbe5;font-size:12px}.re .me{background:#eef0ff;border-color:#5b54d6}
+.thr{color:#5b54d6;font-weight:700;font-size:13px;margin-top:6px}
+.day{display:flex;align-items:center;gap:12px;color:#7a8094;font-size:12px;font-weight:700;margin:6px 0 16px}.day:before,.day:after{content:"";flex:1;height:1px;background:#e6e8ee}
+.comp{position:absolute;left:338px;top:770px;width:542px;height:100px;border:1px solid #cfd4df;border-radius:12px}.comp .tb{height:36px;border-bottom:1px solid #eef0f4;display:flex;gap:16px;padding:9px 12px;color:#7a8094;font-weight:700}.comp .t{padding:12px;color:#9aa0b3}.comp .s{position:absolute;right:10px;bottom:10px;width:36px;height:30px;border-radius:7px;background:#16a34a}
+.typing{position:absolute;left:338px;top:876px;font-size:12px;color:#7a8094}
+.th{position:absolute;left:900px;top:0;width:380px;height:900px;border-left:1px solid #e6e8ee;background:#fbfbfd}.th .hd2{height:60px;border-bottom:1px solid #e6e8ee;padding:20px;font-weight:700;font-size:16px}.th .in{padding:16px 20px}
+</style></head><body>
+<div class="rail" data-r="workspace-rail"><i></i><i></i><i></i></div>
+<div class="ch" data-r="channel-list" data-must><b>Harbour Labs ▾</b><small>CHANNELS</small><div># general</div><div class="on"># design-review</div><div><span># launches</span><em>3</em></div><div># random</div><small>DIRECT MESSAGES</small><div>● Ada Okafor</div><div>● Leo Brandt</div><div><span>○ Mina Park</span><em>1</em></div></div>
+<div class="hd" data-r="channel-header"><b># design-review</b><span>· 14 members · Pinned: Q4 brand board</span></div>
+<div class="msgs" data-r="messages" data-must>
+<div class="m"><i style="background:#f59e0b"></i><div><b>Ada Okafor</b><small>10:02</small><p>New hero options are up — I like B but the type feels heavy on mobile.</p><div class="re"><span class="me">👍 4</span><span>👀 2</span></div><div class="thr">6 replies · last reply 12m ago</div></div></div>
+<div class="day">Today</div>
+<div class="m"><i style="background:#10b981"></i><div><b>Leo Brandt</b><small>11:40</small><p>Dropped the weight to 600 and it reads much better:</p><div class="code">font: 600 clamp(40px, 6vw, 84px)/1 "Inter";</div></div></div>
+<div class="m"><i style="background:#6366f1"></i><div><b>Mina Park</b><small>11:52</small><p>Ship it. Can someone update the token in Figma?</p><div class="re"><span>🚀 3</span><span class="me">✅ 1</span></div></div></div></div>
+<div class="comp" data-r="composer"><div class="tb"><span>B</span><span>I</span><span>S</span><span>🔗</span><span>•</span><span>&lt;/&gt;</span></div><div class="t">Message #design-review</div><div class="s"></div></div>
+<div class="typing" data-r="typing">Ada is typing…</div>
+<div class="th" data-r="thread-panel"><div class="hd2">Thread ✕</div><div class="in"><div class="m"><i style="background:#f59e0b"></i><div><b>Ada Okafor</b><p>New hero options are up — I like B but the type feels heavy on mobile.</p></div></div><div class="day">6 replies</div><div class="m"><i style="background:#ec4899"></i><div><b>Jo Reyes</b><p>Agree on B. Could we try the italic for the second line?</p></div></div><div class="m"><i style="background:#10b981"></i><div><b>Leo Brandt</b><p>On it.</p></div></div></div></div>
+</body></html>

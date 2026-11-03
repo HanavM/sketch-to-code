@@ -1,0 +1,442 @@
+{
+  "id": "c1-riso-festival",
+  "at": "2026-10-27T11:40:32.323Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9214381853243564,
+    "overallV2": 0.9214381853243564,
+    "overallV1": 0.8786568432045458,
+    "colour": 0.9851193617084533,
+    "structure": 0.9440000680300054,
+    "structureStrict": 0.8741764815200789,
+    "colourAligned": 0.9851193617084533,
+    "structureAligned": 0.9440000680300054,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9191751127016836
+    },
+    "layout": 0.9259668578350315,
+    "layoutV1": 0.9259668578350315,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      600,
+      160,
+      520,
+      520
+    ],
+    [
+      0,
+      640,
+      120,
+      520,
+      520
+    ],
+    [
+      0,
+      1122,
+      110,
+      106,
+      100
+    ],
+    [
+      0,
+      60,
+      36,
+      1160,
+      42
+    ],
+    [
+      4,
+      60,
+      42,
+      117,
+      30
+    ],
+    [
+      4,
+      829,
+      36,
+      391,
+      42
+    ],
+    [
+      6,
+      829,
+      45,
+      51,
+      24
+    ],
+    [
+      6,
+      912,
+      45,
+      85,
+      24
+    ],
+    [
+      6,
+      1030,
+      45,
+      33,
+      24
+    ],
+    [
+      6,
+      1095,
+      36,
+      125,
+      42
+    ],
+    [
+      0,
+      56,
+      150,
+      390,
+      387
+    ],
+    [
+      11,
+      56,
+      150,
+      390,
+      129
+    ],
+    [
+      11,
+      56,
+      279,
+      390,
+      129
+    ],
+    [
+      11,
+      56,
+      408,
+      390,
+      129
+    ],
+    [
+      0,
+      60,
+      560,
+      520,
+      71
+    ],
+    [
+      15,
+      68,
+      570,
+      333,
+      51
+    ],
+    [
+      0,
+      60,
+      650,
+      540,
+      90
+    ],
+    [
+      17,
+      206,
+      652,
+      18,
+      26
+    ],
+    [
+      17,
+      373,
+      652,
+      18,
+      26
+    ],
+    [
+      17,
+      60,
+      682,
+      18,
+      26
+    ],
+    [
+      17,
+      237,
+      682,
+      18,
+      26
+    ],
+    [
+      17,
+      450,
+      682,
+      18,
+      26
+    ],
+    [
+      0,
+      815,
+      678,
+      370,
+      175
+    ],
+    [
+      23,
+      848,
+      694,
+      297,
+      45
+    ],
+    [
+      23,
+      850,
+      722,
+      300,
+      89
+    ],
+    [
+      23,
+      855,
+      795,
+      297,
+      42
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8888888888888888,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "mask",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "uppercase-display"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 40108,
+    "output": 18994,
+    "cacheRead": 152611
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 44988,
+      "output": 11353,
+      "cacheRead": 149527,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 118024
+    }
+  ],
+  "ease": {
+    "marks": 13,
+    "captured": 13,
+    "notes": 9,
+    "words": 763,
+    "drawMs": 63733,
+    "readingMs": 79551,
+    "runMs": 198996
+  },
+  "reading": "The sketch lays out a festival landing page: a dot-grain-textured cream page overlay, a nav bar with wordmark/links and a pill \"Get tickets\" button, a giant 3-line headline \"INK LOUD FEST\", a double-ruled date/location band, two overlapping flat-colour decorative discs (one yellow, one pink halftone), a one-paragraph line-up blurb wrapping 3 lines with pink star glyphs, a tilted notched ticket-style promo block with a hard pink shadow, and a jagged pink cut-out decoration in the top-right corner.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        60,
+        36,
+        1160,
+        42
+      ],
+      "paths": [],
+      "instruction": "Top nav bar: 20px wordmark \"PRINT/FEST\" first, then nav links Lineup, Workshops, Map, Get tickets. \"Get tickets\" is selected (bold, dark blue underline) and ren"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 117
+        }
+      ],
+      "region": [
+        64,
+        150,
+        630,
+        387
+      ],
+      "paths": [],
+      "instruction": "Giant heavy uppercase headline set tight (line-height 0.86), exactly 3 lines, each line kept whole and never re-wrapped (white-space nowrap): \"INK\" / \"LOUD\" / \""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 51
+        }
+      ],
+      "region": [
+        68,
+        565,
+        468,
+        61
+      ],
+      "paths": [],
+      "instruction": "Big heavy date/location line \"14—16 MAY · LEEDS\", font-size exactly 34px, on one line (white-space nowrap), about 368px wide, sitting inside a ruled band: a 6px"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        124,
+        513,
+        512
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Ink-like (multiply blend, darkens what it overlaps, never covers it) perfectly round flat disc, 520x520px, border-radius 50%, faded to 85% opacity, solid flat #"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        164,
+        512,
+        513
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Ink-like (multiply blend) halftone dot-screen disc, NOT a sphere, NOT shaded, NOT solid fill: a 520x520px circle (border-radius 50%) at top-left 640,120 with no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        64,
+        650,
+        532,
+        89
+      ],
+      "paths": [],
+      "instruction": "One running paragraph (single <p>, not a grid/list/columns, no added gaps): 540px wide, top-left at 60,650, 22px bold sans-serif #1d2a8a, ALL CAPS, line-height "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        818,
+        681,
+        363,
+        169
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Promo block tilted 4° anticlockwise: dark blue block, cream (#f3ede0) text \"WEEKEND PASS\", then big 46px bold \"£48\", then \"ALL 3 DAYS · 40 SHOWS\", with a hard s"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1122,
+        110,
+        105,
+        101
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Ink-like (multiply blend) vivid pink jagged cut-out shape, one flat #ff4f7b fill via clip-path polygon, no gradient/shading/texture; the drawn outline itself is"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

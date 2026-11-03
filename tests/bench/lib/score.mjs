@@ -126,6 +126,61 @@ export function identifyScore(role, el) {
 const IDENTIFY_MIN = 0.5
 
 /**
+ * Second pass for regions no single element fits: a region built as several
+ * sibling parts with no wrapper (round 17 e1: a toolbar said as 7 separately
+ * placed elements, the bar line drawn on its own) has no element whose box is
+ * the region's, though every part sits where the target puts it. For each
+ * region still unmatched, smallest first, take the unused elements lying
+ * (>= 80% of their area) inside it, keep only the outermost of them, and if
+ * there are at least two, score the box round them by IoU like a single hit.
+ * Elements are consumed one-to-one as in the first pass, so one part cannot
+ * serve two regions. tests/rounds/layoutcross.mjs checks this against
+ * unrelated pages (the region specs of one target over another target's DOM)
+ * so it cannot quietly reward any page that has things in the same band.
+ *
+ * Returns Map<regionIndex, {rect, iou, parts}> of the extra matches.
+ */
+const GROUP = { siblings: process.env.S2C_GROUP_SIB !== '0', min: Number(process.env.S2C_GROUP_MIN ?? 0.35) }
+export function matchGroups(regions, elements, firstPass, threshold = MATCH_IOU) {
+  const used = new Set([...firstPass.values()].map((h) => h.elementIndex))
+  const area = (r) => Math.max(0, r.w) * Math.max(0, r.h)
+  const inter = (a, b) => {
+    const x = Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x))
+    const y = Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y))
+    return x * y
+  }
+  const out = new Map()
+  const order = regions.map((r, i) => i).filter((i) => !firstPass.has(i) && area(regions[i].rect) > 0)
+    .sort((a, b) => area(regions[a].rect) - area(regions[b].rect) || a - b)
+  for (const ri of order) {
+    const R = regions[ri].rect
+    const inside = new Set()
+    elements.forEach((el, ei) => {
+      if (used.has(ei)) return
+      const a = area(el.rect)
+      if (a <= 0 || a >= area(R)) return
+      if (inter(el.rect, R) >= 0.8 * a) inside.add(ei)
+    })
+    const top = [...inside].filter((ei) => {
+      for (let p = elements[ei].parent; p != null && p >= 0; p = elements[p].parent) if (inside.has(p)) return false
+      return true
+    })
+    if (top.length < 2) continue
+    // the parts must be siblings: one parent holding them all, as a build that placed a region's parts
+    // without a wrapper does; unrelated pages put things in the same band from different subtrees
+    if (GROUP.siblings && new Set(top.map((e) => elements[e].parent)).size > 1) continue
+    const x0 = Math.min(...top.map((e) => elements[e].rect.x)), y0 = Math.min(...top.map((e) => elements[e].rect.y))
+    const x1 = Math.max(...top.map((e) => elements[e].rect.x + elements[e].rect.w)), y1 = Math.max(...top.map((e) => elements[e].rect.y + elements[e].rect.h))
+    const U = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+    const score = iou(R, U)
+    if (score < Math.max(threshold, GROUP.min)) continue
+    out.set(ri, { rect: U, iou: score, parts: top.length })
+    for (const e of inside) used.add(e)
+  }
+  return out
+}
+
+/**
  * Where each region's CONTENT ended up, found by name rather than by position.
  *
  * This exists because the order metric cannot be built on the IoU match. The IoU
@@ -307,6 +362,9 @@ export async function scorePage(page, spec, { threshold = MATCH_IOU } = {}) {
   // mean IoU over ALL regions: an unmatched region contributes 0, so a page can
   // only reach 1.0 by placing every region exactly
   const regionScore = regions.length ? iouSum / regions.length : null
+  // same, with regions built as unwrapped groups of parts also credited (matchGroups)
+  const groups = matchGroups(regions, elements, hits, threshold)
+  const regionScoreGrouped = regions.length ? (iouSum + [...groups.values()].reduce((a, g) => a + g.iou, 0)) / regions.length : null
   const musts = regions.filter((r) => r.must)
   // null, not 1, when the sketch declared no must regions — there is no
   // must-score to report and a 1.0 would inflate every aggregate it entered
@@ -361,6 +419,10 @@ export async function scorePage(page, spec, { threshold = MATCH_IOU } = {}) {
     matched,
     missed,
     regionScore,
+    regionScoreGrouped,
+    groupMatched: [...groups].map(([ri, g]) => ({ role: regions[ri].role, iou: g.iou, parts: g.parts, rect: g.rect })),
+    // compact DOM boxes so a saved run can be re-scored for layout without rebuilding it
+    boxes: elements.map((e) => [e.parent, Math.round(e.rect.x), Math.round(e.rect.y), Math.round(e.rect.w), Math.round(e.rect.h)]),
     mustScore,
     order,
     elements: elements.length,

@@ -1,0 +1,172 @@
+{
+ "c1-letterpress-poster": {
+  "found": {
+   "huge-type": 3,
+   "uppercase-display": 3,
+   "hollow-type": 1,
+   "blend": 1,
+   "vertical-type": 1,
+   "serif": 2,
+   "italic": 1,
+   "tilt": 2,
+   "bleed": 3,
+   "overlap": 7
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "tilt",
+   "uppercase-display",
+   "vertical-type"
+  ]
+ },
+ "c2-paper-hills": {
+  "found": {
+   "stripes-or-layers": 1,
+   "hard-shadow": 6,
+   "huge-type": 1,
+   "tilt": 1,
+   "mask": 1,
+   "soft-shadow": 1,
+   "overlap": 24
+  },
+  "names": [
+   "hard-shadow",
+   "huge-type",
+   "mask",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c3-shape-grid": {
+  "found": {
+   "clip-shape": 3,
+   "stripes-or-layers": 2,
+   "gradient": 1,
+   "tilt": 1,
+   "huge-type": 2,
+   "blend": 1,
+   "serif": 1,
+   "italic": 1,
+   "overlap": 5
+  },
+  "names": [
+   "blend",
+   "clip-shape",
+   "gradient",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c4-scrapbook": {
+  "found": {
+   "serif": 6,
+   "italic": 5,
+   "tilt": 8,
+   "hard-shadow": 1,
+   "soft-shadow": 4,
+   "gradient": 1,
+   "stripes-or-layers": 2,
+   "overlap": 9
+  },
+  "names": [
+   "gradient",
+   "hard-shadow",
+   "italic",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c5-glitch-signal": {
+  "found": {
+   "mono": 4,
+   "stripes-or-layers": 1,
+   "huge-type": 1,
+   "uppercase-display": 1,
+   "tilt": 1,
+   "bleed": 3,
+   "hard-shadow": 1,
+   "mask": 1,
+   "gradient": 1,
+   "overlap": 3
+  },
+  "names": [
+   "bleed",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "mask",
+   "mono",
+   "overlap",
+   "stripes-or-layers",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "e1-task-database": {
+  "found": {
+   "hard-shadow": 1
+  },
+  "names": [
+   "hard-shadow"
+  ]
+ },
+ "e2-ride-map": {
+  "found": {
+   "tilt": 2,
+   "bleed": 1,
+   "soft-shadow": 5,
+   "overlap": 33
+  },
+  "names": [
+   "bleed",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e3-video-call": {
+  "found": {
+   "gradient": 5,
+   "hard-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "hard-shadow"
+  ]
+ },
+ "e4-repo-page": {
+  "found": {
+   "hard-shadow": 1,
+   "mono": 2
+  },
+  "names": [
+   "hard-shadow",
+   "mono"
+  ]
+ },
+ "e5-checkout-flow": {
+  "found": {
+   "stripes-or-layers": 1,
+   "gradient": 3
+  },
+  "names": [
+   "gradient",
+   "stripes-or-layers"
+  ]
+ }
+}

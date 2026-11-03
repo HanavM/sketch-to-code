@@ -1,0 +1,228 @@
+{
+  "id": "c1-variable-wave",
+  "at": "2026-10-24T01:32:15.033Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6858945113116742,
+    "overallV2": 0.5911638608860867,
+    "overallV1": 0.5176652678212866,
+    "colour": 0.9314506318014545,
+    "structure": 0.7438240373977181,
+    "structureStrict": 0.6249832782520319,
+    "colourAligned": 0.9626473527797789,
+    "structureAligned": 0.8247623735246105,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -32,
+      "r": 0.9266079634321146
+    },
+    "layout": 0.49253658149464224
+  },
+  "effects": {
+    "recall": 0.8888888888888888,
+    "kept": [
+      "blend",
+      "hard-shadow",
+      "huge-type",
+      "italic",
+      "mono",
+      "overlap",
+      "serif",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "motion"
+    ],
+    "extra": [
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 78574,
+    "output": 51981,
+    "cacheRead": 543998
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 53541,
+      "output": 16873,
+      "cacheRead": 156031,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 194945
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 61683,
+      "output": 29079,
+      "cacheRead": 376508,
+      "toolCalls": 5,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 368883
+    }
+  ],
+  "reading": "A full landing-page hero sketch: nav bar, kicker line, a two-line italic-accent serif headline, a circular progress indicator, a big striped panel with giant scrolling 'FLUXION' lettering, a thin stats rule with four mono labels, and a hard-shadow CTA button — all content specified precisely by the typed notes, which take precedence over the raw ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top nav bar, no box/border around it: bold 'FLUX GROTESK' aligned left, and 'Specimen · Axes · Licence · Buy' aligned right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        123,
+        328,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small kicker line in 13px wide-letter-spaced caps: 'A VARIABLE TYPEFACE, 100 → 900'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 31
+        }
+      ],
+      "region": [
+        68,
+        150,
+        468,
+        92
+      ],
+      "paths": [],
+      "instruction": "Big serif headline set in exactly two lines, kept on those lines (white-space: nowrap, width ~478px, no narrower max-width): 'One family that breathes with' / '"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1003,
+        113,
+        144,
+        143
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A 150px circular progress ring (a real CSS/SVG element, not an image): a red arc running 64% of the way around starting from the top, the remainder a neutral/nu"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        303,
+        1274,
+        294
+      ],
+      "paths": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "instruction": "Large rectangular panel with a bold vertical repeating-stripe background (repeating-linear-gradient(90deg, #151515 0px 40px, #f1ece2 40px 80px): 40px near-black"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8"
+          ],
+          "lines": 1,
+          "fontPx": 256
+        }
+      ],
+      "region": [
+        48,
+        272,
+        1080,
+        307
+      ],
+      "paths": [],
+      "instruction": "Over the striped panel, a scrolling colour-inverting overlay (mix-blend-mode so it inverts wherever it crosses the stripes beneath) showing the single word 'FLU"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        663,
+        1153,
+        23
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A single 1160x29px stats rule panel positioned at 60,660 with no fill and a 1px #151515 rule along its top edge only (no other border). Inside it, four separate"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        781,
+        148,
+        47
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "CTA button labelled 'Try the axes', 153x50px, square corners (border-radius 0, not a pill), fill #e2462c, white (#ffffff) text, with a hard solid opaque near-bl"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

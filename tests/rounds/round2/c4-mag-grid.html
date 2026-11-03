@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Magazine grid</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Georgia,serif;color:#111;overflow:hidden;padding:36px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:4px solid #111;padding-bottom:12px}
+.mast{font-size:56px;font-weight:700;letter-spacing:-1px}.date{font-family:Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:28px;margin-top:28px}
+.lead .img{height:360px;background:linear-gradient(135deg,#f59e0b,#7c2d12)}.lead h2{font-size:44px;line-height:1.05;margin-top:16px}
+.col h3{font-size:22px;line-height:1.2;margin-top:12px}.col .img{height:160px;background:#cbd5e1}.col p{font-size:15px;line-height:1.5;margin-top:8px;color:#444}
+.quote{grid-column:2/4;border-top:1px solid #111;padding-top:18px;font-style:italic;font-size:30px;line-height:1.25;color:#b91c1c}
+</style></head><body>
+<header data-r="masthead" data-must><div class="mast">The Weekly Ledger</div><div class="date">Tuesday · No. 412</div></header>
+<div class="grid">
+<div class="lead" data-r="lead" data-must><div class="img" data-r="lead-img"></div><h2 data-r="lead-title">The quiet return of the corner shop</h2></div>
+<div class="col" data-r="story-1"><div class="img" data-r="img-1"></div><h3>Rivers that run backwards</h3><p>Tidal bores and the towns that wait for them.</p></div>
+<div class="col" data-r="story-2"><div class="img" data-r="img-2"></div><h3>A year without email</h3><p>One office tried. Here is what broke first.</p></div>
+<blockquote class="quote" data-r="pull-quote" data-must>“Nobody misses the queue, but everybody misses the chat.”</blockquote>
+</div>
+</body></html>

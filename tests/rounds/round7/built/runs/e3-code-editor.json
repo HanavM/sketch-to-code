@@ -1,0 +1,161 @@
+{
+  "id": "e3-code-editor",
+  "at": "2026-10-22T14:45:29.440Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8634627546647993,
+    "overallV2": 0.8634627546647993,
+    "overallV1": 0.8112041848496472,
+    "colour": 0.9540980319885591,
+    "structure": 0.8337422474765298,
+    "structureStrict": 0.7089283154709421,
+    "colourAligned": 0.9540980319885591,
+    "structureAligned": 0.8337422474765298,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -16,
+      "r": 0.8607632898080634
+    },
+    "layout": 0.8390527798749275
+  },
+  "effects": {
+    "recall": 0.3333333333333333,
+    "kept": [
+      "mono"
+    ],
+    "missing": [
+      "italic",
+      "overlap"
+    ],
+    "extra": [
+      "hard-shadow",
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 33626,
+    "output": 20519,
+    "cacheRead": 214547
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 38370,
+      "output": 13458,
+      "cacheRead": 204225,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 139028
+    }
+  ],
+  "reading": "The sketch lays out a VS Code–style code editor page: a global dark-navy/Helvetica theme, a left activity bar with 4 icon squares, an explorer file-tree panel, a tabbed code editor pane with syntax-highlighted lines, a thin minimap strip on the right, a terminal panel with test output, and a bottom status bar.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        42,
+        869
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Near-black vertical activity bar running the full height of the left edge, containing 4 small rounded-corner squares (22px) stacked top to bottom with 16px gaps"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        3,
+        226,
+        869
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Near-black 'EXPLORER' file-tree panel to the right of the activity bar, listing: '▾ src', '▸ components', '▾ lib', 'parse.ts', plus 5 more file/folder rows; the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        283,
+        3,
+        993,
+        572
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Main code editor pane: a near-black tab bar (38px tall) spanning the pane with tabs 'parse.ts', 'score.ts', 'main.ts ●' — 'parse.ts' is the selected tab (white "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1183,
+        54,
+        78,
+        492
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Thin vertical panel running down the right edge of the code editor pane, matching the sketch's narrow box — a minimap/overview strip of the editor content."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        283,
+        593,
+        994,
+        280
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Near-black terminal panel below the editor, mono 13px light grey text reading: 'TERMINAL · PROBLEMS 1', '$ npm test', '✓ parse splits lines (3 ms)', '✓ size of "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        879,
+        1273,
+        18
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Sky blue status bar (24px tall) spanning the full width at the bottom of the page: '⎇ main' and '⚠ 1' grouped at the far left, with 'Ln 6, Col 42' and 'TypeScri"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

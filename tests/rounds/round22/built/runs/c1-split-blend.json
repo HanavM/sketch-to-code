@@ -1,0 +1,379 @@
+{
+  "id": "c1-split-blend",
+  "at": "2026-10-25T20:30:10.172Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8916565237244688,
+    "overallV2": 0.8916565237244688,
+    "overallV1": 0.8436473184778391,
+    "colour": 0.9785124243958206,
+    "structure": 0.9470293930855227,
+    "structureStrict": 0.8522477835157488,
+    "colourAligned": 0.9785124243958206,
+    "structureAligned": 0.9470293930855227,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9491315870568137
+    },
+    "layout": 0.7852136558583519,
+    "layoutV1": 0.6602136558583519,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      640,
+      0,
+      640,
+      900
+    ],
+    [
+      0,
+      48,
+      34,
+      82,
+      13
+    ],
+    [
+      0,
+      443,
+      34,
+      55,
+      13
+    ],
+    [
+      0,
+      810,
+      34,
+      61,
+      13
+    ],
+    [
+      0,
+      1183,
+      34,
+      49,
+      13
+    ],
+    [
+      0,
+      60,
+      150,
+      500,
+      198
+    ],
+    [
+      0,
+      612,
+      190,
+      193,
+      198
+    ],
+    [
+      0,
+      796,
+      112,
+      174,
+      213
+    ],
+    [
+      0,
+      960,
+      170,
+      283,
+      198
+    ],
+    [
+      0,
+      60,
+      348,
+      810,
+      198
+    ],
+    [
+      0,
+      560,
+      508,
+      220,
+      220
+    ],
+    [
+      0,
+      60,
+      640,
+      420,
+      86
+    ],
+    [
+      0,
+      880,
+      640,
+      340,
+      18
+    ],
+    [
+      0,
+      880,
+      665,
+      300,
+      42
+    ],
+    [
+      0,
+      64,
+      793,
+      185,
+      54
+    ],
+    [
+      0,
+      1188,
+      816,
+      83,
+      69
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 1,
+      "parts": 4,
+      "rect": {
+        "x": 48,
+        "y": 34,
+        "w": 1184,
+        "h": 13
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48752,
+    "output": 24118,
+    "cacheRead": 345425
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 45698,
+      "output": 12242,
+      "cacheRead": 221922,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 137431
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 3272,
+      "output": 1160,
+      "cacheRead": 82244,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 10113
+    }
+  ],
+  "reading": "A split-page design: left column reads as plain cream page, right half becomes a solid indigo panel; a top nav row sits across both halves with four short labels, a giant two-line display headline overlaps the seam with one tilted/italic letter treatment, a red-orange disc floats mid-page over the divider, body copy runs bottom-left, a 'NOW SHOWING' caption plus description sits on the indigo panel, a bordered pill button reads 'See the seam →', and a small bold mono '/02' sits bottom-right on the indigo panel.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a flat vivid indigo (#1a1aff) block, 640x900px, top-left at 640,0 (the page's right half), sitting behind everything placed on it, no border."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        36,
+        1176,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a top nav bar with four real, separately-positioned text elements, each on one line (white-space nowrap, min-width not fixed-width so counts never wrap off)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 180
+        }
+      ],
+      "region": [
+        68,
+        150,
+        1065,
+        396
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica (font-weight 900, round-bowled, live text not SVG) heading 'TWO SIDES OF ONE' set in exactly two tight lines (line-height 0.86, white, ~11"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        564,
+        524,
+        211,
+        212
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a plain absolutely-positioned div, perfectly round (border-radius 50%), 220px across, top-left at 560,520, flat fully opaque vivid red-orange (#ff4f2e) fill"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        64,
+        640,
+        412,
+        86
+      ],
+      "paths": [],
+      "instruction": "Add a 3-line body copy block, 19px Georgia, near-black (#111111), 420px wide, top-left at 60,640, with this exact quoted text: \"A design studio split down the m"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        884,
+        640,
+        332,
+        70
+      ],
+      "paths": [],
+      "instruction": "Add a row starting at 880,640 on the indigo panel: first bold #ffffff text 'nks only.' on the same line as, then two further real text parts: 340x14 at 880,640 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        793,
+        186,
+        47
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Add a pill-shaped button with a 2px near-black border and bold label 'See the seam →'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12"
+          ],
+          "lines": 1,
+          "fontPx": 46
+        }
+      ],
+      "region": [
+        1188,
+        816,
+        77,
+        55
+      ],
+      "paths": [],
+      "instruction": "Add big mono white bold (font-weight 700) text '/02' on the indigo block, bottom-right area, no fill or bar of its own."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Airline</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#cfe8f5;font-family:Helvetica,Arial,sans-serif;color:#0e2a47;overflow:hidden;position:relative}
+nav{position:absolute;left:70px;top:36px;width:1140px;display:flex;align-items:center;font-size:15px}nav b{font-size:22px}nav span{margin-left:30px}nav span.f{margin-left:auto}
+.sun{position:absolute;left:1020px;top:110px;width:150px;height:150px;border-radius:50%;background:#ffd54a}
+.cloud{position:absolute;background:#fff;border-radius:60px}
+.plane{position:absolute;left:640px;top:300px;width:0;height:0;border-left:260px solid #fff;border-top:70px solid transparent;border-bottom:110px solid transparent;transform:rotate(-14deg);filter:drop-shadow(0 6px 0 #9cc6de)}
+.path{position:absolute;left:180px;top:470px;width:470px;height:160px;border-top:4px dashed #0e2a47;border-radius:50% 50% 0 0;transform:rotate(-8deg)}
+h1{position:absolute;left:70px;top:150px;width:520px;font-size:66px;line-height:1.05;font-weight:800}
+.sub{position:absolute;left:70px;top:310px;width:420px;font-size:18px;line-height:1.5}
+.book{position:absolute;left:70px;top:680px;width:1140px;height:110px;background:#fff;border-radius:16px;display:flex;align-items:center;padding:0 30px;gap:22px}
+.book div{flex:1;height:56px;border:1px solid #b5cfe0;border-radius:10px;display:flex;align-items:center;padding:0 16px;color:#58718a;font-size:15px}
+.book .go{flex:0 0 170px;background:#0e2a47;color:#fff;border:0;justify-content:center;font-weight:700}
+</style></head><body>
+<nav data-r="nav"><b data-r="logo">Fold Air</b><span class="f">Deals</span><span>Routes</span><span>My trips</span></nav>
+<div class="sun" data-r="sun"></div>
+<div class="cloud" data-r="cloud-1" style="left:820px;top:200px;width:180px;height:60px"></div>
+<div class="cloud" data-r="cloud-2" style="left:960px;top:520px;width:220px;height:70px"></div>
+<div class="path" data-r="flight-path"></div>
+<div class="plane" data-r="plane" data-must></div>
+<h1 data-r="headline" data-must>Light fares, short hops</h1>
+<p class="sub" data-r="subhead">Fly between 40 coastal towns from $29.</p>
+<div class="book" data-r="search-bar" data-must><div>From</div><div>To</div><div>Date</div><div class="go">Search</div></div>
+</body></html>

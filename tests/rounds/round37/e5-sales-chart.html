@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Sales</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#0f172a;font-family:Helvetica,Arial,sans-serif;color:#e2e8f0;overflow:hidden;position:relative}
+header{position:absolute;left:48px;top:36px;width:1184px;display:flex;justify-content:space-between;align-items:center}
+header b{font-size:26px}.range{display:flex;gap:8px;font-size:14px}.range span{padding:9px 16px;border-radius:8px;background:#1e293b}.range .on{background:#22d3ee;color:#0f172a;font-weight:700}
+.k{position:absolute;top:120px;width:280px;height:120px;background:#1e293b;border-radius:14px;padding:22px}
+.k span{font-size:14px;color:#94a3b8}.k b{display:block;font-size:32px;margin-top:10px}.k em{font-style:normal;font-size:14px;color:#4ade80;margin-left:8px}
+.chart{position:absolute;left:48px;top:276px;width:760px;height:560px;background:#1e293b;border-radius:14px;padding:26px}
+.chart>b{font-size:17px}
+.bar{position:absolute;bottom:60px;width:56px;background:#22d3ee;border-radius:6px 6px 0 0}
+.ax{position:absolute;left:26px;bottom:60px;width:708px;height:1px;background:#334155}
+.lbl{position:absolute;bottom:30px;width:56px;text-align:center;font-size:13px;color:#94a3b8}
+.top{position:absolute;left:840px;top:276px;width:392px;height:560px;background:#1e293b;border-radius:14px;padding:26px}
+.top>b{font-size:17px;display:block;margin-bottom:12px}.p{padding:16px 0;border-bottom:1px solid #334155;font-size:15px}
+.p div{display:flex;justify-content:space-between}.p i{display:block;height:6px;border-radius:3px;background:#22d3ee;margin-top:10px}
+</style></head><body>
+<header data-r="header"><b>Sales</b><div class="range" data-r="range"><span>7 days</span><span class="on">30 days</span><span>12 months</span></div></header>
+<div class="k" data-r="kpi-1" data-must style="left:48px"><span>Revenue</span><b>$84,210<em>+12%</em></b></div>
+<div class="k" style="left:349px"><span>Orders</span><b>1,932<em>+4%</em></b></div>
+<div class="k" style="left:650px"><span>Avg order</span><b>$43.60<em>+8%</em></b></div>
+<div class="k" style="left:951px;width:281px"><span>Refunds</span><b>21<em style="color:#f87171">−3%</em></b></div>
+<div class="chart" data-r="bar-chart" data-must><b>Revenue by week</b><div class="ax"></div>
+<div class="bar" style="left:60px;height:180px"></div><div class="bar" style="left:150px;height:240px"></div><div class="bar" style="left:240px;height:210px"></div><div class="bar" style="left:330px;height:300px"></div><div class="bar" style="left:420px;height:270px"></div><div class="bar" style="left:510px;height:360px;background:#f472b6"></div><div class="bar" style="left:600px;height:320px"></div>
+<div class="lbl" style="left:60px">W1</div><div class="lbl" style="left:150px">W2</div><div class="lbl" style="left:240px">W3</div><div class="lbl" style="left:330px">W4</div><div class="lbl" style="left:420px">W5</div><div class="lbl" style="left:510px">W6</div><div class="lbl" style="left:600px">W7</div></div>
+<div class="top" data-r="top-products"><b>Top products</b>
+<div class="p"><div><span>Trail runner</span><span>$18.2k</span></div><i style="width:100%"></i></div><div class="p"><div><span>Rain shell</span><span>$12.9k</span></div><i style="width:71%"></i></div><div class="p"><div><span>Wool socks</span><span>$9.4k</span></div><i style="width:52%"></i></div><div class="p"><div><span>Day pack</span><span>$7.1k</span></div><i style="width:39%"></i></div><div class="p"><div><span>Water bottle</span><span>$4.8k</span></div><i style="width:26%"></i></div></div>
+</body></html>

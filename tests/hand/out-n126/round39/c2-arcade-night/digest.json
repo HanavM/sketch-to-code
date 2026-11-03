@@ -1,0 +1,581 @@
+{
+  "round": 39,
+  "id": "c2-arcade-night",
+  "version": 3,
+  "stopped": null,
+  "likeness": 70,
+  "colour": 0.8140055097428106,
+  "structure": 0.6292642153161235,
+  "layout": 0.7296768318693628,
+  "strokes": {
+    "count": 12,
+    "pointsPerStroke": 4.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 3,
+      "line": 6,
+      "circle": 1,
+      "box": 2
+    },
+    "inkPx": 7002
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 58,
+  "notes": 10,
+  "longestNote": 9,
+  "noteTexts": [
+    "PLAYER 1, small mono",
+    "HI 99999, small mono",
+    "ARCADE NIGHT, huge mono, neon glow",
+    "dark stripes cut the sun bottom",
+    "pink square grid lines, sun ends at its top",
+    "FRI 13 NOV · 8PM, bold mono",
+    "INSERT COIN, yellow outline only",
+    "missing sun: yellow to pink disc",
+    "ground stays dark, thin pink lines, flat",
+    "dark inside, yellow text"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 401,
+    "firstReadingS": 87,
+    "readS": [
+      47,
+      17
+    ],
+    "buildS": [
+      247,
+      33
+    ],
+    "sketchingS": 57
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 84636,
+    "cacheRead": 703596,
+    "output": 31745,
+    "billed": 116381
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#10061f",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#b8a8e0",
+      "at": 839
+    },
+    {
+      "op": "stroke",
+      "at": 1490
+    },
+    {
+      "op": "note",
+      "at": 2147
+    },
+    {
+      "op": "stroke",
+      "at": 2823
+    },
+    {
+      "op": "note",
+      "at": 3485
+    },
+    {
+      "op": "pen",
+      "color": "#22d3ee",
+      "at": 3850
+    },
+    {
+      "op": "stroke",
+      "at": 6491
+    },
+    {
+      "op": "note",
+      "at": 7200
+    },
+    {
+      "op": "pen",
+      "color": "#facc15",
+      "at": 7567
+    },
+    {
+      "op": "stroke",
+      "at": 11643
+    },
+    {
+      "op": "stroke",
+      "at": 12122
+    },
+    {
+      "op": "pen",
+      "color": "#ec4899",
+      "at": 12492
+    },
+    {
+      "op": "stroke",
+      "at": 12959
+    },
+    {
+      "op": "pen",
+      "color": "#10061f",
+      "at": 13324
+    },
+    {
+      "op": "stroke",
+      "at": 14876
+    },
+    {
+      "op": "stroke",
+      "at": 16291
+    },
+    {
+      "op": "note",
+      "at": 17081
+    },
+    {
+      "op": "pen",
+      "color": "#be3a8a",
+      "at": 17446
+    },
+    {
+      "op": "stroke",
+      "at": 26886
+    },
+    {
+      "op": "note",
+      "at": 27775
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 28140
+    },
+    {
+      "op": "stroke",
+      "at": 29374
+    },
+    {
+      "op": "note",
+      "at": 30213
+    },
+    {
+      "op": "pen",
+      "color": "#facc15",
+      "at": 30581
+    },
+    {
+      "op": "stroke",
+      "at": 32748
+    },
+    {
+      "op": "note",
+      "at": 33556
+    },
+    {
+      "op": "run",
+      "at": 39895
+    },
+    {
+      "op": "note",
+      "at": 342919
+    },
+    {
+      "op": "note",
+      "at": 343606
+    },
+    {
+      "op": "note",
+      "at": 344267
+    },
+    {
+      "op": "run",
+      "at": 344510
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1100,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          40,
+          38
+        ],
+        [
+          112,
+          38
+        ]
+      ],
+      "n": 13,
+      "at": 1490
+    },
+    {
+      "way": [
+        [
+          1130,
+          38
+        ],
+        [
+          1202,
+          38
+        ]
+      ],
+      "n": 13,
+      "at": 2823
+    },
+    {
+      "way": [
+        [
+          248,
+          122
+        ],
+        [
+          1030,
+          122
+        ]
+      ],
+      "n": 131,
+      "at": 6491
+    },
+    {
+      "way": [
+        [
+          840,
+          370
+        ],
+        [
+          836,
+          409
+        ],
+        [
+          825,
+          447
+        ],
+        [
+          806,
+          481
+        ],
+        [
+          781,
+          511
+        ],
+        [
+          751,
+          536
+        ],
+        [
+          717,
+          555
+        ],
+        [
+          679,
+          566
+        ],
+        [
+          640,
+          570
+        ],
+        [
+          601,
+          566
+        ],
+        [
+          563,
+          555
+        ],
+        [
+          529,
+          536
+        ],
+        [
+          499,
+          511
+        ],
+        [
+          474,
+          481
+        ],
+        [
+          455,
+          447
+        ],
+        [
+          444,
+          409
+        ],
+        [
+          440,
+          370
+        ],
+        [
+          444,
+          331
+        ],
+        [
+          455,
+          293
+        ],
+        [
+          474,
+          259
+        ],
+        [
+          499,
+          229
+        ],
+        [
+          529,
+          204
+        ],
+        [
+          563,
+          185
+        ],
+        [
+          601,
+          174
+        ],
+        [
+          640,
+          170
+        ],
+        [
+          679,
+          174
+        ],
+        [
+          717,
+          185
+        ],
+        [
+          751,
+          204
+        ],
+        [
+          781,
+          229
+        ],
+        [
+          806,
+          259
+        ],
+        [
+          825,
+          293
+        ],
+        [
+          836,
+          331
+        ],
+        [
+          840,
+          370
+        ]
+      ],
+      "n": 217,
+      "at": 11643
+    },
+    {
+      "way": [
+        [
+          640,
+          220
+        ]
+      ],
+      "n": 1,
+      "at": 12122
+    },
+    {
+      "way": [
+        [
+          640,
+          520
+        ]
+      ],
+      "n": 1,
+      "at": 12959
+    },
+    {
+      "way": [
+        [
+          445,
+          445
+        ],
+        [
+          835,
+          445
+        ]
+      ],
+      "n": 66,
+      "at": 14876
+    },
+    {
+      "way": [
+        [
+          470,
+          505
+        ],
+        [
+          810,
+          505
+        ]
+      ],
+      "n": 58,
+      "at": 16291
+    },
+    {
+      "way": [
+        [
+          2,
+          562
+        ],
+        [
+          1278,
+          562
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          564
+        ]
+      ],
+      "n": 539,
+      "at": 26886
+    },
+    {
+      "way": [
+        [
+          506,
+          615
+        ],
+        [
+          774,
+          615
+        ]
+      ],
+      "n": 46,
+      "at": 29374
+    },
+    {
+      "way": [
+        [
+          520,
+          690
+        ],
+        [
+          760,
+          690
+        ],
+        [
+          760,
+          752
+        ],
+        [
+          520,
+          752
+        ],
+        [
+          520,
+          692
+        ]
+      ],
+      "n": 101,
+      "at": 32748
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "PLAYER 1, small mono",
+      "whole": false,
+      "x": 76,
+      "y": 24,
+      "at": 2147
+    },
+    {
+      "text": "HI 99999, small mono",
+      "whole": false,
+      "x": 1166,
+      "y": 24,
+      "at": 3485
+    },
+    {
+      "text": "ARCADE NIGHT, huge mono, neon glow",
+      "whole": false,
+      "x": 640,
+      "y": 100,
+      "at": 7200
+    },
+    {
+      "text": "dark stripes cut the sun bottom",
+      "whole": false,
+      "x": 700,
+      "y": 480,
+      "at": 17081
+    },
+    {
+      "text": "pink square grid lines, sun ends at its top",
+      "whole": false,
+      "x": 1000,
+      "y": 820,
+      "at": 27775
+    },
+    {
+      "text": "FRI 13 NOV · 8PM, bold mono",
+      "whole": false,
+      "x": 640,
+      "y": 600,
+      "at": 30213
+    },
+    {
+      "text": "INSERT COIN, yellow outline only",
+      "whole": false,
+      "x": 640,
+      "y": 722,
+      "at": 33556
+    },
+    {
+      "text": "missing sun: yellow to pink disc",
+      "whole": false,
+      "x": 640,
+      "y": 330,
+      "at": 342919
+    },
+    {
+      "text": "ground stays dark, thin pink lines, flat",
+      "whole": false,
+      "x": 200,
+      "y": 760,
+      "at": 343606
+    },
+    {
+      "text": "dark inside, yellow text",
+      "whole": false,
+      "x": 800,
+      "y": 700,
+      "at": 344267
+    }
+  ]
+}

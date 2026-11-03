@@ -1,0 +1,212 @@
+{
+  "id": "e5-admin-table",
+  "at": "2026-10-22T23:33:58.499Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8148093587923286,
+    "overallV2": 0.8148093587923286,
+    "overallV1": 0.6632123262686047,
+    "colour": 0.9850218374339331,
+    "structure": 0.9314581864665599,
+    "structureStrict": 0.7253426583873351,
+    "colourAligned": 0.9850218374339331,
+    "structureAligned": 0.9314581864665599,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9677343071903933
+    },
+    "layout": 0.8219143190380614
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 54057,
+    "output": 26802,
+    "cacheRead": 267060
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 55675,
+      "output": 16157,
+      "cacheRead": 160331,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 166711
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 5694,
+      "output": 2399,
+      "cacheRead": 94381,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 26076
+    }
+  ],
+  "reading": "The sketch lays out a 'Team members' admin page: a page title and subtext, a blue '+ Invite' button top-right, a packed left toolbar of filter/search controls, a dark blue bulk-action bar, a large data table card listing team members with avatars/role/status/usage/last-active, an open status-filter dropdown menu floating over the table, and a bottom pager with result count and page buttons.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        48,
+        25,
+        157,
+        34
+      ],
+      "paths": [],
+      "instruction": "Page heading text 'Team members', 24px type, on ONE line (white-space: nowrap, never wraps), about 174px wide."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        67,
+        165,
+        8
+      ],
+      "paths": [],
+      "instruction": "13px grey subtext '128 people · 9 pending invites', one line on its own below the heading (top 64px, left edge 40px), nothing else beside it."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1161,
+        32,
+        77,
+        32
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Blue button with white text reading '+ Invite', placed top-right of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        107,
+        1193,
+        27
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Toolbar row of controls packed at the LEFT, side by side 10px apart in this order (shrink-0, each its own width, nothing stretched or pushed to the right end; t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        155,
+        1193,
+        38
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Dark blue (#1e3a8a) bar 1200x44px, 8px rounded: white bold '3 selected' at the left, then right beside it (packed at the left after the label, never pushed to t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        211,
+        1193,
+        513
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Inside a white (#ffffff) card 1200px wide, 1px light grey (#e5e7eb) border, 10px rounded corners (overflow hidden, so the header fill follows the corners), the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        663,
+        249,
+        193,
+        140
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Open dropdown menu, 200x146px white card, 10px rounded, thin light grey border, big soft shadow 12px down 32px blur 15% opacity; absolutely placed, floating ON "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 10
+        }
+      ],
+      "region": [
+        44,
+        850,
+        1192,
+        30
+      ],
+      "paths": [],
+      "instruction": "Pager, one line 1200px wide, its middle 865px from the page top (inside the page, not below it): 13px grey 'Showing 1–10 of 128' at the left, at the far right a"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

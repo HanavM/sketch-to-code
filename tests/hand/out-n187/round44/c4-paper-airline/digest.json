@@ -1,0 +1,727 @@
+{
+  "round": 44,
+  "id": "c4-paper-airline",
+  "version": 3,
+  "stopped": null,
+  "likeness": 82.8,
+  "colour": 0.9885707501214763,
+  "structure": 0.9563064189472824,
+  "layout": 0.7021001288074371,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 4.2,
+    "simpleShare": 0.94,
+    "shapes": {
+      "dot": 3,
+      "line": 5,
+      "freehand": 1,
+      "box": 5,
+      "circle": 4
+    },
+    "inkPx": 8888
+  },
+  "erased": 0,
+  "notesMoved": 1,
+  "words": 53,
+  "notes": 12,
+  "longestNote": 12,
+  "noteTexts": [
+    "Fold Air bold",
+    "Deals Routes My trips",
+    "Light fares, / short hops, huge bold",
+    "Fly between 40 coastal towns from $29.",
+    "dashed flight path",
+    "From, grey placeholder",
+    "To",
+    "Date",
+    "Search, white bold",
+    "plain white clouds",
+    "paper plane, soft blue fold edge",
+    "flight path thin small dashes, nav on one line, clouds flat pills"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 603,
+    "firstReadingS": 141,
+    "readS": [
+      89,
+      21
+    ],
+    "buildS": [
+      371,
+      52
+    ],
+    "sketchingS": 70
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 113933,
+    "cacheRead": 443370,
+    "output": 47410,
+    "billed": 161343
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#d0e8f4",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 464
+    },
+    {
+      "op": "pen",
+      "color": "#0f2a48",
+      "at": 839
+    },
+    {
+      "op": "stroke",
+      "at": 1534
+    },
+    {
+      "op": "stroke",
+      "at": 2567
+    },
+    {
+      "op": "stroke",
+      "at": 4033
+    },
+    {
+      "op": "stroke",
+      "at": 5450
+    },
+    {
+      "op": "stroke",
+      "at": 6799
+    },
+    {
+      "op": "stroke",
+      "at": 8684
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 9060
+    },
+    {
+      "op": "stroke",
+      "at": 16567
+    },
+    {
+      "op": "stroke",
+      "at": 17033
+    },
+    {
+      "op": "stroke",
+      "at": 18638
+    },
+    {
+      "op": "stroke",
+      "at": 20502
+    },
+    {
+      "op": "stroke",
+      "at": 23018
+    },
+    {
+      "op": "pen",
+      "color": "#a9c8dc",
+      "at": 23386
+    },
+    {
+      "op": "stroke",
+      "at": 25803
+    },
+    {
+      "op": "stroke",
+      "at": 28134
+    },
+    {
+      "op": "stroke",
+      "at": 30469
+    },
+    {
+      "op": "pen",
+      "color": "#0f2a48",
+      "at": 30840
+    },
+    {
+      "op": "stroke",
+      "at": 32551
+    },
+    {
+      "op": "stroke",
+      "at": 33016
+    },
+    {
+      "op": "pen",
+      "color": "#ffd64d",
+      "at": 33384
+    },
+    {
+      "op": "stroke",
+      "at": 35219
+    },
+    {
+      "op": "note",
+      "at": 35886
+    },
+    {
+      "op": "note",
+      "at": 36620
+    },
+    {
+      "op": "note",
+      "at": 37451
+    },
+    {
+      "op": "note",
+      "at": 38306
+    },
+    {
+      "op": "note",
+      "at": 39028
+    },
+    {
+      "op": "note",
+      "at": 39855
+    },
+    {
+      "op": "note",
+      "at": 40496
+    },
+    {
+      "op": "note",
+      "at": 41141
+    },
+    {
+      "op": "note",
+      "at": 41898
+    },
+    {
+      "op": "note",
+      "at": 42654
+    },
+    {
+      "op": "note",
+      "at": 43579
+    },
+    {
+      "op": "moveNote",
+      "at": 51595
+    },
+    {
+      "op": "run",
+      "at": 51653
+    },
+    {
+      "op": "note",
+      "at": 521947
+    },
+    {
+      "op": "run",
+      "at": 522026
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 464
+    },
+    {
+      "way": [
+        [
+          70,
+          49
+        ],
+        [
+          152,
+          49
+        ]
+      ],
+      "n": 15,
+      "at": 1534
+    },
+    {
+      "way": [
+        [
+          1011,
+          49
+        ],
+        [
+          1210,
+          49
+        ]
+      ],
+      "n": 34,
+      "at": 2567
+    },
+    {
+      "way": [
+        [
+          70,
+          186
+        ],
+        [
+          425,
+          186
+        ]
+      ],
+      "n": 60,
+      "at": 4033
+    },
+    {
+      "way": [
+        [
+          70,
+          255
+        ],
+        [
+          410,
+          255
+        ]
+      ],
+      "n": 58,
+      "at": 5450
+    },
+    {
+      "way": [
+        [
+          70,
+          323
+        ],
+        [
+          387,
+          323
+        ]
+      ],
+      "n": 54,
+      "at": 6799
+    },
+    {
+      "way": [
+        [
+          182,
+          580
+        ],
+        [
+          215,
+          535
+        ],
+        [
+          290,
+          495
+        ],
+        [
+          400,
+          470
+        ],
+        [
+          500,
+          466
+        ],
+        [
+          590,
+          478
+        ],
+        [
+          647,
+          515
+        ]
+      ],
+      "n": 86,
+      "at": 8684
+    },
+    {
+      "way": [
+        [
+          70,
+          680
+        ],
+        [
+          1210,
+          680
+        ],
+        [
+          1210,
+          790
+        ],
+        [
+          70,
+          790
+        ],
+        [
+          70,
+          680
+        ]
+      ],
+      "n": 417,
+      "at": 16567
+    },
+    {
+      "way": [
+        [
+          640,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 17033
+    },
+    {
+      "way": [
+        [
+          850,
+          200
+        ],
+        [
+          970,
+          200
+        ],
+        [
+          1000,
+          230
+        ],
+        [
+          970,
+          260
+        ],
+        [
+          850,
+          260
+        ],
+        [
+          820,
+          230
+        ],
+        [
+          850,
+          200
+        ]
+      ],
+      "n": 69,
+      "at": 18638
+    },
+    {
+      "way": [
+        [
+          995,
+          520
+        ],
+        [
+          1145,
+          520
+        ],
+        [
+          1180,
+          555
+        ],
+        [
+          1145,
+          590
+        ],
+        [
+          995,
+          590
+        ],
+        [
+          960,
+          555
+        ],
+        [
+          995,
+          520
+        ]
+      ],
+      "n": 83,
+      "at": 20502
+    },
+    {
+      "way": [
+        [
+          622,
+          334
+        ],
+        [
+          890,
+          340
+        ],
+        [
+          665,
+          512
+        ],
+        [
+          622,
+          334
+        ]
+      ],
+      "n": 124,
+      "at": 23018
+    },
+    {
+      "way": [
+        [
+          100,
+          707
+        ],
+        [
+          380,
+          707
+        ],
+        [
+          380,
+          763
+        ],
+        [
+          100,
+          763
+        ],
+        [
+          100,
+          707
+        ]
+      ],
+      "n": 113,
+      "at": 25803
+    },
+    {
+      "way": [
+        [
+          403,
+          707
+        ],
+        [
+          685,
+          707
+        ],
+        [
+          685,
+          763
+        ],
+        [
+          403,
+          763
+        ],
+        [
+          403,
+          707
+        ]
+      ],
+      "n": 113,
+      "at": 28134
+    },
+    {
+      "way": [
+        [
+          707,
+          707
+        ],
+        [
+          988,
+          707
+        ],
+        [
+          988,
+          763
+        ],
+        [
+          707,
+          763
+        ],
+        [
+          707,
+          707
+        ]
+      ],
+      "n": 113,
+      "at": 30469
+    },
+    {
+      "way": [
+        [
+          1010,
+          707
+        ],
+        [
+          1180,
+          707
+        ],
+        [
+          1180,
+          763
+        ],
+        [
+          1010,
+          763
+        ],
+        [
+          1010,
+          707
+        ]
+      ],
+      "n": 75,
+      "at": 32551
+    },
+    {
+      "way": [
+        [
+          1095,
+          750
+        ]
+      ],
+      "n": 1,
+      "at": 33015
+    },
+    {
+      "way": [
+        [
+          1170,
+          185
+        ],
+        [
+          1160,
+          223
+        ],
+        [
+          1133,
+          250
+        ],
+        [
+          1095,
+          260
+        ],
+        [
+          1057,
+          250
+        ],
+        [
+          1030,
+          223
+        ],
+        [
+          1020,
+          185
+        ],
+        [
+          1030,
+          147
+        ],
+        [
+          1057,
+          120
+        ],
+        [
+          1095,
+          110
+        ],
+        [
+          1133,
+          120
+        ],
+        [
+          1160,
+          147
+        ],
+        [
+          1170,
+          185
+        ]
+      ],
+      "n": 81,
+      "at": 35219
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Fold Air bold",
+      "whole": false,
+      "x": 80,
+      "y": 66,
+      "at": 35886
+    },
+    {
+      "text": "Deals Routes My trips",
+      "whole": false,
+      "x": 1020,
+      "y": 66,
+      "at": 36620
+    },
+    {
+      "text": "Light fares, / short hops, huge bold",
+      "whole": false,
+      "x": 80,
+      "y": 165,
+      "at": 37451
+    },
+    {
+      "text": "Fly between 40 coastal towns from $29.",
+      "whole": false,
+      "x": 80,
+      "y": 340,
+      "at": 38306
+    },
+    {
+      "text": "dashed flight path",
+      "whole": false,
+      "x": 300,
+      "y": 520,
+      "at": 39028
+    },
+    {
+      "text": "From, grey placeholder",
+      "whole": false,
+      "x": 130,
+      "y": 735,
+      "at": 39855
+    },
+    {
+      "text": "To",
+      "whole": false,
+      "x": 430,
+      "y": 735,
+      "at": 40496
+    },
+    {
+      "text": "Date",
+      "whole": false,
+      "x": 730,
+      "y": 735,
+      "at": 41140
+    },
+    {
+      "text": "Search, white bold",
+      "whole": false,
+      "x": 1030,
+      "y": 735,
+      "at": 41898
+    },
+    {
+      "text": "plain white clouds",
+      "whole": false,
+      "x": 840,
+      "y": 230,
+      "at": 42654
+    },
+    {
+      "text": "paper plane, soft blue fold edge",
+      "whole": false,
+      "x": 680,
+      "y": 380,
+      "at": 43579
+    },
+    {
+      "text": "flight path thin small dashes, nav on one line, clouds flat pills",
+      "whole": true,
+      "x": 640,
+      "y": 630,
+      "at": 521947
+    }
+  ]
+}

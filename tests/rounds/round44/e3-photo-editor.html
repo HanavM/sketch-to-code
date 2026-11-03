@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#1c1c1f;font-family:Helvetica,Arial,sans-serif;color:#e7e7ea;overflow:hidden;position:relative}
+.top{position:absolute;left:0;top:0;width:1280px;height:56px;background:#252529;display:flex;align-items:center;padding:0 24px;font-size:14px}.top b{font-size:17px}.top span{margin-left:24px;color:#a1a1aa}.top .ex{margin-left:auto;width:110px;height:34px;border-radius:8px;background:#facc15;color:#1c1c1f;font-weight:700;display:flex;align-items:center;justify-content:center}
+.tools{position:absolute;left:0;top:56px;width:64px;height:844px;background:#252529}.tools i{display:block;width:32px;height:32px;margin:22px auto 0;border-radius:8px;background:#3f3f46}.tools i.on{background:#facc15}
+.canvas{position:absolute;left:104px;top:96px;width:780px;height:560px;background:linear-gradient(#f59e8b,#fcd29f 55%,#3f6e5a 55%)}
+.crop{position:absolute;left:184px;top:156px;width:620px;height:440px;border:2px solid #fff}
+.strip{position:absolute;left:104px;top:690px;width:780px;height:170px;display:flex;gap:16px}.strip div{flex:1;border-radius:8px;background:#3f3f46}.strip div.on{outline:3px solid #facc15}
+.panel{position:absolute;left:920px;top:56px;width:360px;height:844px;background:#252529;padding:30px}
+.panel h2{font-size:16px;margin-bottom:26px}.sl{margin-bottom:30px;font-size:14px;color:#a1a1aa}.sl .t{margin-top:12px;height:4px;background:#3f3f46;border-radius:2px;position:relative}.sl .t i{position:absolute;top:-7px;width:18px;height:18px;border-radius:50%;background:#fff}
+</style></head><body>
+<div class="top" data-r="topbar"><b data-r="logo">Darkroom</b><span>File</span><span>Edit</span><span>View</span><div class="ex" data-r="export" data-must>Export</div></div>
+<div class="tools" data-r="toolbar" data-must><i class="on"></i><i></i><i></i><i></i><i></i></div>
+<div class="canvas" data-r="photo" data-must></div>
+<div class="crop" data-r="crop-box"></div>
+<div class="strip" data-r="filmstrip" data-must><div class="on" style="background:#f59e8b"></div><div style="background:#7aa0c4"></div><div style="background:#c4a27a"></div><div style="background:#8fbf8f"></div></div>
+<div class="panel" data-r="adjust-panel" data-must><h2>Adjust</h2>
+<div class="sl">Exposure<div class="t"><i style="left:55%"></i></div></div>
+<div class="sl">Contrast<div class="t"><i style="left:40%"></i></div></div>
+<div class="sl">Warmth<div class="t"><i style="left:70%"></i></div></div>
+<div class="sl">Saturation<div class="t"><i style="left:50%"></i></div></div>
+<div class="sl">Vignette<div class="t"><i style="left:20%"></i></div></div></div>
+</body></html>

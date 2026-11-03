@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Design editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#e5e5e5;font-family:Helvetica,Arial,sans-serif;color:#1e1e1e;font-size:12px}
+.tb{position:absolute;left:0;top:0;width:1280px;height:48px;background:#2c2c2c;color:#fff;display:flex;align-items:center;padding:0 12px;gap:6px}
+.tb i{display:inline-block;width:32px;height:32px;border-radius:6px;background:#3d3d3d}.tb i.on{background:#0d99ff}.tb .nm{margin:0 auto;font-size:13px}.tb .nm span{color:#999}
+.tb .av{width:28px;height:28px;border-radius:50%;border:2px solid #2c2c2c;margin-left:-8px}.tb .sh{padding:8px 16px;border-radius:6px;background:#0d99ff;font-weight:700;margin-left:10px}
+.lp{position:absolute;left:0;top:48px;width:240px;height:852px;background:#fff;border-right:1px solid #e0e0e0}
+.lp .tt{display:flex;gap:16px;padding:12px 14px;border-bottom:1px solid #e0e0e0;font-weight:700}.lp .tt span+span{color:#999;font-weight:400}
+.ly{height:30px;line-height:30px;padding-left:14px;white-space:nowrap}.ly.s{background:#e5f4ff;font-weight:700}.ly b{display:inline-block;width:14px;color:#999;font-weight:400}
+.rp{position:absolute;left:1000px;top:48px;width:280px;height:852px;background:#fff;border-left:1px solid #e0e0e0;padding:14px}
+.rp h5{font-size:11px;font-weight:700;margin:14px 0 8px}.rp .r{display:flex;gap:8px;margin-bottom:8px}.rp .f{flex:1;height:30px;border:1px solid #e6e6e6;border-radius:4px;line-height:28px;padding-left:8px;background:#f5f5f5}.rp .f b{color:#999;font-weight:400;margin-right:6px}
+.sw{display:inline-block;width:16px;height:16px;border-radius:3px;vertical-align:middle;margin-right:8px}
+.cv{position:absolute;left:240px;top:48px;width:760px;height:852px}
+.frame{position:absolute;left:150px;top:90px;width:390px;height:640px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.fl{position:absolute;left:150px;top:70px;font-size:11px;color:#777}
+.frame .hero{position:absolute;left:20px;top:60px;width:350px;height:220px;border-radius:16px;background:linear-gradient(135deg,#ff7a59,#ffc46b)}
+.frame h2{position:absolute;left:20px;top:300px;font-size:26px;width:300px;line-height:1.15}
+.frame p{position:absolute;left:20px;top:375px;width:330px;font-size:13px;color:#666;line-height:1.5}
+.frame .cta{position:absolute;left:20px;top:560px;width:350px;height:50px;border-radius:12px;background:#1e1e1e;color:#fff;text-align:center;line-height:50px;font-weight:700;font-size:14px}
+.sel{position:absolute;left:168px;top:648px;width:354px;height:54px;border:2px solid #0d99ff}
+.sel i{position:absolute;width:8px;height:8px;background:#fff;border:2px solid #0d99ff}
+.dim{position:absolute;left:291px;top:706px;padding:2px 6px;border-radius:3px;background:#0d99ff;color:#fff;font-size:11px}
+.gap{position:absolute;left:340px;top:598px;width:1px;height:46px;background:#f24822}.gap::after{content:"72";position:absolute;left:6px;top:14px;background:#f24822;color:#fff;font-size:10px;padding:1px 4px;border-radius:2px}
+.pin{position:absolute;left:600px;top:240px;width:34px;height:34px;border-radius:50% 50% 50% 0;background:#9747ff;color:#fff;text-align:center;line-height:34px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.zm{position:absolute;left:640px;top:810px;padding:6px 10px;background:#fff;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+</style></head><body>
+<div class="tb" data-r="toolbar"><i class="on"></i><i></i><i></i><i></i><i></i><span class="nm"><span>Drafts /</span> Onboarding v3</span><span class="av" style="background:#f24822"></span><span class="av" style="background:#14ae5c"></span><span class="av" style="background:#9747ff"></span><a class="sh">Share</a></div>
+<div class="lp" data-r="layers-panel" data-must><div class="tt"><span>Layers</span><span>Assets</span></div>
+<div class="ly"><b>▾</b>Welcome / mobile</div><div class="ly" style="padding-left:30px"><b>#</b>Status bar</div><div class="ly" style="padding-left:30px"><b>▣</b>Hero image</div><div class="ly" style="padding-left:30px"><b>T</b>Title</div><div class="ly" style="padding-left:30px"><b>T</b>Body</div><div class="ly s" style="padding-left:30px"><b>◇</b>Button / primary</div><div class="ly" style="padding-left:30px"><b>▣</b>Home indicator</div><div class="ly"><b>▸</b>Sign up / mobile</div><div class="ly"><b>▸</b>Permissions</div></div>
+<div class="cv" data-r="canvas" data-must><span class="fl">Welcome / mobile</span><div class="frame"><div class="hero"></div><h2>Plan trips with friends, not spreadsheets</h2><p>Share one itinerary, vote on places, and split costs as you go.</p><div class="cta">Get started</div></div>
+<div class="sel" data-r="selection"><i style="left:-5px;top:-5px"></i><i style="right:-5px;top:-5px"></i><i style="left:-5px;bottom:-5px"></i><i style="right:-5px;bottom:-5px"></i></div><span class="dim">350 × 50</span><span class="gap"></span>
+<span class="pin" data-r="comment-pin">K</span><span class="zm">64% ▾</span></div>
+<div class="rp" data-r="properties-panel" data-must><div style="display:flex;gap:16px;font-weight:700;border-bottom:1px solid #e0e0e0;padding-bottom:10px;margin:-2px -14px 0;padding-left:14px"><span>Design</span><span style="color:#999;font-weight:400">Prototype</span></div>
+<h5>Frame</h5><div class="r"><span class="f"><b>X</b>20</span><span class="f"><b>Y</b>560</span></div><div class="r"><span class="f"><b>W</b>350</span><span class="f"><b>H</b>50</span></div><div class="r"><span class="f"><b>↻</b>0°</span><span class="f"><b>◜</b>12</span></div>
+<h5>Auto layout</h5><div class="r"><span class="f"><b>⇄</b>Center</span><span class="f"><b>▭</b>16 · 24</span></div>
+<h5>Fill</h5><div class="r"><span class="f"><span class="sw" style="background:#1e1e1e"></span>1E1E1E</span><span class="f" style="flex:.5">100%</span></div>
+<h5>Stroke</h5><div class="r"><span class="f" style="color:#999">+ Add stroke</span></div>
+<h5>Effects</h5><div class="r"><span class="f"><span class="sw" style="background:#ccc"></span>Drop shadow</span></div>
+<h5>Export</h5><div class="r"><span class="f">1x · PNG</span><span class="f" style="flex:.6;text-align:center">Export</span></div></div>
+</body></html>

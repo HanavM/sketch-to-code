@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Focus</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff1f2;font-family:Helvetica,Arial,sans-serif;color:#1f2937;overflow:hidden;position:relative}
+.tabs{position:absolute;left:150px;top:60px;width:440px;height:52px;background:#ffe4e6;border-radius:26px;display:flex;padding:5px;font-size:15px;font-weight:600}
+.tabs span{flex:1;display:flex;align-items:center;justify-content:center;border-radius:21px;color:#9f1239}.tabs span.on{background:#e11d48;color:#fff}
+.ring{position:absolute;left:170px;top:170px;width:400px;height:400px;border-radius:50%;background:conic-gradient(#e11d48 0 70%,#fecdd3 70% 100%)}
+.ring div{position:absolute;left:22px;top:22px;width:356px;height:356px;border-radius:50%;background:#fff1f2;display:flex;flex-direction:column;align-items:center;justify-content:center}.ring b{font-size:84px;font-weight:300}.ring span{font-size:16px;color:#9f1239}
+.ctl{position:absolute;top:630px;height:64px;border-radius:32px;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.list{position:absolute;left:700px;top:60px;width:500px;height:780px;background:#fff;border-radius:22px;padding:32px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.list>b{font-size:22px}.task{display:flex;align-items:center;gap:14px;padding:18px 0;border-bottom:1px solid #f3f4f6;font-size:17px}
+.task i{width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db}.task.done i{background:#e11d48;border-color:#e11d48}.task.done{color:#9ca3af;text-decoration:line-through}.task small{margin-left:auto;color:#9ca3af;font-size:14px;text-decoration:none}
+.add{margin-top:24px;height:52px;border:2px dashed #fecdd3;border-radius:12px;display:flex;align-items:center;padding:0 18px;color:#be123c;font-size:16px}
+</style></head><body>
+<div class="tabs" data-r="tabs"><span class="on">Focus</span><span>Short break</span><span>Long break</span></div>
+<div class="ring" data-r="timer" data-must><div><b>17:30</b><span>Session 2 of 4</span></div></div>
+<div class="ctl" style="left:170px;width:250px;background:#e11d48;color:#fff" data-r="pause" data-must>Pause</div>
+<div class="ctl" style="left:440px;width:130px;background:#ffe4e6;color:#9f1239" data-r="reset">Reset</div>
+<div class="list" data-r="tasks" data-must><b>Today</b>
+<div class="task done"><i></i>Reply to Mia<small>1/1</small></div>
+<div class="task done"><i></i>Draft intro<small>2/2</small></div>
+<div class="task"><i></i>Edit chapter 3<small>1/4</small></div>
+<div class="task"><i></i>Pick cover photo<small>0/1</small></div>
+<div class="task"><i></i>Send invoice<small>0/1</small></div>
+<div class="add">+ Add task</div></div>
+</body></html>

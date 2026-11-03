@@ -1,0 +1,518 @@
+{
+  "id": "c5-deep-sea",
+  "at": "2026-10-27T10:53:43.092Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.931036576577791,
+    "overallV2": 0.931036576577791,
+    "overallV1": 0.8825211060359974,
+    "colour": 0.9814671280085641,
+    "structure": 0.9182089135130156,
+    "structureStrict": 0.8116646532651495,
+    "colourAligned": 0.9814671280085641,
+    "structureAligned": 0.9182089135130156,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9493394494377461
+    },
+    "layout": 0.9234295536449276,
+    "layoutV1": 0.8671673791381608,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      930
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      930
+    ],
+    [
+      1,
+      25,
+      -119,
+      392,
+      893
+    ],
+    [
+      1,
+      435,
+      -108,
+      244,
+      908
+    ],
+    [
+      1,
+      3,
+      703,
+      1274,
+      194
+    ],
+    [
+      4,
+      3,
+      702,
+      1273,
+      195
+    ],
+    [
+      1,
+      3,
+      703,
+      1274,
+      194
+    ],
+    [
+      6,
+      3,
+      793,
+      1274,
+      104
+    ],
+    [
+      0,
+      30,
+      120,
+      2,
+      704
+    ],
+    [
+      0,
+      40,
+      120,
+      20,
+      18
+    ],
+    [
+      0,
+      40,
+      350,
+      33,
+      18
+    ],
+    [
+      0,
+      40,
+      580,
+      43,
+      18
+    ],
+    [
+      0,
+      40,
+      810,
+      43,
+      18
+    ],
+    [
+      0,
+      88,
+      180,
+      543,
+      177
+    ],
+    [
+      13,
+      88,
+      260,
+      543,
+      104
+    ],
+    [
+      0,
+      84,
+      410,
+      440,
+      56
+    ],
+    [
+      0,
+      59,
+      523,
+      164,
+      48
+    ],
+    [
+      0,
+      900,
+      120,
+      150,
+      110
+    ],
+    [
+      17,
+      930,
+      220,
+      90,
+      150
+    ],
+    [
+      0,
+      760,
+      300,
+      40,
+      40
+    ],
+    [
+      0,
+      720,
+      380,
+      22,
+      22
+    ],
+    [
+      0,
+      1150,
+      300,
+      60,
+      60
+    ],
+    [
+      0,
+      823,
+      423,
+      353,
+      293
+    ],
+    [
+      22,
+      860,
+      456,
+      279,
+      20
+    ],
+    [
+      22,
+      860,
+      484,
+      279,
+      64
+    ],
+    [
+      22,
+      860,
+      557,
+      279,
+      23
+    ],
+    [
+      22,
+      850,
+      597,
+      302,
+      10
+    ],
+    [
+      26,
+      850,
+      597,
+      205,
+      10
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "depth-scale",
+      "iou": 0.6751460940812009,
+      "parts": 3,
+      "rect": {
+        "x": 40,
+        "y": 120,
+        "w": 43.359375,
+        "h": 478
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.875,
+    "kept": [
+      "blur",
+      "glass",
+      "glow",
+      "gradient",
+      "italic",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": [
+      "mask",
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 76518,
+    "output": 55022,
+    "cacheRead": 357801
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 94032,
+      "output": 34616,
+      "cacheRead": 291246,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/vite.config.ts",
+        "Read s2c-bench-app/index.html",
+        "Write src/App.tsx"
+      ],
+      "ms": 384980
+    }
+  ],
+  "ease": {
+    "marks": 14,
+    "captured": 14,
+    "notes": 13,
+    "words": 852,
+    "drawMs": 93536,
+    "readingMs": 150717,
+    "runMs": 538117
+  },
+  "reading": "A full hero section for an ocean-dive-themed landing page: a page-wide dark teal-to-navy-to-black gradient background with two soft diagonal light beams falling from the top, a tall dashed depth ruler with labelled markers down the left side, a big two-line italic-accented headline (\"Into the / midnight zone\"), a wrapped descriptive paragraph, a glowing mint pill button (\"Join the dive\"), two layered wavy dark hill shapes along the bottom edge, a small pale lilac/purple gradient blob with trailing fringe, three empty glowing bubble circles of varying sizes, and a frosted-glass stat card showing current depth, water/pressure readout and a filled progress bar.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        28,
+        1,
+        618,
+        770
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A soft LIGHT BEAM (a shaft of light from above), NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE 120x900px div, position absolute, its top-le"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        438,
+        1,
+        238,
+        796
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A second soft LIGHT BEAM (a shaft of light from above), NOT a block, NOT a card, NOT a photo backdrop, nothing inside: ONE 120x900px div, position absolute, its"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        703,
+        1274,
+        194
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Drawn shapes, no picture, no box: 2 layered wavy hills (filled shapes with smooth rolling S-curve tops, each running the full width down to the bottom edge), ba"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        28,
+        1,
+        386,
+        819
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A vertical SCALE (a ruler down the page), NOT a paragraph, NOT a list: a 704px tall 2px dashed #7ff3ff at 40% line (border-left of an empty 704px tall div, posi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        28,
+        1,
+        618,
+        770
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant Helvetica heavy tight-set headline, lines set tight (line-height 0.95) \"Into the midnight zone\", set in exactly 2 lines: \"Into the\" / \"midnight zone\" (kee"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        28,
+        1,
+        492,
+        770
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Paragraph text: \"A live dive log from the Abyssal-3 sub. Follow the crew 4,000 metres down, one sonar ping at a time.\"; set in a 440px wide box (top-left at 84,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        28,
+        1,
+        386,
+        770
+      ],
+      "paths": [
+        "s0",
+        "s8"
+      ],
+      "instruction": "Mint green pill button, bold dark navy label \"Join the dive\"; text colour #041b45 (dark navy, NOT the page's off-white text); a coloured GLOW round it (light sp"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        903,
+        123,
+        143,
+        103
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Pale lilac to purple gradient block, exactly 150x110px (keep it this SMALL), top-left at 900,120, 75px rounded corners, plain paint only: no picture, no X, no i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        764,
+        304,
+        32,
+        32
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "A BUBBLE (empty circle, NOT an input, NOT a button, no text): one 40x40px div, border-radius 50%, position absolute at 760,300, 2px solid #bff6ff at 53% border,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        724,
+        384,
+        14,
+        14
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A BUBBLE (empty circle, NOT an input, NOT a button, no text): one 22x22px div, border-radius 50%, position absolute at 720,380, 2px solid #bff6ff at 53% border,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1155,
+        304,
+        51,
+        52
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A BUBBLE (empty circle, NOT an input, NOT a button, no text): one 60x60px div, border-radius 50%, position absolute at 1150,300, 2px solid #bff6ff at 53% border"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        423,
+        353,
+        293
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Frosted glass stat card: \"CURRENT DEPTH\", big 58px bold \"2,418 m\", \"Water 2.1°C · Pressure 243 bar\"; inside it, under the text, a thin PROGRESS BAR 302x10px wit"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

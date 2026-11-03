@@ -1,0 +1,672 @@
+{
+  "round": 43,
+  "id": "e1-meal-planner",
+  "version": 3,
+  "stopped": null,
+  "likeness": 65.8,
+  "colour": 0.989613983700893,
+  "structure": 0.8832127581361896,
+  "layout": 0.6445386990538124,
+  "strokes": {
+    "count": 20,
+    "pointsPerStroke": 2.5,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 8,
+      "line": 6,
+      "box": 6
+    },
+    "inkPx": 7602
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 53,
+  "notes": 12,
+  "longestNote": 14,
+  "noteTexts": [
+    "Forkful",
+    "+ Add recipe",
+    "This week",
+    "3 – 9 November",
+    "days Mon–Sun",
+    "Breakfast",
+    "Lunch",
+    "Dinner",
+    "Shopping list · 14 items",
+    "chips: Oats, Berries, Lentils, Salmon, Rice, Tortillas, Tomatoes, Spinach, Yogurt, Eggs",
+    "cards repeat 7 across to Sun; empty dashed: Sun breakfast, Fri lunch, Sat dinner",
+    "shopping heading above chips; no circles in cards"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 808,
+    "firstReadingS": 109,
+    "readS": [
+      38,
+      36
+    ],
+    "buildS": [
+      469,
+      177
+    ],
+    "sketchingS": 88
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 149491,
+    "cacheRead": 654447,
+    "output": 61056,
+    "billed": 210547
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#faf9f6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 468
+    },
+    {
+      "op": "pen",
+      "color": "#e6e3dc",
+      "at": 850
+    },
+    {
+      "op": "stroke",
+      "at": 4937
+    },
+    {
+      "op": "pen",
+      "color": "#3d7a57",
+      "at": 5309
+    },
+    {
+      "op": "stroke",
+      "at": 5983
+    },
+    {
+      "op": "note",
+      "at": 6644
+    },
+    {
+      "op": "stroke",
+      "at": 8050
+    },
+    {
+      "op": "stroke",
+      "at": 8534
+    },
+    {
+      "op": "note",
+      "at": 9198
+    },
+    {
+      "op": "pen",
+      "color": "#1f2d27",
+      "at": 9567
+    },
+    {
+      "op": "stroke",
+      "at": 10452
+    },
+    {
+      "op": "note",
+      "at": 11112
+    },
+    {
+      "op": "pen",
+      "color": "#8a8a85",
+      "at": 11492
+    },
+    {
+      "op": "stroke",
+      "at": 12275
+    },
+    {
+      "op": "note",
+      "at": 12958
+    },
+    {
+      "op": "stroke",
+      "at": 16455
+    },
+    {
+      "op": "note",
+      "at": 17149
+    },
+    {
+      "op": "pen",
+      "color": "#fbeddf",
+      "at": 17518
+    },
+    {
+      "op": "stroke",
+      "at": 19458
+    },
+    {
+      "op": "stroke",
+      "at": 19944
+    },
+    {
+      "op": "pen",
+      "color": "#edf1ec",
+      "at": 20313
+    },
+    {
+      "op": "stroke",
+      "at": 22257
+    },
+    {
+      "op": "stroke",
+      "at": 22741
+    },
+    {
+      "op": "pen",
+      "color": "#e6edf7",
+      "at": 23112
+    },
+    {
+      "op": "stroke",
+      "at": 25058
+    },
+    {
+      "op": "stroke",
+      "at": 25537
+    },
+    {
+      "op": "note",
+      "at": 32104
+    },
+    {
+      "op": "note",
+      "at": 32747
+    },
+    {
+      "op": "note",
+      "at": 33379
+    },
+    {
+      "op": "pen",
+      "color": "#e6e3dc",
+      "at": 33751
+    },
+    {
+      "op": "stroke",
+      "at": 41565
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 41934
+    },
+    {
+      "op": "stroke",
+      "at": 42423
+    },
+    {
+      "op": "pen",
+      "color": "#1f2d27",
+      "at": 42795
+    },
+    {
+      "op": "stroke",
+      "at": 43813
+    },
+    {
+      "op": "note",
+      "at": 44573
+    },
+    {
+      "op": "pen",
+      "color": "#efece6",
+      "at": 44947
+    },
+    {
+      "op": "stroke",
+      "at": 45934
+    },
+    {
+      "op": "stroke",
+      "at": 46420
+    },
+    {
+      "op": "note",
+      "at": 47468
+    },
+    {
+      "op": "note",
+      "at": 48289
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 62140
+    },
+    {
+      "op": "stroke",
+      "at": 62622
+    },
+    {
+      "op": "run",
+      "at": 70655
+    },
+    {
+      "op": "note",
+      "at": 589214
+    },
+    {
+      "op": "run",
+      "at": 589290
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 468
+    },
+    {
+      "way": [
+        [
+          2,
+          70
+        ],
+        [
+          1278,
+          70
+        ]
+      ],
+      "n": 214,
+      "at": 4937
+    },
+    {
+      "way": [
+        [
+          40,
+          35
+        ],
+        [
+          111,
+          35
+        ]
+      ],
+      "n": 13,
+      "at": 5983
+    },
+    {
+      "way": [
+        [
+          1110,
+          15
+        ],
+        [
+          1240,
+          15
+        ],
+        [
+          1240,
+          53
+        ],
+        [
+          1110,
+          53
+        ],
+        [
+          1110,
+          17
+        ]
+      ],
+      "n": 57,
+      "at": 8050
+    },
+    {
+      "way": [
+        [
+          1225,
+          45
+        ]
+      ],
+      "n": 1,
+      "at": 8534
+    },
+    {
+      "way": [
+        [
+          40,
+          117
+        ],
+        [
+          184,
+          117
+        ]
+      ],
+      "n": 25,
+      "at": 10452
+    },
+    {
+      "way": [
+        [
+          40,
+          155
+        ],
+        [
+          147,
+          155
+        ]
+      ],
+      "n": 19,
+      "at": 12275
+    },
+    {
+      "way": [
+        [
+          160,
+          206
+        ],
+        [
+          1240,
+          206
+        ]
+      ],
+      "n": 181,
+      "at": 16455
+    },
+    {
+      "way": [
+        [
+          160,
+          232
+        ],
+        [
+          306,
+          232
+        ],
+        [
+          306,
+          352
+        ],
+        [
+          160,
+          352
+        ],
+        [
+          160,
+          234
+        ]
+      ],
+      "n": 89,
+      "at": 19458
+    },
+    {
+      "way": [
+        [
+          290,
+          340
+        ]
+      ],
+      "n": 1,
+      "at": 19944
+    },
+    {
+      "way": [
+        [
+          160,
+          362
+        ],
+        [
+          306,
+          362
+        ],
+        [
+          306,
+          482
+        ],
+        [
+          160,
+          482
+        ],
+        [
+          160,
+          364
+        ]
+      ],
+      "n": 89,
+      "at": 22257
+    },
+    {
+      "way": [
+        [
+          290,
+          470
+        ]
+      ],
+      "n": 1,
+      "at": 22741
+    },
+    {
+      "way": [
+        [
+          160,
+          492
+        ],
+        [
+          306,
+          492
+        ],
+        [
+          306,
+          612
+        ],
+        [
+          160,
+          612
+        ],
+        [
+          160,
+          494
+        ]
+      ],
+      "n": 89,
+      "at": 25058
+    },
+    {
+      "way": [
+        [
+          290,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 25537
+    },
+    {
+      "way": [
+        [
+          40,
+          640
+        ],
+        [
+          1240,
+          640
+        ],
+        [
+          1240,
+          757
+        ],
+        [
+          40,
+          757
+        ],
+        [
+          40,
+          642
+        ]
+      ],
+      "n": 440,
+      "at": 41565
+    },
+    {
+      "way": [
+        [
+          1225,
+          745
+        ]
+      ],
+      "n": 1,
+      "at": 42423
+    },
+    {
+      "way": [
+        [
+          65,
+          670
+        ],
+        [
+          255,
+          670
+        ]
+      ],
+      "n": 33,
+      "at": 43813
+    },
+    {
+      "way": [
+        [
+          65,
+          695
+        ],
+        [
+          123,
+          695
+        ],
+        [
+          123,
+          727
+        ],
+        [
+          65,
+          727
+        ],
+        [
+          65,
+          697
+        ]
+      ],
+      "n": 31,
+      "at": 45934
+    },
+    {
+      "way": [
+        [
+          115,
+          720
+        ]
+      ],
+      "n": 1,
+      "at": 46420
+    },
+    {
+      "way": [
+        [
+          1200,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 62622
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Forkful",
+      "whole": false,
+      "x": 75,
+      "y": 35,
+      "at": 6644
+    },
+    {
+      "text": "+ Add recipe",
+      "whole": false,
+      "x": 1175,
+      "y": 34,
+      "at": 9198
+    },
+    {
+      "text": "This week",
+      "whole": false,
+      "x": 112,
+      "y": 117,
+      "at": 11112
+    },
+    {
+      "text": "3 – 9 November",
+      "whole": false,
+      "x": 93,
+      "y": 155,
+      "at": 12958
+    },
+    {
+      "text": "days Mon–Sun",
+      "whole": false,
+      "x": 700,
+      "y": 206,
+      "at": 17149
+    },
+    {
+      "text": "Breakfast",
+      "whole": false,
+      "x": 70,
+      "y": 292,
+      "at": 32104
+    },
+    {
+      "text": "Lunch",
+      "whole": false,
+      "x": 60,
+      "y": 422,
+      "at": 32747
+    },
+    {
+      "text": "Dinner",
+      "whole": false,
+      "x": 60,
+      "y": 552,
+      "at": 33379
+    },
+    {
+      "text": "Shopping list · 14 items",
+      "whole": false,
+      "x": 160,
+      "y": 670,
+      "at": 44573
+    },
+    {
+      "text": "chips: Oats, Berries, Lentils, Salmon, Rice, Tortillas, Tomatoes, Spinach, Yogurt, Eggs",
+      "whole": false,
+      "x": 94,
+      "y": 711,
+      "at": 47468
+    },
+    {
+      "text": "cards repeat 7 across to Sun; empty dashed: Sun breakfast, Fri lunch, Sat dinner",
+      "whole": true,
+      "x": 700,
+      "y": 450,
+      "at": 48289
+    },
+    {
+      "text": "shopping heading above chips; no circles in cards",
+      "whole": true,
+      "x": 700,
+      "y": 800,
+      "at": 589214
+    }
+  ]
+}

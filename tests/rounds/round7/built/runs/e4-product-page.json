@@ -1,0 +1,467 @@
+{
+  "id": "e4-product-page",
+  "at": "2026-10-22T22:56:57.242Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.72311121034673,
+    "overallV2": 0.722041810831553,
+    "overallV1": 0.5398719117509096,
+    "colour": 0.9794000699468605,
+    "structure": 0.9329022738644983,
+    "structureStrict": 0.7290189122653614,
+    "colourAligned": 0.9797066678345542,
+    "structureAligned": 0.9329022738644983,
+    "align": {
+      "scale": 1.04,
+      "dx": -32,
+      "dy": -16,
+      "r": 0.9361704016999204
+    },
+    "layout": 0.5128176269821706
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 85910,
+    "output": 53575,
+    "cacheRead": 798048
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40872,
+      "output": 13052,
+      "cacheRead": 170673,
+      "toolCalls": 5,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 143087
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 67091,
+      "output": 30656,
+      "cacheRead": 606145,
+      "toolCalls": 8,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 363667
+    }
+  ],
+  "reading": "A product-detail page: a top nav bar with logo and nav links, a breadcrumb trail, a vertical thumbnail gallery (4 swatches, first selected), a large product image panel with a garment silhouette, title/rating/price, colour and size selectors, Add-to-bag and wishlist buttons with a delivery note, and three accordion rows (Details, Care & materials, Returns).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        54
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar 60px tall across the full width, with a thin line under it. Bold 20px wide-letter-spaced \"NORDLY\" on the left, and \"Women · Men · Sale · Bag "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        83,
+        121,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small grey breadcrumb trail reading \"Home / Jackets / Shell\", placed just under the nav bar."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        119,
+        78,
+        365
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "instruction": "A vertical column of 4 thumbnail swatches, each an 84x84px 8px-rounded filled block (no picture, no X): top one pale #e0e7ff fill with a 2px dark navy outline r"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        153,
+        119,
+        514,
+        614
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "A large 520x620px product-photo backdrop panel, 12px rounded, filled with a soft pale tinted gradient from #e0e7ff at top to #c7d2fe at bottom. Inside it, one s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s15"
+          ],
+          "lines": 1,
+          "fontPx": 37
+        }
+      ],
+      "region": [
+        738,
+        115,
+        211,
+        44
+      ],
+      "paths": [],
+      "instruction": "Large product title \"Fjell Rain Shell\" at 34px bold, on one line (white-space: nowrap, never wrapped), about 234px wide."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s16"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s16",
+            "s17",
+            "s18"
+          ],
+          "lines": 3,
+          "fontPx": 50
+        }
+      ],
+      "region": [
+        734,
+        175,
+        203,
+        9
+      ],
+      "paths": [],
+      "instruction": "Amber rating line reading \"★★★★☆4.2 · 318 reviews\" just below the title."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s17"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s16",
+            "s17",
+            "s18"
+          ],
+          "lines": 3,
+          "fontPx": 50
+        }
+      ],
+      "region": [
+        734,
+        218,
+        158,
+        8
+      ],
+      "paths": [],
+      "instruction": "Price line, left to right with slight gaps between parts: bold 28px dark navy \"$189\", then 18px grey \"$240\" with a line-through, then a small red (#dc2626) 4px-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s18"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s16",
+            "s17",
+            "s18"
+          ],
+          "lines": 3,
+          "fontPx": 50
+        }
+      ],
+      "region": [
+        734,
+        273,
+        81,
+        8
+      ],
+      "paths": [],
+      "instruction": "13px label text \"Colour: Indigo\" above the colour swatches."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        738,
+        304,
+        184,
+        28
+      ],
+      "paths": [
+        "s19",
+        "s20",
+        "s21",
+        "s22"
+      ],
+      "instruction": "Row of 4 colour-swatch dots, each exactly 36x36px (w-[36px] h-[36px], border-radius 50%, not smaller): first indigo, with a 2px dark navy outline ring 3px out f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        734,
+        364,
+        18,
+        8
+      ],
+      "paths": [
+        "s23"
+      ],
+      "instruction": "13px label text \"Size\" above the size buttons."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        734,
+        393,
+        483,
+        38
+      ],
+      "paths": [
+        "s24"
+      ],
+      "instruction": "Row of 5 equal 90x44px rounded outlined size buttons labelled \"XS\", \"S\", \"M\", \"L\", \"XL\". \"M\" is the selected one (2px dark navy border, bold text); the others h"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        733,
+        521,
+        405,
+        52
+      ],
+      "paths": [
+        "s25"
+      ],
+      "instruction": "Dark navy (#111827, near-black, not blue) button with white text reading \"Add to bag\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1152,
+        522,
+        50,
+        50
+      ],
+      "paths": [
+        "s26"
+      ],
+      "instruction": "Square 54x54px 10px-rounded outline button beside the Add-to-bag button, holding only a centred empty heart outline icon (wishlist)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s27"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s27",
+            "s29",
+            "s31"
+          ],
+          "lines": 3,
+          "fontPx": 49
+        }
+      ],
+      "region": [
+        734,
+        592,
+        142,
+        8
+      ],
+      "paths": [],
+      "instruction": "13px green text reading \"✓ Free delivery by Oct 27\" below the Add-to-bag button."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s28",
+        "s29"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s27",
+            "s29",
+            "s31"
+          ],
+          "lines": 3,
+          "fontPx": 49
+        },
+        {
+          "strokes": [
+            "s28",
+            "s30"
+          ],
+          "lines": 2,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        734,
+        622,
+        466,
+        33
+      ],
+      "paths": [],
+      "instruction": "Accordion header row, 474px wide, 49px tall, with a thin 1px light grey (#e5e7eb) line along its top: bold 14px \"Details\" at the left and a bold dark navy \"−\" a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s30",
+        "s31"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s27",
+            "s29",
+            "s31"
+          ],
+          "lines": 3,
+          "fontPx": 49
+        },
+        {
+          "strokes": [
+            "s28",
+            "s30"
+          ],
+          "lines": 2,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        734,
+        665,
+        466,
+        31
+      ],
+      "paths": [],
+      "instruction": "Dark grey body paragraph under the \"Details\" header reading \"Three-layer recycled shell, taped seams, 20k waterproof rating. Packs into its own chest pocket.\", "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s32",
+        "s33"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s32",
+            "s33",
+            "s34"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        734,
+        780,
+        466,
+        33
+      ],
+      "paths": [],
+      "instruction": "Accordion header row, 474px wide, 49px tall, with a thin 1px light grey (#e5e7eb) line along its top: bold 14px \"Care & materials\" at the left and a bold dark n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s34"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s32",
+            "s33",
+            "s34"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        734,
+        832,
+        466,
+        9
+      ],
+      "paths": [],
+      "instruction": "Accordion header row, 474px wide, 49px tall, with a thin 1px light grey (#e5e7eb) line along its top: bold 14px \"Returns\" at the left and a bold dark navy \"+\" a"
+    }
+  ],
+  "rejected": []
+}

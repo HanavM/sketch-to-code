@@ -1,0 +1,593 @@
+{
+  "round": 42,
+  "id": "c4-shape-museum",
+  "version": 3,
+  "stopped": null,
+  "likeness": 86.5,
+  "colour": 0.9737147811402851,
+  "structure": 0.9061721758965589,
+  "layout": 0.9117577206207419,
+  "strokes": {
+    "count": 15,
+    "pointsPerStroke": 4.3,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 4,
+      "line": 7,
+      "box": 2,
+      "circle": 2
+    },
+    "inkPx": 5870
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 45,
+  "notes": 7,
+  "longestNote": 13,
+  "noteTexts": [
+    "MUSEUM OF FORM small bold spaced caps",
+    "BAU / HAUS / 100 huge black tight",
+    "12 May – 30 Sept, bold",
+    "A century of circles, squares and triangles, from the workshop to your kitchen.",
+    "Book tickets, thick outline",
+    "overlap near black",
+    "outline only, dark text"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 372,
+    "firstReadingS": 76,
+    "readS": [
+      38,
+      7
+    ],
+    "buildS": [
+      266,
+      8
+    ],
+    "sketchingS": 54
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 71264,
+    "cacheRead": 418839,
+    "output": 26880,
+    "billed": 98144
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#eee8da",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 843
+    },
+    {
+      "op": "stroke",
+      "at": 1789
+    },
+    {
+      "op": "stroke",
+      "at": 3119
+    },
+    {
+      "op": "stroke",
+      "at": 4702
+    },
+    {
+      "op": "stroke",
+      "at": 5836
+    },
+    {
+      "op": "stroke",
+      "at": 6787
+    },
+    {
+      "op": "pen",
+      "color": "#555555",
+      "at": 7153
+    },
+    {
+      "op": "stroke",
+      "at": 8687
+    },
+    {
+      "op": "stroke",
+      "at": 9687
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 10054
+    },
+    {
+      "op": "stroke",
+      "at": 11921
+    },
+    {
+      "op": "pen",
+      "color": "#da3b2c",
+      "at": 12294
+    },
+    {
+      "op": "stroke",
+      "at": 16521
+    },
+    {
+      "op": "stroke",
+      "at": 16987
+    },
+    {
+      "op": "pen",
+      "color": "#1f4a9e",
+      "at": 17356
+    },
+    {
+      "op": "stroke",
+      "at": 21170
+    },
+    {
+      "op": "stroke",
+      "at": 21637
+    },
+    {
+      "op": "pen",
+      "color": "#f2c230",
+      "at": 22007
+    },
+    {
+      "op": "stroke",
+      "at": 25171
+    },
+    {
+      "op": "stroke",
+      "at": 31488
+    },
+    {
+      "op": "note",
+      "at": 32200
+    },
+    {
+      "op": "note",
+      "at": 32920
+    },
+    {
+      "op": "note",
+      "at": 33646
+    },
+    {
+      "op": "note",
+      "at": 34543
+    },
+    {
+      "op": "note",
+      "at": 35273
+    },
+    {
+      "op": "note",
+      "at": 36014
+    },
+    {
+      "op": "run",
+      "at": 38219
+    },
+    {
+      "op": "note",
+      "at": 349126
+    },
+    {
+      "op": "run",
+      "at": 349211
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          300,
+          850
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          60,
+          48
+        ],
+        [
+          232,
+          48
+        ]
+      ],
+      "n": 30,
+      "at": 1789
+    },
+    {
+      "way": [
+        [
+          62,
+          202
+        ],
+        [
+          372,
+          202
+        ]
+      ],
+      "n": 53,
+      "at": 3119
+    },
+    {
+      "way": [
+        [
+          62,
+          330
+        ],
+        [
+          466,
+          330
+        ]
+      ],
+      "n": 68,
+      "at": 4702
+    },
+    {
+      "way": [
+        [
+          62,
+          458
+        ],
+        [
+          296,
+          458
+        ]
+      ],
+      "n": 40,
+      "at": 5836
+    },
+    {
+      "way": [
+        [
+          64,
+          572
+        ],
+        [
+          240,
+          572
+        ]
+      ],
+      "n": 30,
+      "at": 6787
+    },
+    {
+      "way": [
+        [
+          64,
+          617
+        ],
+        [
+          450,
+          617
+        ]
+      ],
+      "n": 65,
+      "at": 8687
+    },
+    {
+      "way": [
+        [
+          64,
+          643
+        ],
+        [
+          257,
+          643
+        ]
+      ],
+      "n": 33,
+      "at": 9687
+    },
+    {
+      "way": [
+        [
+          64,
+          730
+        ],
+        [
+          264,
+          730
+        ],
+        [
+          264,
+          786
+        ],
+        [
+          64,
+          786
+        ],
+        [
+          64,
+          730
+        ]
+      ],
+      "n": 85,
+      "at": 11921
+    },
+    {
+      "way": [
+        [
+          1060,
+          300
+        ],
+        [
+          1056,
+          341
+        ],
+        [
+          1044,
+          380
+        ],
+        [
+          1025,
+          417
+        ],
+        [
+          998,
+          448
+        ],
+        [
+          967,
+          475
+        ],
+        [
+          930,
+          494
+        ],
+        [
+          891,
+          506
+        ],
+        [
+          850,
+          510
+        ],
+        [
+          809,
+          506
+        ],
+        [
+          770,
+          494
+        ],
+        [
+          733,
+          475
+        ],
+        [
+          702,
+          448
+        ],
+        [
+          675,
+          417
+        ],
+        [
+          656,
+          380
+        ],
+        [
+          644,
+          341
+        ],
+        [
+          640,
+          300
+        ],
+        [
+          644,
+          259
+        ],
+        [
+          656,
+          220
+        ],
+        [
+          675,
+          183
+        ],
+        [
+          702,
+          152
+        ],
+        [
+          733,
+          125
+        ],
+        [
+          770,
+          106
+        ],
+        [
+          809,
+          94
+        ],
+        [
+          850,
+          90
+        ],
+        [
+          891,
+          94
+        ],
+        [
+          930,
+          106
+        ],
+        [
+          967,
+          125
+        ],
+        [
+          998,
+          152
+        ],
+        [
+          1025,
+          183
+        ],
+        [
+          1044,
+          220
+        ],
+        [
+          1056,
+          259
+        ],
+        [
+          1060,
+          300
+        ]
+      ],
+      "n": 225,
+      "at": 16521
+    },
+    {
+      "way": [
+        [
+          780,
+          250
+        ]
+      ],
+      "n": 1,
+      "at": 16987
+    },
+    {
+      "way": [
+        [
+          880,
+          380
+        ],
+        [
+          1180,
+          380
+        ],
+        [
+          1180,
+          680
+        ],
+        [
+          880,
+          680
+        ],
+        [
+          880,
+          380
+        ]
+      ],
+      "n": 201,
+      "at": 21170
+    },
+    {
+      "way": [
+        [
+          1080,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 21637
+    },
+    {
+      "way": [
+        [
+          560,
+          800
+        ],
+        [
+          720,
+          520
+        ],
+        [
+          880,
+          800
+        ],
+        [
+          560,
+          800
+        ]
+      ],
+      "n": 162,
+      "at": 25171
+    },
+    {
+      "way": [
+        [
+          720,
+          720
+        ]
+      ],
+      "n": 1,
+      "at": 31488
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "MUSEUM OF FORM small bold spaced caps",
+      "whole": false,
+      "x": 140,
+      "y": 48,
+      "at": 32200
+    },
+    {
+      "text": "BAU / HAUS / 100 huge black tight",
+      "whole": false,
+      "x": 200,
+      "y": 202,
+      "at": 32920
+    },
+    {
+      "text": "12 May – 30 Sept, bold",
+      "whole": false,
+      "x": 150,
+      "y": 572,
+      "at": 33646
+    },
+    {
+      "text": "A century of circles, squares and triangles, from the workshop to your kitchen.",
+      "whole": false,
+      "x": 250,
+      "y": 617,
+      "at": 34543
+    },
+    {
+      "text": "Book tickets, thick outline",
+      "whole": false,
+      "x": 164,
+      "y": 758,
+      "at": 35273
+    },
+    {
+      "text": "overlap near black",
+      "whole": false,
+      "x": 960,
+      "y": 440,
+      "at": 36014
+    },
+    {
+      "text": "outline only, dark text",
+      "whole": false,
+      "x": 164,
+      "y": 745,
+      "at": 349126
+    }
+  ]
+}

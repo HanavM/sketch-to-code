@@ -1,0 +1,367 @@
+{
+  "id": "c5-bento-motion",
+  "at": "2026-10-24T15:52:39.013Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.917787987695261,
+    "overallV2": 0.917787987695261,
+    "overallV1": 0.892434010628683,
+    "colour": 0.99504205473511,
+    "structure": 0.972050475036258,
+    "structureStrict": 0.9092378279723072,
+    "colourAligned": 0.99504205473511,
+    "structureAligned": 0.972050475036258,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9793393876938666
+    },
+    "layout": 0.7704970472957159,
+    "layoutV1": 0.7704970472957159,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      44,
+      43,
+      1192,
+      31
+    ],
+    [
+      1,
+      44,
+      45,
+      38,
+      28
+    ],
+    [
+      1,
+      449,
+      49,
+      289,
+      20
+    ],
+    [
+      3,
+      449,
+      49,
+      48,
+      20
+    ],
+    [
+      3,
+      522,
+      49,
+      96,
+      20
+    ],
+    [
+      5,
+      522,
+      49,
+      5,
+      20
+    ],
+    [
+      3,
+      642,
+      49,
+      96,
+      20
+    ],
+    [
+      7,
+      642,
+      49,
+      5,
+      20
+    ],
+    [
+      1,
+      1106,
+      40,
+      130,
+      37
+    ],
+    [
+      0,
+      44,
+      92,
+      424,
+      33
+    ],
+    [
+      0,
+      40,
+      150,
+      592,
+      461
+    ],
+    [
+      11,
+      66,
+      176,
+      542,
+      20
+    ],
+    [
+      11,
+      66,
+      341,
+      542,
+      128
+    ],
+    [
+      0,
+      648,
+      150,
+      288,
+      223
+    ],
+    [
+      14,
+      674,
+      176,
+      238,
+      20
+    ],
+    [
+      14,
+      674,
+      200,
+      180,
+      108
+    ],
+    [
+      0,
+      952,
+      150,
+      288,
+      223
+    ],
+    [
+      17,
+      978,
+      176,
+      238,
+      20
+    ],
+    [
+      17,
+      1126,
+      214,
+      41,
+      97
+    ],
+    [
+      17,
+      1027,
+      252,
+      41,
+      59
+    ],
+    [
+      17,
+      1175,
+      240,
+      41,
+      72
+    ],
+    [
+      17,
+      1076,
+      257,
+      41,
+      55
+    ],
+    [
+      17,
+      978,
+      294,
+      41,
+      17
+    ],
+    [
+      0,
+      648,
+      389,
+      592,
+      223
+    ],
+    [
+      24,
+      674,
+      415,
+      542,
+      20
+    ],
+    [
+      24,
+      1120,
+      461,
+      12,
+      12
+    ],
+    [
+      24,
+      770,
+      481,
+      12,
+      12
+    ],
+    [
+      24,
+      950,
+      521,
+      12,
+      12
+    ],
+    [
+      0,
+      40,
+      627,
+      896,
+      223
+    ],
+    [
+      29,
+      11,
+      723,
+      1136,
+      45
+    ],
+    [
+      0,
+      952,
+      627,
+      288,
+      223
+    ],
+    [
+      31,
+      978,
+      693,
+      50,
+      137
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "gradient",
+      "motion",
+      "overlap",
+      "stripes-or-layers",
+      "vertical-type"
+    ],
+    "missing": [
+      "bleed"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 40312,
+    "output": 25882,
+    "cacheRead": 329934
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47871,
+      "output": 17040,
+      "cacheRead": 298730,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 180290
+    }
+  ],
+  "reading": "A full landing-page hero sketch: a nav bar with a wavy placeholder line as lead text below it, and one large block below for a big live-metrics dashboard with 22 explicitly specified sub-parts, all per the typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        1194,
+        804
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Whole page: black (#0b0b0f) page background, Helvetica typeface throughout, pale grey body text color as the page default."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        43,
+        1192,
+        31
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar reading \"orbit\" as the logo/wordmark, nav links \"Product · Customers · Changelog\", and a \"Book a demo\" control that must be a FILLED pill button (#f4f4f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        101,
+        416,
+        9
+      ],
+      "paths": [],
+      "instruction": "Grey lead line of copy reading \"Everything your edge network is doing, live.\" in color #a1a1aa (distinct from the page's default pale grey text), set large at 2"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        153,
+        1194,
+        694
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Large live-metrics dashboard panel built from 22 exact sub-parts as specified (page px sizes/positions), each its own real element with live text/content, nothi"
+    }
+  ],
+  "rejected": []
+}

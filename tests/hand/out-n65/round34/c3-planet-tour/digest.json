@@ -1,0 +1,562 @@
+{
+  "round": 34,
+  "id": "c3-planet-tour",
+  "version": 3,
+  "stopped": null,
+  "likeness": 79.5,
+  "colour": 0.9206455668666067,
+  "structure": 0.8135630674102146,
+  "layout": 0.713738356573667,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 4.8,
+    "simpleShare": 0.85,
+    "shapes": {
+      "line": 5,
+      "box": 2,
+      "freehand": 2,
+      "dot": 4
+    },
+    "inkPx": 5409
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 47,
+  "notes": 8,
+  "longestNote": 12,
+  "noteTexts": [
+    "ORBITAL, spaced capitals",
+    "Tour the outer planets, big bold white",
+    "Twelve nights past Jupiter and Saturn, window seats for everyone. lavender",
+    "Reserve a seat",
+    "See the route, white outline",
+    "thin yellow ring",
+    "glowing orange planet",
+    "one round planet, radial glow; curve is just a thin yellow ring"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 341,
+    "firstReadingS": 81,
+    "readS": [
+      48,
+      25
+    ],
+    "buildS": [
+      139,
+      78
+    ],
+    "sketchingS": 51
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 44770,
+    "cacheRead": 235673,
+    "output": 26307,
+    "billed": 71077
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 766
+    },
+    {
+      "op": "stroke",
+      "at": 2698
+    },
+    {
+      "op": "stroke",
+      "at": 3913
+    },
+    {
+      "op": "stroke",
+      "at": 5532
+    },
+    {
+      "op": "stroke",
+      "at": 6463
+    },
+    {
+      "op": "stroke",
+      "at": 8265
+    },
+    {
+      "op": "stroke",
+      "at": 9997
+    },
+    {
+      "op": "stroke",
+      "at": 16211
+    },
+    {
+      "op": "stroke",
+      "at": 19084
+    },
+    {
+      "op": "pen",
+      "color": "#0b1026",
+      "at": 19453
+    },
+    {
+      "op": "stroke",
+      "at": 19916
+    },
+    {
+      "op": "pen",
+      "color": "#fdba74",
+      "at": 20288
+    },
+    {
+      "op": "stroke",
+      "at": 20753
+    },
+    {
+      "op": "pen",
+      "color": "#ea580c",
+      "at": 21117
+    },
+    {
+      "op": "stroke",
+      "at": 21582
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 21950
+    },
+    {
+      "op": "stroke",
+      "at": 22415
+    },
+    {
+      "op": "note",
+      "at": 23087
+    },
+    {
+      "op": "note",
+      "at": 23774
+    },
+    {
+      "op": "note",
+      "at": 24498
+    },
+    {
+      "op": "note",
+      "at": 25118
+    },
+    {
+      "op": "note",
+      "at": 25786
+    },
+    {
+      "op": "note",
+      "at": 26453
+    },
+    {
+      "op": "note",
+      "at": 27103
+    },
+    {
+      "op": "run",
+      "at": 33253
+    },
+    {
+      "op": "note",
+      "at": 229424
+    },
+    {
+      "op": "run",
+      "at": 229519
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          80,
+          54
+        ],
+        [
+          186,
+          54
+        ]
+      ],
+      "n": 19,
+      "at": 766
+    },
+    {
+      "way": [
+        [
+          80,
+          262
+        ],
+        [
+          603,
+          262
+        ]
+      ],
+      "n": 88,
+      "at": 2698
+    },
+    {
+      "way": [
+        [
+          80,
+          345
+        ],
+        [
+          352,
+          345
+        ]
+      ],
+      "n": 46,
+      "at": 3913
+    },
+    {
+      "way": [
+        [
+          84,
+          485
+        ],
+        [
+          495,
+          485
+        ]
+      ],
+      "n": 70,
+      "at": 5532
+    },
+    {
+      "way": [
+        [
+          84,
+          515
+        ],
+        [
+          254,
+          515
+        ]
+      ],
+      "n": 29,
+      "at": 6463
+    },
+    {
+      "way": [
+        [
+          84,
+          600
+        ],
+        [
+          270,
+          600
+        ],
+        [
+          270,
+          653
+        ],
+        [
+          84,
+          653
+        ],
+        [
+          84,
+          600
+        ]
+      ],
+      "n": 81,
+      "at": 8265
+    },
+    {
+      "way": [
+        [
+          290,
+          600
+        ],
+        [
+          464,
+          600
+        ],
+        [
+          464,
+          653
+        ],
+        [
+          290,
+          653
+        ],
+        [
+          290,
+          600
+        ]
+      ],
+      "n": 77,
+      "at": 9997
+    },
+    {
+      "way": [
+        [
+          640,
+          898
+        ],
+        [
+          640,
+          770
+        ],
+        [
+          641,
+          738
+        ],
+        [
+          645,
+          706
+        ],
+        [
+          651,
+          674
+        ],
+        [
+          660,
+          643
+        ],
+        [
+          671,
+          613
+        ],
+        [
+          685,
+          584
+        ],
+        [
+          700,
+          556
+        ],
+        [
+          718,
+          529
+        ],
+        [
+          738,
+          504
+        ],
+        [
+          760,
+          480
+        ],
+        [
+          784,
+          458
+        ],
+        [
+          809,
+          438
+        ],
+        [
+          836,
+          420
+        ],
+        [
+          864,
+          405
+        ],
+        [
+          893,
+          391
+        ],
+        [
+          923,
+          380
+        ],
+        [
+          954,
+          371
+        ],
+        [
+          986,
+          365
+        ],
+        [
+          1018,
+          361
+        ],
+        [
+          1050,
+          360
+        ],
+        [
+          1082,
+          361
+        ],
+        [
+          1114,
+          365
+        ],
+        [
+          1146,
+          371
+        ],
+        [
+          1177,
+          380
+        ],
+        [
+          1207,
+          391
+        ],
+        [
+          1236,
+          405
+        ],
+        [
+          1264,
+          420
+        ],
+        [
+          1278,
+          420
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          640,
+          898
+        ]
+      ],
+      "n": 345,
+      "at": 16211
+    },
+    {
+      "way": [
+        [
+          1278,
+          595
+        ],
+        [
+          1000,
+          645
+        ],
+        [
+          800,
+          700
+        ],
+        [
+          640,
+          770
+        ],
+        [
+          550,
+          830
+        ],
+        [
+          540,
+          880
+        ],
+        [
+          580,
+          898
+        ]
+      ],
+      "n": 145,
+      "at": 19084
+    },
+    {
+      "way": [
+        [
+          400,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 19916
+    },
+    {
+      "way": [
+        [
+          920,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 20753
+    },
+    {
+      "way": [
+        [
+          1240,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 21582
+    },
+    {
+      "way": [
+        [
+          255,
+          640
+        ]
+      ],
+      "n": 1,
+      "at": 22415
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "ORBITAL, spaced capitals",
+      "whole": false,
+      "x": 133,
+      "y": 45,
+      "at": 23087
+    },
+    {
+      "text": "Tour the outer planets, big bold white",
+      "whole": false,
+      "x": 340,
+      "y": 252,
+      "at": 23774
+    },
+    {
+      "text": "Twelve nights past Jupiter and Saturn, window seats for everyone. lavender",
+      "whole": false,
+      "x": 290,
+      "y": 475,
+      "at": 24498
+    },
+    {
+      "text": "Reserve a seat",
+      "whole": false,
+      "x": 177,
+      "y": 626,
+      "at": 25118
+    },
+    {
+      "text": "See the route, white outline",
+      "whole": false,
+      "x": 377,
+      "y": 626,
+      "at": 25786
+    },
+    {
+      "text": "thin yellow ring",
+      "whole": false,
+      "x": 700,
+      "y": 760,
+      "at": 26453
+    },
+    {
+      "text": "glowing orange planet",
+      "whole": false,
+      "x": 1050,
+      "y": 420,
+      "at": 27103
+    },
+    {
+      "text": "one round planet, radial glow; curve is just a thin yellow ring",
+      "whole": false,
+      "x": 1000,
+      "y": 700,
+      "at": 229424
+    }
+  ]
+}

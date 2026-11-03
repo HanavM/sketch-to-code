@@ -1,0 +1,148 @@
+{
+ "c1-orbit-type": {
+  "found": {
+   "huge-type": 2,
+   "serif": 1,
+   "italic": 1,
+   "hard-shadow": 1,
+   "gradient": 1,
+   "motion": 1,
+   "overlap": 5
+  },
+  "names": [
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "motion",
+   "overlap",
+   "serif"
+  ]
+ },
+ "c2-chrome-liquid": {
+  "found": {
+   "stripes-or-layers": 1,
+   "motion": 1,
+   "gradient": 1,
+   "soft-shadow": 2,
+   "gradient-text": 1,
+   "huge-type": 2,
+   "hollow-type": 1,
+   "glass": 1,
+   "overlap": 1
+  },
+  "names": [
+   "glass",
+   "gradient",
+   "gradient-text",
+   "hollow-type",
+   "huge-type",
+   "motion",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "c3-card-fan": {
+  "found": {
+   "gradient": 1,
+   "serif": 7,
+   "italic": 1,
+   "3d": 1,
+   "tilt": 4,
+   "soft-shadow": 5,
+   "hard-shadow": 2,
+   "overlap": 18
+  },
+  "names": [
+   "3d",
+   "gradient",
+   "hard-shadow",
+   "italic",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "c4-layered-peaks": {
+  "found": {
+   "glow": 1,
+   "tilt": 1,
+   "huge-type": 1,
+   "clip-shape": 3,
+   "overlap": 12
+  },
+  "names": [
+   "clip-shape",
+   "glow",
+   "huge-type",
+   "overlap",
+   "tilt"
+  ]
+ },
+ "c5-swiss-grid": {
+  "found": {
+   "stripes-or-layers": 1,
+   "blend": 1,
+   "huge-type": 1,
+   "vertical-type": 1,
+   "overlap": 3
+  },
+  "names": [
+   "blend",
+   "huge-type",
+   "overlap",
+   "stripes-or-layers",
+   "vertical-type"
+  ]
+ },
+ "e1-spreadsheet": {
+  "found": {
+   "italic": 1,
+   "overlap": 1
+  },
+  "names": [
+   "italic",
+   "overlap"
+  ]
+ },
+ "e2-music-player": {
+  "found": {
+   "gradient": 3,
+   "soft-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "soft-shadow"
+  ]
+ },
+ "e3-map-listings": {
+  "found": {
+   "soft-shadow": 7,
+   "gradient": 4,
+   "bleed": 1,
+   "tilt": 1,
+   "overlap": 8
+  },
+  "names": [
+   "bleed",
+   "gradient",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e4-video-call": {
+  "found": {},
+  "names": []
+ },
+ "e5-pricing": {
+  "found": {
+   "overlap": 1
+  },
+  "names": [
+   "overlap"
+  ]
+ }
+}

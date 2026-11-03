@@ -1,0 +1,580 @@
+{
+  "round": 42,
+  "id": "c1-regatta",
+  "version": 3,
+  "stopped": null,
+  "likeness": 80.9,
+  "colour": 0.9678107610180434,
+  "structure": 0.796415142506196,
+  "layout": 0.8845882056174724,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "line": 9,
+      "box": 6
+    },
+    "inkPx": 12435
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 55,
+  "notes": 9,
+  "longestNote": 15,
+  "noteTexts": [
+    "SAILWEEK bold spaced caps",
+    "Races Crews Harbour, bold",
+    "Harbour / Regatta, huge bold",
+    "Three days of racing, sundowners on the pier and a prize for the slowest boat.",
+    "Enter a boat, pill",
+    "solid sails",
+    "three dark rounded hulls",
+    "plain blue sea, no text, pale stripes",
+    "no footer: whole band plain blue, 3 flat pale stripes"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 653,
+    "firstReadingS": 103,
+    "readS": [
+      43,
+      12,
+      10
+    ],
+    "buildS": [
+      401,
+      12,
+      94
+    ],
+    "sketchingS": 82
+  },
+  "corrections": 2,
+  "runs": 3,
+  "tokens": {
+    "input": 172980,
+    "cacheRead": 1412527,
+    "output": 50759,
+    "billed": 223739
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f2ece0",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 463
+    },
+    {
+      "op": "pen",
+      "color": "#13294b",
+      "at": 853
+    },
+    {
+      "op": "stroke",
+      "at": 1643
+    },
+    {
+      "op": "stroke",
+      "at": 2743
+    },
+    {
+      "op": "stroke",
+      "at": 4343
+    },
+    {
+      "op": "stroke",
+      "at": 5875
+    },
+    {
+      "op": "pen",
+      "color": "#4a5568",
+      "at": 6248
+    },
+    {
+      "op": "stroke",
+      "at": 7893
+    },
+    {
+      "op": "stroke",
+      "at": 9010
+    },
+    {
+      "op": "pen",
+      "color": "#e5573c",
+      "at": 9383
+    },
+    {
+      "op": "stroke",
+      "at": 11326
+    },
+    {
+      "op": "stroke",
+      "at": 14426
+    },
+    {
+      "op": "pen",
+      "color": "#13294b",
+      "at": 14801
+    },
+    {
+      "op": "stroke",
+      "at": 17343
+    },
+    {
+      "op": "pen",
+      "color": "#f0b535",
+      "at": 17718
+    },
+    {
+      "op": "stroke",
+      "at": 19725
+    },
+    {
+      "op": "pen",
+      "color": "#13294b",
+      "at": 20097
+    },
+    {
+      "op": "stroke",
+      "at": 23325
+    },
+    {
+      "op": "pen",
+      "color": "#22608a",
+      "at": 23693
+    },
+    {
+      "op": "stroke",
+      "at": 32694
+    },
+    {
+      "op": "stroke",
+      "at": 33179
+    },
+    {
+      "op": "pen",
+      "color": "#8aa5b5",
+      "at": 33546
+    },
+    {
+      "op": "stroke",
+      "at": 37576
+    },
+    {
+      "op": "stroke",
+      "at": 41592
+    },
+    {
+      "op": "stroke",
+      "at": 45609
+    },
+    {
+      "op": "note",
+      "at": 52666
+    },
+    {
+      "op": "note",
+      "at": 53394
+    },
+    {
+      "op": "note",
+      "at": 54135
+    },
+    {
+      "op": "note",
+      "at": 55168
+    },
+    {
+      "op": "note",
+      "at": 55881
+    },
+    {
+      "op": "note",
+      "at": 56581
+    },
+    {
+      "op": "note",
+      "at": 57396
+    },
+    {
+      "op": "run",
+      "at": 60126
+    },
+    {
+      "op": "note",
+      "at": 510111
+    },
+    {
+      "op": "run",
+      "at": 510161
+    },
+    {
+      "op": "note",
+      "at": 542201
+    },
+    {
+      "op": "run",
+      "at": 542286
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          600,
+          100
+        ]
+      ],
+      "n": 1,
+      "at": 463
+    },
+    {
+      "way": [
+        [
+          72,
+          40
+        ],
+        [
+          190,
+          40
+        ]
+      ],
+      "n": 21,
+      "at": 1643
+    },
+    {
+      "way": [
+        [
+          988,
+          40
+        ],
+        [
+          1208,
+          40
+        ]
+      ],
+      "n": 38,
+      "at": 2743
+    },
+    {
+      "way": [
+        [
+          72,
+          220
+        ],
+        [
+          480,
+          220
+        ]
+      ],
+      "n": 69,
+      "at": 4343
+    },
+    {
+      "way": [
+        [
+          72,
+          322
+        ],
+        [
+          455,
+          322
+        ]
+      ],
+      "n": 65,
+      "at": 5875
+    },
+    {
+      "way": [
+        [
+          76,
+          413
+        ],
+        [
+          494,
+          413
+        ]
+      ],
+      "n": 71,
+      "at": 7893
+    },
+    {
+      "way": [
+        [
+          76,
+          442
+        ],
+        [
+          308,
+          442
+        ]
+      ],
+      "n": 40,
+      "at": 9010
+    },
+    {
+      "way": [
+        [
+          76,
+          520
+        ],
+        [
+          286,
+          520
+        ],
+        [
+          286,
+          576
+        ],
+        [
+          76,
+          576
+        ],
+        [
+          76,
+          520
+        ]
+      ],
+      "n": 89,
+      "at": 11326
+    },
+    {
+      "way": [
+        [
+          720,
+          520
+        ],
+        [
+          870,
+          140
+        ],
+        [
+          870,
+          520
+        ],
+        [
+          720,
+          520
+        ]
+      ],
+      "n": 157,
+      "at": 14426
+    },
+    {
+      "way": [
+        [
+          900,
+          520
+        ],
+        [
+          1020,
+          220
+        ],
+        [
+          1020,
+          520
+        ],
+        [
+          900,
+          520
+        ]
+      ],
+      "n": 125,
+      "at": 17343
+    },
+    {
+      "way": [
+        [
+          1060,
+          520
+        ],
+        [
+          1150,
+          300
+        ],
+        [
+          1150,
+          520
+        ],
+        [
+          1060,
+          520
+        ]
+      ],
+      "n": 93,
+      "at": 19725
+    },
+    {
+      "way": [
+        [
+          700,
+          522
+        ],
+        [
+          1175,
+          522
+        ],
+        [
+          1175,
+          546
+        ],
+        [
+          700,
+          546
+        ],
+        [
+          700,
+          522
+        ]
+      ],
+      "n": 167,
+      "at": 23325
+    },
+    {
+      "way": [
+        [
+          2,
+          640
+        ],
+        [
+          1278,
+          640
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          640
+        ]
+      ],
+      "n": 513,
+      "at": 32694
+    },
+    {
+      "way": [
+        [
+          640,
+          740
+        ]
+      ],
+      "n": 1,
+      "at": 33179
+    },
+    {
+      "way": [
+        [
+          2,
+          705
+        ],
+        [
+          1278,
+          705
+        ]
+      ],
+      "n": 214,
+      "at": 37576
+    },
+    {
+      "way": [
+        [
+          2,
+          775
+        ],
+        [
+          1278,
+          775
+        ]
+      ],
+      "n": 214,
+      "at": 41592
+    },
+    {
+      "way": [
+        [
+          2,
+          845
+        ],
+        [
+          1278,
+          845
+        ]
+      ],
+      "n": 214,
+      "at": 45609
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "SAILWEEK bold spaced caps",
+      "whole": false,
+      "x": 130,
+      "y": 40,
+      "at": 52666
+    },
+    {
+      "text": "Races Crews Harbour, bold",
+      "whole": false,
+      "x": 1100,
+      "y": 40,
+      "at": 53394
+    },
+    {
+      "text": "Harbour / Regatta, huge bold",
+      "whole": false,
+      "x": 270,
+      "y": 220,
+      "at": 54135
+    },
+    {
+      "text": "Three days of racing, sundowners on the pier and a prize for the slowest boat.",
+      "whole": false,
+      "x": 280,
+      "y": 413,
+      "at": 55168
+    },
+    {
+      "text": "Enter a boat, pill",
+      "whole": false,
+      "x": 180,
+      "y": 548,
+      "at": 55881
+    },
+    {
+      "text": "solid sails",
+      "whole": false,
+      "x": 940,
+      "y": 400,
+      "at": 56581
+    },
+    {
+      "text": "three dark rounded hulls",
+      "whole": false,
+      "x": 940,
+      "y": 534,
+      "at": 57396
+    },
+    {
+      "text": "plain blue sea, no text, pale stripes",
+      "whole": false,
+      "x": 640,
+      "y": 740,
+      "at": 510111
+    },
+    {
+      "text": "no footer: whole band plain blue, 3 flat pale stripes",
+      "whole": true,
+      "x": 640,
+      "y": 662,
+      "at": 542201
+    }
+  ]
+}

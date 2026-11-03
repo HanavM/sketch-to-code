@@ -1,0 +1,704 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "35ad7695619a4a4432eaca5faddcdda69181b457",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch shows two blocks: a left indigo-filled branding panel with a logo and a big headline, and a right-hand OTP verification form (headline, helper text, six digit boxes with the first three pre-filled, an indigo Verify button, and a resend-code countdown line).",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:3:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 2,
+        "y": 2,
+        "w": 519,
+        "h": 895
+       },
+       "built": {
+        "x": 2,
+        "y": 2,
+        "w": 519,
+        "h": 895
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ddd6fe is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h2> \"Enter the 6-digit code\" at (640,249) 371x42 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h2",
+      "srcLoc": "src/App.tsx:18:7",
+      "rect": {
+       "x": 640,
+       "y": 249,
+       "w": 371.078125,
+       "h": 42
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111827 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"We sent it to the phone ending\" at (640,313) 243x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:21:7",
+      "rect": {
+       "x": 640,
+       "y": 312,
+       "w": 243.203125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#6b7280 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h2> at (640,249) 371x42 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h2",
+      "srcLoc": "src/App.tsx:18:7",
+      "rect": {
+       "x": 640,
+       "y": 249,
+       "w": 371.078125,
+       "h": 42
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 898,
+        "y": 389,
+        "w": 75,
+        "h": 74
+       },
+       "built": {
+        "x": 898,
+        "y": 389,
+        "w": 75,
+        "h": 74
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 639,
+        "y": 390,
+        "w": 75,
+        "h": 73
+       },
+       "built": {
+        "x": 639,
+        "y": 389,
+        "w": 75,
+        "h": 74
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 725,
+        "y": 389,
+        "w": 75,
+        "h": 73
+       },
+       "built": {
+        "x": 725,
+        "y": 389,
+        "w": 75,
+        "h": 73
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 811,
+        "y": 390,
+        "w": 75,
+        "h": 73
+       },
+       "built": {
+        "x": 811,
+        "y": 390,
+        "w": 75,
+        "h": 73
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 984,
+        "y": 390,
+        "w": 74,
+        "h": 73
+       },
+       "built": {
+        "x": 984,
+        "y": 390,
+        "w": 74,
+        "h": 73
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 1070,
+        "y": 389,
+        "w": 75,
+        "h": 74
+       },
+       "built": {
+        "x": 1070,
+        "y": 389,
+        "w": 75,
+        "h": 74
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d1d5db is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (640,499) 504x56 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:38:7",
+      "rect": {
+       "x": 640,
+       "y": 499,
+       "w": 504,
+       "h": 56
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 640,
+        "y": 499,
+        "w": 504,
+        "h": 56
+       },
+       "built": {
+        "x": 640,
+        "y": 499,
+        "w": 504,
+        "h": 56
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#4338ca is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Resend code in 0:24\" at (640,580) 136x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:42:7",
+      "rect": {
+       "x": 640,
+       "y": 579,
+       "w": 136.203125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#4338ca is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 of 4 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 2,
+       "drawn": 322,
+       "built": 322,
+       "dy": 0
+      },
+      {
+       "index": 3,
+       "drawn": 389,
+       "built": 499,
+       "dy": 110
+      },
+      {
+       "index": 4,
+       "drawn": 499,
+       "built": 499,
+       "dy": 0
+      },
+      {
+       "index": 5,
+       "drawn": 589,
+       "built": 589,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "areas",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 area boxes built with no card"
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the big \"4\" typed on the box drawn at (725,389) 75x73 must fill that box, but its letters sit at (643,365) 66x122, 86px left and 0px above its middle: position the element absolutely at left 725px, top 389px, width 75px, height 73px, letters centred in it (font-size about 66px instead of 101px); change nothing else; the big \"4\" typed on the box drawn at (811,390) 75x73 must fill that box, but its letters sit at (643,365) 66x122, 172px left and 1px above its middle: position the element absolutely at left 811px, top 390px, width 75px, height 73px, letters centred in it (font-size about 66px instead of 101px); change nothing else"
+    }
+   },
+   {
+    "kind": "each",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 group note carried on every member"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 one-line headings span its drawn line"
+    }
+   },
+   {
+    "kind": "typed-times",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 typed time shown as typed"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3: the box drawn at (639,390) 75x73 was drawn in a light pen with no tap: an outlined block (thin #d1d5db border, white background); nothing that size with a border was built there: give it a 1px #d1d5db border and a white / transparent background, keep its content inside; action 3: the box drawn at (725,389) 75x73 was drawn in a light pen with no tap: an outlined block (thin #d1d5db border, white background); nothing that size with a border was built there: give it a 1px #d1d5db border and a white / transparent background, keep its content inside; action 3: the box drawn at (811,390) 75x73 was drawn in a light pen with no tap: an outlined block (thin #d1d5db border, white background); nothing that size with a border was built there: give it a 1px #d1d5db border and a white / transparent background, keep its content inside",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (2,2) 519x896 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (2,2) 519x896",
+       "want": "#4338ca",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (60,660) 301x0",
+       "want": "#ddd6fe",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,698) 73x0",
+       "want": "#ddd6fe",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (640,270) 348x0",
+       "want": "#111827",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (640,322) 260x0",
+       "want": "#6b7280",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (898,389) 75x74 (untapped pen outline)",
+       "want": "border #4338ca, no #4338ca fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (639,390) 75x73 (light pen outline)",
+       "want": "border #d1d5db, no #d1d5db fill",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (725,389) 75x73 (light pen outline)",
+       "want": "border #d1d5db, no #d1d5db fill",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (811,390) 75x73 (light pen outline)",
+       "want": "border #d1d5db, no #d1d5db fill",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (984,390) 74x73 (light pen outline)",
+       "want": "border #d1d5db, no #d1d5db fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1070,389) 75x74 (light pen outline)",
+       "want": "border #d1d5db, no #d1d5db fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (640,499) 504x56",
+       "want": "#4338ca",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (640,589) 138x0",
+       "want": "#4338ca",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 52873,
+   "cacheRead": 253893,
+   "output": 14050
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 34610,
+    "output": 10855,
+    "cacheRead": 144472,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Edit src/App.tsx"
+    ],
+    "ms": 122930
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 32313,
+    "output": 3195,
+    "cacheRead": 109421,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 34047
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "62900f2d1e76e860f1712de53c1001ac5f7a64aa",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The user typed a note on the second code-digit box saying it should match the styling of the other digit boxes: a normal-size grey box.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 1,
+    "total": 1,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 18056,
+   "cacheRead": 138693,
+   "output": 5284
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 10059,
+    "output": 2709,
+    "cacheRead": 64660,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 32313
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 13281,
+    "output": 2575,
+    "cacheRead": 74033,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 28402
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

@@ -1,0 +1,585 @@
+{
+  "round": 41,
+  "id": "e2-week-calendar",
+  "version": 3,
+  "stopped": null,
+  "likeness": 81.2,
+  "colour": 0.9950752059870589,
+  "structure": 0.9389163813509299,
+  "layout": 0.9346840522977302,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 8,
+      "line": 2,
+      "box": 7
+    },
+    "inkPx": 5524
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 61,
+  "notes": 10,
+  "longestNote": 19,
+  "noteTexts": [
+    "March 9 – 13 bold",
+    "Today, ‹ ›, Week outlined buttons",
+    "+ New event",
+    "days Mon 9 to Fri 13, 10 in teal circle; hours 9 am to 5 pm left, grid lines",
+    "Stand-up 9:00 – 9:45",
+    "Stand-up 9:00 – 9:45",
+    "Design review 10:00 – 12:00",
+    "Dentist 12:00 – 12:45",
+    "Lunch with Ana 1:00 – 2:30",
+    "Focus time 2:00 – 4:00"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 547,
+    "firstReadingS": 91,
+    "readS": [
+      50
+    ],
+    "buildS": [
+      448
+    ],
+    "sketchingS": 49
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 107910,
+    "cacheRead": 939722,
+    "output": 43628,
+    "billed": 151538
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 459
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 849
+    },
+    {
+      "op": "stroke",
+      "at": 4864
+    },
+    {
+      "op": "pen",
+      "color": "#1f2937",
+      "at": 5235
+    },
+    {
+      "op": "stroke",
+      "at": 6112
+    },
+    {
+      "op": "note",
+      "at": 6849
+    },
+    {
+      "op": "note",
+      "at": 7667
+    },
+    {
+      "op": "pen",
+      "color": "#0f766e",
+      "at": 8044
+    },
+    {
+      "op": "stroke",
+      "at": 9405
+    },
+    {
+      "op": "stroke",
+      "at": 9882
+    },
+    {
+      "op": "note",
+      "at": 10588
+    },
+    {
+      "op": "note",
+      "at": 11864
+    },
+    {
+      "op": "pen",
+      "color": "#ccfbf1",
+      "at": 12238
+    },
+    {
+      "op": "stroke",
+      "at": 14290
+    },
+    {
+      "op": "stroke",
+      "at": 14772
+    },
+    {
+      "op": "note",
+      "at": 15576
+    },
+    {
+      "op": "pen",
+      "color": "#ccfbf1",
+      "at": 15955
+    },
+    {
+      "op": "stroke",
+      "at": 18003
+    },
+    {
+      "op": "stroke",
+      "at": 18489
+    },
+    {
+      "op": "note",
+      "at": 19297
+    },
+    {
+      "op": "pen",
+      "color": "#fde68a",
+      "at": 19671
+    },
+    {
+      "op": "stroke",
+      "at": 22177
+    },
+    {
+      "op": "stroke",
+      "at": 22674
+    },
+    {
+      "op": "note",
+      "at": 23610
+    },
+    {
+      "op": "pen",
+      "color": "#fecdd3",
+      "at": 23983
+    },
+    {
+      "op": "stroke",
+      "at": 26050
+    },
+    {
+      "op": "stroke",
+      "at": 26548
+    },
+    {
+      "op": "note",
+      "at": 27317
+    },
+    {
+      "op": "pen",
+      "color": "#e0e7ff",
+      "at": 27696
+    },
+    {
+      "op": "stroke",
+      "at": 29981
+    },
+    {
+      "op": "stroke",
+      "at": 30477
+    },
+    {
+      "op": "note",
+      "at": 31444
+    },
+    {
+      "op": "pen",
+      "color": "#ccfbf1",
+      "at": 31822
+    },
+    {
+      "op": "stroke",
+      "at": 34313
+    },
+    {
+      "op": "stroke",
+      "at": 34816
+    },
+    {
+      "op": "note",
+      "at": 35754
+    },
+    {
+      "op": "run",
+      "at": 41275
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 459
+    },
+    {
+      "way": [
+        [
+          2,
+          84
+        ],
+        [
+          1278,
+          84
+        ]
+      ],
+      "n": 214,
+      "at": 4864
+    },
+    {
+      "way": [
+        [
+          40,
+          42
+        ],
+        [
+          184,
+          42
+        ]
+      ],
+      "n": 25,
+      "at": 6112
+    },
+    {
+      "way": [
+        [
+          1121,
+          24
+        ],
+        [
+          1240,
+          24
+        ],
+        [
+          1240,
+          60
+        ],
+        [
+          1121,
+          60
+        ],
+        [
+          1121,
+          26
+        ]
+      ],
+      "n": 53,
+      "at": 9405
+    },
+    {
+      "way": [
+        [
+          1228,
+          52
+        ]
+      ],
+      "n": 1,
+      "at": 9882
+    },
+    {
+      "way": [
+        [
+          108,
+          178
+        ],
+        [
+          320,
+          178
+        ],
+        [
+          320,
+          250
+        ],
+        [
+          108,
+          250
+        ],
+        [
+          108,
+          180
+        ]
+      ],
+      "n": 95,
+      "at": 14290
+    },
+    {
+      "way": [
+        [
+          305,
+          240
+        ]
+      ],
+      "n": 1,
+      "at": 14772
+    },
+    {
+      "way": [
+        [
+          564,
+          178
+        ],
+        [
+          776,
+          178
+        ],
+        [
+          776,
+          250
+        ],
+        [
+          564,
+          250
+        ],
+        [
+          564,
+          180
+        ]
+      ],
+      "n": 95,
+      "at": 18003
+    },
+    {
+      "way": [
+        [
+          761,
+          240
+        ]
+      ],
+      "n": 1,
+      "at": 18489
+    },
+    {
+      "way": [
+        [
+          336,
+          258
+        ],
+        [
+          548,
+          258
+        ],
+        [
+          548,
+          410
+        ],
+        [
+          336,
+          410
+        ],
+        [
+          336,
+          260
+        ]
+      ],
+      "n": 121,
+      "at": 22177
+    },
+    {
+      "way": [
+        [
+          533,
+          400
+        ]
+      ],
+      "n": 1,
+      "at": 22674
+    },
+    {
+      "way": [
+        [
+          792,
+          418
+        ],
+        [
+          1004,
+          418
+        ],
+        [
+          1004,
+          490
+        ],
+        [
+          792,
+          490
+        ],
+        [
+          792,
+          420
+        ]
+      ],
+      "n": 95,
+      "at": 26050
+    },
+    {
+      "way": [
+        [
+          989,
+          480
+        ]
+      ],
+      "n": 1,
+      "at": 26548
+    },
+    {
+      "way": [
+        [
+          564,
+          498
+        ],
+        [
+          776,
+          498
+        ],
+        [
+          776,
+          610
+        ],
+        [
+          564,
+          610
+        ],
+        [
+          564,
+          500
+        ]
+      ],
+      "n": 108,
+      "at": 29981
+    },
+    {
+      "way": [
+        [
+          761,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 30477
+    },
+    {
+      "way": [
+        [
+          1020,
+          578
+        ],
+        [
+          1232,
+          578
+        ],
+        [
+          1232,
+          730
+        ],
+        [
+          1020,
+          730
+        ],
+        [
+          1020,
+          580
+        ]
+      ],
+      "n": 121,
+      "at": 34313
+    },
+    {
+      "way": [
+        [
+          1217,
+          720
+        ]
+      ],
+      "n": 1,
+      "at": 34816
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "March 9 – 13 bold",
+      "whole": false,
+      "x": 112,
+      "y": 42,
+      "at": 6849
+    },
+    {
+      "text": "Today, ‹ ›, Week outlined buttons",
+      "whole": false,
+      "x": 985,
+      "y": 42,
+      "at": 7667
+    },
+    {
+      "text": "+ New event",
+      "whole": false,
+      "x": 1180,
+      "y": 42,
+      "at": 10588
+    },
+    {
+      "text": "days Mon 9 to Fri 13, 10 in teal circle; hours 9 am to 5 pm left, grid lines",
+      "whole": false,
+      "x": 670,
+      "y": 130,
+      "at": 11864
+    },
+    {
+      "text": "Stand-up 9:00 – 9:45",
+      "whole": false,
+      "x": 198,
+      "y": 203,
+      "at": 15576
+    },
+    {
+      "text": "Stand-up 9:00 – 9:45",
+      "whole": false,
+      "x": 654,
+      "y": 203,
+      "at": 19297
+    },
+    {
+      "text": "Design review 10:00 – 12:00",
+      "whole": false,
+      "x": 426,
+      "y": 283,
+      "at": 23610
+    },
+    {
+      "text": "Dentist 12:00 – 12:45",
+      "whole": false,
+      "x": 882,
+      "y": 443,
+      "at": 27317
+    },
+    {
+      "text": "Lunch with Ana 1:00 – 2:30",
+      "whole": false,
+      "x": 654,
+      "y": 523,
+      "at": 31444
+    },
+    {
+      "text": "Focus time 2:00 – 4:00",
+      "whole": false,
+      "x": 1110,
+      "y": 603,
+      "at": 35754
+    }
+  ]
+}

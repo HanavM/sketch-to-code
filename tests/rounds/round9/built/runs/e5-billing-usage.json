@@ -1,0 +1,170 @@
+{
+  "id": "e5-billing-usage",
+  "at": "2026-10-23T09:54:42.244Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6848178569410032,
+    "overallV2": 0.6848178569410032,
+    "overallV1": 0.49552806754550816,
+    "colour": 0.9873943364839302,
+    "structure": 0.9202958462691468,
+    "structureStrict": 0.732697721344777,
+    "colourAligned": 0.9873943364839302,
+    "structureAligned": 0.9202958462691468,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7373922236189413
+    },
+    "layout": 0.7741495230685377
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "overlap"
+    ],
+    "missing": [
+      "italic"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 32753,
+    "output": 19773,
+    "cacheRead": 173196
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 39787,
+      "output": 14750,
+      "cacheRead": 161877,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 158109
+    }
+  ],
+  "reading": "This is a billing settings page: a flat left sidebar nav, a page heading 'Billing', a sub-nav of links, three pricing plan cards, a usage-meters card, and an invoices table.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Flat left sidebar panel, pale grey '◆ Orbit' list: Overview, Projects, Team, Integrations, Billing, Settings; 'Billing' highlighted (#eef2ff rounded fill, #4338"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 26
+        }
+      ],
+      "region": [
+        268,
+        32,
+        71,
+        31
+      ],
+      "paths": [],
+      "instruction": "Page heading 'Billing', 26px bold type on one line, box top 32px from the page top and 31px tall (line-height 31px)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        264,
+        80,
+        972,
+        39
+      ],
+      "paths": [],
+      "instruction": "Sub-nav links bar: Plan & usage, Payment methods, Invoices, Tax; 'Plan & usage' selected (bold, indigo text, indigo underline). All links sit together at the le"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        147,
+        973,
+        224
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Three separate pricing cards side by side, each 310x230px, no fill, 1px #e5e7eb border, 14px rounded corners, 25px apart. Card 1 at page x 260: bold 16px #11182"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        403,
+        973,
+        144
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Usage meters card, 980x150px, 1px #e5e7eb border, 14px rounded, 22px padding, 3 columns 36px apart, each a real meter bar (not a thin line): 'Seats' label (14px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        579,
+        973,
+        234
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A plain invoices table, 980px wide at page position 260,576 (a real table with 5 columns, every column kept — not a list, not cards). Columns start at 23, 334, "
+    }
+  ],
+  "rejected": []
+}

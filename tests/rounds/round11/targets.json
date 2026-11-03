@@ -1,0 +1,917 @@
+{
+ "measured": "2026-10-23T13:31:31.906Z",
+ "targets": {
+  "c1-card-stack-3d": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 64,
+      "y": 36,
+      "w": 1152,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 64,
+      "y": 200,
+      "w": 520,
+      "h": 175
+     },
+     "must": true
+    },
+    {
+     "role": "subcopy",
+     "rect": {
+      "x": 64,
+      "y": 520,
+      "w": 430,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 64,
+      "y": 640,
+      "w": 200,
+      "h": 54
+     },
+     "must": true
+    },
+    {
+     "role": "card-stack",
+     "rect": {
+      "x": 640,
+      "y": 110,
+      "w": 560,
+      "h": 660
+     },
+     "must": true
+    },
+    {
+     "role": "glass-chip",
+     "rect": {
+      "x": 1000,
+      "y": 690,
+      "w": 165,
+      "h": 38
+     },
+     "must": false
+    }
+   ]
+  },
+  "c2-masked-type": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 56,
+      "y": 34,
+      "w": 1168,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "masked-word",
+     "rect": {
+      "x": 40,
+      "y": 120,
+      "w": 594,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "masked-picture",
+     "rect": {
+      "x": 620,
+      "y": 470,
+      "w": 320,
+      "h": 360
+     },
+     "must": true
+    },
+    {
+     "role": "text-ring",
+     "rect": {
+      "x": 1000,
+      "y": 420,
+      "w": 200,
+      "h": 200
+     },
+     "must": false
+    },
+    {
+     "role": "copy",
+     "rect": {
+      "x": 60,
+      "y": 520,
+      "w": 440,
+      "h": 147
+     },
+     "must": true
+    }
+   ]
+  },
+  "c3-weight-ladder": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 48,
+      "y": 30,
+      "w": 1184,
+      "h": 15
+     },
+     "must": false
+    },
+    {
+     "role": "weight-ladder",
+     "rect": {
+      "x": 48,
+      "y": 84,
+      "w": 760,
+      "h": 564
+     },
+     "must": true
+    },
+    {
+     "role": "spec-panel",
+     "rect": {
+      "x": 880,
+      "y": 100,
+      "w": 352,
+      "h": 322
+     },
+     "must": true
+    },
+    {
+     "role": "marquee-a",
+     "rect": {
+      "x": -1,
+      "y": 667,
+      "w": 1283,
+      "h": 151
+     },
+     "must": true
+    },
+    {
+     "role": "marquee-b",
+     "rect": {
+      "x": -1,
+      "y": 748,
+      "w": 1282,
+      "h": 129
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-cube-scene": {
+   "regions": [
+    {
+     "role": "perspective-floor",
+     "rect": {
+      "x": 0,
+      "y": 495,
+      "w": 1280,
+      "h": 405
+     },
+     "must": true
+    },
+    {
+     "role": "nav",
+     "rect": {
+      "x": 56,
+      "y": 34,
+      "w": 1168,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 56,
+      "y": 120,
+      "w": 560,
+      "h": 160
+     },
+     "must": true
+    },
+    {
+     "role": "subcopy",
+     "rect": {
+      "x": 56,
+      "y": 330,
+      "w": 420,
+      "h": 54
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 56,
+      "y": 430,
+      "w": 167,
+      "h": 54
+     },
+     "must": false
+    },
+    {
+     "role": "spinning-cube",
+     "rect": {
+      "x": 800,
+      "y": 150,
+      "w": 300,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "stats-panel",
+     "rect": {
+      "x": 56,
+      "y": 640,
+      "w": 560,
+      "h": 200
+     },
+     "must": true
+    }
+   ]
+  },
+  "c5-paper-layers": {
+   "regions": [
+    {
+     "role": "scroll-progress",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 6
+     },
+     "must": false
+    },
+    {
+     "role": "sun",
+     "rect": {
+      "x": 860,
+      "y": 110,
+      "w": 220,
+      "h": 220
+     },
+     "must": true
+    },
+    {
+     "role": "paper-layers",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "nav",
+     "rect": {
+      "x": 56,
+      "y": 34,
+      "w": 1168,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 56,
+      "y": 120,
+      "w": 700,
+      "h": 221
+     },
+     "must": true
+    },
+    {
+     "role": "booking-card",
+     "rect": {
+      "x": 817,
+      "y": 613,
+      "w": 386,
+      "h": 184
+     },
+     "must": true
+    }
+   ]
+  },
+  "e1-code-editor": {
+   "regions": [
+    {
+     "role": "activity-bar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 878
+     },
+     "must": false
+    },
+    {
+     "role": "explorer",
+     "rect": {
+      "x": 48,
+      "y": 0,
+      "w": 240,
+      "h": 878
+     },
+     "must": true
+    },
+    {
+     "role": "editor-tabs",
+     "rect": {
+      "x": 288,
+      "y": 0,
+      "w": 992,
+      "h": 36
+     },
+     "must": false
+    },
+    {
+     "role": "code",
+     "rect": {
+      "x": 288,
+      "y": 36,
+      "w": 880,
+      "h": 530
+     },
+     "must": true
+    },
+    {
+     "role": "minimap",
+     "rect": {
+      "x": 1180,
+      "y": 44,
+      "w": 88,
+      "h": 520
+     },
+     "must": false
+    },
+    {
+     "role": "terminal-panel",
+     "rect": {
+      "x": 288,
+      "y": 566,
+      "w": 992,
+      "h": 312
+     },
+     "must": true
+    },
+    {
+     "role": "status-bar",
+     "rect": {
+      "x": 0,
+      "y": 878,
+      "w": 1280,
+      "h": 22
+     },
+     "must": false
+    }
+   ]
+  },
+  "e2-crm-pipeline": {
+   "regions": [
+    {
+     "role": "top-bar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "toolbar",
+     "rect": {
+      "x": 24,
+      "y": 72,
+      "w": 860,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "board",
+     "rect": {
+      "x": 24,
+      "y": 124,
+      "w": 860,
+      "h": 760
+     },
+     "must": true
+    },
+    {
+     "role": "deal-drawer",
+     "rect": {
+      "x": 900,
+      "y": 56,
+      "w": 380,
+      "h": 844
+     },
+     "must": true
+    }
+   ]
+  },
+  "e3-mail-client": {
+   "regions": [
+    {
+     "role": "folders",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 220,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "message-list",
+     "rect": {
+      "x": 220,
+      "y": 0,
+      "w": 430,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "reading-pane",
+     "rect": {
+      "x": 650,
+      "y": 0,
+      "w": 630,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "attachments",
+     "rect": {
+      "x": 682,
+      "y": 391,
+      "w": 566,
+      "h": 122
+     },
+     "must": false
+    },
+    {
+     "role": "reply-buttons",
+     "rect": {
+      "x": 682,
+      "y": 800,
+      "w": 228,
+      "h": 38
+     },
+     "must": false
+    }
+   ]
+  },
+  "e4-analytics-dashboard": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 200,
+      "h": 900
+     },
+     "must": false
+    },
+    {
+     "role": "header",
+     "rect": {
+      "x": 224,
+      "y": 22,
+      "w": 1032,
+      "h": 33
+     },
+     "must": false
+    },
+    {
+     "role": "kpi-row",
+     "rect": {
+      "x": 224,
+      "y": 80,
+      "w": 1032,
+      "h": 112
+     },
+     "must": true
+    },
+    {
+     "role": "line-chart",
+     "rect": {
+      "x": 224,
+      "y": 212,
+      "w": 680,
+      "h": 330
+     },
+     "must": true
+    },
+    {
+     "role": "donut-card",
+     "rect": {
+      "x": 920,
+      "y": 212,
+      "w": 336,
+      "h": 330
+     },
+     "must": true
+    },
+    {
+     "role": "channel-table",
+     "rect": {
+      "x": 224,
+      "y": 558,
+      "w": 1032,
+      "h": 322
+     },
+     "must": true
+    }
+   ]
+  },
+  "e5-week-calendar": {
+   "regions": [
+    {
+     "role": "top-bar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 60,
+      "w": 240,
+      "h": 840
+     },
+     "must": true
+    },
+    {
+     "role": "week-grid",
+     "rect": {
+      "x": 240,
+      "y": 60,
+      "w": 1040,
+      "h": 840
+     },
+     "must": true
+    },
+    {
+     "role": "now-line",
+     "rect": {
+      "x": 718,
+      "y": 418,
+      "w": 140,
+      "h": 2
+     },
+     "must": false
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-card-stack-3d": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.17929553284863364,
+    "structure": 0.1553285876691772,
+    "structureStrict": 0.1553285876691772,
+    "colourAligned": 0.17929553284863364,
+    "structureAligned": 0.1553285876691772,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.4499682343621411,
+    "structure": 0.22618183447707324
+   }
+  },
+  "c2-masked-type": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7214721996326942,
+    "structure": 0.508087694080196,
+    "structureStrict": 0.508087694080196,
+    "colourAligned": 0.7214721996326942,
+    "structureAligned": 0.508087694080196,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5989766193286994,
+    "structure": 0.3428959354582091
+   }
+  },
+  "c3-weight-ladder": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.17888696395323422,
+    "structure": 0.05627887033588156,
+    "structureStrict": 0.05627887033588156,
+    "colourAligned": 0.17888696395323422,
+    "structureAligned": 0.05627887033588156,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.4285259267224772,
+    "structure": 0.1336778889858166
+   }
+  },
+  "c4-cube-scene": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.5905113857160877,
+    "structure": 0.34543347060468643,
+    "structureStrict": 0.34543347060468643,
+    "colourAligned": 0.5905113857160877,
+    "structureAligned": 0.34543347060468643,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5947028336597668,
+    "structure": 0.27020808649419426
+   }
+  },
+  "c5-paper-layers": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.6163230984328583,
+    "structure": 0.41594820442378133,
+    "structureStrict": 0.41594820442378133,
+    "colourAligned": 0.6163230984328583,
+    "structureAligned": 0.41594820442378133,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.590874915641899,
+    "structure": 0.3003193640578273
+   }
+  },
+  "e1-code-editor": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.14078522939540705,
+    "structure": 0.19913636446408367,
+    "structureStrict": 0.19913636446408367,
+    "colourAligned": 0.14078522939540705,
+    "structureAligned": 0.19913636446408367,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.43429919499498937,
+    "structure": 0.25513628722851284
+   }
+  },
+  "e2-crm-pipeline": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9486258198761096,
+    "structure": 0.6298570011206025,
+    "structureStrict": 0.6298570011206025,
+    "colourAligned": 0.9486258198761096,
+    "structureAligned": 0.6298570011206025,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.595788134735963,
+    "structure": 0.3629539832229156
+   }
+  },
+  "e3-mail-client": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9667342688321687,
+    "structure": 0.6475600328932556,
+    "structureStrict": 0.6475600328932556,
+    "colourAligned": 0.9667342688321687,
+    "structureAligned": 0.6475600328932556,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5844500543605144,
+    "structure": 0.3622083059380418
+   }
+  },
+  "e4-analytics-dashboard": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8329089222194169,
+    "structure": 0.49980787634365503,
+    "structureStrict": 0.49980787634365503,
+    "colourAligned": 0.8329089222194169,
+    "structureAligned": 0.49980787634365503,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5892685952393415,
+    "structure": 0.31910886124312726
+   }
+  },
+  "e5-week-calendar": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8985986363906757,
+    "structure": 0.5624491514254579,
+    "structureStrict": 0.5624491514254579,
+    "colourAligned": 0.8985986363906757,
+    "structureAligned": 0.5624491514254579,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5819747317372099,
+    "structure": 0.3287209766160074
+   }
+  }
+ }
+}

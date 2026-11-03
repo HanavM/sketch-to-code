@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Metro poster</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f7f5ef;font-family:Helvetica,Arial,sans-serif;color:#111}
+.top{position:absolute;left:0;top:0;width:1280px;height:76px;background:#111;color:#f7f5ef;display:flex;align-items:center;padding:0 48px;gap:26px;font:700 14px Helvetica}.top b{margin-right:auto;display:flex;align-items:center;gap:12px;font-size:20px}.top b i{width:34px;height:34px;border-radius:50%;background:#e1251b;display:inline-block;border:6px solid #f7f5ef}
+.map{position:absolute;left:420px;top:110px}
+.h{position:absolute;left:48px;top:120px;width:340px;font:900 88px/0.88 Helvetica,Arial,sans-serif;letter-spacing:-3px}
+.h small{display:block;font:700 15px Helvetica;letter-spacing:4px;margin-top:20px;color:#666}
+.leg{position:absolute;left:48px;top:470px;width:320px}.leg div{display:flex;align-items:center;gap:12px;height:40px;border-bottom:1px solid #ddd;font-weight:700}.leg i{width:28px;height:28px;border-radius:50%;color:#fff;font:900 14px/28px Helvetica;text-align:center;font-style:normal}.leg span{margin-left:auto;font-weight:400;color:#666;font-size:13px}
+.zone{position:absolute;left:48px;top:700px;width:320px;height:150px;border:3px solid #111;padding:16px}.zone b{font:900 46px Helvetica}.zone p{font-size:13px;color:#444;margin-top:6px}
+.badge{position:absolute;left:1090px;top:740px;width:140px;height:140px;border-radius:50%;background:#e1251b;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 40px/1 Helvetica;transform:rotate(10deg)}.badge small{font:700 12px Helvetica;letter-spacing:2px}
+</style></head><body>
+<div class="top" data-r="top-bar"><b><i></i>City Lines</b><span>Map</span><span>Timetables</span><span>Fares</span><span>Status</span></div>
+<h1 class="h" data-r="headline" data-must>Every line, one map.<small>NETWORK 2026 · ZONES 1–4</small></h1>
+<svg class="map" data-r="metro-map" data-must width="820" height="620" viewBox="0 0 820 620" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="40" y="40" width="740" height="540" rx="270" stroke="#ddd" stroke-width="2" stroke-dasharray="8 8"/>
+<path d="M40 160 H300 L460 320 H780" stroke="#e1251b" stroke-width="14"/>
+<path d="M200 600 V420 L380 240 V20" stroke="#0a7f3f" stroke-width="14"/>
+<path d="M60 500 H260 L460 300 L600 160 H780" stroke="#1f5fbf" stroke-width="14"/>
+<path d="M560 600 V420 L460 320 L380 240 H120" stroke="#f2a900" stroke-width="14"/>
+<g fill="#fff" stroke="#111" stroke-width="4"><circle cx="300" cy="160" r="11"/><circle cx="460" cy="320" r="18"/><circle cx="380" cy="240" r="18"/><circle cx="600" cy="160" r="11"/><circle cx="200" cy="420" r="11"/><circle cx="560" cy="420" r="11"/><circle cx="120" cy="240" r="11"/><circle cx="260" cy="500" r="11"/><circle cx="700" cy="320" r="11"/><circle cx="380" cy="80" r="11"/></g>
+<g fill="#111" font-family="Helvetica" font-size="15" font-weight="700"><text x="312" y="146">Harbour</text><text x="484" y="326">Central</text><text x="396" y="232">Old Town</text><text x="612" y="148">Museum</text><text x="214" y="414">Mill Lane</text><text x="574" y="414">Stadium</text><text x="92" y="226">Docks</text><text x="246" y="530">Airport</text><text x="690" y="350">Park East</text><text x="396" y="86">North Gate</text></g></svg>
+<div class="leg" data-r="line-legend" data-must><div><i style="background:#e1251b">1</i>Red line<span>every 3 min</span></div><div><i style="background:#0a7f3f">2</i>Green line<span>every 4 min</span></div><div><i style="background:#1f5fbf">3</i>Blue line<span>every 5 min</span></div><div><i style="background:#f2a900">4</i>Yellow line<span>every 6 min</span></div></div>
+<div class="zone" data-r="fare-box"><b>€2.40</b><p>Any single trip, zones 1–4, 90 minutes with free changes.</p></div>
+<div class="badge" data-r="round-badge" data-must><small>NEW</small>LINE<small>4</small></div>
+</body></html>

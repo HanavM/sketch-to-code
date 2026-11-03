@@ -1,0 +1,181 @@
+{
+  "id": "e2-week-calendar",
+  "at": "2026-10-24T08:18:13.118Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8489848211358613,
+    "overallV2": 0.8489848211358613,
+    "overallV1": 0.8167530284843587,
+    "colour": 0.9976586857551099,
+    "structure": 0.9710658221770846,
+    "structureStrict": 0.945883203312967,
+    "colourAligned": 0.9976586857551099,
+    "structureAligned": 0.9710658221770846,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9926190299001307
+    },
+    "layout": 0.685765403654964
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 59194,
+    "output": 37304,
+    "cacheRead": 459282
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 66985,
+      "output": 25503,
+      "cacheRead": 206290,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 288075
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 6815,
+      "output": 1949,
+      "cacheRead": 241356,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 18989
+    }
+  ],
+  "reading": "This is a Google-Calendar-style week view: a left sidebar (create button, mini month calendar, 'My calendars' list) drawn with s0; a header row of 7 day/date cards (MON 8 – SUN 14) drawn with s1; a left-hand column of hourly time labels (8 AM–9 PM) drawn with s2; a large striped time grid background drawn with s3; 7 solid coloured event blocks positioned on that grid; a thin red current-time indicator line with a dot (s3+s5); and a floating event-detail popup panel for 'Sprint planning' with a Join call button (s3+s6).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        112,
+        4,
+        17,
+        892
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build a left sidebar with these exact live-text parts (page px, size then top-left x,y, nothing invented, nothing left out): 100x44 at 20,20 #c2e7ff fill, 16px "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        244,
+        3,
+        1033,
+        64
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a row of 7 day/date stat cards spanning the calendar header: MON 8, TUE 9, WED 10, THU 11, FRI 12, SAT 13, SUN 14."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        260,
+        66,
+        17,
+        832
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a narrow column of 28 hourly time labels (one per line): 8 AM, 9 AM, 10 AM, 11 AM, 12 PM, 1 PM, 2 PM, 3 PM, 4 PM, 5 PM, 6 PM, 7 PM, 8 PM, 9 PM, each 10px #7"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        303,
+        73,
+        974,
+        824
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Give the main calendar grid box a two-layer striped background (not a smooth gradient): layer 1 is horizontal repeating stripes repeating-linear-gradient(0deg, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        4
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Place 7 solid, opaque coloured calendar-event blocks absolutely positioned on the time grid (not a list, not a row, not buttons, not pale): each its own div, z-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        584,
+        365,
+        132,
+        8
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a current-time indicator on the grid: a thin solid red line, 2px tall and 140px wide, with a 12px round red dot on its left end, no text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        743,
+        264,
+        334,
+        167
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a floating event-detail popup panel over the grid: one 340x174px panel at 740,260, #f0f4f9 fill, 16px rounded corners, box-shadow rgba(0,0,0,0.3) 0px 8px 28"
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,172 @@
+{
+ "c1-kinetic-marquee": {
+  "found": {
+   "clip-shape": 1,
+   "gradient": 1,
+   "tilt": 3,
+   "motion": 4,
+   "huge-type": 3,
+   "hollow-type": 1,
+   "bleed": 1,
+   "mono": 1,
+   "hard-shadow": 1,
+   "overlap": 2
+  },
+  "names": [
+   "bleed",
+   "clip-shape",
+   "gradient",
+   "hard-shadow",
+   "hollow-type",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "tilt"
+  ]
+ },
+ "c2-riso-overprint": {
+  "found": {
+   "blend": 5,
+   "huge-type": 2,
+   "tilt": 1,
+   "serif": 1,
+   "italic": 1,
+   "overlap": 6
+  },
+  "names": [
+   "blend",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "tilt"
+  ]
+ },
+ "c3-synth-horizon": {
+  "found": {
+   "mask": 1,
+   "gradient": 1,
+   "clip-shape": 1,
+   "motion": 1,
+   "3d": 1,
+   "stripes-or-layers": 1,
+   "hard-shadow": 7,
+   "huge-type": 1,
+   "italic": 1,
+   "mono": 1,
+   "glow": 2,
+   "overlap": 5
+  },
+  "names": [
+   "3d",
+   "clip-shape",
+   "glow",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "mask",
+   "mono",
+   "motion",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "c4-wrap-editorial": {
+  "found": {
+   "clip-shape": 1,
+   "gradient": 2,
+   "huge-type": 1,
+   "serif": 3,
+   "italic": 1,
+   "mono": 1,
+   "motion": 1,
+   "bleed": 1,
+   "overlap": 4
+  },
+  "names": [
+   "bleed",
+   "clip-shape",
+   "gradient",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif"
+  ]
+ },
+ "c5-bento-motion": {
+  "found": {
+   "stripes-or-layers": 1,
+   "vertical-type": 1,
+   "motion": 9,
+   "gradient": 1,
+   "bleed": 1,
+   "overlap": 2
+  },
+  "names": [
+   "bleed",
+   "gradient",
+   "motion",
+   "overlap",
+   "stripes-or-layers",
+   "vertical-type"
+  ]
+ },
+ "e1-gantt-timeline": {
+  "found": {
+   "stripes-or-layers": 1,
+   "tilt": 2
+  },
+  "names": [
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "e2-log-explorer": {
+  "found": {
+   "mono": 110,
+   "hard-shadow": 1,
+   "overlap": 1
+  },
+  "names": [
+   "hard-shadow",
+   "mono",
+   "overlap"
+  ]
+ },
+ "e3-design-editor": {
+  "found": {
+   "soft-shadow": 2,
+   "gradient": 1,
+   "overlap": 5
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e4-music-player": {
+  "found": {
+   "gradient": 8,
+   "soft-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "soft-shadow"
+  ]
+ },
+ "e5-crm-contact": {
+  "found": {
+   "gradient": 1,
+   "soft-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "soft-shadow"
+  ]
+ }
+}

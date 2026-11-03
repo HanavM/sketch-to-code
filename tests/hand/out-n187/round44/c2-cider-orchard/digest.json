@@ -1,0 +1,603 @@
+{
+  "round": 44,
+  "id": "c2-cider-orchard",
+  "version": 3,
+  "stopped": null,
+  "likeness": 76.5,
+  "colour": 0.9790751516987426,
+  "structure": 0.8886166401500929,
+  "layout": 0.6444418219386681,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.4,
+    "simpleShare": 0.94,
+    "shapes": {
+      "dot": 4,
+      "box": 2,
+      "freehand": 1,
+      "line": 8,
+      "circle": 1
+    },
+    "inkPx": 6521
+  },
+  "erased": 0,
+  "notesMoved": 3,
+  "words": 54,
+  "notes": 10,
+  "longestNote": 9,
+  "noteTexts": [
+    "Hollow Tree Cider, serif bold",
+    "Our ciders Visit Shop, serif",
+    "Pressed from apples / we grew, huge serif bold",
+    "Small batches, wild yeast, no shortcuts. serif",
+    "Order a case, white bold",
+    "12 / apple varieties",
+    "40 / acres of trees",
+    "1921 / first pressing",
+    "leaf",
+    "logo dark brown, each stat centred on its line"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 385,
+    "firstReadingS": 109,
+    "readS": [
+      56,
+      15
+    ],
+    "buildS": [
+      230,
+      12
+    ],
+    "sketchingS": 72
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 82677,
+    "cacheRead": 704914,
+    "output": 27996,
+    "billed": 110673
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f5ede0",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 463
+    },
+    {
+      "op": "pen",
+      "color": "#5e8f3a",
+      "at": 837
+    },
+    {
+      "op": "stroke",
+      "at": 9504
+    },
+    {
+      "op": "stroke",
+      "at": 9983
+    },
+    {
+      "op": "stroke",
+      "at": 11049
+    },
+    {
+      "op": "pen",
+      "color": "#3a2a1e",
+      "at": 11425
+    },
+    {
+      "op": "stroke",
+      "at": 12446
+    },
+    {
+      "op": "stroke",
+      "at": 13446
+    },
+    {
+      "op": "stroke",
+      "at": 15394
+    },
+    {
+      "op": "stroke",
+      "at": 16493
+    },
+    {
+      "op": "stroke",
+      "at": 17796
+    },
+    {
+      "op": "pen",
+      "color": "#c63a2e",
+      "at": 18166
+    },
+    {
+      "op": "stroke",
+      "at": 20112
+    },
+    {
+      "op": "stroke",
+      "at": 20577
+    },
+    {
+      "op": "stroke",
+      "at": 24549
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 24923
+    },
+    {
+      "op": "stroke",
+      "at": 25497
+    },
+    {
+      "op": "stroke",
+      "at": 26060
+    },
+    {
+      "op": "stroke",
+      "at": 26712
+    },
+    {
+      "op": "note",
+      "at": 27491
+    },
+    {
+      "op": "note",
+      "at": 28250
+    },
+    {
+      "op": "note",
+      "at": 29099
+    },
+    {
+      "op": "note",
+      "at": 29947
+    },
+    {
+      "op": "note",
+      "at": 30710
+    },
+    {
+      "op": "note",
+      "at": 31429
+    },
+    {
+      "op": "note",
+      "at": 32139
+    },
+    {
+      "op": "note",
+      "at": 32866
+    },
+    {
+      "op": "note",
+      "at": 33544
+    },
+    {
+      "op": "pen",
+      "color": "#c63a2e",
+      "at": 44144
+    },
+    {
+      "op": "stroke",
+      "at": 44615
+    },
+    {
+      "op": "moveNote",
+      "at": 45329
+    },
+    {
+      "op": "moveNote",
+      "at": 46034
+    },
+    {
+      "op": "moveNote",
+      "at": 46719
+    },
+    {
+      "op": "run",
+      "at": 52421
+    },
+    {
+      "op": "note",
+      "at": 348814
+    },
+    {
+      "op": "run",
+      "at": 348892
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 463
+    },
+    {
+      "way": [
+        [
+          2,
+          700
+        ],
+        [
+          1278,
+          700
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          700
+        ]
+      ],
+      "n": 493,
+      "at": 9504
+    },
+    {
+      "way": [
+        [
+          640,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 9983
+    },
+    {
+      "way": [
+        [
+          960,
+          122
+        ],
+        [
+          1010,
+          128
+        ],
+        [
+          1045,
+          150
+        ],
+        [
+          1050,
+          170
+        ],
+        [
+          1000,
+          165
+        ],
+        [
+          970,
+          145
+        ],
+        [
+          960,
+          122
+        ]
+      ],
+      "n": 37,
+      "at": 11049
+    },
+    {
+      "way": [
+        [
+          80,
+          40
+        ],
+        [
+          268,
+          40
+        ]
+      ],
+      "n": 32,
+      "at": 12446
+    },
+    {
+      "way": [
+        [
+          1006,
+          40
+        ],
+        [
+          1200,
+          40
+        ]
+      ],
+      "n": 33,
+      "at": 13446
+    },
+    {
+      "way": [
+        [
+          80,
+          256
+        ],
+        [
+          611,
+          256
+        ]
+      ],
+      "n": 90,
+      "at": 15394
+    },
+    {
+      "way": [
+        [
+          80,
+          324
+        ],
+        [
+          297,
+          324
+        ]
+      ],
+      "n": 37,
+      "at": 16493
+    },
+    {
+      "way": [
+        [
+          80,
+          415
+        ],
+        [
+          380,
+          415
+        ]
+      ],
+      "n": 51,
+      "at": 17796
+    },
+    {
+      "way": [
+        [
+          80,
+          520
+        ],
+        [
+          290,
+          520
+        ],
+        [
+          290,
+          576
+        ],
+        [
+          80,
+          576
+        ],
+        [
+          80,
+          520
+        ]
+      ],
+      "n": 89,
+      "at": 20112
+    },
+    {
+      "way": [
+        [
+          185,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 20577
+    },
+    {
+      "way": [
+        [
+          1160,
+          370
+        ],
+        [
+          1145,
+          447
+        ],
+        [
+          1101,
+          511
+        ],
+        [
+          1037,
+          555
+        ],
+        [
+          960,
+          570
+        ],
+        [
+          883,
+          555
+        ],
+        [
+          819,
+          511
+        ],
+        [
+          775,
+          447
+        ],
+        [
+          760,
+          370
+        ],
+        [
+          775,
+          293
+        ],
+        [
+          819,
+          229
+        ],
+        [
+          883,
+          185
+        ],
+        [
+          960,
+          170
+        ],
+        [
+          1037,
+          185
+        ],
+        [
+          1101,
+          229
+        ],
+        [
+          1145,
+          293
+        ],
+        [
+          1160,
+          370
+        ]
+      ],
+      "n": 209,
+      "at": 24549
+    },
+    {
+      "way": [
+        [
+          198,
+          789
+        ],
+        [
+          234,
+          789
+        ]
+      ],
+      "n": 7,
+      "at": 25497
+    },
+    {
+      "way": [
+        [
+          628,
+          789
+        ],
+        [
+          663,
+          789
+        ]
+      ],
+      "n": 7,
+      "at": 26060
+    },
+    {
+      "way": [
+        [
+          1036,
+          789
+        ],
+        [
+          1103,
+          789
+        ]
+      ],
+      "n": 12,
+      "at": 26712
+    },
+    {
+      "way": [
+        [
+          960,
+          380
+        ]
+      ],
+      "n": 1,
+      "at": 44615
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Hollow Tree Cider, serif bold",
+      "whole": false,
+      "x": 100,
+      "y": 58,
+      "at": 27491
+    },
+    {
+      "text": "Our ciders Visit Shop, serif",
+      "whole": false,
+      "x": 1020,
+      "y": 58,
+      "at": 28250
+    },
+    {
+      "text": "Pressed from apples / we grew, huge serif bold",
+      "whole": false,
+      "x": 100,
+      "y": 235,
+      "at": 29099
+    },
+    {
+      "text": "Small batches, wild yeast, no shortcuts. serif",
+      "whole": false,
+      "x": 100,
+      "y": 432,
+      "at": 29947
+    },
+    {
+      "text": "Order a case, white bold",
+      "whole": false,
+      "x": 110,
+      "y": 535,
+      "at": 30710
+    },
+    {
+      "text": "12 / apple varieties",
+      "whole": false,
+      "x": 180,
+      "y": 806,
+      "at": 31429
+    },
+    {
+      "text": "40 / acres of trees",
+      "whole": false,
+      "x": 610,
+      "y": 806,
+      "at": 32139
+    },
+    {
+      "text": "1921 / first pressing",
+      "whole": false,
+      "x": 1020,
+      "y": 806,
+      "at": 32866
+    },
+    {
+      "text": "leaf",
+      "whole": false,
+      "x": 1080,
+      "y": 120,
+      "at": 33544
+    },
+    {
+      "text": "logo dark brown, each stat centred on its line",
+      "whole": true,
+      "x": 640,
+      "y": 640,
+      "at": 348814
+    }
+  ]
+}

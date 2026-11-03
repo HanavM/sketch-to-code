@@ -1,0 +1,244 @@
+{
+  "id": "c2-split-type",
+  "at": "2026-10-22T12:37:23.014Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7332400574193466,
+    "overallV2": 0.7332400574193466,
+    "overallV1": 0.6098755029920124,
+    "colour": 0.9797038842575327,
+    "structure": 0.9256860048578981,
+    "structureStrict": 0.7830695621429886,
+    "colourAligned": 0.9797038842575327,
+    "structureAligned": 0.9256860048578981,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.906953267119664
+    },
+    "layout": 0.4980681635564358
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "huge-type",
+      "overlap",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46102,
+    "output": 27356,
+    "cacheRead": 549024
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40624,
+      "output": 13731,
+      "cacheRead": 346174,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 149383
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 17244,
+      "output": 7335,
+      "cacheRead": 191851,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 89217
+    }
+  ],
+  "reading": "A magazine/event-landing hero: a logo and date in the header, a giant split-color 'BREAK' headline cut by a thin rule, a vertical rotated festival tagline on the right edge, a second thin rule below, a three-column day schedule, a big slanted 'Tickets →' link, and a solid red accent circle — all on an off-white Helvetica page per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        45,
+        84,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add site wordmark text \"KINETIK\" in 16px wide-spaced (letter-spaced) uppercase letters, near-black, top-left of header."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        1034,
+        44,
+        122,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add text \"Vol. 06 — Oct 2026\" at 15px, near-black, top-right of header, aligned opposite the wordmark."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 295
+        }
+      ],
+      "region": [
+        48,
+        73,
+        850,
+        354
+      ],
+      "paths": [],
+      "instruction": "Add ONE giant Helvetica heavy tight-set word \"BREAK\", 260px type, whole word about 874px wide (no wider), sliced flat across at 50% of its height, built as two "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        250,
+        1112,
+        7
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a solid near-black divider rule, exactly 3px tall (height: 3px, Tailwind h-[3px], never h-3 which is 12px), 1120px wide, no text — this is the thin rule tha"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1180,
+        124,
+        16,
+        330
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add vertical uppercase wide-spaced text (writing-mode: vertical-rl), 15px letters, line about 338px long, reading \"A TYPE FESTIVAL · LISBON\", running down the r"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        467,
+        1112,
+        8
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a second solid near-black divider rule, exactly 2px tall (height: 2px, Tailwind h-[2px], never h-2 which is 8px), 1120px wide, no text — a divider rule, not"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        44,
+        500,
+        1112,
+        55
+      ],
+      "paths": [],
+      "instruction": "Add 3 columns side by side, 40px apart, each column 347px wide with a small bold wide-spaced 13px heading over 17px body text on one line (no wrap): \"01 DAY\" ov"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8"
+          ],
+          "lines": 1,
+          "fontPx": 127
+        }
+      ],
+      "region": [
+        36,
+        669,
+        446,
+        152
+      ],
+      "paths": [],
+      "instruction": "Add a slanted 12° (skewX(-12deg), leaning right like italics) giant Helvetica heavy tight-set link text \"Tickets →\", 110px type, about 499px wide (no larger)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        885,
+        704,
+        102,
+        102
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a perfectly round solid disc (border-radius 50%, not traced from the ink), 110px across, flat fully opaque vivid rose red (#e11d48) fill, hard edge, no blur"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

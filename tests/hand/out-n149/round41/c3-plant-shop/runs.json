@@ -1,0 +1,585 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "2fac7fa9c26238da239bde98879cc28cf11ed406",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/PottedPlant.tsx"
+  ],
+  "reading": "This is a plant-shop landing page: a bold logo and nav line up top, a big hero headline with subhead below it, and a row of three arched product cards each showing a potted-plant icon (dark green foliage circle over a terracotta pot square) with a product name and price caption beneath — the same icon repeats in all three cards per the note, only the card accent colors and captions differ (light green/Snake plant $32, peach/Pothos $24, light blue-gray/ZZ plant $38). A page-wide pale background color was also picked.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"greenroom\" at (80,29) 123x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:51:7",
+      "rect": {
+       "x": 80,
+       "y": 28,
+       "w": 123.015625,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#24361f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Pots\" at (1039,35) 30x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:63:9",
+      "rect": {
+       "x": 1039.140625,
+       "y": 34,
+       "w": 29.53125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#24361f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Easy plants for busy people\" at (326,144) 627x56 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:68:7",
+      "rect": {
+       "x": 282,
+       "y": 146,
+       "w": 716,
+       "h": 52.890625
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#24361f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Hard to kill, delivered in a p\" at (542,220) 196x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:83:7",
+      "rect": {
+       "x": 522,
+       "y": 219,
+       "w": 236,
+       "h": 19.59375
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#5a6b55 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:47:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 142,
+        "y": 300,
+        "w": 300,
+        "h": 340
+       },
+       "built": {
+        "x": 142,
+        "y": 300,
+        "w": 300,
+        "h": 340
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 243,
+        "y": 412,
+        "w": 99,
+        "h": 100
+       },
+       "built": {
+        "x": 243,
+        "y": 412,
+        "w": 99,
+        "h": 100
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 489,
+        "y": 300,
+        "w": 301,
+        "h": 340
+       },
+       "built": {
+        "x": 489,
+        "y": 300,
+        "w": 301,
+        "h": 340
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 838,
+        "y": 300,
+        "w": 300,
+        "h": 340
+       },
+       "built": {
+        "x": 838,
+        "y": 300,
+        "w": 300,
+        "h": 340
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#24361f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.9632334483465343,
+    "massSimilarity": 0.9474763547807634,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 shapes built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the sentence \"Hard to kill\" was drawn as one line 236px long (x 522 to 758, y 229); its letters run 196px (83% of the line): take its font-size from 14px to about 17px so it runs the drawn length on one line; keep its colour, weight and left edge; change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#eef2e5",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (80,45) 115x0",
+       "want": "#24361f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1005,41) 195x0",
+       "want": "#24361f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (282,172) 716x0",
+       "want": "#24361f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (522,229) 236x0",
+       "want": "#5a6b55",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (142,300) 300x340",
+       "want": "#d6e3c3",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (243,412) 99x100",
+       "want": "#3e7d3a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (236,510) 111x101",
+       "want": "#c96a3f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (489,300) 301x340",
+       "want": "#f2d9c4",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (838,300) 300x340",
+       "want": "#d5dfe9",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (236,668) 112x1",
+       "want": "#24361f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (606,668) 68x1",
+       "want": "#24361f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (949,669) 78x0",
+       "want": "#24361f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 101255,
+   "cacheRead": 918929,
+   "output": 36410
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 81818,
+    "output": 34199,
+    "cacheRead": 479343,
+    "toolCalls": 12,
+    "tools": [
+     "Glob",
+     "Read components/PottedPlant.tsx",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Glob",
+     "Edit components/PottedPlant.tsx",
+     "Write src/App.tsx",
+     "Read components/PottedPlant.tsx",
+     "Edit components/PottedPlant.tsx",
+     "Edit components/PottedPlant.tsx",
+     "Read components/PottedPlant.tsx"
+    ],
+    "ms": 407115
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 54499,
+    "output": 1763,
+    "cacheRead": 296666,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 17577
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 1348,
+    "output": 448,
+    "cacheRead": 142920,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 3965
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/PottedPlant.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 95 210 H 206 V 311 H 9…\""
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "048e21dd561efbb740d00f63ad77d79b3cd2968c",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/PottedPlant.tsx"
+  ],
+  "reading": "No ink was drawn; the user left a typed note clarifying that the thin line elements under each plant's image are meant to display the plant name and price text, not render as plain decorative bars.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     }
+    ],
+    "satisfied": 0,
+    "total": 3,
+    "score": 0
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 18837,
+   "cacheRead": 166911,
+   "output": 3964
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 11466,
+    "output": 3046,
+    "cacheRead": 64074,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 39211
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 11335,
+    "output": 918,
+    "cacheRead": 102837,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 10721
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

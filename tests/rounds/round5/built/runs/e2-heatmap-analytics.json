@@ -1,0 +1,149 @@
+{
+  "id": "e2-heatmap-analytics",
+  "at": "2026-10-21T21:01:07.137Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6903163207475745,
+    "overallV2": 0.6892176480224133,
+    "overallV1": 0.5449608355280369,
+    "colour": 0.9709886809642093,
+    "structure": 0.8301579372029408,
+    "structureStrict": 0.6399409616490781,
+    "colourAligned": 0.9716115491989974,
+    "structureAligned": 0.8301579372029408,
+    "align": {
+      "scale": 1.08,
+      "dx": -16,
+      "dy": -32,
+      "r": 0.974987160567501
+    },
+    "layout": 0.5639846033499382
+  },
+  "effects": null,
+  "tokens": {
+    "input": 32863,
+    "output": 13697,
+    "cacheRead": 131562
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 41320,
+      "output": 12020,
+      "cacheRead": 128478,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 120798
+    }
+  ],
+  "reading": "The sketch lays out a usage analytics dashboard: a dark navy sidebar nav (Pulse brand + Usage/Retention/Funnels/Users/Settings, Usage active), a \"Usage by hour\" heading, a row of filter buttons, a large heatmap card of active sessions by weekday/hour, a \"Peak hour\" stat card, and a data table of feature usage stats — all content specified verbatim via typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Dark navy vertical sidebar nav with light grey text: brand \"Pulse\" at top, then list items \"Usage\", \"Retention\", \"Funnels\", \"Users\", \"Settings\"; \"Usage\" is the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        260,
+        34,
+        163,
+        19
+      ],
+      "paths": [],
+      "instruction": "Page heading text \"Usage by hour\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        83,
+        342,
+        27
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Row of filter/action buttons: \"Last 7 days\", \"30 days\", \"All plans\", \"Export\"; \"Last 7 days\" is the selected button with a dark navy fill."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        143,
+        634,
+        374
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Large card titled \"Active sessions (weekday × 2-hour block)\" containing a heatmap of 7 rows (Mon-Sun) by 12 columns of rounded 40px cells, each row labeled with"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        919,
+        143,
+        329,
+        373
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Stat card with \"Peak hour\" label, a big 44px bold value \"Tue 10:00\", and a green line \"▲ 18% vs last week\" below it, all grouped at the top of the card with emp"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        547,
+        994,
+        219
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Data table with a bold grey header row with columns \"Feature\", \"Sessions\", \"Users\", \"Change\", and 4 rows: \"Sketch overlay\" | \"12,480\" | \"3,102\" | \"+12%\"; \"Auto "
+    }
+  ],
+  "rejected": []
+}

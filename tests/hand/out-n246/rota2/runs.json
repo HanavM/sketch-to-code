@@ -1,0 +1,583 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "6629dd1b7d799b5c666119fede25d10d14b708c9",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "This is a staff rota/schedule page: a dark header bar with the title \"Rota\" and right-aligned nav links (Week, People, Swaps), a bold \"Thursday shifts\" subheading, a red \"Publish\" button top-right, and a schedule grid with an 8-column time header (8am–10pm) and six staff rows (Maya, Tom, Ines, Sam, Ravi, Jo with their roles) each showing a colored bar for their shift hours, finishing with a light-grey summary footer bar (\"6 people, 42 hours, Cost $780\").",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x76 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:15:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 76
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s0",
+       "drawn": {
+        "x": 2,
+        "y": 1,
+        "w": 1276,
+        "h": 76
+       },
+       "built": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 76
+       },
+       "dx": 0,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2b2e45 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h2> \"Thursday shifts\" at (40,102) 229x36 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h2",
+      "srcLoc": "src/App.tsx:27:7",
+      "rect": {
+       "x": 40,
+       "y": 102,
+       "w": 229.3125,
+       "h": 36
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1d2533 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <nav> at (1045,28) 195x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "nav",
+      "srcLoc": "src/App.tsx:20:9",
+      "rect": {
+       "x": 1044.6875,
+       "y": 28,
+       "w": 195.3125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1040,
+        "y": 99,
+        "w": 200,
+        "h": 47
+       },
+       "built": {
+        "x": 1040,
+        "y": 99,
+        "w": 200,
+        "h": 47
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f2243e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:14:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 240,
+        "y": 210,
+        "w": 421,
+        "h": 51
+       },
+       "built": {
+        "x": 240,
+        "y": 210,
+        "w": 421,
+        "h": 51
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 519,
+        "y": 300,
+        "w": 421,
+        "h": 52
+       },
+       "built": {
+        "x": 519,
+        "y": 300,
+        "w": 421,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 380,
+        "y": 390,
+        "w": 561,
+        "h": 52
+       },
+       "built": {
+        "x": 380,
+        "y": 390,
+        "w": 561,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 800,
+        "y": 480,
+        "w": 420,
+        "h": 52
+       },
+       "built": {
+        "x": 800,
+        "y": 480,
+        "w": 420,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 660,
+        "y": 570,
+        "w": 561,
+        "h": 52
+       },
+       "built": {
+        "x": 660,
+        "y": 570,
+        "w": 561,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 240,
+        "y": 660,
+        "w": 281,
+        "h": 52
+       },
+       "built": {
+        "x": 240,
+        "y": 660,
+        "w": 281,
+        "h": 52
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2a9d8f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (2,666) 1276x40 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:51:9",
+      "rect": {
+       "x": 2,
+       "y": 666,
+       "w": 1276,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 2,
+        "y": 779,
+        "w": 1276,
+        "h": 119
+       },
+       "built": {
+        "x": 0,
+        "y": 779,
+        "w": 1280,
+        "h": 121
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 5.6,
+    "reason": "#ecf1f4 is on the page (ΔE 5.6)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "19 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 placed words where drawn"
+    }
+   },
+   {
+    "kind": "open-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 open list under its field, full width"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row (table or list) at body size"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the typed row starting \"8am 10am 12pm 2pm 4pm 6pm 8pm 10pm\" is not on the page: build it first, then 7 sample rows like it; change nothing else"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "drawn-order",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 marks drawn one under another built in the drawn order, each near its drawn height"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3: the line drawn at (240,190) 1000x0 was coloured #dfe5ea (text colour); what was built there is ΔE 10 away: paint its text exactly #dfe5ea",
+     "checks": [
+      {
+       "what": "the box drawn at (2,1) 1276x76",
+       "want": "#2b2e45",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (40,120) 253x0",
+       "want": "#1d2533",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1040,99) 200x47",
+       "want": "#f2243e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (240,190) 1000x0",
+       "want": "#dfe5ea",
+       "best": 9.939632890397363,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (239,210) 421x51",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (519,300) 421x52",
+       "want": "#f28c00",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (380,390) 561x52",
+       "want": "#3a86ff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (800,480) 420x52",
+       "want": "#8338ec",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (660,570) 561x52",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,660) 281x52",
+       "want": "#f28c00",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (2,779) 1276x119",
+       "want": "#ecf1f4",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 66967,
+   "cacheRead": 478598,
+   "output": 22282
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 43037,
+    "output": 14919,
+    "cacheRead": 146537,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 172451
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 34698,
+    "output": 2673,
+    "cacheRead": 117330,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 32313
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 11514,
+    "output": 4690,
+    "cacheRead": 214731,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 57405
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

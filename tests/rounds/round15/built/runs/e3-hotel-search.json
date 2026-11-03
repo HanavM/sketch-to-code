@@ -1,0 +1,139 @@
+{
+  "id": "e3-hotel-search",
+  "at": "2026-10-24T05:07:17.636Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8890513646727032,
+    "overallV2": 0.8890513646727032,
+    "overallV1": 0.8554543602571963,
+    "colour": 0.9817035824800461,
+    "structure": 0.9324573119255758,
+    "structureStrict": 0.8895699277267669,
+    "colourAligned": 0.9817035824800461,
+    "structureAligned": 0.9324573119255758,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9231504434954128
+    },
+    "layout": 0.9709739645347827
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "overlap",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 41928,
+    "output": 27827,
+    "cacheRead": 170220
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48352,
+      "output": 17795,
+      "cacheRead": 132865,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 169277
+    }
+  ],
+  "reading": "This sketch builds a hotel-search results page: a dark top bar with a location/date/guests search bar and a highlighted Search button, a left filter panel with price-range and checkbox groups, a large column of three hotel result cards, a map panel on the right with four price pills, and a small calendar popover above the filter panel for picking dates.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        78
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Top bar: a dark blue bar spanning the full width with white text. Inside it is a search widget containing three buttons: 'Porto, Portugal' with a location icon "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        44,
+        113,
+        243,
+        346
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A white (#ffffff) filter panel, 250x352px positioned at 40,110 on the page, 8px rounded corners, 16px padding, with 4 stacked sections (not an inspector, not fi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        313,
+        113,
+        594,
+        576
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A column of 3 stacked hotel result cards, each 600x180px, white (#ffffff) fill, 1px #e1e4ea border, 8px rounded corners, 14px apart. Card 1 (top, at page y 110)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        933,
+        113,
+        304,
+        754
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A single map/region panel, 310x760px at page position 930,110: #dfe9d8 fill with a background-image hard-stop diagonal line overlay (linear-gradient(115deg, tra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        244,
+        79,
+        293,
+        133
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A single calendar popover panel, 300x140px at page position 240,76, white (#ffffff) fill, 8px rounded corners, containing a bold 13px #1d2433 'March 2027' heade"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

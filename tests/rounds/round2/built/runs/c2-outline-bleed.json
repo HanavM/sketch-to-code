@@ -1,0 +1,165 @@
+{
+  "id": "c2-outline-bleed",
+  "at": "2026-10-21T07:22:41.882Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5851937556575271,
+    "overallV2": 0.5583462163211966,
+    "overallV1": 0.5154576193920606,
+    "colour": 0.9306904689702962,
+    "structure": 0.18612023341431755,
+    "structureStrict": 0.0702176027253717,
+    "colourAligned": 0.9437477383290531,
+    "structureAligned": 0.24536444285846215,
+    "align": {
+      "scale": 1.12,
+      "dx": -64,
+      "dy": -112,
+      "r": 0.6321307684413526
+    },
+    "layout": 0.6188523882413075
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "hollow-type",
+      "huge-type",
+      "mono"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 28340,
+    "output": 9832,
+    "cacheRead": 205937
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 30892,
+      "output": 7198,
+      "cacheRead": 196980,
+      "toolCalls": 7,
+      "tools": [
+        "Grep",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 87251
+    }
+  ],
+  "reading": "A hero section sketch: two giant wavy lines are a two-line heading 'NOISE' / 'FEST', flanked by a top-right nav text placeholder, a paragraph placeholder, and a date line placeholder, all set on a black full-page background with white Helvetica type per the global note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        979,
+        44,
+        241,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top-right navigation links: INDEX, SHOWS, SHOP."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 307
+        }
+      ],
+      "region": [
+        6,
+        142,
+        758,
+        210
+      ],
+      "paths": [],
+      "instruction": "Giant heading line reading 'NOISE', bleeding off the left page edge starting 40px past it, set in giant Helvetica heavy, tight letter-spacing, hollow/outlined s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 302
+        }
+      ],
+      "region": [
+        6,
+        423,
+        626,
+        209
+      ],
+      "paths": [],
+      "instruction": "Giant heading line reading 'FEST' directly below the NOISE line, bleeding off the left page edge starting 30px past it, set in giant Helvetica heavy, tight lett"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        928,
+        795,
+        292,
+        33
+      ],
+      "paths": [],
+      "instruction": "Grey body paragraph text: 'Three nights of loud guitars in a disused tram depot. Bring earplugs.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        60,
+        832,
+        135,
+        8
+      ],
+      "paths": [],
+      "instruction": "Monospace lime date line reading '// 14—16 AUG 2027'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

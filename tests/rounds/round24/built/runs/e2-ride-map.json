@@ -1,0 +1,585 @@
+{
+  "id": "e2-ride-map",
+  "at": "2026-10-26T11:34:58.972Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9271049559234633,
+    "overallV2": 0.9271049559234633,
+    "overallV1": 0.9258508183030733,
+    "colour": 0.9984513902724477,
+    "structure": 0.9793588711287495,
+    "structureStrict": 0.977859827107247,
+    "colourAligned": 0.9984513902724477,
+    "structureAligned": 0.9793588711287495,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9808592770682557
+    },
+    "layout": 0.8318590276512112,
+    "layoutV1": 0.8318590276512112,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      2,
+      560,
+      520,
+      300,
+      220
+    ],
+    [
+      2,
+      1020,
+      40,
+      200,
+      160
+    ],
+    [
+      2,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      5,
+      480,
+      536,
+      800,
+      364
+    ],
+    [
+      2,
+      0,
+      330,
+      1280,
+      16
+    ],
+    [
+      2,
+      520,
+      0,
+      14,
+      900
+    ],
+    [
+      2,
+      880,
+      0,
+      18,
+      900
+    ],
+    [
+      2,
+      0,
+      130,
+      1280,
+      10
+    ],
+    [
+      2,
+      297,
+      5,
+      698,
+      990
+    ],
+    [
+      2,
+      440,
+      470,
+      900,
+      10
+    ],
+    [
+      2,
+      640,
+      610,
+      83,
+      18
+    ],
+    [
+      2,
+      1060,
+      100,
+      60,
+      18
+    ],
+    [
+      2,
+      960,
+      312,
+      70,
+      18
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      16,
+      540,
+      138,
+      560,
+      200
+    ],
+    [
+      1,
+      533,
+      331,
+      22,
+      22
+    ],
+    [
+      1,
+      1091,
+      129,
+      18,
+      18
+    ],
+    [
+      1,
+      757,
+      243,
+      34,
+      33
+    ],
+    [
+      1,
+      904,
+      193,
+      81,
+      20
+    ],
+    [
+      1,
+      24,
+      24,
+      400,
+      120
+    ],
+    [
+      22,
+      62,
+      40,
+      346,
+      36
+    ],
+    [
+      22,
+      40,
+      53,
+      10,
+      10
+    ],
+    [
+      22,
+      44,
+      78,
+      2,
+      12
+    ],
+    [
+      22,
+      62,
+      92,
+      346,
+      36
+    ],
+    [
+      22,
+      40,
+      105,
+      10,
+      10
+    ],
+    [
+      1,
+      24,
+      400,
+      400,
+      364
+    ],
+    [
+      28,
+      42,
+      418,
+      364,
+      30
+    ],
+    [
+      28,
+      42,
+      453,
+      364,
+      60
+    ],
+    [
+      28,
+      54,
+      465,
+      56,
+      36
+    ],
+    [
+      28,
+      124,
+      466,
+      207,
+      24
+    ],
+    [
+      28,
+      199,
+      469,
+      55,
+      14
+    ],
+    [
+      28,
+      345,
+      474,
+      49,
+      24
+    ],
+    [
+      28,
+      124,
+      486,
+      115,
+      18
+    ],
+    [
+      28,
+      54,
+      531,
+      56,
+      36
+    ],
+    [
+      28,
+      124,
+      532,
+      207,
+      24
+    ],
+    [
+      28,
+      345,
+      540,
+      49,
+      24
+    ],
+    [
+      28,
+      124,
+      552,
+      115,
+      18
+    ],
+    [
+      28,
+      54,
+      597,
+      56,
+      36
+    ],
+    [
+      28,
+      124,
+      598,
+      216,
+      24
+    ],
+    [
+      28,
+      354,
+      606,
+      40,
+      24
+    ],
+    [
+      28,
+      124,
+      618,
+      115,
+      18
+    ],
+    [
+      28,
+      42,
+      653,
+      364,
+      29
+    ],
+    [
+      28,
+      42,
+      666,
+      103,
+      21
+    ],
+    [
+      28,
+      356,
+      666,
+      50,
+      21
+    ],
+    [
+      28,
+      42,
+      694,
+      364,
+      52
+    ],
+    [
+      1,
+      1216,
+      28,
+      37,
+      81
+    ],
+    [
+      48,
+      1216,
+      28,
+      37,
+      40
+    ],
+    [
+      48,
+      1216,
+      68,
+      37,
+      1
+    ],
+    [
+      48,
+      1216,
+      69,
+      37,
+      40
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "overlap",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 64668,
+    "output": 41288,
+    "cacheRead": 456743
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 60261,
+      "output": 20975,
+      "cacheRead": 194288,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 214548
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 15220,
+      "output": 6720,
+      "cacheRead": 233173,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 84933
+    }
+  ],
+  "reading": "This is a ride-share map screen: a full-bleed map (colored park/green blocks, a blue river shape, white street bars, and a blue drawn route path) fills the page, with a location dot, a blue-outlined pin, a tilted marker, a \"4 min away\" pill, zoom +/- controls top-right, a floating search panel (origin/destination rows) top-left, and a floating ride-options panel (Standard/Comfort/Share rides with a confirm button) bottom-left. Typed notes give exact colors, sizes and copy for every part.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "A 1280x900px MAP built from 12 separately, absolutely-positioned parts (page px; not a picture, not a flat colour; overflow hidden so long rotated street bars a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Over the map, add a route drawn as exactly this inline SVG (no picture, no box, no window, no border/outline/frame/square around it, no background — only its ow"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        533,
+        331,
+        14,
+        14
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A small 22x22px near-black dot (border-radius 50%, exactly 22x22, not smaller) placed on the map at the sketched spot."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1093,
+        131,
+        14,
+        14
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A small map pin/marker, vivid blue fill with a thick white border, placed on the map at the sketched top-right spot, matching the small squarish shape drawn."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        761,
+        248,
+        27,
+        22
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A small near-black marker shape on the map, tilted 30° clockwise, matching the drawn blob's outline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        904,
+        193,
+        81,
+        20
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A near-black (#111111) pill/block on the map reading \"4 min away\" in white text (#ffffff), placed at the sketched spot."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        27,
+        393,
+        114
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A floating search panel: one 400x120px panel at 24,24, #ffffff fill, 14px rounded corners, box-shadow rgba(0,0,0,0.13) 0px 8px 24px 0px (floats over the map), c"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        403,
+        394,
+        358
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A floating ride-options panel: one 400x364px panel at 24,400, #ffffff fill, 16px rounded corners, box-shadow rgba(0,0,0,0.13) 0px 8px 24px 0px (floats over the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1216,
+        28,
+        37,
+        81
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Map zoom controls: a white vertical rounded block top-right, stacked with a \"+\" button and a \"−\" text button, matching the drawn tall rounded rectangle's positi"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

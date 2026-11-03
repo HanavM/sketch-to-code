@@ -1,0 +1,655 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "8e0c2eb8d65bc643c3495c13f667d8a9adb91543",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Honeycomb.tsx"
+  ],
+  "reading": "The sketch is a honey-brand landing page hero: a logo and nav in the header, a bold serif headline and supporting paragraph with a 'Buy a jar' button on the left, a honeycomb illustration of colored hexagons on the right, and a solid orange footer bar at the bottom, all on a cream page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Honey Co.\" at (72,46) 78x23 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:17:9",
+      "rect": {
+       "x": 72,
+       "y": 44,
+       "w": 78.390625,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#44220a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Shop\" at (1060,47) 34x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:22:13",
+      "rect": {
+       "x": 1060.390625,
+       "y": 45.5,
+       "w": 34.234375,
+       "h": 25
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#44220a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (72,136) 458x156 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:36:11",
+      "rect": {
+       "x": 72,
+       "y": 136,
+       "w": 458.4375,
+       "h": 156
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#44220a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (72,463) 412x8 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:6:7",
+      "rect": {
+       "x": 72,
+       "y": 463,
+       "w": 412,
+       "h": 8
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#7a4a1f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (72,577) 222x61 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:44:11",
+      "rect": {
+       "x": 72,
+       "y": 577,
+       "w": 222,
+       "h": 61
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 71,
+        "y": 580,
+        "w": 222,
+        "h": 61
+       },
+       "built": {
+        "x": 72,
+        "y": 577,
+        "w": 222,
+        "h": 61
+       },
+       "dx": 1,
+       "dy": -3
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#44220a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<svg> src/components/Honeycomb.tsx:21:5 at (646,136) 562x538 sits on the drawn shape",
+     "claimed": "e17"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": false,
+    "nearest": 62.2,
+    "reason": "nothing near the drawing is the colour that was drawn (#f39c0e); closest is ΔE 62.2 away"
+   },
+   {
+    "kind": "composition",
+    "index": 5,
+    "score": 0,
+    "massSimilarity": 0,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "no drawn geometry found in the generated source"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <footer> at (0,843) 1280x57 matches the sketch region",
+     "bestCandidate": {
+      "tag": "footer",
+      "srcLoc": "src/App.tsx:54:7",
+      "rect": {
+       "x": 0,
+       "y": 843,
+       "w": 1280,
+       "h": 57
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 1,
+        "y": 841,
+        "w": 1277,
+        "h": 57
+       },
+       "built": {
+        "x": 0,
+        "y": 843,
+        "w": 1280,
+        "h": 57
+       },
+       "dx": 1,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f39c0e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 of 4 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 2,
+       "drawn": 239,
+       "built": 332,
+       "dy": 93
+      },
+      {
+       "index": 3,
+       "drawn": 462,
+       "built": 332,
+       "dy": -130
+      },
+      {
+       "index": 4,
+       "drawn": 580,
+       "built": 577,
+       "dy": -3
+      },
+      {
+       "index": 6,
+       "drawn": 841,
+       "built": 843,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 5: the outline drawn at (660,150) 181x207 was coloured #f39c0e (fill); nothing that size was built there carrying a colour: paint the block itself exactly #f39c0e; action 5: the outline drawn at (849,150) 181x208 was coloured #fbbf24 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fbbf24; action 5: the outline drawn at (1040,150) 181x209 was coloured #db7706 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #db7706; action 5: the outline drawn at (755,315) 181x208 was coloured #fcd34d (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fcd34d; action 5: the outline drawn at (944,315) 181x208 was coloured #b5530b (fill); nothing that size was built there carrying a colour: paint the block itself exactly #b5530b; action 5: the outline drawn at (659,480) 181x208 was coloured #fbbf24 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fbbf24; action 5: the outline drawn at (850,480) 181x208 was coloured #f39c0e (fill); nothing that size was built there carrying a colour: paint the block itself exactly #f39c0e; action 5: the outline drawn at (1040,480) 181x208 was coloured #fce588 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fce588",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#fdf1c4",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,44) 103x0",
+       "want": "#44220a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1040,44) 168x0",
+       "want": "#44220a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,240) 368x0",
+       "want": "#44220a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,318) 500x0",
+       "want": "#44220a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,463) 412x0 (bar)",
+       "want": "#7a4a1f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,492) 196x0 (bar)",
+       "want": "#7a4a1f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (71,580) 222x61",
+       "want": "#44220a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (660,150) 181x207",
+       "want": "#f39c0e",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (849,150) 181x208",
+       "want": "#fbbf24",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (1040,150) 181x209",
+       "want": "#db7706",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (755,315) 181x208",
+       "want": "#fcd34d",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (944,315) 181x208",
+       "want": "#b5530b",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (659,480) 181x208",
+       "want": "#fbbf24",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (850,480) 181x208",
+       "want": "#f39c0e",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (1040,480) 181x208",
+       "want": "#fce588",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (1,841) 1277x57",
+       "want": "#f39c0e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 95170,
+   "cacheRead": 682392,
+   "output": 23049
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 49924,
+    "output": 12453,
+    "cacheRead": 167768,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read components/Honeycomb.tsx",
+     "Edit components/Honeycomb.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 133906
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 55619,
+    "output": 6024,
+    "cacheRead": 209417,
+    "toolCalls": 4,
+    "tools": [
+     "Read components/Honeycomb.tsx",
+     "Edit components/Honeycomb.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 64310
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 12676,
+    "output": 4572,
+    "cacheRead": 305207,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit components/Honeycomb.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 50585
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "06d37f330cce90ac5a9a27823188c0580d3f8177",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Honeycomb.tsx"
+  ],
+  "reading": "Two typed notes with no accompanying ink: one says each hexagon in the honeycomb graphic should be filled with its own pen colour, the other says the subtitle text belongs in this hero block and the two bar/underline divs beneath it should be removed.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 1,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 16→14"
+     },
+     {
+      "index": 2,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 16→14"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 3,
+    "total": 4,
+    "score": 0.75
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 39773,
+   "cacheRead": 546388,
+   "output": 18999
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 14417,
+    "output": 4017,
+    "cacheRead": 141804,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Grep",
+     "Read components/Honeycomb.tsx",
+     "Edit components/Honeycomb.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 43577
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 26185,
+    "output": 7045,
+    "cacheRead": 117780,
+    "toolCalls": 3,
+    "tools": [
+     "Read components/Honeycomb.tsx",
+     "Edit components/Honeycomb.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 86429
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 18170,
+    "output": 7937,
+    "cacheRead": 286804,
+    "toolCalls": 6,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/Honeycomb.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Glob",
+     "Edit components/Honeycomb.tsx"
+    ],
+    "ms": 85219
+   }
+  ],
+  "codemod": {
+   "handled": [
+    1
+   ],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

@@ -1,0 +1,127 @@
+{
+  "id": "e4-checkout",
+  "at": "2026-10-22T07:04:01.833Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5444255195380799,
+    "overallV2": 0.33764514635945553,
+    "overallV1": 0.22388831348061952,
+    "colour": 0.9565856079527337,
+    "structure": 0.7680922351004457,
+    "structureStrict": 0.6183865190530653,
+    "colourAligned": 0.9790999183596715,
+    "structureAligned": 0.8495628148301936,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -48,
+      "r": 0.9258775086484952
+    },
+    "layout": 0.3752884859897339
+  },
+  "effects": null,
+  "tokens": {
+    "input": 48800,
+    "output": 27521,
+    "cacheRead": 110642
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 62275,
+      "output": 21571,
+      "cacheRead": 82371,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 254388
+    }
+  ],
+  "reading": "A checkout-style page: a small logo text top-left, a step-progress row beneath it, a large form area (contact, shipping address, delivery options) in a left column, a full-width button under the form, and a full-height right side panel for an order summary with item rows and totals.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        41,
+        107,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small header text reading \"Field & Co.\" styled as a logo/wordmark, Helvetica, near-black, top-left of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        100,
+        388,
+        9
+      ],
+      "paths": [],
+      "instruction": "Checkout progress-steps row, each pair joined by a short 40px 2px-thin light grey connecting line: Cart (checkmark, green, completed), Shipping (bold near-black"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        153,
+        634,
+        525
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Large checkout form placed directly on the page (no surrounding card, panel or border), containing in order: bold heading Contact; Email label above a white bor"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        82,
+        791,
+        635,
+        54
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Full-width near-black button with white text reading Continue to payment, placed directly below the form."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        803,
+        3,
+        474,
+        894
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Full-height off-white side panel, 480px wide, flush to the right edge of the page, single flat colour with no gradient and a thin light grey line down its left "
+    }
+  ],
+  "rejected": []
+}

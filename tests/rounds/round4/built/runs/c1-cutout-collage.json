@@ -1,0 +1,245 @@
+{
+  "id": "c1-cutout-collage",
+  "at": "2026-10-22T01:13:08.725Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.819902491188594,
+    "overallV2": 0.819902491188594,
+    "overallV1": 0.6947268036261718,
+    "colour": 0.9345983403947654,
+    "structure": 0.9389528134796439,
+    "structureStrict": 0.7532042909656326,
+    "colourAligned": 0.9345983403947654,
+    "structureAligned": 0.9389528134796439,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9034185580660513
+    },
+    "layout": 0.7969184220568599
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "blend",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient",
+      "hard-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 54997,
+    "output": 26344,
+    "cacheRead": 557981
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 63656,
+      "output": 19415,
+      "cacheRead": 533451,
+      "toolCalls": 21,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read src/main.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 218509
+    }
+  ],
+  "reading": "A hero section sketch: a tilted gradient color block with a smaller yellow block overlapping its corner, an orange angled cut-out shape and a lime arch near it, a large italic headline and a smaller paragraph of body copy, a red circular 'Issue 07 out now' badge, a nav bar label line, and a 'Subscribe — $28/yr' button, all under a page-wide cream/Georgia/near-black styling note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        39,
+        1160,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar with no box around it: bold wide-spaced 'PAPER ROOM' on the left and 'ISSUES · SHOP · ABOUT' on the right."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        502,
+        97,
+        366,
+        446
+      ],
+      "paths": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Large rectangular hero block, tilted 6° anticlockwise, filled with a vivid blue (top) to dark navy (bottom) gradient, with a hard near-black drop shadow at 18% "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        788,
+        235,
+        384,
+        330
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Angled cut-out shape, tilted 5° clockwise, filled vivid orange, placed overlapping the gradient hero block as a decorative accent."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        693,
+        553,
+        274,
+        253
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Arch shape (rounded top, flat bottom), tilted 3° anticlockwise, filled vivid lime green, as a decorative shape near the hero graphic."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        612,
+        79,
+        136,
+        61
+      ],
+      "paths": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "instruction": "Small rectangular block, tilted 14° anticlockwise, filled soft yellow, positioned overlapping the upper-left corner of the gradient hero block and layered on to"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 123
+        }
+      ],
+      "region": [
+        64,
+        200,
+        684,
+        405
+      ],
+      "paths": [],
+      "instruction": "Giant italic Georgia serif headline set tight (line-height 0.9), rendered with an ink-like multiply blend so it darkens whatever it overlaps rather than coverin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        64,
+        560,
+        372,
+        60
+      ],
+      "paths": [],
+      "instruction": "Dark grey paragraph text below the headline: 'A quarterly magazine of glue, scissors and stubborn ideas, printed on paper you can smell.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1030,
+        110,
+        170,
+        170
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Circular badge, tilted 12° clockwise, filled vivid red, with the text 'Issue 07 out now' inside it."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        721,
+        202,
+        51
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Rounded-rect button, near-black fill with cream text, labeled 'Subscribe — $28/yr'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

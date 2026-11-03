@@ -1,0 +1,139 @@
+{
+  "id": "e3-design-editor",
+  "at": "2026-10-24T12:58:10.215Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8814439046398574,
+    "overallV2": 0.8814439046398574,
+    "overallV1": 0.8208076796461978,
+    "colour": 0.9908699395497431,
+    "structure": 0.9261195047295333,
+    "structureStrict": 0.8542842502448867,
+    "colourAligned": 0.9908699395497431,
+    "structureAligned": 0.9261195047295333,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9860783594353139
+    },
+    "layout": 0.8932505890512301
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "gradient",
+      "soft-shadow"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 35880,
+    "output": 26270,
+    "cacheRead": 126931
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52952,
+      "output": 21271,
+      "cacheRead": 123847,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 215491
+    }
+  ],
+  "reading": "The sketch recreates a design-tool (Figma-like) screen: a dark top toolbar with breadcrumb text and a Share button, a left Layers/Assets panel with a list of rows, a main canvas showing a mobile onboarding screen mockup (hero image, title, body copy, a \"Get started\" button with a blue selection outline and size badge, a percent-zoom chip, a small purple \"K\" avatar), and a right-hand Inspector panel with Frame/Auto layout/Fill/Stroke/Effects/Export sections, all per the user's typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        42
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top toolbar spanning the full width: dark grey bar background, white text reading \"Drafts / Onboarding v3\", followed by a bright sky-blue button with white text"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        51,
+        234,
+        845
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Left sidebar panel, white background, headed \"Layers  Assets\". Below that a list: \"◇ Button / primary\", then rows \"▾\", \"# Status bar\", \"▣ Hero image\", \"T Title\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        51,
+        754,
+        846
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Main canvas area containing a mobile onboarding mockup frame, drawn with a bright sky-blue selection border around the frame and around the selected button elem"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        844,
+        292,
+        25,
+        26
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Small circular avatar near the top right of the canvas frame: vivid purple fill with the letter \"K\" centered, text color #ffffff (white, not the page's default "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1003,
+        51,
+        274,
+        845
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Right-hand white inspector panel, 280x852px, with 6 sections top to bottom, each a small bold caps heading followed by its fields. Every field is a filled #f5f5"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

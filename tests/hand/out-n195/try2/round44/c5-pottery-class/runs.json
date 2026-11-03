@@ -1,0 +1,507 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "9a9471d2cdf647af34910660e34e61b309a93c46",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/ClayPot.tsx"
+  ],
+  "reading": "A cream-background landing page for a pottery studio: a logo and nav at top, a large hero graphic of a cream pot on an orange-brown background on the left, and on the right a bold headline, body copy, a 'Book a seat' button, and three class-listing rows (Tuesday evenings $240, Saturday mornings $240, Open studio $25) separated by thin dividers.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Kiln & Co\" at (80,23) 100x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:7:9",
+      "rect": {
+       "x": 80,
+       "y": 22,
+       "w": 99.953125,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Classes\" at (975,28) 56x19 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:9:11",
+      "rect": {
+       "x": 974.625,
+       "y": 26.75,
+       "w": 55.515625,
+       "h": 22.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x909 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 909
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<svg> src/components/ClayPot.tsx:10:5 at (0,86) 620x823 sits on the drawn shape",
+     "claimed": "e11"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#c46b45 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 2,
+    "score": 0.7106889105396167,
+    "massSimilarity": 0.7295555864851668,
+    "flaws": [
+     "traced"
+    ],
+    "notes": [
+     "the output traces the ink (3.99 direction changes per unit length; a rebuilt form sits near 2.11 or below) — redraw it with smooth continuous curves instead of emitting the fitted stroke paths"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (700,261) 500x172 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:21:11",
+      "rect": {
+       "x": 700,
+       "y": 261.25,
+       "w": 500,
+       "h": 172
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Get your hands inthe clay\" at (700,258) 479x130 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:22:13",
+      "rect": {
+       "x": 700,
+       "y": 261.25,
+       "w": 500,
+       "h": 124
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <ellipse> at (202,616) 216x30 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "ellipse",
+      "srcLoc": "src/components/ClayPot.tsx:19:7",
+      "rect": {
+       "x": 201.5,
+       "y": 616,
+       "w": 216,
+       "h": 30
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (700,479) 201x55: the <button> built for it sits 14px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The line drawn at y=384 is itself built 49px too low (its bottom at y=433): that part of the drift is above the line (the heading's size or margin, the tab bar's padding or height): take 49px there. The other 63px is in the gap under the line (drawn 95px, built 32px): add it to the list's top margin or the first row's padding. Never push anything further up; no negative margins or relative offsets.",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 700,
+        "y": 479,
+        "w": 201,
+        "h": 55
+       },
+       "built": {
+        "x": 700,
+        "y": 465.25,
+        "w": 201,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": -14
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <ul> at (700,568) 480x166 matches the sketch region",
+     "bestCandidate": {
+      "tag": "ul",
+      "srcLoc": "src/App.tsx:36:11",
+      "rect": {
+       "x": 700,
+       "y": 568.25,
+       "w": 480,
+       "h": 165.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 of 5 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 1,
+       "drawn": 38,
+       "built": 38,
+       "dy": 0
+      },
+      {
+       "index": 3,
+       "drawn": 221,
+       "built": 261,
+       "dy": 40
+      },
+      {
+       "index": 4,
+       "drawn": 384,
+       "built": 421,
+       "dy": 37
+      },
+      {
+       "index": 5,
+       "drawn": 479,
+       "built": 465,
+       "dy": -14
+      },
+      {
+       "index": 6,
+       "drawn": 622,
+       "built": 624,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 rows of words within their drawn line"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 table rows at body size"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the outline drawn at (191,330) 239x278 was coloured #efe0d0 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #efe0d0",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#faf3ea",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (80,38) 94x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (980,38) 220x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (1,75) 620x823",
+       "want": "#c46b45",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (191,330) 239x278",
+       "want": "#efe0d0",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (700,252) 476x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,314) 208x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,384) 344x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (700,479) 201x55 (pen outline, said)",
+       "want": "border #3a2a20, no #3a2a20 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,623) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,671) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,718) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 74089,
+   "cacheRead": 421640,
+   "output": 30738
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 50627,
+    "output": 19871,
+    "cacheRead": 185483,
+    "toolCalls": 9,
+    "tools": [
+     "Read components/ClayPot.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/main.tsx",
+     "Read src/index.css",
+     "Glob",
+     "Read s2c-hand-app/package.json",
+     "Edit components/ClayPot.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 230883
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 35409,
+    "output": 1807,
+    "cacheRead": 69269,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit components/ClayPot.tsx"
+    ],
+    "ms": 15906
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 18791,
+    "output": 9060,
+    "cacheRead": 166888,
+    "toolCalls": 2,
+    "tools": [
+     "Edit components/ClayPot.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 110517
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

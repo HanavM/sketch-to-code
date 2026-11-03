@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Jazz cutout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#efe4cc;font-family:Helvetica,Arial,sans-serif;color:#141210}
+.paper{position:absolute;left:0;top:0;width:1280px;height:900px;background-image:repeating-linear-gradient(0deg,#0000 0 3px,#00000008 3px 4px)}
+.nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;gap:30px;font:700 13px Helvetica;letter-spacing:3px;text-transform:uppercase}.nav b{margin-right:auto;font:italic 900 22px Georgia,serif;letter-spacing:0}
+.sax{position:absolute;left:520px;top:90px;width:420px;height:620px;background:#141210;clip-path:polygon(38% 0,62% 0,58% 52%,86% 70%,100% 92%,72% 100%,44% 86%,30% 60%)}
+.arm{position:absolute;left:700px;top:180px;width:360px;height:120px;background:#d6452b;clip-path:polygon(0 30%,100% 0,92% 100%,6% 72%);mix-blend-mode:multiply}
+.moon{position:absolute;left:880px;top:420px;width:300px;height:300px;border-radius:50%;background:#e8a720;mix-blend-mode:multiply}
+.note{position:absolute;width:56px;height:40px;border-radius:50%;background:#141210;transform:rotate(-24deg)}.note::after{content:"";position:absolute;right:2px;bottom:20px;width:6px;height:110px;background:#141210}
+.big{position:absolute;left:52px;top:120px;font:900 210px/0.8 Impact,"Arial Narrow",sans-serif;letter-spacing:-6px;color:#141210}
+.big span{display:block;color:transparent;-webkit-text-stroke:3px #d6452b}
+.vert{position:absolute;left:1180px;top:110px;writing-mode:vertical-rl;font:700 14px Helvetica;letter-spacing:8px;text-transform:uppercase}
+.bars{position:absolute;left:56px;top:640px;width:430px;height:60px;background:repeating-linear-gradient(90deg,#141210 0 6px,#0000 6px 14px,#141210 14px 18px,#0000 18px 30px)}
+.lineup{position:absolute;left:56px;top:724px;width:430px;font:400 17px/1.6 Georgia,serif}.lineup b{font-family:Helvetica;font-weight:900;letter-spacing:2px;text-transform:uppercase;font-size:14px;display:inline-block;width:96px}
+.stamp{position:absolute;left:560px;top:740px;width:150px;height:150px;border-radius:50%;border:3px solid #141210;transform:rotate(-14deg);display:flex;align-items:center;justify-content:center;text-align:center;font:900 26px/0.95 Impact,sans-serif}
+.stamp::before{content:"";position:absolute;inset:8px;border-radius:50%;border:1px dashed #141210}
+.buy{position:absolute;left:880px;top:790px;padding:18px 32px;background:#141210;color:#efe4cc;font:900 18px Impact,sans-serif;letter-spacing:4px;box-shadow:8px 8px 0 #d6452b}
+.date{position:absolute;left:880px;top:744px;font:italic 400 28px Georgia,serif}
+</style></head><body>
+<div class="paper" data-r="paper-lines"></div>
+<div class="nav" data-r="nav"><b>Blue Hour</b><span>Lineup</span><span>Tickets</span><span>Club</span></div>
+<div class="moon" data-r="moon-circle" data-must></div>
+<div class="sax" data-r="cutout-figure" data-must></div>
+<div class="arm" data-r="cutout-arm"></div>
+<i class="note" data-r="note-1" style="left:980px;top:150px"></i><i class="note" data-r="note-2" style="left:1060px;top:240px;transform:rotate(-10deg)"></i>
+<h1 class="big" data-r="headline" data-must>LATE<span>SETS</span>JAZZ</h1>
+<div class="vert" data-r="vertical-label">Season 28 · Fridays</div>
+<div class="bars" data-r="barcode-bars"></div>
+<p class="lineup" data-r="lineup"><b>Nov 06</b>Mara Okafor Trio<br><b>Nov 13</b>The Low Brass Club<br><b>Nov 20</b>Ines Duarte, solo piano</p>
+<div class="stamp" data-r="round-stamp" data-must>SOLD<br>OUT<br>×2</div>
+<div class="date" data-r="date-line">Doors at 21:00</div>
+<div class="buy" data-r="cta" data-must>BOOK A TABLE</div>
+</body></html>

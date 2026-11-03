@@ -8,14 +8,20 @@
  * ("Models never decide where" survives; "models never see the drawing
  * whole" — the v1 mistake — does not.)
  */
+import { narrowDelete } from './narrowdelete.js'
 import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
-  type BBox, type Stroke,
+  isFillDot, inkFills, pageFill, flatPage, markFill, splitRegions, splitCss, tapBands,
+  type BBox, type InkFill, type SliceChart, type SplitRegion, type Stroke,
 } from '@s2c/ink'
+import { asksFade, typedSlices } from './slicechart.js'
 import { nearestSourced, type DomNode, type DomSnapshot } from '@s2c/dom'
-import { appPalette, matchColor, type ColorMatch } from './palette.js'
-import { isTextMark } from './textmark.js'
+import { appPalette, matchColor, deltaE, parseCssColor, type ColorMatch } from './palette.js'
+import { areaWordInk, holdsBoxes, linesOnlyBox, inkDarkOutline, inkTaughtOutline, inkGreyOutline, inkLightOutline, inkOutlineBox, inkPenOutline, inkSmallRing, penFrameBox, selectedChip, surfaceBehind } from './inkcolour.js'
+import { isTextMark, textStacks, type TextStack } from './textmark.js'
+import { shapeOf, cleanPath, type ShapeMark } from './shapemark.js'
+import { outlineMark, slantedQuad } from './outline.js'
 import { findInsertSlot, type InsertSlot } from './insert-slot.js'
 
 // ---------- model-facing output schema ----------
@@ -98,8 +104,8 @@ export interface TypedNote {
   at: { x: number; y: number }
   anchor:
     | { kind: 'element'; srcLoc: string }
-    | { kind: 'strokes'; strokeIds: string[] }
-    | { kind: 'run' }
+    | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
+    | { kind: 'run'; placed?: boolean }
   /** Elements named inside `text` by token. Usually empty. */
   refs?: NoteRef[]
 }
@@ -113,11 +119,22 @@ export interface ResolvedNote {
   elementId?: string
   strokeIds?: string[]
   /**
+   * The strokes in `strokeIds` right where the note was typed, when that is
+   * fewer than all of them. A note's cluster chains every stroke drawn close
+   * in space and time, so a headline, its subtitle and a button can share one;
+   * "huge serif headline" is about the headline only. Absent = all of them.
+   */
+  focus?: string[]
+  /**
    * Tokens in `text`, each already resolved to a menu id the model can target.
    * A ref whose element is gone keeps its label and loses its id, so the
    * sentence still reads — the words are never dropped for a stale stamp.
    */
   refs?: Array<{ token: string; elementId?: string; label: string }>
+  /** n21: where the note was typed, page px (a note typed low in a card is copy that sits low). */
+  at?: { x: number; y: number }
+  /** n29: typed in empty space with nothing drawn near: its words (if copy) are built where typed. */
+  placed?: boolean
 }
 
 export interface RawInterpretation {
@@ -163,7 +180,11 @@ export function interpretationSchema(mode: 'gesture' | 'design'): Record<string,
 export const INTERPRETATION_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['reading', 'unclear', 'actions'],
+  // n41 (2026-10-21): 'unclear' is NOT required. Traced failing readings: the
+  // model often drops a null 'unclear' (or its tool-call markup swallows it
+  // into 'reading'), every retry was rejected for that one empty field, and the
+  // reading died at max turns with a good answer in hand.
+  required: ['reading', 'actions'],
   properties: {
     reading: { type: 'string' },
     unclear: nullable({ type: 'string' }),
@@ -202,6 +223,10 @@ export interface Evidence {
   strokes: Map<string, Stroke>
   /** Typed notes, anchored to ids (never to coordinates from the model). */
   notes: ResolvedNote[]
+  /** n10: coloured taps and what each fills (a mark, or the page). */
+  fills?: InkFill[]
+  /** n51: curves drawn across a box (or the page) from edge to edge, and the side each cuts off. */
+  cuts?: SplitRegion[]
 }
 
 const MENU_CAP = 70
@@ -217,8 +242,11 @@ export function resolveNotes(
   notes: TypedNote[],
   snap: DomSnapshot,
   strokeIds: Set<string>,
+  strokes: Stroke[] = [],
 ): ResolvedNote[] {
   const out: ResolvedNote[] = []
+  // n44: where every note on the sketch was typed, so a bare line (no note on it) is known
+  const stackOpts = { notesAt: notesOnSketch(notes) }
   for (const n of notes) {
     const text = typeof n.text === 'string' ? n.text.trim() : ''
     if (!text) continue
@@ -252,23 +280,85 @@ export function resolveNotes(
     }
     if (anchor?.kind === 'strokes') {
       const ids = (anchor.strokeIds ?? []).filter((id) => strokeIds.has(id))
+      const focus = noteFocus(ids, anchor.focus, n.at, strokes, text, stackOpts)
+      // n246: a sentence typed beside a box stays beside it, text at that spot, never the box's words
+      if (ids.length && n.at && !anchor.focus?.length && besideSentence(text, n.at, strokes.filter((st) => (focus ?? ids).includes(st.id)).map((st) => bboxOf(st.points)))) {
+        out.push({ id: n.id, text, scope: 'run', placed: true, at: { x: n.at.x, y: n.at.y }, ...withRefs })
+        continue
+      }
       out.push(ids.length
-        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...withRefs }
+        ? { id: n.id, text, scope: 'strokes', strokeIds: ids, ...(focus ? { focus } : {}), ...withRefs, ...(n.at ? { at: { x: n.at.x, y: n.at.y } } : {}) }
         : { id: n.id, text, scope: 'run', ...withRefs })
       continue
     }
-    out.push({ id: n.id, text, scope: 'run', ...withRefs })
+    const placed = anchor?.kind === 'run' && anchor.placed === true && n.at && Number.isFinite(n.at.x) && Number.isFinite(n.at.y)
+    out.push(placed
+      ? { id: n.id, text, scope: 'run', placed: true, at: { x: n.at.x, y: n.at.y }, ...withRefs }
+      : { id: n.id, text, scope: 'run', ...withRefs })
   }
   return out
 }
 
-const distToRect = (p: { x: number; y: number }, r: BBox): number => {
-  const dx = Math.max(r.x - p.x, 0, p.x - (r.x + r.w))
-  const dy = Math.max(r.y - p.y, 0, p.y - (r.y + r.h))
-  return Math.hypot(dx, dy)
+/**
+ * n44: the spots notes were typed on the sketch: notes on marks and notes placed in empty space
+ * (a whole-sketch note sits nowhere). The overlay reads the same set (main.ts notesOnSketch).
+ */
+export function notesOnSketch(notes: Array<{ text?: string; at?: { x: number; y: number }; anchor?: TypedNote['anchor'] }>): Array<{ x: number; y: number; text: string }> {
+  return notes
+    .filter((n) => n.at && Number.isFinite(n.at.x) && Number.isFinite(n.at.y) && (n.text ?? '').trim() &&
+      (n.anchor?.kind === 'strokes' || (n.anchor?.kind === 'run' && n.anchor.placed === true)))
+    .map((n) => ({ x: n.at!.x, y: n.at!.y, text: n.text ?? '' }))
 }
 
-export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: TypedNote[] = []): Evidence {
+/**
+ * Is this typed note about the look of the whole page rather than one block?
+ * It names the page itself (page, site, background, paper, theme, "whole"/
+ * "overall"/"everywhere") — "bright yellow page", "near-black page with faint
+ * purple grid lines", "magazine on warm paper". Words like "sidebar" or "panel"
+ * alone never count: those are blocks.
+ */
+export function isPageLookNote(text: string): boolean {
+  // "bleeding off the page edge", "across the page", "top of the page" say
+  // WHERE a block sits, not how the page looks. Round 2 (c2, c5): the hollow
+  // "NOISE" headline and a striped band were sent as page-look notes, which
+  // tells codegen to style the page root with hollow type and stripes.
+  const t = text.replace(
+    /\b(off|past|beyond|over|across|along|down|up|around|to|at|from|on|of|out of|outside|over the edge of)\s+(the\s+)?(page|site|screen|viewport)('s)?(\s+(edges?|sides?|bottom|top|corners?))?\b/gi,
+    ' ',
+  ).replace(/\b(page|screen|viewport)\s+(edges?|sides?|corners?|bottom|top)\b/gi, ' ')
+    .replace(/\b(in|into|behind)\s+the\s+background\b/gi, ' ')
+  return /\b(page|pages|site|website|background|backdrop|bg|paper|theme|whole|overall|everywhere)\b/i.test(t)
+}
+
+import { isAreaNote, markAreasAndEdges, markCards } from './areas.js'
+import { markStats, statOf } from './statcard.js'
+import { slantOf, slantThickness } from './slantline.js'
+import { colouredPen, outlineRingPen, outlineRingThickness, pageRingsOutlined, pageRingThickness, ringNoted, ringShare, ringThickness, trackColour } from './hollowring.js'
+import { markSolids, markTappedSolids, solidOf, tapSolidsAllowed } from './solids.js'
+import { glyphOf, markEach, markGlyphs } from './each.js'
+import { linkSame, listUnderHeading, markTextPlaces } from './textplace.js'
+import { markSideLists } from './sidelist.js'
+import { markCardRows } from './cardrows.js'
+import { alignListHeadings, markOpenRows } from './openrows.js'
+import { markTableRows } from './tablerows.js'
+import { markRuleLabels, paleOn, markPaleDividers } from './ruleline.js'
+import { routeLines } from './routeline.js'
+import { markRowWords } from './rowwords.js'
+import { markUnderWords } from './underbox.js'
+import { bindTiltNotes } from './tiltwords.js'
+import { markOutlined } from './textlook.js'
+import { proseLineIds } from './barlabels.js'
+export { noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX } from '@s2c/ink'
+import { besideSentence, noteFocus, distToRect, bboxUnionAll as union } from '@s2c/ink'
+
+export function buildEvidence(allStrokes: Stroke[], snap: DomSnapshot, notes: TypedNote[] = []): Evidence {
+  // n10: a coloured tap is a fill, not a mark: it never reaches the reading as
+  // a stroke (it would be a dot on whatever it sits on); what it fills is
+  // decided from the ink here and handed over as colour
+  const fills = inkFills(allStrokes, snap.viewport)
+  // n51: a curve drawn across a box from edge to edge cuts off a shape (a wave, a hill)
+  const cuts = splitRegions(allStrokes, snap.viewport)
+  const strokes = allStrokes.filter((s) => !isFillDot(s))
   let inkBox: BBox | null = null
   for (const s of strokes) {
     if (s.points.length === 0) continue
@@ -309,7 +399,7 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
    * So the anchors and the tokens are pinned into the menu first, and the
    * distance ranking fills what is left.
    */
-  const resolvedForMenu = resolveNotes(notes, snap, new Set(strokes.map((st) => st.id)))
+  const resolvedForMenu = resolveNotes(notes, snap, new Set(strokes.map((st) => st.id)), strokes)
   const pinnedIds = new Set<string>()
   for (const n of resolvedForMenu) {
     if (n.elementId) pinnedIds.add(n.elementId)
@@ -408,6 +498,8 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
         ? { x: Math.round(inkBox.x), y: Math.round(inkBox.y), w: Math.round(inkBox.w), h: Math.round(inkBox.h) }
         : null,
       strokes: strokeList,
+      // n10: what the user coloured in by tapping with a colour picked
+      ...(fills.length ? { colourFills: fills.map((f) => ({ fills: f.target ?? 'whole page', color: f.color })) } : {}),
       typedNotes: resolved.length ? resolved : undefined,
       elementMenu: menu.map((n) => ({
         id: n.id,
@@ -430,7 +522,7 @@ export function buildEvidence(strokes: Stroke[], snap: DomSnapshot, notes: Typed
     maxSize: 1100,
     underlayRects: menu.map((n) => n.rect),
   })
-  return { png: encodePng(raster), brief, elements, strokes: strokeMap, notes: resolved }
+  return { png: encodePng(raster), brief, elements, strokes: strokeMap, notes: resolved, fills, ...(cuts.length ? { cuts } : {}) }
 }
 
 export const DESIGN_INTERPRET_PROMPT = `
@@ -473,7 +565,10 @@ thickness tell you heading versus body, not whether it is decoration. Only call 
 curve DECORATION when it is doing a decorative job — a divider, a background
 band, a blob behind content — and never when it sits in a text slot.
 
-Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs,
+Read the drawing AS A WHOLE as a design: boxes = containers/cards/inputs
+(a plain box is NEVER an image: only a box with an X through it, or a note
+saying picture/photo/image, is one; an empty box beside the main column is a
+sidebar or panel with short plausible content),
 labeled rounded rects = buttons, squiggly lines = text placeholders,
 scribble/hatching between or inside boundary lines = a FILLED/shaded region
 (say so in the instruction — it is fill, not strokes), circles
@@ -488,11 +583,22 @@ background-overlay when a decoration sweeps across existing elements).
 TYPED NOTES outrank your reading of the ink. When the JSON carries
 "typedNotes", each is the user's own words, typed while sketching, already
 anchored for you: scope "element" names an element id, scope "strokes" names
-stroke ids, scope "run" applies to the whole drawing. They are exact — no
+stroke ids, scope "run" applies to the whole drawing. A strokes note may also
+carry "focus": the strokes right where it was typed. Its "strokeIds" are the
+whole nearby drawing, which can hold several things (a headline, a sentence
+and a button drawn close together); the note is about its focus strokes only,
+and the others get their own actions. They are exact — no
 transcription, no guesswork — so where a note and your reading of a gesture
 disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
 would otherwise read as decoration becomes whatever the note says it is.
+
+On a page already built, a short note leads with what it is about, whatever
+element it happens to sit on. "hub gold" typed on a clock face is about the
+hub: say so in the instruction ("the hub, the small centre part, gold; the face
+keeps its colour"), and never call the bigger element by the small part's name.
+A plural is every one: "tracks thick black" typed beside one track is about all
+the tracks on the page, so the instruction says all of them, and which.
 
 A note's "refs" are elements the SENTENCE names, as against the one element it
 is about. Each ref gives a token exactly as it appears in the text ("@1"), the
@@ -510,6 +616,11 @@ A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
 That colour is an instruction about the result ("make this red"), not a
 description of the ink; say so in the instruction. Never invent a colour for
 ink that has no drawnColor.
+"colourFills" are taps the user made with a colour picked: each colours in the
+stroke it names (that block's background is that colour) or the whole page
+(several page taps = a gradient from the first towards the last). Each one is
+exact and is handed to the build as is: never contradict it in words, and do
+not cite the taps (they are not strokes).
 
 Rules for your answer:
 - Only 'add' and 'design' actions exist in this mode.
@@ -517,7 +628,13 @@ Rules for your answer:
   'destElement' takes a DOM element id (the container); stroke ids go in
   'strokes' ONLY.
 - Prefer ONE composite action per coherent drawing.
+- A note that lists many quoted items (columns, events, cards, bubbles, list
+  rows) describes the CONTENT of the one block its focus strokes drew: it is
+  never one action, or one mark, per item.
 - reading: 1-2 plain sentences. Note real ambiguity in 'unclear'.
+- Answer with ONE object whose top-level keys are exactly "reading",
+  "unclear" and "actions" (actions is the array). Never wrap the answer in
+  another key such as {"actions": {...}}.
 `.trim()
 
 export const INTERPRET_PROMPT = `
@@ -558,7 +675,11 @@ handwriting = instructions or labels — transcribe it into the instruction.
 TYPED NOTES outrank your reading of the ink. When the JSON carries
 "typedNotes", each is the user's own words, typed while sketching, already
 anchored for you: scope "element" names an element id, scope "strokes" names
-stroke ids, scope "run" applies to the whole drawing. They are exact — no
+stroke ids, scope "run" applies to the whole drawing. A strokes note may also
+carry "focus": the strokes right where it was typed. Its "strokeIds" are the
+whole nearby drawing, which can hold several things (a headline, a sentence
+and a button drawn close together); the note is about its focus strokes only,
+and the others get their own actions. They are exact — no
 transcription, no guesswork — so where a note and your reading of a gesture
 disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
@@ -597,6 +718,13 @@ the name. Anything drawn INSIDE the box (a form, cards, a list) is the screen's
 content: emit it as its own "add" citing only those inner strokes, described as
 usual. It is built on the new screen automatically, never on this page.
 
+On a page already built, a short note leads with what it is about, whatever
+element it happens to sit on. "hub gold" typed on a clock face is about the
+hub: say so in the instruction ("the hub, the small centre part, gold; the face
+keeps its colour"), and never call the bigger element by the small part's name.
+A plural is every one: "tracks thick black" typed beside one track is about all
+the tracks on the page, so the instruction says all of them, and which.
+
 A note's "refs" are elements the SENTENCE names, as against the one element it
 is about. Each ref gives a token exactly as it appears in the text ("@1"), the
 element id it resolves to, and how it read on screen. The user pointed at each
@@ -613,6 +741,11 @@ A stroke with "drawnColor" was drawn in a deliberately chosen pen colour.
 That colour is an instruction about the result ("make this red"), not a
 description of the ink; say so in the instruction. Never invent a colour for
 ink that has no drawnColor.
+"colourFills" are taps the user made with a colour picked: each colours in the
+stroke it names (that block's background is that colour) or the whole page
+(several page taps = a gradient from the first towards the last). Each one is
+exact and is handed to the build as is: never contradict it in words, and do
+not cite the taps (they are not strokes).
 
 Rules for your answer:
 - Reference ONLY ids from the menus. Never invent ids. Never output
@@ -629,7 +762,20 @@ Rules for your answer:
 - reading: 1-2 plain sentences a developer would say out loud.
 - If something is genuinely ambiguous, still commit to the best reading and
   note the doubt in 'unclear'.
+- Answer with ONE object whose top-level keys are exactly "reading",
+  "unclear" and "actions" (actions is the array). Never wrap the answer in
+  another key such as {"actions": {...}}.
 `.trim()
+
+/**
+ * The reading sentence with tool-call markup cut off. n41: a traced reading's
+ * 'reading' ran on into "</reading>", "</parameter>" and the next field's JSON.
+ */
+export function cleanReading(reading: unknown): string {
+  const s = typeof reading === 'string' ? reading : ''
+  const cut = s.search(/<\/?(?:reading|unclear|actions|parameter|invoke)\b[^>]*>/)
+  return (cut === -1 ? s : s.slice(0, cut)).trim()
+}
 
 // ---------- validation & grounding ----------
 
@@ -661,6 +807,13 @@ export interface GroundedAction {
   /** Cited strokes that are text squiggles: each stands for a line of real
    *  copy. Decided from the ink (textmark.ts), not by the model. */
   textMarks?: string[]
+  /** Cited strokes that are plain boxes, straight lines or rings: they say where
+   *  something goes and how big, never "draw my ink". Their clean geometry,
+   *  decided from the ink (shapemark.ts); they have no svgPath. */
+  shapeMarks?: ShapeMark[]
+  /** Stacks of those squiggles (2+ lines): the drawn line spacing is the line
+   *  height, so it carries a font size (textmark.ts textStacks). */
+  textSize?: TextStack[]
   layer?: 'in-flow' | 'background-overlay' | 'container'
   depicts?: string
   fidelity?: 'verbatim' | 'recognized'
@@ -680,6 +833,8 @@ export interface GroundedAction {
   refs?: Array<{ token: string; label: string; domId?: string; srcLoc?: string }>
   /** Colour the strokes were drawn in, snapped to the app's own palette. */
   color?: ColorMatch
+  /** n10: colours stated by the ink itself, per mark (exact, never snapped). */
+  inkColours?: InkColour[]
   /** navigate: the screen's name, as written. */
   screen?: string
   /**
@@ -699,6 +854,59 @@ export interface GroundedAction {
   needsConfirm: boolean
 }
 
+/** n10: a colour the ink states for one mark: its fill, or its text colour. */
+export interface InkColour {
+  strokeId: string
+  /** 'box' | 'ring' | 'line' | 'text line' | 'outline' (a closed freehand blob) */
+  mark: string
+  /** n92: 'border': a small box drawn in dark ink with no tap is an outlined button (border in the ink, no fill). */
+  paint: 'background' | 'text' | 'border'
+  color: string
+  box: BBox
+  /** a tap with a colour picked, or the pen colour the mark was drawn in */
+  how: 'tap' | 'pen'
+  /** n51: two or more taps far apart on the mark: a fade from the first tap towards the last. */
+  fade?: { colors: string[]; angle?: number; css: string }
+  /**
+   * n59: a straight divider drawn across the mark with a different colour tapped each side: two solid
+   * fills meeting at the divider (css is a hard-stop gradient in the block's own frame); sides are the
+   * outline cut along the divider, page px, in the order of colors.
+   */
+  split?: { colors: [string, string]; css: string; sides: [Array<{ x: number; y: number }>, Array<{ x: number; y: number }>]; dividerId: string; line: { a: { x: number; y: number }; z: { x: number; y: number } } }
+  /** n226: three or more colours tapped round a ring: a slice chart, flat, never a fade. */
+  slices?: SliceChart
+  /** n91: lines ruled across the box cut it into bands; only the tapped bands are filled (top to bottom, color null = untouched). */
+  bands?: Array<{ y0: number; y1: number; color: string | null }>
+  /** n78: paint 'border' from a box drawn in a light grey pen (no tap): a framed card / field / button, never a grey fill. */
+  frame?: true
+  /** n129: paint 'border' from a ring drawn in a coloured pen and noted as an arc, track or progress: a hollow ring of this thickness, never a disc. */
+  hollow?: { thickness: number; share: number | null; track: string | null }
+  /** n146: paint 'border' from a small ring drawn in dark ink with no tap (a map marker, a radio): round, a line this thick, hollow. */
+  ring?: { thickness: number }
+  /** n204: paint 'border' from a big ring drawn in a neutral pen (black, grey, white) with no tap: the ring's line only, nothing inside, never clipped. */
+  outlineRing?: { thickness: number }
+  /** n151: paint 'border' from a lone straight slanted line in a pen with no tap: a thin line start to end, never its bounding box filled. */
+  slant?: { from: { x: number; y: number }; to: { x: number; y: number }; length: number; deg: number; thickness: number }
+  /** n135: paint 'border' from a chip drawn in a strong pen with no tap and noted selected: pale tint inside, pen-colour border, a dot if asked. */
+  selected?: { tint: string; dot: boolean }
+  /** n212: paint 'border' + frame: a same-pen line crosses this untapped, un-noted box, so it is lines only: empty, see-through, no words. */
+  linesOnly?: true
+  /** n141: a frame drawn on a dark surface (this colour): transparent inside, never white or grey. */
+  frameOn?: string
+  /** n144: paint 'border' + frame from a dark-pen box with no tap when a box in the same pen was tapped: outlined, never filled. */
+  taught?: true
+  /** n194: paint 'border' + frame from a pen box with no tap whose note says outline ('said'), or left untapped when a box in that pen was tapped ('taught'): any pen, any surface. */
+  penOutline?: 'said' | 'taught'
+  /** n194: the outlined box was drawn as a pill: keep it round-ended. */
+  pill?: true
+  /** n136: paint 'text' from a level line a sentence was typed on: the words' colour, never a coloured bar. */
+  copy?: true
+  /** n144: paint 'text' from a divider with words over it, drawn in a pen that barely shows on the page: the pen colours the rule only. */
+  ruleOnly?: true
+  /** n140: paint 'text' from a box drawn in a pen (no tap) round a big word or number: the letters' colour, the box never filled. */
+  areaWord?: { word: string | null; outlined: boolean }
+}
+
 export interface GroundedInterpretation {
   reading: string
   /**
@@ -714,8 +922,23 @@ export interface GroundedInterpretation {
   droppedActions?: number
   unclear?: string
   actions: GroundedAction[]
+  /** n200: delete targets narrowed to the smaller element the delete note names, in plain words. */
+  narrowedDeletes?: string[]
   /** Typed notes that matched no single action — they apply to the run. */
   runNotes?: string[]
+  /** n29: run notes typed in empty space, with the spot they were typed at (page px). */
+  placedNotes?: Array<{ text: string; x: number; y: number; openRows?: import('./openrows.js').OpenRows; leftAt?: number; table?: import('./tablerows.js').TableRows }>
+  /**
+   * Typed notes that describe the look of the WHOLE page ("bright yellow page",
+   * "near-black page with a faint grid"), wherever they were typed. A person
+   * types the page look on whatever they drew first, often a nav box; left
+   * there, it styled only that block (round 1: c2's nav became a black bar,
+   * c4's dark page stopped at the content). Codegen styles the page root with
+   * these, full viewport height. The note still also goes to its own action.
+   */
+  pageNotes?: string[]
+  /** n10: the page colour the user tapped on bare page (a gradient for 2+ colours). */
+  pageFill?: { colors: string[]; angle?: number; css: string; radial?: { x: number; y: number; r: number } }
   /** Model references that failed validation (reported, never executed). */
   rejected: string[]
 }
@@ -731,6 +954,16 @@ export function groundInterpretation(
   const palette = appPalette(snap)
   // notes that name no action of their own end up on the run
   const attached = new Set<string>()
+  // notes whose focus strokes some action cites: those never spill onto the
+  // other actions their cluster happens to touch
+  const citedAnywhere = new Set<string>()
+  for (const a of raw.actions) for (const id of a.strokes ?? []) {
+    const s = ev.strokes.get(id)
+    if (s) citedAnywhere.add(s.id)
+  }
+  const focusedElsewhere = new Set(
+    ev.notes.filter((n) => n.focus?.some((id) => citedAnywhere.has(id))).map((n) => n.id),
+  )
 
   const childrenOf = new Map<string | null, DomNode[]>()
   for (const n of snap.nodes) {
@@ -768,22 +1001,122 @@ export function groundInterpretation(
     }
   }
 
-  const actions: GroundedAction[] = []
+  // Type size is read from ALL the text squiggles on the page at once, not per
+  // action: round 1 c2 drew "MAKE IT LOUD" as two squiggles 172px apart, and a
+  // reading that splits those lines over two actions (or cites one with the
+  // body copy) would otherwise lose the stack and the headline came out at the
+  // app's default heading size (~50px for a 157px drawn size).
+  const pageStacks = textStacks(
+    [...ev.strokes.values()].map((s) => ({ id: s.id, points: s.points })),
+    // n44: a bare line under a heading line is its next line (ResolvedNote keeps `at` for exactly the
+    // notes on marks and placed notes, the same set notesOnSketch reads)
+    { notesAt: ev.notes.filter((n) => n.at && (n.scope === 'strokes' || n.placed)).map((n) => ({ ...n.at!, text: n.text })) },
+  )
+
+  // A stroke one add/design action cites ALONE is that action's own mark. Any
+  // other action that cites it next to strokes of its own is borrowing it as a
+  // frame, and borrowing it drags its typed note along: round 6 c3 cited the
+  // page-wide hills box on every action, the hills' "deep green" note landed
+  // on the sun's action, and the orange sun was built deep green.
+  const ownedAlone = new Map<string, number>()
   for (const a of raw.actions) {
+    if (a.kind !== 'add' && a.kind !== 'design') continue
+    const ids = (a.strokes ?? []).filter((id) => ev.strokes.has(id))
+    if (ids.length === 1) ownedAlone.set(ids[0]!, (ownedAlone.get(ids[0]!) ?? 0) + 1)
+  }
+  // A big drawn rectangle that several actions cite next to a small mark of
+  // their own, with no action citing it alone, is still one action's frame:
+  // the one that cites the most strokes with it (the grid with its headers).
+  // The others are borrowing it, and a borrowed frame became their drawn form:
+  // round 30 e3 cited the month grid's rectangle with the launch bar, and the
+  // bar was built as a purple slab over the whole month.
+  const frameBox = new Map<string, BBox>()
+  for (const s of ev.strokes.values()) frameBox.set(s.id, bboxOf(s.points))
+  // n31: every stroke's ink, so a slightly turned box can tell whether it sits in a turned stack
+  const pagePoints = [...ev.strokes.values()].map((s) => s.points)
+  const frameOwner = new Map<string, number>()
+  {
+    const citers = new Map<string, Array<{ i: number; others: number }>>()
+    raw.actions.forEach((a, i) => {
+      if (a.kind !== 'add' && a.kind !== 'design') return
+      const ids = [...new Set((a.strokes ?? []).filter((id) => ev.strokes.has(id)))]
+      if (ids.length < 2) return
+      for (const id of ids) {
+        const list = citers.get(id) ?? []
+        list.push({ i, others: ids.length - 1 })
+        citers.set(id, list)
+      }
+    })
+    for (const [id, list] of citers) {
+      if (list.length < 2 || ownedAlone.has(id)) continue
+      const sorted = [...list].sort((x, y) => y.others - x.others)
+      if (sorted[0]!.others > sorted[1]!.others) frameOwner.set(id, sorted[0]!.i)
+    }
+  }
+  const borrowedFrame = (id: string, rest: string[], i: number): boolean => {
+    const owner = frameOwner.get(id)
+    if (owner === undefined || owner === i) return false
+    const outer = frameBox.get(id)
+    const boxesIn = rest.map((r) => frameBox.get(r)).filter((b): b is BBox => Boolean(b))
+    if (!outer || !boxesIn.length) return false
+    const inner = union(boxesIn)
+    const pad = 8
+    const encloses = inner.x >= outer.x - pad && inner.y >= outer.y - pad &&
+      inner.x + inner.w <= outer.x + outer.w + pad && inner.y + inner.h <= outer.y + outer.h + pad
+    return encloses && outer.w * outer.h >= 4 * Math.max(1, inner.w * inner.h)
+  }
+  const ownStrokes = (a: (typeof raw.actions)[number], i = -1): string[] => {
+    const ids = a.strokes ?? []
+    if (a.kind !== 'add' && a.kind !== 'design') return ids
+    const known = ids.filter((id) => ev.strokes.has(id))
+    if (known.length < 2) return ids
+    let kept = ids.filter((id) => !ownedAlone.has(id))
+    if (!kept.some((id) => ev.strokes.has(id))) kept = ids
+    const framed = kept.filter((id) => borrowedFrame(id, kept.filter((r) => r !== id && ev.strokes.has(r)), i))
+    if (framed.length) {
+      const rest = kept.filter((id) => !framed.includes(id))
+      if (rest.some((id) => ev.strokes.has(id))) kept = rest
+    }
+    return kept
+  }
+
+  const actions: GroundedAction[] = []
+  const narrowed: string[] = []
+  // n30: taps make solid discs unless some note asks for glows or blur (glass blobs keep their soft glow)
+  const tapSolidAllowed = tapSolidsAllowed(ev.notes.map((n) => n.text))
+  for (const [ai, a] of raw.actions.entries()) {
     // design mode is creation-only — belt to the schema's suspenders
     if (mode === 'design' && !(DESIGN_KINDS as readonly string[]).includes(a.kind)) {
       rejected.push(`'${a.kind}' is not allowed in design mode (creation only)`)
       continue
     }
-    const targets = (a.elements ?? []).map(toTarget).filter((t): t is GroundedTarget => t !== null)
-    const dest = a.destElement ? (toTarget(a.destElement) ?? undefined) : undefined
+    let targets = (a.elements ?? []).map(toTarget).filter((t): t is GroundedTarget => t !== null)
+    // n200: a delete note that names text ("delete the huge grey 500") deletes only the element reading
+    // that, never the card the model picked around it
+    if (a.kind === 'delete') {
+      targets = targets.map((t) => {
+        const nd = narrowDelete(snap, t.domId, a.instruction, ev.notes.map((n) => ({ text: n.text, ...(n.at ? { at: n.at } : {}) })))
+        if (!nd) return t
+        narrowed.push(nd.why)
+        const n = nd.node
+        const sourced = n.srcLoc ? n : nearestSourced(snap, n)
+        return { domId: n.id, srcLoc: sourced?.srcLoc ?? null, tag: n.tag, text: n.text, subtreeText: subtreeText(n), classes: n.classes, rect: n.rect }
+      })
+      targets = targets.filter((t, i) => targets.findIndex((u) => u.domId === t.domId) === i)
+    }
+    let dest = a.destElement ? (toTarget(a.destElement) ?? undefined) : undefined
 
     // region + paths from cited strokes — geometry computed here, never taken
     // from the model
     let region: BBox | undefined
     const svgPaths: Array<{ strokeId: string; d: string }> = []
     const textMarks: string[] = []
-    const citedStrokes = (a.strokes ?? [])
+    const shapeMarks: ShapeMark[] = []
+    // every page stack this action cites any line of (a stack split over two
+    // actions gives each of them the size)
+    const textStackOf = (ids: string[]): TextStack[] =>
+      pageStacks.filter((st) => st.strokes.some((id) => ids.includes(id)))
+    const citedStrokes = ownStrokes(a, ai)
       .map((id) => {
         const s = ev.strokes.get(id)
         if (!s) rejected.push(`unknown stroke id "${id}"`)
@@ -797,6 +1130,17 @@ export function groundInterpretation(
       }
       if (a.kind === 'design' || a.kind === 'add') {
         for (const s of citedStrokes) {
+          // n51: a curve cutting a box (a wave across a panel) is the shape it cuts off, built clipped to it
+          const cut = (ev.cuts ?? []).find((c) => c.id === s.id)
+          if (cut) {
+            const om = outlineMark(s.id, s.points, cut)
+            if (om) {
+              const f = markFill(ev.fills ?? [], s.id)
+              if (f) om.outline!.fill = f
+              shapeMarks.push(om)
+              continue
+            }
+          }
           // a squiggle that stands for words never becomes a path: not in the
           // scaffold, not in the composition check, not under the trace rung.
           // It still sets the region and stays cited (textmark.ts).
@@ -804,8 +1148,84 @@ export function groundInterpretation(
             textMarks.push(s.id)
             continue
           }
+          // a box, a straight line or a ring marks where something goes and how
+          // big: it never becomes a path either (shapemark.ts). Only a depiction
+          // keeps paths, and then the clean shape, never the wobble.
+          const shape = shapeOf(s.points, pagePoints)
+          // n51: a closed outline with a few sharp corners (a triangle, a mountain) is built clipped to
+          // that outline, never as a box, and never as a traced path (round 33 c5: mountains built as boxes)
+          // n177: a big box with one side drawn slanted keeps the slant (round 43 c5: the climbing gym's dark panel)
+          if (!shape || (shape.shape === 'box' && !shape.tilt && !shape.pill && slantedQuad(s.points))) {
+            const om = outlineMark(s.id, s.points)
+            if (om) {
+              const f = markFill(ev.fills ?? [], s.id)
+              if (f) om.outline!.fill = f
+              // n128: no tap, drawn in a coloured pen: filled in that pen colour (round 39 c1 hexagons came out black),
+              // unless its own note keeps it an outline
+              else if (s.color && !ev.notes.some((n) => (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) &&
+                /\b(outlined?|hollow|empty|unfilled|line only|no fill)\b/i.test(n.text))) om.outline!.pen = s.color
+              shapeMarks.push(om)
+              continue
+            }
+          }
+          // n14: a box round "huge outlined 09" is read as a depiction of the number, its
+          // outline became a path, and the composition check then asked for that closed
+          // form to be filled: a black card behind the 09 (round 12 c4). A box whose own
+          // note is a big word or number is that word's area, never a drawn form.
+          const areaBox = shape?.shape === 'box' && ev.notes.some((n) =>
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && isAreaNote(n.text) && !statOf([n.text]))
+          // n15: a ring typed "lime badge NEW" was read as a depiction of a badge and came out a
+          // faint brown disc (round 12 c4); a closed shape whose own note names a coloured plain
+          // thing is that plain thing, never a drawn form.
+          const solidMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && solidOf(n.text))
+          // n30: a ring the user coloured in with a tap is a plain disc in that colour. Round 31 e4:
+          // two rings with a yellow tap inside and a grey-blue tap on the halo were read as a
+          // depicted sun, traced as paths, and built a grey lopsided blob.
+          const tappedRing = shape?.shape === 'ellipse' && tapSolidAllowed && (ev.fills ?? []).some((f) => f.target === s.id)
+          // n32: a box typed "big yellow quote mark" is the glyph, never a traced or filled box
+          const glyphMark = (shape?.shape === 'box' || shape?.shape === 'ellipse') && ev.notes.some((n) =>
+            (n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id)) && glyphOf(n.text))
+          // n134: a box in a light pen with no tap on a light surface is a frame (n78/n131), never a depiction:
+          // round 39 e4 Luna pill, read inside a depicted "pet picker", was traced and filled mint 2 of 2 builds
+          const penFrame = shape?.shape === 'box' && !shape.tilt && penFrameBox(s, [...ev.strokes.values()], ev.fills ?? [],
+            ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
+              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text), shape.box)
+          // n212: a same-pen line crosses this un-noted box on a filled surface: its lines, never traced and filled white
+          // (round 46 c4: the court lines, read inside a depicted "panel", were traced and built a solid white block)
+          const linesBox = shape?.shape === 'box' && !shape.tilt && linesOnlyBox(s, [...ev.strokes.values()], ev.fills ?? [],
+            ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
+              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text), shape.box)
+          // n184: a ring inside a depiction stays a ring: drawn in a coloured pen (no tap) it is a flat disc in that pen
+          // colour where drawn (round 43 c5: three holds in orange, yellow and teal pens, read as a depicted "climbing
+          // holds" group, were traced and built black and orange at random spots); noted as an outline, a stamp or a
+          // track it is a hollow ring (round 43 c4: the dark "outline stamp" ring was traced and filled a dark blob)
+          // n204: so does a big ring in a neutral pen with no tap (bike wheels, mixer knobs): an outline ring, never traced and filled
+          const ringOwn = shape?.shape === 'ellipse' ? ev.notes.filter((n) => n.focus?.includes(s.id) || (n.strokeIds?.length === 1 && n.strokeIds[0] === s.id) ||
+              (!!n.at && n.at.x >= shape.box.x && n.at.x <= shape.box.x + shape.box.w && n.at.y >= shape.box.y && n.at.y <= shape.box.y + shape.box.h)).map((n) => n.text) : []
+          const penRing = shape?.shape === 'ellipse' && !(ev.fills ?? []).some((f) => f.target === s.id) && (colouredPen(s.color) ||
+            ringNoted(ringOwn) || outlineRingPen(s.color, shape.box, ringOwn) || (pageRingsOutlined(ev.notes.map((n) => n.text)) && pageRingThickness(shape.box) !== null))
+          // n31: a box drawn turned is a turned box (a card in a fanned stack), never a traced outline
+          if (shape && (!a.depicts || areaBox || solidMark || tappedRing || glyphMark || penFrame || linesBox || penRing || shape.tilt || shape.pill)) {
+            shapeMarks.push({ strokeId: s.id, ...shape })
+            continue
+          }
+          if (shape) {
+            svgPaths.push({ strokeId: s.id, d: cleanPath(shape, { x: region!.x, y: region!.y }) })
+            continue
+          }
           const fit = toSvgPath(s.points, { tolerance: 2, origin: { x: region!.x, y: region!.y } })
           if (fit) svgPaths.push({ strokeId: s.id, d: fit.d })
+        }
+      }
+      // A squiggle sits on its line's middle, so ink alone puts a block of text half a
+      // line low (round 4 c1: 150px headline drawn as 3 lines built ~60px low). A pure
+      // text action whose lines all form one drawn stack takes that stack's line boxes.
+      // n11: the same for a heading drawn as stacked level lines (lineStacks).
+      const wordLines = [...textMarks, ...shapeMarks.filter((m) => m.shape === 'line').map((m) => m.strokeId)]
+      if (region && wordLines.length && !svgPaths.length && wordLines.length === citedStrokes.length) {
+        for (const st of textStackOf(wordLines)) {
+          if (st.strokes.every((id) => wordLines.includes(id))) region = bboxUnion(region, st.box)
         }
       }
     }
@@ -822,6 +1242,14 @@ export function groundInterpretation(
     if (a.kind === 'swap' && targets.length !== 2) {
       rejected.push(`swap action needs exactly 2 targets, got ${targets.length}`)
       continue
+    }
+    // n269: a look for the whole page names no block and no ink: it goes on the page itself. Round 46 c1: "whole page
+    // background flat navy, no fade" failed its Run after 243 s with this refusal; "page all navy" got through.
+    if ((a.kind === 'add' || a.kind === 'design') && !dest && !region && (isPageLookNote(a.instruction) || ev.notes.some((n) => isPageLookNote(n.text)))) {
+      // the biggest thing on the page, the one with a place in the source first (the menu of nearby elements may not hold it)
+      const root = snap.nodes.filter((n) => n.tag !== 'html' && n.tag !== 'head' && n.rect.w * n.rect.h > 0)
+        .sort((p, q) => q.rect.w * q.rect.h - p.rect.w * p.rect.h || Number(!!q.srcLoc) - Number(!!p.srcLoc))[0]
+      if (root) { if (!ev.elements.has(root.id)) ev.elements.set(root.id, root); dest = toTarget(root.id) ?? undefined }
     }
     if ((a.kind === 'add' || a.kind === 'design') && !dest && !region) {
       rejected.push(`${a.kind} action with neither container nor strokes`)
@@ -857,15 +1285,24 @@ export function groundInterpretation(
     // touching that element, an ink note to the actions citing those strokes.
     // The model never decides which words apply where.
     const citedIds = new Set(citedStrokes.map((s) => s.id))
+    // a note with a focus goes to the actions citing its focus strokes; only
+    // when no action cites them does it fall back to its whole cluster
+    const focusCited = (note: ResolvedNote): boolean | null => {
+      if (!note.focus?.length) return null
+      if (note.focus.some((id) => citedIds.has(id))) return true
+      return focusedElsewhere.has(note.id) ? false : null
+    }
     const targetIds = new Set([...targets.map((t) => t.domId), ...(dest ? [dest.domId] : [])])
     const notes: string[] = []
+    const noteObjs: Array<{ text: string; focus?: string[]; at?: { x: number; y: number }; strokeIds?: string[] }> = []
     const refs: NonNullable<GroundedAction['refs']> = []
     for (const note of ev.notes) {
       const hit =
         (note.scope === 'element' && note.elementId && targetIds.has(note.elementId)) ||
-        (note.scope === 'strokes' && (note.strokeIds ?? []).some((id) => citedIds.has(id)))
+        (note.scope === 'strokes' && (focusCited(note) ?? (note.strokeIds ?? []).some((id) => citedIds.has(id))))
       if (!hit) continue
       notes.push(note.text)
+      noteObjs.push({ text: note.text, ...(note.focus?.length ? { focus: note.focus } : {}), ...(note.at ? { at: note.at } : {}), ...(note.strokeIds?.length ? { strokeIds: note.strokeIds } : {}) })
       attached.add(note.id)
       // the sentence came with this action, so the elements it names come too —
       // including the source location, which is what codegen actually needs
@@ -890,6 +1327,149 @@ export function groundInterpretation(
     const drawnColor = [...tally.entries()].sort((a, b) => b[1] - a[1])[0]?.[0]
     const color = drawnColor ? (matchColor(drawnColor, palette) ?? undefined) : undefined
 
+    // n10: colour per mark, from the ink: a tap fills the mark it landed in; a
+    // box, ring or closed blob drawn in a colour is filled with it; a line or
+    // text squiggle drawn in a colour is that text's (or rule's) colour
+    const inkColours: InkColour[] = []
+    for (const st of citedStrokes) {
+      const b = bboxOf(st.points)
+      const box = { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) }
+      const sm = shapeMarks.find((m) => m.strokeId === st.id)
+      const mark = sm?.outline ? 'outline' : sm ? (sm.shape === 'ellipse' ? 'ring' : sm.shape) : textMarks.includes(st.id) ? 'text line' : 'outline'
+      const tap = (ev.fills ?? []).filter((f) => f.target === st.id).pop()
+      // n51: taps far apart on one mark make a fade from the first towards the last
+      const ownTexts = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id)).map((n) => n.text)
+      const fade = tap ? markFill(ev.fills ?? [], st.id, [...ev.strokes.values()], { noSlices: asksFade(ownTexts) }) : null
+      // n226: colours tapped round a ring are its slices, at the typed shares when there are any
+      if (tap && fade?.slices) {
+        inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box, how: 'tap', slices: typedSlices(fade.slices, ownTexts, ev.notes.map((n) => n.text)) })
+        continue
+      }
+      // n59: a divider across the mark with a colour tapped each side: two solid fills, in the built block's own frame
+      if (tap && fade?.split) {
+        const sp = fade.split
+        const frame = sm?.tilt ? { cx: sm.tilt.cx, cy: sm.tilt.cy, w: sm.tilt.w, h: sm.tilt.h, deg: sm.tilt.deg } : { cx: b.x + b.w / 2, cy: b.y + b.h / 2, w: b.w, h: b.h, deg: 0 }
+        inkColours.push({ strokeId: st.id, mark, paint: 'background', color: sp.colors[0], box: sm?.outline ? sm.box : box, how: 'tap',
+          split: { colors: sp.colors, css: splitCss(sp, frame), sides: sp.sides, dividerId: sp.dividerId, line: sp.line } })
+        continue
+      }
+      // n91: taps inside bands ruled across the box (a header row, a total row) fill only those bands
+      const tb = tap && !fade?.split ? tapBands(st, (ev.fills ?? []).filter((f) => f.target === st.id), [...ev.strokes.values()]) : null
+      if (tap && tb) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box, how: 'tap', bands: tb.bands }); continue }
+      if (tap) { inkColours.push({ strokeId: st.id, mark, paint: 'background', color: tap.color, box: sm?.outline ? sm.box : box, how: 'tap', ...(fade && fade.colors.length > 1 ? { fade } : {}) }); continue }
+      if (!st.color) continue
+      // n142: a route line's pen colour is the line's own (routeBrief), never a fill of the box round it
+      if (!sm && routeLines([st]).length) continue
+      const flat = sm?.shape === 'line' || textMarks.includes(st.id)
+      // n151: a lone straight slanted line (a kite string, a bike's crossbar) is a thin line from start to end, never a
+      // filled box over its bounding box, inside a depicted picture too; page-spanning colour edges stay edges
+      if (!textMarks.includes(st.id) && (!sm || (sm.shape === 'line' && !sm.edge))) {
+        const sl = slantOf(st.points)
+        // a slanted line across most of the page is the edge between two colours (areas.ts marks it later)
+        if (sl && Math.abs(sl.to.x - sl.from.x) < snap.viewport.w * 0.6 && Math.abs(sl.to.y - sl.from.y) < snap.viewport.h * 0.6) {
+          const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id)).map((n) => n.text)
+          const touches = (r: { x: number; y: number; w: number; h: number }) => [sl.from, sl.to].some((p) => p.x >= r.x - 20 && p.x <= r.x + r.w + 20 && p.y >= r.y - 20 && p.y <= r.y + r.h + 20)
+          const ring = citedStrokes.filter((o) => o.id !== st.id && o.color === st.color).map((o) => shapeMarks.find((m) => m.strokeId === o.id) ?? shapeOf(o.points))
+            .find((m) => m?.shape === 'ellipse' && outlineRingPen(st.color, m.box) && touches(m.box))
+          inkColours.push({ strokeId: st.id, mark: 'line', paint: 'border', color: st.color, box, how: 'pen',
+            slant: { ...sl, thickness: slantThickness(own, ring ? outlineRingThickness((ring.box.w + ring.box.h) / 2) : null) } })
+          continue
+        }
+      }
+      // n92: a small box drawn in dark ink (no tap) is an outlined control (arrow button, checkbox), not a dark block
+      if (!flat && sm?.shape === 'box' && !sm.outline?.pen && inkOutlineBox(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen' }); continue }
+      // n78: a box drawn in a light grey pen (no tap) is a frame: grey border, no grey fill
+      if (!flat && sm?.shape === 'box' && !sm.outline?.pen && inkGreyOutline(st.color, sm.box)) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: sm.box, how: 'pen', frame: true }); continue }
+      // n131: a box in a light coloured pen (no tap) on a light surface is an outline in that colour, never a tinted block
+      // n128: a polygon drawn in a coloured pen and not noted as an outline is filled in its pen colour, light pens too
+      if (!flat && sm?.shape === 'box' && !sm.outline?.pen) {
+        const rb = sm.box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        const behind = surfaceBehind(st, [...ev.strokes.values()], ev.fills ?? [])
+        // n212: a same-pen line crosses it and no note is on it: the box is lines, on the surface behind it
+        if (linesOnlyBox(st, [...ev.strokes.values()], ev.fills ?? [], own, rb)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, linesOnly: true, frameOn: behind }); continue
+        }
+        if (inkLightOutline(st.color, rb, behind, own)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true }); continue
+        }
+        // n141: a white, pale or grey pen box (no tap) on a dark surface is an outline too, background see-through
+        if (!sm.area && inkDarkOutline(st.color, rb, behind, own) && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? [])) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, frameOn: behind }); continue
+        }
+        // n135: a strong-pen chip noted selected / active is a pale tint with a border in the pen colour, never a solid block
+        const sel = selectedChip(st.color, rb, own)
+        if (sel) { inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', selected: sel }); continue }
+        // n144: a dark-pen box with no tap, when a box in the same pen was tapped, is an outline (the picked row), never a slab
+        const sameInkTapped = [...ev.strokes.values()].some((o) => o.id !== st.id && o.color === st.color && (ev.fills ?? []).some((f) => f.target === o.id))
+        if (!sm.area && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? []) && inkTaughtOutline(st.color, rb, behind, own, sameInkTapped)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, taught: true }); continue
+        }
+        // n194: any pen, any surface: a box whose own note says outline, or one left untapped when a box in that pen was
+        // tapped, is an outline in the pen colour (cinema pills, pottery "dark outline" button), never a block of it
+        // 'taught' only from a tapped LOOK-ALIKE in the same pen (about the same size): the picked one of a row of pills,
+        // not a lantern drawn beside a tapped button (round 44 c1: untapped orange lanterns are filled glows)
+        const twin = [...ev.strokes.values()].some((o) => {
+          if (o.id === st.id || o.color !== st.color || !(ev.fills ?? []).some((f) => f.target === o.id)) return false
+          const ob = bboxOf(o.points)
+          // a box redrawn on the same spot is the same box (round 38 film fest: the blue frame drawn twice, tapped once)
+          const ix = Math.max(0, Math.min(ob.x + ob.w, rb.x + rb.w) - Math.max(ob.x, rb.x)), iy = Math.max(0, Math.min(ob.y + ob.h, rb.y + rb.h) - Math.max(ob.y, rb.y))
+          return ob.w >= rb.w * 0.75 && ob.w <= rb.w * 1.33 && ob.h >= rb.h * 0.75 && ob.h <= rb.h * 1.33 && ix * iy < 0.3 * rb.w * rb.h
+        })
+        const po = !sm.area && !holdsBoxes(st, [...ev.strokes.values()], ev.fills ?? []) ? inkPenOutline(st.color, rb, behind, own, twin) : null
+        if (po) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen', frame: true, penOutline: po, frameOn: behind, ...(sm.pill ? { pill: true as const } : {}) }); continue
+        }
+      }
+      // n224: a note calling the page's round things outlines goes for every untapped ring (two bubbles, one note)
+      if (!flat && sm?.shape === 'ellipse' && !sm.solid && pageRingsOutlined(noteObjs.map((n) => n.text))) {
+        const t = pageRingThickness(sm.box)
+        if (t !== null) {
+          inkColours.push({ strokeId: st.id, mark: 'ring', paint: 'border', color: st.color, box: sm.box, how: 'pen', ring: { thickness: t } })
+          continue
+        }
+      }
+      // n146: a small ring drawn in dark ink with no tap is an outlined ring (map marker, radio), never a dark dot. A hand
+      // ring that wobbles is often no clean shape (an outline blob), so a small closed stroke with no shape counts too.
+      if (!flat && ((sm?.shape === 'ellipse' && !sm.solid) || (!sm && closedLoop(st.points)))) {
+        const rb = sm?.box ?? box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        if (inkSmallRing(st.color, rb, own)) {
+          inkColours.push({ strokeId: st.id, mark: 'ring', paint: 'border', color: st.color, box: rb, how: 'pen', ring: { thickness: Math.max(2, Math.min(5, Math.round((rb.w + rb.h) / 2 * 0.15))) } })
+          continue
+        }
+      }
+      // n129: a ring in a coloured pen noted as an arc, track or progress is the ring's line, not a coloured-in disc
+      if (!flat && sm?.shape === 'ellipse' && !sm.solid) {
+        const rb = sm.box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        if (rb.w >= 60 && rb.h >= 60 && ringNoted(own)) {
+          inkColours.push({ strokeId: st.id, mark, paint: 'border', color: st.color, box: rb, how: 'pen',
+            hollow: { thickness: ringThickness((rb.w + rb.h) / 2), share: ringShare(own), track: trackColour(own) } })
+          continue
+        }
+      }
+      // n204: a big ring in a neutral pen with no tap is its line: an outline ring, nothing inside, never clipped
+      if (!flat && ((sm?.shape === 'ellipse' && !sm.solid) || (!sm && closedLoop(st.points)))) {
+        const rb = sm?.box ?? box
+        const own = noteObjs.filter((n) => (n.focus ?? n.strokeIds ?? []).includes(st.id) ||
+          (!!n.at && n.at.x >= rb.x && n.at.x <= rb.x + rb.w && n.at.y >= rb.y && n.at.y <= rb.y + rb.h)).map((n) => n.text)
+        if (outlineRingPen(st.color, rb, own)) {
+          inkColours.push({ strokeId: st.id, mark: 'ring', paint: 'border', color: st.color, box: rb, how: 'pen', outlineRing: { thickness: outlineRingThickness((rb.w + rb.h) / 2) } })
+          continue
+        }
+      }
+      inkColours.push({ strokeId: st.id, mark, paint: flat ? 'text' : 'background', color: st.color, box: sm?.box ?? box, how: 'pen' })
+    }
+
+    // n136: coloured level lines a sentence was typed on are that paragraph's lines (its words' colour), never bars
+    {
+      const prose = proseLineIds(shapeMarks, ev.notes.map((n) => ({ text: n.text, ...(n.at ? { at: n.at } : {}) })))
+      for (const c of inkColours) if (c.paint === 'text' && c.how === 'pen' && c.mark === 'line' && prose.has(c.strokeId)) c.copy = true
+    }
     // destructive-width gate is ours, not the model's
     const targetArea = targets.reduce((acc, t) => acc + t.rect.w * t.rect.h, 0)
     const needsConfirm =
@@ -903,6 +1483,54 @@ export function groundInterpretation(
       ? findInsertSlot(snap, region, dest?.domId)
       : undefined
 
+    const stacks = textStackOf([...textMarks, ...shapeMarks.filter((m) => m.shape === 'line').map((m) => m.strokeId)])
+    // n14: a box round a big word is that word's area, a slanted line across the page is an edge
+    // n54: every drawn mark's box, so a box round other marks is read as their container
+    // (every stroke on the page: the box round an invoice is often its own action, its lines in others)
+    const innerBoxes = [...ev.strokes.values()].filter((st) => st.points.length > 1).map((st) => { const b = bboxOf(st.points); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) } }).filter((b) => b.w + b.h > 6)
+    if (shapeMarks.length) markAreasAndEdges(shapeMarks, noteObjs, snap.viewport, innerBoxes)
+    // n82: a box typed with a number and its label (6 big, on loan) is a stat card, never an area
+    if (shapeMarks.length) markStats(shapeMarks, noteObjs, innerBoxes, ev.notes.map((n) => n.text))
+    // n15: a ring or box typed with a colour and a plain thing ("lime badge") is that thing, solid
+    // n32: a box typed as a quote mark is that glyph; a group note's contents go on every member
+    if (shapeMarks.length) markGlyphs(shapeMarks, noteObjs)
+    if (shapeMarks.length) markEach(shapeMarks, noteObjs)
+    if (shapeMarks.length) markSolids(shapeMarks, noteObjs)
+    // n30: a ring coloured in by a tap (no glow or blur asked anywhere) is a solid disc in exactly that colour
+    if (shapeMarks.length && tapSolidAllowed) markTappedSolids(shapeMarks, inkColours)
+    // n16: "huge outlined 09" on an area box stays hollow letters
+    if (shapeMarks.length) markOutlined(shapeMarks, noteObjs)
+    // n140: a pen box (no tap) round a big word is that word's area: its pen colour is the letters' colour, never a block
+    if (shapeMarks.length) areaWordInk(shapeMarks, inkColours)
+    // n54: a big box round 3+ other drawn marks is a card (white unless tapped), at the drawn edges
+    if (shapeMarks.length) markCards(shapeMarks, innerBoxes, noteObjs, inkColours.filter((c) => c.how === 'tap').map((c) => ({ strokeId: c.strokeId, color: c.color })))
+    // n21: words on a level line keep its side of the box; a note typed low in a card is copy that sits low
+    if (shapeMarks.length) markTextPlaces(shapeMarks, noteObjs, snap.viewport.w)
+    // n142: words typed just above a line drawn edge to edge of its column are a small label over a divider
+    if (shapeMarks.some((m) => m.wordsAt)) {
+      const allShapes = [...ev.strokes.entries()].flatMap(([id, st]) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [{ ...s, strokeId: id }] : [] })
+      markRuleLabels(shapeMarks, allShapes, snap.viewport)
+      // n144: a divider drawn in a pale pen (it barely shows on the page) colours only the rule, never the words over it
+      const bg = parseCssColor(pageFill(ev.fills ?? [])?.colors[0] ?? '#ffffff')
+      for (const m of shapeMarks) {
+        if (!m.rule) continue
+        for (const c of inkColours) {
+          if (c.strokeId !== m.strokeId || c.paint !== 'text' || c.how !== 'pen') continue
+          if (paleOn(c.color, bg)) c.ruleOnly = true
+        }
+      }
+    }
+    // n180: a pale line drawn across most of the page with no words on it (pets: the header's #ececec rule) is a
+    // divider: its pen colours the rule only. Read as text colour it failed every run ("paint its text #ececec",
+    // no text there to paint) and spent a repair on a check no build could pass.
+    if (shapeMarks.length) {
+      const bg = parseCssColor(pageFill(ev.fills ?? [])?.colors[0] ?? '#ffffff')
+      markPaleDividers(shapeMarks, inkColours, bg, snap.viewport.w)
+    }
+    // n69: a box or ring with its own note keeps those words (one item of a list of look-alike marks)
+    if (shapeMarks.length) markRowWords(shapeMarks, noteObjs, innerBoxes)
+    // n268: words typed in open space under a box of real size stay under it
+    if (shapeMarks.length) markUnderWords(shapeMarks, ev.notes)
     actions.push({
       kind: a.kind,
       targets,
@@ -913,16 +1541,19 @@ export function groundInterpretation(
       region,
       svgPaths: svgPaths.length ? svgPaths : undefined,
       textMarks: textMarks.length ? textMarks : undefined,
+      ...(shapeMarks.length ? { shapeMarks } : {}),
+      ...(stacks.length ? { textSize: stacks } : {}),
       layer: a.layer ?? undefined,
       depicts: a.depicts ?? undefined,
       // 'verbatim' on an action whose every mark stands for text is the page-05
       // failure stated as a field; there is nothing left to trace
-      fidelity: a.fidelity === 'verbatim' && textMarks.length && !svgPaths.length
+      fidelity: a.fidelity === 'verbatim' && (textMarks.length || shapeMarks.length) && !svgPaths.length
         ? undefined
         : (a.fidelity ?? undefined),
       notes: notes.length ? notes : undefined,
       refs: refs.length ? refs : undefined,
       color,
+      ...(inkColours.length ? { inkColours } : {}),
       ...(a.kind === 'navigate' && a.screen ? { screen: a.screen.trim() } : {}),
       // the arrow and the box: run2 finds the screen's box among these (s2c-040)
       ...(a.kind === 'navigate' && citedStrokes.length ? { strokeIds: citedStrokes.map((st) => st.id) } : {}),
@@ -930,13 +1561,105 @@ export function groundInterpretation(
     })
   }
 
+  // n57: "WORK, same" copies the look of the line above even when the two lines are separate actions
+  // n61: the turned box and the lines drawn in it are often different actions; bind notes to those lines across them
+  bindTiltNotes(actions.flatMap((a) => a.shapeMarks ?? []), ev.notes.map((n) => ({ text: n.text, ...(n.at ? { at: n.at } : {}) })))
+  linkSame(actions.flatMap((a) => a.shapeMarks ?? []))
+  // n155: a menu note typed in a side panel with no rows drawn stacks from the panel's top, above the button under it
+  markSideLists(actions.flatMap((a) => a.shapeMarks ?? []),
+    [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
+    ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport)
+  // n156: a rows note typed in a card under its small heading starts below that heading, never over it
+  markCardRows(actions.flatMap((a) => a.shapeMarks ?? []),
+    [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
+    ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport)
+
   // A note the user typed must never be silently dropped because no action
   // claimed it — an unattached one still describes this run.
   const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
+  const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
+  // n269: "page flat navy" wins over a fade the taps would make
+  const page = flatPage(pageFill(ev.fills ?? []), pageNotes)
+  if (page) dropPageInk(actions, page.colors)
+  // n168: a short heading typed just above an open list starts at the list's left edge
+  const placedNotes0 = alignListHeadings(markOpenRows(listUnderHeading(ev.notes
+    .filter((n) => n.placed && n.at && !attached.has(n.id) && !isPageLookNote(n.text))
+    .map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })),
+  // n145: a list note under its heading starts right under it (every typed note is a possible heading)
+  ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })),
+  [...ev.strokes.values()].map((st) => bboxOf(st.points))),
+  // n158: a rows note in open space takes the width of the field drawn above it, starting under the last thing drawn
+  [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }),
+  ev.notes.filter((n) => n.at).map((n) => ({ text: n.text, x: Math.round(n.at!.x), y: Math.round(n.at!.y) })), snap.viewport.w))
+  // n165: a table note typed under a drawn header rule, with row 1's cells drawn hanging under it, is placed by them
+  const placedNotes = markTableRows(placedNotes0,
+    [...ev.strokes.values()].flatMap((st) => { const s = st.points.length > 1 ? shapeOf(st.points) : null; return s ? [s] : [] }))
+
+  // n167: a small ring drawn in a pen with no tap that leads a list is a HOLLOW ring on every row (round 42 e1: the
+  // purple ring was told "filled with" its pen and every row got a solid disc)
+  hollowRowMarks(actions, [
+    ...placedNotes.flatMap((n) => (n.openRows?.mark ? [n.openRows.mark] : [])),
+    ...actions.flatMap((a) => a.shapeMarks ?? []).flatMap((m) => (m.cardRows ?? []).flatMap((l) => (l.mark ? [l.mark] : []))),
+  ])
 
   return {
-    reading: raw.reading, unclear: raw.unclear ?? undefined, actions, rejected,
+    reading: cleanReading(raw.reading), unclear: raw.unclear ?? undefined, actions, rejected,
     droppedActions: Math.max(0, (raw.actions?.length ?? 0) - actions.length),
     runNotes: runNotes.length ? runNotes : undefined,
+    ...(placedNotes.length ? { placedNotes } : {}),
+    ...(pageNotes.length ? { pageNotes } : {}),
+    ...(page ? { pageFill: page } : {}),
+    ...(narrowed.length ? { narrowedDeletes: narrowed } : {}),
   }
+}
+
+/**
+ * n167: a list's leading mark (a small ring drawn for row 1, see openrows / cardrows) drawn in a pen with no tap is a
+ * hollow ring: its pen fill is turned into a thin ring of that colour, and the mark is flagged hollow so the rows brief
+ * repeats it hollow on every row. In place.
+ */
+export function hollowRowMarks(actions: Array<{ inkColours?: InkColour[] }>, marks: Array<{ x: number; y: number; w: number; h: number; hollow?: string; round?: boolean }>): void {
+  if (!marks.length) return
+  const near = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) =>
+    Math.abs(a.x - b.x) <= 8 && Math.abs(a.y - b.y) <= 8 && Math.abs(a.w - b.w) <= 10 && Math.abs(a.h - b.h) <= 10
+  for (const a of actions) for (const c of a.inkColours ?? []) {
+    if (c.how !== 'pen' || (c.mark !== 'ring' && c.mark !== 'outline' && c.mark !== 'box')) continue
+    const m = marks.find((k) => near(k, c.box))
+    // a hand ring is often read as a small box by one reader and a ring by another: the list's own reading decides
+    if (!m || (c.mark === 'box' && !m.round)) continue
+    if (c.paint === 'background') { c.paint = 'border'; c.ring = { thickness: Math.max(2, Math.min(3, Math.round((c.box.w + c.box.h) / 2 * 0.08))) } }
+    if (c.paint === 'border' && (c.ring || c.outlineRing)) m.hollow = c.color
+  }
+}
+
+/**
+ * n83: a mark drawn in the page's own colour is never painted that colour. Round 35 e3: the page was tapped
+ * near-black, and the pen kept that colour for the next strokes, so the line under "Push day, big bold white"
+ * told the build the title is #121418: it came out invisible on the #121418 page, though typed white. The pen
+ * colour left over from a page tap is not a colour choice for the mark; the typed words (or the default) decide.
+ * In place, on pen colours only (a tap on a mark is always meant).
+ */
+export function dropPageInk(actions: Array<{ inkColours?: InkColour[] }>, pageColors: readonly string[]): void {
+  const page = pageColors.map((c) => parseCssColor(c)).filter((c): c is NonNullable<typeof c> => !!c)
+  if (!page.length) return
+  for (const a of actions) {
+    if (!a.inkColours?.length) continue
+    const kept = a.inkColours.filter((c) => {
+      if (c.how !== 'pen') return true
+      const g = parseCssColor(c.color)
+      return !g || page.every((p) => deltaE(p, g) > 6)
+    })
+    if (kept.length === a.inkColours.length) continue
+    if (kept.length) a.inkColours = kept
+    else delete a.inkColours
+  }
+}
+
+/** n146: a stroke that ends near where it started (a hand-drawn ring or blob), by its own size. */
+export function closedLoop(pts: ReadonlyArray<{ x: number; y: number }>): boolean {
+  if (pts.length < 6) return false
+  const xs = pts.map((p) => p.x), ys = pts.map((p) => p.y)
+  const d = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys))
+  const a = pts[0]!, z = pts[pts.length - 1]!
+  return d > 0 && Math.hypot(a.x - z.x, a.y - z.y) <= Math.max(6, d * 0.35)
 }

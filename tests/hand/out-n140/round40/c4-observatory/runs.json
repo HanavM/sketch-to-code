@@ -1,0 +1,451 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "e9bb7dec1f887c730654116fb12a777aa2d58d94",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/CrescentMoon.tsx",
+   "src/components/Planets.tsx"
+  ],
+  "reading": "This is a dark hero section for \"Hilltop Observatory\": a night-sky background, spaced-caps site label, a huge bold headline, a body paragraph about Friday viewings, a \"Book a night\" button, a glowing crescent moon illustration, and a row of four planet icons (Mars, Jupiter, Neptune, Pluto) sitting on a baseline, each needing a label underneath.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Hilltop Observatory\" at (90,159) 239x16 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:37:7",
+      "rect": {
+       "x": 90,
+       "y": 158,
+       "w": 238.5625,
+       "h": 19.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#a5a8f0 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x500 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:25:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 500
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Nights worth staying up for\" at (90,216) 405x144 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:44:7",
+      "rect": {
+       "x": 90,
+       "y": 216,
+       "w": 460,
+       "h": 144
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#c8ccf0 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (90,384) 502x21 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:51:7",
+      "rect": {
+       "x": 90,
+       "y": 384,
+       "w": 502,
+       "h": 21
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 90,
+        "y": 489,
+        "w": 221,
+        "h": 58
+       },
+       "built": {
+        "x": 90,
+        "y": 489,
+        "w": 221,
+        "h": 58
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x500 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:25:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 500
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#fdf0c4 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.2625954101274094,
+    "massSimilarity": 0.08942201446772768,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "proportions changed: the sketch is 1.12:1 (w:h), the output 9.49:1",
+     "only 9% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "design",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (150,680) 940x201 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/components/Planets.tsx:19:5",
+      "rect": {
+       "x": 150,
+       "y": 680,
+       "w": 940,
+       "h": 201
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": false,
+    "nearest": 66,
+    "reason": "nothing near the drawing is the colour that was drawn (#f87171); closest is ΔE 66.0 away"
+   },
+   {
+    "kind": "composition",
+    "index": 5,
+    "score": 0.34223898937416475,
+    "massSimilarity": 0.20319855624880678,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "proportions changed: the sketch is 5.49:1 (w:h), the output 9.49:1",
+     "only 20% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 4: the outline drawn at (820,90) 320x319 was coloured #fdf0c4 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fdf0c4; action 4: the outline drawn at (910,60) 300x299 was coloured #111a3c (fill); nothing that size was built there carrying a colour: paint the block itself exactly #111a3c; action 5: the outline drawn at (150,720) 80x80 was coloured #f87171 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #f87171; action 5: the outline drawn at (420,680) 140x141 was coloured #fbbf24 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fbbf24; action 5: the outline drawn at (740,710) 100x101 was coloured #60a5fa (fill); nothing that size was built there carrying a colour: paint the block itself exactly #60a5fa; action 5: the outline drawn at (1019,730) 65x64 was coloured #a78bfa (fill); nothing that size was built there carrying a colour: paint the block itself exactly #a78bfa; action 5: the outline drawn at (150,849) 940x2 was coloured #a5a8f0 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #a5a8f0",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#141a38",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (90,166) 252x0",
+       "want": "#a5a8f0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (90,252) 415x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (90,324) 450x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (90,394) 502x0",
+       "want": "#c8ccf0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (90,489) 221x58",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (820,90) 320x319",
+       "want": "#fdf0c4",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (910,60) 300x299",
+       "want": "#111a3c",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (150,720) 80x80",
+       "want": "#f87171",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (420,680) 140x141",
+       "want": "#fbbf24",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (740,710) 100x101",
+       "want": "#60a5fa",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (1019,730) 65x64",
+       "want": "#a78bfa",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (150,849) 940x2",
+       "want": "#a5a8f0",
+       "best": null,
+       "ok": false
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 76921,
+   "cacheRead": 734313,
+   "output": 26765
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 53479,
+    "output": 20430,
+    "cacheRead": 538232,
+    "toolCalls": 16,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read components/CrescentMoon.tsx",
+     "Read components/Planets.tsx",
+     "Read src/index.css",
+     "Write components/CrescentMoon.tsx",
+     "Write components/Planets.tsx",
+     "Write src/App.tsx",
+     "Edit components/CrescentMoon.tsx",
+     "Edit components/Planets.tsx",
+     "Edit src/App.tsx",
+     "Read src/main.tsx",
+     "Edit components/CrescentMoon.tsx",
+     "Edit components/Planets.tsx",
+     "Read components/Planets.tsx",
+     "Write components/Planets.tsx"
+    ],
+    "ms": 222200
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 50207,
+    "output": 6335,
+    "cacheRead": 196081,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/CrescentMoon.tsx",
+     "Edit components/CrescentMoon.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 77985
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/CrescentMoon.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 189 A 160 160 0 1 0 …\""
+     }
+    ]
+   },
+   {
+    "file": "src/components/Planets.tsx",
+    "edits": [
+     {
+      "kind": "position-yields",
+      "detail": "a hard-coded relative now yields to an absolute/fixed className"
+     }
+    ]
+   },
+   {
+    "file": "src/components/CrescentMoon.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 189 A 160 160 0 1 0 …\""
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

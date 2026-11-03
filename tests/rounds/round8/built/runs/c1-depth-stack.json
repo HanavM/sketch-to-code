@@ -1,0 +1,181 @@
+{
+  "id": "c1-depth-stack",
+  "at": "2026-10-23T02:01:31.803Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7852737553719418,
+    "overallV2": 0.7852737553719418,
+    "overallV1": 0.7490230136072342,
+    "colour": 0.9465145587601671,
+    "structure": 0.6469430514300769,
+    "structureStrict": 0.5567599469457103,
+    "colourAligned": 0.9465145587601671,
+    "structureAligned": 0.6469430514300769,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.88469617320299
+    },
+    "layout": 0.8324447178348146
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 31768,
+    "output": 13729,
+    "cacheRead": 145125
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 31305,
+      "output": 7768,
+      "cacheRead": 124603,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 79888
+    }
+  ],
+  "reading": "This is a hero section sketch: a top navigation bar, a small eyebrow label, a giant three-line headline with one hollow word, two pill buttons, a 3D stack of three overlapping cards to the right, and a row of three flat dashes below acting as a slide indicator. Typed notes give exact colors, type, and styling for each piece, including a page-wide indigo-to-black gradient background with white Helvetica text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        43,
+        1112,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar, no box/border around it: bold 'LAYERS' wordmark on the left, and 'Product · Pricing · Docs · Sign in' nav links on the right, full width acr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        203,
+        198,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small eyebrow label below the nav: 'SPATIAL WORKSPACE' in 13px wide-letter-spaced lavender uppercase text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 87
+        }
+      ],
+      "region": [
+        88,
+        250,
+        576,
+        287
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline set tight (line-height 0.92), broken into exactly 3 lines that must stay as drawn, never rewrapped, white-space: nowrap, containe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        82,
+        562,
+        121,
+        46
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "White pill-shaped button with black text reading 'Start free', placed below the headline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        252,
+        561,
+        139,
+        48
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Dark grey outlined pill-shaped button reading 'Watch demo', placed next to the 'Start free' button."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        153,
+        554,
+        614
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A stack of 3 separate cards in 3D (not a single flat picture): a 560x620px container at roughly 600,150 with perspective: 1200px, holding 3 absolutely-positione"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        820,
+        172,
+        5
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Slide indicator made of 3 short flat dashes in a row (not dots, not a progress bar, no surrounding box), each 4px tall with 2px rounded corners, spaced 10px apa"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

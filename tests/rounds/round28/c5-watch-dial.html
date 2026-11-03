@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Watch dial</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 45%,#1d2a3a 0,#0b1018 60%);font-family:Helvetica,Arial,sans-serif;color:#e9e3d6}
+.nav{position:absolute;left:64px;top:40px;width:1152px;display:flex;gap:34px;font:500 13px Helvetica;letter-spacing:3px;text-transform:uppercase;color:#a9a294}.nav b{margin-right:auto;color:#e9e3d6;font:400 22px Didot,"Bodoni 72",Georgia,serif;letter-spacing:6px}
+.case{position:absolute;left:640px;top:110px;width:600px;height:600px;border-radius:50%;background:conic-gradient(from 40deg,#c9ccd2,#6e737c,#e6e8ec,#7c818a,#c9ccd2);box-shadow:0 40px 80px #000a,inset 0 0 0 2px #fff4}
+.face{position:absolute;left:40px;top:40px;width:520px;height:520px;border-radius:50%;background:repeating-conic-gradient(#14324f 0 2deg,#173a5c 2deg 4deg);box-shadow:inset 0 10px 30px #0009}
+.dial{position:absolute;left:640px;top:110px}
+.sub{position:absolute;width:130px;height:130px;border-radius:50%;background:repeating-radial-gradient(#0f2740 0 3px,#14324f 3px 6px);border:2px solid #c9ccd2}
+.h{position:absolute;left:64px;top:170px;width:560px;font:400 80px/1 Didot,"Bodoni 72",Georgia,serif;letter-spacing:-1px}.h i{color:#d8b56a}
+.cp{position:absolute;left:66px;top:430px;width:440px;font:400 17px/1.65 Georgia,serif;color:#bdb6a8}
+.specs{position:absolute;left:66px;top:520px;width:460px;border-top:1px solid #e9e3d633}.specs div{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #e9e3d633;font:500 13px Helvetica;letter-spacing:2px;text-transform:uppercase}.specs span{color:#a9a294}
+.cta{position:absolute;left:66px;top:800px;display:flex;gap:16px}.cta span{padding:15px 28px;font:600 13px Helvetica;letter-spacing:3px;text-transform:uppercase;border:1px solid #d8b56a;color:#d8b56a}.cta .p{background:#d8b56a;color:#0b1018}
+.cap{position:absolute;left:780px;top:760px;width:320px;text-align:center;font:italic 400 16px Georgia,serif;color:#a9a294}
+</style></head><body>
+<div class="nav" data-r="nav"><b>HOROLOGE</b><span>Collection</span><span>Atelier</span><span>Service</span></div>
+<div class="case" data-r="steel-case" data-must><div class="face"></div><i class="sub" style="left:235px;top:120px"></i><i class="sub" style="left:235px;top:350px"></i></div>
+<svg class="dial" data-r="dial-marks" data-must width="600" height="600" viewBox="0 0 600 600"><g stroke="#e9e3d6" stroke-width="2"><line x1="300" y1="60" x2="300" y2="74"/><line x1="420" y1="92" x2="413" y2="104"/><line x1="508" y1="180" x2="496" y2="187"/><line x1="540" y1="300" x2="526" y2="300"/><line x1="508" y1="420" x2="496" y2="413"/><line x1="420" y1="508" x2="413" y2="496"/><line x1="300" y1="540" x2="300" y2="526"/><line x1="180" y1="508" x2="187" y2="496"/><line x1="92" y1="420" x2="104" y2="413"/><line x1="60" y1="300" x2="74" y2="300"/><line x1="92" y1="180" x2="104" y2="187"/><line x1="180" y1="92" x2="187" y2="104"/></g>
+<g fill="#d8b56a"><rect x="292" y="76" width="16" height="40"/><rect x="484" y="292" width="40" height="16"/><rect x="76" y="292" width="40" height="16"/></g>
+<g stroke-linecap="round"><line x1="300" y1="300" x2="190" y2="200" stroke="#e9e3d6" stroke-width="12"/><line x1="300" y1="300" x2="430" y2="160" stroke="#e9e3d6" stroke-width="8"/><line x1="300" y1="340" x2="300" y2="90" stroke="#d8b56a" stroke-width="2"/></g><circle cx="300" cy="300" r="12" fill="#d8b56a"/>
+<text x="300" y="470" text-anchor="middle" font-family="Didot,Georgia,serif" font-size="18" letter-spacing="6" fill="#e9e3d6">HOROLOGE</text></svg>
+<h1 class="h" data-r="headline" data-must>Time, <i>engraved</i> by hand</h1>
+<p class="cp" data-r="copy">Calibre H-28: a guilloché dial cut on a 1920s rose engine, two sub-dials, a 72-hour reserve.</p>
+<div class="specs" data-r="spec-list" data-must><div><span>Case</span>Steel, 39 mm</div><div><span>Movement</span>Manual, H-28</div><div><span>Reserve</span>72 hours</div><div><span>Edition</span>Of 280</div></div>
+<div class="cta" data-r="cta" data-must><span class="p">Reserve one</span><span>Visit the atelier</span></div>
+<div class="cap" data-r="caption">No. 041 of 280, Geneva</div>
+</body></html>

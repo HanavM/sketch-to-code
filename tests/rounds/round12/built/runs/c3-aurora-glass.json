@@ -1,0 +1,174 @@
+{
+  "id": "c3-aurora-glass",
+  "at": "2026-10-23T17:58:23.655Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8440760622432183,
+    "overallV2": 0.8440760622432183,
+    "overallV1": 0.7958123456507414,
+    "colour": 0.9850017541907843,
+    "structure": 0.9445121864730053,
+    "structureStrict": 0.837467851949534,
+    "colourAligned": 0.9850017541907843,
+    "structureAligned": 0.9445121864730053,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9545317363822192
+    },
+    "layout": 0.5858300868461853
+  },
+  "effects": {
+    "recall": 0.875,
+    "kept": [
+      "blur",
+      "glass",
+      "gradient",
+      "huge-type",
+      "italic",
+      "motion",
+      "serif"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 32681,
+    "output": 22313,
+    "cacheRead": 140133
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 44721,
+      "output": 18492,
+      "cacheRead": 129933,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 211191
+    }
+  ],
+  "reading": "This is a dark hero landing page: a page-wide soft multicolour blurred glow behind everything, a minimal nav, a huge thin headline with one italic word, a lavender subhead paragraph, a gradient pill CTA button, and a row of three frosted-glass stat cards (the middle one raised).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        1,
+        894,
+        636
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Behind everything: a soft blurred colour glow, NOT a chart, NOT a ring, NOT a box — ONE 900x900px circle (border-radius 50%) div with its top-left at 240,-260 ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Top nav bar with no box around it: \"◐ halo\" on the left, \"Product Research Login\" on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 119
+        }
+      ],
+      "region": [
+        8,
+        284,
+        1152,
+        143
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica thin hairline-weight tight-set headline \"Light that listens\", 110px type, about 674px wide (no larger); the word \"listens\" is set in its own fac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        394,
+        430,
+        492,
+        54
+      ],
+      "paths": [],
+      "instruction": "Lavender subheading text below the headline: \"Ambient lamps that follow your voice, your music and your sleep.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        532,
+        531,
+        215,
+        51
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Pill-shaped button with a black-to-cyan-to-pink gradient fill, labeled \"Pre-order — $249\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        123,
+        653,
+        1033,
+        174
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Row of 3 separate frosted glass cards side by side (not plain stats on the page): each 22px rounded corners, 24px padding, see-through fill #ffffff14, a 1px #ff"
+    }
+  ],
+  "rejected": []
+}

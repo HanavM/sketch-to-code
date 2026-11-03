@@ -1,0 +1,193 @@
+{
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "063d8d5ab5727f7c98b328ec261c86ecb634e680",
+  "changedFiles": [
+    "src/App.tsx"
+  ],
+  "reading": "The sketch is a sign-in form card: a bordered box containing a 'Sign in' heading, a subheading, labeled email and password inputs, a solid blue 'Sign in' button, and a blue 'Forgot your password?' link below it, set against a light gray page background.",
+  "verification": [
+    {
+      "kind": "add",
+      "index": 0,
+      "verdict": {
+        "satisfied": true,
+        "reason": "new <div> at (429,239) 422x423 matches the sketch region",
+        "bestCandidate": {
+          "tag": "div",
+          "srcLoc": "src/App.tsx:4:7",
+          "rect": {
+            "x": 429,
+            "y": 238.5,
+            "w": 422,
+            "h": 423
+          }
+        }
+      }
+    },
+    {
+      "kind": "marks",
+      "index": 0,
+      "verdict": {
+        "satisfied": false,
+        "reason": "the box drawn at (469,375) 341x46: the <input> built for it sits 57px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size); the box drawn at (470,447) 341x48: the <input> built for it sits 34px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size)",
+        "marks": [
+          {
+            "strokeId": "s0",
+            "drawn": {
+              "x": 429,
+              "y": 149,
+              "w": 422,
+              "h": 422
+            },
+            "built": {
+              "x": 429,
+              "y": 238.5,
+              "w": 422,
+              "h": 423
+            },
+            "dx": 0,
+            "dy": 90
+          },
+          {
+            "strokeId": "s3",
+            "drawn": {
+              "x": 470,
+              "y": 287,
+              "w": 340,
+              "h": 45
+            },
+            "built": {
+              "x": 470,
+              "y": 279.5,
+              "w": 340,
+              "h": 42
+            },
+            "dx": 0,
+            "dy": -9
+          },
+          {
+            "strokeId": "s4",
+            "drawn": {
+              "x": 469,
+              "y": 375,
+              "w": 341,
+              "h": 46
+            },
+            "built": {
+              "x": 470,
+              "y": 432.5,
+              "w": 340,
+              "h": 44
+            },
+            "dx": 1,
+            "dy": 57
+          },
+          {
+            "strokeId": "s5",
+            "drawn": {
+              "x": 470,
+              "y": 447,
+              "w": 341,
+              "h": 48
+            },
+            "built": {
+              "x": 470,
+              "y": 482.5,
+              "w": 340,
+              "h": 44
+            },
+            "dx": 0,
+            "dy": 34
+          }
+        ]
+      }
+    },
+    {
+      "kind": "readable",
+      "verdict": {
+        "satisfied": true,
+        "reason": "4 pieces of text read on what is behind them"
+      }
+    },
+    {
+      "kind": "ink-colours",
+      "verdict": {
+        "satisfied": false,
+        "reason": "action 0: the box drawn at (470,447) 341x48 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb",
+        "checks": [
+          {
+            "what": "page",
+            "want": "#f3f4f6",
+            "best": 0,
+            "ok": true
+          },
+          {
+            "what": "the box drawn at (470,447) 341x48",
+            "want": "#2563eb",
+            "best": null,
+            "ok": false
+          }
+        ]
+      }
+    }
+  ],
+  "tokens": {
+    "input": 48515,
+    "cacheRead": 169425,
+    "output": 33983
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 23681,
+      "output": 5290,
+      "cacheRead": 68576,
+      "toolCalls": 4,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 66099
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 58817,
+      "output": 28693,
+      "cacheRead": 100849,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 362568
+    }
+  ],
+  "codemod": {
+    "handled": [],
+    "refused": []
+  },
+  "backend": {
+    "applied": [],
+    "refused": []
+  },
+  "fidelity": {
+    "resemblance": 0.5,
+    "keep": {
+      "asymmetry": true,
+      "rhythm": true,
+      "proportions": true,
+      "placement": true
+    },
+    "fill": "filled",
+    "style": "auto",
+    "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null
+}

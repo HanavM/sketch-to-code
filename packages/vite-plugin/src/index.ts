@@ -1,3 +1,4 @@
+import { markInterruptedRuns } from './interrupted-runs.js'
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { existsSync, readFileSync } from 'node:fs'
@@ -70,6 +71,10 @@ export interface RunRequest {
   overrides?: Record<string, string>
   /** Confirmed raw interpretation (model engine) — re-grounded server-side. */
   rawInterpretation?: unknown
+  /** n191: plan targets re-pointed by a tap before Go. */
+  retargets?: unknown
+  /** n192: plan actions struck with "skip" before Go. */
+  skips?: unknown
   /** Resemblance slider + per-aspect locks; validated in the pipeline. */
   fidelity?: unknown
   /** Notes typed while sketching, each anchored to an element/strokes/the run. */
@@ -367,8 +372,14 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
           server.config.logger.warn('[s2c] @s2c/pipeline not installed — overlay runs in capture-only mode')
         })
 
+      // n115: runs cut short by a dev server that stopped mid-run get their record now
+      const interruptedRuns = markInterruptedRuns(root)
+      if (interruptedRuns.length) {
+        server.config.logger.warn(`[s2c] ${String(interruptedRuns.length)} run(s) were cut short when the dev server stopped; the page on disk was kept as they left it`)
+      }
+
       server.middlewares.use('/@s2c/ping', (_req, res) => {
-        sendJson(res, 200, { ok: true, root, allowDirty, engine, hasPipeline: runHandler !== null })
+        sendJson(res, 200, { ok: true, root, allowDirty, engine, hasPipeline: runHandler !== null, interruptedRuns })
       })
 
       server.middlewares.use('/@s2c/overlay.js', (_req, res) => {
@@ -1607,12 +1618,15 @@ export default function sketch2code(options: Sketch2CodeOptions = {}): Plugin {
                     notes: body.notes as Parameters<typeof m.runV2>[0]['notes'],
                     candidates: body.candidates,
                     instant: body.instant,
+                    retargets: Array.isArray(body.retargets) ? body.retargets as Parameters<typeof m.runV2>[0]['retargets'] : undefined,
+                    skips: Array.isArray(body.skips) ? body.skips as Parameters<typeof m.runV2>[0]['skips'] : undefined,
                   },
-                  { ...ctx, signal },
+                  { ...ctx, signal, deadline },
                 )
               }
               return runHandler!(body, { ...ctx, signal })
             }
+            const deadline = Date.now() + runTimeoutMs
             const run = superviseRun(exec, {
               timeoutMs: runTimeoutMs,
               // the overlay is still in its running state; say why it's waiting

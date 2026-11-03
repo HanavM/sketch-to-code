@@ -1,0 +1,258 @@
+{
+  "id": "c3-masonry-stickers",
+  "at": "2026-10-23T04:24:30.793Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8870243304921576,
+    "overallV2": 0.8870243304921576,
+    "overallV1": 0.8536987644912227,
+    "colour": 0.9651711063637871,
+    "structure": 0.9316202806460455,
+    "structureStrict": 0.8773157902873272,
+    "colourAligned": 0.9651711063637871,
+    "structureAligned": 0.9316202806460455,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9565781198389193
+    },
+    "layout": 0.8936782658925003
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 37282,
+    "output": 13623,
+    "cacheRead": 183890
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 38918,
+      "output": 8727,
+      "cacheRead": 180806,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 89533
+    }
+  ],
+  "reading": "The sketch lays out a hero landing page: a big nowrap heading, a small nav line, and a grid of colored tiles (some plain gradients, some with stat/quote text) plus two tilted circular badges straddling tile boundaries. Typed notes give exact colors, sizes, copy and positions for every piece, overriding the crossed-out look of two tiles (they are plain color/gradient fills, not images).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 78
+        }
+      ],
+      "region": [
+        48,
+        29,
+        237,
+        94
+      ],
+      "paths": [],
+      "instruction": "Huge, heavy-weight Helvetica heading text \"Pin it all.\" set on one line, never wrapping (white-space: nowrap), about 263px wide."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        884,
+        66,
+        156,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small 15px navigation text line \"Boards · Explore · Join\" on its own line, nothing beside it, positioned with top at 62px and left edge at 880px."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        153,
+        274,
+        353
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Soft-colored hero block (not an image despite the crossed lines — the X is just a sketch marker, override to plain color fill): bright orange (#fb923c) glow cen"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        274,
+        213
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Near-black (#1c1917) flat tile, 280x220px, 18px rounded corners, no shadow. In its top-left corner (24px in, 24px down) place 30px heavy off-white (#fff7ed) tex"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        153,
+        274,
+        414
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Plain gradient tile, 280x420px, 18px rounded corners, vivid cyan at top fading to vivid blue at bottom; no picture, no icon, no text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        153,
+        294,
+        254
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Plain mint-green (#bef264) tile, 300x260px, 18px rounded corners; no picture, no icon, no text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        393,
+        273,
+        333
+      ],
+      "paths": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "instruction": "Purple tile (not an image — the crossed lines are a sketch marker, override to plain color fill), 280x340px, 18px rounded corners: base #7c3aed with a single la"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        533,
+        273,
+        323
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Pale pink (#fecaca) flat tile, 280x330px, 18px rounded corners, no shadow. In its top-left corner (24px in, 24px down) place 24px serif italic near-black text: "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        593,
+        273,
+        264
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Plain vivid yellow (#fde047) tile, 280x270px, 18px rounded corners; no picture, icon, or text. Position its top at 590px from page top, keeping a 20px gap below"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        433,
+        294,
+        423
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Plain gradient tile, 300x430px, 18px rounded corners, light pink at top fading to deep raspberry at bottom; no picture, icon, or text. Position its top at 430px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        552,
+        312,
+        145,
+        146
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Circular badge tilted 12° anticlockwise, vivid yellow fill, 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down-right with no blur"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        875,
+        515,
+        119,
+        119
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Circular badge tilted 10° clockwise, white fill, 3px solid near-black outline, hard solid opaque near-black shadow offset 4px down-right with no blur, containin"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

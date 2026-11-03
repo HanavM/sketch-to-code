@@ -1,0 +1,610 @@
+{
+ "c1-sunset-hero": {
+  "plan": [
+   [
+    "logo",
+    "text",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
+   ],
+   [
+    "links",
+    "text"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 120,
+     "lines": 2
+    }
+   ],
+   [
+    "subhead",
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: coral (#ff7a59) to pink (#ff4f7b, its stop at 45% of the way along, fully opaque) to purple (#7b2ff7) gradient, top to bottom page, Georgia type, white text"
+   ],
+   [
+    "logo",
+    "italic \"dusk.\"; set at 26px (a large lead line, NOT small body text), about 54px wide on one line"
+   ],
+   [
+    "links",
+    "the 4 parts \"Work\", \"Studio\", \"Journal\", \"Contact\" sit side by side in one row with exactly 36px of empty space between one and the next (flex gap 36px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 37x18 at 910,38 16px Helvetica/Arial sans-serif (NOT the page serif) #ffffff \"Work\"; 45x18 at 983,38 16px Helvetica/Arial sans-serif (NOT the page serif) #ffffff \"Studio\"; 52x18 at 1064,38 16px Helvetica/Arial sans-serif (NOT the page serif) #ffffff \"Journal\"; 55x18 at 1153,38 16px Helvetica/Arial sans-serif (NOT the page serif) #ffffff \"Contact\""
+   ],
+   [
+    "headline",
+    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 1) \"Stay for the golden hour\", set in exactly 2 lines: \"Stay for the golden\" / \"hour\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 859px wide)"
+   ],
+   [
+    "subhead",
+    "text \"A slow-living retreat on the coast, where the evenings last a little longer.\"; set in a 620px wide box (width: 620px, its top-left at 330,516), 22px type, line-height 33px, wrapping into exactly 2 lines: \"A slow-living retreat on the coast, where the evenings last a\" / \"little longer.\" (no narrower box, no extra line)"
+   ],
+   [
+    "cta",
+    "pill button \"Book a stay\"; its text #7b2ff7 (purple, NOT the page's white text) (exactly: #ffffff fill, #7b2ff7 text, 220x61px, pill ends)"
+   ]
+  ]
+ },
+ "c2-brutalist-type": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 190,
+     "lines": 2
+    }
+   ],
+   [
+    "body",
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 3
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: yellow (#ffe600) page, black text"
+   ],
+   [
+    "nav",
+    "the region itself is ONE 1280x77px top bar element at 0,0 (its own wrapper, no fill, a 6px #000000 rule along its BOTTOM edge only (border-bottom, no other border), exactly 77px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; nav bar 77px tall across the top, thick line under: \"LOUD®\" left, \"INDEX — SHOP — ABOUT\" right"
+   ],
+   [
+    "headline",
+    "giant uppercase tight-set letters lines set tight (line-height 0.86) \"MAKE IT LOUD\", set in exactly 2 lines: \"MAKE\" / \"IT LOUD\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 704px wide), 190px type, the text box's top-left at 0,77 (top-[77px]; the first line starts there, not lower); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "body",
+    "text \"Posters, zines and type that refuses to whisper. Printed in Berlin, shipped everywhere.\"; set BOLD (font-weight 700), NOT regular; set in a 480px wide box (width: 480px, its top-left at 48,510), 22px type, line-height 33px, wrapping into exactly 3 lines: \"Posters, zines and type that refuses to\" / \"whisper. Printed in Berlin, shipped\" / \"everywhere.\" (no narrower box, no extra line)"
+   ],
+   [
+    "cta",
+    "black yellow text button \"SHOP NOW →\" (287x80px, square corners: border-radius 0, NOT a pill), with a hard solid opaque red shadow offset 12px down right, no blur; its text #ffe600 (yellow, NOT the page's black text) (exactly: #000000 fill, #ffe600 text, 287x80px, square corners: border-radius 0, NOT a pill)"
+   ]
+  ]
+ },
+ "c3-split-studio": {
+  "plan": [
+   [
+    "left-panel",
+    "box"
+   ],
+   [
+    "logo",
+    "text",
+    {
+     "fontPx": 22,
+     "lines": 1
+    }
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 84,
+     "lines": 2
+    }
+   ],
+   [
+    "body",
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ],
+   [
+    "right-panel",
+    "box"
+   ],
+   [
+    "orb",
+    "circle"
+   ]
+  ],
+  "notes": [
+   [
+    "left-panel",
+    "the region itself is ONE 640x900px panel at 0,0 (position absolute, its FULL height kept: 900px tall, never shorter), background #14532d; the parts drawn on their own (logo, headline, body, cta) all sit INSIDE this panel, within its edges; deep green (exactly #14532d) block, cream text; its text #f5f0e6 (cream, NOT the page's black text)"
+   ],
+   [
+    "logo",
+    "uppercase wide-spaced letters (letter-spacing 4px) cream \"VERDE\"; its text #f5f0e6 (cream, NOT the page's black text)"
+   ],
+   [
+    "headline",
+    "giant Georgia serif regular weight (not bold) cream \"Plants that grow with you\", set in exactly 2 lines: \"Plants that\" / \"grow with you\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 490px wide); its \"Plants that grow with you\" is BIG 84px font-weight undefined Georgia, serif type (NOT the Helvetica of the rest, NOT small), #f5f0e6, filling about 512x179px from 64,258, on one line"
+   ],
+   [
+    "body",
+    "cream text \"Hand-picked houseplants, potted in recycled clay and delivered by bike across the city.\"; its text #f5f0e6 (cream, NOT the page's black text); set in a 440px wide box (width: 440px, its top-left at 64,461), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Hand-picked houseplants, potted in recycled clay\" / \"and delivered by bike across the city.\" (no narrower box, no extra line)"
+   ],
+   [
+    "cta",
+    "cream outline button \"BROWSE PLANTS\" (236x58px, square corners: border-radius 0, NOT a pill); its text #f5f0e6 (cream, NOT the page's black text)"
+   ],
+   [
+    "right-panel",
+    "cream"
+   ],
+   [
+    "orb",
+    "a 440px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient(circle at 35% 35%, #fbbf24 0%, #ea580c 70%) so it looks lit from the top left; absolutely placed, top-left at 740,230, ON TOP of every tile it overlaps (highest z-index, nothing covers it)"
+   ]
+  ]
+ },
+ "c4-neon-dark": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "badge",
+    "button"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 104,
+     "lines": 2
+    }
+   ],
+   [
+    "subhead",
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 2
+    }
+   ],
+   [
+    "ctas",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: near-black indigo (#05010f) page, faint grid lines, Helvetica type, light grey text"
+   ],
+   [
+    "nav",
+    "the region itself is ONE 1280x82px top bar element at 0,0 (its own wrapper, no fill) that holds all of these parts inside it, never laid loose on the page; nav, no box around it: bold 22px \"NOVA\" left, \"Product Docs Pricing\" right; each word in its own colour: \"NOVA\" #e6e6ff, \"Product Docs Pricing\" #a5a5d6"
+   ],
+   [
+    "badge",
+    "purple outline pill button \"✦ v2 is live — read the notes\""
+   ],
+   [
+    "headline",
+    "giant Helvetica heavy cyan (#22d3ee) to purple (#a855f7, its stop at 50% of the way along, fully opaque) to light pink (#f472b6) gradient, left to right text \"Ship at the speed of light\", set in exactly 2 lines: \"Ship at the speed of\" / \"light\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 988px wide)"
+   ],
+   [
+    "subhead",
+    "lavender text \"The edge platform for teams who refuse to wait on their own infrastructure.\"; its text #a5a5d6 (lavender, NOT the page's light grey text); set in a 600px wide box (width: 600px, its top-left at 340,514), 20px type, line-height 30px, wrapping into exactly 2 lines: \"The edge platform for teams who refuse to wait on their own\" / \"infrastructure.\" (no narrower box, no extra line)"
+   ],
+   [
+    "ctas",
+    "2 buttons in one row packed at the left, 20px apart, left to right: \"Start building\" 167x52px, SOLID #a855f7 fill (purple, NOT white or cream), no border, 12px rounded, 16px bold #ffffff text; \"Talk to us\" 140x52px, NO fill (see-through, the page shows inside), 1px #22d3ee border, 12px rounded, 16px bold #22d3ee text; each word in its own colour: \"Start building\" #ffffff, \"Talk to us\" #22d3ee"
+   ]
+  ]
+ },
+ "c5-editorial": {
+  "plan": [
+   [
+    "masthead",
+    "box"
+   ],
+   [
+    "number",
+    "heading",
+    {
+     "fontPx": 240,
+     "lines": 1
+    }
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 58,
+     "lines": 3
+    }
+   ],
+   [
+    "dek",
+    "text",
+    {
+     "fontPx": 20,
+     "lines": 2
+    }
+   ],
+   [
+    "sidebar",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#faf7f2, plainly not white) page, Georgia type, near-black text"
+   ],
+   [
+    "masthead",
+    "huge 54px bold title, starting 26% down: \"The Long Read\", text \"ISSUE 14 · AUTUMN\""
+   ],
+   [
+    "number",
+    "giant Georgia serif regular weight (not bold) red \"01\", 240px type, about 240px wide (no larger)"
+   ],
+   [
+    "headline",
+    "huge Georgia serif regular weight (not bold) \"The quiet return of the handwritten letter\", set in exactly 3 lines: \"The quiet return of\" / \"the handwritten\" / \"letter\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 436px wide); plus a small separate 13px #b91c1c label \"ESSAY\" with 3px letter-spacing at 412,165, 16px above it and left-aligned with it (keep it, it is part of this heading)"
+   ],
+   [
+    "dek",
+    "italic brown text \"Why a generation raised on screens is buying fountain pens again.\"; its text #57534e (brown, NOT the page's near-black text); set in a 492px wide box (width: 492px, its top-left at 412,403), 20px type, line-height 30px, wrapping into exactly 2 lines: \"Why a generation raised on screens is buying fountain pens\" / \"again.\" (no narrower box, no extra line)"
+   ],
+   [
+    "sidebar",
+    "sidebar 20px heavy bold Georgia (NOT the copy's Helvetica) heading \"In this issue\" on its own line, then under it the copy quoted whole (these exact words, nothing invented): 15px Helvetica \"Rivers that remember · The last lighthouse keepers · A short history of blue\""
+   ]
+  ]
+ },
+ "e1-login": {
+  "plan": [
+   [
+    "card",
+    "box"
+   ],
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
+   ],
+   [
+    "email",
+    "box"
+   ],
+   [
+    "password",
+    "box"
+   ],
+   [
+    "submit",
+    "button"
+   ],
+   [
+    "forgot",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f3f4f6, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "card",
+    "the region itself is ONE 420x420px panel at 430,150, #ffffff fill, 12px rounded, box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 24px 0px (it floats over what is under it), with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never wrapping); white card; its own parts (beside the regions inside it, which are drawn and built on their own and sit OVER these where they cross), part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 340x17 at 470,227 15px #6b7280 \"Welcome back. Enter your details.\"; 340x16 at 470,266 14px bold #111827 \"Email\"; 340x16 at 470,354 14px bold #111827 \"Password\""
+   ],
+   [
+    "title",
+    "\"Sign in\", 26px type (font-size exactly 26px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 87px wide, line under: \"Welcome back. Enter your details.\"; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "email",
+    "label \"Email\" above, input \"you@example.com\"; its text #9ca3af (grey, NOT the page's dark navy text)"
+   ],
+   [
+    "password",
+    "label \"Password\" above, input \"••••••••\"; its text #9ca3af (grey, NOT the page's dark navy text)"
+   ],
+   [
+    "submit",
+    "blue white text button \"Sign in\" (340x46px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 340x46px, 8px rounded)"
+   ],
+   [
+    "forgot",
+    "14px blue \"Forgot your password?\"; its text #2563eb (blue, NOT the page's dark navy text)"
+   ]
+  ]
+ },
+ "e2-pricing": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 1
+    }
+   ],
+   [
+    "subtitle",
+    "text"
+   ],
+   [
+    "tier-1",
+    "box"
+   ],
+   [
+    "tier-2",
+    "box"
+   ],
+   [
+    "tier-3",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "title",
+    "big \"Simple pricing\", on ONE line (white-space: nowrap, never wrapped), about 303px wide, CENTRED on the page (text-align center; its text runs from x=488 to x=791, centre at x=640; NOT left-aligned); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "subtitle",
+    "\"Start free. Upgrade when you grow.\"; its text #6b7280 (grey, NOT the page's dark navy text); set at 18px (a large lead line, NOT small body text), about 1280px wide on one line"
+   ],
+   [
+    "tier-1",
+    "\"Starter\" big \"$0/mo\" list: \"1 project\", \"Community support\", \"Basic analytics\", outline button \"Get started\""
+   ],
+   [
+    "tier-2",
+    "dark navy (exactly #111827) block, white text \"Pro\" big \"$24/mo\" list: \"Unlimited projects\", \"Priority support\", \"Advanced analytics\", \"Custom domains\", indigo button \"Start trial\"; list rows exactly 32px apart (32px tall, 15px type: tight, not roomier), first line 149px below the panel's top; its text #ffffff (white, NOT the page's dark navy text)"
+   ],
+   [
+    "tier-3",
+    "\"Team\" big \"$79/mo\" list: \"Everything in Pro\", \"SSO\", \"Audit logs\", outline button \"Contact sales\""
+   ]
+  ]
+ },
+ "e3-blog-list": {
+  "plan": [
+   [
+    "nav",
+    "box"
+   ],
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 36,
+     "lines": 1
+    }
+   ],
+   [
+    "post-1",
+    "box"
+   ],
+   [
+    "thumb-1",
+    "image"
+   ],
+   [
+    "post-2",
+    "box"
+   ],
+   [
+    "thumb-2",
+    "image"
+   ],
+   [
+    "post-3",
+    "box"
+   ],
+   [
+    "thumb-3",
+    "image"
+   ]
+  ],
+  "notes": [
+   [
+    "nav",
+    "the region itself is ONE 1280x68px top bar element at 0,0 (its own wrapper, no fill, a 1px #e5e7eb rule along its BOTTOM edge only (border-bottom, no other border), exactly 68px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; nav bar 68px tall across the top, thin line under: bold 20px \"Notebook\" left, \"Posts Topics About\" right; each word in its own colour: \"Notebook\" #111827, \"Posts Topics About\" #4b5563"
+   ],
+   [
+    "title",
+    "big \"Latest posts\", 36px type (font-size exactly 36px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 212px wide; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "post-1",
+    "an invisible frame 960x140px at 160,186 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 491x26 at 408,215 22px bold #111827 \"How we cut our build times in half\"; 491x23 at 408,249 15px #6b7280 \"A look at caching, parallel jobs and the one config flag that mattered\"; 491x15 at 408,282 13px #9ca3af \"Oct 12 · 6 min read\""
+   ],
+   [
+    "post-2",
+    "an invisible frame 960x140px at 160,354 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 581x26 at 408,383 22px bold #111827 \"Designing for slow networks\"; 581x23 at 408,417 15px #6b7280 \"What we learned shipping to users on 2G, and why it made the app bette\"; 581x15 at 408,450 13px #9ca3af \"Oct 3 · 8 min read\""
+   ],
+   [
+    "post-3",
+    "an invisible frame 960x140px at 160,522 (no fill, no border, no shadow) whose own parts, beside the parts drawn on their own, are built part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 407x26 at 408,551 22px bold #111827 \"A year of four-day weeks\"; 407x23 at 408,585 15px #6b7280 \"The numbers, the surprises and what we would do differently.\"; 407x15 at 408,618 13px #9ca3af \"Sep 21 · 5 min read\""
+   ]
+  ]
+ },
+ "e4-contact": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 40,
+     "lines": 1
+    }
+   ],
+   [
+    "name",
+    "box"
+   ],
+   [
+    "email",
+    "box"
+   ],
+   [
+    "message",
+    "box"
+   ],
+   [
+    "submit",
+    "button"
+   ],
+   [
+    "info",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "title",
+    "big \"Get in touch\", on ONE line (white-space: nowrap, never wrapped), about 233px wide, line under: \"We usually reply within a day.\"; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "name",
+    "label \"Name\" above an empty field"
+   ],
+   [
+    "email",
+    "label \"Email\" above an empty field"
+   ],
+   [
+    "message",
+    "label \"Message\" above an empty field"
+   ],
+   [
+    "submit",
+    "teal white text button \"Send message\" (180x48px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #059669 fill, #ffffff text, 180x48px, 8px rounded)"
+   ],
+   [
+    "info",
+    "pale grey card \"Our office\", lines \"12 Harbour Street Lisbon, Portugal\", \"Email\", \"hello@example.com\", all at the top of the card, empty below"
+   ]
+  ]
+ },
+ "e5-dashboard": {
+  "plan": [
+   [
+    "sidebar",
+    "box"
+   ],
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 28,
+     "lines": 1
+    }
+   ],
+   [
+    "stat-1",
+    "box"
+   ],
+   [
+    "stat-2",
+    "box"
+   ],
+   [
+    "stat-3",
+    "box"
+   ],
+   [
+    "stat-4",
+    "box"
+   ],
+   [
+    "table",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: off-white (#f8fafc, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "sidebar",
+    "the region itself is ONE 240x900px column element at 0,0 (its own wrapper, #0f172a fill, running to the page bottom) that holds all of these parts inside it, never laid loose on the page; dark navy (exactly #0f172a) sidebar, light grey text \"Acme\" list: \"Overview\", \"Customers\", \"Invoices\", \"Settings\"; \"Overview\" highlighted (#1e293b rounded fill, #ffffff text); list rows exactly 37px apart (37px tall, 15px type: tight, not roomier), first line 28px below the panel's top; each word in its own colour: \"Acme\" #ffffff, \"Overview\" #ffffff, \"Customers\" #cbd5e1, \"Invoices\" #cbd5e1, \"Settings\" #cbd5e1"
+   ],
+   [
+    "title",
+    "\"Overview\", 28px bold type on one line, its box top 32px from the page top and 32px tall (top-[32px] or the same margin, line-height 32px; not higher)"
+   ],
+   [
+    "stat-1",
+    "white card \"Revenue\", text \"$48.2k\"; each word in its own colour: \"Revenue\" #64748b, \"$48.2k\" #0f172a"
+   ],
+   [
+    "stat-2",
+    "white card \"Customers\", text \"1,204\"; each word in its own colour: \"Customers\" #64748b, \"1,204\" #0f172a"
+   ],
+   [
+    "stat-3",
+    "white card \"Churn\", text \"2.1%\"; each word in its own colour: \"Churn\" #64748b, \"2.1%\" #0f172a"
+   ],
+   [
+    "stat-4",
+    "white card \"MRR\", text \"$12.9k\"; each word in its own colour: \"MRR\" #64748b, \"$12.9k\" #0f172a"
+   ],
+   [
+    "table",
+    "table, every body row built and none invented, columns \"Customer\", \"Plan\", \"Amount\", \"Status\", 4 rows: \"Northwind\" | \"Pro\" | \"$240\" | \"Paid\"; \"Globex\" | \"Team\" | \"$790\" | \"Paid\"; \"Initech\" | \"Starter\" | \"$0\" | \"Trial\"; \"Umbrella\" | \"Pro\" | \"$240\" | \"Overdue\""
+   ]
+  ]
+ }
+}

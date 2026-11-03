@@ -1,0 +1,700 @@
+{
+  "id": "c3-observatory",
+  "at": "2026-10-26T19:46:33.034Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9129187177526836,
+    "overallV2": 0.9129187177526836,
+    "overallV1": 0.8880369491772857,
+    "colour": 0.986827445846302,
+    "structure": 0.8955500311571418,
+    "structureStrict": 0.8304980694177323,
+    "colourAligned": 0.986827445846302,
+    "structureAligned": 0.8955500311571418,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9055406576903234
+    },
+    "layout": 0.8599372976576265,
+    "layoutV1": 0.8599372976576265,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      560,
+      80,
+      760,
+      760
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      91
+    ],
+    [
+      4,
+      60,
+      32,
+      77,
+      27
+    ],
+    [
+      4,
+      892,
+      35,
+      328,
+      21
+    ],
+    [
+      6,
+      892,
+      35,
+      45,
+      21
+    ],
+    [
+      6,
+      977,
+      35,
+      34,
+      21
+    ],
+    [
+      6,
+      1052,
+      35,
+      70,
+      21
+    ],
+    [
+      6,
+      1162,
+      35,
+      58,
+      21
+    ],
+    [
+      1,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      11,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      11,
+      600,
+      181,
+      612,
+      612
+    ],
+    [
+      1,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      14,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      14,
+      600,
+      181,
+      612,
+      612
+    ],
+    [
+      14,
+      700,
+      281,
+      413,
+      412
+    ],
+    [
+      1,
+      0,
+      0,
+      1274,
+      894
+    ],
+    [
+      18,
+      0,
+      -1,
+      1275,
+      894
+    ],
+    [
+      18,
+      600,
+      181,
+      612,
+      612
+    ],
+    [
+      18,
+      700,
+      281,
+      413,
+      412
+    ],
+    [
+      18,
+      812,
+      391,
+      191,
+      191
+    ],
+    [
+      18,
+      739,
+      425,
+      336,
+      125
+    ],
+    [
+      1,
+      739,
+      425,
+      342,
+      131
+    ],
+    [
+      1,
+      686,
+      237,
+      36,
+      36
+    ],
+    [
+      1,
+      1000,
+      110,
+      220,
+      160
+    ],
+    [
+      26,
+      1000,
+      110,
+      220,
+      160
+    ],
+    [
+      27,
+      1010,
+      130,
+      200,
+      120
+    ],
+    [
+      27,
+      1006,
+      125,
+      209,
+      129
+    ],
+    [
+      29,
+      1006,
+      246,
+      8,
+      8
+    ],
+    [
+      29,
+      1057,
+      197,
+      6,
+      6
+    ],
+    [
+      29,
+      1116,
+      216,
+      8,
+      8
+    ],
+    [
+      29,
+      1167,
+      147,
+      6,
+      6
+    ],
+    [
+      29,
+      1205,
+      125,
+      10,
+      10
+    ],
+    [
+      1,
+      60,
+      150,
+      300,
+      300
+    ],
+    [
+      1,
+      68,
+      420,
+      450,
+      118
+    ],
+    [
+      36,
+      68,
+      419,
+      450,
+      60
+    ],
+    [
+      37,
+      352,
+      419,
+      153,
+      60
+    ],
+    [
+      36,
+      68,
+      478,
+      192,
+      60
+    ],
+    [
+      1,
+      64,
+      570,
+      432,
+      54
+    ],
+    [
+      1,
+      60,
+      690,
+      460,
+      140
+    ],
+    [
+      41,
+      61,
+      691,
+      458,
+      138
+    ],
+    [
+      42,
+      86,
+      740,
+      70,
+      62
+    ],
+    [
+      43,
+      86,
+      740,
+      70,
+      45
+    ],
+    [
+      43,
+      86,
+      785,
+      70,
+      17
+    ],
+    [
+      42,
+      166,
+      740,
+      85,
+      62
+    ],
+    [
+      46,
+      166,
+      740,
+      85,
+      45
+    ],
+    [
+      46,
+      166,
+      785,
+      85,
+      17
+    ],
+    [
+      42,
+      261,
+      740,
+      86,
+      62
+    ],
+    [
+      49,
+      261,
+      740,
+      86,
+      45
+    ],
+    [
+      49,
+      261,
+      785,
+      86,
+      17
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.9166666666666666,
+    "kept": [
+      "bleed",
+      "glass",
+      "glow",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 129240,
+    "output": 57418,
+    "cacheRead": 534106
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 157393,
+      "output": 44754,
+      "cacheRead": 500959,
+      "toolCalls": 16,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/Planet.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/LineChart.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/Planet.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 481413
+    }
+  ],
+  "reading": "A dark hero/landing page for an observatory site ('ORRERY'): starfield and radial-glow backgrounds, a top nav, a big hollow '06' numeral, a two-line serif headline about Saturn, a lavender paragraph, a Saturn-like sphere with a tilted ring and orbit rings plus a small glow dot, a small line-chart SVG graphic, and a frosted-glass stat strip with three stats (RISE, MAGNITUDE, SEATS LEFT).",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A 1280x900px STARFIELD layer at 0,0, position absolute, behind everything, holding nothing, no fill of its own (page colour shows around the dots): background-i"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A soft glow, not a solid disc, no edge: a 760x760px see-through layer at 560,80, position absolute, behind the content, border-radius 50%, background: radial-gr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar: bold 18px Georgia serif white 'ORRERY' at the far left; nav links 'Tonight', 'Tours', 'Telescopes', 'Members' pushed to the far right with a"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A round (border-radius 50%, true circle 620px across, never a square) 1px dashed #8a93c7 outline circle, faint grey dashed ring behind the hero graphic."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s4"
+      ],
+      "instruction": "A second, smaller big faint grey outline circle nested inside the dashed ring, concentric with it."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "A 200px solid sphere (border-radius 50%, fully opaque) painted with radial-gradient(circle at 35% 30%, #ffd29a 0%, #e0763a 55%, #5a1d10 100%) so it looks lit fr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "instruction": "Saturn's ring: a flattened oval outline (border-radius 50%, not a rectangle, no corners), tilted 14 degrees anticlockwise, built as one plain div: width 340px; "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s7"
+      ],
+      "instruction": "A small 36x36px glowing light grey dot (border-radius 50%, not smaller), a star-like accent sitting on the dashed ring."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1275,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s8"
+      ],
+      "instruction": "An inline SVG, 220x160px, top-left at page 1000,110, position absolute, copied verbatim: a thin lavender polyline chart with white dot markers at points (10,140"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9"
+          ],
+          "lines": 1,
+          "fontPx": 303
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A giant Georgia serif regular-weight hollow outlined grey '06', 300px type, about 300px wide (no larger), absolutely placed with its box top-left at 60,150 and "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 54
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Huge Georgia serif headline in exactly 2 lines, kept as written, never rewrapped: 'A night with Saturn,' / 'up close.' about 500px wide, white-space nowrap. The"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Lavender body paragraph, colour #b6bde3 (not the page's off-white): 'Our 1-metre dome telescope opens at dusk. Small groups, red-light only, hot cocoa at the ey"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s14"
+      ],
+      "instruction": "A see-through frosted-glass card, 460x140px at 60,690, background rgba(255,255,255,0.08) only (dark page shows through, never solid white), border 1px solid rgb"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

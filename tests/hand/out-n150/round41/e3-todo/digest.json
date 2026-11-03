@@ -1,0 +1,505 @@
+{
+  "round": 41,
+  "id": "e3-todo",
+  "version": 3,
+  "stopped": null,
+  "likeness": 76.8,
+  "colour": 0.9941312217112095,
+  "structure": 0.9715475969132419,
+  "layout": 0.7783388770676906,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "line": 2,
+      "box": 6
+    },
+    "inkPx": 2440
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 45,
+  "notes": 9,
+  "longestNote": 25,
+  "noteTexts": [
+    "Today, huge bold",
+    "Tuesday, March 10",
+    "Add a task… grey",
+    "+",
+    "All",
+    "Active",
+    "Done",
+    "checkbox rows, dividers: Water the plants (done), Call the landlord, urgent orange right, Buy oat milk, Send invoice #18 (done), Book haircut, Return library books",
+    "4 left · Clear done, grey"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 378,
+    "firstReadingS": 54,
+    "readS": [
+      29
+    ],
+    "buildS": [
+      319
+    ],
+    "sketchingS": 31
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 26292,
+    "cacheRead": 136315,
+    "output": 15463,
+    "billed": 41755
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#fafaf7",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 850
+    },
+    {
+      "op": "stroke",
+      "at": 1637
+    },
+    {
+      "op": "note",
+      "at": 2324
+    },
+    {
+      "op": "pen",
+      "color": "#888888",
+      "at": 2712
+    },
+    {
+      "op": "stroke",
+      "at": 3566
+    },
+    {
+      "op": "note",
+      "at": 4269
+    },
+    {
+      "op": "pen",
+      "color": "#e5e5e5",
+      "at": 4648
+    },
+    {
+      "op": "stroke",
+      "at": 9002
+    },
+    {
+      "op": "note",
+      "at": 9747
+    },
+    {
+      "op": "pen",
+      "color": "#f97316",
+      "at": 10148
+    },
+    {
+      "op": "stroke",
+      "at": 11034
+    },
+    {
+      "op": "stroke",
+      "at": 11518
+    },
+    {
+      "op": "note",
+      "at": 12144
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 12524
+    },
+    {
+      "op": "stroke",
+      "at": 13475
+    },
+    {
+      "op": "stroke",
+      "at": 13956
+    },
+    {
+      "op": "note",
+      "at": 14601
+    },
+    {
+      "op": "pen",
+      "color": "#ececea",
+      "at": 14986
+    },
+    {
+      "op": "stroke",
+      "at": 16040
+    },
+    {
+      "op": "stroke",
+      "at": 16526
+    },
+    {
+      "op": "note",
+      "at": 17196
+    },
+    {
+      "op": "stroke",
+      "at": 18256
+    },
+    {
+      "op": "stroke",
+      "at": 18741
+    },
+    {
+      "op": "note",
+      "at": 19425
+    },
+    {
+      "op": "pen",
+      "color": "#f97316",
+      "at": 19798
+    },
+    {
+      "op": "stroke",
+      "at": 20541
+    },
+    {
+      "op": "stroke",
+      "at": 21026
+    },
+    {
+      "op": "note",
+      "at": 22051
+    },
+    {
+      "op": "note",
+      "at": 22790
+    },
+    {
+      "op": "run",
+      "at": 24904
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          320,
+          92
+        ],
+        [
+          435,
+          92
+        ]
+      ],
+      "n": 20,
+      "at": 1637
+    },
+    {
+      "way": [
+        [
+          320,
+          132
+        ],
+        [
+          455,
+          132
+        ]
+      ],
+      "n": 24,
+      "at": 3566
+    },
+    {
+      "way": [
+        [
+          320,
+          171
+        ],
+        [
+          960,
+          171
+        ],
+        [
+          960,
+          225
+        ],
+        [
+          320,
+          225
+        ],
+        [
+          320,
+          173
+        ]
+      ],
+      "n": 233,
+      "at": 9002
+    },
+    {
+      "way": [
+        [
+          905,
+          180
+        ],
+        [
+          941,
+          180
+        ],
+        [
+          941,
+          216
+        ],
+        [
+          905,
+          216
+        ],
+        [
+          905,
+          182
+        ]
+      ],
+      "n": 25,
+      "at": 11034
+    },
+    {
+      "way": [
+        [
+          930,
+          206
+        ]
+      ],
+      "n": 1,
+      "at": 11518
+    },
+    {
+      "way": [
+        [
+          320,
+          251
+        ],
+        [
+          372,
+          251
+        ],
+        [
+          372,
+          283
+        ],
+        [
+          320,
+          283
+        ],
+        [
+          320,
+          253
+        ]
+      ],
+      "n": 29,
+      "at": 13475
+    },
+    {
+      "way": [
+        [
+          364,
+          276
+        ]
+      ],
+      "n": 1,
+      "at": 13956
+    },
+    {
+      "way": [
+        [
+          382,
+          251
+        ],
+        [
+          456,
+          251
+        ],
+        [
+          456,
+          283
+        ],
+        [
+          382,
+          283
+        ],
+        [
+          382,
+          253
+        ]
+      ],
+      "n": 35,
+      "at": 16040
+    },
+    {
+      "way": [
+        [
+          448,
+          276
+        ]
+      ],
+      "n": 1,
+      "at": 16526
+    },
+    {
+      "way": [
+        [
+          466,
+          251
+        ],
+        [
+          535,
+          251
+        ],
+        [
+          535,
+          283
+        ],
+        [
+          466,
+          283
+        ],
+        [
+          466,
+          253
+        ]
+      ],
+      "n": 35,
+      "at": 18256
+    },
+    {
+      "way": [
+        [
+          527,
+          276
+        ]
+      ],
+      "n": 1,
+      "at": 18741
+    },
+    {
+      "way": [
+        [
+          320,
+          313
+        ],
+        [
+          342,
+          313
+        ],
+        [
+          342,
+          335
+        ],
+        [
+          320,
+          335
+        ],
+        [
+          320,
+          315
+        ]
+      ],
+      "n": 16,
+      "at": 20541
+    },
+    {
+      "way": [
+        [
+          331,
+          324
+        ]
+      ],
+      "n": 1,
+      "at": 21026
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Today, huge bold",
+      "whole": false,
+      "x": 378,
+      "y": 92,
+      "at": 2324
+    },
+    {
+      "text": "Tuesday, March 10",
+      "whole": false,
+      "x": 388,
+      "y": 132,
+      "at": 4269
+    },
+    {
+      "text": "Add a task… grey",
+      "whole": false,
+      "x": 420,
+      "y": 198,
+      "at": 9747
+    },
+    {
+      "text": "+",
+      "whole": false,
+      "x": 923,
+      "y": 198,
+      "at": 12144
+    },
+    {
+      "text": "All",
+      "whole": false,
+      "x": 346,
+      "y": 267,
+      "at": 14601
+    },
+    {
+      "text": "Active",
+      "whole": false,
+      "x": 419,
+      "y": 267,
+      "at": 17196
+    },
+    {
+      "text": "Done",
+      "whole": false,
+      "x": 500,
+      "y": 267,
+      "at": 19425
+    },
+    {
+      "text": "checkbox rows, dividers: Water the plants (done), Call the landlord, urgent orange right, Buy oat milk, Send invoice #18 (done), Book haircut, Return library books",
+      "whole": false,
+      "x": 640,
+      "y": 480,
+      "at": 22051
+    },
+    {
+      "text": "4 left · Clear done, grey",
+      "whole": false,
+      "x": 375,
+      "y": 679,
+      "at": 22790
+    }
+  ]
+}

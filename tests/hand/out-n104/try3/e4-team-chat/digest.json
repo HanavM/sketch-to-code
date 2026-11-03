@@ -1,0 +1,905 @@
+{
+  "round": 37,
+  "id": "e4-team-chat",
+  "version": 3,
+  "stopped": null,
+  "likeness": 56.6,
+  "colour": 0.9780489537916558,
+  "structure": 0.8840552353902774,
+  "layout": 0.5847421442872891,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 5.8,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 10,
+      "dot": 2,
+      "line": 3,
+      "circle": 4
+    },
+    "inkPx": 12208
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 99,
+  "notes": 11,
+  "longestNote": 22,
+  "noteTexts": [
+    "Channels, bold",
+    "Search input, white",
+    "#launch / Mia: shipping at 5",
+    "#design / New logo is up, Ravi Patel / sounds good, #support / 3 new tickets, Lena Ortiz / call at 2?",
+    "#launch bold, 8 members grey",
+    "Mia · 2:14 pm above; Copy is final. Can someone check the pricing page on mobile?",
+    "On it. Looks fine on iPhone, checking Android now.",
+    "Great. Shipping at 5 then.",
+    "Mia · 2:31 pm above; image in grey bubble",
+    "Message #launch input, white, purple send square",
+    "Ravi · 2:20 pm above; Android is good too. One typo in the footer, fixed."
+  ],
+  "time": {
+    "firstStrokeToDoneS": 490,
+    "firstReadingS": 125,
+    "readS": [
+      67
+    ],
+    "buildS": [
+      363
+    ],
+    "sketchingS": 59
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 91421,
+    "cacheRead": 1078493,
+    "output": 39473,
+    "billed": 130894
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f5f3ff",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 7122
+    },
+    {
+      "op": "stroke",
+      "at": 7589
+    },
+    {
+      "op": "pen",
+      "color": "#1f2937",
+      "at": 7956
+    },
+    {
+      "op": "stroke",
+      "at": 8674
+    },
+    {
+      "op": "note",
+      "at": 9336
+    },
+    {
+      "op": "pen",
+      "color": "#dddddd",
+      "at": 9700
+    },
+    {
+      "op": "stroke",
+      "at": 11835
+    },
+    {
+      "op": "note",
+      "at": 12507
+    },
+    {
+      "op": "pen",
+      "color": "#6d28d9",
+      "at": 12870
+    },
+    {
+      "op": "stroke",
+      "at": 15136
+    },
+    {
+      "op": "stroke",
+      "at": 15604
+    },
+    {
+      "op": "note",
+      "at": 16300
+    },
+    {
+      "op": "pen",
+      "color": "#fcd34d",
+      "at": 16675
+    },
+    {
+      "op": "stroke",
+      "at": 17539
+    },
+    {
+      "op": "pen",
+      "color": "#6ee7b7",
+      "at": 17904
+    },
+    {
+      "op": "stroke",
+      "at": 18769
+    },
+    {
+      "op": "pen",
+      "color": "#fca5a5",
+      "at": 19132
+    },
+    {
+      "op": "stroke",
+      "at": 20002
+    },
+    {
+      "op": "pen",
+      "color": "#93c5fd",
+      "at": 20369
+    },
+    {
+      "op": "stroke",
+      "at": 21241
+    },
+    {
+      "op": "note",
+      "at": 22119
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 22483
+    },
+    {
+      "op": "stroke",
+      "at": 25670
+    },
+    {
+      "op": "pen",
+      "color": "#1f2937",
+      "at": 26033
+    },
+    {
+      "op": "stroke",
+      "at": 26936
+    },
+    {
+      "op": "note",
+      "at": 27624
+    },
+    {
+      "op": "pen",
+      "color": "#eef0f4",
+      "at": 27990
+    },
+    {
+      "op": "stroke",
+      "at": 31218
+    },
+    {
+      "op": "note",
+      "at": 32151
+    },
+    {
+      "op": "pen",
+      "color": "#6d28d9",
+      "at": 32518
+    },
+    {
+      "op": "stroke",
+      "at": 35324
+    },
+    {
+      "op": "note",
+      "at": 36173
+    },
+    {
+      "op": "pen",
+      "color": "#eef0f4",
+      "at": 36537
+    },
+    {
+      "op": "stroke",
+      "at": 39273
+    },
+    {
+      "op": "pen",
+      "color": "#6d28d9",
+      "at": 39639
+    },
+    {
+      "op": "stroke",
+      "at": 41538
+    },
+    {
+      "op": "note",
+      "at": 42210
+    },
+    {
+      "op": "pen",
+      "color": "#c4b5fd",
+      "at": 42570
+    },
+    {
+      "op": "stroke",
+      "at": 45539
+    },
+    {
+      "op": "note",
+      "at": 46271
+    },
+    {
+      "op": "pen",
+      "color": "#dddddd",
+      "at": 46636
+    },
+    {
+      "op": "stroke",
+      "at": 52509
+    },
+    {
+      "op": "note",
+      "at": 53318
+    },
+    {
+      "op": "pen",
+      "color": "#eef0f4",
+      "at": 53684
+    },
+    {
+      "op": "stroke",
+      "at": 56426
+    },
+    {
+      "op": "note",
+      "at": 57275
+    },
+    {
+      "op": "run",
+      "at": 57421
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          0,
+          0
+        ],
+        [
+          300,
+          0
+        ],
+        [
+          300,
+          900
+        ],
+        [
+          0,
+          900
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "n": 401,
+      "at": 7122
+    },
+    {
+      "way": [
+        [
+          150,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 7589
+    },
+    {
+      "way": [
+        [
+          20,
+          37
+        ],
+        [
+          110,
+          37
+        ]
+      ],
+      "n": 16,
+      "at": 8674
+    },
+    {
+      "way": [
+        [
+          20,
+          69
+        ],
+        [
+          279,
+          69
+        ],
+        [
+          279,
+          109
+        ],
+        [
+          20,
+          109
+        ],
+        [
+          20,
+          69
+        ]
+      ],
+      "n": 101,
+      "at": 11835
+    },
+    {
+      "way": [
+        [
+          20,
+          131
+        ],
+        [
+          279,
+          131
+        ],
+        [
+          279,
+          195
+        ],
+        [
+          20,
+          195
+        ],
+        [
+          20,
+          131
+        ]
+      ],
+      "n": 109,
+      "at": 15136
+    },
+    {
+      "way": [
+        [
+          250,
+          180
+        ]
+      ],
+      "n": 1,
+      "at": 15604
+    },
+    {
+      "way": [
+        [
+          70,
+          227
+        ],
+        [
+          67,
+          237
+        ],
+        [
+          60,
+          244
+        ],
+        [
+          50,
+          247
+        ],
+        [
+          40,
+          244
+        ],
+        [
+          33,
+          237
+        ],
+        [
+          30,
+          227
+        ],
+        [
+          33,
+          217
+        ],
+        [
+          40,
+          210
+        ],
+        [
+          50,
+          207
+        ],
+        [
+          60,
+          210
+        ],
+        [
+          67,
+          217
+        ],
+        [
+          70,
+          227
+        ]
+      ],
+      "n": 25,
+      "at": 17539
+    },
+    {
+      "way": [
+        [
+          70,
+          291
+        ],
+        [
+          67,
+          301
+        ],
+        [
+          60,
+          308
+        ],
+        [
+          50,
+          311
+        ],
+        [
+          40,
+          308
+        ],
+        [
+          33,
+          301
+        ],
+        [
+          30,
+          291
+        ],
+        [
+          33,
+          281
+        ],
+        [
+          40,
+          274
+        ],
+        [
+          50,
+          271
+        ],
+        [
+          60,
+          274
+        ],
+        [
+          67,
+          281
+        ],
+        [
+          70,
+          291
+        ]
+      ],
+      "n": 25,
+      "at": 18769
+    },
+    {
+      "way": [
+        [
+          70,
+          355
+        ],
+        [
+          67,
+          365
+        ],
+        [
+          60,
+          372
+        ],
+        [
+          50,
+          375
+        ],
+        [
+          40,
+          372
+        ],
+        [
+          33,
+          365
+        ],
+        [
+          30,
+          355
+        ],
+        [
+          33,
+          345
+        ],
+        [
+          40,
+          338
+        ],
+        [
+          50,
+          335
+        ],
+        [
+          60,
+          338
+        ],
+        [
+          67,
+          345
+        ],
+        [
+          70,
+          355
+        ]
+      ],
+      "n": 25,
+      "at": 20002
+    },
+    {
+      "way": [
+        [
+          70,
+          419
+        ],
+        [
+          67,
+          429
+        ],
+        [
+          60,
+          436
+        ],
+        [
+          50,
+          439
+        ],
+        [
+          40,
+          436
+        ],
+        [
+          33,
+          429
+        ],
+        [
+          30,
+          419
+        ],
+        [
+          33,
+          409
+        ],
+        [
+          40,
+          402
+        ],
+        [
+          50,
+          399
+        ],
+        [
+          60,
+          402
+        ],
+        [
+          67,
+          409
+        ],
+        [
+          70,
+          419
+        ]
+      ],
+      "n": 25,
+      "at": 21241
+    },
+    {
+      "way": [
+        [
+          300,
+          76
+        ],
+        [
+          1280,
+          76
+        ]
+      ],
+      "n": 164,
+      "at": 25670
+    },
+    {
+      "way": [
+        [
+          332,
+          38
+        ],
+        [
+          486,
+          38
+        ]
+      ],
+      "n": 27,
+      "at": 26936
+    },
+    {
+      "way": [
+        [
+          340,
+          130
+        ],
+        [
+          791,
+          130
+        ],
+        [
+          791,
+          180
+        ],
+        [
+          340,
+          180
+        ],
+        [
+          340,
+          130
+        ]
+      ],
+      "n": 167,
+      "at": 31218
+    },
+    {
+      "way": [
+        [
+          866,
+          220
+        ],
+        [
+          1240,
+          220
+        ],
+        [
+          1240,
+          270
+        ],
+        [
+          866,
+          270
+        ],
+        [
+          866,
+          220
+        ]
+      ],
+      "n": 141,
+      "at": 35324
+    },
+    {
+      "way": [
+        [
+          340,
+          330
+        ],
+        [
+          701,
+          330
+        ],
+        [
+          701,
+          380
+        ],
+        [
+          340,
+          380
+        ],
+        [
+          340,
+          330
+        ]
+      ],
+      "n": 137,
+      "at": 39273
+    },
+    {
+      "way": [
+        [
+          1033,
+          420
+        ],
+        [
+          1240,
+          420
+        ],
+        [
+          1240,
+          470
+        ],
+        [
+          1033,
+          470
+        ],
+        [
+          1033,
+          420
+        ]
+      ],
+      "n": 87,
+      "at": 41538
+    },
+    {
+      "way": [
+        [
+          345,
+          535
+        ],
+        [
+          635,
+          535
+        ],
+        [
+          635,
+          695
+        ],
+        [
+          345,
+          695
+        ],
+        [
+          345,
+          535
+        ]
+      ],
+      "n": 151,
+      "at": 45539
+    },
+    {
+      "way": [
+        [
+          330,
+          800
+        ],
+        [
+          1240,
+          800
+        ],
+        [
+          1240,
+          860
+        ],
+        [
+          330,
+          860
+        ],
+        [
+          330,
+          800
+        ]
+      ],
+      "n": 325,
+      "at": 52509
+    },
+    {
+      "way": [
+        [
+          340,
+          330
+        ],
+        [
+          701,
+          330
+        ],
+        [
+          701,
+          380
+        ],
+        [
+          340,
+          380
+        ],
+        [
+          340,
+          330
+        ]
+      ],
+      "n": 137,
+      "at": 56426
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Channels, bold",
+      "whole": false,
+      "x": 65,
+      "y": 32,
+      "at": 9336
+    },
+    {
+      "text": "Search input, white",
+      "whole": false,
+      "x": 100,
+      "y": 89,
+      "at": 12507
+    },
+    {
+      "text": "#launch / Mia: shipping at 5",
+      "whole": false,
+      "x": 150,
+      "y": 163,
+      "at": 16300
+    },
+    {
+      "text": "#design / New logo is up, Ravi Patel / sounds good, #support / 3 new tickets, Lena Ortiz / call at 2?",
+      "whole": false,
+      "x": 150,
+      "y": 320,
+      "at": 22119
+    },
+    {
+      "text": "#launch bold, 8 members grey",
+      "whole": false,
+      "x": 400,
+      "y": 32,
+      "at": 27624
+    },
+    {
+      "text": "Mia · 2:14 pm above; Copy is final. Can someone check the pricing page on mobile?",
+      "whole": false,
+      "x": 560,
+      "y": 155,
+      "at": 32151
+    },
+    {
+      "text": "On it. Looks fine on iPhone, checking Android now.",
+      "whole": false,
+      "x": 1050,
+      "y": 245,
+      "at": 36173
+    },
+    {
+      "text": "Great. Shipping at 5 then.",
+      "whole": false,
+      "x": 1130,
+      "y": 445,
+      "at": 42210
+    },
+    {
+      "text": "Mia · 2:31 pm above; image in grey bubble",
+      "whole": false,
+      "x": 490,
+      "y": 615,
+      "at": 46271
+    },
+    {
+      "text": "Message #launch input, white, purple send square",
+      "whole": false,
+      "x": 500,
+      "y": 830,
+      "at": 53318
+    },
+    {
+      "text": "Ravi · 2:20 pm above; Android is good too. One typo in the footer, fixed.",
+      "whole": false,
+      "x": 520,
+      "y": 355,
+      "at": 57275
+    }
+  ]
+}

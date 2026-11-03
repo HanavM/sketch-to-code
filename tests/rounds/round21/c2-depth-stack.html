@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Depth stack</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(160deg,#ffe8d6 0%,#ffc7b8 55%,#f59e8b 100%);font-family:Helvetica,Arial,sans-serif;color:#3a1a14}
+@keyframes fl{50%{transform:translateY(-14px)}}
+.h{position:absolute;left:64px;top:120px;width:560px;font:900 92px/0.95 Georgia,serif;letter-spacing:-2px;color:#fff;text-shadow:1px 1px 0 #e0705a,2px 2px 0 #e0705a,3px 3px 0 #e0705a,4px 4px 0 #e0705a,5px 5px 0 #d9614b,6px 6px 0 #d9614b,7px 7px 0 #c9513d,8px 8px 0 #c9513d,14px 18px 30px rgba(120,30,10,.35)}
+.sub{position:absolute;left:64px;top:470px;width:440px;font-size:19px;line-height:1.5}
+.btn{position:absolute;left:64px;top:590px;padding:18px 32px;border-radius:16px;background:#3a1a14;color:#fff;font-weight:700;box-shadow:0 12px 0 #1d0c09}
+.scene{position:absolute;left:640px;top:110px;width:560px;height:640px;perspective:1200px}
+.stack{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(52deg) rotateZ(-32deg)}
+.card{position:absolute;left:110px;top:150px;width:340px;height:340px;border-radius:28px}
+.k1{background:#3a1a14;transform:translateZ(0)}.k2{background:#e0705a;transform:translateZ(70px)}.k3{background:#ffb199;transform:translateZ(140px)}.k4{background:#fff;transform:translateZ(210px);padding:30px;font:700 26px Georgia,serif;color:#3a1a14}
+.orb{position:absolute;left:1060px;top:90px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,#ffd0c2 25%,#e0705a 70%,#9a3a28 100%);box-shadow:0 30px 40px rgba(120,30,10,.3);animation:fl 4s ease-in-out infinite}
+.shadow{position:absolute;left:700px;top:700px;width:460px;height:60px;border-radius:50%;background:radial-gradient(rgba(90,20,10,.35),transparent 70%)}
+.tags{position:absolute;left:64px;top:700px;display:flex;gap:12px}.tags span{padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.55);font-size:14px;font-weight:700}
+</style></head><body>
+<div class="h" data-r="headline" data-must>Layers, all the way down.</div>
+<p class="sub" data-r="sub">Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.</p>
+<div class="btn" data-r="cta">Get the kit</div>
+<div class="tags" data-r="tags"><span>Elevation</span><span>Shadows</span><span>Depth</span></div>
+<div class="shadow" data-r="floor-shadow"></div>
+<div class="scene" data-r="card-stack" data-must><div class="stack"><div class="card k1"></div><div class="card k2"></div><div class="card k3"></div><div class="card k4">z-index: 4</div></div></div>
+<div class="orb" data-r="orb"></div>
+</body></html>

@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kanban board</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4f5f7;font-family:Helvetica,Arial,sans-serif;color:#172b4d;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:56px;background:#0c66e4;color:#fff;display:flex;align-items:center;gap:20px;padding:0 20px;font-weight:700}.top .s{margin-left:auto;width:260px;height:32px;border-radius:6px;background:#ffffff33;padding:8px 12px;font-weight:400}
+.bar{position:absolute;left:0;top:56px;width:1280px;height:56px;display:flex;align-items:center;gap:12px;padding:0 20px}.bar h1{font-size:20px;margin-right:12px}.bar .av{width:30px;height:30px;border-radius:50%;margin-left:-18px;border:2px solid #f4f5f7}.bar .f{padding:7px 12px;background:#dfe1e6;border-radius:6px;font-weight:700}
+.lane{position:absolute;left:20px;width:1240px;font-weight:700;color:#5e6c84;font-size:12px;letter-spacing:1px}
+.l1{top:120px}.l2{top:520px}
+.col{position:absolute;width:296px;background:#ebecf0;border-radius:10px;padding:10px}.col h3{font-size:12px;letter-spacing:1px;color:#5e6c84;margin:2px 4px 10px;display:flex;justify-content:space-between}.col h3 em{font-style:normal;background:#dfe1e6;border-radius:8px;padding:0 8px}.col h3 .over{background:#ffd5d2;color:#ae2a19}
+.card{background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:8px;box-shadow:0 1px 1px #091e4240}.card .lb{display:flex;gap:6px;margin-bottom:6px}.card .lb i{width:40px;height:8px;border-radius:4px}.card .ft{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:#5e6c84;font-size:12px}.card .ft b{width:24px;height:24px;border-radius:50%}
+.drag{transform:rotate(4deg);box-shadow:0 12px 24px #091e4255;position:absolute;left:700px;top:300px;width:276px}
+.add{color:#5e6c84;padding:6px 8px}
+</style></head><body>
+<div class="top" data-r="top-bar"><span>▦ Flowboard</span><span>Projects</span><span>Teams</span><div class="s">Search</div></div>
+<div class="bar" data-r="board-bar"><h1>Website relaunch</h1><span class="av" style="background:#ff7452;margin-left:0"></span><span class="av" style="background:#57d9a3"></span><span class="av" style="background:#6554c0"></span><span class="f">Filter</span><span class="f">Group: Swimlane</span></div>
+<div class="lane l1" data-r="lane-design">▾ DESIGN · 6 issues</div><div class="lane l2" data-r="lane-eng">▾ ENGINEERING · 5 issues</div>
+<div class="col" style="left:20px;top:142px" data-r="col-todo" data-must><h3>TO DO <em>3</em></h3>
+<div class="card"><div class="lb"><i style="background:#4bce97"></i></div>Hero illustration v2<div class="ft"><span>WEB-112</span><b style="background:#ff7452"></b></div></div>
+<div class="card"><div class="lb"><i style="background:#f87168"></i><i style="background:#9f8fef"></i></div>Pricing table states<div class="ft"><span>WEB-118</span><b style="background:#6554c0"></b></div></div>
+<div class="add">+ Create issue</div></div>
+<div class="col" style="left:332px;top:142px" data-r="col-progress" data-must><h3>IN PROGRESS <em class="over">4 / 3</em></h3>
+<div class="card"><div class="lb"><i style="background:#9f8fef"></i></div>Nav mega-menu<div class="ft"><span>WEB-104</span><b style="background:#57d9a3"></b></div></div>
+<div class="card"><div class="lb"><i style="background:#4bce97"></i></div>Icon set refresh<div class="ft"><span>WEB-109</span><b style="background:#ff7452"></b></div></div>
+<div class="card"><div class="lb"><i style="background:#f87168"></i></div>Footer audit<div class="ft"><span>WEB-110</span><b style="background:#6554c0"></b></div></div></div>
+<div class="col" style="left:644px;top:142px;height:330px" data-r="col-review"><h3>REVIEW <em>1</em></h3><div style="height:84px;border:2px dashed #0c66e4;border-radius:8px;background:#e9f2ff"></div></div>
+<div class="col" style="left:956px;top:142px" data-r="col-done"><h3>DONE ✓ <em>2</em></h3>
+<div class="card" style="color:#5e6c84"><s>Moodboard</s><div class="ft"><span>WEB-101</span><b style="background:#57d9a3"></b></div></div>
+<div class="card" style="color:#5e6c84"><s>Type scale</s><div class="ft"><span>WEB-102</span><b style="background:#ff7452"></b></div></div></div>
+<div class="card drag" data-r="dragged-card"><div class="lb"><i style="background:#fca700"></i></div>Contact form validation<div class="ft"><span>WEB-121</span><b style="background:#6554c0"></b></div></div>
+<div class="col" style="left:20px;top:542px" data-r="col-eng-todo"><h3>TO DO <em>2</em></h3>
+<div class="card"><div class="lb"><i style="background:#579dff"></i></div>CMS webhooks<div class="ft"><span>WEB-130</span><b style="background:#57d9a3"></b></div></div>
+<div class="card"><div class="lb"><i style="background:#579dff"></i></div>Image CDN<div class="ft"><span>WEB-131</span><b style="background:#ff7452"></b></div></div></div>
+<div class="col" style="left:332px;top:542px" data-r="col-eng-progress"><h3>IN PROGRESS <em>2</em></h3>
+<div class="card"><div class="lb"><i style="background:#579dff"></i><i style="background:#f87168"></i></div>Auth migration<div class="ft"><span>WEB-127</span><b style="background:#6554c0"></b></div></div>
+<div class="card"><div class="lb"><i style="background:#579dff"></i></div>Search index<div class="ft"><span>WEB-128</span><b style="background:#57d9a3"></b></div></div></div>
+<div class="col" style="left:644px;top:542px" data-r="col-eng-review"><h3>REVIEW <em>1</em></h3>
+<div class="card"><div class="lb"><i style="background:#579dff"></i></div>Sitemap generator<div class="ft"><span>WEB-125</span><b style="background:#ff7452"></b></div></div></div>
+</body></html>

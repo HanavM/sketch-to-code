@@ -1,0 +1,179 @@
+{
+  "id": "c4-cube-scene",
+  "at": "2026-10-23T16:39:29.744Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9187710657673913,
+    "overallV2": 0.9187710657673913,
+    "overallV1": 0.8800156591099397,
+    "colour": 0.992941618355379,
+    "structure": 0.9420689625454215,
+    "structureStrict": 0.8695889853137869,
+    "colourAligned": 0.992941618355379,
+    "structureAligned": 0.9420689625454215,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9911245933587806
+    },
+    "layout": 0.8526001801986115
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "blur",
+      "hard-shadow",
+      "motion",
+      "overlap",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 28008,
+    "output": 18750,
+    "cacheRead": 205385
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 27609,
+      "output": 9817,
+      "cacheRead": 171503,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 100829
+    }
+  ],
+  "reading": "A hero landing page sketch: a full-page gradient background with a tilted grid \"floor\" behind everything, a text nav bar, a giant two-line headline with one colored word, a short paragraph, a rounded CTA button with a hard pink drop shadow, a spinning 3D CSS cube built from six labeled faces, and a stats card with three number/label pairs.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar with no box/border around it: wide letter-spaced \"BLOCKS/3D\" aligned left, and \"ENGINE · DOCS · PRICING\" aligned right, same row."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 73
+        }
+      ],
+      "region": [
+        64,
+        120,
+        504,
+        160
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline, tight-set letters, line-height 0.95, set in exactly 2 lines kept as-is (never re-wrapped, white-space: nowrap, min-width ~463px)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        60,
+        330,
+        412,
+        54
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text: \"A browser 3D engine that thinks in boxes. Drop in a cube, it just renders.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        58,
+        431,
+        163,
+        52
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Dark grey button with white text reading \"Start building\", with a hard solid opaque pink drop shadow offset 6px down-right and no blur."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        803,
+        153,
+        294,
+        294
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A real CSS 3D cube (not a flat drawing or SVG): a 300x300px scene positioned at 800,150 with perspective: 900px, containing one group div (position absolute, in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        643,
+        553,
+        194
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "White card, 560x200px at 56,640, 20px rounded corners, a big soft shadow, containing 3 stats laid side by side in the same card (not separate cards), each a big"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

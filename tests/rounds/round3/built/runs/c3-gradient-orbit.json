@@ -1,0 +1,210 @@
+{
+  "id": "c3-gradient-orbit",
+  "at": "2026-10-21T12:18:58.721Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8271452910215354,
+    "overallV2": 0.8139945854071207,
+    "overallV1": 0.7894984947198445,
+    "colour": 0.967184457328547,
+    "structure": 0.7235557757808568,
+    "structureStrict": 0.6554073911167304,
+    "colourAligned": 0.9736007670928485,
+    "structureAligned": 0.7535371791796993,
+    "align": {
+      "scale": 1.08,
+      "dx": 0,
+      "dy": -64,
+      "r": 0.7953404687319122
+    },
+    "layout": 0.751679172286293
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "glow",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "motion",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 39411,
+    "output": 19220,
+    "cacheRead": 494957
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 50570,
+      "output": 14804,
+      "cacheRead": 491873,
+      "toolCalls": 26,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Glob",
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 161016
+    }
+  ],
+  "reading": "The sketch is a hero section: two concentric spinning outline circles (lavender outer, cyan inner) with a small glowing cyan circle accent, a pill badge reading \"NOW IN PRIVATE BETA\" at top, a large gradient heading \"Compute at orbit speed\" and a grey supporting sentence across the middle (both shown as wavy placeholder lines), and a glowing gradient \"Request access\" button pill at the bottom. A run-level note sets page-wide near-black indigo background, Helvetica type, and light grey text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        154,
+        592,
+        593
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a large, faint lavender outline circle behind the hero content that slowly spins, as a decorative background ring."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        444,
+        254,
+        392,
+        393
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a slightly smaller, concentric faint cyan outline circle inside the lavender one, also slowly spinning, as a second decorative ring."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        915,
+        434,
+        37,
+        39
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a big glowing vivid cyan circle (per typed note) as a decorative glow accent positioned near the right edge of the hero circles."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        512,
+        241,
+        256,
+        30
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a lavender outline pill-shaped badge/button labeled \"NOW IN PRIVATE BETA\", positioned at the top of the hero, overlapping the decorative circles."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 100
+        }
+      ],
+      "region": [
+        148,
+        347,
+        900,
+        126
+      ],
+      "paths": [],
+      "instruction": "Add a giant, heavy-weight, tightly-tracked Helvetica heading reading \"Compute at orbit speed\" with a lavender-to-coral-to-cyan gradient fill, centered across th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        344,
+        550,
+        592,
+        37
+      ],
+      "paths": [],
+      "instruction": "Add a light grey body paragraph below the heading reading \"Spin up GPU clusters in seconds and pay only for the seconds you use.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        532,
+        641,
+        216,
+        51
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a purple-to-dark-pink gradient, glowing pill button labeled \"Request access\" at the bottom of the hero."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

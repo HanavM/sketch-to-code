@@ -1,0 +1,601 @@
+{
+  "round": 33,
+  "id": "c1-surf-school",
+  "version": 3,
+  "stopped": null,
+  "likeness": 58,
+  "colour": 0.905447507722254,
+  "structure": 0.8422753487054635,
+  "layout": 0.666292062840038,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 3.6,
+    "simpleShare": 0.94,
+    "shapes": {
+      "box": 2,
+      "circle": 1,
+      "freehand": 1,
+      "line": 7,
+      "dot": 6
+    },
+    "inkPx": 6730
+  },
+  "erased": 0,
+  "notesMoved": 1,
+  "words": 53,
+  "notes": 7,
+  "longestNote": 14,
+  "noteTexts": [
+    "Swell, bold navy",
+    "Lessons · Camps · Rentals",
+    "Catch your first wave. huge bold navy",
+    "Small groups, warm boards and coaches who have done it ten thousand times. grey",
+    "Book a lesson, white bold",
+    "From $45 · boards and wetsuits included, small grey",
+    "swap: wave pale blue, sky above it the blue fade"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 433,
+    "firstReadingS": 103,
+    "readS": [
+      46,
+      36
+    ],
+    "buildS": [
+      256,
+      20
+    ],
+    "sketchingS": 74
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 122297,
+    "cacheRead": 300454,
+    "output": 31096,
+    "billed": 153393
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 8965
+    },
+    {
+      "op": "stroke",
+      "at": 10660
+    },
+    {
+      "op": "stroke",
+      "at": 13275
+    },
+    {
+      "op": "stroke",
+      "at": 13893
+    },
+    {
+      "op": "stroke",
+      "at": 14893
+    },
+    {
+      "op": "stroke",
+      "at": 16409
+    },
+    {
+      "op": "stroke",
+      "at": 17859
+    },
+    {
+      "op": "stroke",
+      "at": 19441
+    },
+    {
+      "op": "stroke",
+      "at": 20709
+    },
+    {
+      "op": "stroke",
+      "at": 22541
+    },
+    {
+      "op": "stroke",
+      "at": 23761
+    },
+    {
+      "op": "pen",
+      "color": "#38bdf8",
+      "at": 33053
+    },
+    {
+      "op": "stroke",
+      "at": 33526
+    },
+    {
+      "op": "pen",
+      "color": "#1580bd",
+      "at": 33900
+    },
+    {
+      "op": "stroke",
+      "at": 34375
+    },
+    {
+      "op": "pen",
+      "color": "#fde047",
+      "at": 34745
+    },
+    {
+      "op": "stroke",
+      "at": 35226
+    },
+    {
+      "op": "pen",
+      "color": "#e0f2fe",
+      "at": 35596
+    },
+    {
+      "op": "stroke",
+      "at": 36076
+    },
+    {
+      "op": "pen",
+      "color": "#fff5eb",
+      "at": 36443
+    },
+    {
+      "op": "stroke",
+      "at": 36908
+    },
+    {
+      "op": "pen",
+      "color": "#f97316",
+      "at": 37273
+    },
+    {
+      "op": "stroke",
+      "at": 37741
+    },
+    {
+      "op": "note",
+      "at": 38415
+    },
+    {
+      "op": "note",
+      "at": 39079
+    },
+    {
+      "op": "note",
+      "at": 39746
+    },
+    {
+      "op": "note",
+      "at": 40467
+    },
+    {
+      "op": "note",
+      "at": 41119
+    },
+    {
+      "op": "note",
+      "at": 41851
+    },
+    {
+      "op": "moveNote",
+      "at": 50539
+    },
+    {
+      "op": "run",
+      "at": 57312
+    },
+    {
+      "op": "note",
+      "at": 369187
+    },
+    {
+      "op": "run",
+      "at": 369312
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          640,
+          2
+        ],
+        [
+          640,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n": 511,
+      "at": 8965
+    },
+    {
+      "way": [
+        [
+          530,
+          195
+        ],
+        [
+          527,
+          214
+        ],
+        [
+          520,
+          232
+        ],
+        [
+          508,
+          248
+        ],
+        [
+          492,
+          260
+        ],
+        [
+          474,
+          267
+        ],
+        [
+          455,
+          270
+        ],
+        [
+          436,
+          267
+        ],
+        [
+          418,
+          260
+        ],
+        [
+          402,
+          248
+        ],
+        [
+          390,
+          232
+        ],
+        [
+          383,
+          214
+        ],
+        [
+          380,
+          195
+        ],
+        [
+          383,
+          176
+        ],
+        [
+          390,
+          158
+        ],
+        [
+          402,
+          142
+        ],
+        [
+          417,
+          130
+        ],
+        [
+          436,
+          123
+        ],
+        [
+          455,
+          120
+        ],
+        [
+          474,
+          123
+        ],
+        [
+          492,
+          130
+        ],
+        [
+          508,
+          142
+        ],
+        [
+          520,
+          157
+        ],
+        [
+          527,
+          176
+        ],
+        [
+          530,
+          195
+        ]
+      ],
+      "n": 73,
+      "at": 10660
+    },
+    {
+      "way": [
+        [
+          2,
+          700
+        ],
+        [
+          60,
+          640
+        ],
+        [
+          200,
+          585
+        ],
+        [
+          380,
+          560
+        ],
+        [
+          500,
+          580
+        ],
+        [
+          590,
+          650
+        ],
+        [
+          638,
+          760
+        ]
+      ],
+      "n": 129,
+      "at": 13275
+    },
+    {
+      "way": [
+        [
+          720,
+          70
+        ],
+        [
+          771,
+          70
+        ]
+      ],
+      "n": 10,
+      "at": 13893
+    },
+    {
+      "way": [
+        [
+          1015,
+          64
+        ],
+        [
+          1208,
+          64
+        ]
+      ],
+      "n": 33,
+      "at": 14893
+    },
+    {
+      "way": [
+        [
+          720,
+          315
+        ],
+        [
+          1096,
+          315
+        ]
+      ],
+      "n": 64,
+      "at": 16409
+    },
+    {
+      "way": [
+        [
+          720,
+          387
+        ],
+        [
+          1072,
+          387
+        ]
+      ],
+      "n": 60,
+      "at": 17859
+    },
+    {
+      "way": [
+        [
+          720,
+          453
+        ],
+        [
+          1124,
+          453
+        ]
+      ],
+      "n": 68,
+      "at": 19441
+    },
+    {
+      "way": [
+        [
+          720,
+          482
+        ],
+        [
+          1008,
+          482
+        ]
+      ],
+      "n": 49,
+      "at": 20709
+    },
+    {
+      "way": [
+        [
+          720,
+          560
+        ],
+        [
+          910,
+          560
+        ],
+        [
+          910,
+          616
+        ],
+        [
+          720,
+          616
+        ],
+        [
+          720,
+          562
+        ]
+      ],
+      "n": 83,
+      "at": 22541
+    },
+    {
+      "way": [
+        [
+          720,
+          694
+        ],
+        [
+          990,
+          694
+        ]
+      ],
+      "n": 46,
+      "at": 23761
+    },
+    {
+      "way": [
+        [
+          100,
+          80
+        ]
+      ],
+      "n": 1,
+      "at": 33526
+    },
+    {
+      "way": [
+        [
+          40,
+          540
+        ]
+      ],
+      "n": 1,
+      "at": 34375
+    },
+    {
+      "way": [
+        [
+          455,
+          195
+        ]
+      ],
+      "n": 1,
+      "at": 35226
+    },
+    {
+      "way": [
+        [
+          300,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 36076
+    },
+    {
+      "way": [
+        [
+          1000,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 36908
+    },
+    {
+      "way": [
+        [
+          740,
+          605
+        ]
+      ],
+      "n": 1,
+      "at": 37741
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Swell, bold navy",
+      "whole": false,
+      "x": 722,
+      "y": 50,
+      "at": 38415
+    },
+    {
+      "text": "Lessons · Camps · Rentals",
+      "whole": false,
+      "x": 1020,
+      "y": 44,
+      "at": 39079
+    },
+    {
+      "text": "Catch your first wave. huge bold navy",
+      "whole": false,
+      "x": 730,
+      "y": 280,
+      "at": 39746
+    },
+    {
+      "text": "Small groups, warm boards and coaches who have done it ten thousand times. grey",
+      "whole": false,
+      "x": 730,
+      "y": 432,
+      "at": 40467
+    },
+    {
+      "text": "Book a lesson, white bold",
+      "whole": false,
+      "x": 760,
+      "y": 580,
+      "at": 41119
+    },
+    {
+      "text": "From $45 · boards and wetsuits included, small grey",
+      "whole": false,
+      "x": 730,
+      "y": 680,
+      "at": 41851
+    },
+    {
+      "text": "swap: wave pale blue, sky above it the blue fade",
+      "whole": false,
+      "x": 300,
+      "y": 760,
+      "at": 369187
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Invoice</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f1f5f9;font-family:Helvetica,Arial,sans-serif;color:#0f172a;overflow:hidden}
+.doc{margin:50px auto 0;width:760px;height:800px;background:#fff;border-radius:6px;padding:56px 64px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.top{display:flex;justify-content:space-between}
+.top b{font-size:28px}.top span{font-size:15px;color:#64748b;text-align:right;line-height:1.6}
+.to{margin-top:48px;font-size:15px;line-height:1.6;color:#334155}
+table{margin-top:48px;width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;color:#64748b;font-weight:600;border-bottom:2px solid #0f172a;padding:10px 0}
+td{padding:14px 0;border-bottom:1px solid #e2e8f0}td:last-child,th:last-child{text-align:right}
+.tot{margin-top:32px;text-align:right;font-size:26px;font-weight:800}
+.pay{margin-top:40px;display:inline-block;background:#0f766e;color:#fff;font-weight:700;padding:14px 30px;border-radius:8px;font-size:16px}
+</style></head><body>
+<div class="doc" data-r="invoice" data-must>
+<div class="top" data-r="header"><b>Invoice #1042</b><span>Issued 3 Nov 2026<br>Due 17 Nov 2026</span></div>
+<div class="to" data-r="billed-to">Billed to<br><b>Harbor Coffee Ltd</b><br>12 Quay Street, Bristol</div>
+<table data-r="items" data-must><tr><th>Item</th><th>Qty</th><th>Amount</th></tr><tr><td>Logo design</td><td>1</td><td>£800</td></tr><tr><td>Menu layout</td><td>2</td><td>£450</td></tr><tr><td>Print setup</td><td>1</td><td>£120</td></tr></table>
+<div class="tot" data-r="total" data-must>Total £1,820</div>
+<span class="pay" data-r="pay-button">Pay now</span>
+</div>
+</body></html>

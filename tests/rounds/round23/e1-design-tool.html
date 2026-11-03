@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Design tool</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#e5e5e5;font-family:Helvetica,Arial,sans-serif;color:#1e1e1e;font-size:12px}
+.tb{position:absolute;left:0;top:0;width:1280px;height:48px;background:#2c2c2c;color:#fff;display:flex;align-items:center;padding:0 12px;gap:4px}.tb i{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px}.tb i.on{background:#0d99ff}.tb .t{margin:0 auto;font-weight:700}.tb .sh{padding:8px 14px;border-radius:6px;background:#0d99ff;font-weight:700}.tb .av{width:28px;height:28px;border-radius:50%;background:#f24e1e;margin-right:8px}
+.left{position:absolute;left:0;top:48px;width:240px;height:852px;background:#fff;border-right:1px solid #e0e0e0}
+.left h4{font-size:11px;font-weight:700;padding:14px 16px 8px;border-bottom:1px solid #eee}.row{height:28px;display:flex;align-items:center;padding-left:16px;gap:8px}.row.i1{padding-left:32px}.row.i2{padding-left:48px}.row.sel{background:#e5f4ff;color:#0d99ff;font-weight:700}.row .g{color:#999;font-size:11px}
+.right{position:absolute;left:1040px;top:48px;width:240px;height:852px;background:#fff;border-left:1px solid #e0e0e0}
+.sec{border-bottom:1px solid #eee;padding:12px 16px}.sec h5{font-size:11px;font-weight:700;margin-bottom:10px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fld{height:28px;border-radius:4px;background:#f5f5f5;display:flex;align-items:center;padding:0 8px;gap:8px}.fld b{color:#999;font-weight:400}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid #0002}
+.canvas{position:absolute;left:240px;top:48px;width:800px;height:852px;background:#e5e5e5;background-image:radial-gradient(#c8c8c8 1px,#0000 1px);background-size:20px 20px}
+.frame{position:absolute;left:340px;top:150px;width:600px;height:420px;background:#fff;box-shadow:0 1px 3px #0002}.flabel{position:absolute;left:340px;top:130px;font-size:11px;color:#777}
+.hero{position:absolute;left:380px;top:200px;width:300px;font:800 34px/1.1 Helvetica}.pill{position:absolute;left:380px;top:300px;width:140px;height:40px;border-radius:20px;background:#7b61ff}
+.img{position:absolute;left:720px;top:190px;width:180px;height:180px;border-radius:16px;background:linear-gradient(135deg,#ffcd29,#f24e1e)}
+.sel{outline:1px solid #0d99ff}.h{position:absolute;width:8px;height:8px;background:#fff;border:1px solid #0d99ff}
+.dim{position:absolute;left:770px;top:378px;padding:2px 6px;border-radius:3px;background:#0d99ff;color:#fff;font-size:10px;font-weight:700}
+.cur{position:absolute;left:560px;top:470px;font-size:11px}.cur b{display:inline-block;padding:3px 8px;border-radius:10px 10px 10px 2px;background:#14ae5c;color:#fff;margin-left:14px}
+.zoom{position:absolute;left:940px;top:860px;padding:6px 10px;border-radius:6px;background:#fff;font-weight:700}
+</style></head><body>
+<div class="tb" data-r="toolbar" data-must><i>☰</i><i class="on">↖</i><i>▢</i><i>✎</i><i>T</i><i>◯</i><span class="t">Landing v3 / Hero</span><span class="av"></span><span class="sh">Share</span></div>
+<div class="left" data-r="layers-panel" data-must><h4>Layers</h4><div class="row">▾ ▦ Hero frame</div><div class="row i1">T Headline</div><div class="row i1">▢ Button</div><div class="row i1 sel">▣ Product shot</div><div class="row i1">▾ ⊞ Nav</div><div class="row i2">T Logo</div><div class="row i2">T Links</div><div class="row">▸ ▦ Pricing frame</div><div class="row">▸ ▦ Footer frame</div><h4 style="margin-top:16px">Assets</h4><div class="row"><span class="g">◆</span> Button / primary</div><div class="row"><span class="g">◆</span> Card / feature</div></div>
+<div class="canvas" data-r="canvas"></div>
+<div class="flabel" data-r="frame-label">Hero frame</div>
+<div class="frame" data-r="frame" data-must></div>
+<div class="hero" data-r="frame-headline">Ship pages your team loves</div>
+<div class="pill" data-r="frame-button"></div>
+<div class="img sel" data-r="selected-shape" data-must></div>
+<div class="h" style="left:716px;top:186px"></div><div class="h" style="left:896px;top:186px"></div><div class="h" style="left:716px;top:366px"></div><div class="h" style="left:896px;top:366px"></div>
+<div class="dim" data-r="size-badge">180 × 180</div>
+<div class="cur" data-r="cursor">➤<b>Maya</b></div>
+<div class="right" data-r="props-panel" data-must><div class="sec"><h5>Frame</h5><div class="grid2"><div class="fld"><b>X</b>720</div><div class="fld"><b>Y</b>190</div><div class="fld"><b>W</b>180</div><div class="fld"><b>H</b>180</div></div></div><div class="sec"><h5>Corner radius</h5><div class="fld">16</div></div><div class="sec"><h5>Fill</h5><div class="fld"><span class="sw" style="background:linear-gradient(135deg,#ffcd29,#f24e1e)"></span>Linear  100%</div></div><div class="sec"><h5>Stroke</h5><div class="fld" style="color:#999">+ Add stroke</div></div><div class="sec"><h5>Effects</h5><div class="fld"><span class="sw" style="background:#0003"></span>Drop shadow</div></div><div class="sec"><h5>Export</h5><div class="fld">2x  PNG</div></div></div>
+<div class="zoom" data-r="zoom">64%</div>
+</body></html>

@@ -1,0 +1,184 @@
+{
+ "c1-jazz-cutout": {
+  "found": {
+   "stripes-or-layers": 2,
+   "serif": 3,
+   "italic": 2,
+   "blend": 2,
+   "clip-shape": 2,
+   "tilt": 3,
+   "huge-type": 2,
+   "hollow-type": 1,
+   "vertical-type": 1,
+   "hard-shadow": 1,
+   "overlap": 3
+  },
+  "names": [
+   "blend",
+   "clip-shape",
+   "hard-shadow",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c2-sliced-type": {
+  "found": {
+   "blur": 1,
+   "gradient": 2,
+   "huge-type": 4,
+   "hollow-type": 1,
+   "tilt": 2,
+   "mono": 5,
+   "motion": 1,
+   "serif": 1,
+   "stripes-or-layers": 1,
+   "overlap": 13
+  },
+  "names": [
+   "blur",
+   "gradient",
+   "hollow-type",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c3-terrarium": {
+  "found": {
+   "glass": 3,
+   "serif": 3,
+   "italic": 2,
+   "blur": 1,
+   "stripes-or-layers": 1,
+   "soft-shadow": 4,
+   "gradient": 10,
+   "tilt": 4,
+   "huge-type": 2,
+   "hard-shadow": 1,
+   "overlap": 21
+  },
+  "names": [
+   "blur",
+   "glass",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c4-metro-poster": {
+  "found": {
+   "tilt": 1
+  },
+  "names": [
+   "tilt"
+  ]
+ },
+ "c5-watch-dial": {
+  "found": {
+   "serif": 6,
+   "gradient": 1,
+   "soft-shadow": 2,
+   "stripes-or-layers": 3,
+   "italic": 2,
+   "overlap": 9
+  },
+  "names": [
+   "gradient",
+   "italic",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e1-query-builder": {
+  "found": {
+   "mono": 71,
+   "italic": 1,
+   "soft-shadow": 5,
+   "overlap": 1
+  },
+  "names": [
+   "italic",
+   "mono",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e2-patient-chart": {
+  "found": {
+   "gradient": 1,
+   "stripes-or-layers": 6,
+   "overlap": 1
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "e3-podcast-editor": {
+  "found": {
+   "stripes-or-layers": 13,
+   "mono": 12,
+   "mask": 5,
+   "overlap": 2
+  },
+  "names": [
+   "mask",
+   "mono",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "e4-trip-itinerary": {
+  "found": {
+   "serif": 1,
+   "soft-shadow": 7,
+   "gradient": 4,
+   "tilt": 8,
+   "italic": 3,
+   "overlap": 25
+  },
+  "names": [
+   "gradient",
+   "italic",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e5-ci-pipeline": {
+  "found": {
+   "mask": 1,
+   "stripes-or-layers": 1,
+   "gradient": 1,
+   "mono": 17,
+   "overlap": 28
+  },
+  "names": [
+   "gradient",
+   "mask",
+   "mono",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ }
+}

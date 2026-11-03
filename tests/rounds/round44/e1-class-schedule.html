@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Schedule</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f5f6f8;font-family:Helvetica,Arial,sans-serif;color:#1e2330;overflow:hidden;position:relative}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;background:#fff;border-bottom:1px solid #e2e5ea;display:flex;align-items:center;padding:0 36px;font-size:15px}.top b{font-size:20px}.top span{margin-left:28px;color:#6b7280}.top .me{margin-left:auto;width:36px;height:36px;border-radius:50%;background:#c7d2fe}
+h1{position:absolute;left:36px;top:96px;font-size:28px}.wk{position:absolute;left:36px;top:138px;font-size:15px;color:#6b7280}
+.tabs{position:absolute;left:880px;top:100px;display:flex;border:1px solid #d6dae1;border-radius:8px;overflow:hidden}.tabs span{width:120px;height:40px;display:flex;align-items:center;justify-content:center;font-size:14px;background:#fff}.tabs span.on{background:#1e2330;color:#fff}
+.grid{position:absolute;left:36px;top:190px;width:1208px;height:670px;background:#fff;border:1px solid #e2e5ea;border-radius:12px}
+.hd{position:absolute;top:0;height:48px;width:230px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;border-bottom:1px solid #e2e5ea}
+.tm{position:absolute;left:0;width:60px;font-size:12px;color:#9aa1ad;text-align:center}
+.c{position:absolute;width:214px;border-radius:8px;padding:10px 12px;font-size:14px;font-weight:700}.c i{display:block;font-style:normal;font-weight:400;font-size:12px;margin-top:4px;opacity:.8}
+.y{background:#ddd6fe;color:#4c1d95}.r{background:#fecaca;color:#7f1d1d}.s{background:#bbf7d0;color:#14532d}.full{background:#e5e7eb;color:#6b7280}
+</style></head><body>
+<div class="top" data-r="topbar"><b data-r="logo">Pulse Gym</b><span>Classes</span><span>Trainers</span><span>Membership</span><i class="me"></i></div>
+<h1 data-r="title" data-must>Class schedule</h1><p class="wk" data-r="week">Nov 2 – Nov 6</p>
+<div class="tabs" data-r="view-tabs"><span>Day</span><span class="on">Week</span><span>List</span></div>
+<div class="grid" data-r="schedule" data-must>
+<div class="hd" style="left:60px">Mon</div><div class="hd" style="left:290px">Tue</div><div class="hd" style="left:520px">Wed</div><div class="hd" style="left:750px">Thu</div><div class="hd" style="left:980px">Fri</div>
+<div class="tm" style="top:70px">7am</div><div class="tm" style="top:230px">9am</div><div class="tm" style="top:390px">12pm</div><div class="tm" style="top:550px">6pm</div>
+<div class="c y" data-r="class-mon-yoga" style="left:68px;top:64px;height:110px">Yoga flow<i>7:00 · Ana</i></div>
+<div class="c s" style="left:298px;top:64px;height:80px">Spin<i>7:00 · Leo</i></div>
+<div class="c r" style="left:528px;top:220px;height:120px">HIIT<i>9:00 · Sam</i></div>
+<div class="c full" style="left:758px;top:64px;height:110px">Pilates<i>Full</i></div>
+<div class="c y" style="left:988px;top:64px;height:110px">Yoga flow<i>7:00 · Ana</i></div>
+<div class="c s" style="left:68px;top:380px;height:90px">Spin<i>12:00 · Leo</i></div>
+<div class="c r" style="left:298px;top:540px;height:110px">Boxing<i>6:00 · Kim</i></div>
+<div class="c s" style="left:758px;top:380px;height:90px">Spin<i>12:00 · Leo</i></div>
+<div class="c r" style="left:988px;top:540px;height:110px">HIIT<i>6:00 · Sam</i></div>
+</div>
+</body></html>

@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Orbit type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f2ede4;font-family:Helvetica,Arial,sans-serif;color:#141414}
+nav{position:absolute;left:60px;top:36px;width:1160px;display:flex;justify-content:space-between;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+.ring{position:absolute;left:560px;top:120px;width:640px;height:640px;animation:sp 30s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.ring svg{width:640px;height:640px}
+.core{position:absolute;left:730px;top:290px;width:300px;height:300px;border-radius:50%;background:conic-gradient(from 90deg,#ff4d2e,#ffb000,#2e6bff,#ff4d2e)}
+.core::after{content:"";position:absolute;inset:70px;border-radius:50%;background:#f2ede4}
+h1{position:absolute;left:60px;top:200px;width:560px;font-size:112px;line-height:.88;font-weight:900;letter-spacing:-5px}
+h1 em{font-family:Georgia,serif;font-weight:400;font-style:italic;color:#ff4d2e}
+.copy{position:absolute;left:64px;top:560px;width:380px;font-size:17px;line-height:1.5;color:#4a4a4a}
+.cta{position:absolute;left:64px;top:680px;padding:15px 26px;border:2px solid #141414;border-radius:999px;font-weight:700;box-shadow:5px 5px 0 #141414;background:#ffb000}
+.year{position:absolute;left:840px;top:410px;width:80px;text-align:center;font-size:30px;font-weight:900}
+.foot{position:absolute;left:60px;top:840px;width:1160px;border-top:1px solid #141414;padding-top:12px;display:flex;justify-content:space-between;font-size:12px;letter-spacing:1px}
+</style></head><body>
+<nav data-r="nav"><b>Orbit Studio</b><span>Work · Index · Contact</span></nav>
+<h1 data-r="headline" data-must>Type in <em>orbit</em></h1>
+<p class="copy" data-r="copy">A type foundry that sets letters on curves, rings and spirals. Fourteen families, one gravity.</p>
+<a class="cta" data-r="cta">See the specimens</a>
+<div class="core" data-r="core" data-must></div>
+<div class="year" data-r="year">'26</div>
+<div class="ring" data-r="ring-text" data-must><svg viewBox="0 0 640 640"><defs><path id="c" d="M320,320 m-270,0 a270,270 0 1,1 540,0 a270,270 0 1,1 -540,0"/></defs><text font-size="34" font-weight="900" letter-spacing="6" fill="#141414"><textPath href="#c">LETTERS IN ORBIT ✺ FOURTEEN FAMILIES ✺ ONE GRAVITY ✺ SPECIMEN 2026 ✺</textPath></text></svg></div>
+<div class="foot" data-r="footer"><span>EST. 2011 — LISBON</span><span>ORBIT/14</span><span>SCROLL ↓</span></div>
+</body></html>

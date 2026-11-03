@@ -1,0 +1,794 @@
+{
+ "c1-collage": {
+  "plan": [
+   [
+    "logo",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
+   ],
+   [
+    "photo-1",
+    "image"
+   ],
+   [
+    "photo-2",
+    "image"
+   ],
+   [
+    "sticker",
+    "circle"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 118,
+     "lines": 2
+    }
+   ],
+   [
+    "body",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: cream (#f3ead8) page, Helvetica type, near-black text"
+   ],
+   [
+    "logo",
+    "italic serif \"Field Notes\", 30px type (font-size exactly 30px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 139px wide"
+   ],
+   [
+    "photo-1",
+    "tilted 4° anticlockwise grey #94a3b8 (top) to dark grey #334155 (bottom) gradient block"
+   ],
+   [
+    "photo-2",
+    "tilted 6° clockwise peach #fda4af (top) to vivid dark pink #be123c (bottom) gradient block, overlapping the lower right of the grey #94a3b8 (top) to dark grey #334155 (bottom) gradient block and on top of it"
+   ],
+   [
+    "sticker",
+    "tilted 12° anticlockwise vivid yellow circle with \"NEW ISSUE 07\", 170px across, the words centred in exactly these 2 lines, each its own line (a <br> between them, no other breaks): \"NEW\" / \"ISSUE 07\", 20px type"
+   ],
+   [
+    "headline",
+    "giant Georgia serif regular weight (not bold) tight-set letters lines set tight (line-height 0.92) \"Slow travel, fast friends\", set in exactly 2 lines: \"Slow travel, fast\" / \"friends\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 719px wide); exactly 118px type (font-size 118px, NOT larger), letter-spacing -3px, its box's top-left at 56,210 (position absolute)"
+   ],
+   [
+    "body",
+    "text \"A quarterly zine of walks, night trains and the people you meet on the way.\"; set in a 380px wide box (width: 380px, its top-left at 60,560), 18px type, line-height 28px, wrapping into exactly 2 lines: \"A quarterly zine of walks, night trains and the\" / \"people you meet on the way.\" (no narrower box, no extra line)"
+   ],
+   [
+    "cta",
+    "near-black (#1c1917, near-black, not a blue) pill cream text button \"Read issue 07\"; its text #f3ead8 (cream, NOT the page's near-black text)"
+   ]
+  ]
+ },
+ "c2-outline-bleed": {
+  "plan": [
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "outline-word",
+    "heading",
+    {
+     "fontPx": 300,
+     "lines": 1
+    }
+   ],
+   [
+    "solid-word",
+    "heading",
+    {
+     "fontPx": 300,
+     "lines": 1
+    }
+   ],
+   [
+    "body",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "date",
+    "text"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: black (#0a0a0a) page, Helvetica type, white text"
+   ],
+   [
+    "nav",
+    "the 3 parts \"Index\", \"Shows\", \"Shop\" sit side by side in one row with exactly 36px of empty space between one and the next (flex gap 36px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 58x16 at 975,40 14px #fafafa \"INDEX\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 68x16 at 1068,40 14px #fafafa \"SHOWS\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight); 52x16 at 1172,40 14px #fafafa \"SHOP\" (ALL CAPITALS: text-transform: uppercase) with letter-spacing 3px (its letters spaced out, NOT set tight)"
+   ],
+   [
+    "outline-word",
+    "bleeding off the left page edge (starts 40px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters hollow outlined white \"NOISE\", 300px type, about 884px wide (no larger), absolutely placed: its box's top-left at -40,120 and its first letter's ink starting at x=-40 (not further right), line-height 255px (tight, 0.85; NOT normal line-height, which drops the letters lower), letter-spacing -10px"
+   ],
+   [
+    "solid-word",
+    "bleeding off the left page edge (starts 30px past it) giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text: a real character in a text element, never an SVG path, outline or drawn shape) heavy tight-set letters lime \"FEST\", 300px type, about 727px wide (no larger), absolutely placed: its box's top-left at -30,400 and its first letter's ink starting at x=-30 (not further right), line-height 255px (tight, 0.85; NOT normal line-height, which drops the letters lower), letter-spacing -10px"
+   ],
+   [
+    "body",
+    "grey text \"Three nights of loud guitars in a disused tram depot. Bring earplugs.\"; its text #a3a3a3 (grey, NOT the page's white text); set in a 300px wide box (width: 300px, its top-left at 924,785), 16px type, line-height 26px, wrapping into exactly 2 lines: \"Three nights of loud guitars in a disused\" / \"tram depot. Bring earplugs.\" (no narrower box, no extra line)"
+   ],
+   [
+    "date",
+    "14px mono lime \"// 14—16 AUG 2027\"; its text #84cc16 (lime, NOT the page's white text)"
+   ]
+  ]
+ },
+ "c3-glass-blobs": {
+  "plan": [
+   [
+    "blob-pink",
+    "circle"
+   ],
+   [
+    "blob-cyan",
+    "circle"
+   ],
+   [
+    "card",
+    "box"
+   ],
+   [
+    "tag",
+    "box"
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 60,
+     "lines": 2
+    }
+   ],
+   [
+    "body",
+    "text",
+    {
+     "fontPx": 18,
+     "lines": 2
+    }
+   ],
+   [
+    "ctas",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: deep indigo (#1e1b4b) page, Helvetica type, white text"
+   ],
+   [
+    "blob-pink",
+    "soft blurred (filter: blur(40px)), its box 420x420px with its top-left at 120,80 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(40px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; a soft cloud of colour with no hard edge, its colour exactly #ec4899) big vivid pink circle"
+   ],
+   [
+    "blob-cyan",
+    "soft blurred (filter: blur(40px)), its box 480x480px with its top-left at 760,380 before the blur (a ROUND glow: border-radius 50%, never a square or a rounded square; the blur stays on ALWAYS: filter: blur(40px) is set on the element itself (its own style), not only inside keyframes, so it shows with animations off; a soft cloud of colour with no hard edge, its colour exactly #06b6d4) big vivid cyan circle"
+   ],
+   [
+    "card",
+    "frosted glass"
+   ],
+   [
+    "tag",
+    "frosted glass white pill label, \"Beta · v2.0\"; about 100x32px, a fully rounded CAPSULE (border-radius 16px, NOT square corners), flat (no gradient, no shadow), words on one line"
+   ],
+   [
+    "headline",
+    "huge Helvetica \"Your notes, finally calm\", set in exactly 2 lines: \"Your notes, finally\" / \"calm\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 516px wide); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "body",
+    "text \"Write, link and find anything in a quiet space that syncs everywhere.\"; set in a 520px wide box (width: 520px, its top-left at 347,443), 18px type, line-height 27px, wrapping into exactly 2 lines: \"Write, link and find anything in a quiet space that syncs\" / \"everywhere.\" (no narrower box, no extra line)"
+   ],
+   [
+    "ctas",
+    "2 buttons in one row packed at the left, 16px apart, left to right: \"Get started\" 135x52px, SOLID #ffffff fill (white, NOT white or cream), no border, 14px rounded, 16px #1e1b4b text; \"Watch demo\" 147x52px, NO fill (see-through, the page shows inside), 1px #ffffff border, 14px rounded, 16px #ffffff text; each word in its own colour: \"Get started\" #1e1b4b, \"Watch demo\" #ffffff"
+   ]
+  ]
+ },
+ "c4-mag-grid": {
+  "plan": [
+   [
+    "masthead",
+    "box"
+   ],
+   [
+    "lead-img",
+    "image"
+   ],
+   [
+    "lead-title",
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 2
+    }
+   ],
+   [
+    "img-1",
+    "image"
+   ],
+   [
+    "img-2",
+    "image"
+   ],
+   [
+    "pull-quote",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 2
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: white page, Georgia type, near-black text"
+   ],
+   [
+    "masthead",
+    "thick rule under; huge 56px bold title: \"The Weekly Ledger\", text \"TUESDAY · NO. 412\""
+   ],
+   [
+    "lead-img",
+    "vivid amber #f59e0b (top left) to brown #7c2d12 (bottom right) gradient block"
+   ],
+   [
+    "lead-title",
+    "big serif \"The quiet return of the corner shop\", set in exactly 2 lines: \"The quiet return of the\" / \"corner shop\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 429px wide); set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "story-1",
+    "its own heading lines ABOVE its parts (real elements, live text, none left out): page heading 22px bold #111111 \"Rivers that run backwards\" with its top-left at 640,316; then 15px #444444 \"Tidal bores and the towns that wait for them.\" with its top-left at 640,350"
+   ],
+   [
+    "story-2",
+    "its own heading lines ABOVE its parts (real elements, live text, none left out): page heading 22px bold #111111 \"A year without email\" with its top-left at 950,316; then 15px #444444 \"One office tried. Here is what broke first.\" with its top-left at 950,350"
+   ],
+   [
+    "pull-quote",
+    "italic red \"“Nobody misses the queue, but everybody misses the chat.”\""
+   ]
+  ]
+ },
+ "c5-retro-bands": {
+  "plan": [
+   [
+    "bands",
+    "image"
+   ],
+   [
+    "logo",
+    "text",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
+   ],
+   [
+    "headline",
+    "heading",
+    {
+     "fontPx": 96,
+     "lines": 4
+    }
+   ],
+   [
+    "body",
+    "text",
+    {
+     "fontPx": 19,
+     "lines": 2
+    }
+   ],
+   [
+    "cta",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale yellow (#fff7e6, plainly not white) page, Helvetica type, black text"
+   ],
+   [
+    "bands",
+    "tilted 25° clockwise bleeding off the right page edge (runs 411px past it) big orange, yellow, teal, brown stripes block"
+   ],
+   [
+    "logo",
+    "brown \"SUNDAE\"; its text #7c2d12 (brown, NOT the page's black text); set at 26px (a large lead line, NOT small body text), about 116px wide on one line, its top-left at 64,48 (page px; keep that place, the parts under it start where they are said)"
+   ],
+   [
+    "headline",
+    "giant Helvetica italic heavy uppercase lines set tight (line-height 0.95) brown \"SOFT SERVE, HARD RULES\", set in exactly 4 lines: \"SOFT\" / \"SERVE,\" / \"HARD\" / \"RULES\" (keep these breaks; each line stays whole on one line, never wrapped again, white-space: nowrap, no max-width narrower than the longest line, about 352px wide)"
+   ],
+   [
+    "body",
+    "dark grey text \"Seventies flavours, real cream, and one strict rule: no spoons left behind.\"; its text #44403c (dark grey, NOT the page's black text); set in a 420px wide box (width: 420px, its top-left at 68,540), 19px type, line-height 29px, wrapping into exactly 2 lines: \"Seventies flavours, real cream, and one strict\" / \"rule: no spoons left behind.\" (no narrower box, no extra line)"
+   ],
+   [
+    "cta",
+    "teal white text button \"FIND A TRUCK\" (205x67px, square corners: border-radius 0, NOT a pill), with a hard solid opaque brown shadow offset 6px down right, no blur; its text #ffffff (white, NOT the page's black text) (exactly: #14b8a6 fill, #ffffff text, 205x67px, square corners: border-radius 0, NOT a pill)"
+   ]
+  ]
+ },
+ "e1-checkout": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 28,
+     "lines": 1
+    }
+   ],
+   [
+    "ship-label",
+    "heading",
+    {
+     "fontPx": 17,
+     "lines": 1
+    }
+   ],
+   [
+    "name",
+    "box"
+   ],
+   [
+    "address",
+    "box"
+   ],
+   [
+    "city-row",
+    "box"
+   ],
+   [
+    "pay-label",
+    "heading",
+    {
+     "fontPx": 17,
+     "lines": 1
+    }
+   ],
+   [
+    "card",
+    "box"
+   ],
+   [
+    "pay",
+    "button"
+   ],
+   [
+    "summary",
+    "box"
+   ],
+   [
+    "item-1",
+    "box"
+   ],
+   [
+    "item-2",
+    "box"
+   ],
+   [
+    "item-3",
+    "box"
+   ],
+   [
+    "total",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale grey (#f9fafb, plainly not white) page, Helvetica type, dark navy text"
+   ],
+   [
+    "title",
+    "\"Checkout\", 28px bold type on one line, its box top 48px from the page top and 32px tall (top-[48px] or the same margin, line-height 32px; not higher)"
+   ],
+   [
+    "ship-label",
+    "\"Shipping address\"; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "name",
+    "label \"Full name\" above an empty field"
+   ],
+   [
+    "address",
+    "label \"Street address\" above an empty field"
+   ],
+   [
+    "city-row",
+    "fields side by side: \"City\", \"Postcode\""
+   ],
+   [
+    "pay-label",
+    "\"Payment\"; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "card",
+    "label \"Card number\" above an empty field"
+   ],
+   [
+    "pay",
+    "indigo full-width white text button \"Pay $128.00\"; its text #ffffff (white, NOT the page's dark navy text) (exactly: #4f46e5 fill, #ffffff text, 680x50px, 10px rounded)"
+   ],
+   [
+    "summary",
+    "the region itself is ONE 400x520px panel at 800,48 (position absolute, its FULL height kept: 520px tall, never shorter), background #ffffff, 14px rounded; the parts drawn on their own (item-1, item-2, item-3, total) all sit INSIDE this panel, within its edges; white card sidebar"
+   ],
+   [
+    "item-1",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 64x64 at 829,115 #e5e7eb fill, 8px rounded, EMPTY (no icon, no emoji, no picture inside); 27x17 at 1144,138 16px #111827 \"$64\"; 223x17 at 907,139 15px #111827 \"Linen shirt\""
+   ],
+   [
+    "item-2",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 64x64 at 829,199 #e5e7eb fill, 8px rounded, EMPTY (no icon, no emoji, no picture inside); 27x17 at 1144,222 16px #111827 \"$32\"; 223x17 at 907,223 15px #111827 \"Canvas tote\""
+   ],
+   [
+    "item-3",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 64x64 at 829,283 #e5e7eb fill, 8px rounded, EMPTY (no icon, no emoji, no picture inside); 27x17 at 1144,306 16px #111827 \"$32\"; 223x17 at 907,307 15px #111827 \"Wool socks\""
+   ],
+   [
+    "total",
+    "a row 342px wide at 829,375 with ONLY a 1px #e5e7eb rule along its TOP edge (NOT a box: no border on the other sides, no fill), the text 18px under the rule; two separate items on one line pushed apart (justify-content: space-between, never run together as one line of text): 18px Helvetica #111827 \"Total\" at the far left, \"$128.00\" at the far right"
+   ]
+  ]
+ },
+ "e2-shop-grid": {
+  "plan": [
+   [
+    "nav",
+    "text"
+   ],
+   [
+    "filters",
+    "box"
+   ],
+   [
+    "p1",
+    "box"
+   ],
+   [
+    "p2",
+    "box"
+   ],
+   [
+    "p3",
+    "box"
+   ],
+   [
+    "p4",
+    "box"
+   ],
+   [
+    "p5",
+    "box"
+   ],
+   [
+    "p6",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "nav",
+    "the region itself is ONE 1280x64px top bar element at 0,0 (its own wrapper, no fill, a 1px #e4e4e7 rule along its BOTTOM edge only (border-bottom, no other border), exactly 64px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; bold 20px \"Lumen\" first, then links: New, Lamps, Sale, Cart (2); \"Lumen\" sit together at the left, \"New\", \"Lamps\", \"Sale\", \"Cart (2)\" pushed to the far right (883px gap)"
+   ],
+   [
+    "filters",
+    "sidebar side nav, no box: 2 groups, each a small grey spaced-capitals heading over its own links, one link per line (every link said, none invented, none moved to another group): \"CATEGORY\": \"Desk lamps\", \"Floor lamps\", \"Pendants\"; \"PRICE\": \"Under $100\", \"$100–$250\"; rows exactly 27px apart (17px tall, tight; not roomier), first heading 20px below the nav's top; the nav column is 220px wide"
+   ],
+   [
+    "p1",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 299x220 at 296,96 #f4f4f5 fill, 10px rounded; 299x17 at 296,326 15px #18181b \"Arc floor lamp\"; 33x17 at 296,343 15px bold #18181b \"$189\""
+   ],
+   [
+    "p2",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 299x220 at 619,96 #f4f4f5 fill, 10px rounded; 299x17 at 619,326 15px #18181b \"Dome pendant\"; 33x17 at 619,343 15px bold #18181b \"$129\""
+   ],
+   [
+    "p3",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 299x220 at 941,96 #f4f4f5 fill, 10px rounded; 299x17 at 941,326 15px #18181b \"Clip desk lamp\"; 25x17 at 941,343 15px bold #18181b \"$59\""
+   ],
+   [
+    "p4",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 299x220 at 296,385 #f4f4f5 fill, 10px rounded; 299x17 at 296,615 15px #18181b \"Globe table lamp\"; 25x17 at 296,632 15px bold #18181b \"$89\""
+   ],
+   [
+    "p5",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 299x220 at 619,385 #f4f4f5 fill, 10px rounded; 299x17 at 619,615 15px #18181b \"Tripod lamp\"; 33x17 at 619,632 15px bold #18181b \"$219\""
+   ],
+   [
+    "p6",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 299x220 at 941,385 #f4f4f5 fill, 10px rounded; 299x17 at 941,615 15px #18181b \"Wall sconce\"; 25x17 at 941,632 15px bold #18181b \"$75\""
+   ]
+  ]
+ },
+ "e3-settings": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 30,
+     "lines": 1
+    }
+   ],
+   [
+    "tabs",
+    "text",
+    {
+     "fontPx": 15,
+     "lines": 2
+    }
+   ],
+   [
+    "row-1",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "row-2",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "row-3",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "row-4",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "save",
+    "button"
+   ],
+   [
+    "reset",
+    "button"
+   ]
+  ],
+  "notes": [
+   [
+    "title",
+    "\"Settings\", 30px bold type on one line, its box top 40px from the page top and 34px tall (top-[40px] or the same margin, line-height 34px; not higher)"
+   ],
+   [
+    "tabs",
+    "the 4 parts \"Profile\", \"Notifications\", \"Billing\", \"Team\" sit side by side in one row with exactly 28px of empty space between one and the next (flex gap 28px; NEVER touching, never run together; each part on ONE line, white-space nowrap, never wrapping); part by part (page px: size, then top-left x,y; each part its own real element with live text, all 4 of them, nothing invented, nothing left out): 43x43 at 120,98 15px #64748b \"Profile\"; 82x43 at 191,98 2px #2563eb border on the bottom only: 15px #2563eb \"Notifications\"; 40x43 at 300,98 15px #64748b \"Billing\"; 37x43 at 368,98 15px #64748b \"Team\""
+   ],
+   [
+    "row-1",
+    "toggle on \"Email digests A summary of activity\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,142), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Email digests\" / \"A summary of activity every Monday.\" (no narrower box, no extra line)"
+   ],
+   [
+    "row-2",
+    "toggle on \"Mentions Notify me when someone\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,223), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Mentions\" / \"Notify me when someone @mentions me.\" (no narrower box, no extra line)"
+   ],
+   [
+    "row-3",
+    "toggle off \"Product news Occasional updates about\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,304), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Product news\" / \"Occasional updates about new features.\" (no narrower box, no extra line)"
+   ],
+   [
+    "row-4",
+    "toggle off \"Weekly report Usage numbers for your\"…; set in a 1040px wide box (width: 1040px, its top-left at 120,385), 16px type, line-height 24px, wrapping into exactly 2 lines: \"Weekly report\" / \"Usage numbers for your workspace.\" (no narrower box, no extra line)"
+   ],
+   [
+    "save",
+    "blue white text button \"Save changes\" (152x45px, barely rounded: border-radius 8px, NOT a pill); its text #ffffff (white, NOT the page's dark navy text) (exactly: #2563eb fill, #ffffff text, 152x45px, 8px rounded)"
+   ],
+   [
+    "reset",
+    "red outline button \"Reset all\"; its text #dc2626 (red, NOT the page's dark navy text)"
+   ]
+  ]
+ },
+ "e4-faq": {
+  "plan": [
+   [
+    "title",
+    "heading",
+    {
+     "fontPx": 44,
+     "lines": 1
+    }
+   ],
+   [
+    "subtitle",
+    "text"
+   ],
+   [
+    "search",
+    "box"
+   ],
+   [
+    "q1",
+    "box"
+   ],
+   [
+    "q2",
+    "box"
+   ],
+   [
+    "q3",
+    "box"
+   ],
+   [
+    "q4",
+    "box"
+   ]
+  ],
+  "notes": [
+   [
+    "*",
+    "whole page: pale yellow (#fefce8, plainly not white) page, Helvetica type, near-black text"
+   ],
+   [
+    "title",
+    "big \"Questions, answered\", on ONE line (white-space: nowrap, never wrapped), about 443px wide; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "subtitle",
+    "brown text \"Everything about orders, returns and your account.\"; its text #57534e (brown, NOT the page's near-black text), its top 118px from the page top, 62px below the top of the \"Questions, answered\" line above it (that line's text sits above this text, never on the same line or over it)"
+   ],
+   [
+    "search",
+    "pill search input \"Search the help centre…\"; its text #a8a29e (grey, NOT the page's near-black text)"
+   ],
+   [
+    "q1",
+    "white card \"How long does delivery take? −\", text \"Most orders arrive in 2–4 working days. You'll get a tracking link by email as soon as it ships.\""
+   ],
+   [
+    "q2",
+    "white card \"Can I return a gift? +\""
+   ],
+   [
+    "q3",
+    "white card \"Do you ship abroad? +\""
+   ],
+   [
+    "q4",
+    "white card \"How do I change my password? +\""
+   ]
+  ]
+ },
+ "e5-inbox": {
+  "plan": [
+   [
+    "folders",
+    "box"
+   ],
+   [
+    "m1",
+    "box"
+   ],
+   [
+    "m2",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "m3",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "m4",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 2
+    }
+   ],
+   [
+    "subject",
+    "heading",
+    {
+     "fontPx": 26,
+     "lines": 1
+    }
+   ],
+   [
+    "from",
+    "text"
+   ],
+   [
+    "message",
+    "text",
+    {
+     "fontPx": 16,
+     "lines": 3
+    }
+   ]
+  ],
+  "notes": [
+   [
+    "folders",
+    "the region itself is ONE 200x900px column element at 0,0 (its own wrapper, #f4f4f5 fill, running to the page bottom) that holds all of these parts inside it, never laid loose on the page; pale grey panel sidebar \"Compose Inbox 12 Starred Sent Drafts\"; each word in its own colour: \"Compose\" #ffffff, \"Inbox 12\" #111111, \"Starred\" #111111, \"Sent\" #111111, \"Drafts\" #111111; \"Compose\" has its own BOX (NOT a plain word): 168x41px, #111111 fill, 10px rounded, padding 12px 12px, bold #ffffff text on ONE line; this panel is FLAT: #f4f4f5 fill from the very top to the very bottom of the page at the left edge, 200px wide, square corners, no shadow, no margin round it (NOT an inset or floating card)"
+   ],
+   [
+    "m1",
+    "the region itself is ONE 379x71px top bar element at 200,0 (its own wrapper, #eff6ff fill, a 1px #f4f4f5 rule along its BOTTOM edge only (border-bottom, no other border), exactly 71px tall (its parts vertically centred in it: align-items center)) that holds all of these parts inside it, never laid loose on the page; off-white card \"Maya Chen\", text \"Draft of the Q3 plan attached\"; each word in its own colour: \"Maya Chen\" #111111, \"Draft of the Q3 plan attached\" #71717a; square corners (border-radius 0, NOT a pill, NOT rounded)"
+   ],
+   [
+    "m2",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 57x17 at 220,87 15px bold #111111 \"Ops bot\"; 339x16 at 220,109 14px #71717a \"Weekly uptime: 99.98%\""
+   ],
+   [
+    "m3",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 63x17 at 220,158 15px bold #111111 \"Leo Park\"; 339x16 at 220,180 14px #71717a \"Lunch Thursday?\""
+   ],
+   [
+    "m4",
+    "part by part (page px: size, then top-left x,y; each part its own real element with live text, all 2 of them, nothing invented, nothing left out; every one-line text part stays on ONE line (white-space nowrap): a word and the count after it never wrap apart, and its width is a minimum (min-width, NOT a fixed width that would push the count onto a second line)): 46x17 at 220,229 15px bold #111111 \"Billing\"; 339x16 at 220,251 14px #71717a \"Your invoice for October\""
+   ],
+   [
+    "subject",
+    "\"Draft of the Q3 plan attached\", 26px type (font-size exactly 26px, NOT larger) on ONE line (white-space: nowrap, never wrapped), about 355px wide; set BOLD (font-weight 700), NOT regular"
+   ],
+   [
+    "from",
+    "14px grey text \"Maya Chen · 9:41 AM\", one line on its own (top 75px, left edge 628px), nothing else written beside it; its text #71717a (grey, NOT the page's near-black text)"
+   ],
+   [
+    "message",
+    "16px Helvetica near-black (#111111) copy in 3 lines, 560px wide, top-left at 628,115, quoted whole (these exact words, nothing invented): \"Hi team — here's the first pass at the Q3 plan. The big change is moving the launch to September so we can finish the onboarding work first. Comments welcome by Friday.\""
+   ]
+  ]
+ }
+}

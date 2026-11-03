@@ -1,0 +1,250 @@
+{
+  "id": "c1-masked-reel",
+  "at": "2026-10-22T00:00:51.714Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6546193948575327,
+    "overallV2": 0.6546193948575327,
+    "overallV1": 0.5929785923225502,
+    "colour": 0.8987282591742148,
+    "structure": 0.575511325608221,
+    "structureStrict": 0.4338587089026809,
+    "colourAligned": 0.8987282591742148,
+    "structureAligned": 0.575511325608221,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8354802409142084
+    },
+    "layout": 0.6069216619907691
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "blend",
+      "hollow-type",
+      "huge-type",
+      "motion"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": [
+      "bleed",
+      "blur",
+      "gradient",
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 40825,
+    "output": 14762,
+    "cacheRead": 209204
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42423,
+      "output": 9520,
+      "cacheRead": 198913,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 104811
+    }
+  ],
+  "reading": "The sketch is a one-screen film hero: a full-bleed black page with an orange/purple glow behind a huge headline, a nav bar, a play button, a description, a progress bar and a time readout, all specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Whole page: black page background, Helvetica typeface throughout, off-white body/text color."
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 271
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Black hero block lit by one big orange glow centered at roughly 60% across and 80% down the block (about 1590px across, filling most of the block), with a littl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar: bold, 18px, wide letter-spaced \"NOCTURNE\" wordmark on the left, and \"Films · Studio · Contact\" links on the right, in off-white Helvetica."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 271
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant Helvetica Heavy, tight letter-spaced headline text \"AFTER\", rendered hollow/outlined in off-white, as the top line of the hero heading (the wavy stroke ma"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 268
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant Helvetica Heavy, tight letter-spaced headline text \"DARK\" directly below \"AFTER\", set with an overlay/blend mode so it blends with whatever is beneath it."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s4"
+      ],
+      "instruction": "Circular play button: off-white outlined circle containing the word \"PLAY\", placed to the right of the headline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Body copy text: \"A short film about the city between midnight and dawn. Shot on 16mm, scored live.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s7"
+      ],
+      "instruction": "Thin horizontal progress bar, 36% filled in orange on a dark grey track, sitting below the description text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [],
+      "region": [
+        1121,
+        828,
+        99,
+        8
+      ],
+      "paths": [],
+      "instruction": "Grey timestamp text \"02:14 / 11:40\" at the right end of the progress bar row."
+    }
+  ],
+  "rejected": []
+}

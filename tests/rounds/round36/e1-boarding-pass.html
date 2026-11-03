@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Boarding pass</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#eef1f6;font-family:Helvetica,Arial,sans-serif;color:#1b2430;overflow:hidden;position:relative}
+header{position:absolute;left:0;top:0;width:1280px;height:72px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid #dde2ea}
+header b{font-size:20px;color:#0a58ca}header span{font-size:15px;color:#5d6b7d}
+.pass{position:absolute;left:340px;top:130px;width:600px;height:680px;background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(20,30,50,.08)}
+.top{height:150px;background:#0a58ca;border-radius:18px 18px 0 0;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 48px}
+.top b{display:block;font-size:52px}.top span{font-size:15px;opacity:.85}.plane{font-size:30px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 0;padding:34px 48px}
+.grid span{display:block;font-size:13px;color:#7a8698}.grid b{font-size:22px}
+.code{position:absolute;left:48px;bottom:44px;width:504px;height:110px;background:repeating-linear-gradient(90deg,#1b2430 0 4px,#fff 4px 9px,#1b2430 9px 11px,#fff 11px 16px)}
+</style></head><body>
+<header data-r="header"><b>Skyline Air</b><span>Trips · Help · Account</span></header>
+<div class="pass" data-r="pass" data-must>
+<div class="top" data-r="route"><div><b>SFO</b><span>San Francisco</span></div><div class="plane">→</div><div style="text-align:right"><b>JFK</b><span>New York</span></div></div>
+<div class="grid" data-r="details"><div><span>Passenger</span><b>Maya Chen</b></div><div><span>Flight</span><b>SK 214</b></div><div><span>Date</span><b>12 Nov</b></div><div><span>Gate</span><b>B22</b></div><div><span>Boards</span><b>07:35</b></div><div><span>Seat</span><b>14A</b></div></div>
+<div class="code" data-r="barcode" data-must></div>
+</div>
+</body></html>

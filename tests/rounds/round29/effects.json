@@ -1,0 +1,166 @@
+{
+ "c1-riso-festival": {
+  "found": {
+   "blend": 4,
+   "gradient": 1,
+   "huge-type": 2,
+   "uppercase-display": 2,
+   "tilt": 1,
+   "mask": 1,
+   "hard-shadow": 1,
+   "clip-shape": 1,
+   "overlap": 8
+  },
+  "names": [
+   "blend",
+   "clip-shape",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "mask",
+   "overlap",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c2-brutal-grid": {
+  "found": {
+   "vertical-type": 1,
+   "huge-type": 2,
+   "hollow-type": 1,
+   "mono": 9,
+   "tilt": 1,
+   "stripes-or-layers": 1,
+   "hard-shadow": 1,
+   "overlap": 1
+  },
+  "names": [
+   "hard-shadow",
+   "hollow-type",
+   "huge-type",
+   "mono",
+   "overlap",
+   "stripes-or-layers",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c3-iso-city": {
+  "found": {
+   "clip-shape": 11,
+   "hard-shadow": 3,
+   "overlap": 53
+  },
+  "names": [
+   "clip-shape",
+   "hard-shadow",
+   "overlap"
+  ]
+ },
+ "c4-deco-cinema": {
+  "found": {
+   "stripes-or-layers": 4,
+   "serif": 14,
+   "gradient": 2,
+   "gradient-text": 1,
+   "huge-type": 1,
+   "clip-shape": 1,
+   "overlap": 21
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "overlap",
+   "serif",
+   "stripes-or-layers"
+  ]
+ },
+ "c5-deep-sea": {
+  "found": {
+   "tilt": 2,
+   "blur": 2,
+   "gradient": 7,
+   "italic": 1,
+   "glow": 2,
+   "glass": 1,
+   "soft-shadow": 1,
+   "overlap": 11
+  },
+  "names": [
+   "blur",
+   "glass",
+   "glow",
+   "gradient",
+   "italic",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e1-spreadsheet": {
+  "found": {
+   "italic": 2,
+   "soft-shadow": 1,
+   "overlap": 2
+  },
+  "names": [
+   "italic",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e2-gantt": {
+  "found": {
+   "gradient": 1,
+   "clip-shape": 3,
+   "tilt": 2,
+   "overlap": 11
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "overlap",
+   "tilt"
+  ]
+ },
+ "e3-support-inbox": {
+  "found": {
+   "hard-shadow": 1,
+   "gradient": 1
+  },
+  "names": [
+   "gradient",
+   "hard-shadow"
+  ]
+ },
+ "e4-design-tool": {
+  "found": {
+   "tilt": 4,
+   "gradient": 3,
+   "stripes-or-layers": 1,
+   "overlap": 5
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "e5-trading": {
+  "found": {
+   "stripes-or-layers": 1,
+   "hard-shadow": 1,
+   "tilt": 5,
+   "overlap": 26
+  },
+  "names": [
+   "hard-shadow",
+   "overlap",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ }
+}

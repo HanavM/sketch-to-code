@@ -1,0 +1,624 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "f01ce2f375248b6a1a48bc57fab0cccc1bc65259",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch is a library catalog page: a header bar with a bold site title and nav links, a search input plus a blue search button, a filter-chip row (an active \"All\" chip followed by Fiction/History/Science/Kids), a results-count line, and a four-card grid of book listings each with title, author, cover-color swatch and an availability status pill.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (40,21) 103x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:42:9",
+      "rect": {
+       "x": 40,
+       "y": 20.5,
+       "w": 102.671875,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": false,
+    "nearest": 93.2,
+    "reason": "nothing near the drawing is the colour that was drawn (#e2e8f0); closest is ΔE 93.2 away"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x70 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:41:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 70
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (39,99) 901x58: the <input> built for it sits 70px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).; the box drawn at (960,99) 141x57: the <button> built for it sits 139px too far right; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+     "marks": [
+      {
+       "strokeId": "s2",
+       "drawn": {
+        "x": 39,
+        "y": 99,
+        "w": 901,
+        "h": 58
+       },
+       "built": {
+        "x": 40,
+        "y": 98,
+        "w": 1039,
+        "h": 58
+       },
+       "dx": 70,
+       "dy": -1
+      },
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 960,
+        "y": 99,
+        "w": 141,
+        "h": 57
+       },
+       "built": {
+        "x": 1099,
+        "y": 98,
+        "w": 141,
+        "h": 58
+       },
+       "dx": 139,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#cbd5e1 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (40,184) 49x38 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:62:11",
+      "rect": {
+       "x": 40,
+       "y": 184,
+       "w": 48.984375,
+       "h": 38
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 39,
+        "y": 185,
+        "w": 58,
+        "h": 39
+       },
+       "built": {
+        "x": 40,
+        "y": 184,
+        "w": 48.984375,
+        "h": 38
+       },
+       "dx": -4,
+       "dy": -1
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 109,
+        "y": 186,
+        "w": 84,
+        "h": 38
+       },
+       "built": {
+        "x": 100.984375,
+        "y": 184,
+        "w": 77.03125,
+        "h": 38
+       },
+       "dx": -11,
+       "dy": -2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e293b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (40,98) 1200x58 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:50:9",
+      "rect": {
+       "x": 40,
+       "y": 98,
+       "w": 1200,
+       "h": 58
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 39,
+        "y": 185,
+        "w": 58,
+        "h": 39
+       },
+       "built": {
+        "x": 40,
+        "y": 184,
+        "w": 48.984375,
+        "h": 38
+       },
+       "dx": -4,
+       "dy": -1
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 39,
+        "y": 289,
+        "w": 271,
+        "h": 382
+       },
+       "built": {
+        "x": 40,
+        "y": 290,
+        "w": 279,
+        "h": 379
+       },
+       "dx": 5,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1e293b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:40:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 39,
+        "y": 289,
+        "w": 271,
+        "h": 382
+       },
+       "built": {
+        "x": 40,
+        "y": 290,
+        "w": 279,
+        "h": 379
+       },
+       "dx": 5,
+       "dy": 0
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 339,
+        "y": 289,
+        "w": 272,
+        "h": 382
+       },
+       "built": {
+        "x": 347,
+        "y": 290,
+        "w": 279,
+        "h": 379
+       },
+       "dx": 12,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 639,
+        "y": 289,
+        "w": 272,
+        "h": 382
+       },
+       "built": {
+        "x": 654,
+        "y": 290,
+        "w": 279,
+        "h": 379
+       },
+       "dx": 19,
+       "dy": 0
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 939,
+        "y": 289,
+        "w": 271,
+        "h": 382
+       },
+       "built": {
+        "x": 961,
+        "y": 290,
+        "w": 279,
+        "h": 379
+       },
+       "dx": 26,
+       "dy": 0
+      },
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 40,
+        "y": 736,
+        "w": 78,
+        "h": 25
+       },
+       "built": {
+        "x": 40,
+        "y": 737,
+        "w": 75.6875,
+        "h": 25
+       },
+       "dx": -1,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#0e7490 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3 (a big drawn panel) top at 290px, drawn at 185px (105px low). A big panel starts where it was drawn: its top within 16px of the drawn y. Find the space above it that the drawing does not have (it sits in a column or grid row that starts lower, a wrapper with padding or a top margin, a heading placed above it that was drawn inside it, or it was stacked under a block drawn beside it) and take that out, so the panel's top lands at its drawn y; what is inside it moves with it. Never use a negative margin, negative top or absolute position. Do not change widths, colours or copy.",
+     "offsets": [
+      {
+       "index": 3,
+       "drawn": 185,
+       "built": 290,
+       "dy": 105
+      }
+     ]
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (339,289) 272x382 with \"red pill\" is built as a #f59e0b <div>, not red: give it a clear opaque red background (about #e53935); change nothing else"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "15 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box at (109,186) 84x38 should show \"x4 in a row: Fiction History Science Kids\" but shows the words of another item (\"All\"). The 2 look-alike marks each carry their OWN typed words, in this order: \"All\", \"x4 in a row: Fiction History Science Kids\": put exactly those texts on those items (fix the array or props the list maps over; never repeat one item's words, never make texts up), keeping every item's look, size and position"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the typed row starting \"in a row: Fiction History Science Kids\" is not on the page: build it first, then 3 sample rows like it; the typed row starting \"On loan red pill\" is not on the page: fill the drawn rows with every typed row, in order; change nothing else"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": false,
+     "reason": "no bar about 901px wide at y=99-157px where one was drawn. Change only those heights and the one space above; never a negative margin or absolute position; do not change widths, colours or copy"
+    }
+   },
+   {
+    "kind": "line-ends",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 group of words kept at their end of a long line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the line drawn at (2,70) 1276x0 is a divider drawn in a pale #e2e8f0 pen: only the rule is that colour, but the words \"Search\" over it are painted #e2e8f0 and barely show: give them the page's ordinary dark text colour; keep their size, weight and place; action 1: the box drawn at (960,99) 141x57 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,70) 1276x0 (pale divider)",
+       "want": "words not #e2e8f0",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (39,99) 901x58 (light pen outline)",
+       "want": "border #cbd5e1, no #cbd5e1 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (960,99) 141x57",
+       "want": "#2563eb",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (39,185) 58x39",
+       "want": "#1e293b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (109,186) 84x38",
+       "want": "#f1f5f9",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (39,185) 58x39",
+       "want": "#1e293b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (39,289) 271x382 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (39,289) 271x382",
+       "want": "#0e7490",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (39,289) 271x382",
+       "want": "#0e7490",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (339,289) 272x382",
+       "want": "#f59e0b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (639,289) 272x382",
+       "want": "#7c3aed",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (939,289) 272x382",
+       "want": "#334155",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (40,736) 78x25",
+       "want": "#dcfce7",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 94586,
+   "cacheRead": 297961,
+   "output": 27055
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 57882,
+    "output": 17108,
+    "cacheRead": 130144,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 191416
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 63759,
+    "output": 9947,
+    "cacheRead": 167817,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 113957
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Read src/main.tsx",
+     "Read src/index.css"
+    ],
+    "ms": 180026,
+    "stalled": "the repair went 180 s without an edit (thinking is not progress)"
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": "the repair went 180 s without an edit (thinking is not progress) (nothing edited; retried with a fresh repair)",
+  "buildStalled": null
+ }
+]

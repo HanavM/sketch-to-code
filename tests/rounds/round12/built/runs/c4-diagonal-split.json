@@ -1,0 +1,264 @@
+{
+  "id": "c4-diagonal-split",
+  "at": "2026-10-23T19:00:25.820Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9126447327342908,
+    "overallV2": 0.9126447327342908,
+    "overallV1": 0.7894101633864372,
+    "colour": 0.9750504672417285,
+    "structure": 0.953228924987943,
+    "structureStrict": 0.7775017597369148,
+    "colourAligned": 0.9750504672417285,
+    "structureAligned": 0.953228924987943,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9618691535471711
+    },
+    "layout": 0.8700981912005107
+  },
+  "effects": {
+    "recall": 0.5714285714285714,
+    "kept": [
+      "hollow-type",
+      "huge-type",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient",
+      "uppercase-display"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 53326,
+    "output": 31280,
+    "cacheRead": 442608
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 57868,
+      "output": 19511,
+      "cacheRead": 412742,
+      "toolCalls": 15,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Grep",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx",
+        "Read components/SketchShape2.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 208074
+    }
+  ],
+  "reading": "This is a hero banner for a running-club landing page (\"RUNCLUB\"): two angled color-block shapes (one flat yellow, one orange-to-raspberry gradient) split the background, a giant hollow \"09\" numeral sits center, with a nav bar, a 3-line headline \"NINE MILES BEFORE SUNRISE\", a supporting sentence, a CTA button, a 3-row schedule list on the right, a tilted yellow badge circle reading \"FREE COFFEE AFTER\", and an empty input box in the lower-left.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        788,
+        889
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Vivid yellow angled cut-out shape, ONE flat #e8ff3a fill (clip-path polygon, no gradient, no shading, no texture); strokes are outline only, never kept as visib"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        511,
+        5,
+        763,
+        890
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Vivid orange #ff5a36 (top) to deep raspberry #8b1e3f (bottom) gradient angled cut-out shape: linear-gradient(160deg, #ff5a36, #8b1e3f) exactly, flat (no drop sh"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        388,
+        146,
+        466,
+        364
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not condensed/display) heavy tight-set letters, hollow-outlined white,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Nav bar, no surrounding box: \"RUNCLUB\" at left in color #111111, and \"ROUTES · CREW · SHOP\" at right in color #ffffff - each word/group keeps its own specified "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 60
+        }
+      ],
+      "region": [
+        64,
+        160,
+        378,
+        200
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy uppercase headline, tight line-height (0.92), color near-black #111111, reading \"NINE MILES BEFORE SUNRISE\" set in exactly 3 lines: \"NINE M"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        60,
+        420,
+        322,
+        51
+      ],
+      "paths": [],
+      "instruction": "Supporting paragraph text, color #111111 (near-black, not the page's white text): \"A night-to-dawn city run, every second Saturday. Pace groups for everyone.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        58,
+        541,
+        225,
+        48
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "CTA button labeled \"JOIN THE NEXT RUN\", background #111111 fill, text color #e8ff3a (yellow, not the page's white text), size 229x50px, square corners (border-r"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11",
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11",
+            "s12",
+            "s13",
+            "s14",
+            "s15"
+          ],
+          "lines": 6,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        904,
+        549,
+        312,
+        75
+      ],
+      "paths": [],
+      "instruction": "Schedule list of 3 rows, each with a bottom border 1px #ffffff, built from live text elements (page px sizes/positions): row 1 - 320x44 block at 900,520 with bo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1047,
+        128,
+        174,
+        173
+      ],
+      "paths": [
+        "s16"
+      ],
+      "instruction": "Tilted badge: a vivid yellow circle rotated 14 degrees clockwise, 150px across, with text \"FREE COFFEE AFTER\" centered inside, wrapping in 3 lines, 18px type, t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        804,
+        18,
+        34
+      ],
+      "paths": [
+        "s17"
+      ],
+      "instruction": "Empty text input field (no label/placeholder text) near the lower-left of the page."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

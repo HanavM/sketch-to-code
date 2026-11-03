@@ -1,0 +1,639 @@
+{
+  "round": 47,
+  "id": "e1-parking-finder",
+  "version": 3,
+  "stopped": null,
+  "likeness": 84,
+  "colour": 0.9913007926116738,
+  "structure": 0.9544878900452803,
+  "layout": 0.5780679655651881,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 2.7,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 8,
+      "box": 7,
+      "line": 3
+    },
+    "inkPx": 11266
+  },
+  "erased": 0,
+  "notesMoved": 1,
+  "words": 62,
+  "notes": 12,
+  "longestNote": 11,
+  "noteTexts": [
+    "Parkly bold",
+    "Level 2 of 4",
+    "Spots free bold",
+    "6 huge green",
+    "of 14 on this level",
+    "Rate, $3 an hour",
+    "Closes, 11pm",
+    "Walk to exit, 2 min",
+    "Reserve spot",
+    "x7 across, white border: green, grey, grey, green, grey, green, grey",
+    "x7 across, white border: grey, green, grey, grey, green, grey, green",
+    "rows dark text, values bold, keep grey lines above each"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 545,
+    "firstReadingS": 133,
+    "readS": [
+      57,
+      7
+    ],
+    "buildS": [
+      334,
+      40
+    ],
+    "sketchingS": 107
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 119260,
+    "cacheRead": 671229,
+    "output": 37502,
+    "billed": 156762
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f3f4f6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 469
+    },
+    {
+      "op": "moveBar",
+      "x": 300,
+      "y": 882,
+      "at": 14795
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 15184
+    },
+    {
+      "op": "stroke",
+      "at": 23137
+    },
+    {
+      "op": "stroke",
+      "at": 23615
+    },
+    {
+      "op": "pen",
+      "color": "#3b4250",
+      "at": 23988
+    },
+    {
+      "op": "stroke",
+      "at": 33116
+    },
+    {
+      "op": "stroke",
+      "at": 33598
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 33976
+    },
+    {
+      "op": "stroke",
+      "at": 40877
+    },
+    {
+      "op": "stroke",
+      "at": 41366
+    },
+    {
+      "op": "pen",
+      "color": "#4caf50",
+      "at": 41744
+    },
+    {
+      "op": "stroke",
+      "at": 43566
+    },
+    {
+      "op": "stroke",
+      "at": 44053
+    },
+    {
+      "op": "pen",
+      "color": "#8b95a1",
+      "at": 44426
+    },
+    {
+      "op": "stroke",
+      "at": 46230
+    },
+    {
+      "op": "stroke",
+      "at": 46712
+    },
+    {
+      "op": "pen",
+      "color": "#8b95a1",
+      "at": 47085
+    },
+    {
+      "op": "stroke",
+      "at": 48901
+    },
+    {
+      "op": "stroke",
+      "at": 49385
+    },
+    {
+      "op": "pen",
+      "color": "#d8dbe0",
+      "at": 49762
+    },
+    {
+      "op": "stroke",
+      "at": 51172
+    },
+    {
+      "op": "stroke",
+      "at": 52565
+    },
+    {
+      "op": "stroke",
+      "at": 53975
+    },
+    {
+      "op": "pen",
+      "color": "#1c2530",
+      "at": 54353
+    },
+    {
+      "op": "stroke",
+      "at": 57023
+    },
+    {
+      "op": "stroke",
+      "at": 57515
+    },
+    {
+      "op": "note",
+      "at": 58237
+    },
+    {
+      "op": "note",
+      "at": 58903
+    },
+    {
+      "op": "note",
+      "at": 59649
+    },
+    {
+      "op": "note",
+      "at": 60376
+    },
+    {
+      "op": "note",
+      "at": 61140
+    },
+    {
+      "op": "note",
+      "at": 61923
+    },
+    {
+      "op": "note",
+      "at": 62633
+    },
+    {
+      "op": "note",
+      "at": 63421
+    },
+    {
+      "op": "note",
+      "at": 64139
+    },
+    {
+      "op": "note",
+      "at": 65370
+    },
+    {
+      "op": "note",
+      "at": 66510
+    },
+    {
+      "op": "moveNote",
+      "at": 76097
+    },
+    {
+      "op": "run",
+      "at": 76349
+    },
+    {
+      "op": "note",
+      "at": 476850
+    },
+    {
+      "op": "run",
+      "at": 476922
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1262,
+          885
+        ]
+      ],
+      "n": 1,
+      "at": 469
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          1278,
+          2
+        ],
+        [
+          1278,
+          70
+        ],
+        [
+          2,
+          70
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 449,
+      "at": 23137
+    },
+    {
+      "way": [
+        [
+          640,
+          36
+        ]
+      ],
+      "n": 1,
+      "at": 23615
+    },
+    {
+      "way": [
+        [
+          40,
+          100
+        ],
+        [
+          820,
+          100
+        ],
+        [
+          820,
+          860
+        ],
+        [
+          40,
+          860
+        ],
+        [
+          40,
+          100
+        ]
+      ],
+      "n": 515,
+      "at": 33116
+    },
+    {
+      "way": [
+        [
+          430,
+          480
+        ]
+      ],
+      "n": 1,
+      "at": 33598
+    },
+    {
+      "way": [
+        [
+          850,
+          100
+        ],
+        [
+          1240,
+          100
+        ],
+        [
+          1240,
+          860
+        ],
+        [
+          850,
+          860
+        ],
+        [
+          850,
+          100
+        ]
+      ],
+      "n": 385,
+      "at": 40877
+    },
+    {
+      "way": [
+        [
+          1045,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 41366
+    },
+    {
+      "way": [
+        [
+          80,
+          160
+        ],
+        [
+          168,
+          160
+        ],
+        [
+          168,
+          310
+        ],
+        [
+          80,
+          310
+        ],
+        [
+          80,
+          160
+        ]
+      ],
+      "n": 81,
+      "at": 43566
+    },
+    {
+      "way": [
+        [
+          124,
+          235
+        ]
+      ],
+      "n": 1,
+      "at": 44053
+    },
+    {
+      "way": [
+        [
+          180,
+          160
+        ],
+        [
+          268,
+          160
+        ],
+        [
+          268,
+          310
+        ],
+        [
+          180,
+          310
+        ],
+        [
+          180,
+          160
+        ]
+      ],
+      "n": 81,
+      "at": 46230
+    },
+    {
+      "way": [
+        [
+          224,
+          235
+        ]
+      ],
+      "n": 1,
+      "at": 46712
+    },
+    {
+      "way": [
+        [
+          80,
+          650
+        ],
+        [
+          168,
+          650
+        ],
+        [
+          168,
+          800
+        ],
+        [
+          80,
+          800
+        ],
+        [
+          80,
+          650
+        ]
+      ],
+      "n": 81,
+      "at": 48901
+    },
+    {
+      "way": [
+        [
+          124,
+          725
+        ]
+      ],
+      "n": 1,
+      "at": 49385
+    },
+    {
+      "way": [
+        [
+          880,
+          360
+        ],
+        [
+          1210,
+          360
+        ]
+      ],
+      "n": 56,
+      "at": 51172
+    },
+    {
+      "way": [
+        [
+          880,
+          420
+        ],
+        [
+          1210,
+          420
+        ]
+      ],
+      "n": 56,
+      "at": 52565
+    },
+    {
+      "way": [
+        [
+          880,
+          480
+        ],
+        [
+          1210,
+          480
+        ]
+      ],
+      "n": 56,
+      "at": 53975
+    },
+    {
+      "way": [
+        [
+          880,
+          770
+        ],
+        [
+          1210,
+          770
+        ],
+        [
+          1210,
+          830
+        ],
+        [
+          880,
+          830
+        ],
+        [
+          880,
+          770
+        ]
+      ],
+      "n": 131,
+      "at": 57023
+    },
+    {
+      "way": [
+        [
+          1045,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 57515
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Parkly bold",
+      "whole": false,
+      "x": 40,
+      "y": 35,
+      "at": 58237
+    },
+    {
+      "text": "Level 2 of 4",
+      "whole": false,
+      "x": 1165,
+      "y": 35,
+      "at": 58903
+    },
+    {
+      "text": "Spots free bold",
+      "whole": false,
+      "x": 880,
+      "y": 145,
+      "at": 59649
+    },
+    {
+      "text": "6 huge green",
+      "whole": false,
+      "x": 880,
+      "y": 215,
+      "at": 60376
+    },
+    {
+      "text": "of 14 on this level",
+      "whole": false,
+      "x": 880,
+      "y": 268,
+      "at": 61140
+    },
+    {
+      "text": "Rate, $3 an hour",
+      "whole": false,
+      "x": 880,
+      "y": 385,
+      "at": 61923
+    },
+    {
+      "text": "Closes, 11pm",
+      "whole": false,
+      "x": 880,
+      "y": 445,
+      "at": 62633
+    },
+    {
+      "text": "Walk to exit, 2 min",
+      "whole": false,
+      "x": 880,
+      "y": 505,
+      "at": 63421
+    },
+    {
+      "text": "Reserve spot",
+      "whole": false,
+      "x": 1045,
+      "y": 800,
+      "at": 64139
+    },
+    {
+      "text": "x7 across, white border: green, grey, grey, green, grey, green, grey",
+      "whole": false,
+      "x": 215,
+      "y": 120,
+      "at": 65370
+    },
+    {
+      "text": "x7 across, white border: grey, green, grey, grey, green, grey, green",
+      "whole": false,
+      "x": 124,
+      "y": 725,
+      "at": 66510
+    },
+    {
+      "text": "rows dark text, values bold, keep grey lines above each",
+      "whole": false,
+      "x": 1045,
+      "y": 450,
+      "at": 476850
+    }
+  ]
+}

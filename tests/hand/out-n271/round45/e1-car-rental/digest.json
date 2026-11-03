@@ -1,0 +1,824 @@
+{
+  "round": 45,
+  "id": "e1-car-rental",
+  "version": 3,
+  "stopped": null,
+  "likeness": 86.3,
+  "colour": 0.9926788560552372,
+  "structure": 0.9477580320058266,
+  "layout": 0.9294286242595211,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 4,
+      "line": 1,
+      "box": 11
+    },
+    "inkPx": 16037
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 81,
+  "notes": 28,
+  "longestNote": 6,
+  "noteTexts": [
+    "Roadly teal bold",
+    "Lisbon Airport",
+    "Nov 12 – Nov 16",
+    "10:00 am",
+    "Search",
+    "Car type bold",
+    "☑ Small",
+    "☐ Medium",
+    "☑ SUV",
+    "☐ Van",
+    "Gearbox bold",
+    "☑ Automatic",
+    "☐ Manual",
+    "Fiat 500",
+    "4 seats · Automatic",
+    "$38 / per day",
+    "Select",
+    "VW Golf",
+    "5 seats · Manual",
+    "$45 / per day",
+    "Toyota RAV4",
+    "5 seats · Automatic",
+    "$72 / per day",
+    "all cards same picture and button",
+    "header white",
+    "inputs pale grey, no border",
+    "checkboxes teal, bigger, rows closer",
+    "prices bigger"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 560,
+    "firstReadingS": 114,
+    "readS": [
+      43,
+      47
+    ],
+    "buildS": [
+      349,
+      29
+    ],
+    "sketchingS": 93
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 126809,
+    "cacheRead": 662257,
+    "output": 41831,
+    "billed": 168640
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f3f4f6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 461
+    },
+    {
+      "op": "pen",
+      "color": "#dfe3e8",
+      "at": 842
+    },
+    {
+      "op": "stroke",
+      "at": 4854
+    },
+    {
+      "op": "stroke",
+      "at": 12437
+    },
+    {
+      "op": "stroke",
+      "at": 15054
+    },
+    {
+      "op": "stroke",
+      "at": 17671
+    },
+    {
+      "op": "stroke",
+      "at": 20290
+    },
+    {
+      "op": "stroke",
+      "at": 25772
+    },
+    {
+      "op": "stroke",
+      "at": 32420
+    },
+    {
+      "op": "stroke",
+      "at": 39073
+    },
+    {
+      "op": "stroke",
+      "at": 45687
+    },
+    {
+      "op": "pen",
+      "color": "#dbe2ee",
+      "at": 46055
+    },
+    {
+      "op": "stroke",
+      "at": 48642
+    },
+    {
+      "op": "stroke",
+      "at": 49121
+    },
+    {
+      "op": "pen",
+      "color": "#0f766e",
+      "at": 49499
+    },
+    {
+      "op": "stroke",
+      "at": 51122
+    },
+    {
+      "op": "stroke",
+      "at": 51604
+    },
+    {
+      "op": "stroke",
+      "at": 53089
+    },
+    {
+      "op": "stroke",
+      "at": 53569
+    },
+    {
+      "op": "note",
+      "at": 54267
+    },
+    {
+      "op": "note",
+      "at": 54960
+    },
+    {
+      "op": "note",
+      "at": 55651
+    },
+    {
+      "op": "note",
+      "at": 56307
+    },
+    {
+      "op": "note",
+      "at": 56971
+    },
+    {
+      "op": "note",
+      "at": 57666
+    },
+    {
+      "op": "note",
+      "at": 58330
+    },
+    {
+      "op": "note",
+      "at": 58994
+    },
+    {
+      "op": "note",
+      "at": 59671
+    },
+    {
+      "op": "note",
+      "at": 60370
+    },
+    {
+      "op": "note",
+      "at": 61097
+    },
+    {
+      "op": "note",
+      "at": 61800
+    },
+    {
+      "op": "note",
+      "at": 62464
+    },
+    {
+      "op": "note",
+      "at": 63156
+    },
+    {
+      "op": "note",
+      "at": 63914
+    },
+    {
+      "op": "note",
+      "at": 64619
+    },
+    {
+      "op": "note",
+      "at": 65347
+    },
+    {
+      "op": "note",
+      "at": 66043
+    },
+    {
+      "op": "note",
+      "at": 66819
+    },
+    {
+      "op": "note",
+      "at": 67592
+    },
+    {
+      "op": "note",
+      "at": 68349
+    },
+    {
+      "op": "note",
+      "at": 69158
+    },
+    {
+      "op": "note",
+      "at": 69904
+    },
+    {
+      "op": "note",
+      "at": 70747
+    },
+    {
+      "op": "run",
+      "at": 70996
+    },
+    {
+      "op": "note",
+      "at": 472443
+    },
+    {
+      "op": "note",
+      "at": 473084
+    },
+    {
+      "op": "note",
+      "at": 473751
+    },
+    {
+      "op": "note",
+      "at": 474390
+    },
+    {
+      "op": "run",
+      "at": 474452
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          20,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 461
+    },
+    {
+      "way": [
+        [
+          0,
+          69
+        ],
+        [
+          1279,
+          69
+        ]
+      ],
+      "n": 214,
+      "at": 4854
+    },
+    {
+      "way": [
+        [
+          40,
+          100
+        ],
+        [
+          1240,
+          100
+        ],
+        [
+          1240,
+          176
+        ],
+        [
+          40,
+          176
+        ],
+        [
+          40,
+          100
+        ]
+      ],
+      "n": 427,
+      "at": 12437
+    },
+    {
+      "way": [
+        [
+          52,
+          112
+        ],
+        [
+          382,
+          112
+        ],
+        [
+          382,
+          164
+        ],
+        [
+          52,
+          164
+        ],
+        [
+          52,
+          112
+        ]
+      ],
+      "n": 129,
+      "at": 15054
+    },
+    {
+      "way": [
+        [
+          394,
+          112
+        ],
+        [
+          724,
+          112
+        ],
+        [
+          724,
+          164
+        ],
+        [
+          394,
+          164
+        ],
+        [
+          394,
+          112
+        ]
+      ],
+      "n": 129,
+      "at": 17671
+    },
+    {
+      "way": [
+        [
+          736,
+          112
+        ],
+        [
+          1065,
+          112
+        ],
+        [
+          1065,
+          164
+        ],
+        [
+          736,
+          164
+        ],
+        [
+          736,
+          112
+        ]
+      ],
+      "n": 129,
+      "at": 20290
+    },
+    {
+      "way": [
+        [
+          40,
+          210
+        ],
+        [
+          300,
+          210
+        ],
+        [
+          300,
+          850
+        ],
+        [
+          40,
+          850
+        ],
+        [
+          40,
+          210
+        ]
+      ],
+      "n": 301,
+      "at": 25772
+    },
+    {
+      "way": [
+        [
+          330,
+          210
+        ],
+        [
+          1240,
+          210
+        ],
+        [
+          1240,
+          400
+        ],
+        [
+          330,
+          400
+        ],
+        [
+          330,
+          210
+        ]
+      ],
+      "n": 369,
+      "at": 32420
+    },
+    {
+      "way": [
+        [
+          330,
+          422
+        ],
+        [
+          1240,
+          422
+        ],
+        [
+          1240,
+          612
+        ],
+        [
+          330,
+          612
+        ],
+        [
+          330,
+          422
+        ]
+      ],
+      "n": 369,
+      "at": 39073
+    },
+    {
+      "way": [
+        [
+          330,
+          634
+        ],
+        [
+          1240,
+          634
+        ],
+        [
+          1240,
+          824
+        ],
+        [
+          330,
+          824
+        ],
+        [
+          330,
+          634
+        ]
+      ],
+      "n": 369,
+      "at": 45687
+    },
+    {
+      "way": [
+        [
+          357,
+          235
+        ],
+        [
+          597,
+          235
+        ],
+        [
+          597,
+          375
+        ],
+        [
+          357,
+          375
+        ],
+        [
+          357,
+          235
+        ]
+      ],
+      "n": 127,
+      "at": 48642
+    },
+    {
+      "way": [
+        [
+          477,
+          305
+        ]
+      ],
+      "n": 1,
+      "at": 49121
+    },
+    {
+      "way": [
+        [
+          1077,
+          112
+        ],
+        [
+          1227,
+          112
+        ],
+        [
+          1227,
+          164
+        ],
+        [
+          1077,
+          164
+        ],
+        [
+          1077,
+          112
+        ]
+      ],
+      "n": 69,
+      "at": 51122
+    },
+    {
+      "way": [
+        [
+          1152,
+          138
+        ]
+      ],
+      "n": 1,
+      "at": 51604
+    },
+    {
+      "way": [
+        [
+          1083,
+          314
+        ],
+        [
+          1213,
+          314
+        ],
+        [
+          1213,
+          360
+        ],
+        [
+          1083,
+          360
+        ],
+        [
+          1083,
+          314
+        ]
+      ],
+      "n": 61,
+      "at": 53089
+    },
+    {
+      "way": [
+        [
+          1148,
+          337
+        ]
+      ],
+      "n": 1,
+      "at": 53569
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Roadly teal bold",
+      "whole": false,
+      "x": 40,
+      "y": 34,
+      "at": 54267
+    },
+    {
+      "text": "Lisbon Airport",
+      "whole": false,
+      "x": 68,
+      "y": 138,
+      "at": 54960
+    },
+    {
+      "text": "Nov 12 – Nov 16",
+      "whole": false,
+      "x": 410,
+      "y": 138,
+      "at": 55651
+    },
+    {
+      "text": "10:00 am",
+      "whole": false,
+      "x": 752,
+      "y": 138,
+      "at": 56307
+    },
+    {
+      "text": "Search",
+      "whole": false,
+      "x": 1125,
+      "y": 150,
+      "at": 56971
+    },
+    {
+      "text": "Car type bold",
+      "whole": false,
+      "x": 65,
+      "y": 244,
+      "at": 57666
+    },
+    {
+      "text": "☑ Small",
+      "whole": false,
+      "x": 65,
+      "y": 283,
+      "at": 58330
+    },
+    {
+      "text": "☐ Medium",
+      "whole": false,
+      "x": 65,
+      "y": 319,
+      "at": 58994
+    },
+    {
+      "text": "☑ SUV",
+      "whole": false,
+      "x": 65,
+      "y": 355,
+      "at": 59671
+    },
+    {
+      "text": "☐ Van",
+      "whole": false,
+      "x": 65,
+      "y": 391,
+      "at": 60370
+    },
+    {
+      "text": "Gearbox bold",
+      "whole": false,
+      "x": 65,
+      "y": 440,
+      "at": 61097
+    },
+    {
+      "text": "☑ Automatic",
+      "whole": false,
+      "x": 65,
+      "y": 479,
+      "at": 61800
+    },
+    {
+      "text": "☐ Manual",
+      "whole": false,
+      "x": 65,
+      "y": 515,
+      "at": 62464
+    },
+    {
+      "text": "Fiat 500",
+      "whole": false,
+      "x": 625,
+      "y": 292,
+      "at": 63156
+    },
+    {
+      "text": "4 seats · Automatic",
+      "whole": false,
+      "x": 625,
+      "y": 322,
+      "at": 63914
+    },
+    {
+      "text": "$38 / per day",
+      "whole": false,
+      "x": 1160,
+      "y": 265,
+      "at": 64619
+    },
+    {
+      "text": "Select",
+      "whole": false,
+      "x": 1120,
+      "y": 325,
+      "at": 65347
+    },
+    {
+      "text": "VW Golf",
+      "whole": false,
+      "x": 625,
+      "y": 504,
+      "at": 66043
+    },
+    {
+      "text": "5 seats · Manual",
+      "whole": false,
+      "x": 625,
+      "y": 534,
+      "at": 66819
+    },
+    {
+      "text": "$45 / per day",
+      "whole": false,
+      "x": 1160,
+      "y": 477,
+      "at": 67592
+    },
+    {
+      "text": "Toyota RAV4",
+      "whole": false,
+      "x": 625,
+      "y": 716,
+      "at": 68349
+    },
+    {
+      "text": "5 seats · Automatic",
+      "whole": false,
+      "x": 625,
+      "y": 746,
+      "at": 69158
+    },
+    {
+      "text": "$72 / per day",
+      "whole": false,
+      "x": 1160,
+      "y": 689,
+      "at": 69904
+    },
+    {
+      "text": "all cards same picture and button",
+      "whole": false,
+      "x": 800,
+      "y": 395,
+      "at": 70747
+    },
+    {
+      "text": "header white",
+      "whole": false,
+      "x": 600,
+      "y": 30,
+      "at": 472443
+    },
+    {
+      "text": "inputs pale grey, no border",
+      "whole": false,
+      "x": 220,
+      "y": 150,
+      "at": 473084
+    },
+    {
+      "text": "checkboxes teal, bigger, rows closer",
+      "whole": false,
+      "x": 180,
+      "y": 370,
+      "at": 473751
+    },
+    {
+      "text": "prices bigger",
+      "whole": false,
+      "x": 1000,
+      "y": 270,
+      "at": 474390
+    }
+  ]
+}

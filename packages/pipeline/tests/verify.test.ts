@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { EditOp } from '@s2c/intent'
 import { changedFiles, checkpoint, revertToCheckpoint } from '../src/safety.js'
-import { verifyOps } from '../src/verify.js'
+import { verifyOps, verifyDesignPlacement } from '../src/verify.js'
 
 const N = (
   id: string, srcLoc: string | null, text: string, x: number, y = 0,
@@ -125,5 +125,18 @@ describe('safety', () => {
   it('refuses to operate outside any git repo', () => {
     const dir = mkdtempSync(join(tmpdir(), 's2c-nogit-'))
     expect(() => checkpoint(dir, true)).toThrow(/not inside a git repository/)
+  })
+})
+
+describe('verifyDesignPlacement: a level line is the middle of its text (n20)', () => {
+  it('a heading whose letters the drawn line runs through matches; text far off it does not', () => {
+    const before = snap([N('m', null, '', 0, 0, { tag: 'main', rect: { x: 0, y: 0, w: 1000, h: 800 } })])
+    const line = { x: 470, y: 205, w: 86, h: 1 }
+    const h1 = N('h', 'src/App.tsx:3:1', 'Sign in', 469, 189, { tag: 'h1', rect: { x: 469, y: 189, w: 342, h: 32 }, textBox: { x: 469, y: 189, w: 79, h: 32 } })
+    const on = verifyDesignPlacement(before, snap([...before.nodes, h1]), line)
+    expect(on.satisfied).toBe(true)
+    expect(on.reason).toMatch(/sits on the drawn line/)
+    const low = N('h', 'src/App.tsx:3:1', 'Sign in', 469, 300, { tag: 'h1', rect: { x: 469, y: 300, w: 342, h: 32 }, textBox: { x: 469, y: 300, w: 79, h: 32 } })
+    expect(verifyDesignPlacement(before, snap([...before.nodes, low]), line).satisfied).toBe(false)
   })
 })

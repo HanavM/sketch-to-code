@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kanban swimlanes</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4f5f7;font-family:Helvetica,Arial,sans-serif;color:#172b4d;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:56px;background:#fff;border-bottom:1px solid #dfe1e6;display:flex;align-items:center;padding:0 20px;gap:16px}
+.top b{font-size:17px}.top .q{width:260px;height:32px;border:1px solid #dfe1e6;border-radius:4px;padding-left:10px;line-height:30px;color:#7a869a}
+.av{width:28px;height:28px;border-radius:50%;display:inline-block;border:2px solid #fff;margin-left:-6px;vertical-align:middle}
+.chip{padding:5px 10px;border-radius:3px;background:#ebecf0;font-weight:700}.chip.on{background:#0052cc;color:#fff}
+.cols{position:absolute;left:20px;top:72px;width:1240px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-weight:700;font-size:12px;color:#5e6c84;letter-spacing:.5px}
+.cols div{display:flex;justify-content:space-between;padding:6px 10px}.cols .over{color:#de350b}
+.lane{position:absolute;left:20px;width:1240px}
+.lane h3{font-size:13px;padding:6px 4px;display:flex;gap:8px;align-items:center}.lane h3 span{font-weight:400;color:#5e6c84}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.col{background:#ebecf0;border-radius:6px;padding:8px;min-height:250px}
+.card{background:#fff;border-radius:4px;box-shadow:0 1px 1px rgba(9,30,66,.25);padding:10px;margin-bottom:8px;position:relative}
+.card p{margin-bottom:10px;line-height:1.35}.card .m{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#5e6c84}
+.lb{display:inline-block;height:6px;width:40px;border-radius:3px;margin:0 4px 8px 0}
+.k{font-weight:700;color:#5e6c84}.pt{background:#dfe1e6;border-radius:8px;padding:1px 6px}
+.drag{position:absolute;left:520px;top:300px;width:300px;transform:rotate(4deg);box-shadow:0 12px 24px rgba(9,30,66,.35);z-index:3}
+.ghost{border:2px dashed #b3bac5;border-radius:4px;height:70px;margin-bottom:8px;background:transparent}
+</style></head><body>
+<div class="top" data-r="topbar"><b>Atlas · Sprint 42</b><span class="q">Search cards…</span><span><i class="av" style="background:#ff8b00"></i><i class="av" style="background:#36b37e"></i><i class="av" style="background:#6554c0"></i><i class="av" style="background:#00b8d9"></i></span><span class="chip on">Only my issues</span><span class="chip">Recently updated</span><span class="chip" style="margin-left:auto">Complete sprint</span></div>
+<div class="cols" data-r="column-heads"><div>TO DO <span>6</span></div><div class="over">IN PROGRESS <span>5 / MAX 4</span></div><div>IN REVIEW <span>3</span></div><div>DONE <span>9</span></div></div>
+<div class="lane" style="top:104px" data-r="lane-payments" data-must><h3>▾ Payments <span>8 issues</span></h3><div class="row">
+<div class="col"><div class="card"><i class="lb" style="background:#ff5630"></i><p>Refund flow fails for split tenders</p><div class="m"><span class="k">ATL-311</span><span class="pt">5</span><i class="av" style="background:#ff8b00"></i></div></div><div class="card"><i class="lb" style="background:#36b37e"></i><p>Add Apple Pay to checkout</p><div class="m"><span class="k">ATL-318</span><span class="pt">3</span><i class="av" style="background:#6554c0"></i></div></div></div>
+<div class="col"><div class="ghost"></div><div class="card"><i class="lb" style="background:#6554c0"></i><p>Migrate invoices to v2 API</p><div class="m"><span class="k">ATL-296</span><span class="pt">8</span><i class="av" style="background:#36b37e"></i></div></div></div>
+<div class="col"><div class="card"><i class="lb" style="background:#ffab00"></i><p>Currency rounding in reports</p><div class="m"><span class="k">ATL-301</span><span class="pt">2</span><i class="av" style="background:#00b8d9"></i></div></div></div>
+<div class="col"><div class="card" style="opacity:.7"><p><s>Stripe webhook retries</s></p><div class="m"><span class="k">ATL-280</span><span class="pt">3</span></div></div><div class="card" style="opacity:.7"><p><s>Tax ID field</s></p><div class="m"><span class="k">ATL-277</span><span class="pt">1</span></div></div></div></div></div>
+<div class="lane" style="top:404px" data-r="lane-mobile" data-must><h3>▾ Mobile app <span>7 issues</span></h3><div class="row">
+<div class="col"><div class="card"><i class="lb" style="background:#00b8d9"></i><i class="lb" style="background:#ff5630"></i><p>Crash on Android 12 when rotating</p><div class="m"><span class="k">ATL-322</span><span class="pt">5</span><i class="av" style="background:#6554c0"></i></div></div><div class="card"><p>Dark mode icons</p><div class="m"><span class="k">ATL-325</span><span class="pt">2</span></div></div></div>
+<div class="col"><div class="card"><i class="lb" style="background:#36b37e"></i><p>Offline cart sync</p><div class="m"><span class="k">ATL-304</span><span class="pt">8</span><i class="av" style="background:#ff8b00"></i></div></div><div class="card"><p>Push opt-in screen</p><div class="m"><span class="k">ATL-309</span><span class="pt">3</span><i class="av" style="background:#00b8d9"></i></div></div></div>
+<div class="col"><div class="card"><i class="lb" style="background:#6554c0"></i><p>Biometric login</p><div class="m"><span class="k">ATL-299</span><span class="pt">5</span><i class="av" style="background:#36b37e"></i></div></div></div>
+<div class="col"><div class="card" style="opacity:.7"><p><s>App Store screenshots</s></p><div class="m"><span class="k">ATL-270</span><span class="pt">1</span></div></div></div></div></div>
+<div class="lane" style="top:704px" data-r="lane-collapsed"><h3>▸ Growth <span>6 issues · collapsed</span></h3></div>
+<div class="card drag" data-r="dragged-card" data-must><i class="lb" style="background:#ff5630"></i><p>Checkout button double-charges on slow 3G</p><div class="m"><span class="k">ATL-330</span><span class="pt">13</span><i class="av" style="background:#ff8b00"></i></div></div>
+</body></html>

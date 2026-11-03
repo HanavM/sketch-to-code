@@ -1,0 +1,612 @@
+{
+  "round": 36,
+  "id": "e3-timesheet",
+  "version": 3,
+  "stopped": null,
+  "likeness": 48.9,
+  "colour": 0.9888801980522973,
+  "structure": 0.8833832751093927,
+  "layout": 0.45981455109656794,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 2.8,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 6,
+      "box": 7,
+      "dot": 6
+    },
+    "inkPx": 12592
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 70,
+  "notes": 9,
+  "longestNote": 20,
+  "noteTexts": [
+    "Timesheet, bold",
+    "‹  Oct 26 – Oct 30  ›",
+    "Submit week, white bold",
+    "PROJECT MON TUE WED THU FRI TOTAL, small grey caps",
+    "4 project rows, coloured dot before each name, hours in pale purple pills, a few dashes, total bold at end",
+    "Total row, bold",
+    "Notes for your manager, bold; empty text box",
+    "Weekly target, bold",
+    "progress bar 82%, grey track to the end; 41 of 50 hours logged"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 447,
+    "firstReadingS": 96,
+    "readS": [
+      43
+    ],
+    "buildS": [
+      349
+    ],
+    "sketchingS": 55
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 37224,
+    "cacheRead": 189223,
+    "output": 19841,
+    "billed": 57065
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#1f2433",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 763
+    },
+    {
+      "op": "stroke",
+      "at": 1629
+    },
+    {
+      "op": "stroke",
+      "at": 2411
+    },
+    {
+      "op": "stroke",
+      "at": 3280
+    },
+    {
+      "op": "pen",
+      "color": "#7c3aed",
+      "at": 3651
+    },
+    {
+      "op": "stroke",
+      "at": 5178
+    },
+    {
+      "op": "stroke",
+      "at": 5644
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 6014
+    },
+    {
+      "op": "stroke",
+      "at": 10030
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 10395
+    },
+    {
+      "op": "stroke",
+      "at": 19746
+    },
+    {
+      "op": "stroke",
+      "at": 23498
+    },
+    {
+      "op": "stroke",
+      "at": 27248
+    },
+    {
+      "op": "pen",
+      "color": "#f5f6f8",
+      "at": 27610
+    },
+    {
+      "op": "stroke",
+      "at": 28081
+    },
+    {
+      "op": "stroke",
+      "at": 28549
+    },
+    {
+      "op": "pen",
+      "color": "#1f2433",
+      "at": 28916
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 29280
+    },
+    {
+      "op": "stroke",
+      "at": 34081
+    },
+    {
+      "op": "stroke",
+      "at": 38077
+    },
+    {
+      "op": "stroke",
+      "at": 43013
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 43377
+    },
+    {
+      "op": "stroke",
+      "at": 43863
+    },
+    {
+      "op": "stroke",
+      "at": 44331
+    },
+    {
+      "op": "stroke",
+      "at": 44798
+    },
+    {
+      "op": "pen",
+      "color": "#7c3aed",
+      "at": 45162
+    },
+    {
+      "op": "stroke",
+      "at": 46847
+    },
+    {
+      "op": "note",
+      "at": 47496
+    },
+    {
+      "op": "note",
+      "at": 48127
+    },
+    {
+      "op": "note",
+      "at": 48768
+    },
+    {
+      "op": "note",
+      "at": 49478
+    },
+    {
+      "op": "note",
+      "at": 50252
+    },
+    {
+      "op": "note",
+      "at": 50899
+    },
+    {
+      "op": "note",
+      "at": 51612
+    },
+    {
+      "op": "note",
+      "at": 52264
+    },
+    {
+      "op": "note",
+      "at": 52994
+    },
+    {
+      "op": "run",
+      "at": 53143
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          48,
+          40
+        ],
+        [
+          156,
+          40
+        ]
+      ],
+      "n": 19,
+      "at": 763
+    },
+    {
+      "way": [
+        [
+          513,
+          20
+        ],
+        [
+          549,
+          20
+        ],
+        [
+          549,
+          56
+        ],
+        [
+          513,
+          56
+        ],
+        [
+          513,
+          20
+        ]
+      ],
+      "n": 25,
+      "at": 1629
+    },
+    {
+      "way": [
+        [
+          563,
+          40
+        ],
+        [
+          675,
+          40
+        ]
+      ],
+      "n": 20,
+      "at": 2410
+    },
+    {
+      "way": [
+        [
+          689,
+          20
+        ],
+        [
+          725,
+          20
+        ],
+        [
+          725,
+          56
+        ],
+        [
+          689,
+          56
+        ],
+        [
+          689,
+          20
+        ]
+      ],
+      "n": 25,
+      "at": 3280
+    },
+    {
+      "way": [
+        [
+          1082,
+          16
+        ],
+        [
+          1232,
+          16
+        ],
+        [
+          1232,
+          60
+        ],
+        [
+          1082,
+          60
+        ],
+        [
+          1082,
+          16
+        ]
+      ],
+      "n": 65,
+      "at": 5178
+    },
+    {
+      "way": [
+        [
+          1100,
+          50
+        ]
+      ],
+      "n": 1,
+      "at": 5644
+    },
+    {
+      "way": [
+        [
+          2,
+          76
+        ],
+        [
+          1278,
+          76
+        ]
+      ],
+      "n": 214,
+      "at": 10030
+    },
+    {
+      "way": [
+        [
+          48,
+          120
+        ],
+        [
+          1232,
+          120
+        ],
+        [
+          1232,
+          533
+        ],
+        [
+          48,
+          533
+        ],
+        [
+          48,
+          120
+        ]
+      ],
+      "n": 533,
+      "at": 19746
+    },
+    {
+      "way": [
+        [
+          48,
+          173
+        ],
+        [
+          1232,
+          173
+        ]
+      ],
+      "n": 198,
+      "at": 23498
+    },
+    {
+      "way": [
+        [
+          48,
+          461
+        ],
+        [
+          1232,
+          461
+        ]
+      ],
+      "n": 198,
+      "at": 27248
+    },
+    {
+      "way": [
+        [
+          1100,
+          130
+        ]
+      ],
+      "n": 1,
+      "at": 28081
+    },
+    {
+      "way": [
+        [
+          1100,
+          525
+        ]
+      ],
+      "n": 1,
+      "at": 28549
+    },
+    {
+      "way": [
+        [
+          48,
+          610
+        ],
+        [
+          607,
+          610
+        ],
+        [
+          607,
+          829
+        ],
+        [
+          48,
+          829
+        ],
+        [
+          48,
+          610
+        ]
+      ],
+      "n": 261,
+      "at": 34081
+    },
+    {
+      "way": [
+        [
+          71,
+          665
+        ],
+        [
+          585,
+          665
+        ],
+        [
+          585,
+          785
+        ],
+        [
+          71,
+          785
+        ],
+        [
+          71,
+          665
+        ]
+      ],
+      "n": 213,
+      "at": 38077
+    },
+    {
+      "way": [
+        [
+          652,
+          610
+        ],
+        [
+          1231,
+          610
+        ],
+        [
+          1231,
+          829
+        ],
+        [
+          652,
+          829
+        ],
+        [
+          652,
+          610
+        ]
+      ],
+      "n": 269,
+      "at": 43013
+    },
+    {
+      "way": [
+        [
+          300,
+          815
+        ]
+      ],
+      "n": 1,
+      "at": 43863
+    },
+    {
+      "way": [
+        [
+          940,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 44331
+    },
+    {
+      "way": [
+        [
+          330,
+          725
+        ]
+      ],
+      "n": 1,
+      "at": 44798
+    },
+    {
+      "way": [
+        [
+          675,
+          690
+        ],
+        [
+          1113,
+          690
+        ]
+      ],
+      "n": 74,
+      "at": 46847
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Timesheet, bold",
+      "whole": false,
+      "x": 100,
+      "y": 26,
+      "at": 47496
+    },
+    {
+      "text": "‹  Oct 26 – Oct 30  ›",
+      "whole": false,
+      "x": 620,
+      "y": 28,
+      "at": 48127
+    },
+    {
+      "text": "Submit week, white bold",
+      "whole": false,
+      "x": 1157,
+      "y": 38,
+      "at": 48768
+    },
+    {
+      "text": "PROJECT MON TUE WED THU FRI TOTAL, small grey caps",
+      "whole": false,
+      "x": 640,
+      "y": 147,
+      "at": 49478
+    },
+    {
+      "text": "4 project rows, coloured dot before each name, hours in pale purple pills, a few dashes, total bold at end",
+      "whole": false,
+      "x": 640,
+      "y": 300,
+      "at": 50252
+    },
+    {
+      "text": "Total row, bold",
+      "whole": false,
+      "x": 640,
+      "y": 497,
+      "at": 50899
+    },
+    {
+      "text": "Notes for your manager, bold; empty text box",
+      "whole": false,
+      "x": 200,
+      "y": 640,
+      "at": 51612
+    },
+    {
+      "text": "Weekly target, bold",
+      "whole": false,
+      "x": 760,
+      "y": 640,
+      "at": 52264
+    },
+    {
+      "text": "progress bar 82%, grey track to the end; 41 of 50 hours logged",
+      "whole": false,
+      "x": 940,
+      "y": 726,
+      "at": 52994
+    }
+  ]
+}

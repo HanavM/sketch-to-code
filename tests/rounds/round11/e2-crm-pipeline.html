@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>CRM pipeline</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f5f6f8;font-family:Helvetica,Arial,sans-serif;color:#1c2333;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:56px;background:#fff;border-bottom:1px solid #e3e6ec;display:flex;align-items:center;gap:20px;padding:0 24px}.top b{font-size:17px}.top input{margin-left:30px;width:340px;height:34px;border:1px solid #e3e6ec;border-radius:8px;background:#f5f6f8;padding:0 12px;font-size:13px}.top .av{margin-left:auto;width:32px;height:32px;border-radius:50%;background:#7c5cff}
+.bar{position:absolute;left:24px;top:72px;width:860px;display:flex;align-items:center;gap:10px}.bar h2{font-size:22px;margin-right:auto}.bar span{padding:7px 12px;border:1px solid #d6dae2;border-radius:8px;background:#fff}.bar .p{background:#7c5cff;color:#fff;border-color:#7c5cff}
+.cols{position:absolute;left:24px;top:124px;width:860px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.col{background:#eceef3;border-radius:10px;padding:10px;height:760px}.col h4{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.5px;color:#5b6475;padding:4px 4px 10px;border-bottom:3px solid var(--c);margin-bottom:10px}
+.d{background:#fff;border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.08)}.d b{display:block;font-size:13px}.d small{display:block;color:#5b6475;margin-top:3px}.d .v{display:flex;justify-content:space-between;margin-top:10px;font-weight:700}.d .v i{width:22px;height:22px;border-radius:50%;background:var(--a,#ffb547)}
+.d.sel{outline:2px solid #7c5cff}
+.dr{position:absolute;left:900px;top:56px;width:380px;height:844px;background:#fff;border-left:1px solid #e3e6ec;padding:24px;box-shadow:-10px 0 30px rgba(0,0,0,.06)}
+.dr h3{font-size:20px}.dr .st{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:999px;background:#efeaff;color:#7c5cff;font-weight:700;font-size:12px}
+.kv{margin-top:20px;display:grid;grid-template-columns:110px 1fr;row-gap:10px}.kv span{color:#5b6475}
+.dr h5{margin-top:24px;font-size:12px;letter-spacing:1px;color:#5b6475}
+.ev{margin-top:12px;padding-left:18px;border-left:2px solid #e3e6ec}.ev div{position:relative;margin-bottom:14px;line-height:1.45}.ev div:before{content:'';position:absolute;left:-24px;top:4px;width:10px;height:10px;border-radius:50%;background:#7c5cff}.ev small{color:#5b6475}
+.dr .btns{position:absolute;left:24px;bottom:24px;width:332px;display:flex;gap:10px}.dr .btns a{flex:1;text-align:center;padding:11px;border-radius:8px;border:1px solid #d6dae2;font-weight:700}.dr .btns .w{background:#16a34a;color:#fff;border-color:#16a34a}
+</style></head><body>
+<div class="top" data-r="top-bar"><b>Pipeline</b><input placeholder="Search deals, people, companies"><div class="av"></div></div>
+<div class="bar" data-r="toolbar"><h2>Q4 New business</h2><span>Owner: All ▾</span><span>Close: This quarter ▾</span><span class="p">+ New deal</span></div>
+<div class="cols" data-r="board" data-must>
+<div class="col" style="--c:#94a3b8"><h4>LEAD <span>4 · $86k</span></h4><div class="d"><b>Northwind Ltd</b><small>Ops platform · 40 seats</small><div class="v">$24,000<i></i></div></div><div class="d"><b>Globex</b><small>Pilot · 10 seats</small><div class="v">$8,000<i style="--a:#60a5fa"></i></div></div><div class="d"><b>Initech</b><small>Renewal + upsell</small><div class="v">$31,000<i></i></div></div><div class="d"><b>Hooli</b><small>Analytics add-on</small><div class="v">$23,000<i style="--a:#f472b6"></i></div></div></div>
+<div class="col" style="--c:#60a5fa"><h4>QUALIFIED <span>3 · $112k</span></h4><div class="d sel"><b>Acme Corp</b><small>Enterprise · 120 seats</small><div class="v">$64,000<i></i></div></div><div class="d"><b>Umbrella</b><small>Security bundle</small><div class="v">$28,000<i style="--a:#60a5fa"></i></div></div><div class="d"><b>Stark Ind.</b><small>Team plan</small><div class="v">$20,000<i></i></div></div></div>
+<div class="col" style="--c:#f59e0b"><h4>PROPOSAL <span>2 · $95k</span></h4><div class="d"><b>Wayne Ent.</b><small>Multi-region</small><div class="v">$70,000<i style="--a:#f472b6"></i></div></div><div class="d"><b>Soylent</b><small>Expansion</small><div class="v">$25,000<i></i></div></div></div>
+<div class="col" style="--c:#16a34a"><h4>WON <span>2 · $58k</span></h4><div class="d"><b>Cyberdyne</b><small>Closed Oct 14</small><div class="v">$40,000<i style="--a:#60a5fa"></i></div></div><div class="d"><b>Tyrell</b><small>Closed Oct 9</small><div class="v">$18,000<i></i></div></div></div></div>
+<div class="dr" data-r="deal-drawer" data-must><h3>Acme Corp — Enterprise</h3><span class="st">Qualified · 40%</span>
+<div class="kv"><span>Amount</span><b>$64,000</b><span>Close date</span><b>Dec 12, 2026</b><span>Owner</span><b>Priya Shah</b><span>Contact</span><b>Leo Martin, VP Ops</b><span>Source</span><b>Webinar</b></div>
+<h5>ACTIVITY</h5><div class="ev"><div><b>Call</b> with Leo, pricing walk-through<br><small>Today, 10:30</small></div><div><b>Email</b> sent security questionnaire<br><small>Yesterday</small></div><div><b>Stage</b> moved Lead → Qualified<br><small>Oct 18</small></div></div>
+<div class="btns"><a>Log activity</a><a class="w">Mark won</a></div></div>
+</body></html>

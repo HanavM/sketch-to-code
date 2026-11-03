@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Checkout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;overflow:hidden;background:#f9fafb;font-family:Helvetica,Arial,sans-serif;color:#111827;padding:32px 80px}
+.steps{display:flex;gap:40px;align-items:center;font-size:14px;color:#9ca3af}.steps b{display:inline-flex;width:26px;height:26px;border-radius:50%;align-items:center;justify-content:center;background:#e5e7eb;color:#6b7280;margin-right:8px}.steps .done b{background:#111827;color:#fff}.steps .done{color:#111827}
+.wrap{display:flex;gap:40px;margin-top:30px}.form{flex:1}.form h2{font-size:22px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.f label{display:block;font-size:13px;color:#4b5563;margin-bottom:6px}.f span{display:block;height:44px;border:1px solid #d1d5db;border-radius:8px;background:#fff}.wide{grid-column:span 2}
+.opts{margin-top:24px}.opt{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid #d1d5db;border-radius:10px;background:#fff;margin-bottom:10px;font-size:14px}.opt.sel{border:2px solid #111827}.opt i{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px solid #9ca3af;margin-right:10px;vertical-align:-3px}.opt.sel i{border:5px solid #111827}
+.sum{width:400px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:24px;height:640px}.sum h3{font-size:18px;margin-bottom:16px}
+.item{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #f3f4f6;font-size:14px}.item i{width:56px;height:56px;border-radius:8px;background:#e5e7eb}.item div{flex:1}.item small{display:block;color:#6b7280}
+.line{display:flex;justify-content:space-between;font-size:14px;margin-top:12px;color:#4b5563}.tot{font-size:18px;font-weight:700;color:#111827;border-top:1px solid #e5e7eb;padding-top:14px}
+.pay{display:block;margin-top:22px;padding:16px;border-radius:10px;background:#111827;color:#fff;text-align:center;font-weight:700}
+</style></head><body>
+<div class="steps" data-r="stepper" data-must><span class="done"><b>1</b>Cart</span><span class="done"><b>2</b>Shipping</span><span><b>3</b>Payment</span><span><b>4</b>Review</span></div>
+<div class="wrap"><div class="form" data-r="shipping-form" data-must><h2>Shipping address</h2>
+<div class="grid"><div class="f"><label>First name</label><span></span></div><div class="f"><label>Last name</label><span></span></div><div class="f wide"><label>Street address</label><span></span></div><div class="f"><label>City</label><span></span></div><div class="f"><label>Postcode</label><span></span></div></div>
+<div class="opts" data-r="delivery"><div class="opt sel"><span><i></i>Standard · 3–5 days</span><b>Free</b></div><div class="opt"><span><i></i>Express · next day</span><b>$12.00</b></div></div></div>
+<div class="sum" data-r="order-summary" data-must><h3>Order summary</h3>
+<div class="item"><i></i><div>Linen overshirt<small>Sand · M</small></div><b>$89.00</b></div>
+<div class="item"><i></i><div>Wool beanie<small>Charcoal</small></div><b>$32.00</b></div>
+<div class="item"><i></i><div>Canvas tote<small>Natural</small></div><b>$24.00</b></div>
+<div class="line"><span>Subtotal</span><span>$145.00</span></div><div class="line"><span>Shipping</span><span>Free</span></div><div class="line"><span>Tax</span><span>$11.60</span></div>
+<div class="line tot"><span>Total</span><span>$156.60</span></div><a class="pay">Continue to payment</a></div></div>
+</body></html>

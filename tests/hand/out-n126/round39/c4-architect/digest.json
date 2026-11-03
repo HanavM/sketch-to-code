@@ -1,0 +1,408 @@
+{
+  "round": 39,
+  "id": "c4-architect",
+  "version": 3,
+  "stopped": null,
+  "likeness": 73,
+  "colour": 0.9772228769040376,
+  "structure": 0.8512061898625503,
+  "layout": 0.5813269564923642,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 2.5,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 3,
+      "line": 7,
+      "box": 3
+    },
+    "inkPx": 8254
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 48,
+  "notes": 6,
+  "longestNote": 17,
+  "noteTexts": [
+    "HALDEN & RO, small bold spaced",
+    "PROJECTS · OFFICE · CONTACT, spaced",
+    "Quiet rooms, huge thin",
+    "4 rows: 01 Lake house 2025, 02 Library annex 2024, 03 Studio barn 2023, 04 Chapel 2021",
+    "no black block, dark words on page",
+    "rows sit between lines, lines are thin dividers"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 309,
+    "firstReadingS": 86,
+    "readS": [
+      47,
+      17
+    ],
+    "buildS": [
+      138,
+      51
+    ],
+    "sketchingS": 55
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 64694,
+    "cacheRead": 558670,
+    "output": 23171,
+    "billed": 87865
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f9f9f7",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 459
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 838
+    },
+    {
+      "op": "stroke",
+      "at": 1625
+    },
+    {
+      "op": "note",
+      "at": 2311
+    },
+    {
+      "op": "stroke",
+      "at": 3523
+    },
+    {
+      "op": "note",
+      "at": 4214
+    },
+    {
+      "op": "stroke",
+      "at": 8675
+    },
+    {
+      "op": "note",
+      "at": 9365
+    },
+    {
+      "op": "stroke",
+      "at": 13059
+    },
+    {
+      "op": "stroke",
+      "at": 14974
+    },
+    {
+      "op": "stroke",
+      "at": 16892
+    },
+    {
+      "op": "stroke",
+      "at": 18823
+    },
+    {
+      "op": "stroke",
+      "at": 20741
+    },
+    {
+      "op": "note",
+      "at": 21900
+    },
+    {
+      "op": "stroke",
+      "at": 28377
+    },
+    {
+      "op": "stroke",
+      "at": 28841
+    },
+    {
+      "op": "pen",
+      "color": "#d6d2ce",
+      "at": 29206
+    },
+    {
+      "op": "stroke",
+      "at": 32576
+    },
+    {
+      "op": "stroke",
+      "at": 33044
+    },
+    {
+      "op": "run",
+      "at": 38706
+    },
+    {
+      "op": "note",
+      "at": 233583
+    },
+    {
+      "op": "note",
+      "at": 234326
+    },
+    {
+      "op": "run",
+      "at": 234436
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          300,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 459
+    },
+    {
+      "way": [
+        [
+          60,
+          48
+        ],
+        [
+          178,
+          48
+        ]
+      ],
+      "n": 21,
+      "at": 1625
+    },
+    {
+      "way": [
+        [
+          948,
+          48
+        ],
+        [
+          1220,
+          48
+        ]
+      ],
+      "n": 46,
+      "at": 3523
+    },
+    {
+      "way": [
+        [
+          60,
+          140
+        ],
+        [
+          670,
+          140
+        ],
+        [
+          670,
+          245
+        ],
+        [
+          60,
+          245
+        ],
+        [
+          60,
+          142
+        ]
+      ],
+      "n": 240,
+      "at": 8675
+    },
+    {
+      "way": [
+        [
+          60,
+          300
+        ],
+        [
+          1220,
+          300
+        ]
+      ],
+      "n": 194,
+      "at": 13059
+    },
+    {
+      "way": [
+        [
+          60,
+          370
+        ],
+        [
+          580,
+          370
+        ]
+      ],
+      "n": 88,
+      "at": 14974
+    },
+    {
+      "way": [
+        [
+          60,
+          400
+        ],
+        [
+          580,
+          400
+        ]
+      ],
+      "n": 88,
+      "at": 16892
+    },
+    {
+      "way": [
+        [
+          60,
+          470
+        ],
+        [
+          580,
+          470
+        ]
+      ],
+      "n": 88,
+      "at": 18823
+    },
+    {
+      "way": [
+        [
+          60,
+          540
+        ],
+        [
+          580,
+          540
+        ]
+      ],
+      "n": 88,
+      "at": 20741
+    },
+    {
+      "way": [
+        [
+          640,
+          330
+        ],
+        [
+          1220,
+          330
+        ],
+        [
+          1220,
+          830
+        ],
+        [
+          640,
+          830
+        ],
+        [
+          640,
+          332
+        ]
+      ],
+      "n": 361,
+      "at": 28377
+    },
+    {
+      "way": [
+        [
+          1100,
+          750
+        ]
+      ],
+      "n": 1,
+      "at": 28841
+    },
+    {
+      "way": [
+        [
+          820,
+          270
+        ],
+        [
+          1040,
+          270
+        ],
+        [
+          1040,
+          570
+        ],
+        [
+          820,
+          570
+        ],
+        [
+          820,
+          272
+        ]
+      ],
+      "n": 175,
+      "at": 32576
+    },
+    {
+      "way": [
+        [
+          930,
+          420
+        ]
+      ],
+      "n": 1,
+      "at": 33044
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "HALDEN & RO, small bold spaced",
+      "whole": false,
+      "x": 120,
+      "y": 34,
+      "at": 2311
+    },
+    {
+      "text": "PROJECTS · OFFICE · CONTACT, spaced",
+      "whole": false,
+      "x": 1080,
+      "y": 34,
+      "at": 4214
+    },
+    {
+      "text": "Quiet rooms, huge thin",
+      "whole": false,
+      "x": 365,
+      "y": 190,
+      "at": 9365
+    },
+    {
+      "text": "4 rows: 01 Lake house 2025, 02 Library annex 2024, 03 Studio barn 2023, 04 Chapel 2021",
+      "whole": false,
+      "x": 320,
+      "y": 460,
+      "at": 21900
+    },
+    {
+      "text": "no black block, dark words on page",
+      "whole": false,
+      "x": 560,
+      "y": 150,
+      "at": 233583
+    },
+    {
+      "text": "rows sit between lines, lines are thin dividers",
+      "whole": false,
+      "x": 320,
+      "y": 560,
+      "at": 234326
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+ "c1-tea-house": {
+  "found": {
+   "serif": 3,
+   "italic": 1,
+   "bleed": 2,
+   "overlap": 2
+  },
+  "names": [
+   "bleed",
+   "italic",
+   "overlap",
+   "serif"
+  ]
+ },
+ "c2-robot-kit": {
+  "found": {
+   "tilt": 2,
+   "hard-shadow": 1,
+   "huge-type": 1,
+   "uppercase-display": 1
+  },
+  "names": [
+   "hard-shadow",
+   "huge-type",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c3-film-fest": {
+  "found": {
+   "huge-type": 1,
+   "overlap": 4
+  },
+  "names": [
+   "huge-type",
+   "overlap"
+  ]
+ },
+ "c4-dive-shop": {
+  "found": {},
+  "names": []
+ },
+ "c5-type-foundry": {
+  "found": {
+   "huge-type": 8,
+   "serif": 3,
+   "italic": 1,
+   "mono": 1
+  },
+  "names": [
+   "huge-type",
+   "italic",
+   "mono",
+   "serif"
+  ]
+ },
+ "e1-hotel-booking": {
+  "found": {},
+  "names": []
+ },
+ "e2-contacts": {
+  "found": {},
+  "names": []
+ },
+ "e3-budget": {
+  "found": {
+   "stripes-or-layers": 1
+  },
+  "names": [
+   "stripes-or-layers"
+  ]
+ },
+ "e4-job-board": {
+  "found": {},
+  "names": []
+ },
+ "e5-video-call": {
+  "found": {},
+  "names": []
+ }
+}

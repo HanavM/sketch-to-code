@@ -1,0 +1,7 @@
+action 0: built the page wrapper with `#f3f4f6` background and a white `rounded-2xl` card with shadow, anchored at the drawn top (padding-top 149px) and horizontally centered to match the drawn card bounds.
+action 1: added the "Sign in" heading (`text-2xl font-bold`) at the top of the card.
+action 2: added the "Welcome back. Enter your details." subheading below it in gray.
+action 3: added a labeled Email input (label above field, bordered input matching drawn box size).
+action 4: added a labeled Password input (type="password") below it, same sizing.
+action 5: added the "Sign in" submit button filled with `#2563eb`.
+action 6: added the centered "Forgot your password?" link below the button, styled in `#2563eb`.

@@ -1,0 +1,842 @@
+{
+  "id": "e1-design-tool",
+  "at": "2026-10-26T03:35:13.788Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9031352026354055,
+    "overallV2": 0.9031352026354055,
+    "overallV1": 0.8927710733654237,
+    "colour": 0.995921301540366,
+    "structure": 0.9758722497923046,
+    "structureStrict": 0.9643674961974653,
+    "colourAligned": 0.995921301540366,
+    "structureAligned": 0.9758722497923046,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9884787691710601
+    },
+    "layout": 0.792189704961015,
+    "layoutV1": 0.792189704961015,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      240,
+      48,
+      800,
+      852
+    ],
+    [
+      0,
+      340,
+      128,
+      60,
+      18
+    ],
+    [
+      0,
+      340,
+      150,
+      600,
+      420
+    ],
+    [
+      0,
+      388,
+      200,
+      270,
+      74
+    ],
+    [
+      0,
+      340,
+      150,
+      594,
+      414
+    ],
+    [
+      5,
+      340,
+      150,
+      594,
+      414
+    ],
+    [
+      6,
+      339,
+      150,
+      594,
+      414
+    ],
+    [
+      6,
+      380,
+      300,
+      133,
+      33
+    ],
+    [
+      0,
+      720,
+      190,
+      180,
+      180
+    ],
+    [
+      0,
+      716,
+      186,
+      8,
+      8
+    ],
+    [
+      0,
+      896,
+      186,
+      8,
+      8
+    ],
+    [
+      0,
+      716,
+      366,
+      8,
+      8
+    ],
+    [
+      0,
+      896,
+      366,
+      8,
+      8
+    ],
+    [
+      0,
+      773,
+      374,
+      70,
+      20
+    ],
+    [
+      0,
+      560,
+      473,
+      9,
+      17
+    ],
+    [
+      0,
+      583,
+      470,
+      44,
+      18
+    ],
+    [
+      0,
+      256,
+      868,
+      40,
+      26
+    ],
+    [
+      0,
+      0,
+      48,
+      240,
+      852
+    ],
+    [
+      18,
+      0,
+      48,
+      239,
+      35
+    ],
+    [
+      18,
+      0,
+      83,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      111,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      139,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      167,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      195,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      223,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      251,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      279,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      307,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      351,
+      239,
+      35
+    ],
+    [
+      18,
+      0,
+      386,
+      239,
+      28
+    ],
+    [
+      18,
+      0,
+      414,
+      239,
+      28
+    ],
+    [
+      0,
+      1040,
+      48,
+      240,
+      852
+    ],
+    [
+      32,
+      1040,
+      48,
+      240,
+      111
+    ],
+    [
+      33,
+      1056,
+      60,
+      208,
+      12
+    ],
+    [
+      33,
+      1056,
+      81,
+      208,
+      64
+    ],
+    [
+      35,
+      1056,
+      81,
+      208,
+      28
+    ],
+    [
+      36,
+      1056,
+      81,
+      100,
+      28
+    ],
+    [
+      37,
+      1064,
+      84,
+      92,
+      14
+    ],
+    [
+      37,
+      1064,
+      98,
+      92,
+      14
+    ],
+    [
+      36,
+      1164,
+      81,
+      100,
+      28
+    ],
+    [
+      40,
+      1172,
+      84,
+      92,
+      14
+    ],
+    [
+      40,
+      1172,
+      98,
+      92,
+      14
+    ],
+    [
+      35,
+      1056,
+      117,
+      208,
+      28
+    ],
+    [
+      43,
+      1056,
+      117,
+      100,
+      28
+    ],
+    [
+      44,
+      1064,
+      120,
+      92,
+      14
+    ],
+    [
+      44,
+      1064,
+      134,
+      92,
+      14
+    ],
+    [
+      43,
+      1164,
+      117,
+      100,
+      28
+    ],
+    [
+      47,
+      1172,
+      120,
+      92,
+      14
+    ],
+    [
+      47,
+      1172,
+      134,
+      92,
+      14
+    ],
+    [
+      32,
+      1040,
+      159,
+      240,
+      75
+    ],
+    [
+      50,
+      1056,
+      171,
+      208,
+      12
+    ],
+    [
+      50,
+      1056,
+      192,
+      208,
+      28
+    ],
+    [
+      52,
+      1056,
+      192,
+      207,
+      28
+    ],
+    [
+      32,
+      1040,
+      234,
+      240,
+      75
+    ],
+    [
+      54,
+      1056,
+      246,
+      208,
+      12
+    ],
+    [
+      54,
+      1056,
+      267,
+      208,
+      28
+    ],
+    [
+      56,
+      1056,
+      267,
+      207,
+      28
+    ],
+    [
+      57,
+      1064,
+      274,
+      14,
+      14
+    ],
+    [
+      32,
+      1040,
+      309,
+      240,
+      75
+    ],
+    [
+      59,
+      1056,
+      321,
+      208,
+      12
+    ],
+    [
+      59,
+      1056,
+      342,
+      208,
+      28
+    ],
+    [
+      61,
+      1056,
+      342,
+      207,
+      28
+    ],
+    [
+      62,
+      1064,
+      347,
+      67,
+      18
+    ],
+    [
+      32,
+      1040,
+      384,
+      240,
+      75
+    ],
+    [
+      64,
+      1056,
+      396,
+      208,
+      12
+    ],
+    [
+      64,
+      1056,
+      417,
+      208,
+      28
+    ],
+    [
+      66,
+      1056,
+      417,
+      207,
+      28
+    ],
+    [
+      67,
+      1064,
+      424,
+      14,
+      14
+    ],
+    [
+      32,
+      1040,
+      459,
+      240,
+      75
+    ],
+    [
+      69,
+      1056,
+      471,
+      208,
+      12
+    ],
+    [
+      69,
+      1056,
+      492,
+      208,
+      28
+    ],
+    [
+      71,
+      1056,
+      492,
+      207,
+      28
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      48
+    ],
+    [
+      73,
+      12,
+      0,
+      13,
+      48
+    ],
+    [
+      73,
+      48,
+      8,
+      32,
+      32
+    ],
+    [
+      73,
+      84,
+      0,
+      13,
+      48
+    ],
+    [
+      73,
+      120,
+      0,
+      12,
+      48
+    ],
+    [
+      73,
+      156,
+      0,
+      9,
+      48
+    ],
+    [
+      73,
+      192,
+      0,
+      19,
+      48
+    ],
+    [
+      73,
+      645,
+      0,
+      111,
+      48
+    ],
+    [
+      73,
+      1207,
+      9,
+      61,
+      30
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 80119,
+    "output": 44168,
+    "cacheRead": 394959
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 105659,
+      "output": 33859,
+      "cacheRead": 391875,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 364484
+    }
+  ],
+  "reading": "The drawing mocks up a Figma-style design tool screen: a dark top toolbar, a left file-tree/layers panel, a large dot-grid canvas containing a hero frame (headline, pill button, a gradient image tile shown selected with resize handles plus a size badge, and a \"Maya\" mention), and a right-hand properties panel — all specified in precise detail by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        42
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build the top bar as ONE 1280x48px wrapper element at 0,0 (#2c2c2c fill) holding all of these parts inside it, never laid loose on the page: a dark grey bar 48p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        51,
+        234,
+        845
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build a FILE TREE panel 240x852px at 0,48, filled #ffffff, with a 1px #e0e0e0 rule along its right edge only (not grouped links), 12px type: an 11px bold \"Layer"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Render the main work area as an 800x852px DOT-GRID canvas at 240,48: a FLAT #e5e5e5 fill (same light colour top to bottom, not a gradient, never darkening) with"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [],
+      "region": [
+        343,
+        132,
+        594,
+        435
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a grey label text \"Hero frame\" above the frame panel, in #777777 (grey, not the page's near-black text)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a plain #ffffff frame panel 600x420px at 340,150 (not a picture, no X, nothing of its own inside); the frame headline, frame button, selected shape and size"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a big, heavy headline reading \"Ship pages your team loves\" inside the hero frame panel."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4",
+        "s7"
+      ],
+      "instruction": "Add a plain indigo (#7b61ff) shape: a textless div exactly 140x40px with top-left at 380,300 (absolute), fully rounded ends (border-radius 999px), no words, no "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4",
+        "s8"
+      ],
+      "instruction": "Add a vivid yellow #ffcd29 (top-left) to vivid red-orange #f24e1e (bottom-right) gradient tile, 180x180px, 16px rounded corners, plain paint only (no picture, n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4",
+        "s8",
+        "s9"
+      ],
+      "instruction": "Add a vivid bright sky-blue size badge showing white text \"180 × 180\" (white text, not the page's near-black text), positioned beside the gradient tile."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10"
+      ],
+      "textSize": [],
+      "region": [
+        343,
+        153,
+        594,
+        414
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add, part by part (page px, size then top-left x,y), 2 real elements with live text, each one-line part kept on one line (white-space nowrap, min-width not fixe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1043,
+        51,
+        234,
+        845
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Build the right-hand properties panel as ONE 240x852px panel at 1040,48, #ffffff fill, holding its 27 parts inside it, every one-line text part kept on one line"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        243,
+        51,
+        793,
+        846
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a small zoom-level indicator reading '64%' in white text on the canvas (exact placement not shown in the sketch)."
+    }
+  ],
+  "rejected": []
+}

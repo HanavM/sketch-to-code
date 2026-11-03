@@ -1,0 +1,620 @@
+{
+  "round": 48,
+  "id": "c4-alpine-railway",
+  "version": 3,
+  "stopped": null,
+  "likeness": 87.8,
+  "colour": 0.9815215755280363,
+  "structure": 0.9417733955671572,
+  "layout": 0.7895276742975081,
+  "strokes": {
+    "count": 20,
+    "pointsPerStroke": 2.6,
+    "simpleShare": 0.85,
+    "shapes": {
+      "dot": 9,
+      "box": 5,
+      "freehand": 3,
+      "line": 3
+    },
+    "inkPx": 11837
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 39,
+  "notes": 9,
+  "longestNote": 8,
+  "noteTexts": [
+    "Gornerbahn bold",
+    "Timetable, Fares, Stations",
+    "Up the mountain / by rail huge bold",
+    "Buy a ticket white bold",
+    "each car: 2 white windows, 2 black wheels",
+    "thick rail",
+    "First train 7:10 white bold",
+    "Summit 3,089 m",
+    "Dogs ride free"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 382,
+    "firstReadingS": 151,
+    "readS": [
+      100
+    ],
+    "buildS": [
+      228
+    ],
+    "sketchingS": 54
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 77964,
+    "cacheRead": 380833,
+    "output": 29040,
+    "billed": 107004
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#bfe2f4",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#4f8a4b",
+      "at": 827
+    },
+    {
+      "op": "stroke",
+      "at": 9484
+    },
+    {
+      "op": "stroke",
+      "at": 9948
+    },
+    {
+      "op": "pen",
+      "color": "#6f7f8f",
+      "at": 10312
+    },
+    {
+      "op": "stroke",
+      "at": 16434
+    },
+    {
+      "op": "stroke",
+      "at": 16899
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 17263
+    },
+    {
+      "op": "stroke",
+      "at": 19601
+    },
+    {
+      "op": "stroke",
+      "at": 20064
+    },
+    {
+      "op": "pen",
+      "color": "#8a99a6",
+      "at": 20429
+    },
+    {
+      "op": "stroke",
+      "at": 25034
+    },
+    {
+      "op": "stroke",
+      "at": 25502
+    },
+    {
+      "op": "pen",
+      "color": "#c8102e",
+      "at": 25863
+    },
+    {
+      "op": "stroke",
+      "at": 28200
+    },
+    {
+      "op": "stroke",
+      "at": 28666
+    },
+    {
+      "op": "stroke",
+      "at": 30999
+    },
+    {
+      "op": "stroke",
+      "at": 31466
+    },
+    {
+      "op": "stroke",
+      "at": 33403
+    },
+    {
+      "op": "stroke",
+      "at": 33864
+    },
+    {
+      "op": "pen",
+      "color": "#f2b035",
+      "at": 34229
+    },
+    {
+      "op": "stroke",
+      "at": 36568
+    },
+    {
+      "op": "stroke",
+      "at": 37035
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 37399
+    },
+    {
+      "op": "stroke",
+      "at": 41419
+    },
+    {
+      "op": "pen",
+      "color": "#16324f",
+      "at": 41788
+    },
+    {
+      "op": "stroke",
+      "at": 43988
+    },
+    {
+      "op": "stroke",
+      "at": 45082
+    },
+    {
+      "op": "note",
+      "at": 45719
+    },
+    {
+      "op": "note",
+      "at": 46359
+    },
+    {
+      "op": "note",
+      "at": 47171
+    },
+    {
+      "op": "note",
+      "at": 47916
+    },
+    {
+      "op": "note",
+      "at": 48799
+    },
+    {
+      "op": "note",
+      "at": 49477
+    },
+    {
+      "op": "note",
+      "at": 50226
+    },
+    {
+      "op": "note",
+      "at": 50921
+    },
+    {
+      "op": "note",
+      "at": 51628
+    },
+    {
+      "op": "run",
+      "at": 51754
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          80,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          2,
+          700
+        ],
+        [
+          1278,
+          700
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          700
+        ]
+      ],
+      "n": 493,
+      "at": 9484
+    },
+    {
+      "way": [
+        [
+          640,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 9948
+    },
+    {
+      "way": [
+        [
+          920,
+          150
+        ],
+        [
+          1278,
+          700
+        ],
+        [
+          560,
+          700
+        ],
+        [
+          920,
+          150
+        ]
+      ],
+      "n": 340,
+      "at": 16434
+    },
+    {
+      "way": [
+        [
+          1040,
+          520
+        ]
+      ],
+      "n": 1,
+      "at": 16899
+    },
+    {
+      "way": [
+        [
+          920,
+          150
+        ],
+        [
+          1040,
+          333
+        ],
+        [
+          800,
+          333
+        ],
+        [
+          920,
+          150
+        ]
+      ],
+      "n": 113,
+      "at": 19601
+    },
+    {
+      "way": [
+        [
+          920,
+          280
+        ]
+      ],
+      "n": 1,
+      "at": 20064
+    },
+    {
+      "way": [
+        [
+          450,
+          370
+        ],
+        [
+          750,
+          700
+        ],
+        [
+          150,
+          700
+        ],
+        [
+          450,
+          370
+        ]
+      ],
+      "n": 249,
+      "at": 25034
+    },
+    {
+      "way": [
+        [
+          450,
+          480
+        ]
+      ],
+      "n": 1,
+      "at": 25502
+    },
+    {
+      "way": [
+        [
+          200,
+          540
+        ],
+        [
+          430,
+          540
+        ],
+        [
+          430,
+          650
+        ],
+        [
+          200,
+          650
+        ],
+        [
+          200,
+          540
+        ]
+      ],
+      "n": 113,
+      "at": 28200
+    },
+    {
+      "way": [
+        [
+          315,
+          630
+        ]
+      ],
+      "n": 1,
+      "at": 28666
+    },
+    {
+      "way": [
+        [
+          450,
+          540
+        ],
+        [
+          680,
+          540
+        ],
+        [
+          680,
+          650
+        ],
+        [
+          450,
+          650
+        ],
+        [
+          450,
+          540
+        ]
+      ],
+      "n": 113,
+      "at": 30999
+    },
+    {
+      "way": [
+        [
+          565,
+          630
+        ]
+      ],
+      "n": 1,
+      "at": 31466
+    },
+    {
+      "way": [
+        [
+          70,
+          290
+        ],
+        [
+          280,
+          290
+        ],
+        [
+          280,
+          344
+        ],
+        [
+          70,
+          344
+        ],
+        [
+          70,
+          290
+        ]
+      ],
+      "n": 89,
+      "at": 33403
+    },
+    {
+      "way": [
+        [
+          175,
+          318
+        ]
+      ],
+      "n": 1,
+      "at": 33864
+    },
+    {
+      "way": [
+        [
+          700,
+          540
+        ],
+        [
+          930,
+          540
+        ],
+        [
+          930,
+          650
+        ],
+        [
+          700,
+          650
+        ],
+        [
+          700,
+          540
+        ]
+      ],
+      "n": 113,
+      "at": 36568
+    },
+    {
+      "way": [
+        [
+          815,
+          630
+        ]
+      ],
+      "n": 1,
+      "at": 37035
+    },
+    {
+      "way": [
+        [
+          2,
+          674
+        ],
+        [
+          1278,
+          674
+        ]
+      ],
+      "n": 214,
+      "at": 41419
+    },
+    {
+      "way": [
+        [
+          70,
+          140
+        ],
+        [
+          685,
+          140
+        ]
+      ],
+      "n": 104,
+      "at": 43988
+    },
+    {
+      "way": [
+        [
+          70,
+          220
+        ],
+        [
+          298,
+          220
+        ]
+      ],
+      "n": 39,
+      "at": 45082
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Gornerbahn bold",
+      "whole": false,
+      "x": 70,
+      "y": 48,
+      "at": 45719
+    },
+    {
+      "text": "Timetable, Fares, Stations",
+      "whole": false,
+      "x": 860,
+      "y": 48,
+      "at": 46359
+    },
+    {
+      "text": "Up the mountain / by rail huge bold",
+      "whole": false,
+      "x": 90,
+      "y": 160,
+      "at": 47171
+    },
+    {
+      "text": "Buy a ticket white bold",
+      "whole": false,
+      "x": 100,
+      "y": 318,
+      "at": 47916
+    },
+    {
+      "text": "each car: 2 white windows, 2 black wheels",
+      "whole": false,
+      "x": 565,
+      "y": 595,
+      "at": 48799
+    },
+    {
+      "text": "thick rail",
+      "whole": false,
+      "x": 1200,
+      "y": 674,
+      "at": 49477
+    },
+    {
+      "text": "First train 7:10 white bold",
+      "whole": false,
+      "x": 70,
+      "y": 780,
+      "at": 50226
+    },
+    {
+      "text": "Summit 3,089 m",
+      "whole": false,
+      "x": 560,
+      "y": 780,
+      "at": 50921
+    },
+    {
+      "text": "Dogs ride free",
+      "whole": false,
+      "x": 1040,
+      "y": 780,
+      "at": 51628
+    }
+  ]
+}

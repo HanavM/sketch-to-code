@@ -1,0 +1,639 @@
+{
+  "id": "c1-jazz-cutout",
+  "at": "2026-10-27T06:50:42.885Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9435050699627854,
+    "overallV2": 0.9435050699627854,
+    "overallV1": 0.9338947917517955,
+    "colour": 0.9949698837732762,
+    "structure": 0.9671088324174779,
+    "structureStrict": 0.9493226680848829,
+    "colourAligned": 0.9949698837732762,
+    "structureAligned": 0.9671088324174779,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.996050577061579
+    },
+    "layout": 0.8896272096927348,
+    "layoutV1": 0.7754154890190199,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      880,
+      420,
+      300,
+      300
+    ],
+    [
+      0,
+      646,
+      90,
+      294,
+      620
+    ],
+    [
+      0,
+      700,
+      180,
+      360,
+      120
+    ],
+    [
+      0,
+      59,
+      643,
+      423,
+      54
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      56,
+      34,
+      128,
+      26
+    ],
+    [
+      0,
+      974,
+      34,
+      251,
+      26
+    ],
+    [
+      7,
+      974,
+      34,
+      66,
+      26
+    ],
+    [
+      7,
+      1070,
+      34,
+      77,
+      26
+    ],
+    [
+      7,
+      1177,
+      34,
+      48,
+      26
+    ],
+    [
+      0,
+      52,
+      120,
+      524,
+      504
+    ],
+    [
+      11,
+      52,
+      120,
+      524,
+      504
+    ],
+    [
+      12,
+      52,
+      120,
+      524,
+      168
+    ],
+    [
+      12,
+      52,
+      288,
+      524,
+      168
+    ],
+    [
+      12,
+      52,
+      456,
+      524,
+      168
+    ],
+    [
+      0,
+      60,
+      531,
+      292,
+      45
+    ],
+    [
+      0,
+      980,
+      60,
+      56,
+      130
+    ],
+    [
+      17,
+      938,
+      58,
+      104,
+      142
+    ],
+    [
+      18,
+      982,
+      59,
+      50,
+      103
+    ],
+    [
+      18,
+      974,
+      140,
+      67,
+      59
+    ],
+    [
+      0,
+      1060,
+      150,
+      56,
+      130
+    ],
+    [
+      21,
+      1041,
+      147,
+      78,
+      138
+    ],
+    [
+      22,
+      1089,
+      147,
+      25,
+      109
+    ],
+    [
+      22,
+      1057,
+      235,
+      62,
+      49
+    ],
+    [
+      0,
+      1180,
+      103,
+      21,
+      303
+    ],
+    [
+      0,
+      56,
+      727,
+      96,
+      21
+    ],
+    [
+      0,
+      152,
+      728,
+      128,
+      26
+    ],
+    [
+      0,
+      56,
+      754,
+      96,
+      21
+    ],
+    [
+      0,
+      152,
+      755,
+      153,
+      26
+    ],
+    [
+      0,
+      56,
+      781,
+      96,
+      21
+    ],
+    [
+      0,
+      152,
+      782,
+      175,
+      26
+    ],
+    [
+      0,
+      544,
+      722,
+      182,
+      182
+    ],
+    [
+      0,
+      880,
+      744,
+      171,
+      42
+    ],
+    [
+      0,
+      883,
+      793,
+      239,
+      50
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.9990510939149727,
+      "parts": 2,
+      "rect": {
+        "x": 56,
+        "y": 34,
+        "w": 1169.109375,
+        "h": 26
+      }
+    },
+    {
+      "role": "lineup",
+      "iou": 0.5999129955170349,
+      "parts": 6,
+      "rect": {
+        "x": 56,
+        "y": 727,
+        "w": 270.84375,
+        "h": 80.5
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "hard-shadow",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 98555,
+    "output": 39504,
+    "cacheRead": 518788
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 94956,
+      "output": 20131,
+      "cacheRead": 253124,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 214341
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 14233,
+      "output": 6492,
+      "cacheRead": 249811,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 76522
+    }
+  ],
+  "ease": {
+    "marks": 20,
+    "captured": 20,
+    "notes": 15,
+    "words": 1265,
+    "drawMs": 87453,
+    "readingMs": 118858,
+    "runMs": 411773
+  },
+  "reading": "This is a full poster-style hero section for a jazz club night (\"Blue Hour\"): a textured warm-paper background, a logo/nav row, a giant 3-line headline \"LATE SETS JAZZ\" with a hollow word, a black jagged cut-out shape and a red angled cut-out shape, two tilted music-note icons, a vertical \"SEASON 28 · FRIDAYS\" label, a striped decorative block, a 3-row upcoming-events list, a tilted \"SOLD OUT\" badge, a \"Doors at 21:00\" lead line, and a \"BOOK A TABLE\" button with a hard offset shadow.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "Add a full-page (1280x900px) fine grain texture overlay, no fill of its own, pointer-events none, sitting on top of the colour fields but under the type: thin #"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a nav/logo row, all 4 parts real live-text elements, nothing invented or left out: italic 22px Georgia serif, font-weight 900, uppercase 'BLUE HOUR' (128x26"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Add a perfectly round solid disc, ink-like multiply-blend (darkens what it overlaps, never covers it), 300px across with top-left at page 880,420, a plain absol"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "Add a near-black jagged cut-out shape, ONE flat #141210 fill via clip-path polygon (no gradient, shading or texture); the drawn outline is only a guide, never k"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s4"
+      ],
+      "instruction": "Add a vivid red angled cut-out shape, ink-like multiply-blend, ONE flat #d6452b fill via clip-path polygon (no gradient/shading/texture); drawn outline is only "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s4",
+        "s5"
+      ],
+      "instruction": "Add a music-note icon: a 56x40px ellipse (border-radius 50%), #141210 fill, centred at page 1008,170, rotated -24deg, with a thin upright stem (its own ::after,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s6"
+      ],
+      "instruction": "Add a second music-note icon: a 56x40px ellipse (border-radius 50%), #141210 fill, centred at page 1088,260, rotated -10deg, with a thin upright stem (its own :"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 153
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a giant heading, live text (never an SVG/drawn shape), Impact / Arial Narrow sans-serif, font-weight 900, round-bowled (not condensed/display), tight line-h"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 153
+        }
+      ],
+      "region": [
+        60,
+        532,
+        292,
+        17
+      ],
+      "paths": [],
+      "instruction": "Add a short tagline / placeholder line of body copy for the hero area (e.g. a one-line venue description fitting the jazz-club theme), replacing this squiggle; "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s10"
+      ],
+      "instruction": "Add vertical uppercase text 'SEASON 28 · FRIDAYS', writing-mode vertical-rl, 14px, bold (font-weight 700), letter-spacing 8px, the line about 303px long, runnin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        59,
+        643,
+        423,
+        54
+      ],
+      "paths": [
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "instruction": "Add a decorative block filled with big vertical repeating stripes, NOT a smooth gradient: repeating-linear-gradient(90deg, #141210 0px 6px, transparent 6px 14px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14",
+        "s15",
+        "s16"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s14",
+            "s15",
+            "s16"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        60,
+        724,
+        422,
+        82
+      ],
+      "paths": [],
+      "instruction": "Add an upcoming-events list with 6 live-text parts, nothing invented or left out beyond the given copy: 'NOV 06' (96x22 at 56,727, 14px weight 900 uppercase #14"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        548,
+        728,
+        174,
+        170
+      ],
+      "paths": [
+        "s17"
+      ],
+      "instruction": "Add a tilted (14° anticlockwise) near-black outline circle badge, 150px across, with centred live text 'SOLD' / 'OUT' / '×2' each on its own line (br between th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s18"
+      ],
+      "textSize": [],
+      "region": [
+        884,
+        756,
+        163,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add italic serif lead line 'Doors at 21:00', 28px (large lead line, not small body text), about 171px wide on one line, top-left at page 880,744."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        883,
+        793,
+        239,
+        50
+      ],
+      "paths": [
+        "s19"
+      ],
+      "instruction": "Add a 'BOOK A TABLE' button: near-black (#141210) bar, warm-paper (#efe4cc) text (not the page's near-black text), square corners (border-radius 0, not a pill),"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

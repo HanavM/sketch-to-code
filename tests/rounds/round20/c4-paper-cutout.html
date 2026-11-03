@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Paper cutout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#ffd8a8;font-family:Georgia,serif;color:#2b1a12}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.sun{position:absolute;left:820px;top:90px;width:260px;height:260px;border-radius:50%;background:conic-gradient(from 0deg,#ff7a3d,#ffb347,#ff7a3d,#ffb347,#ff7a3d);box-shadow:0 0 0 22px #ffc98a,0 0 0 44px #ffd09a}
+.m{position:absolute;left:0;width:1280px}
+.m1{top:330px;height:570px;background:#f29e6d;clip-path:polygon(0 40%,14% 18%,28% 36%,44% 6%,60% 32%,76% 12%,100% 34%,100% 100%,0 100%);filter:drop-shadow(0 -6px 0 #00000022)}
+.m2{top:460px;height:440px;background:#d9644a;clip-path:polygon(0 30%,20% 8%,38% 34%,55% 14%,72% 40%,88% 18%,100% 28%,100% 100%,0 100%)}
+.m3{top:600px;height:300px;background:#7a2e3b;clip-path:polygon(0 36%,12% 20%,30% 44%,50% 10%,66% 38%,84% 16%,100% 40%,100% 100%,0 100%)}
+.bird{position:absolute;left:620px;top:200px;font-size:40px;animation:bob 4s ease-in-out infinite}
+.title{position:absolute;left:50px;top:60px;width:700px;height:260px}.title text{font:italic 700 92px Georgia,serif;fill:#2b1a12}
+.sub{position:absolute;left:70px;top:330px;width:420px;font-size:20px;line-height:1.5;font-style:italic}
+.ticket{position:absolute;left:820px;top:640px;width:380px;height:170px;background:#fff6e8;transform:rotate(-6deg);display:flex;box-shadow:6px 8px 0 #2b1a1255;
+-webkit-mask:radial-gradient(circle at 0 50%,transparent 16px,#000 17px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 16px,#000 17px) right/51% 100% no-repeat}
+.ticket .a{flex:1;padding:22px 28px;border-right:3px dashed #d9644a}.ticket .a b{display:block;font-size:38px}.ticket .s{width:110px;display:flex;align-items:center;justify-content:center;font:700 16px "Courier New";writing-mode:vertical-rl;letter-spacing:3px;color:#d9644a}
+.btn{position:absolute;left:70px;top:470px;padding:16px 30px;border-radius:40px;background:#2b1a12;color:#ffd8a8;font:700 17px Helvetica}
+</style></head><body>
+<div class="sun" data-r="sun" data-must></div><div class="bird" data-r="bird">〰</div>
+<svg class="title" viewBox="0 0 700 260" data-r="arched-title" data-must><defs><path id="a" d="M20,230 Q350,20 680,230"/></defs><text><textPath href="#a" startOffset="50%" text-anchor="middle">Slow Valley</textPath></text></svg>
+<div class="sub" data-r="sub">A three-day walking festival in the red hills. Maps on paper, stories by the fire.</div>
+<div class="btn" data-r="cta">Book a trail →</div>
+<div class="m m1" data-r="hill-back"></div><div class="m m2" data-r="hill-mid"></div><div class="m m3" data-r="hill-front" data-must></div>
+<div class="ticket" data-r="ticket" data-must><div class="a">ADMIT ONE<b>14–16 May</b>Trailhead camp · £85</div><div class="s">No. 00412</div></div>
+</body></html>

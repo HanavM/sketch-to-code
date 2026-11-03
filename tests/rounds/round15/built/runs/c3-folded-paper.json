@@ -1,0 +1,165 @@
+{
+  "id": "c3-folded-paper",
+  "at": "2026-10-24T04:11:05.601Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9013038901060828,
+    "overallV2": 0.9013038901060828,
+    "overallV1": 0.8855422262978976,
+    "colour": 0.997908517435672,
+    "structure": 0.9754903583837573,
+    "structureStrict": 0.93932341023674,
+    "colourAligned": 0.997908517435672,
+    "structureAligned": 0.9754903583837573,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9988093900777598
+    },
+    "layout": 0.7105568046223917
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "gradient",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 35236,
+    "output": 15330,
+    "cacheRead": 174839
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 38622,
+      "output": 10617,
+      "cacheRead": 164570,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 109894
+    }
+  ],
+  "reading": "The sketch lays out a page hero: a plain nav bar, an italic headline, a huge folded-paper 'CREASE' word treatment, a bordered spec list, a pill button, and four color-swatch circles — all per the typed notes which specify exact colors, text and CSS behavior.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar, no box/border around it: bold \"FOLIO PAPER CO.\" aligned left, \"Stock · Samples · Mills · Cart (2)\" aligned right; nav text color is #efe6d6 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 35
+        }
+      ],
+      "region": [
+        148,
+        148,
+        365,
+        42
+      ],
+      "paths": [],
+      "instruction": "Big italic serif headline reading \"Five folds, one sheet, no glue.\" in warm paper color #efe6d6, 34px, rendered on a single line (white-space: nowrap, never wra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        143,
+        233,
+        994,
+        434
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "One giant 230px black-weight #c43d2b word \"CREASE\" printed across 5 folded paper panels in a zig-zag screen, built with real CSS 3D (not a flat band, not an ima"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        144,
+        723,
+        993,
+        26
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Bordered (brown border) spec list with items: \"320 gsm cotton\", \"Deckled edge\", \"Made in Fabriano\", \"From £4.20 a sheet\"; list text color is #efe6d6 (warm paper"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        142,
+        802,
+        209,
+        47
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Warm-paper outline pill button labeled \"Order a sample pack\"; button text color is #efe6d6 (warm paper), overriding the page's default dark navy text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        984,
+        803,
+        159,
+        28
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Row of four 34x34px circular swatches, each with a 2px #efe6d6 border: circle 1 at 980,800 filled #efe6d6; circle 2 at 1024,800 filled #c43d2b; circle 3 at 1068"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

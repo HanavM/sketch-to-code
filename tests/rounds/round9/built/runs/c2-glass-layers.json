@@ -1,0 +1,160 @@
+{
+  "id": "c2-glass-layers",
+  "at": "2026-10-23T07:47:58.462Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9384767014580735,
+    "overallV2": 0.9384767014580735,
+    "overallV1": 0.9068819468759174,
+    "colour": 0.992431242590701,
+    "structure": 0.9700386494688897,
+    "structureStrict": 0.8906839944783463,
+    "colourAligned": 0.992431242590701,
+    "structureAligned": 0.9700386494688897,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9789523309049024
+    },
+    "layout": 0.8457190621878123
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blur",
+      "glass",
+      "gradient-text",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 36534,
+    "output": 15927,
+    "cacheRead": 168764
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42666,
+      "output": 12275,
+      "cacheRead": 158663,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 128319
+    }
+  ],
+  "reading": "A hero section: a thin nav rule at top, a large two-line gradient headline with a sub-paragraph and a pill button below it, and to the right a large square sketched as a layered glass card stack with blurred color blobs and three frosted dashboard cards (balance chart, savings goal, next payout), all on a near-black page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        43,
+        1112,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Thin top nav bar, no box/border around it: bold wordmark \"prism\" on the left, and on the right the links \"Features · Pricing · Changelog · Log in\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 69
+        }
+      ],
+      "region": [
+        88,
+        220,
+        468,
+        152
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica headline set tight (line-height 1), exactly 2 lines, each line kept whole on one line (white-space: nowrap, no max-width narrower than the longes"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        84,
+        470,
+        432,
+        57
+      ],
+      "paths": [],
+      "instruction": "Light grey subheading paragraph text: \"Every account, card and invoice on one calm, translucent dashboard.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        82,
+        581,
+        178,
+        47
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Pill-shaped button with white fill and near-black text reading \"Get early access\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        123,
+        614,
+        654
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A layered glass stack, absolutely positioned at 600,120, 620x660px, page px, not a list. Behind everything, 3 heavily blurred (blur 60px) color blobs: a 380x380"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Noir blinds</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0c0c0e;font-family:Georgia,serif;color:#ece6da}
+.light{position:absolute;left:-200px;top:-100px;width:1100px;height:1200px;background:repeating-linear-gradient(0deg,#d9c9a3 0 34px,#0000 34px 70px);transform:skewY(-18deg) rotate(-8deg);opacity:.55;-webkit-mask:radial-gradient(ellipse at 40% 40%,#000 30%,#0000 70%);mask:radial-gradient(ellipse at 40% 40%,#000 30%,#0000 70%)}
+.smoke{position:absolute;left:820px;top:140px;width:260px;height:520px;border-radius:50%;background:radial-gradient(#ffffff30,#0000 70%);filter:blur(30px)}
+.title{position:absolute;left:80px;top:250px;font:italic 400 180px/0.85 'Playfair Display',Didot,Georgia,serif;letter-spacing:-4px;mix-blend-mode:difference;color:#ece6da}
+.title em{display:block;margin-left:220px;font-style:normal;color:#b3242b;mix-blend-mode:normal}
+.credits{position:absolute;right:80px;top:120px;width:220px;text-align:right;font:400 13px/2 Georgia;letter-spacing:3px;text-transform:uppercase;border-right:2px solid #b3242b;padding-right:18px}
+.credits b{display:block;font-size:22px;letter-spacing:1px;text-transform:none}
+.reel{position:absolute;left:80px;top:720px;width:560px;height:64px;background:repeating-linear-gradient(90deg,#ece6da 0 14px,#0000 14px 28px) 0 6px/100% 10px no-repeat,repeating-linear-gradient(90deg,#ece6da 0 14px,#0000 14px 28px) 0 48px/100% 10px no-repeat;border-top:2px solid #ece6da;border-bottom:2px solid #ece6da}
+.badge{position:absolute;left:980px;top:640px;width:180px;height:180px;border-radius:50%;border:2px solid #ece6da;display:flex;align-items:center;justify-content:center;text-align:center;font:700 14px/1.4 Georgia;letter-spacing:3px;transform:rotate(-12deg);outline:6px solid #0c0c0e;outline-offset:-14px;box-shadow:inset 0 0 0 10px #b3242b}
+.btn{position:absolute;left:680px;top:728px;padding:14px 26px;background:#b3242b;color:#ece6da;font:700 14px Georgia;letter-spacing:4px}
+</style></head><body>
+<div class="light" data-r="blind-light" data-must></div>
+<div class="smoke" data-r="smoke"></div>
+<h1 class="title" data-r="title" data-must>The Long<em>Night</em></h1>
+<div class="credits" data-r="credits" data-must><b>A film by Ida Ross</b>Starring<br>M. Vale<br>J. Okafor<br>In cinemas</div>
+<div class="reel" data-r="film-strip"></div>
+<div class="btn" data-r="trailer-button" data-must>WATCH TRAILER</div>
+<div class="badge" data-r="laurel-badge">OFFICIAL<br>SELECTION<br>VENEZIA</div>
+</body></html>

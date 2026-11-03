@@ -1,0 +1,148 @@
+{
+  "id": "e4-observability",
+  "at": "2026-10-24T00:17:36.346Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8664855033732181,
+    "overallV2": 0.8664855033732181,
+    "overallV1": 0.824349995602218,
+    "colour": 0.9791461813710415,
+    "structure": 0.8797643042931725,
+    "structureStrict": 0.7737882394784157,
+    "colourAligned": 0.9791461813710415,
+    "structureAligned": 0.8797643042931725,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9239966823262459
+    },
+    "layout": 0.7427417829374561
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48089,
+    "output": 27324,
+    "cacheRead": 370587
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 54935,
+      "output": 19476,
+      "cacheRead": 145783,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 211160
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 4933,
+      "output": 1764,
+      "cacheRead": 212359,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 17006
+    }
+  ],
+  "reading": "A dashboard layout sketch: a top status bar, a row of four KPI stat cards, a large stacked-area chart card, a scrolling log/event table, and a right-hand alerts sidebar — all specified in detail by typed notes (colors, sizes, exact text) on a dark (#0b0e14) Helvetica page with light grey body text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        46
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top bar, 52px tall, full width, with a thin line underneath. Left side text: \"service: checkout env: prod Last 1h + Filter\". Right side: \"● Live\". This bar's te"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        23,
+        71,
+        893,
+        104
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Row of 4 stat cards below the top bar. Each card: 216x110px, #121722 fill, 1px #1f2633 border, 8px rounded corners, positioned at x=20,248,476,704 (top y=68). C"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        23,
+        195,
+        893,
+        294
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Chart card, 900x300px, near-black #121722 fill, 8px rounded, 1px #1f2633 border. Small bold title top-left \"Requests by status\" in #ffffff. Legend top-right wit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        23,
+        509,
+        894,
+        374
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Near-black log table block with header row \"TIME LEVEL MESSAGE\" and 8 data rows, each row showing time left and message, grey divider line under each row. Build"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        939,
+        71,
+        318,
+        811
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Right sidebar column, near-black background, titled \"Alerts · 3 firing\" (14px bold #ffffff) at 951,83. Below it, 4 alert cards, each 294x77 bg #161c29 with a 3p"
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,435 @@
+{
+  "id": "c3-glass-aurora",
+  "at": "2026-10-25T23:46:48.062Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9057493232720306,
+    "overallV2": 0.9057493232720306,
+    "overallV1": 0.8812920349726645,
+    "colour": 0.9468972695619564,
+    "structure": 0.9485060106132943,
+    "structureStrict": 0.8901563880203005,
+    "colourAligned": 0.9468972695619564,
+    "structureAligned": 0.9485060106132943,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9808849738741
+    },
+    "layout": 0.8425336130869503,
+    "layoutV1": 0.8425336130869503,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      80,
+      120,
+      452,
+      453
+    ],
+    [
+      1,
+      80,
+      120,
+      452,
+      453
+    ],
+    [
+      2,
+      80,
+      120,
+      452,
+      453
+    ],
+    [
+      0,
+      620,
+      40,
+      513,
+      414
+    ],
+    [
+      4,
+      620,
+      40,
+      513,
+      414
+    ],
+    [
+      5,
+      620,
+      41,
+      514,
+      413
+    ],
+    [
+      5,
+      793,
+      210,
+      327,
+      215
+    ],
+    [
+      0,
+      460,
+      520,
+      474,
+      354
+    ],
+    [
+      8,
+      460,
+      520,
+      474,
+      354
+    ],
+    [
+      9,
+      460,
+      520,
+      474,
+      354
+    ],
+    [
+      0,
+      344,
+      31,
+      593,
+      50
+    ],
+    [
+      11,
+      394,
+      46,
+      46,
+      21
+    ],
+    [
+      11,
+      538,
+      46,
+      58,
+      21
+    ],
+    [
+      11,
+      695,
+      46,
+      47,
+      21
+    ],
+    [
+      11,
+      840,
+      46,
+      47,
+      21
+    ],
+    [
+      0,
+      120,
+      180,
+      620,
+      460
+    ],
+    [
+      16,
+      170,
+      230,
+      522,
+      131
+    ],
+    [
+      16,
+      170,
+      383,
+      460,
+      56
+    ],
+    [
+      16,
+      170,
+      468,
+      186,
+      50
+    ],
+    [
+      0,
+      786,
+      199,
+      340,
+      238
+    ],
+    [
+      20,
+      833,
+      256,
+      248,
+      89
+    ],
+    [
+      20,
+      831,
+      336,
+      245,
+      44
+    ],
+    [
+      0,
+      837,
+      473,
+      286,
+      134
+    ],
+    [
+      23,
+      862,
+      511,
+      70,
+      70
+    ],
+    [
+      23,
+      943,
+      518,
+      96,
+      29
+    ],
+    [
+      23,
+      944,
+      536,
+      98,
+      29
+    ],
+    [
+      0,
+      120,
+      720,
+      60,
+      20
+    ],
+    [
+      0,
+      220,
+      720,
+      34,
+      20
+    ],
+    [
+      0,
+      295,
+      720,
+      76,
+      20
+    ],
+    [
+      0,
+      410,
+      720,
+      65,
+      20
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      920
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.7777777777777778,
+    "kept": [
+      "blur",
+      "glass",
+      "gradient",
+      "motion",
+      "overlap",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "blend",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 72728,
+    "output": 42498,
+    "cacheRead": 345496
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 57998,
+      "output": 16049,
+      "cacheRead": 149115,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 165849
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 30772,
+      "output": 13327,
+      "cacheRead": 155007,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 160333
+    }
+  ],
+  "reading": "A full hero page design: a page-wide indigo background with grain texture, three large blurred colour-shifting glow blobs (purple, cyan, pink) behind the content, a frosted-glass nav pill with 4 links, a frosted-glass hero panel with a headline, paragraph and CTA button over the purple glow, a tilted frosted-glass stat card (\"3.2×\" / \"longer deep-work blocks\") over the cyan glow, a tilted frosted-glass focus-mode card, and a row of four uppercase logo/brand labels at the bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        124,
+        452,
+        453
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A big vivid purple glow: slowly shifting colour via a hue-rotate animation (NOT spinning, NOT moving), soft blurred (filter: blur(70px) set on the element itsel"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        43,
+        513,
+        414
+      ],
+      "paths": [
+        "s1",
+        "s5"
+      ],
+      "instruction": "A vivid cyan glow: slowly shifting colour via a hue-rotate animation (NOT spinning, NOT moving), soft blurred (filter: blur(70px) set on the element itself so i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        463,
+        523,
+        474,
+        354
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A vivid pink glow: slowly shifting colour via a hue-rotate animation (NOT spinning, NOT moving), soft blurred (filter: blur(70px) set on the element itself so i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        31,
+        593,
+        50
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A fully rounded frosted-glass nav pill (NOT a solid white pill, NOT a square full-width strip): see-through fill rgba(255,255,255,0.1), backdrop-filter: blur(18"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        123,
+        183,
+        613,
+        454
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "ONE hero panel, frosted glass (a see-through card, not bare, not solid): fill rgba(255,255,255,0.08), backdrop-filter: blur(24px), colours underneath showing th"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        43,
+        513,
+        414
+      ],
+      "paths": [
+        "s1",
+        "s5"
+      ],
+      "instruction": "ONE stat card, tilted 4° clockwise, frosted glass (see-through fill rgba(255,255,255,0.08), backdrop-filter: blur(24px), colours underneath showing through, 1px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        841,
+        476,
+        279,
+        128
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "ONE focus-mode panel, 280x120px, position absolute with top-left at 840,480 (page px before rotation), transform: rotate(-3deg) so it is tilted 3° anticlockwise"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [],
+      "region": [
+        124,
+        723,
+        347,
+        9
+      ],
+      "paths": [],
+      "instruction": "A row of 4 uppercase brand/logo labels (text-transform: uppercase), each 13px bold #ffffff at 60% opacity with letter-spacing 2px (spaced out, not tight), each "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

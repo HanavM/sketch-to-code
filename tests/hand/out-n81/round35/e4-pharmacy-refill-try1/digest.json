@@ -1,0 +1,479 @@
+{
+  "round": 35,
+  "id": "e4-pharmacy-refill",
+  "version": 3,
+  "stopped": null,
+  "likeness": 72.9,
+  "colour": 0.991423947916092,
+  "structure": 0.9305116738610777,
+  "layout": 0.7114074593167593,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 3.7,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 3,
+      "box": 6,
+      "circle": 1,
+      "dot": 3
+    },
+    "inkPx": 13067
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 42,
+  "notes": 7,
+  "longestNote": 14,
+  "noteTexts": [
+    "wellcare, teal bold",
+    "Prescriptions  Orders  Help, grey",
+    "Your prescriptions, big bold",
+    "Order a refill and collect from High Street in 2 days., grey",
+    "Sertraline 50 mg · 1 tablet daily · 4 days left, 4 like this",
+    "Refill, white bold",
+    "Refill, outline"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 380,
+    "firstReadingS": 85,
+    "readS": [
+      35
+    ],
+    "buildS": [
+      293
+    ],
+    "sketchingS": 52
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 94451,
+    "cacheRead": 242000,
+    "output": 27485,
+    "billed": 121936
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 4115
+    },
+    {
+      "op": "stroke",
+      "at": 5477
+    },
+    {
+      "op": "stroke",
+      "at": 7088
+    },
+    {
+      "op": "stroke",
+      "at": 14813
+    },
+    {
+      "op": "stroke",
+      "at": 22591
+    },
+    {
+      "op": "stroke",
+      "at": 30170
+    },
+    {
+      "op": "stroke",
+      "at": 37685
+    },
+    {
+      "op": "stroke",
+      "at": 38698
+    },
+    {
+      "op": "stroke",
+      "at": 40267
+    },
+    {
+      "op": "stroke",
+      "at": 41831
+    },
+    {
+      "op": "pen",
+      "color": "#f5f7f9",
+      "at": 42207
+    },
+    {
+      "op": "stroke",
+      "at": 42683
+    },
+    {
+      "op": "pen",
+      "color": "#d6f0ec",
+      "at": 43053
+    },
+    {
+      "op": "stroke",
+      "at": 43527
+    },
+    {
+      "op": "pen",
+      "color": "#0e8a7c",
+      "at": 43900
+    },
+    {
+      "op": "stroke",
+      "at": 44364
+    },
+    {
+      "op": "note",
+      "at": 45091
+    },
+    {
+      "op": "note",
+      "at": 45779
+    },
+    {
+      "op": "note",
+      "at": 46449
+    },
+    {
+      "op": "note",
+      "at": 47237
+    },
+    {
+      "op": "note",
+      "at": 48040
+    },
+    {
+      "op": "note",
+      "at": 48769
+    },
+    {
+      "op": "note",
+      "at": 49473
+    },
+    {
+      "op": "run",
+      "at": 49644
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          75
+        ],
+        [
+          1278,
+          75
+        ]
+      ],
+      "n": 214,
+      "at": 4114
+    },
+    {
+      "way": [
+        [
+          64,
+          140
+        ],
+        [
+          363,
+          140
+        ]
+      ],
+      "n": 51,
+      "at": 5477
+    },
+    {
+      "way": [
+        [
+          64,
+          180
+        ],
+        [
+          449,
+          180
+        ]
+      ],
+      "n": 65,
+      "at": 7088
+    },
+    {
+      "way": [
+        [
+          64,
+          231
+        ],
+        [
+          1216,
+          231
+        ],
+        [
+          1216,
+          347
+        ],
+        [
+          64,
+          347
+        ],
+        [
+          64,
+          233
+        ]
+      ],
+      "n": 423,
+      "at": 14813
+    },
+    {
+      "way": [
+        [
+          64,
+          367
+        ],
+        [
+          1216,
+          367
+        ],
+        [
+          1216,
+          483
+        ],
+        [
+          64,
+          483
+        ],
+        [
+          64,
+          369
+        ]
+      ],
+      "n": 423,
+      "at": 22591
+    },
+    {
+      "way": [
+        [
+          64,
+          503
+        ],
+        [
+          1216,
+          503
+        ],
+        [
+          1216,
+          619
+        ],
+        [
+          64,
+          619
+        ],
+        [
+          64,
+          505
+        ]
+      ],
+      "n": 423,
+      "at": 30170
+    },
+    {
+      "way": [
+        [
+          64,
+          639
+        ],
+        [
+          1216,
+          639
+        ],
+        [
+          1216,
+          755
+        ],
+        [
+          64,
+          755
+        ],
+        [
+          64,
+          641
+        ]
+      ],
+      "n": 423,
+      "at": 37685
+    },
+    {
+      "way": [
+        [
+          153,
+          289
+        ],
+        [
+          149,
+          307
+        ],
+        [
+          124,
+          318
+        ],
+        [
+          99,
+          307
+        ],
+        [
+          95,
+          289
+        ],
+        [
+          99,
+          271
+        ],
+        [
+          124,
+          260
+        ],
+        [
+          149,
+          271
+        ],
+        [
+          153,
+          289
+        ]
+      ],
+      "n": 33,
+      "at": 38698
+    },
+    {
+      "way": [
+        [
+          1035,
+          265
+        ],
+        [
+          1185,
+          265
+        ],
+        [
+          1185,
+          313
+        ],
+        [
+          1035,
+          313
+        ],
+        [
+          1035,
+          267
+        ]
+      ],
+      "n": 67,
+      "at": 40267
+    },
+    {
+      "way": [
+        [
+          1035,
+          401
+        ],
+        [
+          1185,
+          401
+        ],
+        [
+          1185,
+          449
+        ],
+        [
+          1035,
+          449
+        ],
+        [
+          1035,
+          403
+        ]
+      ],
+      "n": 67,
+      "at": 41831
+    },
+    {
+      "way": [
+        [
+          640,
+          830
+        ]
+      ],
+      "n": 1,
+      "at": 42683
+    },
+    {
+      "way": [
+        [
+          124,
+          289
+        ]
+      ],
+      "n": 1,
+      "at": 43527
+    },
+    {
+      "way": [
+        [
+          1110,
+          289
+        ]
+      ],
+      "n": 1,
+      "at": 44364
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "wellcare, teal bold",
+      "whole": false,
+      "x": 107,
+      "y": 38,
+      "at": 45091
+    },
+    {
+      "text": "Prescriptions  Orders  Help, grey",
+      "whole": false,
+      "x": 1100,
+      "y": 38,
+      "at": 45779
+    },
+    {
+      "text": "Your prescriptions, big bold",
+      "whole": false,
+      "x": 210,
+      "y": 135,
+      "at": 46449
+    },
+    {
+      "text": "Order a refill and collect from High Street in 2 days., grey",
+      "whole": false,
+      "x": 250,
+      "y": 175,
+      "at": 47237
+    },
+    {
+      "text": "Sertraline 50 mg · 1 tablet daily · 4 days left, 4 like this",
+      "whole": false,
+      "x": 300,
+      "y": 289,
+      "at": 48040
+    },
+    {
+      "text": "Refill, white bold",
+      "whole": false,
+      "x": 1110,
+      "y": 289,
+      "at": 48769
+    },
+    {
+      "text": "Refill, outline",
+      "whole": false,
+      "x": 1110,
+      "y": 425,
+      "at": 49473
+    }
+  ]
+}

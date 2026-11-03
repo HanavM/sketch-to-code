@@ -1,0 +1,631 @@
+{
+  "round": 40,
+  "id": "e2-recipe",
+  "version": 3,
+  "stopped": null,
+  "likeness": 83.2,
+  "colour": 0.9864646162255359,
+  "structure": 0.9485657675583695,
+  "layout": 0.7529814300781217,
+  "strokes": {
+    "count": 15,
+    "pointsPerStroke": 4.9,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "line": 2,
+      "box": 5,
+      "circle": 3
+    },
+    "inkPx": 4754
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 75,
+  "notes": 8,
+  "longestNote": 27,
+  "noteTexts": [
+    "Pantry bold",
+    "Lemon ricotta pancakes, big bold",
+    "25 min · Easy · Breakfast",
+    "servings 1 2 4 6, 2 picked",
+    "Ingredients bold",
+    "checkbox list: 200 g ricotta, 2 eggs (both ticked orange, crossed out), 120 g flour, 1 lemon, zested, 150 ml milk, 1 tbsp sugar",
+    "Method bold",
+    "steps: Whisk ricotta, eggs, milk and zest until smooth. / Fold in flour and sugar; rest five minutes. / Fry spoonfuls in butter, two minutes a side."
+  ],
+  "time": {
+    "firstStrokeToDoneS": 298,
+    "firstReadingS": 114,
+    "readS": [
+      85
+    ],
+    "buildS": [
+      182
+    ],
+    "sketchingS": 31
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 57663,
+    "cacheRead": 566133,
+    "output": 24119,
+    "billed": 81782
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#fffbea",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 472
+    },
+    {
+      "op": "pen",
+      "color": "#ebe3c8",
+      "at": 884
+    },
+    {
+      "op": "stroke",
+      "at": 4905
+    },
+    {
+      "op": "note",
+      "at": 5567
+    },
+    {
+      "op": "pen",
+      "color": "#f59e0b",
+      "at": 5940
+    },
+    {
+      "op": "stroke",
+      "at": 11340
+    },
+    {
+      "op": "stroke",
+      "at": 11809
+    },
+    {
+      "op": "pen",
+      "color": "#3d1f0a",
+      "at": 12177
+    },
+    {
+      "op": "stroke",
+      "at": 14021
+    },
+    {
+      "op": "note",
+      "at": 14811
+    },
+    {
+      "op": "note",
+      "at": 15562
+    },
+    {
+      "op": "pen",
+      "color": "#fde68a",
+      "at": 15926
+    },
+    {
+      "op": "stroke",
+      "at": 17026
+    },
+    {
+      "op": "stroke",
+      "at": 18123
+    },
+    {
+      "op": "stroke",
+      "at": 19225
+    },
+    {
+      "op": "pen",
+      "color": "#d97706",
+      "at": 19593
+    },
+    {
+      "op": "stroke",
+      "at": 20690
+    },
+    {
+      "op": "note",
+      "at": 21436
+    },
+    {
+      "op": "note",
+      "at": 22078
+    },
+    {
+      "op": "note",
+      "at": 22927
+    },
+    {
+      "op": "note",
+      "at": 23553
+    },
+    {
+      "op": "pen",
+      "color": "#3d1f0a",
+      "at": 23921
+    },
+    {
+      "op": "stroke",
+      "at": 24727
+    },
+    {
+      "op": "stroke",
+      "at": 25209
+    },
+    {
+      "op": "stroke",
+      "at": 26008
+    },
+    {
+      "op": "stroke",
+      "at": 26483
+    },
+    {
+      "op": "stroke",
+      "at": 27290
+    },
+    {
+      "op": "stroke",
+      "at": 27757
+    },
+    {
+      "op": "note",
+      "at": 28780
+    },
+    {
+      "op": "run",
+      "at": 28903
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1000,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 472
+    },
+    {
+      "way": [
+        [
+          2,
+          70
+        ],
+        [
+          1278,
+          70
+        ]
+      ],
+      "n": 214,
+      "at": 4905
+    },
+    {
+      "way": [
+        [
+          60,
+          110
+        ],
+        [
+          580,
+          110
+        ],
+        [
+          580,
+          470
+        ],
+        [
+          60,
+          470
+        ],
+        [
+          60,
+          112
+        ]
+      ],
+      "n": 295,
+      "at": 11340
+    },
+    {
+      "way": [
+        [
+          320,
+          290
+        ]
+      ],
+      "n": 1,
+      "at": 11809
+    },
+    {
+      "way": [
+        [
+          640,
+          155
+        ],
+        [
+          1140,
+          155
+        ]
+      ],
+      "n": 84,
+      "at": 14021
+    },
+    {
+      "way": [
+        [
+          640,
+          230
+        ],
+        [
+          710,
+          230
+        ],
+        [
+          710,
+          273
+        ],
+        [
+          640,
+          273
+        ],
+        [
+          640,
+          232
+        ]
+      ],
+      "n": 39,
+      "at": 17026
+    },
+    {
+      "way": [
+        [
+          804,
+          230
+        ],
+        [
+          874,
+          230
+        ],
+        [
+          874,
+          273
+        ],
+        [
+          804,
+          273
+        ],
+        [
+          804,
+          232
+        ]
+      ],
+      "n": 39,
+      "at": 18123
+    },
+    {
+      "way": [
+        [
+          886,
+          230
+        ],
+        [
+          956,
+          230
+        ],
+        [
+          956,
+          273
+        ],
+        [
+          886,
+          273
+        ],
+        [
+          886,
+          232
+        ]
+      ],
+      "n": 39,
+      "at": 19225
+    },
+    {
+      "way": [
+        [
+          722,
+          230
+        ],
+        [
+          792,
+          230
+        ],
+        [
+          792,
+          273
+        ],
+        [
+          722,
+          273
+        ],
+        [
+          722,
+          232
+        ]
+      ],
+      "n": 39,
+      "at": 20690
+    },
+    {
+      "way": [
+        [
+          94,
+          577
+        ],
+        [
+          92,
+          586
+        ],
+        [
+          86,
+          592
+        ],
+        [
+          77,
+          594
+        ],
+        [
+          68,
+          592
+        ],
+        [
+          62,
+          586
+        ],
+        [
+          60,
+          577
+        ],
+        [
+          62,
+          568
+        ],
+        [
+          68,
+          562
+        ],
+        [
+          77,
+          560
+        ],
+        [
+          86,
+          562
+        ],
+        [
+          92,
+          568
+        ],
+        [
+          94,
+          577
+        ]
+      ],
+      "n": 21,
+      "at": 24727
+    },
+    {
+      "way": [
+        [
+          77,
+          577
+        ]
+      ],
+      "n": 1,
+      "at": 25209
+    },
+    {
+      "way": [
+        [
+          94,
+          633
+        ],
+        [
+          92,
+          642
+        ],
+        [
+          86,
+          648
+        ],
+        [
+          77,
+          650
+        ],
+        [
+          68,
+          648
+        ],
+        [
+          62,
+          642
+        ],
+        [
+          60,
+          633
+        ],
+        [
+          62,
+          624
+        ],
+        [
+          68,
+          618
+        ],
+        [
+          77,
+          616
+        ],
+        [
+          86,
+          618
+        ],
+        [
+          92,
+          624
+        ],
+        [
+          94,
+          633
+        ]
+      ],
+      "n": 21,
+      "at": 26008
+    },
+    {
+      "way": [
+        [
+          77,
+          633
+        ]
+      ],
+      "n": 1,
+      "at": 26483
+    },
+    {
+      "way": [
+        [
+          94,
+          689
+        ],
+        [
+          92,
+          698
+        ],
+        [
+          86,
+          704
+        ],
+        [
+          77,
+          706
+        ],
+        [
+          68,
+          704
+        ],
+        [
+          62,
+          698
+        ],
+        [
+          60,
+          689
+        ],
+        [
+          62,
+          680
+        ],
+        [
+          68,
+          674
+        ],
+        [
+          77,
+          672
+        ],
+        [
+          86,
+          674
+        ],
+        [
+          92,
+          680
+        ],
+        [
+          94,
+          689
+        ]
+      ],
+      "n": 21,
+      "at": 27290
+    },
+    {
+      "way": [
+        [
+          77,
+          689
+        ]
+      ],
+      "n": 1,
+      "at": 27757
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Pantry bold",
+      "whole": false,
+      "x": 90,
+      "y": 34,
+      "at": 5567
+    },
+    {
+      "text": "Lemon ricotta pancakes, big bold",
+      "whole": false,
+      "x": 890,
+      "y": 152,
+      "at": 14811
+    },
+    {
+      "text": "25 min · Easy · Breakfast",
+      "whole": false,
+      "x": 700,
+      "y": 188,
+      "at": 15562
+    },
+    {
+      "text": "servings 1 2 4 6, 2 picked",
+      "whole": false,
+      "x": 820,
+      "y": 290,
+      "at": 21436
+    },
+    {
+      "text": "Ingredients bold",
+      "whole": false,
+      "x": 680,
+      "y": 322,
+      "at": 22078
+    },
+    {
+      "text": "checkbox list: 200 g ricotta, 2 eggs (both ticked orange, crossed out), 120 g flour, 1 lemon, zested, 150 ml milk, 1 tbsp sugar",
+      "whole": false,
+      "x": 700,
+      "y": 440,
+      "at": 22927
+    },
+    {
+      "text": "Method bold",
+      "whole": false,
+      "x": 90,
+      "y": 522,
+      "at": 23553
+    },
+    {
+      "text": "steps: Whisk ricotta, eggs, milk and zest until smooth. / Fold in flour and sugar; rest five minutes. / Fry spoonfuls in butter, two minutes a side.",
+      "whole": false,
+      "x": 300,
+      "y": 630,
+      "at": 28780
+    }
+  ]
+}

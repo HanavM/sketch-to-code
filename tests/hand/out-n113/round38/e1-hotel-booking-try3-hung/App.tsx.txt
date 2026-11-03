@@ -1,0 +1,111 @@
+const calendarDays: (number | null)[] = [
+  null, null, null, null, null, null, 1,
+  2, 3, 4, 5, 6, 7, 8,
+  9, 10, 11, 12, 13, 14, 15,
+  16, 17, 18, 19, 20, 21, 22,
+  23, 24, 25, 26, 27, 28, 29,
+  30, null, null, null, null, null, null,
+]
+
+const rooms = [
+  {
+    thumb: '#f9cfe6',
+    name: 'Garden double',
+    details: 'Queen bed · courtyard view',
+    price: '$140',
+  },
+  {
+    thumb: '#ddd6fe',
+    name: 'River suite',
+    details: 'King bed · balcony',
+    price: '$230',
+  },
+  {
+    thumb: '#bbf7d0',
+    name: 'Twin room',
+    details: 'Two singles · quiet side',
+    price: '$120',
+  },
+]
+
+export default function App() {
+  return (
+    <main className="min-h-screen bg-white">
+      <header className="flex h-[72px] items-center justify-between px-14">
+        <span className="text-2xl font-bold text-[#be185d]">staylo</span>
+        <a href="#" className="text-base text-[#111827]">Sign in</a>
+      </header>
+      <div className="border-t" style={{ borderTopColor: '#e5e7eb' }} />
+
+      <div className="px-14 pt-[28px]">
+        <div className="flex h-[76px] items-center gap-6 rounded-lg border border-[#d1d5db] pl-6 pr-2.5">
+          <div className="flex-1">
+            <div className="text-xs font-medium text-gray-500">Where</div>
+            <div className="text-sm text-[#111827]">Lisbon</div>
+          </div>
+          <div className="flex-1">
+            <div className="text-xs font-medium text-gray-500">Dates</div>
+            <div className="text-sm text-[#111827]">Nov 12 – 16</div>
+          </div>
+          <div className="flex-1">
+            <div className="text-xs font-medium text-gray-500">Guests</div>
+            <div className="text-sm text-[#111827]">2 adults</div>
+          </div>
+          <button className="h-[57px] w-[151px] shrink-0 rounded-lg bg-[#be185d] font-medium text-white">
+            Search
+          </button>
+        </div>
+      </div>
+
+      <h2 className="px-14 pt-10 text-lg font-semibold text-[#111827]">3 rooms available</h2>
+
+      <div className="flex gap-10 px-14 pt-4 pb-14">
+        <div className="flex flex-1 flex-col gap-6">
+          {rooms.map((room) => (
+            <div key={room.name} className="flex h-[190px] border border-[#d1d5db]">
+              <div className="h-full w-[251px] shrink-0" style={{ backgroundColor: room.thumb }} />
+              <div className="flex flex-1 items-start justify-between px-6 pt-[50px]">
+                <div>
+                  <h3 className="font-semibold text-[#111827]">{room.name}</h3>
+                  <p className="mt-1 text-sm text-gray-500">{room.details}</p>
+                </div>
+                <div className="font-semibold text-[#111827]">{room.price}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <aside className="flex w-[408px] shrink-0 flex-col rounded-lg border border-[#d1d5db] p-6">
+          <h3 className="font-bold text-[#111827]">November 2026</h3>
+          <div className="mt-4 grid grid-cols-7 text-center text-xs font-medium text-gray-500">
+            {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
+              <span key={i}>{d}</span>
+            ))}
+          </div>
+          <div className="mt-2 grid flex-1 grid-cols-7 gap-y-1">
+            {calendarDays.map((d, i) => (
+              <div key={i} className="flex h-10 items-center justify-center">
+                {d === null ? null : d === 12 || d === 16 ? (
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#be185d] text-sm font-bold text-white">
+                    {d}
+                  </span>
+                ) : d >= 13 && d <= 15 ? (
+                  <span className="flex h-8 w-full items-center justify-center bg-[#f9cfe6] text-sm text-[#111827]">
+                    {d}
+                  </span>
+                ) : (
+                  <span className="flex h-8 w-8 items-center justify-center text-sm text-[#111827]">
+                    {d}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+          <button className="mt-6 h-[57px] w-full rounded-lg bg-[#111827] font-medium text-white">
+            Reserve · 4 nights
+          </button>
+        </aside>
+      </div>
+    </main>
+  )
+}

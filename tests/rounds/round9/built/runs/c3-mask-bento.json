@@ -1,0 +1,158 @@
+{
+  "id": "c3-mask-bento",
+  "at": "2026-10-23T08:50:23.088Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9642560527837547,
+    "overallV2": 0.9642560527837547,
+    "overallV1": 0.930088346874614,
+    "colour": 0.9874170149948512,
+    "structure": 0.9587678109570793,
+    "structureStrict": 0.8948392087587017,
+    "colourAligned": 0.9874170149948512,
+    "structureAligned": 0.9587678109570793,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9889671624547767
+    },
+    "layout": 1
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "clip-shape",
+      "gradient-text",
+      "huge-type",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": [
+      "hard-shadow",
+      "overlap",
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 22877,
+    "output": 9081,
+    "cacheRead": 129755
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 24708,
+      "output": 6415,
+      "cacheRead": 126671,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 64310
+    }
+  ],
+  "reading": "The user sketched six boxes laying out a dashboard-style page, each annotated with a detailed typed note specifying exact size, position, fill, and content: a black \"FLUX\" gradient-text hero card, a yellow punch-hole heading card, a white progress-ring card, a striped \"BETA\" card, a purple notched-corner card, and a white task-list card titled \"This week\".",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        633,
+        433
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a 640x440px card, absolutely placed with its top-left at (40,40), #1c1917 fill, 28px rounded corners, overflow hidden — NOT a picture or photo placeholder. "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        43,
+        533,
+        203
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a 540x210px card, absolutely placed with its top-left at (700,40), #fde68a fill, 28px rounded corners, overflow hidden — NOT a picture or photo placeholder."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        273,
+        253,
+        204
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a white 260x210px card, absolutely placed with its top-left at (700,270) — its top is 20px below the bottom of the card above it (which ends at y=250, so no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        983,
+        273,
+        253,
+        203
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a 260x210px card, absolutely placed with its top-left at (980,270) — its top is 20px below the bottom of the card above it (which ends at y=250, so no wider"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        503,
+        414,
+        353
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a 420x360px card, absolutely placed with its top-left at (40,500) — its top is 20px below the bottom of the card above it (which ends at y=480, so no wider "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        484,
+        503,
+        753,
+        354
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a 760x360px card, absolutely placed with its top-left at (480,500) — its top is 20px below the bottom of the card above it (which ends at y=480, so no wider"
+    }
+  ],
+  "rejected": []
+}

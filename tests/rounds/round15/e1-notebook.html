@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Data notebook</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fafafa;font-family:Helvetica,Arial,sans-serif;color:#222;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:48px;background:#fff;border-bottom:1px solid #e3e3e3;padding:14px 20px;display:flex;gap:18px}.top b{font-size:15px}.top span{color:#666}
+.top a{position:absolute;right:20px;top:9px;padding:7px 14px;background:#f37726;color:#fff;border-radius:5px;font-weight:700}
+.files{position:absolute;left:0;top:48px;width:220px;height:852px;background:#f0f0f0;border-right:1px solid #e3e3e3;padding:14px;line-height:2.1}.files .on{background:#dde6f5;margin:0 -14px;padding:0 14px}
+.cells{position:absolute;left:240px;top:68px;width:1020px}
+.cell{display:flex;margin-bottom:14px}.cell .n{width:70px;color:#307fc1;font-family:monospace;padding-top:10px}
+.code{flex:1;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:4px;padding:10px 12px;font-family:monospace;line-height:1.6;white-space:pre}
+.code.on{border-color:#307fc1;box-shadow:inset 3px 0 0 #307fc1}
+.k{color:#008000;font-weight:700}.s{color:#ba2121}.f{color:#0000ff}
+.out{flex:1;padding:4px 0}
+table{border-collapse:collapse;font-size:12px}td,th{padding:5px 12px;text-align:right;border-bottom:1px solid #eee}th{background:#f3f3f3}tr:nth-child(even) td{background:#f9f9f9}
+.chart{position:relative;width:520px;height:200px;border-left:1px solid #999;border-bottom:1px solid #999;margin-left:30px}
+.chart i{position:absolute;bottom:0;width:44px;background:#4c72b0}
+.md{flex:1;font-size:20px;font-weight:700;padding:6px 0}
+</style></head><body>
+<div class="top" data-r="toolbar"><b>sales_q3.ipynb</b><span>File</span><span>Edit</span><span>Run</span><span>Kernel</span><span style="margin-left:300px">Python 3 ● idle</span><a>Share</a></div>
+<div class="files" data-r="file-tree"><div>📁 data</div><div class="on">📓 sales_q3.ipynb</div><div>📓 cohorts.ipynb</div><div>📄 README.md</div><div>📄 requirements.txt</div></div>
+<div class="cells" data-r="cells" data-must>
+<div class="cell"><div class="n"></div><div class="md">Q3 revenue by region</div></div>
+<div class="cell"><div class="n">[12]:</div><div class="code"><span class="k">import</span> pandas <span class="k">as</span> pd
+df = pd.read_csv(<span class="s">"data/q3.csv"</span>)
+df.groupby(<span class="s">"region"</span>).revenue.<span class="f">sum</span>().head()</div></div>
+<div class="cell"><div class="n" style="color:#d84315">Out[12]:</div><div class="out"><table><tr><th>region</th><th>revenue</th><th>orders</th></tr><tr><td>EMEA</td><td>1,284,300</td><td>4,120</td></tr><tr><td>NA</td><td>2,019,880</td><td>6,452</td></tr><tr><td>APAC</td><td>874,210</td><td>2,903</td></tr><tr><td>LATAM</td><td>311,950</td><td>1,180</td></tr></table></div></div>
+<div class="cell"><div class="n">[13]:</div><div class="code on">df.plot.bar(x=<span class="s">"region"</span>, y=<span class="s">"revenue"</span>)</div></div>
+<div class="cell"><div class="n"></div><div class="out"><div class="chart"><i style="left:30px;height:120px"></i><i style="left:140px;height:190px"></i><i style="left:250px;height:82px"></i><i style="left:360px;height:30px"></i></div></div></div>
+</div>
+</body></html>

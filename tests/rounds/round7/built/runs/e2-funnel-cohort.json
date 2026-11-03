@@ -1,0 +1,196 @@
+{
+  "id": "e2-funnel-cohort",
+  "at": "2026-10-22T23:16:14.189Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8010772602954106,
+    "overallV2": 0.8010772602954106,
+    "overallV1": 0.7186291112206606,
+    "colour": 0.9773002418789046,
+    "structure": 0.8927040219913519,
+    "structureStrict": 0.7888456908193981,
+    "colourAligned": 0.9773002418789046,
+    "structureAligned": 0.8927040219913519,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9192486117812617
+    },
+    "layout": 0.9267972373006226
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 75859,
+    "output": 53926,
+    "cacheRead": 379419
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 81558,
+      "output": 33258,
+      "cacheRead": 168971,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 395495
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 40420,
+      "output": 17889,
+      "cacheRead": 207364,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 222893
+    }
+  ],
+  "reading": "A growth-analytics dashboard: a header bar with a title and date-range button, a row of four stat cards (Visitors, Sign-ups, Activated, Paid) each with a number and sparkline, a conversion-funnel chart card, and below it two more cards for a stacked sign-ups-by-source bar chart and a retention cohort heat table — all content and styling specified precisely by the typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        36,
+        27,
+        1208,
+        27
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Page header bar spanning the full width: title \"Growth\" on the left, and on the right a white button with near-black text reading \"Sep 1 – Oct 22, 2026 ▾\". Whol"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        35,
+        83,
+        284,
+        104
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "White stat card: small grey label \"Visitors\", below it a big 28px bold number \"48,210\", and a small 90x30px teal sparkline (thin 7-point line, no fill, no axes)"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        342,
+        83,
+        283,
+        103
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "White stat card: small grey label \"Sign-ups\", below it a big 28px bold number \"3,904\", and a small 90x30px teal sparkline (thin 7-point line, no fill, no axes) "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        647,
+        83,
+        284,
+        104
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "White stat card: small grey label \"Activated\", below it a big 28px bold number \"1,722\", and a small 90x30px red sparkline (thin 7-point line, no fill, no axes) "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        954,
+        83,
+        283,
+        103
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "White stat card: small grey label \"Paid\", below it a big 28px bold number \"412\", and a small 90x30px teal sparkline (thin 7-point line, no fill, no axes) rising"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        35,
+        213,
+        554,
+        324
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Card titled \"Conversion funnel\": a funnel chart (not progress rows, not a list) made of 4 solid teal bars, each 46px tall with 6px rounded corners, stacked 60px"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        611,
+        213,
+        633,
+        324
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Card titled \"Sign-ups by source\": a stacked bar chart (not a list) with 8 bars, each 44px wide, spaced 30px apart, standing on a common baseline across a 250px "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        35,
+        559,
+        1210,
+        314
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Card titled \"Weekly retention cohorts\": a cohort heat table (not pills, not a plain table) with column headers \"W0\" \"W1\" \"W2\" \"W3\" \"W4\" \"W5\" over the cells. Eac"
+    }
+  ],
+  "rejected": []
+}

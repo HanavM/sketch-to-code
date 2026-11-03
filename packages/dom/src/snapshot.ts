@@ -67,6 +67,21 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
       }
       text = text.replace(/\s+/g, ' ').trim().slice(0, maxTextLen)
       const textRuns = runs.map((r) => r.replace(/\s+/g, ' ').trim()).filter(Boolean)
+      // n17: where the letters themselves sit (a block's rect can be far wider than its word)
+      let textBox: { x: number; y: number; w: number; h: number } | undefined
+      if (text) {
+        let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+        for (const child of el.childNodes) {
+          if (child.nodeType !== 3 || !(child.textContent ?? '').trim()) continue
+          const range = doc.createRange()
+          range.selectNodeContents(child)
+          for (const r of range.getClientRects()) {
+            if (r.width < 1 || r.height < 1) continue
+            x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom)
+          }
+        }
+        if (x1 > x0) textBox = { x: x0 + sx, y: y0 + sy, w: x1 - x0, h: y1 - y0 }
+      }
 
       nodes.push({
         id: myId,
@@ -79,6 +94,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           h: rect.height,
         },
         text,
+        ...(textBox ? { textBox } : {}),
         ...(textRuns.length > 1 ? { textRuns: textRuns.map((r) => r.slice(0, maxTextLen)) } : {}),
         classes: typeof el.className === 'string' ? el.className.split(/\s+/).filter(Boolean).slice(0, 24) : [],
         style: {
@@ -94,6 +110,19 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
           fontSize: cs.fontSize,
           fontWeight: cs.fontWeight,
           borderRadius: cs.borderRadius,
+          ...(cs.backgroundImage && cs.backgroundImage !== 'none' ? { backgroundImage: cs.backgroundImage.slice(0, /conic/.test(cs.backgroundImage) ? 900 : 240) } : {}),
+          ...(cs.clipPath && cs.clipPath !== 'none' ? { clipPath: cs.clipPath.slice(0, 1600) } : {}),
+          ...(cs.borderTopWidth && parseFloat(cs.borderTopWidth) > 0 && cs.borderTopStyle !== 'none' ? { border: `${cs.borderTopWidth} ${cs.borderTopColor}` } : {}),
+          ...(cs.borderBottomWidth && parseFloat(cs.borderBottomWidth) > 0 && cs.borderBottomStyle !== 'none' ? { borderBottom: `${cs.borderBottomWidth} ${cs.borderBottomColor}` } : {}),
+          ...(/underline/.test(cs.textDecorationLine ?? '') ? { textDecoration: 'underline' } : {}),
+          ...(cs.boxShadow && cs.boxShadow !== 'none' ? { boxShadow: cs.boxShadow.slice(0, 60) } : {}),
+          ...(cs.opacity && Number(cs.opacity) < 1 ? { opacity: cs.opacity } : {}),
+          ...(cs.filter && cs.filter !== 'none' ? { filter: cs.filter.slice(0, 60) } : {}),
+          ...(cs.transform && cs.transform !== 'none' ? { transform: cs.transform.slice(0, 80) } : {}),
+          ...(parseFloat(cs.getPropertyValue('-webkit-text-stroke-width')) > 0 ? { textStroke: cs.getPropertyValue('-webkit-text-stroke-width') } : {}),
+          // n190: an svg shape's own paint (a drawn route, a ring): a fix that repaints it is measured too
+          ...(/^(?:path|line|polyline|polygon|circle|ellipse|rect)$/i.test(tag) && cs.stroke && cs.stroke !== 'none' ? { svgStroke: cs.stroke } : {}),
+          ...(/^(?:path|polygon|circle|ellipse|rect)$/i.test(tag) && cs.fill && cs.fill !== 'none' ? { svgFill: cs.fill } : {}),
         },
         parent: parentId,
         depth,
@@ -108,6 +137,7 @@ export function takeSnapshot(doc: Document, opts: SnapshotOptions = {}): DomSnap
   return {
     nodes,
     viewport: { w: win.innerWidth, h: win.innerHeight, scrollX: sx, scrollY: sy },
+    ...(doc.documentElement ? { doc: { w: doc.documentElement.scrollWidth, h: doc.documentElement.scrollHeight } } : {}),
     url: win.location.href,
     takenAt: Date.now(),
     truncated,

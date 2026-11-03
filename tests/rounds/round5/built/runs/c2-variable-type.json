@@ -1,0 +1,217 @@
+{
+  "id": "c2-variable-type",
+  "at": "2026-10-21T21:55:58.575Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.721244535567774,
+    "overallV2": 0.721244535567774,
+    "overallV1": 0.6361964970202257,
+    "colour": 0.9191030230765268,
+    "structure": 0.8922132121386757,
+    "structureStrict": 0.7815976665733817,
+    "colourAligned": 0.9191030230765268,
+    "structureAligned": 0.8922132121386757,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8528857263105749
+    },
+    "layout": 0.8037165189483053
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "huge-type",
+      "italic",
+      "motion",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 33247,
+    "output": 16836,
+    "cacheRead": 167196
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 38149,
+      "output": 12009,
+      "cacheRead": 157434,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx",
+        "Write src/App.tsx",
+        "Edit src/index.css"
+      ],
+      "ms": 133965
+    }
+  ],
+  "reading": "The sketch is a type-specimen hero: three wavy placeholder lines each become one giant word rendered in its own distinct type style (Weight/Width/Slant, per the matching typed notes in note order), a circle with a tiny dot becomes a spinning ring of small caps text with a red centre dot, a long bar becomes a scrolling marquee strip, and below it a short brown caption line plus a red pill button round out the footer.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s2"
+          ],
+          "lines": 3,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        56,
+        108,
+        480,
+        126
+      ],
+      "paths": [],
+      "instruction": "Add giant heading text reading \"Weight\", set in Helvetica, thin hairline weight, tightly tracked/tight-set letters, near-black colour."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s2"
+          ],
+          "lines": 3,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        56,
+        278,
+        430,
+        126
+      ],
+      "paths": [],
+      "instruction": "Add giant heading text reading \"Width\", set in Helvetica italic, heavy weight, tightly tracked letters, coloured red."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s2"
+          ],
+          "lines": 3,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        56,
+        448,
+        477,
+        126
+      ],
+      "paths": [],
+      "instruction": "Add giant heading text reading \"Slant\", set in Helvetica with wide letter-spacing, near-black colour."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1003,
+        124,
+        192,
+        191
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a circular text widget: a spinning ring of small, spaced capital letters reading \"ONE FAMILY · 3 AXES · 900 STYLES ·\" running around the circumference of a "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1090,
+        210,
+        20,
+        20
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "At the centre of the spinning text ring, add a small 28px vivid red dot."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        693,
+        1273,
+        64
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a scrolling marquee bar: a near-black background strip with light grey, bold, 34px text reading \"Flex Grotesk — now variable ✦\" repeated continuously along "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        804,
+        304,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add a short line of brown text reading \"Free for personal use. Studio licence from €90.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1095,
+        793,
+        134,
+        39
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a red pill-shaped button with white text reading \"Try the axes\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

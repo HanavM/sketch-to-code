@@ -1,0 +1,134 @@
+{
+  "id": "e1-video-call",
+  "at": "2026-10-23T12:16:15.479Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8526842170769262,
+    "overallV2": 0.8526842170769262,
+    "overallV1": 0.8132336463668173,
+    "colour": 0.9910554325513763,
+    "structure": 0.9599840809560727,
+    "structureStrict": 0.8910282108290356,
+    "colourAligned": 0.9910554325513763,
+    "structureAligned": 0.9599840809560727,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9928954536693801
+    },
+    "layout": 0.6058716463241083
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 39012,
+    "output": 16275,
+    "cacheRead": 273039
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 39625,
+      "output": 10068,
+      "cacheRead": 111376,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 94735
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 4110,
+      "output": 1480,
+      "cacheRead": 151516,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 15600
+    }
+  ],
+  "reading": "The sketch lays out a video-call UI: a top header bar, a large participant-grid panel, a bottom control bar, and a right-hand sidebar panel. Typed notes give exact specs for every piece, which take priority over the rough ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        28,
+        25,
+        892,
+        9
+      ],
+      "paths": [],
+      "instruction": "Build the top header bar (drawn as the wavy strip) as three separate live-text elements: a 185x18 element at 24,20 with 16px bold white text \"Design crit — Q4 l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        67,
+        894,
+        694
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build the large participant grid panel as six participant cards plus two mute indicators, all real elements with live text: card 1 (292x344 at 24,64, linear-gra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        793,
+        893,
+        78
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Build the bottom control bar as six real elements: five 52x52 circular icon buttons at 249,806 / 317,806 / 385,806 / 453,806 / 521,806 — the first (249,806) #3f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        951,
+        3,
+        326,
+        894
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build the right sidebar panel as a white \"In-call messages\" block containing a list of 4 message rows, each with the sender name on the left and timestamp on th"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

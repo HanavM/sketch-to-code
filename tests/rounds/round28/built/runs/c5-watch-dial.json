@@ -1,0 +1,582 @@
+{
+  "id": "c5-watch-dial",
+  "at": "2026-10-27T07:49:54.959Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9576950384518619,
+    "overallV2": 0.9576950384518619,
+    "overallV1": 0.9380948948410397,
+    "colour": 0.9962409258220273,
+    "structure": 0.9772766292650971,
+    "structureStrict": 0.9270101088197094,
+    "colourAligned": 0.9962409258220273,
+    "structureAligned": 0.9772766292650971,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9825736038874696
+    },
+    "layout": 0.8936891379475759,
+    "layoutV1": 0.7687213426474281,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      64,
+      40,
+      169,
+      26
+    ],
+    [
+      0,
+      883,
+      40,
+      333,
+      20
+    ],
+    [
+      2,
+      883,
+      40,
+      113,
+      20
+    ],
+    [
+      2,
+      1030,
+      40,
+      74,
+      20
+    ],
+    [
+      2,
+      1138,
+      40,
+      78,
+      20
+    ],
+    [
+      0,
+      640,
+      110,
+      600,
+      600
+    ],
+    [
+      6,
+      680,
+      150,
+      520,
+      520
+    ],
+    [
+      6,
+      875,
+      230,
+      130,
+      130
+    ],
+    [
+      6,
+      875,
+      460,
+      130,
+      130
+    ],
+    [
+      0,
+      640,
+      110,
+      600,
+      600
+    ],
+    [
+      10,
+      700,
+      170,
+      480,
+      480
+    ],
+    [
+      11,
+      1053,
+      202,
+      7,
+      12
+    ],
+    [
+      11,
+      1136,
+      290,
+      12,
+      7
+    ],
+    [
+      11,
+      1136,
+      523,
+      12,
+      7
+    ],
+    [
+      11,
+      1053,
+      606,
+      7,
+      12
+    ],
+    [
+      11,
+      820,
+      606,
+      7,
+      12
+    ],
+    [
+      11,
+      732,
+      523,
+      12,
+      7
+    ],
+    [
+      11,
+      732,
+      290,
+      12,
+      7
+    ],
+    [
+      11,
+      820,
+      202,
+      7,
+      12
+    ],
+    [
+      10,
+      716,
+      186,
+      448,
+      232
+    ],
+    [
+      20,
+      932,
+      186,
+      16,
+      40
+    ],
+    [
+      20,
+      1124,
+      402,
+      40,
+      16
+    ],
+    [
+      20,
+      716,
+      402,
+      40,
+      16
+    ],
+    [
+      10,
+      830,
+      200,
+      240,
+      250
+    ],
+    [
+      24,
+      830,
+      310,
+      110,
+      100
+    ],
+    [
+      24,
+      940,
+      270,
+      130,
+      140
+    ],
+    [
+      10,
+      928,
+      398,
+      24,
+      24
+    ],
+    [
+      10,
+      867,
+      564,
+      147,
+      20
+    ],
+    [
+      0,
+      72,
+      170,
+      490,
+      160
+    ],
+    [
+      29,
+      72,
+      170,
+      490,
+      80
+    ],
+    [
+      30,
+      278,
+      166,
+      298,
+      88
+    ],
+    [
+      29,
+      72,
+      250,
+      490,
+      80
+    ],
+    [
+      0,
+      66,
+      430,
+      440,
+      56
+    ],
+    [
+      0,
+      66,
+      520,
+      460,
+      169
+    ],
+    [
+      34,
+      66,
+      520,
+      460,
+      1
+    ],
+    [
+      34,
+      66,
+      521,
+      460,
+      42
+    ],
+    [
+      36,
+      66,
+      532,
+      43,
+      20
+    ],
+    [
+      36,
+      414,
+      532,
+      112,
+      20
+    ],
+    [
+      34,
+      66,
+      563,
+      460,
+      42
+    ],
+    [
+      39,
+      66,
+      574,
+      91,
+      20
+    ],
+    [
+      39,
+      412,
+      574,
+      114,
+      20
+    ],
+    [
+      34,
+      66,
+      605,
+      460,
+      42
+    ],
+    [
+      42,
+      66,
+      616,
+      76,
+      20
+    ],
+    [
+      42,
+      445,
+      616,
+      81,
+      20
+    ],
+    [
+      34,
+      66,
+      647,
+      460,
+      42
+    ],
+    [
+      45,
+      66,
+      658,
+      67,
+      20
+    ],
+    [
+      45,
+      471,
+      658,
+      55,
+      20
+    ],
+    [
+      0,
+      70,
+      803,
+      430,
+      47
+    ],
+    [
+      48,
+      70,
+      803,
+      185,
+      47
+    ],
+    [
+      48,
+      271,
+      803,
+      229,
+      47
+    ],
+    [
+      0,
+      784,
+      758,
+      152,
+      24
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.9997423624011824,
+      "parts": 2,
+      "rect": {
+        "x": 64,
+        "y": 40,
+        "w": 1152.296875,
+        "h": 26
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 45483,
+    "output": 24286,
+    "cacheRead": 196251
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48458,
+      "output": 15445,
+      "cacheRead": 182872,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 150119
+    }
+  ],
+  "ease": {
+    "marks": 10,
+    "captured": 10,
+    "notes": 9,
+    "words": 914,
+    "drawMs": 54092,
+    "readingMs": 72321,
+    "runMs": 223599
+  },
+  "reading": "This is a luxury watch landing-page hero: a top nav bar, a large circular watch/compass illustration on the right, a big serif headline, a lavender description paragraph, a 4-row spec list, two CTA buttons, and a small italic caption — all specified in detail by typed notes attached to each group of strokes, plus a run-wide note for the page's dark gradient background and typography.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        68,
+        49,
+        1144,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar. Left: 'HOROLOGE' at 169x26, top-left 64,40, 22px regular serif (not the page sans), colour #e9e3d6, letter-spacing 6px. Far right (650px gap"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        113,
+        594,
+        594
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Large circular watch/compass illustration, 600x600px, top-left at page 640,110. Two conflicting but both-specified descriptions to reconcile: (A) a 600px round "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 73
+        }
+      ],
+      "region": [
+        72,
+        170,
+        504,
+        160
+      ],
+      "paths": [],
+      "instruction": "Giant Didot serif headline, regular weight, line-height 1, about 490px wide, set in exactly two lines that never rewrap: 'Time, engraved' / 'by hand'. The word "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        70,
+        430,
+        432,
+        56
+      ],
+      "paths": [],
+      "instruction": "Serif lavender description paragraph: 'Calibre H-28: a guilloché dial cut on a 1920s rose engine, two sub-dials, a 72-hour reserve.' Colour #bdb6a8 (not the pag"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        70,
+        523,
+        453,
+        163
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Spec list, 460px wide, top-left at 66,520, no surrounding box/border/fill/rounded corners. 4 label/value rows stacked, each 42px tall, with a 1px rgba(233,227,2"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        70,
+        803,
+        422,
+        41
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Two CTA buttons in one row, packed left, 16px gap. 'RESERVE ONE' 185x47px, solid #d8b56a fill, 1px #d8b56a border, square corners, 13px bold text in #0b1018, le"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [],
+      "region": [
+        784,
+        765,
+        312,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small italic serif caption: 'No. 041 of 280, Geneva', colour #a9a294, 16px."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

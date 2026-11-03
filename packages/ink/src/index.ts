@@ -25,3 +25,15 @@ export { fitCurve, toSvgPath } from './fitcurve.js'
 export type { CubicBezier, SvgPathResult } from './fitcurve.js'
 export { strokeToEasing } from './easing.js'
 export type { Easing } from './easing.js'
+export {
+  measureTextMark, textMarkReason, isTextMark, isLevelLine, fontForPitch, textStacks, LONE_HEADING_INK,
+} from './textmark.js'
+export type { TextMarkMeasure, TextStack, StackOpts } from './textmark.js'
+export {
+  noteFocus, GIANT_STACK_PX, NOTE_FOCUS_SLACK_PX, NOTE_ON_BLOCK_PX, distToRect, union as bboxUnionAll, boxes as boxStrokes,
+  groupCount, listNote, rowSeed, oneOfLookAlikes, ROW_NOTE_REACH_PX,
+  besideSentence,
+} from './notefocus.js'
+export type { SliceChart, SlicePart } from './inkfill.js'
+export { isFillDot, inkFills, tapDots, TAP_COLUMN_PX, pageFill, flatPage, saysFlatPage, spotlight, markFill, sliceChart, sliceShares, sliceCss, sliceWedges, splitRegions, dividerSplit, splitCss, clipHalf, tapBands, FILL_DOT_PX, RECOLOUR_PX } from './inkfill.js'
+export type { TapDot, InkFill, PageFill, SplitRegion, FillSplit, TapBands } from './inkfill.js'

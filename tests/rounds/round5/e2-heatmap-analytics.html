@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Usage analytics</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111827}
+.side{position:absolute;left:0;top:0;width:220px;height:900px;background:#111827;color:#d1d5db;padding:24px 18px;font-size:14px;line-height:2.4}.side b{color:#fff;font-size:18px;display:block;margin-bottom:16px}.side .on{color:#fff;background:#374151;border-radius:6px;padding:0 10px;margin:0 -10px}
+.h{position:absolute;left:252px;top:28px;font-size:26px;font-weight:700}
+.filters{position:absolute;left:252px;top:80px;display:flex;gap:10px}.filters span{padding:8px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:13px}.filters .on{background:#111827;color:#fff;border-color:#111827}
+.heat{position:absolute;left:252px;top:140px;width:640px;height:380px;border:1px solid #e5e7eb;border-radius:12px;padding:18px}.heat h3{font-size:15px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:40px repeat(12,1fr);gap:4px;font-size:11px;color:#6b7280}.grid i{height:40px;border-radius:4px}
+.side2{position:absolute;left:916px;top:140px;width:336px;height:380px;border:1px solid #e5e7eb;border-radius:12px;padding:18px}.side2 h3{font-size:15px}.big{font-size:44px;font-weight:700;margin-top:20px}.up{color:#16a34a;font-size:14px}
+.tbl{position:absolute;left:252px;top:544px;width:1000px;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;font-size:14px}.tbl div{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;padding:14px 18px;border-bottom:1px solid #f3f4f6}.tbl .th{background:#f9fafb;color:#6b7280;font-size:12px;font-weight:700}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><b>Pulse</b><div class="on">Usage</div><div>Retention</div><div>Funnels</div><div>Users</div><div>Settings</div></div>
+<h1 class="h" data-r="title">Usage by hour</h1>
+<div class="filters" data-r="filters"><span class="on">Last 7 days</span><span>30 days</span><span>All plans</span><span>Export</span></div>
+<div class="heat" data-r="heatmap" data-must><h3>Active sessions (weekday × 2-hour block)</h3><div class="grid" id="g"></div></div>
+<div class="side2" data-r="peak"><h3>Peak hour</h3><div class="big">Tue 10:00</div><div class="up">▲ 18% vs last week</div></div>
+<div class="tbl" data-r="table" data-must><div class="th"><span>Feature</span><span>Sessions</span><span>Users</span><span>Change</span></div><div><span>Sketch overlay</span><span>12,480</span><span>3,102</span><span>+12%</span></div><div><span>Auto build</span><span>8,931</span><span>2,440</span><span>+8%</span></div><div><span>Export</span><span>2,115</span><span>980</span><span>-3%</span></div><div><span>Comments</span><span>1,702</span><span>611</span><span>+21%</span></div></div>
+<script>const g=document.getElementById('g');const d=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];for(let r=0;r<7;r++){const l=document.createElement('span');l.textContent=d[r];l.style.lineHeight='40px';g.appendChild(l);for(let c=0;c<12;c++){const v=Math.max(0,Math.sin((c-2)/3)*(r<5?1:.4));const i=document.createElement('i');i.style.background=`rgba(79,70,229,${(0.08+v*0.9).toFixed(2)})`;g.appendChild(i)}}</script>
+</body></html>

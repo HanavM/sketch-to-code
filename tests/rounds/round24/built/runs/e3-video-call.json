@@ -1,0 +1,755 @@
+{
+  "id": "e3-video-call",
+  "at": "2026-10-26T11:24:19.227Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9965009091057986,
+    "overallV2": 0.9965009091057986,
+    "overallV1": 0.9932208478228954,
+    "colour": 0.9984976363904146,
+    "structure": 0.9935759441150387,
+    "structureStrict": 0.9858368912136848,
+    "colourAligned": 0.9984976363904146,
+    "structureAligned": 0.9935759441150387,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9991006194554177
+    },
+    "layout": 0.9999774356482044,
+    "layoutV1": 0.9,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      171,
+      18,
+      59,
+      22
+    ],
+    [
+      2,
+      181,
+      20,
+      25,
+      18
+    ],
+    [
+      1,
+      24,
+      20,
+      133,
+      18
+    ],
+    [
+      1,
+      823,
+      21,
+      101,
+      16
+    ],
+    [
+      1,
+      24,
+      60,
+      620,
+      420
+    ],
+    [
+      6,
+      24,
+      60,
+      620,
+      36
+    ],
+    [
+      6,
+      36,
+      73,
+      10,
+      10
+    ],
+    [
+      6,
+      52,
+      73,
+      10,
+      10
+    ],
+    [
+      6,
+      68,
+      73,
+      10,
+      10
+    ],
+    [
+      6,
+      54,
+      124,
+      560,
+      34
+    ],
+    [
+      6,
+      54,
+      174,
+      560,
+      220
+    ],
+    [
+      6,
+      54,
+      261,
+      99,
+      131
+    ],
+    [
+      6,
+      169,
+      207,
+      99,
+      185
+    ],
+    [
+      6,
+      284,
+      294,
+      99,
+      98
+    ],
+    [
+      6,
+      400,
+      239,
+      99,
+      153
+    ],
+    [
+      6,
+      515,
+      327,
+      99,
+      65
+    ],
+    [
+      1,
+      660,
+      60,
+      260,
+      200
+    ],
+    [
+      18,
+      742,
+      112,
+      96,
+      96
+    ],
+    [
+      19,
+      766,
+      135,
+      47,
+      51
+    ],
+    [
+      18,
+      670,
+      228,
+      69,
+      22
+    ],
+    [
+      21,
+      678,
+      230,
+      53,
+      18
+    ],
+    [
+      1,
+      660,
+      280,
+      260,
+      200
+    ],
+    [
+      23,
+      882,
+      290,
+      28,
+      28
+    ],
+    [
+      24,
+      891,
+      294,
+      11,
+      20
+    ],
+    [
+      23,
+      742,
+      332,
+      96,
+      96
+    ],
+    [
+      26,
+      767,
+      355,
+      45,
+      51
+    ],
+    [
+      23,
+      670,
+      448,
+      77,
+      22
+    ],
+    [
+      28,
+      678,
+      450,
+      61,
+      18
+    ],
+    [
+      1,
+      24,
+      500,
+      290,
+      280
+    ],
+    [
+      30,
+      121,
+      592,
+      96,
+      96
+    ],
+    [
+      31,
+      143,
+      615,
+      53,
+      51
+    ],
+    [
+      30,
+      34,
+      748,
+      63,
+      22
+    ],
+    [
+      33,
+      42,
+      750,
+      47,
+      18
+    ],
+    [
+      1,
+      334,
+      500,
+      290,
+      280
+    ],
+    [
+      35,
+      586,
+      510,
+      28,
+      28
+    ],
+    [
+      36,
+      595,
+      514,
+      11,
+      20
+    ],
+    [
+      35,
+      431,
+      592,
+      96,
+      96
+    ],
+    [
+      38,
+      454,
+      615,
+      49,
+      51
+    ],
+    [
+      35,
+      344,
+      748,
+      89,
+      22
+    ],
+    [
+      40,
+      352,
+      750,
+      73,
+      18
+    ],
+    [
+      1,
+      644,
+      500,
+      276,
+      130
+    ],
+    [
+      42,
+      654,
+      598,
+      60,
+      22
+    ],
+    [
+      43,
+      662,
+      600,
+      44,
+      18
+    ],
+    [
+      1,
+      760,
+      650,
+      160,
+      120
+    ],
+    [
+      1,
+      0,
+      810,
+      940,
+      54
+    ],
+    [
+      46,
+      258,
+      810,
+      54,
+      54
+    ],
+    [
+      46,
+      326,
+      810,
+      54,
+      54
+    ],
+    [
+      46,
+      394,
+      810,
+      54,
+      54
+    ],
+    [
+      46,
+      462,
+      810,
+      54,
+      54
+    ],
+    [
+      46,
+      530,
+      810,
+      54,
+      54
+    ],
+    [
+      46,
+      598,
+      810,
+      84,
+      54
+    ],
+    [
+      1,
+      940,
+      0,
+      340,
+      900
+    ],
+    [
+      53,
+      941,
+      0,
+      339,
+      56
+    ],
+    [
+      54,
+      941,
+      0,
+      170,
+      55
+    ],
+    [
+      55,
+      993,
+      17,
+      65,
+      21
+    ],
+    [
+      54,
+      1111,
+      0,
+      170,
+      55
+    ],
+    [
+      57,
+      1180,
+      17,
+      31,
+      21
+    ],
+    [
+      53,
+      959,
+      69,
+      71,
+      20
+    ],
+    [
+      53,
+      1036,
+      70,
+      30,
+      18
+    ],
+    [
+      53,
+      959,
+      88,
+      303,
+      21
+    ],
+    [
+      53,
+      959,
+      133,
+      54,
+      20
+    ],
+    [
+      53,
+      1019,
+      134,
+      30,
+      18
+    ],
+    [
+      53,
+      959,
+      152,
+      303,
+      42
+    ],
+    [
+      53,
+      1018,
+      221,
+      217,
+      36
+    ],
+    [
+      65,
+      1030,
+      229,
+      193,
+      21
+    ],
+    [
+      53,
+      959,
+      232,
+      24,
+      20
+    ],
+    [
+      53,
+      989,
+      233,
+      30,
+      18
+    ],
+    [
+      53,
+      959,
+      282,
+      60,
+      20
+    ],
+    [
+      53,
+      1025,
+      283,
+      30,
+      18
+    ],
+    [
+      53,
+      959,
+      301,
+      303,
+      21
+    ],
+    [
+      53,
+      957,
+      836,
+      308,
+      46
+    ],
+    [
+      72,
+      975,
+      849,
+      105,
+      21
+    ],
+    [
+      53,
+      1225,
+      842,
+      34,
+      34
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "call-header",
+      "iou": 0.9997743564820439,
+      "parts": 3,
+      "rect": {
+        "x": 24,
+        "y": 18,
+        "w": 900.203125,
+        "h": 22
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "hard-shadow"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 64451,
+    "output": 29565,
+    "cacheRead": 217749
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 66664,
+      "output": 17476,
+      "cacheRead": 202911,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 179039
+    }
+  ],
+  "reading": "A full dashboard page sketch: top header bar with a REC badge, title and meta text; a large white chart card; two dark participant cards (Priya Rao, Jonas Ortiz) with avatar circles; a decorative gradient tile; two more dark participant cards (Mei Kato, Ade Danjuma) and a '+2 more' card; a row of 6 round call-control icon buttons; and a right-hand sidebar panel with People/Chat tabs and a message list. All content, colors and copy are fully specified by the user's typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        28,
+        25,
+        892,
+        9
+      ],
+      "paths": [],
+      "instruction": "Header bar area: part by part (page px: size, then top-left x,y; each part its own real element with live text, all 3 of them, nothing invented, nothing left ou"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        63,
+        614,
+        414
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "The region itself is ONE 620x420px panel at 24,60, #ffffff fill, 14px rounded, with its parts inside it (every one-line text part stays on ONE line: white-space"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        664,
+        63,
+        253,
+        193
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "The region itself is ONE 260x200px panel at 660,60, background: linear-gradient(160deg, #3f3d56, #1f1d36) exactly (a smooth dark gradient over the whole tile, N"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        663,
+        283,
+        253,
+        194
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "The region itself is ONE 260x200px panel at 660,280, background: linear-gradient(160deg, #164e63, #082f49) exactly (a smooth dark gradient over the whole tile, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        28,
+        503,
+        282,
+        274
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "The region itself is ONE 290x280px panel at 24,500, background: linear-gradient(160deg, #422006, #1c1917) exactly (a smooth dark gradient over the whole tile, N"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        337,
+        503,
+        284,
+        274
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "The region itself is ONE 290x280px panel at 334,500, background: linear-gradient(160deg, #14532d, #052e16) exactly (a smooth dark gradient over the whole tile, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        648,
+        503,
+        268,
+        124
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "The region itself is ONE 276x130px panel at 644,500, #2d2f34 fill, 14px rounded, with its parts inside it (every one-line text part stays on ONE line: white-spa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        764,
+        653,
+        153,
+        113
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Dark grey #334155 (top left) to dark navy #0f172a (bottom right) gradient tile, 160x120px, 12px rounded corners, plain paint only: no picture, no X, no icon, no"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        813,
+        932,
+        48
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A row of 6 round icon buttons and NOTHING behind them (no bar, no panel, no fill, no border: the page colour shows between and around them), the row centred in "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        3,
+        334,
+        893
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "The region itself is ONE 340x900px panel at 940,0, #202124 fill, with its parts inside it (every one-line text part stays on ONE line: white-space nowrap, never"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

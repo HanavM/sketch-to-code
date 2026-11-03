@@ -1,0 +1,846 @@
+{
+  "id": "e4-trip-itinerary",
+  "at": "2026-10-27T08:20:53.527Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.894553655628509,
+    "overallV2": 0.894553655628509,
+    "overallV1": 0.8741997626229585,
+    "colour": 0.9919106372188985,
+    "structure": 0.9562155779796501,
+    "structureStrict": 0.93061700066063,
+    "colourAligned": 0.9919106372188985,
+    "structureAligned": 0.9562155779796501,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9870269938571272
+    },
+    "layout": 0.8504448014612542,
+    "layoutV1": 0.7075876586041113,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      2,
+      36,
+      17,
+      67,
+      29
+    ],
+    [
+      2,
+      921,
+      15,
+      323,
+      34
+    ],
+    [
+      4,
+      921,
+      21,
+      31,
+      21
+    ],
+    [
+      4,
+      984,
+      21,
+      40,
+      21
+    ],
+    [
+      4,
+      1055,
+      21,
+      58,
+      21
+    ],
+    [
+      4,
+      1145,
+      15,
+      99,
+      34
+    ],
+    [
+      1,
+      36,
+      88,
+      640,
+      66
+    ],
+    [
+      9,
+      36,
+      88,
+      640,
+      39
+    ],
+    [
+      9,
+      36,
+      133,
+      640,
+      21
+    ],
+    [
+      1,
+      40,
+      183,
+      290,
+      33
+    ],
+    [
+      12,
+      40,
+      183,
+      69,
+      33
+    ],
+    [
+      12,
+      117,
+      183,
+      61,
+      33
+    ],
+    [
+      12,
+      186,
+      183,
+      65,
+      33
+    ],
+    [
+      12,
+      260,
+      183,
+      70,
+      33
+    ],
+    [
+      1,
+      98,
+      250,
+      2,
+      610
+    ],
+    [
+      1,
+      36,
+      240,
+      46,
+      94
+    ],
+    [
+      1,
+      124,
+      240,
+      552,
+      94
+    ],
+    [
+      1,
+      91,
+      254,
+      16,
+      16
+    ],
+    [
+      1,
+      141,
+      255,
+      84,
+      64
+    ],
+    [
+      1,
+      239,
+      255,
+      173,
+      23
+    ],
+    [
+      1,
+      614,
+      255,
+      45,
+      20
+    ],
+    [
+      1,
+      239,
+      275,
+      173,
+      18
+    ],
+    [
+      1,
+      124,
+      344,
+      552,
+      14
+    ],
+    [
+      1,
+      36,
+      368,
+      46,
+      94
+    ],
+    [
+      1,
+      124,
+      368,
+      552,
+      94
+    ],
+    [
+      1,
+      91,
+      382,
+      16,
+      16
+    ],
+    [
+      1,
+      141,
+      383,
+      84,
+      64
+    ],
+    [
+      1,
+      239,
+      383,
+      129,
+      23
+    ],
+    [
+      1,
+      609,
+      383,
+      50,
+      20
+    ],
+    [
+      1,
+      239,
+      403,
+      129,
+      18
+    ],
+    [
+      1,
+      124,
+      472,
+      552,
+      14
+    ],
+    [
+      1,
+      36,
+      496,
+      46,
+      94
+    ],
+    [
+      1,
+      124,
+      496,
+      552,
+      94
+    ],
+    [
+      1,
+      91,
+      510,
+      16,
+      16
+    ],
+    [
+      1,
+      141,
+      511,
+      84,
+      64
+    ],
+    [
+      1,
+      239,
+      511,
+      122,
+      23
+    ],
+    [
+      1,
+      614,
+      511,
+      46,
+      20
+    ],
+    [
+      1,
+      239,
+      531,
+      123,
+      18
+    ],
+    [
+      1,
+      124,
+      600,
+      552,
+      14
+    ],
+    [
+      1,
+      36,
+      624,
+      46,
+      94
+    ],
+    [
+      1,
+      124,
+      624,
+      552,
+      94
+    ],
+    [
+      1,
+      91,
+      638,
+      16,
+      16
+    ],
+    [
+      1,
+      141,
+      639,
+      84,
+      64
+    ],
+    [
+      1,
+      239,
+      639,
+      203,
+      23
+    ],
+    [
+      1,
+      614,
+      639,
+      45,
+      20
+    ],
+    [
+      1,
+      239,
+      659,
+      203,
+      18
+    ],
+    [
+      1,
+      713,
+      91,
+      534,
+      520
+    ],
+    [
+      49,
+      1026,
+      62,
+      260,
+      600
+    ],
+    [
+      49,
+      715,
+      254,
+      530,
+      84
+    ],
+    [
+      49,
+      839,
+      96,
+      118,
+      511
+    ],
+    [
+      49,
+      714,
+      472,
+      420,
+      8
+    ],
+    [
+      49,
+      713,
+      91,
+      534,
+      520
+    ],
+    [
+      54,
+      823,
+      241,
+      270,
+      250
+    ],
+    [
+      49,
+      803,
+      455,
+      42,
+      42
+    ],
+    [
+      56,
+      820,
+      466,
+      7,
+      20
+    ],
+    [
+      49,
+      943,
+      335,
+      42,
+      42
+    ],
+    [
+      58,
+      960,
+      346,
+      7,
+      20
+    ],
+    [
+      49,
+      1073,
+      205,
+      42,
+      42
+    ],
+    [
+      60,
+      1090,
+      216,
+      7,
+      20
+    ],
+    [
+      1,
+      710,
+      630,
+      126,
+      104
+    ],
+    [
+      1,
+      846,
+      630,
+      126,
+      104
+    ],
+    [
+      1,
+      982,
+      630,
+      126,
+      104
+    ],
+    [
+      1,
+      1118,
+      630,
+      126,
+      104
+    ],
+    [
+      1,
+      763,
+      645,
+      21,
+      18
+    ],
+    [
+      1,
+      902,
+      645,
+      14,
+      18
+    ],
+    [
+      1,
+      1036,
+      645,
+      18,
+      18
+    ],
+    [
+      1,
+      1171,
+      645,
+      21,
+      18
+    ],
+    [
+      1,
+      758,
+      667,
+      30,
+      30
+    ],
+    [
+      1,
+      889,
+      667,
+      40,
+      22
+    ],
+    [
+      1,
+      1030,
+      667,
+      30,
+      30
+    ],
+    [
+      1,
+      1161,
+      667,
+      40,
+      22
+    ],
+    [
+      1,
+      762,
+      705,
+      23,
+      23
+    ],
+    [
+      1,
+      898,
+      697,
+      23,
+      23
+    ],
+    [
+      1,
+      1034,
+      705,
+      23,
+      23
+    ],
+    [
+      1,
+      1170,
+      697,
+      23,
+      23
+    ],
+    [
+      1,
+      713,
+      759,
+      527,
+      113
+    ],
+    [
+      78,
+      737,
+      779,
+      70,
+      21
+    ],
+    [
+      78,
+      737,
+      799,
+      213,
+      42
+    ],
+    [
+      78,
+      1157,
+      779,
+      63,
+      61
+    ],
+    [
+      81,
+      1157,
+      779,
+      63,
+      20
+    ],
+    [
+      81,
+      1157,
+      799,
+      63,
+      20
+    ],
+    [
+      81,
+      1157,
+      819,
+      63,
+      20
+    ],
+    [
+      78,
+      730,
+      838,
+      494,
+      10
+    ],
+    [
+      85,
+      730,
+      838,
+      207,
+      10
+    ],
+    [
+      85,
+      937,
+      838,
+      109,
+      10
+    ],
+    [
+      85,
+      1046,
+      838,
+      64,
+      10
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "weather-strip",
+      "iou": 1,
+      "parts": 16,
+      "rect": {
+        "x": 710,
+        "y": 630,
+        "w": 534,
+        "h": 104
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "gradient",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "italic"
+    ],
+    "extra": [
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 53837,
+    "output": 31967,
+    "cacheRead": 207089
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 60867,
+      "output": 22435,
+      "cacheRead": 192979,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/vite.config.ts",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 220971
+    }
+  ],
+  "ease": {
+    "marks": 11,
+    "captured": 11,
+    "notes": 8,
+    "words": 1222,
+    "drawMs": 58258,
+    "readingMs": 92649,
+    "runMs": 314939
+  },
+  "reading": "The sketch is a full trip-itinerary page: a top nav bar, a heading block with date stepper, a long vertical itinerary/timeline list on the left, and on the right a street map, a weather-forecast strip and a trip-budget bar — all specified precisely by the user's typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        58
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build the page's top bar: a single 1280x64px wrapper element (own container) with #ffffff fill and a 1px #ebe7de border on its bottom edge only, contents vertic"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        40,
+        88,
+        632,
+        60
+      ],
+      "paths": [],
+      "instruction": "Add a heading block, 640px wide, top-left at 36,88: 'Four days in Lisbon' in bold 34px Georgia serif, #22201c, with 'Four days in Lisbon' as real text; 6px belo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        40,
+        183,
+        302,
+        26
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a date stepper: a row of 4 filled pill buttons, each 33px tall (pill radius): 'Thu 12' (#f1ede4 fill, bold #22201c text), 'Fri 13' (#22201c fill, bold #ffff"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        39,
+        243,
+        634,
+        634
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Build the itinerary section as a container: behind its items, a dashed vertical rail line (2px wide, ~610px tall, repeating dashes of #cfc8b8) running down the "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        713,
+        91,
+        528,
+        514
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Build a drawn street-map panel, 534x520px, #e6eedf ground, contents clipped (overflow hidden) — a real drawn map, not a photo/iframe: flat shapes for a water/pa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 4,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        714,
+        630,
+        526,
+        104
+      ],
+      "paths": [],
+      "instruction": "Build a weather-forecast strip of 4 day cards (Thu, Fri, Sat, Sun), each a white rounded card (1px #ebe7de border) showing the day label, an icon/toggle control"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        713,
+        759,
+        527,
+        113
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Build a near-black (#22201c) trip-budget bar block with #fbfaf7 (white) text: label 'Trip budget' and a large bold 28px figure '€1,240 of €1,600'. Beside it (no"
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,516 @@
+{
+  "id": "c1-tarot-fan",
+  "at": "2026-10-27T01:35:11.730Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9071900637710484,
+    "overallV2": 0.9071900637710484,
+    "overallV1": 0.8822395362749349,
+    "colour": 0.986652991369075,
+    "structure": 0.8729475863417692,
+    "structureStrict": 0.8132983875857713,
+    "colourAligned": 0.986652991369075,
+    "structureAligned": 0.8729475863417692,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8030041086481239
+    },
+    "layout": 0.8867701232782631,
+    "layoutV1": 0.8867701232782631,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      74,
+      36,
+      1132,
+      28
+    ],
+    [
+      2,
+      74,
+      35,
+      87,
+      30
+    ],
+    [
+      2,
+      937,
+      38,
+      269,
+      24
+    ],
+    [
+      4,
+      937,
+      38,
+      60,
+      24
+    ],
+    [
+      4,
+      1028,
+      38,
+      34,
+      24
+    ],
+    [
+      4,
+      1094,
+      38,
+      47,
+      24
+    ],
+    [
+      4,
+      1173,
+      38,
+      33,
+      24
+    ],
+    [
+      0,
+      644,
+      124,
+      553,
+      552
+    ],
+    [
+      9,
+      643,
+      124,
+      553,
+      552
+    ],
+    [
+      0,
+      810,
+      180,
+      220,
+      360
+    ],
+    [
+      0,
+      904,
+      201,
+      33,
+      20
+    ],
+    [
+      0,
+      628,
+      219,
+      301,
+      403
+    ],
+    [
+      0,
+      913,
+      219,
+      301,
+      403
+    ],
+    [
+      0,
+      715,
+      259,
+      51,
+      20
+    ],
+    [
+      0,
+      1077,
+      260,
+      44,
+      20
+    ],
+    [
+      0,
+      865,
+      305,
+      110,
+      110
+    ],
+    [
+      0,
+      717,
+      358,
+      121,
+      121
+    ],
+    [
+      0,
+      997,
+      375,
+      131,
+      87
+    ],
+    [
+      0,
+      881,
+      503,
+      78,
+      20
+    ],
+    [
+      0,
+      765,
+      546,
+      98,
+      20
+    ],
+    [
+      0,
+      981,
+      547,
+      90,
+      20
+    ],
+    [
+      0,
+      70,
+      210,
+      174,
+      30
+    ],
+    [
+      0,
+      78,
+      250,
+      505,
+      139
+    ],
+    [
+      24,
+      78,
+      250,
+      505,
+      69
+    ],
+    [
+      25,
+      435,
+      244,
+      148,
+      81
+    ],
+    [
+      24,
+      78,
+      319,
+      505,
+      69
+    ],
+    [
+      0,
+      70,
+      520,
+      300,
+      14
+    ],
+    [
+      0,
+      74,
+      556,
+      422,
+      54
+    ],
+    [
+      0,
+      70,
+      681,
+      231,
+      50
+    ],
+    [
+      0,
+      70,
+      820,
+      1140,
+      33
+    ],
+    [
+      31,
+      70,
+      835,
+      144,
+      18
+    ],
+    [
+      31,
+      581,
+      835,
+      135,
+      18
+    ],
+    [
+      31,
+      1084,
+      835,
+      126,
+      18
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "italic",
+      "mono",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "3d",
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 53551,
+    "output": 27648,
+    "cacheRead": 235311
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 55816,
+      "output": 16661,
+      "cacheRead": 222251,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 173287
+    }
+  ],
+  "ease": {
+    "marks": 12,
+    "captured": 12,
+    "notes": 11,
+    "words": 840,
+    "drawMs": 74135,
+    "readingMs": 98036,
+    "runMs": 272879
+  },
+  "reading": "The sketch is a tarot-deck product landing page: a header with logo and nav links, a hero section with an italic tagline, a large two-line serif headline, a tarot-card illustration (a big circle plus a square composed of twelve tilted-card/zodiac sub-elements per the notes), a lavender description paragraph with a small decorative divider mark, a filled pre-order pill button, and a footer row with a top rule and three spaced-out meta items — all over a dark starfield background. Every visual detail (colours, exact CSS gradients, sizes, positions, copy) is spelled out in the typed notes and overrides the rough ink shapes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Apply page-wide styling per note: whole page near-black (#1a1033) background, Georgia typeface throughout, and warm paper colour for default body text."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s2",
+        "s3"
+      ],
+      "instruction": "Add a full-bleed 1280x900px starfield background layer at 0,0, absolutely positioned behind everything, holding no content: no fill of its own (the page colour "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        51,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a header nav row: bold 20px peach \"ARCANA\" logo first, then links Readings, Deck, Journal, Shop. \"ARCANA\" sits at the left; the four links are pushed to the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        644,
+        124,
+        553,
+        552
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a big faint peach outline circle as a decorative backdrop behind the tarot card composition on the right of the hero."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        173,
+        554,
+        514
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build the tarot-card hero illustration as 12 separate real elements with live text, part by part (page px, size then top-left x,y), nothing invented, nothing le"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        218,
+        166,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add italic peach lead line \"a deck for the curious\": text colour #d9b56a (peach, not the page's warm paper text), set at 20px (large lead line, not small body t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 73
+        }
+      ],
+      "region": [
+        78,
+        250,
+        504,
+        160
+      ],
+      "paths": [],
+      "instruction": "Add a giant Georgia serif regular-weight headline with tight-set lines (line-height 0.95): \"Draw three. Read the room.\", broken into exactly 2 lines — \"Draw thr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        523,
+        293,
+        8
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add an empty see-through 300x14px decorative mark at 70,520 with NO fill (what is under it shows through); its only paint is thin lines and a dot, exactly: back"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        74,
+        556,
+        422,
+        54
+      ],
+      "paths": [],
+      "instruction": "Add lavender descriptive text: \"Seventy-eight cards, foil-edged, with a guide that skips the mystic fog and talks like a friend over tea.\" Text colour #c9b9e6 ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        683,
+        224,
+        43
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Add a 231x50px pill button filled with background: linear-gradient(90deg, #d9b56a, #ffe7a8, #d9b56a) — a solid painted capsule, not an empty outline, with its l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        823,
+        1134,
+        23
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Add a footer row 1140px wide at 70,820 with ONLY a 1px #d9b56a rule along its top edge (no border on other sides, no fill), text 14px sitting under the rule. Th"
+    }
+  ],
+  "rejected": []
+}

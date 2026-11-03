@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Gantt timeline</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1e293b;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:60px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;padding:0 20px;gap:16px}.top h1{font-size:18px;margin-right:auto}
+.seg{display:flex;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden}.seg span{padding:7px 14px}.seg .on{background:#1e293b;color:#fff}
+.btn{padding:8px 16px;border-radius:8px;background:#4f46e5;color:#fff;font-weight:700}
+.tbl{position:absolute;left:0;top:60px;width:360px;height:840px;border-right:1px solid #e2e8f0}
+.row{height:44px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;padding:0 16px;gap:10px}.row.h{background:#f8fafc;font-weight:700;color:#64748b;font-size:11px;letter-spacing:1px;height:56px}
+.row .n{flex:1}.row .o{width:24px;height:24px;border-radius:50%;color:#fff;font-size:10px;line-height:24px;text-align:center;font-weight:700}.row .p{width:60px;color:#64748b;text-align:right}
+.row.g{font-weight:700;background:#f8fafc}
+.chart{position:absolute;left:360px;top:60px;width:920px;height:840px;background:repeating-linear-gradient(90deg,transparent 0 130px,#f1f5f9 130px 131px)}
+.wk{display:flex;height:56px;border-bottom:1px solid #e2e8f0;background:#f8fafc}.wk div{width:131px;padding:10px;font-size:11px;color:#64748b}.wk b{display:block;font-size:13px;color:#1e293b}
+.bar{position:absolute;height:26px;border-radius:6px;color:#fff;font-size:12px;line-height:26px;padding-left:10px;font-weight:700;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.25)}
+.ms{position:absolute;width:18px;height:18px;background:#e11d48;transform:rotate(45deg)}
+.today{position:absolute;left:540px;top:56px;width:2px;height:784px;background:#e11d48}.today::before{content:"Today";position:absolute;left:-24px;top:-2px;background:#e11d48;color:#fff;font-size:10px;padding:2px 8px;border-radius:4px}
+svg{position:absolute;left:0;top:0;overflow:visible}
+</style></head><body>
+<div class="top" data-r="toolbar"><h1>Website relaunch</h1><div class="seg"><span>Day</span><span class="on">Week</span><span>Month</span></div><span style="color:#64748b">Mar 2 – Apr 26</span><a class="btn">+ Add task</a></div>
+<div class="tbl" data-r="task-table" data-must><div class="row h"><span class="n">TASK</span><span>OWNER</span><span class="p">PROGRESS</span></div>
+<div class="row g"><span class="n">▾ Discovery</span><span class="p">100%</span></div>
+<div class="row"><span class="n">Interviews</span><span class="o" style="background:#0891b2">AL</span><span class="p">100%</span></div>
+<div class="row"><span class="n">Sitemap</span><span class="o" style="background:#9333ea">RK</span><span class="p">100%</span></div>
+<div class="row g"><span class="n">▾ Design</span><span class="p">60%</span></div>
+<div class="row"><span class="n">Wireframes</span><span class="o" style="background:#9333ea">RK</span><span class="p">90%</span></div>
+<div class="row"><span class="n">Visual design</span><span class="o" style="background:#ea580c">JM</span><span class="p">40%</span></div>
+<div class="row"><span class="n">Design review</span><span class="o" style="background:#e11d48">◆</span><span class="p">—</span></div>
+<div class="row g"><span class="n">▾ Build</span><span class="p">10%</span></div>
+<div class="row"><span class="n">Front end</span><span class="o" style="background:#0891b2">AL</span><span class="p">20%</span></div>
+<div class="row"><span class="n">CMS setup</span><span class="o" style="background:#16a34a">TS</span><span class="p">0%</span></div>
+<div class="row"><span class="n">QA</span><span class="o" style="background:#ea580c">JM</span><span class="p">0%</span></div>
+<div class="row"><span class="n">Launch</span><span class="o" style="background:#e11d48">◆</span><span class="p">—</span></div></div>
+<div class="chart" data-r="timeline" data-must><div class="wk"><div><b>W10</b>Mar 2</div><div><b>W11</b>Mar 9</div><div><b>W12</b>Mar 16</div><div><b>W13</b>Mar 23</div><div><b>W14</b>Mar 30</div><div><b>W15</b>Apr 6</div><div><b>W16</b>Apr 13</div></div>
+<div class="bar" style="left:10px;top:65px;width:240px;background:#334155">Discovery</div>
+<div class="bar" style="left:10px;top:109px;width:150px;background:#0891b2"><i style="width:100%"></i>Interviews</div>
+<div class="bar" style="left:140px;top:153px;width:120px;background:#9333ea"><i style="width:100%"></i>Sitemap</div>
+<div class="bar" style="left:260px;top:197px;width:300px;background:#334155">Design</div>
+<div class="bar" style="left:260px;top:241px;width:150px;background:#9333ea"><i style="width:90%"></i>Wireframes</div>
+<div class="bar" style="left:380px;top:285px;width:180px;background:#ea580c"><i style="width:40%"></i>Visual design</div>
+<div class="ms" style="left:572px;top:333px"></div>
+<div class="bar" style="left:590px;top:373px;width:320px;background:#334155">Build</div>
+<div class="bar" style="left:590px;top:417px;width:200px;background:#0891b2"><i style="width:20%"></i>Front end</div>
+<div class="bar" style="left:620px;top:461px;width:130px;background:#16a34a">CMS setup</div>
+<div class="bar" style="left:790px;top:505px;width:110px;background:#ea580c">QA</div>
+<div class="ms" style="left:902px;top:553px"></div>
+<svg width="920" height="840"><path d="M250 122 H262 V166 H270" stroke="#94a3b8" stroke-width="1.5" fill="none"/><path d="M410 254 H420 V298 H380" stroke="#94a3b8" stroke-width="1.5" fill="none"/><path d="M560 298 H570 V342" stroke="#94a3b8" stroke-width="1.5" fill="none"/><path d="M790 430 H800 V518" stroke="#94a3b8" stroke-width="1.5" fill="none"/></svg>
+<div class="today"></div></div>
+</body></html>

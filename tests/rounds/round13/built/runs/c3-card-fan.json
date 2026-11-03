@@ -1,0 +1,184 @@
+{
+  "id": "c3-card-fan",
+  "at": "2026-10-23T22:39:17.493Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8867335784982863,
+    "overallV2": 0.8867335784982863,
+    "overallV1": 0.848007663499237,
+    "colour": 0.9849875638124692,
+    "structure": 0.9301455582436682,
+    "structureStrict": 0.8476383038432592,
+    "colourAligned": 0.9849875638124692,
+    "structureAligned": 0.9301455582436682,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9381763989015701
+    },
+    "layout": 0.7540645246374733
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "3d",
+      "gradient",
+      "hard-shadow",
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 38123,
+    "output": 18289,
+    "cacheRead": 215421
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46091,
+      "output": 14359,
+      "cacheRead": 205170,
+      "toolCalls": 9,
+      "tools": [
+        "Read components/FannedFive.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read components/FannedFive.tsx",
+        "Edit components/FannedFive.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 147484
+    }
+  ],
+  "reading": "The sketch builds a hero section: a top nav bar, a large centered serif headline with one italic accent word, a subheading line, a fanned stack of five playing cards, two colored dot badges, and a pill CTA button — all set against a dark teal page per the run note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        29,
+        1175,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar, no box around it: wide-letter-spaced \"HOUSE OF CARDS\" on the left, \"RULES · DECKS · CLUB\" on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 88
+        }
+      ],
+      "region": [
+        8,
+        65,
+        1152,
+        106
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif, regular weight, tight letter-spacing headline \"Deal a better hand\" on ONE line (white-space: nowrap, never wraps), about 582px wide, center"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        394,
+        199,
+        492,
+        9
+      ],
+      "paths": [],
+      "instruction": "Subheading text: \"Hand-printed decks for people who still play at the kitchen table.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        543,
+        333,
+        194,
+        284
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A fan of 5 playing cards (real card shapes, not text): each card 200x290px, all stacked at the same top-left (540,330) absolute position, each rotated around tr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        305,
+        764,
+        65,
+        65
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Perfectly round solid disc badge, border-radius 50% (not traced from ink), 74px across, 8px dashed white outline, flat fully opaque vivid orange (#e85d4a) fill,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        904,
+        764,
+        66,
+        66
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Perfectly round solid disc badge, border-radius 50% (not traced from ink), 74px across, 8px dashed white outline, flat fully opaque vivid blue (#4a7de8) fill, h"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        561,
+        791,
+        157,
+        45
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Button labeled \"Shop decks\": peach (#f2c14e) fill, dark teal (#1b3a2f) text (not the page's cream text), 160x48px, 10px rounded corners."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

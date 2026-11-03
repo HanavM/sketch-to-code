@@ -1,0 +1,258 @@
+[
+  {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> \"Settings\" at (120,56) 119x36 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:14:9",
+        "rect": {
+          "x": 120,
+          "y": 56,
+          "w": 1040,
+          "h": 36
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <button> \"Profile\" at (120,142) 43x17 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "button",
+        "srcLoc": "src/App.tsx:18:13",
+        "rect": {
+          "x": 120,
+          "y": 140,
+          "w": 43.21875,
+          "h": 34
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> at (120,56) 1040x36 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:14:9",
+        "rect": {
+          "x": 120,
+          "y": 56,
+          "w": 1040,
+          "h": 36
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (1112,167) 48x30: the <button> built for it sits 77px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The 3 drawn boxes below it ride on it, so the whole page from here down sits about 77px low. The cause is above it, at the top: drawn, its top is 26px below the line drawn at y=141; built, it is 103px below that line's spot. So take 77px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.; the box drawn at (1112,249) 49x29: the <button> built for it sits 85px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <button> drawn at (1112,167) above it; once that one is fixed this one is still 8px too low, so change only the spacing between them by that much.; the box drawn at (1112,330) 49x29: the <button> built for it sits 93px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <button> drawn at (1112,249) above it; once that one is fixed this one is still 8px too low, so change only the spacing between them by that much.; the box drawn at (1112,410) 49x29: the <button> built for it sits 102px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). Part of that comes from the <button> drawn at (1112,330) above it; once that one is fixed this one is still 9px too low, so change only the spacing between them by that much.",
+      "marks": [
+        {
+          "strokeId": "s2",
+          "drawn": {
+            "x": 1112,
+            "y": 167,
+            "w": 48,
+            "h": 30
+          },
+          "built": {
+            "x": 1112,
+            "y": 245,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 77
+        },
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 1112,
+            "y": 249,
+            "w": 49,
+            "h": 29
+          },
+          "built": {
+            "x": 1112,
+            "y": 334,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 85
+        },
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 1112,
+            "y": 330,
+            "w": 49,
+            "h": 29
+          },
+          "built": {
+            "x": 1112,
+            "y": 423,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 93
+        },
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 1112,
+            "y": 410,
+            "w": 49,
+            "h": 29
+          },
+          "built": {
+            "x": 1112,
+            "y": 512,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 102
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (120,413) 290x48 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:35:15",
+        "rect": {
+          "x": 120,
+          "y": 413,
+          "w": 289.609375,
+          "h": 48
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (120,498) 152x46: the <button> built for it sits 112px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The cause is above it, at the top: drawn, its top is 357px below the line drawn at y=141; built, it is 469px below that line's spot. So take 112px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.",
+      "marks": [
+        {
+          "strokeId": "s6",
+          "drawn": {
+            "x": 120,
+            "y": 498,
+            "w": 152,
+            "h": 46
+          },
+          "built": {
+            "x": 120,
+            "y": 610,
+            "w": 152,
+            "h": 46
+          },
+          "dx": 0,
+          "dy": 112
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (120,413) 290x48 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:35:15",
+        "rect": {
+          "x": 120,
+          "y": 413,
+          "w": 289.609375,
+          "h": 48
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (283,499) 113x47: the <button> built for it sits 111px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The cause is above it, at the top: drawn, its top is 358px below the line drawn at y=141; built, it is 469px below that line's spot. So take 111px OUT of the space above it (the heading's size or margin, the tab bar's padding or height, the list's top margin or gap). Never add space and never push it further down; do not use negative margins or relative offsets.",
+      "marks": [
+        {
+          "strokeId": "s7",
+          "drawn": {
+            "x": 283,
+            "y": 499,
+            "w": 113,
+            "h": 47
+          },
+          "built": {
+            "x": 284,
+            "y": 610,
+            "w": 113,
+            "h": 47
+          },
+          "dx": 1,
+          "dy": 111
+        }
+      ]
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "4 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": false,
+      "reason": "action 2: the box drawn at (1112,167) 48x30 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb; action 2: the box drawn at (1112,249) 49x29 was coloured #2563eb (fill); what was built there is ΔE 14 away: paint the block itself exactly #2563eb; action 3: the box drawn at (120,498) 152x46 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb",
+      "checks": [
+        {
+          "what": "the box drawn at (1112,167) 48x30",
+          "want": "#2563eb",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (1112,249) 49x29",
+          "want": "#2563eb",
+          "best": 13.808957810344182,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (120,498) 152x46",
+          "want": "#2563eb",
+          "best": null,
+          "ok": false
+        }
+      ]
+    }
+  }
+]

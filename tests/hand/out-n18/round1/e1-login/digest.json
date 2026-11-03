@@ -1,0 +1,297 @@
+{
+  "round": 1,
+  "id": "e1-login",
+  "version": 3,
+  "stopped": null,
+  "likeness": 47.7,
+  "colour": 0.9604925075480333,
+  "structure": 0.9695529768916066,
+  "layout": 0.5565363499863197,
+  "strokes": {
+    "count": 9,
+    "pointsPerStroke": 3.1,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 4,
+      "line": 3,
+      "dot": 2
+    },
+    "inkPx": 4443
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 22,
+  "notes": 6,
+  "longestNote": 5,
+  "noteTexts": [
+    "Sign in",
+    "Welcome back. Enter your details.",
+    "Email input, label above",
+    "Password input, label above",
+    "Sign in",
+    "blue link Forgot your password?"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 382,
+    "firstReadingS": 56,
+    "readS": [
+      29
+    ],
+    "buildS": [
+      317
+    ],
+    "sketchingS": 36
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 35684,
+    "cacheRead": 393548,
+    "output": 27824,
+    "billed": 63508
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 5169
+    },
+    {
+      "op": "stroke",
+      "at": 5881
+    },
+    {
+      "op": "stroke",
+      "at": 6998
+    },
+    {
+      "op": "stroke",
+      "at": 9614
+    },
+    {
+      "op": "stroke",
+      "at": 12231
+    },
+    {
+      "op": "stroke",
+      "at": 14880
+    },
+    {
+      "op": "stroke",
+      "at": 15764
+    },
+    {
+      "op": "pen",
+      "color": "#f3f4f6",
+      "at": 16140
+    },
+    {
+      "op": "stroke",
+      "at": 16614
+    },
+    {
+      "op": "pen",
+      "color": "#2563eb",
+      "at": 16988
+    },
+    {
+      "op": "stroke",
+      "at": 17465
+    },
+    {
+      "op": "note",
+      "at": 18127
+    },
+    {
+      "op": "note",
+      "at": 18820
+    },
+    {
+      "op": "note",
+      "at": 19480
+    },
+    {
+      "op": "note",
+      "at": 20162
+    },
+    {
+      "op": "note",
+      "at": 20807
+    },
+    {
+      "op": "note",
+      "at": 21516
+    },
+    {
+      "op": "run",
+      "at": 26743
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          430,
+          150
+        ],
+        [
+          850,
+          150
+        ],
+        [
+          850,
+          570
+        ],
+        [
+          430,
+          570
+        ],
+        [
+          430,
+          150
+        ]
+      ],
+      "n": 281,
+      "at": 5169
+    },
+    {
+      "way": [
+        [
+          470,
+          205
+        ],
+        [
+          556,
+          205
+        ]
+      ],
+      "n": 15,
+      "at": 5881
+    },
+    {
+      "way": [
+        [
+          470,
+          236
+        ],
+        [
+          697,
+          236
+        ]
+      ],
+      "n": 39,
+      "at": 6998
+    },
+    {
+      "way": [
+        [
+          470,
+          288
+        ],
+        [
+          810,
+          288
+        ],
+        [
+          810,
+          332
+        ],
+        [
+          470,
+          332
+        ],
+        [
+          470,
+          288
+        ]
+      ],
+      "n": 129,
+      "at": 9614
+    },
+    {
+      "way": [
+        [
+          470,
+          376
+        ],
+        [
+          810,
+          376
+        ],
+        [
+          810,
+          420
+        ],
+        [
+          470,
+          420
+        ],
+        [
+          470,
+          376
+        ]
+      ],
+      "n": 129,
+      "at": 12231
+    },
+    {
+      "way": [
+        [
+          470,
+          448
+        ],
+        [
+          810,
+          448
+        ],
+        [
+          810,
+          494
+        ],
+        [
+          470,
+          494
+        ],
+        [
+          470,
+          448
+        ]
+      ],
+      "n": 131,
+      "at": 14880
+    },
+    {
+      "way": [
+        [
+          569,
+          522
+        ],
+        [
+          711,
+          522
+        ]
+      ],
+      "n": 25,
+      "at": 15764
+    },
+    {
+      "way": [
+        [
+          150,
+          750
+        ]
+      ],
+      "n": 1,
+      "at": 16614
+    },
+    {
+      "way": [
+        [
+          640,
+          471
+        ]
+      ],
+      "n": 1,
+      "at": 17465
+    }
+  ]
+}

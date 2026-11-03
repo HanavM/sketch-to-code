@@ -17,11 +17,11 @@
  * be filled, what an interior should look like — stays with the model and the
  * repair loop, which now has the measurements to ask for it precisely.
  */
-import { appPalette, deltaE, hexOf, parseCssColor, type PaletteEntry } from './palette.js'
+import { appPalette, deltaE, hexOf, isColorValue, parseCssColor, type PaletteEntry } from './palette.js'
 import type { DomSnapshot } from '@s2c/dom'
 
 export interface FinishEdit {
-  kind: 'colour-snapped' | 'empty-path-dropped' | 'duplicate-path-dropped'
+  kind: 'colour-snapped' | 'empty-path-dropped' | 'duplicate-path-dropped' | 'position-yields' | 'display-clash'
   detail: string
 }
 
@@ -52,7 +52,7 @@ const ARBITRARY_COLOR = /\b(text|bg)-\[(#[0-9a-fA-F]{3,8})\]/g
  * Rewrite near-token colour literals as the token, drop geometry that cannot
  * render, and drop exact duplicate paths.
  */
-export function finishSource(code: string, palette: PaletteEntry[]): FinishResult {
+export function finishSource(code: string, palette: PaletteEntry[], asked: ReadonlySet<string> = new Set()): FinishResult {
   const edits: FinishEdit[] = []
   let out = code
 
@@ -61,6 +61,10 @@ export function finishSource(code: string, palette: PaletteEntry[]): FinishResul
     out = out.replace(ARBITRARY_COLOR, (lit, prefix: string, hex: string) => {
       const rgb = parseCssColor(hex)
       if (!rgb) return lit
+      // a hex the user typed is an exact request, not a leak: round 7 e5's pale grey (#f3f4f6) header row and
+      // #f9fafb page sit ΔE 4 and 1.6 from white, so this pass rewrote both to bg-white after every build and
+      // every repair (three runs of "the builder ignores the tint" were this line)
+      if (asked.has(hexOf(rgb))) return lit
       let best: PaletteEntry | undefined
       let bestD = Infinity
       for (const entry of palette) {
@@ -70,6 +74,10 @@ export function finishSource(code: string, palette: PaletteEntry[]): FinishResul
         if (d < bestD) { bestD = d; best = entry }
       }
       if (!best || bestD > SNAP_MAX_DELTA_E) return lit
+      // n190: the literal is already the token (a no-op logged as a snap), or the token is not a colour at all
+      if (best.token === lit) return lit
+      const inner = /\[(.*)\]$/.exec(best.token.slice(prefix.length + 1))
+      if (inner && !isColorValue(inner[1]!)) return lit
       edits.push({ kind: 'colour-snapped', detail: `${hexOf(rgb)} → ${best.token} (ΔE ${bestD.toFixed(1)})` })
       return best.token
     })
@@ -96,7 +104,40 @@ export function finishSource(code: string, palette: PaletteEntry[]): FinishResul
     return '\n'
   })
 
+  // ④ a component root that hard-codes `relative` next to the className it is handed: in Tailwind's
+  // stylesheet `.relative` comes after `.absolute`, so a caller's `absolute left-[470px] top-[440px]` lost and
+  // the element sat in the flow under the header, its top/left now an offset from there (n204, round 20 e4:
+  // the card visual built 60px low over the form). The caller's position wins instead.
+  out = out.replace(/className=\{`([^`$]*?)\brelative\b([^`$]*?)\$\{className\}([^`]*)`\}/g, (whole, a: string, b: string, c: string) => {
+    if (/\b(absolute|fixed|sticky)\b/.test(a + b + c)) return whole
+    edits.push({ kind: 'position-yields', detail: 'a hard-coded relative now yields to an absolute/fixed className' })
+    return `className={\`${a}\${/\\b(absolute|fixed|sticky)\\b/.test(className) ? '' : 'relative'}${b}\${className}${c}\`}`
+  })
+
+  // ⑤ flow-root next to flex or grid on one element: both set display, and in Tailwind's stylesheet
+  // .flow-root comes later, so the flex lost and a card meant to be centred by justify-center sat at
+  // the left edge (n22, login: the card 429px left of where it was drawn). The wrapper rule asks for
+  // flow-root only to stop a child's margin collapsing through it; a flex or grid box already does that.
+  out = out.replace(/className=(["'])([^"'{}]*)\1/g, (whole, q: string, cls: string) => {
+    const list = cls.split(/\s+/)
+    if (!list.includes('flow-root') || !list.some((c) => /^(inline-)?(flex|grid)$/.test(c))) return whole
+    edits.push({ kind: 'display-clash', detail: 'flow-root dropped where flex or grid sets the display' })
+    return `className=${q}${list.filter((c) => c !== 'flow-root').join(' ')}${q}`
+  })
+
   return { code: out, edits }
+}
+
+/** Every hex colour written in the user's words (notes, instructions), normalised to #rrggbb. */
+export function askedHexes(texts: Array<string | undefined>): Set<string> {
+  const out = new Set<string>()
+  for (const t of texts) {
+    for (const m of (t ?? '').matchAll(/#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b/g)) {
+      const rgb = parseCssColor(m[0])
+      if (rgb) out.add(hexOf(rgb))
+    }
+  }
+  return out
 }
 
 /** The palette to snap against: whatever the app itself renders. */

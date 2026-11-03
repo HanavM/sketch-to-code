@@ -1,0 +1,408 @@
+{
+  "id": "c4-paper-cutout",
+  "at": "2026-10-25T07:25:00.517Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9556736593218305,
+    "overallV2": 0.9556736593218305,
+    "overallV1": 0.906977452205368,
+    "colour": 0.9898581639700388,
+    "structure": 0.9750358472831621,
+    "structureStrict": 0.9072119499855276,
+    "colourAligned": 0.9898581639700388,
+    "structureAligned": 0.9750358472831621,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9743261141067494
+    },
+    "layout": 0.9424074137227618,
+    "layoutV1": 0.9424074137227618,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      823,
+      93,
+      260,
+      260
+    ],
+    [
+      0,
+      50,
+      60,
+      700,
+      260
+    ],
+    [
+      2,
+      70,
+      185,
+      660,
+      105
+    ],
+    [
+      2,
+      159,
+      103,
+      483,
+      145
+    ],
+    [
+      4,
+      159,
+      103,
+      483,
+      145
+    ],
+    [
+      0,
+      620,
+      200,
+      40,
+      58
+    ],
+    [
+      6,
+      622,
+      205,
+      35,
+      35
+    ],
+    [
+      0,
+      74,
+      330,
+      412,
+      60
+    ],
+    [
+      0,
+      74,
+      473,
+      167,
+      46
+    ],
+    [
+      0,
+      5,
+      364,
+      1269,
+      531
+    ],
+    [
+      10,
+      5,
+      364,
+      1270,
+      531
+    ],
+    [
+      0,
+      5,
+      495,
+      1269,
+      400
+    ],
+    [
+      12,
+      5,
+      495,
+      1270,
+      400
+    ],
+    [
+      0,
+      5,
+      630,
+      1269,
+      264
+    ],
+    [
+      14,
+      5,
+      630,
+      1270,
+      265
+    ],
+    [
+      0,
+      812,
+      621,
+      396,
+      209
+    ],
+    [
+      16,
+      812,
+      632,
+      286,
+      197
+    ],
+    [
+      17,
+      842,
+      657,
+      212,
+      46
+    ],
+    [
+      17,
+      846,
+      692,
+      216,
+      79
+    ],
+    [
+      17,
+      853,
+      759,
+      212,
+      46
+    ],
+    [
+      16,
+      1081,
+      621,
+      127,
+      181
+    ],
+    [
+      21,
+      1126,
+      653,
+      36,
+      116
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.9090909090909091,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "italic",
+      "mask",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [
+      "clip-shape"
+    ],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 57866,
+    "output": 35019,
+    "cacheRead": 483027
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 51556,
+      "output": 15278,
+      "cacheRead": 447263,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/main.tsx",
+        "Edit src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 153172
+    }
+  ],
+  "reading": "A festival landing-page hero sketch: an arched italic 'Slow Valley' title with a small bobbing accent card beside it, a radial-gradient sun-like disc, an italic subtitle, a 'Book a trail' pill button, three overlapping jagged color-block decorative bands across the lower page, and a tilted admission-ticket card, all set on a soft-yellow Georgia-type page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        93,
+        253,
+        253
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Replace the square placeholder with a 260px solid round disc (border-radius 50%, filled right to its middle — not a ring/donut, no hole, no segments, no labels)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 35
+        }
+      ],
+      "region": [
+        628,
+        208,
+        36,
+        42
+      ],
+      "paths": [],
+      "instruction": "A small 40x58px card, position absolute with top-left at page 620,200, its own sibling element on the page (not inside any other block); where it crosses the ar"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 93
+        }
+      ],
+      "region": [
+        58,
+        134,
+        630,
+        112
+      ],
+      "paths": [],
+      "instruction": "The title 'Slow Valley' in big bold italic Georgia 92px letters, #2b1a12, set as one line of words curved along a gentle upward arch (like a rainbow: middle wor"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        74,
+        330,
+        412,
+        60
+      ],
+      "paths": [],
+      "instruction": "Italic subtitle text replacing the two squiggly placeholder lines: \"A three-day walking festival in the red hills. Maps on paper, stories by the fire.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        473,
+        167,
+        46
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A near-black pill button labeled bold soft yellow \"Book a trail →\"; button background near-black, label text color #ffd8a8 (soft yellow, not the page's near-bla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        364,
+        1269,
+        531
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A bright orange jagged cut-out band, one flat #f29e6d fill (clip-path polygon, no gradient/shading/texture); the drawn outline itself is not kept as a visible l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        495,
+        1269,
+        400
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A second jagged cut-out band, one flat #d9644a fill (clip-path polygon, no gradient/shading/texture); outline not kept visible. Corners left to right: 0,592; 25"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        631,
+        1269,
+        264
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A third jagged cut-out band, one flat #7a2e3b fill (clip-path polygon, no gradient/shading/texture); outline not kept visible. Corners left to right: 0,708; 154"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        815,
+        624,
+        390,
+        203
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A 380x170px #fff6e8 admission ticket, position absolute with top-left at 820,640 page px (before rotation), floating above everything under it (top z-index); bo"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

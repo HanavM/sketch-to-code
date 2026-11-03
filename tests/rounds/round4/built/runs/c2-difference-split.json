@@ -1,0 +1,214 @@
+{
+  "id": "c2-difference-split",
+  "at": "2026-10-22T00:18:51.151Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6494261965837091,
+    "overallV2": 0.6494261965837091,
+    "overallV1": 0.5593685323564754,
+    "colour": 0.887790312156824,
+    "structure": 0.6423342994128587,
+    "structureStrict": 0.4795385972689141,
+    "colourAligned": 0.887790312156824,
+    "structureAligned": 0.6423342994128587,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7960912320880035
+    },
+    "layout": 0.7585314220174552
+  },
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "blend",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": [
+      "uppercase-display"
+    ]
+  },
+  "tokens": {
+    "input": 37849,
+    "output": 21123,
+    "cacheRead": 146243
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 50472,
+      "output": 16744,
+      "cacheRead": 143159,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 200117
+    }
+  ],
+  "reading": "The sketch is a full hero section: a black rectangle forms the right-side background, a lavender-to-pink gradient arch sits centered behind two giant wavy-line placeholders that spell out \"LIGHT\" and \"SHADE\" (inverting colour where they cross the arch/black block). Small squiggles mark a \"Duality®\" logo top-left, nav text \"Collection · Archive · Cart (0)\" top-right, body copy about the two-colour outerwear bottom-left, and a \"Shop the drop →\" button bottom-right.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Fill this large rectangle spanning the right portion of the page (nearly full height) as a solid black block — a dark background panel for the right side of the"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        469,
+        150,
+        342,
+        561
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Draw a tall arch shape with a round top and flat bottom, centered over the middle of the hero, filled with a lavender-to-dark-pink gradient. It sits beneath the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 256
+        }
+      ],
+      "region": [
+        8,
+        154,
+        1152,
+        161
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy, tight-set headline reading \"LIGHT\", spanning most of the page width at the upper part of the hero. It is normally black/dark on the light"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 255
+        }
+      ],
+      "region": [
+        8,
+        554,
+        1152,
+        162
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy, tight-set headline reading \"SHADE\", spanning most of the page width lower in the hero, mirroring the LIGHT line. It inverts to white wher"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        52,
+        47,
+        65,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small logo/wordmark text \"Duality®\" in the top-left corner of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [],
+      "region": [
+        1043,
+        44,
+        185,
+        8
+      ],
+      "paths": [],
+      "instruction": "Navigation text \"Collection · Archive · Cart (0)\" in the top-right corner, sitting over the black background block so it should render in a colour visible on bl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        52,
+        814,
+        292,
+        31
+      ],
+      "paths": [],
+      "instruction": "Dark grey body copy reading \"Outerwear cut in two colours only. Pick a side, or wear both.\" placed in the lower-left area of the hero, below the SHADE headline."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1121,
+        831,
+        110,
+        19
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A rounded pill button labeled \"Shop the drop →\" positioned in the bottom-right corner, over the black background block."
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,310 @@
+[
+  {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (429,149) 422x440 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 440
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s0",
+          "drawn": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 422
+          },
+          "built": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 440
+          },
+          "dx": 0,
+          "dy": 9
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> \"Sign in\" at (469,190) 79x29 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 469,
+          "y": 189,
+          "w": 342,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <p> \"Welcome back. Enter your detai\" at (469,230) 225x17 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "p",
+        "srcLoc": "src/App.tsx:6:9",
+        "rect": {
+          "x": 469,
+          "y": 229,
+          "w": 342,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> at (469,189) 342x32 matches the sketch region",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 469,
+          "y": 189,
+          "w": 342,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (470,287) 340x45: the <input> built for it sits 19px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+      "marks": [
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 470,
+            "y": 287,
+            "w": 340,
+            "h": 45
+          },
+          "built": {
+            "x": 469,
+            "y": 307,
+            "w": 342,
+            "h": 42
+          },
+          "dx": 0,
+          "dy": 19
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (469,281) 342x68 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:11:11",
+        "rect": {
+          "x": 469,
+          "y": 281,
+          "w": 342,
+          "h": 68
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (469,375) 341x46: the <input> built for it sits 18px too low, but only because the <input> drawn at (470,287) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.",
+      "marks": [
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 469,
+            "y": 375,
+            "w": 341,
+            "h": 46
+          },
+          "built": {
+            "x": 469,
+            "y": 395,
+            "w": 342,
+            "h": 42
+          },
+          "dx": 1,
+          "dy": 18
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <input> at (469,307) 342x42 matches the sketch region",
+      "bestCandidate": {
+        "tag": "input",
+        "srcLoc": "src/App.tsx:18:13",
+        "rect": {
+          "x": 469,
+          "y": 307,
+          "w": 342,
+          "h": 42
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (470,447) 341x48: the <button> built for it lands now, but its place hangs on the <input> drawn at (469,375), which is 18px too low. When that one moves this one moves with it, so keep this one at its drawn top (447px): change the gap above it by the same amount the other way.",
+      "marks": [
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 470,
+            "y": 447,
+            "w": 341,
+            "h": 48
+          },
+          "built": {
+            "x": 469,
+            "y": 457,
+            "w": 342,
+            "h": 44
+          },
+          "dx": 0,
+          "dy": 8
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+      "satisfied": false,
+      "reason": "new element(s) exist but none matches the sketch region (sketch (569,521) 142x2; closest new <main> at (0,0) 1280x900)",
+      "bestCandidate": {
+        "tag": "main",
+        "srcLoc": "src/App.tsx:3:5",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 900
+        }
+      }
+    }
+  },
+  {
+    "kind": "drift",
+    "verdict": {
+      "satisfied": true,
+      "reason": "5 of 5 blocks within 16px of their drawn top",
+      "offsets": [
+        {
+          "index": 0,
+          "drawn": 149,
+          "built": 149,
+          "dy": 0
+        },
+        {
+          "index": 3,
+          "drawn": 287,
+          "built": 281,
+          "dy": -6
+        },
+        {
+          "index": 4,
+          "drawn": 375,
+          "built": 369,
+          "dy": -6
+        },
+        {
+          "index": 5,
+          "drawn": 447,
+          "built": 457,
+          "dy": 10
+        },
+        {
+          "index": 6,
+          "drawn": 522,
+          "built": 538,
+          "dy": 15
+        }
+      ]
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "4 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "clear",
+    "verdict": {
+      "satisfied": true,
+      "reason": "no words sit on a form field"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": true,
+      "reason": "2 colours from the ink on the page",
+      "checks": [
+        {
+          "what": "page",
+          "want": "#f3f4f6",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (470,447) 341x48",
+          "want": "#2563eb",
+          "best": 0,
+          "ok": true
+        }
+      ]
+    }
+  }
+]

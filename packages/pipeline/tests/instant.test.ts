@@ -26,12 +26,13 @@ const page = () => snapshot([
   node({ id: 'e2', srcLoc: 'src/components/Card.tsx:3:5', tag: 'section', rect: { x: 100, y: 100, w: 300, h: 160 } }),
 ])
 
-/** A closed blob drawn in empty space, well clear of the card. */
+/** A closed freehand blob (a lumpy star, not a plain ring) drawn in empty space, well clear of the card. */
 const blob = (cx = 800, cy = 500, r = 60): Stroke[] => [{
   id: 's0',
   points: Array.from({ length: 40 }, (_, i) => {
     const t = (i / 39) * Math.PI * 2
-    return { x: cx + Math.cos(t) * r, y: cy + Math.sin(t) * r * 0.8, t: i * 16 }
+    const k = 1 + 0.4 * Math.sin(5 * t)
+    return { x: cx + Math.cos(t) * r * k, y: cy + Math.sin(t) * r * 0.8 * k, t: i * 16 }
   }),
 }]
 
@@ -145,7 +146,7 @@ describe('writing and mounting it', () => {
     // …and the component is mounted at the ink's offset in the container
     expect(app).toContain(`import ${res.name} from './components/${res.name}'`)
     // mounted at the ink's own offset inside the container
-    expect(app).toContain(`<${res.name} className="absolute left-[740px] top-[452px] s2c-etch" />`)
+    expect(app).toContain(`<${res.name} className="absolute left-[720px] top-[444px] s2c-etch" />`)
   })
 
   it('refuses to clobber a component that already exists', () => {

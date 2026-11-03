@@ -1,0 +1,309 @@
+{
+  "id": "c5-swiss-grid",
+  "at": "2026-10-23T22:25:59.857Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8088940481892407,
+    "overallV2": 0.8088940481892407,
+    "overallV1": 0.7354877359002239,
+    "colour": 0.9616188482691513,
+    "structure": 0.8485307324992218,
+    "structureStrict": 0.7254231921984358,
+    "colourAligned": 0.9616188482691513,
+    "structureAligned": 0.8485307324992218,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.973830947342958
+    },
+    "layout": 0.7667073609338548
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "blend",
+      "huge-type",
+      "overlap",
+      "vertical-type"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 41359,
+    "output": 31644,
+    "cacheRead": 400231
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 53728,
+      "output": 19897,
+      "cacheRead": 295207,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/index.html",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 230868
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 2161,
+      "output": 388,
+      "cacheRead": 101940,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 4108
+    }
+  ],
+  "reading": "The sketch lays out an exhibition landing page: a top kicker line, a huge 3-line bold headline (\"Grid systems in graphic design\"), a giant ink-style \"57\" numeral, an intro paragraph, a ruled 4-row index list of events, a closing info line, and on the right half a solid red panel holding a white outline ring, a white caption, and a vertical white exhibition label — all content and exact styling specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        3,
+        634,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Whole page: white page background, Helvetica type throughout, near-black text color, and a fine grain texture overlay across the entire page (this large rectang"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        44,
+        43,
+        265,
+        9
+      ],
+      "paths": [],
+      "instruction": "Single-line kicker at the very top (top 40px, left edge 40px), 13px wide-spaced letters, bold (font-weight 700, not regular): \"KUNSTHALLE BASEL — 1957/2026\". No"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 55
+        }
+      ],
+      "region": [
+        48,
+        120,
+        378,
+        182
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica headline, bold (font-weight 700, not regular), tight line-height (0.95), set in exactly 3 lines that must keep these breaks (white-space: nowrap,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        478,
+        88,
+        489,
+        392
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Giant ink-like numeral set as live text (a real character, never an SVG path or drawn shape): \"57\" at 560px size, about 543px wide, font-family Helvetica/Arial "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13"
+          ],
+          "lines": 8,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        44,
+        466,
+        432,
+        30
+      ],
+      "paths": [],
+      "instruction": "Short two-line intro paragraph of body copy in Helvetica, near-black text, sized like normal body text, placed above the index list. No exact wording was given,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13"
+          ],
+          "lines": 8,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        44,
+        509,
+        432,
+        73
+      ],
+      "paths": [],
+      "instruction": "A ruled index list, 440px wide, positioned at 40,460: 15px near-black text, 4 rows each 43px tall with a 1px #111111 rule across the top of each row, label at t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11",
+            "s12",
+            "s13"
+          ],
+          "lines": 8,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        44,
+        595,
+        432,
+        30
+      ],
+      "paths": [],
+      "instruction": "Short closing info paragraph (two lines) below the index list, Helvetica, near-black text. No exact wording was given, so use plausible practical copy, e.g. \"Fr"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        825,
+        564,
+        251,
+        252
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Flat vivid red (#e30613) block, 640x900px, positioned at 640,0 (the right half of the page), sitting behind everything placed on it, no border."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        825,
+        564,
+        251,
+        252
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Decorative outline ring, 260px across, centered at 820,560 on the red block: a 24px solid #ffffff border with no fill, see-through middle, matching the drawn ci"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        825,
+        564,
+        251,
+        252
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Small 13px caption text on the red block, white (#ffffff) not the page's near-black text, no fill or bar of its own: \"Poster study no. 4, 1960 (detail)\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1210,
+        64,
+        15,
+        319
+      ],
+      "paths": [
+        "s15"
+      ],
+      "instruction": "Vertical wide-spaced label on the red block, writing-mode vertical-rl, 13px letters, line about 327px long, text color white (#ffffff) not near-black, no fill o"
+    }
+  ],
+  "rejected": []
+}

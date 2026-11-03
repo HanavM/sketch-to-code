@@ -1,0 +1,187 @@
+{
+  "id": "c1-card-stack-3d",
+  "at": "2026-10-23T13:44:26.575Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.789284310758642,
+    "overallV2": 0.789284310758642,
+    "overallV1": 0.7465042807447089,
+    "colour": 0.9261716144785863,
+    "structure": 0.7289177848388687,
+    "structureStrict": 0.6256747323490862,
+    "colourAligned": 0.9261716144785863,
+    "structureAligned": 0.7289177848388687,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.853176359083875
+    },
+    "layout": 0.7769854371808549
+  },
+  "effects": {
+    "recall": 0.875,
+    "kept": [
+      "3d",
+      "glass",
+      "gradient",
+      "hollow-type",
+      "mono",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [
+      "motion"
+    ],
+    "extra": [
+      "blur"
+    ]
+  },
+  "tokens": {
+    "input": 37873,
+    "output": 17420,
+    "cacheRead": 327569
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47296,
+      "output": 13579,
+      "cacheRead": 324485,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/StackOverlapping.tsx",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Write components/CardStack.tsx",
+        "Edit components/StackOverlapping.tsx",
+        "Edit components/StackOverlapping.tsx",
+        "Edit src/App.tsx",
+        "Read components/StackOverlapping.tsx",
+        "Read components/CardStack.tsx"
+      ],
+      "ms": 148699
+    }
+  ],
+  "reading": "A hero section: a thin-rule nav (STACKD / CARDS · RATES · SIGN IN), a big two-line hollow-accented headline with a small eyebrow label, a lavender subcopy line, a yellow CTA pill button, and on the right a detailed 3D stack of three gradient credit cards with a frosted '3% back on travel' badge, all set on a dark indigo gradient page per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        68,
+        39,
+        1144,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a top nav bar with no box/border around it, matching the thin horizontal rule sketched across the top: wide letter-spaced 'STACKD' wordmark on the left, and"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        72,
+        200,
+        468,
+        175
+      ],
+      "paths": [],
+      "instruction": "Add the hero headline where the two wavy lines were sketched: giant Helvetica heavy, tight-set, line-height 0.95, exactly 2 lines 'Three cards.' / 'One stack.' "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        520,
+        422,
+        56
+      ],
+      "paths": [],
+      "instruction": "Add a lavender-colored paragraph of body copy below the headline, replacing the two squiggly lines: 'Spend from any of them, earn on all of them. Tilt your phon"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        65,
+        642,
+        196,
+        51
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a yellow pill-shaped call-to-action button with near-black indigo text reading 'Get your stack →', placed where the rounded rectangle was sketched below the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        113,
+        554,
+        654
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Build a 3D stack of 3 separate overlapping cards (not one flat picture) inside a 560x660px box at 640,110 with CSS perspective: 1200px. Each card is 380x240px, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1004,
+        693,
+        157,
+        31
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a small frosted-glass pill badge with a 1px white border, overlapping the bottom-right of the card stack where the small rectangle was sketched, reading '✦ "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

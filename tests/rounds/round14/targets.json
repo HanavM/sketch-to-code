@@ -1,0 +1,1127 @@
+{
+ "measured": "2026-10-23T23:02:24.980Z",
+ "targets": {
+  "c1-variable-wave": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 60,
+      "y": 40,
+      "w": 1160,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "kicker",
+     "rect": {
+      "x": 60,
+      "y": 120,
+      "w": 336,
+      "h": 15
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 60,
+      "y": 150,
+      "w": 520,
+      "h": 92
+     },
+     "must": true
+    },
+    {
+     "role": "weight-dial",
+     "rect": {
+      "x": 1000,
+      "y": 110,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "stripe-band",
+     "rect": {
+      "x": 0,
+      "y": 300,
+      "w": 1280,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "wave-word",
+     "rect": {
+      "x": 40,
+      "y": 330,
+      "w": 1200,
+      "h": 192
+     },
+     "must": true
+    },
+    {
+     "role": "axes-row",
+     "rect": {
+      "x": 60,
+      "y": 660,
+      "w": 1160,
+      "h": 29
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 60,
+      "y": 780,
+      "w": 153,
+      "h": 50
+     },
+     "must": false
+    }
+   ]
+  },
+  "c2-masked-collage": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 60,
+      "y": 36,
+      "w": 1160,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "masked-word",
+     "rect": {
+      "x": 40,
+      "y": 90,
+      "w": 624,
+      "h": 330
+     },
+     "must": true
+    },
+    {
+     "role": "cutout-green",
+     "rect": {
+      "x": 745,
+      "y": 404,
+      "w": 360,
+      "h": 333
+     },
+     "must": true
+    },
+    {
+     "role": "cutout-orange",
+     "rect": {
+      "x": 858,
+      "y": 451,
+      "w": 343,
+      "h": 369
+     },
+     "must": false
+    },
+    {
+     "role": "blend-disc",
+     "rect": {
+      "x": 820,
+      "y": 540,
+      "w": 220,
+      "h": 220
+     },
+     "must": false
+    },
+    {
+     "role": "tape-1",
+     "rect": {
+      "x": 779,
+      "y": 373,
+      "w": 142,
+      "h": 88
+     },
+     "must": false
+    },
+    {
+     "role": "tape-2",
+     "rect": {
+      "x": 1081,
+      "y": 437,
+      "w": 138,
+      "h": 99
+     },
+     "must": false
+    },
+    {
+     "role": "copy",
+     "rect": {
+      "x": 60,
+      "y": 500,
+      "w": 430,
+      "h": 101
+     },
+     "must": false
+    },
+    {
+     "role": "stamp",
+     "rect": {
+      "x": 546,
+      "y": 506,
+      "w": 158,
+      "h": 158
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 60,
+      "y": 700,
+      "w": 162,
+      "h": 52
+     },
+     "must": false
+    },
+    {
+     "role": "footer",
+     "rect": {
+      "x": 60,
+      "y": 850,
+      "w": 1160,
+      "h": 14
+     },
+     "must": false
+    }
+   ]
+  },
+  "c3-ticket-carousel": {
+   "regions": [
+    {
+     "role": "grid-floor",
+     "rect": {
+      "x": -930,
+      "y": 558,
+      "w": 3140,
+      "h": 419
+     },
+     "must": false
+    },
+    {
+     "role": "nav",
+     "rect": {
+      "x": 60,
+      "y": 32,
+      "w": 1160,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 0,
+      "y": 90,
+      "w": 1280,
+      "h": 82
+     },
+     "must": true
+    },
+    {
+     "role": "subcopy",
+     "rect": {
+      "x": 0,
+      "y": 180,
+      "w": 1280,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "ticket-ring",
+     "rect": {
+      "x": 0,
+      "y": 250,
+      "w": 1280,
+      "h": 400
+     },
+     "must": true
+    },
+    {
+     "role": "prev",
+     "rect": {
+      "x": 120,
+      "y": 430,
+      "w": 56,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "next",
+     "rect": {
+      "x": 1104,
+      "y": 430,
+      "w": 56,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "pager",
+     "rect": {
+      "x": 590,
+      "y": 700,
+      "w": 100,
+      "h": 10
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 540,
+      "y": 770,
+      "w": 200,
+      "h": 50
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-scroll-story": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 120,
+      "y": 40,
+      "w": 1100,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "masked-sun",
+     "rect": {
+      "x": 700,
+      "y": 90,
+      "w": 460,
+      "h": 460
+     },
+     "must": true
+    },
+    {
+     "role": "layer-back",
+     "rect": {
+      "x": -40,
+      "y": 446,
+      "w": 1400,
+      "h": 567
+     },
+     "must": false
+    },
+    {
+     "role": "layer-mid",
+     "rect": {
+      "x": -40,
+      "y": 571,
+      "w": 1400,
+      "h": 498
+     },
+     "must": false
+    },
+    {
+     "role": "layer-front",
+     "rect": {
+      "x": -40,
+      "y": 683,
+      "w": 1400,
+      "h": 373
+     },
+     "must": true
+    },
+    {
+     "role": "marquee",
+     "rect": {
+      "x": 0,
+      "y": 600,
+      "w": 1280,
+      "h": 173
+     },
+     "must": false
+    },
+    {
+     "role": "progress-rail",
+     "rect": {
+      "x": 40,
+      "y": 120,
+      "w": 4,
+      "h": 600
+     },
+     "must": false
+    },
+    {
+     "role": "chapter-list",
+     "rect": {
+      "x": 60,
+      "y": 116,
+      "w": 58,
+      "h": 600
+     },
+     "must": false
+    },
+    {
+     "role": "chapter",
+     "rect": {
+      "x": 120,
+      "y": 120,
+      "w": 194,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 120,
+      "y": 160,
+      "w": 560,
+      "h": 233
+     },
+     "must": true
+    },
+    {
+     "role": "copy",
+     "rect": {
+      "x": 124,
+      "y": 420,
+      "w": 440,
+      "h": 54
+     },
+     "must": false
+    },
+    {
+     "role": "scroll-cue",
+     "rect": {
+      "x": 600,
+      "y": 820,
+      "w": 80,
+      "h": 52
+     },
+     "must": false
+    }
+   ]
+  },
+  "c5-neon-tiles": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 60,
+      "y": 36,
+      "w": 1000,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 60,
+      "y": 150,
+      "w": 500,
+      "h": 265
+     },
+     "must": true
+    },
+    {
+     "role": "copy",
+     "rect": {
+      "x": 62,
+      "y": 430,
+      "w": 420,
+      "h": 53
+     },
+     "must": false
+    },
+    {
+     "role": "stats",
+     "rect": {
+      "x": 62,
+      "y": 560,
+      "w": 460,
+      "h": 74
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 62,
+      "y": 700,
+      "w": 172,
+      "h": 52
+     },
+     "must": false
+    },
+    {
+     "role": "glyph-grid",
+     "rect": {
+      "x": 600,
+      "y": 110,
+      "w": 620,
+      "h": 620
+     },
+     "must": true
+    },
+    {
+     "role": "sticker",
+     "rect": {
+      "x": 1085,
+      "y": 65,
+      "w": 161,
+      "h": 161
+     },
+     "must": false
+    },
+    {
+     "role": "ticker",
+     "rect": {
+      "x": 0,
+      "y": 798,
+      "w": 1281,
+      "h": 85
+     },
+     "must": false
+    }
+   ]
+  },
+  "e1-kanban-drawer": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 220,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 220,
+      "y": 0,
+      "w": 1060,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "board",
+     "rect": {
+      "x": 236,
+      "y": 72,
+      "w": 624,
+      "h": 810
+     },
+     "must": true
+    },
+    {
+     "role": "detail-drawer",
+     "rect": {
+      "x": 880,
+      "y": 56,
+      "w": 400,
+      "h": 844
+     },
+     "must": true
+    }
+   ]
+  },
+  "e2-db-console": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 44
+     },
+     "must": false
+    },
+    {
+     "role": "table-tree",
+     "rect": {
+      "x": 0,
+      "y": 44,
+      "w": 240,
+      "h": 856
+     },
+     "must": true
+    },
+    {
+     "role": "query-editor",
+     "rect": {
+      "x": 240,
+      "y": 44,
+      "w": 740,
+      "h": 330
+     },
+     "must": true
+    },
+    {
+     "role": "result-tabs",
+     "rect": {
+      "x": 240,
+      "y": 374,
+      "w": 740,
+      "h": 36
+     },
+     "must": false
+    },
+    {
+     "role": "result-grid",
+     "rect": {
+      "x": 240,
+      "y": 410,
+      "w": 740,
+      "h": 223
+     },
+     "must": true
+    },
+    {
+     "role": "status-bar",
+     "rect": {
+      "x": 240,
+      "y": 870,
+      "w": 740,
+      "h": 30
+     },
+     "must": false
+    },
+    {
+     "role": "schema-panel",
+     "rect": {
+      "x": 980,
+      "y": 44,
+      "w": 300,
+      "h": 856
+     },
+     "must": false
+    }
+   ]
+  },
+  "e3-product-page": {
+   "regions": [
+    {
+     "role": "header",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 64
+     },
+     "must": false
+    },
+    {
+     "role": "breadcrumb",
+     "rect": {
+      "x": 48,
+      "y": 84,
+      "w": 203,
+      "h": 14
+     },
+     "must": false
+    },
+    {
+     "role": "thumbs",
+     "rect": {
+      "x": 48,
+      "y": 116,
+      "w": 76,
+      "h": 344
+     },
+     "must": false
+    },
+    {
+     "role": "product-image",
+     "rect": {
+      "x": 140,
+      "y": 116,
+      "w": 520,
+      "h": 600
+     },
+     "must": true
+    },
+    {
+     "role": "buy-box",
+     "rect": {
+      "x": 720,
+      "y": 116,
+      "w": 510,
+      "h": 376
+     },
+     "must": true
+    },
+    {
+     "role": "ratings",
+     "rect": {
+      "x": 720,
+      "y": 640,
+      "w": 510,
+      "h": 133
+     },
+     "must": false
+    },
+    {
+     "role": "features",
+     "rect": {
+      "x": 140,
+      "y": 740,
+      "w": 520,
+      "h": 30
+     },
+     "must": false
+    }
+   ]
+  },
+  "e4-observability": {
+   "regions": [
+    {
+     "role": "topbar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 52
+     },
+     "must": false
+    },
+    {
+     "role": "kpi-row",
+     "rect": {
+      "x": 20,
+      "y": 68,
+      "w": 900,
+      "h": 110
+     },
+     "must": true
+    },
+    {
+     "role": "area-chart",
+     "rect": {
+      "x": 20,
+      "y": 192,
+      "w": 900,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "log-table",
+     "rect": {
+      "x": 20,
+      "y": 506,
+      "w": 900,
+      "h": 380
+     },
+     "must": true
+    },
+    {
+     "role": "alerts-panel",
+     "rect": {
+      "x": 936,
+      "y": 68,
+      "w": 324,
+      "h": 818
+     },
+     "must": false
+    }
+   ]
+  },
+  "e5-support-inbox": {
+   "regions": [
+    {
+     "role": "app-rail",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 60,
+      "h": 900
+     },
+     "must": false
+    },
+    {
+     "role": "ticket-queue",
+     "rect": {
+      "x": 60,
+      "y": 0,
+      "w": 330,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "conversation",
+     "rect": {
+      "x": 390,
+      "y": 0,
+      "w": 590,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "composer",
+     "rect": {
+      "x": 410,
+      "y": 760,
+      "w": 550,
+      "h": 120
+     },
+     "must": false
+    },
+    {
+     "role": "customer-panel",
+     "rect": {
+      "x": 980,
+      "y": 0,
+      "w": 300,
+      "h": 900
+     },
+     "must": false
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-variable-wave": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7555843653913932,
+    "structure": 0.4340807903041288,
+    "structureStrict": 0.4340807903041288,
+    "colourAligned": 0.7555843653913932,
+    "structureAligned": 0.4340807903041288,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5646921797632102,
+    "structure": 0.2473372239242921
+   }
+  },
+  "c2-masked-collage": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8630283681540548,
+    "structure": 0.6024434683370791,
+    "structureStrict": 0.6024434683370791,
+    "colourAligned": 0.8630283681540548,
+    "structureAligned": 0.6024434683370791,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5255333671317894,
+    "structure": 0.3103956409418036
+   }
+  },
+  "c3-ticket-carousel": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.20556052317943263,
+    "structure": 0.17398167473164403,
+    "structureStrict": 0.17398167473164403,
+    "colourAligned": 0.20556052317943263,
+    "structureAligned": 0.17398167473164403,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5275634229415628,
+    "structure": 0.273611997121913
+   }
+  },
+  "c4-scroll-story": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.29902040679587905,
+    "structure": 0.2867646689720675,
+    "structureStrict": 0.2867646689720675,
+    "colourAligned": 0.29902040679587905,
+    "structureAligned": 0.2867646689720675,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.553083136354392,
+    "structure": 0.2815818718823864
+   }
+  },
+  "c5-neon-tiles": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.12240187035091421,
+    "structure": 0.04344709144192643,
+    "structureStrict": 0.04344709144192643,
+    "colourAligned": 0.12240187035091421,
+    "structureAligned": 0.04344709144192643,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.4959680868607301,
+    "structure": 0.15855480792156534
+   }
+  },
+  "e1-kanban-drawer": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8130999310962673,
+    "structure": 0.5923138354183445,
+    "structureStrict": 0.5923138354183445,
+    "colourAligned": 0.8130999310962673,
+    "structureAligned": 0.5923138354183445,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5453831277068625,
+    "structure": 0.3425105120531735
+   }
+  },
+  "e2-db-console": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.16024135414450258,
+    "structure": 0.2221999744052695,
+    "structureStrict": 0.2221999744052695,
+    "colourAligned": 0.16024135414450258,
+    "structureAligned": 0.2221999744052695,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5345312611827039,
+    "structure": 0.2997259674749602
+   }
+  },
+  "e3-product-page": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9386842181489905,
+    "structure": 0.6834257247083979,
+    "structureStrict": 0.6834257247083979,
+    "colourAligned": 0.9386842181489905,
+    "structureAligned": 0.6834257247083979,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5079091363532973,
+    "structure": 0.323525014950521
+   }
+  },
+  "e4-observability": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.14453111568404375,
+    "structure": 0.11970628461980035,
+    "structureStrict": 0.11970628461980035,
+    "colourAligned": 0.14453111568404375,
+    "structureAligned": 0.11970628461980035,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5188186164301692,
+    "structure": 0.24571399405106165
+   }
+  },
+  "e5-support-inbox": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9300699830652962,
+    "structure": 0.68506012726246,
+    "structureStrict": 0.68506012726246,
+    "colourAligned": 0.9300699830652962,
+    "structureAligned": 0.68506012726246,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5106738862612814,
+    "structure": 0.3355487435332977
+   }
+  }
+ }
+}

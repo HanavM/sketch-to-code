@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Invoice editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#eef0f3;font-family:Helvetica,Arial,sans-serif;color:#1d2433;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:58px;background:#fff;border-bottom:1px solid #dfe3ea;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top b{font-size:17px}.top .s{color:#7b8496}.top .r{margin-left:auto;display:flex;gap:10px}.top .r span{padding:9px 16px;border-radius:8px;border:1px solid #cfd5df;font-weight:700}.top .r .p{background:#0e9f6e;border-color:#0e9f6e;color:#fff}
+.form{position:absolute;left:24px;top:82px;width:610px;height:796px;background:#fff;border-radius:12px;border:1px solid #dfe3ea;padding:22px}
+.lb{font-size:12px;color:#7b8496;font-weight:700;margin-bottom:6px}.in{height:38px;border:1px solid #cfd5df;border-radius:8px;padding:11px 12px}.in.f{border:2px solid #3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.dd{position:absolute;left:22px;top:110px;width:566px;background:#fff;border:1px solid #dfe3ea;border-radius:10px;box-shadow:0 14px 34px rgba(0,0,0,.16);padding:6px;z-index:3}.dd div{padding:9px 10px;border-radius:6px;display:flex;justify-content:space-between}.dd .h{background:#eff6ff}.dd em{font-style:normal;color:#7b8496}.dd .add{color:#3b82f6;font-weight:700;border-top:1px solid #eef0f3}
+table{width:100%;border-collapse:collapse;margin-top:10px}th{font-size:11px;color:#7b8496;text-align:left;padding:8px 6px;border-bottom:1px solid #dfe3ea;letter-spacing:.5px}td{padding:6px}td .in{height:34px;padding:9px 10px}
+.addl{color:#3b82f6;font-weight:700;margin:12px 0}.tots{margin-left:auto;width:270px;margin-top:10px}.tots div{display:flex;justify-content:space-between;padding:7px 0}.tots .g{font-size:18px;font-weight:700;border-top:2px solid #1d2433;margin-top:6px;padding-top:10px}
+.prev{position:absolute;left:660px;top:82px;width:596px;height:796px;background:#d9dde4;border-radius:12px;padding:30px 48px}
+.paper{width:500px;height:720px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:40px;position:relative;font-size:11px}
+.paper .lg{width:46px;height:46px;border-radius:10px;background:#0e9f6e;color:#fff;font:700 22px/46px Helvetica;text-align:center}.paper h2{position:absolute;right:40px;top:40px;font:300 34px Helvetica;letter-spacing:4px;color:#0e9f6e}
+.paper .meta{display:flex;justify-content:space-between;margin:30px 0 24px;line-height:1.6}.paper table th{font-size:10px}.paper td{padding:7px 6px;border-bottom:1px solid #f0f2f5}
+.paper .due{position:absolute;left:40px;bottom:40px;width:420px;padding:14px;background:#ecfdf5;border-radius:8px;display:flex;justify-content:space-between;font-size:14px;font-weight:700;color:#065f46}
+.stamp{position:absolute;right:50px;top:300px;padding:8px 16px;border:3px solid #dc2626;color:#dc2626;font:900 22px Impact,sans-serif;letter-spacing:3px;transform:rotate(-14deg);opacity:.75}
+</style></head><body>
+<div class="top" data-r="topbar"><b>Ledgerly</b><span class="s">Invoices › INV-2231 · Draft</span><div class="r"><span>Save draft</span><span>Preview PDF</span><span class="p">Send invoice</span></div></div>
+<div class="form" data-r="invoice-form" data-must><div class="lb">BILL TO</div><div class="in f">Harb|</div>
+<div class="dd" data-r="client-dropdown"><div class="h"><b>Harbour Hall Ltd</b><em>priya@harbourhall.co</em></div><div><span>Harbourside Events</span><em>3 invoices</em></div><div><span>Harbinger Studio</span><em>new</em></div><div class="add">＋ Add “Harb” as a new client</div></div>
+<div class="two"><div><div class="lb">ISSUE DATE</div><div class="in">24 Oct 2026</div></div><div><div class="lb">DUE</div><div class="in">Net 30 · 23 Nov ▾</div></div></div>
+<table data-r="line-items"><tr><th style="width:52%">ITEM</th><th>QTY</th><th>RATE</th><th style="text-align:right">AMOUNT</th></tr>
+<tr><td><div class="in">Event photography — full day</div></td><td><div class="in">1</div></td><td><div class="in">£1,200</div></td><td style="text-align:right">£1,200.00</td></tr>
+<tr><td><div class="in">Photo editing (per image)</div></td><td><div class="in">60</div></td><td><div class="in">£8</div></td><td style="text-align:right">£480.00</td></tr>
+<tr><td><div class="in">Travel</div></td><td><div class="in">1</div></td><td><div class="in">£120</div></td><td style="text-align:right">£120.00</td></tr></table>
+<div class="addl">＋ Add line item</div><div class="tots" data-r="totals"><div><span>Subtotal</span><span>£1,800.00</span></div><div><span>Discount 5%</span><span>−£90.00</span></div><div><span>VAT 20%</span><span>£342.00</span></div><div class="g"><span>Total</span><span>£2,052.00</span></div></div></div>
+<div class="prev" data-r="pdf-preview" data-must><div class="paper"><div class="lg">L</div><h2>INVOICE</h2><div class="meta"><div><b>From</b><br>Hanav M. Photography<br>12 Quay St, Bristol</div><div><b>Bill to</b><br>Harbour Hall Ltd<br>INV-2231 · 24 Oct</div></div>
+<table><tr><th>ITEM</th><th>QTY</th><th style="text-align:right">AMOUNT</th></tr><tr><td>Event photography</td><td>1</td><td style="text-align:right">£1,200.00</td></tr><tr><td>Photo editing</td><td>60</td><td style="text-align:right">£480.00</td></tr><tr><td>Travel</td><td>1</td><td style="text-align:right">£120.00</td></tr></table>
+<div class="stamp">DRAFT</div><div class="due"><span>Amount due</span><span>£2,052.00</span></div></div></div>
+</body></html>

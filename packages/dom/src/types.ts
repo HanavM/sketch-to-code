@@ -15,6 +15,8 @@ export interface DomNode {
    * reads on the screen; `text` stays the identity everything else matches on.
    */
   textRuns?: string[]
+  /** n17: the box the own text's letters fill (union of its line boxes), page px; only when there is own text. */
+  textBox?: { x: number; y: number; w: number; h: number }
   classes: string[]
   style: {
     display: string
@@ -29,6 +31,29 @@ export interface DomNode {
     fontSize: string
     fontWeight: string
     borderRadius: string
+    /** Set only when the element paints a gradient or image (not 'none'). */
+    backgroundImage?: string
+    /** Set only when the element is clipped (n14: a slanted edge between two areas is a clip-path). */
+    clipPath?: string
+    /** Set only when the top border paints: '2px rgb(0, 0, 0)' (n14: an area box must not be framed). */
+    border?: string
+    /** n59: set only when the bottom border paints: a drawn text line must not come back as an underline. */
+    borderBottom?: string
+    /** n62: set only when the text is underlined (a link drawn on a coloured line keeps its underline). */
+    textDecoration?: string
+    /** Set only when the element casts a shadow. */
+    boxShadow?: string
+    /** Set only when below 1 (n15: a coloured badge must not come out faint). */
+    opacity?: string
+    /** Set only when the element is filtered (blur). */
+    filter?: string
+    /** Set only when the element is transformed: 'matrix(a, b, c, d, e, f)' (n31: a card drawn turned stays turned). */
+    transform?: string
+    /** Set only when the letters are stroked (n16: an outlined big word must stay hollow): '2px'. */
+    textStroke?: string
+    /** n190: set only on an svg shape that paints a stroke / a fill: 'rgb(234, 88, 12)'. */
+    svgStroke?: string
+    svgFill?: string
   }
   /** Parent DomNode id, or null for the root. */
   parent: string | null
@@ -38,6 +63,8 @@ export interface DomNode {
 export interface DomSnapshot {
   nodes: DomNode[]
   viewport: { w: number; h: number; scrollX: number; scrollY: number }
+  /** n247: the document's full size (scrollWidth, scrollHeight): a page taller than the viewport scrolls. */
+  doc?: { w: number; h: number }
   url: string
   takenAt: number
   /** True when the walker hit the node cap and dropped elements. */

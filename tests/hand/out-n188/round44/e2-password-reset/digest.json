@@ -1,0 +1,461 @@
+{
+  "round": 44,
+  "id": "e2-password-reset",
+  "version": 3,
+  "stopped": null,
+  "likeness": 74.9,
+  "colour": 0.9928844938539092,
+  "structure": 0.9770197989567524,
+  "layout": 0.5039411219629701,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 4,
+      "box": 3,
+      "circle": 1,
+      "line": 5
+    },
+    "inkPx": 4282
+  },
+  "erased": 0,
+  "notesMoved": 2,
+  "words": 30,
+  "notes": 6,
+  "longestNote": 13,
+  "noteTexts": [
+    "Northwind bold",
+    "Forgot your password? bold",
+    "Enter your email and we will send you a link to reset it.",
+    "you@example.com placeholder",
+    "Send reset link, bold",
+    "← Back to sign in"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 247,
+    "firstReadingS": 81,
+    "readS": [
+      38
+    ],
+    "buildS": [
+      159
+    ],
+    "sketchingS": 51
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 50387,
+    "cacheRead": 298865,
+    "output": 17581,
+    "billed": 67968
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 860,
+      "y": 850,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#edf1f6",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 461
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 845
+    },
+    {
+      "op": "stroke",
+      "at": 6112
+    },
+    {
+      "op": "stroke",
+      "at": 6597
+    },
+    {
+      "op": "pen",
+      "color": "#dbe8fc",
+      "at": 6988
+    },
+    {
+      "op": "stroke",
+      "at": 8013
+    },
+    {
+      "op": "stroke",
+      "at": 8498
+    },
+    {
+      "op": "pen",
+      "color": "#2563eb",
+      "at": 8890
+    },
+    {
+      "op": "stroke",
+      "at": 9713
+    },
+    {
+      "op": "stroke",
+      "at": 12281
+    },
+    {
+      "op": "stroke",
+      "at": 12762
+    },
+    {
+      "op": "stroke",
+      "at": 13564
+    },
+    {
+      "op": "pen",
+      "color": "#1b2433",
+      "at": 13943
+    },
+    {
+      "op": "stroke",
+      "at": 15229
+    },
+    {
+      "op": "pen",
+      "color": "#64748b",
+      "at": 15611
+    },
+    {
+      "op": "stroke",
+      "at": 16945
+    },
+    {
+      "op": "stroke",
+      "at": 17558
+    },
+    {
+      "op": "pen",
+      "color": "#cbd5e1",
+      "at": 17943
+    },
+    {
+      "op": "stroke",
+      "at": 20479
+    },
+    {
+      "op": "note",
+      "at": 26900
+    },
+    {
+      "op": "note",
+      "at": 27753
+    },
+    {
+      "op": "note",
+      "at": 29074
+    },
+    {
+      "op": "note",
+      "at": 30052
+    },
+    {
+      "op": "note",
+      "at": 30904
+    },
+    {
+      "op": "note",
+      "at": 31746
+    },
+    {
+      "op": "moveNote",
+      "at": 37170
+    },
+    {
+      "op": "moveNote",
+      "at": 37872
+    },
+    {
+      "op": "run",
+      "at": 43590
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          200,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 461
+    },
+    {
+      "way": [
+        [
+          440,
+          170
+        ],
+        [
+          840,
+          170
+        ],
+        [
+          840,
+          630
+        ],
+        [
+          440,
+          630
+        ],
+        [
+          440,
+          170
+        ]
+      ],
+      "n": 289,
+      "at": 6112
+    },
+    {
+      "way": [
+        [
+          780,
+          590
+        ]
+      ],
+      "n": 1,
+      "at": 6597
+    },
+    {
+      "way": [
+        [
+          640,
+          210
+        ],
+        [
+          663,
+          219
+        ],
+        [
+          672,
+          242
+        ],
+        [
+          663,
+          265
+        ],
+        [
+          640,
+          274
+        ],
+        [
+          617,
+          265
+        ],
+        [
+          608,
+          242
+        ],
+        [
+          617,
+          219
+        ],
+        [
+          640,
+          210
+        ]
+      ],
+      "n": 33,
+      "at": 8013
+    },
+    {
+      "way": [
+        [
+          640,
+          242
+        ]
+      ],
+      "n": 1,
+      "at": 8498
+    },
+    {
+      "way": [
+        [
+          581,
+          104
+        ],
+        [
+          699,
+          104
+        ]
+      ],
+      "n": 21,
+      "at": 9713
+    },
+    {
+      "way": [
+        [
+          480,
+          480
+        ],
+        [
+          800,
+          480
+        ],
+        [
+          800,
+          532
+        ],
+        [
+          480,
+          532
+        ],
+        [
+          480,
+          480
+        ]
+      ],
+      "n": 125,
+      "at": 12281
+    },
+    {
+      "way": [
+        [
+          700,
+          506
+        ]
+      ],
+      "n": 1,
+      "at": 12762
+    },
+    {
+      "way": [
+        [
+          582,
+          679
+        ],
+        [
+          698,
+          679
+        ]
+      ],
+      "n": 20,
+      "at": 13564
+    },
+    {
+      "way": [
+        [
+          495,
+          312
+        ],
+        [
+          785,
+          312
+        ]
+      ],
+      "n": 49,
+      "at": 15229
+    },
+    {
+      "way": [
+        [
+          486,
+          350
+        ],
+        [
+          794,
+          350
+        ]
+      ],
+      "n": 52,
+      "at": 16945
+    },
+    {
+      "way": [
+        [
+          616,
+          373
+        ],
+        [
+          664,
+          373
+        ]
+      ],
+      "n": 9,
+      "at": 17558
+    },
+    {
+      "way": [
+        [
+          480,
+          412
+        ],
+        [
+          800,
+          412
+        ],
+        [
+          800,
+          462
+        ],
+        [
+          480,
+          462
+        ],
+        [
+          480,
+          412
+        ]
+      ],
+      "n": 123,
+      "at": 20479
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Northwind bold",
+      "whole": false,
+      "x": 640,
+      "y": 120,
+      "at": 26900
+    },
+    {
+      "text": "Forgot your password? bold",
+      "whole": false,
+      "x": 640,
+      "y": 326,
+      "at": 27753
+    },
+    {
+      "text": "Enter your email and we will send you a link to reset it.",
+      "whole": false,
+      "x": 640,
+      "y": 388,
+      "at": 29074
+    },
+    {
+      "text": "you@example.com placeholder",
+      "whole": false,
+      "x": 560,
+      "y": 437,
+      "at": 30052
+    },
+    {
+      "text": "Send reset link, bold",
+      "whole": false,
+      "x": 560,
+      "y": 506,
+      "at": 30904
+    },
+    {
+      "text": "← Back to sign in",
+      "whole": false,
+      "x": 640,
+      "y": 694,
+      "at": 31746
+    }
+  ]
+}

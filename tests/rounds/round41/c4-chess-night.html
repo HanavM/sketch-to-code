@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Chess night</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f5f1e8;font-family:Helvetica,Arial,sans-serif;color:#141414;overflow:hidden;position:relative}
+.board{position:absolute;left:0;top:0;width:520px;height:900px;display:grid;grid-template-columns:repeat(4,130px);grid-auto-rows:130px}
+.board i{display:block}.board i:nth-child(8n+1),.board i:nth-child(8n+3),.board i:nth-child(8n+6),.board i:nth-child(8n+8){background:#141414}
+h1{position:absolute;left:600px;top:120px;font-size:150px;font-weight:900;letter-spacing:-6px;line-height:.9}
+h1 span{color:transparent;-webkit-text-stroke:3px #141414}
+.when{position:absolute;left:606px;top:420px;font-size:22px;font-weight:700}
+p{position:absolute;left:606px;top:470px;width:520px;font-size:18px;line-height:1.5;color:#4a4a4a}
+.cta{position:absolute;left:606px;top:600px;width:220px;height:58px;background:#141414;color:#f5f1e8;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center}
+.tag{position:absolute;left:1020px;top:720px;width:160px;height:160px;border-radius:50%;background:#e94b3c;color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-12deg)}
+</style></head><body>
+<div class="board" data-r="board" data-must><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<h1 data-r="headline" data-must>CHECK<br><span>MATE</span></h1>
+<div class="when" data-r="date">Every Thursday, 7pm</div>
+<p data-r="subhead">Blitz games, coffee and a board for every level at the corner café.</p>
+<div class="cta" data-r="cta" data-must>Save a seat</div>
+<div class="tag" data-r="badge">Free<br>entry</div>
+</body></html>

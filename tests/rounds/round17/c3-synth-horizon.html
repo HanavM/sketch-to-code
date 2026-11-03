@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Synth horizon</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(#12002b 0%,#3b0a5c 45%,#ff2e88 62%,#12002b 62%);font-family:Helvetica,Arial,sans-serif;color:#fff}
+@keyframes run{to{background-position:0 60px}}
+.sun{position:absolute;left:440px;top:170px;width:400px;height:400px;border-radius:50%;background:linear-gradient(#ffe259,#ff2e88);-webkit-mask:linear-gradient(#000 0 50%,transparent 50% 54%,#000 54% 62%,transparent 62% 67%,#000 67% 76%,transparent 76% 82%,#000 82% 90%,transparent 90% 97%,#000 97%);mask:linear-gradient(#000 0 50%,transparent 50% 54%,#000 54% 62%,transparent 62% 67%,#000 67% 76%,transparent 76% 82%,#000 82% 90%,transparent 90% 97%,#000 97%)}
+.floor{position:absolute;left:-400px;top:558px;width:2080px;height:500px;transform:perspective(400px) rotateX(62deg);transform-origin:top;background:linear-gradient(90deg,#ff2e88 2px,transparent 2px) 0 0/80px 80px,linear-gradient(#ff2e88 2px,transparent 2px) 0 0/80px 60px;animation:run 1s linear infinite}
+h1{position:absolute;left:0;top:300px;width:1280px;text-align:center;font-size:170px;font-style:italic;font-weight:900;letter-spacing:-4px;color:#fff;text-shadow:1px 1px 0 #00e5ff,2px 2px 0 #00e5ff,3px 3px 0 #00e5ff,4px 4px 0 #00e5ff,5px 5px 0 #00e5ff,6px 6px 0 #00e5ff,7px 7px 0 #00e5ff,8px 8px 0 #00e5ff,10px 10px 24px rgba(0,229,255,.6)}
+nav{position:absolute;left:60px;top:40px;width:1160px;display:flex;justify-content:space-between;font-size:14px;letter-spacing:3px;color:#00e5ff}
+.sub{position:absolute;left:0;top:500px;width:1280px;text-align:center;font:700 22px monospace;letter-spacing:8px;color:#ffe259}
+.btn{position:absolute;left:530px;top:780px;width:220px;padding:16px 0;text-align:center;border:2px solid #00e5ff;color:#00e5ff;font-weight:800;letter-spacing:3px;box-shadow:0 0 18px #00e5ff,inset 0 0 18px rgba(0,229,255,.5)}
+.mts{position:absolute;left:0;top:470px;width:1280px;height:90px;background:#1a0638;clip-path:polygon(0 100%,0 40%,8% 10%,17% 55%,26% 20%,33% 70%,67% 70%,74% 25%,82% 50%,91% 5%,100% 45%,100% 100%)}
+</style></head><body>
+<div class="sun" data-r="striped-sun" data-must></div>
+<div class="mts" data-r="mountains"></div>
+<div class="floor" data-r="grid-floor" data-must></div>
+<nav data-r="nav"><span>NIGHTDRIVE</span><span>TRACKS · TOUR · MERCH</span></nav>
+<h1 data-r="headline" data-must>OUTRUN</h1>
+<p class="sub" data-r="subtitle">NEW ALBUM · 11.11</p>
+<a class="btn" data-r="cta">PRE-SAVE</a>
+</body></html>

@@ -1,0 +1,190 @@
+{
+ "c1-liquid-chrome": {
+  "found": {
+   "blur": 1,
+   "motion": 5,
+   "gradient": 5,
+   "gradient-text": 1,
+   "huge-type": 1,
+   "glow": 1,
+   "3d": 4,
+   "glass": 3,
+   "soft-shadow": 3,
+   "vertical-type": 1,
+   "mono": 5,
+   "overlap": 18
+  },
+  "names": [
+   "3d",
+   "blur",
+   "glass",
+   "glow",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "soft-shadow",
+   "vertical-type"
+  ]
+ },
+ "c2-brutal-grid": {
+  "found": {
+   "mono": 17,
+   "uppercase-display": 1,
+   "hollow-type": 1,
+   "huge-type": 3,
+   "stripes-or-layers": 1,
+   "hard-shadow": 3,
+   "tilt": 1,
+   "motion": 1,
+   "blend": 1,
+   "overlap": 3
+  },
+  "names": [
+   "blend",
+   "hard-shadow",
+   "hollow-type",
+   "huge-type",
+   "mono",
+   "motion",
+   "overlap",
+   "stripes-or-layers",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c3-isometric-city": {
+  "found": {
+   "motion": 3,
+   "hard-shadow": 1,
+   "3d": 17,
+   "stripes-or-layers": 1,
+   "soft-shadow": 1,
+   "overlap": 40
+  },
+  "names": [
+   "3d",
+   "hard-shadow",
+   "motion",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "c4-duotone-split": {
+  "found": {
+   "clip-shape": 2,
+   "stripes-or-layers": 1,
+   "vertical-type": 3,
+   "blend": 1,
+   "huge-type": 2,
+   "serif": 4,
+   "italic": 2,
+   "mono": 1,
+   "hollow-type": 1,
+   "tilt": 1,
+   "motion": 1,
+   "overlap": 5
+  },
+  "names": [
+   "blend",
+   "clip-shape",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c5-paper-collage": {
+  "found": {
+   "serif": 5,
+   "italic": 2,
+   "tilt": 7,
+   "clip-shape": 1,
+   "huge-type": 1,
+   "soft-shadow": 3,
+   "stripes-or-layers": 1,
+   "motion": 1,
+   "hard-shadow": 1,
+   "overlap": 7
+  },
+  "names": [
+   "clip-shape",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "motion",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "e1-kanban-swimlanes": {
+  "found": {
+   "tilt": 1,
+   "soft-shadow": 1,
+   "overlap": 13
+  },
+  "names": [
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e2-ide-editor": {
+  "found": {
+   "hard-shadow": 1,
+   "mono": 103,
+   "stripes-or-layers": 1,
+   "soft-shadow": 1
+  },
+  "names": [
+   "hard-shadow",
+   "mono",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e3-analytics-dashboard": {
+  "found": {
+   "stripes-or-layers": 1,
+   "soft-shadow": 1,
+   "overlap": 109
+  },
+  "names": [
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e4-email-client": {
+  "found": {
+   "soft-shadow": 1
+  },
+  "names": [
+   "soft-shadow"
+  ]
+ },
+ "e5-map-booking": {
+  "found": {
+   "gradient": 5,
+   "soft-shadow": 10,
+   "overlap": 27
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ }
+}

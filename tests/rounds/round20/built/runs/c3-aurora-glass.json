@@ -1,0 +1,433 @@
+{
+  "id": "c3-aurora-glass",
+  "at": "2026-10-25T03:54:38.266Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8807660219324811,
+    "overallV2": 0.8807660219324811,
+    "overallV1": 0.8331337018454359,
+    "colour": 0.9368811688205947,
+    "structure": 0.9209096987781238,
+    "structureStrict": 0.8083673283601882,
+    "colourAligned": 0.9368811688205947,
+    "structureAligned": 0.9209096987781238,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.966234951114402
+    },
+    "layout": 0.8102980844632094,
+    "layoutV1": 0.6852980844632094,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      -80,
+      -60,
+      620,
+      420
+    ],
+    [
+      0,
+      520,
+      120,
+      560,
+      480
+    ],
+    [
+      0,
+      860,
+      520,
+      480,
+      380
+    ],
+    [
+      0,
+      64,
+      51,
+      414,
+      33
+    ],
+    [
+      4,
+      64,
+      51,
+      72,
+      33
+    ],
+    [
+      4,
+      176,
+      56,
+      52,
+      23
+    ],
+    [
+      4,
+      268,
+      56,
+      46,
+      23
+    ],
+    [
+      4,
+      354,
+      56,
+      34,
+      23
+    ],
+    [
+      4,
+      428,
+      56,
+      50,
+      23
+    ],
+    [
+      0,
+      68,
+      200,
+      552,
+      165
+    ],
+    [
+      10,
+      68,
+      200,
+      552,
+      82
+    ],
+    [
+      10,
+      68,
+      282,
+      552,
+      82
+    ],
+    [
+      0,
+      60,
+      470,
+      460,
+      87
+    ],
+    [
+      0,
+      64,
+      603,
+      194,
+      50
+    ],
+    [
+      0,
+      730,
+      122,
+      439,
+      337
+    ],
+    [
+      15,
+      767,
+      156,
+      337,
+      68
+    ],
+    [
+      15,
+      772,
+      188,
+      341,
+      100
+    ],
+    [
+      0,
+      706,
+      305,
+      428,
+      298
+    ],
+    [
+      18,
+      754,
+      336,
+      345,
+      45
+    ],
+    [
+      18,
+      749,
+      369,
+      348,
+      90
+    ],
+    [
+      18,
+      747,
+      443,
+      345,
+      48
+    ],
+    [
+      0,
+      814,
+      505,
+      353,
+      230
+    ],
+    [
+      22,
+      848,
+      536,
+      277,
+      35
+    ],
+    [
+      22,
+      850,
+      569,
+      278,
+      56
+    ],
+    [
+      0,
+      60,
+      800,
+      78,
+      23
+    ],
+    [
+      0,
+      194,
+      800,
+      75,
+      23
+    ],
+    [
+      0,
+      325,
+      800,
+      138,
+      23
+    ],
+    [
+      0,
+      519,
+      800,
+      46,
+      23
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "logos",
+      "iou": 1,
+      "parts": 4,
+      "rect": {
+        "x": 60,
+        "y": 800,
+        "w": 505,
+        "h": 23
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.7777777777777778,
+    "kept": [
+      "bleed",
+      "blur",
+      "glass",
+      "gradient-text",
+      "overlap",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [
+      "gradient",
+      "motion"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 34937,
+    "output": 19534,
+    "cacheRead": 192655
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37163,
+      "output": 12412,
+      "cacheRead": 181382,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit src/App.tsx"
+      ],
+      "ms": 121088
+    }
+  ],
+  "reading": "This is a fintech-style landing page hero: a page-wide black background with blurred colour blobs, a top nav (Lumen logo + links), a big two-line gradient headline, a lavender paragraph with a white 'Open an account' button, three tilted frosted-glass stat cards (Savings Pot, This Month spend, frozen card), and a row of four partner-logo wordmarks at the bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        51,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: bold 22px white 'Lumen' logo on the left, followed by nav links Product, Pricing, Docs, Sign in; 'Sign in' is the selected item with white f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 75
+        }
+      ],
+      "region": [
+        68,
+        200,
+        504,
+        165
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica Heavy heading, tightly set (line-height 0.98), text 'Your money, in clear light.' broken into exactly two lines: 'Your money, in' / 'clear light"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        64,
+        470,
+        452,
+        88
+      ],
+      "paths": [],
+      "instruction": "19px Helvetica lavender (#c3c9e8) body copy, 3 lines, about 460px wide, positioned top-left around (60,470). Exact wording (verbatim, nothing invented): 'One ca"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        603,
+        194,
+        50
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "White filled button with black (#070b1c) text reading 'Open an account' (text stays black, not the page's default white)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        748,
+        149,
+        403,
+        284
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Frosted-glass card tilted 8° anticlockwise, containing label 'SAVINGS POT' (#c3c9e8) and amount '£4,820' (#ffffff)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        715,
+        319,
+        410,
+        270
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Frosted-glass card tilted 4° clockwise, with content grouped at the top and empty space below: label 'THIS MONTH' (#c3c9e8), a big 44px bold figure '−£1,236.40'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        819,
+        514,
+        342,
+        212
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Frosted-glass card tilted 3° anticlockwise, containing label 'CARD •••• 4021' (#c3c9e8) and status 'Frozen ❄' (#ffffff)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        807,
+        497,
+        9
+      ],
+      "paths": [],
+      "instruction": "Row of four partner/brand wordmark text elements, each its own real element with live text, all kept on one line (white-space: nowrap, use min-width not a fixed"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

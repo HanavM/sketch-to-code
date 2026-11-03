@@ -1,0 +1,242 @@
+{
+  "id": "c1-sunset-hero",
+  "at": "2026-10-24T14:37:33.047Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6772787496473038,
+    "overallV2": 0.6772787496473038,
+    "overallV1": 0.6269824627792291,
+    "colour": 0.9318313738906612,
+    "structure": 0.8767111492408147,
+    "structureStrict": 0.8243635891697864,
+    "colourAligned": 0.9318313738906612,
+    "structureAligned": 0.8767111492408147,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8383071973161486
+    },
+    "layout": 0.48576086008867186,
+    "layoutV1": 0.48576086008867186,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      76,
+      38,
+      46,
+      22
+    ],
+    [
+      0,
+      910,
+      38,
+      37,
+      24
+    ],
+    [
+      0,
+      983,
+      38,
+      45,
+      24
+    ],
+    [
+      0,
+      1064,
+      38,
+      52,
+      24
+    ],
+    [
+      0,
+      1153,
+      38,
+      55,
+      24
+    ],
+    [
+      0,
+      148,
+      244,
+      848,
+      240
+    ],
+    [
+      6,
+      148,
+      244,
+      848,
+      120
+    ],
+    [
+      6,
+      148,
+      364,
+      848,
+      120
+    ],
+    [
+      0,
+      334,
+      516,
+      612,
+      26
+    ],
+    [
+      0,
+      532,
+      617,
+      220,
+      61
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "huge-type",
+      "italic",
+      "serif"
+    ],
+    "missing": [],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 20165,
+    "output": 11087,
+    "cacheRead": 157738
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 18239,
+      "output": 5676,
+      "cacheRead": 130579,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 60360
+    }
+  ],
+  "reading": "A hero page sketch: a small italic logo mark top-left, a 4-item nav top-right, a two-line giant serif headline, a short paragraph beneath it, and a pill CTA button, all set over a coral-to-pink-to-purple gradient background with white Georgia type per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        76,
+        43,
+        46,
+        8
+      ],
+      "paths": [],
+      "instruction": "Small logo/wordmark text reading \"dusk.\" set in italic, white, Georgia serif, positioned top-left of the hero."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        914,
+        43,
+        290,
+        8
+      ],
+      "paths": [],
+      "instruction": "Top-right navigation bar with 4 separate real text elements, each with live text and exact page-pixel size/position, white #ffffff, 16px: \"Work\" 37x18 at 910,38"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 109
+        }
+      ],
+      "region": [
+        148,
+        244,
+        900,
+        240
+      ],
+      "paths": [],
+      "instruction": "Giant headline in Georgia serif, regular weight (not bold), tight letter-spacing and tight line-height (line-height 1), white text, reading \"Stay for the golden"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        334,
+        516,
+        612,
+        52
+      ],
+      "paths": [],
+      "instruction": "Body paragraph beneath the headline, white Georgia serif text reading \"A slow-living retreat on the coast, where the evenings last a little longer.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        533,
+        617,
+        216,
+        58
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Pill-shaped button labeled \"Book a stay\", exact spec: #ffffff fill, #7b2ff7 purple text (not the page's default white text), 220x61px, fully rounded pill ends."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

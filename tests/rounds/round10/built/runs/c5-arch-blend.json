@@ -1,0 +1,236 @@
+{
+  "id": "c5-arch-blend",
+  "at": "2026-10-23T13:13:22.992Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8609034231081875,
+    "overallV2": 0.8609034231081875,
+    "overallV1": 0.8047911588467196,
+    "colour": 0.9958899513806359,
+    "structure": 0.949400631584827,
+    "structureStrict": 0.8789029848766866,
+    "colourAligned": 0.9958899513806359,
+    "structureAligned": 0.949400631584827,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.981839425901047
+    },
+    "layout": 0.6887998011525956
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "gradient",
+      "huge-type",
+      "italic",
+      "motion",
+      "overlap",
+      "serif"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 37634,
+    "output": 21882,
+    "cacheRead": 180765
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47158,
+      "output": 17455,
+      "cacheRead": 169342,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Grep",
+        "Write src/App.tsx"
+      ],
+      "ms": 183322
+    }
+  ],
+  "reading": "This is a hero landing page sketch: a top nav bar, an italic subhead quote, a vertical divider, a large gradient arch shape with a pale pink circle behind a giant 'Slow sunsets' headline, a spinning badge circle with scroll copy, three numbered part labels, and a 'RESERVE A ROOM' link, all styled per the typed notes (warm paper background, Georgia type, dark navy text, specific colors and exact CSS for the arch and circle).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        43,
+        1113,
+        8
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar with no box/border around it: wide letter-spaced 'CASA ÓXIDO' on the left, and 'ROOMS · TABLE · JOURNAL · STAY' on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        84,
+        150,
+        372,
+        54
+      ],
+      "paths": [],
+      "instruction": "Italic paragraph text: \"A seven-room house in the red hills, where the walls hold the afternoon heat long after dark.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        556,
+        114,
+        9,
+        712
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A thin straight vertical divider line, colored dark navy."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        639,
+        111,
+        422,
+        720
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A plain CSS arch block, 420x720px, top-left at 640,110, border-radius 210px 210px 0 0 so the top is a perfect half circle and the sides/bottom are straight (not"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        774,
+        264,
+        151,
+        151
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A perfectly round solid disc (border-radius 50%, not traced from the ink), 160px across, flat fully opaque pale pink (#f6d6a8) fill, hard edge, no blur, positio"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 130
+        }
+      ],
+      "region": [
+        88,
+        363,
+        365,
+        16
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif, regular weight (not bold), tight-set headline that color-inverts where it crosses elements beneath it, set tight (line-height 0.95), readin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        84,
+        640,
+        126,
+        79
+      ],
+      "paths": [],
+      "instruction": "Three separate small text labels, each its own element with live text: 131x14 at page coords 80,646, 12px, color #2b2420, text 'I — THE HOUSE'; 131x14 at 80,672"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        778,
+        146,
+        8
+      ],
+      "paths": [],
+      "instruction": "A text link reading 'RESERVE A ROOM' with a 2px underline, no surrounding box, not styled as a button."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1104,
+        644,
+        112,
+        112
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A spinning dark navy outline circle badge containing the text 'SCROLL · TO · WANDER' arranged around the circle, with a continuous rotation animation."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

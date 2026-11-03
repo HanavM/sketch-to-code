@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Vinyl shop</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f6c33a;font-family:Helvetica,Arial,sans-serif;color:#1a1410}
+.stripe{position:absolute;left:0;top:0;width:1280px;height:900px;background:linear-gradient(115deg,#0000 74%,#e8522a 74% 81%,#1a1410 81% 84%,#0000 84%)}
+.sleeve{position:absolute;left:120px;top:170px;width:460px;height:460px;background:linear-gradient(135deg,#2b5bd7,#7a2bd7);box-shadow:24px 24px 0 #1a1410;padding:30px;color:#fff}
+.sleeve b{font:900 64px/0.9 Helvetica;letter-spacing:-3px;display:block;width:300px}.sleeve small{position:absolute;left:30px;bottom:28px;font:700 13px Helvetica;letter-spacing:3px}
+.sleeve .circ{position:absolute;right:30px;top:30px;width:120px;height:120px;border-radius:50%;border:14px solid #f6c33a}
+.rec{position:absolute;left:400px;top:190px;width:420px;height:420px;border-radius:50%;background:repeating-radial-gradient(circle,#111 0 2px,#262626 2px 4px);box-shadow:0 10px 30px #0006}
+.rec::before{content:"";position:absolute;left:135px;top:135px;width:150px;height:150px;border-radius:50%;background:#e8522a}
+.rec::after{content:"";position:absolute;left:204px;top:204px;width:12px;height:12px;border-radius:50%;background:#f6c33a}
+.shine{position:absolute;left:400px;top:190px;width:420px;height:420px;border-radius:50%;background:conic-gradient(#fff0 0 40deg,#ffffff2e 60deg,#fff0 80deg 220deg,#ffffff22 240deg,#fff0 260deg)}
+.arm{position:absolute;left:770px;top:150px;width:12px;height:330px;background:#c9c9c9;border-radius:6px;transform:rotate(24deg);transform-origin:6px 0;box-shadow:2px 2px 0 #1a1410}
+.pivot{position:absolute;left:748px;top:130px;width:56px;height:56px;border-radius:50%;background:#1a1410;border:8px solid #c9c9c9}
+.h{position:absolute;left:880px;top:200px;width:360px;font:900 54px/0.95 Helvetica;letter-spacing:-2px;text-transform:uppercase}
+.p{position:absolute;left:880px;top:380px;width:330px;font:400 16px/1.55 Helvetica}
+.eq{position:absolute;left:880px;top:470px;display:flex;align-items:flex-end;gap:6px;height:90px}.eq i{width:14px;background:#1a1410}
+.price{position:absolute;left:1080px;top:600px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,#e8522a 60%,#0000 61%),repeating-conic-gradient(#e8522a 0 6deg,#0000 6deg 12deg);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font:900 36px Helvetica;transform:rotate(-12deg)}.price small{font:700 12px Helvetica;letter-spacing:2px}
+.list{position:absolute;left:120px;top:700px;width:860px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.list div{background:#1a1410;color:#f6c33a;padding:14px;font:700 14px Helvetica;display:flex;gap:12px;align-items:center}.list div i{width:40px;height:40px;border-radius:50%;background:repeating-radial-gradient(circle,#333 0 1px,#111 1px 3px);flex:none}
+.nav{position:absolute;left:120px;top:60px;width:1100px;display:flex;gap:28px;font:800 15px Helvetica;text-transform:uppercase;letter-spacing:1px}.nav b{margin-right:auto;font-size:22px}
+</style></head><body>
+<div class="stripe" data-r="diagonal-stripes"></div>
+<div class="nav" data-r="nav"><b>Groove Hut</b><span>New in</span><span>Used</span><span>Turntables</span><span>Cart (2)</span></div>
+<div class="sleeve" data-r="sleeve" data-must><b>Night Swim</b><i class="circ"></i><small>LP · 2026 · SIDE A/B</small></div>
+<div class="rec" data-r="record" data-must></div><div class="shine"></div>
+<div class="pivot" data-r="tonearm-pivot"></div><div class="arm" data-r="tonearm" data-must></div>
+<h1 class="h" data-r="headline" data-must>Records that sound like summer</h1>
+<p class="p" data-r="copy">Hand-graded used vinyl and new pressings, shipped flat in stiff mailers. Listen to every side before you buy.</p>
+<div class="eq" data-r="equaliser"><i style="height:40%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:100%"></i><i style="height:30%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:90%"></i></div>
+<div class="price" data-r="price-badge" data-must><small>ONLY</small>€24</div>
+<div class="list" data-r="crate-row" data-must><div><i></i>Lowtide — Glass</div><div><i></i>Aster — Pools</div><div><i></i>Kito — Bloom</div><div><i></i>Ruo — Hours</div></div>
+</body></html>

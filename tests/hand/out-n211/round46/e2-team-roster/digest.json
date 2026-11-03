@@ -1,0 +1,513 @@
+{
+  "round": 46,
+  "id": "e2-team-roster",
+  "version": 3,
+  "stopped": null,
+  "likeness": 88.9,
+  "colour": 0.9937732004025106,
+  "structure": 0.9632385475331864,
+  "layout": 0.793260339589156,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 2.7,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 7,
+      "box": 3,
+      "line": 2,
+      "circle": 1
+    },
+    "inkPx": 7781
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 60,
+  "notes": 11,
+  "longestNote": 27,
+  "noteTexts": [
+    "Northwind",
+    "Overview, Team, Projects, Billing, Settings",
+    "Team members big bold",
+    "6 people, 4 active now",
+    "+ Invite member",
+    "NAME",
+    "ROLE",
+    "STATUS",
+    "x6 rows: Ana Ruiz, Design lead, Active; Ben Cole, Engineer, Active; Chi Ng, Engineer, Away; Dev Patel, Product, Active; Eva Moss, Support, Off; Finn Lee, Engineer, Active",
+    "···",
+    "table white, every row; status word after each dot, its colour"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 595,
+    "firstReadingS": 94,
+    "readS": [
+      49,
+      38
+    ],
+    "buildS": [
+      355,
+      67
+    ],
+    "sketchingS": 86
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 123666,
+    "cacheRead": 1044684,
+    "output": 45427,
+    "billed": 169093
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 700,
+      "y": 860,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#f8fafc",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 461
+    },
+    {
+      "op": "pen",
+      "color": "#0f172a",
+      "at": 839
+    },
+    {
+      "op": "stroke",
+      "at": 8343
+    },
+    {
+      "op": "stroke",
+      "at": 8824
+    },
+    {
+      "op": "pen",
+      "color": "#4f46e5",
+      "at": 9195
+    },
+    {
+      "op": "stroke",
+      "at": 10956
+    },
+    {
+      "op": "stroke",
+      "at": 11423
+    },
+    {
+      "op": "pen",
+      "color": "#e2e8f0",
+      "at": 11795
+    },
+    {
+      "op": "stroke",
+      "at": 20741
+    },
+    {
+      "op": "stroke",
+      "at": 23892
+    },
+    {
+      "op": "stroke",
+      "at": 27075
+    },
+    {
+      "op": "pen",
+      "color": "#c7d2fe",
+      "at": 27454
+    },
+    {
+      "op": "stroke",
+      "at": 28322
+    },
+    {
+      "op": "stroke",
+      "at": 28788
+    },
+    {
+      "op": "pen",
+      "color": "#22c55e",
+      "at": 29161
+    },
+    {
+      "op": "stroke",
+      "at": 29640
+    },
+    {
+      "op": "pen",
+      "color": "#f59e0b",
+      "at": 30020
+    },
+    {
+      "op": "stroke",
+      "at": 30491
+    },
+    {
+      "op": "pen",
+      "color": "#94a3b8",
+      "at": 30861
+    },
+    {
+      "op": "stroke",
+      "at": 31341
+    },
+    {
+      "op": "note",
+      "at": 32047
+    },
+    {
+      "op": "note",
+      "at": 32930
+    },
+    {
+      "op": "note",
+      "at": 33603
+    },
+    {
+      "op": "note",
+      "at": 34298
+    },
+    {
+      "op": "note",
+      "at": 35018
+    },
+    {
+      "op": "note",
+      "at": 35677
+    },
+    {
+      "op": "note",
+      "at": 36330
+    },
+    {
+      "op": "note",
+      "at": 37018
+    },
+    {
+      "op": "note",
+      "at": 38645
+    },
+    {
+      "op": "note",
+      "at": 39314
+    },
+    {
+      "op": "run",
+      "at": 44420
+    },
+    {
+      "op": "note",
+      "at": 465219
+    },
+    {
+      "op": "run",
+      "at": 465397
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          800,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 461
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          220,
+          2
+        ],
+        [
+          220,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 371,
+      "at": 8343
+    },
+    {
+      "way": [
+        [
+          110,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 8824
+    },
+    {
+      "way": [
+        [
+          1050,
+          46
+        ],
+        [
+          1230,
+          46
+        ],
+        [
+          1230,
+          94
+        ],
+        [
+          1050,
+          94
+        ],
+        [
+          1050,
+          46
+        ]
+      ],
+      "n": 77,
+      "at": 10956
+    },
+    {
+      "way": [
+        [
+          1140,
+          70
+        ]
+      ],
+      "n": 1,
+      "at": 11423
+    },
+    {
+      "way": [
+        [
+          270,
+          170
+        ],
+        [
+          1230,
+          170
+        ],
+        [
+          1230,
+          730
+        ],
+        [
+          270,
+          730
+        ],
+        [
+          270,
+          170
+        ]
+      ],
+      "n": 507,
+      "at": 20741
+    },
+    {
+      "way": [
+        [
+          270,
+          240
+        ],
+        [
+          1230,
+          240
+        ]
+      ],
+      "n": 161,
+      "at": 23892
+    },
+    {
+      "way": [
+        [
+          270,
+          320
+        ],
+        [
+          1230,
+          320
+        ]
+      ],
+      "n": 161,
+      "at": 27075
+    },
+    {
+      "way": [
+        [
+          316,
+          259
+        ],
+        [
+          332,
+          265
+        ],
+        [
+          338,
+          281
+        ],
+        [
+          332,
+          297
+        ],
+        [
+          316,
+          303
+        ],
+        [
+          300,
+          297
+        ],
+        [
+          294,
+          281
+        ],
+        [
+          300,
+          265
+        ],
+        [
+          316,
+          259
+        ]
+      ],
+      "n": 25,
+      "at": 28322
+    },
+    {
+      "way": [
+        [
+          316,
+          281
+        ]
+      ],
+      "n": 1,
+      "at": 28788
+    },
+    {
+      "way": [
+        [
+          915,
+          281
+        ]
+      ],
+      "n": 1,
+      "at": 29640
+    },
+    {
+      "way": [
+        [
+          915,
+          441
+        ]
+      ],
+      "n": 1,
+      "at": 30491
+    },
+    {
+      "way": [
+        [
+          915,
+          601
+        ]
+      ],
+      "n": 1,
+      "at": 31341
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Northwind",
+      "whole": false,
+      "x": 24,
+      "y": 42,
+      "at": 32047
+    },
+    {
+      "text": "Overview, Team, Projects, Billing, Settings",
+      "whole": false,
+      "x": 24,
+      "y": 100,
+      "at": 32930
+    },
+    {
+      "text": "Team members big bold",
+      "whole": false,
+      "x": 270,
+      "y": 70,
+      "at": 33603
+    },
+    {
+      "text": "6 people, 4 active now",
+      "whole": false,
+      "x": 270,
+      "y": 120,
+      "at": 34298
+    },
+    {
+      "text": "+ Invite member",
+      "whole": false,
+      "x": 1090,
+      "y": 70,
+      "at": 35018
+    },
+    {
+      "text": "NAME",
+      "whole": false,
+      "x": 358,
+      "y": 205,
+      "at": 35677
+    },
+    {
+      "text": "ROLE",
+      "whole": false,
+      "x": 670,
+      "y": 205,
+      "at": 36330
+    },
+    {
+      "text": "STATUS",
+      "whole": false,
+      "x": 910,
+      "y": 205,
+      "at": 37018
+    },
+    {
+      "text": "x6 rows: Ana Ruiz, Design lead, Active; Ben Cole, Engineer, Active; Chi Ng, Engineer, Away; Dev Patel, Product, Active; Eva Moss, Support, Off; Finn Lee, Engineer, Active",
+      "whole": false,
+      "x": 358,
+      "y": 281,
+      "at": 38645
+    },
+    {
+      "text": "···",
+      "whole": false,
+      "x": 1181,
+      "y": 281,
+      "at": 39314
+    },
+    {
+      "text": "table white, every row; status word after each dot, its colour",
+      "whole": false,
+      "x": 700,
+      "y": 500,
+      "at": 465219
+    }
+  ]
+}

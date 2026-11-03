@@ -1,0 +1,500 @@
+{
+  "round": 34,
+  "id": "c2-bike-race",
+  "version": 3,
+  "stopped": null,
+  "likeness": 81,
+  "colour": 0.9854565390365397,
+  "structure": 0.9119626240866928,
+  "layout": 0.5966385754909315,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 4,
+      "circle": 3,
+      "line": 2,
+      "dot": 7
+    },
+    "inkPx": 12927
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 38,
+  "notes": 7,
+  "longestNote": 11,
+  "noteTexts": [
+    "VELO 42, bold yellow text",
+    "42, giant outlined numbers",
+    "HILL CLIMB, huge bold",
+    "Sun 3 May · 42 km · 1,200 m up, bold",
+    "thick black border",
+    "Enter the race, bold yellow text",
+    "card on top of stripes"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 350,
+    "firstReadingS": 113,
+    "readS": [
+      58
+    ],
+    "buildS": [
+      228
+    ],
+    "sketchingS": 65
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 64204,
+    "cacheRead": 515818,
+    "output": 26786,
+    "billed": 90990
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 1351
+    },
+    {
+      "op": "stroke",
+      "at": 5636
+    },
+    {
+      "op": "stroke",
+      "at": 14322
+    },
+    {
+      "op": "stroke",
+      "at": 22921
+    },
+    {
+      "op": "stroke",
+      "at": 30518
+    },
+    {
+      "op": "stroke",
+      "at": 35321
+    },
+    {
+      "op": "stroke",
+      "at": 36968
+    },
+    {
+      "op": "stroke",
+      "at": 38336
+    },
+    {
+      "op": "stroke",
+      "at": 40368
+    },
+    {
+      "op": "pen",
+      "color": "#fde047",
+      "at": 40741
+    },
+    {
+      "op": "stroke",
+      "at": 41222
+    },
+    {
+      "op": "stroke",
+      "at": 41685
+    },
+    {
+      "op": "pen",
+      "color": "#0a0a0a",
+      "at": 42057
+    },
+    {
+      "op": "stroke",
+      "at": 42518
+    },
+    {
+      "op": "stroke",
+      "at": 42986
+    },
+    {
+      "op": "stroke",
+      "at": 43452
+    },
+    {
+      "op": "stroke",
+      "at": 43919
+    },
+    {
+      "op": "stroke",
+      "at": 44385
+    },
+    {
+      "op": "note",
+      "at": 45051
+    },
+    {
+      "op": "note",
+      "at": 45701
+    },
+    {
+      "op": "note",
+      "at": 46364
+    },
+    {
+      "op": "note",
+      "at": 47048
+    },
+    {
+      "op": "note",
+      "at": 47707
+    },
+    {
+      "op": "note",
+      "at": 48379
+    },
+    {
+      "op": "note",
+      "at": 55533
+    },
+    {
+      "op": "run",
+      "at": 55595
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          70,
+          44
+        ],
+        [
+          188,
+          44
+        ],
+        [
+          188,
+          86
+        ],
+        [
+          70,
+          86
+        ],
+        [
+          70,
+          44
+        ]
+      ],
+      "n": 55,
+      "at": 1351
+    },
+    {
+      "way": [
+        [
+          790,
+          140
+        ],
+        [
+          1200,
+          140
+        ],
+        [
+          1200,
+          412
+        ],
+        [
+          790,
+          412
+        ],
+        [
+          790,
+          140
+        ]
+      ],
+      "n": 227,
+      "at": 5636
+    },
+    {
+      "way": [
+        [
+          2,
+          728
+        ],
+        [
+          1278,
+          160
+        ],
+        [
+          1278,
+          236
+        ],
+        [
+          2,
+          805
+        ],
+        [
+          2,
+          728
+        ]
+      ],
+      "n": 493,
+      "at": 14322
+    },
+    {
+      "way": [
+        [
+          2,
+          848
+        ],
+        [
+          1278,
+          280
+        ],
+        [
+          1278,
+          356
+        ],
+        [
+          60,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          848
+        ]
+      ],
+      "n": 487,
+      "at": 22921
+    },
+    {
+      "way": [
+        [
+          155,
+          898
+        ],
+        [
+          1278,
+          399
+        ],
+        [
+          1278,
+          476
+        ],
+        [
+          325,
+          898
+        ],
+        [
+          155,
+          898
+        ]
+      ],
+      "n": 421,
+      "at": 30518
+    },
+    {
+      "way": [
+        [
+          72,
+          562
+        ],
+        [
+          668,
+          562
+        ],
+        [
+          668,
+          746
+        ],
+        [
+          72,
+          746
+        ],
+        [
+          72,
+          562
+        ]
+      ],
+      "n": 261,
+      "at": 35321
+    },
+    {
+      "way": [
+        [
+          109,
+          663
+        ],
+        [
+          537,
+          663
+        ]
+      ],
+      "n": 72,
+      "at": 36968
+    },
+    {
+      "way": [
+        [
+          109,
+          708
+        ],
+        [
+          433,
+          708
+        ]
+      ],
+      "n": 55,
+      "at": 38336
+    },
+    {
+      "way": [
+        [
+          760,
+          740
+        ],
+        [
+          973,
+          740
+        ],
+        [
+          973,
+          803
+        ],
+        [
+          760,
+          803
+        ],
+        [
+          760,
+          740
+        ]
+      ],
+      "n": 95,
+      "at": 40368
+    },
+    {
+      "way": [
+        [
+          400,
+          200
+        ]
+      ],
+      "n": 1,
+      "at": 41222
+    },
+    {
+      "way": [
+        [
+          620,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 41685
+    },
+    {
+      "way": [
+        [
+          180,
+          80
+        ]
+      ],
+      "n": 1,
+      "at": 42518
+    },
+    {
+      "way": [
+        [
+          640,
+          482
+        ]
+      ],
+      "n": 1,
+      "at": 42986
+    },
+    {
+      "way": [
+        [
+          1000,
+          442
+        ]
+      ],
+      "n": 1,
+      "at": 43452
+    },
+    {
+      "way": [
+        [
+          1100,
+          517
+        ]
+      ],
+      "n": 1,
+      "at": 43919
+    },
+    {
+      "way": [
+        [
+          950,
+          790
+        ]
+      ],
+      "n": 1,
+      "at": 44385
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "VELO 42, bold yellow text",
+      "whole": false,
+      "x": 100,
+      "y": 64,
+      "at": 45051
+    },
+    {
+      "text": "42, giant outlined numbers",
+      "whole": false,
+      "x": 1000,
+      "y": 170,
+      "at": 45701
+    },
+    {
+      "text": "HILL CLIMB, huge bold",
+      "whole": false,
+      "x": 320,
+      "y": 640,
+      "at": 46364
+    },
+    {
+      "text": "Sun 3 May · 42 km · 1,200 m up, bold",
+      "whole": false,
+      "x": 270,
+      "y": 700,
+      "at": 47048
+    },
+    {
+      "text": "thick black border",
+      "whole": false,
+      "x": 640,
+      "y": 570,
+      "at": 47707
+    },
+    {
+      "text": "Enter the race, bold yellow text",
+      "whole": false,
+      "x": 866,
+      "y": 771,
+      "at": 48379
+    },
+    {
+      "text": "card on top of stripes",
+      "whole": false,
+      "x": 200,
+      "y": 590,
+      "at": 55533
+    }
+  ]
+}

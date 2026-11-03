@@ -1,0 +1,1367 @@
+{
+ "measured": "2026-10-29T12:26:09.109Z",
+ "targets": {
+  "c1-kite-festival": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 86
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 72,
+      "y": 30,
+      "w": 129,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 72,
+      "y": 190,
+      "w": 600,
+      "h": 191
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 76,
+      "y": 520,
+      "w": 430,
+      "h": 58
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 76,
+      "y": 640,
+      "w": 230,
+      "h": 62
+     },
+     "must": true
+    },
+    {
+     "role": "kite-red",
+     "rect": {
+      "x": 729,
+      "y": 99,
+      "w": 212,
+      "h": 212
+     },
+     "must": true
+    },
+    {
+     "role": "kite-yellow",
+     "rect": {
+      "x": 937,
+      "y": 227,
+      "w": 156,
+      "h": 156
+     },
+     "must": false
+    },
+    {
+     "role": "kite-green",
+     "rect": {
+      "x": 801,
+      "y": 411,
+      "w": 127,
+      "h": 127
+     },
+     "must": false
+    },
+    {
+     "role": "tail-1",
+     "rect": {
+      "x": 833,
+      "y": 330,
+      "w": 58,
+      "h": 255
+     },
+     "must": false
+    },
+    {
+     "role": "ground",
+     "rect": {
+      "x": 0,
+      "y": 790,
+      "w": 1280,
+      "h": 110
+     },
+     "must": true
+    }
+   ]
+  },
+  "c2-gelato-stripes": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 84
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 26,
+      "w": 67,
+      "h": 32
+     },
+     "must": false
+    },
+    {
+     "role": "outline-word",
+     "rect": {
+      "x": 56,
+      "y": 150,
+      "w": 755,
+      "h": 220
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 64,
+      "y": 430,
+      "w": 560,
+      "h": 118
+     },
+     "must": true
+    },
+    {
+     "role": "scoop-pink",
+     "rect": {
+      "x": 810,
+      "y": 270,
+      "w": 180,
+      "h": 180
+     },
+     "must": true
+    },
+    {
+     "role": "scoop-green",
+     "rect": {
+      "x": 910,
+      "y": 250,
+      "w": 180,
+      "h": 180
+     },
+     "must": false
+    },
+    {
+     "role": "cup",
+     "rect": {
+      "x": 820,
+      "y": 430,
+      "w": 260,
+      "h": 300
+     },
+     "must": true
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 64,
+      "y": 640,
+      "w": 250,
+      "h": 64
+     },
+     "must": false
+    },
+    {
+     "role": "price",
+     "rect": {
+      "x": 350,
+      "y": 658,
+      "w": 89,
+      "h": 23
+     },
+     "must": false
+    }
+   ]
+  },
+  "c3-lighthouse": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 87
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 80,
+      "y": 32,
+      "w": 100,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "beam",
+     "rect": {
+      "x": 180,
+      "y": 150,
+      "w": 880,
+      "h": 240
+     },
+     "must": true
+    },
+    {
+     "role": "lamp",
+     "rect": {
+      "x": 985,
+      "y": 200,
+      "w": 100,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "tower",
+     "rect": {
+      "x": 960,
+      "y": 260,
+      "w": 150,
+      "h": 500
+     },
+     "must": true
+    },
+    {
+     "role": "stripe-1",
+     "rect": {
+      "x": 968,
+      "y": 430,
+      "w": 134,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "stripe-2",
+     "rect": {
+      "x": 952,
+      "y": 590,
+      "w": 166,
+      "h": 60
+     },
+     "must": false
+    },
+    {
+     "role": "sea",
+     "rect": {
+      "x": 0,
+      "y": 760,
+      "w": 1280,
+      "h": 140
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 80,
+      "y": 430,
+      "w": 620,
+      "h": 160
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 84,
+      "y": 620,
+      "w": 420,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 84,
+      "y": 800,
+      "w": 220,
+      "h": 56
+     },
+     "must": false
+    }
+   ]
+  },
+  "c4-yoga-studio": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 94
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 80,
+      "y": 34,
+      "w": 93,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "photo",
+     "rect": {
+      "x": 700,
+      "y": 140,
+      "w": 500,
+      "h": 600
+     },
+     "must": true
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 80,
+      "y": 230,
+      "w": 540,
+      "h": 143
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 82,
+      "y": 420,
+      "w": 460,
+      "h": 57
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 82,
+      "y": 540,
+      "w": 200,
+      "h": 56
+     },
+     "must": true
+    },
+    {
+     "role": "cta-2",
+     "rect": {
+      "x": 300,
+      "y": 540,
+      "w": 200,
+      "h": 56
+     },
+     "must": false
+    },
+    {
+     "role": "footer",
+     "rect": {
+      "x": 80,
+      "y": 780,
+      "w": 463,
+      "h": 18
+     },
+     "must": false
+    }
+   ]
+  },
+  "c5-moon-phases": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 82
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 80,
+      "y": 32,
+      "w": 133,
+      "h": 18
+     },
+     "must": false
+    },
+    {
+     "role": "headline",
+     "rect": {
+      "x": 0,
+      "y": 150,
+      "w": 1280,
+      "h": 101
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 0,
+      "y": 270,
+      "w": 1280,
+      "h": 21
+     },
+     "must": false
+    },
+    {
+     "role": "moons",
+     "rect": {
+      "x": 130,
+      "y": 400,
+      "w": 1020,
+      "h": 150
+     },
+     "must": true
+    },
+    {
+     "role": "moon-new",
+     "rect": {
+      "x": 130,
+      "y": 400,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "moon-crescent",
+     "rect": {
+      "x": 348,
+      "y": 400,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "moon-half",
+     "rect": {
+      "x": 565,
+      "y": 400,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "moon-gibbous",
+     "rect": {
+      "x": 783,
+      "y": 400,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "moon-full",
+     "rect": {
+      "x": 1000,
+      "y": 400,
+      "w": 150,
+      "h": 150
+     },
+     "must": false
+    },
+    {
+     "role": "labels",
+     "rect": {
+      "x": 130,
+      "y": 580,
+      "w": 1020,
+      "h": 16
+     },
+     "must": false
+    },
+    {
+     "role": "rule",
+     "rect": {
+      "x": 80,
+      "y": 680,
+      "w": 1120,
+      "h": 1
+     },
+     "must": false
+    },
+    {
+     "role": "cta",
+     "rect": {
+      "x": 530,
+      "y": 730,
+      "w": 220,
+      "h": 58
+     },
+     "must": true
+    }
+   ]
+  },
+  "e1-parking-pay": {
+   "regions": [
+    {
+     "role": "header",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 72
+     },
+     "must": false
+    },
+    {
+     "role": "card",
+     "rect": {
+      "x": 390,
+      "y": 120,
+      "w": 500,
+      "h": 700
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 426,
+      "y": 156,
+      "w": 428,
+      "h": 32
+     },
+     "must": false
+    },
+    {
+     "role": "zone",
+     "rect": {
+      "x": 426,
+      "y": 196,
+      "w": 428,
+      "h": 17
+     },
+     "must": false
+    },
+    {
+     "role": "plate-input",
+     "rect": {
+      "x": 426,
+      "y": 267,
+      "w": 428,
+      "h": 52
+     },
+     "must": true
+    },
+    {
+     "role": "duration-chips",
+     "rect": {
+      "x": 426,
+      "y": 371,
+      "w": 428,
+      "h": 48
+     },
+     "must": true
+    },
+    {
+     "role": "row-rate",
+     "rect": {
+      "x": 426,
+      "y": 453,
+      "w": 428,
+      "h": 43
+     },
+     "must": false
+    },
+    {
+     "role": "row-fee",
+     "rect": {
+      "x": 426,
+      "y": 496,
+      "w": 428,
+      "h": 43
+     },
+     "must": false
+    },
+    {
+     "role": "total",
+     "rect": {
+      "x": 426,
+      "y": 539,
+      "w": 428,
+      "h": 73
+     },
+     "must": false
+    },
+    {
+     "role": "pay-button",
+     "rect": {
+      "x": 426,
+      "y": 612,
+      "w": 428,
+      "h": 58
+     },
+     "must": true
+    }
+   ]
+  },
+  "e2-library-loans": {
+   "regions": [
+    {
+     "role": "sidebar",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 240,
+      "h": 900
+     },
+     "must": true
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 24,
+      "y": 28,
+      "w": 192,
+      "h": 23
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 288,
+      "y": 40,
+      "w": 128,
+      "h": 34
+     },
+     "must": true
+    },
+    {
+     "role": "search",
+     "rect": {
+      "x": 932,
+      "y": 36,
+      "w": 300,
+      "h": 42
+     },
+     "must": false
+    },
+    {
+     "role": "stats",
+     "rect": {
+      "x": 288,
+      "y": 104,
+      "w": 944,
+      "h": 96
+     },
+     "must": true
+    },
+    {
+     "role": "loans-table",
+     "rect": {
+      "x": 288,
+      "y": 230,
+      "w": 944,
+      "h": 417
+     },
+     "must": true
+    }
+   ]
+  },
+  "e3-workout-log": {
+   "regions": [
+    {
+     "role": "title",
+     "rect": {
+      "x": 48,
+      "y": 29,
+      "w": 124,
+      "h": 32
+     },
+     "must": true
+    },
+    {
+     "role": "tabs",
+     "rect": {
+      "x": 1002,
+      "y": 28,
+      "w": 230,
+      "h": 34
+     },
+     "must": false
+    },
+    {
+     "role": "chart",
+     "rect": {
+      "x": 48,
+      "y": 110,
+      "w": 720,
+      "h": 330
+     },
+     "must": true
+    },
+    {
+     "role": "kpis",
+     "rect": {
+      "x": 800,
+      "y": 110,
+      "w": 432,
+      "h": 330
+     },
+     "must": false
+    },
+    {
+     "role": "kpi-1",
+     "rect": {
+      "x": 800,
+      "y": 110,
+      "w": 432,
+      "h": 157
+     },
+     "must": false
+    },
+    {
+     "role": "kpi-2",
+     "rect": {
+      "x": 800,
+      "y": 283,
+      "w": 432,
+      "h": 157
+     },
+     "must": false
+    },
+    {
+     "role": "sets",
+     "rect": {
+      "x": 48,
+      "y": 470,
+      "w": 1184,
+      "h": 390
+     },
+     "must": true
+    }
+   ]
+  },
+  "e4-pharmacy-refill": {
+   "regions": [
+    {
+     "role": "nav",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 64,
+      "y": 25,
+      "w": 87,
+      "h": 26
+     },
+     "must": false
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 64,
+      "y": 120,
+      "w": 300,
+      "h": 39
+     },
+     "must": true
+    },
+    {
+     "role": "subhead",
+     "rect": {
+      "x": 64,
+      "y": 170,
+      "w": 386,
+      "h": 20
+     },
+     "must": false
+    },
+    {
+     "role": "list",
+     "rect": {
+      "x": 64,
+      "y": 230,
+      "w": 1152,
+      "h": 526
+     },
+     "must": true
+    },
+    {
+     "role": "item-1",
+     "rect": {
+      "x": 64,
+      "y": 230,
+      "w": 1152,
+      "h": 118
+     },
+     "must": false
+    },
+    {
+     "role": "refill-1",
+     "rect": {
+      "x": 1035,
+      "y": 265,
+      "w": 150,
+      "h": 48
+     },
+     "must": false
+    },
+    {
+     "role": "item-2",
+     "rect": {
+      "x": 64,
+      "y": 366,
+      "w": 1152,
+      "h": 118
+     },
+     "must": false
+    },
+    {
+     "role": "item-3",
+     "rect": {
+      "x": 64,
+      "y": 502,
+      "w": 1152,
+      "h": 118
+     },
+     "must": false
+    },
+    {
+     "role": "item-4",
+     "rect": {
+      "x": 64,
+      "y": 638,
+      "w": 1152,
+      "h": 118
+     },
+     "must": false
+    }
+   ]
+  },
+  "e5-split-bill": {
+   "regions": [
+    {
+     "role": "header",
+     "rect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 70
+     },
+     "must": false
+    },
+    {
+     "role": "logo",
+     "rect": {
+      "x": 48,
+      "y": 23,
+      "w": 65,
+      "h": 24
+     },
+     "must": false
+    },
+    {
+     "role": "balances",
+     "rect": {
+      "x": 48,
+      "y": 100,
+      "w": 700,
+      "h": 770
+     },
+     "must": true
+    },
+    {
+     "role": "title",
+     "rect": {
+      "x": 78,
+      "y": 130,
+      "w": 640,
+      "h": 31
+     },
+     "must": false
+    },
+    {
+     "role": "person-1",
+     "rect": {
+      "x": 78,
+      "y": 208,
+      "w": 640,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "person-2",
+     "rect": {
+      "x": 78,
+      "y": 284,
+      "w": 640,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "person-3",
+     "rect": {
+      "x": 78,
+      "y": 360,
+      "w": 640,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "person-4",
+     "rect": {
+      "x": 78,
+      "y": 436,
+      "w": 640,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "person-5",
+     "rect": {
+      "x": 78,
+      "y": 512,
+      "w": 640,
+      "h": 76
+     },
+     "must": false
+    },
+    {
+     "role": "budget-bar",
+     "rect": {
+      "x": 78,
+      "y": 828,
+      "w": 640,
+      "h": 12
+     },
+     "must": false
+    },
+    {
+     "role": "add-panel",
+     "rect": {
+      "x": 780,
+      "y": 100,
+      "w": 452,
+      "h": 770
+     },
+     "must": true
+    },
+    {
+     "role": "field-what",
+     "rect": {
+      "x": 810,
+      "y": 180,
+      "w": 392,
+      "h": 52
+     },
+     "must": false
+    },
+    {
+     "role": "field-amount",
+     "rect": {
+      "x": 810,
+      "y": 248,
+      "w": 392,
+      "h": 84
+     },
+     "must": false
+    },
+    {
+     "role": "field-paid",
+     "rect": {
+      "x": 810,
+      "y": 348,
+      "w": 392,
+      "h": 52
+     },
+     "must": false
+    },
+    {
+     "role": "split-chips",
+     "rect": {
+      "x": 810,
+      "y": 416,
+      "w": 392,
+      "h": 44
+     },
+     "must": false
+    },
+    {
+     "role": "add-button",
+     "rect": {
+      "x": 810,
+      "y": 660,
+      "w": 392,
+      "h": 58
+     },
+     "must": true
+    }
+   ]
+  }
+ },
+ "calibration": {
+  "c1-kite-festival": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.6712434058661344,
+    "structure": 0.5760291643073848,
+    "structureStrict": 0.5760291643073848,
+    "colourAligned": 0.6712434058661344,
+    "structureAligned": 0.5760291643073848,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5891238189806062,
+    "structure": 0.3874996984952199
+   }
+  },
+  "c2-gelato-stripes": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7651447428838591,
+    "structure": 0.4932450646552842,
+    "structureStrict": 0.4932450646552842,
+    "colourAligned": 0.7651447428838591,
+    "structureAligned": 0.4932450646552842,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6130567528937029,
+    "structure": 0.35438661027931406
+   }
+  },
+  "c3-lighthouse": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.2146781373031179,
+    "structure": 0.16420072666507432,
+    "structureStrict": 0.16420072666507432,
+    "colourAligned": 0.2146781373031179,
+    "structureAligned": 0.16420072666507432,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.46405801133780006,
+    "structure": 0.25037542736977403
+   }
+  },
+  "c4-yoga-studio": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8348382947502412,
+    "structure": 0.7040638789113152,
+    "structureStrict": 0.7040638789113152,
+    "colourAligned": 0.8348382947502412,
+    "structureAligned": 0.7040638789113152,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6271854271766404,
+    "structure": 0.4319170430143761
+   }
+  },
+  "c5-moon-phases": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.09750905003024668,
+    "structure": 0.06981988729591361,
+    "structureStrict": 0.06981988729591361,
+    "colourAligned": 0.09750905003024668,
+    "structureAligned": 0.06981988729591361,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.3869905995593994,
+    "structure": 0.16207268983348247
+   }
+  },
+  "e1-parking-pay": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8925763986977356,
+    "structure": 0.7314846456393552,
+    "structureStrict": 0.7314846456393552,
+    "colourAligned": 0.8925763986977356,
+    "structureAligned": 0.7314846456393552,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.6072373141804513,
+    "structure": 0.4224776640041851
+   }
+  },
+  "e2-library-loans": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.8341502931247243,
+    "structure": 0.6399006537002385,
+    "structureStrict": 0.6399006537002385,
+    "colourAligned": 0.8341502931247243,
+    "structureAligned": 0.6399006537002385,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5901930407514118,
+    "structure": 0.40610475899375564
+   }
+  },
+  "e3-workout-log": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.12766905613308077,
+    "structure": 0.14520581396025195,
+    "structureStrict": 0.14520581396025195,
+    "colourAligned": 0.12766905613308077,
+    "structureAligned": 0.14520581396025195,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.419386654021317,
+    "structure": 0.24475001076870154
+   }
+  },
+  "e4-pharmacy-refill": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.9670762799738243,
+    "structure": 0.7390564941596907,
+    "structureStrict": 0.7390564941596907,
+    "colourAligned": 0.9670762799738243,
+    "structureAligned": 0.7390564941596907,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.5950026406339343,
+    "structure": 0.4350999737845002
+   }
+  },
+  "e5-split-bill": {
+   "self": {
+    "colour": 1,
+    "structure": 1,
+    "structureStrict": 1,
+    "colourAligned": 1,
+    "structureAligned": 1,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": 1
+    }
+   },
+   "blank": {
+    "colour": 0.7457319776992671,
+    "structure": 0.47468276755376354,
+    "structureStrict": 0.47468276755376354,
+    "colourAligned": 0.7457319776992671,
+    "structureAligned": 0.47468276755376354,
+    "align": {
+     "scale": 1,
+     "dx": 0,
+     "dy": 0,
+     "r": -1
+    }
+   },
+   "otherMean": {
+    "colour": 0.581205094621673,
+    "structure": 0.3233183714594208
+   }
+  }
+ }
+}

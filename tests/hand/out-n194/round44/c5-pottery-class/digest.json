@@ -1,0 +1,485 @@
+{
+  "round": 44,
+  "id": "c5-pottery-class",
+  "version": 3,
+  "stopped": null,
+  "likeness": 71.7,
+  "colour": 0.9796090299108847,
+  "structure": 0.8902623657831527,
+  "layout": 0.5197731458441904,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 3.2,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 2,
+      "box": 2,
+      "circle": 1,
+      "line": 8
+    },
+    "inkPx": 7052
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 49,
+  "notes": 9,
+  "longestNote": 9,
+  "noteTexts": [
+    "Kiln & Co bold",
+    "Classes Studio Gift cards",
+    "Get your hands in / the clay, huge bold",
+    "Six-week wheel classes for total beginners.",
+    "Book a seat, bold, dark outline",
+    "cream pot shape",
+    "Tuesday evenings, $240 at right in orange-brown, thin dividers",
+    "Saturday mornings, $240 right",
+    "Open studio, $25 right"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 846,
+    "firstReadingS": 114,
+    "readS": [
+      78
+    ],
+    "buildS": [
+      547
+    ],
+    "sketchingS": 220
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 65070,
+    "cacheRead": 447595,
+    "output": 41848,
+    "billed": 106918
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#faf3ea",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#c46b45",
+      "at": 841
+    },
+    {
+      "op": "stroke",
+      "at": 9357
+    },
+    {
+      "op": "stroke",
+      "at": 9834
+    },
+    {
+      "op": "pen",
+      "color": "#efe0d0",
+      "at": 10201
+    },
+    {
+      "op": "stroke",
+      "at": 13088
+    },
+    {
+      "op": "pen",
+      "color": "#3a2a20",
+      "at": 13456
+    },
+    {
+      "op": "stroke",
+      "at": 14201
+    },
+    {
+      "op": "stroke",
+      "at": 15286
+    },
+    {
+      "op": "stroke",
+      "at": 17087
+    },
+    {
+      "op": "stroke",
+      "at": 18133
+    },
+    {
+      "op": "stroke",
+      "at": 19585
+    },
+    {
+      "op": "stroke",
+      "at": 21471
+    },
+    {
+      "op": "stroke",
+      "at": 23271
+    },
+    {
+      "op": "stroke",
+      "at": 25072
+    },
+    {
+      "op": "stroke",
+      "at": 26887
+    },
+    {
+      "op": "note",
+      "at": 27660
+    },
+    {
+      "op": "note",
+      "at": 28479
+    },
+    {
+      "op": "note",
+      "at": 29533
+    },
+    {
+      "op": "note",
+      "at": 30597
+    },
+    {
+      "op": "note",
+      "at": 31483
+    },
+    {
+      "op": "note",
+      "at": 32248
+    },
+    {
+      "op": "note",
+      "at": 33608
+    },
+    {
+      "op": "note",
+      "at": 34668
+    },
+    {
+      "op": "note",
+      "at": 35551
+    },
+    {
+      "op": "run",
+      "at": 35712
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          950,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          2,
+          76
+        ],
+        [
+          620,
+          76
+        ],
+        [
+          620,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          76
+        ]
+      ],
+      "n": 481,
+      "at": 9357
+    },
+    {
+      "way": [
+        [
+          300,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 9834
+    },
+    {
+      "way": [
+        [
+          310,
+          330
+        ],
+        [
+          365,
+          340
+        ],
+        [
+          405,
+          370
+        ],
+        [
+          428,
+          415
+        ],
+        [
+          430,
+          540
+        ],
+        [
+          415,
+          585
+        ],
+        [
+          380,
+          608
+        ],
+        [
+          240,
+          608
+        ],
+        [
+          205,
+          585
+        ],
+        [
+          190,
+          540
+        ],
+        [
+          192,
+          415
+        ],
+        [
+          215,
+          370
+        ],
+        [
+          255,
+          340
+        ],
+        [
+          310,
+          330
+        ]
+      ],
+      "n": 146,
+      "at": 13088
+    },
+    {
+      "way": [
+        [
+          80,
+          38
+        ],
+        [
+          174,
+          38
+        ]
+      ],
+      "n": 17,
+      "at": 14201
+    },
+    {
+      "way": [
+        [
+          980,
+          38
+        ],
+        [
+          1200,
+          38
+        ]
+      ],
+      "n": 38,
+      "at": 15286
+    },
+    {
+      "way": [
+        [
+          700,
+          252
+        ],
+        [
+          1176,
+          252
+        ]
+      ],
+      "n": 80,
+      "at": 17087
+    },
+    {
+      "way": [
+        [
+          700,
+          314
+        ],
+        [
+          908,
+          314
+        ]
+      ],
+      "n": 36,
+      "at": 18133
+    },
+    {
+      "way": [
+        [
+          700,
+          384
+        ],
+        [
+          1044,
+          384
+        ]
+      ],
+      "n": 58,
+      "at": 19585
+    },
+    {
+      "way": [
+        [
+          700,
+          480
+        ],
+        [
+          900,
+          480
+        ],
+        [
+          900,
+          534
+        ],
+        [
+          700,
+          534
+        ],
+        [
+          700,
+          480
+        ]
+      ],
+      "n": 85,
+      "at": 21471
+    },
+    {
+      "way": [
+        [
+          700,
+          623
+        ],
+        [
+          1180,
+          623
+        ]
+      ],
+      "n": 81,
+      "at": 23271
+    },
+    {
+      "way": [
+        [
+          700,
+          671
+        ],
+        [
+          1180,
+          671
+        ]
+      ],
+      "n": 81,
+      "at": 25072
+    },
+    {
+      "way": [
+        [
+          700,
+          718
+        ],
+        [
+          1180,
+          718
+        ]
+      ],
+      "n": 81,
+      "at": 26887
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Kiln & Co bold",
+      "whole": false,
+      "x": 90,
+      "y": 56,
+      "at": 27660
+    },
+    {
+      "text": "Classes Studio Gift cards",
+      "whole": false,
+      "x": 1000,
+      "y": 56,
+      "at": 28479
+    },
+    {
+      "text": "Get your hands in / the clay, huge bold",
+      "whole": false,
+      "x": 710,
+      "y": 232,
+      "at": 29533
+    },
+    {
+      "text": "Six-week wheel classes for total beginners.",
+      "whole": false,
+      "x": 710,
+      "y": 400,
+      "at": 30597
+    },
+    {
+      "text": "Book a seat, bold, dark outline",
+      "whole": false,
+      "x": 720,
+      "y": 507,
+      "at": 31483
+    },
+    {
+      "text": "cream pot shape",
+      "whole": false,
+      "x": 330,
+      "y": 460,
+      "at": 32248
+    },
+    {
+      "text": "Tuesday evenings, $240 at right in orange-brown, thin dividers",
+      "whole": false,
+      "x": 720,
+      "y": 640,
+      "at": 33608
+    },
+    {
+      "text": "Saturday mornings, $240 right",
+      "whole": false,
+      "x": 720,
+      "y": 688,
+      "at": 34668
+    },
+    {
+      "text": "Open studio, $25 right",
+      "whole": false,
+      "x": 720,
+      "y": 735,
+      "at": 35551
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Duotone split</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#101820;font-family:Georgia,serif;color:#f5e9d7}
+@keyframes ring{to{stroke-dashoffset:60}}
+.left{position:absolute;inset:0;background:#f5e9d7;clip-path:polygon(0 0,58% 0,38% 100%,0 100%)}
+.photo{position:absolute;left:600px;top:0;width:680px;height:900px;background:radial-gradient(ellipse at 40% 35%,#ffb37a 0 18%,transparent 40%),radial-gradient(ellipse at 70% 75%,#ff5a36 0 12%,transparent 35%),linear-gradient(160deg,#2b1b3d,#101820 70%);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
+.photo::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 2px,transparent 2px 5px);mix-blend-mode:multiply}
+.word{position:absolute;left:90px;top:230px;font-size:230px;font-weight:700;font-style:italic;letter-spacing:-8px;line-height:.85;color:#fff;mix-blend-mode:difference}
+.vnav{position:absolute;left:30px;top:0;height:900px;display:flex;flex-direction:column;justify-content:center;gap:40px;font:700 12px Helvetica,Arial,sans-serif;letter-spacing:4px;color:#101820}
+.vnav span{writing-mode:vertical-rl;transform:rotate(180deg)}
+.brand{position:absolute;left:90px;top:50px;font:700 20px Helvetica,Arial,sans-serif;color:#101820;letter-spacing:6px}
+.copy{position:absolute;left:96px;top:670px;width:360px;font-size:20px;line-height:1.5;color:#3a3a3a}
+.more{position:absolute;left:96px;top:810px;font:700 14px Helvetica,Arial,sans-serif;letter-spacing:3px;color:#101820;border-bottom:2px solid #ff5a36;padding-bottom:6px}
+.ring{position:absolute;left:1080px;top:690px;width:140px;height:140px}
+.ring text{font:700 30px Helvetica,Arial,sans-serif;fill:#f5e9d7}
+.cap{position:absolute;left:900px;top:60px;width:320px;text-align:right;font:12px/1.6 Menlo,monospace;color:#cbb9a3;letter-spacing:1px}
+.num{position:absolute;left:820px;top:430px;font-size:16px;font-style:italic;color:#ffb37a}
+.num b{display:block;font-size:110px;font-style:normal;line-height:1;color:transparent;-webkit-text-stroke:1.5px #ffb37a}
+</style></head><body>
+<div class="photo" data-r="duotone-photo" data-must></div>
+<div class="left" data-r="cream-split" data-must></div>
+<div class="vnav" data-r="vertical-nav"><span>FILMS</span><span>STILLS</span><span>JOURNAL</span></div>
+<div class="brand" data-r="brand">ÉCLIPSE</div>
+<h1 class="word" data-r="difference-word" data-must>Dusk<br>Hours</h1>
+<p class="copy" data-r="copy">A photographer's year spent chasing the twenty minutes after sunset, across nine cities and one long winter.</p>
+<a class="more" data-r="more-link">VIEW THE SERIES →</a>
+<p class="cap" data-r="caption">PLATE 07 / 24<br>LISBON, 19:42<br>35MM · PORTRA 800</p>
+<div class="num" data-r="hollow-number"><b>07</b>of twenty-four</div>
+<svg class="ring" data-r="progress-ring" viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#3a3040" stroke-width="6"/><circle cx="70" cy="70" r="60" fill="none" stroke="#ff5a36" stroke-width="6" stroke-dasharray="377" stroke-dashoffset="267" transform="rotate(-90 70 70)" style="animation:ring 4s ease-in-out infinite alternate"/><text x="70" y="80" text-anchor="middle">29%</text></svg>
+</body></html>

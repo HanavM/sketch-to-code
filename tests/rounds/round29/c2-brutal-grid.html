@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Brutal grid</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#e9e9e4;font-family:'Courier New',monospace;color:#0b0b0b}
+.g{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,320px);grid-template-rows:repeat(3,300px)}.g div{border-right:2px solid #0b0b0b;border-bottom:2px solid #0b0b0b}
+.idx{position:absolute;left:0;top:0;width:80px;height:900px;background:#0b0b0b;color:#e9e9e4;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font:900 30px Helvetica;letter-spacing:12px}
+.big{position:absolute;left:120px;top:20px;font:900 420px/0.8 Helvetica,Arial,sans-serif;letter-spacing:-30px;color:#0b0b0b}
+.big2{position:absolute;left:520px;top:300px;font:900 420px/0.8 Helvetica,Arial,sans-serif;letter-spacing:-30px;color:transparent;-webkit-text-stroke:3px #0b0b0b}
+.lime{position:absolute;left:960px;top:0;width:320px;height:300px;background:#c6ff00;padding:24px;font:700 15px/1.5 'Courier New'}.lime b{display:block;font:900 30px Helvetica;margin-bottom:12px}
+.tag{position:absolute;left:660px;top:120px;background:#ff3b00;color:#fff;font:900 22px Helvetica;padding:10px 16px;transform:rotate(90deg);transform-origin:left top}
+.list{position:absolute;left:100px;top:620px;width:520px;font:700 16px 'Courier New'}.list div{display:flex;justify-content:space-between;border-top:2px solid #0b0b0b;padding:10px 0}.list div:last-child{border-bottom:2px solid #0b0b0b}
+.btn{position:absolute;left:960px;top:760px;width:300px;height:110px;background:#0b0b0b;color:#c6ff00;font:900 34px Helvetica;display:flex;align-items:center;justify-content:center;box-shadow:-12px 12px 0 #ff3b00}
+.bars{position:absolute;left:660px;top:640px;width:260px;height:220px;background:repeating-linear-gradient(90deg,#0b0b0b 0 6px,#0000 6px 14px)}
+</style></head><body>
+<div class="g" data-r="grid-lines"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<div class="idx" data-r="side-index">STUDIO—NULL</div>
+<div class="big" data-r="numeral" data-must>04</div><div class="big2" data-r="outline-numeral" data-must>05</div>
+<div class="lime" data-r="lime-card" data-must><b>WE BUILD<br>LOUD THINGS</b>Identity, type and web for people who refuse the template. Est. 2014, Rotterdam.</div>
+<div class="tag" data-r="side-tag">NEW WORK</div>
+<div class="list" data-r="work-list" data-must><div><span>01 Kiosk Radio</span><span>2026</span></div><div><span>02 Fold Magazine</span><span>2025</span></div><div><span>03 Ruw Brewery</span><span>2025</span></div><div><span>04 Null Type</span><span>2024</span></div></div>
+<div class="bars" data-r="barcode"></div>
+<div class="btn" data-r="contact-button" data-must>SAY HI →</div>
+</body></html>

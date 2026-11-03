@@ -1,0 +1,111 @@
+{
+  "id": "e3-thread-chat",
+  "at": "2026-10-23T08:37:50.215Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.735964367699608,
+    "overallV2": 0.735964367699608,
+    "overallV1": 0.6364692535888314,
+    "colour": 0.9776436477998449,
+    "structure": 0.7926169676848248,
+    "structureStrict": 0.6764980530846996,
+    "colourAligned": 0.9776436477998449,
+    "structureAligned": 0.7926169676848248,
+    "align": {
+      "scale": 1.16,
+      "dx": -32,
+      "dy": -129,
+      "r": 0.9804137965474922
+    },
+    "layout": 0.862923583377827
+  },
+  "effects": null,
+  "tokens": {
+    "input": 18340,
+    "output": 8811,
+    "cacheRead": 165891
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 22683,
+      "output": 7398,
+      "cacheRead": 162807,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 67681
+    }
+  ],
+  "reading": "The sketch lays out a three-column chat app: a dark sidebar with workspace/channel/DM navigation, a central message feed with a header, three stacked messages and a message input box, and a right-hand thread panel listing four replies.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        244,
+        893
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Left sidebar panel styled as a dark plum block with lavender text: workspace switcher \"Northwind ▾\" at top, then \"▾ Channels\" section header, \"# design\" channel"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        253,
+        3,
+        614,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Main chat panel. At top a header reading \"# launch-q4 · 14 members\" with a thin divider line under it. Below, a stack of 3 chat messages (no bubbles), each with"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        273,
+        793,
+        573,
+        83
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Message input box at the bottom of the chat panel with placeholder text \"Message #launch-q4\"."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        873,
+        3,
+        404,
+        893
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Right-hand thread panel titled \"Thread ✕\" showing a list of 4 reply rows, each with sender name on the left and timestamp on the right on one line, a short mess"
+    }
+  ],
+  "rejected": []
+}

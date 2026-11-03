@@ -1,0 +1,538 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "af2936ccd49f4448779469b7fd958e3d413e5139",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/FerrisWheel.tsx"
+  ],
+  "reading": "A new amusement-park landing page: a header with a bold yellow \"Pier Nine\" title and \"Rides, Tickets, Hours\" nav links, a huge bold two-line headline \"Round and round till late\" with a body sentence about opening hours, a pink \"Get wristbands\" pill button, a Ferris wheel illustration (8 evenly spaced spokes, hub, two support legs, 8 rim cabins cycling through 4 drawn colours), and a dark navy footer bar listing \"Rides till 11\", \"Kids under 5 free\", \"Cash and card\". The whole page background is set to a dark indigo (#2d2d60) colour tap.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h2> at (64,234) 367x133 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h2",
+      "srcLoc": "src/App.tsx:18:7",
+      "rect": {
+       "x": 64,
+       "y": 234,
+       "w": 367.03125,
+       "h": 133.375
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,480) 448x56 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:27:7",
+      "rect": {
+       "x": 64,
+       "y": 480,
+       "w": 448,
+       "h": 56
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s18",
+       "drawn": {
+        "x": 64,
+        "y": 570,
+        "w": 220,
+        "h": 57
+       },
+       "built": {
+        "x": 64,
+        "y": 570,
+        "w": 220,
+        "h": 57
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f24a72 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 576,
+        "y": 135,
+        "w": 568,
+        "h": 570
+       },
+       "built": {
+        "x": 579,
+        "y": 139,
+        "w": 562,
+        "h": 562
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 826,
+        "y": 386,
+        "w": 68,
+        "h": 67
+       },
+       "built": {
+        "x": 826,
+        "y": 386,
+        "w": 68,
+        "h": 68
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffd166 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 2,
+    "score": 0.4335413493249639,
+    "massSimilarity": 0.33363049903566266,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "only 33% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,761) 1280x139 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:59:7",
+      "rect": {
+       "x": 0,
+       "y": 761,
+       "w": 1280,
+       "h": 139
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 2,
+        "y": 759,
+        "w": 1276,
+        "h": 139
+       },
+       "built": {
+        "x": 0,
+        "y": 761,
+        "w": 1280,
+        "h": 139
+       },
+       "dx": 0,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#122340 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (64,570) 220x57 with \"white pill\" is built as a #f24a72 <a>, not white: give it a clear opaque white background (about #ffffff); change nothing else"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 placed words where drawn"
+    }
+   },
+   {
+    "kind": "typed-spot",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 typed word where typed"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#2d2d60",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,235) 356x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (64,305) 426x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (64,570) 220x57",
+       "want": "#f24a72",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (576,135) 568x570",
+       "want": "#ffd166",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (859,135) 2x570",
+       "want": "#ffd166",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (825,386) 69x68",
+       "want": "#f24a72",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (715,420) 290x330",
+       "want": "#ffd166",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (828,111) 65x49",
+       "want": "#1589b3",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (1032,197) 65x49",
+       "want": "#ffd166",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (1117,401) 66x50",
+       "want": "#f24a72",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (1033,607) 65x49",
+       "want": "#0ad9a0",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (2,759) 1276x139",
+       "want": "#122340",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 123825,
+   "cacheRead": 738107,
+   "output": 35740
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 83530,
+    "output": 27204,
+    "cacheRead": 444682,
+    "toolCalls": 12,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read components/FerrisWheel.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Edit components/FerrisWheel.tsx",
+     "Write src/App.tsx",
+     "Edit components/FerrisWheel.tsx",
+     "Edit components/FerrisWheel.tsx",
+     "Edit components/FerrisWheel.tsx",
+     "Read components/FerrisWheel.tsx"
+    ],
+    "ms": 301283
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 74961,
+    "output": 8282,
+    "cacheRead": 145121,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 99681,
+    "why": [
+     "action 2 (composition of \"Ferris wheel\", 43% faithful): only 33% of the drawn layout is reproduced — the parts are not where they were drawn",
+     "page (coloured plain shapes): the ring drawn at (826,386) 68x67, tapped #f24a72 has no element of about that size painting a fill there: build it as one #f24a72 element exactly at that box, border-rad",
+     "page (colours from the ink): action 1: the box drawn at (64,570) 220x57 was coloured #f24a72 (fill); what was built there is ΔE 80 away: paint the block itself exactly #f24a72; action 2: the ring draw"
+    ]
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 1074,
+    "output": 254,
+    "cacheRead": 148304,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 3211,
+    "why": [
+     "action 2 (composition of \"Ferris wheel\", 43% faithful): only 33% of the drawn layout is reproduced — the parts are not where they were drawn",
+     "page (coloured plain shapes): the box drawn at (64,570) 220x57 with \"white pill\" is built as a #f24a72 <a>, not white: give it a clear opaque white background (about #ffffff); change nothing else"
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "0721f337081ff70dcccd83a4851431717b4d5e2f",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/FerrisWheel.tsx"
+  ],
+  "reading": "The user left a typed note on the ferris wheel graphic specifying its styling: it should not be filled in, have a thick rim, thin spokes, and the cabins should render in front of the wheel.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 1,
+    "total": 1,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 22055,
+   "cacheRead": 88906,
+   "output": 16375
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 38430,
+    "output": 16375,
+    "cacheRead": 88906,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/FerrisWheel.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 183074
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

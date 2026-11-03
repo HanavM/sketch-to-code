@@ -1,0 +1,659 @@
+{
+  "round": 48,
+  "id": "c3-typewriter-repair",
+  "version": 3,
+  "stopped": null,
+  "likeness": 87.4,
+  "colour": 0.9840450496247909,
+  "structure": 0.8554070695402766,
+  "layout": 0.8204386454321018,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 5.1,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 7,
+      "box": 2,
+      "line": 1,
+      "circle": 4
+    },
+    "inkPx": 5716
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 78,
+  "notes": 12,
+  "longestNote": 13,
+  "noteTexts": [
+    "Platen & Sons serif",
+    "Repairs, Ribbons, Find us",
+    "We fix the keys that stick huge serif",
+    "Sixty years of cleaning, oiling and retuning every make of typewriter. serif",
+    "Book a repair bold",
+    "Same week service",
+    "12 Mill Lane",
+    "x6 across: QWERTY",
+    "x5 across: ASDFG",
+    "one big letter per ring: Q W E R T Y",
+    "one big letter per ring: A S D F G",
+    "delete the word rings; 6 and 5 letter rings spaced apart as drawn"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 525,
+    "firstReadingS": 112,
+    "readS": [
+      77,
+      26,
+      43
+    ],
+    "buildS": [
+      214,
+      53,
+      25
+    ],
+    "sketchingS": 87
+  },
+  "corrections": 2,
+  "runs": 3,
+  "picks": 0,
+  "tokens": {
+    "input": 108391,
+    "cacheRead": 778597,
+    "output": 38694,
+    "billed": 147085
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#203a36",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 464
+    },
+    {
+      "op": "pen",
+      "color": "#d9a441",
+      "at": 856
+    },
+    {
+      "op": "stroke",
+      "at": 8994
+    },
+    {
+      "op": "stroke",
+      "at": 9470
+    },
+    {
+      "op": "stroke",
+      "at": 11998
+    },
+    {
+      "op": "stroke",
+      "at": 12487
+    },
+    {
+      "op": "pen",
+      "color": "#f3ecd8",
+      "at": 12871
+    },
+    {
+      "op": "stroke",
+      "at": 16544
+    },
+    {
+      "op": "stroke",
+      "at": 17859
+    },
+    {
+      "op": "stroke",
+      "at": 19162
+    },
+    {
+      "op": "stroke",
+      "at": 20525
+    },
+    {
+      "op": "stroke",
+      "at": 21842
+    },
+    {
+      "op": "pen",
+      "color": "#112420",
+      "at": 22234
+    },
+    {
+      "op": "stroke",
+      "at": 22722
+    },
+    {
+      "op": "stroke",
+      "at": 23204
+    },
+    {
+      "op": "stroke",
+      "at": 23686
+    },
+    {
+      "op": "stroke",
+      "at": 24170
+    },
+    {
+      "op": "note",
+      "at": 24889
+    },
+    {
+      "op": "note",
+      "at": 25659
+    },
+    {
+      "op": "note",
+      "at": 26506
+    },
+    {
+      "op": "note",
+      "at": 27592
+    },
+    {
+      "op": "note",
+      "at": 28432
+    },
+    {
+      "op": "note",
+      "at": 29177
+    },
+    {
+      "op": "note",
+      "at": 29899
+    },
+    {
+      "op": "note",
+      "at": 30611
+    },
+    {
+      "op": "note",
+      "at": 31292
+    },
+    {
+      "op": "run",
+      "at": 34817
+    },
+    {
+      "op": "note",
+      "at": 341068
+    },
+    {
+      "op": "note",
+      "at": 341812
+    },
+    {
+      "op": "run",
+      "at": 342036
+    },
+    {
+      "op": "note",
+      "at": 431293
+    },
+    {
+      "op": "run",
+      "at": 431503
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          60,
+          300
+        ]
+      ],
+      "n": 1,
+      "at": 464
+    },
+    {
+      "way": [
+        [
+          2,
+          800
+        ],
+        [
+          1278,
+          800
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          800
+        ]
+      ],
+      "n": 459,
+      "at": 8994
+    },
+    {
+      "way": [
+        [
+          640,
+          870
+        ]
+      ],
+      "n": 1,
+      "at": 9470
+    },
+    {
+      "way": [
+        [
+          920,
+          380
+        ],
+        [
+          1216,
+          380
+        ],
+        [
+          1216,
+          442
+        ],
+        [
+          920,
+          442
+        ],
+        [
+          920,
+          380
+        ]
+      ],
+      "n": 119,
+      "at": 11998
+    },
+    {
+      "way": [
+        [
+          1190,
+          410
+        ]
+      ],
+      "n": 1,
+      "at": 12487
+    },
+    {
+      "way": [
+        [
+          64,
+          178
+        ],
+        [
+          1196,
+          178
+        ]
+      ],
+      "n": 190,
+      "at": 16544
+    },
+    {
+      "way": [
+        [
+          178,
+          510
+        ],
+        [
+          202,
+          516
+        ],
+        [
+          220,
+          534
+        ],
+        [
+          226,
+          558
+        ],
+        [
+          220,
+          582
+        ],
+        [
+          202,
+          600
+        ],
+        [
+          178,
+          606
+        ],
+        [
+          154,
+          600
+        ],
+        [
+          136,
+          582
+        ],
+        [
+          130,
+          558
+        ],
+        [
+          136,
+          534
+        ],
+        [
+          154,
+          516
+        ],
+        [
+          178,
+          510
+        ]
+      ],
+      "n": 49,
+      "at": 17859
+    },
+    {
+      "way": [
+        [
+          1078,
+          510
+        ],
+        [
+          1102,
+          516
+        ],
+        [
+          1120,
+          534
+        ],
+        [
+          1126,
+          558
+        ],
+        [
+          1120,
+          582
+        ],
+        [
+          1102,
+          600
+        ],
+        [
+          1078,
+          606
+        ],
+        [
+          1054,
+          600
+        ],
+        [
+          1036,
+          582
+        ],
+        [
+          1030,
+          558
+        ],
+        [
+          1036,
+          534
+        ],
+        [
+          1054,
+          516
+        ],
+        [
+          1078,
+          510
+        ]
+      ],
+      "n": 49,
+      "at": 19162
+    },
+    {
+      "way": [
+        [
+          262,
+          650
+        ],
+        [
+          283,
+          656
+        ],
+        [
+          298,
+          671
+        ],
+        [
+          304,
+          692
+        ],
+        [
+          298,
+          713
+        ],
+        [
+          283,
+          728
+        ],
+        [
+          262,
+          734
+        ],
+        [
+          241,
+          728
+        ],
+        [
+          226,
+          713
+        ],
+        [
+          220,
+          692
+        ],
+        [
+          226,
+          671
+        ],
+        [
+          241,
+          656
+        ],
+        [
+          262,
+          650
+        ]
+      ],
+      "n": 49,
+      "at": 20525
+    },
+    {
+      "way": [
+        [
+          982,
+          650
+        ],
+        [
+          1003,
+          656
+        ],
+        [
+          1018,
+          671
+        ],
+        [
+          1024,
+          692
+        ],
+        [
+          1018,
+          713
+        ],
+        [
+          1003,
+          728
+        ],
+        [
+          982,
+          734
+        ],
+        [
+          961,
+          728
+        ],
+        [
+          946,
+          713
+        ],
+        [
+          940,
+          692
+        ],
+        [
+          946,
+          671
+        ],
+        [
+          961,
+          656
+        ],
+        [
+          982,
+          650
+        ]
+      ],
+      "n": 49,
+      "at": 21842
+    },
+    {
+      "way": [
+        [
+          178,
+          558
+        ]
+      ],
+      "n": 1,
+      "at": 22722
+    },
+    {
+      "way": [
+        [
+          1078,
+          558
+        ]
+      ],
+      "n": 1,
+      "at": 23204
+    },
+    {
+      "way": [
+        [
+          262,
+          692
+        ]
+      ],
+      "n": 1,
+      "at": 23686
+    },
+    {
+      "way": [
+        [
+          982,
+          692
+        ]
+      ],
+      "n": 1,
+      "at": 24170
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Platen & Sons serif",
+      "whole": false,
+      "x": 64,
+      "y": 48,
+      "at": 24889
+    },
+    {
+      "text": "Repairs, Ribbons, Find us",
+      "whole": false,
+      "x": 880,
+      "y": 48,
+      "at": 25659
+    },
+    {
+      "text": "We fix the keys that stick huge serif",
+      "whole": false,
+      "x": 300,
+      "y": 200,
+      "at": 26506
+    },
+    {
+      "text": "Sixty years of cleaning, oiling and retuning every make of typewriter. serif",
+      "whole": false,
+      "x": 64,
+      "y": 395,
+      "at": 27592
+    },
+    {
+      "text": "Book a repair bold",
+      "whole": false,
+      "x": 1000,
+      "y": 410,
+      "at": 28432
+    },
+    {
+      "text": "Same week service",
+      "whole": false,
+      "x": 64,
+      "y": 850,
+      "at": 29177
+    },
+    {
+      "text": "12 Mill Lane",
+      "whole": false,
+      "x": 1100,
+      "y": 850,
+      "at": 29899
+    },
+    {
+      "text": "x6 across: QWERTY",
+      "whole": false,
+      "x": 620,
+      "y": 558,
+      "at": 30611
+    },
+    {
+      "text": "x5 across: ASDFG",
+      "whole": false,
+      "x": 620,
+      "y": 692,
+      "at": 31292
+    },
+    {
+      "text": "one big letter per ring: Q W E R T Y",
+      "whole": false,
+      "x": 178,
+      "y": 558,
+      "at": 341068
+    },
+    {
+      "text": "one big letter per ring: A S D F G",
+      "whole": false,
+      "x": 262,
+      "y": 692,
+      "at": 341812
+    },
+    {
+      "text": "delete the word rings; 6 and 5 letter rings spaced apart as drawn",
+      "whole": false,
+      "x": 640,
+      "y": 630,
+      "at": 431293
+    }
+  ]
+}

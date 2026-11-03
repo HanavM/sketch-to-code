@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Code editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#1e1e2e;font-family:Helvetica,Arial,sans-serif;color:#cdd6f4;font-size:13px}
+.act{position:absolute;left:0;top:0;width:48px;height:876px;background:#11111b}.act i{display:block;width:22px;height:22px;margin:16px 13px;border-radius:5px;background:#45475a}.act i.on{background:#89b4fa}
+.tree{position:absolute;left:48px;top:0;width:232px;height:876px;background:#181825;padding:14px 12px;line-height:2}
+.tree h4{font-size:11px;letter-spacing:2px;color:#7f849c;margin-bottom:6px}.tree .on{background:#313244;border-radius:4px;color:#fff;margin:0 -6px;padding:0 6px}
+.tabs{position:absolute;left:280px;top:0;width:1000px;height:38px;background:#181825;display:flex}.tabs span{padding:11px 18px;border-right:1px solid #11111b;color:#7f849c}.tabs .on{background:#1e1e2e;color:#fff;border-top:2px solid #89b4fa}
+.code{position:absolute;left:280px;top:38px;width:880px;height:540px;font-family:"Courier New",monospace;font-size:14px;line-height:22px;padding-top:12px}
+.code div{white-space:pre}.code .n{display:inline-block;width:52px;text-align:right;padding-right:18px;color:#585b70}
+.k{color:#cba6f7}.s{color:#a6e3a1}.f{color:#89b4fa}.c{color:#6c7086;font-style:italic}.x{color:#fab387}
+.cur{background:#313244}
+.mini{position:absolute;left:1180px;top:50px;width:84px;height:500px}.mini i{display:block;height:3px;margin:3px 0;border-radius:2px;background:#45475a}.mini .v{position:absolute;left:-4px;top:0;width:92px;height:140px;background:rgba(137,180,250,.12)}
+.term{position:absolute;left:280px;top:590px;width:1000px;height:286px;background:#11111b;border-top:1px solid #313244;font-family:"Courier New",monospace;padding:12px 18px;line-height:22px}
+.term .tt{font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:2px;color:#7f849c;margin-bottom:8px}
+.ok{color:#a6e3a1}.err{color:#f38ba8}
+.status{position:absolute;left:0;top:876px;width:1280px;height:24px;background:#89b4fa;color:#11111b;font-size:12px;display:flex;gap:24px;padding:5px 12px;font-weight:600}
+</style></head><body>
+<div class="act" data-r="activity-bar"><i class="on"></i><i></i><i></i><i></i></div>
+<div class="tree" data-r="file-tree"><h4>EXPLORER</h4><div>▾ src</div><div>&nbsp;&nbsp;▸ components</div><div>&nbsp;&nbsp;▾ lib</div><div class="on">&nbsp;&nbsp;&nbsp;&nbsp;parse.ts</div><div>&nbsp;&nbsp;&nbsp;&nbsp;score.ts</div><div>&nbsp;&nbsp;&nbsp;&nbsp;draw.ts</div><div>&nbsp;&nbsp;main.ts</div><div>package.json</div><div>README.md</div></div>
+<div class="tabs" data-r="tabs"><span class="on">parse.ts</span><span>score.ts</span><span>main.ts ●</span></div>
+<div class="code" data-r="code" data-must>
+<div><span class="n">1</span><span class="k">import</span> { readFile } <span class="k">from</span> <span class="s">'node:fs/promises'</span></div>
+<div><span class="n">2</span></div>
+<div><span class="n">3</span><span class="c">// Split a sketch into strokes and words</span></div>
+<div><span class="n">4</span><span class="k">export async function</span> <span class="f">parse</span>(path: <span class="x">string</span>) {</div>
+<div><span class="n">5</span>  <span class="k">const</span> raw = <span class="k">await</span> <span class="f">readFile</span>(path, <span class="s">'utf8'</span>)</div>
+<div class="cur"><span class="n">6</span>  <span class="k">const</span> lines = raw.<span class="f">split</span>(<span class="s">'\n'</span>).<span class="f">filter</span>(Boolean)</div>
+<div><span class="n">7</span>  <span class="k">return</span> lines.<span class="f">map</span>((l, i) =&gt; ({ id: i, ink: l }))</div>
+<div><span class="n">8</span>}</div>
+<div><span class="n">9</span></div>
+<div><span class="n">10</span><span class="k">export function</span> <span class="f">size</span>(s: <span class="x">Stroke</span>) {</div>
+<div><span class="n">11</span>  <span class="k">return</span> Math.<span class="f">hypot</span>(s.w, s.h)</div>
+<div><span class="n">12</span>}</div>
+</div>
+<div class="mini" data-r="minimap"><div class="v"></div><i style="width:60%"></i><i style="width:20%"></i><i style="width:75%"></i><i style="width:90%"></i><i style="width:70%"></i><i style="width:85%"></i><i style="width:80%"></i><i style="width:10%"></i><i style="width:65%"></i><i style="width:50%"></i><i style="width:10%"></i></div>
+<div class="term" data-r="terminal" data-must><div class="tt">TERMINAL · PROBLEMS 1</div><div>$ npm test</div><div class="ok">✓ parse splits lines (3 ms)</div><div class="ok">✓ size of a stroke (1 ms)</div><div class="err">✗ parse keeps empty ink — expected 4, got 3</div><div>Tests: 1 failed, 2 passed</div><div>$ <span style="background:#cdd6f4">&nbsp;</span></div></div>
+<div class="status" data-r="status-bar"><span>⎇ main</span><span>⚠ 1</span><span style="margin-left:auto">Ln 6, Col 42</span><span>TypeScript</span></div>
+</body></html>

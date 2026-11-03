@@ -1,0 +1,725 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "a0cef640b15351fbb27be00f6f397b2f4697bcd3",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/SetBowling.tsx",
+   "src/components/StripedLane.tsx"
+  ],
+  "reading": "The sketch is a bowling-league promo section: a tri-color striped banner across the top, a bold italic 'Strike Night' heading with a subheading line, a blue bowling ball icon beside a triangular set of six white bowling pins with red bands, and a red 'Join a team' pill button, all set on a dark navy page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x120 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/components/StripedLane.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 120
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/components/StripedLane.tsx:10:5 at (0,0) 1280x120 sits on the drawn shape",
+     "claimed": "e3"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e8443a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Strike Night\" at (362,178) 558x117 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:9:7",
+      "rect": {
+       "x": 316,
+       "y": 188,
+       "w": 650,
+       "h": 97
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffcf40 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Tuesday league\" at (459,358) 142x23 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:18:9",
+      "rect": {
+       "x": 458.78125,
+       "y": 356,
+       "w": 141.75,
+       "h": 28.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 25,
+    "reason": "#c4c4e0 is on the page (ΔE 25.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (180,559) 150x151 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:23:7",
+      "rect": {
+       "x": 180,
+       "y": 559,
+       "w": 150,
+       "h": 151
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 180,
+        "y": 559,
+        "w": 150,
+        "h": 151
+       },
+       "built": {
+        "x": 180,
+        "y": 559,
+        "w": 150,
+        "h": 151
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3b6ff0 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (517,439) 245x202 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/components/SetBowling.tsx:10:5",
+      "rect": {
+       "x": 517,
+       "y": 439,
+       "w": 245,
+       "h": 202
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/components/SetBowling.tsx:10:5 at (517,439) 245x202 sits on the drawn shape",
+     "claimed": "e17"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 517,
+        "y": 540,
+        "w": 45,
+        "h": 101
+       },
+       "built": {
+        "x": 517,
+        "y": 540,
+        "w": 45,
+        "h": 101
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 568,
+        "y": 490,
+        "w": 44,
+        "h": 101
+       },
+       "built": {
+        "x": 568,
+        "y": 490,
+        "w": 44,
+        "h": 101
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 618,
+        "y": 439,
+        "w": 45,
+        "h": 102
+       },
+       "built": {
+        "x": 618,
+        "y": 439,
+        "w": 45,
+        "h": 102
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 667,
+        "y": 490,
+        "w": 45,
+        "h": 100
+       },
+       "built": {
+        "x": 667,
+        "y": 490,
+        "w": 45,
+        "h": 100
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 717,
+        "y": 540,
+        "w": 45,
+        "h": 100
+       },
+       "built": {
+        "x": 717,
+        "y": 540,
+        "w": 45,
+        "h": 100
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.8884776499016905,
+    "massSimilarity": 0.9835394998595578,
+    "flaws": [
+     "unfilled"
+    ],
+    "notes": [
+     "the output uses 1 fill value(s) — that reads as a flat cut-out. Give the form at least 2 values (a body tone, a shadow side, a highlight) so it reads as an object rather than a silhouette"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (530,739) 221x59 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:27:7",
+      "rect": {
+       "x": 530,
+       "y": 739,
+       "w": 221,
+       "h": 59
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 530,
+        "y": 739,
+        "w": 221,
+        "h": 59
+       },
+       "built": {
+        "x": 530,
+        "y": 739,
+        "w": 221,
+        "h": 59
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e8443a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "14 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#1c1d3b",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (2,1) 1276x40",
+       "want": "#e8443a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (1,39) 1277x42",
+       "want": "#ff8a3d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (2,79) 1276x42",
+       "want": "#ffcf40",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (316,270) 650x0",
+       "want": "#ffcf40",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (443,372) 394x0",
+       "want": "#c4c4e0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (180,559) 150x151",
+       "want": "#3b6ff0",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (517,540) 45x101 (light pen outline)",
+       "want": "border #ffffff, no #ffffff fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (568,490) 44x101 (light pen outline)",
+       "want": "border #ffffff, no #ffffff fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (618,439) 45x102 (light pen outline)",
+       "want": "border #ffffff, no #ffffff fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (617,540) 45x101",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (667,490) 45x100 (light pen outline)",
+       "want": "border #ffffff, no #ffffff fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (717,540) 45x100 (light pen outline)",
+       "want": "border #ffffff, no #ffffff fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (530,739) 221x59",
+       "want": "#e8443a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 77921,
+   "cacheRead": 999812,
+   "output": 26010
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 51674,
+    "output": 19212,
+    "cacheRead": 571906,
+    "toolCalls": 16,
+    "tools": [
+     "Read components/StripedLane.tsx",
+     "Read components/SetBowling.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Glob",
+     "Read src/main.tsx",
+     "Read src/index.css",
+     "Edit components/StripedLane.tsx",
+     "Read components/StripedLane.tsx",
+     "Edit components/StripedLane.tsx",
+     "Edit components/SetBowling.tsx",
+     "Read components/SetBowling.tsx",
+     "Edit components/SetBowling.tsx",
+     "Edit components/SetBowling.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 217947
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 43170,
+    "output": 4471,
+    "cacheRead": 184580,
+    "toolCalls": 3,
+    "tools": [
+     "Write components/StripedLane.tsx",
+     "Write components/SetBowling.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 44808
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 9087,
+    "output": 2327,
+    "cacheRead": 243326,
+    "toolCalls": 4,
+    "tools": [
+     "Read components/StripedLane.tsx",
+     "Read components/SetBowling.tsx",
+     "Edit components/StripedLane.tsx",
+     "Edit components/SetBowling.tsx"
+    ],
+    "ms": 20231
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/SetBowling.tsx",
+    "edits": [
+     {
+      "kind": "position-yields",
+      "detail": "a hard-coded relative now yields to an absolute/fixed className"
+     }
+    ]
+   },
+   {
+    "file": "src/components/StripedLane.tsx",
+    "edits": [
+     {
+      "kind": "position-yields",
+      "detail": "a hard-coded relative now yields to an absolute/fixed className"
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "b8dfe8a23b1ad66d14965c4ed7fba2f2feec5560",
+  "changedFiles": [
+   "src/components/SetBowling.tsx",
+   "src/components/StripedLane.tsx"
+  ],
+  "reading": "The user typed a note anchored near the bottom-left bowling pin (e24) asking that all six pins be made solid white to match it.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 4,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 5,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     }
+    ],
+    "satisfied": 2,
+    "total": 6,
+    "score": 0.3333333333333333
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 16917,
+   "cacheRead": 111354,
+   "output": 2400
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 9558,
+    "output": 2133,
+    "cacheRead": 65902,
+    "toolCalls": 2,
+    "tools": [
+     "Read components/SetBowling.tsx",
+     "Edit components/SetBowling.tsx"
+    ],
+    "ms": 18288
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 9759,
+    "output": 267,
+    "cacheRead": 45452,
+    "toolCalls": 1,
+    "tools": [
+     "Read components/SetBowling.tsx"
+    ],
+    "ms": 3334
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

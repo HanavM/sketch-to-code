@@ -1,0 +1,562 @@
+{
+  "round": 45,
+  "id": "c5-candle-studio",
+  "version": 3,
+  "stopped": null,
+  "likeness": 88.2,
+  "colour": 0.9874565090756301,
+  "structure": 0.9401221482751316,
+  "layout": 0.7201387787271764,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 3,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "box": 3,
+      "line": 6,
+      "circle": 4
+    },
+    "inkPx": 5003
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 35,
+  "notes": 6,
+  "longestNote": 8,
+  "noteTexts": [
+    "Wick & Wax serif italic bold",
+    "Candles Workshops Cart",
+    "Pour your own / candle, big serif",
+    "Two-hour evening workshops. Wax, scent and tea included.",
+    "Pick a date, dark bold",
+    "three orange flames filled, soft glow"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 446,
+    "firstReadingS": 67,
+    "readS": [
+      35
+    ],
+    "buildS": [
+      372
+    ],
+    "sketchingS": 39
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 87629,
+    "cacheRead": 996297,
+    "output": 36477,
+    "billed": 124106
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#2b2339",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 462
+    },
+    {
+      "op": "pen",
+      "color": "#f3e6da",
+      "at": 846
+    },
+    {
+      "op": "stroke",
+      "at": 2921
+    },
+    {
+      "op": "stroke",
+      "at": 3402
+    },
+    {
+      "op": "stroke",
+      "at": 6771
+    },
+    {
+      "op": "stroke",
+      "at": 7253
+    },
+    {
+      "op": "stroke",
+      "at": 9888
+    },
+    {
+      "op": "stroke",
+      "at": 10370
+    },
+    {
+      "op": "pen",
+      "color": "#8a6a50",
+      "at": 10744
+    },
+    {
+      "op": "stroke",
+      "at": 12771
+    },
+    {
+      "op": "pen",
+      "color": "#ffb54a",
+      "at": 13145
+    },
+    {
+      "op": "stroke",
+      "at": 13953
+    },
+    {
+      "op": "stroke",
+      "at": 14770
+    },
+    {
+      "op": "stroke",
+      "at": 15587
+    },
+    {
+      "op": "pen",
+      "color": "#f3e6da",
+      "at": 15962
+    },
+    {
+      "op": "stroke",
+      "at": 16751
+    },
+    {
+      "op": "stroke",
+      "at": 17870
+    },
+    {
+      "op": "stroke",
+      "at": 19354
+    },
+    {
+      "op": "stroke",
+      "at": 20270
+    },
+    {
+      "op": "pen",
+      "color": "#c8bfcf",
+      "at": 20641
+    },
+    {
+      "op": "stroke",
+      "at": 22237
+    },
+    {
+      "op": "pen",
+      "color": "#ffb54a",
+      "at": 22607
+    },
+    {
+      "op": "stroke",
+      "at": 24287
+    },
+    {
+      "op": "stroke",
+      "at": 24771
+    },
+    {
+      "op": "note",
+      "at": 25487
+    },
+    {
+      "op": "note",
+      "at": 26183
+    },
+    {
+      "op": "note",
+      "at": 27012
+    },
+    {
+      "op": "note",
+      "at": 27949
+    },
+    {
+      "op": "note",
+      "at": 28700
+    },
+    {
+      "op": "note",
+      "at": 29385
+    },
+    {
+      "op": "run",
+      "at": 31923
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          300,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 462
+    },
+    {
+      "way": [
+        [
+          690,
+          560
+        ],
+        [
+          800,
+          560
+        ],
+        [
+          800,
+          740
+        ],
+        [
+          690,
+          740
+        ],
+        [
+          690,
+          560
+        ]
+      ],
+      "n": 97,
+      "at": 2921
+    },
+    {
+      "way": [
+        [
+          745,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 3402
+    },
+    {
+      "way": [
+        [
+          850,
+          340
+        ],
+        [
+          970,
+          340
+        ],
+        [
+          970,
+          740
+        ],
+        [
+          850,
+          740
+        ],
+        [
+          850,
+          340
+        ]
+      ],
+      "n": 175,
+      "at": 6771
+    },
+    {
+      "way": [
+        [
+          910,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 7253
+    },
+    {
+      "way": [
+        [
+          1020,
+          460
+        ],
+        [
+          1130,
+          460
+        ],
+        [
+          1130,
+          740
+        ],
+        [
+          1020,
+          740
+        ],
+        [
+          1020,
+          460
+        ]
+      ],
+      "n": 131,
+      "at": 9888
+    },
+    {
+      "way": [
+        [
+          1075,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 10370
+    },
+    {
+      "way": [
+        [
+          640,
+          747
+        ],
+        [
+          1200,
+          747
+        ]
+      ],
+      "n": 94,
+      "at": 12771
+    },
+    {
+      "way": [
+        [
+          745,
+          495
+        ],
+        [
+          760,
+          520
+        ],
+        [
+          745,
+          545
+        ],
+        [
+          730,
+          520
+        ],
+        [
+          745,
+          495
+        ]
+      ],
+      "n": 21,
+      "at": 13953
+    },
+    {
+      "way": [
+        [
+          910,
+          275
+        ],
+        [
+          925,
+          300
+        ],
+        [
+          910,
+          325
+        ],
+        [
+          895,
+          300
+        ],
+        [
+          910,
+          275
+        ]
+      ],
+      "n": 21,
+      "at": 14770
+    },
+    {
+      "way": [
+        [
+          1075,
+          395
+        ],
+        [
+          1090,
+          420
+        ],
+        [
+          1075,
+          445
+        ],
+        [
+          1060,
+          420
+        ],
+        [
+          1075,
+          395
+        ]
+      ],
+      "n": 21,
+      "at": 15587
+    },
+    {
+      "way": [
+        [
+          80,
+          40
+        ],
+        [
+          193,
+          40
+        ]
+      ],
+      "n": 20,
+      "at": 16751
+    },
+    {
+      "way": [
+        [
+          978,
+          40
+        ],
+        [
+          1200,
+          40
+        ]
+      ],
+      "n": 38,
+      "at": 17870
+    },
+    {
+      "way": [
+        [
+          80,
+          255
+        ],
+        [
+          437,
+          255
+        ]
+      ],
+      "n": 61,
+      "at": 19354
+    },
+    {
+      "way": [
+        [
+          80,
+          320
+        ],
+        [
+          237,
+          320
+        ]
+      ],
+      "n": 27,
+      "at": 20270
+    },
+    {
+      "way": [
+        [
+          80,
+          414
+        ],
+        [
+          478,
+          414
+        ]
+      ],
+      "n": 67,
+      "at": 22237
+    },
+    {
+      "way": [
+        [
+          107,
+          500
+        ],
+        [
+          253,
+          500
+        ],
+        [
+          280,
+          527
+        ],
+        [
+          253,
+          554
+        ],
+        [
+          107,
+          554
+        ],
+        [
+          80,
+          527
+        ],
+        [
+          107,
+          500
+        ]
+      ],
+      "n": 73,
+      "at": 24287
+    },
+    {
+      "way": [
+        [
+          180,
+          545
+        ]
+      ],
+      "n": 1,
+      "at": 24770
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Wick & Wax serif italic bold",
+      "whole": false,
+      "x": 90,
+      "y": 58,
+      "at": 25487
+    },
+    {
+      "text": "Candles Workshops Cart",
+      "whole": false,
+      "x": 990,
+      "y": 58,
+      "at": 26183
+    },
+    {
+      "text": "Pour your own / candle, big serif",
+      "whole": false,
+      "x": 90,
+      "y": 285,
+      "at": 27012
+    },
+    {
+      "text": "Two-hour evening workshops. Wax, scent and tea included.",
+      "whole": false,
+      "x": 90,
+      "y": 430,
+      "at": 27948
+    },
+    {
+      "text": "Pick a date, dark bold",
+      "whole": false,
+      "x": 100,
+      "y": 520,
+      "at": 28700
+    },
+    {
+      "text": "three orange flames filled, soft glow",
+      "whole": true,
+      "x": 640,
+      "y": 850,
+      "at": 29385
+    }
+  ]
+}

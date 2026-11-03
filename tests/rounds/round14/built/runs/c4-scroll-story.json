@@ -1,0 +1,287 @@
+{
+  "id": "c4-scroll-story",
+  "at": "2026-10-24T01:38:11.135Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8788666405108745,
+    "overallV2": 0.8788666405108745,
+    "overallV1": 0.8389686476522236,
+    "colour": 0.9904287732918218,
+    "structure": 0.9257223456274033,
+    "structureStrict": 0.844417608073432,
+    "colourAligned": 0.9904287732918218,
+    "structureAligned": 0.9257223456274033,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9939272115363699
+    },
+    "layout": 0.7336507244451983
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mask",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 37581,
+    "output": 24562,
+    "cacheRead": 234766
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47583,
+      "output": 16631,
+      "cacheRead": 231682,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/index.css"
+      ],
+      "ms": 180657
+    }
+  ],
+  "reading": "The sketch is a dark hero/landing section for a \"The Long Walk\" story site: a lavender nav bar, a masked gradient orb, a serif headline with an italic peach word, a lavender body paragraph, a mint eyebrow label, a vertical progress rail with four stop labels, a scrolling giant-number ticker, and three rotated full-width color bands at the bottom with a \"SCROLL\" prompt — all specified precisely by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        124,
+        43,
+        1092,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar with no box/border around it: bold \"THE LONG WALK\" on the left, \"Chapters · Map · Photos · About\" on the right; nav text color #a9c2bc (laven"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        93,
+        454,
+        454
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A 460x460px circular block positioned at 700,90 (border-radius 50%), filled with background gradient: linear-gradient(200deg, #f9c46b, #e86a5b 55%, #4a2c5e); ed"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "A plain solid decorative block, NOT a picture: 1400x420px (420px thick), top-left at -40,520 before rotation (starting 40px past the left page edge), filled fla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "A plain solid decorative block, NOT a picture: 1400x400px (400px thick), top-left at -40,620 before rotation (starting 40px past the left page edge), filled fla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "A plain solid decorative block, NOT a picture: 1400x300px (300px thick), top-left at -40,720 before rotation (starting 40px past the left page edge), filled fla"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5"
+          ],
+          "lines": 1,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        1,
+        449,
+        1277,
+        449
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "A horizontally scrolling marquee of giant Helvetica heavy, hollow-outlined, off-white numerals: \"01 02 03 04 05 01 02 03 04 05\" repeating; sits on top of the #1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        39,
+        124,
+        6,
+        592
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A thin vertical progress rail widget (not text): a 4x600px #244042 track bar with top-left at 40,120; inside it, one lit #c9f27a segment 4x230px positioned at t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        81,
+        120,
+        17,
+        592
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Four short 12px mono labels stacked vertically, each an ordinary upright horizontal line of text (not rotated), spaced 150px apart, all left-aligned at x 60: \"0"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8"
+      ],
+      "textSize": [],
+      "region": [
+        124,
+        124,
+        186,
+        8
+      ],
+      "paths": [],
+      "instruction": "A 14px mono, wide-letter-spaced eyebrow label reading \"CHAPTER 01 / DAWN\" in mint green #c9f27a (not the page's off-white text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 71
+        }
+      ],
+      "region": [
+        128,
+        160,
+        504,
+        233
+      ],
+      "paths": [],
+      "instruction": "A huge Georgia serif, regular-weight headline set in exactly 3 non-wrapping lines: \"Three hundred\" / \"kilometres of\" / \"morning\" (keep these line breaks, each l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        1,
+        429,
+        1277,
+        469
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "17px Helvetica body copy in lavender #a9c2bc, set in 2 lines, 440px wide, top-left at 124,420, exact quoted text: \"We walked the old salt road from the coast to"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s14"
+      ],
+      "textSize": [],
+      "region": [
+        604,
+        830,
+        72,
+        8
+      ],
+      "paths": [],
+      "instruction": "Wide-letter-spaced \"SCROLL\" label in dark navy #0d1b1e (not the page's off-white text), sitting on the #c9f27a mint-green block with no fill or bar of its own."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

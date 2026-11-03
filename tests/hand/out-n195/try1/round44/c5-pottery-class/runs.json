@@ -1,0 +1,566 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "9a9471d2cdf647af34910660e34e61b309a93c46",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/PotteryVase.tsx"
+  ],
+  "reading": "The sketch is a pottery-studio landing page: a header with a \"Kiln & Co\" logo and a \"Classes / Studio / Gift cards\" nav, a left hero panel (orange-brown background) holding an illustrated cream pot, and a right column with a huge bold headline, intro copy, a \"Book a seat\" button, and a three-row class schedule (Tuesday evenings $240, Saturday mornings $240, Open studio $25) separated by thin dividers.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Kiln & Co\" at (80,27) 79x21 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:15:9",
+      "rect": {
+       "x": 80,
+       "y": 24,
+       "w": 79.015625,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Classes\" at (983,28) 56x19 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:19:11",
+      "rect": {
+       "x": 982.625,
+       "y": 26.75,
+       "w": 55.515625,
+       "h": 22.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:13:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 1,
+        "y": 75,
+        "w": 620,
+        "h": 823
+       },
+       "built": {
+        "x": 0,
+        "y": 76,
+        "w": 620,
+        "h": 824
+       },
+       "dx": -1,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#c46b45 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <svg> at (191,349) 239x278 matches the sketch region",
+     "bestCandidate": {
+      "tag": "svg",
+      "srcLoc": "src/components/PotteryVase.tsx:10:5",
+      "rect": {
+       "x": 190.5,
+       "y": 349,
+       "w": 239,
+       "h": 278
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": false,
+    "nearest": 66.4,
+    "reason": "nothing near the drawing is the colour that was drawn (#efe0d0); closest is ΔE 66.4 away"
+   },
+   {
+    "kind": "composition",
+    "index": 3,
+    "score": 0.665159286009352,
+    "massSimilarity": 0.521656122870503,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (700,219) 484x124 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:34:11",
+      "rect": {
+       "x": 700,
+       "y": 218.75,
+       "w": 484,
+       "h": 124
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Six-week wheel classes for tot\" at (700,369) 328x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:40:11",
+      "rect": {
+       "x": 700,
+       "y": 366.75,
+       "w": 484,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <rect> at (191,587) 239x40 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "rect",
+      "srcLoc": "src/components/PotteryVase.tsx:32:7",
+      "rect": {
+       "x": 190.5,
+       "y": 587,
+       "w": 239,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (700,479) 201x55: the <button> built for it sits 48px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The cause is above it, at the top: drawn, its top is 95px below the line drawn at y=384; built, it is 47px below that line's spot. So add 48px to the space above it (the list's top margin, or the gap under what sits above it). Never pull it further up.",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 700,
+        "y": 479,
+        "w": 201,
+        "h": 55
+       },
+       "built": {
+        "x": 700,
+        "y": 430.75,
+        "w": 201,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": -48
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (700,566) 484x192 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:51:11",
+      "rect": {
+       "x": 700,
+       "y": 565.75,
+       "w": 484,
+       "h": 191.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3a2a20 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 of 8 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 38,
+       "built": 38,
+       "dy": 0
+      },
+      {
+       "index": 1,
+       "drawn": 38,
+       "built": 38,
+       "dy": 0
+      },
+      {
+       "index": 2,
+       "drawn": 75,
+       "built": 76,
+       "dy": 1
+      },
+      {
+       "index": 3,
+       "drawn": 330,
+       "built": 349,
+       "dy": 19
+      },
+      {
+       "index": 4,
+       "drawn": 221,
+       "built": 219,
+       "dy": -2
+      },
+      {
+       "index": 5,
+       "drawn": 384,
+       "built": 379,
+       "dy": -5
+      },
+      {
+       "index": 6,
+       "drawn": 479,
+       "built": 431,
+       "dy": -49
+      },
+      {
+       "index": 7,
+       "drawn": 622,
+       "built": 630,
+       "dy": 8
+      }
+     ]
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 rows of words within their drawn line"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 table rows at body size"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3: the outline drawn at (191,330) 239x278 was coloured #efe0d0 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #efe0d0; action 6: the box drawn at (700,479) 201x55 was drawn in the #3a2a20 pen with no tap (its note says outline): an outlined block; nothing that size with a border was built there: give it a 2px #3a2a20 border and a transparent background, words readable on the surface; keep its size and place",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#faf3ea",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (80,38) 94x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (980,38) 220x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,75) 620x823 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,75) 620x823",
+       "want": "#c46b45",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (191,330) 239x278",
+       "want": "#efe0d0",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (700,252) 476x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,314) 208x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,384) 344x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (700,479) 201x55 (pen outline, said)",
+       "want": "border #3a2a20, no #3a2a20 fill",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (700,623) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,671) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (700,718) 480x0",
+       "want": "#3a2a20",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 84620,
+   "cacheRead": 313430,
+   "output": 20220
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 60225,
+    "output": 19079,
+    "cacheRead": 206354,
+    "toolCalls": 8,
+    "tools": [
+     "Read components/PotteryVase.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/main.tsx",
+     "Read src/index.css",
+     "Edit components/PotteryVase.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 215403
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 44615,
+    "output": 1141,
+    "cacheRead": 107076,
+    "toolCalls": 2,
+    "tools": [
+     "Edit components/PotteryVase.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 12198
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/PotteryVase.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 0 H 239 V 278 H 0 Z…\""
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

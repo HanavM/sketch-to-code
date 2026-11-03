@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mask reveal</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f7f3ea;font-family:Helvetica,Arial,sans-serif;color:#141414}
+.big{position:absolute;left:40px;top:60px;font:900 260px/0.85 Impact,Haettenschweiler,sans-serif;text-transform:uppercase;background:conic-gradient(from 200deg at 40% 60%,#ff3d00,#ffb300,#00b3a4,#3d5afe,#ff3d00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.win{position:absolute;left:820px;top:90px;width:380px;height:380px;clip-path:circle(50%);background:repeating-linear-gradient(45deg,#141414 0 14px,#f7f3ea 14px 28px)}
+.duo{position:absolute;left:700px;top:430px;width:300px;height:380px;clip-path:polygon(0 8%,100% 0,92% 100%,6% 92%);background:linear-gradient(135deg,#3d5afe,#00b3a4);mix-blend-mode:multiply}
+.duo:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 60% 35%,#ffb300 0 60px,transparent 62px)}
+.grid{position:absolute;left:0;top:560px;width:640px;height:340px;background-image:linear-gradient(#14141433 1px,transparent 1px),linear-gradient(90deg,#14141433 1px,transparent 1px);background-size:40px 40px;-webkit-mask-image:linear-gradient(to top,#000,transparent);mask-image:linear-gradient(to top,#000,transparent)}
+.cap{position:absolute;left:48px;top:520px;width:520px;font:400 22px/1.45 Georgia,serif}
+.lab{position:absolute;left:1030px;top:520px;width:200px;font:700 13px/1.6 "Courier New",monospace;text-transform:uppercase;letter-spacing:1px}
+.tri{position:absolute;left:1030px;top:680px;width:0;height:0;border-left:90px solid transparent;border-right:90px solid transparent;border-bottom:150px solid #ff3d00}
+.cta{position:absolute;left:48px;top:780px;font:900 22px Helvetica;text-transform:uppercase;border-bottom:4px solid #141414;padding-bottom:4px}
+</style></head><body>
+<div class="big" data-r="mask-headline" data-must>See<br>thru</div>
+<div class="win" data-r="circle-window" data-must></div>
+<div class="duo" data-r="duotone-shard"></div>
+<div class="grid" data-r="faded-grid"></div>
+<p class="cap" data-r="caption">An exhibition of cut-outs, windows and holes: what you see depends on what we take away.</p>
+<div class="lab" data-r="label">Gallery 4<br>Oct 30 – Jan 12<br>Free on Thursdays</div>
+<div class="tri" data-r="triangle"></div>
+<div class="cta" data-r="cta">Plan your visit</div>
+</body></html>

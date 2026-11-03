@@ -1,0 +1,178 @@
+{
+  "id": "c4-brutal-index",
+  "at": "2026-10-21T18:05:44.063Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8202199807122379,
+    "overallV2": 0.8202199807122379,
+    "overallV1": 0.7410145368356691,
+    "colour": 0.9511696656977355,
+    "structure": 0.8987441133252368,
+    "structureStrict": 0.763379979079299,
+    "colourAligned": 0.9511696656977355,
+    "structureAligned": 0.8987441133252368,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8542925891167845
+    },
+    "layout": 0.811803869047044
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "mono",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 32105,
+    "output": 13302,
+    "cacheRead": 105761
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 39096,
+      "output": 10438,
+      "cacheRead": 102677,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Write src/App.tsx"
+      ],
+      "ms": 121665
+    }
+  ],
+  "reading": "The sketch lays out a brutalist landing page: a giant '01' mark, a vertical near-black index bar, three offset-shadow cards (Manifesto, Work, Contact) each with title and body copy, a tilted 'EST. 2019' badge circle, and a mono copyright footer line — all per the typed notes which specify exact colors and copy.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 425
+        }
+      ],
+      "region": [
+        48,
+        41,
+        366,
+        294
+      ],
+      "paths": [],
+      "instruction": "Add a giant heading reading '01' in a heavy-weight Helvetica, tightly letter-spaced, near-black text, as a large page-number/title mark."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1183,
+        44,
+        54,
+        813
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a full-height vertical near-black bar running down the right side of the page, containing light grey vertical text reading 'INDEX OF THINGS'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        83,
+        494,
+        254
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a white card with a thick near-black border and a hard offset drop shadow, titled 'Manifesto', with body text 'Websites should look like they were made by p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        403,
+        413,
+        294
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a yellow card with a thick near-black border and a hard offset drop shadow, titled 'Work', with body text 'Forty-two projects, zero templates. Click anythin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        473,
+        393,
+        233
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a sky-blue card with a thick near-black border and a hard offset drop shadow, titled 'Contact', with body text 'hello@brutal.index'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        977,
+        577,
+        187,
+        186
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a tilted red-outlined circular badge containing the text 'EST. 2019'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        848,
+        286,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a monospace footer line reading '© BRUTAL INDEX — ALL RIGHTS IGNORED'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

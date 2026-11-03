@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Bento grid</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0d0d0f;font-family:Helvetica,Arial,sans-serif;color:#f4f4f5}
+.top{position:absolute;left:60px;top:40px;width:1160px;display:flex;align-items:flex-end;justify-content:space-between}.top h1{font:800 54px/1 Helvetica;letter-spacing:-2px}.top p{font:400 15px Helvetica;color:#a1a1aa;width:320px}
+.g{position:absolute;border-radius:24px;background:#18181b;border:1px solid #27272a;padding:24px;overflow:hidden}.g h3{font:600 15px Helvetica;margin-bottom:6px}.g p{font:400 13px/1.5 Helvetica;color:#a1a1aa}
+.a{left:60px;top:150px;width:560px;height:360px;background:linear-gradient(140deg,#4f46e5,#9333ea 60%,#db2777)}
+.a .big{position:absolute;left:24px;bottom:20px;font:800 120px/1 Helvetica;letter-spacing:-6px}
+.a .orb{position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff9,#fff0 60%)}
+.b{left:640px;top:150px;width:280px;height:170px}.b .tg{position:absolute;left:24px;bottom:24px;width:64px;height:36px;border-radius:18px;background:#22c55e}.b .tg::after{content:"";position:absolute;right:4px;top:4px;width:28px;height:28px;border-radius:50%;background:#fff}
+.c{left:940px;top:150px;width:280px;height:360px}.c .bars{position:absolute;left:24px;right:24px;bottom:24px;height:180px;display:flex;align-items:flex-end;gap:10px}.c .bars i{flex:1;border-radius:6px 6px 0 0;background:#3f3f46}.c .bars i.on{background:#facc15}
+.d{left:640px;top:340px;width:280px;height:170px}.d .av{display:flex;margin-top:22px}.d .av b{width:40px;height:40px;border-radius:50%;border:3px solid #18181b;margin-right:-12px}
+.e{left:60px;top:530px;width:360px;height:300px}.e svg{position:absolute;left:0;bottom:0}
+.f{left:440px;top:530px;width:480px;height:300px;background:#f4f4f5;color:#0d0d0f}.f p{color:#52525b}.f .code{margin-top:18px;border-radius:12px;background:#0d0d0f;color:#a5f3fc;padding:16px;font:400 13px/1.7 "Courier New",monospace;white-space:pre}
+.h{left:940px;top:530px;width:280px;height:300px;background:conic-gradient(from 90deg at 50% 60%,#0ea5e9,#22d3ee,#a3e635,#0ea5e9)}.h .ring{position:absolute;left:60px;top:110px;width:160px;height:160px;border-radius:50%;background:#18181b;display:flex;align-items:center;justify-content:center;font:800 40px Helvetica}
+</style></head><body>
+<div class="top" data-r="header"><h1>One kit. Every block.</h1><p>Twelve primitives that snap together into anything your product needs this quarter.</p></div>
+<div class="g a" data-r="tile-hero" data-must><div class="orb"></div><h3>Monthly actives</h3><p>Across all workspaces</p><div class="big">2.4M</div></div>
+<div class="g b" data-r="tile-toggle"><h3>Dark mode</h3><p>Ships on by default</p><div class="tg"></div></div>
+<div class="g c" data-r="tile-bars" data-must><h3>Weekly load</h3><p>Peak on Thursday</p><div class="bars"><i style="height:40%"></i><i style="height:62%"></i><i style="height:55%"></i><i class="on" style="height:96%"></i><i style="height:70%"></i><i style="height:30%"></i></div></div>
+<div class="g d" data-r="tile-team"><h3>Team</h3><p>8 editors online</p><div class="av"><b style="background:#f97316"></b><b style="background:#22c55e"></b><b style="background:#3b82f6"></b><b style="background:#e879f9"></b></div></div>
+<div class="g e" data-r="tile-line"><h3>Revenue</h3><p>+18% vs last month</p><svg width="360" height="170" viewBox="0 0 360 170"><path d="M0 140 C60 120 90 150 140 100 S220 60 260 70 S330 20 360 24 L360 170 L0 170Z" fill="#4f46e533"/><path d="M0 140 C60 120 90 150 140 100 S220 60 260 70 S330 20 360 24" fill="none" stroke="#818cf8" stroke-width="3"/></svg></div>
+<div class="g f" data-r="tile-code" data-must><h3>Drop-in API</h3><p>Three lines to your first block.</p><div class="code">import { Bento } from "kit"
+const grid = new Bento(12)
+grid.mount("#app")</div></div>
+<div class="g h" data-r="tile-ring"><div class="ring">98</div></div>
+</body></html>

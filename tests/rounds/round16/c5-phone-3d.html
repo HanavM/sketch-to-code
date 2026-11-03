@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Tilted phone</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 45%,#2a3c70,#0a0f1e 60%);font-family:Helvetica,Arial,sans-serif;color:#fff}
+.stage{position:absolute;left:700px;top:90px;width:340px;height:700px;perspective:1200px}
+.phone{width:340px;height:700px;border-radius:48px;background:#111;border:10px solid #2b2f3a;transform:rotateY(-24deg) rotateX(10deg) rotateZ(4deg);box-shadow:40px 40px 80px rgba(0,0,0,.6);padding:24px 18px;overflow:hidden}
+.scr .t{font-size:13px;opacity:.6}.scr h4{font-size:30px;margin:6px 0 18px}.scr .bar{height:12px;border-radius:6px;background:linear-gradient(90deg,#4ef0b0,#36a3ff);margin-bottom:12px}
+.scr .tile{background:#1e2230;border-radius:16px;padding:14px;margin-bottom:12px;font-size:14px}
+.chip{position:absolute;padding:12px 18px;background:#fff;color:#0a0f1e;border-radius:16px;font-weight:700;font-size:15px;box-shadow:0 14px 30px rgba(0,0,0,.4)}
+h1{position:absolute;left:60px;top:220px;width:560px;font-size:78px;line-height:1;font-weight:800}
+h1 span{background:linear-gradient(90deg,#4ef0b0,#36a3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{position:absolute;left:60px;top:500px;width:460px;font-size:19px;line-height:1.5;opacity:.8}
+.st{position:absolute;left:60px;top:620px;display:flex;gap:14px}.st a{padding:14px 22px;border-radius:12px;background:#fff;color:#0a0f1e;font-weight:700}.st a+a{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+nav{position:absolute;left:60px;top:40px;width:1160px;display:flex;justify-content:space-between;font-size:15px}
+.spot{position:absolute;left:660px;top:780px;width:420px;height:60px;border-radius:50%;background:rgba(0,0,0,.5);filter:blur(20px)}
+</style></head><body>
+<nav data-r="nav"><b>PULSE</b><span>Features · Coaches · Pricing · Log in</span></nav>
+<h1 data-r="headline" data-must>Train with <span>your heart</span>, not the clock.</h1>
+<p class="lede" data-r="lede">Live zones, recovery scores and a coach that listens to your pulse.</p>
+<div class="st" data-r="store-buttons"><a>App Store</a><a>Google Play</a></div>
+<div class="spot" data-r="floor-shadow"></div>
+<div class="stage" data-r="tilted-phone" data-must><div class="phone"><div class="scr"><div class="t">Tuesday · Tempo run</div><h4>Zone 3</h4><div class="bar" style="width:80%"></div><div class="bar" style="width:55%"></div><div class="tile">Heart rate <b style="float:right">152 bpm</b></div><div class="tile">Recovery <b style="float:right">84%</b></div><div class="tile">Distance <b style="float:right">6.2 km</b></div></div></div></div>
+<div data-r="floating-chips"><div class="chip" style="left:600px;top:200px">❤ 152 bpm</div><div class="chip" style="left:1020px;top:420px;transform:rotate(6deg)">🔥 Zone 3 · 18 min</div><div class="chip" style="left:620px;top:620px;transform:rotate(-4deg)">✓ Recovered</div></div>
+</body></html>

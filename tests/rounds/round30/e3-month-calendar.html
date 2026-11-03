@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Month calendar</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Inter,Helvetica,Arial,sans-serif;color:#1f2937;font-size:12px}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:14px;padding:0 24px}.top b{font-size:20px}.top .ar{width:30px;height:30px;border:1px solid #d1d5db;border-radius:8px;text-align:center;line-height:28px;font-size:14px}.top .td{padding:7px 14px;border:1px solid #d1d5db;border-radius:8px}
+.top .seg{margin-left:auto;display:flex;background:#f3f4f6;border-radius:8px;padding:3px}.top .seg span{padding:6px 14px;border-radius:6px}.top .seg .on{background:#fff;box-shadow:0 1px 2px #0002;font-weight:600}.top .new{padding:9px 16px;background:#0f766e;color:#fff;border-radius:8px;font-weight:600}
+.mini{position:absolute;left:0;top:64px;width:240px;height:836px;border-right:1px solid #e5e7eb;padding:20px}
+.mini .g{display:grid;grid-template-columns:repeat(7,28px);gap:2px;text-align:center;line-height:26px;margin-top:10px}.mini .g .t{background:#0f766e;color:#fff;border-radius:50%}
+.cals{margin-top:30px}.cals div{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px}.cals i{width:14px;height:14px;border-radius:4px}
+.grid{position:absolute;left:240px;top:64px;width:1040px;height:836px;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:32px repeat(5,1fr)}
+.grid > div{border-right:1px solid #eef0f2;border-bottom:1px solid #eef0f2;padding:6px 8px;font-weight:600;color:#4b5563}.grid .dn{font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:1px;padding-top:9px}.grid .o{color:#c3c7ce;background:#fafafa}
+.grid .tday span{display:inline-block;width:24px;height:24px;border-radius:50%;background:#0f766e;color:#fff;text-align:center;line-height:24px}
+.ev{position:absolute;height:22px;border-radius:5px;padding:0 8px;line-height:22px;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden}
+.dot{position:absolute;font-size:12px;white-space:nowrap}.dot::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px}
+.pop{position:absolute;left:770px;top:330px;width:320px;background:#fff;border-radius:12px;box-shadow:0 16px 40px #0003,0 0 0 1px #e5e7eb;padding:18px}
+.pop::before{content:"";position:absolute;left:-7px;top:40px;width:14px;height:14px;background:#fff;transform:rotate(45deg);box-shadow:-1px 1px 0 #e5e7eb}
+.pop h3{font-size:16px;display:flex;align-items:center;gap:8px}.pop h3 i{width:12px;height:12px;border-radius:3px;background:#7c3aed}.pop p{margin-top:10px;color:#4b5563;font-size:13px;line-height:1.7}
+.pop .ppl{margin-top:12px;display:flex}.pop .ppl i{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-right:-8px}
+.pop .b{margin-top:16px;display:flex;gap:8px}.pop .b span{padding:8px 14px;border-radius:8px;border:1px solid #d1d5db;font-weight:600}.pop .b .p{background:#0f766e;color:#fff;border-color:#0f766e}
+</style></head><body>
+<div class="top" data-r="top-bar"><span class="ar">‹</span><span class="ar">›</span><b>November 2026</b><span class="td">Today</span><span class="seg"><span>Day</span><span>Week</span><span class="on">Month</span></span><span class="new">+ Event</span></div>
+<div class="mini" data-r="mini-month"><b style="font-size:14px">November</b><div class="g"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span><span style="color:#ccc">26</span><span style="color:#ccc">27</span><span style="color:#ccc">28</span><span style="color:#ccc">29</span><span style="color:#ccc">30</span><span style="color:#ccc">31</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span class="t">12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span></div>
+<div class="cals" data-r="calendar-list"><div><i style="background:#0f766e"></i>Work</div><div><i style="background:#7c3aed"></i>Launches</div><div><i style="background:#f97316"></i>Travel</div><div><i style="background:#e5e7eb;border:2px solid #9ca3af"></i>Holidays</div></div></div>
+<div class="grid" data-r="month-grid" data-must>
+<div class="dn">Mon</div><div class="dn">Tue</div><div class="dn">Wed</div><div class="dn">Thu</div><div class="dn">Fri</div><div class="dn">Sat</div><div class="dn">Sun</div>
+<div class="o">26</div><div class="o">27</div><div class="o">28</div><div class="o">29</div><div class="o">30</div><div class="o">31</div><div>1</div>
+<div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+<div>9</div><div>10</div><div>11</div><div class="tday"><span>12</span></div><div>13</div><div>14</div><div>15</div>
+<div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div>
+<div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div></div>
+<div class="ev" data-r="trip-span" data-must style="left:394px;top:298px;width:434px;background:#ffedd5;color:#c2410c;box-shadow:inset 3px 0 0 #f97316">✈ Lisbon offsite</div>
+<div class="ev" data-r="launch-span" data-must style="left:540px;top:458px;width:292px;background:#7c3aed;color:#fff">Launch week: Atlas 2.0</div>
+<div class="ev" style="left:246px;top:620px;width:732px;background:#f3f4f6;color:#6b7280;border:1px dashed #9ca3af;line-height:20px">Code freeze</div>
+<div class="dot" style="left:252px;top:138px;color:#0f766e">9:00 Standup</div><div class="dot" style="left:252px;top:158px;color:#0f766e">14:00 1:1 Ana</div>
+<div class="dot" style="left:550px;top:298px;color:#0f766e;display:none"></div>
+<div class="dot" style="left:698px;top:138px;color:#7c3aed">Beta opens</div>
+<div class="dot" style="left:252px;top:458px;color:#0f766e">10:30 Design crit</div><div class="dot" style="left:400px;top:458px;color:#0f766e">9:00 Planning</div>
+<div class="dot" style="left:994px;top:298px;color:#6b7280">Birthday: Sam</div>
+<div class="dot" style="left:252px;top:778px;color:#0f766e">Retro</div><div class="dot" style="left:846px;top:778px;color:#f97316">Fly home</div>
+<div class="pop" data-r="event-popover" data-must><h3><i></i>Launch week: Atlas 2.0</h3><p>Thu 12 – Sat 14 Nov<br>Main room · Zoom link<br>Owner: Priya Rao</p><div class="ppl"><i style="background:#0f766e"></i><i style="background:#f97316"></i><i style="background:#7c3aed"></i><i style="background:#64748b"></i></div><div class="b"><span class="p">Join</span><span>Edit</span><span>Delete</span></div></div>
+</body></html>

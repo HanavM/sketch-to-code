@@ -1,0 +1,347 @@
+{
+  "id": "c2-mosaic-type",
+  "at": "2026-10-27T18:02:13.000Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9446170451119582,
+    "overallV2": 0.9446170451119582,
+    "overallV1": 0.9290588468002607,
+    "colour": 0.99698013796501,
+    "structure": 0.9784001152241976,
+    "structureStrict": 0.9538130341427469,
+    "colourAligned": 0.99698013796501,
+    "structureAligned": 0.9784001152241976,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9969340344601665
+    },
+    "layout": 0.8812790214681087,
+    "layoutV1": 0.8812790214681087,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      760,
+      0,
+      520,
+      900
+    ],
+    [
+      0,
+      74,
+      40,
+      1132,
+      30
+    ],
+    [
+      2,
+      74,
+      40,
+      76,
+      30
+    ],
+    [
+      2,
+      1026,
+      43,
+      180,
+      24
+    ],
+    [
+      4,
+      1026,
+      43,
+      44,
+      24
+    ],
+    [
+      4,
+      1101,
+      43,
+      33,
+      24
+    ],
+    [
+      4,
+      1166,
+      43,
+      40,
+      24
+    ],
+    [
+      0,
+      70,
+      150,
+      756,
+      372
+    ],
+    [
+      8,
+      61,
+      141,
+      198,
+      198
+    ],
+    [
+      8,
+      262,
+      150,
+      180,
+      180
+    ],
+    [
+      8,
+      439,
+      158,
+      203,
+      203
+    ],
+    [
+      8,
+      646,
+      150,
+      180,
+      180
+    ],
+    [
+      8,
+      70,
+      342,
+      180,
+      180
+    ],
+    [
+      8,
+      248,
+      328,
+      209,
+      209
+    ],
+    [
+      8,
+      454,
+      342,
+      180,
+      180
+    ],
+    [
+      8,
+      646,
+      326,
+      180,
+      180
+    ],
+    [
+      0,
+      880,
+      180,
+      330,
+      20
+    ],
+    [
+      0,
+      880,
+      215,
+      330,
+      80
+    ],
+    [
+      0,
+      880,
+      440,
+      293,
+      292
+    ],
+    [
+      19,
+      880,
+      440,
+      293,
+      292
+    ],
+    [
+      20,
+      881,
+      440,
+      291,
+      292
+    ],
+    [
+      0,
+      74,
+      773,
+      200,
+      52
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "clip-shape",
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "mask",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 34019,
+    "output": 13728,
+    "cacheRead": 180628
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37610,
+      "output": 8861,
+      "cacheRead": 177544,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 94489
+    }
+  ],
+  "ease": {
+    "marks": 9,
+    "captured": 9,
+    "notes": 7,
+    "words": 585,
+    "drawMs": 47927,
+    "readingMs": 49225,
+    "runMs": 145043
+  },
+  "reading": "The sketch lays out a hero section: a full-right dot-grid background canvas, a bold logo+nav header row, a 4x2 grid of 8 distinctly styled glyph tiles spelling out letters, a small eyebrow heading and paragraph of copy, a decorative ring-and-diamond graphic, and a dark call-to-action button reading \"Try the playground\" — all specified precisely by the typed notes, which take priority over the rough ink shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        3,
+        514,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a large 520x900px dot-grid background canvas positioned at 760,0, spanning the whole right side of the page. No fill of its own; it holds tiny #1d1a2f dots "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        51,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a header row: a 20px bold (font-weight 700) 'tile.type' logo/wordmark on the left, then nav links 'Fonts', 'Play', 'Shop' pushed far to the right (about 895"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        153,
+        753,
+        366
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a 4-column x 2-row CSS grid of 8 glyph tiles (display:grid, 4 columns, gap 12px), 760x372px, top-left at 70,150. Each tile is its own 180x180px box, 18px ro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 4,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        884,
+        180,
+        322,
+        119
+      ],
+      "paths": [],
+      "instruction": "Add two real text elements stacked in the hero area, each kept on one line (white-space nowrap, min-width not fixed width so no part wraps away): first a 330x15"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        884,
+        444,
+        293,
+        292
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a decorative outline ring, 300px across, positioned at 880,440: a 3px solid #1d1a2f border with no fill (see-through middle). Inside it, place a solid #ffd2"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        773,
+        196,
+        48
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a button styled as a dark navy (#1d1a2f) solid block with off-white (#fbf6ee) text reading 'Try the playground', with a hard solid opaque orange shadow offs"
+    }
+  ],
+  "rejected": []
+}

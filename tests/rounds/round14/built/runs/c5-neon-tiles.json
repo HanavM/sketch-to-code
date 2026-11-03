@@ -1,0 +1,211 @@
+{
+  "id": "c5-neon-tiles",
+  "at": "2026-10-24T00:03:53.668Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8947029781114031,
+    "overallV2": 0.8947029781114031,
+    "overallV1": 0.8373550868604931,
+    "colour": 0.9592668032393051,
+    "structure": 0.901385655345306,
+    "structureStrict": 0.7446533919860775,
+    "colourAligned": 0.9592668032393051,
+    "structureAligned": 0.901385655345306,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.861301420442304
+    },
+    "layout": 0.8234357665366693
+  },
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "glow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 38165,
+    "output": 25204,
+    "cacheRead": 162151
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 41489,
+      "output": 15755,
+      "cacheRead": 150343,
+      "toolCalls": 8,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 162958
+    }
+  ],
+  "reading": "This is a dark-mode type-foundry landing page: a top nav, a giant 3-line headline with a green accent word, a grey intro paragraph, a stats row, a green outline CTA button, a tilted yellow 'NEW v2.0' badge overlapping a 3x3 grid of glowing glyph tiles, and a tilted pink marquee bar of repeating words at the bottom, all per the user's typed styling notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        992,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A thin horizontal rule spanning the top of the page, likely a header/navigation divider."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        68,
+        150,
+        450,
+        265
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline, tight-set letters, line-height 0.92, set in exactly 3 lines: \"Nine\" / \"weights,\" / \"one glow\" — keep these breaks, each line sta"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        66,
+        430,
+        412,
+        53
+      ],
+      "paths": [],
+      "instruction": "Grey intro paragraph: \"A neon display family drawn for signs that hum. Every weight ships with its own glow profile.\" Text colour #9a9aa6 (grey, not the page's "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        65,
+        563,
+        453,
+        68
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A row ~460px wide with ONLY a 1px #2b2b33 rule along its TOP edge (no border on other sides, no fill), text 16px below the rule; three items on one line spread "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        702,
+        169,
+        49
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Bright green outline button labelled \"Download trial\"; text colour #39ff9c (bright green, not the page's off-white)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        113,
+        614,
+        614
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A 3x3 grid of 9 square glyph tiles (display: grid, 3 columns, gap 10px), 620x620px, top-left at 600,110. Each tile is its own 200x200px box with 1px #2b2b33 bor"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1090,
+        69,
+        152,
+        153
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A tilted (16° clockwise) vivid yellow circle, 130px across, reading \"NEW v2.0\" centred and wrapped across 3 lines (14px type); text colour #09090c (black, not t"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        801,
+        1274,
+        79
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "A vivid pink bar tilted slightly 2° anticlockwise, with bold black 16px text repeating \"GLOW · HUM · BUZZ · FLICKER · GLOW · HUM · BUZZ · FLICKER · GLOW · HUM ·"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes",
+    "add action with neither container nor strokes"
+  ]
+}

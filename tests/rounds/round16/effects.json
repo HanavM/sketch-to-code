@@ -1,0 +1,164 @@
+{
+ "c1-split-halftone": {
+  "found": {
+   "mask": 1,
+   "gradient": 1,
+   "blend": 2,
+   "huge-type": 1,
+   "serif": 1,
+   "italic": 1,
+   "vertical-type": 1,
+   "mono": 1,
+   "overlap": 1
+  },
+  "names": [
+   "blend",
+   "gradient",
+   "huge-type",
+   "italic",
+   "mask",
+   "mono",
+   "overlap",
+   "serif",
+   "vertical-type"
+  ]
+ },
+ "c2-glass-stack": {
+  "found": {
+   "blur": 3,
+   "hollow-type": 1,
+   "huge-type": 1,
+   "gradient": 1,
+   "glass": 3,
+   "tilt": 3,
+   "soft-shadow": 3,
+   "overlap": 36
+  },
+  "names": [
+   "blur",
+   "glass",
+   "gradient",
+   "hollow-type",
+   "huge-type",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "c3-arched-sunburst": {
+  "found": {
+   "stripes-or-layers": 1,
+   "tilt": 9,
+   "serif": 11,
+   "italic": 2,
+   "overlap": 50
+  },
+  "names": [
+   "italic",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c4-broken-editorial": {
+  "found": {
+   "huge-type": 1,
+   "bleed": 1,
+   "gradient": 2,
+   "blend": 1,
+   "serif": 4,
+   "italic": 2,
+   "vertical-type": 1,
+   "mono": 1,
+   "overlap": 2
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "gradient",
+   "huge-type",
+   "italic",
+   "mono",
+   "overlap",
+   "serif",
+   "vertical-type"
+  ]
+ },
+ "c5-phone-3d": {
+  "found": {
+   "gradient-text": 1,
+   "blur": 1,
+   "3d": 2,
+   "soft-shadow": 4,
+   "gradient": 2,
+   "tilt": 2,
+   "overlap": 4
+  },
+  "names": [
+   "3d",
+   "blur",
+   "gradient",
+   "gradient-text",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e1-spreadsheet": {
+  "found": {
+   "italic": 1,
+   "mono": 1,
+   "soft-shadow": 1,
+   "overlap": 1
+  },
+  "names": [
+   "italic",
+   "mono",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e2-week-calendar": {
+  "found": {
+   "stripes-or-layers": 1,
+   "soft-shadow": 1,
+   "overlap": 1
+  },
+  "names": [
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e3-code-review": {
+  "found": {
+   "mono": 19,
+   "overlap": 1
+  },
+  "names": [
+   "mono",
+   "overlap"
+  ]
+ },
+ "e4-chat-thread": {
+  "found": {
+   "soft-shadow": 1
+  },
+  "names": [
+   "soft-shadow"
+  ]
+ },
+ "e5-checkout-autocomplete": {
+  "found": {
+   "soft-shadow": 2,
+   "gradient": 2,
+   "overlap": 14
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ }
+}

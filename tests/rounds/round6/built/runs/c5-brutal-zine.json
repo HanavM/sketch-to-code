@@ -1,0 +1,207 @@
+{
+  "id": "c5-brutal-zine",
+  "at": "2026-10-22T12:48:19.901Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8962261078329748,
+    "overallV2": 0.8962261078329748,
+    "overallV1": 0.8203019244575939,
+    "colour": 0.9728712179636717,
+    "structure": 0.9059479751826337,
+    "structureStrict": 0.7795037881628931,
+    "colourAligned": 0.9728712179636717,
+    "structureAligned": 0.9059479751826337,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9707542260244787
+    },
+    "layout": 0.941272885908884
+  },
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "huge-type",
+      "mono",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": [
+      "bleed"
+    ]
+  },
+  "tokens": {
+    "input": 35874,
+    "output": 23619,
+    "cacheRead": 197859
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42700,
+      "output": 16773,
+      "cacheRead": 186980,
+      "toolCalls": 10,
+      "tools": [
+        "Read components/StampBadge.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Edit components/StampBadge.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 183450
+    }
+  ],
+  "reading": "The sketch is a zine/magazine page: a full-width black heading band ('NOISE/ISSUE 9'), a ruled grid of article boxes (intro text with sideways 'LOUD', a blue duotone tile with yellow shapes, a code-style track list, a pull quote, production credits, and a yellow price block for '£4 / post free in the UK'), plus a tilted red 'SOLD OUT SOON' stamp badge overlapping the grid.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 97
+        }
+      ],
+      "region": [
+        7,
+        3,
+        1155,
+        116
+      ],
+      "paths": [],
+      "instruction": "Add a full-width black band header (about 1283x123px) filling edge-to-edge at the top of the page; set giant Helvetica heavy, tight-set letters, white on black,"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        2,
+        122,
+        317,
+        477
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "In the top-left grid box (thick black border), add intro copy at the top reading 'This issue: 14 bands from basements in Leeds, one printing press and zero spon"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        322,
+        122,
+        636,
+        477
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Fill the top-middle large grid box (thick black border) as a vivid blue (#2563eb) flat duotone tile, no photo; place two hard-edged flat yellow (#fde047) round "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        962,
+        122,
+        316,
+        477
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "In the top-right grid box (thick black border), add a mono 16px black code-style list: '01 - Tape loops', '02 - Basement maps', '03 - Flyer archive', '04 - Last"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        2,
+        602,
+        316,
+        296
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "In the bottom-left grid box (thick black border), add bold 22px text reading '\"Turn it up until the walls agree.\"' positioned in the top-left corner (24px in, 2"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        322,
+        602,
+        636,
+        296
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "In the bottom-middle grid box (thick black border), add mono 13px black code-style credit lines: 'Edited by M. Hale', 'Photos by the bands', 'Printed in Leeds o"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 138
+        }
+      ],
+      "region": [
+        967,
+        599,
+        291,
+        303
+      ],
+      "paths": [],
+      "instruction": "In the bottom-right grid box (thick black border), fill it as a yellow band edge-to-edge; add huge Helvetica heavy black 72px text '£4' left-aligned 24px from l"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        505,
+        505,
+        210,
+        210
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a tilted (14 degrees anticlockwise) vivid red circular badge with a 3px solid black outline, flat with no shadow, reading 'SOLD OUT SOON', positioned overla"
+    }
+  ],
+  "rejected": []
+}

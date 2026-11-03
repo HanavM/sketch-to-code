@@ -1,0 +1,569 @@
+{
+  "id": "c3-terrarium",
+  "at": "2026-10-27T06:13:49.084Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.921708933680364,
+    "overallV2": 0.921708933680364,
+    "overallV1": 0.8979282348747212,
+    "colour": 0.9890698442863899,
+    "structure": 0.9436908455939246,
+    "structureStrict": 0.9112211601159991,
+    "colourAligned": 0.9890698442863899,
+    "structureAligned": 0.9436908455939246,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9176387954869
+    },
+    "layout": 0.9407357233087887,
+    "layoutV1": 0.9407357233087887,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      880
+    ],
+    [
+      1,
+      60,
+      32,
+      1160,
+      56
+    ],
+    [
+      2,
+      85,
+      44,
+      126,
+      33
+    ],
+    [
+      2,
+      971,
+      49,
+      210,
+      23
+    ],
+    [
+      4,
+      971,
+      49,
+      25,
+      23
+    ],
+    [
+      4,
+      1016,
+      49,
+      42,
+      23
+    ],
+    [
+      4,
+      1078,
+      49,
+      33,
+      23
+    ],
+    [
+      4,
+      1130,
+      49,
+      51,
+      23
+    ],
+    [
+      1,
+      700,
+      676,
+      360,
+      40
+    ],
+    [
+      1,
+      600,
+      130,
+      560,
+      560
+    ],
+    [
+      10,
+      602,
+      538,
+      556,
+      150
+    ],
+    [
+      10,
+      704,
+      355,
+      145,
+      211
+    ],
+    [
+      10,
+      842,
+      312,
+      70,
+      240
+    ],
+    [
+      10,
+      906,
+      357,
+      151,
+      210
+    ],
+    [
+      10,
+      970,
+      442,
+      144,
+      152
+    ],
+    [
+      10,
+      722,
+      534,
+      60,
+      34
+    ],
+    [
+      10,
+      1002,
+      534,
+      44,
+      34
+    ],
+    [
+      10,
+      606,
+      136,
+      553,
+      552
+    ],
+    [
+      18,
+      607,
+      136,
+      551,
+      552
+    ],
+    [
+      1,
+      1013,
+      153,
+      76,
+      71
+    ],
+    [
+      20,
+      1025,
+      165,
+      52,
+      15
+    ],
+    [
+      20,
+      1031,
+      182,
+      40,
+      30
+    ],
+    [
+      1,
+      604,
+      294,
+      110,
+      69
+    ],
+    [
+      23,
+      643,
+      307,
+      32,
+      15
+    ],
+    [
+      23,
+      626,
+      324,
+      65,
+      27
+    ],
+    [
+      1,
+      72,
+      170,
+      495,
+      188
+    ],
+    [
+      26,
+      72,
+      170,
+      495,
+      94
+    ],
+    [
+      27,
+      369,
+      163,
+      198,
+      107
+    ],
+    [
+      26,
+      72,
+      264,
+      495,
+      94
+    ],
+    [
+      1,
+      66,
+      420,
+      440,
+      58
+    ],
+    [
+      1,
+      69,
+      524,
+      149,
+      42
+    ],
+    [
+      1,
+      64,
+      640,
+      482,
+      180
+    ],
+    [
+      32,
+      64,
+      640,
+      150,
+      180
+    ],
+    [
+      33,
+      80,
+      656,
+      120,
+      100
+    ],
+    [
+      33,
+      79,
+      763,
+      63,
+      20
+    ],
+    [
+      33,
+      79,
+      781,
+      22,
+      20
+    ],
+    [
+      32,
+      230,
+      640,
+      150,
+      180
+    ],
+    [
+      37,
+      246,
+      656,
+      120,
+      100
+    ],
+    [
+      37,
+      245,
+      763,
+      49,
+      20
+    ],
+    [
+      37,
+      245,
+      781,
+      22,
+      20
+    ],
+    [
+      32,
+      396,
+      640,
+      150,
+      180
+    ],
+    [
+      41,
+      412,
+      656,
+      120,
+      100
+    ],
+    [
+      41,
+      411,
+      763,
+      69,
+      20
+    ],
+    [
+      41,
+      411,
+      781,
+      22,
+      20
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.9090909090909091,
+    "kept": [
+      "blur",
+      "glass",
+      "gradient",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "hard-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 50197,
+    "output": 30997,
+    "cacheRead": 285015
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 58433,
+      "output": 21505,
+      "cacheRead": 173581,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read components/MiniatureForest.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 222540
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 12346,
+      "output": 5709,
+      "cacheRead": 108350,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 65394
+    }
+  ],
+  "ease": {
+    "marks": 11,
+    "captured": 11,
+    "notes": 10,
+    "words": 721,
+    "drawMs": 48248,
+    "readingMs": 35232,
+    "runMs": 325042
+  },
+  "reading": "The sketch is a hero section for a plant/terrarium shop: a frosted-glass pill navbar at top, a large glass globe illustration containing a tiny forest scene with two floating humidity/light readout badges and a soft shadow beneath it, a two-line serif headline and paragraph copy on the left, a dark pill CTA button, and a row of three product cards below — all over a cream-to-grey gradient page background, per the typed notes which specify exact colours, gradients and copy.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        35,
+        1153,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A single frosted-glass pill navbar spanning the top of the page, 1160x56px at 60,32: background rgba(255,255,255,0.53), backdrop-filter blur(12px), 1px rgba(255"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        704,
+        679,
+        352,
+        34
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A soft blurred drop shadow beneath the hero illustration/button area: a 360x40px oval at 700,676, background rgba(31,43,34,0.13), filter blur(8px), no border, p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        134,
+        553,
+        552
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A large see-through glass terrarium globe, 560px circle at 600,130, background radial-gradient(circle at 32% 26%, #ffffffcc 0px, #ffffffcc 6%, #ffffff21 18%, tr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1013,
+        153,
+        76,
+        71
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A small frosted-glass readout badge overlapping the globe showing \"Humidity\" with value \"86%\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        294,
+        110,
+        69
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A small frosted-glass readout badge overlapping the globe showing \"Light\" with value \"Indirect\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 86
+        }
+      ],
+      "region": [
+        72,
+        170,
+        468,
+        188
+      ],
+      "paths": [],
+      "instruction": "A giant Georgia serif regular-weight headline set tight (line-height 0.98), about 507px wide, in exactly two fixed lines that never rewrap: \"A small forest\" / \""
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        70,
+        420,
+        432,
+        58
+      ],
+      "paths": [],
+      "instruction": "A dark grey (#43534a) body paragraph, 440px wide box top-left at 66,420, 18px type, 29px line-height, wrapping into exactly two lines: \"Hand-built closed terrar"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        69,
+        524,
+        149,
+        42
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A dark navy pill button with bold cream (#e9efe4) label \"Build your kit\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        67,
+        643,
+        475,
+        174
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "A row of 3 product cards laid out side by side with exactly 16px gap between them (flex gap, never touching): each card 150x180px, 1px white border, 20px rounde"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

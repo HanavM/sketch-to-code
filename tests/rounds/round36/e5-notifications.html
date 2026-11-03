@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Notifications</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fafafa;font-family:Helvetica,Arial,sans-serif;color:#202124;overflow:hidden;position:relative}
+h1{position:absolute;left:340px;top:70px;font-size:32px}
+p.s{position:absolute;left:340px;top:120px;font-size:16px;color:#6b6f76}
+.panel{position:absolute;left:340px;top:170px;width:600px;background:#fff;border:1px solid #e3e3e3;border-radius:12px}
+.r{display:flex;align-items:center;justify-content:space-between;height:84px;padding:0 28px;border-top:1px solid #eeeeee}.r:first-child{border-top:none}
+.r b{display:block;font-size:17px}.r span{font-size:14px;color:#6b6f76}
+.tg{width:52px;height:30px;border-radius:15px;background:#d5d7db;position:relative}.tg::after{content:"";position:absolute;left:4px;top:4px;width:22px;height:22px;border-radius:50%;background:#fff}
+.tg.on{background:#16a34a}.tg.on::after{left:26px}
+.save{position:absolute;left:340px;top:640px;width:150px;height:48px;border-radius:8px;background:#202124;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<h1 data-r="title" data-must>Notifications</h1>
+<p class="s" data-r="subtitle">Choose what we email you about.</p>
+<div class="panel" data-r="panel" data-must>
+<div class="r"><div><b>New comments</b><span>When someone replies to you</span></div><div class="tg on"></div></div>
+<div class="r"><div><b>Mentions</b><span>When you are tagged</span></div><div class="tg on"></div></div>
+<div class="r"><div><b>Weekly digest</b><span>A summary every Monday</span></div><div class="tg"></div></div>
+<div class="r"><div><b>Product news</b><span>New features and tips</span></div><div class="tg"></div></div>
+<div class="r"><div><b>Security alerts</b><span>Sign-ins from new devices</span></div><div class="tg on"></div></div>
+</div>
+<div class="save" data-r="save">Save</div>
+</body></html>

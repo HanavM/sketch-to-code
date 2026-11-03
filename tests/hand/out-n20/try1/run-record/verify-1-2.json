@@ -1,0 +1,316 @@
+[
+  {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (429,149) 422x416 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 416
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s0",
+          "drawn": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 422
+          },
+          "built": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 416
+          },
+          "dx": 0,
+          "dy": -3
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": false,
+      "reason": "new element(s) exist but none matches the sketch region (sketch (470,205) 86x1; closest new <h1> at (469,189) 79x32)",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 469,
+          "y": 189,
+          "w": 79.453125,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": false,
+      "reason": "new element(s) exist but none matches the sketch region (sketch (470,235) 227x1; closest new <p> at (469,225) 225x20)",
+      "bestCandidate": {
+        "tag": "p",
+        "srcLoc": "src/App.tsx:6:9",
+        "rect": {
+          "x": 469,
+          "y": 225,
+          "w": 225.046875,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <p> at (469,225) 225x20 matches the sketch region",
+      "bestCandidate": {
+        "tag": "p",
+        "srcLoc": "src/App.tsx:6:9",
+        "rect": {
+          "x": 469,
+          "y": 225,
+          "w": 225.046875,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 470,
+            "y": 287,
+            "w": 340,
+            "h": 45
+          },
+          "built": {
+            "x": 469,
+            "y": 287,
+            "w": 342,
+            "h": 44
+          },
+          "dx": 0,
+          "dy": 0
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (469,261) 342x70 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:9:11",
+        "rect": {
+          "x": 469,
+          "y": 261,
+          "w": 342,
+          "h": 70
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 469,
+            "y": 375,
+            "w": 341,
+            "h": 46
+          },
+          "built": {
+            "x": 469,
+            "y": 377,
+            "w": 342,
+            "h": 44
+          },
+          "dx": 1,
+          "dy": 1
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (469,351) 342x70 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:19:11",
+        "rect": {
+          "x": 469,
+          "y": 351,
+          "w": 342,
+          "h": 70
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 470,
+            "y": 447,
+            "w": 341,
+            "h": 48
+          },
+          "built": {
+            "x": 469,
+            "y": 441,
+            "w": 342,
+            "h": 48
+          },
+          "dx": 0,
+          "dy": -6
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+      "satisfied": false,
+      "reason": "new element(s) exist but none matches the sketch region (sketch (569,521) 142x2; closest new <main> at (0,0) 1280x900)",
+      "bestCandidate": {
+        "tag": "main",
+        "srcLoc": "src/App.tsx:3:5",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 900
+        }
+      }
+    }
+  },
+  {
+    "kind": "drift",
+    "verdict": {
+      "satisfied": true,
+      "reason": "6 of 6 blocks within 16px of their drawn top",
+      "offsets": [
+        {
+          "index": 0,
+          "drawn": 149,
+          "built": 149,
+          "dy": 0
+        },
+        {
+          "index": 2,
+          "drawn": 236,
+          "built": 235,
+          "dy": -1
+        },
+        {
+          "index": 3,
+          "drawn": 287,
+          "built": 287,
+          "dy": 0
+        },
+        {
+          "index": 4,
+          "drawn": 375,
+          "built": 377,
+          "dy": 2
+        },
+        {
+          "index": 5,
+          "drawn": 447,
+          "built": 441,
+          "dy": -6
+        },
+        {
+          "index": 6,
+          "drawn": 522,
+          "built": 515,
+          "dy": -7
+        }
+      ]
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "4 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "clear",
+    "verdict": {
+      "satisfied": true,
+      "reason": "no words sit on a form field"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": true,
+      "reason": "2 colours from the ink on the page",
+      "checks": [
+        {
+          "what": "page",
+          "want": "#f3f4f6",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (470,447) 341x48",
+          "want": "#2563eb",
+          "best": 0,
+          "ok": true
+        }
+      ]
+    }
+  }
+]

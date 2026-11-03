@@ -1,0 +1,570 @@
+{
+  "round": 46,
+  "id": "e5-loan-calculator",
+  "version": 3,
+  "stopped": null,
+  "likeness": 55.9,
+  "colour": 0.9831838792483076,
+  "structure": 0.8109760582243823,
+  "layout": 0.5288106931216485,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "line": 6,
+      "circle": 1,
+      "box": 4
+    },
+    "inkPx": 8227
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 68,
+  "notes": 10,
+  "longestNote": 21,
+  "noteTexts": [
+    "Harbor Bank bold",
+    "Loans, Savings, Help",
+    "Car loan calculator huge bold",
+    "x4 down: Loan amount $24,000 half; Term 60 months 70%; Interest rate 6.4% 30%; Down payment $4,000 20%; values bold right",
+    "Monthly payment",
+    "$469 huge bold green",
+    "for 60 months",
+    "Principal $24,000, Interest $4,140, Total $28,140",
+    "Apply for this loan",
+    "4 sliders on my 4 grey lines, green up to the ring, value right; no invented rows"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 667,
+    "firstReadingS": 95,
+    "readS": [
+      50,
+      15
+    ],
+    "buildS": [
+      399,
+      121
+    ],
+    "sketchingS": 83
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 117221,
+    "cacheRead": 1087998,
+    "output": 50875,
+    "billed": 168096
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 30,
+      "y": 860,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 460
+    },
+    {
+      "op": "pen",
+      "color": "#e5e7eb",
+      "at": 843
+    },
+    {
+      "op": "stroke",
+      "at": 4864
+    },
+    {
+      "op": "stroke",
+      "at": 7075
+    },
+    {
+      "op": "stroke",
+      "at": 9291
+    },
+    {
+      "op": "stroke",
+      "at": 11476
+    },
+    {
+      "op": "stroke",
+      "at": 13692
+    },
+    {
+      "op": "pen",
+      "color": "#059669",
+      "at": 14071
+    },
+    {
+      "op": "stroke",
+      "at": 15408
+    },
+    {
+      "op": "stroke",
+      "at": 16108
+    },
+    {
+      "op": "pen",
+      "color": "#ecfdf5",
+      "at": 16482
+    },
+    {
+      "op": "stroke",
+      "at": 23131
+    },
+    {
+      "op": "stroke",
+      "at": 23611
+    },
+    {
+      "op": "pen",
+      "color": "#059669",
+      "at": 23983
+    },
+    {
+      "op": "stroke",
+      "at": 26543
+    },
+    {
+      "op": "stroke",
+      "at": 27024
+    },
+    {
+      "op": "pen",
+      "color": "#fbbf24",
+      "at": 27404
+    },
+    {
+      "op": "stroke",
+      "at": 28407
+    },
+    {
+      "op": "stroke",
+      "at": 28891
+    },
+    {
+      "op": "pen",
+      "color": "#059669",
+      "at": 29261
+    },
+    {
+      "op": "stroke",
+      "at": 32342
+    },
+    {
+      "op": "stroke",
+      "at": 32826
+    },
+    {
+      "op": "note",
+      "at": 33665
+    },
+    {
+      "op": "note",
+      "at": 34459
+    },
+    {
+      "op": "note",
+      "at": 35176
+    },
+    {
+      "op": "note",
+      "at": 36808
+    },
+    {
+      "op": "note",
+      "at": 37574
+    },
+    {
+      "op": "note",
+      "at": 38335
+    },
+    {
+      "op": "note",
+      "at": 39102
+    },
+    {
+      "op": "note",
+      "at": 40100
+    },
+    {
+      "op": "note",
+      "at": 40939
+    },
+    {
+      "op": "run",
+      "at": 44710
+    },
+    {
+      "op": "note",
+      "at": 508762
+    },
+    {
+      "op": "run",
+      "at": 508977
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          400,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 460
+    },
+    {
+      "way": [
+        [
+          2,
+          70
+        ],
+        [
+          1278,
+          70
+        ]
+      ],
+      "n": 214,
+      "at": 4864
+    },
+    {
+      "way": [
+        [
+          50,
+          268
+        ],
+        [
+          670,
+          268
+        ]
+      ],
+      "n": 104,
+      "at": 7075
+    },
+    {
+      "way": [
+        [
+          50,
+          388
+        ],
+        [
+          670,
+          388
+        ]
+      ],
+      "n": 104,
+      "at": 9291
+    },
+    {
+      "way": [
+        [
+          50,
+          508
+        ],
+        [
+          670,
+          508
+        ]
+      ],
+      "n": 104,
+      "at": 11476
+    },
+    {
+      "way": [
+        [
+          50,
+          628
+        ],
+        [
+          670,
+          628
+        ]
+      ],
+      "n": 104,
+      "at": 13692
+    },
+    {
+      "way": [
+        [
+          50,
+          268
+        ],
+        [
+          354,
+          268
+        ]
+      ],
+      "n": 52,
+      "at": 15408
+    },
+    {
+      "way": [
+        [
+          354,
+          256
+        ],
+        [
+          363,
+          260
+        ],
+        [
+          366,
+          268
+        ],
+        [
+          363,
+          277
+        ],
+        [
+          354,
+          280
+        ],
+        [
+          345,
+          277
+        ],
+        [
+          342,
+          268
+        ],
+        [
+          345,
+          260
+        ],
+        [
+          354,
+          256
+        ]
+      ],
+      "n": 15,
+      "at": 16108
+    },
+    {
+      "way": [
+        [
+          740,
+          110
+        ],
+        [
+          1230,
+          110
+        ],
+        [
+          1230,
+          730
+        ],
+        [
+          740,
+          730
+        ],
+        [
+          740,
+          110
+        ]
+      ],
+      "n": 371,
+      "at": 23131
+    },
+    {
+      "way": [
+        [
+          985,
+          540
+        ]
+      ],
+      "n": 1,
+      "at": 23611
+    },
+    {
+      "way": [
+        [
+          780,
+          314
+        ],
+        [
+          1124,
+          314
+        ],
+        [
+          1124,
+          342
+        ],
+        [
+          780,
+          342
+        ],
+        [
+          780,
+          314
+        ]
+      ],
+      "n": 125,
+      "at": 26543
+    },
+    {
+      "way": [
+        [
+          950,
+          328
+        ]
+      ],
+      "n": 1,
+      "at": 27024
+    },
+    {
+      "way": [
+        [
+          1124,
+          314
+        ],
+        [
+          1190,
+          314
+        ],
+        [
+          1190,
+          342
+        ],
+        [
+          1124,
+          342
+        ],
+        [
+          1124,
+          314
+        ]
+      ],
+      "n": 33,
+      "at": 28407
+    },
+    {
+      "way": [
+        [
+          1157,
+          328
+        ]
+      ],
+      "n": 1,
+      "at": 28891
+    },
+    {
+      "way": [
+        [
+          780,
+          640
+        ],
+        [
+          1190,
+          640
+        ],
+        [
+          1190,
+          700
+        ],
+        [
+          780,
+          700
+        ],
+        [
+          780,
+          640
+        ]
+      ],
+      "n": 157,
+      "at": 32342
+    },
+    {
+      "way": [
+        [
+          985,
+          670
+        ]
+      ],
+      "n": 1,
+      "at": 32826
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Harbor Bank bold",
+      "whole": false,
+      "x": 50,
+      "y": 34,
+      "at": 33665
+    },
+    {
+      "text": "Loans, Savings, Help",
+      "whole": false,
+      "x": 1050,
+      "y": 34,
+      "at": 34459
+    },
+    {
+      "text": "Car loan calculator huge bold",
+      "whole": false,
+      "x": 50,
+      "y": 132,
+      "at": 35176
+    },
+    {
+      "text": "x4 down: Loan amount $24,000 half; Term 60 months 70%; Interest rate 6.4% 30%; Down payment $4,000 20%; values bold right",
+      "whole": false,
+      "x": 50,
+      "y": 230,
+      "at": 36808
+    },
+    {
+      "text": "Monthly payment",
+      "whole": false,
+      "x": 780,
+      "y": 158,
+      "at": 37574
+    },
+    {
+      "text": "$469 huge bold green",
+      "whole": false,
+      "x": 780,
+      "y": 214,
+      "at": 38335
+    },
+    {
+      "text": "for 60 months",
+      "whole": false,
+      "x": 780,
+      "y": 264,
+      "at": 39102
+    },
+    {
+      "text": "Principal $24,000, Interest $4,140, Total $28,140",
+      "whole": false,
+      "x": 780,
+      "y": 380,
+      "at": 40100
+    },
+    {
+      "text": "Apply for this loan",
+      "whole": false,
+      "x": 880,
+      "y": 670,
+      "at": 40939
+    },
+    {
+      "text": "4 sliders on my 4 grey lines, green up to the ring, value right; no invented rows",
+      "whole": false,
+      "x": 200,
+      "y": 450,
+      "at": 508762
+    }
+  ]
+}

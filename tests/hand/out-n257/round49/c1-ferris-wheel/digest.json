@@ -1,0 +1,729 @@
+{
+  "round": 49,
+  "id": "c1-ferris-wheel",
+  "version": 3,
+  "stopped": null,
+  "likeness": 82,
+  "colour": 0.9739008499474668,
+  "structure": 0.8749659714682355,
+  "layout": 0.6190000714875671,
+  "strokes": {
+    "count": 20,
+    "pointsPerStroke": 3.5,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 8,
+      "box": 6,
+      "circle": 2,
+      "line": 3,
+      "tick": 1
+    },
+    "inkPx": 8327
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 62,
+  "notes": 11,
+  "longestNote": 13,
+  "noteTexts": [
+    "Pier Nine bold yellow",
+    "Rides, Tickets, Hours",
+    "Round and / round till late huge bold",
+    "Open every night on the old pier, from May to the first frost.",
+    "Get wristbands white bold pill",
+    "8 spokes evenly",
+    "8 cabins round rim, colours repeat",
+    "Rides till 11",
+    "Kids under 5 free",
+    "Cash and card",
+    "wheel not filled: thick rim, thin spokes, cabins in front"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 759,
+    "firstReadingS": 125,
+    "readS": [
+      67,
+      10
+    ],
+    "buildS": [
+      408,
+      184
+    ],
+    "sketchingS": 90
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 160379,
+    "cacheRead": 848091,
+    "output": 59286,
+    "billed": 219665
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#2d2d60",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 466
+    },
+    {
+      "op": "pen",
+      "color": "#122340",
+      "at": 848
+    },
+    {
+      "op": "stroke",
+      "at": 9193
+    },
+    {
+      "op": "stroke",
+      "at": 9673
+    },
+    {
+      "op": "pen",
+      "color": "#ffd166",
+      "at": 10041
+    },
+    {
+      "op": "stroke",
+      "at": 15389
+    },
+    {
+      "op": "stroke",
+      "at": 17455
+    },
+    {
+      "op": "pen",
+      "color": "#f24a72",
+      "at": 17823
+    },
+    {
+      "op": "stroke",
+      "at": 18837
+    },
+    {
+      "op": "stroke",
+      "at": 19323
+    },
+    {
+      "op": "pen",
+      "color": "#ffd166",
+      "at": 19694
+    },
+    {
+      "op": "stroke",
+      "at": 22205
+    },
+    {
+      "op": "pen",
+      "color": "#1589b3",
+      "at": 22573
+    },
+    {
+      "op": "stroke",
+      "at": 23689
+    },
+    {
+      "op": "stroke",
+      "at": 24169
+    },
+    {
+      "op": "pen",
+      "color": "#ffd166",
+      "at": 24541
+    },
+    {
+      "op": "stroke",
+      "at": 25654
+    },
+    {
+      "op": "stroke",
+      "at": 26140
+    },
+    {
+      "op": "pen",
+      "color": "#f24a72",
+      "at": 26512
+    },
+    {
+      "op": "stroke",
+      "at": 27620
+    },
+    {
+      "op": "stroke",
+      "at": 28090
+    },
+    {
+      "op": "pen",
+      "color": "#0ad9a0",
+      "at": 28456
+    },
+    {
+      "op": "stroke",
+      "at": 29575
+    },
+    {
+      "op": "stroke",
+      "at": 30054
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 39443
+    },
+    {
+      "op": "stroke",
+      "at": 40906
+    },
+    {
+      "op": "stroke",
+      "at": 42573
+    },
+    {
+      "op": "pen",
+      "color": "#f24a72",
+      "at": 42941
+    },
+    {
+      "op": "stroke",
+      "at": 44954
+    },
+    {
+      "op": "stroke",
+      "at": 45437
+    },
+    {
+      "op": "note",
+      "at": 46102
+    },
+    {
+      "op": "note",
+      "at": 46745
+    },
+    {
+      "op": "note",
+      "at": 47409
+    },
+    {
+      "op": "note",
+      "at": 48108
+    },
+    {
+      "op": "note",
+      "at": 48823
+    },
+    {
+      "op": "note",
+      "at": 49604
+    },
+    {
+      "op": "note",
+      "at": 50476
+    },
+    {
+      "op": "note",
+      "at": 51187
+    },
+    {
+      "op": "note",
+      "at": 51917
+    },
+    {
+      "op": "note",
+      "at": 52610
+    },
+    {
+      "op": "run",
+      "at": 58262
+    },
+    {
+      "op": "note",
+      "at": 544675
+    },
+    {
+      "op": "run",
+      "at": 544763
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          300,
+          420
+        ]
+      ],
+      "n": 1,
+      "at": 466
+    },
+    {
+      "way": [
+        [
+          2,
+          760
+        ],
+        [
+          1278,
+          760
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          760
+        ]
+      ],
+      "n": 473,
+      "at": 9193
+    },
+    {
+      "way": [
+        [
+          640,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 9673
+    },
+    {
+      "way": [
+        [
+          860,
+          135
+        ],
+        [
+          1002,
+          173
+        ],
+        [
+          1107,
+          278
+        ],
+        [
+          1145,
+          420
+        ],
+        [
+          1107,
+          562
+        ],
+        [
+          1002,
+          667
+        ],
+        [
+          860,
+          705
+        ],
+        [
+          718,
+          667
+        ],
+        [
+          613,
+          562
+        ],
+        [
+          575,
+          420
+        ],
+        [
+          613,
+          278
+        ],
+        [
+          718,
+          173
+        ],
+        [
+          860,
+          135
+        ]
+      ],
+      "n": 293,
+      "at": 15389
+    },
+    {
+      "way": [
+        [
+          860,
+          135
+        ],
+        [
+          860,
+          705
+        ]
+      ],
+      "n": 96,
+      "at": 17455
+    },
+    {
+      "way": [
+        [
+          860,
+          386
+        ],
+        [
+          884,
+          396
+        ],
+        [
+          894,
+          420
+        ],
+        [
+          884,
+          444
+        ],
+        [
+          860,
+          454
+        ],
+        [
+          836,
+          444
+        ],
+        [
+          826,
+          420
+        ],
+        [
+          836,
+          396
+        ],
+        [
+          860,
+          386
+        ]
+      ],
+      "n": 33,
+      "at": 18837
+    },
+    {
+      "way": [
+        [
+          860,
+          420
+        ]
+      ],
+      "n": 1,
+      "at": 19323
+    },
+    {
+      "way": [
+        [
+          715,
+          750
+        ],
+        [
+          860,
+          420
+        ],
+        [
+          1005,
+          750
+        ]
+      ],
+      "n": 121,
+      "at": 22205
+    },
+    {
+      "way": [
+        [
+          828,
+          112
+        ],
+        [
+          892,
+          112
+        ],
+        [
+          892,
+          160
+        ],
+        [
+          828,
+          160
+        ],
+        [
+          828,
+          112
+        ]
+      ],
+      "n": 39,
+      "at": 23689
+    },
+    {
+      "way": [
+        [
+          860,
+          136
+        ]
+      ],
+      "n": 1,
+      "at": 24169
+    },
+    {
+      "way": [
+        [
+          1033,
+          197
+        ],
+        [
+          1097,
+          197
+        ],
+        [
+          1097,
+          245
+        ],
+        [
+          1033,
+          245
+        ],
+        [
+          1033,
+          197
+        ]
+      ],
+      "n": 39,
+      "at": 25654
+    },
+    {
+      "way": [
+        [
+          1065,
+          221
+        ]
+      ],
+      "n": 1,
+      "at": 26140
+    },
+    {
+      "way": [
+        [
+          1118,
+          402
+        ],
+        [
+          1182,
+          402
+        ],
+        [
+          1182,
+          450
+        ],
+        [
+          1118,
+          450
+        ],
+        [
+          1118,
+          402
+        ]
+      ],
+      "n": 39,
+      "at": 27620
+    },
+    {
+      "way": [
+        [
+          1150,
+          426
+        ]
+      ],
+      "n": 1,
+      "at": 28090
+    },
+    {
+      "way": [
+        [
+          1033,
+          607
+        ],
+        [
+          1097,
+          607
+        ],
+        [
+          1097,
+          655
+        ],
+        [
+          1033,
+          655
+        ],
+        [
+          1033,
+          607
+        ]
+      ],
+      "n": 39,
+      "at": 29575
+    },
+    {
+      "way": [
+        [
+          1065,
+          631
+        ]
+      ],
+      "n": 1,
+      "at": 30054
+    },
+    {
+      "way": [
+        [
+          64,
+          235
+        ],
+        [
+          420,
+          235
+        ]
+      ],
+      "n": 60,
+      "at": 40906
+    },
+    {
+      "way": [
+        [
+          64,
+          305
+        ],
+        [
+          490,
+          305
+        ]
+      ],
+      "n": 72,
+      "at": 42573
+    },
+    {
+      "way": [
+        [
+          64,
+          570
+        ],
+        [
+          284,
+          570
+        ],
+        [
+          284,
+          626
+        ],
+        [
+          64,
+          626
+        ],
+        [
+          64,
+          570
+        ]
+      ],
+      "n": 93,
+      "at": 44954
+    },
+    {
+      "way": [
+        [
+          174,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 45437
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Pier Nine bold yellow",
+      "whole": false,
+      "x": 64,
+      "y": 48,
+      "at": 46102
+    },
+    {
+      "text": "Rides, Tickets, Hours",
+      "whole": false,
+      "x": 1000,
+      "y": 48,
+      "at": 46745
+    },
+    {
+      "text": "Round and / round till late huge bold",
+      "whole": false,
+      "x": 70,
+      "y": 180,
+      "at": 47409
+    },
+    {
+      "text": "Open every night on the old pier, from May to the first frost.",
+      "whole": false,
+      "x": 64,
+      "y": 480,
+      "at": 48108
+    },
+    {
+      "text": "Get wristbands white bold pill",
+      "whole": false,
+      "x": 120,
+      "y": 598,
+      "at": 48823
+    },
+    {
+      "text": "8 spokes evenly",
+      "whole": false,
+      "x": 860,
+      "y": 300,
+      "at": 49604
+    },
+    {
+      "text": "8 cabins round rim, colours repeat",
+      "whole": false,
+      "x": 1120,
+      "y": 300,
+      "at": 50476
+    },
+    {
+      "text": "Rides till 11",
+      "whole": false,
+      "x": 70,
+      "y": 830,
+      "at": 51187
+    },
+    {
+      "text": "Kids under 5 free",
+      "whole": false,
+      "x": 500,
+      "y": 830,
+      "at": 51917
+    },
+    {
+      "text": "Cash and card",
+      "whole": false,
+      "x": 1060,
+      "y": 830,
+      "at": 52610
+    },
+    {
+      "text": "wheel not filled: thick rim, thin spokes, cabins in front",
+      "whole": false,
+      "x": 760,
+      "y": 250,
+      "at": 544675
+    }
+  ]
+}

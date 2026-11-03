@@ -1,0 +1,492 @@
+{
+  "id": "c2-paper-hills",
+  "at": "2026-10-26T09:07:38.394Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9051046867025745,
+    "overallV2": 0.9051046867025745,
+    "overallV1": 0.8587214739446152,
+    "colour": 0.9897968162519384,
+    "structure": 0.922194380276096,
+    "structureStrict": 0.845689682302698,
+    "colourAligned": 0.9897968162519384,
+    "structureAligned": 0.922194380276096,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9873467742486528
+    },
+    "layout": 0.8708922622090538,
+    "layoutV1": 0.8708922622090538,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      820,
+      90,
+      300,
+      300
+    ],
+    [
+      0,
+      0,
+      380,
+      1280,
+      520
+    ],
+    [
+      2,
+      0,
+      438,
+      1280,
+      462
+    ],
+    [
+      0,
+      0,
+      500,
+      1280,
+      400
+    ],
+    [
+      4,
+      0,
+      546,
+      1280,
+      354
+    ],
+    [
+      0,
+      0,
+      640,
+      1280,
+      260
+    ],
+    [
+      6,
+      0,
+      664,
+      1280,
+      236
+    ],
+    [
+      0,
+      74,
+      40,
+      1132,
+      37
+    ],
+    [
+      8,
+      74,
+      42,
+      99,
+      33
+    ],
+    [
+      8,
+      865,
+      40,
+      341,
+      37
+    ],
+    [
+      10,
+      865,
+      47,
+      41,
+      24
+    ],
+    [
+      10,
+      937,
+      47,
+      35,
+      24
+    ],
+    [
+      10,
+      1004,
+      47,
+      57,
+      24
+    ],
+    [
+      10,
+      1093,
+      40,
+      113,
+      37
+    ],
+    [
+      0,
+      78,
+      130,
+      555,
+      158
+    ],
+    [
+      15,
+      78,
+      130,
+      555,
+      158
+    ],
+    [
+      16,
+      78,
+      130,
+      555,
+      79
+    ],
+    [
+      16,
+      78,
+      209,
+      555,
+      79
+    ],
+    [
+      0,
+      74,
+      350,
+      432,
+      87
+    ],
+    [
+      0,
+      74,
+      473,
+      154,
+      49
+    ],
+    [
+      0,
+      644,
+      215,
+      56,
+      46
+    ],
+    [
+      21,
+      644,
+      215,
+      46,
+      13
+    ],
+    [
+      21,
+      644,
+      215,
+      56,
+      46
+    ],
+    [
+      23,
+      644,
+      253,
+      35,
+      8
+    ],
+    [
+      0,
+      755,
+      626,
+      431,
+      199
+    ],
+    [
+      25,
+      755,
+      626,
+      431,
+      199
+    ],
+    [
+      26,
+      777,
+      627,
+      386,
+      195
+    ],
+    [
+      25,
+      755,
+      626,
+      431,
+      199
+    ],
+    [
+      28,
+      755,
+      635,
+      301,
+      190
+    ],
+    [
+      29,
+      781,
+      675,
+      241,
+      35
+    ],
+    [
+      29,
+      783,
+      697,
+      243,
+      62
+    ],
+    [
+      29,
+      786,
+      746,
+      241,
+      38
+    ],
+    [
+      28,
+      1044,
+      626,
+      142,
+      179
+    ],
+    [
+      33,
+      1059,
+      678,
+      111,
+      73
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "hard-shadow",
+      "mask",
+      "overlap",
+      "soft-shadow",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "huge-type"
+    ],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 45906,
+    "output": 28738,
+    "cacheRead": 105052
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52899,
+      "output": 13991,
+      "cacheRead": 101968,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 147419
+    }
+  ],
+  "reading": "A hero section: a nav row with a wordmark, links and a selected pill, a big 3D-extruded two-line headline over a paragraph and a \"Find a route\" button, a conic-gradient sunburst disc, three stacked full-width decorative wave SVGs filling the lower page, and a floating, torn-edge admission-ticket card layered on top — all per the typed notes' exact colours/markup.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        825,
+        94,
+        292,
+        292
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A 300x300px disc at page position 820,90, border-radius 50%, painted as an 18-ray sunburst alternating pale yellow #fff3c4 and soft yellow #ffe08a, each ray a 1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        54,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation row: 22px wordmark \"foldaway\" first (colour #3a1f3d), then nav links Trails, Huts, Journal, Plan a trip (all #3a1f3d). \"Plan a trip\" is the selec"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 83
+        }
+      ],
+      "region": [
+        78,
+        130,
+        630,
+        182
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica Heavy headline, tight-set, line-height 0.95, pale yellow, set in exactly two lines: \"Walk into the\" / \"paper hills\" (keep these breaks, each lin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        74,
+        350,
+        432,
+        59
+      ],
+      "paths": [],
+      "instruction": "Body copy paragraph: \"Hut-to-hut routes through layered valleys, booked in one go, with dinner waiting at every ridge.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        473,
+        154,
+        49
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Dark plum pill button labelled bold pale yellow \"Find a route\"; button text colour #fff6e8 (pale yellow, not the page's default dark plum text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10"
+      ],
+      "textSize": [],
+      "region": [
+        644,
+        215,
+        56,
+        46
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Small decorative accent marks near the sunburst disc reading \"︶ ︶ ︶\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        383,
+        1274,
+        514
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Full-width decorative wave layer, inline SVG copied verbatim, 1280x520px, position absolute top-left at page 0,380: <svg width=\"1280\" height=\"520\" viewBox=\"0 0 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        503,
+        1274,
+        394
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Full-width decorative wave layer, inline SVG copied verbatim, 1280x400px, position absolute top-left at page 0,500: <svg width=\"1280\" height=\"400\" viewBox=\"0 0 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        643,
+        1273,
+        254
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Full-width decorative wave layer, inline SVG copied verbatim, 1280x260px, position absolute top-left at page 0,640: <svg width=\"1280\" height=\"260\" viewBox=\"0 0 "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        758,
+        629,
+        425,
+        193
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A floating #fff6e8 admission ticket, 420x170px, position absolute top-left at page 760,640, floating above everything (top z-index), box-shadow: rgba(58,31,61,0"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

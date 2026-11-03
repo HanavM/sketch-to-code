@@ -1,0 +1,190 @@
+{
+  "id": "c4-glass-devices",
+  "at": "2026-10-22T12:14:22.439Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9216099402117521,
+    "overallV2": 0.9216099402117521,
+    "overallV1": 0.8937664718177283,
+    "colour": 0.9777628418150593,
+    "structure": 0.933414999128361,
+    "structureStrict": 0.8777432803413332,
+    "colourAligned": 0.9777628418150593,
+    "structureAligned": 0.933414999128361,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9520197246635904
+    },
+    "layout": 0.8958155634978014
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "glass",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": [
+      "gradient",
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 27964,
+    "output": 16239,
+    "cacheRead": 227147
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 34918,
+      "output": 12970,
+      "cacheRead": 216864,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Read src/index.css",
+        "Read s2c-bench-app/vite.config.ts",
+        "Write src/App.tsx"
+      ],
+      "ms": 150096
+    }
+  ],
+  "reading": "This is a landing-page hero: a top nav bar, a huge one-line headline, a sub-paragraph, a CTA button, and a dashboard mockup made of a bar-chart panel, a ring-chart panel, and a stats card, all sitting over a deep-indigo background with coloured glows.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top nav bar: bold 20px wordmark \"Lumen\" on the left, and nav links \"Features · Pricing · Log in\" on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 78
+        }
+      ],
+      "region": [
+        68,
+        99,
+        751,
+        94
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy, tight-set headline \"Every screen, one glance.\" on ONE line (white-space: nowrap, never wrapped), about 834px wide."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        200,
+        322,
+        54
+      ],
+      "paths": [],
+      "instruction": "Sub-headline paragraph text: \"Live metrics on your laptop, phone and wall, synced in under a second.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        361,
+        137,
+        48
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "White, deep-indigo text button labelled \"Get Lumen\"."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        423,
+        253,
+        634,
+        393
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Frosted-glass 640x400px panel, 24px rounded corners, thin white border. Inside: a bar chart of 6 white bars rising from 31px above the panel's bottom, 31px in f"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        333,
+        204,
+        413
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Frosted-glass 210x420px panel, 36px rounded corners, thin white border. Inside: a 120px white ring, 12px thick, open on its right quarter (that part of the ring"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        333,
+        603,
+        233,
+        90
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Frosted-glass stat card showing big 30px bold \"+38%\" over 15px text \"sessions this week\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,621 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "45cc7fa11ce044385e5c5adff84c4ef7c997e519",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch is a video-call \"design review\" screen: a 2x2 grid of four coloured participant video tiles (each with a centered white avatar circle and a name chip for Priya, Marcus, Lena and Tom, with Tom's tile highlighted as active speaker), a dark chat sidebar on the right with a heading and three messages, a bold page title and call timer at top, and a bottom toolbar with repeated icon chips and a red Leave button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 29,
+        "y": 59,
+        "w": 472,
+        "h": 332
+       },
+       "built": {
+        "x": 29,
+        "y": 59,
+        "w": 473,
+        "h": 333
+       },
+       "dx": 1,
+       "dy": 1
+      },
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 514,
+        "y": 59,
+        "w": 471,
+        "h": 332
+       },
+       "built": {
+        "x": 515,
+        "y": 59,
+        "w": 473,
+        "h": 333
+       },
+       "dx": 2,
+       "dy": 1
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 29,
+        "y": 404,
+        "w": 471,
+        "h": 331
+       },
+       "built": {
+        "x": 29,
+        "y": 405,
+        "w": 473,
+        "h": 333
+       },
+       "dx": 1,
+       "dy": 2
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 514,
+        "y": 404,
+        "w": 472,
+        "h": 331
+       },
+       "built": {
+        "x": 512,
+        "y": 402,
+        "w": 479,
+        "h": 339
+       },
+       "dx": 2,
+       "dy": 2
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 511,
+        "y": 401,
+        "w": 477,
+        "h": 338
+       },
+       "built": {
+        "x": 515,
+        "y": 405,
+        "w": 473,
+        "h": 333
+       },
+       "dx": 2,
+       "dy": 2
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 211,
+        "y": 170,
+        "w": 109,
+        "h": 111
+       },
+       "built": {
+        "x": 210.5,
+        "y": 170.5,
+        "w": 110,
+        "h": 110
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3b5b8c is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <aside> at (999,59) 252x692 matches the sketch region",
+     "bestCandidate": {
+      "tag": "aside",
+      "srcLoc": "src/App.tsx:39:7",
+      "rect": {
+       "x": 999,
+       "y": 59,
+       "w": 252,
+       "h": 692
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 999,
+        "y": 59,
+        "w": 252,
+        "h": 692
+       },
+       "built": {
+        "x": 999,
+        "y": 59,
+        "w": 252,
+        "h": 692
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#22262e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (531,694) 53x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:32:13",
+      "rect": {
+       "x": 531,
+       "y": 694,
+       "w": 52.609375,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 381,
+        "y": 790,
+        "w": 63,
+        "h": 63
+       },
+       "built": {
+        "x": 380,
+        "y": 790,
+        "w": 64,
+        "h": 64
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#333a46 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (644,790) 64x64 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:53:11",
+      "rect": {
+       "x": 644,
+       "y": 790,
+       "w": 64,
+       "h": 64
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s16",
+       "drawn": {
+        "x": 759,
+        "y": 789,
+        "w": 151,
+        "h": 65
+       },
+       "built": {
+        "x": 759,
+        "y": 789,
+        "w": 151,
+        "h": 65
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e53935 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 coloured plain shapes built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "typed-times",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 typed time shown as typed"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "10 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "16 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#16191f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (29,59) 472x332 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (29,59) 472x332",
+       "want": "#3b5b8c",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (514,59) 471x332 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (514,59) 471x332",
+       "want": "#7e5190",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (29,404) 471x331 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (29,404) 471x331",
+       "want": "#417d6d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (514,404) 472x332 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (514,404) 472x332",
+       "want": "#a0633f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (511,401) 477x338 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (511,401) 477x338",
+       "want": "#ffd23f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (210,170) 110x111",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (999,59) 252x692 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (999,59) 252x692",
+       "want": "#22262e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (380,790) 64x64",
+       "want": "#333a46",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (759,789) 151x65",
+       "want": "#e53935",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 48378,
+   "cacheRead": 210964,
+   "output": 12997
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 36223,
+    "output": 12532,
+    "cacheRead": 149046,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 137024
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 25152,
+    "output": 465,
+    "cacheRead": 61918,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 5322
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "4f4930ea7221d5929328dc2f750a5edef1d2920f",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The user typed two style notes with no ink: style the bottom-right video tile with a yellow border, brown fill, and a centered white circle, and make the Leave button a full pill shape.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 3,
+    "total": 3,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "11 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 8958,
+   "cacheRead": 65218,
+   "output": 3811
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 12769,
+    "output": 3811,
+    "cacheRead": 65218,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 45753
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

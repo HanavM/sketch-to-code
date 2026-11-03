@@ -1,0 +1,304 @@
+[
+  {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (429,149) 422x422 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 422
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s0",
+          "drawn": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 422
+          },
+          "built": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 422
+          },
+          "dx": 0,
+          "dy": 0
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> \"Sign in\" at (469,189) 99x36 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 469,
+          "y": 189,
+          "w": 342,
+          "h": 36
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <p> \"Welcome back. Enter your detai\" at (469,234) 225x17 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "p",
+        "srcLoc": "src/App.tsx:6:9",
+        "rect": {
+          "x": 469,
+          "y": 233,
+          "w": 342,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (429,149) 422x422 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 422
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 470,
+            "y": 287,
+            "w": 340,
+            "h": 45
+          },
+          "built": {
+            "x": 469,
+            "y": 287,
+            "w": 342,
+            "h": 44
+          },
+          "dx": 0,
+          "dy": 0
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (429,149) 422x422 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 422
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 469,
+            "y": 375,
+            "w": 341,
+            "h": 46
+          },
+          "built": {
+            "x": 469,
+            "y": 371,
+            "w": 342,
+            "h": 44
+          },
+          "dx": 1,
+          "dy": -5
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (429,149) 422x422 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 422
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 470,
+            "y": 447,
+            "w": 341,
+            "h": 48
+          },
+          "built": {
+            "x": 469,
+            "y": 456,
+            "w": 342,
+            "h": 39
+          },
+          "dx": 0,
+          "dy": 5
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <a> \"Forgot your password?\" at (564,512) 152x17 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "a",
+        "srcLoc": "src/App.tsx:31:9",
+        "rect": {
+          "x": 469,
+          "y": 511,
+          "w": 342,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "drift",
+    "verdict": {
+      "satisfied": true,
+      "reason": "4 of 4 blocks within 16px of their drawn top",
+      "offsets": [
+        {
+          "index": 0,
+          "drawn": 149,
+          "built": 149,
+          "dy": 0
+        },
+        {
+          "index": 3,
+          "drawn": 287,
+          "built": 287,
+          "dy": 0
+        },
+        {
+          "index": 4,
+          "drawn": 375,
+          "built": 371,
+          "dy": -4
+        },
+        {
+          "index": 5,
+          "drawn": 447,
+          "built": 456,
+          "dy": 9
+        }
+      ]
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "4 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "clear",
+    "verdict": {
+      "satisfied": true,
+      "reason": "no words sit on a form field"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": true,
+      "reason": "2 colours from the ink on the page",
+      "checks": [
+        {
+          "what": "page",
+          "want": "#f3f4f6",
+          "best": 0,
+          "ok": true
+        },
+        {
+          "what": "the box drawn at (470,447) 341x48",
+          "want": "#2563eb",
+          "best": 0,
+          "ok": true
+        }
+      ]
+    }
+  }
+]

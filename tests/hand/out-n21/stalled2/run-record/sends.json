@@ -1,0 +1,18 @@
+[
+  {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 4,
+    "tools": [
+      "Glob",
+      "Read src/App.tsx",
+      "Read src/index.css",
+      "Read src/main.tsx"
+    ],
+    "ms": 160025,
+    "stalled": "the agent made no progress for 155 s"
+  }
+]

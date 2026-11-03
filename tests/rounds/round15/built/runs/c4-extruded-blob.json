@@ -1,0 +1,227 @@
+{
+  "id": "c4-extruded-blob",
+  "at": "2026-10-24T04:55:55.384Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6890369213768067,
+    "overallV2": 0.6890369213768067,
+    "overallV1": 0.6517906444159625,
+    "colour": 0.9653349088607431,
+    "structure": 0.7769728895207326,
+    "structureStrict": 0.7248417131013392,
+    "colourAligned": 0.9653349088607431,
+    "structureAligned": 0.7769728895207326,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8913968714989998
+    },
+    "layout": 0.6654716948098803
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "clip-shape",
+      "hard-shadow",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 61818,
+    "output": 41165,
+    "cacheRead": 398500
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 72456,
+      "output": 25449,
+      "cacheRead": 222530,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 285786
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 18490,
+      "output": 8631,
+      "cacheRead": 172886,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 106423
+    }
+  ],
+  "reading": "A gummy-candy brand landing page: a borderless nav (\"JELLYBEAN\" / Flavours·Packs·Stores·Account), a tagline placeholder, a giant 3D-extruded \"SQUISH IT.\" headline, a decorative clipped blob SVG with a star \"NEW!\" badge overlapping it, a body paragraph about the product, a \"Build a mix pack\" button, and a wavy indigo footer band SVG — all styling and copy pinned precisely by the user's typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        11
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar with no box/border around it: \"JELLYBEAN\" wordmark left, and on the right \"Flavours · Packs · Stores · Account\" nav links."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 126
+        }
+      ],
+      "region": [
+        68,
+        261,
+        518,
+        17
+      ],
+      "paths": [],
+      "instruction": "Text placeholder above the big headline (no explicit content given) — add a short plausible tagline/kicker line that suits a gummy-candy brand page, e.g. 'Handm"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 126
+        }
+      ],
+      "region": [
+        68,
+        399,
+        321,
+        16
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline set tight (line-height 0.92), cream colored \"SQUISH IT.\" set in exactly 2 lines: \"SQUISH\" / \"IT.\" (keep these breaks; each line s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        113,
+        594,
+        594
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 600x600px with its top-left at page 640,110 (position absolute), copied v"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1063,
+        93,
+        123,
+        124
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A 130x130px STAR badge at 1060,90 (position absolute): one #ffd23f fill cut by clip-path: polygon(50% 0px, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        64,
+        560,
+        452,
+        58
+      ],
+      "paths": [],
+      "instruction": "Paragraph text: \"Gummies with real fruit, no gelatine, and a texture we can only describe as bouncy.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        681,
+        181,
+        48
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Deep indigo cream-text button \"Build a mix pack\", with a hard solid opaque pink shadow offset down-left, no blur; its text #ffe9d6 (cream, NOT the page's deep i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        783,
+        1274,
+        114
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Drawn as exactly this inline SVG (no picture, no box, no window, nothing else inside), 1280x120px with its top-left at page 0,780 (position absolute), copied ve"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Workout log</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#111418;font-family:Helvetica,Arial,sans-serif;color:#e8ebef;overflow:hidden;position:relative}
+header{display:flex;justify-content:space-between;align-items:center;padding:28px 48px}h1{font-size:28px}
+.tabs{display:flex;gap:8px}.tabs span{padding:9px 18px;border-radius:18px;font-size:14px;background:#1f242b;color:#9aa3ad}.tabs .on{background:#ff6b2c;color:#fff;font-weight:700}
+.chart{position:absolute;left:48px;top:110px;width:720px;height:330px;background:#1a1e24;border-radius:14px;padding:24px}
+.chart h3{font-size:16px;color:#9aa3ad;font-weight:600}
+.bars{position:absolute;left:40px;bottom:50px;width:640px;height:220px;display:flex;align-items:flex-end;justify-content:space-between}
+.bars div{width:56px;background:#ff6b2c;border-radius:6px 6px 0 0}.bars .off{background:#2c323a}
+.days{position:absolute;left:40px;bottom:18px;width:640px;display:flex;justify-content:space-between;font-size:13px;color:#9aa3ad}.days span{width:56px;text-align:center}
+.side{position:absolute;left:800px;top:110px;width:432px;height:330px;display:flex;flex-direction:column;gap:16px}
+.kpi{flex:1;background:#1a1e24;border-radius:14px;padding:22px 24px}.kpi b{display:block;font-size:36px;margin-top:6px}.kpi span{font-size:14px;color:#9aa3ad}
+.sets{position:absolute;left:48px;top:470px;width:1184px;height:390px;background:#1a1e24;border-radius:14px;padding:24px 28px}
+.sets h3{font-size:18px;margin-bottom:16px}
+.r{display:flex;align-items:center;height:56px;border-top:1px solid #262c34;font-size:16px}.r span{width:220px}.r .n{width:60px;color:#9aa3ad}
+.r.h{color:#9aa3ad;font-size:13px;border-top:none;height:32px}
+.done{width:26px!important;height:26px;border-radius:50%;background:#3ccf7c;margin-left:auto}.todo{width:26px!important;height:26px;border-radius:50%;border:2px solid #4a525c;margin-left:auto}
+</style></head><body>
+<header><h1 data-r="title" data-must>Push day</h1><div class="tabs" data-r="tabs"><span>Week</span><span class="on">Month</span><span>Year</span></div></header>
+<div class="chart" data-r="chart" data-must><h3>Volume this week</h3>
+<div class="bars"><div style="height:60%"></div><div class="off" style="height:15%"></div><div style="height:85%"></div><div style="height:40%"></div><div class="off" style="height:15%"></div><div style="height:100%"></div><div style="height:70%"></div></div>
+<div class="days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></div>
+<div class="side" data-r="kpis"><div class="kpi" data-r="kpi-1"><span>Total lifted</span><b>12,480 kg</b></div><div class="kpi" data-r="kpi-2"><span>Streak</span><b>9 days</b></div></div>
+<div class="sets" data-r="sets" data-must><h3>Bench press</h3>
+<div class="r h"><span class="n">SET</span><span>WEIGHT</span><span>REPS</span><span>REST</span></div>
+<div class="r"><span class="n">1</span><span>60 kg</span><span>10</span><span>90 s</span><i class="done"></i></div>
+<div class="r"><span class="n">2</span><span>70 kg</span><span>8</span><span>90 s</span><i class="done"></i></div>
+<div class="r"><span class="n">3</span><span>75 kg</span><span>6</span><span>120 s</span><i class="done"></i></div>
+<div class="r"><span class="n">4</span><span>75 kg</span><span>6</span><span>120 s</span><i class="todo"></i></div>
+<div class="r"><span class="n">5</span><span>80 kg</span><span>4</span><span>-</span><i class="todo"></i></div>
+</div>
+</body></html>

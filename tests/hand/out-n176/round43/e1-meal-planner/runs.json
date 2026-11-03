@@ -1,0 +1,703 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "f91344480f40ee4ddb1465af9e23b39a50d165a8",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A weekly meal-planner page called \"Forkful\": a header with the logo, a green \"+ Add recipe\" button, a \"This week\" heading with date range, a Mon–Sun day header, a 3x7 grid of meal cards for Breakfast/Lunch/Dinner (with three slots left empty), and a shopping list panel with a chip list of ingredients.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x70 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:51:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 70
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 1110,
+        "y": 14,
+        "w": 130,
+        "h": 39
+       },
+       "built": {
+        "x": 1114.203125,
+        "y": 15,
+        "w": 125.796875,
+        "h": 40
+       },
+       "dx": 2,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#3d7a57 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (40,19) 79x32 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:55:9",
+      "rect": {
+       "x": 40,
+       "y": 19,
+       "w": 78.984375,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #1f2d27"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"Mon\" at (219,211) 30x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:92:13",
+      "rect": {
+       "x": 162,
+       "y": 210,
+       "w": 143.703125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#8a8a85 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <section> at (0,70) 1280x136 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "section",
+      "srcLoc": "src/App.tsx:76:7",
+      "rect": {
+       "x": 0,
+       "y": 70,
+       "w": 1280,
+       "h": 136
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 160,
+        "y": 231,
+        "w": 147,
+        "h": 121
+       },
+       "built": {
+        "x": 162,
+        "y": 251,
+        "w": 143.703125,
+        "h": 121
+       },
+       "dx": 0,
+       "dy": 20
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 159,
+        "y": 362,
+        "w": 147,
+        "h": 120
+       },
+       "built": {
+        "x": 162,
+        "y": 382,
+        "w": 143.703125,
+        "h": 121
+       },
+       "dx": 1,
+       "dy": 21
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 160,
+        "y": 491,
+        "w": 147,
+        "h": 121
+       },
+       "built": {
+        "x": 162,
+        "y": 513,
+        "w": 143.703125,
+        "h": 121
+       },
+       "dx": 0,
+       "dy": 22
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 6,
+    "reason": "#fbeddf is on the page (ΔE 6.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (40,513) 1200x121 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:105:11",
+      "rect": {
+       "x": 40,
+       "y": 513,
+       "w": 1200,
+       "h": 121
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 39,
+        "y": 639,
+        "w": 1202,
+        "h": 119
+       },
+       "built": {
+        "x": 40,
+        "y": 659,
+        "w": 1200,
+        "h": 92
+       },
+       "dx": 0,
+       "dy": 7
+      },
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 65,
+        "y": 695,
+        "w": 58,
+        "h": 32
+       },
+       "built": {
+        "x": 64,
+        "y": 695,
+        "w": 54.40625,
+        "h": 32
+       },
+       "dx": -3,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e6e3dc is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "26 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 placed words where drawn"
+    }
+   },
+   {
+    "kind": "typed-spot",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 typed words where typed"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Shopping list\" runs into \"Oats\" (29% of the smaller one covered). Keep both where drawn but size or space them so they do not touch",
+     "invented": [],
+     "overlaps": [
+      {
+       "a": "Shopping list",
+       "b": "Oats",
+       "share": 0.29
+      }
+     ]
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 top bands at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the line drawn at (2,70) 1276x0 was coloured #e6e3dc (text colour); what was built there is ΔE 10 away: paint its text exactly #e6e3dc",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#faf9f6",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,70) 1276x0",
+       "want": "#e6e3dc",
+       "best": 10.41942021853307,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (40,35) 71x0",
+       "want": "#3d7a57",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1110,14) 130x40",
+       "want": "#3d7a57",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (40,117) 144x0",
+       "want": "#1f2d27",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (40,155) 107x0",
+       "want": "#8a8a85",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (160,206) 1080x0",
+       "want": "#8a8a85",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (160,231) 147x121",
+       "want": "#fbeddf",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (159,362) 147x120",
+       "want": "#edf1ec",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (160,491) 147x121",
+       "want": "#e6edf7",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (39,639) 1202x119",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (65,670) 190x0",
+       "want": "#1f2d27",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (65,695) 58x32",
+       "want": "#efece6",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 111125,
+   "cacheRead": 489417,
+   "output": 39304
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 70275,
+    "output": 24057,
+    "cacheRead": 95003,
+    "toolCalls": 4,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 275116
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 72385,
+    "output": 11615,
+    "cacheRead": 186296,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 146494
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 7769,
+    "output": 3632,
+    "cacheRead": 208118,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 44161
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "b32e0f58eaef22ed7b13c42d403081c566857665",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "No ink was drawn; the user typed a note asking to move the 'Shopping list' heading above the chips and to remove the circle icons currently shown in each meal card.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 1,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 2,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 3,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 4,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 5,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 6,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 7,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 8,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 9,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 10,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 11,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 12,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 13,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 14,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 15,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 16,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 17,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     },
+     {
+      "index": 18,
+      "op": "DELETE",
+      "satisfied": true,
+      "reason": "elements from src/App.tsx: 83→65"
+     }
+    ],
+    "satisfied": 19,
+    "total": 19,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "26 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 22222,
+   "cacheRead": 150101,
+   "output": 14465
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 36687,
+    "output": 14465,
+    "cacheRead": 150101,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 175912
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": [
+    {
+     "index": 1,
+     "reason": "<div> renders 18 times from one template — editing it would hit every instance"
+    }
+   ]
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

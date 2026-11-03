@@ -1,0 +1,174 @@
+{
+  "id": "e4-chat-thread",
+  "at": "2026-10-24T07:27:55.909Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7812745143396893,
+    "overallV2": 0.7812745143396893,
+    "overallV1": 0.6863246508252874,
+    "colour": 0.9886876021703888,
+    "structure": 0.8757029496357638,
+    "structureStrict": 0.7644263992195461,
+    "colourAligned": 0.9886876021703888,
+    "structureAligned": 0.8757029496357638,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9931764565318932
+    },
+    "layout": 0.689545752364476
+  },
+  "effects": {
+    "recall": 0,
+    "kept": [],
+    "missing": [
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 39578,
+    "output": 27512,
+    "cacheRead": 191443
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 47626,
+      "output": 18860,
+      "cacheRead": 167871,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 201847
+    }
+  ],
+  "reading": "The sketch lays out a Slack-style messaging screen: a far-left icon rail, a dark workspace sidebar with channel/DM lists, a bold channel heading, a feed of three chat messages with avatars/reactions/thread link, an emoji-reaction input label with field, a message composer box with a send button and a typing indicator, and a right-hand thread panel listing three replies.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        4,
+        64,
+        893
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a vertical icon rail spanning the full page height at the far left edge: dark plum #3f0e40 fill, no picture/image inside. Stack 3 small rounded squares (40p"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        4,
+        234,
+        893
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a workspace sidebar panel, 240x900px positioned at 70,0 with #4a154b fill, containing 9 distinct live-text parts (light grey #e7d9e8 text, not near-black): "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        314,
+        2,
+        552,
+        48
+      ],
+      "paths": [],
+      "instruction": "Add a bold (font-weight 800) 17px heading reading \"# launch-week\" at the top of the main content column."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        314,
+        59,
+        553,
+        254
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a stack of 3 chat messages below the heading, no bubbles, each with a 36px rounded-square avatar on the left and a name+time line. Message 1: #e07a5f avatar"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        404,
+        314,
+        86
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a label reading \"🎉 🥳 🎊 🪅 🍾 🎈 🙌 ✨\" directly above an empty input field."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        333,
+        773,
+        513,
+        84
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a 520x90px message composer box at 330,770, not a filled bar: white/no fill, 1px #bbbbbb border all round, 8px rounded corners. Place 14px #868686 placehold"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        873,
+        3,
+        404,
+        893
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a right-hand thread panel titled \"Thread # launch-week\" listing 3 items, each with a 36px coral square thumbnail on the left: \"Priya Raman\" with message \"La"
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,182 @@
+{
+  "id": "c3-arched-sunburst",
+  "at": "2026-10-24T07:11:15.835Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7302126920627697,
+    "overallV2": 0.7302126920627697,
+    "overallV1": 0.5649414093870487,
+    "colour": 0.9527644055969248,
+    "structure": 0.6944552811391461,
+    "structureStrict": 0.3957587344485035,
+    "colourAligned": 0.9527644055969248,
+    "structureAligned": 0.6944552811391461,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9100655087450609
+    },
+    "layout": 0.8044631398850001
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 41462,
+    "output": 25858,
+    "cacheRead": 220366
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 48543,
+      "output": 18169,
+      "cacheRead": 208878,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read components/Sunburst.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/Sunburst.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 194743
+    }
+  ],
+  "reading": "The sketch lays out a round hero graphic for a drive-in diner page: a sunburst disc behind a solid dark circle, an arced \"SUNDOWNER\" title over it, a round \"Est. 1962\" badge, a squiggle tagline, a four-item menu-category row, and a \"See the menu\" button — all with precise colors/typography given in typed notes that override the rough ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        144,
+        1,
+        992,
+        895
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A SUNBURST: 24 sharp straight rays fanning out from one centre, alternating bright orange #f0a33a and soft yellow #f6d58e, each ray 7.5deg wide (thin pie slices"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        444,
+        204,
+        391,
+        392
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A perfectly round solid disc (border-radius 50%, not traced from the rough ink), 400px across, flat fully opaque dark brown (#5a1e0e) fill, hard edge, no blur, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        555,
+        324,
+        173,
+        173
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "The word \"SUNDOWNER\" set on a curved arc over the centre point (not a straight line): a zero-size anchor div at page 640,400 holding 9 letter spans, each absolu"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        555,
+        324,
+        173,
+        173
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A round badge/stamp tilted 8° anticlockwise: 6px dotted (true dotted ring, not solid) #5a1e0e outline circle with a 3px #f6d58e outline flush against its edge ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 32
+        }
+      ],
+      "region": [
+        8,
+        638,
+        1152,
+        38
+      ],
+      "paths": [],
+      "instruction": "Italic tagline text: \"Drive-in diner · Open till the last car leaves\", styled in Georgia, dark brown, sitting beneath the sunburst graphic."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        244,
+        723,
+        792,
+        41
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "An 800x47px row positioned at 240,720, ruled above and below with a 3px double border (#5a1e0e, two thin parallel lines each), no side borders, no fill. Inside "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        532,
+        801,
+        216,
+        43
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A \"See the menu\" button, 220x46px, barely rounded corners (border-radius 4px, not a pill), solid dark brown #5a1e0e fill with soft yellow #f6d58e text."
+    }
+  ],
+  "rejected": [
+    "add action with neither container nor strokes"
+  ]
+}

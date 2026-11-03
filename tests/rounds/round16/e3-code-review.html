@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Code review</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2328;font-size:13px}
+.hd{position:absolute;left:0;top:0;width:1280px;height:110px;border-bottom:1px solid #d0d7de;padding:18px 24px}.hd h1{font-size:22px;font-weight:400}.hd .st{display:inline-block;padding:5px 12px;border-radius:16px;background:#1f883d;color:#fff;font-weight:700;margin-top:10px}
+.tabs{position:absolute;left:24px;top:78px;display:flex;gap:22px}.tabs .on{border-bottom:2px solid #fd8c73;padding-bottom:7px;font-weight:700}
+.tree{position:absolute;left:0;top:110px;width:250px;height:790px;border-right:1px solid #d0d7de;padding:14px;line-height:2;font-size:12px}.tree .on{background:#f6f8fa;margin:0 -8px;padding:0 8px;border-radius:6px;font-weight:700}
+.file{position:absolute;left:270px;top:130px;width:990px;border:1px solid #d0d7de;border-radius:6px;overflow:hidden}
+.fh{background:#f6f8fa;padding:10px 14px;border-bottom:1px solid #d0d7de;font-family:monospace}.fh b{color:#1a7f37}.fh i{color:#cf222e;font-style:normal}
+.dv{display:flex}.half{width:50%;font:12px/20px monospace}.half div{white-space:pre;padding-left:52px;position:relative}.half div::before{content:attr(data-n);position:absolute;left:0;width:42px;text-align:right;color:#6e7781}
+.half+.half{border-left:1px solid #d0d7de}.del{background:#ffebe9}.add{background:#e6ffec}.del span{background:#ffcecb}.add span{background:#abf2bc}.hunk{background:#ddf4ff;color:#57606a}
+.th{margin:8px 14px;border:1px solid #d0d7de;border-radius:6px;font-size:13px}.th .c{padding:10px 12px;border-bottom:1px solid #d0d7de;line-height:1.5}.th .c b{margin-right:6px}.th .av{display:inline-block;width:20px;height:20px;border-radius:50%;vertical-align:middle;margin-right:6px}
+.th .rp{padding:8px 12px;background:#f6f8fa}.th .rp span{display:block;border:1px solid #d0d7de;border-radius:6px;padding:7px 10px;background:#fff;color:#6e7781}
+.rv{position:absolute;right:24px;top:24px;padding:8px 16px;background:#1f883d;color:#fff;border-radius:6px;font-weight:700}
+</style></head><body>
+<div class="hd" data-r="pr-header"><h1>Cache resolved prices per session <span style="color:#6e7781">#4182</span></h1><span class="st">⤴ Open</span> <span style="color:#6e7781;margin-left:8px">mira wants to merge 3 commits into main</span></div>
+<div class="tabs" data-r="tabs"><span>Conversation 4</span><span>Commits 3</span><span>Checks 6</span><span class="on">Files changed 2</span></div>
+<a class="rv" data-r="review-button">Review changes ▾</a>
+<div class="tree" data-r="file-tree"><b>Files</b><br>▾ src<br>&nbsp;&nbsp;▾ pricing<br><div class="on">&nbsp;&nbsp;&nbsp;&nbsp;cache.ts</div>&nbsp;&nbsp;&nbsp;&nbsp;resolve.ts<br>▾ tests<br>&nbsp;&nbsp;&nbsp;&nbsp;cache.test.ts</div>
+<div class="file" data-r="split-diff" data-must><div class="fh">src/pricing/cache.ts <b>+9</b> <i>−4</i></div>
+<div class="dv"><div class="half"><div class="hunk" data-n="">@@ -12,10 +12,15 @@</div><div data-n="12">export function getPrice(id) {</div><div class="del" data-n="13">  <span>return fetchPrice(id)</span></div><div class="del" data-n="14">  <span>  .then(p =&gt; p.amount)</span></div><div data-n="15">}</div><div data-n="16"></div><div data-n="17">export function clear() {</div><div class="del" data-n="18">  <span>// no-op</span></div><div data-n="19">}</div></div>
+<div class="half"><div class="hunk" data-n="">&nbsp;</div><div data-n="12">export function getPrice(id) {</div><div class="add" data-n="13">  <span>const hit = cache.get(id)</span></div><div class="add" data-n="14">  <span>if (hit) return hit</span></div><div class="add" data-n="15">  <span>const p = fetchPrice(id)</span></div><div class="add" data-n="16">  <span>cache.set(id, p)</span></div><div class="add" data-n="17">  return p</div><div data-n="18">}</div><div class="add" data-n="19">  <span>cache.clear()</span></div></div></div>
+<div class="th" data-r="comment-thread"><div class="c"><span class="av" style="background:#8250df"></span><b>jonas</b><span style="color:#6e7781">commented 2 hours ago</span><br>What happens when a rejected promise gets cached? We'd return the failure forever.</div><div class="c"><span class="av" style="background:#bf3989"></span><b>mira</b><span style="color:#6e7781">1 hour ago</span><br>Good catch — I'll drop the entry on reject.</div><div class="rp"><span>Reply…</span></div></div></div>
+</body></html>

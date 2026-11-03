@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Extruded type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fdf6e3;font-family:Helvetica,Arial,sans-serif;color:#1a1a1a}
+.floor{position:absolute;left:0;top:560px;width:1280px;height:340px;background:repeating-conic-gradient(#1a1a1a 0 25%,#fdf6e3 0 50%) 0 0/80px 80px}
+nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;justify-content:space-between;font-weight:800;font-size:14px;letter-spacing:1px}
+.big{position:absolute;left:56px;top:110px;font-size:230px;font-weight:900;line-height:230px;letter-spacing:-8px;color:#ffd23f;text-shadow:2px 2px 0 #1a1a1a,4px 4px 0 #1a1a1a,6px 6px 0 #1a1a1a,8px 8px 0 #1a1a1a,10px 10px 0 #1a1a1a,12px 12px 0 #1a1a1a,14px 14px 0 #1a1a1a,16px 16px 0 #1a1a1a;-webkit-text-stroke:3px #1a1a1a}
+.big2{top:330px;left:300px;color:#ff5d8f}
+.star{position:absolute;left:1010px;top:96px;width:170px;height:170px;background:#3a86ff;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:spin 8s linear infinite}
+.startx{position:absolute;left:1010px;top:160px;width:170px;text-align:center;color:#fff;font-weight:900;font-size:18px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.card{position:absolute;left:820px;top:610px;width:400px;height:220px;background:#fff;border:3px solid #1a1a1a;box-shadow:10px 10px 0 #1a1a1a;padding:26px}
+.card h3{font-size:24px;font-weight:900}.card p{margin-top:10px;font-size:16px;line-height:1.5}
+.card a{display:inline-block;margin-top:16px;padding:12px 22px;background:#ff5d8f;border:3px solid #1a1a1a;font-weight:900}
+.tag{position:absolute;left:56px;top:640px;padding:14px 22px;background:#fff;border:3px solid #1a1a1a;font-weight:900;font-size:20px;transform:rotate(-4deg)}
+</style></head><body>
+<div class="floor" data-r="checker-floor"></div>
+<nav data-r="nav"><span>BLOCKPARTY</span><span>LINEUP · TICKETS · MAP</span></nav>
+<div class="big" data-r="extruded-word" data-must>LOUD</div>
+<div class="big big2" data-r="extruded-word-2" data-must>FEST</div>
+<div class="star" data-r="star-badge"></div><div class="startx">JUN 12</div>
+<div class="tag" data-r="tag">3 DAYS · 40 ACTS</div>
+<div class="card" data-r="ticket-card" data-must><h3>Weekend pass</h3><p>All stages, all nights. Early bird ends Friday.</p><a>Get tickets →</a></div>
+</body></html>

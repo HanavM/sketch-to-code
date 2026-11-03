@@ -1,0 +1,481 @@
+{
+  "id": "c3-shape-grid",
+  "at": "2026-10-26T09:34:39.995Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.915963957215914,
+    "overallV2": 0.915963957215914,
+    "overallV1": 0.8936336620550054,
+    "colour": 0.9912997261771551,
+    "structure": 0.9727317948239842,
+    "structureStrict": 0.929340960938256,
+    "colourAligned": 0.9912997261771551,
+    "structureAligned": 0.9727317948239842,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9721853777516102
+    },
+    "layout": 0.7995828184184123,
+    "layoutV1": 0.7995828184184123,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      520,
+      0,
+      760,
+      900
+    ],
+    [
+      1,
+      520,
+      0,
+      190,
+      180
+    ],
+    [
+      2,
+      520,
+      0,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      0,
+      190,
+      180
+    ],
+    [
+      1,
+      900,
+      0,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      0,
+      190,
+      180
+    ],
+    [
+      6,
+      1125,
+      30,
+      120,
+      120
+    ],
+    [
+      1,
+      520,
+      180,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      180,
+      190,
+      180
+    ],
+    [
+      1,
+      900,
+      180,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      180,
+      190,
+      180
+    ],
+    [
+      11,
+      1114,
+      199,
+      141,
+      141
+    ],
+    [
+      1,
+      520,
+      360,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      360,
+      190,
+      180
+    ],
+    [
+      14,
+      710,
+      450,
+      190,
+      90
+    ],
+    [
+      1,
+      900,
+      360,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      360,
+      190,
+      180
+    ],
+    [
+      1,
+      520,
+      540,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      540,
+      190,
+      180
+    ],
+    [
+      19,
+      710,
+      540,
+      95,
+      180
+    ],
+    [
+      1,
+      900,
+      540,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      540,
+      190,
+      180
+    ],
+    [
+      1,
+      520,
+      720,
+      190,
+      180
+    ],
+    [
+      1,
+      710,
+      720,
+      190,
+      180
+    ],
+    [
+      1,
+      900,
+      720,
+      190,
+      180
+    ],
+    [
+      1,
+      1090,
+      720,
+      190,
+      180
+    ],
+    [
+      0,
+      64,
+      53,
+      92,
+      33
+    ],
+    [
+      0,
+      60,
+      90,
+      245,
+      21
+    ],
+    [
+      28,
+      60,
+      90,
+      34,
+      21
+    ],
+    [
+      28,
+      120,
+      90,
+      54,
+      21
+    ],
+    [
+      28,
+      200,
+      90,
+      30,
+      21
+    ],
+    [
+      28,
+      257,
+      90,
+      48,
+      21
+    ],
+    [
+      0,
+      340,
+      88,
+      166,
+      181
+    ],
+    [
+      0,
+      60,
+      250,
+      849,
+      230
+    ],
+    [
+      34,
+      60,
+      250,
+      849,
+      115
+    ],
+    [
+      34,
+      60,
+      365,
+      849,
+      115
+    ],
+    [
+      0,
+      64,
+      620,
+      372,
+      54
+    ],
+    [
+      0,
+      63,
+      763,
+      197,
+      54
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "gradient",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 45378,
+    "output": 21090,
+    "cacheRead": 200947
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 45261,
+      "output": 12281,
+      "cacheRead": 175855,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 116002
+    }
+  ],
+  "reading": "The sketch lays out a hero/landing section: a full-page background grid of 20 flat-colour geometric tiles (per exact typed CSS spec), a bold \"Modul/ar\" wordmark, a 4-item nav row (Index, Systems, Type, Contact), a giant tilted orange \"✱\" glyph, a large two-line italic headline \"Shapes that speak in grids\" that colour-inverts over the grid, a body paragraph describing the studio, and a bordered pill CTA button \"See the system →\". A typed note sets page-wide styling: cream background, Helvetica type, near-black text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        3,
+        754,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Full-page background grid, 4 columns x 5 rows of flat-colour geometric shape tiles (CSS display:grid, 190x180px cells, no gaps), sized 760x900px, positioned at "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        53,
+        80,
+        8
+      ],
+      "paths": [],
+      "instruction": "Wordmark text \"Modul/ar\", set at 22px as a large bold (font-weight 800) lead line on one line, about 88px wide."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        94,
+        237,
+        9
+      ],
+      "paths": [],
+      "instruction": "Nav row of 4 live-text parts side by side with exactly 26px flex gap between them, never touching: \"Index\" (34x16 at 60,90, 14px #555555), \"Systems\" (54x16 at 1"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 150
+        }
+      ],
+      "region": [
+        368,
+        105,
+        149,
+        180
+      ],
+      "paths": [],
+      "instruction": "Single live-text character \"✱\" (U+2731) as a giant Helvetica regular-weight orange glyph, 150px font-size, about 171px wide, tilted 18° clockwise, box top-left "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 104
+        }
+      ],
+      "region": [
+        68,
+        250,
+        774,
+        230
+      ],
+      "paths": [],
+      "instruction": "Headline, giant Georgia italic serif regular-weight white text that colour-inverts where it overlaps the background grid beneath it (e.g. mix-blend-mode differe"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        620,
+        372,
+        54
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text: \"A studio for identity systems built from twenty forms, four colours and one strict module.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        763,
+        185,
+        46
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Pill-shaped button with a 2px near-black border, bold label \"See the system →\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

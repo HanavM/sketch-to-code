@@ -1,0 +1,641 @@
+{
+  "round": 44,
+  "id": "c1-lantern-festival",
+  "version": 3,
+  "stopped": null,
+  "likeness": 89.1,
+  "colour": 0.975762678666865,
+  "structure": 0.9366185922446385,
+  "layout": 0.7602347661290184,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 3.8,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 4,
+      "box": 1,
+      "line": 8,
+      "circle": 5
+    },
+    "inkPx": 7109
+  },
+  "erased": 0,
+  "notesMoved": 1,
+  "words": 53,
+  "notes": 8,
+  "longestNote": 12,
+  "noteTexts": [
+    "LUMA bold spaced",
+    "Program Map Tickets",
+    "A thousand / lights on the / river, huge bold",
+    "Three nights of lanterns, music and street food along the old harbour.",
+    "Get tickets, dark bold text",
+    "Sept 12 – 14",
+    "glowing lanterns, soft glow, thin string above each",
+    "lanterns rounded like drawn, no caps or ribs"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 475,
+    "firstReadingS": 106,
+    "readS": [
+      53,
+      12
+    ],
+    "buildS": [
+      246,
+      93
+    ],
+    "sketchingS": 71
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 136233,
+    "cacheRead": 679929,
+    "output": 36405,
+    "billed": 172638
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#1f1745",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 478
+    },
+    {
+      "op": "pen",
+      "color": "#4a2350",
+      "at": 862
+    },
+    {
+      "op": "stroke",
+      "at": 1326
+    },
+    {
+      "op": "pen",
+      "color": "#130e30",
+      "at": 1719
+    },
+    {
+      "op": "stroke",
+      "at": 10082
+    },
+    {
+      "op": "stroke",
+      "at": 10559
+    },
+    {
+      "op": "pen",
+      "color": "#fff3dc",
+      "at": 10931
+    },
+    {
+      "op": "stroke",
+      "at": 11594
+    },
+    {
+      "op": "stroke",
+      "at": 12592
+    },
+    {
+      "op": "stroke",
+      "at": 14142
+    },
+    {
+      "op": "stroke",
+      "at": 15793
+    },
+    {
+      "op": "stroke",
+      "at": 16693
+    },
+    {
+      "op": "stroke",
+      "at": 18258
+    },
+    {
+      "op": "stroke",
+      "at": 19242
+    },
+    {
+      "op": "pen",
+      "color": "#ff9e45",
+      "at": 19610
+    },
+    {
+      "op": "stroke",
+      "at": 21459
+    },
+    {
+      "op": "stroke",
+      "at": 21925
+    },
+    {
+      "op": "stroke",
+      "at": 22676
+    },
+    {
+      "op": "stroke",
+      "at": 24812
+    },
+    {
+      "op": "stroke",
+      "at": 26529
+    },
+    {
+      "op": "stroke",
+      "at": 28515
+    },
+    {
+      "op": "stroke",
+      "at": 29957
+    },
+    {
+      "op": "note",
+      "at": 38106
+    },
+    {
+      "op": "note",
+      "at": 38816
+    },
+    {
+      "op": "note",
+      "at": 39856
+    },
+    {
+      "op": "note",
+      "at": 40889
+    },
+    {
+      "op": "note",
+      "at": 41641
+    },
+    {
+      "op": "note",
+      "at": 42313
+    },
+    {
+      "op": "note",
+      "at": 43189
+    },
+    {
+      "op": "moveNote",
+      "at": 52773
+    },
+    {
+      "op": "run",
+      "at": 52853
+    },
+    {
+      "op": "note",
+      "at": 362277
+    },
+    {
+      "op": "run",
+      "at": 362395
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          60
+        ]
+      ],
+      "n": 1,
+      "at": 478
+    },
+    {
+      "way": [
+        [
+          640,
+          720
+        ]
+      ],
+      "n": 1,
+      "at": 1326
+    },
+    {
+      "way": [
+        [
+          2,
+          780
+        ],
+        [
+          1278,
+          780
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          780
+        ]
+      ],
+      "n": 467,
+      "at": 10082
+    },
+    {
+      "way": [
+        [
+          640,
+          845
+        ]
+      ],
+      "n": 1,
+      "at": 10559
+    },
+    {
+      "way": [
+        [
+          60,
+          47
+        ],
+        [
+          130,
+          47
+        ]
+      ],
+      "n": 13,
+      "at": 11594
+    },
+    {
+      "way": [
+        [
+          1026,
+          47
+        ],
+        [
+          1220,
+          47
+        ]
+      ],
+      "n": 33,
+      "at": 12592
+    },
+    {
+      "way": [
+        [
+          60,
+          258
+        ],
+        [
+          452,
+          258
+        ]
+      ],
+      "n": 66,
+      "at": 14142
+    },
+    {
+      "way": [
+        [
+          60,
+          331
+        ],
+        [
+          487,
+          331
+        ]
+      ],
+      "n": 72,
+      "at": 15793
+    },
+    {
+      "way": [
+        [
+          60,
+          404
+        ],
+        [
+          215,
+          404
+        ]
+      ],
+      "n": 27,
+      "at": 16693
+    },
+    {
+      "way": [
+        [
+          60,
+          484
+        ],
+        [
+          452,
+          484
+        ]
+      ],
+      "n": 66,
+      "at": 18258
+    },
+    {
+      "way": [
+        [
+          60,
+          513
+        ],
+        [
+          244,
+          513
+        ]
+      ],
+      "n": 32,
+      "at": 19242
+    },
+    {
+      "way": [
+        [
+          88,
+          590
+        ],
+        [
+          252,
+          590
+        ],
+        [
+          280,
+          619
+        ],
+        [
+          252,
+          648
+        ],
+        [
+          88,
+          648
+        ],
+        [
+          60,
+          619
+        ],
+        [
+          88,
+          590
+        ]
+      ],
+      "n": 83,
+      "at": 21459
+    },
+    {
+      "way": [
+        [
+          170,
+          619
+        ]
+      ],
+      "n": 1,
+      "at": 21925
+    },
+    {
+      "way": [
+        [
+          300,
+          619
+        ],
+        [
+          390,
+          619
+        ]
+      ],
+      "n": 16,
+      "at": 22676
+    },
+    {
+      "way": [
+        [
+          790,
+          200
+        ],
+        [
+          880,
+          200
+        ],
+        [
+          910,
+          240
+        ],
+        [
+          910,
+          360
+        ],
+        [
+          880,
+          390
+        ],
+        [
+          790,
+          390
+        ],
+        [
+          760,
+          360
+        ],
+        [
+          760,
+          240
+        ],
+        [
+          790,
+          200
+        ]
+      ],
+      "n": 101,
+      "at": 24812
+    },
+    {
+      "way": [
+        [
+          1005,
+          120
+        ],
+        [
+          1065,
+          120
+        ],
+        [
+          1090,
+          150
+        ],
+        [
+          1090,
+          235
+        ],
+        [
+          1065,
+          260
+        ],
+        [
+          1005,
+          260
+        ],
+        [
+          980,
+          235
+        ],
+        [
+          980,
+          150
+        ],
+        [
+          1005,
+          120
+        ]
+      ],
+      "n": 75,
+      "at": 26529
+    },
+    {
+      "way": [
+        [
+          1075,
+          400
+        ],
+        [
+          1155,
+          400
+        ],
+        [
+          1180,
+          430
+        ],
+        [
+          1180,
+          535
+        ],
+        [
+          1155,
+          565
+        ],
+        [
+          1075,
+          565
+        ],
+        [
+          1050,
+          535
+        ],
+        [
+          1050,
+          430
+        ],
+        [
+          1075,
+          400
+        ]
+      ],
+      "n": 91,
+      "at": 28515
+    },
+    {
+      "way": [
+        [
+          840,
+          500
+        ],
+        [
+          890,
+          500
+        ],
+        [
+          910,
+          525
+        ],
+        [
+          910,
+          590
+        ],
+        [
+          890,
+          615
+        ],
+        [
+          840,
+          615
+        ],
+        [
+          820,
+          590
+        ],
+        [
+          820,
+          525
+        ],
+        [
+          840,
+          500
+        ]
+      ],
+      "n": 59,
+      "at": 29957
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "LUMA bold spaced",
+      "whole": false,
+      "x": 80,
+      "y": 64,
+      "at": 38106
+    },
+    {
+      "text": "Program Map Tickets",
+      "whole": false,
+      "x": 1040,
+      "y": 64,
+      "at": 38816
+    },
+    {
+      "text": "A thousand / lights on the / river, huge bold",
+      "whole": false,
+      "x": 80,
+      "y": 235,
+      "at": 39856
+    },
+    {
+      "text": "Three nights of lanterns, music and street food along the old harbour.",
+      "whole": false,
+      "x": 80,
+      "y": 470,
+      "at": 40889
+    },
+    {
+      "text": "Get tickets, dark bold text",
+      "whole": false,
+      "x": 100,
+      "y": 605,
+      "at": 41641
+    },
+    {
+      "text": "Sept 12 – 14",
+      "whole": false,
+      "x": 310,
+      "y": 636,
+      "at": 42313
+    },
+    {
+      "text": "glowing lanterns, soft glow, thin string above each",
+      "whole": false,
+      "x": 930,
+      "y": 290,
+      "at": 43189
+    },
+    {
+      "text": "lanterns rounded like drawn, no caps or ribs",
+      "whole": true,
+      "x": 640,
+      "y": 700,
+      "at": 362277
+    }
+  ]
+}

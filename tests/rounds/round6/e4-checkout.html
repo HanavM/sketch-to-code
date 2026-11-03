@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Checkout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fafaf9;font-family:Helvetica,Arial,sans-serif;color:#1c1917;font-size:15px}
+.logo{position:absolute;left:80px;top:32px;font-size:22px;font-weight:800}
+.steps{position:absolute;left:80px;top:96px;display:flex;gap:12px;align-items:center;font-size:14px;color:#a8a29e}.steps b{color:#1c1917}.steps i{display:inline-block;width:40px;height:2px;background:#d6d3d1}.steps .done{color:#16a34a}
+.form{position:absolute;left:80px;top:150px;width:640px}
+.form h2{font-size:20px;margin:0 0 14px}.f{margin-bottom:14px}.f label{display:block;font-size:13px;color:#57534e;margin-bottom:6px}.f div{height:46px;border:1px solid #d6d3d1;border-radius:8px;background:#fff;padding:14px;color:#1c1917}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ship{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}.ship div{height:72px;border:1px solid #d6d3d1;border-radius:10px;background:#fff;padding:14px}.ship .on{border:2px solid #1c1917}
+.pay{position:absolute;left:80px;top:790px;width:640px;height:56px;border-radius:10px;background:#1c1917;color:#fff;font-weight:700;font-size:17px;text-align:center;line-height:56px}
+.sum{position:absolute;left:800px;top:0;width:480px;height:900px;background:#f5f5f4;border-left:1px solid #e7e5e4;padding:150px 48px 0}
+.it{display:flex;gap:16px;align-items:center;margin-bottom:20px}.it i{width:72px;height:72px;border-radius:10px;background:#d6d3d1;position:relative}.it i em{position:absolute;right:-8px;top:-8px;width:22px;height:22px;border-radius:50%;background:#78716c;color:#fff;font-size:12px;font-style:normal;text-align:center;line-height:22px}.it span{flex:1}.it b{font-weight:700}
+.code{display:flex;gap:10px;margin:24px 0}.code div{flex:1;height:46px;border:1px solid #d6d3d1;border-radius:8px;background:#fff;padding:14px;color:#a8a29e}.code span{width:90px;height:46px;border-radius:8px;background:#e7e5e4;text-align:center;line-height:46px;font-weight:700}
+.row{display:flex;justify-content:space-between;margin-bottom:12px;color:#57534e}.tot{display:flex;justify-content:space-between;border-top:1px solid #d6d3d1;padding-top:16px;font-size:22px;font-weight:800}
+</style></head><body>
+<div class="logo" data-r="logo">Field & Co.</div>
+<div class="steps" data-r="steps"><span class="done">✓ Cart</span><i></i><b>Shipping</b><i></i><span>Payment</span><i></i><span>Review</span></div>
+<div class="form" data-r="form" data-must><h2>Contact</h2><div class="f"><label>Email</label><div>hanav@example.com</div></div>
+<h2>Shipping address</h2><div class="two"><div class="f"><label>First name</label><div>Hanav</div></div><div class="f"><label>Last name</label><div>M</div></div></div>
+<div class="f"><label>Address</label><div>14 Orchard Lane</div></div><div class="two"><div class="f"><label>City</label><div>Austin</div></div><div class="f"><label>ZIP</label><div>78701</div></div></div>
+<h2>Delivery</h2><div class="ship"><div class="on"><b>Standard</b><br>3–5 days · Free</div><div><b>Express</b><br>1–2 days · $12</div></div></div>
+<div class="pay" data-r="pay" data-must>Continue to payment</div>
+<div class="sum" data-r="summary" data-must>
+<div class="it"><i><em>1</em></i><span><b>Waxed canvas tote</b><br>Olive</span><b>$88.00</b></div>
+<div class="it"><i><em>2</em></i><span><b>Wool socks</b><br>Oatmeal · M</span><b>$36.00</b></div>
+<div class="it"><i><em>1</em></i><span><b>Enamel mug</b><br>Cream</span><b>$22.00</b></div>
+<div class="code"><div>Discount code</div><span>Apply</span></div>
+<div class="row"><span>Subtotal</span><span>$146.00</span></div><div class="row"><span>Shipping</span><span>Free</span></div><div class="row"><span>Tax</span><span>$12.05</span></div>
+<div class="tot"><span>Total</span><span>$158.05</span></div></div>
+</body></html>

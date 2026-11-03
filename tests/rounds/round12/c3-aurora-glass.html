@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Aurora glass</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#07090f;font-family:Helvetica,Arial,sans-serif;color:#eef2ff}
+.aur{position:absolute;left:240px;top:-260px;width:900px;height:900px;border-radius:50%;background:conic-gradient(from 90deg,#00ffa3,#00b3ff,#8a2be2,#ff2e97,#00ffa3);filter:blur(90px);opacity:.75;animation:sp 18s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.grain{position:absolute;inset:0;background:repeating-radial-gradient(circle at 30% 20%,rgba(255,255,255,.04) 0 1px,transparent 1px 3px)}
+nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+h1{position:absolute;left:0;top:300px;width:1280px;text-align:center;font-size:110px;font-weight:300;letter-spacing:-5px;line-height:1}
+h1 em{font-family:Georgia,serif;font-style:italic;font-weight:400}
+.sub{position:absolute;left:390px;top:430px;width:500px;text-align:center;font-size:18px;line-height:1.5;color:#b8c0d9}
+.btn{position:absolute;left:530px;top:530px;width:220px;height:54px;border-radius:999px;background:linear-gradient(#07090f,#07090f) padding-box,linear-gradient(90deg,#00ffa3,#ff2e97) border-box;border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-weight:700}
+.cards{position:absolute;left:120px;top:650px;width:1040px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.c{height:180px;border-radius:22px;padding:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(20px)}
+.c b{display:block;font-size:34px;font-weight:300}.c span{display:block;margin-top:10px;font-size:14px;color:#b8c0d9;line-height:1.5}
+.c:nth-child(2){transform:translateY(-30px)}
+</style></head><body>
+<div class="aur" data-r="aurora" data-must></div><div class="grain"></div>
+<nav data-r="nav"><span>◐ halo</span><span>Product   Research   Login</span></nav>
+<h1 data-r="headline" data-must>Light that <em>listens</em></h1>
+<p class="sub" data-r="subcopy">Ambient lamps that follow your voice, your music and your sleep.</p>
+<a class="btn" data-r="cta">Pre-order — $249</a>
+<div class="cards" data-r="glass-cards" data-must><div class="c"><b>16M</b><span>colours, mixed in real time from what you play</span></div><div class="c"><b>0.3s</b><span>to react to a clap, a word or a beat</span></div><div class="c"><b>7 yrs</b><span>of LED life at full brightness</span></div></div>
+</body></html>

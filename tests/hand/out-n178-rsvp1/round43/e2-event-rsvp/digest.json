@@ -1,0 +1,631 @@
+{
+  "round": 43,
+  "id": "e2-event-rsvp",
+  "version": 3,
+  "stopped": null,
+  "likeness": 87,
+  "colour": 0.9887839917675486,
+  "structure": 0.9294711784289774,
+  "layout": 0.9704770129522213,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 3.3,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "box": 9,
+      "line": 3
+    },
+    "inkPx": 10705
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 38,
+  "notes": 10,
+  "longestNote": 9,
+  "noteTexts": [
+    "Sat 22 Nov · 7 pm · The Glasshouse",
+    "Maya & Tom's party big bold",
+    "Will you come?",
+    "Yes",
+    "Maybe",
+    "No",
+    "Your name above, Full name inside",
+    "Email above, you@example.com inside",
+    "Guests above, Just me inside",
+    "Send RSVP"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 259,
+    "firstReadingS": 83,
+    "readS": [
+      34
+    ],
+    "buildS": [
+      174
+    ],
+    "sketchingS": 51
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 79267,
+    "cacheRead": 417212,
+    "output": 18455,
+    "billed": 97722
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#eef0f5",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 468
+    },
+    {
+      "op": "pen",
+      "color": "#e2e4ee",
+      "at": 851
+    },
+    {
+      "op": "stroke",
+      "at": 8872
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 9236
+    },
+    {
+      "op": "stroke",
+      "at": 9698
+    },
+    {
+      "op": "pen",
+      "color": "#5b5bd6",
+      "at": 10062
+    },
+    {
+      "op": "stroke",
+      "at": 14801
+    },
+    {
+      "op": "stroke",
+      "at": 15263
+    },
+    {
+      "op": "pen",
+      "color": "#e4e4fa",
+      "at": 15631
+    },
+    {
+      "op": "stroke",
+      "at": 16734
+    },
+    {
+      "op": "note",
+      "at": 17573
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 17939
+    },
+    {
+      "op": "stroke",
+      "at": 19249
+    },
+    {
+      "op": "note",
+      "at": 20014
+    },
+    {
+      "op": "pen",
+      "color": "#4a5060",
+      "at": 20380
+    },
+    {
+      "op": "stroke",
+      "at": 21133
+    },
+    {
+      "op": "note",
+      "at": 21795
+    },
+    {
+      "op": "pen",
+      "color": "#5b5bd6",
+      "at": 22164
+    },
+    {
+      "op": "stroke",
+      "at": 23836
+    },
+    {
+      "op": "stroke",
+      "at": 24299
+    },
+    {
+      "op": "note",
+      "at": 24920
+    },
+    {
+      "op": "pen",
+      "color": "#d4d4de",
+      "at": 25282
+    },
+    {
+      "op": "stroke",
+      "at": 26954
+    },
+    {
+      "op": "note",
+      "at": 27597
+    },
+    {
+      "op": "stroke",
+      "at": 29276
+    },
+    {
+      "op": "note",
+      "at": 29906
+    },
+    {
+      "op": "stroke",
+      "at": 33557
+    },
+    {
+      "op": "note",
+      "at": 34357
+    },
+    {
+      "op": "stroke",
+      "at": 38008
+    },
+    {
+      "op": "note",
+      "at": 38859
+    },
+    {
+      "op": "stroke",
+      "at": 42512
+    },
+    {
+      "op": "note",
+      "at": 43303
+    },
+    {
+      "op": "pen",
+      "color": "#20263a",
+      "at": 43668
+    },
+    {
+      "op": "stroke",
+      "at": 47368
+    },
+    {
+      "op": "stroke",
+      "at": 47846
+    },
+    {
+      "op": "note",
+      "at": 48546
+    },
+    {
+      "op": "pen",
+      "color": "#d4d4de",
+      "at": 48910
+    },
+    {
+      "op": "pen",
+      "color": "#4a5060",
+      "at": 49273
+    },
+    {
+      "op": "run",
+      "at": 49398
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 468
+    },
+    {
+      "way": [
+        [
+          340,
+          70
+        ],
+        [
+          940,
+          70
+        ],
+        [
+          940,
+          830
+        ],
+        [
+          340,
+          830
+        ],
+        [
+          340,
+          72
+        ]
+      ],
+      "n": 454,
+      "at": 8872
+    },
+    {
+      "way": [
+        [
+          920,
+          810
+        ]
+      ],
+      "n": 1,
+      "at": 9698
+    },
+    {
+      "way": [
+        [
+          340,
+          70
+        ],
+        [
+          940,
+          70
+        ],
+        [
+          940,
+          240
+        ],
+        [
+          340,
+          240
+        ],
+        [
+          340,
+          72
+        ]
+      ],
+      "n": 257,
+      "at": 14801
+    },
+    {
+      "way": [
+        [
+          920,
+          225
+        ]
+      ],
+      "n": 1,
+      "at": 15263
+    },
+    {
+      "way": [
+        [
+          380,
+          115
+        ],
+        [
+          607,
+          115
+        ]
+      ],
+      "n": 39,
+      "at": 16734
+    },
+    {
+      "way": [
+        [
+          380,
+          152
+        ],
+        [
+          678,
+          152
+        ]
+      ],
+      "n": 51,
+      "at": 19249
+    },
+    {
+      "way": [
+        [
+          380,
+          296
+        ],
+        [
+          482,
+          296
+        ]
+      ],
+      "n": 18,
+      "at": 21133
+    },
+    {
+      "way": [
+        [
+          380,
+          312
+        ],
+        [
+          545,
+          312
+        ],
+        [
+          545,
+          360
+        ],
+        [
+          380,
+          360
+        ],
+        [
+          380,
+          314
+        ]
+      ],
+      "n": 73,
+      "at": 23836
+    },
+    {
+      "way": [
+        [
+          530,
+          350
+        ]
+      ],
+      "n": 1,
+      "at": 24299
+    },
+    {
+      "way": [
+        [
+          557,
+          312
+        ],
+        [
+          723,
+          312
+        ],
+        [
+          723,
+          360
+        ],
+        [
+          557,
+          360
+        ],
+        [
+          557,
+          314
+        ]
+      ],
+      "n": 73,
+      "at": 26954
+    },
+    {
+      "way": [
+        [
+          735,
+          312
+        ],
+        [
+          900,
+          312
+        ],
+        [
+          900,
+          360
+        ],
+        [
+          735,
+          360
+        ],
+        [
+          735,
+          314
+        ]
+      ],
+      "n": 73,
+      "at": 29276
+    },
+    {
+      "way": [
+        [
+          380,
+          402
+        ],
+        [
+          900,
+          402
+        ],
+        [
+          900,
+          450
+        ],
+        [
+          380,
+          450
+        ],
+        [
+          380,
+          404
+        ]
+      ],
+      "n": 191,
+      "at": 33557
+    },
+    {
+      "way": [
+        [
+          380,
+          492
+        ],
+        [
+          900,
+          492
+        ],
+        [
+          900,
+          540
+        ],
+        [
+          380,
+          540
+        ],
+        [
+          380,
+          494
+        ]
+      ],
+      "n": 191,
+      "at": 38008
+    },
+    {
+      "way": [
+        [
+          380,
+          582
+        ],
+        [
+          900,
+          582
+        ],
+        [
+          900,
+          630
+        ],
+        [
+          380,
+          630
+        ],
+        [
+          380,
+          584
+        ]
+      ],
+      "n": 191,
+      "at": 42512
+    },
+    {
+      "way": [
+        [
+          380,
+          660
+        ],
+        [
+          900,
+          660
+        ],
+        [
+          900,
+          714
+        ],
+        [
+          380,
+          714
+        ],
+        [
+          380,
+          662
+        ]
+      ],
+      "n": 193,
+      "at": 47368
+    },
+    {
+      "way": [
+        [
+          885,
+          705
+        ]
+      ],
+      "n": 1,
+      "at": 47846
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Sat 22 Nov · 7 pm · The Glasshouse",
+      "whole": false,
+      "x": 490,
+      "y": 115,
+      "at": 17573
+    },
+    {
+      "text": "Maya & Tom's party big bold",
+      "whole": false,
+      "x": 530,
+      "y": 152,
+      "at": 20014
+    },
+    {
+      "text": "Will you come?",
+      "whole": false,
+      "x": 430,
+      "y": 296,
+      "at": 21795
+    },
+    {
+      "text": "Yes",
+      "whole": false,
+      "x": 462,
+      "y": 336,
+      "at": 24920
+    },
+    {
+      "text": "Maybe",
+      "whole": false,
+      "x": 640,
+      "y": 336,
+      "at": 27597
+    },
+    {
+      "text": "No",
+      "whole": false,
+      "x": 817,
+      "y": 336,
+      "at": 29906
+    },
+    {
+      "text": "Your name above, Full name inside",
+      "whole": false,
+      "x": 640,
+      "y": 426,
+      "at": 34357
+    },
+    {
+      "text": "Email above, you@example.com inside",
+      "whole": false,
+      "x": 640,
+      "y": 516,
+      "at": 38859
+    },
+    {
+      "text": "Guests above, Just me inside",
+      "whole": false,
+      "x": 640,
+      "y": 606,
+      "at": 43303
+    },
+    {
+      "text": "Send RSVP",
+      "whole": false,
+      "x": 640,
+      "y": 687,
+      "at": 48546
+    }
+  ]
+}

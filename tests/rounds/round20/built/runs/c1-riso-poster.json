@@ -1,0 +1,489 @@
+{
+  "id": "c1-riso-poster",
+  "at": "2026-10-25T05:09:56.311Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8960163657393545,
+    "overallV2": 0.8960163657393545,
+    "overallV1": 0.8489280442415099,
+    "colour": 0.9636163730910005,
+    "structure": 0.9418257964722784,
+    "structureStrict": 0.8517436961682283,
+    "colourAligned": 0.9636163730910005,
+    "structureAligned": 0.9418257964722784,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9901881295451905
+    },
+    "layout": 0.9123805212073004,
+    "layoutV1": 0.9123805212073004,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      950
+    ],
+    [
+      0,
+      640,
+      70,
+      520,
+      520
+    ],
+    [
+      1,
+      641,
+      71,
+      519,
+      519
+    ],
+    [
+      0,
+      534,
+      194,
+      542,
+      542
+    ],
+    [
+      3,
+      534,
+      194,
+      542,
+      542
+    ],
+    [
+      4,
+      534,
+      194,
+      542,
+      542
+    ],
+    [
+      0,
+      824,
+      344,
+      300,
+      300
+    ],
+    [
+      6,
+      824,
+      344,
+      300,
+      300
+    ],
+    [
+      7,
+      825,
+      344,
+      299,
+      300
+    ],
+    [
+      0,
+      50,
+      90,
+      529,
+      418
+    ],
+    [
+      9,
+      50,
+      90,
+      529,
+      139
+    ],
+    [
+      9,
+      50,
+      229,
+      529,
+      139
+    ],
+    [
+      9,
+      50,
+      369,
+      529,
+      139
+    ],
+    [
+      0,
+      58,
+      97,
+      529,
+      418
+    ],
+    [
+      13,
+      58,
+      97,
+      529,
+      139
+    ],
+    [
+      13,
+      58,
+      236,
+      529,
+      139
+    ],
+    [
+      13,
+      58,
+      376,
+      529,
+      139
+    ],
+    [
+      0,
+      64,
+      553,
+      436,
+      79
+    ],
+    [
+      0,
+      60,
+      650,
+      412,
+      77
+    ],
+    [
+      0,
+      439,
+      527,
+      211,
+      211
+    ],
+    [
+      19,
+      455,
+      543,
+      178,
+      178
+    ],
+    [
+      20,
+      499,
+      597,
+      90,
+      71
+    ],
+    [
+      0,
+      959,
+      678,
+      244,
+      75
+    ],
+    [
+      0,
+      56,
+      830,
+      1170,
+      36
+    ],
+    [
+      23,
+      56,
+      845,
+      143,
+      21
+    ],
+    [
+      23,
+      498,
+      845,
+      371,
+      21
+    ],
+    [
+      23,
+      1169,
+      845,
+      57,
+      21
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.875,
+    "kept": [
+      "blend",
+      "huge-type",
+      "mono",
+      "motion",
+      "overlap",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 65015,
+    "output": 36362,
+    "cacheRead": 493411
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 71547,
+      "output": 22545,
+      "cacheRead": 446011,
+      "toolCalls": 17,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Grep",
+        "Glob",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit src/App.tsx"
+      ],
+      "ms": 247358
+    }
+  ],
+  "reading": "The sketch is a riso-print flyer hero: a big duplicated 'PRINT CLUB NIGHT' headline (blue copy, pink copy slightly offset) over three overlapping decorative shapes (a halftone dot disc, a rotated flat blue block, and a solid pink ink-blot disc), with a bold mono date line, a short descriptive paragraph, a dashed yellow 'FREE ENTRY' circular badge, a yellow 'WAREHOUSE 3 · DOCK RD' button, and a rule-topped footer row with three spaced items; the whole page is cream with Helvetica type and near-black text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        644,
+        74,
+        512,
+        511
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a halftone dot-screen disc (not a sphere, not shaded, not a solid fill): a 520x520px circle with no background colour, covered in an even grid of small flat"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        537,
+        197,
+        535,
+        535
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add one plain solid block, not a picture: 430x430px, flat opaque blue #2f5bff fill, no text, no border, no shadow. Its top-left is at 590,250 before rotating; t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        824,
+        344,
+        292,
+        292
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add an ink-like (multiply blend mode, so it darkens what it overlaps rather than covering it) perfectly round solid disc, 300px across, flat fully opaque vivid "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 127
+        },
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 127
+        }
+      ],
+      "region": [
+        58,
+        90,
+        484,
+        425
+      ],
+      "paths": [],
+      "instruction": "Add giant heavy uppercase headline text in blue, ink-like (multiply blend mode), set tight (line-height 0.82), reading exactly 3 lines: 'PRINT' / 'CLUB' / 'NIGH"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 127
+        },
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 127
+        }
+      ],
+      "region": [
+        58,
+        90,
+        484,
+        425
+      ],
+      "paths": [],
+      "instruction": "Add a second, slightly offset copy of the same giant heavy uppercase headline text, this one in pink, ink-like (multiply blend mode), tight line-height 0.82, sa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9"
+          ],
+          "lines": 1,
+          "fontPx": 66
+        }
+      ],
+      "region": [
+        64,
+        553,
+        380,
+        79
+      ],
+      "paths": [],
+      "instruction": "Add a huge bold (font-weight 700) monospace line of text reading '11.14 — 9PM' on one line, white-space nowrap, about 422px wide."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        60,
+        650,
+        412,
+        51
+      ],
+      "paths": [],
+      "instruction": "Add a short paragraph of body copy reading: \"Two drums, four colours, one very loud duplicator. Bring paper, leave with a poster still warm from the press.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        459,
+        550,
+        171,
+        169
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add a circular 'FREE ENTRY' badge, tilted 12° anticlockwise and gently bobbing up/down 3px, with a dashed (not solid) 3px #1a1a1a outline and vivid yellow fill;"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        959,
+        678,
+        241,
+        72
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a yellow button reading 'WAREHOUSE 3 · DOCK RD', 244x75px, square corners (border-radius 0, not a pill)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        833,
+        1162,
+        25
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Add a footer row, 1170px wide, positioned at 56,830, with only a 3px #1a1a1a rule along its top edge (no border on other sides, no fill); text sits 12px below t"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

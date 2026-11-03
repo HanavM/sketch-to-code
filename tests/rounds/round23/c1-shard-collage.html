@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Shard collage</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#ece6da;font-family:Helvetica,Arial,sans-serif;color:#141414}
+@keyframes drift{50%{transform:translate(10px,-8px) rotate(2deg)}}
+.s1{position:absolute;left:120px;top:90px;width:520px;height:560px;background:linear-gradient(160deg,#2b4c7e,#0e1a2b);clip-path:polygon(12% 0,100% 8%,86% 100%,0 78%)}
+.s2{position:absolute;left:520px;top:220px;width:420px;height:420px;background:repeating-linear-gradient(45deg,#e8452c 0 14px,#f06a4f 14px 28px);clip-path:polygon(50% 0,100% 60%,70% 100%,0 70%);mix-blend-mode:multiply;animation:drift 7s ease-in-out infinite}
+.s3{position:absolute;left:860px;top:60px;width:300px;height:380px;background:radial-gradient(circle at 30% 30%,#f7d46b,#c99a16 70%);clip-path:polygon(0 0,100% 20%,80% 100%,10% 85%)}
+.vert{position:absolute;left:52px;top:120px;writing-mode:vertical-rl;transform:rotate(180deg);font:700 12px/1 Helvetica;letter-spacing:6px;text-transform:uppercase}
+.h{position:absolute;left:180px;top:300px;font:900 150px/0.84 Helvetica;letter-spacing:-8px;color:#ece6da;mix-blend-mode:difference;text-transform:uppercase}
+.h em{font:italic 400 150px/0.84 Georgia,serif;letter-spacing:-4px;display:block;margin-left:260px}
+.tape{position:absolute;left:600px;top:150px;width:160px;height:36px;background:#fffbe8cc;transform:rotate(-12deg);box-shadow:0 2px 4px #0003}
+.cap{position:absolute;left:900px;top:520px;width:300px;font:400 16px/1.55 Georgia,serif}.cap b{display:block;font:700 11px Helvetica;letter-spacing:4px;margin-bottom:10px}
+.num{position:absolute;left:960px;top:760px;font:900 110px/1 Helvetica;color:transparent;-webkit-text-stroke:2px #141414}
+.nav{position:absolute;left:120px;top:36px;width:1040px;display:flex;justify-content:space-between;font:700 13px Helvetica;letter-spacing:2px}
+.btn{position:absolute;left:180px;top:760px;padding:18px 34px;background:#141414;color:#ece6da;font:700 14px Helvetica;letter-spacing:2px;clip-path:polygon(0 0,100% 0,92% 100%,0 100%)}
+</style></head><body>
+<div class="nav" data-r="nav"><span>FRAGMENT/STUDIO</span><span>Work</span><span>Archive</span><span>Contact</span></div>
+<div class="s1" data-r="shard-blue" data-must></div>
+<div class="s2" data-r="shard-stripe" data-must></div>
+<div class="s3" data-r="shard-gold"></div>
+<div class="tape" data-r="tape"></div>
+<div class="vert" data-r="vertical-label">Issue 23 — Broken things</div>
+<h1 class="h" data-r="headline" data-must>Cut up<em>& kept</em></h1>
+<div class="cap" data-r="caption"><b>COLLAGE SERIES</b>Nine posters assembled from torn transit maps, safety stripes and the gold of an old sign.</div>
+<div class="btn" data-r="cta">VIEW THE SERIES →</div>
+<div class="num" data-r="number">09</div>
+</body></html>

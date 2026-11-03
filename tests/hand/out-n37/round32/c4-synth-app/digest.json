@@ -1,0 +1,378 @@
+{
+  "round": 32,
+  "id": "c4-synth-app",
+  "version": 3,
+  "stopped": null,
+  "likeness": 80.9,
+  "colour": 0.947379240879917,
+  "structure": 0.8507688940763775,
+  "layout": 0.6167021874997206,
+  "strokes": {
+    "count": 10,
+    "pointsPerStroke": 2.6,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "box": 3,
+      "dot": 3
+    },
+    "inkPx": 4602
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 41,
+  "notes": 8,
+  "longestNote": 9,
+  "noteTexts": [
+    "Pulse",
+    "Features · Sounds · Pricing",
+    "Download",
+    "Make noise. huge white",
+    "A pocket synth with 400 sounds and zero menus.",
+    "16 rounded bars, sound wave heights, pink to violet",
+    "Try it free",
+    "no panel behind bars; pink at top, violet bottom"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 330,
+    "firstReadingS": 41,
+    "readS": [
+      18,
+      16
+    ],
+    "buildS": [
+      231,
+      36
+    ],
+    "sketchingS": 28
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 52911,
+    "cacheRead": 432614,
+    "output": 25861,
+    "billed": 78772
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 613
+    },
+    {
+      "op": "stroke",
+      "at": 1595
+    },
+    {
+      "op": "stroke",
+      "at": 2866
+    },
+    {
+      "op": "stroke",
+      "at": 4747
+    },
+    {
+      "op": "stroke",
+      "at": 6481
+    },
+    {
+      "op": "stroke",
+      "at": 14182
+    },
+    {
+      "op": "stroke",
+      "at": 16046
+    },
+    {
+      "op": "pen",
+      "color": "#0b0b0d",
+      "at": 16417
+    },
+    {
+      "op": "stroke",
+      "at": 16885
+    },
+    {
+      "op": "pen",
+      "color": "#f173b6",
+      "at": 17251
+    },
+    {
+      "op": "stroke",
+      "at": 17712
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 18075
+    },
+    {
+      "op": "stroke",
+      "at": 18545
+    },
+    {
+      "op": "note",
+      "at": 19156
+    },
+    {
+      "op": "note",
+      "at": 19796
+    },
+    {
+      "op": "note",
+      "at": 20405
+    },
+    {
+      "op": "note",
+      "at": 21068
+    },
+    {
+      "op": "note",
+      "at": 21752
+    },
+    {
+      "op": "note",
+      "at": 22468
+    },
+    {
+      "op": "note",
+      "at": 23107
+    },
+    {
+      "op": "run",
+      "at": 23208
+    },
+    {
+      "op": "note",
+      "at": 275235
+    },
+    {
+      "op": "run",
+      "at": 275458
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          64,
+          42
+        ],
+        [
+          117,
+          42
+        ]
+      ],
+      "n": 10,
+      "at": 613
+    },
+    {
+      "way": [
+        [
+          521,
+          42
+        ],
+        [
+          704,
+          42
+        ]
+      ],
+      "n": 32,
+      "at": 1594
+    },
+    {
+      "way": [
+        [
+          1108,
+          22
+        ],
+        [
+          1216,
+          22
+        ],
+        [
+          1216,
+          58
+        ],
+        [
+          1108,
+          58
+        ],
+        [
+          1108,
+          22
+        ]
+      ],
+      "n": 49,
+      "at": 2865
+    },
+    {
+      "way": [
+        [
+          385,
+          240
+        ],
+        [
+          895,
+          240
+        ]
+      ],
+      "n": 86,
+      "at": 4747
+    },
+    {
+      "way": [
+        [
+          412,
+          290
+        ],
+        [
+          868,
+          290
+        ]
+      ],
+      "n": 77,
+      "at": 6481
+    },
+    {
+      "way": [
+        [
+          140,
+          400
+        ],
+        [
+          1140,
+          400
+        ],
+        [
+          1140,
+          700
+        ],
+        [
+          140,
+          700
+        ],
+        [
+          140,
+          400
+        ]
+      ],
+      "n": 435,
+      "at": 14182
+    },
+    {
+      "way": [
+        [
+          540,
+          770
+        ],
+        [
+          740,
+          770
+        ],
+        [
+          740,
+          826
+        ],
+        [
+          540,
+          826
+        ],
+        [
+          540,
+          770
+        ]
+      ],
+      "n": 85,
+      "at": 16046
+    },
+    {
+      "way": [
+        [
+          300,
+          850
+        ]
+      ],
+      "n": 1,
+      "at": 16885
+    },
+    {
+      "way": [
+        [
+          1125,
+          40
+        ]
+      ],
+      "n": 1,
+      "at": 17712
+    },
+    {
+      "way": [
+        [
+          560,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 18545
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Pulse",
+      "whole": false,
+      "x": 90,
+      "y": 30,
+      "at": 19156
+    },
+    {
+      "text": "Features · Sounds · Pricing",
+      "whole": false,
+      "x": 610,
+      "y": 30,
+      "at": 19796
+    },
+    {
+      "text": "Download",
+      "whole": false,
+      "x": 1160,
+      "y": 40,
+      "at": 20405
+    },
+    {
+      "text": "Make noise. huge white",
+      "whole": false,
+      "x": 640,
+      "y": 228,
+      "at": 21068
+    },
+    {
+      "text": "A pocket synth with 400 sounds and zero menus.",
+      "whole": false,
+      "x": 640,
+      "y": 280,
+      "at": 21752
+    },
+    {
+      "text": "16 rounded bars, sound wave heights, pink to violet",
+      "whole": false,
+      "x": 640,
+      "y": 550,
+      "at": 22468
+    },
+    {
+      "text": "Try it free",
+      "whole": false,
+      "x": 640,
+      "y": 798,
+      "at": 23107
+    },
+    {
+      "text": "no panel behind bars; pink at top, violet bottom",
+      "whole": false,
+      "x": 180,
+      "y": 480,
+      "at": 275235
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Team settings</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#18181b;font-size:14px}
+.side{position:absolute;left:0;top:0;width:240px;height:900px;background:#fafafa;border-right:1px solid #e4e4e7;padding:20px 12px}
+.ws{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:24px;padding:0 8px}.ws i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#db2777)}
+.side .g{font-size:11px;color:#71717a;font-weight:700;letter-spacing:1px;margin:18px 8px 6px}.side a{display:block;padding:8px;border-radius:6px;color:#3f3f46}.side .on{background:#ede9fe;color:#5b21b6;font-weight:700}
+.main{position:absolute;left:240px;top:0;width:1040px;height:900px;padding:28px 40px}
+h1{font-size:24px}.sub{color:#71717a;margin:4px 0 20px}
+.tabs{display:flex;gap:24px;border-bottom:1px solid #e4e4e7;margin-bottom:20px}.tabs span{padding-bottom:10px;color:#71717a}.tabs .on{color:#18181b;border-bottom:2px solid #18181b;font-weight:700}
+.inv{display:flex;gap:10px;margin-bottom:18px}.inv .in{flex:1;height:40px;border:1px solid #d4d4d8;border-radius:8px;padding:11px 12px;color:#a1a1aa}.inv .sel{width:130px;height:40px;border:1px solid #d4d4d8;border-radius:8px;padding:11px 12px}.inv .b{height:40px;padding:11px 18px;background:#18181b;color:#fff;border-radius:8px;font-weight:700}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-size:12px;color:#71717a;font-weight:400;padding:8px 10px;border-bottom:1px solid #e4e4e7}td{padding:10px;border-bottom:1px solid #f4f4f5}
+.av{display:inline-block;width:30px;height:30px;border-radius:50%;color:#fff;text-align:center;line-height:30px;font-weight:700;font-size:12px;vertical-align:middle;margin-right:10px}
+.role{display:inline-block;padding:4px 10px;border:1px solid #d4d4d8;border-radius:6px}.pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;background:#dcfce7;color:#166534}.pill.p{background:#fef3c7;color:#92400e}
+.mx{margin-top:22px;border:1px solid #e4e4e7;border-radius:10px;overflow:hidden}.mx h4{padding:12px 14px;background:#fafafa;border-bottom:1px solid #e4e4e7}
+.mx td,.mx th{text-align:center}.mx td:first-child,.mx th:first-child{text-align:left}.ck{display:inline-block;width:18px;height:18px;border-radius:4px;background:#7c3aed;color:#fff;line-height:18px;font-size:12px}.no{display:inline-block;width:18px;height:18px;border-radius:4px;border:1.5px solid #d4d4d8}
+.tg{display:inline-block;width:36px;height:20px;border-radius:10px;background:#7c3aed;position:relative;vertical-align:middle}.tg::after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}.tg.off{background:#d4d4d8}.tg.off::after{right:auto;left:2px}
+.menu{position:absolute;left:780px;top:322px;width:200px;background:#fff;border:1px solid #e4e4e7;border-radius:8px;box-shadow:0 12px 32px rgba(0,0,0,.14);padding:6px;z-index:2}.menu div{padding:8px 10px;border-radius:6px}.menu .h{background:#f4f4f5}.menu .d{color:#dc2626;border-top:1px solid #f4f4f5}
+</style></head><body>
+<div class="side" data-r="sidebar"><div class="ws"><i></i>Fieldnote</div><div class="g">ACCOUNT</div><a>Profile</a><a>Notifications</a><div class="g">WORKSPACE</div><a>General</a><a class="on">Members</a><a>Billing</a><a>Integrations</a><a>Security</a><a>API keys</a></div>
+<div class="main" data-r="main"><h1>Members</h1><div class="sub">Manage who can see and edit this workspace. 7 of 10 seats used.</div>
+<div class="tabs" data-r="tabs"><span class="on">Members 6</span><span>Pending 1</span><span>Groups</span></div>
+<div class="inv" data-r="invite-row"><span class="in">Invite by email…</span><span class="sel">Editor ▾</span><span class="b">Send invite</span></div>
+<table data-r="member-table" data-must><tr><th>Name</th><th>Role</th><th>Status</th><th>Last active</th><th>2FA</th><th></th></tr>
+<tr><td><span class="av" style="background:#7c3aed">HM</span><b>Hanav M.</b> you</td><td><span class="role">Owner</span></td><td><span class="pill">Active</span></td><td>Now</td><td><span class="tg"></span></td><td>⋯</td></tr>
+<tr><td><span class="av" style="background:#0891b2">PR</span>Priya Raman</td><td><span class="role">Admin ▾</span></td><td><span class="pill">Active</span></td><td>2h ago</td><td><span class="tg"></span></td><td>⋯</td></tr>
+<tr><td><span class="av" style="background:#ea580c">JO</span>Joel Okafor</td><td><span class="role">Editor ▾</span></td><td><span class="pill">Active</span></td><td>Yesterday</td><td><span class="tg off"></span></td><td><b>⋯</b></td></tr>
+<tr><td><span class="av" style="background:#16a34a">LT</span>Lena Torres</td><td><span class="role">Editor ▾</span></td><td><span class="pill">Active</span></td><td>Oct 20</td><td><span class="tg"></span></td><td>⋯</td></tr>
+<tr><td><span class="av" style="background:#a1a1aa">?</span>marco@studio.io</td><td><span class="role">Viewer ▾</span></td><td><span class="pill p">Invited</span></td><td>—</td><td>—</td><td>⋯</td></tr></table>
+<div class="mx" data-r="permission-matrix" data-must><h4>Role permissions</h4><table><tr><th>Permission</th><th>Owner</th><th>Admin</th><th>Editor</th><th>Viewer</th></tr>
+<tr><td>View notes</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+<tr><td>Edit notes</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="no"></span></td></tr>
+<tr><td>Invite members</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="no"></span></td><td><span class="no"></span></td></tr>
+<tr><td>Manage billing</td><td><span class="ck">✓</span></td><td><span class="no"></span></td><td><span class="no"></span></td><td><span class="no"></span></td></tr></table></div></div>
+<div class="menu" data-r="row-menu"><div class="h">Change role</div><div>Resend 2FA setup</div><div>Transfer notes</div><div class="d">Remove from workspace</div></div>
+</body></html>

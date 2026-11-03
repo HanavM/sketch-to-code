@@ -36,6 +36,7 @@
  *   node tests/bench/run.mjs --only 01,04         # just those ids (prefix match)
  *   node tests/bench/run.mjs --limit 1            # calibrate cost on one page
  *   node tests/bench/run.mjs --dry                # draw and score, never Run (free)
+ *   node tests/bench/run.mjs --budget 120000      # stop before a page that could pass 120k billed tokens
  *   node tests/bench/run.mjs --mode screenshot    # one arm: auto|gesture|design|screenshot
  *   node tests/bench/run.mjs --set rough          # the loose/partial/edit set (s2c-009)
  *   node tests/bench/run.mjs --words content      # typed words: all|content|none (s2c-016, lib/words.mjs)
@@ -47,11 +48,44 @@
  * spec measures the change it asks for and not something the page already had.
  */
 import { chromium } from 'playwright'
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import tidy from './sketches/index.mjs'
 import rough from './sketches/rough/index.mjs'
+import round1 from '../rounds/round1/sketches.mjs'
+import round1auto from '../rounds/round1/auto.mjs'
+import round2auto from '../rounds/round2/auto.mjs'
+import round3auto from '../rounds/round3/auto.mjs'
+import round4auto from '../rounds/round4/auto.mjs'
+import round5auto from '../rounds/round5/auto.mjs'
+import round6auto from '../rounds/round6/auto.mjs'
+import round7auto from '../rounds/round7/auto.mjs'
+import round8auto from '../rounds/round8/auto.mjs'
+import round9auto from '../rounds/round9/auto.mjs'
+import round10auto from '../rounds/round10/auto.mjs'
+import round11auto from '../rounds/round11/auto.mjs'
+import round12auto from '../rounds/round12/auto.mjs'
+import round13auto from '../rounds/round13/auto.mjs'
+import round14auto from '../rounds/round14/auto.mjs'
+import round15auto from '../rounds/round15/auto.mjs'
+import round16auto from '../rounds/round16/auto.mjs'
+import round17auto from '../rounds/round17/auto.mjs'
+import round18auto from '../rounds/round18/auto.mjs'
+import round19auto from '../rounds/round19/auto.mjs'
+import round20auto from '../rounds/round20/auto.mjs'
+import round21auto from '../rounds/round21/auto.mjs'
+import round22auto from '../rounds/round22/auto.mjs'
+import round23auto from '../rounds/round23/auto.mjs'
+import round24auto from '../rounds/round24/auto.mjs'
+import round25auto from '../rounds/round25/auto.mjs'
+import round26auto from '../rounds/round26/auto.mjs'
+import round27auto from '../rounds/round27/auto.mjs'
+import round28auto from '../rounds/round28/auto.mjs'
+import round29auto from '../rounds/round29/auto.mjs'
+import round30auto from '../rounds/round30/auto.mjs'
+import { pictureLikeness, blend, LIKENESS_VERSION } from '../rounds/lib/likeness.mjs'
+import { effectsOf, effectRecall } from '../rounds/lib/effects.mjs'
 import { measureAnchors, driftedAnchors } from './sketches/rough/base.mjs'
 import { toStrokes } from './lib/draw.mjs'
 import { makeApp } from './lib/app.mjs'
@@ -96,11 +130,13 @@ if (PLAIN && !DRY) throw new Error('--plain only runs with --dry: it must never 
 // tokens against ~16k for a whole page. For counting failed readings (s2c-056).
 // --repeat N runs each chosen page N times.
 const READ_ONLY = has('read-only')
+// n151: dense pages read in 130-190 s; the bench app gets a 230 s reading limit (product default 180 s)
+process.env.S2C_READING_TIMEOUT_MS ??= '230000'
 if (READ_ONLY && DRY) throw new Error('--read-only presses Run; --dry never does: pick one')
 const MODE = parseMode(arg('mode'))
 if (READ_ONLY && MODE === 'screenshot') throw new Error('--read-only needs a reading: screenshot mode has none')
 const WORDS = parseWords(arg('words'))
-const SETS = { tidy, rough }
+const SETS = { tidy, rough, round1, round1auto, round2auto, round3auto, round4auto, round5auto, round6auto, round7auto, round8auto, round9auto, round10auto, round11auto, round12auto, round13auto, round14auto, round15auto, round16auto, round17auto, round18auto, round19auto, round20auto, round21auto, round22auto, round23auto, round24auto, round25auto, round26auto, round27auto, round28auto, round29auto, round30auto }
 const SET = String(arg('set', 'tidy'))
 if (!SETS[SET]) throw new Error(`--set must be one of ${Object.keys(SETS).join(', ')} (got "${SET}")`)
 const specs = SETS[SET]
@@ -178,7 +214,16 @@ async function safeEval(page, fn, tries = 40) {
 }
 
 /** Draw one polyline with a real pointer, the way a hand would. */
-async function drawPolyline(page, points) {
+async function drawPolyline(page, rawPoints) {
+  // A hand can only draw on the screen: marks planned past the page edge
+  // (a heading that bleeds off it) start at the edge instead. Off-screen
+  // pointer points broke capture: round-2 c2 drew 8 marks as 4 strokes,
+  // diagonal lines from the corner, and lost the body and date marks.
+  const vp = page.viewportSize() ?? { width: 1280, height: 900 }
+  const points = rawPoints.map((p) => ({
+    x: Math.min(vp.width - 2, Math.max(1, p.x)),
+    y: Math.min(vp.height - 2, Math.max(1, p.y)),
+  }))
   await page.mouse.move(points[0].x, points[0].y)
   await page.mouse.down()
   for (const p of points.slice(1)) await page.mouse.move(p.x, p.y)
@@ -283,8 +328,42 @@ function readRunRecord(dir) {
   return null
 }
 
+/**
+ * Round pages (tests/rounds) carry a reference picture: score how much the
+ * page now on screen looks like it (colour, structure, plus the region score
+ * as layout), as lift over a blank page. Viewport shot, overlay hidden.
+ */
+async function likenessOf(page, spec, row, tag) {
+  if (!spec.ref) return
+  const shot = await page.screenshot({ animations: 'disabled' }) // first frame, as the target ref is shot
+  writeFileSync(join(OUT, 'shots', `${spec.id}-${tag}.png`), shot)
+  const pic = await pictureLikeness(page, spec.ref, shot)
+  // layout v2 (n174): a region built as unwrapped sibling parts also counts (score.mjs matchGroups); v1 kept beside it
+  const layout = row.score?.regionScoreGrouped ?? row.score?.regionScore ?? null
+  const layoutV1 = row.score?.regionScore ?? null
+  // v2 structure forgives a ~16px offset; overallV1 keeps the old strict number so rounds stay comparable
+  row.likeness = { ...pic, layout, layoutV1, layoutVersion: 2, version: LIKENESS_VERSION, overall: blend({ colour: pic.colourAligned, structure: pic.structureAligned }, layout, spec.baseline), overallV2: blend(pic, layout, spec.baseline), overallV1: blend({ colour: pic.colour, structure: pic.structureStrict }, layout, spec.baseline) }
+  const p = (x) => (x == null ? '—' : `${Math.round(x * 100)}%`)
+  log(`likeness ${p(row.likeness.overall)} · colour ${p(pic.colourAligned)} · structure ${p(pic.structureAligned)} (aligned x${pic.align.scale} ${pic.align.dx},${pic.align.dy}; unmoved ${p(pic.structure)}, strict ${p(pic.structureStrict)}) · layout ${p(layout)} · v2 ${p(row.likeness.overallV2)} · v1 ${p(row.likeness.overallV1)}`)
+  // creative techniques kept (tilt, glass, hollow type, bleed...): reported beside likeness, not blended in
+  if (spec.effects?.length) {
+    row.effects = effectRecall(spec.effects, await effectsOf(page))
+    log(`effects ${p(row.effects.recall)} · kept ${row.effects.kept.join(', ') || '—'} · missing ${row.effects.missing.join(', ') || '—'}`)
+  }
+}
+
+// --budget N: stop starting live pages once billed tokens (input + output,
+// interpret + codegen) reach N minus one worst-case page. Pages vary 25k-90k
+// (round 1, 2026-10-21: one 6-page run spent 303k against a 300k/day budget).
+const BUDGET = arg('budget', null) === null ? null : Number(arg('budget'))
+const WORST_PAGE = 95_000
+let spent = 0
 const queue = [...chosen]
 while (queue.length) {
+  if (BUDGET !== null && !DRY && spent + WORST_PAGE > BUDGET) {
+    log(`\nbudget: ${spent.toLocaleString()} spent of ${BUDGET.toLocaleString()}; one more page could pass it. Stopping before ${queue.map((s) => s.id).join(', ')}`)
+    break
+  }
   const spec = queue.shift()
   log(`\n── ${spec.id} · ${spec.title}`)
   const row = {
@@ -403,13 +482,15 @@ while (queue.length) {
     for (const note of notesFor(spec, WORDS)) {
       await page.mouse.move(note.at.x, note.at.y)
       await page.waitForTimeout(120)
-      await page.keyboard.press('Alt+n')
+      // a whole-page note (Alt+Shift+N) is about the run, not the ink under the pointer
+      await page.keyboard.press(note.whole ? 'Alt+Shift+N' : 'Alt+n')
       await page.waitForTimeout(250)
       await page.keyboard.type(note.text)
       await page.keyboard.press('Enter')
       await page.waitForTimeout(200)
     }
     row.drawMs = Date.now() - drawStart
+    { const ns = notesFor(spec, WORDS); row.notesSent = ns.length; row.wordsSent = ns.reduce((a, n) => a + String(n.text).split(/\s+/).filter(Boolean).length, 0) }
     // Two different counts, both reported, because they answer different
     // questions. `strokes` is what a person DREW — the number this benchmark is
     // trying to drive down. `captured` is what the system ended up with, which
@@ -472,6 +553,7 @@ while (queue.length) {
         if (h) h.style.display = 'none'
       })
       row.score = await scorePage(page, key.spec)
+      await likenessOf(page, spec, row, 'untouched')
       const s = row.score
       log(`untouched page: intent ${s.intent === null ? '—' : s.intent.toFixed(2)} · realized ${String(s.realized)}`)
       if (s.realized && key.judged) row.error = 'the untouched page already scores realized: this spec measures nothing'
@@ -489,9 +571,9 @@ while (queue.length) {
     // Confirm button there failed every page after paying for it (s2c-013).
     let ready = MODE === 'screenshot'
     let readFailed = false
-    // ~150 s: past the reading's own 2-minute limit, so a slow reading that
+    // ~240 s (n151: dense 17-mark pages read in ~135 s; the overlay parks a reading 4 min): past the reading's limit, so a slow reading that
     // lands isn't scored as a failure, and one that doesn't arrives with its cause
-    for (let i = 0; i < 600 && !ready; i++) {
+    for (let i = 0; i < 960 && !ready; i++) {
       const st = await safeEval(page, () => {
         const h = document.getElementById('s2c-overlay-host')
         const c = h?.shadowRoot?.getElementById('confirm')
@@ -507,6 +589,7 @@ while (queue.length) {
       if (ready || readFailed) break
       await page.waitForTimeout(250)
     }
+    if (ready) row.readingMs = Date.now() - runStart // how long until the reading shows (ease: speed)
     const statusNow = () => safeEval(page, () => document.getElementById('s2c-overlay-host')
       ?.shadowRoot?.getElementById('status')?.textContent ?? '')
     if (READ_ONLY) {
@@ -533,13 +616,20 @@ while (queue.length) {
       row.readingMs = Date.now() - runStart
       // and what the dev server logged about it (one server per page)
       row.serverSaid = readingFailures(server?.log?.() ?? '')
-      throw new Error(`${readFailed ? 'reading failed' : 'no reading within 150s'} after ${(row.readingMs / 1000).toFixed(0)}s · ${await statusNow()}${cause ? ` · cause: ${cause}` : ''}`)
+      throw new Error(`${readFailed ? 'reading failed' : 'no reading within 240s'} after ${(row.readingMs / 1000).toFixed(0)}s · ${await statusNow()}${cause ? ` · cause: ${cause}` : ''}`)
     }
     if (MODE !== 'screenshot') await safeEval(page, `${sr()}.getElementById('confirm').click()`)
 
     for (let i = 0; i < 1600; i++) { // up to ~13 min, the plugin's own cap
       const busy = await safeEval(page, () => document.getElementById('s2c-overlay-host')?.dataset.mode === 'running')
       if (!busy && i > 4) break
+      await page.waitForTimeout(500)
+    }
+    // n268: a full page reload mid-build (the dev server logs "page reload index.html") drops the overlay out of
+    // 'running' while the codegen goes on server-side; the bench then scored a blank page and reset the app under
+    // the live build (round 30: 4 of 10 pages, zero codegen tokens). With no run record yet, wait for it.
+    for (let i = 0; i < 1200 && !readRunRecord(APP_DIR); i++) {
+      if (i === 0) log('overlay left running with no run record (page reloaded?): waiting for the build to finish')
       await page.waitForTimeout(500)
     }
     row.runMs = Date.now() - runStart
@@ -556,6 +646,22 @@ while (queue.length) {
       interpret: interpretTokens,
       codegen,
     }
+    spent += row.tokens.input + row.tokens.output
+    if (!record) {
+      // n268: codegen ended with no run record (zero codegen tokens, page left blank): keep the
+      // dev server's last lines so the cause is on file, not guessed
+      row.serverTail = (server?.log?.() ?? '').split('\n').slice(-60).join('\n')
+      log(`no codegen record: status "${status.slice(0, 120)}"; server tail saved to the row (serverTail)`)
+    }
+    if (record?.sends?.length) {
+      log('codegen turns: ' + record.sends.map((t) => `${t.attempt}/${t.kind} ${Math.round(t.billed / 1000)}k ${t.toolCalls} tools`).join(' · '))
+      // which calls: Read/Edit/Write counts per turn (a 23-call build is many small Edits or re-Reads)
+      for (const t of record.sends) if (t.tools?.length) {
+        const n = {}
+        for (const c of t.tools) n[c] = (n[c] ?? 0) + 1
+        log(`  ${t.attempt}/${t.kind}: ` + Object.entries(n).map(([c, k]) => (k > 1 ? `${c} x${k}` : c)).join(', '))
+      }
+    }
     row.verified = record?.verification?.score ?? null
     row.changedFiles = record?.changedFiles?.length ?? null
 
@@ -569,7 +675,26 @@ while (queue.length) {
     })
     row.score = await scorePage(page, key.spec)
     row.realized = key.judged ? !!row.score.realized : null
+    await likenessOf(page, spec, row, 'built')
     await page.screenshot({ path: join(OUT, 'shots', `${spec.id}-result.png`), fullPage: true })
+    // keep the run's own record (reading, prompt, codemod) per page: the app
+    // wipes it on the next page, and a failed build needs its reading to debug
+    try {
+      const runs = join(APP_DIR, '.sketch2code', 'runs')
+      for (const r of readdirSync(runs)) cpSync(join(runs, r), join(OUT, 'runs', spec.id, r), { recursive: true })
+    } catch { /* no run record: nothing to keep */ }
+    // and the built source itself: round-3 e5's chart came out with no bars
+    // and the code that drew it was gone by the next page
+    try {
+      const srcDir = join(OUT, 'runs', spec.id, 'src')
+      mkdirSync(srcDir, { recursive: true })
+      cpSync(join(APP_DIR, 'src'), srcDir, { recursive: true })
+    } catch { /* best effort */ }
+    // and a small committed digest next to the round's side-by-sides: out/ is
+    // not kept, and n12 could not tell why c2's headline shrank without it
+    if (spec.target) {
+      try { writeRunDigest(APP_DIR, join(spec.target, '..', 'built', 'runs'), spec.id, row) } catch { /* best effort */ }
+    }
     // order prints as — when there were fewer than two comparable regions:
     // "0%" there means "could not be measured", and printing that as a zero
     // drags an average down with a number that was never an observation
@@ -659,3 +784,40 @@ if (PLAIN) {
   for (const r of pr) log(`  ${r.id.padEnd(30)} ${r.plain.outcome.padEnd(10)} want ${String(r.plain.want).padEnd(15)} ${r.plain.got ?? `declined: ${r.plain.reason}`}`)
   writeFileSync(join(OUT, `plain.words-${WORDS}.json`), JSON.stringify({ tally: t, rows: pr.map((r) => ({ id: r.id, ...r.plain })) }, null, 2))
 }
+
+/**
+ * What the reading made of the drawing, small enough to commit per page:
+ * each action's kind, cited strokes, text squiggles, drawn type size and the
+ * start of its instruction, plus the page's likeness and tokens.
+ */
+function writeRunDigest(appDir, dir, id, row) {
+  const runs = join(appDir, '.sketch2code', 'runs')
+  const latest = readdirSync(runs).sort().pop()
+  const interp = JSON.parse(readFileSync(join(runs, latest, 'interpretation.json'), 'utf8'))
+  mkdirSync(dir, { recursive: true })
+  writeFileSync(join(dir, `${id}.json`), JSON.stringify({
+    id,
+    at: new Date().toISOString(),
+    likeness: row.likeness ? { version: row.likeness.version, overall: row.likeness.overall, overallV2: row.likeness.overallV2, overallV1: row.likeness.overallV1, colour: row.likeness.colour, structure: row.likeness.structure, structureStrict: row.likeness.structureStrict, colourAligned: row.likeness.colourAligned, structureAligned: row.likeness.structureAligned, align: row.likeness.align, layout: row.likeness.layout, layoutV1: row.likeness.layoutV1 ?? null, layoutVersion: row.likeness.layoutVersion ?? 1 } : null,
+    // the built page's element boxes [parent, x, y, w, h], so layout can be re-scored later without rebuilding
+    boxes: row.score?.boxes ?? null,
+    groupMatched: row.score?.groupMatched ?? null,
+    effects: row.effects ?? null,
+    tokens: row.tokens ? { input: row.tokens.input, output: row.tokens.output, cacheRead: row.tokens.cacheRead } : null,
+    // per codegen turn: build vs repair rounds, tool calls (null before n27)
+    sends: readRunRecord(appDir)?.sends ?? null,
+    // ease and speed (INBOX 2026-10-26 15:49): what a person drew and typed, and how long each stage took
+    ease: { marks: row.strokes ?? null, captured: row.captured ?? null, notes: row.notesSent ?? null, words: row.wordsSent ?? null, drawMs: row.drawMs ?? null, readingMs: row.readingMs ?? null, runMs: row.runMs ?? null },
+    reading: interp.reading,
+    actions: (interp.actions ?? []).map((a) => ({
+      kind: a.kind,
+      textMarks: a.textMarks ?? [],
+      textSize: (a.textSize ?? []).map((t) => ({ strokes: t.strokes, lines: t.lines, fontPx: t.fontPx })),
+      region: a.region ? [a.region.x, a.region.y, a.region.w, a.region.h].map(Math.round) : null,
+      paths: (a.svgPaths ?? []).map((p) => p.strokeId),
+      instruction: String(a.instruction ?? '').slice(0, 160),
+    })),
+    rejected: interp.rejected ?? [],
+  }, null, 2) + '\n')
+}
+

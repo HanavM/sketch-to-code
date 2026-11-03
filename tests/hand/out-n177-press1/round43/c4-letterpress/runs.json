@@ -1,0 +1,456 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "10ac679c62f530a299612eb210acab1aa2fe60f0",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A site header with a logo wordmark and nav label separated by a divider; a hero section with a two-line italic headline, a body paragraph, and a dark-filled button labeled 'See the shop'; a large red giant serif letter 'A' filling a square panel; and a tilted outline 'Since 1987' stamp badge near the bottom right.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x83 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:4:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 83
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (70,189) 480x207 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:17:11",
+      "rect": {
+       "x": 70,
+       "y": 189,
+       "w": 480,
+       "h": 207
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Printed by hand, one sheet at \" at (70,187) 416x211 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:17:11",
+      "rect": {
+       "x": 70,
+       "y": 189,
+       "w": 480,
+       "h": 207
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #2d2722"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (70,504) 400x29 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:24:11",
+      "rect": {
+       "x": 70,
+       "y": 504,
+       "w": 400,
+       "h": 28.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (70,540) 201x55: the <button> built for it sits 98px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). The line drawn at y=435 is itself built 98px too low (its bottom at y=533): that part of the drift is above the line (the heading's size or margin, the tab bar's padding or height): take 98px there. The gap under the line is right; keep it. Never push anything further down; no negative margins or relative offsets.",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 70,
+        "y": 540,
+        "w": 201,
+        "h": 55
+       },
+       "built": {
+        "x": 70,
+        "y": 637.5,
+        "w": 201,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": 98
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (645,199) 438x431 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:47:9",
+      "rect": {
+       "x": 645,
+       "y": 199,
+       "w": 438,
+       "h": 431
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 645,
+        "y": 199,
+        "w": 438,
+        "h": 431
+       },
+       "built": {
+        "x": 645,
+        "y": 199,
+        "w": 438,
+        "h": 431
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#d2452f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (1050,631) 159x158 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:65:9",
+      "rect": {
+       "x": 1049.9439697265625,
+       "y": 630.8695068359375,
+       "w": 159.112060546875,
+       "h": 158.260986328125
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 1059,
+        "y": 640,
+        "w": 141,
+        "h": 140
+       },
+       "built": {
+        "x": 1049.9439697265625,
+        "y": 630.8695068359375,
+        "w": 159.112060546875,
+        "h": 158.260986328125
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#2d2722 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "areas",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 area box built with no card"
+    }
+   },
+   {
+    "kind": "words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 big word filling its box"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the 2-line text drawn at x 70, y 189 (480x138, lines 69px apart, drawn 430 then 480px long) is built 211px tall, about 3 lines: it wrapped into more lines than drawn. Remove any forced line break (<br>) inside it: a forced break that leaves a line wider than the block wraps that line again. Give the block the drawn width (480px or a little more), line-height 69px, and let the words wrap on their own into 2 lines; if they still take more, take the font-size down a little (never under 54px)"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 line drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 3: the box drawn at (70,540) 201x55 was coloured #2d2722 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2d2722",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#efe5d0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,41) 137x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (993,41) 217x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,83) 1276x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,235) 430x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,304) 480x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,435) 385x0",
+       "want": "#2d2722",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (70,540) 201x55",
+       "want": "#2d2722",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (645,199) 438x431 (big word's area)",
+       "want": "letters #d2452f, no #d2452f block",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (1059,640) 141x140 (hollow ring)",
+       "want": "ring 8px, no #2d2722 fill",
+       "best": null,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 73387,
+   "cacheRead": 322252,
+   "output": 16709
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 42988,
+    "output": 10927,
+    "cacheRead": 91542,
+    "toolCalls": 4,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx"
+    ],
+    "ms": 130129
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 41897,
+    "output": 4210,
+    "cacheRead": 92468,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 48017
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 5211,
+    "output": 1572,
+    "cacheRead": 138242,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 17229
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

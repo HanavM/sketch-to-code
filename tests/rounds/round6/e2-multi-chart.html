@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Multi chart</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f1f5f9;font-family:Helvetica,Arial,sans-serif;color:#0f172a;font-size:14px}
+.side{position:absolute;left:0;top:0;width:220px;height:900px;background:#0f172a;color:#cbd5e1;padding:28px 20px;line-height:2.6}.side b{color:#fff;font-size:20px;display:block;margin-bottom:20px}.side .on{background:#1e293b;color:#fff;border-radius:8px;padding:0 12px;margin:0 -12px}
+h1{position:absolute;left:252px;top:28px;font-size:26px}
+.filters{position:absolute;left:252px;top:76px;display:flex;gap:10px}.filters span{padding:8px 14px;border:1px solid #cbd5e1;border-radius:8px;background:#fff}.filters .on{background:#0f172a;color:#fff;border-color:#0f172a}
+.card{position:absolute;background:#fff;border-radius:12px;border:1px solid #e2e8f0;padding:20px}
+.card h3{font-size:14px;color:#64748b;font-weight:600}.card .n{font-size:32px;font-weight:800;margin-top:8px}.card .d{color:#16a34a;font-weight:700;margin-top:4px}
+.k1{left:252px;top:132px;width:236px;height:130px}.k2{left:504px;top:132px;width:236px;height:130px}.k3{left:756px;top:132px;width:236px;height:130px}.k4{left:1008px;top:132px;width:244px;height:130px}
+.line{left:252px;top:280px;width:640px;height:320px}.donut{left:908px;top:280px;width:344px;height:320px}.bars{left:252px;top:616px;width:480px;height:260px}.tbl{left:748px;top:616px;width:504px;height:260px}
+.dn{position:absolute;left:92px;top:70px;width:160px;height:160px;border-radius:50%;background:conic-gradient(#6366f1 0 46%,#22c55e 46% 74%,#f59e0b 74% 90%,#e2e8f0 90%)}.dn::after{content:"";position:absolute;inset:34px;border-radius:50%;background:#fff}
+.lg{position:absolute;left:20px;bottom:18px;display:flex;gap:14px;font-size:12px;color:#64748b}
+.bb{position:absolute;left:24px;bottom:24px;right:24px;height:170px;display:flex;align-items:flex-end;gap:14px}.bb i{flex:1;background:#6366f1;border-radius:4px 4px 0 0}
+table{width:100%;border-collapse:collapse;margin-top:10px}td{padding:9px 0;border-bottom:1px solid #f1f5f9}td:last-child{text-align:right;font-weight:700}
+</style></head><body>
+<div class="side" data-r="sidebar"><b>Pulse</b><div class="on">Overview</div><div>Revenue</div><div>Customers</div><div>Reports</div><div>Settings</div></div>
+<h1 data-r="title">Overview</h1>
+<div class="filters" data-r="filters"><span class="on">Last 30 days</span><span>All regions</span><span>All plans</span><span>+ Filter</span></div>
+<div class="card k1" data-r="kpi-mrr"><h3>MRR</h3><div class="n">$84.2k</div><div class="d">+6.1%</div></div>
+<div class="card k2" data-r="kpi-users"><h3>Active users</h3><div class="n">12,480</div><div class="d">+3.4%</div></div>
+<div class="card k3" data-r="kpi-churn"><h3>Churn</h3><div class="n">2.1%</div><div class="d">-0.3%</div></div>
+<div class="card k4" data-r="kpi-nps"><h3>NPS</h3><div class="n">48</div><div class="d">+5</div></div>
+<div class="card line" data-r="chart-line" data-must><h3>Revenue, last 30 days</h3><svg width="600" height="240" style="margin-top:14px"><polyline fill="none" stroke="#6366f1" stroke-width="3" points="0,200 50,180 100,190 150,150 200,160 250,120 300,130 350,90 400,100 450,70 500,80 550,40 600,50"/><polyline fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6 6" points="0,210 100,200 200,185 300,170 400,150 500,135 600,120"/></svg></div>
+<div class="card donut" data-r="chart-donut" data-must><h3>Plan mix</h3><div class="dn"></div><div class="lg"><span>■ Pro 46%</span><span>■ Team 28%</span><span>■ Free 16%</span></div></div>
+<div class="card bars" data-r="chart-bars" data-must><h3>Signups by week</h3><div class="bb"><i style="height:40%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:62%"></i><i style="height:85%"></i><i style="height:100%"></i><i style="height:78%"></i></div></div>
+<div class="card tbl" data-r="table"><h3>Top accounts</h3><table><tr><td>Acme Corp</td><td>$6,400</td></tr><tr><td>Globex</td><td>$5,120</td></tr><tr><td>Initech</td><td>$3,980</td></tr><tr><td>Umbrella</td><td>$3,200</td></tr><tr><td>Hooli</td><td>$2,750</td></tr></table></div>
+</body></html>

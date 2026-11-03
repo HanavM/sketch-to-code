@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Folding cube</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 45%,#2a2350,#0b0a18 70%);font-family:Helvetica,Arial,sans-serif;color:#f2efff}
+@keyframes spin{to{transform:rotateX(-24deg) rotateY(395deg)}}
+.stage{position:absolute;left:700px;top:200px;width:360px;height:360px;perspective:1200px}
+.cube{position:absolute;left:60px;top:60px;width:240px;height:240px;transform-style:preserve-3d;transform:rotateX(-24deg) rotateY(35deg);animation:spin 18s linear infinite}
+.f{position:absolute;width:240px;height:240px;border:1px solid #ffffff55;display:flex;align-items:center;justify-content:center;font:700 22px Helvetica;letter-spacing:4px}
+.f1{background:#7b5cff;transform:translateZ(120px)}.f2{background:#ff5ca8;transform:rotateY(90deg) translateZ(120px)}.f3{background:#29d3c2;transform:rotateX(90deg) translateZ(120px)}
+.f4{background:#3c2d99;transform:rotateY(180deg) translateZ(120px)}.f5{background:#b0306f;transform:rotateY(-90deg) translateZ(120px)}.f6{background:#167a70;transform:rotateX(-90deg) translateZ(120px)}
+.shadow{position:absolute;left:730px;top:640px;width:300px;height:60px;border-radius:50%;background:radial-gradient(ellipse,#000a,transparent 70%)}
+.ring{position:absolute;left:640px;top:140px;width:480px;height:480px;border-radius:50%;border:1px dashed #ffffff40}
+.k{position:absolute;left:80px;top:180px;font:700 13px Helvetica;letter-spacing:5px;color:#29d3c2}
+.h{position:absolute;left:80px;top:220px;width:560px;font:800 88px/0.95 Helvetica;letter-spacing:-3px}
+.h span{background:linear-gradient(90deg,#7b5cff,#ff5ca8);-webkit-background-clip:text;color:transparent}
+.p{position:absolute;left:80px;top:490px;width:460px;font:400 18px/1.6 Helvetica;color:#c9c3ee}
+.b1{position:absolute;left:80px;top:600px;padding:16px 28px;border-radius:12px;background:#f2efff;color:#0b0a18;font:700 15px Helvetica}
+.b2{position:absolute;left:260px;top:600px;padding:15px 27px;border-radius:12px;border:1px solid #f2efff66;font:700 15px Helvetica}
+.stats{position:absolute;left:80px;top:720px;width:1120px;display:flex;gap:0;border-top:1px solid #ffffff2a}
+.stats div{flex:1;padding:22px 0;font:400 13px Helvetica;color:#c9c3ee}.stats b{display:block;font:700 34px Helvetica;color:#f2efff;margin-bottom:4px}
+.nav{position:absolute;left:80px;top:40px;width:1120px;display:flex;align-items:center;gap:36px;font:500 14px Helvetica}.nav .l{font-weight:800;font-size:18px;margin-right:auto}.nav .c{padding:9px 18px;border-radius:999px;background:#ffffff1a}
+</style></head><body>
+<div class="nav" data-r="nav"><span class="l">◆ hexa</span><span>Product</span><span>Docs</span><span>Pricing</span><span class="c">Sign in</span></div>
+<div class="k" data-r="kicker">SIX SIDES · ONE API</div>
+<h1 class="h" data-r="headline" data-must>Every face of your <span>data, folded</span></h1>
+<p class="p" data-r="lede">Hexa turns six sources into one live cube you can turn, slice and query from any side.</p>
+<div class="b1" data-r="cta-primary">Start building</div><div class="b2" data-r="cta-secondary">Watch it turn</div>
+<div class="ring" data-r="ring"></div>
+<div class="stage" data-r="cube" data-must><div class="cube"><div class="f f1">SQL</div><div class="f f2">CRM</div><div class="f f3">LOGS</div><div class="f f4">ADS</div><div class="f f5">BILL</div><div class="f f6">APP</div></div></div>
+<div class="shadow" data-r="floor-shadow"></div>
+<div class="stats" data-r="stats"><div><b>6</b>live sources</div><div><b>40ms</b>median query</div><div><b>1.2B</b>rows folded daily</div><div><b>99.99%</b>uptime</div></div>
+</body></html>

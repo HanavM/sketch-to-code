@@ -1,0 +1,1050 @@
+/**
+ * Colour from ink, told to codegen and checked on the page (n10).
+ *
+ * The ink states colours exactly (a tap with a colour picked, or a mark drawn
+ * in a colour; @s2c/ink inkfill.ts decides what each one colours). Codegen is
+ * given each as a hex on that mark's geometry, and the built page is checked:
+ * the element built for the mark must paint that colour (its own background,
+ * or for text its own colour), and a tapped page must paint it behind
+ * everything. A miss is a failure a repair round can act on. Zero tokens.
+ */
+import type { DomNode, DomSnapshot } from '@s2c/dom'
+import type { GroundedAction, GroundedInterpretation, InkColour } from './intent2.js'
+import { sliceBrief, sliceHow, sliceVerdict } from './slicechart.js'
+import { sliceCss } from '@s2c/ink'
+import { deltaE, hexOf, parseCssColor } from './palette.js'
+
+import { slantBrief, slantBuilt } from './slantline.js'
+import { barBriefLine, barBuilt, barPitchBrief, barRowsHint, barsOf, isBarInk } from './barlabels.js'
+const hex = (c: string) => { const p = parseCssColor(c); return p ? hexOf(p) : c }
+
+/**
+ * n94: a big box drawn and filled with a plain colour is a FLAT panel, built as drawn: square corners, no
+ * shadow, one solid colour. Round 36 c4 (florist): the pink panel drawn with square corners and one tap came
+ * out a rounded card with a drop shadow (try 1) and flat on try 2, a coin toss worth ~3 points of layout.
+ * Words typed on it asking for a card, rounding, a shadow or a lift keep the model's say.
+ */
+const ASKS_LOOK = /\b(card|round|rounded|curved|soft|shadow|shadowed|lifted|raised|floating|elevated|glass|frosted|blur|glow|pill|bubble)\b/i
+export function plainPanel(c: InkColour, a: Pick<GroundedAction, 'notes' | 'shapeMarks'>): boolean {
+  if (c.paint !== 'background' || c.mark !== 'box' || c.fade || c.split || c.bands || c.slices) return false
+  if (c.box.w < 200 || c.box.h < 150) return false
+  const m = a.shapeMarks?.find((k) => k.strokeId === c.strokeId)
+  if (m && (m.pill || m.tilt || m.outline || m.glyph)) return false
+  return !(a.notes ?? []).some((n) => ASKS_LOOK.test(n))
+}
+const pxOf = (v: string | undefined) => { const m = /^\s*([\d.]+)px/.exec(v ?? ''); return m ? Number(m[1]) : 0 }
+/** n94: what makes a built panel not flat (corners rounder than 6px, a drop shadow, a gradient); '' when flat. */
+export function notFlat(n: DomNode): string {
+  const why: string[] = []
+  if (pxOf(n.style.borderRadius) > 6) why.push(`corners rounded ${n.style.borderRadius}`)
+  if (n.style.boxShadow && !/^\s*none/.test(n.style.boxShadow) && !/^\s*(?:rgba?\([^)]*\)\s*)?0px 0px 0px/.test(n.style.boxShadow)) why.push('a drop shadow')
+  if (/gradient\(/i.test(n.style.backgroundImage ?? '')) why.push('a gradient')
+  return why.join(', ')
+}
+
+export function inkColoursBrief(interp: Pick<GroundedInterpretation, 'actions' | 'pageFill'>, skip: ReadonlySet<string> = new Set()): string {
+  const lines: string[] = []
+  if (interp.pageFill) {
+    const f = interp.pageFill
+    lines.push(f.radial
+      ? `- the whole page (body / outermost wrapper, full viewport height, behind every block): background ${f.css} exactly — a centre spotlight: ${hex(f.colors[0]!)} glowing at x ${String(f.radial.x)}, y ${String(f.radial.y)} and fading out to ${f.colors.slice(1).map(hex).join(' then ')} by ${String(f.radial.r)}px from there, that colour everywhere beyond. A radial-gradient on the page itself (not a linear fade, not a small blurred blob, not a pale overlay); keep the stops and the centre as given`
+      : f.colors.length > 1
+      ? `- the whole page (body / outermost wrapper, full viewport height, behind every block): background ${`linear-gradient(${String(f.angle)}deg, ${f.colors.map(hex).join(', ')})`} exactly`
+      : `- the whole page (body / outermost wrapper, full viewport height, behind every block): background ${hex(f.colors[0]!)} exactly`)
+  }
+  interp.actions.forEach((a, i) => {
+    for (const c of a.inkColours ?? []) {
+      // n122: an arc of a drawn ring chart is told with the chart, never as a filled blob of its own
+      if (skip.has(c.strokeId)) continue
+      const at = `x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}x${String(c.box.h)}`
+      if (c.paint === 'background' && c.slices) {
+        lines.push(`- action ${String(i)}, ${sliceBrief(c.slices, at)}`)
+        continue
+      }
+      if (c.paint === 'background' && c.split) {
+        const sp = c.split, L = sp.line
+        lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: a straight divider is drawn across it from (${String(L.a.x)},${String(L.a.y)}) to (${String(L.z.x)},${String(L.z.y)}) and a different colour was tapped on each side, so it is TWO SOLID FILLS meeting at that line, never a fade: ` +
+          `${hex(sp.colors[0])} on the side tapped first (around (${String(Math.round(centroid(sp.sides[0]).x))},${String(Math.round(centroid(sp.sides[0]).y))})), ${hex(sp.colors[1])} on the other side (around (${String(Math.round(centroid(sp.sides[1]).x))},${String(Math.round(centroid(sp.sides[1]).y))})). ` +
+          `Paint the block itself background ${sp.css.replace(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi, (m) => hex(m))} exactly (a hard stop, measured in the block's own frame, so it stays right when the block is turned), ` +
+          `or build the two parts as two blocks with those solid backgrounds that meet at the divider; any line or dashes on the divider are drawn on that edge`)
+        continue
+      }
+      if (c.paint === 'background' && c.bands) {
+        const tapped = c.bands.filter((b) => b.color), bare = c.bands.filter((b) => !b.color)
+        lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: straight lines are ruled across it, cutting it into ${String(c.bands.length)} bands, and colour was tapped only in some of them, so ONLY THOSE BANDS are filled, never the whole block: ` +
+          tapped.map((b) => `the band from y ${String(b.y0)} to y ${String(b.y1)} (the row(s) built there, e.g. a header or total row) background ${hex(b.color!)}`).join('; ') +
+          `; the band${bare.length > 1 ? 's' : ''} ${bare.map((b) => `from y ${String(b.y0)} to y ${String(b.y1)}`).join(' and ')} stay${bare.length > 1 ? '' : 's'} unfilled (white / the block's plain surface, no ${hex(tapped[0]!.color!)}). Keep the ruled lines as thin borders between the bands`)
+        continue
+      }
+      if (c.paint === 'background' && c.fade) {
+        lines.push(`- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')}) exactly (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}): ${hex(c.fade.colors[0]!)} where it was tapped first, fading to ${hex(c.fade.colors.at(-1)!)} where it was tapped last; keep that direction and those stops, at full strength`)
+        continue
+      }
+      // n129: a ring noted as an arc / track / progress is the ring's line: hollow, the words in its hole
+      if (c.paint === 'border' && c.hollow) {
+        const h = c.hollow, d = Math.round((c.box.w + c.box.h) / 2)
+        lines.push(`- action ${String(i)}, the ring drawn at ${at} in ${hex(c.color)} (no colour tapped) and noted as an arc / track / progress: a HOLLOW RING, never a filled disc: ` +
+          `outer edge exactly the drawn box (${String(d)}px across, centred where drawn), the ring's line about ${String(h.thickness)}px thick, its inside the surface under it (the panel or page colour), NEVER filled ${hex(c.color)}. ` +
+          `${h.share !== null ? `The ${hex(c.color)} arc covers ${String(Math.round(h.share * 100))}% of the ring clockwise from 12 o'clock with round ends; the rest is the track` : `The ${hex(c.color)} arc runs over the ring (as much of it as the notes say)`}, ` +
+          `on a track ring of the same thickness in ${h.track ? `${h.track} (a pale ${h.track})` : `a pale tint of ${hex(c.color)}`}. ` +
+          `Build it as an SVG (two <circle> elements, fill="none", stroke-width ${String(h.thickness)}, the arc with stroke-dasharray and stroke-linecap round, rotated -90deg) ` +
+          `or as a conic-gradient disc with an INNER DISC element on top in the surface colour leaving only the ${String(h.thickness)}px band showing. Words typed on the ring sit centred in its hole in dark or ink-coloured text, never white on the colour`)
+        continue
+      }
+      // n140: a pen box round a big word: the letters take the pen colour, the box is only where they sit
+      if (c.paint === 'text' && c.areaWord) {
+        const w = c.areaWord.word ? `"${c.areaWord.word}"` : 'the big word or number typed on it'
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in ${hex(c.color)} pen (no colour tapped) round ${w}: the pen colour is the LETTERS' colour, ` +
+          (c.areaWord.outlined ? `drawn as hollow outline letters (color transparent, -webkit-text-stroke in ${hex(c.color)})` : `color ${hex(c.color)}`) +
+          `. The box itself is NEVER a block: no ${hex(c.color)} background, no card, no border, no shadow; the page shows behind the letters`)
+        continue
+      }
+      // n135: a selected chip: pale tint, pen-colour border, a small round mark if asked
+      if (c.paint === 'border' && c.selected) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in ${hex(c.color)} pen (no colour tapped) and noted as the selected / active one: a SELECTED CHIP exactly there, NEVER a solid ${hex(c.color)} block: ` +
+          `background ${hex(c.selected.tint)} (a pale tint of the pen colour), a 2px solid ${hex(c.color)} border, the same corner rounding as its look-alikes, its words dark or ${hex(c.color)} (never white)` +
+          `${c.selected.dot ? `; a small round mark (avatar / dot, about ${String(Math.max(12, Math.round(c.box.h * 0.6)))}px, a ${hex(c.color)} tint or a soft disc) sits inside it at the left, before the words` : ''}. ` +
+          `Its unselected look-alikes beside it keep their own drawn look`)
+        continue
+      }
+      // n212: the box is lines: a same-pen line crosses it, so it can't be filled
+      if (c.paint === 'border' && c.frame && c.linesOnly) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped and no note, with a line in the same pen crossing it: LINES ONLY (court markings, a window frame, a plan), a div exactly there, a 2px ${hex(c.color)} border, background transparent so the ${hex(c.frameOn ?? '#ffffff')} surface shows through, no shadow, no radius. NEVER filled ${hex(c.color)} or any colour, never a card or panel, and NO words or anything else inside it: no note gave it any, so invent none. The lines drawn across it stay visible on top`)
+        continue
+      }
+      // n194: no tap = outline in the pen colour (any pen, any surface)
+      if (c.paint === 'border' && c.frame && c.penOutline) {
+        const dark = (() => { const q = parseCssColor(c.frameOn ?? '#ffffff'); return !!q && 0.299 * q.r + 0.587 * q.g + 0.114 * q.b < 110 })()
+        lines.push(`- action ${String(i)}, the ${c.pill ? 'pill' : 'box'} drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped (` +
+          (c.penOutline === 'said' ? 'its note says it is an outline' : 'another mark in that pen was tapped to fill it, this one was not') +
+          `): an OUTLINED block exactly there (a button, a chip, a field or a card, whatever it holds): a 2px solid ${hex(c.color)} border, ` +
+          `background transparent so the ${hex(c.frameOn ?? '#ffffff')} surface behind shows through, NEVER filled ${hex(c.color)} or any tint of it, and never a bare label with no border` +
+          `${c.pill ? ', fully round ends (border-radius 9999px), the same size as its tapped look-alike' : ''}; ` +
+          `its words in ${hex(c.color)} or another colour that reads on ${dark ? 'the dark' : 'the light'} surface (never ${dark ? 'dark' : 'white'} text)`)
+        continue
+      }
+      if (c.paint === 'border' && c.frame && c.frameOn) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in a ${hex(c.color)} pen (no colour tapped) on the dark ${hex(c.frameOn)} surface: an OUTLINED block exactly there (a button, a field, a list or a panel, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background TRANSPARENT so the dark surface shows through, NEVER filled ${hex(c.color)}, white or any grey; its words stay light and readable on the dark; rows inside it keep only their dividers`)
+        continue
+      }
+      if (c.paint === 'border' && c.frame && c.taught) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped (another box in that pen was tapped to fill it, so this one is not filled): an OUTLINED block exactly there (a picked row or option, a field, a card, whatever it holds): a 2px ${hex(c.color)} border, background white or the surface under it, NEVER filled ${hex(c.color)} or any dark or grey tint; its words stay dark on the light inside, laid out like its unpicked look-alikes`)
+        continue
+      }
+      if (c.paint === 'border' && c.frame) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at} in a light pen (no colour tapped): an OUTLINED block exactly there (a card, an input field, a pill, a panel or a button, whatever it holds): a thin 1px border in ${hex(c.color)} (dashed if a note says dashed), background white or the surface under it, NEVER filled ${hex(c.color)}, any grey or any tint of it; its words, images and controls sit inside the frame`)
+        continue
+      }
+      // n151: a lone slanted pen line: a thin line start to end, never its bounding box filled
+      if (c.paint === 'border' && c.slant) { lines.push(slantBrief(i, hex(c.color), c.slant, c.box)); continue }
+      // n204: a big untapped ring in a neutral pen: the ring's line only
+      if (c.paint === 'border' && c.outlineRing) {
+        const d = Math.round((c.box.w + c.box.h) / 2), t = c.outlineRing.thickness
+        lines.push(`- action ${String(i)}, the ring drawn at ${at} in the ${hex(c.color)} pen with NO colour tapped: an OUTLINE RING, just the drawn line: ` +
+          `outer edge exactly the drawn box (${String(d)}px across, centred where drawn), a ${String(t)}px ${hex(c.color)} line, its inside the surface under it (transparent), NEVER filled ${hex(c.color)} or any colour, ` +
+          `and NOTHING added inside it (no spokes, hub, dots, pattern or shading) unless a note asks. The WHOLE ring shows: build it as a div with border-radius 50%, box-sizing border-box, ` +
+          `width and height ${String(d)}px and a ${String(t)}px solid ${hex(c.color)} border, or as an SVG whose viewBox holds the whole circle (r = ${String(Math.round((d - t) / 2))}, stroke-width ${String(t)}); never clipped flat on any side by its box, overflow or viewBox. ` +
+          `Other strokes drawn across or between rings stay their own lines`)
+        continue
+      }
+      if (c.paint === 'border' && c.ring) {
+        lines.push(`- action ${String(i)}, the small ring drawn at ${at} in ${hex(c.color)} (no colour tapped): a HOLLOW ROUND marker (a map pin end, a radio, a status ring), about ${String(Math.round((c.box.w + c.box.h) / 2))}px across, centred where drawn: ` +
+          `border-radius 50%, a ${String(c.ring.thickness)}px ${hex(c.color)} border, its inside white (or the surface under it), NEVER filled ${hex(c.color)} and never a square`)
+        continue
+      }
+      if (c.paint === 'border') {
+        lines.push(`- action ${String(i)}, the small box drawn at ${at} in dark ink (no colour tapped): an OUTLINED small control (an arrow / pager button, a checkbox, an icon button), about the drawn size: a thin 1px border (light grey, or ${hex(c.color)} if it reads as a strong outline), white or transparent background, never a dark or solid fill; a chevron or symbol typed next to it (‹ ›, +, ×) sits inside it in dark text`)
+        continue
+      }
+      // n144: a divider drawn in a pale pen with words over it: the pen is the rule's colour, never the words'
+      if (c.paint === 'text' && c.ruleOnly) {
+        lines.push(`- action ${String(i)}, the divider line drawn at ${at} in a pale ${hex(c.color)} pen: that colour is the RULE's colour only (a thin 1px ${hex(c.color)} line or border-bottom there). ` +
+          `Any words over it are NOT ${hex(c.color)} and not any pale tint: they are ordinary dark, readable text (the page's usual text colour), as strong as the other labels`)
+        continue
+      }
+      // n121: a coloured level line with no words is a bar; its label and amount stay dark
+      if (isBarInk(c, a)) { lines.push(barBriefLine(i, c)); continue }
+      // n199: a coloured line a heading or sentence was typed on is where those words go: their colour, never a bar
+      if (c.paint === 'text' && c.mark === 'line' && c.copy) {
+        lines.push(`- action ${String(i)}, the level line drawn at x ${String(c.box.x)}, y ${String(c.box.y)}, ${String(c.box.w)}px long in ${hex(c.color)}: it stands for a line of the words typed by it; those WORDS are coloured ${hex(c.color)} and sit on that line. The pen line itself is never painted: no bar, strip, rule, border or underline in ${hex(c.color)} (or any colour) above, on or under the words (checked on the page)`)
+        continue
+      }
+      if (plainPanel(c, a)) {
+        lines.push(`- action ${String(i)}, the box drawn at ${at}: a PLAIN FLAT PANEL, built as drawn: one block exactly there, background ${hex(c.color)} solid at full strength (opacity 1, no gradient, no fade, no tint), square corners (border-radius 0), no box-shadow, no border; it is a coloured area of the page, not a floating card. Its words and images sit inside it; text on it must stay readable against it`)
+        continue
+      }
+      lines.push(c.paint === 'background'
+        ? `- action ${String(i)}, the ${c.mark} drawn at ${at}: the block built for it is filled with ${hex(c.color)} (its own background${c.mark === 'outline' ? ', in the drawn outline\'s shape' : ''}) at full strength: opacity 1 and that exact colour in its middle; if it is a glow or blurred shape, soften only its edge (blur at most ${String(maxBlur(c.box))}px) and never fade it with opacity, a see-through colour or a paler tint; text on it must stay readable against it`
+        : `- action ${String(i)}, the ${c.mark} drawn at ${at}: that ${c.mark === 'line' ? 'text or rule' : 'text'} is coloured ${hex(c.color)}`)
+    }
+  })
+  if (!lines.length) return ''
+  // n140: the dots in the sketch picture are where colour was tapped; the model drew them as inner discs
+  if (interp.actions.some((a) => (a.inkColours ?? []).some((c) => c.how === 'tap'))) lines.push(TAP_DOTS_LINE)
+  // n122: bars stacked in one column are rows at the drawn pitch
+  for (const l of barPitchBrief(interp.actions)) lines.push(l)
+  return `COLOURS FROM THE INK (the user coloured these in with a picked colour, so the value is exact; ` +
+    `use these hex values as they are, never a palette near-miss and never a paler or brighter version; ` +
+    `a typed colour word about the same block is overruled by these):\n${lines.join('\n')}\n\n`
+}
+
+/** n12: the largest blur (px) that still leaves a block of this size at about 90% of its colour in the middle. */
+export function maxBlur(b: { w: number; h: number }): number {
+  return Math.max(4, Math.round(Math.min(b.w, b.h) / 2 / 2.2))
+}
+
+/**
+ * n12: how much of its colour a block shows in its middle, 0..1: its own and every ancestor's opacity, the
+ * background's alpha, and a blur (a Gaussian of radius s over a block of half-size R keeps 1 - e^(-R²/2s²)
+ * of the colour at its centre). A tapped glow came out the exact hex but at about half strength (n10: pink
+ * #ec4899 painted rgb(133,49,113) in the middle), and the hex check passed it.
+ */
+export function strengthOf(n: DomNode, css: string, byId: Map<string, DomNode>): { strength: number; opacity: number; blur: number } {
+  let opacity = 1
+  for (let m: DomNode | undefined = n, k = 0; m && k < 64; m = m.parent ? byId.get(m.parent) : undefined, k++) {
+    if (m.style.opacity !== undefined) opacity *= Number(m.style.opacity)
+  }
+  const blurM = /blur\(\s*([\d.]+)px/.exec(n.style.filter ?? '')
+  const blur = blurM ? Number(blurM[1]) : 0
+  const R = Math.min(n.rect.w, n.rect.h) / 2
+  const kept = blur > 0 ? 1 - Math.exp(-(R * R) / (2 * blur * blur)) : 1
+  return { strength: opacity * alphaOf(css) * kept, opacity, blur }
+}
+const STRONG = 0.8
+
+const centreIn = (n: DomNode, b: { x: number; y: number; w: number; h: number }, pad: number) => {
+  const cx = n.rect.x + n.rect.w / 2, cy = n.rect.y + n.rect.h / 2
+  return cx >= b.x - pad && cx <= b.x + b.w + pad && cy >= b.y - pad && cy <= b.y + b.h + pad
+}
+
+const crosses = (a: { x: number; y: number; w: number; h: number }, b: { x: number; y: number; w: number; h: number }) =>
+  a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
+
+/** Colours an element paints: its background (or a gradient's stops) and its text. */
+function painted(n: DomNode, what: 'background' | 'text'): string[] {
+  if (what === 'text') return [n.style.color]
+  const out = [n.style.backgroundColor]
+  // n269: a shape painted as an svg path is painted. Rocket: a filled flame and body failed this check, and the repair it asked for broke the body.
+  if (n.style.svgFill) out.push(n.style.svgFill)
+  const img = n.style.backgroundImage
+  if (img) for (const m of img.matchAll(/(?:rgba?|oklch|oklab|hsla?)\([^)]*\)|#[0-9a-f]{3,8}\b/gi)) out.push(m[0])
+  return out
+}
+
+function alphaOf(css: string): number {
+  const m = /rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)/.exec(css) ?? /\/\s*([\d.]+%?)\s*\)/.exec(css)
+  if (!m) return 1
+  return m[1]!.endsWith('%') ? Number(m[1]!.slice(0, -1)) / 100 : Number(m[1])
+}
+
+export interface InkColourVerdict {
+  satisfied: boolean
+  unverifiable?: boolean
+  reason: string
+  checks: Array<{ what: string; want: string; best: number | null; ok: boolean; strength?: number }>
+}
+
+const OK_DE = 18
+/**
+ * A single tapped colour is exact, so it is checked as exact: ΔE 18 let a white page pass for a tapped pale
+ * grey (#f3f4f6 is ΔE 4 from white, n18 r1 e1-login), and nothing asked for the grey again. Gradient stops
+ * keep the loose bar (a stop is read where the gradient passes, not at one pixel).
+ */
+const SOLID_OK_DE = 2.5
+
+/** Every colour the ink states (taps, coloured pens, the page), as #rrggbb strings for the finishing pass. */
+export function inkHexes(interp: Pick<GroundedInterpretation, 'actions' | 'pageFill'>): string[] {
+  const out: string[] = []
+  for (const c of interp.pageFill?.colors ?? []) out.push(c)
+  for (const a of interp.actions) for (const c of a.inkColours ?? []) out.push(...(c.slices ? c.slices.parts.map((x) => x.color) : [c.color]))
+  return out
+}
+
+function closestAt(want: string, nodes: DomNode[], what: 'background' | 'text'): { de: number; node: DomNode; css: string } | null {
+  const w = parseCssColor(want)
+  if (!w) return null
+  let best: { de: number; node: DomNode; css: string } | null = null
+  for (const n of nodes) for (const css of painted(n, what)) {
+    if (!css || (what === 'background' && alphaOf(css) < 0.35)) continue
+    const g = parseCssColor(css)
+    if (!g) continue
+    const de = deltaE(w, g)
+    if (!best || de < best.de) best = { de, node: n, css }
+  }
+  return best
+}
+function closest(want: string, nodes: DomNode[], what: 'background' | 'text'): number | null {
+  return closestAt(want, nodes, what)?.de ?? null
+}
+
+/** Did each colour the ink stated reach the built page, on its mark? */
+export function verifyInkColours(
+  actions: GroundedAction[],
+  pageFill: GroundedInterpretation['pageFill'],
+  after: DomSnapshot,
+  skip: ReadonlySet<string> = new Set(),
+): InkColourVerdict {
+  const checks: InkColourVerdict['checks'] = []
+  const misses: string[] = []
+  if (after.truncated) return { satisfied: true, unverifiable: true, reason: 'snapshot truncated', checks }
+  const vw = after.viewport.w, vh = after.viewport.h
+  const byId = new Map(after.nodes.map((n) => [n.id, n]))
+  if (pageFill) {
+    // the page colour: something at least most of the viewport paints it
+    const big = after.nodes.filter((n) => n.rect.w >= vw * 0.8 && n.rect.h >= vh * 0.6)
+    if (pageFill.radial) {
+      // n33: a spotlight is a radial glow; a linear fade carries the same stops and passed the hex check
+      const ok = big.some((n) => /radial-gradient/i.test(n.style.backgroundImage ?? ''))
+      checks.push({ what: 'page spotlight', want: 'radial-gradient', best: ok ? 0 : null, ok })
+      if (!ok) misses.push(`the page should be a centre spotlight: background ${pageFill.css} on the page itself (a radial-gradient glowing at x ${String(pageFill.radial.x)}, y ${String(pageFill.radial.y)}); no page-sized element paints a radial-gradient`)
+    }
+    for (const c of pageFill.colors) {
+      const best = closest(c, big, 'background')
+      const ok = best !== null && best <= (pageFill.colors.length > 1 ? OK_DE : SOLID_OK_DE)
+      checks.push({ what: 'page', want: hex(c), best, ok })
+      if (!ok) misses.push(`the whole page should paint ${hex(c)}${pageFill.colors.length > 1 ? ` (in the gradient ${pageFill.css})` : ''} behind everything, full viewport height; ${best === null ? 'no page-sized element paints any colour' : `the nearest page-sized colour is ΔE ${best.toFixed(0)} away`}`)
+    }
+  }
+  actions.forEach((a, i) => {
+    if (a.onScreen) return
+    for (const c of a.inkColours ?? []) {
+      // n122: an arc of a drawn ring chart is checked with the chart (drawn-rings), never as a block per arc
+      if (skip.has(c.strokeId)) continue
+      const b = c.box
+      const pad = Math.max(12, Math.min(b.w, b.h) * 0.25)
+      // the built element for that mark: about its size, centred on it (text: anything inside it)
+      // text: any element with words whose box crosses the drawn line's band
+      // (a two-line heading's box is centred between its lines, not on the first)
+      const band = { x: b.x, y: b.y - 40, w: b.w, h: b.h + 80 }
+      const near = after.nodes.filter((n) => c.paint === 'text'
+        ? n.text.length > 0 && crosses(n.rect, band)
+        : centreIn(n, b, pad) && n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.5 + 20 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 20)
+      const what = `the ${c.mark} drawn at (${String(b.x)},${String(b.y)}) ${String(b.w)}x${String(b.h)}`
+      // n226: colours tapped round a ring: flat slices, round, at the drawn size, hole kept
+      if (c.slices && c.paint === 'background') {
+        const v = sliceVerdict(c.slices, after.nodes)
+        checks.push({ what: `${what} (slices)`, want: sliceCss(c.slices), best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} had ${String(c.slices.parts.length)} colours tapped round it: a slice chart. ${v.why}: ${sliceHow(c.slices)}; change nothing else`)
+        continue
+      }
+      // n59: two solid fills either side of a drawn divider: a hard-stop gradient on the block, or two solid parts
+      if (c.split && c.paint === 'background') {
+        const v = splitVerdict(c.split, near, after.nodes)
+        checks.push({ what: `${what} (two fills at a divider)`, want: c.split.css, best: v.worst, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} has a divider drawn across it with ${c.split.colors.map(hex).join(' tapped on one side and ')} on the other: two solid fills meeting at the divider, not a fade; ${v.why}: paint the block itself background ${c.split.css.replace(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi, (m) => hex(m))}`)
+        continue
+      }
+      // n91: tapped bands carry their colour; untapped bands do not
+      if (c.bands && c.paint === 'background') {
+        for (const bd of c.bands) {
+          const bb = { x: b.x, y: bd.y0, w: b.w, h: bd.y1 - bd.y0 }
+          const inBand = after.nodes.filter((n) => centreIn(n, bb, 8) && n.rect.w >= b.w * 0.5 && n.rect.h >= Math.min(bb.h * 0.4, 24))
+          const wantC = bd.color ?? c.color
+          const at = closestAt(wantC, inBand, 'background')
+          const hit = !!at && at.de <= SOLID_OK_DE
+          const ok = bd.color ? hit : !hit
+          checks.push({ what: `${what} band y ${String(bd.y0)}-${String(bd.y1)}`, want: bd.color ? hex(bd.color) : `not ${hex(c.color)}`, best: at?.de ?? null, ok })
+          if (!ok) misses.push(bd.color
+            ? `action ${String(i)}: ${what}: the band from y ${String(bd.y0)} to y ${String(bd.y1)} was tapped ${hex(bd.color)}; paint the row(s) there background ${hex(bd.color)}`
+            : `action ${String(i)}: ${what}: the band from y ${String(bd.y0)} to y ${String(bd.y1)} had no tap but is painted ${hex(c.color)}; leave it white / plain (only the tapped bands are ${hex(c.color)})`)
+        }
+        continue
+      }
+      // n51: a fade from taps: every stop shows on the block, and it runs the way it was tapped
+      if (c.fade && c.paint === 'background') {
+        const v = fadeVerdict(c.fade, near)
+        checks.push({ what: `${what} (fade)`, want: c.fade.css, best: v.worst, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was tapped as a fade, ${c.fade.colors.map(hex).join(' to ')} (first tap to last); ${v.why}: paint the block itself background linear-gradient(${String(c.fade.angle ?? 180)}deg, ${c.fade.colors.map(hex).join(', ')})`)
+        continue
+      }
+      // n129: a hollow ring: nothing about the drawn size there is a disc filled with the pen colour unless a hole sits on it
+      if (c.paint === 'border' && c.hollow) {
+        const v = hollowBuilt(c, after.nodes)
+        checks.push({ what: `${what} (hollow ring)`, want: `ring ${String(c.hollow.thickness)}px, no ${hex(c.color)} fill`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} and noted as an arc / track / progress: a hollow ring about ${String(c.hollow.thickness)}px thick, its words in the hole; ${v.why}: ` +
+          `build it as an SVG ring (circles with fill="none", stroke-width ${String(c.hollow.thickness)}) or put an inner disc in the surface colour on top so only a ${String(c.hollow.thickness)}px band shows; keep its size, place, colours and words`)
+        continue
+      }
+      // n144: words over a pale-pen divider are not painted that pale colour
+      if (c.paint === 'text' && c.ruleOnly) {
+        const pen = parseCssColor(c.color)
+        // n249 (rota): only words on the line: a near-white label on a dark bar drawn under it is no pale word over the divider
+        const pale = pen ? after.nodes.filter((n) => n.text.length > 0 && crosses(n.rect, band) && Math.abs(n.rect.y + n.rect.h / 2 - (b.y + b.h / 2)) <= 24 && (() => { const t = parseCssColor(n.style.color ?? ''); return !!t && deltaE(t, pen) <= 12 })()) : []
+        checks.push({ what: `${what} (pale divider)`, want: `words not ${hex(c.color)}`, best: null, ok: pale.length === 0 })
+        if (pale.length) misses.push(`action ${String(i)}: ${what} is a divider drawn in a pale ${hex(c.color)} pen: only the rule is that colour, but the words "${pale[0]!.text.slice(0, 40)}" over it are painted ${hex(c.color)} and barely show: give them the page's ordinary dark text colour; keep their size, weight and place`)
+        continue
+      }
+      // n140: a pen box round a big word: nothing about the box's size there is a block of the pen colour
+      if (c.paint === 'text' && c.areaWord) {
+        const v = areaWordBuilt(c, after.nodes)
+        checks.push({ what: `${what} (big word's area)`, want: `letters ${hex(c.color)}, no ${hex(c.color)} block`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} pen round a big word with no tap: it only marks where the letters sit, and the letters are ${hex(c.color)}${c.areaWord.outlined ? ' outline (text stroke)' : ''}; ${v.why}: ` +
+          `take the background off that block (transparent, the page shows through) and give the letters ${c.areaWord.outlined ? `-webkit-text-stroke ${hex(c.color)}, color transparent` : `color ${hex(c.color)}`}, filling the box; keep their size and place`)
+        continue
+      }
+      // n140: a tapped ring is one solid disc: no smaller disc of another colour sits inside it where the tap dot was
+      if (c.paint === 'background' && c.how === 'tap' && c.mark === 'ring' && !c.fade && !c.split && !c.slices) {
+        const v = tapDotBuilt(c, after.nodes)
+        if (!v.ok) {
+          checks.push({ what: `${what} (no tap dot)`, want: 'one disc, no inner dot', best: null, ok: false })
+          misses.push(`action ${String(i)}: ${what} was tapped ${hex(c.color)}: one plain disc of that colour; ${v.why} (the dot in the sketch is only where the colour was tapped): remove that inner disc, keep the outer one`)
+        }
+      }
+      // n135: a selected chip: pale, framed, not a solid block of the pen colour
+      if (c.paint === 'border' && c.selected) {
+        const v = selectedBuilt(c, after.nodes)
+        checks.push({ what: `${what} (selected chip)`, want: `${hex(c.selected.tint)} fill, ${hex(c.color)} border`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} was drawn in ${hex(c.color)} pen with no tap and noted selected: a selected chip (background ${hex(c.selected.tint)}, 2px ${hex(c.color)} border${c.selected.dot ? ', a small round avatar / dot inside at the left' : ''}); ${v.why}: restyle that one block so, keep its words, size and place; change nothing else`)
+        continue
+      }
+      // n212: lines only: a bordered box, not filled, and no words inside that no note gave
+      if (c.paint === 'border' && c.frame && c.linesOnly) {
+        const v = linesOnlyBuilt(c, after.nodes)
+        checks.push({ what: `${what} (lines only)`, want: `2px ${hex(c.color)} border, no fill, no words`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a box in the ${hex(c.color)} pen with a same-pen line across it and no note: lines only; ${v.why}: make it one empty div exactly there, a 2px ${hex(c.color)} border, background transparent, nothing inside; change nothing else`)
+        continue
+      }
+      // n78: a grey-pen frame: the block there has a border and is not filled with the pen's grey
+      if (c.paint === 'border' && c.frame) {
+        const own = after.nodes.filter((n) => centreIn(n, b, pad) && n.rect.w >= b.w * 0.7 && n.rect.w <= b.w * 1.3 + 16 && n.rect.h >= b.h * 0.6 && n.rect.h <= b.h * 1.5 + 16)
+        const pen = parseCssColor(c.color)
+        const grey = own.filter((n) => { const g = parseCssColor(n.style.backgroundColor); return !!g && !!pen && alphaOf(n.style.backgroundColor) > 0.5 && deltaE(pen, g) <= SOLID_OK_DE })
+        const framed = own.some((n) => hasFrame(n))
+        const ok = !grey.length && framed
+        checks.push({ what: `${what} (${c.penOutline ? `pen outline, ${c.penOutline}` : c.taught ? 'untapped pen outline' : 'light pen outline'})`, want: `border ${hex(c.color)}, no ${hex(c.color)} fill`, best: null, ok })
+        if (!ok && c.penOutline) misses.push(`action ${String(i)}: ${what} was drawn in the ${hex(c.color)} pen with no tap (${c.penOutline === 'said' ? 'its note says outline' : 'a mark in that pen was tapped, this one was not'}): an outlined block; ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 2px ${hex(c.color)} border and a transparent background${c.pill ? ', round ends' : ''}, words readable on the surface; keep its size and place`)
+        else if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in ${c.taught ? 'a dark pen with no tap (a box in the same pen was tapped, this one was not)' : 'a light pen with no tap'}: an outlined block (thin ${hex(c.color)} border, white background); ${grey.length ? `it was built filled ${hex(c.color)}` : 'nothing that size with a border was built there'}: give it a 1px ${hex(c.color)} border and a white / transparent background, keep its content inside`)
+        continue
+      }
+      // n151: a slanted line: no unrotated pen-coloured slab over its bounding box
+      if (c.paint === 'border' && c.slant) {
+        const v = slantBuilt(c, after.nodes)
+        checks.push({ what: `${what} (slanted line)`, want: `thin ${hex(c.color)} line at ${String(c.slant.deg)}deg`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is one slanted line drawn in the ${hex(c.color)} pen; ${v.why}: replace that block with a thin line from (${String(c.slant.from.x)},${String(c.slant.from.y)}) to (${String(c.slant.to.x)},${String(c.slant.to.y)}): a div ${String(c.slant.length)}px wide and ${String(c.slant.thickness)}px tall, background ${hex(c.color)}, left ${String(c.slant.from.x)}px, top ${String(Math.round(c.slant.from.y - c.slant.thickness / 2))}px, transform-origin 0 50%, transform rotate(${String(c.slant.deg)}deg)`)
+        continue
+      }
+      // n204: an outline ring: a ring about the drawn size there, not filled with the pen colour, not clipped by its box
+      if (c.paint === 'border' && c.outlineRing) {
+        const v = outlineRingBuilt(c, after.nodes)
+        checks.push({ what: `${what} (outline ring)`, want: `ring ${String(c.outlineRing.thickness)}px ${hex(c.color)}, no fill, whole`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a ring drawn in the ${hex(c.color)} pen with no tap: an outline ring; ${v.why}: build it as a div exactly ${String(Math.round((c.box.w + c.box.h) / 2))}px across with border-radius 50%, box-sizing border-box, a ${String(c.outlineRing.thickness)}px solid ${hex(c.color)} border and a transparent inside, nothing inside it but what was drawn there; keep its size and place`)
+        continue
+      }
+      // n146: a small dark ring with no tap: no solid pen-coloured disc there with nothing covering its middle
+      if (c.paint === 'border' && c.ring) {
+        const v = hollowBuilt(c, after.nodes)
+        checks.push({ what: `${what} (hollow small ring)`, want: `ring ${String(c.ring.thickness)}px, no ${hex(c.color)} fill`, best: null, ok: v.ok })
+        if (!v.ok) misses.push(`action ${String(i)}: ${what} is a small ring drawn with no tap: a hollow round marker; ${v.why}: give it border-radius 50%, a ${String(c.ring.thickness)}px ${hex(c.color)} border and a white inside; keep its size and place`)
+        continue
+      }
+      // n92: an outlined control: something about the drawn size there with a border and no dark fill
+      if (c.paint === 'border') {
+        const own = after.nodes.filter((n) => centreIn(n, b, Math.max(10, pad)) && n.rect.w >= b.w * 0.5 && n.rect.w <= b.w * 2 + 16 && n.rect.h >= b.h * 0.5 && n.rect.h <= b.h * 2 + 16)
+        const dark = own.filter((n) => { const p = parseCssColor(n.style.backgroundColor); return !!p && alphaOf(n.style.backgroundColor) > 0.5 && (0.299 * p.r + 0.587 * p.g + 0.114 * p.b) < 110 })
+        const framed = own.some((n) => !!n.style.border && !/^0px/.test(n.style.border))
+        const ok = !dark.length && framed
+        checks.push({ what: `${what} (outlined control)`, want: 'border, no dark fill', best: null, ok })
+        if (!ok) misses.push(`action ${String(i)}: ${what} was drawn in dark ink with no tap: an outlined small button (1px light border, white or transparent background); ${dark.length ? 'it was built with a dark solid fill' : 'nothing with a border was built there'}: give it a thin border and no dark fill, keep its symbol dark`)
+        continue
+      }
+      // n121: a bar is checked as a thin block of its colour on the drawn line, never as text of that colour
+      if (isBarInk(c, a)) {
+        const bar = barsOf([a]).find((x) => x.strokeId === c.strokeId)!
+        const v = barBuilt(bar, after.nodes)
+        checks.push({ what: `${what} (bar)`, want: hex(c.color), best: v.de, ok: v.ok })
+        if (!v.ok) misses.push(v.offBy !== undefined
+          ? `action ${String(i)}: ${what} was drawn in ${hex(c.color)} with no words on it: a bar; it was built ${String(Math.abs(v.offBy))}px ${v.offBy > 0 ? 'below' : 'above'} its drawn line (its centre at y ${String(bar.y + v.offBy)}, drawn at y ${String(bar.y)}): ${barRowsHint(barsOf([a]), after.nodes) ?? 'move its row so the bar sits on the drawn line'}; keep its colour, label and amount`
+          : `action ${String(i)}: ${what} was drawn in ${hex(c.color)} with no words on it: a bar; ${v.de === null ? 'no thin block was built on that line' : `the nearest thin block on it is ΔE ${v.de.toFixed(0)} away`}: build a thin strip (6-10px tall) there with background ${hex(c.color)}; its label and amount stay dark text`)
+        continue
+      }
+      const at = closestAt(c.color, near, c.paint)
+      const best = at?.de ?? null
+      const hit = best !== null && best <= SOLID_OK_DE
+      // n94: a plain drawn panel is built flat: the block carrying its colour has square corners, no shadow, no fade
+      if (hit && at && plainPanel(c, a)) {
+        const why = notFlat(at.node)
+        checks.push({ what: `${what} (flat panel)`, want: 'square corners, no shadow, no gradient', best: null, ok: !why })
+        if (why) misses.push(`action ${String(i)}: ${what} is a plain panel drawn with square corners and filled ${hex(c.color)}; it was built with ${why}: make it flat, border-radius 0, box-shadow none, one solid background ${hex(c.color)}`)
+      }
+      // n12: the right hex is not enough for a fill: it has to show at (nearly) full strength in the middle
+      const st = hit && c.paint === 'background' && at ? strengthOf(at.node, at.css, byId) : null
+      const ok = hit && (!st || st.strength >= STRONG)
+      checks.push({ what, want: hex(c.color), best, ok, ...(st ? { strength: Math.round(st.strength * 100) / 100 } : {}) })
+      if (hit && st && !ok) {
+        misses.push(`action ${String(i)}: ${what} was coloured ${hex(c.color)}; the block has that colour but shows only about ${String(Math.round(st.strength * 100))}% of it in its middle (${[st.opacity < 1 ? `opacity ${st.opacity.toFixed(2)}` : '', st.blur ? `blur ${String(Math.round(st.blur))}px` : '', alphaOf(at!.css) < 1 ? `see-through colour ${alphaOf(at!.css).toFixed(2)}` : ''].filter(Boolean).join(', ')}), so it reads faint: make it opacity 1 with the solid colour, and soften only its edge (blur at most ${String(maxBlur(b))}px)`)
+        continue
+      }
+      // n249 (wifi): a box outlined in a pale pen, built white with that outline: right, and it sent a repair each build
+      if (!ok && c.paint !== 'text') {
+        const pen = parseCssColor(c.color)
+        const outlined = pen && pen.r * 0.299 + pen.g * 0.587 + pen.b * 0.114 > 190 && near.some((n) => {
+          const m = /rgba?\([^)]*\)/.exec(n.style.border ?? '')
+          const got = m ? parseCssColor(m[0]) : null
+          return !!got && deltaE(got, pen) <= SOLID_OK_DE
+        })
+        if (outlined) { checks[checks.length - 1]!.ok = true; continue }
+      }
+      if (!ok) misses.push(`action ${String(i)}: ${what} was coloured ${hex(c.color)}${c.paint === 'text' ? ' (text colour)' : ' (fill)'}; ${best === null ? 'nothing that size was built there carrying a colour' : `what was built there is ΔE ${best.toFixed(0)} away`}: paint ${c.paint === 'text' ? 'its text' : 'the block itself'} exactly ${hex(c.color)}`)
+    }
+  })
+  if (!checks.length) return { satisfied: true, unverifiable: true, reason: 'no colours from the ink', checks }
+  return misses.length
+    ? { satisfied: false, reason: misses.join('; '), checks }
+    : { satisfied: true, reason: `${String(checks.length)} colour${checks.length > 1 ? 's' : ''} from the ink on the page`, checks }
+}
+
+/** CSS angle (deg) of a computed linear-gradient, and its stop colours in order. 180deg when no angle is written. */
+export function gradientOf(img: string | undefined): { angle: number; stops: string[] } | null {
+  if (!img) return null
+  const m = /linear-gradient\((.*)\)\s*$/i.exec(img.split(/,\s*(?=(?:linear|radial|conic)-gradient)/i)[0]!.trim())
+  if (!m) return null
+  const body = m[1]!
+  let angle = 180
+  const a = /^\s*(-?[\d.]+)(deg|turn|rad)/i.exec(body)
+  if (a) angle = a[2] === 'turn' ? Number(a[1]) * 360 : a[2] === 'rad' ? Number(a[1]) * 180 / Math.PI : Number(a[1])
+  else {
+    const t = /^\s*to\s+([a-z ]+?)\s*,/i.exec(body)
+    if (t) {
+      const w = t[1]!.toLowerCase()
+      const x = w.includes('right') ? 1 : w.includes('left') ? -1 : 0, y = w.includes('bottom') ? 1 : w.includes('top') ? -1 : 0
+      angle = (Math.atan2(x, -y) * 180) / Math.PI
+    }
+  }
+  const stops = [...body.matchAll(/(?:rgba?|oklch|oklab|hsla?)\([^)]*\)|#[0-9a-f]{3,8}\b/gi)].map((x) => x[0])
+  return stops.length >= 2 ? { angle: ((angle % 360) + 360) % 360, stops } : null
+}
+
+/** n51: does a block near the mark paint this fade: every stop close, the first tap's colour at the start, the right way round? */
+export function fadeVerdict(fade: { colors: string[]; angle?: number }, near: DomNode[]): { ok: boolean; worst: number | null; why: string } {
+  let best: { ok: boolean; worst: number | null; why: string } | null = null
+  for (const n of near) {
+    const g = gradientOf(n.style.backgroundImage)
+    if (!g) continue
+    const parsed = g.stops.map((c) => parseCssColor(c)).filter((c): c is NonNullable<typeof c> => !!c)
+    if (parsed.length < 2) continue
+    let worst = 0
+    for (const want of fade.colors) {
+      const w = parseCssColor(want)
+      if (!w) continue
+      worst = Math.max(worst, Math.min(...parsed.map((p) => deltaE(w, p))))
+    }
+    // which way it runs: the first tap's colour should be nearer the gradient's start than its end
+    const first = parseCssColor(fade.colors[0]!), last = parseCssColor(fade.colors.at(-1)!)
+    let flipped = false
+    if (first && last) {
+      const s0 = parsed[0]!, s1 = parsed.at(-1)!
+      const along = deltaE(first, s0) + deltaE(last, s1), against = deltaE(first, s1) + deltaE(last, s0)
+      const turn = Math.abs((((g.angle - (fade.angle ?? 180)) % 360) + 540) % 360 - 180)
+      // the same stops the other way round, or the stops right but the angle turned round
+      flipped = (against + 4 < along && turn < 90) || (along + 4 < against && turn > 90)
+    }
+    const v = worst > OK_DE
+      ? { ok: false, worst, why: `the nearest gradient there is ΔE ${worst.toFixed(0)} off one of the tapped colours` }
+      : flipped
+        ? { ok: false, worst, why: 'the gradient there runs the wrong way (the first tap\'s colour ends up where the last tap was)' }
+        : { ok: true, worst, why: '' }
+    if (v.ok) return v
+    if (!best || (best.worst ?? 999) > (v.worst ?? 999)) best = v
+  }
+  return best ?? { ok: false, worst: null, why: 'nothing that size there paints a gradient' }
+}
+
+type XY = { x: number; y: number }
+function centroid(poly: XY[]): XY {
+  return poly.reduce((t, p) => ({ x: t.x + p.x / poly.length, y: t.y + p.y / poly.length }), { x: 0, y: 0 })
+}
+function polyArea(poly: XY[]): number {
+  let s = 0
+  for (let i = 0; i < poly.length; i++) { const a = poly[i]!, b = poly[(i + 1) % poly.length]!; s += a.x * b.y - b.x * a.y }
+  return Math.abs(s) / 2
+}
+function inPoly(p: XY, poly: XY[]): boolean {
+  let inside = false
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const a = poly[i]!, b = poly[j]!
+    if ((a.y > p.y) !== (b.y > p.y) && p.x < ((b.x - a.x) * (p.y - a.y)) / (b.y - a.y) + a.x) inside = !inside
+  }
+  return inside
+}
+
+/** Colour stops of a computed linear-gradient with their positions (%, or null when not written). */
+export function stopsOf(img: string | undefined): Array<{ css: string; at: number | null }> {
+  const m = /linear-gradient\((.*)\)\s*$/i.exec((img ?? '').split(/,\s*(?=(?:linear|radial|conic)-gradient)/i)[0]!.trim())
+  if (!m) return []
+  const out: Array<{ css: string; at: number | null }> = []
+  for (const x of m[1]!.matchAll(/((?:rgba?|oklch|oklab|hsla?)\([^)]*\)|#[0-9a-f]{3,8}\b)\s*(-?[\d.]+%)?(?:\s+(-?[\d.]+%))?/gi)) {
+    out.push({ css: x[1]!, at: x[2] ? Number(x[2].slice(0, -1)) : null })
+    if (x[3]) out.push({ css: x[1]!, at: Number(x[3].slice(0, -1)) })
+  }
+  return out
+}
+
+/**
+ * n59: is the block painted as two solid fills meeting at the divider? Either a gradient on the block that
+ * carries both colours with a hard stop between them (the two stops at the same place), or two solid parts,
+ * one centred on each side of the divider and covering a good share of it.
+ */
+export function splitVerdict(split: NonNullable<InkColour['split']>, near: DomNode[], all: DomNode[]): { ok: boolean; worst: number | null; why: string } {
+  const want = split.colors.map((c) => parseCssColor(c))
+  if (!want[0] || !want[1]) return { ok: true, worst: null, why: '' }
+  let worstSeen: number | null = null
+  let fadeSeen = false
+  for (const n of near) {
+    const st = stopsOf(n.style.backgroundImage)
+    if (st.length < 2) continue
+    const parsed = st.map((s) => ({ c: parseCssColor(s.css), at: s.at }))
+    const de = want.map((w) => Math.min(...parsed.map((p) => (p.c ? deltaE(w!, p.c) : 999))))
+    const worst = Math.max(...de)
+    worstSeen = worstSeen === null ? worst : Math.min(worstSeen, worst)
+    if (worst > OK_DE) continue
+    // a hard stop: two neighbouring stops of the two colours at (about) the same place
+    let hard = false
+    for (let k = 1; k < parsed.length; k++) {
+      const p = parsed[k - 1]!, q = parsed[k]!
+      if (!p.c || !q.c || p.at === null || q.at === null) continue
+      if (deltaE(p.c, q.c) > OK_DE && Math.abs(q.at - p.at) <= 1.5) hard = true
+    }
+    if (hard) return { ok: true, worst, why: '' }
+    fadeSeen = true
+  }
+  // or two solid parts, one on each side
+  const sideOk = split.sides.map((side, k) => {
+    const A = polyArea(side)
+    return all.some((n) => {
+      const cx = n.rect.x + n.rect.w / 2, cy = n.rect.y + n.rect.h / 2
+      if (!inPoly({ x: cx, y: cy }, side)) return false
+      const area = n.rect.w * n.rect.h
+      if (area < A * 0.35 || area > A * 2.2) return false
+      const g = parseCssColor(n.style.backgroundColor)
+      return !!g && alphaOf(n.style.backgroundColor) >= 0.8 && deltaE(want[k]!, g) <= 6
+    })
+  })
+  if (sideOk[0] && sideOk[1]) return { ok: true, worst: 0, why: '' }
+  return {
+    ok: false,
+    worst: worstSeen,
+    why: fadeSeen
+      ? 'it is built as a fade from one colour into the other (no hard stop at the divider)'
+      : `${!sideOk[0] ? `the side tapped ${hex(split.colors[0])}` : `the side tapped ${hex(split.colors[1])}`} is not painted that solid colour`,
+  }
+}
+
+/**
+ * n92: a box no bigger than a small control (both sides at most 64px), drawn in dark, nearly neutral ink with no tap,
+ * is an outline: the person drew a square with the pen they write with, not a dark fill. Round 36 e3 (timesheet):
+ * the two pager squares beside the date range were built as dark filled buttons, three builds in a row.
+ */
+export function inkOutlineBox(color: string | null | undefined, box: { w: number; h: number }): boolean {
+  if (!color || box.w > 64 || box.h > 64 || box.w < 8 || box.h < 8) return false
+  const p = parseCssColor(color)
+  if (!p) return false
+  const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  return lum < 70 && max - min < 48
+}
+
+/**
+ * n146: a small ring (14 to 40px) drawn in dark, nearly neutral ink with no tap is an OUTLINED ring: a map marker, a radio,
+ * a status ring: round, a few px of the pen colour, white or the surface inside. Like n92's small dark box, a person who
+ * wants it solid taps it. Round 40 e3 (ride booking): the two route-end markers were built as solid dark dots; the
+ * target's are hollow. A note on it asking for a fill (dot, solid, filled, avatar, photo) keeps the fill.
+ */
+export function inkSmallRing(color: string | null | undefined, box: { w: number; h: number }, own: readonly string[] = []): boolean {
+  if (!color || box.w > 40 || box.h > 40 || box.w < 14 || box.h < 14) return false
+  if (own.some((t) => /\b(dot|solid|filled|fill|avatar|photo|picture|image|bullet)\b/i.test(t))) return false
+  return inkOutlineBox(color, box)
+}
+
+/**
+ * n78: a box drawn in a light grey pen with no tap is an OUTLINE: a card, a field, a panel or a button with a thin
+ * grey border, never a grey block. A person reaches for a light grey pen to draw the faint frame they see, and taps
+ * when they want a fill. Round 38 e1 (hotel booking), e2 (contacts), e4 (job board): grey-pen room cards, the
+ * calendar, the search field and the Email / Call buttons were all built solid grey on a white page. Only a nearly
+ * neutral grey counts (a coloured pen still fills), and not the palest greys (a #f3f4f6 sidebar is a fill).
+ */
+export function inkGreyOutline(color: string | null | undefined, box: { w: number; h: number }): boolean {
+  if (!color || box.w < 16 || box.h < 12) return false
+  const p = parseCssColor(color)
+  if (!p) return false
+  const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  return max - min <= 20 && lum >= 150 && lum <= 236
+}
+
+/** n78: the block draws a frame: a visible border, an outline, or a 1px ring shadow. */
+export function hasFrame(n: DomNode): boolean {
+  const b = n.style.border
+  if (b && !/^\s*0px/.test(b) && !/\bnone\b/.test(b)) return true
+  const o = (n.style as Record<string, string | undefined>).outline
+  if (o && !/^\s*0px/.test(o) && !/\bnone\b/.test(o)) return true
+  const sh = n.style.boxShadow
+  return !!sh && /0px 0px 0px [1-3](?:\.\d+)?px/.test(sh)
+}
+
+/**
+ * n129: a ring noted as an arc / track / progress is built hollow. Fails when a disc about the drawn size, centred on
+ * the drawn ring, paints the pen colour (a solid background, or a gradient carrying it) and nothing covers its middle
+ * (an inner element at most 97% and at least 50% of its size, centred, with an opaque fill of another colour), or when
+ * nothing at all about the drawn size was built there. An SVG ring (circles with fill none) paints no background and passes.
+ */
+/**
+ * n204: an outline ring was built: something round about the drawn size sits centred on it (a bordered round box, or an
+ * svg circle stroked near the pen colour), nothing there is a pen-coloured disc with no hole (hollowBuilt), and no svg
+ * circle there spills past the svg holding it (an svg clips at its own box, so that ring shows flat sides).
+ */
+export function outlineRingBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, d = (b.w + b.h) / 2, cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const near = (n: DomNode, lo: number, hi: number) => n.rect.w >= d * lo && n.rect.w <= d * hi && n.rect.h >= d * lo && n.rect.h <= d * hi &&
+    Math.hypot(n.rect.x + n.rect.w / 2 - cx, n.rect.y + n.rect.h / 2 - cy) <= d * 0.2
+  const penLike = (css: string | undefined) => { const g = parseCssColor(css ?? ''); return !!g && deltaE(pen, g) <= 25 }
+  const byId = new Map(nodes.map((n) => [n.id, n]))
+  const svgOf = (n: DomNode): DomNode | null => { let p = n.parent ? byId.get(n.parent) : undefined; while (p) { if (p.tag === 'svg') return p; p = p.parent ? byId.get(p.parent) : undefined } return null }
+  for (const n of nodes) {
+    if ((n.tag !== 'circle' && n.tag !== 'ellipse') || !near(n, 0.6, 1.4)) continue
+    const svg = svgOf(n)
+    if (!svg) continue
+    const R = n.rect, S = svg.rect, spill = Math.max(S.x - R.x, S.y - R.y, R.x + R.w - (S.x + S.w), R.y + R.h - (S.y + S.h))
+    if (spill > 3) return { ok: false, why: `its circle runs ${String(Math.round(spill))}px past the svg holding it, so the ring is cut flat at the svg's edge` }
+  }
+  const hb = hollowBuilt(c, nodes)
+  if (!hb.ok) return hb
+  if (nodes.some((n) => (n.tag === 'circle' || n.tag === 'ellipse') && near(n, 0.75, 1.25) && penLike(n.style.svgFill) && alphaOf(n.style.svgFill ?? '') >= 0.6))
+    return { ok: false, why: `it was built as an svg disc filled ${hex(c.color)}` }
+  const ring = nodes.some((n) => near(n, 0.8, 1.2) && (
+    ((n.tag === 'circle' || n.tag === 'ellipse') && penLike(n.style.svgStroke)) ||
+    (!!n.style.border && !/^\s*0px/.test(n.style.border) && penLike(n.style.border.replace(/^\s*[\d.]+px\s*/, '')) && /(?:50%|9999|[1-9]\d{1,3}(?:\.\d+)?px)/.test(n.style.borderRadius))))
+  // n225: a pen-coloured disc with a centred cover over its middle looks the same as a border (hollowBuilt has seen the cover)
+  const covered = nodes.some((n) => near(n, 0.8, 1.2) && penLike(n.style.backgroundColor) && /(?:50%|9999|[1-9]\d{1,3}(?:\.\d+)?px)/.test(n.style.borderRadius))
+  if (!ring && !covered) return { ok: false, why: `no round ${hex(c.color)} outline about ${String(Math.round(d))}px across was built centred on it` }
+  return { ok: true, why: '' }
+}
+
+/** n212: a border at the drawn box in the pen colour, nothing there painted the pen colour, no typed words inside. */
+export function linesOnlyBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const inBox = (n: DomNode) => n.rect.x >= b.x - 8 && n.rect.y >= b.y - 8 && n.rect.x + n.rect.w <= b.x + b.w + 8 && n.rect.y + n.rect.h <= b.y + b.h + 8
+  const size = (n: DomNode) => n.rect.w >= b.w * 0.6 && n.rect.h >= b.h * 0.6
+  const penLike = (css: string | undefined) => { const g = parseCssColor(css ?? ''); return !!g && deltaE(pen, g) <= SOLID_OK_DE }
+  const slab = nodes.find((n) => size(n) && inBox(n) && penLike(n.style.backgroundColor) && alphaOf(n.style.backgroundColor) > 0.5)
+  if (slab) return { ok: false, why: `it was built as a block filled ${hex(c.color)}` }
+  const words = nodes.find((n) => inBox(n) && (n.text ?? '').trim().length > 0)
+  if (words) return { ok: false, why: `it holds the words "${(words.text ?? '').trim().slice(0, 40)}", which no note gave it` }
+  const framed = nodes.some((n) => size(n) && inBox(n) && hasFrame(n) && penLike((n.style.border ?? '').replace(/^\s*[\d.]+px\s*\w*\s*/, '')))
+  const drawn = nodes.some((n) => (n.tag === 'rect' || n.tag === 'polyline' || n.tag === 'path') && size(n) && inBox(n) && penLike(n.style.svgStroke))
+  if (!framed && !drawn) return { ok: false, why: `no ${hex(c.color)} border was built at the drawn box` }
+  return { ok: true, why: '' }
+}
+
+export function hollowBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, d = (b.w + b.h) / 2, cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const centred = (n: DomNode, lo: number, hi: number, off: number) => {
+    const w = n.rect.w, h = n.rect.h
+    return w >= d * lo && w <= d * hi && h >= d * lo && h <= d * hi && Math.hypot(n.rect.x + w / 2 - cx, n.rect.y + h / 2 - cy) <= d * off
+  }
+  const near = nodes.filter((n) => centred(n, 0.7, 1.3, 0.2))
+  if (!near.length) return { ok: false, why: `nothing about ${String(Math.round(d))}px across was built centred on it` }
+  for (const n of near) {
+    const paints = painted(n, 'background').filter((css) => css && alphaOf(css) >= 0.6)
+    const penFill = paints.some((css) => { const g = parseCssColor(css); return !!g && deltaE(pen, g) <= 12 })
+    if (!penFill) continue
+    const R = n.rect, nd = (R.w + R.h) / 2, ncx = R.x + R.w / 2, ncy = R.y + R.h / 2
+    const hole = nodes.some((m) => {
+      if (m === n) return false
+      const md = (m.rect.w + m.rect.h) / 2
+      if (md > nd * 0.97 || md < nd * 0.5 || Math.abs(m.rect.w - m.rect.h) > 0.12 * md) return false
+      if (Math.hypot(m.rect.x + m.rect.w / 2 - ncx, m.rect.y + m.rect.h / 2 - ncy) > nd * 0.08) return false
+      const bg = m.style.backgroundColor
+      const g = parseCssColor(bg)
+      return !!g && alphaOf(bg) >= 0.9 && deltaE(pen, g) > 12
+    })
+    if (!hole) return { ok: false, why: `it was built as a solid ${hex(c.color)} disc ${String(Math.round(R.w))}px across with nothing covering its middle` }
+  }
+  return { ok: true, why: '' }
+}
+
+/**
+ * n131: a box drawn in a LIGHT coloured pen (no tap) on a white or near-white surface is an OUTLINE too, the same
+ * as n78's light grey: a field, a pill, a dashed "add" box or a slot area with a tinted border, never a tinted
+ * block. Round 39 e1 (flight search): slate-grey pen inputs (#cbd5e1, a touch too blue for n78) were built as grey
+ * blocks; e4 (vet booking): a mint pen pill and the mint pen slot area came out mint panels; e3 (focus timer): a pink
+ * pen "+ Add task, dashed" box came out a pink block. A person taps when they want the fill (the timer's pink tabs
+ * and Reset button were tapped and stay filled). Only light pens (luminance 180-236: not the palest tints, which
+ * are a pale panel), only boxes at least 16x12, only when the surface right behind is light (luminance 230+), and
+ * never when a note on the box asks for a fill.
+ */
+const ASKS_FILL = /\b(fill|filled|solid|background|bg|tinted|shaded|block of)\b/i
+export function inkLightOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined, notes: readonly string[] = []): boolean {
+  if (!color || box.w < 16 || box.h < 12) return false
+  const p = parseCssColor(color)
+  const s = parseCssColor(behind ?? '#ffffff')
+  if (!p || !s) return false
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const sl = 0.299 * s.r + 0.587 * s.g + 0.114 * s.b
+  if (lum < 180 || lum > 236 || sl < 230) return false
+  return !notes.some((n) => ASKS_FILL.test(n))
+}
+
+/**
+ * n141: a box drawn in a pale or mid-grey pen (no tap) on a DARK surface is an OUTLINE, the dark-page twin of n78 /
+ * n131. Round 40 c4 (observatory): a white-pen "Book a night" box on a navy page came out a solid white button (the
+ * screenshot shows a white-bordered one); round 38 c3 (film fest) the same for "See the programme"; round 40 e1
+ * (music player): a #555 grey-pen box round the track list on a near-black page came out a grey slab under all six
+ * rows. Only when the surface right behind is dark (luminance under 70), the pen is clearly lighter than it (50+ more)
+ * and is a grey or a white (not a hue: a red pen box is a red block, a mint pen box a mint card), no note asks for a
+ * fill, and it holds no other drawn box (round 39 e1: a white pen search bar round three inputs on a blue hero is a
+ * white bar). Dark tiles drawn in a dark grey close to the page (a #3f3f46 video tile on #18181b) stay filled.
+ */
+export function inkDarkOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined, notes: readonly string[] = []): boolean {
+  if (!color || !behind || box.w < 16 || box.h < 12) return false
+  const p = parseCssColor(color), s = parseCssColor(behind)
+  if (!p || !s) return false
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const sl = 0.299 * s.r + 0.587 * s.g + 0.114 * s.b
+  const chroma = Math.max(p.r, p.g, p.b) - Math.min(p.r, p.g, p.b)
+  if (sl >= 70 || lum < sl + 50) return false
+  if (chroma > 30) return false
+  return !notes.some((n) => ASKS_FILL.test(n) && !PALE_FILL.test(n))
+}
+
+/**
+ * n212: a box whose own line would vanish if it were filled is its line. Round 46 c4 (tennis club): a white-pen box on a
+ * green court, a white line drawn through it and out the far side, no note on it. It was built as a solid white card
+ * with two invented blurbs, the line lost under it; a fix note had to say "white lines only". A filled white box would
+ * hide a white line, so a person drawing both means lines: court markings, a window frame, a floor plan. Only a big
+ * box (a chip or a marker has its own rules) on a filled surface it shows against, with no tap and no note of its own,
+ * and a same-pen line that crosses its edge or spans most of it. In 177 hand sketches this is this box and no other.
+ */
+export const LINES_BOX_MIN_W = 100, LINES_BOX_MIN_H = 60
+export function linesOnlyBox(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ target: string | null; color: string; dotId?: string }>,
+  own: readonly string[], box: { x: number; y: number; w: number; h: number }): boolean {
+  if (!st.color || own.length || box.w < LINES_BOX_MIN_W || box.h < LINES_BOX_MIN_H) return false
+  if (fills.some((f) => f.target === st.id)) return false
+  const behind = surfaceBehind(st, strokes, fills), p = parseCssColor(st.color), s = parseCssColor(behind)
+  const holder = strokes.some((o) => o.id !== st.id && closedish(o.points) && (() => { const ob = bbOf(o.points); return ob.x - 6 <= box.x && ob.y - 6 <= box.y && ob.x + ob.w + 6 >= box.x + box.w && ob.y + ob.h + 6 >= box.y + box.h && ob.w * ob.h > box.w * box.h * 1.1 })())
+  const pageTapped = fills.some((f) => f.target === null)
+  if (!p || !s || !(holder || pageTapped) || deltaE(p, s) <= 20) return false
+  const dots = new Set(fills.map((f) => f.dotId).filter(Boolean))
+  return strokes.some((o) => {
+    if (o.id === st.id || dots.has(o.id) || o.color !== st.color || closedish(o.points) || o.points.length < 2) return false
+    const b = bbOf(o.points)
+    if (Math.max(b.w, b.h) < 40 || Math.min(b.w, b.h) > 12) return false   // a straight rule, level or upright
+    if (b.x > box.x + box.w || b.x + b.w < box.x || b.y > box.y + box.h || b.y + b.h < box.y) return false
+    const out = Math.max(box.x - b.x, box.y - b.y, b.x + b.w - box.x - box.w, b.y + b.h - box.y - box.h)
+    return out >= 12 || b.w >= box.w * 0.6 || b.h >= box.h * 0.6
+  })
+}
+
+/**
+ * n144: a box drawn in a dark pen with NO tap, on a light surface, when the person tapped another box drawn in that same
+ * pen (so they fill by tapping), is an OUTLINE: the picked row or option, a framed field, never a dark block. Round 40 e3
+ * (ride booking): the Confirm button was drawn in near-black and tapped; the picked "Standard" ride row was drawn in the
+ * same pen with no tap (the screenshot shows a dark-bordered white row) and was built as a solid near-black slab. Small
+ * controls are n92's; a note asking for a fill keeps the fill.
+ */
+export function inkTaughtOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined,
+  notes: readonly string[], sameInkTapped: boolean): boolean {
+  if (!color || !sameInkTapped || box.w < 64 || box.h < 24) return false
+  const p = parseCssColor(color), s = parseCssColor(behind ?? '#ffffff')
+  if (!p || !s) return false
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const sl = 0.299 * s.r + 0.587 * s.g + 0.114 * s.b
+  if (lum >= 90 || sl < 200) return false
+  return !notes.some((n) => ASKS_FILL.test(n))
+}
+
+/**
+ * n194: no tap = an outline in the pen colour, tap = a fill, for ANY pen on ANY surface. Round 44 c3 (retro cinema): three
+ * show-time pills drawn in a yellow pen on a dark page, the middle one tapped yellow; the two untapped ones were built
+ * filled yellow (n128's coloured-pen rule) and the fix note turned them into bare text with no border at all. c5 (pottery):
+ * a dark-pen "Book a seat, bold, dark outline" button was built as a filled dark pill. n144 covered only dark pens on a
+ * light page, n131 / n141 only light or grey pens.
+ *  - 'said': the box's own note says outline / outlined / border only / ghost / hollow (not about its letters), and asks no fill;
+ *  - 'taught': another box in the same pen was tapped (the person fills by tapping), and no note on this one asks for a fill.
+ * Only button-to-card sized boxes (40x20 up to 560x300); the pen must show against the surface behind it.
+ */
+const OUTLINE_SAID = /\b(outline|outlined|outline[- ]only|border[- ]only|bordered|ghost|hollow|frame only|line only)\b/i
+const LETTERS_SAID = /\b(outlined|hollow|outline)\s+(letters?|text|words?|type|numbers?|digits?|font)\b/i
+export function inkPenOutline(color: string | null | undefined, box: { w: number; h: number }, behind: string | null | undefined,
+  notes: readonly string[], sameInkTapped: boolean): 'said' | 'taught' | null {
+  if (!color || box.w < 40 || box.h < 20 || box.w > 560 || box.h > 300) return null
+  const p = parseCssColor(color), s = parseCssColor(behind ?? '#ffffff')
+  if (!p || !s || deltaE(p, s) < 12) return null
+  if (notes.some((n) => ASKS_FILL.test(n) && !/\boutline only\b/i.test(n))) return null
+  if (notes.some((n) => OUTLINE_SAID.test(n) && !LETTERS_SAID.test(n))) return 'said'
+  return sameInkTapped ? 'taught' : null
+}
+
+/** n141: "pale fill", "light tint", "soft background": a tint of the pen colour, never a solid block of it. */
+export const PALE_FILL = /\b(pale|light|soft|faint|subtle)\s+(fill|filled|background|bg|tint|tinted|shade|shaded)\b/i
+
+type Pt = { x: number; y: number }
+type StrokeLike = { id: string; points: readonly Pt[]; color?: string | null }
+const bbOf = (pts: readonly Pt[]) => {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+}
+const closedish = (pts: readonly Pt[]) => {
+  if (pts.length < 4) return false
+  let len = 0
+  for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+  const a = pts[0]!, z = pts[pts.length - 1]!
+  return Math.hypot(z.x - a.x, z.y - a.y) <= Math.max(28, len * 0.15)
+}
+/**
+ * n131: the colour of the surface right behind a mark: the smallest closed mark holding it that is tapped (its tap
+ * colour) or drawn in a pen that fills (white, dark or strong: its pen colour; a light pen holder is itself an
+ * outline and is looked through), else the page's tapped colour, else white.
+ */
+export function surfaceBehind(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ target: string | null; color: string; dotId?: string }>): string {
+  const b = bbOf(st.points)
+  const dots = new Set(fills.map((f) => f.dotId).filter(Boolean))
+  const holders = strokes
+    .filter((o) => o.id !== st.id && !dots.has(o.id) && closedish(o.points))
+    .map((o) => ({ o, ob: bbOf(o.points) }))
+    .filter(({ ob }) => ob.x - 6 <= b.x && ob.y - 6 <= b.y && ob.x + ob.w + 6 >= b.x + b.w && ob.y + ob.h + 6 >= b.y + b.h && ob.w * ob.h > b.w * b.h * 1.1)
+    .sort((p, q) => p.ob.w * p.ob.h - q.ob.w * q.ob.h)
+  for (const { o, ob } of holders) {
+    const tap = fills.filter((f) => f.target === o.id).pop()
+    if (tap) return tap.color
+    if (!o.color) continue
+    const p = parseCssColor(o.color)
+    if (!p) continue
+    const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+    if (lum >= 150 && lum <= 236 && ob.w >= 16 && ob.h >= 12) continue
+    return o.color
+  }
+  return fills.filter((f) => f.target === null).pop()?.color ?? '#ffffff'
+}
+
+/** n141: another closed mark (not a tap dot) sits wholly inside this one: it is a holder (a bar, a panel), not a frame. */
+export function holdsBoxes(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ dotId?: string }> = []): boolean {
+  const b = bbOf(st.points)
+  const dots = new Set(fills.map((f) => f.dotId).filter(Boolean))
+  return strokes.some((o) => {
+    if (o.id === st.id || dots.has(o.id) || !closedish(o.points)) return false
+    const ob = bbOf(o.points)
+    if (ob.w < 8 || ob.h < 8) return false
+    return ob.x >= b.x - 4 && ob.y >= b.y - 4 && ob.x + ob.w <= b.x + b.w + 4 && ob.y + ob.h <= b.y + b.h + 4 && ob.w * ob.h < b.w * b.h * 0.9
+  })
+}
+
+/**
+ * n134: a box drawn in a light pen (grey, n78, or any light hue on a light surface, n131) with no tap is a frame,
+ * whatever the action it was read in: a "pet picker" read as a depiction traced the Luna pill and filled it mint.
+ */
+export function penFrameBox(st: StrokeLike, strokes: readonly StrokeLike[], fills: ReadonlyArray<{ target: string | null; color: string; dotId?: string }>,
+  notes: readonly string[], box: { w: number; h: number }): boolean {
+  if (!st.color || fills.some((f) => f.target === st.id)) return false
+  if (inkGreyOutline(st.color, box) && !notes.some((n) => ASKS_FILL.test(n))) return true
+  // n135: a strong-pen chip noted selected is a box too (the Biscuit pill was traced inside a depicted pet picker)
+  if (selectedChip(st.color, box, notes)) return true
+  const behind = surfaceBehind(st, strokes, fills)
+  return inkLightOutline(st.color, box, behind, notes) || (inkDarkOutline(st.color, box, behind, notes) && !holdsBoxes(st, strokes, fills))
+}
+
+/**
+ * n135: a chip or pill drawn in a STRONG coloured pen (not light, not near-black) with no tap, whose own note
+ * says it is the selected / active / current one, is a SELECTED CHIP: a pale tint of the pen colour inside, a
+ * border in the pen colour, never a solid block of it. Round 39 e4 (vet booking): "Biscuit selected, avatar" on a
+ * mid-green pen pill came out a solid green block in every build (n127-n134); the screenshot shows a pale green pill
+ * with a green border and a round avatar. A person taps when they want the solid fill (the same sketch tapped the
+ * Tue day card and the Confirm button, and those stay solid). Words like avatar / dot / icon / photo on it add a
+ * small round mark at its left, inside.
+ */
+export const SELECTED_WORD = /\b(selected|active|chosen|current|picked|checked|highlighted)\b/i
+const DOT_WORD = /\b(avatar|dot|icon|photo|pic|picture|thumb|thumbnail)\b/i
+export function selectedChip(color: string | null | undefined, box: { w: number; h: number }, notes: readonly string[]): { tint: string; dot: boolean } | null {
+  // n141: a picked plan CARD too (round 40 e5: "Team picked, pale fill" on a 224x240 purple pen card came out solid purple)
+  if (!color || box.w < 24 || box.h < 14 || box.w > 480 || box.h > 420) return null
+  const p = parseCssColor(color)
+  if (!p) return null
+  const lum = 0.299 * p.r + 0.587 * p.g + 0.114 * p.b
+  const max = Math.max(p.r, p.g, p.b), min = Math.min(p.r, p.g, p.b)
+  // strong and coloured: not a light pen (n131 already outlines those), not a near-neutral dark ink
+  if (lum < 40 || lum >= 180 || max - min < 60) return null
+  if (!notes.some((n) => SELECTED_WORD.test(n) || PALE_FILL.test(n))) return null
+  if (notes.some((n) => ASKS_FILL.test(n) && !PALE_FILL.test(n))) return null
+  const mix = (v: number) => Math.round(v * 0.14 + 255 * 0.86)
+  return { tint: hexOf({ r: mix(p.r), g: mix(p.g), b: mix(p.b) }), dot: notes.some((n) => DOT_WORD.test(n)) }
+}
+
+/** n135: the built chip there is pale (not the pen colour), framed, and holds a small round mark when one was asked. */
+export function selectedBuilt(c: Pick<InkColour, 'box' | 'color' | 'selected'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, pen = parseCssColor(c.color)
+  if (!pen || !c.selected) return { ok: true, why: '' }
+  const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const own = nodes.filter((n) => Math.abs(n.rect.x + n.rect.w / 2 - cx) <= Math.max(14, b.w * 0.25) && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= Math.max(12, b.h * 0.35) &&
+    n.rect.w >= b.w * 0.6 && n.rect.w <= b.w * 1.4 + 16 && n.rect.h >= b.h * 0.5 && n.rect.h <= b.h * 1.5 + 16)
+  if (!own.length) return { ok: false, why: 'nothing about that size was built there' }
+  const solid = own.filter((n) => painted(n, 'background').some((css) => { const g = parseCssColor(css); return !!g && alphaOf(css) >= 0.6 && deltaE(pen, g) <= 12 }))
+  if (solid.length) return { ok: false, why: `it was built as a solid ${hex(c.color)} block` }
+  if (!own.some((n) => hasFrame(n))) return { ok: false, why: 'it has no border' }
+  if (c.selected.dot) {
+    const host = own[0]!.rect
+    const dot = nodes.some((n) => n.rect.w >= 8 && n.rect.w <= host.h + 4 && Math.abs(n.rect.w - n.rect.h) <= 3 &&
+      n.rect.x >= host.x - 2 && n.rect.x + n.rect.w <= host.x + host.w * 0.5 && n.rect.y >= host.y - 2 && n.rect.y + n.rect.h <= host.y + host.h + 2 &&
+      (painted(n, 'background').some((css) => alphaOf(css) >= 0.3) || ['svg', 'img'].includes(n.tag)))
+    if (!dot) return { ok: false, why: 'no small round mark (avatar / dot) sits inside it at the left' }
+  }
+  return { ok: true, why: '' }
+}
+
+/**
+ * n140: a box drawn in a pen (no tap) round a big word or number is that word's AREA (n14), and its pen colour is the
+ * letters' colour. Round 40 c2 (wave festival): a white pen box round "WAVE, huge outlined letters" on a black page
+ * came out a solid white block with no word; c5 (venn studio): a black pen box round "40, giant black bold" on a yellow
+ * page came out a black block with a white 40. The area rule said "no fill" while the ink rule said "filled with the
+ * pen colour", and the fill won. Only area boxes for a big word (not rows), never when the box was tapped.
+ */
+export function areaWordInk(marks: ReadonlyArray<{ strokeId: string; shape: string; area?: true; areaOf?: string; word?: string; outlined?: { colour: string | null } }>, inks: InkColour[]): void {
+  for (const c of inks) {
+    if (c.how !== 'pen' || c.paint !== 'background' || c.fade || c.split || c.bands || c.slices) continue
+    const m = marks.find((k) => k.strokeId === c.strokeId)
+    if (!m || m.shape !== 'box' || !m.area || m.areaOf === 'rows') continue
+    if (inks.some((o) => o.strokeId === c.strokeId && o.how === 'tap')) continue
+    c.paint = 'text'
+    c.areaWord = { word: m.word ?? null, outlined: !!m.outlined }
+    if (m.outlined && !m.outlined.colour) m.outlined.colour = hex(c.color)
+  }
+}
+
+/** n140: no block about the area box's size paints the pen colour (alpha 0.6+) as its own background. */
+export function areaWordBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, pen = parseCssColor(c.color)
+  if (!pen) return { ok: true, why: '' }
+  const cx = b.x + b.w / 2, cy = b.y + b.h / 2
+  const blocks = nodes.filter((n) => Math.abs(n.rect.x + n.rect.w / 2 - cx) <= Math.max(16, b.w * 0.25) && Math.abs(n.rect.y + n.rect.h / 2 - cy) <= Math.max(16, b.h * 0.25) &&
+    n.rect.w >= b.w * 0.5 && n.rect.w <= b.w * 1.4 + 20 && n.rect.h >= b.h * 0.5 && n.rect.h <= b.h * 1.4 + 20)
+  const solid = blocks.find((n) => painted(n, 'background').some((css) => { const g = parseCssColor(css); return !!g && alphaOf(css) >= 0.6 && deltaE(pen, g) <= 12 }))
+  if (solid) return { ok: false, why: `a ${String(Math.round(solid.rect.w))}x${String(Math.round(solid.rect.h))} <${solid.tag}> there is a solid ${hex(c.color)} block` }
+  return { ok: true, why: '' }
+}
+
+/** n140: told once when anything was tapped: the dots in the sketch picture are taps, never parts of the design. */
+export const TAP_DOTS_LINE = '- the small round dots in the sketch picture (one inside a tapped mark, or alone on the page) only show WHERE a colour was tapped: ' +
+  'they are not part of the design. Never build a dot, an inner disc, a highlight, a crater or a shading spot where one sits; a tapped ring or box is ONE plain fill of its colour'
+
+/**
+ * n140: a tapped ring is one disc. Round 40 c4 (observatory): all four tapped planets came out with a second, darker
+ * disc where the tap dot was. Fails when an element wholly inside the ring, 15-80% of its size, roughly round, paints
+ * an opaque background of another colour and holds no words.
+ */
+export function tapDotBuilt(c: Pick<InkColour, 'box' | 'color'>, nodes: readonly DomNode[]): { ok: boolean; why: string } {
+  const b = c.box, d = (b.w + b.h) / 2, want = parseCssColor(c.color)
+  if (!want || d < 24) return { ok: true, why: '' }
+  const pad = d * 0.08
+  for (const n of nodes) {
+    const r = n.rect, nd = (r.w + r.h) / 2
+    if (nd < d * 0.15 || nd > d * 0.8 || Math.abs(r.w - r.h) > nd * 0.25 || n.text.trim()) continue
+    if (r.x < b.x - pad || r.y < b.y - pad || r.x + r.w > b.x + b.w + pad || r.y + r.h > b.y + b.h + pad) continue
+    const css = painted(n, 'background').find((x) => { const g = parseCssColor(x); return !!g && alphaOf(x) >= 0.6 && deltaE(want, g) > 12 })
+    if (css) return { ok: false, why: `a ${String(Math.round(r.w))}px disc in ${hex(css)} sits inside it` }
+  }
+  return { ok: true, why: '' }
+}

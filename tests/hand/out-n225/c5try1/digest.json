@@ -1,0 +1,460 @@
+{
+  "round": 47,
+  "id": "c5-tattoo-parlor",
+  "version": 3,
+  "stopped": null,
+  "likeness": 84.8,
+  "colour": 0.9451495367626288,
+  "structure": 0.8507817753144962,
+  "layout": 0.8181558548514836,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 3.4,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "box": 3,
+      "circle": 2,
+      "line": 3
+    },
+    "inkPx": 9650
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 42,
+  "notes": 5,
+  "longestNote": 25,
+  "noteTexts": [
+    "Inkwell bold",
+    "Artists Flash Book",
+    "Ink that lasts. huge bold italic serif",
+    "x4 in a row, dark frames, captions under: black diamond, Diamond $80; red circle, Red sun $60; black triangle, Peak $90; red bar, Bar $45",
+    "Book a session white bold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 557,
+    "firstReadingS": 106,
+    "readS": [
+      66
+    ],
+    "buildS": [
+      449
+    ],
+    "sketchingS": 42
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 116092,
+    "cacheRead": 1052591,
+    "output": 42022,
+    "billed": 158114
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#171717",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 477
+    },
+    {
+      "op": "pen",
+      "color": "#f9f3e7",
+      "at": 854
+    },
+    {
+      "op": "stroke",
+      "at": 11075
+    },
+    {
+      "op": "stroke",
+      "at": 11553
+    },
+    {
+      "op": "stroke",
+      "at": 14950
+    },
+    {
+      "op": "pen",
+      "color": "#d9283c",
+      "at": 15323
+    },
+    {
+      "op": "stroke",
+      "at": 18089
+    },
+    {
+      "op": "stroke",
+      "at": 18566
+    },
+    {
+      "op": "pen",
+      "color": "#f9f3e7",
+      "at": 18931
+    },
+    {
+      "op": "stroke",
+      "at": 19617
+    },
+    {
+      "op": "stroke",
+      "at": 20550
+    },
+    {
+      "op": "stroke",
+      "at": 22634
+    },
+    {
+      "op": "pen",
+      "color": "#171717",
+      "at": 23004
+    },
+    {
+      "op": "stroke",
+      "at": 26386
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 26755
+    },
+    {
+      "op": "stroke",
+      "at": 27237
+    },
+    {
+      "op": "pen",
+      "color": "#171717",
+      "at": 27610
+    },
+    {
+      "op": "stroke",
+      "at": 34868
+    },
+    {
+      "op": "stroke",
+      "at": 35352
+    },
+    {
+      "op": "note",
+      "at": 36046
+    },
+    {
+      "op": "note",
+      "at": 36764
+    },
+    {
+      "op": "note",
+      "at": 37465
+    },
+    {
+      "op": "note",
+      "at": 38667
+    },
+    {
+      "op": "note",
+      "at": 39386
+    },
+    {
+      "op": "run",
+      "at": 39540
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          500,
+          350
+        ]
+      ],
+      "n": 1,
+      "at": 477
+    },
+    {
+      "way": [
+        [
+          2,
+          430
+        ],
+        [
+          1276,
+          430
+        ],
+        [
+          1276,
+          896
+        ],
+        [
+          2,
+          896
+        ],
+        [
+          2,
+          430
+        ]
+      ],
+      "n": 581,
+      "at": 11075
+    },
+    {
+      "way": [
+        [
+          640,
+          790
+        ]
+      ],
+      "n": 1,
+      "at": 11553
+    },
+    {
+      "way": [
+        [
+          1035,
+          70
+        ],
+        [
+          1159,
+          121
+        ],
+        [
+          1210,
+          245
+        ],
+        [
+          1159,
+          369
+        ],
+        [
+          1035,
+          420
+        ],
+        [
+          911,
+          369
+        ],
+        [
+          860,
+          245
+        ],
+        [
+          911,
+          121
+        ],
+        [
+          1035,
+          70
+        ]
+      ],
+      "n": 177,
+      "at": 14950
+    },
+    {
+      "way": [
+        [
+          1035,
+          110
+        ],
+        [
+          1130,
+          150
+        ],
+        [
+          1170,
+          245
+        ],
+        [
+          1130,
+          340
+        ],
+        [
+          1035,
+          380
+        ],
+        [
+          940,
+          340
+        ],
+        [
+          900,
+          245
+        ],
+        [
+          940,
+          150
+        ],
+        [
+          1035,
+          110
+        ]
+      ],
+      "n": 137,
+      "at": 18089
+    },
+    {
+      "way": [
+        [
+          1035,
+          245
+        ]
+      ],
+      "n": 1,
+      "at": 18566
+    },
+    {
+      "way": [
+        [
+          70,
+          38
+        ],
+        [
+          150,
+          38
+        ]
+      ],
+      "n": 14,
+      "at": 19617
+    },
+    {
+      "way": [
+        [
+          1041,
+          38
+        ],
+        [
+          1210,
+          38
+        ]
+      ],
+      "n": 29,
+      "at": 20550
+    },
+    {
+      "way": [
+        [
+          70,
+          184
+        ],
+        [
+          653,
+          184
+        ]
+      ],
+      "n": 98,
+      "at": 22634
+    },
+    {
+      "way": [
+        [
+          70,
+          480
+        ],
+        [
+          330,
+          480
+        ],
+        [
+          330,
+          740
+        ],
+        [
+          70,
+          740
+        ],
+        [
+          70,
+          480
+        ]
+      ],
+      "n": 173,
+      "at": 26386
+    },
+    {
+      "way": [
+        [
+          200,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 27237
+    },
+    {
+      "way": [
+        [
+          70,
+          810
+        ],
+        [
+          1210,
+          810
+        ],
+        [
+          1210,
+          870
+        ],
+        [
+          70,
+          870
+        ],
+        [
+          70,
+          810
+        ]
+      ],
+      "n": 401,
+      "at": 34868
+    },
+    {
+      "way": [
+        [
+          640,
+          840
+        ]
+      ],
+      "n": 1,
+      "at": 35352
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Inkwell bold",
+      "whole": false,
+      "x": 75,
+      "y": 58,
+      "at": 36046
+    },
+    {
+      "text": "Artists Flash Book",
+      "whole": false,
+      "x": 1050,
+      "y": 58,
+      "at": 36764
+    },
+    {
+      "text": "Ink that lasts. huge bold italic serif",
+      "whole": false,
+      "x": 80,
+      "y": 204,
+      "at": 37465
+    },
+    {
+      "text": "x4 in a row, dark frames, captions under: black diamond, Diamond $80; red circle, Red sun $60; black triangle, Peak $90; red bar, Bar $45",
+      "whole": false,
+      "x": 100,
+      "y": 580,
+      "at": 38667
+    },
+    {
+      "text": "Book a session white bold",
+      "whole": false,
+      "x": 580,
+      "y": 840,
+      "at": 39386
+    }
+  ]
+}

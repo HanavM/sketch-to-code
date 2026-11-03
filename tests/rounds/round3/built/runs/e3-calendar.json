@@ -1,0 +1,112 @@
+{
+  "id": "e3-calendar",
+  "at": "2026-10-21T06:02:11.773Z",
+  "likeness": {
+    "version": 2,
+    "overall": 0.3060878824073152,
+    "overallV1": 0.15148801067459788,
+    "colour": 0.9724105091054345,
+    "structure": 0.8444235759686403,
+    "structureStrict": 0.6274036682767211,
+    "layout": 0.466194495281568
+  },
+  "effects": null,
+  "tokens": {
+    "input": 28543,
+    "output": 11077,
+    "cacheRead": 298618
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35736,
+      "output": 9794,
+      "cacheRead": 295598,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/package.json"
+      ],
+      "ms": 102340
+    }
+  ],
+  "reading": "A calendar header with a \"November 2026\" title, Prev/Today/Next outline nav buttons, and a green \"+ New event\" button, above a 5-week month grid (Mon–Sun) filled with day numbers and colour-coded event chips as described, with day 11 highlighted.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        56,
+        38,
+        186,
+        19
+      ],
+      "paths": [],
+      "instruction": "Text placeholder (wavy squiggle) at top-left reads as a page heading; render as literal text \"November 2026\" as the calendar's month/year title."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        860,
+        32,
+        68,
+        33
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A row of outline (ghost-style) navigation buttons next to the title: \"‹ Prev\", \"Today\", \"Next ›\", used to move between months."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1122,
+        32,
+        107,
+        32
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A solid green button with white text labeled \"+ New event\", placed at the top-right for creating a new calendar event."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        91,
+        1178,
+        671
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Large bordered rectangle becomes a month calendar grid, columns Mon through Sun, 5 rows of day cells. First row starts with trailing days of the previous month "
+    }
+  ],
+  "rejected": []
+}

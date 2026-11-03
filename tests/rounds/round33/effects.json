@@ -1,0 +1,78 @@
+{
+ "c1-surf-school": {
+  "found": {
+   "gradient": 1,
+   "overlap": 2
+  },
+  "names": [
+   "gradient",
+   "overlap"
+  ]
+ },
+ "c2-slow-agency": {
+  "found": {
+   "hollow-type": 1,
+   "huge-type": 1
+  },
+  "names": [
+   "hollow-type",
+   "huge-type"
+  ]
+ },
+ "c3-gig-ticket": {
+  "found": {
+   "tilt": 1,
+   "soft-shadow": 1,
+   "overlap": 3
+  },
+  "names": [
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "c4-herb-farm": {
+  "found": {},
+  "names": []
+ },
+ "c5-cabin-stays": {
+  "found": {
+   "clip-shape": 2,
+   "bleed": 2,
+   "overlap": 1
+  },
+  "names": [
+   "bleed",
+   "clip-shape",
+   "overlap"
+  ]
+ },
+ "e1-todo": {
+  "found": {
+   "soft-shadow": 1
+  },
+  "names": [
+   "soft-shadow"
+  ]
+ },
+ "e2-music-player": {
+  "found": {},
+  "names": []
+ },
+ "e3-invoice": {
+  "found": {
+   "soft-shadow": 1
+  },
+  "names": [
+   "soft-shadow"
+  ]
+ },
+ "e4-map-search": {
+  "found": {},
+  "names": []
+ },
+ "e5-billing": {
+  "found": {},
+  "names": []
+ }
+}

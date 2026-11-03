@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Vet</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f0fdf4;font-family:Helvetica,Arial,sans-serif;color:#14532d;overflow:hidden;position:relative}
+nav{position:absolute;left:0;top:0;width:1280px;height:72px;background:#fff;border-bottom:1px solid #dcfce7;display:flex;align-items:center;padding:0 60px;font-size:22px;font-weight:700}
+h1{position:absolute;left:60px;top:110px;font-size:30px}
+.pets{position:absolute;left:60px;top:170px;display:flex;gap:16px}
+.pet{width:150px;height:64px;border-radius:32px;border:2px solid #bbf7d0;background:#fff;display:flex;align-items:center;gap:10px;padding:0 8px;font-size:16px;font-weight:600}.pet i{width:46px;height:46px;border-radius:50%;background:#bbf7d0}.pet.on{border-color:#16a34a;background:#dcfce7}
+.days{position:absolute;left:60px;top:280px;width:740px;display:flex;gap:12px}
+.d{flex:1;height:90px;border-radius:14px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px}.d b{font-size:26px}.d.on{background:#16a34a;color:#fff}
+.slots{position:absolute;left:60px;top:410px;width:740px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.s{height:54px;border-radius:10px;border:2px solid #bbf7d0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600}.s.on{background:#14532d;color:#fff;border-color:#14532d}.s.off{color:#bbf7d0;border-style:dashed}
+.sum{position:absolute;left:850px;top:110px;width:370px;height:560px;background:#fff;border-radius:20px;padding:30px;font-size:16px}
+.sum>b{font-size:22px}.sum div{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f0fdf4}.sum div span{color:#4d7c0f}
+.cta{position:absolute;left:880px;top:580px;width:310px;height:58px;border-radius:12px;background:#16a34a;color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<nav data-r="nav">pawsclinic</nav>
+<h1 data-r="title">Book a visit</h1>
+<div class="pets" data-r="pets"><div class="pet on"><i></i>Biscuit</div><div class="pet"><i></i>Luna</div></div>
+<div class="days" data-r="days" data-must><div class="d">Mon<b>14</b></div><div class="d on">Tue<b>15</b></div><div class="d">Wed<b>16</b></div><div class="d">Thu<b>17</b></div><div class="d">Fri<b>18</b></div></div>
+<div class="slots" data-r="slots" data-must><div class="s">09:00</div><div class="s off">09:30</div><div class="s">10:00</div><div class="s on">10:30</div><div class="s">11:00</div><div class="s off">11:30</div><div class="s">14:00</div><div class="s">14:30</div><div class="s off">15:00</div><div class="s">15:30</div><div class="s">16:00</div><div class="s">16:30</div></div>
+<div class="sum" data-r="summary" data-must><b>Summary</b><div>Pet<span>Biscuit</span></div><div>Date<span>Tue 15 Dec</span></div><div>Time<span>10:30</span></div><div>Vet<span>Dr. Okafor</span></div><div>Fee<span>€45</span></div></div>
+<div class="cta" data-r="button" data-must>Confirm booking</div>
+</body></html>

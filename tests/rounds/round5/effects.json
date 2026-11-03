@@ -1,0 +1,112 @@
+{
+ "c1-masked-reel": {
+  "found": {
+   "motion": 1,
+   "stripes-or-layers": 1,
+   "hollow-type": 1,
+   "huge-type": 2,
+   "blend": 1
+  },
+  "names": [
+   "blend",
+   "hollow-type",
+   "huge-type",
+   "motion",
+   "stripes-or-layers"
+  ]
+ },
+ "c2-variable-type": {
+  "found": {
+   "huge-type": 3,
+   "italic": 1,
+   "motion": 2,
+   "overlap": 2
+  },
+  "names": [
+   "huge-type",
+   "italic",
+   "motion",
+   "overlap"
+  ]
+ },
+ "c3-scroll-reveal": {
+  "found": {
+   "glass": 1,
+   "gradient": 4,
+   "bleed": 2
+  },
+  "names": [
+   "bleed",
+   "glass",
+   "gradient"
+  ]
+ },
+ "c4-outline-stack": {
+  "found": {
+   "hollow-type": 2,
+   "huge-type": 2,
+   "bleed": 2,
+   "tilt": 5,
+   "gradient": 2,
+   "hard-shadow": 1,
+   "blend": 1,
+   "stripes-or-layers": 1,
+   "overlap": 8
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "gradient",
+   "hard-shadow",
+   "hollow-type",
+   "huge-type",
+   "overlap",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c5-bento": {
+  "found": {
+   "stripes-or-layers": 2,
+   "huge-type": 1,
+   "mono": 5,
+   "gradient": 1
+  },
+  "names": [
+   "gradient",
+   "huge-type",
+   "mono",
+   "stripes-or-layers"
+  ]
+ },
+ "e1-board-modal": {
+  "found": {
+   "soft-shadow": 1,
+   "overlap": 34
+  },
+  "names": [
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e2-heatmap-analytics": {
+  "found": {},
+  "names": []
+ },
+ "e3-team-chat": {
+  "found": {},
+  "names": []
+ },
+ "e4-settings-toggles": {
+  "found": {
+   "soft-shadow": 1
+  },
+  "names": [
+   "soft-shadow"
+  ]
+ },
+ "e5-data-grid": {
+  "found": {},
+  "names": []
+ }
+}

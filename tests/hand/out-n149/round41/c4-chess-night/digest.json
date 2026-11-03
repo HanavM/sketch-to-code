@@ -1,0 +1,471 @@
+{
+  "round": 41,
+  "id": "c4-chess-night",
+  "version": 3,
+  "stopped": null,
+  "likeness": 78.7,
+  "colour": 0.9585508651294976,
+  "structure": 0.8465032242065942,
+  "layout": 0.7680581302034865,
+  "strokes": {
+    "count": 10,
+    "pointsPerStroke": 4.2,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 3,
+      "box": 2,
+      "line": 4,
+      "circle": 1
+    },
+    "inkPx": 5510
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 63,
+  "notes": 9,
+  "longestNote": 13,
+  "noteTexts": [
+    "checkerboard: black and cream squares, 4 across, 7 down",
+    "CHECK / MATE huge bold caps, MATE outlined only",
+    "Every Thursday, 7pm, bold",
+    "Blitz games, coffee and a board for every level at the corner café.",
+    "Save a seat",
+    "Free entry, tilted white",
+    "one line, left edge, not under MATE",
+    "MATE goes on its own second line",
+    "Every Thursday, 7pm: one line, left aligned"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 709,
+    "firstReadingS": 57,
+    "readS": [
+      27,
+      29,
+      10
+    ],
+    "buildS": [
+      321,
+      103,
+      155
+    ],
+    "sketchingS": 63
+  },
+  "corrections": 2,
+  "runs": 3,
+  "tokens": {
+    "input": 120336,
+    "cacheRead": 740086,
+    "output": 54240,
+    "billed": 174576
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f4f0e8",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 461
+    },
+    {
+      "op": "pen",
+      "color": "#151515",
+      "at": 847
+    },
+    {
+      "op": "stroke",
+      "at": 9307
+    },
+    {
+      "op": "note",
+      "at": 10085
+    },
+    {
+      "op": "stroke",
+      "at": 11969
+    },
+    {
+      "op": "stroke",
+      "at": 13517
+    },
+    {
+      "op": "note",
+      "at": 14313
+    },
+    {
+      "op": "stroke",
+      "at": 15402
+    },
+    {
+      "op": "note",
+      "at": 16160
+    },
+    {
+      "op": "pen",
+      "color": "#555555",
+      "at": 16548
+    },
+    {
+      "op": "stroke",
+      "at": 18469
+    },
+    {
+      "op": "note",
+      "at": 19441
+    },
+    {
+      "op": "pen",
+      "color": "#151515",
+      "at": 19816
+    },
+    {
+      "op": "stroke",
+      "at": 21855
+    },
+    {
+      "op": "stroke",
+      "at": 22340
+    },
+    {
+      "op": "note",
+      "at": 23019
+    },
+    {
+      "op": "pen",
+      "color": "#e94f3d",
+      "at": 23393
+    },
+    {
+      "op": "stroke",
+      "at": 25205
+    },
+    {
+      "op": "stroke",
+      "at": 25692
+    },
+    {
+      "op": "note",
+      "at": 26407
+    },
+    {
+      "op": "run",
+      "at": 30188
+    },
+    {
+      "op": "note",
+      "at": 388190
+    },
+    {
+      "op": "run",
+      "at": 388312
+    },
+    {
+      "op": "note",
+      "at": 532456
+    },
+    {
+      "op": "note",
+      "at": 533172
+    },
+    {
+      "op": "run",
+      "at": 533253
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          800,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 461
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          520,
+          2
+        ],
+        [
+          520,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 471,
+      "at": 9307
+    },
+    {
+      "way": [
+        [
+          604,
+          245
+        ],
+        [
+          1105,
+          245
+        ]
+      ],
+      "n": 85,
+      "at": 11969
+    },
+    {
+      "way": [
+        [
+          606,
+          378
+        ],
+        [
+          990,
+          378
+        ]
+      ],
+      "n": 65,
+      "at": 13517
+    },
+    {
+      "way": [
+        [
+          606,
+          433
+        ],
+        [
+          826,
+          433
+        ]
+      ],
+      "n": 38,
+      "at": 15402
+    },
+    {
+      "way": [
+        [
+          606,
+          483
+        ],
+        [
+          1126,
+          483
+        ]
+      ],
+      "n": 88,
+      "at": 18469
+    },
+    {
+      "way": [
+        [
+          606,
+          600
+        ],
+        [
+          826,
+          600
+        ],
+        [
+          826,
+          658
+        ],
+        [
+          606,
+          658
+        ],
+        [
+          606,
+          600
+        ]
+      ],
+      "n": 95,
+      "at": 21855
+    },
+    {
+      "way": [
+        [
+          630,
+          620
+        ]
+      ],
+      "n": 1,
+      "at": 22340
+    },
+    {
+      "way": [
+        [
+          1180,
+          800
+        ],
+        [
+          1176,
+          825
+        ],
+        [
+          1165,
+          847
+        ],
+        [
+          1147,
+          865
+        ],
+        [
+          1125,
+          876
+        ],
+        [
+          1100,
+          880
+        ],
+        [
+          1075,
+          876
+        ],
+        [
+          1053,
+          865
+        ],
+        [
+          1035,
+          847
+        ],
+        [
+          1024,
+          825
+        ],
+        [
+          1020,
+          800
+        ],
+        [
+          1024,
+          775
+        ],
+        [
+          1035,
+          753
+        ],
+        [
+          1053,
+          735
+        ],
+        [
+          1075,
+          724
+        ],
+        [
+          1100,
+          720
+        ],
+        [
+          1125,
+          724
+        ],
+        [
+          1147,
+          735
+        ],
+        [
+          1165,
+          753
+        ],
+        [
+          1176,
+          775
+        ],
+        [
+          1180,
+          800
+        ]
+      ],
+      "n": 81,
+      "at": 25205
+    },
+    {
+      "way": [
+        [
+          1060,
+          770
+        ]
+      ],
+      "n": 1,
+      "at": 25692
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "checkerboard: black and cream squares, 4 across, 7 down",
+      "whole": false,
+      "x": 260,
+      "y": 450,
+      "at": 10085
+    },
+    {
+      "text": "CHECK / MATE huge bold caps, MATE outlined only",
+      "whole": false,
+      "x": 850,
+      "y": 245,
+      "at": 14313
+    },
+    {
+      "text": "Every Thursday, 7pm, bold",
+      "whole": false,
+      "x": 716,
+      "y": 433,
+      "at": 16160
+    },
+    {
+      "text": "Blitz games, coffee and a board for every level at the corner café.",
+      "whole": false,
+      "x": 860,
+      "y": 483,
+      "at": 19441
+    },
+    {
+      "text": "Save a seat",
+      "whole": false,
+      "x": 716,
+      "y": 629,
+      "at": 23019
+    },
+    {
+      "text": "Free entry, tilted white",
+      "whole": false,
+      "x": 1100,
+      "y": 800,
+      "at": 26407
+    },
+    {
+      "text": "one line, left edge, not under MATE",
+      "whole": false,
+      "x": 900,
+      "y": 433,
+      "at": 388190
+    },
+    {
+      "text": "MATE goes on its own second line",
+      "whole": false,
+      "x": 860,
+      "y": 250,
+      "at": 532456
+    },
+    {
+      "text": "Every Thursday, 7pm: one line, left aligned",
+      "whole": false,
+      "x": 700,
+      "y": 440,
+      "at": 533172
+    }
+  ]
+}

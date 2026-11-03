@@ -1,0 +1,708 @@
+{
+  "round": 36,
+  "id": "c5-tide-swim",
+  "version": 3,
+  "stopped": null,
+  "likeness": 60.9,
+  "colour": 0.9490105374205549,
+  "structure": 0.7609907020797289,
+  "layout": 0.19659058759709616,
+  "strokes": {
+    "count": 21,
+    "pointsPerStroke": 3,
+    "simpleShare": 0.95,
+    "shapes": {
+      "line": 8,
+      "circle": 1,
+      "freehand": 1,
+      "box": 4,
+      "dot": 7
+    },
+    "inkPx": 14074
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 69,
+  "notes": 10,
+  "longestNote": 15,
+  "noteTexts": [
+    "SALT, bold spaced",
+    "Swims Tides Kit Join",
+    "next high tide, small",
+    "06:40, big bold",
+    "SWIM THE MORNING TIDE, huge heavy caps",
+    "A friendly sea swim group that meets at the pier, rain or shine, all year.",
+    "Join a swim, white bold",
+    "buoy: white band across the middle",
+    "too low: sits on the drawn lines",
+    "the four sea bands start at y of the drawn top band, under the buoy"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 772,
+    "firstReadingS": 109,
+    "readS": [
+      48,
+      24
+    ],
+    "buildS": [
+      402,
+      220
+    ],
+    "sketchingS": 78
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 67021,
+    "cacheRead": 268003,
+    "output": 42884,
+    "billed": 109905
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f0fbfc",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 646
+    },
+    {
+      "op": "stroke",
+      "at": 1696
+    },
+    {
+      "op": "stroke",
+      "at": 2415
+    },
+    {
+      "op": "stroke",
+      "at": 3194
+    },
+    {
+      "op": "stroke",
+      "at": 4995
+    },
+    {
+      "op": "stroke",
+      "at": 7428
+    },
+    {
+      "op": "pen",
+      "color": "#bfe6ea",
+      "at": 7795
+    },
+    {
+      "op": "stroke",
+      "at": 9495
+    },
+    {
+      "op": "stroke",
+      "at": 10363
+    },
+    {
+      "op": "pen",
+      "color": "#ff5a36",
+      "at": 10727
+    },
+    {
+      "op": "stroke",
+      "at": 12462
+    },
+    {
+      "op": "stroke",
+      "at": 14063
+    },
+    {
+      "op": "pen",
+      "color": "#166d7e",
+      "at": 14427
+    },
+    {
+      "op": "stroke",
+      "at": 22480
+    },
+    {
+      "op": "pen",
+      "color": "#1f8f9e",
+      "at": 22849
+    },
+    {
+      "op": "stroke",
+      "at": 30847
+    },
+    {
+      "op": "pen",
+      "color": "#36b1be",
+      "at": 31210
+    },
+    {
+      "op": "stroke",
+      "at": 39220
+    },
+    {
+      "op": "pen",
+      "color": "#7fd7dc",
+      "at": 39582
+    },
+    {
+      "op": "stroke",
+      "at": 47916
+    },
+    {
+      "op": "pen",
+      "color": "#0b3b4a",
+      "at": 48280
+    },
+    {
+      "op": "stroke",
+      "at": 48746
+    },
+    {
+      "op": "pen",
+      "color": "#ff5a36",
+      "at": 49111
+    },
+    {
+      "op": "stroke",
+      "at": 49583
+    },
+    {
+      "op": "stroke",
+      "at": 50048
+    },
+    {
+      "op": "pen",
+      "color": "#166d7e",
+      "at": 50417
+    },
+    {
+      "op": "stroke",
+      "at": 50879
+    },
+    {
+      "op": "pen",
+      "color": "#1f8f9e",
+      "at": 51241
+    },
+    {
+      "op": "stroke",
+      "at": 51713
+    },
+    {
+      "op": "pen",
+      "color": "#36b1be",
+      "at": 52083
+    },
+    {
+      "op": "stroke",
+      "at": 52549
+    },
+    {
+      "op": "pen",
+      "color": "#7fd7dc",
+      "at": 52917
+    },
+    {
+      "op": "stroke",
+      "at": 53397
+    },
+    {
+      "op": "note",
+      "at": 54045
+    },
+    {
+      "op": "note",
+      "at": 54699
+    },
+    {
+      "op": "note",
+      "at": 55365
+    },
+    {
+      "op": "note",
+      "at": 55985
+    },
+    {
+      "op": "note",
+      "at": 56694
+    },
+    {
+      "op": "note",
+      "at": 57438
+    },
+    {
+      "op": "note",
+      "at": 58093
+    },
+    {
+      "op": "note",
+      "at": 58771
+    },
+    {
+      "op": "run",
+      "at": 61498
+    },
+    {
+      "op": "note",
+      "at": 520613
+    },
+    {
+      "op": "note",
+      "at": 521447
+    },
+    {
+      "op": "run",
+      "at": 521555
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          72,
+          43
+        ],
+        [
+          135,
+          43
+        ]
+      ],
+      "n": 12,
+      "at": 646
+    },
+    {
+      "way": [
+        [
+          999,
+          44
+        ],
+        [
+          1208,
+          44
+        ]
+      ],
+      "n": 36,
+      "at": 1696
+    },
+    {
+      "way": [
+        [
+          1120,
+          148
+        ],
+        [
+          1210,
+          148
+        ]
+      ],
+      "n": 16,
+      "at": 2415
+    },
+    {
+      "way": [
+        [
+          1098,
+          195
+        ],
+        [
+          1210,
+          195
+        ]
+      ],
+      "n": 20,
+      "at": 3194
+    },
+    {
+      "way": [
+        [
+          72,
+          226
+        ],
+        [
+          550,
+          226
+        ]
+      ],
+      "n": 81,
+      "at": 4995
+    },
+    {
+      "way": [
+        [
+          72,
+          316
+        ],
+        [
+          780,
+          316
+        ]
+      ],
+      "n": 119,
+      "at": 7428
+    },
+    {
+      "way": [
+        [
+          76,
+          380
+        ],
+        [
+          518,
+          380
+        ]
+      ],
+      "n": 75,
+      "at": 9495
+    },
+    {
+      "way": [
+        [
+          76,
+          408
+        ],
+        [
+          219,
+          408
+        ]
+      ],
+      "n": 25,
+      "at": 10363
+    },
+    {
+      "way": [
+        [
+          628,
+          372
+        ],
+        [
+          772,
+          372
+        ],
+        [
+          792,
+          382
+        ],
+        [
+          800,
+          400
+        ],
+        [
+          792,
+          418
+        ],
+        [
+          772,
+          428
+        ],
+        [
+          628,
+          428
+        ],
+        [
+          608,
+          418
+        ],
+        [
+          600,
+          400
+        ],
+        [
+          608,
+          382
+        ],
+        [
+          628,
+          372
+        ]
+      ],
+      "n": 77,
+      "at": 12462
+    },
+    {
+      "way": [
+        [
+          1000,
+          520
+        ],
+        [
+          1000,
+          455
+        ],
+        [
+          1016,
+          416
+        ],
+        [
+          1055,
+          400
+        ],
+        [
+          1094,
+          416
+        ],
+        [
+          1110,
+          455
+        ],
+        [
+          1110,
+          520
+        ],
+        [
+          1000,
+          520
+        ]
+      ],
+      "n": 69,
+      "at": 14063
+    },
+    {
+      "way": [
+        [
+          2,
+          520
+        ],
+        [
+          1278,
+          520
+        ],
+        [
+          1278,
+          600
+        ],
+        [
+          2,
+          600
+        ],
+        [
+          2,
+          520
+        ]
+      ],
+      "n": 453,
+      "at": 22480
+    },
+    {
+      "way": [
+        [
+          2,
+          600
+        ],
+        [
+          1278,
+          600
+        ],
+        [
+          1278,
+          680
+        ],
+        [
+          2,
+          680
+        ],
+        [
+          2,
+          600
+        ]
+      ],
+      "n": 453,
+      "at": 30847
+    },
+    {
+      "way": [
+        [
+          2,
+          680
+        ],
+        [
+          1278,
+          680
+        ],
+        [
+          1278,
+          760
+        ],
+        [
+          2,
+          760
+        ],
+        [
+          2,
+          680
+        ]
+      ],
+      "n": 453,
+      "at": 39220
+    },
+    {
+      "way": [
+        [
+          2,
+          760
+        ],
+        [
+          1278,
+          760
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          760
+        ]
+      ],
+      "n": 473,
+      "at": 47916
+    },
+    {
+      "way": [
+        [
+          400,
+          470
+        ]
+      ],
+      "n": 1,
+      "at": 48746
+    },
+    {
+      "way": [
+        [
+          700,
+          400
+        ]
+      ],
+      "n": 1,
+      "at": 49583
+    },
+    {
+      "way": [
+        [
+          1055,
+          490
+        ]
+      ],
+      "n": 1,
+      "at": 50048
+    },
+    {
+      "way": [
+        [
+          640,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 50879
+    },
+    {
+      "way": [
+        [
+          640,
+          640
+        ]
+      ],
+      "n": 1,
+      "at": 51713
+    },
+    {
+      "way": [
+        [
+          640,
+          720
+        ]
+      ],
+      "n": 1,
+      "at": 52549
+    },
+    {
+      "way": [
+        [
+          640,
+          830
+        ]
+      ],
+      "n": 1,
+      "at": 53397
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "SALT, bold spaced",
+      "whole": false,
+      "x": 104,
+      "y": 33,
+      "at": 54044
+    },
+    {
+      "text": "Swims Tides Kit Join",
+      "whole": false,
+      "x": 1100,
+      "y": 34,
+      "at": 54699
+    },
+    {
+      "text": "next high tide, small",
+      "whole": false,
+      "x": 1165,
+      "y": 140,
+      "at": 55365
+    },
+    {
+      "text": "06:40, big bold",
+      "whole": false,
+      "x": 1155,
+      "y": 186,
+      "at": 55985
+    },
+    {
+      "text": "SWIM THE MORNING TIDE, huge heavy caps",
+      "whole": false,
+      "x": 420,
+      "y": 270,
+      "at": 56694
+    },
+    {
+      "text": "A friendly sea swim group that meets at the pier, rain or shine, all year.",
+      "whole": false,
+      "x": 300,
+      "y": 372,
+      "at": 57438
+    },
+    {
+      "text": "Join a swim, white bold",
+      "whole": false,
+      "x": 700,
+      "y": 400,
+      "at": 58093
+    },
+    {
+      "text": "buoy: white band across the middle",
+      "whole": false,
+      "x": 1055,
+      "y": 460,
+      "at": 58771
+    },
+    {
+      "text": "too low: sits on the drawn lines",
+      "whole": false,
+      "x": 360,
+      "y": 330,
+      "at": 520613
+    },
+    {
+      "text": "the four sea bands start at y of the drawn top band, under the buoy",
+      "whole": false,
+      "x": 640,
+      "y": 870,
+      "at": 521447
+    }
+  ]
+}

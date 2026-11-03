@@ -166,8 +166,11 @@ the strokes. Extract the salient features and REBUILD from them:
   symmetrize), sized to the bbox.
 - \`layerHint: "background-overlay"\` means the stroke travels ACROSS existing
   elements without enclosing them: implement as a decorative layer —
-  absolutely positioned within the container, behind content (negative
-  z-index or first child), \`pointer-events-none\`, sized per the bbox.
+  absolutely positioned within the container, behind content (first child;
+  a negative z-index only when that container is its own stacking context,
+  e.g. \`isolate\`, because a bare \`-z-10\` slides behind an ancestor's
+  background and the layer vanishes), \`pointer-events-none\`, sized per
+  the bbox.
 - \`layerHint: "container"\` means the shape deliberately ENCLOSES existing
   elements: it is a grouping/wrapper around them, not decoration.
 - A wavy line is a CHART only in chart context (axes, data labels, inside a

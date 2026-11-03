@@ -1,0 +1,543 @@
+{
+  "round": 34,
+  "id": "e1-recipe",
+  "version": 3,
+  "stopped": null,
+  "likeness": 76.4,
+  "colour": 0.9978834229061753,
+  "structure": 0.9860884471107387,
+  "layout": 0.35384264584993746,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.1,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 5,
+      "box": 7,
+      "dot": 4
+    },
+    "inkPx": 4760
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 36,
+  "notes": 10,
+  "longestNote": 8,
+  "noteTexts": [
+    "Pantry, bold green",
+    "Lemon herb pasta, big bold",
+    "25 min · serves 4 · easy, grey",
+    "Ingredients, bold",
+    "400 g spaghetti",
+    "2 lemons",
+    "A bunch of parsley",
+    "3 cloves garlic",
+    "Olive oil",
+    "Start cooking, white bold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 337,
+    "firstReadingS": 67,
+    "readS": [
+      39
+    ],
+    "buildS": [
+      268
+    ],
+    "sketchingS": 30
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 86878,
+    "cacheRead": 360593,
+    "output": 26819,
+    "billed": 113697
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 631
+    },
+    {
+      "op": "stroke",
+      "at": 4662
+    },
+    {
+      "op": "stroke",
+      "at": 10581
+    },
+    {
+      "op": "stroke",
+      "at": 11994
+    },
+    {
+      "op": "stroke",
+      "at": 12943
+    },
+    {
+      "op": "stroke",
+      "at": 13712
+    },
+    {
+      "op": "stroke",
+      "at": 14444
+    },
+    {
+      "op": "stroke",
+      "at": 15179
+    },
+    {
+      "op": "stroke",
+      "at": 15911
+    },
+    {
+      "op": "stroke",
+      "at": 16645
+    },
+    {
+      "op": "stroke",
+      "at": 17378
+    },
+    {
+      "op": "stroke",
+      "at": 18961
+    },
+    {
+      "op": "pen",
+      "color": "#d1d5db",
+      "at": 19337
+    },
+    {
+      "op": "stroke",
+      "at": 19812
+    },
+    {
+      "op": "pen",
+      "color": "#16a34a",
+      "at": 20179
+    },
+    {
+      "op": "stroke",
+      "at": 20647
+    },
+    {
+      "op": "stroke",
+      "at": 21115
+    },
+    {
+      "op": "stroke",
+      "at": 21577
+    },
+    {
+      "op": "note",
+      "at": 22261
+    },
+    {
+      "op": "note",
+      "at": 22920
+    },
+    {
+      "op": "note",
+      "at": 23600
+    },
+    {
+      "op": "note",
+      "at": 24260
+    },
+    {
+      "op": "note",
+      "at": 24901
+    },
+    {
+      "op": "note",
+      "at": 25541
+    },
+    {
+      "op": "note",
+      "at": 26192
+    },
+    {
+      "op": "note",
+      "at": 26842
+    },
+    {
+      "op": "note",
+      "at": 27486
+    },
+    {
+      "op": "note",
+      "at": 28165
+    },
+    {
+      "op": "run",
+      "at": 28312
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          48,
+          31
+        ],
+        [
+          110,
+          31
+        ]
+      ],
+      "n": 11,
+      "at": 631
+    },
+    {
+      "way": [
+        [
+          2,
+          64
+        ],
+        [
+          1278,
+          64
+        ]
+      ],
+      "n": 214,
+      "at": 4662
+    },
+    {
+      "way": [
+        [
+          48,
+          112
+        ],
+        [
+          608,
+          112
+        ],
+        [
+          608,
+          532
+        ],
+        [
+          48,
+          532
+        ],
+        [
+          48,
+          114
+        ]
+      ],
+      "n": 327,
+      "at": 10581
+    },
+    {
+      "way": [
+        [
+          664,
+          135
+        ],
+        [
+          1008,
+          135
+        ]
+      ],
+      "n": 58,
+      "at": 11994
+    },
+    {
+      "way": [
+        [
+          664,
+          176
+        ],
+        [
+          835,
+          176
+        ]
+      ],
+      "n": 30,
+      "at": 12943
+    },
+    {
+      "way": [
+        [
+          664,
+          228
+        ],
+        [
+          772,
+          228
+        ]
+      ],
+      "n": 19,
+      "at": 13712
+    },
+    {
+      "way": [
+        [
+          664,
+          256
+        ],
+        [
+          686,
+          256
+        ],
+        [
+          686,
+          278
+        ],
+        [
+          664,
+          278
+        ],
+        [
+          664,
+          257
+        ]
+      ],
+      "n": 17,
+      "at": 14444
+    },
+    {
+      "way": [
+        [
+          664,
+          294
+        ],
+        [
+          686,
+          294
+        ],
+        [
+          686,
+          316
+        ],
+        [
+          664,
+          316
+        ],
+        [
+          664,
+          295
+        ]
+      ],
+      "n": 17,
+      "at": 15179
+    },
+    {
+      "way": [
+        [
+          664,
+          332
+        ],
+        [
+          686,
+          332
+        ],
+        [
+          686,
+          354
+        ],
+        [
+          664,
+          354
+        ],
+        [
+          664,
+          333
+        ]
+      ],
+      "n": 17,
+      "at": 15911
+    },
+    {
+      "way": [
+        [
+          664,
+          370
+        ],
+        [
+          686,
+          370
+        ],
+        [
+          686,
+          392
+        ],
+        [
+          664,
+          392
+        ],
+        [
+          664,
+          371
+        ]
+      ],
+      "n": 17,
+      "at": 16645
+    },
+    {
+      "way": [
+        [
+          664,
+          408
+        ],
+        [
+          686,
+          408
+        ],
+        [
+          686,
+          430
+        ],
+        [
+          664,
+          430
+        ],
+        [
+          664,
+          409
+        ]
+      ],
+      "n": 17,
+      "at": 17378
+    },
+    {
+      "way": [
+        [
+          664,
+          464
+        ],
+        [
+          822,
+          464
+        ],
+        [
+          822,
+          510
+        ],
+        [
+          664,
+          510
+        ],
+        [
+          664,
+          466
+        ]
+      ],
+      "n": 68,
+      "at": 18961
+    },
+    {
+      "way": [
+        [
+          330,
+          320
+        ]
+      ],
+      "n": 1,
+      "at": 19812
+    },
+    {
+      "way": [
+        [
+          675,
+          267
+        ]
+      ],
+      "n": 1,
+      "at": 20647
+    },
+    {
+      "way": [
+        [
+          675,
+          305
+        ]
+      ],
+      "n": 1,
+      "at": 21115
+    },
+    {
+      "way": [
+        [
+          740,
+          487
+        ]
+      ],
+      "n": 1,
+      "at": 21577
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Pantry, bold green",
+      "whole": false,
+      "x": 80,
+      "y": 24,
+      "at": 22261
+    },
+    {
+      "text": "Lemon herb pasta, big bold",
+      "whole": false,
+      "x": 800,
+      "y": 125,
+      "at": 22920
+    },
+    {
+      "text": "25 min · serves 4 · easy, grey",
+      "whole": false,
+      "x": 740,
+      "y": 170,
+      "at": 23600
+    },
+    {
+      "text": "Ingredients, bold",
+      "whole": false,
+      "x": 715,
+      "y": 222,
+      "at": 24260
+    },
+    {
+      "text": "400 g spaghetti",
+      "whole": false,
+      "x": 760,
+      "y": 267,
+      "at": 24900
+    },
+    {
+      "text": "2 lemons",
+      "whole": false,
+      "x": 740,
+      "y": 305,
+      "at": 25541
+    },
+    {
+      "text": "A bunch of parsley",
+      "whole": false,
+      "x": 770,
+      "y": 343,
+      "at": 26192
+    },
+    {
+      "text": "3 cloves garlic",
+      "whole": false,
+      "x": 760,
+      "y": 381,
+      "at": 26842
+    },
+    {
+      "text": "Olive oil",
+      "whole": false,
+      "x": 740,
+      "y": 419,
+      "at": 27486
+    },
+    {
+      "text": "Start cooking, white bold",
+      "whole": false,
+      "x": 740,
+      "y": 480,
+      "at": 28165
+    }
+  ]
+}

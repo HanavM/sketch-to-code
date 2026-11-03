@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cinema</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#14090b;font-family:Helvetica,Arial,sans-serif;color:#fff;overflow:hidden;position:relative}
+.cur{position:absolute;top:0;width:200px;height:900px;background:repeating-linear-gradient(90deg,#8e1622 0 25px,#b3202e 25px 50px)}
+.marq{position:absolute;left:290px;top:60px;width:700px;height:150px;background:#f4c430;border-radius:10px;color:#14090b;display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:900;letter-spacing:6px;border:6px dashed #fff8dc}
+.screen{position:absolute;left:290px;top:260px;width:700px;height:330px;background:#f2ead8;border-radius:6px;color:#14090b;padding:40px}
+.screen h1{font-size:44px;font-family:Georgia,serif;line-height:1.1}.screen p{margin-top:18px;font-size:18px;color:#5a4a3a}
+.times{position:absolute;left:290px;top:640px;width:700px;display:flex;gap:20px}
+.times div{flex:1;height:60px;border:2px solid #f4c430;border-radius:30px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#f4c430;font-weight:700}
+.times div.on{background:#f4c430;color:#14090b}
+.foot{position:absolute;left:290px;top:760px;width:700px;text-align:center;font-size:15px;color:#b9a99a}
+</style></head><body>
+<div class="cur" data-r="curtain-left" data-must style="left:0"></div>
+<div class="cur" data-r="curtain-right" data-must style="left:1080px"></div>
+<div class="marq" data-r="marquee" data-must>THE ROXY</div>
+<div class="screen" data-r="screen" data-must><h1 data-r="film-title">Tonight: Casablanca</h1><p>Restored print, 35mm, with a live organ intro.</p></div>
+<div class="times" data-r="showtimes" data-must><div>5:30</div><div class="on">8:00</div><div>10:15</div></div>
+<div class="foot" data-r="footer">Seats from $9 · 112 Main Street</div>
+</body></html>

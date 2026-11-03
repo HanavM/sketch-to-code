@@ -1,0 +1,613 @@
+{
+  "round": 36,
+  "id": "c1-vinyl-sale",
+  "version": 3,
+  "stopped": null,
+  "likeness": 71.3,
+  "colour": 0.9196779722408375,
+  "structure": 0.7596565914151785,
+  "layout": 0.7381667280727783,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.9,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 7,
+      "circle": 4,
+      "dot": 5
+    },
+    "inkPx": 6425
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 47,
+  "notes": 7,
+  "longestNote": 14,
+  "noteTexts": [
+    "B-SIDE, bold",
+    "New in  Genres  Turntables  Cart (0)",
+    "SALE, huge red, tilted up",
+    "40% OFF, bold, tilted",
+    "Every record in the back room, this weekend only. big bold",
+    "Jazz, soul and dub pressings from the 60s to now. Doors open at ten.",
+    "Browse the crates, cream bold"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 480,
+    "firstReadingS": 94,
+    "readS": [
+      59
+    ],
+    "buildS": [
+      384
+    ],
+    "sketchingS": 37
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 94565,
+    "cacheRead": 808682,
+    "output": 38400,
+    "billed": 132965
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#1d1b18",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 681
+    },
+    {
+      "op": "stroke",
+      "at": 1975
+    },
+    {
+      "op": "pen",
+      "color": "#e8472d",
+      "at": 2341
+    },
+    {
+      "op": "stroke",
+      "at": 4275
+    },
+    {
+      "op": "pen",
+      "color": "#ffd23f",
+      "at": 4636
+    },
+    {
+      "op": "stroke",
+      "at": 6442
+    },
+    {
+      "op": "pen",
+      "color": "#1d1b18",
+      "at": 6811
+    },
+    {
+      "op": "stroke",
+      "at": 13743
+    },
+    {
+      "op": "pen",
+      "color": "#e8472d",
+      "at": 14107
+    },
+    {
+      "op": "stroke",
+      "at": 16578
+    },
+    {
+      "op": "pen",
+      "color": "#1d1b18",
+      "at": 16946
+    },
+    {
+      "op": "stroke",
+      "at": 18692
+    },
+    {
+      "op": "stroke",
+      "at": 20476
+    },
+    {
+      "op": "pen",
+      "color": "#5c544a",
+      "at": 20851
+    },
+    {
+      "op": "stroke",
+      "at": 22441
+    },
+    {
+      "op": "stroke",
+      "at": 23325
+    },
+    {
+      "op": "pen",
+      "color": "#1d1b18",
+      "at": 23688
+    },
+    {
+      "op": "stroke",
+      "at": 25592
+    },
+    {
+      "op": "pen",
+      "color": "#f2e6d6",
+      "at": 25955
+    },
+    {
+      "op": "stroke",
+      "at": 26426
+    },
+    {
+      "op": "pen",
+      "color": "#ffd23f",
+      "at": 26796
+    },
+    {
+      "op": "stroke",
+      "at": 27260
+    },
+    {
+      "op": "pen",
+      "color": "#1d1b18",
+      "at": 27632
+    },
+    {
+      "op": "stroke",
+      "at": 28092
+    },
+    {
+      "op": "stroke",
+      "at": 28559
+    },
+    {
+      "op": "pen",
+      "color": "#e8472d",
+      "at": 28931
+    },
+    {
+      "op": "stroke",
+      "at": 29395
+    },
+    {
+      "op": "note",
+      "at": 30061
+    },
+    {
+      "op": "note",
+      "at": 30858
+    },
+    {
+      "op": "note",
+      "at": 31622
+    },
+    {
+      "op": "note",
+      "at": 32392
+    },
+    {
+      "op": "note",
+      "at": 33401
+    },
+    {
+      "op": "note",
+      "at": 34369
+    },
+    {
+      "op": "note",
+      "at": 35191
+    },
+    {
+      "op": "run",
+      "at": 35329
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          64,
+          42
+        ],
+        [
+          144,
+          42
+        ]
+      ],
+      "n": 14,
+      "at": 681
+    },
+    {
+      "way": [
+        [
+          915,
+          44
+        ],
+        [
+          1216,
+          44
+        ]
+      ],
+      "n": 51,
+      "at": 1975
+    },
+    {
+      "way": [
+        [
+          75,
+          325
+        ],
+        [
+          600,
+          255
+        ]
+      ],
+      "n": 89,
+      "at": 4275
+    },
+    {
+      "way": [
+        [
+          595,
+          120
+        ],
+        [
+          648,
+          142
+        ],
+        [
+          670,
+          195
+        ],
+        [
+          648,
+          248
+        ],
+        [
+          595,
+          270
+        ],
+        [
+          542,
+          248
+        ],
+        [
+          520,
+          195
+        ],
+        [
+          542,
+          142
+        ],
+        [
+          595,
+          120
+        ]
+      ],
+      "n": 81,
+      "at": 6442
+    },
+    {
+      "way": [
+        [
+          640,
+          530
+        ],
+        [
+          669,
+          385
+        ],
+        [
+          751,
+          261
+        ],
+        [
+          875,
+          179
+        ],
+        [
+          1020,
+          150
+        ],
+        [
+          1165,
+          179
+        ],
+        [
+          1278,
+          240
+        ],
+        [
+          1278,
+          820
+        ],
+        [
+          1165,
+          881
+        ],
+        [
+          1100,
+          898
+        ],
+        [
+          940,
+          898
+        ],
+        [
+          875,
+          881
+        ],
+        [
+          751,
+          799
+        ],
+        [
+          669,
+          675
+        ],
+        [
+          640,
+          530
+        ]
+      ],
+      "n": 389,
+      "at": 13743
+    },
+    {
+      "way": [
+        [
+          1020,
+          410
+        ],
+        [
+          1105,
+          445
+        ],
+        [
+          1140,
+          530
+        ],
+        [
+          1105,
+          615
+        ],
+        [
+          1020,
+          650
+        ],
+        [
+          935,
+          615
+        ],
+        [
+          900,
+          530
+        ],
+        [
+          935,
+          445
+        ],
+        [
+          1020,
+          410
+        ]
+      ],
+      "n": 121,
+      "at": 16578
+    },
+    {
+      "way": [
+        [
+          64,
+          505
+        ],
+        [
+          528,
+          505
+        ]
+      ],
+      "n": 78,
+      "at": 18692
+    },
+    {
+      "way": [
+        [
+          64,
+          550
+        ],
+        [
+          538,
+          550
+        ]
+      ],
+      "n": 80,
+      "at": 20476
+    },
+    {
+      "way": [
+        [
+          66,
+          613
+        ],
+        [
+          465,
+          613
+        ]
+      ],
+      "n": 68,
+      "at": 22441
+    },
+    {
+      "way": [
+        [
+          66,
+          640
+        ],
+        [
+          214,
+          640
+        ]
+      ],
+      "n": 26,
+      "at": 23325
+    },
+    {
+      "way": [
+        [
+          95,
+          720
+        ],
+        [
+          267,
+          720
+        ],
+        [
+          290,
+          733
+        ],
+        [
+          296,
+          749
+        ],
+        [
+          290,
+          765
+        ],
+        [
+          267,
+          778
+        ],
+        [
+          95,
+          778
+        ],
+        [
+          72,
+          765
+        ],
+        [
+          66,
+          749
+        ],
+        [
+          72,
+          733
+        ],
+        [
+          95,
+          720
+        ]
+      ],
+      "n": 87,
+      "at": 25592
+    },
+    {
+      "way": [
+        [
+          300,
+          820
+        ]
+      ],
+      "n": 1,
+      "at": 26426
+    },
+    {
+      "way": [
+        [
+          595,
+          195
+        ]
+      ],
+      "n": 1,
+      "at": 27260
+    },
+    {
+      "way": [
+        [
+          780,
+          760
+        ]
+      ],
+      "n": 1,
+      "at": 28092
+    },
+    {
+      "way": [
+        [
+          181,
+          749
+        ]
+      ],
+      "n": 1,
+      "at": 28559
+    },
+    {
+      "way": [
+        [
+          1020,
+          560
+        ]
+      ],
+      "n": 1,
+      "at": 29395
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "B-SIDE, bold",
+      "whole": false,
+      "x": 104,
+      "y": 32,
+      "at": 30061
+    },
+    {
+      "text": "New in  Genres  Turntables  Cart (0)",
+      "whole": false,
+      "x": 1065,
+      "y": 34,
+      "at": 30858
+    },
+    {
+      "text": "SALE, huge red, tilted up",
+      "whole": false,
+      "x": 330,
+      "y": 280,
+      "at": 31622
+    },
+    {
+      "text": "40% OFF, bold, tilted",
+      "whole": false,
+      "x": 595,
+      "y": 195,
+      "at": 32392
+    },
+    {
+      "text": "Every record in the back room, this weekend only. big bold",
+      "whole": false,
+      "x": 300,
+      "y": 495,
+      "at": 33401
+    },
+    {
+      "text": "Jazz, soul and dub pressings from the 60s to now. Doors open at ten.",
+      "whole": false,
+      "x": 265,
+      "y": 605,
+      "at": 34369
+    },
+    {
+      "text": "Browse the crates, cream bold",
+      "whole": false,
+      "x": 181,
+      "y": 749,
+      "at": 35191
+    }
+  ]
+}

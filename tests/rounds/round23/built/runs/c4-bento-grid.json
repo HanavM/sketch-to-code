@@ -1,0 +1,479 @@
+{
+  "id": "c4-bento-grid",
+  "at": "2026-10-26T02:26:34.802Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9211596904646253,
+    "overallV2": 0.9211596904646253,
+    "overallV1": 0.8980354522524399,
+    "colour": 0.9602732072035016,
+    "structure": 0.9033192857212362,
+    "structureStrict": 0.8466655655893962,
+    "colourAligned": 0.9602732072035016,
+    "structureAligned": 0.9033192857212362,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9434681181872221
+    },
+    "layout": 0.932245083512931,
+    "layoutV1": 0.932245083512931,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      60,
+      40,
+      531,
+      54
+    ],
+    [
+      0,
+      900,
+      60,
+      320,
+      34
+    ],
+    [
+      0,
+      60,
+      150,
+      560,
+      360
+    ],
+    [
+      3,
+      420,
+      92,
+      260,
+      260
+    ],
+    [
+      3,
+      86,
+      176,
+      113,
+      23
+    ],
+    [
+      3,
+      86,
+      199,
+      129,
+      20
+    ],
+    [
+      3,
+      86,
+      370,
+      267,
+      120
+    ],
+    [
+      0,
+      640,
+      150,
+      280,
+      170
+    ],
+    [
+      8,
+      666,
+      175,
+      228,
+      23
+    ],
+    [
+      8,
+      666,
+      202,
+      228,
+      20
+    ],
+    [
+      0,
+      940,
+      150,
+      280,
+      360
+    ],
+    [
+      11,
+      966,
+      175,
+      228,
+      23
+    ],
+    [
+      11,
+      966,
+      202,
+      228,
+      20
+    ],
+    [
+      11,
+      966,
+      312,
+      228,
+      173
+    ],
+    [
+      14,
+      966,
+      412,
+      30,
+      73
+    ],
+    [
+      14,
+      1006,
+      373,
+      30,
+      112
+    ],
+    [
+      14,
+      1045,
+      386,
+      30,
+      99
+    ],
+    [
+      14,
+      1085,
+      312,
+      30,
+      173
+    ],
+    [
+      14,
+      1125,
+      359,
+      30,
+      126
+    ],
+    [
+      14,
+      1164,
+      431,
+      30,
+      54
+    ],
+    [
+      0,
+      640,
+      340,
+      280,
+      170
+    ],
+    [
+      21,
+      666,
+      365,
+      228,
+      23
+    ],
+    [
+      21,
+      666,
+      392,
+      228,
+      20
+    ],
+    [
+      0,
+      60,
+      530,
+      360,
+      300
+    ],
+    [
+      24,
+      86,
+      555,
+      308,
+      23
+    ],
+    [
+      24,
+      86,
+      582,
+      308,
+      20
+    ],
+    [
+      24,
+      86,
+      601,
+      308,
+      204
+    ],
+    [
+      27,
+      86,
+      601,
+      308,
+      204
+    ],
+    [
+      28,
+      86,
+      639,
+      308,
+      166
+    ],
+    [
+      28,
+      86,
+      639,
+      308,
+      128
+    ],
+    [
+      0,
+      440,
+      530,
+      480,
+      300
+    ],
+    [
+      31,
+      466,
+      555,
+      428,
+      23
+    ],
+    [
+      31,
+      466,
+      582,
+      428,
+      20
+    ],
+    [
+      31,
+      466,
+      617,
+      428,
+      92
+    ],
+    [
+      0,
+      940,
+      530,
+      280,
+      300
+    ],
+    [
+      35,
+      1003,
+      643,
+      160,
+      160
+    ],
+    [
+      36,
+      1061,
+      693,
+      45,
+      60
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "mono"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": [
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 50300,
+    "output": 27646,
+    "cacheRead": 654487
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 59623,
+      "output": 20319,
+      "cacheRead": 642258,
+      "toolCalls": 16,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Glob",
+        "Write src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 217189
+    }
+  ],
+  "reading": "User sketched a dashboard hero: a two-line wavy headline/subheading at the top, then a 3x3 grid of stat/feature cards below (a big gradient 'Monthly actives' panel, a 'Dark mode' card, a 'Weekly load' bar-chart card, a 'Team' card, a 'Revenue' line-chart card, a 'Drop-in API' code card, and a round '98' score-badge card). Every piece is fully specified by typed notes giving exact size, position, color and copy, so those notes are followed verbatim over the rough ink.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1",
+            "s2"
+          ],
+          "lines": 3,
+          "fontPx": 12
+        }
+      ],
+      "region": [
+        64,
+        40,
+        1152,
+        54
+      ],
+      "paths": [],
+      "instruction": "Add the page's live headline and subheading as two separate text elements (not a traced squiggle): headline 489x54 at top-left 60,40, 54px font-weight 800, colo"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        153,
+        554,
+        354
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a single 560x360px panel at top-left 60,150, no own fill, background-image linear-gradient(140deg, #4f46e5, #9333ea 60%, #db2777) exactly (hard color stops "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        153,
+        274,
+        163
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a near-black card exactly 280x170px, top-left at 640,150 (fixed size/place, fits its own content, never grows or pushes later cards), containing text 'Dark "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        154,
+        274,
+        353
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a near-black (#18181b) chart card, 1px #27272a border, 24px border-radius, exactly 280x360px with top-left EXACTLY at 940,150 (absolutely placed, floating o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        644,
+        343,
+        273,
+        164
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a near-black card exactly 280x170px, top-left at 640,340 — its top sits 20px below the bottom (y=320) of the 'Dark mode' card directly above it, keeping tha"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        533,
+        354,
+        293
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a near-black card titled 'Revenue' exactly 360x300px, top-left at 60,530 — its top sits 20px below the bottom (y=510) of the panel above it, keeping that ga"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        443,
+        533,
+        474,
+        294
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a pale-grey card exactly 480x300px, top-left at 440,530 — its top sits 20px below the bottom (y=510) of the panel above it. Its own text is #0d0d0f (black),"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        533,
+        274,
+        293
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a card exactly 280x300px, top-left at 940,530 — its top sits 20px below the bottom (y=510) of the chart card above it. The card has a bright sky-blue to cya"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

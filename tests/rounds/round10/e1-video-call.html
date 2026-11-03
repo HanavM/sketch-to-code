@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Video call</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#1f1f23;font-family:Helvetica,Arial,sans-serif;color:#fff;font-size:14px}
+.top{position:absolute;left:24px;top:18px;width:900px;display:flex;align-items:center;gap:12px}.top b{font-size:16px}.rec{padding:4px 10px;border-radius:6px;background:#dc2626;font-size:12px;font-weight:700}.top span{color:#a1a1aa}
+.grid{position:absolute;left:24px;top:64px;width:900px;height:700px;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
+.t{position:relative;border-radius:14px;overflow:hidden}
+.t .av{position:absolute;left:50%;top:50%;width:88px;height:88px;margin:-44px;border-radius:50%;background:rgba(255,255,255,.18);font-size:32px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.t .nm{position:absolute;left:12px;bottom:12px;padding:5px 10px;border-radius:6px;background:rgba(0,0,0,.55);font-size:13px}
+.t .mu{position:absolute;right:12px;top:12px;width:28px;height:28px;border-radius:50%;background:#dc2626}
+.t.on{outline:3px solid #22c55e;outline-offset:-3px}
+.side{position:absolute;left:948px;top:0;width:332px;height:900px;background:#fff;color:#18181b;border-left:1px solid #e4e4e7}
+.side h3{padding:20px;font-size:16px;border-bottom:1px solid #e4e4e7}.m{padding:12px 20px}.m b{font-size:13px}.m small{color:#71717a;margin-left:6px}.m p{margin-top:4px;color:#3f3f46;line-height:1.4}
+.in{position:absolute;left:20px;bottom:20px;width:292px;height:44px;border:1px solid #d4d4d8;border-radius:10px;padding:12px;color:#a1a1aa}
+.ctrl{position:absolute;left:24px;top:790px;width:900px;height:84px;display:flex;align-items:center;justify-content:center;gap:16px}
+.ctrl i{width:52px;height:52px;border-radius:50%;background:#3f3f46}.ctrl i.off{background:#dc2626}.ctrl .leave{width:110px;border-radius:26px;height:52px;background:#dc2626;display:flex;align-items:center;justify-content:center;font-weight:700}
+</style></head><body>
+<div class="top" data-r="call-header"><b>Design crit — Q4 launch</b><span class="rec">● REC</span><span>32:14</span></div>
+<div class="grid" data-r="video-grid" data-must>
+<div class="t on" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)"><div class="av">MA</div><span class="nm">Maya Alvarez</span></div>
+<div class="t" style="background:linear-gradient(135deg,#0f766e,#14b8a6)"><div class="av">JK</div><span class="nm">Jon Kim</span><i class="mu"></i></div>
+<div class="t" style="background:linear-gradient(135deg,#b45309,#f59e0b)"><div class="av">PS</div><span class="nm">Priya Shah</span></div>
+<div class="t" style="background:linear-gradient(135deg,#be123c,#fb7185)"><div class="av">LT</div><span class="nm">Leo Tan</span><i class="mu"></i></div>
+<div class="t" style="background:linear-gradient(135deg,#1d4ed8,#60a5fa)"><div class="av">AN</div><span class="nm">Ava Nolan</span></div>
+<div class="t" style="background:#3f3f46"><div class="av">+3</div><span class="nm">3 more</span></div></div>
+<div class="ctrl" data-r="control-bar" data-must><i></i><i class="off"></i><i></i><i></i><i></i><span class="leave">Leave</span></div>
+<div class="side" data-r="chat-panel" data-must><h3>In-call messages</h3>
+<div class="m"><b>Jon Kim</b><small>10:02</small><p>Can we see the mobile nav again?</p></div>
+<div class="m"><b>Priya Shah</b><small>10:04</small><p>Dropping the Figma link here</p></div>
+<div class="m"><b>Maya Alvarez</b><small>10:05</small><p>Sharing now, one sec</p></div>
+<div class="m"><b>Leo Tan</b><small>10:07</small><p>+1 to the darker footer</p></div>
+<div class="in">Send a message to everyone</div></div>
+</body></html>

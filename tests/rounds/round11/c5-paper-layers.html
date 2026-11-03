@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Paper layers</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fbe7c6;font-family:Georgia,serif;color:#1d3557}
+.prog{position:absolute;left:0;top:0;width:1280px;height:6px;background:#1d3557}.prog i{display:block;width:38%;height:6px;background:#e63946;animation:grow 6s ease-in-out infinite alternate}
+@keyframes grow{to{width:92%}}
+.sun{position:absolute;left:860px;top:110px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#ffb703 55%,#fb8500);box-shadow:0 0 0 30px rgba(255,183,3,.25),0 0 0 60px rgba(255,183,3,.12)}
+svg.l{position:absolute;left:0;width:1280px;height:900px;top:0;filter:drop-shadow(0 -8px 10px rgba(0,0,0,.18))}
+nav{position:absolute;left:56px;top:34px;width:1168px;display:flex;justify-content:space-between;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:2px}
+h1{position:absolute;left:56px;top:120px;width:700px;font-size:120px;font-weight:400;font-style:italic;line-height:.92;letter-spacing:-4px}
+.kick{position:absolute;left:60px;top:96px;font-family:Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:4px;color:#e63946}
+.card{position:absolute;left:820px;top:620px;width:380px;padding:26px;background:#fff;border-radius:6px;box-shadow:0 18px 40px rgba(0,0,0,.25);transform:rotate(2deg)}
+.card h3{font-size:26px;font-style:italic;font-weight:400}.card p{margin-top:8px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5}
+.card a{display:inline-block;margin-top:16px;padding:12px 22px;background:#e63946;color:#fff;font-family:Helvetica,Arial,sans-serif;font-weight:700;border-radius:4px}
+.pin{position:absolute;left:56px;top:780px;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#fbe7c6;letter-spacing:2px}
+</style></head><body>
+<div class="prog" data-r="scroll-progress"><i></i></div>
+<div class="sun" data-r="sun" data-must></div>
+<svg class="l" data-r="paper-layers" data-must viewBox="0 0 1280 900" preserveAspectRatio="none">
+<path d="M0,470 C200,400 380,520 600,460 C820,400 1000,500 1280,430 L1280,900 L0,900Z" fill="#a8dadc"/>
+<path d="M0,560 C240,500 420,620 680,560 C920,505 1080,600 1280,540 L1280,900 L0,900Z" fill="#457b9d"/>
+<path d="M0,660 C260,610 460,720 720,660 C960,610 1120,700 1280,650 L1280,900 L0,900Z" fill="#1d3557"/>
+<path d="M0,770 C300,730 520,820 800,770 C1000,735 1160,800 1280,770 L1280,900 L0,900Z" fill="#0b1a30"/></svg>
+<nav data-r="nav"><span>FJORD TRAILS</span><span>ROUTES · HUTS · BOOK</span></nav>
+<div class="kick">SEASON 2027 · 14 ROUTES</div>
+<h1 data-r="headline" data-must>Walk into the folds.</h1>
+<div class="card" data-r="booking-card" data-must><h3>Hut-to-hut, 6 days</h3><p>Guided, bags carried, three fjords. From €1,240.</p><a>Reserve a spot</a></div>
+<div class="pin">◉ 61.2°N · 6.9°E</div>
+</body></html>

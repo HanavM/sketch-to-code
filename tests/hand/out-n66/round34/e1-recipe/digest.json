@@ -1,0 +1,585 @@
+{
+  "round": 34,
+  "id": "e1-recipe",
+  "version": 3,
+  "stopped": null,
+  "likeness": 74.3,
+  "colour": 0.9965127191478956,
+  "structure": 0.9791329652237964,
+  "layout": 0.3607521584812811,
+  "strokes": {
+    "count": 16,
+    "pointsPerStroke": 3.1,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 5,
+      "box": 7,
+      "dot": 4
+    },
+    "inkPx": 4760
+  },
+  "erased": 0,
+  "notesMoved": 6,
+  "words": 47,
+  "notes": 11,
+  "longestNote": 11,
+  "noteTexts": [
+    "Pantry, bold green",
+    "Lemon herb pasta, big bold",
+    "25 min · serves 4 · easy, grey",
+    "Ingredients, bold",
+    "400 g spaghetti",
+    "2 lemons",
+    "A bunch of parsley",
+    "3 cloves garlic",
+    "Olive oil",
+    "Start cooking, white bold",
+    "these three: A bunch of parsley, 3 cloves garlic, Olive oil"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 540,
+    "firstReadingS": 89,
+    "readS": [
+      43,
+      17
+    ],
+    "buildS": [
+      292,
+      120
+    ],
+    "sketchingS": 68
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 108496,
+    "cacheRead": 474317,
+    "output": 41235,
+    "billed": 149731
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 631
+    },
+    {
+      "op": "stroke",
+      "at": 4664
+    },
+    {
+      "op": "stroke",
+      "at": 10583
+    },
+    {
+      "op": "stroke",
+      "at": 12014
+    },
+    {
+      "op": "stroke",
+      "at": 12980
+    },
+    {
+      "op": "stroke",
+      "at": 13747
+    },
+    {
+      "op": "stroke",
+      "at": 14495
+    },
+    {
+      "op": "stroke",
+      "at": 15229
+    },
+    {
+      "op": "stroke",
+      "at": 15979
+    },
+    {
+      "op": "stroke",
+      "at": 16729
+    },
+    {
+      "op": "stroke",
+      "at": 17482
+    },
+    {
+      "op": "stroke",
+      "at": 19097
+    },
+    {
+      "op": "pen",
+      "color": "#d1d5db",
+      "at": 19483
+    },
+    {
+      "op": "stroke",
+      "at": 19968
+    },
+    {
+      "op": "pen",
+      "color": "#16a34a",
+      "at": 20340
+    },
+    {
+      "op": "stroke",
+      "at": 20814
+    },
+    {
+      "op": "stroke",
+      "at": 21340
+    },
+    {
+      "op": "stroke",
+      "at": 21951
+    },
+    {
+      "op": "note",
+      "at": 22655
+    },
+    {
+      "op": "note",
+      "at": 23319
+    },
+    {
+      "op": "note",
+      "at": 23995
+    },
+    {
+      "op": "note",
+      "at": 24674
+    },
+    {
+      "op": "note",
+      "at": 25312
+    },
+    {
+      "op": "note",
+      "at": 25962
+    },
+    {
+      "op": "note",
+      "at": 26629
+    },
+    {
+      "op": "note",
+      "at": 27294
+    },
+    {
+      "op": "note",
+      "at": 27959
+    },
+    {
+      "op": "note",
+      "at": 28640
+    },
+    {
+      "op": "moveNote",
+      "at": 36931
+    },
+    {
+      "op": "moveNote",
+      "at": 37627
+    },
+    {
+      "op": "moveNote",
+      "at": 38324
+    },
+    {
+      "op": "moveNote",
+      "at": 39007
+    },
+    {
+      "op": "moveNote",
+      "at": 39706
+    },
+    {
+      "op": "moveNote",
+      "at": 40410
+    },
+    {
+      "op": "run",
+      "at": 46245
+    },
+    {
+      "op": "note",
+      "at": 390388
+    },
+    {
+      "op": "run",
+      "at": 390451
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          48,
+          31
+        ],
+        [
+          110,
+          31
+        ]
+      ],
+      "n": 11,
+      "at": 631
+    },
+    {
+      "way": [
+        [
+          2,
+          64
+        ],
+        [
+          1278,
+          64
+        ]
+      ],
+      "n": 214,
+      "at": 4664
+    },
+    {
+      "way": [
+        [
+          48,
+          112
+        ],
+        [
+          608,
+          112
+        ],
+        [
+          608,
+          532
+        ],
+        [
+          48,
+          532
+        ],
+        [
+          48,
+          114
+        ]
+      ],
+      "n": 327,
+      "at": 10583
+    },
+    {
+      "way": [
+        [
+          664,
+          135
+        ],
+        [
+          1008,
+          135
+        ]
+      ],
+      "n": 58,
+      "at": 12014
+    },
+    {
+      "way": [
+        [
+          664,
+          176
+        ],
+        [
+          835,
+          176
+        ]
+      ],
+      "n": 30,
+      "at": 12980
+    },
+    {
+      "way": [
+        [
+          664,
+          228
+        ],
+        [
+          772,
+          228
+        ]
+      ],
+      "n": 19,
+      "at": 13747
+    },
+    {
+      "way": [
+        [
+          664,
+          256
+        ],
+        [
+          686,
+          256
+        ],
+        [
+          686,
+          278
+        ],
+        [
+          664,
+          278
+        ],
+        [
+          664,
+          257
+        ]
+      ],
+      "n": 17,
+      "at": 14495
+    },
+    {
+      "way": [
+        [
+          664,
+          294
+        ],
+        [
+          686,
+          294
+        ],
+        [
+          686,
+          316
+        ],
+        [
+          664,
+          316
+        ],
+        [
+          664,
+          295
+        ]
+      ],
+      "n": 17,
+      "at": 15229
+    },
+    {
+      "way": [
+        [
+          664,
+          332
+        ],
+        [
+          686,
+          332
+        ],
+        [
+          686,
+          354
+        ],
+        [
+          664,
+          354
+        ],
+        [
+          664,
+          333
+        ]
+      ],
+      "n": 17,
+      "at": 15979
+    },
+    {
+      "way": [
+        [
+          664,
+          370
+        ],
+        [
+          686,
+          370
+        ],
+        [
+          686,
+          392
+        ],
+        [
+          664,
+          392
+        ],
+        [
+          664,
+          371
+        ]
+      ],
+      "n": 17,
+      "at": 16729
+    },
+    {
+      "way": [
+        [
+          664,
+          408
+        ],
+        [
+          686,
+          408
+        ],
+        [
+          686,
+          430
+        ],
+        [
+          664,
+          430
+        ],
+        [
+          664,
+          409
+        ]
+      ],
+      "n": 17,
+      "at": 17482
+    },
+    {
+      "way": [
+        [
+          664,
+          464
+        ],
+        [
+          822,
+          464
+        ],
+        [
+          822,
+          510
+        ],
+        [
+          664,
+          510
+        ],
+        [
+          664,
+          466
+        ]
+      ],
+      "n": 68,
+      "at": 19097
+    },
+    {
+      "way": [
+        [
+          330,
+          320
+        ]
+      ],
+      "n": 1,
+      "at": 19968
+    },
+    {
+      "way": [
+        [
+          675,
+          267
+        ]
+      ],
+      "n": 1,
+      "at": 20814
+    },
+    {
+      "way": [
+        [
+          675,
+          305
+        ]
+      ],
+      "n": 1,
+      "at": 21340
+    },
+    {
+      "way": [
+        [
+          740,
+          487
+        ]
+      ],
+      "n": 1,
+      "at": 21951
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Pantry, bold green",
+      "whole": false,
+      "x": 80,
+      "y": 24,
+      "at": 22655
+    },
+    {
+      "text": "Lemon herb pasta, big bold",
+      "whole": false,
+      "x": 800,
+      "y": 125,
+      "at": 23319
+    },
+    {
+      "text": "25 min · serves 4 · easy, grey",
+      "whole": false,
+      "x": 740,
+      "y": 170,
+      "at": 23995
+    },
+    {
+      "text": "Ingredients, bold",
+      "whole": false,
+      "x": 715,
+      "y": 222,
+      "at": 24674
+    },
+    {
+      "text": "400 g spaghetti",
+      "whole": false,
+      "x": 760,
+      "y": 267,
+      "at": 25312
+    },
+    {
+      "text": "2 lemons",
+      "whole": false,
+      "x": 740,
+      "y": 305,
+      "at": 25962
+    },
+    {
+      "text": "A bunch of parsley",
+      "whole": false,
+      "x": 770,
+      "y": 343,
+      "at": 26629
+    },
+    {
+      "text": "3 cloves garlic",
+      "whole": false,
+      "x": 760,
+      "y": 381,
+      "at": 27294
+    },
+    {
+      "text": "Olive oil",
+      "whole": false,
+      "x": 740,
+      "y": 419,
+      "at": 27959
+    },
+    {
+      "text": "Start cooking, white bold",
+      "whole": false,
+      "x": 740,
+      "y": 480,
+      "at": 28640
+    },
+    {
+      "text": "these three: A bunch of parsley, 3 cloves garlic, Olive oil",
+      "whole": false,
+      "x": 742,
+      "y": 382,
+      "at": 390388
+    }
+  ]
+}

@@ -1,0 +1,800 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "a0cef640b15351fbb27be00f6f397b2f4697bcd3",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/ThreeSailboats.tsx"
+  ],
+  "reading": "This is a sailing-regatta landing page: a logo/nav header, a bold \"Harbour / Regatta\" hero heading with supporting copy and an \"Enter a boat\" pill button, a trio of sailboats illustrated beside the hero text (coloured sails, dark rounded hulls), and a tall solid-blue footer split into four content rows by light dividers.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"SAILWEEK\" at (72,31) 101x17 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:7:9",
+      "rect": {
+       "x": 72,
+       "y": 30,
+       "w": 101.140625,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#13294b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Races\" at (974,30) 48x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:9:11",
+      "rect": {
+       "x": 974.140625,
+       "y": 28,
+       "w": 47.625,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#13294b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x80 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:6:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 80
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#13294b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (72,255) 430x102 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:19:13",
+      "rect": {
+       "x": 72,
+       "y": 255,
+       "w": 430,
+       "h": 102
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#4a5568 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (72,412) 430x59 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:21:11",
+      "rect": {
+       "x": 72,
+       "y": 412,
+       "w": 430,
+       "h": 58.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 75,
+        "y": 520,
+        "w": 211,
+        "h": 57
+       },
+       "built": {
+        "x": 94,
+        "y": 520.5,
+        "w": 172.75,
+        "h": 56
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e5573c is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (0,0) 1280x80 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:6:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 80
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 720,
+        "y": 140,
+        "w": 150,
+        "h": 380
+       },
+       "built": {
+        "x": 720,
+        "y": 140,
+        "w": 150,
+        "h": 380
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 900,
+        "y": 219,
+        "w": 120,
+        "h": 301
+       },
+       "built": {
+        "x": 900,
+        "y": 219,
+        "w": 120,
+        "h": 301
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 1060,
+        "y": 300,
+        "w": 90,
+        "h": 220
+       },
+       "built": {
+        "x": 1060,
+        "y": 300,
+        "w": 90,
+        "h": 220
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#13294b is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 5,
+    "score": 0.6891750218919478,
+    "massSimilarity": 0.5559643169884969,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <footer> at (1,639) 1277x264 matches the sketch region",
+     "bestCandidate": {
+      "tag": "footer",
+      "srcLoc": "src/App.tsx:36:7",
+      "rect": {
+       "x": 1,
+       "y": 638.5,
+       "w": 1277,
+       "h": 264
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 1,
+        "y": 639,
+        "w": 1277,
+        "h": 259
+       },
+       "built": {
+        "x": 1,
+        "y": 638.5,
+        "w": 1277,
+        "h": 264
+       },
+       "dx": 0,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#8aa5b5 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 of 7 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 40,
+       "built": 40,
+       "dy": 0
+      },
+      {
+       "index": 1,
+       "drawn": 40,
+       "built": 40,
+       "dy": 0
+      },
+      {
+       "index": 2,
+       "drawn": 153,
+       "built": 153,
+       "dy": 0
+      },
+      {
+       "index": 3,
+       "drawn": 412,
+       "built": 412,
+       "dy": 0
+      },
+      {
+       "index": 4,
+       "drawn": 520,
+       "built": 521,
+       "dy": 1
+      },
+      {
+       "index": 5,
+       "drawn": 140,
+       "built": 140,
+       "dy": 0
+      },
+      {
+       "index": 6,
+       "drawn": 639,
+       "built": 639,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 shapes built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "15 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 5: the outline drawn at (700,521) 475x26 was coloured #13294b (fill); nothing that size was built there carrying a colour: paint the block itself exactly #13294b; action 6: the line drawn at (2,705) 1276x0 was coloured #8aa5b5 (text colour); what was built there is ΔE 31 away: paint its text exactly #8aa5b5; action 6: the line drawn at (2,775) 1276x0 was coloured #8aa5b5 (text colour); what was built there is ΔE 36 away: paint its text exactly #8aa5b5; action 6: the line drawn at (2,845) 1276x0 was coloured #8aa5b5 (text colour); what was built there is ΔE 31 away: paint its text exactly #8aa5b5",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f2ece0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,40) 118x0",
+       "want": "#13294b",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (988,40) 220x0",
+       "want": "#13294b",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,220) 408x0",
+       "want": "#13294b",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (72,322) 383x0",
+       "want": "#13294b",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (76,413) 418x0",
+       "want": "#4a5568",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (76,442) 232x0",
+       "want": "#4a5568",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (75,520) 211x57",
+       "want": "#e5573c",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (720,140) 150x380",
+       "want": "#e5573c",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (900,219) 120x301",
+       "want": "#13294b",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (1060,300) 90x220",
+       "want": "#f0b535",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (700,521) 475x26",
+       "want": "#13294b",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (1,639) 1277x259 band y 639-705",
+       "want": "not #22608a",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,639) 1277x259 band y 705-775",
+       "want": "#22608a",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,639) 1277x259 band y 775-845",
+       "want": "not #22608a",
+       "best": 67.86380013842586,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,639) 1277x259 band y 845-898",
+       "want": "not #22608a",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,705) 1276x0",
+       "want": "#8aa5b5",
+       "best": 31.010752424566903,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (2,775) 1276x0",
+       "want": "#8aa5b5",
+       "best": 36.05591898385818,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (2,845) 1276x0",
+       "want": "#8aa5b5",
+       "best": 31.010752424566903,
+       "ok": false
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 124349,
+   "cacheRead": 1173335,
+   "output": 34611
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 81214,
+    "output": 25293,
+    "cacheRead": 609871,
+    "toolCalls": 15,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read components/ThreeSailboats.tsx",
+     "Read src/index.css",
+     "Edit components/ThreeSailboats.tsx",
+     "Write src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read components/ThreeSailboats.tsx",
+     "Edit components/ThreeSailboats.tsx",
+     "Read src/main.tsx",
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob"
+    ],
+    "ms": 293408
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 64342,
+    "output": 3502,
+    "cacheRead": 206216,
+    "toolCalls": 3,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit components/ThreeSailboats.tsx"
+    ],
+    "ms": 37133
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 13404,
+    "output": 5816,
+    "cacheRead": 357248,
+    "toolCalls": 4,
+    "tools": [
+     "Read components/ThreeSailboats.tsx",
+     "Edit components/ThreeSailboats.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 67393
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "0fff95b009be47a9eea7b80dc13ee594199f6996",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/ThreeSailboats.tsx"
+  ],
+  "reading": "The user typed a note on the footer link row (e34, containing the Races/Crews/Harbour/Enter a boat links) asking to turn it into a plain blue sea background with pale stripes and no text.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 1,
+    "total": 1,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 5405,
+   "cacheRead": 86137,
+   "output": 959
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 6364,
+    "output": 959,
+    "cacheRead": 86137,
+    "toolCalls": 3,
+    "tools": [
+     "Grep",
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 10794
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "4f86aab53471b9c060a77bb65f4ba0a4075c4f03",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/ThreeSailboats.tsx"
+  ],
+  "reading": "The user typed a note replacing the current multi-section footer design with a single plain blue band containing 3 flat pale stripes.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 1,
+    "total": 1,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 24157,
+   "cacheRead": 137811,
+   "output": 9233
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 12570,
+    "output": 3583,
+    "cacheRead": 90659,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/ThreeSailboats.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 37253
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 20820,
+    "output": 5650,
+    "cacheRead": 47152,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 54793
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

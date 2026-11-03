@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mail client</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2937;font-size:14px}
+.folders{position:absolute;left:0;top:0;width:220px;height:900px;background:#f3f4f6;padding:20px 16px;line-height:2.5}.folders .new{display:block;text-align:center;background:#2563eb;color:#fff;font-weight:700;border-radius:10px;line-height:44px;margin-bottom:16px}.folders .on{background:#dbeafe;color:#1d4ed8;font-weight:700;border-radius:8px;padding:0 10px;margin:0 -10px}.folders em{float:right;font-style:normal;color:#6b7280}
+.list{position:absolute;left:220px;top:0;width:400px;height:900px;border-right:1px solid #e5e7eb}
+.search{margin:16px;height:40px;border-radius:8px;background:#f3f4f6;padding:12px;color:#9ca3af}
+.m{padding:14px 16px;border-bottom:1px solid #f3f4f6;height:92px}.m b{display:block}.m .s{font-weight:700;margin:3px 0}.m .p{color:#6b7280;white-space:nowrap;overflow:hidden}.m time{float:right;color:#6b7280;font-size:12px}
+.m.sel{background:#eff6ff;border-left:4px solid #2563eb}.m.unread b,.m.unread .s{color:#111827}.m.old b{font-weight:400}
+.read{position:absolute;left:620px;top:0;width:660px;height:900px;padding:24px 36px}
+.tools{display:flex;gap:10px;margin-bottom:24px}.tools span{padding:8px 14px;border:1px solid #e5e7eb;border-radius:8px}
+.read h2{font-size:24px;margin-bottom:16px}.from{display:flex;gap:12px;align-items:center;margin-bottom:24px}.av{width:44px;height:44px;border-radius:50%;background:#f59e0b}
+.body{font-size:15px;line-height:1.7;color:#374151}.att{margin-top:24px;width:240px;height:64px;border:1px solid #e5e7eb;border-radius:10px;padding:12px;font-weight:700}
+.reply{position:absolute;left:656px;bottom:24px;width:588px;height:120px;border:1px solid #d1d5db;border-radius:12px;padding:14px;color:#9ca3af}
+</style></head><body>
+<div class="folders" data-r="folders"><span class="new">Compose</span><div class="on">Inbox <em>12</em></div><div>Starred</div><div>Sent</div><div>Drafts <em>3</em></div><div>Archive</div><div>Spam</div></div>
+<div class="list" data-r="list" data-must><div class="search">Search mail</div>
+<div class="m sel unread"><time>9:41</time><b>Lena Park</b><div class="s">Q4 launch plan</div><div class="p">Attached the final deck, can you check slide 7?</div></div>
+<div class="m unread"><time>8:15</time><b>GitHub</b><div class="s">[sketch-to-code] PR #212 merged</div><div class="p">Your pull request was merged into main.</div></div>
+<div class="m old"><time>Yesterday</time><b>Marco Ruiz</b><div class="s">Dinner Friday?</div><div class="p">The place on Rua Augusta, 8pm, I booked a table.</div></div>
+<div class="m old"><time>Tue</time><b>Stripe</b><div class="s">Your October invoice</div><div class="p">Invoice #4471 for $240.00 is ready.</div></div>
+<div class="m old"><time>Mon</time><b>Ana Silva</b><div class="s">Re: hiring loop</div><div class="p">Two candidates for Thursday, notes inside.</div></div>
+<div class="m old"><time>Oct 18</time><b>Figma</b><div class="s">New comments</div><div class="p">3 new comments on Landing v4.</div></div>
+</div>
+<div class="read" data-r="reader" data-must><div class="tools"><span>Reply</span><span>Forward</span><span>Archive</span><span>Delete</span></div>
+<h2>Q4 launch plan</h2><div class="from"><div class="av"></div><div><b>Lena Park</b><br><span style="color:#6b7280">to me · 9:41 AM</span></div></div>
+<div class="body">Hi Hanav,<br><br>Attached is the final deck for the Q4 launch. Slide 7 still has last year's numbers, can you swap in the new forecast before Thursday?<br><br>Thanks,<br>Lena</div>
+<div class="att">Q4-launch.pdf · 2.4 MB</div></div>
+<div class="reply" data-r="reply">Reply to Lena…</div>
+</body></html>

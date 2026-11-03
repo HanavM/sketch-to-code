@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Card fan</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#1b3a2f;font-family:Helvetica,Arial,sans-serif;color:#f5efe0}
+.felt{position:absolute;left:340px;top:420px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,#2c5a48,#1b3a2f 70%)}
+h1{position:absolute;left:0;top:70px;width:1280px;text-align:center;font-family:Georgia,serif;font-size:84px;font-weight:400;letter-spacing:-2px}
+h1 i{color:#f2c14e}
+.sub{position:absolute;left:390px;top:190px;width:500px;text-align:center;font-size:17px;line-height:1.5;color:#c9d6cc}
+.fan{position:absolute;left:540px;top:330px;width:200px;height:290px;perspective:1200px}
+.card{position:absolute;left:0;top:0;width:200px;height:290px;border-radius:16px;background:#f5efe0;border:6px solid #fff;box-shadow:0 18px 40px rgba(0,0,0,.4);transform-origin:50% 120%;color:#141414;font-family:Georgia,serif;font-size:54px;padding:14px}
+.card:nth-child(1){transform:rotate(-30deg);background:#e85d4a;color:#fff}
+.card:nth-child(2){transform:rotate(-15deg);background:#f2c14e}
+.card:nth-child(3){transform:rotate(0deg) translateY(-24px)}
+.card:nth-child(4){transform:rotate(15deg);background:#4a7de8;color:#fff}
+.card:nth-child(5){transform:rotate(30deg);background:#141414;color:#f2c14e}
+.chip{position:absolute;top:760px;width:74px;height:74px;border-radius:50%;border:8px dashed #fff;background:#e85d4a;box-shadow:0 6px 0 #8f2d20}
+.c1{left:300px}.c2{left:900px;background:#4a7de8;box-shadow:0 6px 0 #1f3f8a}
+.cta{position:absolute;left:560px;top:790px;width:160px;text-align:center;padding:15px 0;border-radius:10px;background:#f2c14e;color:#1b3a2f;font-weight:800}
+nav{position:absolute;left:48px;top:26px;width:1184px;display:flex;justify-content:space-between;font-size:13px;letter-spacing:2px;color:#c9d6cc}
+</style></head><body>
+<div class="felt"></div>
+<nav data-r="nav"><span>HOUSE OF CARDS</span><span>RULES · DECKS · CLUB</span></nav>
+<h1 data-r="headline" data-must>Deal a <i>better</i> hand</h1>
+<p class="sub" data-r="subcopy">Hand-printed decks for people who still play at the kitchen table.</p>
+<div class="fan" data-r="card-fan" data-must><div class="card">A♥</div><div class="card">K♣</div><div class="card">Q♦</div><div class="card">J♠</div><div class="card">10</div></div>
+<div class="chip c1" data-r="chip-left"></div><div class="chip c2" data-r="chip-right"></div>
+<a class="cta" data-r="cta">Shop decks</a>
+</body></html>

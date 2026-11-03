@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Spreadsheet</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f9fbfd;font-family:Helvetica,Arial,sans-serif;color:#202124;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;display:flex;align-items:center;gap:14px;padding:0 16px}.top i{width:36px;height:44px;border-radius:4px;background:#0f9d58}.top b{font-size:18px;font-weight:400;display:block}.top small{color:#444}.top .sh{margin-left:auto;padding:10px 24px;border-radius:20px;background:#c2e7ff;font-weight:700}
+.tool{position:absolute;left:12px;top:64px;width:1256px;height:40px;border-radius:20px;background:#edf2fa;display:flex;align-items:center;gap:20px;padding:0 18px;color:#444}
+.fx{position:absolute;left:0;top:110px;width:1280px;height:30px;border-top:1px solid #c4c7c5;border-bottom:1px solid #c4c7c5;background:#fff;display:flex;align-items:center}.fx .ref{width:100px;padding:0 10px;border-right:1px solid #c4c7c5}.fx .f{padding:0 12px;color:#5f6368;border-right:1px solid #c4c7c5}.fx span:last-child{padding:0 12px;font-family:"Courier New",monospace}
+.sheet{position:absolute;left:0;top:140px;width:1280px;height:720px;background:#fff;display:grid;grid-template-columns:46px 220px repeat(7,144px);grid-auto-rows:26px}
+.sheet div{border-right:1px solid #e2e3e3;border-bottom:1px solid #e2e3e3;padding:5px 8px;white-space:nowrap;overflow:hidden;text-align:right}
+.sheet .hd{background:#f8f9fa;color:#5f6368;text-align:center;font-size:11px}.sheet .rh{background:#f8f9fa;color:#5f6368;text-align:center;font-size:11px}
+.sheet .fr{border-bottom:2px solid #9aa0a6;font-weight:700;background:#fff;text-align:left}.sheet .nm{text-align:left;border-right:2px solid #9aa0a6}
+.sheet .g{background:#ceead6}.sheet .gg{background:#9ad5a8}.sheet .r{background:#fad2cf}.sheet .t{font-weight:700;border-top:2px solid #202124}
+.sel{position:absolute;left:410px;top:192px;width:289px;height:131px;border:2px solid #1a73e8;background:#1a73e81a}.sel:after{content:"";position:absolute;right:-5px;bottom:-5px;width:8px;height:8px;background:#1a73e8;border:1px solid #fff}
+.tabs{position:absolute;left:0;top:860px;width:1280px;height:40px;background:#f1f3f4;border-top:1px solid #c4c7c5;display:flex;align-items:center;gap:6px;padding:0 16px}.tabs span{padding:8px 18px;border-radius:6px 6px 0 0}.tabs .on{background:#e1e9f7;color:#0b57d0;font-weight:700;box-shadow:inset 0 -3px #0b57d0}.tabs em{margin-left:auto;font-style:normal;padding:8px 14px;background:#fff;border-radius:6px;font-weight:700}
+</style></head><body>
+<div class="top" data-r="title-bar"><i></i><div><b>Q4 budget 2026</b><small>File Edit View Insert Format Data Tools</small></div><span class="sh">Share</span></div>
+<div class="tool" data-r="toolbar"><span>↶ ↷</span><span>100% ▾</span><span>€ % .0</span><span>Arial ▾</span><span>10 ▾</span><span><b>B</b> <i>I</i> <s>S</s></span><span>A▾</span><span>▦ ▾</span></div>
+<div class="fx" data-r="formula-bar"><span class="ref">C3:D7</span><span class="f">fx</span><span>=SUM(C3:C7)*(1+$B$1)</span></div>
+<div class="sheet" data-r="grid" data-must>
+<div class="hd"></div><div class="hd">A</div><div class="hd">B</div><div class="hd">C</div><div class="hd">D</div><div class="hd">E</div><div class="hd">F</div><div class="hd">G</div><div class="hd">H</div>
+<div class="rh">1</div><div class="fr nm">Category</div><div class="fr">Owner</div><div class="fr">Oct</div><div class="fr">Nov</div><div class="fr">Dec</div><div class="fr">Q4 total</div><div class="fr">Budget</div><div class="fr">Δ</div>
+<div class="rh">2</div><div class="nm">Salaries</div><div>Ana</div><div>84,200</div><div>84,200</div><div>86,900</div><div>255,300</div><div>260,000</div><div class="g">−4,700</div>
+<div class="rh">3</div><div class="nm">Cloud hosting</div><div>Jonas</div><div>12,480</div><div>13,920</div><div>15,010</div><div>41,410</div><div>36,000</div><div class="r">+5,410</div>
+<div class="rh">4</div><div class="nm">Design tools</div><div>Mira</div><div>2,140</div><div>2,140</div><div>2,140</div><div>6,420</div><div>7,200</div><div class="g">−780</div>
+<div class="rh">5</div><div class="nm">Marketing</div><div>Lena</div><div>18,000</div><div>22,500</div><div>31,000</div><div>71,500</div><div>65,000</div><div class="r">+6,500</div>
+<div class="rh">6</div><div class="nm">Travel</div><div>Priya</div><div>4,300</div><div>6,800</div><div>2,100</div><div>13,200</div><div>18,000</div><div class="gg">−4,800</div>
+<div class="rh">7</div><div class="nm">Office</div><div>Ana</div><div>3,900</div><div>3,900</div><div>4,250</div><div>12,050</div><div>12,000</div><div>+50</div>
+<div class="rh">8</div><div class="nm t">Total</div><div class="t"></div><div class="t">125,020</div><div class="t">133,460</div><div class="t">141,400</div><div class="t">399,880</div><div class="t">398,200</div><div class="t r">+1,680</div>
+<div class="rh">9</div><div class="nm"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+<div class="rh">10</div><div class="nm"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+<div class="rh">11</div><div class="nm"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+<div class="rh">12</div><div class="nm"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+<div class="rh">13</div><div class="nm"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+<div class="rh">14</div><div class="nm"></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+</div>
+<div class="sel" data-r="selection"></div>
+<div class="tabs" data-r="sheet-tabs"><span>＋ ≡</span><span class="on">Budget</span><span>Actuals</span><span>Headcount</span><em>Sum: 300,120</em></div>
+</body></html>

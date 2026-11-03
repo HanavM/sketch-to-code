@@ -1,0 +1,486 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "9a2ebb8fa093fd1435b0eaa91318fbabe0dde033",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A simple to-do list page: a huge bold 'Today' heading with a 'Tuesday, March 10' subtitle, a wide 'Add a task…' input with an orange '+' button embedded at its right end, a segmented All/Active/Done tab control (All active/filled, Active and Done light grey), a checklist of seven tasks with checkboxes and dividers (with one checked item, one urgent item marked orange, etc.), and a grey footer line '4 left · Clear done'. The whole page background is a warm off-white.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Today\" at (320,56) 183x72 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:14:9",
+      "rect": {
+       "x": 320,
+       "y": 62,
+       "w": 182.609375,
+       "h": 60
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#222222 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Today\" at (320,56) 183x72 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:14:9",
+      "rect": {
+       "x": 320,
+       "y": 62,
+       "w": 182.609375,
+       "h": 60
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#888888 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> at (320,62) 183x60 matches the sketch region",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:14:9",
+      "rect": {
+       "x": 320,
+       "y": 62,
+       "w": 182.609375,
+       "h": 60
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 320,
+        "y": 170,
+        "w": 640,
+        "h": 56
+       },
+       "built": {
+        "x": 320,
+        "y": 170,
+        "w": 640,
+        "h": 56
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s4",
+       "drawn": {
+        "x": 904,
+        "y": 180,
+        "w": 37,
+        "h": 36
+       },
+       "built": {
+        "x": 905,
+        "y": 180,
+        "w": 36,
+        "h": 36
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e5e5e5 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (320,119) 159x25 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:29:9",
+      "rect": {
+       "x": 320,
+       "y": 119,
+       "w": 158.890625,
+       "h": 25
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 320,
+        "y": 250,
+        "w": 52,
+        "h": 33
+       },
+       "built": {
+        "x": 320,
+        "y": 250,
+        "w": 48.984375,
+        "h": 32
+       },
+       "dx": -2,
+       "dy": 0
+      },
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 382,
+        "y": 250,
+        "w": 74,
+        "h": 33
+       },
+       "built": {
+        "x": 376.984375,
+        "y": 250,
+        "w": 74.203125,
+        "h": 32
+       },
+       "dx": -5,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 465,
+        "y": 251,
+        "w": 70,
+        "h": 32
+       },
+       "built": {
+        "x": 459.1875,
+        "y": 250,
+        "w": 67.21875,
+        "h": 32
+       },
+       "dx": -7,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ececea is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <button> at (320,250) 49x32 matches the sketch region",
+     "bestCandidate": {
+      "tag": "button",
+      "srcLoc": "src/App.tsx:64:11",
+      "rect": {
+       "x": 320,
+       "y": 250,
+       "w": 48.984375,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 319,
+        "y": 313,
+        "w": 23,
+        "h": 23
+       },
+       "built": {
+        "x": 320,
+        "y": 311.5,
+        "w": 23,
+        "h": 23
+       },
+       "dx": 1,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f97316 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "clear",
+    "verdict": {
+     "satisfied": true,
+     "reason": "no words sit on a form field"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Today\" runs into \"Tuesday, March 10\" (33% of the smaller one covered). Keep both where drawn but size or space them so they do not touch",
+     "invented": [],
+     "overlaps": [
+      {
+       "a": "Today",
+       "b": "Tuesday, March 10",
+       "share": 0.33
+      }
+     ]
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#fafaf7",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (320,92) 115x0",
+       "want": "#222222",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (320,132) 135x0",
+       "want": "#888888",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (320,170) 640x56 (light pen outline)",
+       "want": "border #e5e5e5, no #e5e5e5 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (904,180) 37x36",
+       "want": "#f97316",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (320,250) 52x33",
+       "want": "#222222",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (382,250) 75x33",
+       "want": "#ececea",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (465,251) 70x32",
+       "want": "#ececea",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (319,313) 23x23",
+       "want": "#f97316",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 69645,
+   "cacheRead": 590942,
+   "output": 34037
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 35244,
+    "output": 13219,
+    "cacheRead": 128564,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 152427
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 50891,
+    "output": 13138,
+    "cacheRead": 217609,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 171640
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 17547,
+    "output": 7680,
+    "cacheRead": 244769,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 96974
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

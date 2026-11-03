@@ -1,0 +1,620 @@
+{
+  "round": 35,
+  "id": "e2-library-loans",
+  "version": 3,
+  "stopped": null,
+  "likeness": 76,
+  "colour": 0.9835406767056744,
+  "structure": 0.8701725715819248,
+  "layout": 0.7357523666180693,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 3.5,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 10,
+      "line": 2,
+      "dot": 5
+    },
+    "inkPx": 10134
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 52,
+  "notes": 11,
+  "longestNote": 13,
+  "noteTexts": [
+    "Northgate Library, white bold",
+    "My loans, white",
+    "Holds History Fines Account, white",
+    "My loans, big bold",
+    "Search the catalogue, grey",
+    "6 · on loan",
+    "2 · due this week",
+    "1 · overdue",
+    "Title  Due  Status, small grey bold",
+    "The Salt Path · 2 Nov · Due soon, 6 rows like this",
+    "Renew"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 407,
+    "firstReadingS": 86,
+    "readS": [
+      41
+    ],
+    "buildS": [
+      318
+    ],
+    "sketchingS": 47
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 91810,
+    "cacheRead": 594466,
+    "output": 29821,
+    "billed": 121631
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 6768
+    },
+    {
+      "op": "stroke",
+      "at": 8595
+    },
+    {
+      "op": "stroke",
+      "at": 9412
+    },
+    {
+      "op": "stroke",
+      "at": 11778
+    },
+    {
+      "op": "stroke",
+      "at": 14445
+    },
+    {
+      "op": "stroke",
+      "at": 17112
+    },
+    {
+      "op": "stroke",
+      "at": 19782
+    },
+    {
+      "op": "stroke",
+      "at": 27801
+    },
+    {
+      "op": "stroke",
+      "at": 30895
+    },
+    {
+      "op": "stroke",
+      "at": 31762
+    },
+    {
+      "op": "stroke",
+      "at": 32827
+    },
+    {
+      "op": "stroke",
+      "at": 33860
+    },
+    {
+      "op": "pen",
+      "color": "#2e4636",
+      "at": 34227
+    },
+    {
+      "op": "stroke",
+      "at": 34704
+    },
+    {
+      "op": "pen",
+      "color": "#4a6655",
+      "at": 35065
+    },
+    {
+      "op": "stroke",
+      "at": 35528
+    },
+    {
+      "op": "pen",
+      "color": "#faf8f3",
+      "at": 35892
+    },
+    {
+      "op": "stroke",
+      "at": 36362
+    },
+    {
+      "op": "pen",
+      "color": "#c4573f",
+      "at": 36727
+    },
+    {
+      "op": "stroke",
+      "at": 37196
+    },
+    {
+      "op": "pen",
+      "color": "#fdf0c8",
+      "at": 37576
+    },
+    {
+      "op": "stroke",
+      "at": 38043
+    },
+    {
+      "op": "note",
+      "at": 38725
+    },
+    {
+      "op": "note",
+      "at": 39361
+    },
+    {
+      "op": "note",
+      "at": 40026
+    },
+    {
+      "op": "note",
+      "at": 40669
+    },
+    {
+      "op": "note",
+      "at": 41353
+    },
+    {
+      "op": "note",
+      "at": 41999
+    },
+    {
+      "op": "note",
+      "at": 42627
+    },
+    {
+      "op": "note",
+      "at": 43271
+    },
+    {
+      "op": "note",
+      "at": 43953
+    },
+    {
+      "op": "note",
+      "at": 44661
+    },
+    {
+      "op": "note",
+      "at": 45294
+    },
+    {
+      "op": "run",
+      "at": 45432
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          240,
+          2
+        ],
+        [
+          240,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n": 379,
+      "at": 6768
+    },
+    {
+      "way": [
+        [
+          24,
+          87
+        ],
+        [
+          216,
+          87
+        ],
+        [
+          216,
+          128
+        ],
+        [
+          24,
+          128
+        ],
+        [
+          24,
+          89
+        ]
+      ],
+      "n": 79,
+      "at": 8595
+    },
+    {
+      "way": [
+        [
+          288,
+          57
+        ],
+        [
+          416,
+          57
+        ]
+      ],
+      "n": 22,
+      "at": 9412
+    },
+    {
+      "way": [
+        [
+          932,
+          36
+        ],
+        [
+          1232,
+          36
+        ],
+        [
+          1232,
+          78
+        ],
+        [
+          932,
+          78
+        ],
+        [
+          932,
+          38
+        ]
+      ],
+      "n": 115,
+      "at": 11778
+    },
+    {
+      "way": [
+        [
+          288,
+          104
+        ],
+        [
+          588,
+          104
+        ],
+        [
+          588,
+          200
+        ],
+        [
+          288,
+          200
+        ],
+        [
+          288,
+          106
+        ]
+      ],
+      "n": 133,
+      "at": 14445
+    },
+    {
+      "way": [
+        [
+          609,
+          104
+        ],
+        [
+          909,
+          104
+        ],
+        [
+          909,
+          200
+        ],
+        [
+          609,
+          200
+        ],
+        [
+          609,
+          106
+        ]
+      ],
+      "n": 133,
+      "at": 17112
+    },
+    {
+      "way": [
+        [
+          931,
+          104
+        ],
+        [
+          1231,
+          104
+        ],
+        [
+          1231,
+          200
+        ],
+        [
+          931,
+          200
+        ],
+        [
+          931,
+          106
+        ]
+      ],
+      "n": 133,
+      "at": 19782
+    },
+    {
+      "way": [
+        [
+          288,
+          230
+        ],
+        [
+          1232,
+          230
+        ],
+        [
+          1232,
+          647
+        ],
+        [
+          288,
+          647
+        ],
+        [
+          288,
+          232
+        ]
+      ],
+      "n": 454,
+      "at": 27801
+    },
+    {
+      "way": [
+        [
+          288,
+          275
+        ],
+        [
+          1232,
+          275
+        ]
+      ],
+      "n": 158,
+      "at": 30895
+    },
+    {
+      "way": [
+        [
+          309,
+          285
+        ],
+        [
+          339,
+          285
+        ],
+        [
+          339,
+          327
+        ],
+        [
+          309,
+          327
+        ],
+        [
+          309,
+          287
+        ]
+      ],
+      "n": 25,
+      "at": 31762
+    },
+    {
+      "way": [
+        [
+          844,
+          293
+        ],
+        [
+          927,
+          293
+        ],
+        [
+          927,
+          318
+        ],
+        [
+          844,
+          318
+        ],
+        [
+          844,
+          295
+        ]
+      ],
+      "n": 37,
+      "at": 32827
+    },
+    {
+      "way": [
+        [
+          1057,
+          290
+        ],
+        [
+          1129,
+          290
+        ],
+        [
+          1129,
+          321
+        ],
+        [
+          1057,
+          321
+        ],
+        [
+          1057,
+          292
+        ]
+      ],
+      "n": 35,
+      "at": 33860
+    },
+    {
+      "way": [
+        [
+          120,
+          600
+        ]
+      ],
+      "n": 1,
+      "at": 34704
+    },
+    {
+      "way": [
+        [
+          180,
+          107
+        ]
+      ],
+      "n": 1,
+      "at": 35528
+    },
+    {
+      "way": [
+        [
+          1000,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 36362
+    },
+    {
+      "way": [
+        [
+          324,
+          306
+        ]
+      ],
+      "n": 1,
+      "at": 37196
+    },
+    {
+      "way": [
+        [
+          915,
+          305
+        ]
+      ],
+      "n": 1,
+      "at": 38043
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Northgate Library, white bold",
+      "whole": false,
+      "x": 108,
+      "y": 40,
+      "at": 38725
+    },
+    {
+      "text": "My loans, white",
+      "whole": false,
+      "x": 70,
+      "y": 107,
+      "at": 39361
+    },
+    {
+      "text": "Holds History Fines Account, white",
+      "whole": false,
+      "x": 70,
+      "y": 220,
+      "at": 40026
+    },
+    {
+      "text": "My loans, big bold",
+      "whole": false,
+      "x": 352,
+      "y": 50,
+      "at": 40669
+    },
+    {
+      "text": "Search the catalogue, grey",
+      "whole": false,
+      "x": 1010,
+      "y": 57,
+      "at": 41353
+    },
+    {
+      "text": "6 · on loan",
+      "whole": false,
+      "x": 330,
+      "y": 150,
+      "at": 41999
+    },
+    {
+      "text": "2 · due this week",
+      "whole": false,
+      "x": 650,
+      "y": 150,
+      "at": 42627
+    },
+    {
+      "text": "1 · overdue",
+      "whole": false,
+      "x": 970,
+      "y": 150,
+      "at": 43271
+    },
+    {
+      "text": "Title  Due  Status, small grey bold",
+      "whole": false,
+      "x": 500,
+      "y": 252,
+      "at": 43953
+    },
+    {
+      "text": "The Salt Path · 2 Nov · Due soon, 6 rows like this",
+      "whole": false,
+      "x": 400,
+      "y": 306,
+      "at": 44661
+    },
+    {
+      "text": "Renew",
+      "whole": false,
+      "x": 1093,
+      "y": 306,
+      "at": 45294
+    }
+  ]
+}

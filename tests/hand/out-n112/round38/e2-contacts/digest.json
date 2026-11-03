@@ -1,0 +1,744 @@
+{
+  "round": 38,
+  "id": "e2-contacts",
+  "version": 3,
+  "stopped": null,
+  "likeness": 77.6,
+  "colour": 0.9758657980384126,
+  "structure": 0.8271138267393205,
+  "layout": 0.9231215220653566,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 4.5,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 7,
+      "box": 8,
+      "line": 2,
+      "circle": 2
+    },
+    "inkPx": 10697
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 65,
+  "notes": 8,
+  "longestNote": 34,
+  "noteTexts": [
+    "Ledgerly, bold",
+    "Dashboard, Contacts, Deals, Reports",
+    "Contacts",
+    "+ New contact",
+    "Amara Okafor Northwind; Ben Hollis Acme Co; Chen Wei Blue Fin; Dana Price Lumen; Elif Kaya Orbit Labs; Felix Grant Acme Co; Gina Ruiz Tandem; Hugo Lind Northwind; Isla Moore Pebble; Jon Abe Lumen",
+    "Ben Hollis; Head of buying, Acme Co; Email ben@acme.co; Phone +1 415 555 0182; Last contact Oct 27, call",
+    "Email",
+    "Call"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 487,
+    "firstReadingS": 145,
+    "readS": [
+      96
+    ],
+    "buildS": [
+      340
+    ],
+    "sketchingS": 51
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 84672,
+    "cacheRead": 433152,
+    "output": 38584,
+    "billed": 123256
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f8fafc",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 464
+    },
+    {
+      "op": "pen",
+      "color": "#0f172a",
+      "at": 837
+    },
+    {
+      "op": "stroke",
+      "at": 7494
+    },
+    {
+      "op": "stroke",
+      "at": 7959
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 8327
+    },
+    {
+      "op": "stroke",
+      "at": 9025
+    },
+    {
+      "op": "note",
+      "at": 9673
+    },
+    {
+      "op": "pen",
+      "color": "#1e293b",
+      "at": 10039
+    },
+    {
+      "op": "stroke",
+      "at": 11708
+    },
+    {
+      "op": "stroke",
+      "at": 12177
+    },
+    {
+      "op": "note",
+      "at": 12877
+    },
+    {
+      "op": "pen",
+      "color": "#0f172a",
+      "at": 13243
+    },
+    {
+      "op": "stroke",
+      "at": 14026
+    },
+    {
+      "op": "note",
+      "at": 14650
+    },
+    {
+      "op": "pen",
+      "color": "#4f46e5",
+      "at": 15017
+    },
+    {
+      "op": "stroke",
+      "at": 16559
+    },
+    {
+      "op": "stroke",
+      "at": 17024
+    },
+    {
+      "op": "note",
+      "at": 17660
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 18028
+    },
+    {
+      "op": "stroke",
+      "at": 26063
+    },
+    {
+      "op": "pen",
+      "color": "#eef2ff",
+      "at": 26428
+    },
+    {
+      "op": "stroke",
+      "at": 30660
+    },
+    {
+      "op": "stroke",
+      "at": 31130
+    },
+    {
+      "op": "pen",
+      "color": "#c7d2fe",
+      "at": 31494
+    },
+    {
+      "op": "stroke",
+      "at": 32227
+    },
+    {
+      "op": "stroke",
+      "at": 32692
+    },
+    {
+      "op": "note",
+      "at": 33956
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 34324
+    },
+    {
+      "op": "stroke",
+      "at": 40863
+    },
+    {
+      "op": "pen",
+      "color": "#a5b4fc",
+      "at": 41227
+    },
+    {
+      "op": "stroke",
+      "at": 42760
+    },
+    {
+      "op": "stroke",
+      "at": 43233
+    },
+    {
+      "op": "note",
+      "at": 44163
+    },
+    {
+      "op": "pen",
+      "color": "#cbd5e1",
+      "at": 44527
+    },
+    {
+      "op": "stroke",
+      "at": 45962
+    },
+    {
+      "op": "note",
+      "at": 46578
+    },
+    {
+      "op": "stroke",
+      "at": 48010
+    },
+    {
+      "op": "note",
+      "at": 48624
+    },
+    {
+      "op": "run",
+      "at": 48771
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1250,
+          880
+        ]
+      ],
+      "n": 1,
+      "at": 464
+    },
+    {
+      "way": [
+        [
+          2,
+          2
+        ],
+        [
+          220,
+          2
+        ],
+        [
+          220,
+          898
+        ],
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "n": 371,
+      "at": 7494
+    },
+    {
+      "way": [
+        [
+          110,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 7959
+    },
+    {
+      "way": [
+        [
+          24,
+          41
+        ],
+        [
+          108,
+          41
+        ]
+      ],
+      "n": 15,
+      "at": 9025
+    },
+    {
+      "way": [
+        [
+          24,
+          134
+        ],
+        [
+          196,
+          134
+        ],
+        [
+          196,
+          175
+        ],
+        [
+          24,
+          175
+        ],
+        [
+          24,
+          134
+        ]
+      ],
+      "n": 73,
+      "at": 11708
+    },
+    {
+      "way": [
+        [
+          110,
+          155
+        ]
+      ],
+      "n": 1,
+      "at": 12177
+    },
+    {
+      "way": [
+        [
+          260,
+          49
+        ],
+        [
+          371,
+          49
+        ]
+      ],
+      "n": 20,
+      "at": 14026
+    },
+    {
+      "way": [
+        [
+          720,
+          28
+        ],
+        [
+          870,
+          28
+        ],
+        [
+          870,
+          72
+        ],
+        [
+          720,
+          72
+        ],
+        [
+          720,
+          28
+        ]
+      ],
+      "n": 65,
+      "at": 16559
+    },
+    {
+      "way": [
+        [
+          795,
+          50
+        ]
+      ],
+      "n": 1,
+      "at": 17024
+    },
+    {
+      "way": [
+        [
+          261,
+          101
+        ],
+        [
+          869,
+          101
+        ],
+        [
+          869,
+          859
+        ],
+        [
+          261,
+          859
+        ],
+        [
+          261,
+          101
+        ]
+      ],
+      "n": 455,
+      "at": 26063
+    },
+    {
+      "way": [
+        [
+          261,
+          173
+        ],
+        [
+          869,
+          173
+        ],
+        [
+          869,
+          245
+        ],
+        [
+          261,
+          245
+        ],
+        [
+          261,
+          173
+        ]
+      ],
+      "n": 227,
+      "at": 30660
+    },
+    {
+      "way": [
+        [
+          600,
+          209
+        ]
+      ],
+      "n": 1,
+      "at": 31130
+    },
+    {
+      "way": [
+        [
+          323,
+          137
+        ],
+        [
+          321,
+          145
+        ],
+        [
+          317,
+          151
+        ],
+        [
+          311,
+          155
+        ],
+        [
+          303,
+          157
+        ],
+        [
+          295,
+          155
+        ],
+        [
+          289,
+          151
+        ],
+        [
+          285,
+          145
+        ],
+        [
+          283,
+          137
+        ],
+        [
+          285,
+          129
+        ],
+        [
+          289,
+          123
+        ],
+        [
+          295,
+          119
+        ],
+        [
+          303,
+          117
+        ],
+        [
+          311,
+          119
+        ],
+        [
+          317,
+          123
+        ],
+        [
+          321,
+          129
+        ],
+        [
+          323,
+          137
+        ]
+      ],
+      "n": 17,
+      "at": 32227
+    },
+    {
+      "way": [
+        [
+          303,
+          137
+        ]
+      ],
+      "n": 1,
+      "at": 32692
+    },
+    {
+      "way": [
+        [
+          901,
+          101
+        ],
+        [
+          1239,
+          101
+        ],
+        [
+          1239,
+          859
+        ],
+        [
+          901,
+          859
+        ],
+        [
+          901,
+          101
+        ]
+      ],
+      "n": 365,
+      "at": 40863
+    },
+    {
+      "way": [
+        [
+          1125,
+          190
+        ],
+        [
+          1121,
+          211
+        ],
+        [
+          1109,
+          229
+        ],
+        [
+          1091,
+          241
+        ],
+        [
+          1070,
+          245
+        ],
+        [
+          1049,
+          241
+        ],
+        [
+          1031,
+          229
+        ],
+        [
+          1019,
+          211
+        ],
+        [
+          1015,
+          190
+        ],
+        [
+          1019,
+          169
+        ],
+        [
+          1031,
+          151
+        ],
+        [
+          1049,
+          139
+        ],
+        [
+          1070,
+          135
+        ],
+        [
+          1091,
+          139
+        ],
+        [
+          1109,
+          151
+        ],
+        [
+          1121,
+          169
+        ],
+        [
+          1125,
+          190
+        ]
+      ],
+      "n": 65,
+      "at": 42760
+    },
+    {
+      "way": [
+        [
+          1070,
+          190
+        ]
+      ],
+      "n": 1,
+      "at": 43233
+    },
+    {
+      "way": [
+        [
+          931,
+          566
+        ],
+        [
+          1064,
+          566
+        ],
+        [
+          1064,
+          610
+        ],
+        [
+          931,
+          610
+        ],
+        [
+          931,
+          566
+        ]
+      ],
+      "n": 59,
+      "at": 45962
+    },
+    {
+      "way": [
+        [
+          1076,
+          566
+        ],
+        [
+          1209,
+          566
+        ],
+        [
+          1209,
+          610
+        ],
+        [
+          1076,
+          610
+        ],
+        [
+          1076,
+          566
+        ]
+      ],
+      "n": 59,
+      "at": 48010
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Ledgerly, bold",
+      "whole": false,
+      "x": 66,
+      "y": 41,
+      "at": 9673
+    },
+    {
+      "text": "Dashboard, Contacts, Deals, Reports",
+      "whole": false,
+      "x": 110,
+      "y": 160,
+      "at": 12877
+    },
+    {
+      "text": "Contacts",
+      "whole": false,
+      "x": 315,
+      "y": 49,
+      "at": 14650
+    },
+    {
+      "text": "+ New contact",
+      "whole": false,
+      "x": 795,
+      "y": 40,
+      "at": 17660
+    },
+    {
+      "text": "Amara Okafor Northwind; Ben Hollis Acme Co; Chen Wei Blue Fin; Dana Price Lumen; Elif Kaya Orbit Labs; Felix Grant Acme Co; Gina Ruiz Tandem; Hugo Lind Northwind; Isla Moore Pebble; Jon Abe Lumen",
+      "whole": false,
+      "x": 560,
+      "y": 500,
+      "at": 33956
+    },
+    {
+      "text": "Ben Hollis; Head of buying, Acme Co; Email ben@acme.co; Phone +1 415 555 0182; Last contact Oct 27, call",
+      "whole": false,
+      "x": 1070,
+      "y": 400,
+      "at": 44163
+    },
+    {
+      "text": "Email",
+      "whole": false,
+      "x": 997,
+      "y": 588,
+      "at": 46578
+    },
+    {
+      "text": "Call",
+      "whole": false,
+      "x": 1142,
+      "y": 588,
+      "at": 48624
+    }
+  ]
+}

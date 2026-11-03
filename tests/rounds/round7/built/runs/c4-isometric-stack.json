@@ -1,0 +1,263 @@
+{
+  "id": "c4-isometric-stack",
+  "at": "2026-10-22T13:57:25.706Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9060173923073973,
+    "overallV2": 0.9060173923073973,
+    "overallV1": 0.879268410789573,
+    "colour": 0.9920277934447007,
+    "structure": 0.9695036485710921,
+    "structureStrict": 0.9462281042212433,
+    "colourAligned": 0.9920277934447007,
+    "structureAligned": 0.9695036485710921,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9782789140552925
+    },
+    "layout": 0.8887066526334082
+  },
+  "effects": null,
+  "tokens": {
+    "input": 70750,
+    "output": 46393,
+    "cacheRead": 1051917
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 105164,
+      "output": 40179,
+      "cacheRead": 1048833,
+      "toolCalls": 28,
+      "tools": [
+        "Glob",
+        "Read components/IsometricCube.tsx",
+        "Read components/IsometricCube2.tsx",
+        "Read components/IsometricCube3.tsx",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/IsometricCube.tsx",
+        "Edit components/IsometricCube3.tsx",
+        "Edit components/IsometricCube2.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx",
+        "Read components/IsometricCube.tsx",
+        "Edit components/IsometricCube.tsx",
+        "Edit components/IsometricCube.tsx",
+        "Read components/IsometricCube2.tsx",
+        "Read components/IsometricCube3.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/IsometricCube2.tsx",
+        "Edit components/IsometricCube3.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Read components/IsometricCube2.tsx",
+        "Read components/SketchShape.tsx"
+      ],
+      "ms": 437483
+    }
+  ],
+  "reading": "A marketing hero/landing page: a nav bar, a two-line big headline, a body sentence and a \"Deploy now\" button on the left, and on the right a stack of three isometric cubes (lavender/indigo, pink, yellow/amber) connected by dashed lines and labeled with \"Edge\", \"Compute\" and \"Storage\" buttons, all per the typed notes which give exact copy and SVG specs.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        51,
+        1132,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top nav bar: bold 20px \"Stackwise\" wordmark on the left, \"Product · Docs · Pricing\" links on the right, spanning the full width of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 65
+        }
+      ],
+      "region": [
+        78,
+        150,
+        468,
+        143
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy, tight-set hero headline \"Infra in three layers.\", set in exactly 2 lines: \"Infra in three\" / \"layers.\" — keep these line breaks, each line"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        76,
+        400,
+        412,
+        57
+      ],
+      "paths": [],
+      "instruction": "Indigo subheading/body text below the hero headline: \"Edge, compute and storage as one stack you can see. Deploy from a single file.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        521,
+        143,
+        47
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Primary call-to-action button below the subheading: deep indigo background, white text, label \"Deploy now\"."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        753,
+        173,
+        254,
+        204
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Drawn shape, not a photo/box: an isometric cube (260x210px, top-left at 750,170) made of 3 flat filled SVG polygons with no outlines/gradient/shadow, placed in "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        233,
+        484,
+        444
+      ],
+      "paths": [
+        "s7",
+        "s9"
+      ],
+      "instruction": "Drawn shape, not a photo/box: an isometric cube (260x210px, top-left at 750,330) made of 3 flat filled SVG polygons with no outlines/gradient/shadow, placed in "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        704,
+        493,
+        353,
+        273
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Drawn shape, not a photo/box: an isometric cube (360x280px, top-left at 700,490) made of 3 flat filled SVG polygons with no outlines/gradient/shadow, placed in "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        233,
+        484,
+        444
+      ],
+      "paths": [
+        "s7",
+        "s9"
+      ],
+      "instruction": "3 separate thin straight dashed (5px dashes) 1.5px deep indigo connector lines in the same page overlay <svg> (no box, no fill), connecting the three cubes: fro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        211,
+        526,
+        465
+      ],
+      "paths": [
+        "s9",
+        "s10"
+      ],
+      "instruction": "White button labeled \"Edge\", positioned near the top (lavender/indigo) cube to label it as a layer of the stack."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        543,
+        456,
+        82,
+        31
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "White button labeled \"Compute\", positioned near the middle (pink) cube to label it as a layer of the stack."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1121,
+        682,
+        75,
+        31
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "White button labeled \"Storage\", positioned near the bottom (yellow/amber) cube to label it as a layer of the stack."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

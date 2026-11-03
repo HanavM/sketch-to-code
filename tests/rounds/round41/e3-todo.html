@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Todo</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fafaf7;font-family:Helvetica,Arial,sans-serif;color:#222;overflow:hidden}
+.wrap{width:640px;margin:70px auto 0}h1{font-size:40px;font-weight:800}.date{color:#888;font-size:16px;margin-top:8px}
+.add{margin-top:30px;height:54px;border:1px solid #ddd;border-radius:10px;background:#fff;display:flex;align-items:center;padding:0 18px;color:#aaa;font-size:16px}.add b{margin-left:auto;width:36px;height:36px;border-radius:8px;background:#f97316;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}
+.tabs{display:flex;gap:10px;margin-top:26px}.tabs span{padding:8px 18px;border-radius:18px;font-size:14px;background:#efefea}.tabs .on{background:#222;color:#fff}
+.it{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid #ebebe6;font-size:17px}.cb{width:22px;height:22px;border:2px solid #bbb;border-radius:6px}.done .cb{background:#f97316;border-color:#f97316}.done span{color:#aaa;text-decoration:line-through}
+.it em{margin-left:auto;font-style:normal;font-size:13px;color:#f97316}
+.foot{margin-top:22px;color:#999;font-size:14px}
+</style></head><body><div class="wrap">
+<h1 data-r="title" data-must>Today</h1><div class="date" data-r="date">Tuesday, March 10</div>
+<div class="add" data-r="add-task" data-must>Add a task…<b>+</b></div>
+<div class="tabs" data-r="tabs"><span class="on">All</span><span>Active</span><span>Done</span></div>
+<div data-r="list" data-must style="margin-top:12px">
+<div class="it done"><div class="cb"></div><span>Water the plants</span></div>
+<div class="it"><div class="cb"></div><span>Call the landlord</span><em>urgent</em></div>
+<div class="it"><div class="cb"></div><span>Buy oat milk</span></div>
+<div class="it done"><div class="cb"></div><span>Send invoice #18</span></div>
+<div class="it"><div class="cb"></div><span>Book haircut</span></div>
+<div class="it"><div class="cb"></div><span>Return library books</span></div></div>
+<div class="foot" data-r="footer">4 left · Clear done</div></div></body></html>

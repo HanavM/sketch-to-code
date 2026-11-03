@@ -1,0 +1,121 @@
+{
+  "id": "e5-gantt",
+  "at": "2026-10-21T16:03:41.357Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.47157261894347025,
+    "overallV2": 0.21658715144931368,
+    "overallV1": 0.14713065288440866,
+    "colour": 0.9681883137424413,
+    "structure": 0.7803373469985169,
+    "structureStrict": 0.6359209228760169,
+    "colourAligned": 0.9834606997283378,
+    "structureAligned": 0.8538270297689318,
+    "align": {
+      "scale": 1.04,
+      "dx": -32,
+      "dy": -48,
+      "r": 0.7059753416800244
+    },
+    "layout": 0.4904355096146955
+  },
+  "effects": null,
+  "tokens": {
+    "input": 40631,
+    "output": 20794,
+    "cacheRead": 165463
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52917,
+      "output": 18544,
+      "cacheRead": 165463,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Glob"
+      ],
+      "ms": 217254
+    }
+  ],
+  "reading": "The sketch lays out a project page: a heading placeholder, Day/Week/Month filter links, a large Gantt-style timeline with colour-coded task bars and a red \"Today\" marker, and a left-hand legend list of the same tasks with colour dots, all per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 28
+        }
+      ],
+      "region": [
+        44,
+        36,
+        178,
+        17
+      ],
+      "paths": [],
+      "instruction": "Wavy placeholder at top-left stands for a page heading reading \"Website relaunch\" (typed note)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1070,
+        31,
+        170,
+        27
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Rounded rect top-right is a set of nav/filter links: \"Day\", \"Week\", \"Month\" (typed note)."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        39,
+        88,
+        1202,
+        754
+      ],
+      "paths": [
+        "s2",
+        "s4"
+      ],
+      "instruction": "Large rectangle is a project timeline/Gantt chart: 8 week columns labeled \"Oct 5\", \"Oct 12\", \"Oct 19\", \"Oct 26\", \"Nov 2\", \"Nov 9\", \"Nov 16\", \"Nov 23\" across the"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        40,
+        133,
+        254,
+        442
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Inner rectangle on the left is a legend list, one row per task, each with a round colour dot before the label: lavender dot \"Research\", coral dot \"Wireframes\", "
+    }
+  ],
+  "rejected": []
+}

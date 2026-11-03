@@ -1,0 +1,276 @@
+{
+  "id": "c5-torn-collage",
+  "at": "2026-10-22T19:19:33.798Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8228841951183974,
+    "overallV2": 0.8174164215812822,
+    "overallV1": 0.6872386866170421,
+    "colour": 0.9663513500097753,
+    "structure": 0.9188470125839941,
+    "structureStrict": 0.7770810074995242,
+    "colourAligned": 0.9706954890469585,
+    "structureAligned": 0.9188470125839941,
+    "align": {
+      "scale": 0.96,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9718040502930818
+    },
+    "layout": 0.780959444670071
+  },
+  "effects": {
+    "recall": 0.75,
+    "kept": [
+      "blend",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 56091,
+    "output": 28626,
+    "cacheRead": 149137
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 59457,
+      "output": 18279,
+      "cacheRead": 136335,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Edit components/SketchShape5.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 173613
+    }
+  ],
+  "reading": "A warm-paper 'field notes' style page: a thin title 'FIELD NOTES' top-left and 'No. 12 · Winter' top-right, two large tilted color-gradient jagged photograph-like shapes (teal→green and amber→brown) with the italic headline 'Salt & Stone' color-inverted across them, two strips of washi tape laid over the photo edges, a drop-cap paragraph of travel copy, and a red hand-drawn ellipse circling the italic note 'read this first!'.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        94,
+        44,
+        140,
+        9
+      ],
+      "paths": [],
+      "instruction": "14px wide-spaced letters 'FIELD NOTES', one line on its own, top 40px, left edge 90px, nothing else beside it. Warm paper page background, Georgia type, near-bl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s8",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 102
+        }
+      ],
+      "region": [
+        904,
+        44,
+        116,
+        8
+      ],
+      "paths": [],
+      "instruction": "14px text 'No. 12 · Winter', one line on its own, top 40px, left edge 900px, nothing else beside it."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        72,
+        106,
+        455,
+        549
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Jagged cut-out shape tilted 4° anticlockwise, painted linear-gradient(160deg, #0f766e, #134e4a) exactly (no brighter/darker), shape 420x520px before tilt, top-l"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        412,
+        284,
+        416,
+        453
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Jagged cut-out shape tilted 5° clockwise, painted linear-gradient(200deg, #f59e0b, #b45309) exactly (no brighter/darker), shape 380x420px before tilt, top-left "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        132,
+        86,
+        148,
+        66
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Strip of sticky tape, tilted 14° anticlockwise, see-through pale yellow (#fef9c3 at 75% opacity), 150x38px, hairline faint black edge, square corners, laid on t"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        702,
+        272,
+        147,
+        75
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Strip of sticky tape, tilted 18° clockwise, see-through pale yellow (#fef9c3 at 75% opacity), 150x38px, hairline faint black edge, square corners, laid on top o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 123
+        }
+      ],
+      "region": [
+        158,
+        300,
+        328,
+        270
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic serif, regular weight (not bold), tight-set letters with line-height 0.9, white, color-inverting where it crosses what is under it, text 'S"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s8",
+            "s12"
+          ],
+          "lines": 3,
+          "fontPx": 102
+        },
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        904,
+        156,
+        292,
+        115
+      ],
+      "paths": [],
+      "instruction": "Paragraph 300px wide, 16px text, line-height 26px, opening on a drop cap: first letter 'A' 72px bold brown (#b45309), floated left about 3 lines tall (::first-l"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        890,
+        632,
+        299,
+        125
+      ],
+      "paths": [
+        "s14"
+      ],
+      "instruction": "Outline-only red (#dc2626) ellipse ring, 3px line, 300x124px, tilted 5° anticlockwise, no fill (SVG <ellipse fill=\"none\">, like a pen circle round a note): what"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s15"
+          ],
+          "lines": 1,
+          "fontPx": 37
+        }
+      ],
+      "region": [
+        948,
+        667,
+        154,
+        44
+      ],
+      "paths": [],
+      "instruction": "Italic red text 'read this first!', 30px type on one line (white-space: nowrap, never wrapped), about 171px wide, placed inside the red circled ellipse."
+    }
+  ],
+  "rejected": []
+}

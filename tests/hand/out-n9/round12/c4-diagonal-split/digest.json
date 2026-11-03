@@ -1,0 +1,373 @@
+{
+  "round": 12,
+  "id": "c4-diagonal-split",
+  "version": 3,
+  "stopped": null,
+  "likeness": 55.1,
+  "colour": 0.8192340308705149,
+  "structure": 0.6756156179216944,
+  "layout": 0.6365558876696591,
+  "strokes": {
+    "count": 9,
+    "pointsPerStroke": 4.7,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 5,
+      "box": 3,
+      "circle": 1
+    },
+    "inkPx": 6168
+  },
+  "erased": 0,
+  "notesMoved": 5,
+  "words": 45,
+  "notes": 8,
+  "longestNote": 8,
+  "noteTexts": [
+    "RUNCLUB, nav right ROUTES · CREW · SHOP",
+    "lime left, red gradient right, black diagonal band",
+    "NINE MILES BEFORE SUNRISE huge black",
+    "small 2-line text",
+    "JOIN THE NEXT RUN black",
+    "lime badge FREE COFFEE AFTER, tilted",
+    "3 rows: Route, Start, Groups",
+    "huge outlined 09, white"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 325,
+    "firstReadingS": 88,
+    "readS": [
+      53
+    ],
+    "buildS": [
+      229
+    ],
+    "sketchingS": 43
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 44949,
+    "cacheRead": 157854,
+    "output": 24821,
+    "billed": 69770
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 3091
+    },
+    {
+      "op": "stroke",
+      "at": 4704
+    },
+    {
+      "op": "stroke",
+      "at": 6305
+    },
+    {
+      "op": "stroke",
+      "at": 7904
+    },
+    {
+      "op": "stroke",
+      "at": 9171
+    },
+    {
+      "op": "stroke",
+      "at": 11172
+    },
+    {
+      "op": "stroke",
+      "at": 12988
+    },
+    {
+      "op": "stroke",
+      "at": 15955
+    },
+    {
+      "op": "stroke",
+      "at": 21357
+    },
+    {
+      "op": "note",
+      "at": 22053
+    },
+    {
+      "op": "note",
+      "at": 22746
+    },
+    {
+      "op": "note",
+      "at": 23434
+    },
+    {
+      "op": "note",
+      "at": 24068
+    },
+    {
+      "op": "note",
+      "at": 24718
+    },
+    {
+      "op": "note",
+      "at": 25394
+    },
+    {
+      "op": "note",
+      "at": 26057
+    },
+    {
+      "op": "note",
+      "at": 26702
+    },
+    {
+      "op": "moveNote",
+      "at": 27457
+    },
+    {
+      "op": "moveNote",
+      "at": 28140
+    },
+    {
+      "op": "moveNote",
+      "at": 28823
+    },
+    {
+      "op": "moveNote",
+      "at": 29506
+    },
+    {
+      "op": "moveNote",
+      "at": 30189
+    },
+    {
+      "op": "run",
+      "at": 35026
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          805,
+          0
+        ],
+        [
+          500,
+          900
+        ]
+      ],
+      "n": 159,
+      "at": 3091
+    },
+    {
+      "way": [
+        [
+          56,
+          192
+        ],
+        [
+          466,
+          192
+        ]
+      ],
+      "n": 69,
+      "at": 4704
+    },
+    {
+      "way": [
+        [
+          56,
+          258
+        ],
+        [
+          466,
+          258
+        ]
+      ],
+      "n": 69,
+      "at": 6305
+    },
+    {
+      "way": [
+        [
+          56,
+          324
+        ],
+        [
+          466,
+          324
+        ]
+      ],
+      "n": 69,
+      "at": 7904
+    },
+    {
+      "way": [
+        [
+          56,
+          445
+        ],
+        [
+          344,
+          445
+        ]
+      ],
+      "n": 49,
+      "at": 9171
+    },
+    {
+      "way": [
+        [
+          56,
+          540
+        ],
+        [
+          285,
+          540
+        ],
+        [
+          285,
+          590
+        ],
+        [
+          56,
+          590
+        ],
+        [
+          56,
+          540
+        ]
+      ],
+      "n": 93,
+      "at": 11172
+    },
+    {
+      "way": [
+        [
+          1210,
+          215
+        ],
+        [
+          1204,
+          244
+        ],
+        [
+          1188,
+          268
+        ],
+        [
+          1164,
+          284
+        ],
+        [
+          1135,
+          290
+        ],
+        [
+          1106,
+          284
+        ],
+        [
+          1082,
+          268
+        ],
+        [
+          1066,
+          244
+        ],
+        [
+          1060,
+          215
+        ],
+        [
+          1066,
+          186
+        ],
+        [
+          1082,
+          162
+        ],
+        [
+          1106,
+          146
+        ],
+        [
+          1135,
+          140
+        ],
+        [
+          1164,
+          146
+        ],
+        [
+          1188,
+          162
+        ],
+        [
+          1204,
+          186
+        ],
+        [
+          1210,
+          215
+        ]
+      ],
+      "n": 81,
+      "at": 12988
+    },
+    {
+      "way": [
+        [
+          900,
+          520
+        ],
+        [
+          1220,
+          520
+        ],
+        [
+          1220,
+          652
+        ],
+        [
+          900,
+          652
+        ],
+        [
+          900,
+          520
+        ]
+      ],
+      "n": 151,
+      "at": 15955
+    },
+    {
+      "way": [
+        [
+          400,
+          140
+        ],
+        [
+          910,
+          140
+        ],
+        [
+          910,
+          515
+        ],
+        [
+          400,
+          515
+        ],
+        [
+          400,
+          140
+        ]
+      ],
+      "n": 297,
+      "at": 21357
+    }
+  ]
+}

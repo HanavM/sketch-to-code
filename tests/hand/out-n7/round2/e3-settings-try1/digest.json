@@ -1,0 +1,335 @@
+{
+  "round": 2,
+  "id": "e3-settings",
+  "version": 3,
+  "stopped": null,
+  "likeness": 38,
+  "colour": 0.9935826472044681,
+  "structure": 0.9358094610170983,
+  "layout": 0.2011670070783475,
+  "strokes": {
+    "count": 10,
+    "pointsPerStroke": 3.8,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "box": 6
+    },
+    "inkPx": 2968
+  },
+  "erased": 0,
+  "words": 33,
+  "notes": 6,
+  "longestNote": 13,
+  "noteTexts": [
+    "Settings",
+    "tabs Profile, Notifications (active blue), Billing, Team",
+    "4 rows: Email digests, Mentions, Product news, Weekly report, each with grey description",
+    "toggles: first two on (blue)",
+    "Save changes, blue",
+    "Reset all, red outline"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 174,
+    "firstReadingS": 65,
+    "readS": [
+      39
+    ],
+    "buildS": [
+      102
+    ],
+    "sketchingS": 32
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 30976,
+    "cacheRead": 187767,
+    "output": 12508,
+    "billed": 43484
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 795
+    },
+    {
+      "op": "stroke",
+      "at": 2063
+    },
+    {
+      "op": "stroke",
+      "at": 5429
+    },
+    {
+      "op": "stroke",
+      "at": 6293
+    },
+    {
+      "op": "stroke",
+      "at": 7161
+    },
+    {
+      "op": "stroke",
+      "at": 8026
+    },
+    {
+      "op": "stroke",
+      "at": 8894
+    },
+    {
+      "op": "stroke",
+      "at": 9993
+    },
+    {
+      "op": "stroke",
+      "at": 11560
+    },
+    {
+      "op": "stroke",
+      "at": 12930
+    },
+    {
+      "op": "note",
+      "at": 19663
+    },
+    {
+      "op": "note",
+      "at": 20343
+    },
+    {
+      "op": "note",
+      "at": 21073
+    },
+    {
+      "op": "note",
+      "at": 21732
+    },
+    {
+      "op": "note",
+      "at": 22383
+    },
+    {
+      "op": "note",
+      "at": 23031
+    },
+    {
+      "op": "run",
+      "at": 25157
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          120,
+          57
+        ],
+        [
+          238,
+          57
+        ]
+      ],
+      "n": 21,
+      "at": 795
+    },
+    {
+      "way": [
+        [
+          120,
+          118
+        ],
+        [
+          405,
+          118
+        ]
+      ],
+      "n": 49,
+      "at": 2063
+    },
+    {
+      "way": [
+        [
+          120,
+          141
+        ],
+        [
+          1160,
+          141
+        ]
+      ],
+      "n": 174,
+      "at": 5429
+    },
+    {
+      "way": [
+        [
+          1112,
+          169
+        ],
+        [
+          1160,
+          169
+        ],
+        [
+          1160,
+          195
+        ],
+        [
+          1112,
+          195
+        ],
+        [
+          1112,
+          169
+        ]
+      ],
+      "n": 25,
+      "at": 6293
+    },
+    {
+      "way": [
+        [
+          1112,
+          250
+        ],
+        [
+          1160,
+          250
+        ],
+        [
+          1160,
+          276
+        ],
+        [
+          1112,
+          276
+        ],
+        [
+          1112,
+          250
+        ]
+      ],
+      "n": 25,
+      "at": 7161
+    },
+    {
+      "way": [
+        [
+          1112,
+          331
+        ],
+        [
+          1160,
+          331
+        ],
+        [
+          1160,
+          357
+        ],
+        [
+          1112,
+          357
+        ],
+        [
+          1112,
+          331
+        ]
+      ],
+      "n": 25,
+      "at": 8026
+    },
+    {
+      "way": [
+        [
+          1112,
+          412
+        ],
+        [
+          1160,
+          412
+        ],
+        [
+          1160,
+          438
+        ],
+        [
+          1112,
+          438
+        ],
+        [
+          1112,
+          412
+        ]
+      ],
+      "n": 25,
+      "at": 8894
+    },
+    {
+      "way": [
+        [
+          120,
+          173
+        ],
+        [
+          347,
+          173
+        ]
+      ],
+      "n": 39,
+      "at": 9993
+    },
+    {
+      "way": [
+        [
+          120,
+          499
+        ],
+        [
+          272,
+          499
+        ],
+        [
+          272,
+          544
+        ],
+        [
+          120,
+          544
+        ],
+        [
+          120,
+          499
+        ]
+      ],
+      "n": 67,
+      "at": 11560
+    },
+    {
+      "way": [
+        [
+          285,
+          499
+        ],
+        [
+          396,
+          499
+        ],
+        [
+          396,
+          544
+        ],
+        [
+          285,
+          544
+        ],
+        [
+          285,
+          499
+        ]
+      ],
+      "n": 55,
+      "at": 12930
+    }
+  ]
+}

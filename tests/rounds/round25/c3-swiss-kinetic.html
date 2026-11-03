@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Swiss kinetic</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#ececec;font-family:Helvetica,Arial,sans-serif;color:#111}
+.cols{position:absolute;inset:0;background:repeating-linear-gradient(90deg,#0000 0 105px,#d22 105px 106px);opacity:.25}
+.n1{position:absolute;left:-30px;top:-80px;font:900 640px/1 Helvetica;letter-spacing:-50px;color:#111}
+.n2{position:absolute;left:330px;top:160px;font:900 640px/1 Helvetica;letter-spacing:-50px;color:transparent;-webkit-text-stroke:3px #e3120b}
+.bar{position:absolute;left:-100px;top:560px;width:1600px;height:90px;background:#e3120b;transform:rotate(-14deg);transform-origin:0 0;display:flex;align-items:center;gap:60px;padding-left:300px;font:900 40px Helvetica;color:#ececec;white-space:nowrap;letter-spacing:-1px}
+.vert{position:absolute;left:1180px;top:60px;writing-mode:vertical-rl;font:700 16px Helvetica;letter-spacing:6px;text-transform:uppercase}
+.circ{position:absolute;left:880px;top:80px;width:260px;height:260px}
+.circ .dot{position:absolute;left:105px;top:105px;width:50px;height:50px;border-radius:50%;background:#111}
+.info{position:absolute;left:880px;top:400px;width:280px;font:400 15px/1.45 Helvetica}.info b{display:block;font:900 32px/1 Helvetica;margin-bottom:10px;letter-spacing:-1px}
+.sched{position:absolute;left:880px;top:700px;width:300px;border-top:4px solid #111}.sched div{display:grid;grid-template-columns:70px 1fr;padding:8px 0;border-bottom:1px solid #111;font:500 14px Helvetica}.sched div b{font-weight:900}
+.tag{position:absolute;left:60px;top:820px;padding:8px 14px;background:#111;color:#ececec;font:700 13px Helvetica;letter-spacing:2px}
+</style></head><body>
+<div class="cols" data-r="column-rules"></div>
+<div class="n1" data-r="big-two" data-must>2</div>
+<div class="n2" data-r="outline-six" data-must>6</div>
+<div class="bar" data-r="red-band" data-must><span>Gestaltung</span><span>Form</span><span>Raster</span><span>Gestaltung</span><span>Form</span></div>
+<div class="circ" data-r="circle-text" data-must><svg width="260" height="260" viewBox="0 0 260 260"><defs><path id="c" d="M130,130 m-100,0 a100,100 0 1,1 200,0 a100,100 0 1,1 -200,0"/></defs><text font-family="Helvetica" font-size="19" font-weight="700" letter-spacing="5" fill="#111"><textPath href="#c">INTERNATIONAL TYPOGRAPHIC STYLE · ZÜRICH · </textPath></text></svg><i class="dot"></i></div>
+<div class="info" data-r="info" data-must><b>Grid Days Zürich</b>Two days of talks and workshops on systems, grids and the poster as an interface. Kunsthalle, Halle 2.</div>
+<div class="sched" data-r="schedule"><div><b>09:30</b>Doors and coffee</div><div><b>10:00</b>Müller-Brockmann today</div><div><b>13:00</b>Workshop: the 12-column</div></div>
+<div class="vert" data-r="vertical-label">26—27 November 2026</div>
+<div class="tag" data-r="tag">TICKETS CHF 120</div>
+</body></html>

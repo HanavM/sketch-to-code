@@ -1,0 +1,204 @@
+{
+  "id": "c4-topo-knockout",
+  "at": "2026-10-23T01:18:55.941Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9118355360100703,
+    "overallV2": 0.9118355360100703,
+    "overallV1": 0.8744296019460707,
+    "colour": 0.9686157011474805,
+    "structure": 0.928899139014042,
+    "structureStrict": 0.8345000324838636,
+    "colourAligned": 0.9686157011474805,
+    "structureAligned": 0.928899139014042,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8125441018999123
+    },
+    "layout": 0.8410866560649998
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient-text",
+      "huge-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 46750,
+    "output": 28831,
+    "cacheRead": 297478
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 65083,
+      "output": 25392,
+      "cacheRead": 286442,
+      "toolCalls": 11,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 270958
+    }
+  ],
+  "reading": "A full hero-style landing page: page-wide deep-green decorative sweeping lines over a near-black Helvetica page with pale yellow text, a 'TRAILHEAD' nav bar, a small yellow status dot, a pale-yellow 'Summit · 2,941 m' badge, a giant two-line gradient headline 'GO HIGH', a tagline sentence, and a row of three stat cards (14k Trails, 92 Countries, 0 Signal Needed).",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Whole page: set background to near-black (#0c1a14), use Helvetica for all type, and pale yellow for body text color throughout."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Decorative background flourish: several 2px deep green smooth curving lines sweeping diagonally across the page (no fill, no loops, never self-crossing), follow"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        133,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Nav bar label text 'TRAILHEAD' at top-left of the page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        884,
+        184,
+        13,
+        14
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Small vivid yellow status dot, exactly 22x22px (w-[22px] h-[22px], border-radius 50%), placed near the top-right badge."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        915,
+        177,
+        123,
+        21
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Pale yellow pill/badge bar with near-black text reading 'Summit · 2,941 m', positioned top-right next to the yellow status dot."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 177
+        }
+      ],
+      "region": [
+        68,
+        250,
+        482,
+        390
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy headline set tight (line-height 0.85), lime-to-yellow-to-orange gradient (#a3e635 → #facc15 at 50% → #fb923c) left to right, text broken i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        70,
+        670,
+        452,
+        58
+      ],
+      "paths": [],
+      "instruction": "Tagline/body text below the headline reading 'Offline maps for the routes nobody else has drawn yet.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        69,
+        763,
+        394,
+        53
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Row of three stat cards below the tagline: '14k TRAILS', '92 COUNTRIES', '0 SIGNAL NEEDED', each as its own small card/stat block laid out horizontally."
+    }
+  ],
+  "rejected": []
+}

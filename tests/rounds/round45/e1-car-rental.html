@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Rent</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f5f6f8;font-family:Helvetica,Arial,sans-serif;color:#141a24;overflow:hidden;position:relative}
+.top{position:absolute;left:0;top:0;width:1280px;height:70px;background:#fff;border-bottom:1px solid #e3e6eb;display:flex;align-items:center;padding:0 40px}.top b{font-size:22px;color:#0f766e}
+.search{position:absolute;left:40px;top:100px;width:1200px;height:76px;background:#fff;border-radius:12px;border:1px solid #e3e6eb;display:flex;align-items:center;padding:0 12px;gap:12px}
+.search div{flex:1;height:52px;border-radius:8px;background:#f5f6f8;display:flex;align-items:center;padding:0 16px;font-size:15px;color:#4b5563}.search .go{flex:none;width:150px;background:#0f766e;color:#fff;font-weight:700;justify-content:center}
+.filters{position:absolute;left:40px;top:210px;width:260px;height:640px;background:#fff;border-radius:12px;border:1px solid #e3e6eb;padding:24px}
+.filters h3{font-size:17px;margin-bottom:18px}.chk{display:flex;align-items:center;margin-bottom:16px;font-size:15px}.chk i{width:20px;height:20px;border:2px solid #9ca3af;border-radius:4px;margin-right:12px}.chk.on i{background:#0f766e;border-color:#0f766e}
+.list{position:absolute;left:330px;top:210px;width:910px}
+.car{height:190px;background:#fff;border-radius:12px;border:1px solid #e3e6eb;margin-bottom:22px;display:flex;align-items:center;padding:0 26px}
+.car .img{width:240px;height:140px;border-radius:10px;background:#dbe4ee}.car .t{margin-left:28px}.car .t b{font-size:21px;display:block}.car .t span{display:block;margin-top:10px;font-size:15px;color:#6b7280}
+.car .pr{margin-left:auto;text-align:right}.car .pr b{font-size:28px;display:block}.car .pr small{font-size:14px;color:#6b7280}.car .pr div{margin-top:14px;width:130px;height:46px;border-radius:8px;background:#0f766e;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<div class="top" data-r="topbar"><b data-r="logo">Roadly</b></div>
+<div class="search" data-r="search-bar" data-must><div>Lisbon Airport</div><div>Nov 12 – Nov 16</div><div>10:00 am</div><div class="go">Search</div></div>
+<div class="filters" data-r="filters" data-must><h3>Car type</h3><div class="chk on"><i></i>Small</div><div class="chk"><i></i>Medium</div><div class="chk on"><i></i>SUV</div><div class="chk"><i></i>Van</div><h3 style="margin-top:30px">Gearbox</h3><div class="chk on"><i></i>Automatic</div><div class="chk"><i></i>Manual</div></div>
+<div class="list" data-r="results" data-must>
+<div class="car" data-r="car-1"><div class="img"></div><div class="t"><b>Fiat 500</b><span>4 seats · Automatic</span></div><div class="pr"><b>$38</b><small>per day</small><div>Select</div></div></div>
+<div class="car" data-r="car-2"><div class="img"></div><div class="t"><b>VW Golf</b><span>5 seats · Manual</span></div><div class="pr"><b>$45</b><small>per day</small><div>Select</div></div></div>
+<div class="car" data-r="car-3"><div class="img"></div><div class="t"><b>Toyota RAV4</b><span>5 seats · Automatic</span></div><div class="pr"><b>$72</b><small>per day</small><div>Select</div></div></div></div>
+</body></html>

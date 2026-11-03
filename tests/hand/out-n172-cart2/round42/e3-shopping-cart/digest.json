@@ -1,0 +1,514 @@
+{
+  "round": 42,
+  "id": "e3-shopping-cart",
+  "version": 3,
+  "stopped": null,
+  "likeness": 81.5,
+  "colour": 0.9945915357431561,
+  "structure": 0.9487542267682852,
+  "layout": 0.9007160158852633,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 2.9,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 3,
+      "box": 6,
+      "dot": 5
+    },
+    "inkPx": 5363
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 45,
+  "notes": 9,
+  "longestNote": 22,
+  "noteTexts": [
+    "Loom bold",
+    "Cart (3)",
+    "Your cart big bold",
+    "rows: Linen throw, Sand · 130 × 170, $89; Stoneware mug, Sage · set of 2, $48; Oak tray, Natural, $62; dividers",
+    "− 1 + (mug 2)",
+    "Summary bold",
+    "Subtotal $199, Shipping Free",
+    "Total $199 bold",
+    "Checkout"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 649,
+    "firstReadingS": 103,
+    "readS": [
+      71
+    ],
+    "buildS": [
+      522
+    ],
+    "sketchingS": 56
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 60904,
+    "cacheRead": 464148,
+    "output": 37303,
+    "billed": 98207
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#e8e8e8",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 4029
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 4395
+    },
+    {
+      "op": "stroke",
+      "at": 5275
+    },
+    {
+      "op": "pen",
+      "color": "#e8e3dc",
+      "at": 5643
+    },
+    {
+      "op": "stroke",
+      "at": 7214
+    },
+    {
+      "op": "stroke",
+      "at": 7693
+    },
+    {
+      "op": "pen",
+      "color": "#c8d6cf",
+      "at": 8065
+    },
+    {
+      "op": "stroke",
+      "at": 9612
+    },
+    {
+      "op": "stroke",
+      "at": 10093
+    },
+    {
+      "op": "pen",
+      "color": "#d8c6b4",
+      "at": 10469
+    },
+    {
+      "op": "stroke",
+      "at": 12009
+    },
+    {
+      "op": "stroke",
+      "at": 12478
+    },
+    {
+      "op": "pen",
+      "color": "#dddddd",
+      "at": 12844
+    },
+    {
+      "op": "stroke",
+      "at": 14093
+    },
+    {
+      "op": "pen",
+      "color": "#f5f3ef",
+      "at": 14482
+    },
+    {
+      "op": "stroke",
+      "at": 18794
+    },
+    {
+      "op": "stroke",
+      "at": 19255
+    },
+    {
+      "op": "pen",
+      "color": "#dddddd",
+      "at": 19620
+    },
+    {
+      "op": "stroke",
+      "at": 21044
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 21415
+    },
+    {
+      "op": "stroke",
+      "at": 24151
+    },
+    {
+      "op": "stroke",
+      "at": 24631
+    },
+    {
+      "op": "note",
+      "at": 25388
+    },
+    {
+      "op": "note",
+      "at": 26139
+    },
+    {
+      "op": "note",
+      "at": 26938
+    },
+    {
+      "op": "note",
+      "at": 27991
+    },
+    {
+      "op": "note",
+      "at": 28690
+    },
+    {
+      "op": "note",
+      "at": 29398
+    },
+    {
+      "op": "note",
+      "at": 30344
+    },
+    {
+      "op": "note",
+      "at": 31147
+    },
+    {
+      "op": "note",
+      "at": 31857
+    },
+    {
+      "op": "run",
+      "at": 32041
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          72
+        ],
+        [
+          1278,
+          72
+        ]
+      ],
+      "n": 214,
+      "at": 4029
+    },
+    {
+      "way": [
+        [
+          60,
+          130
+        ],
+        [
+          207,
+          130
+        ]
+      ],
+      "n": 26,
+      "at": 5275
+    },
+    {
+      "way": [
+        [
+          60,
+          202
+        ],
+        [
+          156,
+          202
+        ],
+        [
+          156,
+          298
+        ],
+        [
+          60,
+          298
+        ],
+        [
+          60,
+          204
+        ]
+      ],
+      "n": 65,
+      "at": 7214
+    },
+    {
+      "way": [
+        [
+          140,
+          285
+        ]
+      ],
+      "n": 1,
+      "at": 7693
+    },
+    {
+      "way": [
+        [
+          60,
+          343
+        ],
+        [
+          156,
+          343
+        ],
+        [
+          156,
+          439
+        ],
+        [
+          60,
+          439
+        ],
+        [
+          60,
+          345
+        ]
+      ],
+      "n": 65,
+      "at": 9612
+    },
+    {
+      "way": [
+        [
+          140,
+          425
+        ]
+      ],
+      "n": 1,
+      "at": 10093
+    },
+    {
+      "way": [
+        [
+          60,
+          484
+        ],
+        [
+          156,
+          484
+        ],
+        [
+          156,
+          580
+        ],
+        [
+          60,
+          580
+        ],
+        [
+          60,
+          486
+        ]
+      ],
+      "n": 65,
+      "at": 12009
+    },
+    {
+      "way": [
+        [
+          140,
+          565
+        ]
+      ],
+      "n": 1,
+      "at": 12478
+    },
+    {
+      "way": [
+        [
+          544,
+          230
+        ],
+        [
+          648,
+          230
+        ],
+        [
+          648,
+          270
+        ],
+        [
+          544,
+          270
+        ],
+        [
+          544,
+          232
+        ]
+      ],
+      "n": 48,
+      "at": 14093
+    },
+    {
+      "way": [
+        [
+          820,
+          180
+        ],
+        [
+          1220,
+          180
+        ],
+        [
+          1220,
+          470
+        ],
+        [
+          820,
+          470
+        ],
+        [
+          820,
+          182
+        ]
+      ],
+      "n": 231,
+      "at": 18794
+    },
+    {
+      "way": [
+        [
+          1200,
+          460
+        ]
+      ],
+      "n": 1,
+      "at": 19255
+    },
+    {
+      "way": [
+        [
+          850,
+          317
+        ],
+        [
+          1190,
+          317
+        ]
+      ],
+      "n": 58,
+      "at": 21044
+    },
+    {
+      "way": [
+        [
+          850,
+          385
+        ],
+        [
+          1190,
+          385
+        ],
+        [
+          1190,
+          441
+        ],
+        [
+          850,
+          441
+        ],
+        [
+          850,
+          387
+        ]
+      ],
+      "n": 133,
+      "at": 24151
+    },
+    {
+      "way": [
+        [
+          1170,
+          430
+        ]
+      ],
+      "n": 1,
+      "at": 24631
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Loom bold",
+      "whole": false,
+      "x": 90,
+      "y": 35,
+      "at": 25388
+    },
+    {
+      "text": "Cart (3)",
+      "whole": false,
+      "x": 1190,
+      "y": 36,
+      "at": 26139
+    },
+    {
+      "text": "Your cart big bold",
+      "whole": false,
+      "x": 130,
+      "y": 130,
+      "at": 26938
+    },
+    {
+      "text": "rows: Linen throw, Sand · 130 × 170, $89; Stoneware mug, Sage · set of 2, $48; Oak tray, Natural, $62; dividers",
+      "whole": false,
+      "x": 420,
+      "y": 330,
+      "at": 27991
+    },
+    {
+      "text": "− 1 + (mug 2)",
+      "whole": false,
+      "x": 596,
+      "y": 250,
+      "at": 28690
+    },
+    {
+      "text": "Summary bold",
+      "whole": false,
+      "x": 895,
+      "y": 221,
+      "at": 29398
+    },
+    {
+      "text": "Subtotal $199, Shipping Free",
+      "whole": false,
+      "x": 1000,
+      "y": 275,
+      "at": 30344
+    },
+    {
+      "text": "Total $199 bold",
+      "whole": false,
+      "x": 1000,
+      "y": 348,
+      "at": 31147
+    },
+    {
+      "text": "Checkout",
+      "whole": false,
+      "x": 1020,
+      "y": 413,
+      "at": 31857
+    }
+  ]
+}

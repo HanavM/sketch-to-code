@@ -1,0 +1,6 @@
+Fixed in `src/App.tsx`:
+
+- **page colour**: `bg-white` → `bg-[#f3f4f6]` exactly.
+- **action 1/2** (heading/subheading): both were stretching full-width as block elements, throwing off their matched region width; added `w-fit` so each shrinks to its text, landing on the drawn stroke.
+- **action 3/4/5** (email input, password input, button): the email field's `mt-8` was adding 19px of extra drop that cascaded through password and button below it; tightened to `mt-[13px]`, which pulls all three back up to their drawn positions.
+- **action 6** (link): was a full-width centered block (342px) instead of its natural text width (~142px), which is why it wasn't matching; changed to `w-fit mx-auto` so it centers at its actual size.

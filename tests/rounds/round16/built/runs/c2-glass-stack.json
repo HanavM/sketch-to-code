@@ -1,0 +1,199 @@
+{
+  "id": "c2-glass-stack",
+  "at": "2026-10-24T07:05:56.533Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8353934122836539,
+    "overallV2": 0.8353934122836539,
+    "overallV1": 0.8027700441230574,
+    "colour": 0.9877347057155927,
+    "structure": 0.9503647656232583,
+    "structureStrict": 0.8683821428434323,
+    "colourAligned": 0.9877347057155927,
+    "structureAligned": 0.9503647656232583,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9708802268338725
+    },
+    "layout": 0.5355586512290836
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blur",
+      "glass",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "overlap",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 53442,
+    "output": 27360,
+    "cacheRead": 370655
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 63016,
+      "output": 19465,
+      "cacheRead": 337696,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/vite.config.ts",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 218980
+    }
+  ],
+  "reading": "The sketch is a dark hero landing page: two thin rules frame a nav bar, a giant outlined \"3\" sits upper right, a two-line huge headline and a smaller paragraph sit lower left, a pill button sits below them, and three overlapping glass-card shapes plus three colour glows are specified via typed notes anchored to the top/bottom rule strokes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        4
+      ],
+      "paths": [
+        "s0",
+        "s8"
+      ],
+      "instruction": "Add 3 soft blurred colour glow divs behind all content: position absolute, z-index 0, no border/text, border-radius 50%, filter: blur(60px). Glow 1: 420x420px a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        528,
+        136,
+        320,
+        448
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a giant heavy hollow-outlined white live-text \"3\" (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, not squared/condensed/display): "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        11
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a nav bar with no surrounding box: bold \"PRISMA\" on the left, and \"Product · Pricing · Docs · Sign in\" on the right, white text on the dark page."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 69
+        }
+      ],
+      "region": [
+        68,
+        200,
+        414,
+        152
+      ],
+      "paths": [],
+      "instruction": "Add a huge Helvetica heavy headline set tight (line-height 1), white text, exactly 2 lines: \"Three layers\" / \"of calm.\" — keep these line breaks, each line stay"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        470,
+        392,
+        54
+      ],
+      "paths": [],
+      "instruction": "Add body paragraph text below the headline: \"Budget, savings and spending, each on its own pane, all visible at once.\" in white Helvetica."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        601,
+        126,
+        47
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a pill-shaped button labelled \"Start free\" with a gradient fill from vivid indigo #7b5cff (left) to vivid light pink #ff5cc8 (right)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        1,
+        1272,
+        4
+      ],
+      "paths": [
+        "s0",
+        "s8"
+      ],
+      "instruction": "Add a layered glass stack of 3 overlapping frosted glass cards, absolutely placed in page px over the glows, each 24px rounded corners, see-through fill #ffffff"
+    }
+  ],
+  "rejected": []
+}

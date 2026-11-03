@@ -1,0 +1,570 @@
+{
+  "round": 34,
+  "id": "c4-bakery-arch",
+  "version": 3,
+  "stopped": null,
+  "likeness": 82.3,
+  "colour": 0.9919906880985041,
+  "structure": 0.9502311714905344,
+  "layout": 0.7490725946923952,
+  "strokes": {
+    "count": 13,
+    "pointsPerStroke": 5.2,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 6,
+      "box": 1,
+      "circle": 2,
+      "dot": 4
+    },
+    "inkPx": 4640
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 48,
+  "notes": 7,
+  "longestNote": 13,
+  "noteTexts": [
+    "Crumb & Co., bold serif",
+    "Breads · Pastries · Visit, serif",
+    "Baked before the sun is up, big bold serif, dark brown",
+    "Sourdough, croissants and seasonal tarts from our wood oven on Elm Street. rust",
+    "Order for pickup",
+    "Fresh daily, white bold",
+    "Fresh daily inside the orange circle"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 287,
+    "firstReadingS": 60,
+    "readS": [
+      30,
+      17
+    ],
+    "buildS": [
+      168,
+      19
+    ],
+    "sketchingS": 53
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 39270,
+    "cacheRead": 242968,
+    "output": 19622,
+    "billed": 58892
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 863
+    },
+    {
+      "op": "stroke",
+      "at": 1793
+    },
+    {
+      "op": "stroke",
+      "at": 3627
+    },
+    {
+      "op": "stroke",
+      "at": 4810
+    },
+    {
+      "op": "stroke",
+      "at": 6427
+    },
+    {
+      "op": "stroke",
+      "at": 7626
+    },
+    {
+      "op": "stroke",
+      "at": 9494
+    },
+    {
+      "op": "stroke",
+      "at": 15229
+    },
+    {
+      "op": "stroke",
+      "at": 17298
+    },
+    {
+      "op": "pen",
+      "color": "#fff7ed",
+      "at": 17666
+    },
+    {
+      "op": "stroke",
+      "at": 18128
+    },
+    {
+      "op": "pen",
+      "color": "#fbcfe8",
+      "at": 18494
+    },
+    {
+      "op": "stroke",
+      "at": 18962
+    },
+    {
+      "op": "pen",
+      "color": "#ea580c",
+      "at": 19326
+    },
+    {
+      "op": "stroke",
+      "at": 19795
+    },
+    {
+      "op": "pen",
+      "color": "#4a1d0f",
+      "at": 20161
+    },
+    {
+      "op": "stroke",
+      "at": 20627
+    },
+    {
+      "op": "note",
+      "at": 21352
+    },
+    {
+      "op": "note",
+      "at": 22043
+    },
+    {
+      "op": "note",
+      "at": 22750
+    },
+    {
+      "op": "note",
+      "at": 23511
+    },
+    {
+      "op": "note",
+      "at": 24143
+    },
+    {
+      "op": "note",
+      "at": 24812
+    },
+    {
+      "op": "run",
+      "at": 30212
+    },
+    {
+      "op": "note",
+      "at": 238474
+    },
+    {
+      "op": "run",
+      "at": 238553
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          90,
+          53
+        ],
+        [
+          232,
+          53
+        ]
+      ],
+      "n": 25,
+      "at": 863
+    },
+    {
+      "way": [
+        [
+          1020,
+          50
+        ],
+        [
+          1190,
+          50
+        ]
+      ],
+      "n": 29,
+      "at": 1793
+    },
+    {
+      "way": [
+        [
+          90,
+          300
+        ],
+        [
+          584,
+          300
+        ]
+      ],
+      "n": 83,
+      "at": 3627
+    },
+    {
+      "way": [
+        [
+          90,
+          375
+        ],
+        [
+          347,
+          375
+        ]
+      ],
+      "n": 44,
+      "at": 4810
+    },
+    {
+      "way": [
+        [
+          92,
+          496
+        ],
+        [
+          506,
+          496
+        ]
+      ],
+      "n": 70,
+      "at": 6427
+    },
+    {
+      "way": [
+        [
+          92,
+          528
+        ],
+        [
+          356,
+          528
+        ]
+      ],
+      "n": 45,
+      "at": 7626
+    },
+    {
+      "way": [
+        [
+          92,
+          640
+        ],
+        [
+          289,
+          640
+        ],
+        [
+          289,
+          692
+        ],
+        [
+          92,
+          692
+        ],
+        [
+          92,
+          640
+        ]
+      ],
+      "n": 85,
+      "at": 9494
+    },
+    {
+      "way": [
+        [
+          760,
+          770
+        ],
+        [
+          760,
+          350
+        ],
+        [
+          763,
+          315
+        ],
+        [
+          772,
+          282
+        ],
+        [
+          787,
+          250
+        ],
+        [
+          807,
+          221
+        ],
+        [
+          831,
+          197
+        ],
+        [
+          860,
+          177
+        ],
+        [
+          892,
+          162
+        ],
+        [
+          925,
+          153
+        ],
+        [
+          960,
+          150
+        ],
+        [
+          995,
+          153
+        ],
+        [
+          1028,
+          162
+        ],
+        [
+          1060,
+          177
+        ],
+        [
+          1089,
+          197
+        ],
+        [
+          1113,
+          221
+        ],
+        [
+          1133,
+          250
+        ],
+        [
+          1148,
+          282
+        ],
+        [
+          1157,
+          315
+        ],
+        [
+          1160,
+          350
+        ],
+        [
+          1160,
+          770
+        ],
+        [
+          760,
+          770
+        ]
+      ],
+      "n": 316,
+      "at": 15229
+    },
+    {
+      "way": [
+        [
+          850,
+          685
+        ],
+        [
+          847,
+          707
+        ],
+        [
+          839,
+          728
+        ],
+        [
+          825,
+          745
+        ],
+        [
+          808,
+          759
+        ],
+        [
+          787,
+          767
+        ],
+        [
+          765,
+          770
+        ],
+        [
+          743,
+          767
+        ],
+        [
+          722,
+          759
+        ],
+        [
+          705,
+          745
+        ],
+        [
+          691,
+          728
+        ],
+        [
+          683,
+          707
+        ],
+        [
+          680,
+          685
+        ],
+        [
+          683,
+          663
+        ],
+        [
+          691,
+          642
+        ],
+        [
+          705,
+          625
+        ],
+        [
+          722,
+          611
+        ],
+        [
+          743,
+          603
+        ],
+        [
+          765,
+          600
+        ],
+        [
+          787,
+          603
+        ],
+        [
+          808,
+          611
+        ],
+        [
+          825,
+          625
+        ],
+        [
+          839,
+          642
+        ],
+        [
+          847,
+          663
+        ],
+        [
+          850,
+          685
+        ]
+      ],
+      "n": 97,
+      "at": 17298
+    },
+    {
+      "way": [
+        [
+          400,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 18128
+    },
+    {
+      "way": [
+        [
+          960,
+          400
+        ]
+      ],
+      "n": 1,
+      "at": 18962
+    },
+    {
+      "way": [
+        [
+          800,
+          740
+        ]
+      ],
+      "n": 1,
+      "at": 19795
+    },
+    {
+      "way": [
+        [
+          275,
+          680
+        ]
+      ],
+      "n": 1,
+      "at": 20627
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Crumb & Co., bold serif",
+      "whole": false,
+      "x": 160,
+      "y": 43,
+      "at": 21352
+    },
+    {
+      "text": "Breads · Pastries · Visit, serif",
+      "whole": false,
+      "x": 1105,
+      "y": 40,
+      "at": 22043
+    },
+    {
+      "text": "Baked before the sun is up, big bold serif, dark brown",
+      "whole": false,
+      "x": 340,
+      "y": 290,
+      "at": 22750
+    },
+    {
+      "text": "Sourdough, croissants and seasonal tarts from our wood oven on Elm Street. rust",
+      "whole": false,
+      "x": 300,
+      "y": 486,
+      "at": 23511
+    },
+    {
+      "text": "Order for pickup",
+      "whole": false,
+      "x": 190,
+      "y": 666,
+      "at": 24143
+    },
+    {
+      "text": "Fresh daily, white bold",
+      "whole": false,
+      "x": 765,
+      "y": 680,
+      "at": 24812
+    },
+    {
+      "text": "Fresh daily inside the orange circle",
+      "whole": false,
+      "x": 740,
+      "y": 650,
+      "at": 238474
+    }
+  ]
+}

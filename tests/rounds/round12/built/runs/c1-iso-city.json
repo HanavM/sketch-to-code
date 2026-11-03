@@ -1,0 +1,213 @@
+{
+  "id": "c1-iso-city",
+  "at": "2026-10-23T17:48:16.165Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9022932826320094,
+    "overallV2": 0.9022932826320094,
+    "overallV1": 0.8453631726737454,
+    "colour": 0.9582964683730897,
+    "structure": 0.9139207562983036,
+    "structureStrict": 0.7690286970783969,
+    "colourAligned": 0.9582964683730897,
+    "structureAligned": 0.9139207562983036,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7843230079169466
+    },
+    "layout": 0.8445367050609472
+  },
+  "effects": {
+    "recall": 0.9,
+    "kept": [
+      "3d",
+      "blur",
+      "glass",
+      "gradient-text",
+      "huge-type",
+      "motion",
+      "overlap",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 41032,
+    "output": 17116,
+    "cacheRead": 299003
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 40074,
+      "output": 10582,
+      "cacheRead": 179585,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/index.css"
+      ],
+      "ms": 107192
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 10725,
+      "output": 3762,
+      "cacheRead": 116334,
+      "toolCalls": 2,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 44300
+    }
+  ],
+  "reading": "A landing-page hero: a near-black page with a blurred indigo blob behind everything, a plain-text nav (\"ISO/CITY\" / \"MAP · DISTRICTS · JOIN\") with a tilted \"1,204 towers live\" badge, a giant 3-line gradient headline \"Build a city one block up.\" with a lavender subheading and a peach \"Claim a lot\" pill button, a CSS 3D isometric city of 4 colored towers on a grid plane, and a tilted scrolling pink marquee bar across the bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar, no box around it: wide-spaced \"ISO/CITY\" on the left, \"MAP · DISTRICTS · JOIN\" on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 79
+        }
+      ],
+      "region": [
+        64,
+        150,
+        468,
+        260
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy, tight-set (line-height 0.9) headline with a peach (#ffcf5c) to light pink (#ff5fa2 at 60%) to indigo (#7a5cff) gradient left to right, te"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        60,
+        430,
+        392,
+        54
+      ],
+      "paths": [],
+      "instruction": "Lavender subheading text below the headline: \"Zoning, traffic and skyline, drawn in true isometric. Every tower is a box you can lift.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        57,
+        542,
+        133,
+        47
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Peach pill button with near-black text, label \"Claim a lot\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        616,
+        395,
+        587,
+        291
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "An isometric city rendered in real CSS 3D (NOT a flat polygon, NOT a drawing or SVG): one 420x420px plane div with top-left at 700,330 (position absolute), fill"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1003,
+        149,
+        137,
+        40
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A small badge tilted 4° clockwise, frosted glass style, text \"● 1,204 towers live\", placed near the nav."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        801,
+        1273,
+        83
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A full-width scrolling marquee bar at the bottom, tilted slightly 2° anticlockwise, vivid light pink background with near-black text."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

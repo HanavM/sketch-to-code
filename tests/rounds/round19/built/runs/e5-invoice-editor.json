@@ -1,0 +1,692 @@
+{
+  "id": "e5-invoice-editor",
+  "at": "2026-10-25T03:12:31.098Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8108701465338181,
+    "overallV2": 0.8108701465338181,
+    "overallV1": 0.7928843926763264,
+    "colour": 0.9945900859989701,
+    "structure": 0.9074338365716599,
+    "structureStrict": 0.8834981834296163,
+    "colourAligned": 0.9945900859989701,
+    "structureAligned": 0.9074338365716599,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9246813234591462
+    },
+    "layout": 0.7681770205070588,
+    "layoutV1": 0.6128505570495583,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      58
+    ],
+    [
+      1,
+      24,
+      16,
+      71,
+      26
+    ],
+    [
+      1,
+      109,
+      19,
+      153,
+      20
+    ],
+    [
+      1,
+      912,
+      11,
+      97,
+      35
+    ],
+    [
+      1,
+      1019,
+      11,
+      113,
+      35
+    ],
+    [
+      1,
+      1142,
+      11,
+      114,
+      35
+    ],
+    [
+      0,
+      24,
+      82,
+      610,
+      796
+    ],
+    [
+      7,
+      48,
+      106,
+      46,
+      18
+    ],
+    [
+      7,
+      48,
+      126,
+      564,
+      38
+    ],
+    [
+      7,
+      48,
+      168,
+      564,
+      221
+    ],
+    [
+      10,
+      49,
+      169,
+      562,
+      55
+    ],
+    [
+      11,
+      61,
+      177,
+      538,
+      20
+    ],
+    [
+      11,
+      61,
+      197,
+      538,
+      18
+    ],
+    [
+      10,
+      49,
+      224,
+      562,
+      37
+    ],
+    [
+      10,
+      49,
+      260,
+      562,
+      37
+    ],
+    [
+      10,
+      49,
+      297,
+      562,
+      36
+    ],
+    [
+      7,
+      48,
+      180,
+      71,
+      18
+    ],
+    [
+      7,
+      337,
+      180,
+      25,
+      18
+    ],
+    [
+      7,
+      48,
+      200,
+      275,
+      38
+    ],
+    [
+      7,
+      337,
+      200,
+      275,
+      38
+    ],
+    [
+      7,
+      48,
+      254,
+      293,
+      29
+    ],
+    [
+      7,
+      341,
+      254,
+      68,
+      29
+    ],
+    [
+      7,
+      410,
+      254,
+      104,
+      29
+    ],
+    [
+      7,
+      514,
+      254,
+      98,
+      29
+    ],
+    [
+      7,
+      54,
+      289,
+      281,
+      34
+    ],
+    [
+      7,
+      347,
+      289,
+      56,
+      34
+    ],
+    [
+      7,
+      416,
+      289,
+      92,
+      34
+    ],
+    [
+      7,
+      514,
+      283,
+      98,
+      47
+    ],
+    [
+      7,
+      54,
+      335,
+      281,
+      34
+    ],
+    [
+      7,
+      347,
+      335,
+      56,
+      34
+    ],
+    [
+      7,
+      416,
+      335,
+      92,
+      34
+    ],
+    [
+      7,
+      514,
+      329,
+      98,
+      46
+    ],
+    [
+      7,
+      54,
+      381,
+      281,
+      34
+    ],
+    [
+      7,
+      347,
+      381,
+      56,
+      34
+    ],
+    [
+      7,
+      416,
+      381,
+      92,
+      34
+    ],
+    [
+      7,
+      514,
+      375,
+      98,
+      46
+    ],
+    [
+      7,
+      48,
+      433,
+      98,
+      20
+    ],
+    [
+      7,
+      342,
+      470,
+      48,
+      20
+    ],
+    [
+      7,
+      554,
+      470,
+      58,
+      20
+    ],
+    [
+      7,
+      342,
+      499,
+      73,
+      20
+    ],
+    [
+      7,
+      565,
+      499,
+      47,
+      20
+    ],
+    [
+      7,
+      342,
+      528,
+      53,
+      20
+    ],
+    [
+      7,
+      565,
+      528,
+      47,
+      20
+    ],
+    [
+      7,
+      342,
+      556,
+      270,
+      2
+    ],
+    [
+      7,
+      342,
+      568,
+      42,
+      27
+    ],
+    [
+      7,
+      532,
+      568,
+      80,
+      27
+    ],
+    [
+      0,
+      660,
+      82,
+      596,
+      796
+    ],
+    [
+      47,
+      708,
+      112,
+      500,
+      720
+    ],
+    [
+      48,
+      748,
+      152,
+      46,
+      46
+    ],
+    [
+      48,
+      1000,
+      152,
+      140,
+      51
+    ],
+    [
+      48,
+      748,
+      230,
+      28,
+      17
+    ],
+    [
+      48,
+      748,
+      246,
+      113,
+      33
+    ],
+    [
+      48,
+      1080,
+      230,
+      31,
+      17
+    ],
+    [
+      48,
+      1080,
+      246,
+      88,
+      50
+    ],
+    [
+      48,
+      748,
+      305,
+      220,
+      28
+    ],
+    [
+      48,
+      968,
+      305,
+      72,
+      28
+    ],
+    [
+      48,
+      1040,
+      305,
+      128,
+      28
+    ],
+    [
+      48,
+      748,
+      332,
+      220,
+      27
+    ],
+    [
+      48,
+      968,
+      332,
+      72,
+      27
+    ],
+    [
+      48,
+      1040,
+      332,
+      128,
+      27
+    ],
+    [
+      48,
+      748,
+      359,
+      220,
+      27
+    ],
+    [
+      48,
+      968,
+      359,
+      72,
+      27
+    ],
+    [
+      48,
+      1040,
+      359,
+      128,
+      27
+    ],
+    [
+      48,
+      748,
+      386,
+      220,
+      27
+    ],
+    [
+      48,
+      968,
+      386,
+      72,
+      27
+    ],
+    [
+      48,
+      1040,
+      386,
+      128,
+      27
+    ],
+    [
+      48,
+      1027,
+      397,
+      136,
+      78
+    ],
+    [
+      67,
+      1055,
+      411,
+      80,
+      50
+    ],
+    [
+      48,
+      748,
+      748,
+      420,
+      44
+    ],
+    [
+      69,
+      762,
+      762,
+      82,
+      21
+    ],
+    [
+      69,
+      1092,
+      762,
+      62,
+      21
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "totals",
+      "iou": 0.931958780745004,
+      "parts": 9,
+      "rect": {
+        "x": 342,
+        "y": 470,
+        "w": 270.359375,
+        "h": 125
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "overlap",
+      "soft-shadow",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 51078,
+    "output": 25807,
+    "cacheRead": 293790
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49620,
+      "output": 15108,
+      "cacheRead": 279475,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx",
+        "Grep"
+      ],
+      "ms": 142849
+    }
+  ],
+  "reading": "The sketch lays out a full invoice-editor page: a top app bar spanning the page, a white left-hand editor card (client field, issue/due dates, line items, totals) with an overlapping client-autocomplete dropdown and an item table drawn into the same space, and a grey invoice-preview panel on the right.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1272,
+        52
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Build a 58px-tall top bar across the whole page at the very top, #ffffff fill with a 1px #dfe3ea line under it; position:absolute at 0,0, laid OVER the page top"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        27,
+        85,
+        604,
+        790
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build the left editor as ONE 610x796px white card at 24,82, 1px #dfe3ea border, 12px rounded. Inside it, as its own direct parts (other overlapping regions insi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        50,
+        196,
+        560,
+        221
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Build a client-autocomplete dropdown that appears over the editor card, below the focused BILL TO field: a white card listing a top match \"Harbour Hall Ltd  pri"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        50,
+        196,
+        560,
+        221
+      ],
+      "paths": [
+        "s2",
+        "s3"
+      ],
+      "instruction": "Build the line-items table inside the editor card: header row at y253 with bottom-border-only cells — 293x29 \"ITEM\" at 47,253, 68x29 \"QTY\" at 340,253, 104x29 \"R"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 8,
+          "fontPx": 11
+        }
+      ],
+      "region": [
+        345,
+        499,
+        262,
+        58
+      ],
+      "paths": [],
+      "instruction": "Build the totals block under the line items, right-aligned: \"Subtotal\" / \"£1,800.00\"; \"Discount 5%\" / \"−£90.00\"; \"VAT 20%\" / \"£342.00\"; then a 270px-wide top-on"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        663,
+        86,
+        590,
+        789
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Build the right-hand invoice preview as ONE 596x796px light-grey (#d9dde4) 12px-rounded panel at 660,82, containing a white 500x720 sheet at 708,112: a green ro"
+    }
+  ],
+  "rejected": []
+}

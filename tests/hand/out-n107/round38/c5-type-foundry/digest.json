@@ -1,0 +1,545 @@
+{
+  "round": 38,
+  "id": "c5-type-foundry",
+  "version": 3,
+  "stopped": null,
+  "likeness": 66.7,
+  "colour": 0.9222682559310078,
+  "structure": 0.6681399476950479,
+  "layout": 0.7397045898124274,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 2.7,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 7,
+      "box": 6,
+      "dot": 5
+    },
+    "inkPx": 12310
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 44,
+  "notes": 6,
+  "longestNote": 15,
+  "noteTexts": [
+    "Halftone Type bold",
+    "Fonts Licences Journal",
+    "8 cells, giant letter pairs: Aa Rg Qq & Ss Kk Gg Mm, mixed typefaces",
+    "Eight new families for your next idea, bold",
+    "Try every weight in the browser before you buy a single licence.",
+    "Try the fonts"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 366,
+    "firstReadingS": 118,
+    "readS": [
+      51
+    ],
+    "buildS": [
+      225
+    ],
+    "sketchingS": 90
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 65139,
+    "cacheRead": 379464,
+    "output": 23933,
+    "billed": 89072
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 819
+    },
+    {
+      "op": "note",
+      "at": 2171
+    },
+    {
+      "op": "stroke",
+      "at": 3201
+    },
+    {
+      "op": "note",
+      "at": 4570
+    },
+    {
+      "op": "stroke",
+      "at": 8587
+    },
+    {
+      "op": "stroke",
+      "at": 19103
+    },
+    {
+      "op": "stroke",
+      "at": 23554
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 24617
+    },
+    {
+      "op": "stroke",
+      "at": 28121
+    },
+    {
+      "op": "stroke",
+      "at": 29294
+    },
+    {
+      "op": "pen",
+      "color": "#ff5233",
+      "at": 30362
+    },
+    {
+      "op": "stroke",
+      "at": 33871
+    },
+    {
+      "op": "stroke",
+      "at": 35037
+    },
+    {
+      "op": "pen",
+      "color": "#ff5233",
+      "at": 36105
+    },
+    {
+      "op": "stroke",
+      "at": 39621
+    },
+    {
+      "op": "stroke",
+      "at": 40785
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 41851
+    },
+    {
+      "op": "stroke",
+      "at": 45352
+    },
+    {
+      "op": "stroke",
+      "at": 46524
+    },
+    {
+      "op": "note",
+      "at": 48230
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 48599
+    },
+    {
+      "op": "stroke",
+      "at": 50922
+    },
+    {
+      "op": "stroke",
+      "at": 52721
+    },
+    {
+      "op": "note",
+      "at": 54337
+    },
+    {
+      "op": "pen",
+      "color": "#555555",
+      "at": 54703
+    },
+    {
+      "op": "stroke",
+      "at": 56257
+    },
+    {
+      "op": "note",
+      "at": 58008
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 58373
+    },
+    {
+      "op": "stroke",
+      "at": 60245
+    },
+    {
+      "op": "stroke",
+      "at": 61428
+    },
+    {
+      "op": "note",
+      "at": 62849
+    },
+    {
+      "op": "run",
+      "at": 67685
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          48,
+          40
+        ],
+        [
+          179,
+          40
+        ]
+      ],
+      "n": 23,
+      "at": 819
+    },
+    {
+      "way": [
+        [
+          1026,
+          40
+        ],
+        [
+          1232,
+          40
+        ]
+      ],
+      "n": 35,
+      "at": 3201
+    },
+    {
+      "way": [
+        [
+          2,
+          79
+        ],
+        [
+          1278,
+          79
+        ]
+      ],
+      "n": 214,
+      "at": 8587
+    },
+    {
+      "way": [
+        [
+          48,
+          120
+        ],
+        [
+          1232,
+          120
+        ],
+        [
+          1232,
+          620
+        ],
+        [
+          48,
+          620
+        ],
+        [
+          48,
+          120
+        ]
+      ],
+      "n": 561,
+      "at": 19103
+    },
+    {
+      "way": [
+        [
+          48,
+          370
+        ],
+        [
+          1232,
+          370
+        ]
+      ],
+      "n": 198,
+      "at": 23554
+    },
+    {
+      "way": [
+        [
+          345,
+          120
+        ],
+        [
+          640,
+          120
+        ],
+        [
+          640,
+          370
+        ],
+        [
+          345,
+          370
+        ],
+        [
+          345,
+          120
+        ]
+      ],
+      "n": 183,
+      "at": 28121
+    },
+    {
+      "way": [
+        [
+          375,
+          345
+        ]
+      ],
+      "n": 1,
+      "at": 29294
+    },
+    {
+      "way": [
+        [
+          936,
+          120
+        ],
+        [
+          1231,
+          120
+        ],
+        [
+          1231,
+          370
+        ],
+        [
+          936,
+          370
+        ],
+        [
+          936,
+          120
+        ]
+      ],
+      "n": 183,
+      "at": 33871
+    },
+    {
+      "way": [
+        [
+          966,
+          345
+        ]
+      ],
+      "n": 1,
+      "at": 35037
+    },
+    {
+      "way": [
+        [
+          48,
+          370
+        ],
+        [
+          343,
+          370
+        ],
+        [
+          343,
+          620
+        ],
+        [
+          48,
+          620
+        ],
+        [
+          48,
+          370
+        ]
+      ],
+      "n": 183,
+      "at": 39621
+    },
+    {
+      "way": [
+        [
+          78,
+          595
+        ]
+      ],
+      "n": 1,
+      "at": 40785
+    },
+    {
+      "way": [
+        [
+          640,
+          370
+        ],
+        [
+          935,
+          370
+        ],
+        [
+          935,
+          620
+        ],
+        [
+          640,
+          620
+        ],
+        [
+          640,
+          370
+        ]
+      ],
+      "n": 183,
+      "at": 45352
+    },
+    {
+      "way": [
+        [
+          670,
+          595
+        ]
+      ],
+      "n": 1,
+      "at": 46524
+    },
+    {
+      "way": [
+        [
+          48,
+          715
+        ],
+        [
+          712,
+          715
+        ]
+      ],
+      "n": 112,
+      "at": 50922
+    },
+    {
+      "way": [
+        [
+          48,
+          770
+        ],
+        [
+          273,
+          770
+        ]
+      ],
+      "n": 39,
+      "at": 52720
+    },
+    {
+      "way": [
+        [
+          820,
+          700
+        ],
+        [
+          1208,
+          700
+        ]
+      ],
+      "n": 66,
+      "at": 56257
+    },
+    {
+      "way": [
+        [
+          820,
+          790
+        ],
+        [
+          1020,
+          790
+        ],
+        [
+          1020,
+          844
+        ],
+        [
+          820,
+          844
+        ],
+        [
+          820,
+          790
+        ]
+      ],
+      "n": 85,
+      "at": 60245
+    },
+    {
+      "way": [
+        [
+          835,
+          835
+        ]
+      ],
+      "n": 1,
+      "at": 61428
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Halftone Type bold",
+      "whole": false,
+      "x": 110,
+      "y": 30,
+      "at": 2171
+    },
+    {
+      "text": "Fonts Licences Journal",
+      "whole": false,
+      "x": 1130,
+      "y": 30,
+      "at": 4570
+    },
+    {
+      "text": "8 cells, giant letter pairs: Aa Rg Qq & Ss Kk Gg Mm, mixed typefaces",
+      "whole": false,
+      "x": 200,
+      "y": 250,
+      "at": 48230
+    },
+    {
+      "text": "Eight new families for your next idea, bold",
+      "whole": false,
+      "x": 380,
+      "y": 690,
+      "at": 54337
+    },
+    {
+      "text": "Try every weight in the browser before you buy a single licence.",
+      "whole": false,
+      "x": 1010,
+      "y": 690,
+      "at": 58008
+    },
+    {
+      "text": "Try the fonts",
+      "whole": false,
+      "x": 920,
+      "y": 817,
+      "at": 62849
+    }
+  ]
+}

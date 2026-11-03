@@ -1,0 +1,558 @@
+{
+  "id": "c2-origami-fold",
+  "at": "2026-10-26T17:48:38.786Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9191625092168301,
+    "overallV2": 0.9191625092168301,
+    "overallV1": 0.8906333067730037,
+    "colour": 0.9955423532716116,
+    "structure": 0.9519513936205758,
+    "structureStrict": 0.915375265637335,
+    "colourAligned": 0.9955423532716116,
+    "structureAligned": 0.9519513936205758,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9874073196636461
+    },
+    "layout": 0.8775110368365144,
+    "layoutV1": 0.7941777035031811,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      84,
+      44,
+      1112,
+      30
+    ],
+    [
+      1,
+      84,
+      44,
+      42,
+      30
+    ],
+    [
+      1,
+      863,
+      47,
+      333,
+      24
+    ],
+    [
+      3,
+      863,
+      47,
+      30,
+      24
+    ],
+    [
+      3,
+      933,
+      47,
+      64,
+      24
+    ],
+    [
+      3,
+      1037,
+      47,
+      87,
+      24
+    ],
+    [
+      3,
+      1164,
+      47,
+      32,
+      24
+    ],
+    [
+      0,
+      520,
+      80,
+      2,
+      760
+    ],
+    [
+      8,
+      520,
+      80,
+      2,
+      760
+    ],
+    [
+      9,
+      520,
+      80,
+      2,
+      762
+    ],
+    [
+      0,
+      600,
+      700,
+      460,
+      40
+    ],
+    [
+      0,
+      560,
+      120,
+      560,
+      620
+    ],
+    [
+      0,
+      560,
+      306,
+      252,
+      434
+    ],
+    [
+      0,
+      868,
+      120,
+      252,
+      248
+    ],
+    [
+      0,
+      560,
+      120,
+      560,
+      620
+    ],
+    [
+      0,
+      74,
+      196,
+      472,
+      187
+    ],
+    [
+      16,
+      74,
+      196,
+      472,
+      187
+    ],
+    [
+      17,
+      74,
+      196,
+      472,
+      188
+    ],
+    [
+      16,
+      74,
+      196,
+      478,
+      247
+    ],
+    [
+      19,
+      106,
+      223,
+      406,
+      117
+    ],
+    [
+      19,
+      114,
+      299,
+      406,
+      117
+    ],
+    [
+      0,
+      88,
+      380,
+      387,
+      92
+    ],
+    [
+      0,
+      84,
+      520,
+      392,
+      50
+    ],
+    [
+      0,
+      83,
+      653,
+      381,
+      114
+    ],
+    [
+      24,
+      83,
+      653,
+      381,
+      114
+    ],
+    [
+      25,
+      83,
+      653,
+      381,
+      114
+    ],
+    [
+      0,
+      80,
+      650,
+      120,
+      120
+    ],
+    [
+      27,
+      94,
+      664,
+      92,
+      51
+    ],
+    [
+      27,
+      94,
+      737,
+      92,
+      20
+    ],
+    [
+      0,
+      214,
+      650,
+      120,
+      120
+    ],
+    [
+      30,
+      228,
+      664,
+      92,
+      51
+    ],
+    [
+      30,
+      228,
+      737,
+      92,
+      20
+    ],
+    [
+      0,
+      348,
+      650,
+      120,
+      120
+    ],
+    [
+      33,
+      362,
+      664,
+      92,
+      51
+    ],
+    [
+      33,
+      362,
+      737,
+      92,
+      20
+    ],
+    [
+      0,
+      1060,
+      90,
+      110,
+      110
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "crane-facet-light",
+      "iou": 1,
+      "parts": 2,
+      "rect": {
+        "x": 560,
+        "y": 120,
+        "w": 560,
+        "h": 620
+      }
+    }
+  ],
+  "effects": {
+    "recall": 0.875,
+    "kept": [
+      "clip-shape",
+      "gradient",
+      "hard-shadow",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 64115,
+    "output": 34145,
+    "cacheRead": 333472
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 85293,
+      "output": 29219,
+      "cacheRead": 330388,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 331526
+    }
+  ],
+  "reading": "The sketch is a product hero page: a bold navbar (\"fold.\" logo + right-aligned links), a decorative code-minimap strip, a layered faceted graphic built from three overlapping flat-color angled shapes plus a soft shadow and a glossy shard highlight, a tilted \"PAPER ENGINE\" headline card, an italic tagline, a body paragraph, a row of three stat cards (Valley/Squash/Petal fold), and a diamond \"NEW\" badge — all specified precisely by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        84,
+        53,
+        1112,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar: 20px \"fold.\" logo text at far left, bold (font-weight 600, not regular), then nav links Kits, Patterns, Workshops, Cart pushed to the far ri"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        517,
+        84,
+        8,
+        752
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A code MINIMAP strip: one textless div exactly 2x760px positioned absolute at 520,80. No words, not a list, not an outline panel — painted only with fine horizo"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        560,
+        120,
+        559,
+        621
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "instruction": "A soft floor shadow: one 460x40px ellipse positioned absolute at 600,700, border-radius 50%, background: radial-gradient(#00000044, transparent 70%) — dark in t"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        560,
+        120,
+        559,
+        621
+      ],
+      "paths": [
+        "s3",
+        "s6"
+      ],
+      "instruction": "Vivid red-orange angled cut-out shape, one flat #d94f30 fill via clip-path polygon (no gradient/shading/texture); outline strokes are not kept visible. Box is 5"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        560,
+        120,
+        559,
+        621
+      ],
+      "paths": [
+        "s3",
+        "s6"
+      ],
+      "instruction": "Vivid deep rust orange angled cut-out shape, one flat #b83c22 fill via clip-path polygon (no gradient/shading/texture); outline strokes are not kept visible. Bo"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        560,
+        120,
+        559,
+        621
+      ],
+      "paths": [
+        "s3",
+        "s6"
+      ],
+      "instruction": "Coral angled cut-out shape, one flat #f08a5d fill via clip-path polygon (no gradient/shading/texture); outline strokes are not kept visible. Box is 252x248px at"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        560,
+        120,
+        559,
+        621
+      ],
+      "paths": [
+        "s3",
+        "s6"
+      ],
+      "instruction": "A slanted shard highlight cut by clip-path: polygon(40% 55%, 62% 38%, 100% 40%, 45% 100%), an uneven four-sided shape (not a rectangle): one 560x620px div at po"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        199,
+        454,
+        182
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A separate 460x140px #1d1d1b card laid on the page, position absolute with top-left at 80,220 page px (before rotation), square corners, transform: rotate(-6deg"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9"
+          ],
+          "lines": 2,
+          "fontPx": 31
+        }
+      ],
+      "region": [
+        88,
+        380,
+        387,
+        92
+      ],
+      "paths": [],
+      "instruction": "Big italic serif tagline text, set in exactly two lines kept as written (no re-wrapping, white-space: nowrap, width enough for the longest line, about 387px wid"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s10",
+            "s11"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        84,
+        520,
+        392,
+        51
+      ],
+      "paths": [],
+      "instruction": "Dark grey (#4a463f, not the page's near-black) body text paragraph: \"Monthly kits of hand-dyed washi with step cards and a video for every crease. Beginners wel"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        653,
+        381,
+        114
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A row of 3 stat cards, each 120x120 #ffffff fill with padding-left 14px and a hard offset box-shadow 6px right/6px down, no blur (box-shadow: 6px 6px 0 #1d1d1b)"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1064,
+        93,
+        102,
+        103
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "A near-black (#1d1d1b) 110x110px block cut to a diamond via clip-path: polygon(50% 0px, 100% 50%, 50% 100%, 0px 50%) — a square standing on its corner with poin"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

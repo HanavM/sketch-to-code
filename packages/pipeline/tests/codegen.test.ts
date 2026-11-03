@@ -12,6 +12,19 @@ vi.mock('@anthropic-ai/claude-agent-sdk', () => ({
 
 const { codegenToolOptions, createCodegenSession, PRIVATE_STATE_DENY } = await import('../src/codegen.js')
 
+describe('codegen agent sees only its file tools', () => {
+  it('limits the base tool set, so Skill/ToolSearch/Bash are not even offered', () => {
+    const { tools } = codegenToolOptions()
+    expect(tools).toEqual(['Read', 'Edit', 'Write', 'Glob', 'Grep'])
+  })
+
+  it('passes the base set to the SDK', () => {
+    captured.length = 0
+    createCodegenSession('/tmp/x', 'design', { onStage: () => undefined }).close()
+    expect(captured.at(-1)?.tools).toEqual(['Read', 'Edit', 'Write', 'Glob', 'Grep'])
+  })
+})
+
 describe('codegen agent stays out of .sketch2code/ (s2c-007)', () => {
   it('denies reading and editing the tool state directory', () => {
     const { disallowedTools } = codegenToolOptions()

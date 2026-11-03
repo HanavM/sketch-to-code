@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Recruiting</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f6f7f9;font-family:Inter,Helvetica,Arial,sans-serif;color:#1a1f2b;font-size:13px}
+.rail{position:absolute;left:0;top:0;width:64px;height:900px;background:#14213d;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:20px}.rail i{width:28px;height:28px;border-radius:8px;background:#ffffff26}.rail i:first-child{background:#fca311}
+.top{position:absolute;left:64px;top:0;right:0;height:60px;background:#fff;border-bottom:1px solid #e4e7ec;display:flex;align-items:center;gap:14px;padding:0 24px}.top b{font-size:17px}.top .s{margin-left:24px;width:300px;height:34px;border:1px solid #d4d8df;border-radius:8px;padding:8px 12px;color:#8a92a3}.top .add{margin-left:auto;padding:9px 16px;background:#14213d;color:#fff;border-radius:8px;font-weight:600}
+.stages{position:absolute;left:88px;top:84px;width:700px;display:flex;gap:6px}.stages div{flex:1;height:54px;background:#fff;border:1px solid #e4e7ec;padding:8px 12px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%,12px 50%)}.stages div b{display:block;font-size:18px}.stages .on{background:#14213d;color:#fff;border-color:#14213d}
+.list{position:absolute;left:88px;top:160px;width:700px;background:#fff;border:1px solid #e4e7ec;border-radius:10px}
+.list .h,.list .r{display:grid;grid-template-columns:36px 220px 150px 120px 1fr;align-items:center;padding:0 16px;height:52px;border-bottom:1px solid #eef0f3}.list .h{height:40px;color:#6b7385;font-size:12px;font-weight:600}
+.list .r.sel{background:#fff7e6;box-shadow:inset 3px 0 0 #fca311}
+.av{width:28px;height:28px;border-radius:50%;color:#fff;font:700 11px/28px Helvetica;text-align:center}
+.st{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:600}
+.dots i{display:inline-block;width:10px;height:10px;border-radius:50%;background:#fca311;margin-right:3px}.dots i.o{background:#e4e7ec}
+.prof{position:absolute;left:812px;top:84px;width:444px;height:792px;background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:24px}
+.prof .big{width:64px;height:64px;border-radius:50%;background:#e76f51;color:#fff;font:700 22px/64px Helvetica;text-align:center;float:left;margin-right:16px}.prof h2{font-size:20px;padding-top:8px}.prof .sub{color:#6b7385;margin-top:4px}
+.tabs{clear:both;display:flex;gap:22px;margin-top:28px;border-bottom:1px solid #e4e7ec}.tabs span{padding-bottom:10px;color:#6b7385}.tabs .on{color:#1a1f2b;font-weight:700;box-shadow:inset 0 -2px 0 #fca311}
+.score{margin-top:20px;display:grid;grid-template-columns:120px 1fr 30px;gap:10px 12px;align-items:center}.score .bar{height:8px;border-radius:4px;background:#eef0f3;overflow:hidden}.score .bar i{display:block;height:100%;background:#2a9d8f}
+.tl{margin-top:26px;border-left:2px solid #e4e7ec;padding-left:18px}.tl div{position:relative;margin-bottom:18px}.tl div::before{content:"";position:absolute;left:-25px;top:2px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid #fca311}.tl small{display:block;color:#8a92a3;margin-top:3px}
+.act{position:absolute;left:24px;right:24px;bottom:24px;display:flex;gap:10px}.act span{flex:1;text-align:center;padding:11px;border-radius:8px;border:1px solid #d4d8df;font-weight:600}.act .y{background:#2a9d8f;color:#fff;border-color:#2a9d8f}.act .n{color:#c0392b}
+</style></head><body>
+<div class="rail" data-r="app-rail"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="top" data-r="top-bar"><b>Senior Product Designer</b><span style="color:#6b7385">· Remote · 48 applicants</span><span class="s">Search candidates…</span><span class="add">+ Add candidate</span></div>
+<div class="stages" data-r="stage-chevrons" data-must><div>Applied<b>24</b></div><div class="on">Screen<b>11</b></div><div>Interview<b>7</b></div><div>Offer<b>2</b></div><div>Hired<b>1</b></div></div>
+<div class="list" data-r="candidate-table" data-must>
+<div class="h"><span></span><span>Candidate</span><span>Source</span><span>Rating</span><span>Status</span></div>
+<div class="r"><i class="av" style="background:#264653">AK</i><span>Ana Kovač</span><span>LinkedIn</span><span class="dots"><i></i><i></i><i></i><i></i><i class="o"></i></span><span><b class="st" style="background:#e6f4f1;color:#2a9d8f">Scheduled</b></span></div>
+<div class="r sel"><i class="av" style="background:#e76f51">MT</i><span><b>Marcus Tran</b></span><span>Referral</span><span class="dots"><i></i><i></i><i></i><i></i><i></i></span><span><b class="st" style="background:#fff1d6;color:#b26b00">Needs review</b></span></div>
+<div class="r"><i class="av" style="background:#8e7dbe">LS</i><span>Lena Schulz</span><span>Careers page</span><span class="dots"><i></i><i></i><i></i><i class="o"></i><i class="o"></i></span><span><b class="st" style="background:#eef0f3;color:#6b7385">New</b></span></div>
+<div class="r"><i class="av" style="background:#2a9d8f">DO</i><span>David Osei</span><span>Dribbble</span><span class="dots"><i></i><i></i><i></i><i></i><i class="o"></i></span><span><b class="st" style="background:#e6f4f1;color:#2a9d8f">Scheduled</b></span></div>
+<div class="r"><i class="av" style="background:#f4a261">PR</i><span>Priya Rao</span><span>LinkedIn</span><span class="dots"><i></i><i></i><i class="o"></i><i class="o"></i><i class="o"></i></span><span><b class="st" style="background:#fde8e6;color:#c0392b">Rejected</b></span></div>
+<div class="r"><i class="av" style="background:#264653">JW</i><span>Jon Wu</span><span>Referral</span><span class="dots"><i></i><i></i><i></i><i></i><i class="o"></i></span><span><b class="st" style="background:#eef0f3;color:#6b7385">New</b></span></div>
+<div class="r" style="border:0"><i class="av" style="background:#e9c46a">SB</i><span>Sara Bell</span><span>Careers page</span><span class="dots"><i></i><i></i><i></i><i class="o"></i><i class="o"></i></span><span><b class="st" style="background:#fff1d6;color:#b26b00">Needs review</b></span></div>
+</div>
+<div class="prof" data-r="profile-panel" data-must><div class="big">MT</div><h2>Marcus Tran</h2><div class="sub">Product Designer at Linear · Berlin</div>
+<div class="tabs"><span class="on">Overview</span><span>Resume</span><span>Notes (3)</span><span>Emails</span></div>
+<div class="score" data-r="scorecard"><span>Craft</span><span class="bar"><i style="width:92%"></i></span><b>4.6</b><span>Systems thinking</span><span class="bar"><i style="width:80%"></i></span><b>4.0</b><span>Communication</span><span class="bar"><i style="width:86%"></i></span><b>4.3</b><span>Culture add</span><span class="bar"><i style="width:70%"></i></span><b>3.5</b></div>
+<div class="tl" data-r="timeline"><div><b>Portfolio review passed</b><small>Today · by Kim L.</small></div><div><b>Phone screen</b><small>Oct 24 · 30 min</small></div><div><b>Applied via referral</b><small>Oct 20 · from Ana K.</small></div></div>
+<div class="act"><span class="n">Reject</span><span>Message</span><span class="y">Move to Interview</span></div></div>
+</body></html>

@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Team chat</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2937;overflow:hidden;position:relative}
+.rail{position:absolute;left:0;top:0;width:300px;height:900px;background:#f5f3ff;border-right:1px solid #e4e0f5;padding:26px 20px}
+.rail b{display:block;font-size:20px;margin-bottom:20px}.rail .s{height:40px;border-radius:8px;background:#fff;border:1px solid #e4e0f5;margin-bottom:22px;padding:11px 14px;font-size:14px;color:#9ca3af}
+.c{display:flex;gap:12px;align-items:center;padding:12px 10px;border-radius:10px;font-size:15px}.c i{width:40px;height:40px;border-radius:50%;flex:none}.c span{display:block;font-size:13px;color:#6b7280;margin-top:3px}
+.c.on{background:#6d28d9;color:#fff}.c.on span{color:#ddd6fe}
+.head{position:absolute;left:300px;top:0;width:980px;height:76px;border-bottom:1px solid #eceef2;display:flex;align-items:center;padding:0 32px;font-size:19px;font-weight:700;gap:12px}
+.head em{font-style:normal;font-size:14px;font-weight:400;color:#6b7280}
+.m{position:absolute;max-width:470px;padding:14px 18px;border-radius:16px;font-size:15px;line-height:1.45}
+.in{left:340px;background:#f1f2f6}.out{right:40px;background:#6d28d9;color:#fff}
+.t{position:absolute;font-size:12px;color:#9ca3af}
+.box{position:absolute;left:330px;top:800px;width:910px;height:60px;border:1px solid #d9dce3;border-radius:14px;padding:20px;font-size:15px;color:#9ca3af}
+.send{position:absolute;left:1180px;top:810px;width:44px;height:40px;border-radius:10px;background:#6d28d9}
+</style></head><body>
+<div class="rail" data-r="sidebar" data-must><b>Channels</b><div class="s" data-r="search">Search</div>
+<div class="c on" data-r="active-chat"><i style="background:#c4b5fd"></i><div>#launch<span>Mia: shipping at 5</span></div></div>
+<div class="c"><i style="background:#fcd34d"></i><div>#design<span>New logo is up</span></div></div>
+<div class="c"><i style="background:#6ee7b7"></i><div>Ravi Patel<span>sounds good</span></div></div>
+<div class="c"><i style="background:#fda4af"></i><div>#support<span>3 new tickets</span></div></div>
+<div class="c"><i style="background:#93c5fd"></i><div>Lena Ortiz<span>call at 2?</span></div></div></div>
+<div class="head" data-r="chat-header">#launch <em>8 members</em></div>
+<div class="t" style="left:340px;top:110px">Mia · 2:14 pm</div>
+<div class="m in" data-r="message-in" data-must style="top:130px">Copy is final. Can someone check the pricing page on mobile?</div>
+<div class="m out" data-r="message-out" data-must style="top:220px">On it. Looks fine on iPhone, checking Android now.</div>
+<div class="t" style="left:340px;top:310px">Ravi · 2:20 pm</div>
+<div class="m in" style="top:330px">Android is good too. One typo in the footer, fixed.</div>
+<div class="m out" style="top:420px">Great. Shipping at 5 then.</div>
+<div class="t" style="left:340px;top:510px">Mia · 2:31 pm</div>
+<div class="m in" style="top:530px;width:300px;height:170px;padding:10px"><div style="width:100%;height:150px;border-radius:10px;background:#c4b5fd"></div></div>
+<div class="box" data-r="composer">Message #launch</div><div class="send" data-r="send"></div>
+</body></html>

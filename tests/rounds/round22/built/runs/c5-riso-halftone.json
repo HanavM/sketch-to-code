@@ -1,0 +1,411 @@
+{
+  "id": "c5-riso-halftone",
+  "at": "2026-10-25T22:30:14.900Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9562113405282318,
+    "overallV2": 0.9562113405282318,
+    "overallV1": 0.9525321637405655,
+    "colour": 0.9945353869459109,
+    "structure": 0.9930368006520254,
+    "structureStrict": 0.9872014649716022,
+    "colourAligned": 0.9945353869459109,
+    "structureAligned": 0.9930368006520254,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9969722278216191
+    },
+    "layout": 0.9175787548557679,
+    "layoutV1": 0.9175787548557679,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      640,
+      80,
+      560,
+      560
+    ],
+    [
+      0,
+      513,
+      213,
+      514,
+      514
+    ],
+    [
+      0,
+      59,
+      463,
+      382,
+      73
+    ],
+    [
+      0,
+      60,
+      120,
+      420,
+      264
+    ],
+    [
+      4,
+      60,
+      120,
+      420,
+      132
+    ],
+    [
+      4,
+      60,
+      252,
+      420,
+      132
+    ],
+    [
+      0,
+      78,
+      481,
+      326,
+      48
+    ],
+    [
+      0,
+      70,
+      580,
+      420,
+      78
+    ],
+    [
+      0,
+      70,
+      737,
+      259,
+      50
+    ],
+    [
+      0,
+      760,
+      700,
+      440,
+      98
+    ],
+    [
+      10,
+      760,
+      702,
+      440,
+      32
+    ],
+    [
+      11,
+      760,
+      706,
+      27,
+      23
+    ],
+    [
+      11,
+      926,
+      706,
+      90,
+      23
+    ],
+    [
+      11,
+      1155,
+      706,
+      45,
+      23
+    ],
+    [
+      10,
+      760,
+      734,
+      440,
+      32
+    ],
+    [
+      15,
+      760,
+      738,
+      27,
+      23
+    ],
+    [
+      15,
+      926,
+      738,
+      90,
+      23
+    ],
+    [
+      15,
+      1155,
+      738,
+      45,
+      23
+    ],
+    [
+      10,
+      760,
+      766,
+      440,
+      32
+    ],
+    [
+      19,
+      760,
+      770,
+      27,
+      23
+    ],
+    [
+      19,
+      926,
+      770,
+      90,
+      23
+    ],
+    [
+      19,
+      1155,
+      770,
+      45,
+      23
+    ],
+    [
+      0,
+      1054,
+      24,
+      124,
+      181
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 43262,
+    "output": 20020,
+    "cacheRead": 165446
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 41045,
+      "output": 10652,
+      "cacheRead": 153301,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 109898
+    }
+  ],
+  "reading": "This is a riso-print/zine style promo block: two overlapping halftone-dot squares (pink dot-circle and a tilted blue dot-grid) sit behind a giant two-line \"PRINT CLUB\" headline with a misregistered pink shadow-copy, a rotated solid-yellow highlight bar, a bold mono tagline, three lines of body copy, a bobbing pink CTA button with a hard blue shadow, a dashed-rule 3-row event schedule, and a tilted yellow asterisk flourish — all on an off-white page set in Helvetica with blue body text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        83,
+        554,
+        553
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A halftone dot-screen block, not a photo: one 560x560px div, top-left at 640,80, transparent background covered edge-to-edge by a repeating fine grid of small #"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        516,
+        216,
+        508,
+        508
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A second halftone dot-screen block, not a photo: one 420x420px div, top-left at 560,260, transparent background covered edge-to-edge by a repeating fine grid of"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 166
+        }
+      ],
+      "region": [
+        68,
+        178,
+        378,
+        148
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy uppercase heading, ink-like (mix-blend-mode: multiply), tight-set across exactly 2 lines reading \"PRINT\" / \"CLUB\" (keep these line breaks,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        466,
+        374,
+        67
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A plain solid flat-yellow (#ffe800) block, not a picture: 380x60px, top-left at 60,470 before rotation, fully opaque, no text/border/shadow, rotated -2deg about"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 166
+        }
+      ],
+      "region": [
+        78,
+        487,
+        293,
+        28
+      ],
+      "paths": [],
+      "instruction": "Bold mono tagline text, exactly \"two inks, no undo\", 32px, font-weight 700, single line (white-space: nowrap), about 326px wide, sitting over/near the yellow bl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        74,
+        580,
+        412,
+        79
+      ],
+      "paths": [],
+      "instruction": "17px Georgia body copy in dark grey #333333, 3 lines, 420px wide, top-left at 70,580, exact text: \"A risograph studio and open workshop. Bring a file, leave wit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        73,
+        743,
+        252,
+        43
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A CTA button, 259x50px, position absolute top-left at 70,740 (its own place on the page, not nested in other blocks), vivid pink fill that gently bobs up and do"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        763,
+        703,
+        433,
+        91
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "An event schedule block, 440px wide, top-left at 760,700, with no box outline: a 2px dashed #0078bf rule along the top only, and under each of its 3 rows (32px "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1078,
+        57,
+        102,
+        77
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A decorative flourish: the single character \"✺\" (U+273A) as live text, Helvetica regular weight, yellow, 110px, ink-like (mix-blend-mode: multiply), tilted 12de"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

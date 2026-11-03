@@ -1,0 +1,172 @@
+{
+  "id": "e5-billing-usage",
+  "at": "2026-10-23T09:26:23.603Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.46180549163043794,
+    "overallV2": 0.45770468621929444,
+    "overallV1": 0.28704248744388766,
+    "colour": 0.9749555750251416,
+    "structure": 0.8557084877641483,
+    "structureStrict": 0.6865714804909057,
+    "colourAligned": 0.9749555750251416,
+    "structureAligned": 0.8597726446754483,
+    "align": {
+      "scale": 0.96,
+      "dx": 16,
+      "dy": 0,
+      "r": 0.6835596592178476
+    },
+    "layout": 0.7836480006662953
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "overlap"
+    ],
+    "missing": [
+      "italic"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 38137,
+    "output": 23860,
+    "cacheRead": 238523
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 50637,
+      "output": 19468,
+      "cacheRead": 227635,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read src/App.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 194641
+    }
+  ],
+  "reading": "A full billing settings page sketch: a left sidebar nav card with a logo and 6 nav items (Billing highlighted), a page heading 'Billing', a horizontal sub-nav of billing-related links, three pricing plan cards, a usage-meters card with three progress bars, and an invoices list.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Pale grey sidebar card with a '◆ Orbit' logo/title at top, then a nav list: Overview, Projects, Team, Integrations, Billing, Settings. 'Billing' is highlighted "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 26
+        }
+      ],
+      "region": [
+        268,
+        32,
+        71,
+        31
+      ],
+      "paths": [],
+      "instruction": "Page heading 'Billing' in bold 26px type on one line; its box sits 32px from the page top and is 31px tall (line-height 31px, not higher)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 13
+        }
+      ],
+      "region": [
+        264,
+        80,
+        972,
+        39
+      ],
+      "paths": [],
+      "instruction": "Horizontal sub-nav bar with links: Plan & usage, Payment methods, Invoices, Tax. 'Plan & usage' is selected (bold, indigo text, indigo underline). All links are"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        147,
+        973,
+        224
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Three separate pricing cards side by side, each 310x230px, no fill, 1px #e5e7eb border, 14px rounded corners, 25px apart. Card 1 (x=260): bold 16px #111827 'Sta"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        403,
+        973,
+        144
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Usage meters card, 980x150px, 1px #e5e7eb border, 14px rounded corners, 22px padding, with 3 columns 36px apart, each a real meter bar (not a thin line): Column"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        263,
+        579,
+        973,
+        234
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Invoices list with columns INVOICE and DATE, rows: INV-2026-010 / Oct 1, 2026; INV-2026-009 / Sep 1, 2026; INV-2026-008 / Aug 1, 2026; INV-2026-007 / Jul 1, 202"
+    }
+  ],
+  "rejected": []
+}

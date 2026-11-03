@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Torn collage</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#efe7d8;font-family:Georgia,serif;color:#1c1917}
+.p{position:absolute}
+.p1{left:90px;top:120px;width:420px;height:520px;background:linear-gradient(160deg,#0f766e,#134e4a);clip-path:polygon(0 3%,12% 0,30% 4%,55% 0,80% 3%,100% 0,98% 30%,100% 60%,97% 100%,70% 97%,45% 100%,20% 96%,0 100%,3% 60%);transform:rotate(-4deg)}
+.p2{left:430px;top:300px;width:380px;height:420px;background:linear-gradient(200deg,#f59e0b,#b45309);clip-path:polygon(4% 0,100% 2%,96% 25%,100% 50%,97% 75%,100% 100%,0 98%,3% 70%,0 40%,2% 15%);transform:rotate(5deg)}
+.tape{position:absolute;width:150px;height:38px;background:rgba(254,249,195,.75);border:1px solid rgba(0,0,0,.08)}
+h1{position:absolute;left:150px;top:300px;font-size:150px;font-style:italic;font-weight:400;line-height:.9;letter-spacing:-4px;color:#fff;mix-blend-mode:difference;white-space:nowrap}
+.col{position:absolute;left:900px;top:150px;width:300px;font-size:16px;line-height:1.6;column-count:1}
+.col::first-letter{float:left;font-size:72px;line-height:.8;padding:6px 8px 0 0;font-weight:700;color:#b45309}
+.mast{position:absolute;left:90px;top:40px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:5px;font-weight:700}
+.issue{position:absolute;left:900px;top:40px;font-family:Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:2px}
+.circ{position:absolute;left:880px;top:620px;width:320px;height:150px}
+.hand{position:absolute;left:940px;top:672px;font-size:30px;font-style:italic;color:#dc2626}
+</style></head><body>
+<div class="mast" data-r="masthead">FIELD NOTES</div><div class="issue" data-r="issue">No. 12 · Winter</div>
+<div class="p p1" data-r="photo-green" data-must></div>
+<div class="p p2" data-r="photo-amber" data-must></div>
+<div class="tape" data-r="tape-1" style="left:130px;top:100px;transform:rotate(-14deg)"></div>
+<div class="tape" data-r="tape-2" style="left:700px;top:290px;transform:rotate(18deg)"></div>
+<h1 data-r="headline" data-must>Salt &amp;<br>Stone</h1>
+<p class="col" data-r="column">Along the northern coast, the quarries meet the sea. We spent eleven days walking between the cut cliffs and the salt pans, listening to the people who still work both.</p>
+<svg class="circ" data-r="circle-note" viewBox="0 0 320 150"><ellipse cx="160" cy="75" rx="150" ry="62" fill="none" stroke="#dc2626" stroke-width="3" transform="rotate(-5 160 75)"/></svg>
+<div class="hand" data-r="hand-note">read this first!</div>
+</body></html>

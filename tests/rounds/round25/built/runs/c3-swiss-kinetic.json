@@ -1,0 +1,388 @@
+{
+  "id": "c3-swiss-kinetic",
+  "at": "2026-10-26T14:07:42.076Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9016097178771292,
+    "overallV2": 0.9016097178771292,
+    "overallV1": 0.8680397156759405,
+    "colour": 0.9917351204825163,
+    "structure": 0.9326138216283669,
+    "structureStrict": 0.8839327158995024,
+    "colourAligned": 0.9917351204825163,
+    "structureAligned": 0.9326138216283669,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9826792183581375
+    },
+    "layout": 0.8717564931282262,
+    "layoutV1": 0.8717564931282262,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      -30,
+      -80,
+      337,
+      640
+    ],
+    [
+      0,
+      330,
+      160,
+      337,
+      640
+    ],
+    [
+      0,
+      -100,
+      173,
+      1574,
+      474
+    ],
+    [
+      4,
+      196,
+      298,
+      855,
+      255
+    ],
+    [
+      0,
+      885,
+      84,
+      260,
+      260
+    ],
+    [
+      6,
+      875,
+      74,
+      268,
+      140
+    ],
+    [
+      7,
+      875,
+      74,
+      268,
+      140
+    ],
+    [
+      0,
+      880,
+      400,
+      280,
+      32
+    ],
+    [
+      0,
+      880,
+      444,
+      280,
+      63
+    ],
+    [
+      0,
+      1180,
+      64,
+      24,
+      303
+    ],
+    [
+      0,
+      880,
+      700,
+      300,
+      103
+    ],
+    [
+      12,
+      880,
+      708,
+      300,
+      33
+    ],
+    [
+      13,
+      880,
+      703,
+      300,
+      21
+    ],
+    [
+      13,
+      880,
+      724,
+      300,
+      21
+    ],
+    [
+      12,
+      880,
+      741,
+      300,
+      33
+    ],
+    [
+      16,
+      880,
+      736,
+      300,
+      21
+    ],
+    [
+      16,
+      880,
+      757,
+      300,
+      21
+    ],
+    [
+      12,
+      880,
+      774,
+      300,
+      33
+    ],
+    [
+      19,
+      880,
+      769,
+      300,
+      21
+    ],
+    [
+      19,
+      880,
+      790,
+      300,
+      21
+    ],
+    [
+      0,
+      63,
+      823,
+      162,
+      25
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "hollow-type",
+      "huge-type",
+      "overlap",
+      "stripes-or-layers",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 43077,
+    "output": 24773,
+    "cacheRead": 184632
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37194,
+      "output": 11371,
+      "cacheRead": 172316,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit src/App.tsx"
+      ],
+      "ms": 119771
+    }
+  ],
+  "reading": "The sketch lays out a Swiss-style typographic poster page: a full-bleed faded red-striped background behind two giant overlapping numerals ('2' and a hollow outlined '6'), a tilted red band carrying repeated type, a ring of small-caps text around a circle, a heading-plus-paragraph content block, a vertical rotated date label, a 3-row event schedule panel, and a solid ticket button.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Whole page: off-white (#ececec, plainly not white) page background, Helvetica type throughout, near-black text. Over this, a full-bleed faded (25% opacity, see-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        6,
+        17,
+        247,
+        447
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Giant Helvetica (font-family Helvetica; font-weight 900; round-bowled, NOT squared/condensed/display) heavy tight-set live-text numeral '2', 640px type, about 3"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        338,
+        257,
+        275,
+        448
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Giant Helvetica (font-family Helvetica; font-weight 900; round-bowled, NOT squared/condensed/display) heavy tight-set live-text numeral '6', hollow/outlined, re"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 46
+        }
+      ],
+      "region": [
+        6,
+        383,
+        1268,
+        55
+      ],
+      "paths": [],
+      "instruction": "A red (#e3120b) band, tilted 14° anticlockwise, bleeding off both the left and right page edges: one 1600px-wide, 90px-tall element, position absolute, left -10"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        885,
+        84,
+        252,
+        252
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "A ring of small spaced capital letters reading 'INTERNATIONAL TYPOGRAPHIC STYLE · ZÜRICH ·' running around a 260px circle; no outline, no fill on the circle its"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 4,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        884,
+        400,
+        272,
+        107
+      ],
+      "paths": [],
+      "instruction": "Two real live-text parts, each its own element, nothing invented or left out, each staying on its required lines (one-line parts use nowrap): a 280x32 heading a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        884,
+        703,
+        293,
+        97
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "One 300x103px panel at 880,700, no fill, a 4px #111111 rule along its top edge only (no other border). Inside it, three stacked rows, each its own live-text ele"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1181,
+        64,
+        16,
+        295
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Uppercase, wide-spaced (letter-spacing 6px) vertical text (writing-mode: vertical-rl), bold (font-weight 700, NOT regular), 16px letters, the line about 303px l"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        63,
+        823,
+        162,
+        25
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A near-black (#111111) button bar with off-white (#ececec) text reading 'TICKETS CHF 120'; square corners (border-radius 0, not a pill or rounded)."
+    }
+  ],
+  "rejected": []
+}

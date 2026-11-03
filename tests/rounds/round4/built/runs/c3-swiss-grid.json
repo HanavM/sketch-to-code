@@ -1,0 +1,191 @@
+{
+  "id": "c3-swiss-grid",
+  "at": "2026-10-21T16:22:15.372Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.6456428711930456,
+    "overallV2": 0.6456428711930456,
+    "overallV1": 0.5935768651562197,
+    "colour": 0.8226079601627301,
+    "structure": 0.644233028195162,
+    "structureStrict": 0.5367511180989446,
+    "colourAligned": 0.8226079601627301,
+    "structureAligned": 0.644233028195162,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6077375916169531
+    },
+    "layout": 0.7222698566266883
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "vertical-type"
+    ],
+    "extra": [
+      "tilt"
+    ]
+  },
+  "tokens": {
+    "input": 39879,
+    "output": 29238,
+    "cacheRead": 205377
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 53202,
+      "output": 22947,
+      "cacheRead": 194822,
+      "toolCalls": 8,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 270484
+    }
+  ],
+  "reading": "A full-bleed poster design: a large two-tone circular graphic (white outer ring, near-black inner disc) anchors the right side with a huge Helvetica date overlapping its top edge; a vertical wide-spaced title runs down the left edge, a giant tight-set headline sits mid-left, a body paragraph sits below it, and a footer bar of links runs along the bottom. A typed note sets the whole page to a red background with Helvetica type and near-black text.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        524,
+        104,
+        712,
+        712
+      ],
+      "paths": [
+        "s0",
+        "s1"
+      ],
+      "instruction": "Draw a large decorative circular graphic on the right side of the poster: an outer ring rendered in white outline and a concentric inner circle filled near-blac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10"
+          ],
+          "lines": 2,
+          "fontPx": 50
+        }
+      ],
+      "region": [
+        1067,
+        76,
+        163,
+        80
+      ],
+      "paths": [],
+      "instruction": "Add huge Helvetica display text reading '14—16 05.27' (the event dates), positioned at the top-right overlapping the circular graphic."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 3,
+          "fontPx": 147
+        }
+      ],
+      "region": [
+        48,
+        373,
+        420,
+        178
+      ],
+      "paths": [],
+      "instruction": "Add a giant, tight-set Helvetica headline in white reading 'Neue Form Basel', set across two lines on the left side of the poster."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        41,
+        64,
+        17,
+        425
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add wide-letter-spaced text running vertically along the left edge reading 'INTERNATIONAL TYPE CONGRESS'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        344,
+        66,
+        252,
+        49
+      ],
+      "paths": [],
+      "instruction": "Add a body paragraph below the headline reading: 'Three days of lectures on grids, systems and the stubborn beauty of the sans-serif. Kunsthalle Basel.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        344,
+        836,
+        892,
+        21
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Add a horizontal footer bar near the bottom of the poster containing four links: Talks, Workshops, Exhibition, Tickets CHF 90."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

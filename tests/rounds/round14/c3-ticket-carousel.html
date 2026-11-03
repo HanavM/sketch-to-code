@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Ticket carousel</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(180deg,#120a2a 0 62%,#1d1240 62%);font-family:Helvetica,Arial,sans-serif;color:#f4f0ff}
+.glow{position:absolute;left:390px;top:200px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,92,170,.45),transparent 65%)}
+.scene{position:absolute;left:0;top:250px;width:1280px;height:400px;perspective:1100px}
+.ring{position:absolute;left:540px;top:40px;width:200px;height:300px;transform-style:preserve-3d;transform:rotateX(-6deg)}
+.tk{position:absolute;left:0;top:0;width:200px;height:300px;border-radius:14px;padding:18px;font-weight:800;font-size:22px;-webkit-mask:radial-gradient(circle 14px at 0 66%,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 14px at 100% 66%,transparent 98%,#000) right/51% 100% no-repeat}
+.tk small{display:block;font-size:12px;font-weight:400;margin-top:8px;opacity:.8}
+.tk:nth-child(1){background:#ff5caa;transform:rotateY(0) translateZ(330px)}
+.tk:nth-child(2){background:#7c5cff;transform:rotateY(50deg) translateZ(330px)}
+.tk:nth-child(3){background:#2ad1c9;color:#120a2a;transform:rotateY(100deg) translateZ(330px)}
+.tk:nth-child(4){background:#ffcf3f;color:#120a2a;transform:rotateY(-50deg) translateZ(330px)}
+.tk:nth-child(5){background:#ff8a3d;transform:rotateY(-100deg) translateZ(330px)}
+.floor{position:absolute;left:0;top:558px;width:1280px;height:342px;background:repeating-linear-gradient(90deg,rgba(124,92,255,.25) 0 1px,transparent 1px 80px);transform:perspective(500px) rotateX(60deg);transform-origin:50% 0}
+h1{position:absolute;left:0;top:90px;width:1280px;text-align:center;font-size:72px;font-weight:900;letter-spacing:-2px}
+h1 span{color:transparent;-webkit-text-stroke:2px #ff5caa}
+.sub{position:absolute;left:0;top:180px;width:1280px;text-align:center;font-size:16px;color:#b7acd9}
+.dots{position:absolute;left:590px;top:700px;width:100px;display:flex;justify-content:space-between}.dots i{width:10px;height:10px;border-radius:50%;background:#4b3d80}.dots i:first-child{background:#ff5caa;width:28px;border-radius:5px}
+.btn{position:absolute;left:540px;top:770px;width:200px;text-align:center;padding:16px 0;border-radius:999px;background:#f4f0ff;color:#120a2a;font-weight:800}
+.arr{position:absolute;top:430px;width:56px;height:56px;border-radius:50%;border:1px solid #4b3d80;display:flex;align-items:center;justify-content:center;font-size:22px}.l{left:120px}.r{left:1104px}
+nav{position:absolute;left:60px;top:32px;width:1160px;display:flex;justify-content:space-between;font-size:14px;color:#b7acd9}
+</style></head><body>
+<div class="glow"></div><div class="floor" data-r="grid-floor"></div>
+<nav data-r="nav"><b style="color:#fff">NIGHTSHIFT FEST</b><span>Line-up · Stages · Camping · FAQ</span></nav>
+<h1 data-r="headline" data-must>Pick your <span>night</span></h1>
+<p class="sub" data-r="subcopy">Five nights, five stages. Spin the wheel and grab a pass.</p>
+<div class="scene" data-r="ticket-ring" data-must><div class="ring"><div class="tk">FRI<small>Main stage · €49</small></div><div class="tk">SAT<small>Warehouse · €59</small></div><div class="tk">SUN<small>Garden · €39</small></div><div class="tk">THU<small>Opening · €29</small></div><div class="tk">MON<small>Closing · €35</small></div></div></div>
+<span class="arr l" data-r="prev">←</span><span class="arr r" data-r="next">→</span>
+<div class="dots" data-r="pager"><i></i><i></i><i></i><i></i></div>
+<a class="btn" data-r="cta">Get Friday pass</a>
+</body></html>

@@ -1,0 +1,847 @@
+{
+  "round": 49,
+  "id": "e5-status-page",
+  "version": 3,
+  "stopped": null,
+  "likeness": 64.3,
+  "colour": 0.9644604519025736,
+  "structure": 0.9104123714978125,
+  "layout": 0.3323554806414215,
+  "strokes": {
+    "count": 18,
+    "pointsPerStroke": 3.2,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 5,
+      "box": 9,
+      "line": 4
+    },
+    "inkPx": 18502
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 61,
+  "notes": 28,
+  "longestNote": 5,
+  "noteTexts": [
+    "Tern bold",
+    "Subscribe",
+    "All systems working bold",
+    "API",
+    "100.00%",
+    "Dashboard",
+    "99.89%",
+    "Webhooks",
+    "99.67%",
+    "Database",
+    "100.00%",
+    "Email",
+    "99.89%",
+    "Search",
+    "99.78%",
+    "each strip x60 bars",
+    "red bits are bars",
+    "Past incidents bold",
+    "Oct 28",
+    "Webhooks delayed for 40 minutes",
+    "Oct 19",
+    "Dashboard slow to load",
+    "Oct 6",
+    "Search returned old results",
+    "green, one red bar",
+    "green, one red bar",
+    "gaps between bars",
+    "outline"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 716,
+    "firstReadingS": 145,
+    "readS": [
+      64,
+      35
+    ],
+    "buildS": [
+      387,
+      118
+    ],
+    "sketchingS": 113
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 140996,
+    "cacheRead": 854563,
+    "output": 53939,
+    "billed": 194935
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f7f8fa",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 459
+    },
+    {
+      "op": "pen",
+      "color": "#222222",
+      "at": 826
+    },
+    {
+      "op": "stroke",
+      "at": 2249
+    },
+    {
+      "op": "pen",
+      "color": "#31a56d",
+      "at": 2612
+    },
+    {
+      "op": "stroke",
+      "at": 9482
+    },
+    {
+      "op": "stroke",
+      "at": 9949
+    },
+    {
+      "op": "pen",
+      "color": "#e0e3e8",
+      "at": 10312
+    },
+    {
+      "op": "stroke",
+      "at": 19387
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 19750
+    },
+    {
+      "op": "stroke",
+      "at": 20216
+    },
+    {
+      "op": "pen",
+      "color": "#31a56d",
+      "at": 20580
+    },
+    {
+      "op": "stroke",
+      "at": 26901
+    },
+    {
+      "op": "stroke",
+      "at": 33201
+    },
+    {
+      "op": "stroke",
+      "at": 39500
+    },
+    {
+      "op": "stroke",
+      "at": 45799
+    },
+    {
+      "op": "stroke",
+      "at": 52132
+    },
+    {
+      "op": "stroke",
+      "at": 58440
+    },
+    {
+      "op": "pen",
+      "color": "#e84a4f",
+      "at": 58802
+    },
+    {
+      "op": "stroke",
+      "at": 59264
+    },
+    {
+      "op": "stroke",
+      "at": 59818
+    },
+    {
+      "op": "stroke",
+      "at": 60419
+    },
+    {
+      "op": "stroke",
+      "at": 60883
+    },
+    {
+      "op": "stroke",
+      "at": 61434
+    },
+    {
+      "op": "stroke",
+      "at": 61984
+    },
+    {
+      "op": "note",
+      "at": 62618
+    },
+    {
+      "op": "note",
+      "at": 63256
+    },
+    {
+      "op": "note",
+      "at": 63954
+    },
+    {
+      "op": "note",
+      "at": 64572
+    },
+    {
+      "op": "note",
+      "at": 65222
+    },
+    {
+      "op": "note",
+      "at": 65871
+    },
+    {
+      "op": "note",
+      "at": 66505
+    },
+    {
+      "op": "note",
+      "at": 67136
+    },
+    {
+      "op": "note",
+      "at": 67766
+    },
+    {
+      "op": "note",
+      "at": 68388
+    },
+    {
+      "op": "note",
+      "at": 69041
+    },
+    {
+      "op": "note",
+      "at": 69681
+    },
+    {
+      "op": "note",
+      "at": 70306
+    },
+    {
+      "op": "note",
+      "at": 70954
+    },
+    {
+      "op": "note",
+      "at": 71595
+    },
+    {
+      "op": "note",
+      "at": 72262
+    },
+    {
+      "op": "note",
+      "at": 72966
+    },
+    {
+      "op": "note",
+      "at": 73626
+    },
+    {
+      "op": "note",
+      "at": 74259
+    },
+    {
+      "op": "note",
+      "at": 74942
+    },
+    {
+      "op": "note",
+      "at": 75576
+    },
+    {
+      "op": "note",
+      "at": 76230
+    },
+    {
+      "op": "note",
+      "at": 76852
+    },
+    {
+      "op": "note",
+      "at": 77518
+    },
+    {
+      "op": "run",
+      "at": 81102
+    },
+    {
+      "op": "note",
+      "at": 543782
+    },
+    {
+      "op": "note",
+      "at": 544401
+    },
+    {
+      "op": "note",
+      "at": 545034
+    },
+    {
+      "op": "note",
+      "at": 545641
+    },
+    {
+      "op": "run",
+      "at": 545772
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          50,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 459
+    },
+    {
+      "way": [
+        [
+          1050,
+          26
+        ],
+        [
+          1180,
+          26
+        ],
+        [
+          1180,
+          66
+        ],
+        [
+          1050,
+          66
+        ],
+        [
+          1050,
+          26
+        ]
+      ],
+      "n": 59,
+      "at": 2248
+    },
+    {
+      "way": [
+        [
+          100,
+          90
+        ],
+        [
+          1180,
+          90
+        ],
+        [
+          1180,
+          162
+        ],
+        [
+          100,
+          162
+        ],
+        [
+          100,
+          90
+        ]
+      ],
+      "n": 385,
+      "at": 9482
+    },
+    {
+      "way": [
+        [
+          800,
+          126
+        ]
+      ],
+      "n": 1,
+      "at": 9949
+    },
+    {
+      "way": [
+        [
+          100,
+          190
+        ],
+        [
+          1180,
+          190
+        ],
+        [
+          1180,
+          660
+        ],
+        [
+          100,
+          660
+        ],
+        [
+          100,
+          190
+        ]
+      ],
+      "n": 517,
+      "at": 19387
+    },
+    {
+      "way": [
+        [
+          640,
+          280
+        ]
+      ],
+      "n": 1,
+      "at": 20216
+    },
+    {
+      "way": [
+        [
+          124,
+          240
+        ],
+        [
+          1150,
+          240
+        ],
+        [
+          1150,
+          266
+        ],
+        [
+          124,
+          266
+        ],
+        [
+          124,
+          240
+        ]
+      ],
+      "n": 351,
+      "at": 26901
+    },
+    {
+      "way": [
+        [
+          124,
+          314
+        ],
+        [
+          1150,
+          314
+        ],
+        [
+          1150,
+          340
+        ],
+        [
+          124,
+          340
+        ],
+        [
+          124,
+          314
+        ]
+      ],
+      "n": 351,
+      "at": 33201
+    },
+    {
+      "way": [
+        [
+          124,
+          388
+        ],
+        [
+          1150,
+          388
+        ],
+        [
+          1150,
+          414
+        ],
+        [
+          124,
+          414
+        ],
+        [
+          124,
+          388
+        ]
+      ],
+      "n": 351,
+      "at": 39500
+    },
+    {
+      "way": [
+        [
+          124,
+          462
+        ],
+        [
+          1150,
+          462
+        ],
+        [
+          1150,
+          488
+        ],
+        [
+          124,
+          488
+        ],
+        [
+          124,
+          462
+        ]
+      ],
+      "n": 351,
+      "at": 45799
+    },
+    {
+      "way": [
+        [
+          124,
+          536
+        ],
+        [
+          1150,
+          536
+        ],
+        [
+          1150,
+          562
+        ],
+        [
+          124,
+          562
+        ],
+        [
+          124,
+          536
+        ]
+      ],
+      "n": 351,
+      "at": 52132
+    },
+    {
+      "way": [
+        [
+          124,
+          610
+        ],
+        [
+          1150,
+          610
+        ],
+        [
+          1150,
+          636
+        ],
+        [
+          124,
+          636
+        ],
+        [
+          124,
+          610
+        ]
+      ],
+      "n": 351,
+      "at": 58440
+    },
+    {
+      "way": [
+        [
+          835,
+          327
+        ]
+      ],
+      "n": 1,
+      "at": 59264
+    },
+    {
+      "way": [
+        [
+          468,
+          401
+        ],
+        [
+          497,
+          401
+        ]
+      ],
+      "n": 6,
+      "at": 59818
+    },
+    {
+      "way": [
+        [
+          640,
+          401
+        ],
+        [
+          686,
+          401
+        ]
+      ],
+      "n": 9,
+      "at": 60419
+    },
+    {
+      "way": [
+        [
+          1024,
+          549
+        ]
+      ],
+      "n": 1,
+      "at": 60883
+    },
+    {
+      "way": [
+        [
+          262,
+          623
+        ],
+        [
+          291,
+          623
+        ]
+      ],
+      "n": 6,
+      "at": 61434
+    },
+    {
+      "way": [
+        [
+          330,
+          623
+        ],
+        [
+          360,
+          623
+        ]
+      ],
+      "n": 6,
+      "at": 61984
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Tern bold",
+      "whole": false,
+      "x": 100,
+      "y": 24,
+      "at": 62618
+    },
+    {
+      "text": "Subscribe",
+      "whole": false,
+      "x": 1075,
+      "y": 25,
+      "at": 63256
+    },
+    {
+      "text": "All systems working bold",
+      "whole": false,
+      "x": 128,
+      "y": 104,
+      "at": 63954
+    },
+    {
+      "text": "API",
+      "whole": false,
+      "x": 124,
+      "y": 198,
+      "at": 64572
+    },
+    {
+      "text": "100.00%",
+      "whole": false,
+      "x": 1090,
+      "y": 198,
+      "at": 65222
+    },
+    {
+      "text": "Dashboard",
+      "whole": false,
+      "x": 124,
+      "y": 272,
+      "at": 65871
+    },
+    {
+      "text": "99.89%",
+      "whole": false,
+      "x": 1090,
+      "y": 272,
+      "at": 66505
+    },
+    {
+      "text": "Webhooks",
+      "whole": false,
+      "x": 124,
+      "y": 346,
+      "at": 67136
+    },
+    {
+      "text": "99.67%",
+      "whole": false,
+      "x": 1090,
+      "y": 346,
+      "at": 67766
+    },
+    {
+      "text": "Database",
+      "whole": false,
+      "x": 124,
+      "y": 420,
+      "at": 68388
+    },
+    {
+      "text": "100.00%",
+      "whole": false,
+      "x": 1090,
+      "y": 420,
+      "at": 69041
+    },
+    {
+      "text": "Email",
+      "whole": false,
+      "x": 124,
+      "y": 494,
+      "at": 69681
+    },
+    {
+      "text": "99.89%",
+      "whole": false,
+      "x": 1090,
+      "y": 494,
+      "at": 70306
+    },
+    {
+      "text": "Search",
+      "whole": false,
+      "x": 124,
+      "y": 568,
+      "at": 70954
+    },
+    {
+      "text": "99.78%",
+      "whole": false,
+      "x": 1090,
+      "y": 568,
+      "at": 71595
+    },
+    {
+      "text": "each strip x60 bars",
+      "whole": false,
+      "x": 500,
+      "y": 231,
+      "at": 72262
+    },
+    {
+      "text": "red bits are bars",
+      "whole": false,
+      "x": 700,
+      "y": 379,
+      "at": 72966
+    },
+    {
+      "text": "Past incidents bold",
+      "whole": false,
+      "x": 100,
+      "y": 678,
+      "at": 73626
+    },
+    {
+      "text": "Oct 28",
+      "whole": false,
+      "x": 100,
+      "y": 718,
+      "at": 74259
+    },
+    {
+      "text": "Webhooks delayed for 40 minutes",
+      "whole": false,
+      "x": 200,
+      "y": 718,
+      "at": 74942
+    },
+    {
+      "text": "Oct 19",
+      "whole": false,
+      "x": 100,
+      "y": 768,
+      "at": 75576
+    },
+    {
+      "text": "Dashboard slow to load",
+      "whole": false,
+      "x": 200,
+      "y": 768,
+      "at": 76230
+    },
+    {
+      "text": "Oct 6",
+      "whole": false,
+      "x": 100,
+      "y": 818,
+      "at": 76852
+    },
+    {
+      "text": "Search returned old results",
+      "whole": false,
+      "x": 200,
+      "y": 818,
+      "at": 77518
+    },
+    {
+      "text": "green, one red bar",
+      "whole": false,
+      "x": 850,
+      "y": 304,
+      "at": 543782
+    },
+    {
+      "text": "green, one red bar",
+      "whole": false,
+      "x": 1000,
+      "y": 527,
+      "at": 544401
+    },
+    {
+      "text": "gaps between bars",
+      "whole": false,
+      "x": 300,
+      "y": 231,
+      "at": 545034
+    },
+    {
+      "text": "outline",
+      "whole": false,
+      "x": 1060,
+      "y": 66,
+      "at": 545641
+    }
+  ]
+}

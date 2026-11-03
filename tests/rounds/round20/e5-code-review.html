@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Code review</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0d1117;font-family:Helvetica,Arial,sans-serif;color:#e6edf3;font-size:13px}
+.hd{position:absolute;left:0;top:0;width:1280px;height:96px;border-bottom:1px solid #30363d;padding:16px 24px}.hd b{font-size:22px;font-weight:400}.hd b em{color:#8b949e;font-style:normal}.hd .st{display:inline-block;margin-top:12px;padding:5px 12px;border-radius:20px;background:#238636;font-weight:700}.hd .st+span{color:#8b949e;margin-left:10px}
+.hd .ap{position:absolute;right:24px;top:30px;padding:9px 18px;border-radius:6px;background:#238636;font-weight:700}
+.tabs{position:absolute;left:0;top:96px;width:1280px;height:44px;border-bottom:1px solid #30363d;display:flex;gap:26px;padding:0 24px;align-items:center;color:#8b949e}.tabs .on{color:#e6edf3;font-weight:700;border-bottom:2px solid #f78166;padding:13px 0}.tabs i{font-style:normal;background:#30363d;border-radius:10px;padding:1px 7px;margin-left:5px;font-size:11px}
+.tree{position:absolute;left:16px;top:156px;width:240px;height:730px;color:#c9d1d9;font-size:13px}.tree div{padding:6px 8px;border-radius:6px}.tree .on{background:#1f2937}.tree em{float:right;font-style:normal;font-size:11px}.tree em b{color:#3fb950}.tree em s{color:#f85149;text-decoration:none}
+.diff{position:absolute;left:272px;top:156px;width:992px;height:730px;border:1px solid #30363d;border-radius:8px;overflow:hidden;font:12px/22px "Courier New",monospace}
+.fh{height:40px;background:#161b22;border-bottom:1px solid #30363d;padding:9px 14px;font:700 13px/22px Helvetica;display:flex;gap:12px}.fh span{margin-left:auto;color:#8b949e;font-weight:400}
+.l{display:flex;white-space:pre}.l i{width:48px;color:#6e7681;text-align:right;padding-right:10px;font-style:normal}.l.a{background:rgba(46,160,67,.15)}.l.a i{background:rgba(46,160,67,.25)}.l.d{background:rgba(248,81,73,.15)}.l.d i{background:rgba(248,81,73,.25)}.l.hh{background:#121d2f;color:#8b949e}
+.k{color:#ff7b72}.s{color:#a5d6ff}.f{color:#d2a8ff}.c{color:#8b949e}
+.cm{margin:8px 14px 8px 110px;border:1px solid #30363d;border-radius:8px;background:#161b22;font:13px/1.5 Helvetica;padding:12px 14px;white-space:normal}.cm b{margin-right:8px}.cm small{color:#8b949e}.cm p{margin:6px 0 10px}.cm .rp{height:34px;border:1px solid #30363d;border-radius:6px;background:#0d1117;padding:7px 10px;color:#8b949e}
+.sug{margin-top:8px;border:1px solid #30363d;border-radius:6px;overflow:hidden;font:12px/22px "Courier New",monospace}.sug div{padding:0 10px}.sug .t{background:#21262d;font:700 12px/26px Helvetica}
+</style></head><body>
+<div class="hd" data-r="pr-header"><b>Debounce search input <em>#482</em></b><br><span class="st">⟟ Open</span><span>ada wants to merge 3 commits into <b style="font-size:13px;color:#58a6ff">main</b> from <b style="font-size:13px;color:#58a6ff">ada/debounce</b></span><span class="ap">Review changes ▾</span></div>
+<div class="tabs" data-r="tabs"><span>Conversation<i>4</i></span><span>Commits<i>3</i></span><span>Checks<i>2</i></span><span class="on">Files changed<i>3</i></span><span style="margin-left:auto;color:#3fb950">+38</span><span style="color:#f85149;margin-left:-18px">−12</span></div>
+<div class="tree" data-r="file-tree"><div>▾ src</div><div style="padding-left:22px">▾ search</div><div class="on" style="padding-left:40px">useSearch.ts<em><b>+24</b> <s>−9</s></em></div><div style="padding-left:40px">SearchBox.tsx<em><b>+8</b> <s>−3</s></em></div><div style="padding-left:22px">▸ lib</div><div style="padding-left:40px">debounce.ts<em><b>+6</b></em></div></div>
+<div class="diff" data-r="diff" data-must><div class="fh">src/search/useSearch.ts<span>Viewed ☐</span></div>
+<div class="l hh"><i></i><i></i>@@ -12,14 +12,29 @@ export function useSearch(query: string) {</div>
+<div class="l"><i>12</i><i>12</i>  <span class="k">const</span> [results, setResults] = useState([])</div>
+<div class="l d"><i>13</i><i></i>- useEffect(() =&gt; { fetchResults(query).then(setResults) }, [query])</div>
+<div class="l a"><i></i><i>13</i>+ <span class="k">const</span> debounced = <span class="f">useDebounce</span>(query, <span class="s">250</span>)</div>
+<div class="l a"><i></i><i>14</i>+ useEffect(() =&gt; {</div>
+<div class="l a"><i></i><i>15</i>+   <span class="k">const</span> ctrl = <span class="k">new</span> <span class="f">AbortController</span>()</div>
+<div class="l a"><i></i><i>16</i>+   <span class="f">fetchResults</span>(debounced, { signal: ctrl.signal }).then(setResults)</div>
+<div class="cm" data-r="review-comment" data-must><b>leo</b><small>2 hours ago</small><p>Nice. Can we skip the fetch when <code>debounced</code> is empty? Otherwise we hit the API on clear.</p>
+<div class="sug"><div class="t">Suggested change</div><div style="background:rgba(248,81,73,.15)">-   fetchResults(debounced, { signal: ctrl.signal }).then(setResults)</div><div style="background:rgba(46,160,67,.15)">+   if (debounced) fetchResults(debounced, { signal: ctrl.signal }).then(setResults)</div></div><div class="rp" style="margin-top:10px">Reply…</div></div>
+<div class="l a"><i></i><i>17</i>+   <span class="k">return</span> () =&gt; ctrl.<span class="f">abort</span>()</div>
+<div class="l a"><i></i><i>18</i>+ }, [debounced])</div>
+<div class="l"><i>14</i><i>19</i></div>
+<div class="l"><i>15</i><i>20</i>  <span class="k">return</span> { results, loading: results === <span class="k">null</span> }</div>
+<div class="l d"><i>16</i><i></i>- <span class="c">// TODO: debounce</span></div>
+<div class="l"><i>17</i><i>21</i>}</div></div>
+</body></html>

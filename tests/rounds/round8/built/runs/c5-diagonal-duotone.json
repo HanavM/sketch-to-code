@@ -1,0 +1,183 @@
+{
+  "id": "c5-diagonal-duotone",
+  "at": "2026-10-23T06:43:53.419Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9554569689020047,
+    "overallV2": 0.9554569689020047,
+    "overallV1": 0.8916325036708808,
+    "colour": 0.9878868611112549,
+    "structure": 0.9846953359045739,
+    "structureStrict": 0.8974953913387549,
+    "colourAligned": 0.9878868611112549,
+    "structureAligned": 0.9846953359045739,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9878671332580841
+    },
+    "layout": 0.9164024274154777
+  },
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "blend",
+      "huge-type",
+      "overlap",
+      "stripes-or-layers",
+      "vertical-type"
+    ],
+    "missing": [
+      "clip-shape"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 36876,
+    "output": 21893,
+    "cacheRead": 282106
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 36284,
+      "output": 11870,
+      "cacheRead": 244195,
+      "toolCalls": 11,
+      "tools": [
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 122518
+    }
+  ],
+  "reading": "A full-page hero design: a diagonal soft-yellow cut-out background shape over a blue page, a subtle grain texture overlay on top, a giant white \"8\" numeral crossing the cut edge, a headline+subtext block top-left (\"Season eight.\"), a tickets CTA block bottom-right with an outlined \"Get notified\" button, and a near-black vertical bar at the right edge carrying \"PREMIERE NIGHT ★ 2027\" text.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        788,
+        889
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Soft yellow angled cut-out shape, ONE flat #fef08a fill (clip-path polygon, no gradient, no shading, no texture of its own); the drawn strokes are only its outl"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A fine grain texture over everything under it (1280x900px, no fill of its own, pointer-events none, on top of the colour fields but under the type): thin #00000"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        338,
+        123,
+        284,
+        447
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Colour-inverting where it crosses what is under it giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, cond"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 3,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        64,
+        60,
+        352,
+        111
+      ],
+      "paths": [],
+      "instruction": "Heading 44px bold #1d4ed8 \"Season eight.\", then 16px under it 17px #1e3a8a text \"Eight films, eight cities, one long night of premieres. Doors at seven.\"; the b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        884,
+        640,
+        332,
+        90
+      ],
+      "paths": [],
+      "instruction": "Heading 22px bold #fef08a \"Tickets on sale Friday\", then 18px under it an outlined button \"Get notified\" (137x46px, 2px solid #fef08a border, no fill, 16px bold"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1239,
+        4,
+        38,
+        893
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Vertical near-black (exactly #111111) bar along the right edge, soft yellow text \"PREMIERE NIGHT ★ 2027\" set within it."
+    }
+  ],
+  "rejected": []
+}

@@ -1,0 +1,153 @@
+{
+  "id": "e3-code-review",
+  "at": "2026-10-24T10:39:03.382Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8628904214248736,
+    "overallV2": 0.8628904214248736,
+    "overallV1": 0.8291704234617074,
+    "colour": 0.9974273918643585,
+    "structure": 0.9724645556366466,
+    "structureStrict": 0.9514088688476195,
+    "colourAligned": 0.9974273918643585,
+    "structureAligned": 0.9724645556366466,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.920072613768128
+    },
+    "layout": 0.8131313131313131
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "mono",
+      "overlap"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 48899,
+    "output": 28382,
+    "cacheRead": 381797
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 65295,
+      "output": 24568,
+      "cacheRead": 369072,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 235542
+    }
+  ],
+  "reading": "The sketch lays out a GitHub-style pull-request review page: a full-width top bar with PR title, an Open pill and merge status, a tab row underneath, a green Review-changes button, a left file-tree sidebar running the page height, a large two-column diff panel, and a comment-thread panel below it with a reply box.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        104
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top bar 110px tall across the whole page at the very top, no fill (page colour), with a 1px #d0d7de line under it. Only these parts inside it, each absolutely p"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        28,
+        86,
+        359,
+        9
+      ],
+      "paths": [],
+      "instruction": "Tab row below the top bar, 4 separate real elements with live text, each a one-line nowrap label with its count (min-width, not fixed, so the count never wraps "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1115,
+        26,
+        139,
+        28
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Green button \"Review changes ▾\" near the top-right of the header area: 143x31px, barely rounded (border-radius 6px, NOT a pill), #1f883d fill with white (#fffff"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        117,
+        114,
+        17,
+        782
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Left file-tree sidebar: a 250x790px column at 0,110 with a 1px #d0d7de rule down its right edge and 14px padding. 7 separate stacked lines (12px text, 24px line"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        273,
+        133,
+        984,
+        399
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Diff panel: one 990x405px bordered (1px #d0d7de, 6px rounded, no fill) panel at 270,130 containing a two-column unified code diff for src/pricing/cache.ts. Head"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        288,
+        358,
+        954,
+        165
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Comment thread panel below the diff: one 960x171px bordered (1px #d0d7de, 6px rounded, no fill) panel at 285,355 containing two comments and a reply box. First "
+    }
+  ],
+  "rejected": []
+}

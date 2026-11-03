@@ -1,0 +1,444 @@
+{
+  "id": "c5-paper-collage",
+  "at": "2026-10-24T19:48:56.620Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8998875124984925,
+    "overallV2": 0.8998875124984925,
+    "overallV1": 0.8655876198728135,
+    "colour": 0.9917461715597917,
+    "structure": 0.9261239655772386,
+    "structureStrict": 0.8737027335865977,
+    "colourAligned": 0.9917461715597917,
+    "structureAligned": 0.9261239655772386,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.979087067473911
+    },
+    "layout": 0.8612250883935928,
+    "layoutV1": 0.8612250883935928,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      82
+    ],
+    [
+      1,
+      64,
+      40,
+      117,
+      28
+    ],
+    [
+      1,
+      971,
+      44,
+      245,
+      20
+    ],
+    [
+      3,
+      971,
+      44,
+      47,
+      20
+    ],
+    [
+      3,
+      1025,
+      44,
+      5,
+      20
+    ],
+    [
+      3,
+      1038,
+      44,
+      23,
+      20
+    ],
+    [
+      3,
+      1069,
+      44,
+      5,
+      20
+    ],
+    [
+      3,
+      1082,
+      44,
+      63,
+      20
+    ],
+    [
+      3,
+      1153,
+      44,
+      5,
+      20
+    ],
+    [
+      3,
+      1165,
+      44,
+      51,
+      20
+    ],
+    [
+      0,
+      60,
+      120,
+      640,
+      420
+    ],
+    [
+      11,
+      60,
+      120,
+      640,
+      420
+    ],
+    [
+      12,
+      60,
+      120,
+      640,
+      420
+    ],
+    [
+      0,
+      118,
+      180,
+      504,
+      192
+    ],
+    [
+      14,
+      118,
+      180,
+      504,
+      96
+    ],
+    [
+      14,
+      118,
+      276,
+      504,
+      96
+    ],
+    [
+      0,
+      1111,
+      33,
+      127,
+      144
+    ],
+    [
+      17,
+      1147,
+      79,
+      56,
+      52
+    ],
+    [
+      0,
+      762,
+      75,
+      336,
+      389
+    ],
+    [
+      19,
+      784,
+      93,
+      296,
+      310
+    ],
+    [
+      19,
+      762,
+      374,
+      305,
+      91
+    ],
+    [
+      0,
+      109,
+      583,
+      503,
+      119
+    ],
+    [
+      22,
+      135,
+      606,
+      449,
+      74
+    ],
+    [
+      0,
+      600,
+      470,
+      250,
+      150
+    ],
+    [
+      24,
+      600,
+      470,
+      250,
+      150
+    ],
+    [
+      25,
+      610,
+      500,
+      226,
+      88
+    ],
+    [
+      25,
+      814,
+      536,
+      24,
+      26
+    ],
+    [
+      0,
+      851,
+      503,
+      297,
+      269
+    ],
+    [
+      28,
+      879,
+      530,
+      234,
+      103
+    ],
+    [
+      0,
+      121,
+      780,
+      155,
+      56
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "motion",
+      "overlap",
+      "serif",
+      "soft-shadow",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "italic"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 47993,
+    "output": 23264,
+    "cacheRead": 405335
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 57760,
+      "output": 16360,
+      "cacheRead": 402251,
+      "toolCalls": 13,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx",
+        "Glob"
+      ],
+      "ms": 161554
+    }
+  ],
+  "reading": "The sketch lays out a hero landing page: a top nav bar, a tilted stamp-like card with \"26¢\", a jagged orange cut-out behind a giant two-line headline (\"Make a mess\" / \"on purpose\"), a tilted photo card captioned \"Skye, June\", a straight text card with shop copy, a decorative curved arrow, a tilted yellow sticky-note card with workshop info, and a \"Shop the kits\" button — all styling, copy and exact geometry specified precisely by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        14
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar spanning the top of the page reading \"Field Notes Co.\" with nav links \"Journals · Kits · Workshops · Stockists\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1114,
+        37,
+        120,
+        137
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A 110x130px #4f7cac card styled like a separate sheet of paper, position absolute top-left at 1120,40 page px (before rotation), square corners, with a 6px dott"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        120,
+        640,
+        420
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Orange jagged cut-out shape with ONE flat #c8553d fill via clip-path (no gradient/shading/texture); the drawn outline is only used to derive the clip-path, neve"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 87
+        }
+      ],
+      "region": [
+        118,
+        180,
+        504,
+        192
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif tight-set headline (line-height 0.95), set in exactly 2 lines, each line whole and never re-wrapped (white-space: nowrap, ~488px wide): \"Mak"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        765,
+        79,
+        329,
+        382
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A 300x360px #ffffff card (separate sheet laid on the page), position absolute top-left at 780,90 page px (before rotation), square corners, box-shadow rgba(0,0,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        112,
+        586,
+        496,
+        113
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A 500x106px #f6efe0 card (separate sheet laid on the page), position absolute top-left at 110,590 page px (before rotation), square corners, box-shadow rgba(0,0"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        473,
+        244,
+        144
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Decorative curved arrow drawn as an inline SVG, 250x150px at page top-left 600,470 (position absolute), reproduced verbatim: <svg width=\"250\" height=\"150\" viewB"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        851,
+        509,
+        298,
+        271
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A 280x250px #fff59a sticky-note card (separate sheet laid on the page), position absolute top-left at 860,520 page px (before rotation), square corners, box-sha"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        121,
+        781,
+        151,
+        53
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A 155x56px button, barely rounded (border-radius 4px, not a pill), near-black (#2b2118) background with cream (#f6efe0) text reading \"Shop the kits\"; hard solid"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

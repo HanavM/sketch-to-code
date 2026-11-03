@@ -1,0 +1,697 @@
+{
+  "round": 38,
+  "id": "c4-dive-shop",
+  "version": 3,
+  "stopped": null,
+  "likeness": 69.8,
+  "colour": 0.8993323009894474,
+  "structure": 0.7618572711681384,
+  "layout": 0.6219634011301588,
+  "strokes": {
+    "count": 20,
+    "pointsPerStroke": 3.7,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 6,
+      "line": 8,
+      "circle": 2,
+      "box": 4
+    },
+    "inkPx": 6789
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 59,
+  "notes": 9,
+  "longestNote": 12,
+  "noteTexts": [
+    "deepblue bold",
+    "Courses Trips Gear Contact",
+    "Learn to breathe underwater, huge bold",
+    "thin bubbles",
+    "Small groups, warm water, and instructors who have logged ten thousand dives.",
+    "Book a try dive",
+    "Try dive / Half a day, no experience / $95",
+    "Open water / Three days, full licence / $420",
+    "Reef trip / Two dives, boat and lunch / $160"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 598,
+    "firstReadingS": 131,
+    "readS": [
+      70
+    ],
+    "buildS": [
+      448
+    ],
+    "sketchingS": 80
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 107672,
+    "cacheRead": 1251479,
+    "output": 46650,
+    "billed": 154322
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#38bdf8",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 461
+    },
+    {
+      "op": "pen",
+      "color": "#082f49",
+      "at": 1430
+    },
+    {
+      "op": "stroke",
+      "at": 1890
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 2863
+    },
+    {
+      "op": "stroke",
+      "at": 3580
+    },
+    {
+      "op": "note",
+      "at": 4820
+    },
+    {
+      "op": "stroke",
+      "at": 6030
+    },
+    {
+      "op": "note",
+      "at": 7305
+    },
+    {
+      "op": "stroke",
+      "at": 11231
+    },
+    {
+      "op": "note",
+      "at": 12546
+    },
+    {
+      "op": "stroke",
+      "at": 13479
+    },
+    {
+      "op": "stroke",
+      "at": 15347
+    },
+    {
+      "op": "note",
+      "at": 16613
+    },
+    {
+      "op": "pen",
+      "color": "#e0f2fe",
+      "at": 16979
+    },
+    {
+      "op": "stroke",
+      "at": 19015
+    },
+    {
+      "op": "stroke",
+      "at": 20463
+    },
+    {
+      "op": "note",
+      "at": 22132
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 22498
+    },
+    {
+      "op": "stroke",
+      "at": 24402
+    },
+    {
+      "op": "stroke",
+      "at": 25467
+    },
+    {
+      "op": "note",
+      "at": 26770
+    },
+    {
+      "op": "pen",
+      "color": "#2c6a8c",
+      "at": 27134
+    },
+    {
+      "op": "stroke",
+      "at": 30685
+    },
+    {
+      "op": "stroke",
+      "at": 31753
+    },
+    {
+      "op": "stroke",
+      "at": 35835
+    },
+    {
+      "op": "stroke",
+      "at": 36901
+    },
+    {
+      "op": "stroke",
+      "at": 41002
+    },
+    {
+      "op": "stroke",
+      "at": 42066
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 43038
+    },
+    {
+      "op": "stroke",
+      "at": 43756
+    },
+    {
+      "op": "stroke",
+      "at": 45304
+    },
+    {
+      "op": "stroke",
+      "at": 46500
+    },
+    {
+      "op": "note",
+      "at": 51374
+    },
+    {
+      "op": "note",
+      "at": 52236
+    },
+    {
+      "op": "note",
+      "at": 53143
+    },
+    {
+      "op": "run",
+      "at": 61047
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          640,
+          130
+        ]
+      ],
+      "n": 1,
+      "at": 461
+    },
+    {
+      "way": [
+        [
+          60,
+          860
+        ]
+      ],
+      "n": 1,
+      "at": 1890
+    },
+    {
+      "way": [
+        [
+          64,
+          43
+        ],
+        [
+          160,
+          43
+        ]
+      ],
+      "n": 17,
+      "at": 3580
+    },
+    {
+      "way": [
+        [
+          952,
+          44
+        ],
+        [
+          1216,
+          44
+        ]
+      ],
+      "n": 45,
+      "at": 6030
+    },
+    {
+      "way": [
+        [
+          20,
+          300
+        ],
+        [
+          1260,
+          300
+        ]
+      ],
+      "n": 208,
+      "at": 11231
+    },
+    {
+      "way": [
+        [
+          210,
+          190
+        ],
+        [
+          207,
+          203
+        ],
+        [
+          199,
+          213
+        ],
+        [
+          187,
+          219
+        ],
+        [
+          173,
+          219
+        ],
+        [
+          161,
+          213
+        ],
+        [
+          153,
+          203
+        ],
+        [
+          150,
+          190
+        ],
+        [
+          153,
+          177
+        ],
+        [
+          161,
+          167
+        ],
+        [
+          173,
+          161
+        ],
+        [
+          187,
+          161
+        ],
+        [
+          199,
+          167
+        ],
+        [
+          207,
+          177
+        ],
+        [
+          210,
+          190
+        ]
+      ],
+      "n": 29,
+      "at": 13479
+    },
+    {
+      "way": [
+        [
+          1130,
+          220
+        ],
+        [
+          1127,
+          235
+        ],
+        [
+          1118,
+          248
+        ],
+        [
+          1105,
+          257
+        ],
+        [
+          1090,
+          260
+        ],
+        [
+          1075,
+          257
+        ],
+        [
+          1062,
+          248
+        ],
+        [
+          1053,
+          235
+        ],
+        [
+          1050,
+          220
+        ],
+        [
+          1053,
+          205
+        ],
+        [
+          1062,
+          192
+        ],
+        [
+          1075,
+          183
+        ],
+        [
+          1090,
+          180
+        ],
+        [
+          1105,
+          183
+        ],
+        [
+          1118,
+          192
+        ],
+        [
+          1127,
+          205
+        ],
+        [
+          1130,
+          220
+        ]
+      ],
+      "n": 49,
+      "at": 15347
+    },
+    {
+      "way": [
+        [
+          359,
+          375
+        ],
+        [
+          921,
+          375
+        ]
+      ],
+      "n": 95,
+      "at": 19015
+    },
+    {
+      "way": [
+        [
+          570,
+          405
+        ],
+        [
+          710,
+          405
+        ]
+      ],
+      "n": 24,
+      "at": 20463
+    },
+    {
+      "way": [
+        [
+          540,
+          450
+        ],
+        [
+          740,
+          450
+        ],
+        [
+          740,
+          508
+        ],
+        [
+          540,
+          508
+        ],
+        [
+          540,
+          450
+        ]
+      ],
+      "n": 87,
+      "at": 24402
+    },
+    {
+      "way": [
+        [
+          555,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 25467
+    },
+    {
+      "way": [
+        [
+          100,
+          600
+        ],
+        [
+          440,
+          600
+        ],
+        [
+          440,
+          800
+        ],
+        [
+          100,
+          800
+        ],
+        [
+          100,
+          600
+        ]
+      ],
+      "n": 181,
+      "at": 30685
+    },
+    {
+      "way": [
+        [
+          400,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 31753
+    },
+    {
+      "way": [
+        [
+          470,
+          600
+        ],
+        [
+          810,
+          600
+        ],
+        [
+          810,
+          800
+        ],
+        [
+          470,
+          800
+        ],
+        [
+          470,
+          600
+        ]
+      ],
+      "n": 181,
+      "at": 35835
+    },
+    {
+      "way": [
+        [
+          770,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 36901
+    },
+    {
+      "way": [
+        [
+          840,
+          600
+        ],
+        [
+          1180,
+          600
+        ],
+        [
+          1180,
+          800
+        ],
+        [
+          840,
+          800
+        ],
+        [
+          840,
+          600
+        ]
+      ],
+      "n": 181,
+      "at": 41002
+    },
+    {
+      "way": [
+        [
+          1140,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 42066
+    },
+    {
+      "way": [
+        [
+          126,
+          648
+        ],
+        [
+          209,
+          648
+        ]
+      ],
+      "n": 15,
+      "at": 43756
+    },
+    {
+      "way": [
+        [
+          126,
+          680
+        ],
+        [
+          295,
+          680
+        ]
+      ],
+      "n": 29,
+      "at": 45304
+    },
+    {
+      "way": [
+        [
+          126,
+          745
+        ],
+        [
+          170,
+          745
+        ]
+      ],
+      "n": 8,
+      "at": 46500
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "deepblue bold",
+      "whole": false,
+      "x": 110,
+      "y": 33,
+      "at": 4820
+    },
+    {
+      "text": "Courses Trips Gear Contact",
+      "whole": false,
+      "x": 1080,
+      "y": 34,
+      "at": 7305
+    },
+    {
+      "text": "Learn to breathe underwater, huge bold",
+      "whole": false,
+      "x": 640,
+      "y": 285,
+      "at": 12546
+    },
+    {
+      "text": "thin bubbles",
+      "whole": false,
+      "x": 1135,
+      "y": 170,
+      "at": 16613
+    },
+    {
+      "text": "Small groups, warm water, and instructors who have logged ten thousand dives.",
+      "whole": false,
+      "x": 640,
+      "y": 362,
+      "at": 22132
+    },
+    {
+      "text": "Book a try dive",
+      "whole": false,
+      "x": 640,
+      "y": 479,
+      "at": 26770
+    },
+    {
+      "text": "Try dive / Half a day, no experience / $95",
+      "whole": false,
+      "x": 300,
+      "y": 625,
+      "at": 51374
+    },
+    {
+      "text": "Open water / Three days, full licence / $420",
+      "whole": false,
+      "x": 640,
+      "y": 700,
+      "at": 52236
+    },
+    {
+      "text": "Reef trip / Two dives, boat and lunch / $160",
+      "whole": false,
+      "x": 1010,
+      "y": 700,
+      "at": 53143
+    }
+  ]
+}

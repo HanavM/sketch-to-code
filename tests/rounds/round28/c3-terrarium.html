@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Terrarium</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(180deg,#e9efe4,#cfdcc8);font-family:Helvetica,Arial,sans-serif;color:#1f2b22}
+.nav{position:absolute;left:60px;top:32px;width:1160px;height:56px;display:flex;align-items:center;gap:28px;padding:0 24px;border-radius:999px;background:#ffffff88;backdrop-filter:blur(12px);border:1px solid #ffffffaa;font-size:14px}.nav b{margin-right:auto;font:italic 700 22px Georgia,serif}
+.globe{position:absolute;left:600px;top:130px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle at 32% 26%,#ffffffcc 0 6%,#ffffff22 18%,#ffffff00 40%),radial-gradient(circle at 50% 50%,#ffffff10 60%,#9fc2a655 100%);border:2px solid #ffffffaa;box-shadow:inset -30px -40px 80px #5d8a6a44,0 40px 60px -30px #1f2b2266;overflow:hidden}
+.soil{position:absolute;left:0;bottom:0;width:100%;height:150px;background:linear-gradient(180deg,#8a6a4a,#5a4030);border-top:10px solid #c9b48a}
+.leaf{position:absolute;width:70px;height:200px;border-radius:50% 50% 50% 50%/80% 80% 20% 20%;background:linear-gradient(90deg,#3f7a4c,#6fae6f);transform-origin:50% 100%}
+.pebble{position:absolute;bottom:120px;width:60px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 4%,#b9b3a8 30%,#7d776d)}
+.base{position:absolute;left:700px;top:676px;width:360px;height:40px;border-radius:50%;background:#1f2b2222;filter:blur(8px)}
+.h{position:absolute;left:64px;top:170px;width:520px;font:400 96px/0.98 Georgia,serif;letter-spacing:-2px}.h i{color:#3f7a4c}
+.p{position:absolute;left:66px;top:420px;width:440px;font:400 18px/1.6 Helvetica;color:#43534a}
+.cta{position:absolute;left:66px;top:520px;padding:16px 30px;border-radius:999px;background:#1f2b22;color:#e9efe4;font:700 15px Helvetica;box-shadow:0 6px 0 #0c120e}
+.card{position:absolute;padding:16px 18px;border-radius:18px;background:#ffffffb0;backdrop-filter:blur(10px);border:1px solid #fff;box-shadow:0 10px 30px #1f2b2222;font-size:13px}.card b{display:block;font-size:22px;margin-top:2px}
+.line{position:absolute;height:1px;background:#1f2b22;transform-origin:0 0}
+.dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#1f2b22}
+.kits{position:absolute;left:64px;top:640px;display:flex;gap:16px}.kits div{width:150px;height:180px;border-radius:20px;background:#ffffff99;border:1px solid #fff;padding:14px;font-size:13px}.kits i{display:block;height:100px;border-radius:14px;margin-bottom:10px}
+</style></head><body>
+<div class="nav" data-r="frosted-nav"><b>Moss &amp; Glass</b><span>Kits</span><span>Plants</span><span>Care</span><span>Cart (2)</span></div>
+<div class="base" data-r="ground-shadow"></div>
+<div class="globe" data-r="glass-globe" data-must><div class="soil"></div>
+<i class="leaf" style="left:180px;top:220px;transform:rotate(-24deg)"></i><i class="leaf" style="left:240px;top:180px;height:240px"></i><i class="leaf" style="left:300px;top:220px;transform:rotate(26deg)"></i><i class="leaf" style="left:360px;top:300px;height:140px;transform:rotate(40deg);background:linear-gradient(90deg,#7aa35a,#b5cf7a)"></i>
+<i class="pebble" style="left:120px"></i><i class="pebble" style="left:400px;width:44px"></i></div>
+<h1 class="h" data-r="headline" data-must>A small <i>forest</i> under glass</h1>
+<p class="p" data-r="copy">Hand-built closed terrariums that water themselves. Moss, fern and stone, sealed in blown glass.</p>
+<div class="cta" data-r="cta" data-must>Build your kit</div>
+<div class="card" data-r="humidity-card" style="left:1010px;top:150px"><small>Humidity</small><b>86%</b></div>
+<div class="line" style="left:920px;top:200px;width:90px"></div><div class="dot" style="left:915px;top:195px"></div>
+<div class="card" data-r="light-card" style="left:600px;top:290px"><small>Light</small><b>Indirect</b></div>
+<div class="line" style="left:700px;top:330px;width:50px;transform:rotate(40deg)"></div><div class="dot" style="left:738px;top:373px"></div>
+<div class="kits" data-r="kit-cards" data-must><div><i style="background:linear-gradient(135deg,#6fae6f,#3f7a4c)"></i>Fern dome<br><b>€48</b></div><div><i style="background:linear-gradient(135deg,#b5cf7a,#7aa35a)"></i>Moss jar<br><b>€32</b></div><div><i style="background:linear-gradient(135deg,#c9b48a,#8a6a4a)"></i>Desert bowl<br><b>€40</b></div></div>
+</body></html>

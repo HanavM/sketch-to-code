@@ -1,0 +1,566 @@
+{
+  "round": 44,
+  "id": "e5-delivery-tracker",
+  "version": 3,
+  "stopped": null,
+  "likeness": 66.5,
+  "colour": 0.9855896781979023,
+  "structure": 0.8415336139660486,
+  "layout": 0.7185059641153214,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 3.6,
+    "simpleShare": 0.93,
+    "shapes": {
+      "box": 2,
+      "dot": 2,
+      "freehand": 1,
+      "line": 5,
+      "circle": 4
+    },
+    "inkPx": 7117
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 79,
+  "notes": 10,
+  "longestNote": 17,
+  "noteTexts": [
+    "map: white streets, 2 across 2 down; thick orange route, dot at middle bend",
+    "Order #48213",
+    "Out for delivery, big bold",
+    "Arrives today, 2:40 – 3:10 pm bold",
+    "progress bar, grey rest to right edge",
+    "4 steps: Order placed, Packed (orange dots), Out for delivery (orange ring), Delivered (grey ring); dates under",
+    "Marco · your driver, bold",
+    "small dots filled in pen colours",
+    "Call",
+    "dark end dot and avatar: filled circles, avatar plain peach; grey track to right edge"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 705,
+    "firstReadingS": 171,
+    "readS": [
+      135,
+      41
+    ],
+    "buildS": [
+      447,
+      41
+    ],
+    "sketchingS": 41
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 148515,
+    "cacheRead": 1281559,
+    "output": 60432,
+    "billed": 208947
+  },
+  "events": [
+    {
+      "op": "moveBar",
+      "x": 800,
+      "y": 620,
+      "at": 0
+    },
+    {
+      "op": "pen",
+      "color": "#dfe9dc",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 9759
+    },
+    {
+      "op": "stroke",
+      "at": 10238
+    },
+    {
+      "op": "pen",
+      "color": "#ea580c",
+      "at": 10605
+    },
+    {
+      "op": "stroke",
+      "at": 14023
+    },
+    {
+      "op": "stroke",
+      "at": 15136
+    },
+    {
+      "op": "stroke",
+      "at": 16456
+    },
+    {
+      "op": "pen",
+      "color": "#16a34a",
+      "at": 16824
+    },
+    {
+      "op": "stroke",
+      "at": 17501
+    },
+    {
+      "op": "pen",
+      "color": "#1b2232",
+      "at": 17870
+    },
+    {
+      "op": "stroke",
+      "at": 18536
+    },
+    {
+      "op": "stroke",
+      "at": 19709
+    },
+    {
+      "op": "stroke",
+      "at": 20784
+    },
+    {
+      "op": "stroke",
+      "at": 21252
+    },
+    {
+      "op": "pen",
+      "color": "#6b7280",
+      "at": 21624
+    },
+    {
+      "op": "stroke",
+      "at": 22317
+    },
+    {
+      "op": "pen",
+      "color": "#d1d5db",
+      "at": 22686
+    },
+    {
+      "op": "stroke",
+      "at": 24104
+    },
+    {
+      "op": "stroke",
+      "at": 27472
+    },
+    {
+      "op": "pen",
+      "color": "#fed7aa",
+      "at": 27849
+    },
+    {
+      "op": "stroke",
+      "at": 28718
+    },
+    {
+      "op": "note",
+      "at": 29821
+    },
+    {
+      "op": "note",
+      "at": 30517
+    },
+    {
+      "op": "note",
+      "at": 31279
+    },
+    {
+      "op": "note",
+      "at": 32071
+    },
+    {
+      "op": "note",
+      "at": 32852
+    },
+    {
+      "op": "note",
+      "at": 34066
+    },
+    {
+      "op": "note",
+      "at": 34844
+    },
+    {
+      "op": "note",
+      "at": 35546
+    },
+    {
+      "op": "note",
+      "at": 36215
+    },
+    {
+      "op": "run",
+      "at": 36347
+    },
+    {
+      "op": "note",
+      "at": 621212
+    },
+    {
+      "op": "run",
+      "at": 621298
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          1,
+          1
+        ],
+        [
+          760,
+          1
+        ],
+        [
+          760,
+          898
+        ],
+        [
+          1,
+          898
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "n": 555,
+      "at": 9759
+    },
+    {
+      "way": [
+        [
+          80,
+          120
+        ]
+      ],
+      "n": 1,
+      "at": 10238
+    },
+    {
+      "way": [
+        [
+          620,
+          180
+        ],
+        [
+          620,
+          311
+        ],
+        [
+          431,
+          311
+        ],
+        [
+          431,
+          659
+        ],
+        [
+          159,
+          659
+        ],
+        [
+          159,
+          780
+        ]
+      ],
+      "n": 178,
+      "at": 14023
+    },
+    {
+      "way": [
+        [
+          800,
+          124
+        ],
+        [
+          1020,
+          124
+        ]
+      ],
+      "n": 38,
+      "at": 15136
+    },
+    {
+      "way": [
+        [
+          800,
+          163
+        ],
+        [
+          1108,
+          163
+        ]
+      ],
+      "n": 52,
+      "at": 16456
+    },
+    {
+      "way": [
+        [
+          620,
+          168
+        ],
+        [
+          632,
+          180
+        ],
+        [
+          620,
+          192
+        ],
+        [
+          608,
+          180
+        ],
+        [
+          620,
+          168
+        ]
+      ],
+      "n": 13,
+      "at": 17501
+    },
+    {
+      "way": [
+        [
+          159,
+          768
+        ],
+        [
+          171,
+          780
+        ],
+        [
+          159,
+          792
+        ],
+        [
+          147,
+          780
+        ],
+        [
+          159,
+          768
+        ]
+      ],
+      "n": 13,
+      "at": 18536
+    },
+    {
+      "way": [
+        [
+          800,
+          90
+        ],
+        [
+          1051,
+          90
+        ]
+      ],
+      "n": 43,
+      "at": 19709
+    },
+    {
+      "way": [
+        [
+          1140,
+          792
+        ],
+        [
+          1202,
+          792
+        ],
+        [
+          1219,
+          812
+        ],
+        [
+          1202,
+          832
+        ],
+        [
+          1140,
+          832
+        ],
+        [
+          1123,
+          812
+        ],
+        [
+          1140,
+          792
+        ]
+      ],
+      "n": 37,
+      "at": 20784
+    },
+    {
+      "way": [
+        [
+          1171,
+          812
+        ]
+      ],
+      "n": 1,
+      "at": 21252
+    },
+    {
+      "way": [
+        [
+          800,
+          53
+        ],
+        [
+          886,
+          53
+        ]
+      ],
+      "n": 15,
+      "at": 22317
+    },
+    {
+      "way": [
+        [
+          812,
+          215
+        ],
+        [
+          812,
+          545
+        ]
+      ],
+      "n": 56,
+      "at": 24104
+    },
+    {
+      "way": [
+        [
+          800,
+          770
+        ],
+        [
+          1240,
+          770
+        ],
+        [
+          1240,
+          854
+        ],
+        [
+          800,
+          854
+        ],
+        [
+          800,
+          770
+        ]
+      ],
+      "n": 175,
+      "at": 27472
+    },
+    {
+      "way": [
+        [
+          845,
+          788
+        ],
+        [
+          869,
+          812
+        ],
+        [
+          845,
+          836
+        ],
+        [
+          821,
+          812
+        ],
+        [
+          845,
+          788
+        ]
+      ],
+      "n": 25,
+      "at": 28718
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "map: white streets, 2 across 2 down; thick orange route, dot at middle bend",
+      "whole": false,
+      "x": 300,
+      "y": 60,
+      "at": 29821
+    },
+    {
+      "text": "Order #48213",
+      "whole": false,
+      "x": 840,
+      "y": 53,
+      "at": 30517
+    },
+    {
+      "text": "Out for delivery, big bold",
+      "whole": false,
+      "x": 920,
+      "y": 90,
+      "at": 31279
+    },
+    {
+      "text": "Arrives today, 2:40 – 3:10 pm bold",
+      "whole": false,
+      "x": 900,
+      "y": 124,
+      "at": 32071
+    },
+    {
+      "text": "progress bar, grey rest to right edge",
+      "whole": false,
+      "x": 950,
+      "y": 163,
+      "at": 32852
+    },
+    {
+      "text": "4 steps: Order placed, Packed (orange dots), Out for delivery (orange ring), Delivered (grey ring); dates under",
+      "whole": false,
+      "x": 830,
+      "y": 300,
+      "at": 34066
+    },
+    {
+      "text": "Marco · your driver, bold",
+      "whole": false,
+      "x": 950,
+      "y": 812,
+      "at": 34844
+    },
+    {
+      "text": "small dots filled in pen colours",
+      "whole": true,
+      "x": 900,
+      "y": 880,
+      "at": 35546
+    },
+    {
+      "text": "Call",
+      "whole": false,
+      "x": 1170,
+      "y": 845,
+      "at": 36215
+    },
+    {
+      "text": "dark end dot and avatar: filled circles, avatar plain peach; grey track to right edge",
+      "whole": true,
+      "x": 900,
+      "y": 880,
+      "at": 621212
+    }
+  ]
+}

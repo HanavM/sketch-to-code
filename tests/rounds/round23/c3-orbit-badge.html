@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Orbit badge</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f6f1e7;font-family:Helvetica,Arial,sans-serif;color:#1d1b16}
+@keyframes rot{to{transform:rotate(360deg)}}
+.mesh{position:absolute;left:560px;top:80px;width:660px;height:660px;border-radius:50%;background:conic-gradient(from 200deg,#ff8a5b,#ffd166,#7bdff2,#b388eb,#ff8a5b);filter:blur(2px)}
+.mesh::after{content:"";position:absolute;inset:90px;border-radius:50%;background:#f6f1e7}
+.grain{position:absolute;inset:0;background:repeating-radial-gradient(circle at 20% 30%,#0000 0 2px,#1d1b1608 2px 3px);pointer-events:none}
+.badge{position:absolute;left:770px;top:290px;width:240px;height:240px;animation:rot 20s linear infinite}
+.badge svg{width:240px;height:240px}
+.core{position:absolute;left:840px;top:360px;width:100px;height:100px;border-radius:50%;background:#1d1b16;color:#f6f1e7;display:flex;align-items:center;justify-content:center;font:700 34px Georgia,serif}
+.h{position:absolute;left:80px;top:200px;width:560px;font:400 96px/0.98 Georgia,serif;letter-spacing:-3px}.h i{color:#e2603a}
+.p{position:absolute;left:80px;top:520px;width:420px;font:400 18px/1.6 Helvetica;color:#5c574c}
+.form{position:absolute;left:80px;top:640px;width:460px;height:60px;border-radius:999px;background:#fff;box-shadow:0 8px 24px #1d1b1614;display:flex;align-items:center;padding:6px 6px 6px 24px;font:400 15px Helvetica;color:#9a9486}
+.form b{margin-left:auto;height:48px;padding:0 24px;border-radius:999px;background:#1d1b16;color:#fff;display:flex;align-items:center;font:700 14px Helvetica}
+.note{position:absolute;left:80px;top:730px;font:400 13px Helvetica;color:#9a9486}
+.nav{position:absolute;left:80px;top:44px;width:1120px;display:flex;gap:32px;font:500 15px Helvetica}.nav .l{font:italic 700 22px Georgia,serif;margin-right:auto}
+.tag{position:absolute;left:1060px;top:700px;padding:10px 16px;border-radius:12px;background:#1d1b16;color:#ffd166;font:700 13px "Courier New",monospace;transform:rotate(6deg)}
+</style></head><body>
+<div class="nav" data-r="nav"><span class="l">Orbit</span><span>Journal</span><span>Studio</span><span>Shop</span></div>
+<h1 class="h" data-r="headline" data-must>Slow news for <i>fast</i> orbits</h1>
+<p class="p" data-r="lede">A weekly letter on design, space and the long view. Read in seven minutes, kept for years.</p>
+<div class="form" data-r="signup" data-must>you@domain.com<b>Subscribe</b></div>
+<div class="note" data-r="note">12,400 readers · no spam · leave any time</div>
+<div class="mesh" data-r="ring" data-must></div>
+<div class="badge" data-r="circular-text"><svg viewBox="0 0 240 240"><defs><path id="c" d="M120,120 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0"/></defs><text font-family="Helvetica" font-weight="700" font-size="17" letter-spacing="6" fill="#1d1b16"><textPath href="#c">· WEEKLY · SINCE 2019 · ORBIT LETTER </textPath></text></svg></div>
+<div class="core" data-r="core">O</div>
+<div class="tag" data-r="issue-tag">ISSUE #312</div>
+<div class="grain" data-r="grain"></div>
+</body></html>

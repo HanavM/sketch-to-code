@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Film festival</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f1e7d0;font-family:Helvetica,Arial,sans-serif;color:#1b1b1b}
+.grain{position:absolute;left:0;top:0;width:1280px;height:900px;background-image:radial-gradient(#00000014 1px,#0000 1.4px);background-size:5px 5px}
+.strip{position:absolute;left:-80px;top:540px;width:1500px;height:200px;background:#141414;transform:rotate(-6deg);padding:30px 0}
+.strip::before,.strip::after{content:"";position:absolute;left:0;width:100%;height:14px;background:repeating-linear-gradient(90deg,#f1e7d0 0 16px,#0000 16px 34px)}
+.strip::before{top:8px}.strip::after{bottom:8px}
+.frames{display:flex;gap:16px;padding-left:130px}.frames i{width:200px;height:140px;flex:none;border-radius:4px}
+.big{position:absolute;left:60px;top:110px;font:900 170px/0.82 Impact,"Arial Narrow",sans-serif;letter-spacing:-4px;color:#e23b2e;text-shadow:6px 6px 0 #1b1b1b,12px 12px 0 #f2b632}
+.sub{position:absolute;left:66px;top:400px;font:700 22px Helvetica;letter-spacing:10px;text-transform:uppercase}
+.laurel{position:absolute;left:900px;top:110px}
+.dates{position:absolute;left:880px;top:300px;width:340px;font:900 64px/0.9 Impact,"Arial Narrow",sans-serif;text-align:right}
+.nav{position:absolute;left:60px;top:36px;width:1160px;display:flex;gap:28px;font:700 13px Helvetica;letter-spacing:2px;text-transform:uppercase;border-bottom:3px solid #1b1b1b;padding-bottom:12px}.nav b{margin-right:auto;font:900 20px Impact,sans-serif;letter-spacing:3px}
+.ticket{position:absolute;left:860px;top:745px;width:360px;height:130px;background:#f2b632;border-radius:10px;-webkit-mask:radial-gradient(circle at 250px 0,#0000 14px,#000 15px) top/100% 51% no-repeat,radial-gradient(circle at 250px 100%,#0000 14px,#000 15px) bottom/100% 51% no-repeat;padding:20px 24px;display:flex}
+.ticket div{flex:none;width:226px;border-right:2px dashed #1b1b1b}.ticket b{display:block;font:900 30px Impact,sans-serif}.ticket small{font:700 12px Helvetica;letter-spacing:2px}.ticket span{font:900 34px Impact,sans-serif;padding-left:22px;line-height:90px}
+.copy{position:absolute;left:60px;top:800px;width:420px;font:400 16px/1.55 Georgia,serif}
+.cta{position:absolute;left:520px;top:810px;padding:16px 26px;background:#1b1b1b;color:#f1e7d0;font:700 14px Helvetica;letter-spacing:3px;box-shadow:6px 6px 0 #e23b2e}
+</style></head><body>
+<div class="grain" data-r="grain"></div>
+<div class="nav" data-r="nav"><b>REEL 27</b><span>Lineup</span><span>Venues</span><span>Passes</span><span>Press</span></div>
+<h1 class="big" data-r="stacked-shadow-title" data-must>NIGHT<br>REELS</h1>
+<div class="sub" data-r="subtitle">International film week</div>
+<svg class="laurel" data-r="laurel" width="300" height="190" viewBox="0 0 300 190"><g fill="none" stroke="#1b1b1b" stroke-width="3"><path d="M90 170 Q30 120 50 30"/><path d="M210 170 Q270 120 250 30"/></g><g fill="#1b1b1b"><ellipse cx="48" cy="60" rx="8" ry="18" transform="rotate(-20 48 60)"/><ellipse cx="45" cy="100" rx="8" ry="18" transform="rotate(-40 45 100)"/><ellipse cx="62" cy="138" rx="8" ry="18" transform="rotate(-60 62 138)"/><ellipse cx="252" cy="60" rx="8" ry="18" transform="rotate(20 252 60)"/><ellipse cx="255" cy="100" rx="8" ry="18" transform="rotate(40 255 100)"/><ellipse cx="238" cy="138" rx="8" ry="18" transform="rotate(60 238 138)"/></g><text x="150" y="90" text-anchor="middle" font-family="Georgia" font-size="22" font-weight="700">OFFICIAL</text><text x="150" y="120" text-anchor="middle" font-family="Georgia" font-size="22" font-weight="700">SELECTION</text></svg>
+<div class="dates" data-r="dates" data-must>14—21<br>NOV</div>
+<div class="strip" data-r="film-strip" data-must><div class="frames"><i style="background:linear-gradient(160deg,#f2b632,#e23b2e)"></i><i style="background:linear-gradient(160deg,#3d6b8e,#141414)"></i><i style="background:linear-gradient(200deg,#e8d5b0,#8a5a3c)"></i><i style="background:linear-gradient(160deg,#6a8f5a,#1d3320)"></i><i style="background:linear-gradient(120deg,#e23b2e,#3a0a14)"></i><i style="background:linear-gradient(160deg,#c9c3b8,#4a4640)"></i></div></div>
+<p class="copy" data-r="copy">Ninety films, six cinemas, one week of late screenings. Pass holders get the midnight shorts and the director Q&amp;As.</p>
+<div class="cta" data-r="cta" data-must>GET A PASS</div>
+<div class="ticket" data-r="ticket" data-must><div><small>ADMIT ONE · ALL WEEK</small><b>FESTIVAL PASS</b><small>SEAT: ANY · ROW: ANY</small></div><span>€60</span></div>
+</body></html>

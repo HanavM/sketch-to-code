@@ -1,0 +1,189 @@
+{
+  "id": "c1-orbit-type",
+  "at": "2026-10-23T20:54:04.415Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7270656925924328,
+    "overallV2": 0.7135311239756162,
+    "overallV1": 0.5283697192076934,
+    "colour": 0.9794182861365983,
+    "structure": 0.8896707114753476,
+    "structureStrict": 0.6692463791888492,
+    "colourAligned": 0.9844432742816686,
+    "structureAligned": 0.8896707114753476,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.8956262120109308
+    },
+    "layout": 0.5388202918816081
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "italic",
+      "motion",
+      "overlap",
+      "serif"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 55174,
+    "output": 33770,
+    "cacheRead": 228668
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 63759,
+      "output": 22160,
+      "cacheRead": 187920,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 261302
+    }
+  ],
+  "reading": "A hero section sketch: a top and bottom divider line framing a nav row and a footer credit line, a two-line giant heading with 'orbit' in orange italic serif, a grey descriptive paragraph, an amber pill CTA button, and on the right a large circular graphic made of a conic-gradient ring with a bold '26 at its hollow center and a ring of spinning capital-letter copy running around its circumference, plus a global cream page background with Helvetica/near-black type.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        1152,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top nav bar, no box/border around it: bold wide-spaced \"ORBIT STUDIO\" on the left, \"WORK · INDEX · CONTACT\" on the right, sitting along this top divider line."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 89
+        }
+      ],
+      "region": [
+        68,
+        200,
+        504,
+        197
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica heavy heading, tight-set, line-height 0.88, exactly two lines \"Type in\" / \"orbit\" (keep these line breaks, never rewrap, white-space nowrap, no "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        68,
+        560,
+        372,
+        51
+      ],
+      "paths": [],
+      "instruction": "Dark grey paragraph below the heading: \"A type foundry that sets letters on curves, rings and spirals. Fourteen families, one gravity.\" Text color #4a4a4a (dark"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        66,
+        681,
+        197,
+        50
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Amber pill button labeled \"See the specimens\", with a hard solid opaque near-black shadow offset 5px down-right, no blur. Exactly: #ffb000 fill, #141414 text, 2"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 29
+        }
+      ],
+      "region": [
+        564,
+        124,
+        633,
+        632
+      ],
+      "paths": [
+        "s6",
+        "s8"
+      ],
+      "instruction": "Large circular hero graphic on the right. Outer: a 300px ring painted with one smooth conic gradient around the circle (background: conic-gradient(from 90deg, #"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        843,
+        1152,
+        21
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Bottom footer line, near-black border text: \"EST. 2011 — LISBON ORBIT/14 SCROLL ↓\"."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

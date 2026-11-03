@@ -1,0 +1,193 @@
+{
+  "id": "c3-ticket-carousel",
+  "at": "2026-10-24T00:39:23.779Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8579105830355485,
+    "overallV2": 0.8579105830355485,
+    "overallV1": 0.8533737488735331,
+    "colour": 0.9884812504355693,
+    "structure": 0.9704471048481326,
+    "structureStrict": 0.9597399386866233,
+    "colourAligned": 0.9884812504355693,
+    "structureAligned": 0.9704471048481326,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9975032416917772
+    },
+    "layout": 0.585024813403471
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "gradient",
+      "hollow-type",
+      "mask",
+      "overlap",
+      "stripes-or-layers"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 28871,
+    "output": 15231,
+    "cacheRead": 133163
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35624,
+      "output": 12121,
+      "cacheRead": 130079,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 125950
+    }
+  ],
+  "reading": "The sketch lays out a festival landing hero: a label nav bar, a bold centred heading with a hollow word, a lavender subheading, a large 3D rotating card carousel with left/right pill arrow buttons, a pagination dot/pill indicator, and a pill call-to-action button — all styling and copy details are pinned down precisely by the typed notes (colors, exact divs/transforms, and per-face text for the carousel), which take precedence over the rough ink shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        35,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Nav bar with no box around it: bold \"NIGHTSHIFT FEST\" on the left, and \"Line-up · Stages · Camping · FAQ\" on the right; nav text colour #b7acd9 (lavender, not t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 73
+        }
+      ],
+      "region": [
+        8,
+        87,
+        1152,
+        88
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy, tight-set heading \"Pick your night\" on one line (white-space: nowrap, never wrapped), about 490px wide, centred on the page (text-align ce"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        4,
+        185,
+        1272,
+        9
+      ],
+      "paths": [],
+      "instruction": "Subheading text \"Five nights, five stages. Spin the wheel and grab a pass.\" in lavender colour #b7acd9 (not the page's off-white text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        253,
+        1273,
+        394
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build a REAL CSS 3D ring (carousel) of 5 cards, not flat or projected rectangles, not a drawing or SVG: a 1280x400px scene at 0,250 with perspective:1100px; ins"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        121,
+        431,
+        53,
+        52
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Dark grey outline pill button with a \"←\" arrow, positioned at the left side of the 3D card carousel."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1106,
+        432,
+        52,
+        53
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Dark grey outline pill button with a \"→\" arrow, positioned at the right side of the 3D card carousel."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        594,
+        704,
+        92,
+        3
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Pagination indicator made of 4 real elements, exact sizes and positions (page px): a 28x10 pill at 590,700 filled #ff5caa (the active/current indicator, pill-sh"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        543,
+        772,
+        195,
+        47
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Off-white pill button, 200x50px, pill ends, with near-black text colour #120a2a (not the page's off-white text) reading \"Get Friday pass\"; fill #f4f0ff."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

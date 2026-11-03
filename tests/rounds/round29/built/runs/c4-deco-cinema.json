@@ -1,0 +1,526 @@
+{
+  "id": "c4-deco-cinema",
+  "at": "2026-10-27T12:08:15.140Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9628927489032726,
+    "overallV2": 0.9628927489032726,
+    "overallV1": 0.9480924944934532,
+    "colour": 0.9953796119514386,
+    "structure": 0.9367705380972672,
+    "structureStrict": 0.8990589062475054,
+    "colourAligned": 0.9953796119514386,
+    "structureAligned": 0.9367705380972672,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.90062420080449
+    },
+    "layout": 0.9651286213786214,
+    "layoutV1": 0.9651286213786214,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      940
+    ],
+    [
+      0,
+      340,
+      -260,
+      600,
+      1000
+    ],
+    [
+      0,
+      343,
+      1,
+      593,
+      750
+    ],
+    [
+      2,
+      344,
+      -1,
+      591,
+      537
+    ],
+    [
+      2,
+      389,
+      109,
+      502,
+      641
+    ],
+    [
+      0,
+      200,
+      120,
+      60,
+      780
+    ],
+    [
+      0,
+      1020,
+      120,
+      60,
+      780
+    ],
+    [
+      0,
+      390,
+      110,
+      500,
+      640
+    ],
+    [
+      7,
+      420,
+      140,
+      436,
+      602
+    ],
+    [
+      0,
+      343,
+      1,
+      593,
+      535
+    ],
+    [
+      9,
+      344,
+      -1,
+      591,
+      537
+    ],
+    [
+      0,
+      560,
+      150,
+      160,
+      80
+    ],
+    [
+      0,
+      390,
+      270,
+      500,
+      158
+    ],
+    [
+      12,
+      390,
+      270,
+      500,
+      79
+    ],
+    [
+      12,
+      390,
+      349,
+      500,
+      79
+    ],
+    [
+      0,
+      390,
+      480,
+      500,
+      24
+    ],
+    [
+      0,
+      540,
+      560,
+      200,
+      56
+    ],
+    [
+      0,
+      60,
+      560,
+      260,
+      140
+    ],
+    [
+      17,
+      61,
+      561,
+      258,
+      138
+    ],
+    [
+      18,
+      77,
+      577,
+      79,
+      32
+    ],
+    [
+      18,
+      77,
+      621,
+      226,
+      20
+    ],
+    [
+      18,
+      77,
+      653,
+      102,
+      30
+    ],
+    [
+      0,
+      960,
+      560,
+      260,
+      140
+    ],
+    [
+      22,
+      961,
+      561,
+      258,
+      138
+    ],
+    [
+      23,
+      977,
+      577,
+      82,
+      32
+    ],
+    [
+      23,
+      977,
+      621,
+      226,
+      20
+    ],
+    [
+      23,
+      977,
+      653,
+      102,
+      30
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      64
+    ],
+    [
+      27,
+      308,
+      21,
+      66,
+      21
+    ],
+    [
+      27,
+      430,
+      21,
+      84,
+      21
+    ],
+    [
+      27,
+      570,
+      21,
+      125,
+      21
+    ],
+    [
+      27,
+      751,
+      21,
+      103,
+      21
+    ],
+    [
+      27,
+      911,
+      21,
+      61,
+      21
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "clip-shape",
+      "gradient",
+      "gradient-text",
+      "overlap",
+      "serif",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "huge-type"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 66866,
+    "output": 37339,
+    "cacheRead": 761302
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 77925,
+      "output": 26541,
+      "cacheRead": 747312,
+      "toolCalls": 17,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/main.tsx",
+        "Edit src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Read s2c-bench-app/tsconfig.json",
+        "Glob",
+        "Read s2c-bench-app/package.json",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 305015
+    }
+  ],
+  "ease": {
+    "marks": 13,
+    "captured": 13,
+    "notes": 12,
+    "words": 988,
+    "drawMs": 70487,
+    "readingMs": 86202,
+    "runMs": 392653
+  },
+  "reading": "A cinema ('THE ODEON') landing-page hero: a top nav bar with five links, a huge dark sunburst background behind a gradient arch panel that holds a small fan-mark logo, a two-line 'THE ODEON' headline, a tagline, a 'BOOK SEATS' button, two decorative striped side strips, and two film-screening cards (Metropolis / Casablanca) flanking the hero — all dimensions, colors and CSS given precisely by the typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        1,
+        593,
+        750
+      ],
+      "paths": [
+        "s0",
+        "s5"
+      ],
+      "instruction": "A large sunburst decoration: 45 sharp straight rays fanning from one centre, alternating dark teal #1c2e28 and near-black #0f1a17, each ray 4deg wide, on a 600x"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        203,
+        124,
+        53,
+        772
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A decorative code-minimap strip: textless div, 60x780px, position absolute at 200,120. No words, not a list, not an outline panel — painted only with fine verti"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1023,
+        124,
+        54,
+        773
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A decorative code-minimap strip: textless div, 60x780px, position absolute at 1020,120. No words, not a list, not an outline panel — painted only with fine vert"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "A top navigation bar: one 1280x64px wrapper at 0,0, no fill, a 1px #c9a24a rule along its bottom edge only, 64px tall, contents vertically centred. Inside it fi"
+    },
+    {
+      "kind": "design",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 83
+        }
+      ],
+      "region": [
+        343,
+        1,
+        593,
+        535
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A dark teal-to-near-black gradient arch shape (round top, flat bottom): a plain CSS block 500x640px at 390,110, border-radius 250px 250px 0 0 (perfect half-circ"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        604,
+        154,
+        72,
+        73
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A small half-disc fan sunburst logo mark: 30 sharp straight rays fanning from one centre, alternating bright orange #c9a24a and transparent, each ray 6deg wide,"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 83
+        }
+      ],
+      "region": [
+        343,
+        1,
+        593,
+        535
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant Didot serif regular-weight headline, tight line-height 0.95, soft-yellow #f7e3a1 (top) to soft-yellow #f2d58a (bottom) gradient text reading 'THE ODEON', "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9"
+      ],
+      "textSize": [],
+      "region": [
+        343,
+        1,
+        593,
+        535
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A tagline in 16px wide-spaced letters (letter-spacing 8px), bright orange #c9a24a text reading 'PICTURE PALACE · 1931' (text colour bright orange, not the page'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        389,
+        109,
+        502,
+        641
+      ],
+      "paths": [
+        "s5",
+        "s10"
+      ],
+      "instruction": "A 'BOOK SEATS' button, 200x56px at 540,560, soft-yellow #f2d58a (top) to bright orange #b8862f (bottom) gradient fill, square corners (border-radius 0, not a pi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        563,
+        253,
+        133
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A screening card, 260x140px at top-left 60,560, solid opaque #0f1a17 fill (covers whatever is behind it), 1px solid #c9a24a border, square corners. Content: bri"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        563,
+        253,
+        134
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "A screening card, 260x140px at top-left 960,560, solid opaque #0f1a17 fill (covers whatever is behind it), 1px solid #c9a24a border, square corners. Content: br"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

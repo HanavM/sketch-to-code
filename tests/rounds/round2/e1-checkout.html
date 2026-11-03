@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Checkout</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f9fafb;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;display:flex;gap:40px;padding:48px 80px}
+.form{flex:1}h1{font-size:28px}h2{font-size:17px;margin-top:28px}
+.f{margin-top:12px}.f label{display:block;font-size:13px;color:#6b7280;margin-bottom:6px}.f div{height:44px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+.two{display:flex;gap:16px}.two .f{flex:1}
+.pay{margin-top:28px;width:100%;padding:16px;background:#4f46e5;color:#fff;border-radius:10px;text-align:center;font-weight:700;font-size:16px}
+.sum{width:400px;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:28px;height:520px}
+.item{display:flex;gap:14px;margin-top:20px;align-items:center}.item .t{width:64px;height:64px;border-radius:8px;background:#e5e7eb}.item span{flex:1;font-size:15px}
+.tot{display:flex;justify-content:space-between;border-top:1px solid #e5e7eb;margin-top:28px;padding-top:18px;font-weight:700;font-size:18px}
+</style></head><body>
+<div class="form"><h1 data-r="title" data-must>Checkout</h1>
+<h2 data-r="ship-label">Shipping address</h2>
+<div class="f" data-r="name"><label>Full name</label><div></div></div>
+<div class="f" data-r="address"><label>Street address</label><div></div></div>
+<div class="two" data-r="city-row"><div class="f"><label>City</label><div></div></div><div class="f"><label>Postcode</label><div></div></div></div>
+<h2 data-r="pay-label">Payment</h2>
+<div class="f" data-r="card"><label>Card number</label><div></div></div>
+<div class="pay" data-r="pay" data-must>Pay $128.00</div></div>
+<aside class="sum" data-r="summary" data-must><b>Order summary</b>
+<div class="item" data-r="item-1"><div class="t"></div><span>Linen shirt</span>$64</div>
+<div class="item" data-r="item-2"><div class="t"></div><span>Canvas tote</span>$32</div>
+<div class="item" data-r="item-3"><div class="t"></div><span>Wool socks</span>$32</div>
+<div class="tot" data-r="total"><span>Total</span><span>$128.00</span></div></aside>
+</body></html>

@@ -1,0 +1,402 @@
+{
+  "id": "c3-mask-reveal",
+  "at": "2026-10-25T13:57:52.166Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8994324196093586,
+    "overallV2": 0.8994324196093586,
+    "overallV1": 0.8882591706882146,
+    "colour": 0.9779473239604471,
+    "structure": 0.9590235055601908,
+    "structureStrict": 0.9403195491625641,
+    "colourAligned": 0.9779473239604471,
+    "structureAligned": 0.9590235055601908,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9828364628804691
+    },
+    "layout": 0.8705579898301417,
+    "layoutV1": 0.8705579898301417,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      960
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      68
+    ],
+    [
+      1,
+      48,
+      24,
+      93,
+      20
+    ],
+    [
+      1,
+      181,
+      24,
+      37,
+      20
+    ],
+    [
+      1,
+      257,
+      24,
+      62,
+      20
+    ],
+    [
+      1,
+      359,
+      24,
+      50,
+      20
+    ],
+    [
+      0,
+      40,
+      60,
+      722,
+      442
+    ],
+    [
+      6,
+      40,
+      60,
+      722,
+      221
+    ],
+    [
+      6,
+      40,
+      281,
+      722,
+      221
+    ],
+    [
+      0,
+      820,
+      90,
+      380,
+      380
+    ],
+    [
+      0,
+      700,
+      430,
+      300,
+      380
+    ],
+    [
+      0,
+      0,
+      560,
+      640,
+      340
+    ],
+    [
+      0,
+      52,
+      520,
+      512,
+      64
+    ],
+    [
+      0,
+      51,
+      748,
+      183,
+      45
+    ],
+    [
+      13,
+      51,
+      748,
+      183,
+      27
+    ],
+    [
+      13,
+      51,
+      785,
+      183,
+      8
+    ],
+    [
+      0,
+      1030,
+      520,
+      196,
+      62
+    ],
+    [
+      16,
+      1030,
+      522,
+      79,
+      20
+    ],
+    [
+      16,
+      1030,
+      543,
+      132,
+      20
+    ],
+    [
+      16,
+      1030,
+      564,
+      150,
+      20
+    ],
+    [
+      0,
+      1030,
+      680,
+      180,
+      150
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "mask",
+      "mono",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "uppercase-display"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 50616,
+    "output": 34017,
+    "cacheRead": 306755
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 59876,
+      "output": 19540,
+      "cacheRead": 207651,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 225191
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 7511,
+      "output": 3285,
+      "cacheRead": 96020,
+      "toolCalls": 1,
+      "tools": [
+        "Edit src/App.tsx"
+      ],
+      "ms": 37356
+    }
+  ],
+  "reading": "The sketch lays out a museum exhibition page: a top nav line, a giant two-line gradient headline \"SEE THRU\", a circular checkerboard-pattern window, an overlapping slanted color-gradient shard with a glow, a faint thin-line grid panel with an intro sentence and a \"PLAN YOUR VISIT\" heading/rule, a trio of mono-font info lines (gallery, dates, free day), and a solid orange upward triangle accent. Typed notes give exact CSS specs (sizes, positions, gradients, clip-paths) for nearly every piece, which were followed verbatim; the top nav squiggle (s0) had no accompanying note so plausible nav copy was invented for it.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        48,
+        162,
+        650,
+        17
+      ],
+      "paths": [],
+      "instruction": "Add a full-width navigation/header text line at the very top of the page where this squiggle sits (it is a text placeholder, not a decorative line); use plausib"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        48,
+        376,
+        403,
+        30
+      ],
+      "paths": [],
+      "instruction": "Add a giant heading as live text (a real text element, never an SVG path/outline/drawn shape): font-family Impact, Haettenschweiler, sans-serif, font-weight 900"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        93,
+        374,
+        374
+      ],
+      "paths": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add a perfectly round circular window (NOT a square, NOT a rounded box): a 380x380px absolutely-positioned div at 820,90, clipped with clip-path: circle(50%), f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        434,
+        294,
+        373
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a slanted four-sided shard, NOT a rectangle: a 300x380px absolutely-positioned div at 700,430, clipped with clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        563,
+        633,
+        334
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a grid-of-thin-lines panel (NOT a filled box, NOT dark, NOT a photo): a 640x340px absolutely-positioned div at 0,560 with no fill of its own, background dra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 21
+        }
+      ],
+      "region": [
+        52,
+        520,
+        512,
+        64
+      ],
+      "paths": [],
+      "instruction": "Add serif body copy positioned just above the grid-of-lines panel (these two wavy lines are a two-line text placeholder): \"An exhibition of cut-outs, windows an"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        783,
+        183,
+        28
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a 'PLAN YOUR VISIT' heading inside the grid panel area with a thick rule underneath it (the thick stroke drawn here)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 14
+        }
+      ],
+      "region": [
+        1034,
+        520,
+        192,
+        62
+      ],
+      "paths": [],
+      "instruction": "Add three real text elements with live text, each kept on one line (white-space: nowrap) with a min-width (not a fixed width) so the word and its count never wr"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1033,
+        683,
+        173,
+        143
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add a solid #ff3d00 triangle pointing up (NOT a box, NOT a rule, NOT black), built as a CSS border-triangle: a zero-size div (width 0, height 0) with border-rig"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

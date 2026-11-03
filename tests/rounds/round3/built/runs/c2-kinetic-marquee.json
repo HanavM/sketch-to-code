@@ -1,0 +1,201 @@
+{
+  "id": "c2-kinetic-marquee",
+  "at": "2026-10-21T12:06:06.591Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8416842309164272,
+    "overallV2": 0.8165484821837721,
+    "overallV1": 0.7573426487541752,
+    "colour": 0.9268019835690675,
+    "structure": 0.8695167766370081,
+    "structureStrict": 0.7621540000185849,
+    "colourAligned": 0.9268019835690675,
+    "structureAligned": 0.9150974841449919,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.9253495343528916
+    },
+    "layout": 0.8868804608596986
+  },
+  "effects": {
+    "recall": 0.8333333333333334,
+    "kept": [
+      "bleed",
+      "huge-type",
+      "motion",
+      "tilt",
+      "uppercase-display"
+    ],
+    "missing": [
+      "overlap"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 50436,
+    "output": 28107,
+    "cacheRead": 461783
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 53640,
+      "output": 19438,
+      "cacheRead": 267699,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Glob"
+      ],
+      "ms": 220098
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 14891,
+      "output": 4811,
+      "cacheRead": 184379,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 56049
+    }
+  ],
+  "reading": "This is a landing page hero: a logo mark, a pill 'Menu' button, two tilted full-bleed marquee text bands (one near-black with off-white 'MOTION DESIGN' text, one red-orange with near-black 'BRAND FILMS — TITLES — LOOPS' text), a paragraph of copy, and a near-black block containing a big pulsing red-orange circle.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        60,
+        49,
+        130,
+        8
+      ],
+      "paths": [],
+      "instruction": "Add wordmark text 'ROLL/STUDIO' as the site logo in the top-left of the header."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1146,
+        38,
+        76,
+        37
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a near-black outline pill-shaped button labeled 'Menu' in the top-right corner of the header."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 122
+        }
+      ],
+      "region": [
+        6,
+        182,
+        1204,
+        85
+      ],
+      "paths": [],
+      "instruction": "Add a tilted, full-width scrolling marquee band bleeding off both left and right page edges: near-black background with giant Helvetica heavy uppercase off-whit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 86
+        }
+      ],
+      "region": [
+        6,
+        445,
+        1204,
+        59
+      ],
+      "paths": [],
+      "instruction": "Add a second tilted, full-width scrolling marquee band bleeding off both left and right page edges: red-orange background with giant Helvetica heavy uppercase n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        64,
+        647,
+        468,
+        58
+      ],
+      "paths": [],
+      "instruction": "Add body paragraph text: 'We make things move for brands that refuse to sit still.'"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        807,
+        613,
+        414,
+        229
+      ],
+      "paths": [
+        "s6",
+        "s7"
+      ],
+      "instruction": "Add a near-black rectangular block containing a big vivid red-orange circle with a pulsing animation effect, as a decorative visual accent."
+    }
+  ],
+  "rejected": []
+}

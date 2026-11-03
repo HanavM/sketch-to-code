@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Seat picker</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4f6fa;font-family:Helvetica,Arial,sans-serif;color:#1c2333;font-size:14px}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;background:#0f2a5c;color:#fff;display:flex;align-items:center;padding:0 32px;gap:40px}.top b{font-size:20px}
+.steps{display:flex;gap:10px;margin-left:auto}.steps span{padding:8px 14px;border-radius:16px;background:rgba(255,255,255,.12);font-size:13px}.steps .on{background:#fff;color:#0f2a5c;font-weight:700}.steps .ok{background:#2fb67c}
+.pax{position:absolute;left:32px;top:90px;width:820px;display:flex;gap:8px}.pax div{padding:12px 18px;border-radius:10px;background:#fff;border:1px solid #d8dee9}.pax .on{border:2px solid #2f6fed;background:#eaf1ff}.pax small{display:block;color:#68738a;margin-top:2px}
+.plane{position:absolute;left:32px;top:170px;width:820px;height:700px;background:#fff;border-radius:200px 200px 16px 16px;border:1px solid #d8dee9;padding:70px 0 0 0}
+.leg{position:absolute;left:250px;top:24px;display:flex;gap:16px;font-size:12px;color:#68738a}.leg i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:middle}
+.grid{position:absolute;left:190px;top:80px;display:grid;grid-template-columns:repeat(3,40px) 50px repeat(3,40px);gap:8px 8px}
+.grid i{width:40px;height:40px;border-radius:8px 8px 4px 4px;background:#dbe6ff;border:1px solid #9db7f0}.grid .x{background:#e3e6ec;border-color:#e3e6ec}.grid .s{background:#2f6fed;border-color:#2f6fed}.grid .p{background:#fff1d6;border-color:#f0b54a}.grid u{text-align:center;line-height:40px;color:#9aa3b5;font-size:12px;text-decoration:none}
+.exit{position:absolute;left:150px;top:370px;width:520px;display:flex;justify-content:space-between;color:#d64545;font-size:11px;font-weight:700}
+.tip{position:absolute;left:520px;top:180px;width:220px;background:#1c2333;color:#fff;border-radius:10px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}.tip::before{content:"";position:absolute;left:-8px;top:24px;border:8px solid transparent;border-left:0;border-right-color:#1c2333}.tip b{display:block;font-size:16px;margin-bottom:4px}
+.sum{position:absolute;left:880px;top:90px;width:368px;height:780px;background:#fff;border-radius:16px;border:1px solid #d8dee9;padding:24px}
+.sum h3{font-size:18px;margin-bottom:6px}.route{display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:700;margin:16px 0 4px}.route span{font-size:13px;color:#68738a;font-weight:400}
+.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eef1f6}.row em{font-style:normal;color:#68738a}
+.tot{display:flex;justify-content:space-between;font-size:22px;font-weight:700;margin-top:20px}.btn{position:absolute;left:24px;bottom:24px;width:320px;height:52px;border-radius:12px;background:#2f6fed;color:#fff;font-weight:700;font-size:16px;text-align:center;line-height:52px}
+.warn{margin-top:18px;padding:12px;border-radius:10px;background:#fff6e5;color:#8a5a00;font-size:13px;line-height:1.4}
+</style></head><body>
+<div class="top" data-r="topbar"><b>✈ Skyward</b><span>LHR → LIS · Fri 14 Nov</span><div class="steps"><span class="ok">✓ Flights</span><span class="ok">✓ Passengers</span><span class="on">3 Seats</span><span>4 Extras</span><span>5 Pay</span></div></div>
+<div class="pax" data-r="passenger-tabs"><div class="on"><b>Hanav M.</b><small>Seat 12C · £18</small></div><div><b>Priya R.</b><small>Choose a seat</small></div><div><b>Leo M. (child)</b><small>Choose a seat</small></div></div>
+<div class="plane" data-r="seat-map" data-must><div class="leg"><span><i style="background:#dbe6ff;border:1px solid #9db7f0"></i>Free</span><span><i style="background:#fff1d6;border:1px solid #f0b54a"></i>Extra legroom £32</span><span><i style="background:#2f6fed"></i>Selected</span><span><i style="background:#e3e6ec"></i>Taken</span></div>
+<div class="grid"><u>A</u><u>B</u><u>C</u><u></u><u>D</u><u>E</u><u>F</u>
+<i class="p"></i><i class="p"></i><i class="x"></i><u>10</u><i class="p"></i><i class="x"></i><i class="p"></i>
+<i class="x"></i><i></i><i></i><u>11</u><i class="x"></i><i class="x"></i><i></i>
+<i></i><i class="x"></i><i class="s"></i><u>12</u><i></i><i></i><i class="x"></i>
+<i class="x"></i><i class="x"></i><i></i><u>13</u><i></i><i class="x"></i><i class="x"></i>
+<i></i><i></i><i class="x"></i><u>14</u><i class="x"></i><i></i><i></i>
+<i class="x"></i><i></i><i></i><u>15</u><i></i><i></i><i class="x"></i>
+<i></i><i class="x"></i><i class="x"></i><u>16</u><i class="x"></i><i></i><i></i>
+<i class="x"></i><i></i><i class="x"></i><u>17</u><i></i><i class="x"></i><i class="x"></i>
+<i></i><i></i><i></i><u>18</u><i class="x"></i><i class="x"></i><i></i>
+<i class="x"></i><i class="x"></i><i></i><u>19</u><i></i><i></i><i class="x"></i></div>
+<div class="exit"><span>◀ EXIT</span><span>EXIT ▶</span></div>
+<div class="tip"><b>12C · Aisle</b>Standard seat, near the wing. £18 for this flight.</div></div>
+<div class="sum" data-r="trip-summary" data-must><h3>Your trip</h3><div class="route">LHR<span>2h 45m · direct</span>LIS</div><div style="color:#68738a;margin-bottom:14px">Fri 14 Nov · 07:10 – 09:55</div>
+<div class="row"><span>3 × Basic fare</span><b>£276.00</b></div><div class="row"><span>Seat 12C <em>(Hanav)</em></span><b>£18.00</b></div><div class="row"><span>Seats for Priya, Leo</span><em>not chosen</em></div><div class="row"><span>Taxes &amp; fees</span><b>£92.40</b></div>
+<div class="tot"><span>Total</span><span>£386.40</span></div><div class="warn">⚠ Leo is under 12. Choose a seat next to an adult so you can sit together.</div><div class="btn">Continue to extras →</div></div>
+</body></html>

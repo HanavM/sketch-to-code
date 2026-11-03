@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Text rings</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0d1b2a;font-family:Helvetica,Arial,sans-serif;color:#f6efe1}
+.orb{position:absolute;left:530px;top:300px;width:300px;height:300px;border-radius:50%;background:conic-gradient(from 200deg,#ff6b3d,#ffd23f,#3dd6c4,#5b5bff,#ff6b3d);filter:blur(2px)}
+.orb::after{content:"";position:absolute;left:90px;top:90px;width:120px;height:120px;border-radius:50%;background:#0d1b2a}
+svg.rings{position:absolute;left:380px;top:150px;width:600px;height:600px;animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+svg text{fill:#f6efe1;font-weight:700;letter-spacing:6px}
+nav{position:absolute;left:60px;top:40px;width:1160px;display:flex;justify-content:space-between;font-size:14px;letter-spacing:2px}
+h1{position:absolute;left:60px;top:120px;font-size:96px;line-height:.9;font-weight:900;width:330px}
+h1 i{font-family:Georgia,serif;font-weight:400;color:#ffd23f}
+.idx{position:absolute;left:1000px;top:560px;width:220px;font-size:14px;line-height:2.1;border-left:2px solid #ff6b3d;padding-left:16px}
+.idx b{color:#ff6b3d;margin-right:10px;font-family:monospace}
+.date{position:absolute;left:60px;top:780px;font-family:monospace;font-size:15px}
+.btn{position:absolute;left:1000px;top:120px;width:120px;height:120px;border-radius:50%;background:#ffd23f;color:#0d1b2a;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;font-size:15px;transform:rotate(-14deg)}
+</style></head><body>
+<nav data-r="nav"><b>ORBIT FEST</b><span>Lineup · Map · Tickets · FAQ</span></nav>
+<h1 data-r="headline" data-must>Sound <i>in</i> circles</h1>
+<div class="orb" data-r="orb" data-must></div>
+<svg class="rings" data-r="text-rings" data-must viewBox="0 0 600 600"><defs><path id="o" d="M300,40 a260,260 0 1,1 -0.1,0"/><path id="m" d="M300,110 a190,190 0 1,1 -0.1,0"/></defs>
+<text font-size="34"><textPath href="#o">THREE NIGHTS · FORTY ARTISTS · ONE LAKE · THREE NIGHTS · FORTY ARTISTS ·</textPath></text>
+<text font-size="22" fill-opacity=".7"><textPath href="#m">AMBIENT · TECHNO · DUB · JAZZ · AMBIENT · TECHNO · DUB · JAZZ ·</textPath></text></svg>
+<a class="btn" data-r="sticker-cta">GET A PASS →</a>
+<div class="idx" data-r="index-list"><div><b>01</b>Friday, Shore stage</div><div><b>02</b>Saturday, Forest</div><div><b>03</b>Sunday, Dawn set</div></div>
+<div class="date" data-r="date-line">14–16 AUG 2027 · LAKE BLED</div>
+</body></html>

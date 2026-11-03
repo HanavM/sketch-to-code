@@ -1,0 +1,167 @@
+{
+  "id": "c2-masked-type",
+  "at": "2026-10-23T14:13:16.745Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8585020583999341,
+    "overallV2": 0.8585020583999341,
+    "overallV1": 0.8072766339093236,
+    "colour": 0.9879757980133449,
+    "structure": 0.9644773478128651,
+    "structureStrict": 0.8924818715760165,
+    "colourAligned": 0.9879757980133449,
+    "structureAligned": 0.9644773478128651,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9452285463935839
+    },
+    "layout": 0.6629547995112756
+  },
+  "effects": {
+    "recall": 0.8888888888888888,
+    "kept": [
+      "bleed",
+      "blur",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "mask",
+      "motion",
+      "overlap"
+    ],
+    "missing": [
+      "mono"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 37733,
+    "output": 17876,
+    "cacheRead": 195140
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 42276,
+      "output": 12457,
+      "cacheRead": 185036,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 139152
+    }
+  ],
+  "reading": "The sketch lays out a hero section: a plain top nav line, a wavy line standing in for a giant gradient \"Halo\" headline, a squarish box meant as a soft gradient arch shape, a circle meant as a spinning ring of rotating label text, and four wavy lines meant as body copy plus a pill button below it — all per the detailed typed notes, plus a run-level note describing the page's cream background and three blurred color blobs behind everything.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top nav bar, no visible box/border around it: \"halo.studio\" aligned left, \"Work · Lab · Contact\" aligned right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 331
+        }
+      ],
+      "region": [
+        48,
+        72,
+        535,
+        397
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica headline, fading out toward the bottom (solid until 55% of its height, fully gone by the bottom edge): font-family Helvetica/Arial sans-serif, f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        473,
+        313,
+        353
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "An ARCH-shaped block, 320x360px at (620,470): border-radius 200px 200px 16px 16px (rounded top, nearly square bottom — not a circle), filled with background: li"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1004,
+        424,
+        193,
+        192
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A spinning ring of small spaced capital letters reading \"BRAND · MOTION · TYPE · SPACE ·\" running around the circumference of a 200px circle; the circle itself "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 4,
+          "fontPx": 24
+        }
+      ],
+      "region": [
+        64,
+        520,
+        432,
+        147
+      ],
+      "paths": [],
+      "instruction": "A 440px-wide text block at (60,520): 22px body copy reading exactly \"We design identities that glow on screens and in rooms.\" (use this copy only, nothing inven"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

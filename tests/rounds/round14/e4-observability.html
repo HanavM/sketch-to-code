@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Observability</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0b0e14;font-family:Helvetica,Arial,sans-serif;color:#d6dbe4;font-size:13px}
+.top{position:absolute;left:0;top:0;width:1280px;height:52px;border-bottom:1px solid #1f2633;padding:16px 20px;font-weight:700;color:#fff}
+.flt{position:absolute;left:200px;top:11px;display:flex;gap:8px;font-weight:400}.flt span{padding:7px 12px;border:1px solid #2a3344;border-radius:6px;color:#9aa4b5}.flt .on{background:#1c2a44;border-color:#3d6be0;color:#fff}
+.live{position:absolute;left:1150px;top:16px;color:#3fd28b;font-weight:400}
+.kpis{position:absolute;left:20px;top:68px;width:900px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.k{height:110px;background:#121722;border:1px solid #1f2633;border-radius:8px;padding:14px;position:relative}.k span{color:#9aa4b5;font-size:12px}.k b{display:block;font-size:26px;color:#fff;margin-top:6px}.k svg{position:absolute;left:14px;bottom:10px}
+.chart{position:absolute;left:20px;top:192px;width:900px;height:300px;background:#121722;border:1px solid #1f2633;border-radius:8px;padding:14px}
+.chart h4{color:#fff;font-size:14px}.lg{position:absolute;left:640px;top:16px;display:flex;gap:14px;color:#9aa4b5;font-size:12px}.lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+.chart svg{position:absolute;left:14px;top:48px}
+.logs{position:absolute;left:20px;top:506px;width:900px;height:380px;background:#121722;border:1px solid #1f2633;border-radius:8px;overflow:hidden}
+.logs p{display:flex;gap:14px;padding:9px 14px;border-bottom:1px solid #1a2130;font-family:monospace;font-size:12px;white-space:nowrap}.logs p.h{color:#9aa4b5;font-family:Helvetica,Arial,sans-serif;background:#161c29}
+.logs .t{color:#6c778a;width:90px}.sev{width:58px;text-align:center;border-radius:4px;font-weight:700}.err{background:#4a1820;color:#ff6b7d}.wrn{background:#43350f;color:#f7c948}.inf{background:#13324a;color:#5bb8ff}
+.al{position:absolute;left:936px;top:68px;width:324px;height:818px;background:#121722;border:1px solid #1f2633;border-radius:8px;padding:14px}
+.al h4{color:#fff;margin-bottom:12px;font-size:14px}.a{border-left:3px solid;padding:10px 12px;margin-bottom:10px;background:#161c29;border-radius:0 6px 6px 0;line-height:1.45}.a b{color:#fff;display:block}.a small{color:#6c778a}
+</style></head><body>
+<div class="top" data-r="topbar">◉ Lumen<div class="flt"><span>service: checkout</span><span>env: prod</span><span class="on">Last 1h</span><span>+ Filter</span></div><span class="live">● Live</span></div>
+<div class="kpis" data-r="kpi-row" data-must>
+<div class="k"><span>Requests / s</span><b>2,481</b><svg width="180" height="28"><polyline points="0,20 20,16 40,18 60,10 80,14 100,8 120,12 140,6 160,9 180,4" fill="none" stroke="#5bb8ff" stroke-width="2"/></svg></div>
+<div class="k"><span>p95 latency</span><b>312 ms</b><svg width="180" height="28"><polyline points="0,18 20,20 40,14 60,16 80,10 100,12 120,6 140,14 160,8 180,10" fill="none" stroke="#f7c948" stroke-width="2"/></svg></div>
+<div class="k"><span>Error rate</span><b style="color:#ff6b7d">1.8%</b><svg width="180" height="28"><polyline points="0,24 20,22 40,24 60,20 80,22 100,12 120,4 140,10 160,16 180,14" fill="none" stroke="#ff6b7d" stroke-width="2"/></svg></div>
+<div class="k"><span>Apdex</span><b>0.94</b><svg width="180" height="28"><polyline points="0,8 20,8 40,6 60,8 80,10 100,14 120,18 140,12 160,10 180,8" fill="none" stroke="#3fd28b" stroke-width="2"/></svg></div></div>
+<div class="chart" data-r="area-chart" data-must><h4>Requests by status</h4><div class="lg"><span><i style="background:#3d6be0"></i>2xx</span><span><i style="background:#f7c948"></i>4xx</span><span><i style="background:#ff6b7d"></i>5xx</span></div>
+<svg width="870" height="236"><path d="M0,236 L0,90 L145,70 L290,84 L435,52 L580,66 L725,40 L870,58 L870,236Z" fill="#3d6be0" opacity=".55"/><path d="M0,236 L0,170 L145,160 L290,172 L435,150 L580,164 L725,140 L870,156 L870,236Z" fill="#f7c948" opacity=".7"/><path d="M0,236 L0,214 L145,212 L290,216 L435,196 L580,178 L725,206 L870,212 L870,236Z" fill="#ff6b7d"/><line x1="0" y1="118" x2="870" y2="118" stroke="#1f2633"/><line x1="0" y1="59" x2="870" y2="59" stroke="#1f2633"/></svg></div>
+<div class="logs" data-r="log-table" data-must><p class="h"><span class="t">TIME</span><span class="sev">LEVEL</span><span>MESSAGE</span></p>
+<p><span class="t">14:02:11.204</span><span class="sev err">ERROR</span><span>payment-svc timeout after 3000ms (order 88213)</span></p>
+<p><span class="t">14:02:10.981</span><span class="sev wrn">WARN</span><span>retrying stripe charge, attempt 2/3</span></p>
+<p><span class="t">14:02:10.512</span><span class="sev inf">INFO</span><span>POST /api/checkout 200 184ms</span></p>
+<p><span class="t">14:02:09.877</span><span class="sev inf">INFO</span><span>GET /api/cart 200 41ms</span></p>
+<p><span class="t">14:02:09.330</span><span class="sev err">ERROR</span><span>inventory lock not acquired: sku TR-3-CLAY-9</span></p>
+<p><span class="t">14:02:08.902</span><span class="sev wrn">WARN</span><span>slow query orders_by_customer 912ms</span></p>
+<p><span class="t">14:02:08.115</span><span class="sev inf">INFO</span><span>POST /api/checkout 200 203ms</span></p>
+<p><span class="t">14:02:07.640</span><span class="sev inf">INFO</span><span>cache hit ratio 0.97</span></p></div>
+<div class="al" data-r="alerts-panel"><h4>Alerts · 3 firing</h4>
+<div class="a" style="border-color:#ff6b7d"><b>Error rate &gt; 1.5%</b>checkout · prod<br><small>firing 6 min · PagerDuty</small></div>
+<div class="a" style="border-color:#f7c948"><b>p95 latency &gt; 300 ms</b>checkout · prod<br><small>firing 12 min · Slack #ops</small></div>
+<div class="a" style="border-color:#f7c948"><b>Disk 80% on db-2</b>postgres · prod<br><small>firing 40 min</small></div>
+<div class="a" style="border-color:#3fd28b"><b>Queue backlog</b>resolved 14:00<br><small>lasted 9 min</small></div></div>
+</body></html>

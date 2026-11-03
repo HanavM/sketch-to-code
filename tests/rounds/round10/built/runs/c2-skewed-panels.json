@@ -1,0 +1,221 @@
+{
+  "id": "c2-skewed-panels",
+  "at": "2026-10-23T11:44:31.243Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9009943945926064,
+    "overallV2": 0.9009943945926064,
+    "overallV1": 0.8346446514787316,
+    "colour": 0.9884041009900979,
+    "structure": 0.9624204912752284,
+    "structureStrict": 0.8863315407876344,
+    "colourAligned": 0.9884041009900979,
+    "structureAligned": 0.9624204912752284,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9471249482848197
+    },
+    "layout": 0.8013711708485373
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "blend",
+      "huge-type",
+      "mono",
+      "overlap"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 60908,
+    "output": 34226,
+    "cacheRead": 161880
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 79947,
+      "output": 28151,
+      "cacheRead": 150376,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read src/index.css",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 295552
+    }
+  ],
+  "reading": "This is a full-bleed hero page split into three diagonal gradient panels (orange→pink, cyan→dark-teal, yellow→amber) running the full page height behind a top nav, a large off-white inverting disc, three giant stacked headings (RUN / RIDE / SWIM) each with a small numbered monospace tag, and a white pill button reading 'Join the season'.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        5,
+        5,
+        515,
+        890
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a flat angled gradient background panel: linear-gradient(160deg, #ff6b35, #c1121f) exactly (these hexes, no brighter or darker), lying flat on the page with"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        400,
+        5,
+        520,
+        889
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a flat angled gradient background panel: linear-gradient(160deg, #00b4d8, #023e8a) exactly (these hexes, no brighter or darker), lying flat on the page with"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        800,
+        5,
+        475,
+        890
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a flat angled gradient background panel: linear-gradient(160deg, #ffd60a, #ff9e00) exactly (these hexes, no brighter or darker), lying flat on the page with"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        474,
+        254,
+        372,
+        372
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a perfectly round solid disc (border-radius 50%, not traced from the sketch ink), 380px across, flat fully opaque off-white (#f1f1f1) fill, hard edge, no bl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        35,
+        1176,
+        10
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a top nav bar with no box around it: wide-spaced 'TRIAD' on the left, 'RUN · RIDE · SWIM' on the right, matching the page-wide default styling (near-black p"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        195,
+        179,
+        67
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a giant Helvetica heavy, tight-set heading reading 'RUN', in white text per the page default styling. Above and left-aligned with it, 14px above, add a smal"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6"
+          ],
+          "lines": 1,
+          "fontPx": 102
+        }
+      ],
+      "region": [
+        524,
+        437,
+        195,
+        122
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy, tight-set heading reading 'RIDE', in white text per the page default styling, positioned over the gradient/disc area. Above and lef"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 106
+        }
+      ],
+      "region": [
+        964,
+        614,
+        224,
+        127
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy, tight-set heading reading 'SWIM', in near-black text (overriding the page default white text for this heading). Above and left-alig"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        761,
+        185,
+        51
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a white pill-shaped button with near-black text reading 'Join the season', positioned near the bottom of the page where sketched."
+    }
+  ],
+  "rejected": []
+}

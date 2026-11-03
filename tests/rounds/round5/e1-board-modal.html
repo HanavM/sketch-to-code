@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Board with modal</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f1f5f9;font-family:Helvetica,Arial,sans-serif;color:#0f172a}
+.top{position:absolute;left:0;top:0;width:1280px;height:60px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;padding:0 28px;gap:24px;font-size:14px}.top b{font-size:17px}
+.col{position:absolute;top:84px;width:290px;height:790px;background:#e2e8f0;border-radius:14px;padding:14px}.col h4{font-size:14px;margin-bottom:12px}
+.c1{left:28px}.c2{left:334px}.c3{left:640px}.c4{left:946px}
+.k{background:#fff;border-radius:10px;padding:12px;margin-bottom:10px;font-size:14px;height:84px}.k i{display:inline-block;padding:2px 8px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:11px;font-style:normal;margin-top:10px}
+.shade{position:absolute;inset:0;background:rgba(15,23,42,.55)}
+.modal{position:absolute;left:390px;top:150px;width:500px;height:600px;background:#fff;border-radius:16px;padding:28px;box-shadow:0 30px 60px rgba(0,0,0,.3)}
+.modal h2{font-size:22px}.x{position:absolute;right:24px;top:24px;font-size:22px;color:#64748b}
+.lbl{font-size:13px;color:#475569;margin-top:20px;margin-bottom:6px}.fld{height:42px;border:1px solid #cbd5e1;border-radius:8px;padding:11px 12px;font-size:14px}.area{height:110px}
+.pair{display:flex;gap:14px}.pair>div{flex:1}
+.acts{position:absolute;left:28px;right:28px;bottom:28px;display:flex;justify-content:flex-end;gap:10px}.acts span{padding:11px 20px;border-radius:8px;font-size:14px;border:1px solid #cbd5e1}.acts .go{background:#4f46e5;color:#fff;border-color:#4f46e5;font-weight:700}
+</style></head><body>
+<div class="top" data-r="topbar"><b>Sprint 42</b><span>Board</span><span>Backlog</span><span>Reports</span></div>
+<div class="col c1" data-r="col-todo"><h4>To do · 4</h4><div class="k">Fix login redirect<br><i>Bug</i></div><div class="k">Empty state art<br><i>Design</i></div><div class="k">Rate limits<br><i>API</i></div></div>
+<div class="col c2" data-r="col-doing"><h4>In progress · 2</h4><div class="k">Billing page<br><i>Web</i></div><div class="k">Push alerts<br><i>Mobile</i></div></div>
+<div class="col c3" data-r="col-review"><h4>Review · 3</h4><div class="k">Search index<br><i>API</i></div><div class="k">Onboarding copy<br><i>Docs</i></div></div>
+<div class="col c4" data-r="col-done"><h4>Done · 9</h4><div class="k">Dark mode<br><i>Web</i></div><div class="k">CSV export<br><i>API</i></div></div>
+<div class="shade" data-r="backdrop" data-must></div>
+<div class="modal" data-r="modal" data-must><h2>New task</h2><span class="x">×</span>
+<div class="lbl">Title</div><div class="fld">Write release notes</div>
+<div class="lbl">Description</div><div class="fld area"></div>
+<div class="pair"><div><div class="lbl">Assignee</div><div class="fld">Priya Shah</div></div><div><div class="lbl">Due</div><div class="fld">Oct 30</div></div></div>
+<div class="acts"><span>Cancel</span><span class="go">Create task</span></div></div>
+</body></html>

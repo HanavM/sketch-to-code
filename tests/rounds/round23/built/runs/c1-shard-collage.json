@@ -1,0 +1,401 @@
+{
+  "id": "c1-shard-collage",
+  "at": "2026-10-26T05:41:12.480Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.913180010241707,
+    "overallV2": 0.913180010241707,
+    "overallV1": 0.8980191573599537,
+    "colour": 0.9963616861841895,
+    "structure": 0.9699979747457592,
+    "structureStrict": 0.9481169496928491,
+    "colourAligned": 0.9963616861841895,
+    "structureAligned": 0.9699979747457592,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9977833052512121
+    },
+    "layout": 0.7936546544140713,
+    "layoutV1": 0.7936546544140713,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      120,
+      36,
+      156,
+      20
+    ],
+    [
+      0,
+      516,
+      36,
+      40,
+      20
+    ],
+    [
+      0,
+      796,
+      36,
+      62,
+      20
+    ],
+    [
+      0,
+      1098,
+      36,
+      62,
+      20
+    ],
+    [
+      0,
+      120,
+      90,
+      520,
+      560
+    ],
+    [
+      0,
+      520,
+      207,
+      420,
+      420
+    ],
+    [
+      0,
+      860,
+      60,
+      300,
+      380
+    ],
+    [
+      0,
+      180,
+      300,
+      733,
+      253
+    ],
+    [
+      8,
+      180,
+      300,
+      733,
+      126
+    ],
+    [
+      8,
+      440,
+      426,
+      473,
+      127
+    ],
+    [
+      10,
+      440,
+      407,
+      473,
+      166
+    ],
+    [
+      0,
+      52,
+      124,
+      18,
+      316
+    ],
+    [
+      0,
+      900,
+      520,
+      300,
+      17
+    ],
+    [
+      0,
+      900,
+      545,
+      300,
+      72
+    ],
+    [
+      0,
+      180,
+      760,
+      243,
+      52
+    ],
+    [
+      0,
+      968,
+      777,
+      122,
+      110
+    ],
+    [
+      0,
+      598,
+      134,
+      164,
+      68
+    ],
+    [
+      17,
+      598,
+      134,
+      164,
+      68
+    ],
+    [
+      18,
+      598,
+      134,
+      164,
+      69
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "blend",
+      "clip-shape",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "motion",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [
+      "soft-shadow",
+      "uppercase-display"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 67523,
+    "output": 35298,
+    "cacheRead": 466821
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 70450,
+      "output": 21358,
+      "cacheRead": 453150,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape.tsx",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 238383
+    }
+  ],
+  "reading": "A magazine-style hero section: a nav bar, three overlapping angled gradient/stripe cut-out shapes sitting behind a giant two-line 'CUT UP & KEPT' heading, a vertical rotated issue label, a slanted sticky-tape strip on top, a 'COLLAGE SERIES' text block with a paragraph, a dark CTA button, and a big hollow-outline '09' numeral — all specified exactly by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        124,
+        39,
+        1032,
+        9
+      ],
+      "paths": [],
+      "instruction": "Build a top navigation bar as 4 separate real-text elements, each its own element with live text, nothing invented or left out, each kept on one line (white-spa"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        120,
+        90,
+        519,
+        560
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Paint a flat angled cut-out shape with linear-gradient(160deg, #2b4c7e, #0e1a2b) exactly, no drop shadow, no border, box 520x560 at top-left 120,90, corners at "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        520,
+        220,
+        420,
+        419
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Paint a gently bobbing, ink-like (multiply blend, darkens what's under it without covering it) diagonal 45deg repeating stripe pattern: repeating-linear-gradien"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        860,
+        60,
+        300,
+        380
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Paint a soft yellow-to-amber radial glow shape: radial-gradient(circle at 30% 30%, #f7d46b, #c99a16 70%), flat, no shadow or border, box 300x380 at top-left 860"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        601,
+        137,
+        157,
+        61
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a see-through pale-yellow sticky-tape strip, #fffbe8 at 80% opacity, 160x36px, top-left at 600,150 before rotation, then transform: rotate(-12deg) around it"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        124,
+        13,
+        308
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add vertical uppercase text, writing-mode: vertical-rl, rotated 180deg so it reads bottom-to-top with its first letter at the bottom, 12px bold letters, letter-"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 115
+        }
+      ],
+      "region": [
+        188,
+        300,
+        681,
+        252
+      ],
+      "paths": [],
+      "instruction": "Add a giant Helvetica heavy uppercase heading in warm-paper color that color-inverts where it crosses what's under it, tight line-height (0.84), set in exactly "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s8",
+            "s9",
+            "s10",
+            "s11"
+          ],
+          "lines": 4,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        904,
+        520,
+        292,
+        96
+      ],
+      "paths": [],
+      "instruction": "Add a two-part text block, each its own real element with live text, nothing invented or left out, each one-line part kept on one line (white-space: nowrap) wit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        183,
+        764,
+        236,
+        45
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add a near-black (#141414) button with warm-paper (#ece6da) text reading 'VIEW THE SERIES →', square corners (border-radius 0, not a pill, not rounded), size 24"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        968,
+        777,
+        110,
+        77
+      ],
+      "paths": [
+        "s13"
+      ],
+      "instruction": "Add a giant Helvetica heavy hollow-outlined near-black numeral '09', about 110px font-size, roughly 122px wide (no larger)."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Notifications</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#111827;overflow:hidden;position:relative}
+.side{position:absolute;left:0;top:0;width:260px;height:900px;background:#f9fafb;border-right:1px solid #e5e7eb;padding:34px 28px}.side b{font-size:20px}.side p{margin-top:24px;font-size:15px;color:#6b7280}.side p.on{color:#111827;font-weight:700}
+h1{position:absolute;left:320px;top:50px;font-size:30px}.sub{position:absolute;left:320px;top:96px;font-size:15px;color:#6b7280}
+.list{position:absolute;left:320px;top:150px;width:860px}
+.row{height:86px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center}.row div{font-size:16px;font-weight:700}.row div i{display:block;font-style:normal;font-weight:400;font-size:14px;color:#6b7280;margin-top:5px}
+.tg{margin-left:auto;width:48px;height:28px;border-radius:14px;background:#d1d5db;position:relative}.tg::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff}
+.tg.on{background:#16a34a}.tg.on::after{left:23px}
+.save{position:absolute;left:1020px;top:640px;width:160px;height:48px;border-radius:8px;background:#111827;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><b data-r="logo">Settings</b><p>Profile</p><p>Account</p><p class="on">Notifications</p><p>Billing</p></div>
+<h1 data-r="title" data-must>Notifications</h1><p class="sub" data-r="subtitle">Choose what we email you about.</p>
+<div class="list" data-r="toggle-list" data-must>
+<div class="row"><div>New comments<i>When someone replies to you</i></div><span class="tg on"></span></div>
+<div class="row"><div>Mentions<i>When someone @mentions you</i></div><span class="tg on"></span></div>
+<div class="row"><div>Weekly digest<i>A summary every Monday</i></div><span class="tg"></span></div>
+<div class="row"><div>Product news<i>New features and tips</i></div><span class="tg"></span></div>
+<div class="row"><div>Security alerts<i>Sign-ins from new devices</i></div><span class="tg on"></span></div></div>
+<div class="save" data-r="save" data-must>Save</div>
+</body></html>

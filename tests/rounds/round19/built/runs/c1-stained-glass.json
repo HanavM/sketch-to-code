@@ -1,0 +1,362 @@
+{
+  "id": "c1-stained-glass",
+  "at": "2026-10-25T01:12:16.802Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.909160817739025,
+    "overallV2": 0.909160817739025,
+    "overallV1": 0.8497512758163858,
+    "colour": 0.9745143010628583,
+    "structure": 0.9414656921369198,
+    "structureStrict": 0.7893328826259792,
+    "colourAligned": 0.9745143010628583,
+    "structureAligned": 0.9414656921369198,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8787236035549368
+    },
+    "layout": 0.809130042447176,
+    "layoutV1": 0.809130042447176,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      340,
+      -260,
+      1100,
+      1100
+    ],
+    [
+      1,
+      340,
+      -260,
+      1100,
+      1100
+    ],
+    [
+      2,
+      340,
+      -202,
+      1101,
+      983
+    ],
+    [
+      1,
+      276,
+      -324,
+      1228,
+      1228
+    ],
+    [
+      0,
+      700,
+      70,
+      460,
+      760
+    ],
+    [
+      5,
+      720,
+      90,
+      460,
+      250
+    ],
+    [
+      5,
+      720,
+      340,
+      230,
+      260
+    ],
+    [
+      5,
+      950,
+      340,
+      230,
+      260
+    ],
+    [
+      5,
+      870,
+      390,
+      160,
+      160
+    ],
+    [
+      5,
+      720,
+      600,
+      460,
+      240
+    ],
+    [
+      0,
+      70,
+      44,
+      130,
+      20
+    ],
+    [
+      0,
+      285,
+      44,
+      54,
+      20
+    ],
+    [
+      0,
+      425,
+      44,
+      65,
+      20
+    ],
+    [
+      0,
+      576,
+      44,
+      54,
+      20
+    ],
+    [
+      0,
+      74,
+      200,
+      699,
+      245
+    ],
+    [
+      15,
+      74,
+      200,
+      699,
+      122
+    ],
+    [
+      16,
+      393,
+      187,
+      165,
+      148
+    ],
+    [
+      15,
+      74,
+      322,
+      699,
+      122
+    ],
+    [
+      0,
+      70,
+      560,
+      420,
+      87
+    ],
+    [
+      0,
+      72,
+      701,
+      299,
+      55
+    ],
+    [
+      0,
+      1190,
+      254,
+      18,
+      224
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "blend",
+      "blur",
+      "clip-shape",
+      "glow",
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 55015,
+    "output": 30529,
+    "cacheRead": 244605
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 58829,
+      "output": 17599,
+      "cacheRead": 202555,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/SketchShape.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 190178
+    }
+  ],
+  "reading": "This is a dark hero/landing section: a faint rotating sunburst disc behind an arch-topped glass panel built from five colored gradient panes, with a nav bar, a large italic headline with a hollow 'cut', a three-line body paragraph, a glowing pill CTA button, and a small vertical label running down the right edge of the panel. All text content, colors and exact CSS behavior are given verbatim in the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        1,
+        935,
+        835
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A faint sunburst: 30 soft straight rays fanning out from one centre, alternating soft yellow #ffd68c at 16% opacity and transparent, each ray 6deg wide (pinwhee"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        74,
+        46,
+        552,
+        9
+      ],
+      "paths": [],
+      "instruction": "Nav bar with 4 real text parts, each on one line (white-space nowrap, min-width not fixed width): 130x13 at 70,44 13px mono #cbb994 'Lumen & Lead'; 54x13 at 285"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        73,
+        454,
+        753
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "An arch-topped panel, one 460x760px block at 700,70, #1a1426 fill, 10px #2b2236 border, border-radius 230px 230px 0 0 (rounded top, straight sides, square botto"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 111
+        }
+      ],
+      "region": [
+        74,
+        200,
+        648,
+        243
+      ],
+      "paths": [],
+      "instruction": "A giant screen-blend (brightens what it overlaps) Georgia italic serif regular-weight headline, tight-set (line-height 0.92), reading 'Light, cut into colour', "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6",
+            "s7"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        74,
+        560,
+        412,
+        88
+      ],
+      "paths": [],
+      "instruction": "A 3-line, 420px-wide body paragraph, 19px Georgia, warm paper color #d9cdb5, top-left at 70,560, with the exact copy: \"Hand-leaded glass for chapels, stairwells"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        72,
+        701,
+        299,
+        55
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A soft yellow outline pill button that glows, labeled 'BOOK A STUDIO VISIT →', with its text colored #ffd36b (soft yellow, not the page's cream text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1190,
+        254,
+        14,
+        224
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "A vertical mono wide-letter-spaced label (writing-mode: vertical-rl), 12px letters, about 232px long, reading 'EST. 1987 — BRISTOL', colored #8f7f6a (grey, not "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

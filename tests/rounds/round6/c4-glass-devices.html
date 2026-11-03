@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Glass devices</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;font-family:Helvetica,Arial,sans-serif;color:#fff;background:radial-gradient(circle at 15% 20%,#22d3ee 0,transparent 35%),radial-gradient(circle at 85% 30%,#e879f9 0,transparent 40%),radial-gradient(circle at 50% 100%,#6366f1 0,transparent 50%),#1e1b4b}
+.glass{position:absolute;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:24px;backdrop-filter:blur(18px)}
+.laptop{left:420px;top:250px;width:640px;height:400px}
+.laptop i{position:absolute;left:30px;right:30px;top:30px;height:14px;border-radius:7px;background:rgba(255,255,255,.5)}
+.bars{position:absolute;left:30px;bottom:30px;display:flex;gap:16px;align-items:flex-end}.bars span{width:50px;border-radius:8px 8px 0 0;background:#fff}
+.phone{left:960px;top:330px;width:210px;height:420px;border-radius:36px;background:rgba(255,255,255,.22)}
+.phone .ring{position:absolute;left:45px;top:90px;width:120px;height:120px;border-radius:50%;border:12px solid #fff;border-right-color:transparent}
+.badge{left:330px;top:600px;width:240px;height:96px;padding:20px 24px;font-size:15px}.badge b{display:block;font-size:30px}
+.nav{position:absolute;left:60px;top:40px;right:60px;display:flex;justify-content:space-between;font-size:15px}.nav b{font-size:20px}
+h1{position:absolute;left:60px;top:110px;font-size:72px;letter-spacing:-2px;font-weight:800;line-height:1}
+.sub{position:absolute;left:60px;top:200px;width:330px;font-size:18px;line-height:1.5;color:#e0e7ff}
+.btn{position:absolute;left:60px;top:360px;padding:16px 28px;border-radius:14px;background:#fff;color:#1e1b4b;font-weight:800}
+</style></head><body>
+<div class="nav" data-r="nav"><b>Lumen</b><span>Features · Pricing · Log in</span></div>
+<h1 data-r="headline" data-must>Every screen, one glance.</h1>
+<p class="sub" data-r="sub">Live metrics on your laptop, phone and wall, synced in under a second.</p>
+<a class="btn" data-r="cta">Get Lumen</a>
+<div class="glass laptop" data-r="laptop" data-must><i></i><div class="bars"><span style="height:120px"></span><span style="height:200px"></span><span style="height:90px"></span><span style="height:260px"></span><span style="height:170px"></span><span style="height:230px"></span></div></div>
+<div class="glass phone" data-r="phone" data-must><div class="ring"></div></div>
+<div class="glass badge" data-r="badge"><b>+38%</b>sessions this week</div>
+</body></html>

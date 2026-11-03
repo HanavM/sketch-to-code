@@ -1,0 +1,389 @@
+READING (user-confirmed): This is a full dark-themed landing/dashboard page for a product called 'Prism 2': a hero area, a stat card, a progress-ring card, a quote card, a weekly-builds bar chart, a code-snippet card, and an indigo CTA section with a button, all laid out in the sketched grid.
+
+FIDELITY (set by the user for this run):
+NORMALIZE (resemblance 50%): rebuild with pristine geometry from the drawn features. Straighten, close and align what is nearly so, while keeping the measured composition.
+RESULT — SOLID: build it out of filled shapes, not outlines, in at least two values so the form reads as an object rather than a flat cut-out — a body tone and a shadow side at minimum. Use strokes only where a line is genuinely the subject.
+STYLE — MATCH THE APP: take the aesthetic from the code around it. Look at how nearby components render (stroke weights, corner radii, shadow use, how much colour they carry) and make this belong beside them.
+MUST SURVIVE (scored): left/right lopsidedness (never mirror one side onto the other); the uneven spacing and length of repeated parts; the drawn form's aspect ratio; where each part sits relative to the others.
+Styling: use the app's existing palette, stroke weights and spacing scale for CHROME — frames, borders, labels, anything that belongs to the UI. A depicted SUBJECT is not chrome: give it the colours the thing actually has (skin, hair, foliage, metal, sky), harmonised with the app rather than flattened into one of its greys. A palette is a constraint on the interface, not a reason for a face to be grey.
+
+PAGE LOOK (the user typed these about the whole page, wherever the note sits): apply them to the page itself — the outermost page wrapper / body background, filling at least the full viewport height (min-height: 100vh) behind every block — not only to the block the note was typed on. A box drawn across the top is still a nav row on that page, not a filled bar, unless a note says so. A tinted page colour (pale blue-grey, off-white, cream, warm paper) must show as that tint behind the white cards, never plain white:
+- quote: It feels like the page is reading my mind.
+
+COUNTS THE USER TYPED (exact; never pad a list, grid or table with invented extra entries):
+- "7 rising purple bars": exactly 7 bars, no more, no fewer
+
+COLOURS FROM THE INK (the user coloured these in with a picked colour, so the value is exact; use these hex values as they are, never a palette near-miss and never a paler or brighter version; a typed colour word about the same block is overruled by these):
+- the whole page (body / outermost wrapper, full viewport height, behind every block): background #0a0a0c exactly
+- action 1, the box drawn at x 779, y 39, 462x212: the block built for it is filled with #fafafa (its own background); text on it must stay readable against it
+- action 2, the outline drawn at x 779, y 269, 222x211: the block built for it is filled with #1c1c1f (its own background, in the drawn outline's shape); text on it must stay readable against it
+- action 3, the box drawn at x 1020, y 269, 221x211: the block built for it is filled with #facc15 (its own background); text on it must stay readable against it
+- action 4, the outline drawn at x 39, y 499, 472x362: the block built for it is filled with #1c1c1f (its own background, in the drawn outline's shape); text on it must stay readable against it
+- action 5, the outline drawn at x 529, y 499, 421x361: the block built for it is filled with #1c1c1f (its own background, in the drawn outline's shape); text on it must stay readable against it
+- action 6, the box drawn at x 969, y 499, 271x362: the block built for it is filled with #6366f1 (its own background); text on it must stay readable against it
+
+WHERE THE WORDS SIT (deterministic, from where the lines were drawn and the notes typed; checked on the page):
+- action 0: the note "blue and pink glows on dark" was typed at (420,120), in the upper part of the box, about 18% down drawn at (39,39) 721x442. If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y 120, not at the top or the middle of the box by default; a note that only describes the box (its colours, what it holds) has no spot.
+- action 0: "Prism 2" is typed on the level line drawn from x 68 to 322 at y 255, in the box at (39,39) 721x442, 29px in from its LEFT edge: the words are LEFT-aligned and their first letter starts at x 68 (text-align: left; never centred in the box, no mx-auto or text-center on them).
+- action 1: "2.4×" is typed on the level line drawn from x 808 to 980 at y 115, in the box at (779,39) 462x212, 29px in from its LEFT edge: the words are LEFT-aligned and their first letter starts at x 808 (text-align: left; never centred in the box, no mx-auto or text-center on them).
+- action 3: the note "quote: It feels like the page is reading my mind." was typed at (1130,330), in the upper part of the box, about 29% down drawn at (1020,269) 221x211. If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y 330, not at the top or the middle of the box by default; a note that only describes the box (its colours, what it holds) has no spot.
+- action 6: the note "Ready when you are." was typed at (1090,735), in the lower part of the box, about 65% down drawn at (969,499) 271x362. If those words are copy shown on the page (a heading, a line, a label), they sit there, at about y 735, not at the top or the middle of the box by default; a note that only describes the box (its colours, what it holds) has no spot.
+
+ACTIONS:
+[
+  {
+    "action": 0,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Large hero card/section (top-left box) containing a headline reading 'Prism 2', per typed note anchored to the short underline placeholder inside it.",
+    "region": {
+      "x": 39.17100524902344,
+      "y": 39.104923248291016,
+      "w": 721.4530792236328,
+      "h": 441.7073631286621
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s0",
+        "shape": "box",
+        "box": {
+          "x": 39,
+          "y": 39,
+          "w": 721,
+          "h": 442
+        },
+        "typed": [
+          {
+            "text": "blue and pink glows on dark",
+            "x": 420,
+            "y": 120
+          }
+        ]
+      },
+      {
+        "strokeId": "s9",
+        "shape": "line",
+        "box": {
+          "x": 68,
+          "y": 255,
+          "w": 254,
+          "h": 0
+        },
+        "from": {
+          "x": 68,
+          "y": 255
+        },
+        "to": {
+          "x": 322,
+          "y": 255
+        },
+        "words": "Prism 2"
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "blue and pink glows on dark",
+      "Prism 2"
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 1,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Stat card, top-right, with white background (#fafafa per colour fill); it shows the stat text '2.4×' per typed note, replacing the short underline placeholder.",
+    "region": {
+      "x": 779.1011352539062,
+      "y": 39.30525588989258,
+      "w": 461.72833251953125,
+      "h": 211.58195114135742
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s1",
+        "shape": "box",
+        "box": {
+          "x": 779,
+          "y": 39,
+          "w": 462,
+          "h": 212
+        }
+      },
+      {
+        "strokeId": "s10",
+        "shape": "line",
+        "box": {
+          "x": 808,
+          "y": 115,
+          "w": 172,
+          "h": 0
+        },
+        "from": {
+          "x": 808,
+          "y": 115
+        },
+        "to": {
+          "x": 980,
+          "y": 115
+        },
+        "words": "2.4×"
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "2.4×"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s1",
+        "mark": "box",
+        "paint": "background",
+        "color": "#fafafa",
+        "box": {
+          "x": 779,
+          "y": 39,
+          "w": 462,
+          "h": 212
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 2,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Card with dark background (#1c1c1f per colour fill) containing a circular progress ring at 72%, the ring coloured green, per typed note '72% green ring'.",
+    "region": {
+      "x": 779.1209106445312,
+      "y": 269.1695861816406,
+      "w": 221.62860107421875,
+      "h": 211.21426391601562
+    },
+    "svgPaths": [
+      {
+        "strokeId": "s2",
+        "d": "M 0 0 H 222 V 211 H 0 Z"
+      },
+      {
+        "strokeId": "s8",
+        "d": "M 41 105 A 70 70 0 1 0 181 105 A 70 70 0 1 0 41 105 Z"
+      }
+    ],
+    "layer": "in-flow",
+    "depicts": "progress ring",
+    "notes": [
+      "72% green ring"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s2",
+        "mark": "outline",
+        "paint": "background",
+        "color": "#1c1c1f",
+        "box": {
+          "x": 779,
+          "y": 269,
+          "w": 222,
+          "h": 211
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 3,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Quote card with yellow background (#facc15 per colour fill) displaying the quote text 'It feels like the page is reading my mind.' per typed note.",
+    "region": {
+      "x": 1019.5847778320312,
+      "y": 269.23931884765625,
+      "w": 220.65069580078125,
+      "h": 210.9576416015625
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s3",
+        "shape": "box",
+        "box": {
+          "x": 1020,
+          "y": 269,
+          "w": 221,
+          "h": 211
+        },
+        "typed": [
+          {
+            "text": "quote: It feels like the page is reading my mind.",
+            "x": 1130,
+            "y": 330
+          }
+        ]
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "quote: It feels like the page is reading my mind."
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s3",
+        "mark": "box",
+        "paint": "background",
+        "color": "#facc15",
+        "box": {
+          "x": 1020,
+          "y": 269,
+          "w": 221,
+          "h": 211
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 4,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Card with dark background (#1c1c1f per colour fill) showing a 'Weekly builds' bar chart with 7 rising purple bars, per typed note.",
+    "region": {
+      "x": 39.114627838134766,
+      "y": 499.1248779296875,
+      "w": 471.75112533569336,
+      "h": 361.62939453125
+    },
+    "svgPaths": [
+      {
+        "strokeId": "s4",
+        "d": "M 0 0 H 472 V 362 H 0 Z"
+      }
+    ],
+    "layer": "in-flow",
+    "depicts": "bar chart",
+    "notes": [
+      "Weekly builds, 7 rising purple bars"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s4",
+        "mark": "outline",
+        "paint": "background",
+        "color": "#1c1c1f",
+        "box": {
+          "x": 39,
+          "y": 499,
+          "w": 472,
+          "h": 362
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 5,
+    "kind": "add",
+    "targets": [],
+    "instruction": "Card with dark background (#1c1c1f per colour fill) containing a code snippet block, per typed note 'code snippet'.",
+    "region": {
+      "x": 529.1390380859375,
+      "y": 499.1042175292969,
+      "w": 421.40240478515625,
+      "h": 361.4260559082031
+    },
+    "svgPaths": [
+      {
+        "strokeId": "s5",
+        "d": "M 0 0 H 421 V 361 H 0 Z"
+      }
+    ],
+    "layer": "in-flow",
+    "depicts": "code snippet",
+    "notes": [
+      "code snippet"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s5",
+        "mark": "outline",
+        "paint": "background",
+        "color": "#1c1c1f",
+        "box": {
+          "x": 529,
+          "y": 499,
+          "w": 421,
+          "h": 361
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  },
+  {
+    "action": 6,
+    "kind": "add",
+    "targets": [],
+    "instruction": "CTA section with indigo background (#6366f1 per colour fill) containing the text 'Ready when you are.' per typed note, and a button inside it labelled 'Get Prism 2' per typed note.",
+    "region": {
+      "x": 969.1362915039062,
+      "y": 499.1802673339844,
+      "w": 271.48297119140625,
+      "h": 361.5856018066406
+    },
+    "shapeMarks": [
+      {
+        "strokeId": "s6",
+        "shape": "box",
+        "box": {
+          "x": 969,
+          "y": 499,
+          "w": 271,
+          "h": 362
+        },
+        "typed": [
+          {
+            "text": "Ready when you are.",
+            "x": 1090,
+            "y": 735
+          }
+        ]
+      },
+      {
+        "strokeId": "s7",
+        "shape": "box",
+        "box": {
+          "x": 997,
+          "y": 786,
+          "w": 215,
+          "h": 47
+        }
+      }
+    ],
+    "layer": "in-flow",
+    "notes": [
+      "Ready when you are.",
+      "Get Prism 2"
+    ],
+    "inkColours": [
+      {
+        "strokeId": "s6",
+        "mark": "box",
+        "paint": "background",
+        "color": "#6366f1",
+        "box": {
+          "x": 969,
+          "y": 499,
+          "w": 271,
+          "h": 362
+        },
+        "how": "tap"
+      }
+    ],
+    "needsConfirm": false
+  }
+]
+
+Implement every action now.

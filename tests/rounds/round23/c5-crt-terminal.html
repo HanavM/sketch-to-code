@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>CRT terminal</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#050805;font-family:"Courier New",monospace;color:#39ff6a}
+@keyframes blink{50%{opacity:0}}
+.screen{position:absolute;left:80px;top:60px;width:1120px;height:700px;border-radius:40px;background:radial-gradient(ellipse at center,#0d2a12,#030803 75%);box-shadow:0 0 0 14px #1a1a14,0 0 0 16px #33332a,0 0 80px #39ff6a33 inset}
+.scan{position:absolute;left:80px;top:60px;width:1120px;height:700px;border-radius:40px;background:repeating-linear-gradient(0deg,#0000 0 2px,#00000066 2px 4px);pointer-events:none}
+.ascii{position:absolute;left:150px;top:120px;font:700 14px/1.05 "Courier New",monospace;white-space:pre;text-shadow:0 0 6px #39ff6a}
+.out{position:absolute;left:150px;top:330px;width:620px;font:400 17px/1.7 "Courier New",monospace;text-shadow:0 0 5px #39ff6a99}.out .d{color:#1f8f3a}.out .w{color:#ffd23f;text-shadow:0 0 5px #ffd23f99}
+.cur{display:inline-block;width:11px;height:20px;background:#39ff6a;vertical-align:-3px;animation:blink 1s steps(1) infinite}
+.panel{position:absolute;left:820px;top:130px;width:310px;height:380px;border:2px solid #39ff6a;padding:18px;font:400 14px/1.8 "Courier New",monospace;box-shadow:0 0 12px #39ff6a55}
+.panel h3{font:700 14px "Courier New";background:#39ff6a;color:#050805;padding:2px 8px;margin:-18px -18px 14px;}
+.bar{display:block;height:12px;background:repeating-linear-gradient(90deg,#39ff6a 0 8px,#0000 8px 10px);margin:4px 0 10px}
+.menu{position:absolute;left:150px;top:640px;width:980px;display:flex;gap:28px;font:700 15px "Courier New"}.menu span:first-child{background:#39ff6a;color:#050805;padding:0 8px}
+.foot{position:absolute;left:80px;top:800px;width:1120px;display:flex;justify-content:space-between;font:400 13px "Courier New";color:#6b6b55}.foot b{color:#c33;font-weight:700}
+.knob{position:absolute;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#5a5a4a,#1a1a14);top:828px}
+</style></head><body>
+<div class="screen" data-r="screen" data-must></div>
+<pre class="ascii" data-r="ascii-logo" data-must> _   _  ___  ___  ___
+| \ | |/ _ \|   \| __|
+|  \| | (_) | |) | _|
+|_|\__|\___/|___/|___|  v2.3</pre>
+<div class="out" data-r="terminal-output" data-must><div>&gt; boot node --mesh=local</div><div class="d">[ok] 128 peers found in 0.42s</div><div class="d">[ok] ledger synced, block 884,201</div><div class="w">[!!] relay 07 slow (380ms)</div><div>&gt; deploy site --edge <span class="cur"></span></div></div>
+<div class="panel" data-r="status-panel"><h3>SYS.STATUS</h3>CPU<span class="bar" style="width:72%"></span>MEM<span class="bar" style="width:45%"></span>NET<span class="bar" style="width:88%"></span>UPTIME 41d 06h<br>TEMP 46°C</div>
+<div class="menu" data-r="menu"><span>F1 RUN</span><span>F2 PEERS</span><span>F3 LOGS</span><span>F10 QUIT</span></div>
+<div class="scan" data-r="scanlines"></div>
+<div class="foot" data-r="footer"><span>NODE-1 TERMINAL · MODEL 84</span><span><b>●</b> POWER</span></div>
+<div class="knob" style="left:1040px" data-r="knob-1"></div><div class="knob" style="left:1110px" data-r="knob-2"></div>
+</body></html>

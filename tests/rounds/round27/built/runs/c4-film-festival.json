@@ -1,0 +1,525 @@
+{
+  "id": "c4-film-festival",
+  "at": "2026-10-27T02:35:59.461Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8788115908526148,
+    "overallV2": 0.8788115908526148,
+    "overallV1": 0.8543062981299712,
+    "colour": 0.9816301776903298,
+    "structure": 0.8763456610058009,
+    "structureStrict": 0.826972452540109,
+    "colourAligned": 0.9816301776903298,
+    "structureAligned": 0.8763456610058009,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9671354149629442
+    },
+    "layout": 0.8648581794619975,
+    "layoutV1": 0.8043491297884591,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      920
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      60,
+      36,
+      102,
+      23
+    ],
+    [
+      0,
+      893,
+      36,
+      328,
+      20
+    ],
+    [
+      3,
+      893,
+      36,
+      60,
+      20
+    ],
+    [
+      3,
+      981,
+      36,
+      65,
+      20
+    ],
+    [
+      3,
+      1074,
+      36,
+      64,
+      20
+    ],
+    [
+      3,
+      1166,
+      36,
+      54,
+      20
+    ],
+    [
+      0,
+      60,
+      110,
+      547,
+      279
+    ],
+    [
+      8,
+      60,
+      110,
+      547,
+      139
+    ],
+    [
+      8,
+      60,
+      249,
+      547,
+      139
+    ],
+    [
+      0,
+      60,
+      400,
+      481,
+      27
+    ],
+    [
+      0,
+      900,
+      110,
+      300,
+      190
+    ],
+    [
+      12,
+      900,
+      111,
+      300,
+      188
+    ],
+    [
+      12,
+      1000,
+      183,
+      100,
+      22
+    ],
+    [
+      12,
+      990,
+      212,
+      120,
+      22
+    ],
+    [
+      0,
+      1052,
+      300,
+      168,
+      94
+    ],
+    [
+      16,
+      1052,
+      300,
+      168,
+      47
+    ],
+    [
+      16,
+      1052,
+      347,
+      168,
+      47
+    ],
+    [
+      0,
+      -86,
+      462,
+      1513,
+      356
+    ],
+    [
+      19,
+      46,
+      614,
+      214,
+      160
+    ],
+    [
+      19,
+      261,
+      592,
+      214,
+      160
+    ],
+    [
+      19,
+      477,
+      569,
+      214,
+      160
+    ],
+    [
+      19,
+      692,
+      546,
+      214,
+      160
+    ],
+    [
+      19,
+      905,
+      524,
+      214,
+      160
+    ],
+    [
+      19,
+      1120,
+      501,
+      214,
+      160
+    ],
+    [
+      0,
+      60,
+      800,
+      420,
+      48
+    ],
+    [
+      0,
+      524,
+      813,
+      158,
+      42
+    ],
+    [
+      0,
+      860,
+      745,
+      360,
+      130
+    ],
+    [
+      28,
+      860,
+      745,
+      226,
+      130
+    ],
+    [
+      29,
+      884,
+      765,
+      176,
+      36
+    ],
+    [
+      29,
+      884,
+      801,
+      176,
+      63
+    ],
+    [
+      29,
+      884,
+      864,
+      176,
+      18
+    ],
+    [
+      28,
+      1086,
+      745,
+      134,
+      130
+    ],
+    [
+      33,
+      1125,
+      785,
+      57,
+      51
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.6050904967353845,
+      "parts": 2,
+      "rect": {
+        "x": 60,
+        "y": 36,
+        "w": 1160.546875,
+        "h": 23
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "gradient",
+      "hard-shadow",
+      "huge-type",
+      "mask",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 79876,
+    "output": 37269,
+    "cacheRead": 694175
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 92028,
+      "output": 27098,
+      "cacheRead": 679405,
+      "toolCalls": 15,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Read components/LaurelWreath.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit components/LaurelWreath.tsx",
+        "Write src/App.tsx",
+        "Read components/LaurelWreath.tsx",
+        "Edit components/LaurelWreath.tsx",
+        "Edit components/LaurelWreath.tsx",
+        "Read components/LaurelWreath.tsx",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/index.html",
+        "Read src/main.tsx"
+      ],
+      "ms": 296096
+    }
+  ],
+  "ease": {
+    "marks": 13,
+    "captured": 13,
+    "notes": 11,
+    "words": 1080,
+    "drawMs": 71083,
+    "readingMs": 84199,
+    "runMs": 381870
+  },
+  "reading": "A full hero/landing page is sketched: a dotted background canvas, a top nav bar (REEL 27 + four links), a giant tight two-line title 'NIGHT REELS' with a misregistered red/gold print effect, a wide-spaced 'INTERNATIONAL FILM WEEK' subhead, a laurel 'OFFICIAL SELECTION' badge, a big right-aligned '14—21 NOV' date stack, a tilted strip of six colour-swatch film cards with striped edge bands, a two-line descriptive paragraph, a 'GET A PASS' button with a hard red shadow, and an admission ticket widget with a torn/notched edge showing the price.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a full-bleed 1280x900px dot-grid background canvas at 0,0, no fill of its own, with tiny #000000 dots at 8% opacity (2px across) in an even 5px x 5px grid: "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        51,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a top nav row. First a 20px font-weight 900 #1b1b1b 'REEL 27' wordmark (letter-spacing 3px, size 102x23 at 60,36), sitting at the far left. Then four nav li"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 127
+        }
+      ],
+      "region": [
+        68,
+        110,
+        492,
+        279
+      ],
+      "paths": [],
+      "instruction": "Add a giant heavy tight-set (line-height 0.82) red 'NIGHT REELS' heading in exactly 2 lines, 'NIGHT' / 'REELS' (keep breaks, each line whole, white-space nowrap"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [],
+      "region": [
+        70,
+        409,
+        529,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add an uppercase, wide-spaced (letter-spacing 10px), bold (font-weight 700) subheading reading 'INTERNATIONAL FILM WEEK', placed below the NIGHT REELS title."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        903,
+        113,
+        293,
+        183
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a laurel-wreath 'OFFICIAL SELECTION' badge graphic, 300x190px, top-left at page 900,110 (position absolute), inserted as this exact inline SVG verbatim, no "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6",
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7"
+          ],
+          "lines": 2,
+          "fontPx": 52
+        }
+      ],
+      "region": [
+        888,
+        300,
+        306,
+        115
+      ],
+      "paths": [],
+      "instruction": "Add a huge heavy tight-set (line-height 0.9) date heading '14—21 NOV' in exactly 2 lines, '14—21' / 'NOV' (keep breaks, each line whole, white-space nowrap, ~20"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1,
+        465,
+        1277,
+        350
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add a tilted film-strip panel: one 1500x200px panel, position absolute, top-left at -80,540 before rotation, transform rotate(-6deg) (6° anticlockwise, children"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10"
+          ],
+          "lines": 2,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        64,
+        800,
+        412,
+        50
+      ],
+      "paths": [],
+      "instruction": "Add a 2-line, 420px wide paragraph of 16px Georgia near-black (#1b1b1b) copy, top-left at 60,800, with this exact quoted text: \"Ninety films, six cinemas, one w"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        523,
+        813,
+        158,
+        41
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Add a 'GET A PASS' button: near-black (#1b1b1b) block with warm paper (#f1e7d0) text, square corners (border-radius 0, not a pill), and a hard solid opaque red "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        863,
+        748,
+        353,
+        123
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add one 360x130px #f2b632 admission ticket widget at 860,745 (position absolute, not rotated), 10px rounded corners, display flex with two parts side by side: a"
+    }
+  ],
+  "rejected": []
+}

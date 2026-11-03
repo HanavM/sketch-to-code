@@ -1,0 +1,162 @@
+{
+ "c1-text-rings": {
+  "found": {
+   "huge-type": 2,
+   "serif": 1,
+   "italic": 1,
+   "blur": 1,
+   "gradient": 1,
+   "motion": 1,
+   "tilt": 1,
+   "mono": 4,
+   "overlap": 4
+  },
+  "names": [
+   "blur",
+   "gradient",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "tilt"
+  ]
+ },
+ "c2-misregister": {
+  "found": {
+   "stripes-or-layers": 1,
+   "blend": 3,
+   "huge-type": 3,
+   "serif": 1,
+   "tilt": 1,
+   "mono": 3,
+   "overlap": 3
+  },
+  "names": [
+   "blend",
+   "huge-type",
+   "mono",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c3-folded-paper": {
+  "found": {
+   "serif": 1,
+   "italic": 1,
+   "3d": 6,
+   "gradient": 5,
+   "huge-type": 5,
+   "overlap": 30
+  },
+  "names": [
+   "3d",
+   "gradient",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif"
+  ]
+ },
+ "c4-extruded-blob": {
+  "found": {
+   "hard-shadow": 5,
+   "huge-type": 1,
+   "clip-shape": 1,
+   "overlap": 1
+  },
+  "names": [
+   "clip-shape",
+   "hard-shadow",
+   "huge-type",
+   "overlap"
+  ]
+ },
+ "c5-contour-poster": {
+  "found": {
+   "vertical-type": 1,
+   "huge-type": 1,
+   "mono": 4,
+   "stripes-or-layers": 2,
+   "tilt": 1,
+   "serif": 1,
+   "italic": 1,
+   "overlap": 4
+  },
+  "names": [
+   "huge-type",
+   "italic",
+   "mono",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "e1-notebook": {
+  "found": {
+   "mono": 12,
+   "hard-shadow": 1
+  },
+  "names": [
+   "hard-shadow",
+   "mono"
+  ]
+ },
+ "e2-email-builder": {
+  "found": {
+   "gradient": 7,
+   "soft-shadow": 1
+  },
+  "names": [
+   "gradient",
+   "soft-shadow"
+  ]
+ },
+ "e3-hotel-search": {
+  "found": {
+   "gradient": 3,
+   "stripes-or-layers": 1,
+   "soft-shadow": 1,
+   "overlap": 43
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e4-bank-transfer": {
+  "found": {
+   "gradient": 1,
+   "stripes-or-layers": 1,
+   "soft-shadow": 1,
+   "overlap": 26
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e5-issue-palette": {
+  "found": {
+   "mono": 7,
+   "soft-shadow": 1,
+   "hard-shadow": 1,
+   "overlap": 21
+  },
+  "names": [
+   "hard-shadow",
+   "mono",
+   "overlap",
+   "soft-shadow"
+  ]
+ }
+}

@@ -104,10 +104,20 @@ export function contractFor(mode: RunMode): string {
  */
 export const PRIVATE_STATE_DENY = ['Read(./.sketch2code/**)', 'Edit(./.sketch2code/**)'] as const
 
-/** The codegen agent's tool permissions; exported so tests can assert them. */
-export function codegenToolOptions(): { allowedTools: string[]; disallowedTools: string[] } {
+/**
+ * The codegen agent's tool permissions; exported so tests can assert them.
+ *
+ * `tools` is the base set the agent can see at all. `allowedTools` only
+ * pre-approves; without a base set the agent still saw Skill, ToolSearch and
+ * the rest, and round-3 c1's build spent 3 ToolSearch calls and a Skill call
+ * (112k billed) on nothing the page needed.
+ */
+export const CODEGEN_TOOLS = ['Read', 'Edit', 'Write', 'Glob', 'Grep'] as const
+
+export function codegenToolOptions(): { tools: string[]; allowedTools: string[]; disallowedTools: string[] } {
   return {
-    allowedTools: ['Read', 'Edit', 'Write', 'Glob', 'Grep'],
+    tools: [...CODEGEN_TOOLS],
+    allowedTools: [...CODEGEN_TOOLS],
     disallowedTools: ['Bash', 'WebFetch', 'WebSearch', 'Task', ...PRIVATE_STATE_DENY],
   }
 }
@@ -122,11 +132,44 @@ export interface UserContent {
   images?: string[]
 }
 
+export interface SendOptions {
+  /**
+   * Reasoning effort for this turn (n22). A repair is told the exact pixels to
+   * change, yet repair turns thought for 2-8 minutes before any edit (or never
+   * edited); 'low' asks for the edit, not a re-plan. Omitted: the default.
+   */
+  effort?: 'low' | 'medium'
+}
+
 export interface CodegenSession {
   /** Send a user turn; resolves with the assistant's text reply. */
-  send: (content: UserContent) => Promise<string>
+  send: (content: UserContent, opts?: SendOptions) => Promise<string>
   /** Cumulative token usage across all turns so far. */
   usage: () => TokenUsage
+  /** Tool calls the agent has made so far (Read, Edit, ...): where a costly turn went. */
+  toolCalls: () => number
+  /** Each tool call so far as "Name dir/file" (Edit app/page.tsx): which calls made a turn long. */
+  toolLog: () => string[]
+  /** When the agent last said anything (ms epoch): how a stalled turn is told from a slow one. */
+  lastActivity: () => number
+  /**
+   * When the agent last did something that moves the turn on (ms epoch): a tool
+   * call, a tool result, reply text, a turn end. Thinking alone is not progress
+   * (n20 try 2: a repair turn thought for 8 minutes with no edit, and each
+   * thinking message reset the watchdog).
+   */
+  lastProgress: () => number
+  /**
+   * n95: when the agent last did work on the page (a tool call, a tool result,
+   * tool input being streamed, a turn end). Reply text is not work: once a
+   * build has written the page, minutes of reply words or thinking leave the
+   * page as it is, so they must not hold the run open.
+   */
+  lastWork: () => number
+  /** When the agent last edited or wrote a file (ms epoch), or the current turn began. An edit still being streamed counts. */
+  lastEdit: () => number
+  /** n95: the last few agent messages, kind and time, so a turn that hangs leaves a record of where it sat. */
+  recent: () => Array<{ at: number; kind: string }>
   close: () => void
   /**
    * Resolves once the agent's message loop has ended, i.e. the subprocess is
@@ -134,6 +177,65 @@ export interface CodegenSession {
    * waits for the answer before telling the user the run has stopped.
    */
   closed: Promise<void>
+}
+
+/** Tool calls that change the page's source. */
+export const EDIT_TOOLS = new Set(['Edit', 'Write', 'MultiEdit', 'NotebookEdit'])
+
+/**
+ * Does this agent message move the turn on? Tool calls, tool results, reply
+ * text and turn ends do. An assistant message that is only thinking does not,
+ * and neither do system notices.
+ */
+export function movesTurnOn(msg: { type: string; message?: unknown; event?: unknown }): boolean {
+  if (msg.type === 'user' || msg.type === 'result' || msg.type === 'tool_progress') return true
+  // n21 (bento, first build): the agent spent 150+ s writing one big App.tsx. Without
+  // partial messages the whole Write arrives at once, so the watchdog saw silence and
+  // ended a build that was busy writing. Streamed tool input and reply text are
+  // progress; streamed thinking is not.
+  if (msg.type === 'stream_event') {
+    const e = msg.event as { type?: string; delta?: { type?: string; text?: string; partial_json?: string } } | undefined
+    if (e?.type !== 'content_block_delta') return false
+    return e.delta?.type === 'input_json_delta' || (e.delta?.type === 'text_delta' && !!e.delta.text?.trim())
+  }
+  if (msg.type !== 'assistant') return false
+  const m = msg.message
+  const content = m && typeof m === 'object' ? (m as { content?: unknown }).content : undefined
+  if (!Array.isArray(content)) return true
+  return content.some((b: { type?: string; text?: string }) =>
+    b.type !== 'thinking' && b.type !== 'redacted_thinking' && !(b.type === 'text' && !b.text?.trim()))
+}
+
+/**
+ * n95: does this message do work on the page? As movesTurnOn, but reply text
+ * (streamed or whole) is not work: a build that has written the page and then
+ * talks for minutes is not building.
+ */
+export function movesWorkOn(msg: { type: string; message?: unknown; event?: unknown }): boolean {
+  if (msg.type === 'user' || msg.type === 'result' || msg.type === 'tool_progress') return true
+  if (msg.type === 'stream_event') {
+    const e = msg.event as { type?: string; delta?: { type?: string } } | undefined
+    return e?.type === 'content_block_delta' && e.delta?.type === 'input_json_delta'
+  }
+  if (msg.type !== 'assistant') return false
+  const m = msg.message
+  const content = m && typeof m === 'object' ? (m as { content?: unknown }).content : undefined
+  if (!Array.isArray(content)) return false
+  return content.some((b: { type?: string }) => b.type === 'tool_use')
+}
+
+/** n95: a short name for an agent message, for the hang record ("stream:thinking_delta", "assistant:tool_use"). */
+export function messageKind(msg: { type: string; message?: unknown; event?: unknown; subtype?: unknown }): string {
+  if (msg.type === 'stream_event') {
+    const e = msg.event as { type?: string; delta?: { type?: string }; content_block?: { type?: string } } | undefined
+    return `stream:${e?.delta?.type ?? e?.content_block?.type ?? e?.type ?? '?'}`
+  }
+  if (msg.type === 'assistant') {
+    const m = msg.message
+    const content = m && typeof m === 'object' ? (m as { content?: unknown }).content : undefined
+    if (Array.isArray(content)) return `assistant:${content.map((b: { type?: string }) => b.type ?? '?').join('+')}`
+  }
+  return typeof msg.subtype === 'string' ? `${msg.type}:${msg.subtype}` : msg.type
 }
 
 /** The error a run rejects with when it was told to stop. */
@@ -163,6 +265,16 @@ export function createCodegenSession(
   let ended = false
   const pending: QueueItem[] = []
   const usage: TokenUsage = { input: 0, cacheRead: 0, output: 0 }
+  let tools = 0
+  const toolList: string[] = []
+  let lastSeen = Date.now()
+  let lastMoved = lastSeen
+  let lastWorked = lastSeen
+  let lastEdited = lastSeen
+  // n95: the tool whose input is streaming now, so a long Write being written counts as an edit
+  let streamingTool: string | null = null
+  const recentMsgs: Array<{ at: number; kind: string }> = []
+  let lastEffort: SendOptions['effort'] | null = null
 
   async function* input(): AsyncGenerator<SDKUserMessage> {
     while (true) {
@@ -190,6 +302,8 @@ export function createCodegenSession(
       settingSources: [],
       systemPrompt: { type: 'preset', preset: 'claude_code', append: contractOverride ?? contractFor(mode) },
       persistSession: false,
+      // n21: streamed deltas tell the watchdog a long Write is still being written
+      includePartialMessages: true,
       maxTurns: 40,
       env: cleanEnv(),
       strictMcpConfig: true,
@@ -204,12 +318,29 @@ export function createCodegenSession(
     try {
       let buffer = ''
       for await (const msg of q) {
+        lastSeen = Date.now()
+        if (movesTurnOn(msg)) lastMoved = lastSeen
+        if (movesWorkOn(msg)) lastWorked = lastSeen
+        const kind = messageKind(msg as { type: string })
+        const prev = recentMsgs[recentMsgs.length - 1]
+        // runs of the same kind (thousands of thinking deltas) are one entry, stamped with the latest
+        if (prev && prev.kind === kind) prev.at = lastSeen
+        else { recentMsgs.push({ at: lastSeen, kind }); if (recentMsgs.length > 16) recentMsgs.shift() }
+        if (msg.type === 'stream_event') {
+          const e = msg.event as { type?: string; content_block?: { type?: string; name?: string }; delta?: { type?: string } }
+          if (e.type === 'content_block_start') streamingTool = e.content_block?.type === 'tool_use' ? e.content_block.name ?? null : null
+          else if (e.type === 'content_block_stop') streamingTool = null
+          else if (e.type === 'content_block_delta' && e.delta?.type === 'input_json_delta' && streamingTool && EDIT_TOOLS.has(streamingTool)) lastEdited = lastSeen
+        }
         if (msg.type === 'assistant') {
           for (const block of msg.message.content) {
             if (block.type === 'text') buffer += block.text
             if (block.type === 'tool_use') {
+              if (EDIT_TOOLS.has(block.name)) lastEdited = lastSeen
+              tools++
               const inp = block.input as Record<string, unknown>
               const file = typeof inp.file_path === 'string' ? inp.file_path.split('/').slice(-2).join('/') : ''
+              toolList.push(`${block.name} ${file}`.trim())
               ev.onStage('codegen', `${block.name} ${file}`.trim())
             }
           }
@@ -253,7 +384,14 @@ export function createCodegenSession(
   void closed.finally(() => signal?.removeEventListener('abort', onAbort))
 
   return {
-    send(content: UserContent): Promise<string> {
+    send(content: UserContent, opts?: SendOptions): Promise<string> {
+      // per-turn effort: set before the turn is queued, cleared for turns that don't ask
+      const effort = opts?.effort ?? null
+      if (effort !== lastEffort) {
+        lastEffort = effort
+        q.applyFlagSettings({ effortLevel: effort }).catch((e: unknown) =>
+          ev.onStage('codegen', `effort not applied: ${e instanceof Error ? e.message : String(e)}`.slice(0, 120)))
+      }
       return new Promise<string>((resolve, reject) => {
         if (signal?.aborted) {
           reject(abortError(signal))
@@ -264,6 +402,7 @@ export function createCodegenSession(
           return
         }
         pending.push({ resolve, reject })
+        lastSeen = lastMoved = lastWorked = lastEdited = Date.now()
         inputQueue.push({
           type: 'user',
           parent_tool_use_id: null,
@@ -283,6 +422,13 @@ export function createCodegenSession(
       })
     },
     usage: () => ({ ...usage }),
+    toolCalls: () => tools,
+    toolLog: () => [...toolList],
+    lastActivity: () => lastSeen,
+    lastProgress: () => lastMoved,
+    lastWork: () => lastWorked,
+    lastEdit: () => lastEdited,
+    recent: () => recentMsgs.map((m) => ({ ...m })),
     close,
     closed,
   }
@@ -301,19 +447,43 @@ function scriptedSession(
 ): CodegenSession {
   let ended = false
   let turn = 0
+  let lastSeen = Date.now()
+  let lastEdited = lastSeen
+  const toolList: string[] = []
+  const closers: Array<() => void> = []
+  // n93: a script reports its tool calls like the agent's stream, so a stalled build can be tested at no cost
+  const tool = (name: string, file?: string): void => {
+    lastSeen = Date.now()
+    if (EDIT_TOOLS.has(name)) lastEdited = lastSeen
+    toolList.push(`${name} ${file ?? ''}`.trim())
+    ev.onStage('codegen', `${name} ${file ?? ''}`.trim())
+  }
   return {
     async send(content: UserContent): Promise<string> {
       if (signal?.aborted) throw abortError(signal)
       if (ended) throw new Error('codegen session already closed')
+      lastSeen = lastEdited = Date.now()
       script.onCall?.('codegen', content.text.slice(0, 200))
       if (!script.codegen) throw new Error('scripted model: codegen is not scripted')
       ev.onStage('codegen', 'scripted edit')
-      const reply = await script.codegen({ root: appRoot, text: content.text, turn: ++turn })
+      const reply = await Promise.race([
+        script.codegen({ root: appRoot, text: content.text, turn: ++turn, tool }),
+        // closing (a stalled turn) or stopping ends a scripted turn that never returns, like the real one
+        new Promise<never>((_, reject) => { closers.push(() => reject(new Error('codegen session ended unexpectedly'))) }),
+      ])
+      lastSeen = Date.now()
       if (signal?.aborted) throw abortError(signal)
       return reply
     },
     usage: () => ({ input: 0, cacheRead: 0, output: 0 }),
-    close: () => { ended = true },
+    toolCalls: () => toolList.length,
+    toolLog: () => [...toolList],
+    lastActivity: () => lastSeen,
+    lastProgress: () => lastSeen,
+    lastWork: () => lastSeen,
+    lastEdit: () => lastEdited,
+    recent: () => toolList.slice(-16).map((t) => ({ at: lastSeen, kind: `tool:${t}` })),
+    close: () => { ended = true; for (const c of closers.splice(0)) c() },
     closed: Promise.resolve(),
   }
 }

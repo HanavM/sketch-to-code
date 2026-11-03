@@ -1,0 +1,435 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "97a2d3759f5bf7bb8934abe0a01184fc36031a27",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/CheckerboardPattern.tsx"
+  ],
+  "reading": "This is a poster-style hero section: a tall checkerboard graphic on the left, a bold 'CHECK/MATE' heading with supporting event details, a 'Save a seat' button, and a tilted 'Free entry' badge circle on the right, set on a cream page background.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/App.tsx:6:7 at (1,1) 520x897 sits on the drawn shape",
+     "claimed": "e3"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 6.8,
+    "reason": "#151515 is on the page (ΔE 6.8)"
+   },
+   {
+    "kind": "composition",
+    "index": 0,
+    "score": 0.9862987967372194,
+    "massSimilarity": 0.9804268524817421,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (604,176) 520x276 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:10:7",
+      "rect": {
+       "x": 604,
+       "y": 176,
+       "w": 520,
+       "h": 276
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#151515 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> \"MATE\" at (604,299) 401x167 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:14:9",
+      "rect": {
+       "x": 604,
+       "y": 314,
+       "w": 520,
+       "h": 138
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#151515 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Blitz games, coffee and a boar\" at (631,475) 495x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:30:7",
+      "rect": {
+       "x": 606,
+       "y": 473,
+       "w": 520,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#555555 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (606,473) 520x24 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:30:7",
+      "rect": {
+       "x": 606,
+       "y": 473,
+       "w": 520,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 606,
+        "y": 599,
+        "w": 221,
+        "h": 59
+       },
+       "built": {
+        "x": 606,
+        "y": 599,
+        "w": 221,
+        "h": 59
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#151515 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (1010,710) 181x180 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:44:7",
+      "rect": {
+       "x": 1009.7142944335938,
+       "y": 709.6398315429688,
+       "w": 180.57147216796875,
+       "h": 179.7203369140625
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 1020,
+        "y": 720,
+        "w": 160,
+        "h": 159
+       },
+       "built": {
+        "x": 1009.7142944335938,
+        "y": 709.6398315429688,
+        "w": 180.57147216796875,
+        "h": 179.7203369140625
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e94f3d is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row (table or list) at body size"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the typed row starting \"MATE huge bold caps\" is not on the page: fill the drawn rows with every typed row, in order; change nothing else"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the outline drawn at (1,1) 520x897 was coloured #151515 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #151515; action 1: the line drawn at (606,378) 384x0 was coloured #151515 (text colour); nothing that size was built there carrying a colour: paint its text exactly #151515",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f4f0e8",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (1,1) 520x897",
+       "want": "#151515",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (604,245) 501x0",
+       "want": "#151515",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (606,378) 384x0",
+       "want": "#151515",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (606,433) 220x0",
+       "want": "#151515",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (606,483) 520x0",
+       "want": "#555555",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (606,599) 221x59",
+       "want": "#151515",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (1019,720) 161x160",
+       "want": "#e94f3d",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 58956,
+   "cacheRead": 425611,
+   "output": 19614
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 44198,
+    "output": 16667,
+    "cacheRead": 309742,
+    "toolCalls": 13,
+    "tools": [
+     "Read components/CheckerboardPattern.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/main.tsx",
+     "Read src/index.css",
+     "Glob",
+     "Glob",
+     "Edit components/CheckerboardPattern.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx",
+     "Glob"
+    ],
+    "ms": 185300
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 34372,
+    "output": 2947,
+    "cacheRead": 115869,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 33248
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

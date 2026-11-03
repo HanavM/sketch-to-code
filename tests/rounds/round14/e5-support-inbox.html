@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Support inbox</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#222;font-size:13px}
+.rail{position:absolute;left:0;top:0;width:60px;height:900px;background:#3b2f63;padding-top:18px}.rail i{display:block;width:36px;height:36px;margin:0 auto 14px;border-radius:8px;background:#54478a}.rail i.on{background:#fff}
+.q{position:absolute;left:60px;top:0;width:330px;height:900px;background:#f7f7fa;border-right:1px solid #e4e4ec}
+.q h3{padding:18px 16px 10px;font-size:17px}.seg{display:flex;margin:0 16px 10px;background:#e9e9f1;border-radius:7px;padding:3px}.seg span{flex:1;text-align:center;padding:6px;border-radius:5px;color:#666}.seg .on{background:#fff;color:#222;font-weight:700}
+.t{padding:12px 16px;border-bottom:1px solid #e4e4ec;position:relative;line-height:1.4}.t b{display:block}.t small{position:absolute;right:16px;top:12px;color:#888}.t p{color:#777;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.t i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.t.on{background:#fff;border-left:3px solid #6b4fe0}
+.conv{position:absolute;left:390px;top:0;width:590px;height:900px}
+.ch{height:64px;border-bottom:1px solid #e4e4ec;padding:14px 20px}.ch b{font-size:16px}.ch span{display:block;color:#888;font-size:12px;margin-top:3px}.ch a{position:absolute;left:470px;top:16px;padding:7px 14px;border-radius:6px;background:#6b4fe0;color:#fff;font-weight:700}
+.msg{margin:18px 20px;max-width:430px;padding:12px 14px;border-radius:10px;line-height:1.5}.cu{background:#f1f1f6}.ag{margin-left:140px;background:#6b4fe0;color:#fff}.note{background:#fff6d1;border:1px dashed #e0b800;max-width:550px}
+.who{margin:0 20px -12px;font-size:11px;color:#888}.who.r{text-align:right}
+.comp{position:absolute;left:20px;top:760px;width:550px;height:120px;border:1px solid #d6d6e0;border-radius:10px;padding:12px;color:#999}.comp a{position:absolute;right:12px;bottom:12px;padding:8px 16px;border-radius:6px;background:#222;color:#fff}
+.prof{position:absolute;left:980px;top:0;width:300px;height:900px;border-left:1px solid #e4e4ec;padding:20px}
+.av{width:64px;height:64px;border-radius:50%;background:#f0a868;color:#fff;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.prof h4{font-size:16px}.prof .m{color:#888;margin:4px 0 14px}.tags span{display:inline-block;padding:4px 9px;border-radius:999px;background:#ece8fb;color:#5338c4;font-size:11px;margin:0 4px 6px 0}
+.prof h5{margin:18px 0 8px;font-size:12px;color:#888;letter-spacing:1px}.o{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee}
+</style></head><body>
+<div class="rail" data-r="app-rail"><i class="on"></i><i></i><i></i><i></i></div>
+<div class="q" data-r="ticket-queue" data-must><h3>Inbox</h3><div class="seg"><span class="on">Open 12</span><span>Pending</span><span>Solved</span></div>
+<div class="t on"><small>2m</small><b><i style="background:#e5484d"></i>Charged twice for order</b><p>Hi, I see two charges of $139 on my card…</p></div>
+<div class="t"><small>18m</small><b><i style="background:#f5a623"></i>Wrong size delivered</b><p>Ordered a 9 and got an 11, can I swap?</p></div>
+<div class="t"><small>1h</small><b><i style="background:#30a46c"></i>Gift card balance</b><p>How do I check what's left on my card</p></div>
+<div class="t"><small>3h</small><b><i style="background:#f5a623"></i>Tracking not updating</b><p>Package stuck in Memphis since Monday</p></div>
+<div class="t"><small>5h</small><b><i style="background:#30a46c"></i>Change delivery address</b><p>Moving next week, can you update…</p></div></div>
+<div class="conv" data-r="conversation" data-must><div class="ch"><b>Charged twice for order</b><span>#4821 · via email · Priority high</span><a>Resolve</a></div>
+<div class="msg cu">Hi, I see two charges of $139 on my card for order NW-77120. Can you refund one please?</div>
+<p class="who r">Tomás · 10:14</p><div class="msg ag">Sorry about that, Ana! I can see both charges. I've started a refund for the duplicate, it should land in 3–5 days.</div>
+<div class="msg note"><b>Internal note:</b> Stripe shows a retry after timeout, linked to the payment-svc incident. Tagging #billing.</div>
+<div class="comp" data-r="composer">Reply to Ana…<a>Send</a></div></div>
+<div class="prof" data-r="customer-panel"><div class="av">A</div><h4>Ana Ribeiro</h4><div class="m">ana.r@fastmail.com · Lisbon</div>
+<div class="tags"><span>VIP</span><span>Trail club</span><span>3rd ticket</span></div>
+<h5>RECENT ORDERS</h5><div class="o"><span>NW-77120</span><b>$139</b></div><div class="o"><span>NW-70411</span><b>$62</b></div><div class="o"><span>NW-65230</span><b>$210</b></div></div>
+</body></html>

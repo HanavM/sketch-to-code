@@ -1,0 +1,387 @@
+{
+  "round": 33,
+  "id": "c5-cabin-stays",
+  "version": 3,
+  "stopped": null,
+  "likeness": 73.1,
+  "colour": 0.9037852404271539,
+  "structure": 0.9151906476039808,
+  "layout": 0.5298796047498792,
+  "strokes": {
+    "count": 12,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 4,
+      "box": 1,
+      "circle": 2,
+      "dot": 5
+    },
+    "inkPx": 5927
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 34,
+  "notes": 6,
+  "longestNote": 8,
+  "noteTexts": [
+    "Ridgeline, bold",
+    "Cabins · Map · Gift cards",
+    "Sleep above the clouds, huge bold",
+    "Twelve off-grid cabins on the high ridge.",
+    "Find a cabin, violet bold",
+    "orange to pink to purple fade; text white"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 185,
+    "firstReadingS": 69,
+    "readS": [
+      40
+    ],
+    "buildS": [
+      114
+    ],
+    "sketchingS": 31
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 63412,
+    "cacheRead": 195078,
+    "output": 14720,
+    "billed": 78132
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 761
+    },
+    {
+      "op": "stroke",
+      "at": 1725
+    },
+    {
+      "op": "stroke",
+      "at": 4659
+    },
+    {
+      "op": "stroke",
+      "at": 6209
+    },
+    {
+      "op": "stroke",
+      "at": 8211
+    },
+    {
+      "op": "stroke",
+      "at": 13713
+    },
+    {
+      "op": "stroke",
+      "at": 19828
+    },
+    {
+      "op": "pen",
+      "color": "#fb923c",
+      "at": 20217
+    },
+    {
+      "op": "stroke",
+      "at": 20691
+    },
+    {
+      "op": "pen",
+      "color": "#9333ea",
+      "at": 21063
+    },
+    {
+      "op": "stroke",
+      "at": 21528
+    },
+    {
+      "op": "pen",
+      "color": "#312e81",
+      "at": 21899
+    },
+    {
+      "op": "stroke",
+      "at": 22360
+    },
+    {
+      "op": "pen",
+      "color": "#1e1b4b",
+      "at": 22725
+    },
+    {
+      "op": "stroke",
+      "at": 23192
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 23558
+    },
+    {
+      "op": "stroke",
+      "at": 24025
+    },
+    {
+      "op": "note",
+      "at": 24669
+    },
+    {
+      "op": "note",
+      "at": 25311
+    },
+    {
+      "op": "note",
+      "at": 25958
+    },
+    {
+      "op": "note",
+      "at": 26628
+    },
+    {
+      "op": "note",
+      "at": 27269
+    },
+    {
+      "op": "note",
+      "at": 27966
+    },
+    {
+      "op": "run",
+      "at": 28509
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          72,
+          60
+        ],
+        [
+          171,
+          60
+        ]
+      ],
+      "n": 18,
+      "at": 761
+    },
+    {
+      "way": [
+        [
+          1030,
+          56
+        ],
+        [
+          1208,
+          56
+        ]
+      ],
+      "n": 31,
+      "at": 1725
+    },
+    {
+      "way": [
+        [
+          195,
+          250
+        ],
+        [
+          1085,
+          250
+        ]
+      ],
+      "n": 149,
+      "at": 4659
+    },
+    {
+      "way": [
+        [
+          446,
+          310
+        ],
+        [
+          834,
+          310
+        ]
+      ],
+      "n": 66,
+      "at": 6209
+    },
+    {
+      "way": [
+        [
+          530,
+          370
+        ],
+        [
+          750,
+          370
+        ],
+        [
+          750,
+          426
+        ],
+        [
+          530,
+          426
+        ],
+        [
+          530,
+          372
+        ]
+      ],
+      "n": 93,
+      "at": 8211
+    },
+    {
+      "way": [
+        [
+          2,
+          898
+        ],
+        [
+          2,
+          832
+        ],
+        [
+          320,
+          470
+        ],
+        [
+          700,
+          898
+        ],
+        [
+          4,
+          898
+        ]
+      ],
+      "n": 303,
+      "at": 13713
+    },
+    {
+      "way": [
+        [
+          420,
+          898
+        ],
+        [
+          948,
+          540
+        ],
+        [
+          1278,
+          815
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          422,
+          898
+        ]
+      ],
+      "n": 336,
+      "at": 19828
+    },
+    {
+      "way": [
+        [
+          640,
+          100
+        ]
+      ],
+      "n": 1,
+      "at": 20691
+    },
+    {
+      "way": [
+        [
+          1220,
+          640
+        ]
+      ],
+      "n": 1,
+      "at": 21528
+    },
+    {
+      "way": [
+        [
+          300,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 22360
+    },
+    {
+      "way": [
+        [
+          950,
+          780
+        ]
+      ],
+      "n": 1,
+      "at": 23192
+    },
+    {
+      "way": [
+        [
+          548,
+          414
+        ]
+      ],
+      "n": 1,
+      "at": 24025
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Ridgeline, bold",
+      "whole": false,
+      "x": 74,
+      "y": 40,
+      "at": 24669
+    },
+    {
+      "text": "Cabins · Map · Gift cards",
+      "whole": false,
+      "x": 1034,
+      "y": 36,
+      "at": 25311
+    },
+    {
+      "text": "Sleep above the clouds, huge bold",
+      "whole": false,
+      "x": 210,
+      "y": 222,
+      "at": 25958
+    },
+    {
+      "text": "Twelve off-grid cabins on the high ridge.",
+      "whole": false,
+      "x": 460,
+      "y": 322,
+      "at": 26628
+    },
+    {
+      "text": "Find a cabin, violet bold",
+      "whole": false,
+      "x": 580,
+      "y": 392,
+      "at": 27269
+    },
+    {
+      "text": "orange to pink to purple fade; text white",
+      "whole": true,
+      "x": 640,
+      "y": 140,
+      "at": 27966
+    }
+  ]
+}

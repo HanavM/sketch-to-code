@@ -1,0 +1,513 @@
+{
+  "id": "c2-neon-diner",
+  "at": "2026-10-26T14:02:20.660Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9144856713534001,
+    "overallV2": 0.9144856713534001,
+    "overallV1": 0.8765913716552618,
+    "colour": 0.9678627105818679,
+    "structure": 0.8904670972224696,
+    "structureStrict": 0.7872945991028159,
+    "colourAligned": 0.9678627105818679,
+    "structureAligned": 0.8904670972224696,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9638842174227081
+    },
+    "layout": 0.9012345628806114,
+    "layoutV1": 0.9012345628806114,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      -33905,
+      -10356,
+      69090,
+      10916
+    ],
+    [
+      1,
+      -33905,
+      -10356,
+      69090,
+      10916
+    ],
+    [
+      2,
+      -34213,
+      -10433,
+      69665,
+      10993
+    ],
+    [
+      2,
+      -461,
+      952,
+      2204,
+      15
+    ],
+    [
+      0,
+      0,
+      70,
+      1280,
+      150
+    ],
+    [
+      0,
+      0,
+      240,
+      1280,
+      45
+    ],
+    [
+      0,
+      340,
+      300,
+      600,
+      6
+    ],
+    [
+      0,
+      93,
+      353,
+      413,
+      294
+    ],
+    [
+      8,
+      123,
+      389,
+      353,
+      29
+    ],
+    [
+      8,
+      123,
+      418,
+      353,
+      145
+    ],
+    [
+      10,
+      123,
+      418,
+      353,
+      29
+    ],
+    [
+      11,
+      123,
+      418,
+      147,
+      29
+    ],
+    [
+      11,
+      441,
+      418,
+      35,
+      29
+    ],
+    [
+      10,
+      123,
+      447,
+      353,
+      29
+    ],
+    [
+      14,
+      123,
+      447,
+      80,
+      29
+    ],
+    [
+      14,
+      441,
+      447,
+      35,
+      29
+    ],
+    [
+      10,
+      123,
+      476,
+      353,
+      29
+    ],
+    [
+      17,
+      123,
+      476,
+      83,
+      29
+    ],
+    [
+      17,
+      441,
+      476,
+      35,
+      29
+    ],
+    [
+      10,
+      123,
+      505,
+      353,
+      29
+    ],
+    [
+      20,
+      123,
+      505,
+      107,
+      29
+    ],
+    [
+      20,
+      441,
+      505,
+      35,
+      29
+    ],
+    [
+      10,
+      123,
+      534,
+      353,
+      29
+    ],
+    [
+      23,
+      123,
+      534,
+      143,
+      29
+    ],
+    [
+      23,
+      441,
+      534,
+      35,
+      29
+    ],
+    [
+      0,
+      568,
+      350,
+      366,
+      122
+    ],
+    [
+      26,
+      568,
+      350,
+      366,
+      61
+    ],
+    [
+      26,
+      568,
+      411,
+      366,
+      61
+    ],
+    [
+      0,
+      564,
+      488,
+      372,
+      54
+    ],
+    [
+      0,
+      963,
+      563,
+      208,
+      49
+    ],
+    [
+      0,
+      984,
+      314,
+      232,
+      232
+    ],
+    [
+      31,
+      1041,
+      411,
+      118,
+      39
+    ],
+    [
+      0,
+      250,
+      700,
+      90,
+      24
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.6,
+    "kept": [
+      "3d",
+      "clip-shape",
+      "glow",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "italic",
+      "serif",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "hard-shadow",
+      "mono",
+      "overlap",
+      "soft-shadow",
+      "tilt",
+      "uppercase-display"
+    ],
+    "extra": [
+      "blur"
+    ]
+  },
+  "tokens": {
+    "input": 64303,
+    "output": 35808,
+    "cacheRead": 339748
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 74974,
+      "output": 25000,
+      "cacheRead": 327060,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/CheckerboardFloor.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Edit components/CheckerboardFloor.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 270536
+    }
+  ],
+  "reading": "A retro neon diner-themed hero page: a glowing 'Moonlite' sign over a 3D checkerboard floor, an 'OPEN ALL NIGHT' neon subhead, a yellow glowing progress strip, a chrome-gradient 'EAT LATE, STAY LATER' headline, an address/hours line, a 'TONIGHT'S MENU' price list panel, a glowing 'BOOK A BOOTH' pill button, a star-shaped 'NEW PIE!' badge, and a small rose-coloured decorative capsule, all on a dark plum-to-indigo radial-gradient background. Every visual detail (colours, sizes, exact CSS) is spelled out in the typed notes and takes priority over the rough ink shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1273,
+        554
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "A checkerboard FLOOR laid back in 3D perspective, going away into the distance: ONE 2080x700px block with its top-left at -400,560 BEFORE the turn (position abs"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1273,
+        554
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Giant Georgia italic serif regular-weight 'Moonlite', 150px type, about 542px wide (no larger), CENTRED on the page (text-align center; letters run from x=369 t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1273,
+        554
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Wide-spaced letters (letter-spacing 18px) text 'OPEN ALL NIGHT'; letters GLOW (neon): exactly text-shadow: 0px 0px 6px #22e6ff, 0px 0px 20px #22e6ff; set BOLD ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1273,
+        554
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "Solid yellow strip only 6px tall, 600px wide, no text (a progress bar); a coloured GLOW round it (light spilling out, soft): exactly box-shadow: #ffd84d 0px 0px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        94,
+        353,
+        413,
+        294
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Black thick brown-border panel, 'TONIGHT'S MENU' list: 'Stack of pancakes' 6.50, 'Patty melt' 9.25, 'Cherry pie' 4.75, 'Malted shake' 5.00, 'Bottomless coffee' "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 55
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1273,
+        554
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Huge Helvetica heavy uppercase tight-set letters, lines set tight (line-height 0.95), polished liquid-CHROME gradient, smooth bands of light and dark blending i"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1273,
+        554
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Text: 'Route 9, exit 14. Pie fresh at midnight, jukebox free after two.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        563,
+        208,
+        49
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Near-black indigo pill label with a 3px cyan border, bold text 'BOOK A BOOTH'; a coloured GLOW round it (light spilling out, soft): exactly box-shadow: #22e6ff "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1273,
+        554
+      ],
+      "paths": [
+        "s0",
+        "s10"
+      ],
+      "instruction": "A 232x232px STAR badge at 984,314 (position absolute): one #ffd84d fill cut by clip-path: polygon(50% 0px, 61% 20%, 82% 10%, 80% 32%, 100% 38%, 86% 54%, 98% 72%"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        254,
+        704,
+        83,
+        17
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "A plain rose red (#e0245e) CLOUD: one textless div exactly 90x24px with its top-left at 250,700 (position absolute), fully rounded ends (border-radius 999px), N"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

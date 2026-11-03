@@ -1,0 +1,806 @@
+{
+  "round": 46,
+  "id": "e2-team-roster",
+  "version": 3,
+  "stopped": null,
+  "likeness": 87.8,
+  "colour": 0.9934804516341755,
+  "structure": 0.9554016129407442,
+  "layout": 0.7835613826998439,
+  "strokes": {
+    "count": 14,
+    "pointsPerStroke": 2.6,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 4,
+      "box": 3,
+      "line": 6,
+      "circle": 1
+    },
+    "inkPx": 11618
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 81,
+  "notes": 36,
+  "longestNote": 7,
+  "noteTexts": [
+    "Northwind white bold",
+    "Overview",
+    "Team bold",
+    "Projects",
+    "Billing",
+    "Settings",
+    "Team members big bold",
+    "6 people · 4 active now",
+    "+ Invite member",
+    "NAME",
+    "ROLE",
+    "STATUS",
+    "Ana Ruiz",
+    "Design lead",
+    "Active green",
+    "Ben Cole",
+    "Engineer",
+    "Active green",
+    "Chi Ng",
+    "Engineer",
+    "Away orange",
+    "Dev Patel",
+    "Product",
+    "Active green",
+    "Eva Moss",
+    "Support",
+    "Off grey",
+    "Finn Lee",
+    "Engineer",
+    "Active green",
+    "···",
+    "all rows circle, dot before status, ···",
+    "circles become three grey dots, every row",
+    "status words their colour, bold",
+    "names bold",
+    "title bigger, higher"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 501,
+    "firstReadingS": 107,
+    "readS": [
+      35,
+      34
+    ],
+    "buildS": [
+      191,
+      149
+    ],
+    "sketchingS": 91
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 97262,
+    "cacheRead": 464384,
+    "output": 37070,
+    "billed": 134332
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f8fafc",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 459
+    },
+    {
+      "op": "pen",
+      "color": "#0f172a",
+      "at": 834
+    },
+    {
+      "op": "stroke",
+      "at": 7551
+    },
+    {
+      "op": "stroke",
+      "at": 8032
+    },
+    {
+      "op": "pen",
+      "color": "#4f46e5",
+      "at": 8405
+    },
+    {
+      "op": "stroke",
+      "at": 10150
+    },
+    {
+      "op": "stroke",
+      "at": 10617
+    },
+    {
+      "op": "pen",
+      "color": "#dfe3e8",
+      "at": 10984
+    },
+    {
+      "op": "stroke",
+      "at": 19923
+    },
+    {
+      "op": "stroke",
+      "at": 23103
+    },
+    {
+      "op": "stroke",
+      "at": 26254
+    },
+    {
+      "op": "stroke",
+      "at": 29616
+    },
+    {
+      "op": "stroke",
+      "at": 32770
+    },
+    {
+      "op": "stroke",
+      "at": 35918
+    },
+    {
+      "op": "stroke",
+      "at": 39068
+    },
+    {
+      "op": "pen",
+      "color": "#c7d2fe",
+      "at": 39436
+    },
+    {
+      "op": "stroke",
+      "at": 40254
+    },
+    {
+      "op": "stroke",
+      "at": 40733
+    },
+    {
+      "op": "note",
+      "at": 41562
+    },
+    {
+      "op": "note",
+      "at": 42252
+    },
+    {
+      "op": "note",
+      "at": 42989
+    },
+    {
+      "op": "note",
+      "at": 43709
+    },
+    {
+      "op": "note",
+      "at": 44414
+    },
+    {
+      "op": "note",
+      "at": 45137
+    },
+    {
+      "op": "note",
+      "at": 45893
+    },
+    {
+      "op": "note",
+      "at": 46650
+    },
+    {
+      "op": "note",
+      "at": 47530
+    },
+    {
+      "op": "note",
+      "at": 48250
+    },
+    {
+      "op": "note",
+      "at": 48950
+    },
+    {
+      "op": "note",
+      "at": 49770
+    },
+    {
+      "op": "note",
+      "at": 50572
+    },
+    {
+      "op": "note",
+      "at": 51358
+    },
+    {
+      "op": "note",
+      "at": 52273
+    },
+    {
+      "op": "note",
+      "at": 53087
+    },
+    {
+      "op": "note",
+      "at": 53884
+    },
+    {
+      "op": "note",
+      "at": 54776
+    },
+    {
+      "op": "note",
+      "at": 55625
+    },
+    {
+      "op": "note",
+      "at": 56548
+    },
+    {
+      "op": "note",
+      "at": 57444
+    },
+    {
+      "op": "note",
+      "at": 58282
+    },
+    {
+      "op": "note",
+      "at": 59124
+    },
+    {
+      "op": "note",
+      "at": 60012
+    },
+    {
+      "op": "note",
+      "at": 60943
+    },
+    {
+      "op": "note",
+      "at": 61916
+    },
+    {
+      "op": "note",
+      "at": 62917
+    },
+    {
+      "op": "note",
+      "at": 63918
+    },
+    {
+      "op": "note",
+      "at": 64870
+    },
+    {
+      "op": "note",
+      "at": 65909
+    },
+    {
+      "op": "note",
+      "at": 66818
+    },
+    {
+      "op": "note",
+      "at": 68006
+    },
+    {
+      "op": "run",
+      "at": 71601
+    },
+    {
+      "op": "note",
+      "at": 305944
+    },
+    {
+      "op": "note",
+      "at": 306590
+    },
+    {
+      "op": "note",
+      "at": 307205
+    },
+    {
+      "op": "note",
+      "at": 307857
+    },
+    {
+      "op": "run",
+      "at": 307931
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          750,
+          840
+        ]
+      ],
+      "n": 1,
+      "at": 459
+    },
+    {
+      "way": [
+        [
+          0,
+          0
+        ],
+        [
+          220,
+          0
+        ],
+        [
+          220,
+          899
+        ],
+        [
+          0,
+          899
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "n": 375,
+      "at": 7551
+    },
+    {
+      "way": [
+        [
+          110,
+          700
+        ]
+      ],
+      "n": 1,
+      "at": 8032
+    },
+    {
+      "way": [
+        [
+          1050,
+          46
+        ],
+        [
+          1230,
+          46
+        ],
+        [
+          1230,
+          94
+        ],
+        [
+          1050,
+          94
+        ],
+        [
+          1050,
+          46
+        ]
+      ],
+      "n": 77,
+      "at": 10150
+    },
+    {
+      "way": [
+        [
+          1140,
+          82
+        ]
+      ],
+      "n": 1,
+      "at": 10617
+    },
+    {
+      "way": [
+        [
+          270,
+          170
+        ],
+        [
+          1230,
+          170
+        ],
+        [
+          1230,
+          730
+        ],
+        [
+          270,
+          730
+        ],
+        [
+          270,
+          170
+        ]
+      ],
+      "n": 507,
+      "at": 19923
+    },
+    {
+      "way": [
+        [
+          270,
+          240
+        ],
+        [
+          1230,
+          240
+        ]
+      ],
+      "n": 161,
+      "at": 23103
+    },
+    {
+      "way": [
+        [
+          270,
+          320
+        ],
+        [
+          1230,
+          320
+        ]
+      ],
+      "n": 161,
+      "at": 26254
+    },
+    {
+      "way": [
+        [
+          270,
+          400
+        ],
+        [
+          1230,
+          400
+        ]
+      ],
+      "n": 161,
+      "at": 29616
+    },
+    {
+      "way": [
+        [
+          270,
+          480
+        ],
+        [
+          1230,
+          480
+        ]
+      ],
+      "n": 161,
+      "at": 32770
+    },
+    {
+      "way": [
+        [
+          270,
+          560
+        ],
+        [
+          1230,
+          560
+        ]
+      ],
+      "n": 161,
+      "at": 35918
+    },
+    {
+      "way": [
+        [
+          270,
+          640
+        ],
+        [
+          1230,
+          640
+        ]
+      ],
+      "n": 161,
+      "at": 39068
+    },
+    {
+      "way": [
+        [
+          316,
+          259
+        ],
+        [
+          338,
+          281
+        ],
+        [
+          316,
+          303
+        ],
+        [
+          294,
+          281
+        ],
+        [
+          316,
+          259
+        ]
+      ],
+      "n": 21,
+      "at": 40254
+    },
+    {
+      "way": [
+        [
+          316,
+          281
+        ]
+      ],
+      "n": 1,
+      "at": 40733
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Northwind white bold",
+      "whole": false,
+      "x": 24,
+      "y": 41,
+      "at": 41562
+    },
+    {
+      "text": "Overview",
+      "whole": false,
+      "x": 24,
+      "y": 102,
+      "at": 42252
+    },
+    {
+      "text": "Team bold",
+      "whole": false,
+      "x": 24,
+      "y": 141,
+      "at": 42989
+    },
+    {
+      "text": "Projects",
+      "whole": false,
+      "x": 24,
+      "y": 180,
+      "at": 43709
+    },
+    {
+      "text": "Billing",
+      "whole": false,
+      "x": 24,
+      "y": 219,
+      "at": 44414
+    },
+    {
+      "text": "Settings",
+      "whole": false,
+      "x": 24,
+      "y": 258,
+      "at": 45137
+    },
+    {
+      "text": "Team members big bold",
+      "whole": false,
+      "x": 270,
+      "y": 70,
+      "at": 45893
+    },
+    {
+      "text": "6 people · 4 active now",
+      "whole": false,
+      "x": 270,
+      "y": 119,
+      "at": 46650
+    },
+    {
+      "text": "+ Invite member",
+      "whole": false,
+      "x": 1100,
+      "y": 70,
+      "at": 47530
+    },
+    {
+      "text": "NAME",
+      "whole": false,
+      "x": 358,
+      "y": 205,
+      "at": 48250
+    },
+    {
+      "text": "ROLE",
+      "whole": false,
+      "x": 670,
+      "y": 205,
+      "at": 48950
+    },
+    {
+      "text": "STATUS",
+      "whole": false,
+      "x": 910,
+      "y": 205,
+      "at": 49770
+    },
+    {
+      "text": "Ana Ruiz",
+      "whole": false,
+      "x": 358,
+      "y": 281,
+      "at": 50572
+    },
+    {
+      "text": "Design lead",
+      "whole": false,
+      "x": 670,
+      "y": 281,
+      "at": 51358
+    },
+    {
+      "text": "Active green",
+      "whole": false,
+      "x": 910,
+      "y": 281,
+      "at": 52273
+    },
+    {
+      "text": "Ben Cole",
+      "whole": false,
+      "x": 358,
+      "y": 361,
+      "at": 53087
+    },
+    {
+      "text": "Engineer",
+      "whole": false,
+      "x": 670,
+      "y": 361,
+      "at": 53884
+    },
+    {
+      "text": "Active green",
+      "whole": false,
+      "x": 910,
+      "y": 361,
+      "at": 54776
+    },
+    {
+      "text": "Chi Ng",
+      "whole": false,
+      "x": 358,
+      "y": 441,
+      "at": 55625
+    },
+    {
+      "text": "Engineer",
+      "whole": false,
+      "x": 670,
+      "y": 441,
+      "at": 56548
+    },
+    {
+      "text": "Away orange",
+      "whole": false,
+      "x": 910,
+      "y": 441,
+      "at": 57444
+    },
+    {
+      "text": "Dev Patel",
+      "whole": false,
+      "x": 358,
+      "y": 521,
+      "at": 58282
+    },
+    {
+      "text": "Product",
+      "whole": false,
+      "x": 670,
+      "y": 521,
+      "at": 59124
+    },
+    {
+      "text": "Active green",
+      "whole": false,
+      "x": 910,
+      "y": 521,
+      "at": 60012
+    },
+    {
+      "text": "Eva Moss",
+      "whole": false,
+      "x": 358,
+      "y": 601,
+      "at": 60943
+    },
+    {
+      "text": "Support",
+      "whole": false,
+      "x": 670,
+      "y": 601,
+      "at": 61916
+    },
+    {
+      "text": "Off grey",
+      "whole": false,
+      "x": 910,
+      "y": 601,
+      "at": 62917
+    },
+    {
+      "text": "Finn Lee",
+      "whole": false,
+      "x": 358,
+      "y": 681,
+      "at": 63918
+    },
+    {
+      "text": "Engineer",
+      "whole": false,
+      "x": 670,
+      "y": 681,
+      "at": 64870
+    },
+    {
+      "text": "Active green",
+      "whole": false,
+      "x": 910,
+      "y": 681,
+      "at": 65909
+    },
+    {
+      "text": "···",
+      "whole": false,
+      "x": 1170,
+      "y": 281,
+      "at": 66818
+    },
+    {
+      "text": "all rows circle, dot before status, ···",
+      "whole": false,
+      "x": 250,
+      "y": 750,
+      "at": 68006
+    },
+    {
+      "text": "circles become three grey dots, every row",
+      "whole": false,
+      "x": 1180,
+      "y": 300,
+      "at": 305944
+    },
+    {
+      "text": "status words their colour, bold",
+      "whole": false,
+      "x": 1000,
+      "y": 300,
+      "at": 306590
+    },
+    {
+      "text": "names bold",
+      "whole": false,
+      "x": 450,
+      "y": 300,
+      "at": 307205
+    },
+    {
+      "text": "title bigger, higher",
+      "whole": false,
+      "x": 620,
+      "y": 75,
+      "at": 307857
+    }
+  ]
+}

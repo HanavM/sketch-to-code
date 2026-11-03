@@ -1,0 +1,116 @@
+{
+  "id": "e5-data-grid",
+  "at": "2026-10-21T21:03:14.912Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8724395441428342,
+    "overallV2": 0.8724395441428342,
+    "overallV1": 0.8634887035933424,
+    "colour": 0.9952110141695328,
+    "structure": 0.9749972231508026,
+    "structureStrict": 0.9690212734189655,
+    "colourAligned": 0.9952110141695328,
+    "structureAligned": 0.9749972231508026,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9486630104492738
+    },
+    "layout": 0.9935064935064934
+  },
+  "effects": null,
+  "tokens": {
+    "input": 23395,
+    "output": 9138,
+    "cacheRead": 246755
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 23611,
+      "output": 5742,
+      "cacheRead": 237494,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 51722
+    }
+  ],
+  "reading": "The sketch lays out a spreadsheet app shell: a top menu bar, a formula bar beneath it, a large data grid, and a bottom sheet-tab bar, each annotated with typed notes giving exact copy and styling.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1272,
+        46
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Pale grey menu bar, 52px tall, spanning the full page width. Shows bold 17px green text \"Budget 2027\" first, followed by nav links: File, Edit, View, Insert, Da"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        850
+      ],
+      "paths": [
+        "s0",
+        "s1",
+        "s2"
+      ],
+      "instruction": "Formula bar, 34px tall, spanning the full page width, with a thin line beneath it. Contains a small cell-name box reading \"D4\" on the left with a divider next t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        89,
+        1274,
+        764
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Spreadsheet grid with thin grey cell lines: a pale grey header row of column letters A through H, and row numbers 1 through 24 down a narrow 46px left column; c"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        859,
+        1273,
+        38
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Pale grey sheet-tab bar, 44px tall, spanning the full page width, with links: Q1, Q2, Q3, Q4, Summary. \"Q1\" is the selected tab, shown bold with green text on a"
+    }
+  ],
+  "rejected": []
+}

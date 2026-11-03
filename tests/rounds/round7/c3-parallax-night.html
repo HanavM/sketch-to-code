@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Parallax night</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:linear-gradient(180deg,#0f172a 0,#312e81 55%,#be185d 100%);font-family:Helvetica,Arial,sans-serif;color:#fff}
+.moon{position:absolute;left:880px;top:90px;width:180px;height:180px;border-radius:50%;background:#fef3c7;box-shadow:0 0 0 40px rgba(254,243,199,.12),0 0 0 90px rgba(254,243,199,.06)}
+.cloud{position:absolute;height:60px;border-radius:30px;background:rgba(255,255,255,.18);filter:blur(4px)}
+.city{position:absolute;left:0;bottom:0;width:1280px;height:360px}
+h1{position:absolute;left:80px;top:170px;font-size:120px;font-weight:900;letter-spacing:-4px;line-height:.95;background:linear-gradient(90deg,#fde68a,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{position:absolute;left:84px;top:430px;width:420px;font-size:19px;line-height:1.5;color:#e0e7ff}
+.rail{position:absolute;left:1220px;top:200px;width:4px;height:400px;background:rgba(255,255,255,.25)}.rail i{position:absolute;left:0;top:0;width:4px;height:140px;background:#fde68a}
+.logo{position:absolute;left:80px;top:50px;font-size:18px;font-weight:800;letter-spacing:6px}
+.btn{position:absolute;left:84px;top:540px;padding:16px 30px;border-radius:999px;border:2px solid #fde68a;color:#fde68a;font-weight:700}
+</style></head><body>
+<div class="logo" data-r="logo">NOCTURNE</div>
+<div class="moon" data-r="moon" data-must></div>
+<div class="cloud" data-r="cloud-1" style="left:640px;top:250px;width:420px"></div>
+<div class="cloud" data-r="cloud-2" style="left:960px;top:360px;width:300px"></div>
+<h1 data-r="headline" data-must>The city<br>after dark</h1>
+<p class="sub" data-r="sub">Five layers of skyline that drift apart as you scroll. A night walk through the old port.</p>
+<a class="btn" data-r="cta">Start walking</a>
+<svg class="city" data-r="skyline-back" viewBox="0 0 1280 360" preserveAspectRatio="none" style="opacity:.55"><polygon fill="#4c1d95" points="0,360 0,170 90,170 90,120 160,120 160,190 260,190 260,80 330,80 330,160 430,160 430,110 520,110 520,200 640,200 640,60 700,60 700,180 820,180 820,130 900,130 900,210 1010,210 1010,90 1080,90 1080,170 1180,170 1180,140 1280,140 1280,360"/></svg>
+<svg class="city" data-r="skyline-front" data-must viewBox="0 0 1280 360" preserveAspectRatio="none"><polygon fill="#0b0617" points="0,360 0,250 120,250 120,200 200,200 200,270 340,270 340,180 400,180 400,150 460,150 460,240 600,240 600,210 720,210 720,280 860,280 860,190 940,190 940,230 1060,230 1060,170 1140,170 1140,260 1280,260 1280,360"/></svg>
+<div class="rail" data-r="scroll-rail"><i></i></div>
+</body></html>

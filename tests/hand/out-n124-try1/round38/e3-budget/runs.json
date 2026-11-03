@@ -1,0 +1,570 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "641e7d30a5250ec40281c1e2fc5eca861b04dd20",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch designs a budget 'Spending' dashboard: a top bar with a bold 'Pocket' logo and an 'October' month dropdown, a 'Spending'/'October 2026' heading, a color-coded donut chart showing $2,340 of $2,800 spent with a matching legend (Rent/Food/Travel), and a right-side 'Categories' card listing six color-coded progress bars for Rent, Food, Travel, Fun, Savings and Bills with their spent/budget amounts. The whole page gets a pale cream (#fefae8) background per the colour tap.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"pocket\" at (60,23) 80x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:20:9",
+      "rect": {
+       "x": 60,
+       "y": 26,
+       "w": 80.4375,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1c1917 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"October\" at (1146,28) 62x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:22:11",
+      "rect": {
+       "x": 1146.03125,
+       "y": 30,
+       "w": 61.9375,
+       "h": 16
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1c1917 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (60,26) 80x24 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:20:9",
+      "rect": {
+       "x": 60,
+       "y": 26,
+       "w": 80.4375,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#1c1917 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (136,277) 269x269 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:32:7",
+      "rect": {
+       "x": 136,
+       "y": 276.5,
+       "w": 269,
+       "h": 269
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": false,
+    "nearest": 79.2,
+    "reason": "nothing near the drawing is the colour that was drawn (#f97316); closest is ΔE 79.2 away"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (100,652) 101x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:52:11",
+      "rect": {
+       "x": 100,
+       "y": 651.5,
+       "w": 101.125,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (100,716) 15x15: the <span> built for it sits 18px too low, but only because the <span> drawn at (100,683) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 100,
+        "y": 650,
+        "w": 14,
+        "h": 13
+       },
+       "built": {
+        "x": 100,
+        "y": 654.5,
+        "w": 14,
+        "h": 14
+       },
+       "dx": 0,
+       "dy": 5
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 100,
+        "y": 683,
+        "w": 14,
+        "h": 14
+       },
+       "built": {
+        "x": 100,
+        "y": 694.5,
+        "w": 14,
+        "h": 14
+       },
+       "dx": 0,
+       "dy": 12
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 100,
+        "y": 716,
+        "w": 15,
+        "h": 15
+       },
+       "built": {
+        "x": 100,
+        "y": 734.5,
+        "w": 14,
+        "h": 14
+       },
+       "dx": 0,
+       "dy": 18
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f97316 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:18:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 559,
+        "y": 110,
+        "w": 662,
+        "h": 741
+       },
+       "built": {
+        "x": 559,
+        "y": 110,
+        "w": 662,
+        "h": 741
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (136,277) 269x269 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:33:9",
+      "rect": {
+       "x": 136,
+       "y": 276.5,
+       "w": 269,
+       "h": 269
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f97316 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 of 6 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 38,
+       "built": 38,
+       "dy": 0
+      },
+      {
+       "index": 1,
+       "drawn": 38,
+       "built": 38,
+       "dy": 0
+      },
+      {
+       "index": 2,
+       "drawn": 127,
+       "built": 110,
+       "dy": -17
+      },
+      {
+       "index": 3,
+       "drawn": 275,
+       "built": 277,
+       "dy": 2
+      },
+      {
+       "index": 5,
+       "drawn": 110,
+       "built": 110,
+       "dy": 0
+      },
+      {
+       "index": 6,
+       "drawn": 230,
+       "built": 176,
+       "dy": -54
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "28 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "drawn-rings",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 chart drawn as a ring at the drawn size and place"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "drawn-order",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 marks drawn one under another built in the drawn order, each near its drawn height"
+    }
+   },
+   {
+    "kind": "bar-labels",
+    "verdict": {
+     "satisfied": false,
+     "reason": "5 of 17 words beside the bars drawn in colour took their bar's colour (\"of $1,120\" is #a8a29e, \"of $800\" is #a8a29e, \"of $400\" is #a8a29e, \"of $300\" is #a8a29e, \"of $500\" is #a8a29e); the user drew the bars in colour, not the words: set those labels and amounts to the block's normal dark text (the colour the other body text uses), keep the bars' colours, change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "17 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#fefae8",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,38) 71x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1155,38) 65x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,128) 146x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,169) 97x0",
+       "want": "#78716c",
+       "best": 0.7327183442967063,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (100,650) 14x13",
+       "want": "#f97316",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (100,683) 14x14",
+       "want": "#0d9488",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (100,716) 15x15",
+       "want": "#6366f1",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (559,110) 662x741 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (559,110) 662x741",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (594,155) 103x0",
+       "want": "#1c1917",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (594,231) 592x0 (bar)",
+       "want": "#f97316",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (594,301) 515x0 (bar)",
+       "want": "#0d9488",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (594,371) 592x0 (bar)",
+       "want": "#dc2626",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (594,441) 592x0 (bar)",
+       "want": "#f5f5f4",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (594,511) 545x0 (bar)",
+       "want": "#6366f1",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (594,581) 491x0 (bar)",
+       "want": "#a8a29e",
+       "best": 0,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 113737,
+   "cacheRead": 344650,
+   "output": 33276
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 73273,
+    "output": 22865,
+    "cacheRead": 139768,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/main.tsx",
+     "Read src/index.css",
+     "Glob",
+     "Write src/App.tsx"
+    ],
+    "ms": 279719
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 73740,
+    "output": 10411,
+    "cacheRead": 204882,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 121110
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

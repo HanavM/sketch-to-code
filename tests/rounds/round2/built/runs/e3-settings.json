@@ -1,0 +1,226 @@
+{
+  "id": "e3-settings",
+  "at": "2026-10-21T06:13:50.511Z",
+  "likeness": {
+    "version": 2,
+    "overall": 0.06192591699139246,
+    "overallV1": 0.06192591699139246,
+    "colour": 0.9869779870056976,
+    "structure": 0.8499191146187494,
+    "structureStrict": 0.7910580628999012,
+    "layout": 0.20641972330464153
+  },
+  "effects": null,
+  "tokens": {
+    "input": 21852,
+    "output": 9972,
+    "cacheRead": 297626
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 22391,
+      "output": 6832,
+      "cacheRead": 287103,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 70967
+    }
+  ],
+  "reading": "This is a settings page: a 'Settings' heading, a row of nav links (Profile, Notifications, Billing, Team), four labeled toggle rows (two on, two off) with descriptive subtext, and two buttons at the bottom (a blue 'Save changes' button and a red-outlined 'Reset all' button).",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0"
+          ],
+          "lines": 1,
+          "fontPx": 40
+        }
+      ],
+      "region": [
+        128,
+        46,
+        936,
+        21
+      ],
+      "paths": [],
+      "instruction": "Add a page heading that reads 'Settings', per the typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 4,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        124,
+        108,
+        1032,
+        31
+      ],
+      "paths": [],
+      "instruction": "Add a row of navigation links/tabs below the heading with items: Profile, Notifications, Billing, Team, per the typed note 'links: Profile, Notifications, Billi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3",
+            "s4"
+          ],
+          "lines": 4,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        124,
+        152,
+        1032,
+        33
+      ],
+      "paths": [],
+      "instruction": "Add a settings row with a toggle switched ON, labeled 'Email digests' with subtext 'A summary of activity', per the typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        124,
+        233,
+        1032,
+        33
+      ],
+      "paths": [],
+      "instruction": "Add a settings row with a toggle switched ON, labeled 'Mentions' with subtext 'Notify me when someone mentions me', per the typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        124,
+        314,
+        1032,
+        33
+      ],
+      "paths": [],
+      "instruction": "Add a settings row with a toggle switched OFF, labeled 'Product news' with subtext 'Occasional updates about new features', per the typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        124,
+        395,
+        1032,
+        33
+      ],
+      "paths": [],
+      "instruction": "Add a settings row with a toggle switched OFF, labeled 'Weekly report' with subtext 'Usage numbers for your account', per the typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        122,
+        500,
+        148,
+        43
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Add a solid blue button with white text reading 'Save changes', per the typed note."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        286,
+        500,
+        108,
+        43
+      ],
+      "paths": [
+        "s12"
+      ],
+      "instruction": "Add a button with a red outline (outline style, not filled) reading 'Reset all', per the typed note."
+    }
+  ],
+  "rejected": []
+}

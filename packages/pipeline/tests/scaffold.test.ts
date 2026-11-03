@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
-import { buildScaffold, componentName, scaffoldDir } from '../src/scaffold.js'
-import { finishSource } from '../src/finish.js'
+import { buildScaffold, componentName, isPrimitivePath, lostStrokes, onlyPrimitives, pictureCrossIds, restoreLostStrokes, scaffoldDir, wordsGiveCss } from '../src/scaffold.js'
+import { askedHexes, finishSource } from '../src/finish.js'
 import { appPalette } from '../src/palette.js'
 import { compositionFromSource, compositionFromStrokes, scoreComposition } from '../src/composition.js'
 import { DEFAULT_FIDELITY, type FidelityControls } from '../src/fidelity.js'
@@ -58,6 +58,32 @@ describe('buildScaffold — the geometry is supplied, not requested', () => {
     expect(sc.code).toContain('linearGradient')
     expect(open).toContain('fill="none"')
     expect(open).toContain('stroke="currentColor"')
+  })
+
+  it('fills a shape asked for as a vivid colour at full strength, not a faint tint', () => {
+    const faint = buildScaffold(action(), 0, controls({ fill: 'filled' }))!
+    expect(faint.code).toContain('stopOpacity="0.42"')
+    const vivid = buildScaffold(action({ instruction: 'Soft blurred big vivid pink circle behind the card' }), 0, controls({ fill: 'filled' }))!
+    expect(vivid.code).toContain('stopOpacity="1"')
+    expect(vivid.code).not.toContain('stopOpacity="0.16"')
+  })
+
+  it('fills a gradient block at full strength unless the words soften it (round-5 c4 pale photo)', () => {
+    const photo = buildScaffold(action({ instruction: 'Tilted rectangular block with a light orange-to-brown gradient fill and a hard dark-brown drop shadow' }), 0, controls({ fill: 'filled' }))!
+    expect(photo.code).toContain('stopOpacity="1"')
+    expect(photo.code).not.toContain('stopOpacity="0.16"')
+    const soft = buildScaffold(action({ instruction: 'a blob with a subtle pink gradient' }), 0, controls({ fill: 'filled' }))!
+    expect(soft.code).toContain('stopOpacity="0.42"')
+  })
+
+  it('leaves a shape asked for as an outline or ring unfilled (round-3 c3 orbit rings)', () => {
+    for (const instruction of ['Large spinning outline circle in lavender', 'a hollow cyan ring behind the headline']) {
+      const sc = buildScaffold(action({ instruction }), 0, controls({ fill: 'filled' }))!
+      expect(sc.code).not.toContain('linearGradient')
+      expect(sc.code.split('\n').find((l) => l.includes('M34,1'))).toContain('fill="none"')
+    }
+    // 'outline' inside another word is not a request for one
+    expect(buildScaffold(action({ instruction: 'a ringed planet, filled' }), 0, controls({ fill: 'filled' }))!.code).toContain('linearGradient')
   })
 
   it('strokes everything when line art is asked for', () => {
@@ -178,6 +204,17 @@ describe('the finishing pass', () => {
     expect(edits[0]!.kind).toBe('colour-snapped')
   })
 
+  it('keeps a hex the user typed even when it is nearly a token (round 7 e5 header row went white)', () => {
+    const pale = appPalette(snap([node(['bg-white'], { backgroundColor: 'rgb(255, 255, 255)' })]))
+    const src = '<main className="bg-[#f9fafb]"><th className="bg-[#F3F4F6]">x</th></main>'
+    expect(finishSource(src, pale).code).not.toContain('#f9fafb')
+    const asked = askedHexes(['whole page: pale grey (#f9fafb, plainly not white) page', 'header row (bg-[#f3f4f6] on every header cell)'])
+    expect([...asked]).toEqual(['#f9fafb', '#f3f4f6'])
+    const { code, edits } = finishSource(src, pale, asked)
+    expect(code).toBe(src)
+    expect(edits).toEqual([])
+  })
+
   it('leaves a colour the app does not have alone', () => {
     const { code, edits } = finishSource('<p className="text-[#22c55e]">x</p>', palette)
     expect(code).toContain('text-[#22c55e]')
@@ -215,5 +252,147 @@ describe('the finishing pass', () => {
   it('does nothing to source that is already clean', () => {
     const src = '<svg><path d="M0,0 C1,1 2,2 3,3" fill="none" /></svg>'
     expect(finishSource(src, palette)).toEqual({ code: src, edits: [] })
+  })
+})
+
+describe('pictureCrossIds — the X of a picture box is a sign, not geometry', () => {
+  const box = { strokeId: 's2', d: 'M0.5,0.8 C100,0 300,1 398,0.6 C399,200 398,400 398,511 C300,512 100,511 1,511 C1,300 0,100 0.5,0.8 Z' }
+  const down = { strokeId: 's3', d: 'M0.5,0.8 C53.4,73.5 111.7,142.4 166.8,213.5 C243.8,313 319,414.3 398.5,511.8' }
+  const up = { strokeId: 's4', d: 'M398.5,0.8 C337.7,80.2 274.7,157.7 213.7,237 C57.5,439.7 27.4,474.5 0.5,511.8' }
+  const region = { x: 510, y: 153, w: 399, h: 513 }
+  it('finds both diagonals of a crossed box (round 5 c4 photo)', () => {
+    expect([...pictureCrossIds([box, down, up], region)].sort()).toEqual(['s3', 's4'])
+  })
+  it('keeps a lone diagonal: it may be a real line', () => {
+    expect(pictureCrossIds([box, down], region).size).toBe(0)
+  })
+  it('drops the X from the scaffold but keeps the box', () => {
+    const sc = buildScaffold(action({ region, svgPaths: [box, down, up], depicts: 'gradient block' }), 0, controls())
+    expect(sc?.code).toContain('s2: drawn by the user')
+    expect(sc?.code).not.toContain('s3: drawn by the user')
+    expect(sc?.code).not.toContain('s4: drawn by the user')
+  })
+})
+
+describe('lostStrokes — a drawn stroke stays drawn where it was', () => {
+  const box = { strokeId: 's2', d: 'M0.5,0.8 C100,0 300,1 398,0.6 C399,200 398,400 398,511 C300,512 100,511 1,511 C1,300 0,100 0.5,0.8 Z' }
+  const region = { x: 510, y: 153, w: 399, h: 513 }
+  const sc = buildScaffold(action({ region, svgPaths: [box], depicts: 'gradient block' }), 0, controls())!
+  it('passes the scaffold as written, and a restyled path with the same d', () => {
+    expect(lostStrokes(sc.code, sc.code)).toEqual([])
+    expect(lostStrokes(sc.code, `<path d="${box.d}" fill="url(#g)" />`)).toEqual([])
+  })
+  it('flags a stroke left only as a translated shadow copy (round 5 c4 photo built dark brown)', () => {
+    const now = `{/* hard shadow */}\n<path transform="translate(24,24)" d="${box.d}" fill="#3b2a1f" />\n{/* s2: drawn by the user — measured geometry, keep it */}\n</svg>`
+    expect(lostStrokes(sc.code, now)).toEqual(['s2'])
+  })
+  it('flags a stroke that is gone', () => {
+    expect(lostStrokes(sc.code, '<svg></svg>')).toEqual(['s2'])
+  })
+})
+
+describe('restoreLostStrokes — put a lost drawn stroke back without a model', () => {
+  const box = { strokeId: 's1', d: 'M0.9,0.8 C92,-1 184,2 275,1.1 C365,0 365,200 364,444 C200,446 100,446 0.3,445 C0,300 0,100 0.9,0.8 Z' }
+  const sc = buildScaffold(action({ region: { x: 480, y: 79, w: 366, h: 446 }, svgPaths: [box], depicts: 'gradient block' }), 0, controls())!
+  const shadowOnly = `<svg>\n<defs><linearGradient id="g2"/></defs>\n<path d="${box.d}" fill="#000" fillOpacity={0.18} transform="translate(14,14)" />\n{/* s1: drawn by the user — measured geometry, keep it */}\n</svg>`
+  it('puts the path back after its comment, on top of the shadow copy (round 4 c1 grey slab)', () => {
+    const out = restoreLostStrokes(sc.code, shadowOnly, ['s1'])!
+    expect(lostStrokes(sc.code, out)).toEqual([])
+    expect(out.indexOf('translate(14,14)')).toBeLessThan(out.lastIndexOf(`d="${box.d}"`))
+  })
+  it('falls back to currentColor when the gradient it pointed at is gone, and to before </svg> with no comment', () => {
+    const out = restoreLostStrokes(sc.code, '<svg>\n</svg>', ['s1'])!
+    expect(lostStrokes(sc.code, out)).toEqual([])
+    expect(out).not.toMatch(/url\(#/)
+  })
+  it('gives up when there is no svg to put it in', () => {
+    expect(restoreLostStrokes(sc.code, 'export default () => null', ['s1'])).toBeNull()
+  })
+})
+
+describe('onlyPrimitives — a widget drawn as plain boxes is not a form (round 7 e4)', () => {
+  const rect = (x: number, y: number, w: number, h: number, id: string) => ({
+    strokeId: id, d: `M${x + 1},${y} C${x + w / 3},${y + 1} ${x + 2 * w / 3},${y - 1} ${x + w},${y + 1} C${x + w + 1},${y + h / 3} ${x + w},${y + 2 * h / 3} ${x + w - 1},${y + h} C${x + 2 * w / 3},${y + h + 1} ${x + w / 3},${y + h} ${x},${y + h - 1} C${x - 1},${y + 2 * h / 3} ${x + 1},${y + h / 3} ${x + 1},${y} Z`,
+  })
+  const dot = (cx: number, cy: number, r: number, id: string) => {
+    const k = 0.55 * r
+    return { strokeId: id, d: `M${cx + r},${cy} C${cx + r},${cy + k} ${cx + k},${cy + r} ${cx},${cy + r} C${cx - k},${cy + r} ${cx - r},${cy + k} ${cx - r},${cy} C${cx - r},${cy - k} ${cx - k},${cy - r} ${cx},${cy - r} C${cx + k},${cy - r} ${cx + r},${cy - k} ${cx + r},${cy} Z` }
+  }
+  const line = (x0: number, y0: number, x1: number, y1: number, id: string) => ({ strokeId: id, d: `M${x0},${y0} C${(2 * x0 + x1) / 3},${(2 * y0 + y1) / 3 + 1} ${(x0 + 2 * x1) / 3},${(y0 + 2 * y1) / 3 - 1} ${x1},${y1}` })
+  const rounded = { strokeId: 'b', d: 'M16,0 L384,0 C393,0 400,7 400,16 L400,28 C400,37 393,44 384,44 L16,44 C7,44 0,37 0,28 L0,16 C0,7 7,0 16,0 Z' }
+  const heart = { strokeId: 'h', d: 'M25,12 C20,0 0,0 2,16 C4,30 20,38 25,46 C30,38 46,30 48,16 C50,0 30,0 25,12 Z' }
+  const tilted = { strokeId: 't', d: 'M0,60 L600,0 L610,90 L10,150 Z' }
+  const garment = { strokeId: 'g', d: 'M120,40 C160,20 240,20 280,40 L360,120 L320,160 L300,140 L300,420 L100,420 L100,140 L80,160 L40,120 Z' }
+
+  it('reads boxes, rounded buttons, small dots and straight lines as primitives', () => {
+    expect(isPrimitivePath(rect(0, 0, 84, 84, 'r').d)).toBe(true)
+    expect(isPrimitivePath(rounded.d)).toBe(true)
+    expect(isPrimitivePath(dot(18, 18, 16, 'd').d)).toBe(true)
+    expect(isPrimitivePath(line(0, 0, 84, 84, 'l').d)).toBe(true)
+  })
+  it('keeps real geometry: a heart, a tilted band, a silhouette, a big circle', () => {
+    expect(isPrimitivePath(heart.d)).toBe(false)
+    expect(isPrimitivePath(tilted.d)).toBe(false)
+    expect(isPrimitivePath(garment.d)).toBe(false)
+    expect(isPrimitivePath(dot(150, 150, 140, 'm').d)).toBe(false)
+  })
+  it('skips a column of crossed thumbnails, a swatch row and an icon button square', () => {
+    const thumbs = [0, 1, 2, 3].flatMap((i) => [rect(0, i * 94, 84, 84, `b${i}`), line(0, i * 94, 84, i * 94 + 84, `x${i}`), line(84, i * 94, 0, i * 94 + 84, `y${i}`)])
+    expect(buildScaffold(action({ region: { x: 51, y: 119, w: 86, h: 370 }, svgPaths: thumbs, depicts: 'thumbnails' }), 0, controls())).toBeNull()
+    const swatches = [0, 1, 2, 3].map((i) => dot(18 + i * 48, 18, 16, `s${i}`))
+    expect(buildScaffold(action({ region: { x: 738, y: 304, w: 184, h: 36 }, svgPaths: swatches, depicts: 'swatches' }), 0, controls())).toBeNull()
+    expect(buildScaffold(action({ region: { x: 1152, y: 522, w: 50, h: 50 }, svgPaths: [rect(0, 0, 48, 48, 'w')], depicts: 'heart icon' }), 0, controls())).toBeNull()
+  })
+  it('still scaffolds a single big box, a drawn heart, and anything at the trace rung', () => {
+    expect(buildScaffold(action({ region: { x: 0, y: 0, w: 520, h: 620 }, svgPaths: [rect(0, 0, 518, 618, 'p')], depicts: 'photo' }), 0, controls())).not.toBeNull()
+    expect(buildScaffold(action({ region: { x: 0, y: 0, w: 50, h: 50 }, svgPaths: [heart], depicts: 'heart' }), 0, controls())).not.toBeNull()
+    const swatches = [0, 1].map((i) => dot(18 + i * 48, 18, 16, `s${i}`))
+    expect(buildScaffold(action({ region: { x: 0, y: 0, w: 90, h: 36 }, svgPaths: swatches, fidelity: 'verbatim' }), 0, controls({ resemblance: 0.95 }))).not.toBeNull()
+  })
+  it('keeps a drawing that mixes a primitive with real geometry', () => {
+    expect(onlyPrimitives([rect(0, 0, 84, 84, 'r'), garment], { w: 400, h: 440 })).toBe(false)
+  })
+  it('keeps one or two big boxes and boxes of mixed sizes (creative cubes, skylines, tilted photos)', () => {
+    expect(onlyPrimitives([rect(0, 0, 260, 210, 'a'), rect(10, 10, 240, 60, 'b')], { w: 262, h: 212 })).toBe(false)
+    expect(onlyPrimitives([rect(0, 0, 400, 300, 'a'), line(0, 0, 400, 300, 'x'), line(400, 0, 0, 300, 'y')], { w: 402, h: 302 })).toBe(false)
+    expect(onlyPrimitives([rect(0, 0, 400, 60, 'a'), rect(0, 80, 120, 300, 'b'), rect(140, 80, 260, 300, 'c')], { w: 402, h: 382 })).toBe(false)
+  })
+  it('drops the outline of one upright box whose words give its exact size, unless it is tilted (round 7 e4 photo)', () => {
+    const photo = [rect(0, 0, 514, 614, 'p')]
+    expect(onlyPrimitives(photo, { w: 516, h: 616 })).toBe(false)
+    expect(onlyPrimitives(photo, { w: 516, h: 616 }, 'a big 520x620px block, 12px rounded, gradient backdrop')).toBe(true)
+    expect(onlyPrimitives(photo, { w: 516, h: 616 }, 'a 520x620px photo tilted 4° clockwise')).toBe(false)
+    expect(onlyPrimitives([line(0, 0, 400, 0, 'l')], { w: 402, h: 4 }, 'a 400x2px rule')).toBe(false)
+  })
+})
+
+describe('wordsGiveCss — words that give the exact CSS shape beat the drawn outline (round 21 c3, c4)', () => {
+  const tilted = { strokeId: 't', d: 'M0,30 L300,0 L276,380 L18,350 Z' }
+  it('reads a clip-path, a border triangle, a 1px rule, a sized round box and plain bars', () => {
+    expect(wordsGiveCss('A slanted four-sided shard (NOT a rectangle), clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6% 92%): 300x380px')).toBe(true)
+    expect(wordsGiveCss('A solid #ff3d00 triangle pointing up, built as a CSS border triangle: 180px wide')).toBe(true)
+    expect(wordsGiveCss('a near-black horizontal divider rule, full page width (1280px), exactly 1px thick (height:1px)')).toBe(true)
+    expect(wordsGiveCss('one big near-black outline ring, a 500x500px circle at 470,200 (position absolute, border-radius 50%) with a thin 1px border')).toBe(true)
+    expect(wordsGiveCss('four solid flat-filled near-black horizontal bars (not text, not strokes), each its own element: 270x6 at 28,744')).toBe(true)
+    expect(wordsGiveCss('one group div (transform-style: preserve-3d, transform: rotateX(52deg)) holding 4 faces: #3a1a14 at translateZ(0px), #ffffff at translateZ(210px)')).toBe(true)
+  })
+  it('reads a framed screen, a scanline veil and a titled meter panel (round 23 c5)', () => {
+    expect(wordsGiveCss('a framed SCREEN: ONE 1120x700px div at 80,60, 40px rounded corners; exactly box-shadow: #1a1a14 0px 0px 0px 14px')).toBe(true)
+    expect(wordsGiveCss('a see-through SCANLINE veil: ONE 1120x700px div at 80,60, painted with repeating-linear-gradient(0deg, transparent 0px 2px, rgba(0, 0, 0, 0.4) 2px 4px)')).toBe(true)
+    expect(wordsGiveCss('ONE 310x380px panel at 820,130; across its TOP edge a filled TITLE STRIP (NOT a button, NOT at the bottom); a 194x12px SEGMENTED meter bar at 840,195')).toBe(true)
+    expect(wordsGiveCss('drawn as exactly this inline SVG (no picture, no box), 600x600px with its top-left at page 640,110 (position absolute), copied verbatim: <svg width="600" height="600"><line x1="300" y1="60" x2="300" y2="74"></line></svg>')).toBe(true)
+    expect(wordsGiveCss('ONE 400x300px panel at 20,20 with box-shadow: 0 4px 12px #0003')).toBe(false)
+  })
+  it('leaves drawings the words only describe', () => {
+    expect(wordsGiveCss('a 520x620px photo tilted 4° clockwise')).toBe(false)
+    expect(wordsGiveCss('a hand-drawn cartoon crab doodle')).toBe(false)
+    expect(wordsGiveCss('a big vivid pink blurred circle behind the card')).toBe(false)
+    expect(wordsGiveCss('a 3D-looking stack of cards, tilted')).toBe(false)
+  })
+  it('builds no outline component for them below the trace rung, keeps it at the trace rung', () => {
+    const shard = { region: { x: 700, y: 430, w: 300, h: 380 }, svgPaths: [tilted], depicts: 'shard', instruction: 'a slanted SHARD cut by clip-path: polygon(0px 8%, 100% 0px, 92% 100%, 6% 92%)' }
+    expect(buildScaffold(action(shard), 0, controls())).toBeNull()
+    expect(buildScaffold(action({ ...shard, instruction: 'a slanted blue shard' }), 0, controls())).not.toBeNull()
+    expect(buildScaffold(action({ ...shard, fidelity: 'verbatim' }), 0, controls({ resemblance: 0.95 }))).not.toBeNull()
   })
 })

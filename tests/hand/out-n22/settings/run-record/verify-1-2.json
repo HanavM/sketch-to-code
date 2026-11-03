@@ -1,0 +1,258 @@
+[
+  {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> \"Settings\" at (120,56) 121x36 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:28:9",
+        "rect": {
+          "x": 120,
+          "y": 56,
+          "w": 1040,
+          "h": 36
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <button> \"Profile\" at (120,142) 43x17 sits on the drawn line",
+      "bestCandidate": {
+        "tag": "button",
+        "srcLoc": "src/App.tsx:31:11",
+        "rect": {
+          "x": 120,
+          "y": 140,
+          "w": 43.21875,
+          "h": 33
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> at (120,56) 1040x36 matches the sketch region (placed by the page layout)",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:28:9",
+        "rect": {
+          "x": 120,
+          "y": 56,
+          "w": 1040,
+          "h": 36
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (1112,168) 48x28: the <span> built for it sits 48px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).; the box drawn at (1112,250) 49x27: the <span> built for it sits 44px too low, but only because the <span> drawn at (1112,168) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.; the box drawn at (1111,331) 49x27: the <span> built for it sits 40px too low, but only because the <span> drawn at (1112,250) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.; the box drawn at (1112,411) 48x27: the <span> built for it sits 37px too low, but only because the <span> drawn at (1111,331) above it is off by the same. The gap between them is right, so do not move this one on its own: it lands when that one is fixed.",
+      "marks": [
+        {
+          "strokeId": "s2",
+          "drawn": {
+            "x": 1112,
+            "y": 168,
+            "w": 48,
+            "h": 28
+          },
+          "built": {
+            "x": 1112,
+            "y": 216,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 48
+        },
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 1112,
+            "y": 250,
+            "w": 49,
+            "h": 27
+          },
+          "built": {
+            "x": 1112,
+            "y": 293,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 44
+        },
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 1111,
+            "y": 331,
+            "w": 49,
+            "h": 27
+          },
+          "built": {
+            "x": 1112,
+            "y": 370,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 1,
+          "dy": 40
+        },
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 1112,
+            "y": 411,
+            "w": 48,
+            "h": 27
+          },
+          "built": {
+            "x": 1112,
+            "y": 447,
+            "w": 48,
+            "h": 28
+          },
+          "dx": 0,
+          "dy": 37
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <span> at (120,374) 92x20 matches the sketch region",
+      "bestCandidate": {
+        "tag": "span",
+        "srcLoc": "src/App.tsx:51:15",
+        "rect": {
+          "x": 120,
+          "y": 374,
+          "w": 91.8125,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (120,498) 152x46: the <button> built for it sits 18px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+      "marks": [
+        {
+          "strokeId": "s6",
+          "drawn": {
+            "x": 120,
+            "y": 498,
+            "w": 152,
+            "h": 46
+          },
+          "built": {
+            "x": 120,
+            "y": 516,
+            "w": 152,
+            "h": 46
+          },
+          "dx": 0,
+          "dy": 18
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <span> at (120,374) 92x20 matches the sketch region",
+      "bestCandidate": {
+        "tag": "span",
+        "srcLoc": "src/App.tsx:51:15",
+        "rect": {
+          "x": 120,
+          "y": 374,
+          "w": 91.8125,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (284,499) 112x46: the <button> built for it sits 17px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+      "marks": [
+        {
+          "strokeId": "s7",
+          "drawn": {
+            "x": 284,
+            "y": 499,
+            "w": 112,
+            "h": 46
+          },
+          "built": {
+            "x": 284,
+            "y": 516,
+            "w": 112,
+            "h": 46
+          },
+          "dx": 0,
+          "dy": 17
+        }
+      ]
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "2 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": false,
+      "reason": "action 2: the box drawn at (1112,168) 48x28 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb; action 2: the box drawn at (1112,250) 49x27 was coloured #2563eb (fill); nothing that size was built there carrying a colour: paint the block itself exactly #2563eb",
+      "checks": [
+        {
+          "what": "the box drawn at (1112,168) 48x28",
+          "want": "#2563eb",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (1112,250) 49x27",
+          "want": "#2563eb",
+          "best": null,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (120,498) 152x46",
+          "want": "#2563eb",
+          "best": 0,
+          "ok": true
+        }
+      ]
+    }
+  }
+]

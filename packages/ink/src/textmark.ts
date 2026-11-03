@@ -1,0 +1,535 @@
+/**
+ * Is this stroke a line of text?
+ *
+ * The squiggle people draw to mean "words go here" is the one mark that must
+ * never come back as itself. Page 05 of the bench drew the sketch back at us:
+ * every text squiggle became a literal wavy SVG path. The prompt was fixed to
+ * say so (docs/findings.md, "Fixed, and the fix is verified"), but the prompt
+ * is not the only thing that turns ink into paths. Grounding fitted an svgPath
+ * for EVERY stroke an add/design action cited, and from there:
+ *
+ *   - the scaffold wrote each one into a component before codegen, labelled
+ *     "these paths ARE the drawing … keep them";
+ *   - the trace rung forced every such action to fidelity 'verbatim';
+ *   - the composition check, at the trace rung, scored a squiggle that came
+ *     back as real words as a failed likeness;
+ *   - the instant render mounted squiggles drawn in empty space as SVG.
+ *
+ * Each of those is a deterministic push toward tracing, and the prompt was
+ * arguing against all of them. So this is decided here, from the ink, and the
+ * squiggle never becomes a path at all: the model still gets the stroke (it is
+ * cited, it sets the region) and is told it stands for text.
+ *
+ * Geometry, calibrated on the bench's own generators (tests/bench/lib):
+ * a text squiggle is a short-wavelength oscillation (22–40 px) of small
+ * amplitude (4–6 px) along a roughly horizontal chord. Its perpendicular
+ * travel per unit of length is ~0.5–0.8. A decorative wave (pages 08, 14) has
+ * the same shape at 20× the wavelength: travel ~0.15. A hurried straight line
+ * sways a few px every ~60 px: travel well under 0.3. Boxes and rings close on
+ * themselves; arrows have one barb pair, not a train of crests.
+ */
+import type { Point } from './types.js'
+import { resampleBySpacing } from './resample.js'
+
+export interface TextMarkMeasure {
+  /** End-to-end length (the line of text's width). */
+  chord: number
+  /** Angle of the chord from horizontal, degrees, 0–90. */
+  tilt: number
+  /** Spread of the stroke across its chord (max − min perpendicular offset). */
+  thickness: number
+  /** Perpendicular travel per px of chord: how hard it oscillates. */
+  travel: number
+  /** Turning points across the chord (hysteresis-filtered). */
+  crests: number
+  /** Ink length / chord: ~1 for a line, ≫ 1 for a loop or a box. */
+  sinuosity: number
+}
+
+/** Below this chord a mark is a tick or a dot, not a line of anything. */
+const MIN_CHORD = 30
+/** A line of text is written roughly level. */
+const MAX_TILT = 25
+/** Body text to a big heading; a scribbled-over block is not a line. */
+const MAX_THICKNESS = 40
+/**
+ * A display word drawn to size: one zigzag as tall as the letters (round 2, c2:
+ * "NOISE" set at 300px drawn ~200px tall). Taller than MAX_THICKNESS is allowed
+ * only for a lone line that is still clearly a LINE: far wider than tall and
+ * level. A scratch-out over a block is about as tall as it is wide.
+ */
+const MAX_DISPLAY_THICKNESS = 320
+const DISPLAY_MIN_ASPECT = 2.5
+const DISPLAY_MAX_TILT = 12
+/** Chord per crest, as a share of the zigzag's height. */
+const DISPLAY_MIN_CREST_GAP = 0.5
+const DISPLAY_MAX_SINUOSITY = 2.5
+/**
+ * A SHORT giant word ("01", "03" set at 360-420px) drawn to size. Its letters are
+ * barely wider than tall, so a zigzag as tall as them can't be 2.5x wider: held to
+ * that, the bench drew "01" a third as tall and it built at half size (round 3 c4,
+ * round 4 c5). Allowed down to 1.1x wider than tall, but only as a FEW big crests
+ * (2-3) at least 100px tall: a hatch or scratch-out over a block packs many crests
+ * tight (bench hatch: one every 0.1-0.4x its height, 10+ crests).
+ */
+const SHORT_DISPLAY_MIN_ASPECT = 1.1
+const SHORT_DISPLAY_MIN_THICKNESS = 100
+const SHORT_DISPLAY_MAX_CRESTS = 3
+const SHORT_DISPLAY_MIN_CREST_GAP = 0.33
+const SHORT_DISPLAY_MAX_SINUOSITY = 3
+/** Text oscillates hard; decoration and sway do not (see header). */
+const MIN_TRAVEL = 0.35
+/** A train of crests — one barb pair or a single bump is not writing. */
+const MIN_CRESTS = 3
+/** Perpendicular movement smaller than this is hand tremor, not a crest. */
+const HYSTERESIS = 1.5
+/** An oscillating line's ink is longer than its chord, a box's far longer. */
+const MAX_SINUOSITY = 3
+
+/**
+ * `axis: 'fit'` measures along the least-squares line through the ink instead of
+ * first-to-last point. A big zigzag that ends mid-crest has a chord tilted by up
+ * to its own height, which reads it as sloped and far taller than it is.
+ */
+export function measureTextMark(points: Point[], axis: 'ends' | 'fit' = 'ends'): TextMarkMeasure | null {
+  if (points.length < 4) return null
+  let a = points[0]!
+  const b = points[points.length - 1]!
+  let dx = b.x - a.x
+  let dy = b.y - a.y
+  let chord = Math.hypot(dx, dy)
+  if (chord < 1) return null
+  if (axis === 'fit') {
+    const n = points.length
+    let mx = 0, my = 0
+    for (const p of points) { mx += p.x / n; my += p.y / n }
+    let sxx = 0, sxy = 0, syy = 0
+    for (const p of points) { sxx += (p.x - mx) ** 2; sxy += (p.x - mx) * (p.y - my); syy += (p.y - my) ** 2 }
+    // principal axis of the ink
+    const th = 0.5 * Math.atan2(2 * sxy, sxx - syy)
+    let fx = Math.cos(th), fy = Math.sin(th)
+    if (fx * dx + fy * dy < 0) { fx = -fx; fy = -fy }
+    let lo = Infinity, hi = -Infinity
+    for (const p of points) { const t = (p.x - mx) * fx + (p.y - my) * fy; lo = Math.min(lo, t); hi = Math.max(hi, t) }
+    chord = hi - lo
+    if (chord < 1) return null
+    dx = fx * chord
+    dy = fy * chord
+    a = { ...a, x: mx + fx * lo, y: my + fy * lo }
+  }
+  const ux = dx / chord
+  const uy = dy / chord
+  let tilt = (Math.atan2(Math.abs(dy), Math.abs(dx)) * 180) / Math.PI
+
+  // even spacing first, so travel and crest counts don't depend on how fast
+  // the pen moved; then a 3-tap average to take off pointer quantisation
+  const rs = resampleBySpacing(points, 3)
+  const off = rs.map((p) => (p.x - a.x) * -uy + (p.y - a.y) * ux)
+  const sm = off.map((_, i) => {
+    const lo = Math.max(0, i - 1)
+    const hi = Math.min(off.length - 1, i + 1)
+    let s = 0
+    for (let j = lo; j <= hi; j++) s += off[j]!
+    return s / (hi - lo + 1)
+  })
+  let min = Infinity
+  let max = -Infinity
+  let travel = 0
+  let ink = 0
+  for (let i = 0; i < sm.length; i++) {
+    min = Math.min(min, sm[i]!)
+    max = Math.max(max, sm[i]!)
+    if (i > 0) travel += Math.abs(sm[i]! - sm[i - 1]!)
+  }
+  for (let i = 1; i < points.length; i++) {
+    ink += Math.hypot(points[i]!.x - points[i - 1]!.x, points[i]!.y - points[i - 1]!.y)
+  }
+
+  // turning points with hysteresis: a crest only counts once the stroke has
+  // come back from it by more than tremor
+  let crests = 0
+  let dir = 0
+  let hi = sm[0]!
+  let lo = sm[0]!
+  for (const v of sm) {
+    if (dir === 0) {
+      // no direction yet: wait until the stroke has clearly left its start
+      hi = Math.max(hi, v)
+      lo = Math.min(lo, v)
+      if (v < hi - HYSTERESIS) { dir = -1; lo = v }
+      else if (v > lo + HYSTERESIS) { dir = 1; hi = v }
+    } else if (dir > 0) {
+      if (v > hi) hi = v
+      else if (v < hi - HYSTERESIS) { crests++; dir = -1; lo = v }
+    } else {
+      if (v < lo) lo = v
+      else if (v > lo + HYSTERESIS) { crests++; dir = 1; hi = v }
+    }
+  }
+  if (!Number.isFinite(tilt)) tilt = 90
+  return { chord, tilt, thickness: max - min, travel: travel / chord, crests, sinuosity: ink / chord }
+}
+
+/** Why this stroke reads as a line of text, or null when it doesn't. */
+export function textMarkReason(points: Point[]): string | null {
+  let m = measureTextMark(points)
+  if (!m) return null
+  if (m.chord < MIN_CHORD || m.tilt > MAX_TILT) return null
+  if (m.thickness > MAX_THICKNESS) {
+    // maybe a display word drawn to size: judge it along the ink's own axis
+    const d = displayMeasure(points)
+    if (!d) return null
+    m = d.m
+    if (d.short) return `a ${Math.round(m.chord)}x${Math.round(m.thickness)}px zigzag (${m.crests} crests) reads as a short giant word`
+  }
+  if (m.sinuosity > MAX_SINUOSITY) return null
+  if (m.travel < MIN_TRAVEL || m.crests < MIN_CRESTS) return null
+  return (
+    `a level ${Math.round(m.chord)}px squiggle (${m.crests} crests, ` +
+    `${Math.round(m.thickness)}px tall) reads as a line of text`
+  )
+}
+
+/**
+ * A stroke taller than body ink that is still a line of display type: the measure
+ * it qualifies by (along the ink's axis first, then end to end) and whether it is
+ * a short giant word. Null when it is neither.
+ */
+function displayMeasure(points: Point[]): { m: TextMarkMeasure; short: boolean } | null {
+  const fit = measureTextMark(points, 'fit')
+  if (fit && isDisplayLine(fit)) return { m: fit, short: false }
+  // near-square ink has no reliable principal axis (it tilts ~40deg): a short word
+  // is judged end to end too, and must be level either way
+  for (const m of [fit, measureTextMark(points)]) if (m && isShortDisplayWord(m)) return { m, short: true }
+  return null
+}
+
+/** A level zigzag far wider than tall, taller than body or title ink: a display word drawn to size. */
+function isDisplayLine(m: TextMarkMeasure): boolean {
+  return (
+    m.thickness <= MAX_DISPLAY_THICKNESS &&
+    m.chord >= DISPLAY_MIN_ASPECT * m.thickness &&
+    m.tilt <= DISPLAY_MAX_TILT &&
+    // a hatch fill packs its crests tighter and doubles back harder (bench hatch:
+    // a crest every 0.43x its height, ink 2.9x its chord)
+    m.chord / Math.max(1, m.crests) >= DISPLAY_MIN_CREST_GAP * m.thickness &&
+    m.sinuosity <= DISPLAY_MAX_SINUOSITY
+  )
+}
+
+/** A few big crests about as tall as wide, level: a short word ("01") drawn at its real height. */
+function isShortDisplayWord(m: TextMarkMeasure): boolean {
+  return (
+    m.thickness >= SHORT_DISPLAY_MIN_THICKNESS &&
+    m.thickness <= MAX_DISPLAY_THICKNESS &&
+    m.chord >= SHORT_DISPLAY_MIN_ASPECT * m.thickness &&
+    m.chord < DISPLAY_MIN_ASPECT * m.thickness &&
+    m.tilt <= DISPLAY_MAX_TILT &&
+    m.crests >= 2 &&
+    m.crests <= SHORT_DISPLAY_MAX_CRESTS &&
+    m.chord / m.crests >= SHORT_DISPLAY_MIN_CREST_GAP * m.thickness &&
+    m.sinuosity <= SHORT_DISPLAY_MAX_SINUOSITY &&
+    m.travel >= MIN_TRAVEL
+  )
+}
+
+export const isTextMark = (points: Point[]): boolean => textMarkReason(points) !== null
+
+/**
+ * What a stack of text squiggles says about TYPE SIZE.
+ *
+ * Round 1 (c1): a two-line heading drawn 240px tall came back one line at half
+ * size. The model was told each squiggle is "a line of text" and left to guess
+ * size from the region, and it guessed the app's default h1. The one honest
+ * size signal in the ink is the SPACING between stacked lines: that is the line
+ * height the person drew, and font size follows from it. A squiggle's own
+ * wobble height is how the pen moved, not how big the letters are, so a single
+ * line gets no size claim here (its region still bounds it).
+ */
+export interface TextStack {
+  /** Squiggle stroke ids, top to bottom. */
+  strokes: string[]
+  lines: number
+  /** Union of the lines' boxes, page px. */
+  box: { x: number; y: number; w: number; h: number }
+  /** Median distance between consecutive line centres. */
+  linePitchPx: number
+  /** Font size implied by that pitch (display type sets tighter than body). */
+  fontPx: number
+  /** n11: each line's drawn length, top to bottom (where the words break). */
+  lineWidths?: number[]
+}
+
+interface LineGeom { id: string; x0: number; x1: number; cy: number; y0: number; y1: number }
+
+function lineGeom(id: string, points: Point[]): LineGeom {
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity
+  for (const p of points) {
+    x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x)
+    y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y)
+  }
+  return { id, x0, x1, y0, y1, cy: (y0 + y1) / 2 }
+}
+
+/** A lone squiggle this tall (px, crest to trough) is a heading drawn to size. */
+export const LONE_HEADING_INK = 17
+/** Font px per px of a lone heading squiggle's height (bench: 28px title drawn ~19px tall). */
+const LONE_FONT_PER_INK = 1.45
+
+/** Font size for a drawn line pitch: headings ~1.1 line-height, body ~1.5. */
+export function fontForPitch(pitch: number): number {
+  return Math.round(pitch / (pitch >= 48 ? 1.1 : 1.5))
+}
+
+/**
+ * Group text squiggles into stacks (same left edge, evenly stepped down) and
+ * read a type size from each stack of two or more lines; a lone squiggle drawn
+ * heading-tall gives a one-line stack sized from its height.
+ */
+export function textStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOpts = {}): TextStack[] {
+  const ls = marks
+    .filter((m) => isTextMark(m.points))
+    .map((m) => lineGeom(m.id, m.points))
+    .sort((a, b) => a.cy - b.cy)
+  const used = new Set<string>()
+  const out: TextStack[] = []
+  for (const first of ls) {
+    if (used.has(first.id)) continue
+    const stack = [first]
+    used.add(first.id)
+    for (const next of ls) {
+      if (used.has(next.id)) continue
+      const last = stack[stack.length - 1]!
+      const w = Math.max(last.x1 - last.x0, next.x1 - next.x0)
+      const gap = next.cy - last.cy
+      const sameEdge =
+        Math.abs(next.x0 - last.x0) <= Math.max(40, 0.15 * w) ||
+        Math.abs((next.x0 + next.x1) / 2 - (last.x0 + last.x1) / 2) <= Math.max(40, 0.15 * w) // centred copy
+      const pitchOk = stack.length < 2 || Math.abs(gap - (last.cy - stack[stack.length - 2]!.cy)) <= 0.35 * gap
+      // one stack is one hand: similar wobble height and comparable length
+      const tl = last.y1 - last.y0
+      const tn = next.y1 - next.y0
+      const sameHand = Math.max(tl, tn) <= 1.6 * Math.min(tl, tn) + 2
+      const lenOk = Math.min(last.x1 - last.x0, next.x1 - next.x0) >= 0.35 * w
+      if (gap > tl && gap <= 200 && sameEdge && pitchOk && sameHand && lenOk) {
+        stack.push(next)
+        used.add(next.id)
+      }
+    }
+    if (stack.length < 2) {
+      // a lone squiggle: only its height can say size. Body text wobbles a few px;
+      // a heading drawn tall (>= LONE_HEADING_INK px across) is drawn that big on purpose.
+      // across the chord, so a line written on a slight slope doesn't read taller
+      const pts = marks.find((m) => m.id === first.id)!.points
+      let t = measureTextMark(pts)?.thickness ?? 0
+      if (t > MAX_THICKNESS) t = Math.min(t, measureTextMark(pts, 'fit')?.thickness ?? t)
+      if (t < LONE_HEADING_INK) continue
+      const fontPx = Math.round(LONE_FONT_PER_INK * Math.min(t, MAX_DISPLAY_THICKNESS))
+      const pitch = Math.round(fontPx * 1.2)
+      out.push({
+        strokes: [first.id],
+        lines: 1,
+        box: { x: Math.round(first.x0), y: Math.round(first.cy - pitch / 2), w: Math.round(first.x1 - first.x0), h: pitch },
+        linePitchPx: pitch,
+        fontPx,
+      })
+      continue
+    }
+    const gaps = stack.slice(1).map((l, i) => l.cy - stack[i]!.cy).sort((a, b) => a - b)
+    const pitch = gaps[Math.floor(gaps.length / 2)]!
+    const x0 = Math.min(...stack.map((l) => l.x0))
+    const x1 = Math.max(...stack.map((l) => l.x1))
+    const y0 = stack[0]!.cy - pitch / 2
+    out.push({
+      strokes: stack.map((l) => l.id),
+      lines: stack.length,
+      box: { x: Math.round(x0), y: Math.round(y0), w: Math.round(x1 - x0), h: Math.round(pitch * stack.length) },
+      linePitchPx: Math.round(pitch),
+      fontPx: fontForPitch(pitch),
+      lineWidths: stack.map((l) => Math.round(l.x1 - l.x0)),
+    })
+  }
+  return [...out, ...lineStacks(marks, opts)]
+}
+
+/**
+ * A level straight line, the plainest way to say "a line of text goes here".
+ * Chord at least 40px, ink barely longer than the chord, within 6° of level.
+ */
+export function isLevelLine(points: Point[]): boolean {
+  if (points.length < 2) return false
+  const a = points[0]!, b = points[points.length - 1]!
+  const chord = Math.hypot(b.x - a.x, b.y - a.y)
+  if (chord < 40) return false
+  let len = 0, dev = 0, side = 0, crossings = 0
+  const ux = (b.x - a.x) / chord, uy = (b.y - a.y) / chord
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i]!
+    if (i) len += Math.hypot(p.x - points[i - 1]!.x, p.y - points[i - 1]!.y)
+    const o = (p.x - a.x) * uy - (p.y - a.y) * ux
+    dev = Math.max(dev, Math.abs(o))
+    // same rule as the pipeline's shape marks: a bow is allowed, a zigzag is not
+    if (o > 4 && side <= 0) { if (side < 0) crossings++; side = 1 }
+    else if (o < -4 && side >= 0) { if (side > 0) crossings++; side = -1 }
+  }
+  const tilt = Math.abs(Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI) % 180
+  return len / chord <= 1.12 && crossings <= 1 && dev <= Math.max(8, Math.min(30, chord * 0.05)) && Math.min(tilt, 180 - tilt) <= 6
+}
+
+/** Line pitch range (px) at which stacked level lines read as one display heading. */
+export const LINE_STACK_MIN_PITCH = 64
+export const LINE_STACK_MAX_PITCH = 200
+/** n40: how far (share of the line pitch) a heading's line boxes sit above its drawn lines. */
+export const LINE_STACK_LIFT = 0.16
+/**
+ * n44: what else is known when stacks are read. `notesAt`: where every typed note sits (page px).
+ * A level line with no note typed on or near it is bare: it carries no words of its own.
+ */
+export interface StackOpts { notesAt?: Array<{ x: number; y: number; text?: string }> }
+/** n44: a note this close to a line's ink (px) is typed on that line. */
+export const BARE_NOTE_PX = 48
+/** n44: a bare line under a heading line may run this much longer and still be its next line. */
+export const BARE_WRAP_MAX = 1.6
+/** n45: a note this many words long typed on a line is that line's own sentence (a subtitle), not a heading's wrap. */
+export const OWN_SENTENCE_WORDS = 6
+/** n55: a note this close (px) to two lines' distances counts as near both. */
+export const NOTE_TIE_PX = 6
+
+/** n88: average display glyph width in em, and how far typed words must overrun a line before it wraps. */
+export const COPY_CHAR_EM = 0.5
+export const COPY_OVERFLOW_SLACK = 1.25
+
+/** n33: centred display copy (a pull quote) may sit this close. */
+export const QUOTE_STACK_MIN_PITCH = 48
+
+/**
+ * Stacked level lines that are one big heading (n11, round 1 c1): "Stay for the golden"
+ * drawn as one long line with "hour" as a short centred line 120px below. Read as two
+ * separate lines, the short one was "that heading's smaller line", the note on the
+ * long one left it out, and the heading came out small and low. Two or three lines,
+ * same left edge or centred, a big even pitch (64-200px; body text and ruled lists sit
+ * tighter, and four or more even rules are a list, not a heading), none page-wide (a
+ * divider), and no line longer than the first (a heading wraps shorter, not longer).
+ */
+function lineStacks(marks: Array<{ id: string; points: Point[] }>, opts: StackOpts = {}): TextStack[] {
+  const ls = marks
+    .filter((m) => !isTextMark(m.points) && isLevelLine(m.points))
+    .map((m) => lineGeom(m.id, m.points))
+    .sort((a, b) => a.cy - b.cy)
+  // n44 (r32 c3): "Buildings / that breathe." drawn as a short line with a longer bare line under it;
+  // the longer-line rule split them and the bare line got a made-up subtitle. A bare line (no note on
+  // it, when notes are known) has no words but the heading's, so it may run longer and still wrap it.
+  const notes = opts.notesAt?.filter((n) => Number.isFinite(n.x) && Number.isFinite(n.y))
+  // n55 (r33 c1): a note belongs to the line it is nearest (ties within a few px go to both). The
+  // paragraph's note, typed 21px above its first line, was also 45px under the heading's last line,
+  // so that heading line "had its own sentence" and the heading broke into one small line.
+  const lineDist = (l: LineGeom, n: { x: number; y: number }) => Math.hypot(Math.max(l.x0 - n.x, n.x - l.x1, 0), n.y - l.cy)
+  const nearestLine = (n: { x: number; y: number }) => Math.min(...ls.map((o) => lineDist(o, n)))
+  const bare = (l: LineGeom): boolean => notes !== undefined && !notes.some((n) =>
+    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX &&
+    lineDist(l, n) <= nearestLine(n) + NOTE_TIE_PX)
+  // n45 (r32 c5): "A quiet place to read." and the sentence under it, each typed on its own line,
+  // were read as one two-line heading (the second line a little shorter, on the heading pitch) and
+  // the sentence was built as the heading's wrap. A line carrying a sentence of its own (a note of
+  // six words or more typed on it, not the note on the line above) is the next block.
+  const nearOf = (l: LineGeom) => notes?.filter((n) =>
+    Math.max(l.x0 - n.x, n.x - l.x1, 0) <= BARE_NOTE_PX && Math.abs(n.y - l.cy) <= BARE_NOTE_PX &&
+    lineDist(l, n) <= nearestLine(n) + NOTE_TIE_PX) ?? []
+  const ownSentence = (next: LineGeom, first: LineGeom): boolean => {
+    const mine = nearOf(next).filter((n) => (n.text ?? '').trim().split(/\s+/).length >= OWN_SENTENCE_WORDS)
+    if (!mine.length) return false
+    const theirs = nearOf(first)
+    return mine.some((n) => !theirs.some((t) => t.x === n.x && t.y === n.y))
+  }
+  // n88: the words typed on a line need more room than the line gives at this font size
+  const copyOverflows = (l: LineGeom, fontPx: number): boolean => nearOf(l).some((n) => {
+    const chars = (n.text ?? '').replace(/\s+/g, ' ').trim().length
+    return chars * COPY_CHAR_EM * fontPx > COPY_OVERFLOW_SLACK * (l.x1 - l.x0)
+  })
+  const used = new Set<string>()
+  const out: TextStack[] = []
+  for (const first of ls) {
+    if (used.has(first.id)) continue
+    const w0 = first.x1 - first.x0
+    if (w0 >= 1100) continue
+    const stack = [first]
+    for (const next of ls) {
+      if (next === first || used.has(next.id) || next.cy <= stack[stack.length - 1]!.cy) continue
+      const last = stack[stack.length - 1]!
+      const gap = next.cy - last.cy
+      const wn = next.x1 - next.x0
+      const tol = Math.max(40, 0.15 * w0)
+      const sameEdge = Math.abs(next.x0 - first.x0) <= tol ||
+        Math.abs((next.x0 + next.x1) / 2 - (first.x0 + first.x1) / 2) <= tol
+      const pitchOk = stack.length < 2 || Math.abs(gap - (last.cy - stack[stack.length - 2]!.cy)) <= 0.15 * gap
+      // a heading wraps shorter and shorter; a longer line under it is the next block
+      // a line held tight by a neighbour (a paragraph's wrap, pitch under half the heading's)
+      // belongs to that block, not the heading (n19, round 1 c1: the subtitle's wrap joined)
+      const tight = ls.some((o) => o !== next && !stack.includes(o) && Math.abs(o.cy - next.cy) < 0.5 * gap &&
+        Math.min(o.x1, next.x1) > Math.max(o.x0, next.x0))
+      // n33: a centred statement (a pull quote) sets a little tighter: two or three long lines, centred on
+      // each other but not sharing a left edge, 48-63px apart, are display copy too (r31 c5: drawn 60px apart,
+      // built as 20px body text). Left-aligned lines this close stay rows of a list.
+      const centredOnly = Math.abs((next.x0 + next.x1) / 2 - (first.x0 + first.x1) / 2) <= Math.max(24, 0.05 * w0) &&
+        Math.abs(next.x0 - first.x0) > 40 && w0 >= 400
+      // n88 (r36 c4): a heading set a little smaller (~56px, lines ~62px apart) is still one heading when the words
+      // typed on its first line cannot fit on it and the lines under it wrap shorter: "Fresh flowers, at your door
+      // by noon." on three lines 62px apart was read as three loose lines and built as one cut line. The lines under it
+      // must be bare (no words of their own): a column of short links, each with its note, stays apart
+      const overflowWrap = gap >= QUOTE_STACK_MIN_PITCH && gap < LINE_STACK_MIN_PITCH &&
+        wn <= (last.x1 - last.x0) * 1.05 && bare(next) && copyOverflows(first, gap / 1.1)
+      const minPitch = centredOnly || overflowWrap ? QUOTE_STACK_MIN_PITCH : LINE_STACK_MIN_PITCH
+      // n44 (r32 c3): a paragraph's wrap line never starts a heading (the paragraph's second line and the
+      // link 115px under it were read as a 105px heading)
+      const firstHeld = stack.length === 1 && ls.some((o) => o !== first && o !== next && Math.abs(o.cy - first.cy) < 0.5 * gap &&
+        Math.abs(o.cy - first.cy) >= 8 && Math.min(o.x1, first.x1) > Math.max(o.x0, first.x0))
+      if (firstHeld) break
+      if (ownSentence(next, first) && Math.min(next.x1, first.x1) > Math.max(next.x0, first.x0)) break
+      const wrapsShorter = wn <= Math.max(last.x1 - last.x0, w0) * 1.05
+      const bareWrap = !wrapsShorter && sameEdge && wn <= BARE_WRAP_MAX * w0 && bare(next) && !bare(first)
+      if (gap >= minPitch && gap <= LINE_STACK_MAX_PITCH && sameEdge && pitchOk && !tight &&
+          // n41 (r32 c2): a heading wraps shorter than its first line, not always shorter than the line
+          // above it ("Small batch, / roasted on / Thursdays.": the third line is longer than the second)
+          (wrapsShorter || bareWrap) && wn >= 0.12 * w0) stack.push(next)
+      else if (gap > LINE_STACK_MAX_PITCH) break
+      // a heading never jumps over a line in its way: a line under it that overlaps it
+      // and does not continue it ends the heading (the subtitle under "hour")
+      else if (Math.min(next.x1, first.x1) > Math.max(next.x0, first.x0)) break
+    }
+    if (stack.length > 3) { for (const l of stack) used.add(l.id); continue }
+    if (stack.length < 2) continue
+    // a fourth line on the same pitch below: a ruled list, not a heading
+    const pitch = stack[1]!.cy - stack[0]!.cy
+    const after = ls.find((l) => !stack.includes(l) && Math.abs(l.cy - stack[stack.length - 1]!.cy - pitch) <= 0.25 * pitch &&
+      Math.abs(l.x0 - first.x0) <= Math.max(40, 0.15 * w0) &&
+      l.x1 - l.x0 <= 1.15 * w0 && // n41: a longer line under a heading is its subtitle, not a list's next row
+      // n88 (r36 c4): a paragraph's wrap line under a heading is held tight by its first line: not a list's fourth row
+      !ls.some((o) => o !== l && !stack.includes(o) && Math.abs(o.cy - l.cy) >= 8 && Math.abs(o.cy - l.cy) < 0.5 * pitch &&
+        Math.min(o.x1, l.x1) > Math.max(o.x0, l.x0)))
+    if (stack.length === 3 && after) continue
+    for (const l of stack) used.add(l.id)
+    const gaps = stack.slice(1).map((l, i) => l.cy - stack[i]!.cy).sort((a, b) => a - b)
+    const p = gaps[Math.floor(gaps.length / 2)]!
+    const x0 = Math.min(...stack.map((l) => l.x0))
+    const x1 = Math.max(...stack.map((l) => l.x1))
+    const leftHeading = stack.every((l) => Math.abs(l.x0 - first.x0) <= Math.max(40, 0.15 * w0)) &&
+      !(Math.abs((stack[1]!.x0 + stack[1]!.x1) / 2 - (first.x0 + first.x1) / 2) <= Math.max(24, 0.05 * w0) && Math.abs(stack[1]!.x0 - first.x0) > 40)
+    // n40: a level line drawn for a big heading line sits low on its letters. Of six hand-drawn
+    // heading stacks (rounds 1, 31, 32) four were drawn on the baseline and two through the middle,
+    // so centring the line box on the line built the letters about half a line low (r32 c1: NORTH's
+    // baseline 56px under its drawn line). Display lines are read as the lower third of the letters:
+    // the line box starts LINE_STACK_LIFT of a pitch higher, at most a quarter cap off either way.
+    const lift = p >= LINE_STACK_MIN_PITCH ? LINE_STACK_LIFT * p : 0
+    out.push({
+      strokes: stack.map((l) => l.id),
+      lines: stack.length,
+      box: { x: Math.round(x0), y: Math.round(stack[0]!.cy - p / 2 - lift), w: Math.round(x1 - x0), h: Math.round(p * stack.length) },
+      linePitchPx: Math.round(p),
+      // a centred statement under the heading band sets at about 1.3 line-height
+      // (n88: a left-aligned heading let in under the usual pitch by its overflowing words is heading type)
+      fontPx: p < LINE_STACK_MIN_PITCH && !leftHeading ? Math.round(p / 1.3) : fontForPitch(p),
+      lineWidths: stack.map((l) => Math.round(l.x1 - l.x0)),
+    })
+  }
+  return out
+}

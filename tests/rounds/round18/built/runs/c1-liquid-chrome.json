@@ -1,0 +1,483 @@
+{
+  "id": "c1-liquid-chrome",
+  "at": "2026-10-24T17:18:07.548Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8991122189323545,
+    "overallV2": 0.8991122189323545,
+    "overallV1": 0.8585041613998053,
+    "colour": 0.9752178239909538,
+    "structure": 0.8953677059297009,
+    "structureStrict": 0.7886416712054263,
+    "colourAligned": 0.9752178239909538,
+    "structureAligned": 0.8953677059297009,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9317152594662974
+    },
+    "layout": 0.8321007113497648,
+    "layoutV1": 0.8321007113497648,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      950
+    ],
+    [
+      0,
+      64,
+      47,
+      1113,
+      32
+    ],
+    [
+      1,
+      64,
+      51,
+      112,
+      24
+    ],
+    [
+      1,
+      434,
+      53,
+      376,
+      20
+    ],
+    [
+      3,
+      434,
+      53,
+      44,
+      20
+    ],
+    [
+      3,
+      510,
+      53,
+      5,
+      20
+    ],
+    [
+      3,
+      546,
+      53,
+      52,
+      20
+    ],
+    [
+      3,
+      631,
+      53,
+      5,
+      20
+    ],
+    [
+      3,
+      667,
+      53,
+      43,
+      20
+    ],
+    [
+      3,
+      742,
+      53,
+      5,
+      20
+    ],
+    [
+      3,
+      779,
+      53,
+      32,
+      20
+    ],
+    [
+      1,
+      1069,
+      44,
+      108,
+      38
+    ],
+    [
+      0,
+      68,
+      247,
+      332,
+      20
+    ],
+    [
+      0,
+      60,
+      170,
+      656,
+      341
+    ],
+    [
+      0,
+      70,
+      560,
+      422,
+      58
+    ],
+    [
+      0,
+      66,
+      690,
+      164,
+      51
+    ],
+    [
+      0,
+      244,
+      690,
+      133,
+      51
+    ],
+    [
+      0,
+      503,
+      3,
+      839,
+      839
+    ],
+    [
+      0,
+      820,
+      300,
+      300,
+      380
+    ],
+    [
+      18,
+      776,
+      335,
+      349,
+      369
+    ],
+    [
+      18,
+      804,
+      313,
+      352,
+      368
+    ],
+    [
+      18,
+      833,
+      292,
+      356,
+      366
+    ],
+    [
+      21,
+      887,
+      344,
+      65,
+      22
+    ],
+    [
+      21,
+      880,
+      355,
+      113,
+      69
+    ],
+    [
+      21,
+      879,
+      405,
+      134,
+      24
+    ],
+    [
+      0,
+      1220,
+      0,
+      40,
+      900
+    ],
+    [
+      25,
+      1221,
+      -128,
+      39,
+      2295
+    ],
+    [
+      26,
+      1231,
+      -128,
+      20,
+      1148
+    ],
+    [
+      26,
+      1231,
+      1019,
+      20,
+      1148
+    ],
+    [
+      0,
+      64,
+      823,
+      1112,
+      35
+    ],
+    [
+      29,
+      64,
+      840,
+      43,
+      18
+    ],
+    [
+      29,
+      348,
+      840,
+      87,
+      18
+    ],
+    [
+      29,
+      675,
+      840,
+      123,
+      18
+    ],
+    [
+      29,
+      1039,
+      840,
+      137,
+      18
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "blur",
+      "glass",
+      "glow",
+      "gradient",
+      "gradient-text",
+      "huge-type",
+      "mono",
+      "motion",
+      "overlap",
+      "soft-shadow",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 52413,
+    "output": 29681,
+    "cacheRead": 407583
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49434,
+      "output": 14838,
+      "cacheRead": 395505,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Glob",
+        "Glob",
+        "Read src/App.tsx"
+      ],
+      "ms": 160695
+    }
+  ],
+  "reading": "This is a dark hero landing page for a renderer product ('Mercury/OS – Liquid Metal'): a top nav bar, an eyebrow line, a huge chrome 'LIQUID METAL' heading, a lavender descriptive paragraph, two pill buttons, a glowing gradient blob behind a 3D stack of frosted glass stat cards, a vertical scrolling text strip on the right edge, and a footer code/meta line, all specified in detail by the user's typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        47,
+        1113,
+        32
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Build a nav bar reading 'MERCURY/OS' as the logo/wordmark on the left, nav links 'Engine · Shaders · Pricing · Docs' in the middle, and a 'Get access' button/li"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        68,
+        247,
+        590,
+        16
+      ],
+      "paths": [],
+      "instruction": "Add a short eyebrow/tagline line of text above the main heading, in light grey, e.g. 'Real-time rendering, reimagined.' — this squiggle is a text placeholder, n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 155
+        }
+      ],
+      "region": [
+        68,
+        418,
+        366,
+        17
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica (font-family Helvetica, Arial, sans-serif; font-weight 900; round-bowled, NOT a squared, condensed or display face; live text, never an SVG path"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        70,
+        560,
+        422,
+        57
+      ],
+      "paths": [],
+      "instruction": "Lavender paragraph text reading 'A real-time renderer that treats every surface like poured chrome. Ships to the browser at 120fps.', text colour #a8abbb (laven"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        70,
+        693,
+        304,
+        44
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A row of 2 real buttons side by side (each its own element with live text, not plain text or links): 'Start rendering' 164x51px at 66,690, background linear-gra"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        123,
+        614,
+        614
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "A 620px solid organic colour blob (border-radius: 42% 58% 63% 37% / 45% 38% 62% 55%, a lumpy rounded shape, not a perfect circle), filled edge to edge with one "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        303,
+        294,
+        373
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A stack of 3 separate cards turned in 3D (not one picture, not flat): a 300x380px box at 820,300 with perspective: 900px, holding 3 absolutely placed cards each"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1223,
+        4,
+        34,
+        892
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A narrow 40x900px strip at 1220,0, no fill, a 1px #22232c rule down its left edge only, overflow hidden, holding one line of vertical text (writing-mode: vertic"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        823,
+        1112,
+        27
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Dark navy-bordered mono 12px code-style footer lines: 'v4.2.0', 'WebGPU ready', 'MIT licensed core', '© 2026 Mercury Labs', text colour #5b5e70 (brown/muted, no"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

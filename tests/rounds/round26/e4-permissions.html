@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Permissions</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fafafa;font-family:Helvetica,Arial,sans-serif;color:#18181b;font-size:14px}
+.side{position:absolute;left:0;top:0;width:240px;height:900px;background:#fff;border-right:1px solid #e4e4e7;padding:22px 16px}.side b{display:flex;gap:10px;align-items:center;font-size:17px;margin-bottom:24px}.side b i{width:26px;height:26px;border-radius:7px;background:#18181b}.side h5{font-size:11px;color:#a1a1aa;letter-spacing:1px;text-transform:uppercase;margin:16px 0 6px}.side div{padding:8px 10px;border-radius:7px;color:#52525b}.side .on{background:#f4f4f5;color:#18181b;font-weight:700}
+.h{position:absolute;left:280px;top:32px;font:700 26px Helvetica}.hs{position:absolute;left:280px;top:68px;color:#71717a}
+.tabs{position:absolute;left:280px;top:104px;width:960px;display:flex;gap:26px;border-bottom:1px solid #e4e4e7}.tabs span{padding:12px 0;color:#71717a;font-weight:600}.tabs .on{color:#18181b;box-shadow:inset 0 -2px #18181b}
+.tbl{position:absolute;left:280px;top:170px;width:960px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;overflow:hidden}
+.row{display:grid;grid-template-columns:300px repeat(4,1fr);align-items:center;height:48px;border-bottom:1px solid #f4f4f5;padding:0 18px}.row.hd{background:#fafafa;font-size:12px;font-weight:700;color:#71717a;text-transform:uppercase;letter-spacing:.5px;height:44px}.row.gp{background:#fafafa;font-weight:700;height:38px;font-size:13px}
+.row span:not(:first-child){display:flex;justify-content:center}
+.cb{width:18px;height:18px;border-radius:5px;border:1.5px solid #d4d4d8;background:#fff}.cb.on{background:#4f46e5;border-color:#4f46e5;position:relative}.cb.on::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}.cb.part{background:#4f46e5;border-color:#4f46e5;position:relative}.cb.part::after{content:"";position:absolute;left:3px;top:7px;width:9px;height:2px;background:#fff}
+.lock{color:#a1a1aa;font-size:12px}
+.tg{position:absolute;left:280px;top:640px;width:960px;background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:6px 18px}.tg .r{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f4f4f5}.tg .r:last-child{border:0}.tg small{display:block;color:#71717a;margin-top:3px}
+.sw{width:40px;height:22px;border-radius:11px;background:#d4d4d8;position:relative}.sw::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px #0003}.sw.on{background:#4f46e5}.sw.on::after{left:21px}
+.save{position:absolute;left:1110px;top:36px;padding:10px 18px;border-radius:8px;background:#18181b;color:#fff;font-weight:700}.cancel{position:absolute;left:1020px;top:36px;padding:10px 16px;border-radius:8px;border:1px solid #e4e4e7;background:#fff;font-weight:600}
+.toast{position:absolute;left:880px;top:836px;width:360px;height:48px;border-radius:10px;background:#18181b;color:#fff;display:flex;align-items:center;gap:10px;padding:0 16px}.toast i{width:18px;height:18px;border-radius:50%;background:#22c55e}.toast u{margin-left:auto;text-decoration:none;color:#a5b4fc;font-weight:700}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><b><i></i>Hexa</b><h5>Workspace</h5><div>General</div><div>Members</div><div class="on">Roles &amp; permissions</div><div>Billing</div><h5>Security</h5><div>SSO</div><div>Audit log</div><div>API keys</div></div>
+<div class="h" data-r="title">Roles &amp; permissions</div><div class="hs">Choose what each role can see and change.</div>
+<div class="cancel" data-r="cancel">Cancel</div><div class="save" data-r="save" data-must>Save changes</div>
+<div class="tabs" data-r="tabs"><span class="on">Matrix</span><span>Custom roles</span><span>Defaults</span></div>
+<div class="tbl" data-r="permission-matrix" data-must>
+<div class="row hd"><span>Permission</span><span>Owner</span><span>Admin</span><span>Editor</span><span>Viewer</span></div>
+<div class="row gp"><span>Projects</span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb part"></i></span><span><i class="cb"></i></span></div>
+<div class="row"><span>Create projects</span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb"></i></span></div>
+<div class="row"><span>Delete projects</span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb"></i></span><span><i class="cb"></i></span></div>
+<div class="row"><span>View all projects</span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb on"></i></span></div>
+<div class="row gp"><span>Billing</span><span><i class="cb on"></i></span><span><i class="cb part"></i></span><span><i class="cb"></i></span><span><i class="cb"></i></span></div>
+<div class="row"><span>View invoices</span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb"></i></span><span><i class="cb"></i></span></div>
+<div class="row"><span>Change plan</span><span><i class="cb on"></i></span><span><i class="cb"></i></span><span><i class="cb"></i></span><span class="lock">locked</span></div>
+<div class="row" style="border:0"><span>Manage members</span><span><i class="cb on"></i></span><span><i class="cb on"></i></span><span><i class="cb"></i></span><span class="lock">locked</span></div>
+</div>
+<div class="tg" data-r="toggles" data-must><div class="r"><div><b>Require two-factor sign-in</b><small>Everyone with Admin or above must use 2FA.</small></div><i class="sw on"></i></div><div class="r"><div><b>Allow guests</b><small>People outside the workspace can be invited to single projects.</small></div><i class="sw"></i></div><div class="r"><div><b>Viewers can export</b><small>Download CSV and PDF reports.</small></div><i class="sw on"></i></div></div>
+<div class="toast" data-r="toast" data-must><i></i><span>Admin role updated</span><u>Undo</u></div>
+</body></html>

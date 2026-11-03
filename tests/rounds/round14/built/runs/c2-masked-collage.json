@@ -1,0 +1,259 @@
+{
+  "id": "c2-masked-collage",
+  "at": "2026-10-23T23:58:42.901Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8638846033741205,
+    "overallV2": 0.8638846033741205,
+    "overallV1": 0.8055164190852597,
+    "colour": 0.9834517525526151,
+    "structure": 0.9409035224297246,
+    "structureStrict": 0.8746045141287484,
+    "colourAligned": 0.9834517525526151,
+    "structureAligned": 0.9409035224297246,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9504672250387074
+    },
+    "layout": 0.8606571298619564
+  },
+  "effects": {
+    "recall": 0.625,
+    "kept": [
+      "blend",
+      "gradient-text",
+      "huge-type",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape",
+      "gradient",
+      "serif"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 63483,
+    "output": 36399,
+    "cacheRead": 157053
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 75448,
+      "output": 26034,
+      "cacheRead": 144639,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape3.tsx",
+        "Edit components/SketchShape4.tsx",
+        "Edit components/SketchShape5.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 288646
+    }
+  ],
+  "reading": "A hero section: a plain nav row, a giant gradient-filled 'CUT' headline, a layered collage of two angled color-block 'photo' shapes with a multiply-blend blue disc and two translucent yellow tape strips crossing them, a paragraph of body copy with a small yellow button, a pink outline date-badge circle, a dark pill 'Get a table' button, and a wide-spaced all-caps footer/venue line at the page bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a top navigation bar, no box or border around it: bold 'PAPER ROOM' on the left, and 'Issues · Makers · Fair · Join' links on the right, spanning the page w"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 335
+        }
+      ],
+      "region": [
+        48,
+        54,
+        562,
+        402
+      ],
+      "paths": [],
+      "instruction": "Render the word 'CUT' in giant Helvetica heavy letters, 330px, weight 900, letter-spacing -18px, line-height 1, on ONE line, top-left at 40,90. The letters them"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        745,
+        405,
+        360,
+        333
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Add a tilted 6° anticlockwise vivid teal angled cut-out shape, ONE flat #06a77d fill (clip-path polygon, no gradient, no shading, no texture); the drawn outline"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        858,
+        451,
+        342,
+        369
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Add a tilted 8° clockwise angled cut-out shape with a vivid peach #ffd166 (top) to vivid coral #ff7a59 (bottom) gradient, painted linear-gradient(160deg, #ffd16"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        824,
+        544,
+        212,
+        211
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add an ink-like (multiply blend: darkens what it overlaps, never covers it) perfectly round solid disc (border-radius 50%, not traced from the ink), 220px acros"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        783,
+        376,
+        135,
+        81
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a tilted 24° anticlockwise see-through soft yellow (#ffecaa at 75% opacity) strip of sticky tape, 140x34px, square corners, laid on top of the photo edge it"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1085,
+        440,
+        131,
+        92
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a tilted 30° clockwise see-through soft yellow (#ffecaa at 75% opacity) strip of sticky tape, 140x34px, square corners, laid on top of the photo edge it cro"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 22
+        }
+      ],
+      "region": [
+        64,
+        500,
+        422,
+        101
+      ],
+      "paths": [],
+      "instruction": "At 60,500, add 430px-wide, 24px body text with this exact copy: 'A zine fair for : collage, risograph and glue, three days in an old print hall.' Under it add a"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        551,
+        510,
+        149,
+        149
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Add a tilted 14° anticlockwise pink outline circle, 130px across, containing the text 'MAY 9–11 2027' in #ef476f (pink, not the page's near-black text), centred"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        701,
+        159,
+        49
+      ],
+      "paths": [
+        "s11"
+      ],
+      "instruction": "Add a near-black outline pill button labeled 'Get a table →'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        853,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Add a wide-letter-spaced line of text reading 'HALL 4, DOCK ROAD   FREE ENTRY   @PAPERROOM' spanning the bottom of the page."
+    }
+  ],
+  "rejected": []
+}

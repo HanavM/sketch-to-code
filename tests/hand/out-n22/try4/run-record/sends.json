@@ -1,0 +1,32 @@
+[
+  {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 14622,
+    "output": 4413,
+    "cacheRead": 111310,
+    "toolCalls": 6,
+    "tools": [
+      "Glob",
+      "Glob",
+      "Read src/App.tsx",
+      "Read src/index.css",
+      "Read src/main.tsx",
+      "Edit src/App.tsx"
+    ],
+    "ms": 47834
+  },
+  {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "toolCalls": 1,
+    "tools": [
+      "Read src/App.tsx"
+    ],
+    "ms": 180020,
+    "stalled": "the repair went 180 s without an edit (thinking is not progress)"
+  }
+]

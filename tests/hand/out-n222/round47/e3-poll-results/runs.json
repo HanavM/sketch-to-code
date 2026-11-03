@@ -1,0 +1,587 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "45cc7fa11ce044385e5c5adff84c4ef7c997e519",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A white poll card sits on a pale lavender page, with a bold title asking where the team offsite should be, a vote-count subtitle, four pale pill-shaped progress tracks (Lisbon 52%, Mexico City 27%, Toronto 14%, Stay home 7%) each filled with its own accent color, and two action buttons below: a filled purple 'Change my vote' and an outlined purple 'Share'.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "11 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 189,
+        "y": 59,
+        "w": 902,
+        "h": 782
+       },
+       "built": {
+        "x": 189,
+        "y": 59,
+        "w": 902,
+        "h": 782
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s3",
+       "drawn": {
+        "x": 240,
+        "y": 291,
+        "w": 800,
+        "h": 36
+       },
+       "built": {
+        "x": 240,
+        "y": 291,
+        "w": 800,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s4",
+       "drawn": {
+        "x": 239,
+        "y": 391,
+        "w": 801,
+        "h": 36
+       },
+       "built": {
+        "x": 240,
+        "y": 391,
+        "w": 801,
+        "h": 36
+       },
+       "dx": 1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 240,
+        "y": 491,
+        "w": 800,
+        "h": 36
+       },
+       "built": {
+        "x": 240,
+        "y": 491,
+        "w": 800,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s6",
+       "drawn": {
+        "x": 240,
+        "y": 591,
+        "w": 801,
+        "h": 36
+       },
+       "built": {
+        "x": 240,
+        "y": 591,
+        "w": 801,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 240,
+        "y": 291,
+        "w": 417,
+        "h": 36
+       },
+       "built": {
+        "x": 240,
+        "y": 291,
+        "w": 417,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 240,
+        "y": 391,
+        "w": 217,
+        "h": 35
+       },
+       "built": {
+        "x": 240,
+        "y": 391,
+        "w": 217,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 1
+      },
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 240,
+        "y": 491,
+        "w": 113,
+        "h": 35
+       },
+       "built": {
+        "x": 240,
+        "y": 491,
+        "w": 113,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 1
+      },
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 240,
+        "y": 592,
+        "w": 56,
+        "h": 35
+       },
+       "built": {
+        "x": 240,
+        "y": 591,
+        "w": 56,
+        "h": 36
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 240,
+        "y": 739,
+        "w": 221,
+        "h": 58
+       },
+       "built": {
+        "x": 240,
+        "y": 739,
+        "w": 221,
+        "h": 58
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 480,
+        "y": 739,
+        "w": 161,
+        "h": 57
+       },
+       "built": {
+        "x": 480,
+        "y": 739,
+        "w": 161,
+        "h": 57
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ebe7f8 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#f6f3ff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (189,59) 902x782",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,291) 417x36",
+       "want": "#6b3fdc",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,391) 217x35",
+       "want": "#e55a30",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,491) 113x36",
+       "want": "#f5a914",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,592) 56x35",
+       "want": "#2a9d8f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (240,739) 221x58",
+       "want": "#6b3fdc",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (480,739) 161x57",
+       "want": "#6b3fdc",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 32264,
+   "cacheRead": 148597,
+   "output": 9611
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 24870,
+    "output": 9204,
+    "cacheRead": 94882,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Edit src/App.tsx"
+    ],
+    "ms": 103984
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 17005,
+    "output": 407,
+    "cacheRead": 53715,
+    "toolCalls": 1,
+    "tools": [
+     "Edit src/App.tsx"
+    ],
+    "ms": 3973
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "64b9f9f86a8e79ab181ca90fc4b8f953f63d3702",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "Three typed-only edits: restyle each vote row's label/percent, make the two buttons white pill shapes with a purple outline, and enlarge the headline to nearly the card's width.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 2,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     },
+     {
+      "index": 3,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 4,
+    "total": 4,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "12 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 10010,
+   "cacheRead": 123113,
+   "output": 4258
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 14268,
+    "output": 4258,
+    "cacheRead": 123113,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 47638
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "b0685be3132820fce4c2765b83df2636371c8c6c",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The user typed a note on the \"Change my vote\" button asking for it to be styled with a solid purple background and white text.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 1,
+    "total": 1,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "12 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 5007,
+   "cacheRead": 64318,
+   "output": 452
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 5459,
+    "output": 452,
+    "cacheRead": 64318,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 6098
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

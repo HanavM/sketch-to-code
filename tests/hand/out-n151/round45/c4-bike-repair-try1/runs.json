@@ -1,0 +1,673 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "72e0db7b4dfa5ef3dd3afdc2f769b4f6fb8016ad",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Bicycle.tsx"
+  ],
+  "reading": "A bike-shop landing page: a top nav with a bold logo and three menu links, a yellow-filled hero banner with a huge two-line headline, a short subtext line, a black CTA button, and a bicycle icon (two wheels joined by a frame bar) on the right; below the hero, three service cards each listing a service name, description and price.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Spoke & Chain\" at (70,26) 141x24 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:13:9",
+      "rect": {
+       "x": 70,
+       "y": 24,
+       "w": 140.6875,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 5.1,
+    "reason": "#111111 is on the page (ΔE 5.1)"
+   },
+   {
+    "kind": "design",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <section> at (0,76) 1280x482 matches the sketch region",
+     "bestCandidate": {
+      "tag": "section",
+      "srcLoc": "src/App.tsx:21:7",
+      "rect": {
+       "x": 0,
+       "y": 76,
+       "w": 1280,
+       "h": 482
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s0",
+       "drawn": {
+        "x": 1,
+        "y": 79,
+        "w": 1277,
+        "h": 482
+       },
+       "built": {
+        "x": 0,
+        "y": 76,
+        "w": 1280,
+        "h": 482
+       },
+       "dx": 1,
+       "dy": -3
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111111 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (69,314) 345x26 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:28:9",
+      "rect": {
+       "x": 69,
+       "y": 314,
+       "w": 344.5,
+       "h": 25.5
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 69,
+        "y": 420,
+        "w": 221,
+        "h": 59
+       },
+       "built": {
+        "x": 68,
+        "y": 417,
+        "w": 221,
+        "h": 59
+       },
+       "dx": -1,
+       "dy": -3
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#111111 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <svg> at (689,197) 530x260 matches the sketch region",
+     "bestCandidate": {
+      "tag": "svg",
+      "srcLoc": "src/components/Bicycle.tsx:9:5",
+      "rect": {
+       "x": 689,
+       "y": 197,
+       "w": 530,
+       "h": 260
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<svg> src/components/Bicycle.tsx:9:5 at (689,197) 530x260 sits on the drawn shape",
+     "claimed": "e14"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 691,
+        "y": 200,
+        "w": 259,
+        "h": 259
+       },
+       "built": {
+        "x": 698,
+        "y": 205,
+        "w": 243,
+        "h": 243
+       },
+       "dx": -1,
+       "dy": -3
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 961,
+        "y": 200,
+        "w": 259,
+        "h": 259
+       },
+       "built": {
+        "x": 968,
+        "y": 205,
+        "w": 243,
+        "h": 243
+       },
+       "dx": -1,
+       "dy": -3
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 5.1,
+    "reason": "#111111 is on the page (ΔE 5.1)"
+   },
+   {
+    "kind": "composition",
+    "index": 3,
+    "score": 0,
+    "massSimilarity": 0,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "no drawn geometry found in the generated source"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <section> at (0,616) 1280x152 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "section",
+      "srcLoc": "src/App.tsx:37:7",
+      "rect": {
+       "x": 0,
+       "y": 616,
+       "w": 1280,
+       "h": 152
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (69,619) 361x222: the <div> built for it sits 38px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 619px from the top of the page.",
+     "marks": [
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 69,
+        "y": 619,
+        "w": 361,
+        "h": 222
+       },
+       "built": {
+        "x": 70,
+        "y": 616,
+        "w": 360.65625,
+        "h": 152
+       },
+       "dx": 1,
+       "dy": -38
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 5.1,
+    "reason": "#111111 is on the page (ΔE 5.1)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <section> at (0,616) 1280x152 matches the sketch region",
+     "bestCandidate": {
+      "tag": "section",
+      "srcLoc": "src/App.tsx:37:7",
+      "rect": {
+       "x": 0,
+       "y": 616,
+       "w": 1280,
+       "h": 152
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (459,619) 362x222: the <div> built for it sits 38px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 619px from the top of the page.",
+     "marks": [
+      {
+       "strokeId": "s13",
+       "drawn": {
+        "x": 459,
+        "y": 619,
+        "w": 362,
+        "h": 222
+       },
+       "built": {
+        "x": 459.65625,
+        "y": 616,
+        "w": 360.671875,
+        "h": 152
+       },
+       "dx": 0,
+       "dy": -38
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 5.1,
+    "reason": "#111111 is on the page (ΔE 5.1)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <section> at (0,616) 1280x152 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "section",
+      "srcLoc": "src/App.tsx:37:7",
+      "rect": {
+       "x": 0,
+       "y": 616,
+       "w": 1280,
+       "h": 152
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": false,
+     "reason": "the box drawn at (849,619) 361x222: the <div> built for it sits 38px too high; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size). It looks centred on the screen: drop the vertical centring (min-h-screen with items-center or justify-center, place-items-center, my-auto) and give it its drawn top, 619px from the top of the page.",
+     "marks": [
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 849,
+        "y": 619,
+        "w": 361,
+        "h": 222
+       },
+       "built": {
+        "x": 849.328125,
+        "y": 616,
+        "w": 360.65625,
+        "h": 152
+       },
+       "dx": 0,
+       "dy": -38
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 5.1,
+    "reason": "#111111 is on the page (ΔE 5.1)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 of 6 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 40,
+       "built": 38,
+       "dy": -2
+      },
+      {
+       "index": 1,
+       "drawn": 79,
+       "built": 76,
+       "dy": -3
+      },
+      {
+       "index": 2,
+       "drawn": 420,
+       "built": 417,
+       "dy": -3
+      },
+      {
+       "index": 4,
+       "drawn": 619,
+       "built": 616,
+       "dy": -3
+      },
+      {
+       "index": 5,
+       "drawn": 619,
+       "built": 616,
+       "dy": -3
+      },
+      {
+       "index": 6,
+       "drawn": 619,
+       "built": 616,
+       "dy": -3
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "11 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "stack-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "drawn lines kept"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "row-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 look-alike items each show their own words"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 row notes filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 sentence runs its drawn line"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 0: the line drawn at (70,40) 169x0 was coloured #111111 (text colour); what was built there is ΔE 5 away: paint its text exactly #111111; action 0: the line drawn at (992,40) 218x0 was coloured #111111 (text colour); what was built there is ΔE 5 away: paint its text exactly #111111",
+     "checks": [
+      {
+       "what": "the line drawn at (70,40) 169x0",
+       "want": "#111111",
+       "best": 5.063305917340413,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (992,40) 218x0",
+       "want": "#111111",
+       "best": 5.063305917340413,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (1,79) 1277x482 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,79) 1277x482",
+       "want": "#ffd440",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (70,185) 515x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,258) 311x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,334) 360x0",
+       "want": "#111111",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (69,420) 222x59",
+       "want": "#111111",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (691,200) 259x259 (outline ring)",
+       "want": "ring 16px #111111, no fill, whole",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (961,200) 259x259 (outline ring)",
+       "want": "ring 16px #111111, no fill, whole",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (852,267) 236x78 (slanted line)",
+       "want": "thin #111111 line at -18.3deg",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (69,619) 361x222 (untapped pen outline)",
+       "want": "border #111111, no #111111 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (459,619) 362x222 (untapped pen outline)",
+       "want": "border #111111, no #111111 fill",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (849,619) 361x222 (untapped pen outline)",
+       "want": "border #111111, no #111111 fill",
+       "best": null,
+       "ok": true
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 79140,
+   "cacheRead": 377884,
+   "output": 13042
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 49433,
+    "output": 11796,
+    "cacheRead": 181731,
+    "toolCalls": 7,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Glob",
+     "Read components/Bicycle.tsx",
+     "Edit components/Bicycle.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 132807
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 42749,
+    "output": 1246,
+    "cacheRead": 196153,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read components/Bicycle.tsx"
+    ],
+    "ms": 13402
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

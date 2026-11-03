@@ -1,0 +1,253 @@
+{
+ "viewport": {
+  "w": 1280,
+  "h": 900,
+  "scrollX": 0,
+  "scrollY": 0
+ },
+ "inkBoundingBox": {
+  "x": 429,
+  "y": 149,
+  "w": 422,
+  "h": 422
+ },
+ "strokes": [
+  {
+   "id": "s0",
+   "bbox": {
+    "x": 429,
+    "y": 149,
+    "w": 422,
+    "h": 422
+   },
+   "lengthPx": 1682,
+   "startedMs": 2055,
+   "sharpTurnsPer100px": 0.1,
+   "directionReversals": 2,
+   "mostlyInsideElement": null,
+   "touchesElements": [],
+   "startsOnElement": null,
+   "endsOnElement": null
+  },
+  {
+   "id": "s1",
+   "bbox": {
+    "x": 470,
+    "y": 205,
+    "w": 86,
+    "h": 1
+   },
+   "lengthPx": 86,
+   "startedMs": 7199,
+   "sharpTurnsPer100px": 0,
+   "directionReversals": 0,
+   "mostlyInsideElement": null,
+   "touchesElements": [],
+   "startsOnElement": null,
+   "endsOnElement": null
+  },
+  {
+   "id": "s2",
+   "bbox": {
+    "x": 470,
+    "y": 235,
+    "w": 227,
+    "h": 1
+   },
+   "lengthPx": 227,
+   "startedMs": 7899,
+   "sharpTurnsPer100px": 0,
+   "directionReversals": 0,
+   "mostlyInsideElement": null,
+   "touchesElements": [],
+   "startsOnElement": null,
+   "endsOnElement": null
+  },
+  {
+   "id": "s3",
+   "bbox": {
+    "x": 470,
+    "y": 287,
+    "w": 340,
+    "h": 45
+   },
+   "lengthPx": 768,
+   "startedMs": 9016,
+   "sharpTurnsPer100px": 0.1,
+   "directionReversals": 1,
+   "mostlyInsideElement": null,
+   "touchesElements": [],
+   "startsOnElement": null,
+   "endsOnElement": null
+  },
+  {
+   "id": "s4",
+   "bbox": {
+    "x": 469,
+    "y": 375,
+    "w": 341,
+    "h": 46
+   },
+   "lengthPx": 769,
+   "startedMs": 11633,
+   "sharpTurnsPer100px": 0.1,
+   "directionReversals": 1,
+   "mostlyInsideElement": null,
+   "touchesElements": [],
+   "startsOnElement": null,
+   "endsOnElement": null
+  },
+  {
+   "id": "s5",
+   "bbox": {
+    "x": 470,
+    "y": 447,
+    "w": 341,
+    "h": 48
+   },
+   "lengthPx": 773,
+   "startedMs": 14232,
+   "sharpTurnsPer100px": 0.1,
+   "directionReversals": 1,
+   "mostlyInsideElement": null,
+   "touchesElements": [],
+   "startsOnElement": null,
+   "endsOnElement": null
+  },
+  {
+   "id": "s6",
+   "bbox": {
+    "x": 569,
+    "y": 521,
+    "w": 142,
+    "h": 2
+   },
+   "lengthPx": 142,
+   "startedMs": 16865,
+   "sharpTurnsPer100px": 0,
+   "directionReversals": 0,
+   "mostlyInsideElement": null,
+   "touchesElements": [],
+   "startsOnElement": null,
+   "endsOnElement": null
+  }
+ ],
+ "colourFills": [
+  {
+   "fills": "whole page",
+   "color": "#f3f4f6"
+  },
+  {
+   "fills": "s5",
+   "color": "#2563eb"
+  }
+ ],
+ "typedNotes": [
+  {
+   "id": "n0",
+   "text": "Sign in",
+   "scope": "strokes",
+   "strokeIds": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "focus": [
+    "s0",
+    "s1"
+   ]
+  },
+  {
+   "id": "n1",
+   "text": "Welcome back. Enter your details.",
+   "scope": "strokes",
+   "strokeIds": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "focus": [
+    "s0",
+    "s2"
+   ]
+  },
+  {
+   "id": "n2",
+   "text": "Email input, label above",
+   "scope": "strokes",
+   "strokeIds": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "focus": [
+    "s3"
+   ]
+  },
+  {
+   "id": "n3",
+   "text": "Password input, label above",
+   "scope": "strokes",
+   "strokeIds": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "focus": [
+    "s4"
+   ]
+  },
+  {
+   "id": "n4",
+   "text": "Sign in",
+   "scope": "strokes",
+   "strokeIds": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "focus": [
+    "s5"
+   ]
+  },
+  {
+   "id": "n5",
+   "text": "blue link Forgot your password?",
+   "scope": "strokes",
+   "strokeIds": [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "focus": [
+    "s0",
+    "s6"
+   ]
+  }
+ ],
+ "elementMenu": []
+}

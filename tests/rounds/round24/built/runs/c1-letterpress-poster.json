@@ -1,0 +1,602 @@
+{
+  "id": "c1-letterpress-poster",
+  "at": "2026-10-26T12:09:29.397Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9100378812508912,
+    "overallV2": 0.9100378812508912,
+    "overallV1": 0.8660227212389316,
+    "colour": 0.9818875326754015,
+    "structure": 0.9603045986934217,
+    "structureStrict": 0.8756229295036226,
+    "colourAligned": 0.9818875326754015,
+    "structureAligned": 0.9603045986934217,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9571970360678284
+    },
+    "layout": 0.8380574654185547,
+    "layoutV1": 0.8380574654185547,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      60,
+      36,
+      167,
+      20
+    ],
+    [
+      0,
+      403,
+      36,
+      49,
+      20
+    ],
+    [
+      0,
+      628,
+      36,
+      114,
+      20
+    ],
+    [
+      0,
+      917,
+      36,
+      80,
+      20
+    ],
+    [
+      0,
+      1172,
+      36,
+      48,
+      20
+    ],
+    [
+      0,
+      52,
+      120,
+      810,
+      410
+    ],
+    [
+      6,
+      52,
+      120,
+      810,
+      205
+    ],
+    [
+      6,
+      52,
+      325,
+      810,
+      205
+    ],
+    [
+      0,
+      66,
+      134,
+      810,
+      410
+    ],
+    [
+      9,
+      66,
+      134,
+      810,
+      205
+    ],
+    [
+      9,
+      66,
+      339,
+      810,
+      205
+    ],
+    [
+      0,
+      42,
+      112,
+      810,
+      410
+    ],
+    [
+      12,
+      42,
+      112,
+      810,
+      205
+    ],
+    [
+      12,
+      42,
+      317,
+      810,
+      205
+    ],
+    [
+      0,
+      1160,
+      120,
+      48,
+      336
+    ],
+    [
+      0,
+      -60,
+      487,
+      1400,
+      218
+    ],
+    [
+      16,
+      -19,
+      622,
+      204,
+      66
+    ],
+    [
+      16,
+      220,
+      615,
+      30,
+      47
+    ],
+    [
+      16,
+      285,
+      592,
+      181,
+      63
+    ],
+    [
+      16,
+      501,
+      585,
+      30,
+      47
+    ],
+    [
+      16,
+      566,
+      559,
+      211,
+      66
+    ],
+    [
+      16,
+      812,
+      553,
+      30,
+      47
+    ],
+    [
+      16,
+      877,
+      528,
+      204,
+      66
+    ],
+    [
+      16,
+      1116,
+      521,
+      30,
+      47
+    ],
+    [
+      16,
+      1180,
+      498,
+      181,
+      63
+    ],
+    [
+      16,
+      1396,
+      491,
+      30,
+      47
+    ],
+    [
+      0,
+      60,
+      690,
+      420,
+      20
+    ],
+    [
+      0,
+      60,
+      718,
+      420,
+      51
+    ],
+    [
+      0,
+      640,
+      680,
+      260,
+      150
+    ],
+    [
+      29,
+      667,
+      707,
+      206,
+      64
+    ],
+    [
+      29,
+      667,
+      783,
+      206,
+      21
+    ],
+    [
+      0,
+      940,
+      630,
+      237,
+      237
+    ],
+    [
+      32,
+      1013,
+      699,
+      92,
+      100
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "blend",
+      "hollow-type",
+      "huge-type",
+      "italic",
+      "overlap",
+      "serif",
+      "tilt",
+      "uppercase-display",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 47923,
+    "output": 19828,
+    "cacheRead": 300493
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 49197,
+      "output": 13421,
+      "cacheRead": 285701,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 140483
+    }
+  ],
+  "reading": "This is a poster-style hero/landing page for a letterpress studio (\"Ink & Iron Press\"): a top nav bar, a huge triple-layered 'PRESS WEEK' display headline, a vertical side label, a tilted marquee band crossing the page, an event blurb with a bordered date card, a circular badge, and a dot-grain texture overlay on the whole page.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        39,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar, 5 separate real text elements, each on one line (white-space nowrap), min-width (not fixed) so word+count never wraps: 167x15 at 60,36 13px "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s4",
+            "s9",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 101
+        }
+      ],
+      "region": [
+        50,
+        411,
+        464,
+        38
+      ],
+      "paths": [],
+      "instruction": "First (bottom) of 3 stacked copies of the giant display headline: giant Helvetica, font-weight 900, round-bowled (not condensed/display), live text (real charac"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s4",
+            "s9",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 101
+        }
+      ],
+      "region": [
+        50,
+        411,
+        464,
+        38
+      ],
+      "paths": [],
+      "instruction": "Second of 3 stacked copies of the giant display headline: same giant Helvetica 900 round-bowled live text, heavy uppercase, tight-set, line-height 0.82, two lin"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s4",
+            "s9",
+            "s11"
+          ],
+          "lines": 3,
+          "fontPx": 101
+        }
+      ],
+      "region": [
+        50,
+        411,
+        464,
+        38
+      ],
+      "paths": [],
+      "instruction": "Third (top) of 3 stacked copies of the giant display headline: same giant Helvetica 900 round-bowled live text, heavy uppercase, tight-set, line-height 0.82, tw"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 38
+        }
+      ],
+      "region": [
+        1168,
+        265,
+        43,
+        46
+      ],
+      "paths": [],
+      "instruction": "Vertical side label: writing-mode vertical-rl, 42px letters, color #2b4fd8, big italic serif, text \"hand-set since 1974\", single column never wrapped (white-spa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s8",
+        "s10",
+        "s12"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s6",
+            "s10"
+          ],
+          "lines": 3,
+          "fontPx": 179
+        },
+        {
+          "strokes": [
+            "s2",
+            "s8"
+          ],
+          "lines": 2,
+          "fontPx": 74
+        },
+        {
+          "strokes": [
+            "s12"
+          ],
+          "lines": 1,
+          "fontPx": 30
+        }
+      ],
+      "region": [
+        1,
+        387,
+        1207,
+        314
+      ],
+      "paths": [],
+      "instruction": "Tilted marquee band crossing the full page width: band is 1400px wide, position absolute, left -60px, top 560px before tilt (so it bleeds 60px past both left an"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s13",
+        "s14",
+        "s15"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s13",
+            "s14",
+            "s15"
+          ],
+          "lines": 3,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        64,
+        690,
+        412,
+        78
+      ],
+      "paths": [],
+      "instruction": "Event blurb, 2 text parts: 420x15 at 60,690 13px bold #e8442e \"THREE DAYS OF INK\" uppercase, letter-spacing 3px; 420x45 at 60,718 17px #1d1a16 \"Pull your own po"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s16",
+        "s17"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s16",
+            "s17"
+          ],
+          "lines": 2,
+          "fontPx": 68
+        }
+      ],
+      "region": [
+        648,
+        680,
+        234,
+        150
+      ],
+      "paths": [],
+      "instruction": "Bordered date card, 260x150px box at 640,680 with a 3px #1d1a16 border on all four sides. Inside: huge Helvetica heavy (900) tight-set (line-height 1) 64px text"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        945,
+        635,
+        228,
+        228
+      ],
+      "paths": [
+        "s18"
+      ],
+      "instruction": "Circular badge, 200px across, tilted 12° clockwise, vivid red (#e8442e) fill, with inset rings drawn exactly box-shadow: #efe6d2 0px 0px 0px 10px inset, #e8442e"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

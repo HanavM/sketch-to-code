@@ -1,0 +1,190 @@
+{
+  "id": "c3-svg-waves",
+  "at": "2026-10-22T12:43:21.933Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8867101636205341,
+    "overallV2": 0.8867101636205341,
+    "overallV1": 0.7670866908994951,
+    "colour": 0.978341743994756,
+    "structure": 0.9223783421517567,
+    "structureStrict": 0.7549304199901159,
+    "colourAligned": 0.978341743994756,
+    "structureAligned": 0.9223783421517567,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9720218444020863
+    },
+    "layout": 0.8995173756460294
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "italic",
+      "serif"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 44259,
+    "output": 27785,
+    "cacheRead": 209531
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 60984,
+      "output": 23538,
+      "cacheRead": 199222,
+      "toolCalls": 10,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 274654
+    }
+  ],
+  "reading": "The sketch lays out a hero/landing page: a page-wide border, a big orange circle, a wavy page-width ribbon line (nav), two blocks of squiggly placeholder text (headline + paragraph), and a pill button, all captioned by typed notes giving exact colors, copy and specs.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Whole page: pale yellow page background, Georgia font family site-wide, deep green text color."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        885,
+        114,
+        231,
+        231
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Perfectly round solid disc (border-radius 50%, not traced from the ink), 240px across, flat fully opaque vivid bright orange (#fb923c) fill, hard edge, no blur."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Three layered wavy hill shapes spanning the full page width down to the bottom edge, back to front: mint green (#86efac) cresting ~566px down (top edge ~612, 62"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        49,
+        1152,
+        9
+      ],
+      "paths": [],
+      "instruction": "Top navigation bar across the full width: bold 24px \"Meadow\" on the left, and \"Trails · Huts · Journal · Book\" on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        68,
+        150,
+        558,
+        175
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia italic serif, regular weight (not bold), heading set tight (line-height 0.95), text \"Walk where the hills roll on\", set in exactly 2 lines: \"Walk "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        400,
+        412,
+        54
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text below the heading: \"Hand-drawn routes through the Alentejo, with huts every 18 km and bread waiting at each one.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        502,
+        147,
+        47
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Pill-shaped button labeled \"Plan a walk\", deep green fill with pale yellow text, placed below the paragraph where the rounded rectangle is sketched."
+    }
+  ],
+  "rejected": []
+}

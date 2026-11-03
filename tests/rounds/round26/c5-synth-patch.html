@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Synth patch</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#1b1c1f;font-family:Helvetica,Arial,sans-serif;color:#e9e6dc}
+.panel{position:absolute;left:520px;top:120px;width:700px;height:520px;border-radius:14px;background:linear-gradient(#d9d4c6,#c8c2b2);box-shadow:0 20px 40px #000a,inset 0 2px 0 #fff8;padding:30px}
+.panel::before,.panel::after{content:"";position:absolute;top:14px;width:12px;height:12px;border-radius:50%;background:radial-gradient(#888,#444)}.panel::before{left:14px}.panel::after{right:14px}
+.knobs{display:grid;grid-template-columns:repeat(5,1fr);gap:26px 20px;margin-top:20px}
+.k{width:84px;height:84px;border-radius:50%;background:conic-gradient(from 225deg,#ff6a2a 0 var(--a),#3a3a3a var(--a) 270deg,#0000 270deg);display:flex;align-items:center;justify-content:center}
+.k i{width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#555,#151515);box-shadow:0 4px 6px #0008}
+.lab{font:700 10px Helvetica;letter-spacing:2px;color:#3a3a3a;text-transform:uppercase;margin-top:6px;width:84px;text-align:center}
+.jacks{position:absolute;left:30px;bottom:30px;display:flex;gap:34px}.jacks i{width:26px;height:26px;border-radius:50%;background:#111;border:5px solid #9a9a9a}
+.leds{position:absolute;right:34px;bottom:38px;display:flex;gap:12px}.leds i{width:12px;height:12px;border-radius:50%;background:#3a1a10}.leds i.on{background:#ff6a2a;box-shadow:0 0 10px #ff6a2a,0 0 20px #ff6a2a}
+svg.cables{position:absolute;left:0;top:0}
+.h{position:absolute;left:70px;top:140px;width:420px;font:800 78px/0.92 Helvetica;letter-spacing:-3px}
+.h em{font-style:normal;color:#ff6a2a}
+.p{position:absolute;left:70px;top:420px;width:380px;font:400 17px/1.6 Helvetica;color:#a9a69d}
+.wave{position:absolute;left:70px;top:540px}
+.buy{position:absolute;left:70px;top:700px;display:flex;gap:16px}.buy a{display:block;padding:18px 30px;border-radius:999px;font:700 16px Helvetica}.buy a:first-child{background:#ff6a2a;color:#1b1c1f}.buy a:last-child{border:2px solid #e9e6dc}
+.nav{position:absolute;left:70px;top:44px;width:1150px;display:flex;gap:28px;font:600 14px Helvetica;color:#a9a69d}.nav b{margin-right:auto;color:#e9e6dc;font:800 20px Helvetica;letter-spacing:4px}
+.spec{position:absolute;left:520px;top:690px;width:700px;display:flex;justify-content:space-between;font:400 13px "Courier New",monospace;color:#a9a69d;border-top:1px solid #444;padding-top:14px}
+</style></head><body>
+<div class="nav" data-r="nav"><b>MODUL</b><span>Instruments</span><span>Sounds</span><span>Support</span></div>
+<h1 class="h" data-r="headline" data-must>Patch it. <em>Hear</em> it.</h1>
+<p class="p" data-r="copy">A semi-modular desktop synth with 32 patch points, analog filter and a step sequencer you can play with your thumbs.</p>
+<svg class="wave" data-r="waveform" width="380" height="90"><path d="M0 45 Q20 0 40 45 T80 45 T120 45 Q140 90 160 45 T200 45 Q215 10 230 45 T260 45 T300 45 Q320 80 340 45 T380 45" fill="none" stroke="#ff6a2a" stroke-width="3"/></svg>
+<div class="panel" data-r="synth-panel" data-must>
+<div class="knobs" data-r="knob-grid"><div><div class="k" style="--a:120deg"><i></i></div><div class="lab">Cutoff</div></div><div><div class="k" style="--a:200deg"><i></i></div><div class="lab">Reso</div></div><div><div class="k" style="--a:60deg"><i></i></div><div class="lab">Attack</div></div><div><div class="k" style="--a:150deg"><i></i></div><div class="lab">Decay</div></div><div><div class="k" style="--a:240deg"><i></i></div><div class="lab">Drive</div></div><div><div class="k" style="--a:90deg"><i></i></div><div class="lab">Rate</div></div><div><div class="k" style="--a:180deg"><i></i></div><div class="lab">Depth</div></div><div><div class="k" style="--a:30deg"><i></i></div><div class="lab">Glide</div></div><div><div class="k" style="--a:210deg"><i></i></div><div class="lab">Mix</div></div><div><div class="k" style="--a:135deg"><i></i></div><div class="lab">Level</div></div></div>
+<div class="jacks" data-r="jacks"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="leds" data-r="leds"><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i class="on"></i></div>
+</div>
+<svg class="cables" data-r="patch-cables" width="1280" height="900"><path d="M563 593 C 600 760, 760 760, 783 593" fill="none" stroke="#ff6a2a" stroke-width="7" stroke-linecap="round"/><path d="M623 593 C 700 820, 980 800, 1003 593" fill="none" stroke="#2ab3ff" stroke-width="7" stroke-linecap="round"/><path d="M683 593 C 690 700, 850 700, 843 593" fill="none" stroke="#f3d33a" stroke-width="7" stroke-linecap="round"/></svg>
+<div class="buy" data-r="buttons" data-must><a>Pre-order €449</a><a>Listen</a></div>
+<div class="spec" data-r="spec-row"><span>32 PATCH POINTS</span><span>3 OSC</span><span>24 dB LADDER</span><span>USB-C / MIDI</span></div>
+</body></html>

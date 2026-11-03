@@ -1,0 +1,194 @@
+{
+  "id": "c1-extruded-checker",
+  "at": "2026-10-23T13:08:48.197Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8900979635203491,
+    "overallV2": 0.8900979635203491,
+    "overallV1": 0.8381193631415071,
+    "colour": 0.9829801381107227,
+    "structure": 0.9692194293027758,
+    "structureStrict": 0.868843804533345,
+    "colourAligned": 0.9829801381107227,
+    "structureAligned": 0.9692194293027758,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9484773245938827
+    },
+    "layout": 0.7620435529365672
+  },
+  "effects": {
+    "recall": 0.8571428571428571,
+    "kept": [
+      "hard-shadow",
+      "huge-type",
+      "motion",
+      "overlap",
+      "stripes-or-layers",
+      "tilt"
+    ],
+    "missing": [
+      "clip-shape"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 36551,
+    "output": 16501,
+    "cacheRead": 245561
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 43734,
+      "output": 12075,
+      "cacheRead": 242477,
+      "toolCalls": 12,
+      "tools": [
+        "Glob",
+        "Read components/SpinningJagged.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Grep",
+        "Edit components/SpinningJagged.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 126650
+    }
+  ],
+  "reading": "The sketch lays out a festival landing page: a top nav, a giant two-line extruded \"LOUD FEST\" headline, a spinning jagged date badge reading \"JUN 12\", a checkerboard floor band, and two cards on that floor (a tilted \"3 DAYS · 40 ACTS\" tag and a \"Weekend pass\" card with a ticket button), all fully specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        563,
+        1274,
+        334
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Full-width checkerboard floor band, 1280x340px positioned at 0,560: sharp 40px squares alternating near-black (#1a1a1a) and pale yellow (#fdf6e3) like a chess b"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        60,
+        37,
+        1160,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Top nav bar, no border/box around it: \"BLOCKPARTY\" aligned left, \"LINEUP · TICKETS · MAP\" aligned right, spanning the header width where the long horizontal str"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 245
+        }
+      ],
+      "region": [
+        64,
+        78,
+        558,
+        294
+      ],
+      "paths": [],
+      "instruction": "Giant live-text headline \"LOUD\" in Helvetica/Arial, font-weight 900, round-bowled (not condensed/display), about 230px type size, ~620px wide, filled yellow (#f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3"
+          ],
+          "lines": 1,
+          "fontPx": 256
+        }
+      ],
+      "region": [
+        308,
+        291,
+        500,
+        307
+      ],
+      "paths": [],
+      "instruction": "Giant live-text headline \"FEST\" in Helvetica/Arial, font-weight 900, round-bowled (not condensed/display), about 230px type size, ~556px wide, filled pink (#ff5"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1013,
+        96,
+        163,
+        155
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Spinning jagged cut-out badge shape, flat #3a86ff fill via clip-path polygon (no gradient/shading/texture), box 163x155px positioned top-left at 1013,96 with cl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        58,
+        635,
+        216,
+        65
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A white card, tilted 4° anticlockwise, with a thick near-black border, sitting on the checkerboard floor; card text reads \"3 DAYS · 40 ACTS\"."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        823,
+        613,
+        393,
+        214
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A white card with a thick near-black border sitting on the checkerboard floor, headed \"Weekend pass\", with body lines \"All stages, all nights. Early bird ends F"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

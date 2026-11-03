@@ -1,0 +1,184 @@
+{
+ "c1-chess-match": {
+  "found": {
+   "gradient": 1,
+   "3d": 1,
+   "stripes-or-layers": 1,
+   "huge-type": 4,
+   "uppercase-display": 2,
+   "hollow-type": 1,
+   "hard-shadow": 2,
+   "vertical-type": 1,
+   "mono": 2
+  },
+  "names": [
+   "3d",
+   "gradient",
+   "hard-shadow",
+   "hollow-type",
+   "huge-type",
+   "mono",
+   "stripes-or-layers",
+   "uppercase-display",
+   "vertical-type"
+  ]
+ },
+ "c2-mosaic-type": {
+  "found": {
+   "mask": 1,
+   "gradient": 1,
+   "tilt": 3,
+   "huge-type": 8,
+   "clip-shape": 1,
+   "serif": 1,
+   "hard-shadow": 1,
+   "overlap": 7
+  },
+  "names": [
+   "clip-shape",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "mask",
+   "overlap",
+   "serif",
+   "tilt"
+  ]
+ },
+ "c3-noir-blinds": {
+  "found": {
+   "tilt": 2,
+   "mask": 1,
+   "stripes-or-layers": 2,
+   "bleed": 1,
+   "blur": 1,
+   "gradient": 1,
+   "blend": 1,
+   "huge-type": 2,
+   "serif": 6,
+   "italic": 1,
+   "overlap": 2
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "blur",
+   "gradient",
+   "huge-type",
+   "italic",
+   "mask",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "c4-kaleidoscope": {
+  "found": {
+   "gradient": 1,
+   "bleed": 1,
+   "mask": 1,
+   "stripes-or-layers": 1,
+   "clip-shape": 2,
+   "blend": 1,
+   "gradient-text": 1,
+   "overlap": 6
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "clip-shape",
+   "gradient",
+   "gradient-text",
+   "mask",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "c5-solar-wheel": {
+  "found": {
+   "serif": 20,
+   "stripes-or-layers": 2,
+   "tilt": 11,
+   "gradient": 1,
+   "italic": 1,
+   "hard-shadow": 2,
+   "overlap": 15
+  },
+  "names": [
+   "gradient",
+   "hard-shadow",
+   "italic",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "e1-recruiting": {
+  "found": {
+   "clip-shape": 5,
+   "hard-shadow": 2,
+   "overlap": 2
+  },
+  "names": [
+   "clip-shape",
+   "hard-shadow",
+   "overlap"
+  ]
+ },
+ "e2-inventory-modal": {
+  "found": {
+   "glass": 1,
+   "soft-shadow": 1,
+   "stripes-or-layers": 1,
+   "overlap": 72
+  },
+  "names": [
+   "glass",
+   "overlap",
+   "soft-shadow",
+   "stripes-or-layers"
+  ]
+ },
+ "e3-month-calendar": {
+  "found": {
+   "hard-shadow": 1,
+   "soft-shadow": 1,
+   "overlap": 40
+  },
+  "names": [
+   "hard-shadow",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e4-workflow-nodes": {
+  "found": {
+   "gradient": 1,
+   "soft-shadow": 4,
+   "mono": 1,
+   "overlap": 43
+  },
+  "names": [
+   "gradient",
+   "mono",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e5-daw": {
+  "found": {
+   "mono": 3,
+   "gradient": 24,
+   "mask": 14,
+   "overlap": 27
+  },
+  "names": [
+   "gradient",
+   "mask",
+   "mono",
+   "overlap"
+  ]
+ }
+}

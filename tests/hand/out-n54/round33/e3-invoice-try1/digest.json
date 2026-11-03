@@ -1,0 +1,461 @@
+{
+  "round": 33,
+  "id": "e3-invoice",
+  "version": 3,
+  "stopped": null,
+  "likeness": 84.9,
+  "colour": 0.9961082499686607,
+  "structure": 0.9713012761416087,
+  "layout": 0.8306919302567343,
+  "strokes": {
+    "count": 15,
+    "pointsPerStroke": 2.3,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 2,
+      "line": 11,
+      "dot": 2
+    },
+    "inkPx": 6890
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 48,
+  "notes": 9,
+  "longestNote": 10,
+  "noteTexts": [
+    "Invoice #1042, bold",
+    "Issued 3 Nov 2026, Due 17 Nov 2026, grey, right",
+    "Billed to, Harbor Coffee Ltd bold, 12 Quay Street, Bristol",
+    "Item, Qty, Amount, grey bold; dark rule",
+    "Logo design, 1, £800",
+    "Menu layout, 2, £450",
+    "Print setup, 1, £120",
+    "Total £1,820, big bold",
+    "Pay now"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 202,
+    "firstReadingS": 76,
+    "readS": [
+      43
+    ],
+    "buildS": [
+      124
+    ],
+    "sketchingS": 35
+  },
+  "corrections": 0,
+  "runs": 1,
+  "tokens": {
+    "input": 26277,
+    "cacheRead": 134194,
+    "output": 14515,
+    "billed": 40792
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 9125
+    },
+    {
+      "op": "stroke",
+      "at": 10086
+    },
+    {
+      "op": "stroke",
+      "at": 10904
+    },
+    {
+      "op": "stroke",
+      "at": 11701
+    },
+    {
+      "op": "stroke",
+      "at": 12318
+    },
+    {
+      "op": "stroke",
+      "at": 13135
+    },
+    {
+      "op": "stroke",
+      "at": 14019
+    },
+    {
+      "op": "stroke",
+      "at": 16252
+    },
+    {
+      "op": "stroke",
+      "at": 18469
+    },
+    {
+      "op": "stroke",
+      "at": 20687
+    },
+    {
+      "op": "stroke",
+      "at": 22902
+    },
+    {
+      "op": "stroke",
+      "at": 23784
+    },
+    {
+      "op": "stroke",
+      "at": 25201
+    },
+    {
+      "op": "pen",
+      "color": "#f1f5f9",
+      "at": 25576
+    },
+    {
+      "op": "stroke",
+      "at": 26037
+    },
+    {
+      "op": "pen",
+      "color": "#0f766e",
+      "at": 26408
+    },
+    {
+      "op": "stroke",
+      "at": 26872
+    },
+    {
+      "op": "note",
+      "at": 27522
+    },
+    {
+      "op": "note",
+      "at": 28200
+    },
+    {
+      "op": "note",
+      "at": 28904
+    },
+    {
+      "op": "note",
+      "at": 29576
+    },
+    {
+      "op": "note",
+      "at": 30238
+    },
+    {
+      "op": "note",
+      "at": 30877
+    },
+    {
+      "op": "note",
+      "at": 31532
+    },
+    {
+      "op": "note",
+      "at": 32191
+    },
+    {
+      "op": "note",
+      "at": 32820
+    },
+    {
+      "op": "run",
+      "at": 32957
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          260,
+          50
+        ],
+        [
+          1020,
+          50
+        ],
+        [
+          1020,
+          850
+        ],
+        [
+          260,
+          850
+        ],
+        [
+          260,
+          52
+        ]
+      ],
+      "n": 521,
+      "at": 9125
+    },
+    {
+      "way": [
+        [
+          324,
+          122
+        ],
+        [
+          506,
+          122
+        ]
+      ],
+      "n": 31,
+      "at": 10086
+    },
+    {
+      "way": [
+        [
+          831,
+          118
+        ],
+        [
+          956,
+          118
+        ]
+      ],
+      "n": 22,
+      "at": 10904
+    },
+    {
+      "way": [
+        [
+          839,
+          142
+        ],
+        [
+          956,
+          142
+        ]
+      ],
+      "n": 21,
+      "at": 11701
+    },
+    {
+      "way": [
+        [
+          324,
+          214
+        ],
+        [
+          378,
+          214
+        ]
+      ],
+      "n": 10,
+      "at": 12318
+    },
+    {
+      "way": [
+        [
+          324,
+          238
+        ],
+        [
+          452,
+          238
+        ]
+      ],
+      "n": 22,
+      "at": 13135
+    },
+    {
+      "way": [
+        [
+          324,
+          262
+        ],
+        [
+          475,
+          262
+        ]
+      ],
+      "n": 26,
+      "at": 14019
+    },
+    {
+      "way": [
+        [
+          324,
+          360
+        ],
+        [
+          956,
+          360
+        ]
+      ],
+      "n": 106,
+      "at": 16252
+    },
+    {
+      "way": [
+        [
+          324,
+          406
+        ],
+        [
+          956,
+          406
+        ]
+      ],
+      "n": 106,
+      "at": 18469
+    },
+    {
+      "way": [
+        [
+          324,
+          452
+        ],
+        [
+          956,
+          452
+        ]
+      ],
+      "n": 106,
+      "at": 20687
+    },
+    {
+      "way": [
+        [
+          324,
+          498
+        ],
+        [
+          956,
+          498
+        ]
+      ],
+      "n": 106,
+      "at": 22902
+    },
+    {
+      "way": [
+        [
+          809,
+          546
+        ],
+        [
+          956,
+          546
+        ]
+      ],
+      "n": 26,
+      "at": 23784
+    },
+    {
+      "way": [
+        [
+          324,
+          602
+        ],
+        [
+          449,
+          602
+        ],
+        [
+          449,
+          648
+        ],
+        [
+          324,
+          648
+        ],
+        [
+          324,
+          604
+        ]
+      ],
+      "n": 58,
+      "at": 25201
+    },
+    {
+      "way": [
+        [
+          130,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 26037
+    },
+    {
+      "way": [
+        [
+          386,
+          625
+        ]
+      ],
+      "n": 1,
+      "at": 26872
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Invoice #1042, bold",
+      "whole": false,
+      "x": 415,
+      "y": 110,
+      "at": 27522
+    },
+    {
+      "text": "Issued 3 Nov 2026, Due 17 Nov 2026, grey, right",
+      "whole": false,
+      "x": 890,
+      "y": 105,
+      "at": 28200
+    },
+    {
+      "text": "Billed to, Harbor Coffee Ltd bold, 12 Quay Street, Bristol",
+      "whole": false,
+      "x": 400,
+      "y": 228,
+      "at": 28904
+    },
+    {
+      "text": "Item, Qty, Amount, grey bold; dark rule",
+      "whole": false,
+      "x": 640,
+      "y": 340,
+      "at": 29576
+    },
+    {
+      "text": "Logo design, 1, £800",
+      "whole": false,
+      "x": 400,
+      "y": 383,
+      "at": 30238
+    },
+    {
+      "text": "Menu layout, 2, £450",
+      "whole": false,
+      "x": 400,
+      "y": 429,
+      "at": 30877
+    },
+    {
+      "text": "Print setup, 1, £120",
+      "whole": false,
+      "x": 400,
+      "y": 475,
+      "at": 31532
+    },
+    {
+      "text": "Total £1,820, big bold",
+      "whole": false,
+      "x": 880,
+      "y": 535,
+      "at": 32191
+    },
+    {
+      "text": "Pay now",
+      "whole": false,
+      "x": 386,
+      "y": 615,
+      "at": 32820
+    }
+  ]
+}

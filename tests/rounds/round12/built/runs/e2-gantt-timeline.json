@@ -1,0 +1,116 @@
+{
+  "id": "e2-gantt-timeline",
+  "at": "2026-10-23T18:42:17.719Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7267888037344088,
+    "overallV2": 0.7267888037344088,
+    "overallV1": 0.5775383509828141,
+    "colour": 0.9900711644041679,
+    "structure": 0.9250270759286419,
+    "structureStrict": 0.8150478825524116,
+    "colourAligned": 0.9900711644041679,
+    "structureAligned": 0.9250270759286419,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.7661952040161331
+    },
+    "layout": 0.9009990988022003
+  },
+  "effects": {
+    "recall": 0.6666666666666666,
+    "kept": [
+      "overlap",
+      "tilt"
+    ],
+    "missing": [
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 35916,
+    "output": 16920,
+    "cacheRead": 158048
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 46646,
+      "output": 14374,
+      "cacheRead": 154964,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 147815
+    }
+  ],
+  "reading": "The sketch is a project/task management page: a header with a bold title and right-aligned filter/view/add-task controls, a left grouped task list panel (12 rows across three groups, each with colored owner dots), and a right Gantt-style timeline panel with a week header, colored task bars, a milestone diamond, a dependency connector, and a red \"today\" marker line. All detail comes from the three typed notes anchored to the strokes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 16
+        }
+      ],
+      "region": [
+        4,
+        2,
+        1272,
+        48
+      ],
+      "paths": [],
+      "instruction": "Add a page header row: bold 18px \"Website relaunch\" title at the far left, and to the far right (763px gap) a row of controls — \"Filter ▾\", \"Day Week Month\" seg"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        67,
+        294,
+        829
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Build the left panel as a grouped task list of exactly 12 rows, each 44px tall, starting at the panel's very top, in this exact top-to-bottom order: a column he"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        303,
+        67,
+        974,
+        830
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Build the right panel as a timeline/Gantt chart: a 43px week-head row with 7 equal columns labeled \"Oct 5\", \"Oct 12\", \"Oct 19\", \"Oct 26\", \"Nov 2\", \"Nov 9\", \"Nov"
+    }
+  ],
+  "rejected": []
+}

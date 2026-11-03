@@ -1,0 +1,470 @@
+{
+  "id": "c3-crt-terminal",
+  "at": "2026-10-26T05:22:13.171Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9493707921120604,
+    "overallV2": 0.9493707921120604,
+    "overallV1": 0.941403515314126,
+    "colour": 0.9938246064763593,
+    "structure": 0.933998838657569,
+    "structureStrict": 0.9127379305972757,
+    "colourAligned": 0.9938246064763593,
+    "structureAligned": 0.933998838657569,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.949163367071332
+    },
+    "layout": 0.9213034055167928,
+    "layoutV1": 0.9213034055167928,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      120,
+      90,
+      1040,
+      700
+    ],
+    [
+      1,
+      122,
+      92,
+      1036,
+      40
+    ],
+    [
+      2,
+      138,
+      105,
+      52,
+      12
+    ],
+    [
+      3,
+      138,
+      105,
+      12,
+      12
+    ],
+    [
+      3,
+      158,
+      105,
+      12,
+      12
+    ],
+    [
+      3,
+      178,
+      105,
+      12,
+      12
+    ],
+    [
+      2,
+      944,
+      101,
+      198,
+      20
+    ],
+    [
+      1,
+      184,
+      204,
+      424,
+      120
+    ],
+    [
+      8,
+      184,
+      204,
+      360,
+      120
+    ],
+    [
+      1,
+      184,
+      394,
+      348,
+      136
+    ],
+    [
+      10,
+      184,
+      394,
+      348,
+      34
+    ],
+    [
+      11,
+      184,
+      394,
+      292,
+      34
+    ],
+    [
+      11,
+      488,
+      394,
+      34,
+      34
+    ],
+    [
+      10,
+      184,
+      428,
+      348,
+      34
+    ],
+    [
+      14,
+      184,
+      428,
+      302,
+      34
+    ],
+    [
+      14,
+      498,
+      428,
+      34,
+      34
+    ],
+    [
+      10,
+      184,
+      462,
+      348,
+      34
+    ],
+    [
+      17,
+      184,
+      462,
+      292,
+      34
+    ],
+    [
+      17,
+      488,
+      462,
+      34,
+      34
+    ],
+    [
+      10,
+      184,
+      496,
+      348,
+      34
+    ],
+    [
+      1,
+      764,
+      394,
+      230,
+      130
+    ],
+    [
+      1,
+      184,
+      652,
+      423,
+      52
+    ],
+    [
+      22,
+      184,
+      652,
+      210,
+      52
+    ],
+    [
+      22,
+      410,
+      652,
+      197,
+      52
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 0.8,
+    "kept": [
+      "huge-type",
+      "mono",
+      "motion",
+      "stripes-or-layers"
+    ],
+    "missing": [
+      "glow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 47658,
+    "output": 15236,
+    "cacheRead": 329427
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 39655,
+      "output": 5546,
+      "cacheRead": 317256,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 55926
+    }
+  ],
+  "reading": "The sketch is a retro-terminal landing page: an inset bordered window with a title bar sits inside the page, holding a huge glowing 'BOOT_' heading with blinking cursor, a 4-line boot log with OK chips, an ASCII-art info card, two buttons, and a scanline overlay across it all; typed notes fully specify colors, fonts, sizes and exact copy.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        },
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 4,
+          "fontPx": 23
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Draw a terminal-style window container, 1040x700px with top-left at 120,90, 14px rounded corners, with a blinking 2px #39ff7a border; the window sits inset on t"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1"
+          ],
+          "lines": 1,
+          "fontPx": 122
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Add a large live-text heading 'BOOT_' at 182,202 on one line, 120px bold Courier New (monospace), color #39ff7a (NOT a picture). Give it a green glow via text-s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 4,
+          "fontPx": 23
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Add exactly 4 lines of 18px Courier New (monospace) #39ff7a text, line-height 34px, positioned at 182,392: '> loading modules .........' followed by an 'OK' chi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Add an ASCII box-drawing frame as live 16px Courier New (monospace) #39ff7a text inside a <pre> element (white-space: pre, line-height 26px) positioned at 762,3"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s11",
+        "s13"
+      ],
+      "instruction": "Add an outline button labeled '[ RUN DEMO ]': bright green (#39ff7a) 2px border, 210x52px, square corners (border-radius 0, NOT a pill)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s12",
+        "s13"
+      ],
+      "instruction": "Add a filled button labeled '[ BUY $49 ]': #39ff7a (bright green) fill with #05140a (black) text, 197x52px, square corners (border-radius 0, NOT a pill)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3",
+        "s4",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6",
+            "s7",
+            "s8",
+            "s9",
+            "s10"
+          ],
+          "lines": 5,
+          "fontPx": 17
+        },
+        {
+          "strokes": [
+            "s2",
+            "s3",
+            "s4",
+            "s5"
+          ],
+          "lines": 4,
+          "fontPx": 23
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s13"
+      ],
+      "instruction": "Add a see-through scanline veil layered over everything below it: one 1280x900px div at 0,0 (pointer-events none, no own fill) painted with horizontal repeating"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

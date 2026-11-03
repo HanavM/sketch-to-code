@@ -7,6 +7,8 @@ import { takeSnapshot, type DomSnapshot } from '@s2c/dom'
 import { BRIDGE_MIN_SPAN, pathD, shouldBridge, strokeDiagonal } from './stroke-capture.js'
 import type { Pt } from './stroke-capture.js'
 import { labelArmed, startsLabel } from './type-to-label.js'
+import { besideSentence, noteFocus, groupCount, giantStacks, stackJoin, isTextLine, isNoteLine, rowSeed, overflowStack } from '@s2c/ink/notefocus'
+import { inkFills, isFillDot, pageFill, markFill, sliceWedges, tapDots } from '@s2c/ink/inkfill'
 import { askKey, askSentence, bareRing } from './bare-ring.js'
 import { runProbe, type ProbeSpecWire } from './probe-exec.js'
 import { plainStage, rawStage, readingFailedLine } from './plain-progress.js'
@@ -17,6 +19,8 @@ import { boxesOf, holdUntilLanded, LiveReorder, pushedBy, settleBoxes, type Hold
 import { captureBefore, captureErase, captureInsert, playInverse, type Played, type VisualEdit } from './undo-preview.js'
 import { previewLanded, previewReading, type Preview } from './preview.js'
 import { warmInIdle, warmStrokes } from './warm-pen.js'
+import { lookName } from './target-look.js'
+import { alreadySo, boxDist, isRole, pickOther, placedAgainst, type PartInfo, type PartLook } from './fix-subject.js'
 import { lostSentence, newReadingId, nextSeq, parseParked, READING_KEY, READING_PARK_MS, type ParkedReading } from './reading-park.js'
 
 // n18: how many undo eases a hot reload's remount handed to the new node (e2e reads it)
@@ -388,6 +392,9 @@ interface PlanStop {
 }
 
 /** One row of "here is what I am about to do", for the plan card. */
+/** n193: the id a tap-placed target carries in the plan (it had none before the tap). */
+const PLACED = 'placed'
+
 interface PlanDetail {
   kind: string
   color: string
@@ -397,6 +404,9 @@ interface PlanDetail {
   swatch: string
   token: string
   notes: string[]
+  /** n191: the action's index, and each target the plan points at, so a tap can re-point one. */
+  action: number
+  picks: Array<{ domId: string; name: string }>
 }
 
 /** The pen Claude is holding: where it is, where it is going, and its tail. */
@@ -932,8 +942,8 @@ const PANEL_GAP = 10
  */
 type NoteAnchor =
   | { kind: 'element'; srcLoc: string }
-  | { kind: 'strokes'; strokeIds: string[] }
-  | { kind: 'run' }
+  | { kind: 'strokes'; strokeIds: string[]; focus?: string[] }
+  | { kind: 'run'; placed?: boolean }
 
 /**
  * An element named INSIDE a sentence, by pointing at it while typing.
@@ -967,6 +977,8 @@ interface Note {
   anchor: NoteAnchor
   /** Elements the text points at by token. Empty for most notes. */
   refs: NoteRef[]
+  /** n43: the part already is what this fix note asks ("already one line"): nothing to change. */
+  already?: string
 }
 
 /** Page-space rect. Same {x,y,w,h} shape the ink and the snapshot both use. */
@@ -974,10 +986,15 @@ interface Box { x: number; y: number; w: number; h: number }
 
 /**
  * How far from the pointer a stroke's bbox may sit and still count as "this
- * note is about that". Generous on purpose: people gesture NEAR the thing
- * they mean, and the alternative (a run-level note) loses information.
+ * note is about that". n29: was 120 (generous because a run-level note lost
+ * its spot). Round 31 e4: "Lisbon", typed 58px above the sun, was built in the
+ * sun; e2: the sender line typed 57px from its marks bound to the title line.
+ * A note typed further off is now PLACED: its words are built where typed.
  */
-const NOTE_NEAR_PX = 120
+const NOTE_NEAR_PX = 48
+/** n189: a short line this close to the typed point seeds the note over a newer mark at least the margin further off. */
+const NOTE_LINE_SEED_PX = 32
+const NOTE_LINE_SEED_MARGIN_PX = 12
 /** Two strokes belong to the same drawing if their boxes are this close… */
 const NOTE_CLUSTER_PX = 120
 /** …and were drawn this close in time. A shape drawn now on top of one drawn
@@ -1204,6 +1221,8 @@ const CLIENT_ID: string = (() => {
 })()
 /** If no SSE event lands for this long while running, assume the run died. */
 const RUNNING_WATCHDOG_MS = 10 * 60_000
+/** n115: how long the dev server may be unreachable mid-run before the run is ended. */
+const SERVER_GONE_MS = 8_000
 
 function css(strings: TemplateStringsArray): string {
   return strings.join('')
@@ -1926,6 +1945,7 @@ const STYLES = css`
     box-shadow: 0 2px 10px rgb(0 0 0 / 0.35); cursor: pointer;
   }
   .noteChip:hover { background: var(--s2c-active); }
+  .noteChip .noteGrip { flex: none; margin-left: -6px; padding: 0 2px; cursor: grab; opacity: 0.7; }
   .noteChip .noteText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .noteChip .noteDel {
     flex: none; width: 17px; height: 17px; padding: 0; border-radius: 999px;
@@ -1957,6 +1977,14 @@ const STYLES = css`
     border: 2px solid var(--s2c-line-strong); border-radius: 6px; background: rgb(56 189 248 / 0.12);
   }
   #noteHi.on { display: block; }
+  /* n9: every note's thread to the mark it is about, always on while you draw,
+     so a note that landed on the wrong mark is visible BEFORE anything is built.
+     Amber, not the ink's blue: it is the tool talking, not your drawing. */
+  #noteLinks { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+  #noteLinks line { stroke: #f59e0b; stroke-width: 1.5; stroke-dasharray: 4 3; }
+  #noteLinks rect { fill: rgb(245 158 11 / 0.07); stroke: #f59e0b; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  #noteLinks circle { fill: #f59e0b; }
+  .noteChip.dragging { opacity: 0.85; cursor: grabbing; }
   /*
    * Elements the SENTENCE points at, outlined while it is being written.
    *
@@ -2090,6 +2118,11 @@ const STYLES = css`
     color: var(--s2c-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   #planCard .cInstr { color: var(--s2c-muted); margin-top: 2px; }
+  #planCard .cPick { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 2px; font-size: 11px; }
+  #planCard .cSkip { margin-left: auto; font: inherit; font-size: 10.5px; padding: 1px 8px; border-radius: 999px; cursor: pointer; border: 1px solid var(--s2c-line); background: transparent; color: var(--s2c-text); flex: none; }
+  #planCard .cRow.skipped .cWhat, #planCard .cRow.skipped .cInstr, #planCard .cRow.skipped .cKind { text-decoration: line-through; opacity: .5; }
+  #planCard .cPick button { font: inherit; font-size: 10.5px; padding: 1px 8px; border-radius: 999px; cursor: pointer; border: 1px solid var(--s2c-line); background: transparent; color: var(--s2c-text); }
+  :host([data-picking]) { cursor: crosshair; }
   /* the RESOLVED colour, painted: naming a hex would be a picture of it */
   #planCard .cSwatch {
     flex: none; width: 12px; height: 12px; border-radius: 3px;
@@ -2306,6 +2339,15 @@ class Overlay {
   /** Plain-language card for a run that did not do everything (see showMisread). */
   private misreadCard: HTMLElement
   private planDetail: PlanDetail[] = []
+  /** n191: plan targets the person re-pointed with a tap, sent with ✓ Go. */
+  private retargets: Array<{ action: number; from: string | null; srcLoc: string; rect: { x: number; y: number; w: number; h: number }; instruction?: string }> = []
+  /** n191: waiting for the tap that picks the part an action is about. */
+  /** n193: `from` null = a step with no target (design the sky) is being given its place by a tap. */
+  private picking: { action: number; from: string | null } | null = null
+  /** n191: the last tap's spot and pick, so a second tap on the same spot climbs to the part around it. */
+  private lastPick: { action: number; from: string | null; x: number; y: number; el: Element } | null = null
+  /** n192: plan actions the person struck with "skip" (index -> the target ids the row showed), sent with ✓ Go. */
+  private skips = new Map<number, string[]>()
   /** Where the work is, in order — what the cursor visits. */
   private planStops: PlanStop[] = []
   private cursor: WorkCursor | null = null
@@ -2321,6 +2363,10 @@ class Overlay {
   private noteRefs!: HTMLElement
   private noteInput: HTMLInputElement
   private noteHi: HTMLElement
+  /** n9: the amber threads from each note chip to the mark it is about. */
+  private noteLinks!: SVGSVGElement
+  /** A chip being dragged onto another mark; a drag is not a click. */
+  private noteDrag: { id: string; px: number; py: number; moved: boolean; grip?: boolean; down?: Pt; drew?: boolean; del?: boolean } | null = null
   /** Open editor: null id = a new note, else the note being re-edited. */
   private noteDraft: {
     id: string | null
@@ -2347,6 +2393,7 @@ class Overlay {
   private helpEl: HTMLElement
   private helpOpen = false
   /** Live bar drag: origin is the bar's top-left at pointerdown, in client px. */
+  private hudPress: { pointerId: number; x: number; y: number; onButton: boolean } | null = null
   private hudDrag: { pointerId: number; startX: number; startY: number; originX: number; originY: number } | null = null
 
   private mode: Mode = 'idle'
@@ -2509,7 +2556,11 @@ class Overlay {
     this.planCard = document.createElement('div')
     this.planCard.id = 'planCard'
     this.planCard.setAttribute('role', 'status')
+    this.planCard.addEventListener('pointerdown', (e) => e.stopPropagation())
     this.shadow.appendChild(this.planCard)
+    // n191: after "not this", the next press on the page picks the part meant. Capture on the window, so it
+    // runs before the ink layer, the plan layer or the page itself can take the press.
+    window.addEventListener('pointerdown', (e) => this.onPickTap(e), true)
 
     // What went wrong, in words a non-coder can act on, and one button that
     // puts the files back. The status line can't hold it: it is a 316px
@@ -2534,6 +2585,7 @@ class Overlay {
     this.notesLayer = document.createElement('div')
     this.notesLayer.id = 'notes'
     this.notesLayer.innerHTML = `
+      <svg id="noteLinks" width="1" height="1"></svg>
       <div id="noteHi"></div>
       <div id="noteRefHi"></div>
       <div id="noteBox">
@@ -2548,6 +2600,7 @@ class Overlay {
     this.noteWhat = this.shadow.getElementById('noteWhat')!
     this.noteInput = this.shadow.getElementById('noteInput') as HTMLInputElement
     this.noteHi = this.shadow.getElementById('noteHi')!
+    this.noteLinks = this.shadow.getElementById('noteLinks') as unknown as SVGSVGElement
     this.noteRefHi = this.shadow.getElementById('noteRefHi')!
     this.noteRefs = this.shadow.getElementById('noteRefs')!
 
@@ -3003,6 +3056,7 @@ class Overlay {
     // is the only feedback that a reference is gone
     this.noteInput.addEventListener('input', () => {
       if (this.noteDraft) this.renderNoteRefs()
+      if (this.noteDraft) this.previewNoteCover()
     })
     this.noteInput.addEventListener('keyup', (e) => e.stopPropagation())
     this.noteInput.addEventListener('keypress', (e) => e.stopPropagation())
@@ -3150,6 +3204,8 @@ class Overlay {
       // the last reading's outcome, as the server answered it: lets the bench's
       // --read-only mode measure readings without paying for codegen (s2c-056)
       reading: () => this.lastReading,
+      // n191: the plan as the card shows it, one row per action with the parts it points at
+      planRows: () => this.planDetail.map((d) => ({ action: d.action, kind: d.kind, instruction: d.instruction, notes: d.notes, picks: d.picks })),
       // which /api paths the page asked for and nothing answered, and how each
       // one failed — the only observable side of the fetch watcher
       apiMisses: () => [...this.apiMisses.entries()].map(([path, how]) => ({ path, how })),
@@ -4234,6 +4290,19 @@ class Overlay {
     // a press that lands on a control belongs to that control — buttons must
     // keep behaving like buttons, so only the bar's own surface starts a drag
     const src = e.composedPath()[0]
+    const onGrip = src instanceof Element && !!src.closest('#hudGrip')
+    /*
+     * n110: in draw mode a pen stroke may start on the bar. Round 38 e5 (a video
+     * call): the row of call controls sits at the bottom of the page, right
+     * under the bar; drawing them pressed the bar's buttons — one stroke
+     * switched the run to auto, which built the half-drawn page and lost the
+     * notes. So, anywhere but the grip, a press is held as "maybe ink": it
+     * stays a click if it never travels, and becomes a stroke on the page the
+     * moment it does (onHudMove hands it to the canvas).
+     */
+    this.hudPress = this.mode === 'draw' && !onGrip
+      ? { pointerId: e.pointerId, x: e.clientX, y: e.clientY, onButton: !!(src instanceof Element && src.closest('button')) }
+      : null
     if (src instanceof Element && src.closest('button')) return
     const r = this.hud.getBoundingClientRect()
     // pin to the pixels it ALREADY occupies before the first move: swapping
@@ -4248,6 +4317,11 @@ class Overlay {
   }
 
   private onHudMove(e: PointerEvent) {
+    const hp = this.hudPress
+    if (hp && hp.pointerId === e.pointerId && (e.buttons & 1) && Math.hypot(e.clientX - hp.x, e.clientY - hp.y) > CLICK_SLOP) {
+      this.handInkThroughHud(e, hp)
+      return
+    }
     const d = this.hudDrag
     if (!d || e.pointerId !== d.pointerId) return
     // straight off the pointer delta — no rAF, no debounce: the bar has to be
@@ -4260,11 +4334,104 @@ class Overlay {
     if (this.penOpen) this.layoutPanel(this.penPanel)
   }
 
+  /**
+   * n110: a press on the bar (not its grip) travelled in draw mode: it was ink.
+   * The bar goes back where it was, the button under the press never fires,
+   * and the canvas takes the pointer from the press point on — so the stroke
+   * keeps every point, reads like any other, and its release ends it.
+   */
+  private handInkThroughHud(e: PointerEvent, hp: { pointerId: number; x: number; y: number; onButton: boolean }) {
+    this.hudPress = null
+    const d = this.hudDrag
+    if (d) {
+      this.hudDrag = null
+      this.hudPos = { x: d.originX, y: d.originY }
+      this.applyHudPos()
+    }
+    if (this.hud.hasPointerCapture(e.pointerId)) this.hud.releasePointerCapture(e.pointerId)
+    if (hp.onButton) {
+      // the release may still land on that button: swallow the one click it makes
+      const eat = (c: Event) => { c.stopPropagation(); c.preventDefault() }
+      // …and only that one: the eater goes once this press is released (a click
+      // fires in the same task as its release), so the next real click works
+      this.hud.addEventListener('click', eat, { capture: true, once: true })
+      window.addEventListener('pointerup', () => setTimeout(() => this.hud.removeEventListener('click', eat, { capture: true }), 0), { capture: true, once: true })
+    }
+    const at = (x: number, y: number) => ({ button: 0, buttons: 1, pointerId: e.pointerId, clientX: x, clientY: y, timeStamp: e.timeStamp }) as unknown as PointerEvent
+    this.onDown(at(hp.x, hp.y))
+    this.onMove(at(e.clientX, e.clientY))
+    this.status('drawing through the toolbar')
+  }
+
+  /**
+   * n166: the bar never sits on the drawing. Round 42 e1 (podcast): the play button was drawn right under the bar
+   * (n110 lets ink pass through it), and the white tap that coloured it landed on the bar's "manual" button, which
+   * switched the overlay to test mode; every stroke after it was lost. So when a finished stroke runs under the
+   * bar, the bar moves to the nearest free spot (bottom, top, then the corners and sides) where no ink is, and says so.
+   * Its buttons stay buttons: a tap now lands on the ink because the bar is no longer over it.
+   */
+  private stepBarOffInk() {
+    if (this.mode !== 'draw' || this.hudHidden) return
+    const box = this.hudBox()
+    const r = box.getBoundingClientRect()
+    if (r.width === 0 || r.height === 0) return
+    const ink = this.strokes.map((st) => {
+      const xs = st.points.map((p) => p.x - window.scrollX)
+      const ys = st.points.map((p) => p.y - window.scrollY)
+      return { x0: Math.min(...xs) - 6, y0: Math.min(...ys) - 6, x1: Math.max(...xs) + 6, y1: Math.max(...ys) + 6 }
+    })
+    const hits = (x: number, y: number) => ink.some((b) => b.x0 < x + r.width && b.x1 > x && b.y0 < y + r.height && b.y1 > y)
+    if (!hits(r.left, r.top)) return
+    const W = window.innerWidth
+    const H = window.innerHeight
+    const m = 8
+    const spots = [
+      { x: (W - r.width) / 2, y: H - r.height - m }, { x: (W - r.width) / 2, y: m },
+      { x: W - r.width - m, y: H - r.height - m }, { x: m, y: H - r.height - m },
+      { x: W - r.width - m, y: m }, { x: m, y: m },
+      { x: W - r.width - m, y: (H - r.height) / 2 }, { x: m, y: (H - r.height) / 2 },
+    ].filter((p) => p.x >= 0 && p.y >= 0 && !hits(p.x, p.y))
+      .sort((a, b) => Math.hypot(a.x - r.left, a.y - r.top) - Math.hypot(b.x - r.left, b.y - r.top))
+    const to = spots[0]
+    if (!to) return
+    this.hudPos = this.clampHudPoint(to.x, to.y)
+    this.applyHudPos()
+    this.layoutFidelityPanel()
+    if (this.penOpen) this.layoutPanel(this.penPanel)
+    this.status('the toolbar moved off your drawing')
+  }
+
   private onHudUp(e: PointerEvent) {
+    if (this.hudPress?.pointerId === e.pointerId) this.hudPress = null
     const d = this.hudDrag
     if (!d || e.pointerId !== d.pointerId) return
     this.hudDrag = null
     if (this.hud.hasPointerCapture(e.pointerId)) this.hud.releasePointerCapture(e.pointerId)
+    /*
+     * n30: a colour tap that lands on the bar's bare surface (not a button, not
+     * the grip) was meant for the page under it. Round 31 e4: the second page
+     * tap of a top-to-bottom fade sat under the bar, was taken as a zero-length
+     * drag, and the page came out one flat colour. The bar steps aside: the tap
+     * goes through to the sketch at that spot.
+     */
+    const moved = Math.hypot(e.clientX - d.startX, e.clientY - d.startY)
+    const src = e.composedPath()[0]
+    const onGrip = src instanceof Element && !!src.closest('#hudGrip')
+    if (moved <= CLICK_SLOP && !onGrip && this.mode === 'draw' && this.pen) {
+      this.hudPos = { x: d.originX, y: d.originY }
+      this.applyHudPos()
+      const at = this.toPage(e)
+      const dot = { id: `s${this.strokeSeq++}`, points: [at, { ...at, x: at.x + 1 }, { ...at, x: at.x + 1, y: at.y + 1 }], color: this.pen }
+      this.strokes.push(dot)
+      this.resetBridge()
+      this.renderInk()
+      this.sync()
+      const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
+      if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (several taps in one colour are dots, never a fill)`)
+      else this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' — spotlight: the centre tap glows out to the taps round it' : ' — gradient from the first tap to this one') : ''}`)
+      this.scheduleAuto()
+      return
+    }
     this.saveHudState()
   }
 
@@ -7042,6 +7209,15 @@ class Overlay {
    * technically under there. Selecting a 1280x1312 wrapper is never what was
    * meant, and treating it as empty is what lets a press out there be a stroke.
    */
+  /** n10: a coloured tap is a fill when it lands in a drawn outline or on bare page. */
+  private isFillTap(e: PointerEvent): boolean {
+    const at = this.toPage(e)
+    const probe = [...this.strokes, { id: '?probe', points: [at, at, at], color: this.pen ?? '#000' }]
+    if (inkFills(probe, { w: window.innerWidth, h: window.innerHeight }).pop()?.target) return true
+    const target = this.pickTweakTarget(e.clientX, e.clientY)
+    return !target || this.isBackdrop(target)
+  }
+
   private isBackdrop(el: Element): boolean {
     const r = el.getBoundingClientRect()
     return r.width * r.height >= window.innerWidth * window.innerHeight * 0.5
@@ -7254,24 +7430,67 @@ class Overlay {
     for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
     let seed: Stroke | null = null
     for (const st of this.strokes) {
+      // n29: a coloured tap is never what a note is about, so it never seeds one. Round 31
+      // e2: the taps were the newest strokes, so "Compose" seeded on the taps, the thread
+      // dropped them, and the note fell to the whole sketch.
+      if (isFillDot(st)) continue
       // later strokes overwrite earlier ones: this.strokes is in draw order
       if (this.boxDist(boxes.get(st)!, x, y) <= NOTE_NEAR_PX) seed = st
     }
+    // n189: typed just beside a short line, with the newest mark in reach clearly further off: the line seeds. Round 44
+    // c4: "Deals Routes My trips", typed 17px under the nav line, seeded on the sun ring drawn later 43px away, and the
+    // nav line (drawn half a minute earlier, so not in the ring's cluster) lost its words.
+    if (seed) {
+      const ds = this.boxDist(boxes.get(seed)!, x, y)
+      let line: Stroke | null = null, dl = Infinity
+      for (const st of this.strokes) {
+        if (isFillDot(st) || !isNoteLine(st.points)) continue
+        const dd = this.boxDist(boxes.get(st)!, x, y)
+        if (dd < dl) { dl = dd; line = st }
+      }
+      if (line && line !== seed && dl <= NOTE_LINE_SEED_PX && ds >= dl + NOTE_LINE_SEED_MARGIN_PX) seed = line
+    }
+    // n69: typed on the row of a list mark (an ingredient right of its checkbox), further than the usual reach
+    if (!seed) {
+      const id = rowSeed(this.strokes.filter((st) => !isFillDot(st)), { x, y })
+      seed = id ? this.strokes.find((st) => st.id === id) ?? null : null
+    }
     if (!seed) return []
-    return this.clusterFrom(seed)
+    return this.clusterFrom(seed, { x, y })
+  }
+
+  /** n44: where notes sit on the sketch (on marks or placed), so a bare line is known; same set as the pipeline's. */
+  private notesOnSketch(): Array<{ x: number; y: number; text: string }> {
+    return this.notes
+      .filter((n) => n.text.trim() && Number.isFinite(n.at.x) && Number.isFinite(n.at.y) &&
+        (n.anchor.kind === 'strokes' || (n.anchor.kind === 'run' && (n.anchor as { placed?: boolean }).placed === true)))
+      .map((n) => ({ x: n.at.x, y: n.at.y, text: n.text }))
   }
 
   /** The drawing `seed` belongs to: strokes close in space AND in time. */
-  private clusterFrom(seed: Stroke): Stroke[] {
+  private clusterFrom(seed: Stroke, at?: { x: number; y: number }): Stroke[] {
     const boxes = new Map<Stroke, Box>()
     for (const st of this.strokes) boxes.set(st, this.strokeBox(st))
+    // n40: a giant heading's lines are one drawing however far apart (round 32 c1: NORTH and LIGHTS
+    // 170px apart), and a heading line never joins the next text line (LIGHTS joined the date line)
+    // n44: the note being typed counts as typed where it is (its line is not bare)
+    const stacks = giantStacks(this.strokes.filter((st) => !isFillDot(st)), { notesAt: [...this.notesOnSketch(), ...(at ? [at] : [])] })
+    const textLine = new Map<string, boolean>()
+    const isLine = (id: string) => {
+      let v = textLine.get(id)
+      if (v === undefined) { v = isTextLine(this.strokes.find((st) => st.id === id)?.points ?? []); textLine.set(id, v) }
+      return v
+    }
     const group = [seed]
     for (;;) {
       const next = this.strokes.find((st) =>
-        !group.includes(st) &&
-        group.some((g) =>
-          this.boxGap(boxes.get(g)!, boxes.get(st)!) <= NOTE_CLUSTER_PX &&
-          Math.abs(this.strokeTime(st) - this.strokeTime(g)) <= NOTE_CLUSTER_MS),
+        !group.includes(st) && !isFillDot(st) &&
+        group.some((g) => {
+          const j = stackJoin(g.id, st.id, stacks, isLine)
+          if (j !== undefined) return j
+          return this.boxGap(boxes.get(g)!, boxes.get(st)!) <= NOTE_CLUSTER_PX &&
+            Math.abs(this.strokeTime(st) - this.strokeTime(g)) <= NOTE_CLUSTER_MS
+        }),
       )
       if (!next) break
       group.push(next)
@@ -7303,7 +7522,10 @@ class Overlay {
     if (group.length > 0) {
       return { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id) }, strokes: group, el: null }
     }
-    return { anchor: { kind: 'run' }, strokes: [], el: null }
+    // n29: typed in empty space, nothing drawn near: words placed where typed (not forced
+    // onto the whole sketch, which loses the spot). Round 31 e4: the date typed top right
+    // was built under the city name.
+    return { anchor: { kind: 'run', placed: true }, strokes: [], el: null }
   }
 
   /** The tiny "what did this land on" line — the only feedback that says
@@ -7316,7 +7538,7 @@ class Overlay {
       const n = anchor.strokeIds.length
       return n === 1 ? 'on this stroke' : `on these ${n} strokes`
     }
-    return 'whole sketch'
+    return anchor.placed ? 'placed here' : 'whole sketch'
   }
 
   /** Everything that already owns the keyboard, so a bare key is not ours. */
@@ -7343,7 +7565,8 @@ class Overlay {
   private startLabel(first: string) {
     const seed = this.strokes[this.strokes.length - 1]
     if (!seed) return
-    const group = this.clusterFrom(seed)
+    const sb = this.strokeBox(seed)
+    const group = this.clusterFrom(seed, { x: sb.x + sb.w / 2, y: sb.y + sb.h / 2 })
     // hang the field just under the drawing's left edge, where the eye already is
     let x = Infinity, bottom = -Infinity
     for (const st of group) {
@@ -7355,7 +7578,9 @@ class Overlay {
     this.openEditor(
       null,
       { x, y: bottom },
-      { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id) }, strokes: group, el: null },
+      // the cluster can hold a headline, its subtitle and a button drawn close
+      // together; what was typed right after a stroke is about THAT stroke
+      { anchor: { kind: 'strokes', strokeIds: group.map((s) => s.id), focus: [seed.id] }, strokes: group, el: null },
       first,
       [],
       true,
@@ -7392,8 +7617,9 @@ class Overlay {
     caretEnd = false,
   ) {
     this.noteDraft = { id, at, anchor: r.anchor, refs: refs.map((x) => ({ ...x })) }
-    this.noteWhat.textContent = this.anchorLabel(r.anchor, r.el)
-    this.showNoteHighlight(r)
+    const marks = r.anchor.kind === 'strokes' ? this.noteMarks({ at, anchor: r.anchor }) : r.strokes
+    this.noteWhat.textContent = r.anchor.kind === 'strokes' ? this.markLabel(marks) : this.anchorLabel(r.anchor, r.el)
+    this.showNoteHighlight({ ...r, strokes: marks })
     // the box lives in PAGE space, so the clamp is against the viewport's
     // current page window — it only has to be right at open time
     const w = Math.min(320, window.innerWidth - 24)
@@ -7553,6 +7779,24 @@ class Overlay {
     this.noteHi.classList.add('on')
   }
 
+  /**
+   * n94: the bar names every line a note covers WHILE it is typed, not only once it is committed. Round 36 c4
+   * (florist): "Fresh flowers, at your door by noon." typed on a heading's first line said "on this line" in the
+   * bar even though, on Enter, the note wraps onto the two lines drawn under it (n88). Same rule as commitNote.
+   */
+  private previewNoteCover() {
+    const d = this.noteDraft
+    if (!d || d.id || d.anchor.kind !== 'strokes') return
+    const text = this.noteInput.value
+    const marks = this.strokes.filter((st) => !isFillDot(st))
+    const more = text.trim() ? overflowStack(marks, d.anchor.strokeIds, text, { notesAt: [...this.notesOnSketch(), { ...d.at, text }] }) : []
+    const anchor: NoteAnchor = { ...d.anchor, strokeIds: [...d.anchor.strokeIds, ...more] }
+    const shown = this.noteMarks({ at: d.at, anchor, text })
+    this.noteWhat.textContent = this.markLabel(shown)
+    this.noteWhat.dataset.covers = String(shown.length)
+    this.showNoteHighlight({ anchor, strokes: shown, el: null })
+  }
+
   private commitNote() {
     const d = this.noteDraft
     if (!d) return
@@ -7569,19 +7813,138 @@ class Overlay {
     // would have the model acting on an element nobody mentions
     const refs = d.refs.filter((r) => text.includes(r.token))
     const existing = d.id ? this.notes.find((n) => n.id === d.id) : undefined
+    // n31: a note naming a group ("3 tilted stacked cards") typed just off the group, in empty
+    // space, is about that group: round 31 c3, typed 30px above the stack's corner, it was
+    // placed as loose words and the cards never heard it. Within a wider reach, it joins them.
+    if (!existing && d.anchor.kind === 'run' && d.anchor.placed && groupCount(text) !== null) {
+      const boxes = this.strokes.filter((st) => !isFillDot(st)).map((st) => ({ st, d: this.boxDist(this.strokeBox(st), d.at.x, d.at.y) }))
+        .filter((o) => o.d <= NOTE_NEAR_PX * 2.5).sort((a, b) => a.d - b.d)
+      const seed = boxes[0]?.st
+      if (seed) {
+        const group = this.clusterFrom(seed, d.at)
+        d.anchor = { kind: 'strokes', strokeIds: group.map((s) => s.id) }
+        this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
+      }
+    }
+    // n88: words typed on a heading's first line that cannot fit on it wrap onto the stack's other lines (round 36
+    // c4: "Fresh flowers, at your door by noon." on three lines 62px apart bound line 1 only, built as one cut line)
+    if (!existing && d.anchor.kind === 'strokes') {
+      const marks = this.strokes.filter((st) => !isFillDot(st))
+      const more = overflowStack(marks, d.anchor.strokeIds, text, { notesAt: [...this.notesOnSketch(), { ...d.at, text }] })
+      if (more.length) {
+        d.anchor = { ...d.anchor, strokeIds: [...d.anchor.strokeIds, ...more] }
+        this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
+      }
+    }
+    // n94: the bar names what the note covers WITH its words (the label shown when the editor opened was worked out
+    // before any word was typed: a heading's three lines still said "on this line" after Enter)
+    if (d.anchor.kind === 'strokes') this.noteWhat.textContent = this.markLabel(this.noteMarks({ at: d.at, anchor: d.anchor, text }))
+    // n39: "one line, below heading" typed on the heading's edge is about the part below it
+    if (!existing && (d.anchor.kind === 'element' || (d.anchor.kind === 'run' && d.anchor.placed))) this.reanchorPlacedAgainst(d, text)
+    // n43: a fix note asking only for what its part already is has nothing to change
+    const already = this.alreadyFor(d.anchor, text)
+    // n94: a note can change what an EARLIER note covers (round 36 florist and vinyl: a heading's note said "on this
+    // line" until the paragraph's note under it was typed; then its thread grew to all the heading's lines while the
+    // bar never said so). Count each earlier note's marks before and after, and name any that changed.
+    const coverBefore = new Map(this.notes.filter((n) => n.anchor.kind === 'strokes').map((n) => [n.id, this.noteMarks(n).length]))
     if (existing) {
       existing.text = text
       existing.refs = refs
+      existing.already = already ?? undefined
     } else {
-      this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor, refs })
+      this.notes.push({ id: `n${this.noteSeq++}`, text, at: d.at, anchor: d.anchor, refs, ...(already ? { already } : {}) })
     }
-    this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}`)
+    const grew = this.notes.filter((n) => n.id !== d.id && coverBefore.has(n.id) && this.noteMarks(n).length !== coverBefore.get(n.id))
+      .map((n) => `"${n.text.length > 24 ? `${n.text.slice(0, 22).trimEnd()}…` : n.text}" now ${this.markLabel(this.noteMarks(n))}`)
+    this.closeNote(`note ${existing ? 'updated' : 'attached'} — ${this.noteWhat.textContent ?? ''}${already ? ` · ${already}, nothing to change` : ''}${grew.length ? ` · ${grew.join(' · ')}` : ''}`)
     this.renderNotes()
     this.sync()
     // that note answered the bare-ring question: in auto mode, carry on
     if (this.askedKey) {
       this.askedKey = null
       this.scheduleAuto()
+    }
+  }
+
+  /**
+   * n39: a fix note naming a part only as a place ("one line, below heading") that landed
+   * ON that part is about the nearest other part on the side the words point to. Round 32
+   * c2: typed on the heading's lower edge, it reshaped the heading instead of the subtitle.
+   */
+  private reanchorPlacedAgainst(d: { at: { x: number; y: number }; anchor: NoteAnchor }, text: string) {
+    const named = placedAgainst(text)
+    if (!named) return
+    const pageBox = (e: Element) => {
+      const b = e.getBoundingClientRect()
+      return { x: b.left + window.scrollX, y: b.top + window.scrollY, w: b.width, h: b.height }
+    }
+    let el: HTMLElement | null = null
+    if (d.anchor.kind === 'element') {
+      el = document.querySelector(`[data-s2c="${d.anchor.srcLoc}"]`) as HTMLElement | null
+    } else if (d.anchor.kind === 'run' && d.anchor.placed) {
+      // n43: typed in the gap between built parts ("one line, below heading" typed between the
+      // heading and the subtitle, round 32 c2): the named part is the nearest one of its kind
+      let bd = 90
+      for (const c of document.querySelectorAll<HTMLElement>('[data-s2c]')) {
+        if (this.isPageBackground(c) || !isRole(this.partInfo(c), named.role)) continue
+        const dist = boxDist(pageBox(c), d.at.x, d.at.y)
+        if (dist < bd) { bd = dist; el = c }
+      }
+    }
+    if (!el || !isRole(this.partInfo(el), named.role)) return
+    const cands = [...document.querySelectorAll<HTMLElement>('[data-s2c]')]
+      .filter((c) => c !== el && !c.contains(el) && !el.contains(c) && !this.isPageBackground(c) &&
+        !isRole(this.partInfo(c), named.role) && (c.textContent ?? '').trim() !== '' &&
+        // a leaf-ish part: no stamped child holding all its words
+        ![...c.querySelectorAll<HTMLElement>('[data-s2c]')].some((k) => (k.textContent ?? '').trim() === (c.textContent ?? '').trim()))
+      .map((c) => ({ c, box: pageBox(c) }))
+    const best = pickOther(cands, d.at, named.rel, pageBox(el))
+    const srcLoc = best?.c.dataset.s2c
+    if (!best || !srcLoc) return
+    d.anchor = { kind: 'element', srcLoc }
+    this.noteWhat.textContent = `${this.anchorLabel(d.anchor, best.c)} (the part ${named.rel} the ${named.role})`
+  }
+
+  /** n43: the reason a fix note on a built part has nothing to change, or null. */
+  private alreadyFor(anchor: NoteAnchor, text: string): string | null {
+    if (anchor.kind !== 'element') return null
+    const el = document.querySelector(`[data-s2c="${anchor.srcLoc}"]`) as HTMLElement | null
+    if (!el || (el.textContent ?? '').trim() === '') return null
+    return alreadySo(text, this.partLook(el))
+  }
+
+  private partLook(el: HTMLElement): PartLook {
+    const cs = getComputedStyle(el)
+    const range = document.createRange()
+    range.selectNodeContents(el)
+    // rendered lines: distinct line tops among the text's client rects
+    const tops: number[] = []
+    for (const r of range.getClientRects()) {
+      if (r.width < 1 || r.height < 1) continue
+      if (!tops.some((t) => Math.abs(t - r.top) < r.height * 0.5)) tops.push(r.top)
+    }
+    const b = el.getBoundingClientRect()
+    const pb = el.parentElement?.getBoundingClientRect()
+    const words = (el.textContent ?? '').replace(/[^A-Za-z]/g, '')
+    return {
+      lines: Math.max(1, tops.length),
+      weight: Number(cs.fontWeight) || (cs.fontWeight === 'bold' ? 700 : 400),
+      centred: cs.textAlign === 'center' || (pb != null && Math.abs((b.left + b.width / 2) - (pb.left + pb.width / 2)) <= 8 && b.width < pb.width - 16),
+      upper: cs.textTransform === 'uppercase' || (words.length > 1 && words === words.toUpperCase()),
+      italic: cs.fontStyle === 'italic',
+    }
+  }
+
+  private partInfo(el: HTMLElement): PartInfo {
+    const cs = getComputedStyle(el)
+    const tag = el.tagName.toLowerCase()
+    const bg = cs.backgroundColor
+    return {
+      tag,
+      fontPx: parseFloat(cs.fontSize) || 16,
+      inNav: el.closest('nav, header') != null,
+      isButtonish: tag === 'button' || (tag === 'a' && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent'),
+      isImageish: tag === 'img' || tag === 'svg' || tag === 'canvas' || (el.children.length === 0 && (el.textContent ?? '').trim() === '' && cs.borderRadius.includes('%')),
     }
   }
 
@@ -7597,9 +7960,12 @@ class Overlay {
   }
 
   private deleteNote(id: string) {
+    const gone = this.notes.find((n) => n.id === id)
     this.notes = this.notes.filter((n) => n.id !== id)
-    if (this.noteDraft?.id === id) this.closeNote('note deleted')
-    else this.status('note deleted')
+    // n178: say which note went, so a delete you did not mean is seen at once
+    const said = gone ? `note deleted: "${gone.text.length > 40 ? `${gone.text.slice(0, 40)}…` : gone.text}"` : 'note deleted'
+    if (this.noteDraft?.id === id) this.closeNote(said)
+    else this.status(said)
     this.renderNotes()
     this.sync()
   }
@@ -7629,10 +7995,21 @@ class Overlay {
       del.title = 'delete this note'
       del.addEventListener('click', (e) => {
         e.stopPropagation() // the chip itself opens the editor
+        // n178: a pen stroke that started on the x drew; it never deletes the note
+        if (this.noteDrag?.id === n.id && (this.noteDrag.drew || this.noteDrag.moved)) { this.noteDrag = null; return }
         this.deleteNote(n.id)
       })
-      chip.append(text, del)
-      chip.addEventListener('click', () => this.editNote(n))
+      // n153: the grip is where a chip is dragged from; a pen stroke that starts on the chip's words is drawn
+      const grip = document.createElement('span')
+      grip.className = 'noteGrip'
+      grip.textContent = '⋮'
+      grip.title = 'drag to move this note onto another mark'
+      chip.append(grip, text, del)
+      chip.addEventListener('click', () => {
+        if (this.noteDrag?.moved) { this.noteDrag = null; return }
+        this.editNote(n)
+      })
+      this.wireNoteDrag(chip, n)
       this.notesLayer.appendChild(chip)
       // Flip to the other side of the anchor when the chip would run off the
       // page. Clamped against the DOCUMENT's width, never the viewport's: a
@@ -7644,6 +8021,174 @@ class Overlay {
         chip.style.left = `${String(Math.max(8, Math.round(n.at.x - 10 - w)))}px`
       }
     }
+    this.renderNoteLinks()
+  }
+
+  /**
+   * The strokes a note is about, by the SAME rule the build uses (ink's
+   * noteFocus, run on the server too): its drawing, narrowed to the mark
+   * nearest the point it was typed at. What the thread shows is what gets sent.
+   */
+  private noteMarks(n: { at: { x: number; y: number }; anchor: NoteAnchor; text?: string }): Stroke[] {
+    if (n.anchor.kind !== 'strokes') return []
+    const live = new Set(this.strokes.map((s) => s.id))
+    // a coloured tap fills a mark; it is never what a note is about (n10)
+    const marks = this.strokes.filter((s) => !isFillDot(s))
+    const ids = n.anchor.strokeIds.filter((id) => live.has(id) && marks.some((m) => m.id === id))
+    // n94: the note's own words go with its spot (a heading stack 48-63px pitched is read as one heading only when the
+    // words typed on its first line cannot fit there; without them a note being typed or committed said "on this line")
+    const own = { ...n.at, text: n.text ?? '' }
+    const others = this.notesOnSketch().filter((o) => !(o.x === n.at.x && o.y === n.at.y))
+    const focus = noteFocus(ids, n.anchor.focus, n.at, marks, n.text, { notesAt: [...others, own] }) ?? ids
+    const got = marks.filter((s) => focus.includes(s.id))
+    // n246: a sentence typed beside a box is text at that spot, on no mark; the bar says so, as the build reads it
+    if (!n.anchor.focus?.length && besideSentence(n.text, n.at, got.map((s) => bboxOfPoints(s.points)))) return []
+    return got
+  }
+
+  /** "on this box", "on this ring", "on these 2 lines": the mark in plain words. */
+  private markLabel(marks: Stroke[]): string {
+    if (marks.length === 0) return 'here, as text'
+    const words = marks.map((m) => markWord(m.points))
+    const same = words.every((w) => w === words[0])
+    if (marks.length === 1) return `on this ${words[0]!}`
+    return same ? `on these ${String(marks.length)} ${words[0] === "box" ? "boxes" : `${words[0]!}s`}` : `on these ${String(marks.length)} marks`
+  }
+
+  /** Page box of what a note is about, or null for a whole-sketch note. */
+  private noteTarget(n: Note): Box | null {
+    if (n.anchor.kind === 'element') {
+      const el = document.querySelector(`[data-s2c="${n.anchor.srcLoc}"]`)
+      if (!el) return null
+      const b = el.getBoundingClientRect()
+      return { x: b.left + window.scrollX, y: b.top + window.scrollY, w: b.width, h: b.height }
+    }
+    const marks = this.noteMarks(n)
+    if (marks.length === 0) return null
+    const bs = marks.map((s) => this.strokeBox(s))
+    const x0 = Math.min(...bs.map((b) => b.x)), y0 = Math.min(...bs.map((b) => b.y))
+    const x1 = Math.max(...bs.map((b) => b.x + b.w)), y1 = Math.max(...bs.map((b) => b.y + b.h))
+    return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }
+  }
+
+  /**
+   * n9: a thread from every chip to the mark it is about, plus a faint outline
+   * of that mark. Before this, several notes typed near a cluster of marks all
+   * said "on these 8 strokes", and which one each landed on was only learned
+   * from the build (round 12 c4: the badge's words filled the big box).
+   */
+  private renderNoteLinks() {
+    const svg = this.noteLinks
+    if (!svg) return
+    const NS = 'http://www.w3.org/2000/svg'
+    svg.replaceChildren()
+    let maxX = 1, maxY = 1
+    // n215: five notes on one table stacked five amber tints: it looked painted amber. One tint a mark.
+    const tinted = new Set<string>()
+    for (const n of this.notes) {
+      const t = this.noteTarget(n)
+      if (!t) continue
+      const chip = this.notesLayer.querySelector(`.noteChip[data-note="${n.id}"]`) as HTMLElement | null
+      const cx = chip ? chip.offsetLeft + Math.min(14, chip.offsetWidth / 2) : n.at.x + 10
+      const cy = chip ? chip.offsetTop + chip.offsetHeight / 2 : n.at.y + 10
+      // the near edge of the mark, so the thread ends ON it, not at its middle
+      const tx = Math.max(t.x, Math.min(cx, t.x + t.w))
+      const ty = Math.max(t.y, Math.min(cy, t.y + t.h))
+      const rect = document.createElementNS(NS, 'rect')
+      rect.setAttribute('x', String(Math.round(t.x - 4)))
+      rect.setAttribute('y', String(Math.round(t.y - 4)))
+      rect.setAttribute('width', String(Math.round(t.w + 8)))
+      rect.setAttribute('height', String(Math.round(t.h + 8)))
+      rect.setAttribute('rx', '6')
+      rect.dataset.note = n.id
+      const tintKey = `${String(Math.round(t.x))},${String(Math.round(t.y))},${String(Math.round(t.w))},${String(Math.round(t.h))}`
+      if (tinted.has(tintKey)) rect.style.fill = 'none'
+      tinted.add(tintKey)
+      const line = document.createElementNS(NS, 'line')
+      line.setAttribute('x1', String(Math.round(cx)))
+      line.setAttribute('y1', String(Math.round(cy)))
+      line.setAttribute('x2', String(Math.round(tx)))
+      line.setAttribute('y2', String(Math.round(ty)))
+      line.dataset.note = n.id
+      const dot = document.createElementNS(NS, 'circle')
+      dot.setAttribute('cx', String(Math.round(tx)))
+      dot.setAttribute('cy', String(Math.round(ty)))
+      dot.setAttribute('r', '3')
+      svg.append(rect, line, dot)
+      maxX = Math.max(maxX, t.x + t.w + 12, cx)
+      maxY = Math.max(maxY, t.y + t.h + 12, cy)
+    }
+    svg.setAttribute('width', String(Math.ceil(maxX)))
+    svg.setAttribute('height', String(Math.ceil(maxY)))
+  }
+
+  /**
+   * n9: drag a chip onto the mark it should be about. Dropping re-reads what
+   * is under the drop point by the same rules as Alt+N, so the thread jumps to
+   * the new mark at once; a plain click still opens the note to edit.
+   */
+  private wireNoteDrag(chip: HTMLElement, n: Note) {
+    chip.addEventListener('pointerdown', (e) => {
+      /*
+       * n178: round 43 e2 (RSVP): a box drawn from where a just-typed note's x sat came back round to its
+       * start, so the press and the lift were both on the x: the note was deleted, the box never drawn, and
+       * nothing said so (twice). In draw mode a press on the x that travels draws, like a press on the words;
+       * only a press that stays put is a click on the x. Out of draw mode the x stays a plain button.
+       */
+      if ((e.target as HTMLElement).classList.contains('noteDel') && this.mode !== 'draw') return
+      const grip = (e.target as HTMLElement).classList.contains('noteGrip')
+      const del = (e.target as HTMLElement).classList.contains('noteDel')
+      this.noteDrag = { id: n.id, px: e.clientX, py: e.clientY, moved: false, grip, down: this.toPage(e), ...(del ? { del } : {}) }
+      chip.setPointerCapture(e.pointerId)
+      e.stopPropagation()
+    })
+    chip.addEventListener('pointermove', (e) => {
+      const d = this.noteDrag
+      if (!d || d.id !== n.id || d.drew) return
+      if (!d.moved && Math.hypot(e.clientX - d.px, e.clientY - d.py) < 5) return
+      /*
+       * n153: a pen stroke that happens to start on a chip is a stroke. Round 41 e4: a note typed on
+       * the sidebar put its chip over the spot where the first folder card's corner was drawn next;
+       * the press grabbed the chip, the card was never drawn, the note was dragged onto the wrong
+       * mark, and the next box (the card's folder icon) started on the moved chip and was lost too.
+       * In draw mode only the grip moves a chip; a press on its words that travels draws from there.
+       */
+      if (!d.grip && this.mode === 'draw' && d.down) {
+        d.moved = true
+        d.drew = true
+        if (chip.hasPointerCapture(e.pointerId)) chip.releasePointerCapture(e.pointerId)
+        this.beginStroke(e, d.down)
+        this.onMove(e)
+        setTimeout(() => { if (this.noteDrag === d) this.noteDrag = null }, 1500)
+        return
+      }
+      d.moved = true
+      chip.classList.add('dragging')
+      chip.style.left = `${String(Math.round(e.clientX + window.scrollX + 10))}px`
+      chip.style.top = `${String(Math.round(e.clientY + window.scrollY + 10))}px`
+    })
+    chip.addEventListener('pointerup', (e) => {
+      const d = this.noteDrag
+      if (!d || d.id !== n.id || d.drew) return
+      if (chip.hasPointerCapture(e.pointerId)) chip.releasePointerCapture(e.pointerId)
+      if (!d.moved && d.del) {
+        // n178: a press on the x that stayed put is the click on the x (the capture would send the click to the chip)
+        d.moved = true
+        setTimeout(() => { if (this.noteDrag === d) this.noteDrag = null }, 0)
+        this.deleteNote(n.id)
+        return
+      }
+      if (!d.moved) { this.noteDrag = null; return }
+      // keep `moved` set until the click that follows this pointerup is eaten
+      setTimeout(() => { if (this.noteDrag === d) this.noteDrag = null }, 0)
+      const r = this.resolveAnchor(e.clientX, e.clientY, n.anchor.kind === 'run')
+      n.at = { x: e.clientX + window.scrollX, y: e.clientY + window.scrollY }
+      n.anchor = r.anchor
+      this.renderNotes()
+      this.sync()
+      const what = r.anchor.kind === 'strokes' ? this.markLabel(this.noteMarks(n)) : this.anchorLabel(r.anchor, r.el)
+      this.status(`note moved — now ${what}`)
+    })
   }
 
   /**
@@ -7658,6 +8203,12 @@ class Overlay {
    * empty) and optional here, because an empty one is not worth sending. The two
    * shapes being different is the honest description of that.
    */
+  private focusWire(n: Note): { focus?: string[] } {
+    if (n.anchor.kind !== 'strokes') return {}
+    const ids = this.noteMarks(n).map((s) => s.id)
+    return ids.length > 0 && ids.length < n.anchor.strokeIds.length ? { focus: ids } : {}
+  }
+
   private notesPayload(notes: Note[] = this.notes): Array<Omit<Note, 'refs'> & { refs?: NoteRef[] }> {
     return notes.map((n) => ({
       id: n.id,
@@ -7666,8 +8217,13 @@ class Overlay {
       anchor: n.anchor.kind === 'element'
         ? { kind: 'element' as const, srcLoc: n.anchor.srcLoc }
         : n.anchor.kind === 'strokes'
-          ? { kind: 'strokes' as const, strokeIds: [...n.anchor.strokeIds] }
-          : { kind: 'run' as const },
+          ? {
+              kind: 'strokes' as const,
+              strokeIds: [...n.anchor.strokeIds],
+              // n9: the marks the thread shows, so the build is told exactly that
+              ...this.focusWire(n),
+            }
+          : n.anchor.placed ? { kind: 'run' as const, placed: true } : { kind: 'run' as const },
       // omitted when there are none, which is most notes: an empty array on
       // every note is noise on the wire and in the model's brief, and it also
       // means a note that references nothing is byte-identical to one written
@@ -7696,8 +8252,16 @@ class Overlay {
   private renderInk() {
     const held = [...(this.flight?.strokes ?? []), ...this.queue.flatMap((j) => j.strokes)]
     const heldSet = new Set(held)
-    this.ink.replaceChildren(...[...held, ...this.strokes].map((st) => {
+    this.ink.replaceChildren(...this.fillLayer(), ...[...held, ...this.strokes].map((st) => {
       const path = this.inkPath()
+      if (isFillDot(st)) {
+        // the tap itself: a small dot in its colour, on top of the fill it made
+        path.setAttribute('d', `M ${String(st.points[0]!.x - 0.5)} ${String(st.points[0]!.y)} l 1 0`)
+        path.style.stroke = st.color ?? '#000'
+        path.style.strokeWidth = '9'
+        path.classList.add('fillDot')
+        return path
+      }
       path.setAttribute('d', pathD(st.points))
       // A coloured stroke paints in its own colour, so what the user sees on
       // the page is exactly the colour the run will ask for. Inline style, not
@@ -7711,7 +8275,130 @@ class Overlay {
       return path
     }))
     if (this.live && this.livePath) this.ink.appendChild(this.livePath)
+    this.renderNoteLinks()
     this.refreshOptimistic()
+  }
+
+  /**
+   * n10: what the taps coloured in, under the ink: each tapped outline filled
+   * in its colour, and the page tint (or gradient) behind everything. Half
+   * strength, so the marks and the page under them still read.
+   */
+  /** n215: the tap just made is one of a line of taps inside a mark: dots there, so nothing is filled. */
+  private lastTapIsDot(): boolean {
+    const last = this.strokes[this.strokes.length - 1]
+    return !!last && tapDots(this.strokes, { w: window.innerWidth, h: window.innerHeight }).some((d) => d.dotId === last.id)
+  }
+
+  private fillLayer(): SVGElement[] {
+    const NS = 'http://www.w3.org/2000/svg'
+    const fills = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight })
+    if (!fills.length) return []
+    const out: SVGElement[] = []
+    const page = pageFill(fills)
+    if (page) {
+      const rect = document.createElementNS(NS, 'rect')
+      const w = document.documentElement.scrollWidth, h = Math.max(document.documentElement.scrollHeight, window.innerHeight)
+      rect.setAttribute('x', '0'); rect.setAttribute('y', '0')
+      rect.setAttribute('width', String(w)); rect.setAttribute('height', String(h))
+      rect.setAttribute('opacity', '0.4'); rect.classList.add('fillPage')
+      if (page.radial) {
+        // n33: a spotlight: the centre tap glows out to the ring's colour, shown the moment the pen lifts
+        const defs = document.createElementNS(NS, 'defs')
+        const g = document.createElementNS(NS, 'radialGradient')
+        g.id = 's2c-page-fill'
+        g.setAttribute('gradientUnits', 'userSpaceOnUse')
+        g.setAttribute('cx', String(page.radial.x)); g.setAttribute('cy', String(page.radial.y))
+        g.setAttribute('r', String(page.radial.r))
+        page.colors.forEach((c, i) => {
+          const stop = document.createElementNS(NS, 'stop')
+          stop.setAttribute('offset', String(i / (page.colors.length - 1)))
+          stop.setAttribute('stop-color', c)
+          g.appendChild(stop)
+        })
+        defs.appendChild(g); out.push(defs)
+        rect.setAttribute('fill', 'url(#s2c-page-fill)')
+      } else if (page.colors.length > 1) {
+        const defs = document.createElementNS(NS, 'defs')
+        const g = document.createElementNS(NS, 'linearGradient')
+        g.id = 's2c-page-fill'
+        const rad = ((page.angle ?? 180) * Math.PI) / 180
+        const dx = Math.sin(rad) / 2, dy = -Math.cos(rad) / 2
+        g.setAttribute('x1', String(0.5 - dx)); g.setAttribute('y1', String(0.5 - dy))
+        g.setAttribute('x2', String(0.5 + dx)); g.setAttribute('y2', String(0.5 + dy))
+        page.colors.forEach((c, i) => {
+          const stop = document.createElementNS(NS, 'stop')
+          stop.setAttribute('offset', String(i / (page.colors.length - 1)))
+          stop.setAttribute('stop-color', c)
+          g.appendChild(stop)
+        })
+        defs.appendChild(g); out.push(defs)
+        rect.setAttribute('fill', 'url(#s2c-page-fill)')
+      } else rect.setAttribute('fill', page.css)
+      out.push(rect)
+    }
+    // n51: one fill per mark: a fade when taps far apart gave it two colours; a region a curve cuts off a
+    // box (a wave) is painted in its own outline, so what is shown is what will be built
+    const done = new Set<string>()
+    for (const f of fills) {
+      if (!f.target || done.has(f.target)) continue
+      done.add(f.target)
+      const t = this.strokes.find((s) => s.id === f.target)
+      if (!t) continue
+      const mine = fills.filter((g) => g.target === f.target)
+      const region = mine.find((g) => g.region)?.region
+      const path = this.inkPath()
+      path.setAttribute('d', region ? `M ${region.map((p) => `${String(p.x)} ${String(p.y)}`).join(' L ')} Z` : `${pathD(t.points)} Z`)
+      const look = markFill(fills, f.target, this.strokes)
+      // n59: a divider across the mark with a colour tapped each side shows as two solid fills, as it will be built
+      if (look?.split) {
+        look.split.sides.forEach((side, k) => {
+          const half = this.inkPath()
+          half.setAttribute('d', `M ${side.map((p) => `${String(p.x)} ${String(p.y)}`).join(' L ')} Z`)
+          half.style.fill = look.split!.colors[k]!
+          half.style.stroke = 'none'
+          half.style.opacity = '0.5'
+          half.classList.add('fillMark')
+          out.push(half)
+        })
+        continue
+      }
+      // n226: colours tapped round a ring show as its flat slices, hole kept, as they will be built
+      if (look?.slices) {
+        for (const w of sliceWedges(look.slices)) {
+          const part = this.inkPath()
+          part.setAttribute('d', w.d)
+          part.style.fill = w.color
+          part.style.stroke = 'none'
+          part.style.opacity = '0.5'
+          part.classList.add('fillMark')
+          out.push(part)
+        }
+        continue
+      }
+      if (look && look.colors.length > 1) {
+        const defs = document.createElementNS(NS, 'defs')
+        const g = document.createElementNS(NS, 'linearGradient')
+        g.id = `s2c-mark-fill-${f.target}`
+        const rad = ((look.angle ?? 180) * Math.PI) / 180
+        const dx = Math.sin(rad) / 2, dy = -Math.cos(rad) / 2
+        g.setAttribute('x1', String(0.5 - dx)); g.setAttribute('y1', String(0.5 - dy))
+        g.setAttribute('x2', String(0.5 + dx)); g.setAttribute('y2', String(0.5 + dy))
+        look.colors.forEach((c, i) => {
+          const stop = document.createElementNS(NS, 'stop')
+          stop.setAttribute('offset', String(i / (look.colors.length - 1)))
+          stop.setAttribute('stop-color', c)
+          g.appendChild(stop)
+        })
+        defs.appendChild(g); out.push(defs)
+        path.style.fill = `url(#${g.id})`
+      } else path.style.fill = mine[mine.length - 1]!.color
+      path.style.stroke = 'none'
+      path.style.opacity = '0.5'
+      path.classList.add('fillMark')
+      out.push(path)
+    }
+    return out
   }
 
   private toPage(e: PointerEvent): Pt {
@@ -7733,7 +8420,11 @@ class Overlay {
     // rather than at pointerup: one slow deliberate stroke takes longer than
     // the settle period, and a run firing mid-line would read the drawing
     // half-made.
-    const p = this.toPage(e)
+    this.beginStroke(e, this.toPage(e))
+  }
+
+  /** A pen stroke starts at page point p (onDown; n153: also a drag that began on a chip's words). */
+  private beginStroke(e: PointerEvent, p: Pt) {
     // n16: a plain change already showing (an erase, a recolour, a caret with
     // its word) and a press somewhere else: that drawing is done, so it goes
     // to the code now, and this stroke starts a new one. Otherwise the two
@@ -7743,7 +8434,7 @@ class Overlay {
     this.canvas.setPointerCapture(e.pointerId)
     // a press that never travels is a click, and a click means "pick that up"
     // rather than "draw a dot" — see onUp
-    this.pressAt = { x: e.clientX, y: e.clientY, t: performance.now() }
+    this.pressAt = { x: p.x - window.scrollX, y: p.y - window.scrollY, t: performance.now() }
     // a trackpad hop: lands right back where the last gesture-sized stroke
     // ended, right after it ended — resume it instead of starting a new one
     if (shouldBridge(this.lastStrokeEnd, this.lastStrokeBig, p)) {
@@ -7800,6 +8491,28 @@ class Overlay {
       for (let i = 1; i < pts.length; i++) {
         travel += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
       }
+      if (travel <= CLICK_SLOP && this.pen && this.live.color && this.isFillTap(e)) {
+        /*
+         * n10: with a colour picked, a tap colours in. Inside a drawn box, ring
+         * or closed blob it fills that mark; on bare page it colours the page
+         * (two page taps in two colours: a gradient from the first to the
+         * last). Kept as a dot stroke so undo, the run and the reading all see
+         * it, and shown filled the moment the pen lifts.
+         */
+        const at = this.toPage(e)
+        this.live.points = [at, { ...at, x: at.x + 1 }, { ...at, x: at.x + 1, y: at.y + 1 }]
+        this.strokes.push(this.live)
+        this.live = null
+        this.livePath = null
+        this.resetBridge()
+        this.renderInk()
+        this.sync()
+        const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
+        if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (several taps in one colour are dots, never a fill)`)
+        else this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${((look) => look?.split ? ' (this side of the line drawn across it)' : look?.slices ? ` (a slice of the chart, ${String(look.slices.parts.length)} slices now)` : (look?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : '')(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target, this.strokes))}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
+        this.scheduleAuto()
+        return
+      }
       if (travel <= CLICK_SLOP) {
         const target = this.pickTweakTarget(e.clientX, e.clientY)
         if (target && !this.isBackdrop(target)) {
@@ -7832,6 +8545,7 @@ class Overlay {
     this.live = null
     this.livePath = null
     this.renderInk()
+    this.stepBarOffInk()
     if (this.strokes.some((st) => st.anchor)) this.startTracking()
     // an open library is showing matches for what is drawn, so the drawing
     // growing is a new query
@@ -7962,7 +8676,90 @@ class Overlay {
   /** `e2 · <button> "Sign up"` — the id the reading cited, then what it is. */
   private targetName(t: V2Target): string {
     const text = (t.text || t.subtreeText || '').trim().replace(/\s+/g, ' ')
-    return `${t.domId} · <${t.tag}>${text ? ` "${text.slice(0, 24)}"` : ''}`
+    if (text) return `${t.domId} · <${t.tag}> "${text.slice(0, 24)}"`
+    // n191: a part with no words is named by its look ("orange line"), so a wrong pick is seen before Go
+    const el = this.pageElementFor(t)
+    return `${t.domId} · ${el ? this.lookOf(el, t.rect) : `<${t.tag}>`}`
+  }
+
+  /** n191: the live element a plan target stands for (same stamp, nearest box). */
+  private pageElementFor(t: V2Target): Element | null {
+    if (!t.srcLoc) return null
+    let best: { el: Element; d: number } | null = null
+    for (const el of document.querySelectorAll(`[data-s2c="${CSS.escape(t.srcLoc)}"]`)) {
+      if (el === this.host || this.host.contains(el)) continue
+      const r = el.getBoundingClientRect()
+      const d = Math.abs(r.left + window.scrollX - t.rect.x) + Math.abs(r.top + window.scrollY - t.rect.y) + Math.abs(r.width - t.rect.w) + Math.abs(r.height - t.rect.h)
+      if (!best || d < best.d) best = { el, d }
+    }
+    return best?.el ?? null
+  }
+
+  private lookOf(el: Element, rect: { w: number; h: number }): string {
+    const cs = getComputedStyle(el)
+    const radius = parseFloat(cs.borderTopLeftRadius) || 0
+    return lookName({
+      tag: el.tagName, w: rect.w, h: rect.h, radius,
+      fill: el instanceof SVGElement ? cs.fill : cs.backgroundColor,
+      stroke: el instanceof SVGElement ? cs.stroke : undefined,
+      color: cs.color,
+    })
+  }
+
+  /** n192: "skip" on a plan row: ✓ Go leaves that action out, and the build is told it was a misreading. */
+  private toggleSkip(action: number, ids: string[]) {
+    if (this.skips.has(action)) this.skips.delete(action)
+    else this.skips.set(action, ids)
+    const n = this.skips.size
+    this.status(n ? `${n} step${n === 1 ? '' : 's'} skipped: ✓ Go leaves ${n === 1 ? 'it' : 'them'} out` : 'nothing skipped')
+    this.renderPlan()
+  }
+
+  /** n191: "not this" on a plan row: the next press on the page picks the part this action is about. */
+  private startPick(action: number, from: string | null) {
+    this.picking = { action, from }
+    this.host.dataset.picking = '1'
+    this.status(from === null ? 'tap where this goes on the page (the part it should change or sit in)' : 'tap the part you meant on the page')
+    this.renderPlanCard(this.planDetail)
+  }
+
+  private onPickTap(e: PointerEvent) {
+    const pick = this.picking
+    if (!pick || this.mode !== 'preview') return
+    let el = document.elementsFromPoint(e.clientX, e.clientY)
+      .find((x) => x !== this.host && !this.host.contains(x) && x.hasAttribute('data-s2c'))
+    // n191 (e5 replay): a tap in the middle of the avatar landed on its tiny icon. Tapping the same spot again
+    // picks the stamped part around the last pick, as many times as it takes.
+    const last = this.lastPick
+    if (el && last && last.action === pick.action && last.from === pick.from &&
+        Math.abs(last.x - e.clientX) <= 8 && Math.abs(last.y - e.clientY) <= 8) {
+      const up = last.el.parentElement?.closest('[data-s2c]')
+      if (up && up !== document.body && up !== document.documentElement) el = up
+    }
+    e.preventDefault()
+    e.stopPropagation()
+    this.picking = null
+    delete this.host.dataset.picking
+    const it = this.v2?.interpretation
+    const a = it?.actions[pick.action]
+    if (!el || !a) { this.status('nothing built there to pick: the plan is unchanged'); this.renderPlan(); return }
+    const r = el.getBoundingClientRect()
+    const rect = { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height }
+    const srcLoc = el.getAttribute('data-s2c') ?? ''
+    this.lastPick = { action: pick.action, from: pick.from, x: e.clientX, y: e.clientY, el }
+    // a second tap for the same target replaces the first
+    this.retargets = this.retargets.filter((t) => !(t.action === pick.action && t.from === pick.from))
+    this.retargets.push({ action: pick.action, from: pick.from, srcLoc, rect, ...(pick.from === null ? { instruction: a.instruction } : {}) })
+    const own = [...el.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE).map((n) => n.textContent ?? '').join(' ').trim()
+    // n193: a step with no target gets the tapped part as its place (shown as a pick keyed PLACED, so a re-tap replaces it)
+    const picked: V2Target = { domId: pick.from ?? PLACED, srcLoc, rect, tag: el.tagName.toLowerCase(), text: own.slice(0, 80) }
+    a.targets = pick.from === null
+      ? [...a.targets.filter((t) => t.domId !== PLACED), picked]
+      : a.targets.map((t) => (t.domId === pick.from ? picked : t))
+    this.renderPlan()
+    this.status(pick.from === null
+      ? `placed on: ${this.targetName(picked).replace(/^\S+ · /, '')}. ✓ Go does it there (place it again, same spot: the part around it)`
+      : `picked: ${this.targetName(picked).replace(/^\S+ · /, '')}. ✓ Go changes that instead (not this again, same spot: the part around it)`)
   }
 
   /**
@@ -8511,7 +9308,16 @@ class Overlay {
       const what = document.createElement('span')
       what.className = 'cWhat'
       what.textContent = r.what
-      head.append(dot, kind, what)
+      // n192: "skip" strikes the whole action (a reading that is wrong outright, not just aimed at the wrong part)
+      const struck = this.skips.has(r.action)
+      row.classList.toggle('skipped', struck)
+      const sk = document.createElement('button')
+      sk.type = 'button'
+      sk.className = 'cSkip'
+      sk.dataset.skip = String(r.action)
+      sk.textContent = struck ? 'skipped (undo)' : 'skip'
+      sk.addEventListener('click', (e) => { e.stopPropagation(); this.toggleSkip(r.action, r.picks.map((p) => p.domId).filter((d) => d !== PLACED)) })
+      head.append(dot, kind, what, sk)
       row.appendChild(head)
       if (r.instruction) {
         const i = document.createElement('div')
@@ -8538,6 +9344,41 @@ class Overlay {
         note.className = 'cNote'
         note.textContent = n
         row.appendChild(note)
+      }
+      // n191: each part the plan points at, by its look, with "not this": a tap on the page then picks the right one
+      for (const p of struck ? [] : r.picks) {
+        const line = document.createElement('div')
+        line.className = 'cPick'
+        const name = document.createElement('span')
+        name.textContent = `→ ${p.name.replace(/^\S+ · /, '')}`
+        const b = document.createElement('button')
+        b.type = 'button'
+        // n193: the part a tap placed a target-less step on is re-placed, not re-pointed (from stays null)
+        const placed = p.domId === PLACED
+        const from = placed ? null : p.domId
+        b.dataset.pick = `${String(r.action)}:${placed ? 'new' : p.domId}`
+        const waiting = this.picking?.action === r.action && this.picking.from === from
+        b.textContent = waiting ? 'tap the page…'
+          : placed ? 'placed ✓ (again?)'
+          : this.retargets.some((t) => t.action === r.action && t.from === p.domId) ? 'picked ✓ (again?)' : 'not this'
+        b.addEventListener('click', (e) => { e.stopPropagation(); this.startPick(r.action, from) })
+        line.append(name, b)
+        row.appendChild(line)
+      }
+      // n193 (round 44 e3: "design the sky" had no target, so nothing could be re-pointed and the sky went into
+      // the crop frame): a step that points at nothing gets "place it", and the next tap on the page says where
+      if (!struck && r.picks.length === 0) {
+        const line = document.createElement('div')
+        line.className = 'cPick'
+        const name = document.createElement('span')
+        name.textContent = '→ no part picked: the build decides where'
+        const b = document.createElement('button')
+        b.type = 'button'
+        b.dataset.pick = `${String(r.action)}:new`
+        b.textContent = this.picking?.action === r.action && this.picking.from === null ? 'tap the page…' : 'place it'
+        b.addEventListener('click', (e) => { e.stopPropagation(); this.startPick(r.action, null) })
+        line.append(name, b)
+        row.appendChild(line)
       }
       return row
     }))
@@ -8575,6 +9416,25 @@ class Overlay {
           x: rect.x + rect.w / 2, y: rect.y + rect.h / 2, rect, color, kind, name,
         })
       }
+      const pushDetail = () => detail.push({
+        kind: spec.label,
+        color,
+        needsConfirm: a.needsConfirm === true,
+        what: a.targets.map((t) => this.targetName(t)).join(', ') ||
+          (a.region ? (a.depicts ? `new · ${a.depicts}` : 'new here') : ''),
+        instruction: a.instruction
+          ? (a.instruction.length > PLAN_INSTR_MAX
+              ? `${a.instruction.slice(0, PLAN_INSTR_MAX)}…`
+              : a.instruction)
+          : '',
+        swatch: a.color ? (a.color.nearest?.css ?? a.color.drawn) : '',
+        token: a.color ? (a.color.nearest ? a.color.nearest.token : a.color.drawn) : '',
+        notes: a.notes ?? [],
+        action: it.actions.indexOf(a),
+        picks: a.targets.map((t) => ({ domId: t.domId, name: this.targetName(t) })),
+      })
+      // n192: a struck action keeps its row (so skip can be undone) but marks nothing on the page
+      if (this.skips.has(it.actions.indexOf(a))) { pushDetail(); continue }
       for (const t of a.targets) {
         this.planSvg.appendChild(this.planRect(t.rect, color, `pOutline${a.needsConfirm ? ' wide' : ''}`))
         add(t.rect, this.targetName(t))
@@ -8596,25 +9456,11 @@ class Overlay {
       if (a.kind === 'swap' && a.targets.length === 2) {
         this.planArrow(a.targets[0]!.rect, a.targets[1]!.rect, color, true)
       }
+      pushDetail()
       // The words go in ONE card rather than onto the page. The user's typed
       // notes are the loudest line in it, for the same reason they were the
       // loudest line on a chip: everything else is a reading of the drawing,
       // and a typed note is not a reading of anything.
-      detail.push({
-        kind: spec.label,
-        color,
-        needsConfirm: a.needsConfirm === true,
-        what: a.targets.map((t) => this.targetName(t)).join(', ') ||
-          (a.region ? (a.depicts ? `new · ${a.depicts}` : 'new here') : ''),
-        instruction: a.instruction
-          ? (a.instruction.length > PLAN_INSTR_MAX
-              ? `${a.instruction.slice(0, PLAN_INSTR_MAX)}…`
-              : a.instruction)
-          : '',
-        swatch: a.color ? (a.color.nearest?.css ?? a.color.drawn) : '',
-        token: a.color ? (a.color.nearest ? a.color.nearest.token : a.color.drawn) : '',
-        notes: a.notes ?? [],
-      })
     }
     this.planStops = stops
     this.renderPlanCard(detail)
@@ -8625,6 +9471,11 @@ class Overlay {
   /** The one place `this.v2` changes, so the plan can never outlive it. */
   private setV2(v: V2Preview | null) {
     this.v2 = v
+    this.retargets = []
+    this.picking = null
+    this.lastPick = null
+    this.skips = new Map()
+    delete this.host.dataset.picking
     this.renderPlan()
   }
 
@@ -11200,6 +12051,16 @@ class Overlay {
     }
     const job = forFlight ? this.flight : null
     if (!job && !this.hasWork()) return
+    // n43: nothing drawn and every note asks only for what its part already is: say so, run nothing
+    if (!job && this.strokes.length === 0 && this.notes.length > 0 && this.notes.every((n) => n.already)) {
+      const why = this.notes.map((n) => `"${n.text}": ${n.already ?? ''}`).join('; ')
+      this.notes = []
+      this.renderNotes()
+      this.sync()
+      this.status(`nothing to change — ${why}`)
+      ;(window as unknown as { __s2cNothing?: string[] }).__s2cNothing = [...((window as unknown as { __s2cNothing?: string[] }).__s2cNothing ?? []), why]
+      return
+    }
     // a new run answers the last one's misread; the card is about a run that is over
     this.hideMisread()
     if (job) return void (await this.readFlight(job))
@@ -11638,6 +12499,10 @@ class Overlay {
           screenshot,
           overrides: Object.keys(this.overrides).length ? this.overrides : undefined,
           rawInterpretation: this.v2?.raw,
+          // n191: parts picked by a tap on the plan; the server swaps them in before grounding
+          retargets: this.retargets.length ? this.retargets : undefined,
+          // n192: actions struck on the plan; the server drops them and tells the build they were a misreading
+          skips: this.skips.size ? [...this.skips].map(([action, ids]) => ({ action, ids })) : undefined,
           // the instant render already wrote and mounted this; the run should
           // refine it in place, not create a second component for one drawing
           instant: this.instant,
@@ -12031,8 +12896,57 @@ class Overlay {
     return d.clientId == null || d.clientId === CLIENT_ID
   }
 
+  /**
+   * n115: the dev server itself stopped while a change was being made. Found in
+   * round 38 (hotel): the server died right after an edit and the bar sat on
+   * "making your change" until the 10-minute watchdog, then said only "run may
+   * have died". When the event stream drops mid-run, ask the server if it is
+   * there; after SERVER_GONE_MS of no answer, end the run and say plainly what
+   * happened and what was kept. If it comes back, its 'running' event (or the
+   * next reload) picks the run up as before.
+   */
+  private serverCheck: ReturnType<typeof setInterval> | null = null
+
+  private watchServer() {
+    if (this.serverCheck) return
+    if (this.mode !== 'running' && !this.flight) return
+    const since = Date.now()
+    this.serverCheck = setInterval(() => {
+      if (this.mode !== 'running' && !this.flight) { this.stopServerWatch(); return }
+      fetch('/@s2c/ping', { cache: 'no-store' })
+        .then((r) => { if (r.ok) this.stopServerWatch() })
+        .catch(() => {
+          if (Date.now() - since < SERVER_GONE_MS) return
+          this.stopServerWatch()
+          this.serverGone()
+        })
+    }, 1000)
+  }
+
+  private stopServerWatch() {
+    if (this.serverCheck) clearInterval(this.serverCheck)
+    this.serverCheck = null
+  }
+
+  private serverGone() {
+    if (this.watchdog) clearTimeout(this.watchdog)
+    this.watchdog = null
+    const msg = 'the dev server stopped while making your change — the page on disk is kept as it was left; start the dev server again to carry on'
+    if (this.flight) {
+      this.status(msg, true)
+      this.endFlight()
+      this.status(msg, true)
+      return
+    }
+    this.dropOptimistic(true)
+    this.clearApplying()
+    this.setMode(this.restingMode())
+    this.status(msg, true)
+  }
+
   private connectEvents() {
     this.events = new EventSource(`/@s2c/events?client=${encodeURIComponent(CLIENT_ID)}`)
+    this.events.addEventListener('error', () => this.watchServer())
     this.events.addEventListener('stage', (e) => {
       const d = JSON.parse((e as MessageEvent).data) as { stage: string; detail?: string; clientId?: string }
       if (!this.mine(d)) return
@@ -12256,4 +13170,38 @@ function readingOutcome(ok: boolean, httpStatus: number, body: ReadingBody, ms: 
     ...(v2?.plain ? { plain: v2.plain } : {}),
     ...(v2 ? { actions: v2.interpretation.actions.length } : {}),
   }
+}
+
+/**
+ * A drawn mark in one plain word, for the note label: closed and square-edged
+ * is a box, closed and round is a ring, open and straight is a line.
+ */
+export function markWord(pts: Array<{ x: number; y: number }>): string {
+  if (pts.length < 2) return 'mark'
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+  for (const p of pts) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y) }
+  const w = x1 - x0, h = y1 - y0
+  const a = pts[0]!, b = pts[pts.length - 1]!
+  const closed = Math.hypot(a.x - b.x, a.y - b.y) <= Math.max(24, 0.15 * Math.min(w, h)) && Math.min(w, h) >= 20
+  if (closed) {
+    const tol = Math.max(6, 0.08 * Math.min(w, h))
+    const onEdge = pts.filter((p) => Math.min(p.x - x0, x1 - p.x, p.y - y0, y1 - p.y) <= tol).length
+    if (onEdge / pts.length >= 0.8) return 'box'
+    // n31: a box drawn turned (a card in a fanned stack) is still a box, not a ring
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2
+    for (let a = -40; a <= 40; a += 1) {
+      if (a === 0) continue
+      const r = a * Math.PI / 180, cos = Math.cos(r), sin = Math.sin(r)
+      const q = pts.map((p) => ({ x: (p.x - cx) * cos - (p.y - cy) * sin, y: (p.x - cx) * sin + (p.y - cy) * cos }))
+      let u0 = Infinity, v0 = Infinity, u1 = -Infinity, v1 = -Infinity
+      for (const p of q) { u0 = Math.min(u0, p.x); v0 = Math.min(v0, p.y); u1 = Math.max(u1, p.x); v1 = Math.max(v1, p.y) }
+      const t2 = Math.max(6, 0.08 * Math.min(u1 - u0, v1 - v0))
+      const on = q.filter((p) => Math.min(p.x - u0, u1 - p.x, p.y - v0, v1 - p.y) <= t2).length
+      if (on / q.length >= 0.85) return 'box'
+    }
+    return 'ring'
+  }
+  let len = 0
+  for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+  return Math.hypot(a.x - b.x, a.y - b.y) >= 0.9 * len ? 'line' : 'scribble'
 }

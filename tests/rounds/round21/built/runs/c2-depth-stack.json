@@ -1,0 +1,339 @@
+{
+  "id": "c2-depth-stack",
+  "at": "2026-10-25T17:29:58.805Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9247645818337699,
+    "overallV2": 0.9247645818337699,
+    "overallV1": 0.8711203175202807,
+    "colour": 0.9746442877147294,
+    "structure": 0.9761090750014426,
+    "structureStrict": 0.9204831979353381,
+    "colourAligned": 0.9746442877147294,
+    "structureAligned": 0.9761090750014426,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9654559852969958
+    },
+    "layout": 0.9526173586966861,
+    "layoutV1": 0.9526173586966861,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      72,
+      120,
+      530,
+      177
+    ],
+    [
+      1,
+      72,
+      120,
+      530,
+      88
+    ],
+    [
+      1,
+      72,
+      208,
+      530,
+      88
+    ],
+    [
+      0,
+      64,
+      470,
+      432,
+      56
+    ],
+    [
+      0,
+      64,
+      590,
+      139,
+      54
+    ],
+    [
+      0,
+      64,
+      700,
+      284,
+      32
+    ],
+    [
+      6,
+      64,
+      700,
+      94,
+      32
+    ],
+    [
+      6,
+      170,
+      700,
+      93,
+      32
+    ],
+    [
+      6,
+      275,
+      700,
+      73,
+      32
+    ],
+    [
+      0,
+      700,
+      700,
+      460,
+      60
+    ],
+    [
+      0,
+      640,
+      110,
+      560,
+      640
+    ],
+    [
+      11,
+      543,
+      227,
+      819,
+      559
+    ],
+    [
+      12,
+      694,
+      305,
+      469,
+      295
+    ],
+    [
+      12,
+      686,
+      252,
+      487,
+      288
+    ],
+    [
+      12,
+      677,
+      195,
+      506,
+      279
+    ],
+    [
+      12,
+      668,
+      134,
+      526,
+      267
+    ],
+    [
+      0,
+      1060,
+      76,
+      120,
+      120
+    ],
+    [
+      17,
+      1060,
+      76,
+      120,
+      120
+    ],
+    [
+      18,
+      1061,
+      76,
+      119,
+      120
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "gradient",
+      "hard-shadow",
+      "motion",
+      "overlap",
+      "serif",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 27606,
+    "output": 15389,
+    "cacheRead": 231847
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 33815,
+      "output": 11253,
+      "cacheRead": 228763,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read components/Sphere.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read src/index.css",
+        "Edit components/Sphere.tsx",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 114985
+    }
+  ],
+  "reading": "A hero section: a giant 3D-extruded serif headline, a subcopy paragraph, a dark 'Get the kit' button with hard drop shadow, a row of three translucent pill tags, a full-page gradient background, a soft radial floor shadow, a real CSS 3D stack of four tilted card faces, and a glowing bobbing sphere in the top right, all precisely specified by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0",
+        "s1"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s0",
+            "s1"
+          ],
+          "lines": 2,
+          "fontPx": 80
+        }
+      ],
+      "region": [
+        72,
+        120,
+        504,
+        175
+      ],
+      "paths": [],
+      "instruction": "Giant Georgia serif heavy heading set tight (line-height 0.95), white, text exactly 2 lines: 'Layers, all the' / 'way down.' (keep these breaks, each line stays"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        470,
+        432,
+        57
+      ],
+      "paths": [],
+      "instruction": "Body text: 'Stackable design tokens that keep every surface, shadow and elevation in sync across your apps.' Positioned absolute, top-left at 64,470 of the page"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        68,
+        593,
+        135,
+        47
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Dark brown (#3a1a14) button with white text 'Get the kit', with a hard solid opaque near-black shadow offset 12px straight down (0px sideways, no blur). Text co"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        67,
+        703,
+        276,
+        26
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Row of 3 filled pill tags, 12px apart, each 32px tall, fully rounded (border-radius 999px), see-through white fill (background: rgba(255,255,255,0.55)), no bord"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        703,
+        703,
+        453,
+        54
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Soft floor shadow: one 460x60px ellipse positioned absolute at 700,700, border-radius 50%, background: radial-gradient(#5a140a59, transparent 70%) — dark in the"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        643,
+        113,
+        553,
+        634
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "A real CSS 3D stack of 4 separate flat cards piled like plates, each lifted higher via translateZ (not a cube, not side-by-side, not one box or gradient slab, n"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1063,
+        94,
+        112,
+        112
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "A gently bobbing (up and down animation) 120px solid sphere (border-radius 50%), fully opaque, painted with radial-gradient(circle at 35% 30%, #ffffff 0%, #ffd0"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

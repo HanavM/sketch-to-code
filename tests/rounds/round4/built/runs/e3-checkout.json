@@ -1,0 +1,99 @@
+{
+  "id": "e3-checkout",
+  "at": "2026-10-21T17:24:18.336Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.48457901684747723,
+    "overallV2": 0.48457901684747723,
+    "overallV1": 0.3246061305374146,
+    "colour": 0.9728493492861753,
+    "structure": 0.8756985056521599,
+    "structureStrict": 0.7477774595744975,
+    "colourAligned": 0.9728493492861753,
+    "structureAligned": 0.8756985056521599,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9047611968911063
+    },
+    "layout": 0.7108398648102534
+  },
+  "effects": null,
+  "tokens": {
+    "input": 23340,
+    "output": 14593,
+    "cacheRead": 134660
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 25997,
+      "output": 9517,
+      "cacheRead": 125660,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 99569
+    }
+  ],
+  "reading": "The sketch lays out a checkout page: a step-indicator bar across the top, a left column with a shipping-address form plus shipping-method radio options, and a right column order-summary card with totals and a continue button.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        84,
+        35,
+        1113,
+        20
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Step indicator shown as a row (no surrounding box): a 26px dark navy filled circle with white '1' then 'Cart', a 26px dark navy filled circle with white '2' the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        83,
+        91,
+        674,
+        634
+      ],
+      "paths": [
+        "s1",
+        "s2"
+      ],
+      "instruction": "Left column contains a 'Shipping address' form with labels above empty fields: 'First name' and 'Last name' side by side, 'Street address' full width, and 'City"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        803,
+        91,
+        394,
+        634
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Right column is a white 'Order summary' card listing 3 items, each with a 56px light grey square thumbnail on the left: 'Linen overshirt' with small grey 'Sand "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,473 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "61d737b04b361beb9fd9bee09a1d6d2b0c7184f9",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch builds a bank loan-calculator page: a top header bar, a big page heading, a left-column form of four slider rows, and a right-column result card with a value, breakdown and apply button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (50,21) 110x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:15:9",
+      "rect": {
+       "x": 50,
+       "y": 20.5,
+       "w": 109.5,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": false,
+    "nearest": 73.8,
+    "reason": "nothing near the drawing is the colour that was drawn (#e5e7eb); closest is ΔE 73.8 away"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,70) 1280x660 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:23:7",
+      "rect": {
+       "x": 0,
+       "y": 70,
+       "w": 1280,
+       "h": 660
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 343,
+        "y": 256,
+        "w": 23,
+        "h": 23
+       },
+       "built": {
+        "x": 348.5,
+        "y": 245.5,
+        "w": 23,
+        "h": 23
+       },
+       "dx": 6,
+       "dy": -10
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e5e7eb is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 739,
+        "y": 109,
+        "w": 492,
+        "h": 621
+       },
+       "built": {
+        "x": 738,
+        "y": 109,
+        "w": 492,
+        "h": 621
+       },
+       "dx": -1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 780,
+        "y": 313,
+        "w": 344,
+        "h": 29
+       },
+       "built": {
+        "x": 779,
+        "y": 313,
+        "w": 344,
+        "h": 29
+       },
+       "dx": -1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 1123,
+        "y": 313,
+        "w": 68,
+        "h": 30
+       },
+       "built": {
+        "x": 1122,
+        "y": 313,
+        "w": 68,
+        "h": 30
+       },
+       "dx": -1,
+       "dy": 0
+      },
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 780,
+        "y": 639,
+        "w": 411,
+        "h": 62
+       },
+       "built": {
+        "x": 779,
+        "y": 639,
+        "w": 411,
+        "h": 62
+       },
+       "dx": -1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#059669 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 1 (a big drawn panel) top at 109px, drawn at 256px (147px high). A big panel starts where it was drawn: its top within 16px of the drawn y. Find the space above it that the drawing does not have (it sits in a column or grid row that starts lower, a wrapper with padding or a top margin, a heading placed above it that was drawn inside it, or it was stacked under a block drawn beside it) and take that out, so the panel's top lands at its drawn y; what is inside it moves with it. Never use a negative margin, negative top or absolute position. Do not change widths, colours or copy.",
+     "offsets": [
+      {
+       "index": 1,
+       "drawn": 256,
+       "built": 109,
+       "dy": -147
+      }
+     ]
+    }
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "17 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "panel-feet",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 panel foot at the drawn place, contents above at natural size"
+    }
+   },
+   {
+    "kind": "line-ends",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 group of words kept at their end of a long line"
+    }
+   },
+   {
+    "kind": "row-template",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn row template kept: columns where drawn, rows at the drawn pitch"
+    }
+   },
+   {
+    "kind": "drawn-list",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Term\" sits at y 281; its line is at y 388, so its words go at about y 350; row 2's value \"60 months\" is not beside \"Term\"; line 2's filled part should run x 50 to 484; \"Interest rate\" sits at y 325; its line is at y 508, so its words go at about y 470; row 3's value \"6.4%\" is not beside \"Interest rate\"; line 3 is missing at y 508: a thin track from x 50 to 670; line 3's filled part should run x 50 to 236; \"Down payment\" sits at y 369; its line is at y 628, so its words go at about y 590; change nothing else"
+    }
+   },
+   {
+    "kind": "bar-labels",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 labels beside 5 drawn bars kept dark"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 1: the line drawn at (50,508) 620x0 was drawn in #e5e7eb with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #e5e7eb; its label and amount stay dark text; action 1: the line drawn at (50,628) 620x0 was drawn in #e5e7eb with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #e5e7eb; its label and amount stay dark text",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,70) 1276x0 (pale divider)",
+       "want": "words not #e5e7eb",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (50,268) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (50,388) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (50,508) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (50,628) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (50,268) 304x0 (bar)",
+       "want": "#059669",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (343,256) 23x23",
+       "want": "#059669",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (739,109) 492x621 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (739,109) 492x621",
+       "want": "#ecfdf5",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (780,313) 344x29",
+       "want": "#059669",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1123,313) 68x30",
+       "want": "#fbbf24",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (780,639) 411x62",
+       "want": "#059669",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 93655,
+   "cacheRead": 570812,
+   "output": 27072
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 49130,
+    "output": 12258,
+    "cacheRead": 133554,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 156725
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 53542,
+    "output": 7080,
+    "cacheRead": 208763,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 88240
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 18055,
+    "output": 7734,
+    "cacheRead": 228495,
+    "toolCalls": 3,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 102455
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "panelLifts": [
+   {
+    "index": 1,
+    "srcLoc": "src/App.tsx:27:13",
+    "dy": 60,
+    "drawn": 256,
+    "built": 316
+   }
+  ],
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

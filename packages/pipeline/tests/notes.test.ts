@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { DomNode, DomSnapshot } from '@s2c/dom'
 import type { Stroke } from '@s2c/ink'
-import { buildEvidence, groundInterpretation, resolveNotes, type TypedNote } from '../src/intent2.js'
+import { buildEvidence, groundInterpretation, resolveNotes, isPageLookNote, type TypedNote } from '../src/intent2.js'
 
 const node = (id: string, srcLoc: string | null, rect: DomNode['rect'], over: Partial<DomNode> = {}): DomNode => ({
   id, tag: 'div', srcLoc, text: '', classes: [], parent: null, depth: 1, rect,
@@ -49,7 +49,7 @@ describe('resolveNotes — anchoring the exact words', () => {
       { id: 'n0', text: 'fade these in and out', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: ['s1', 's2', 'gone'] } },
     ]
     expect(resolveNotes(notes, snap, new Set(['s1', 's2']))).toEqual([
-      { id: 'n0', text: 'fade these in and out', scope: 'strokes', strokeIds: ['s1', 's2'] },
+      { id: 'n0', text: 'fade these in and out', scope: 'strokes', strokeIds: ['s1', 's2'], at: { x: 0, y: 0 } },
     ])
   })
 
@@ -518,5 +518,351 @@ describe('buildEvidence — what the model is allowed to name', () => {
     const ev = buildEvidence([stroke('s1', 100, 100)], snap, [])
     expect(menuIds(ev).length).toBeLessThanOrEqual(70)
     expect(menuIds(ev)).not.toContain('target')
+  })
+})
+
+describe('note focus — a cluster holding several drawings', () => {
+  // headline (two lines), subtitle and button drawn close together: one cluster
+  const strokes = [
+    stroke('h1', 200, 300), stroke('h2', 200, 400),
+    stroke('sub', 200, 520), stroke('btn', 200, 620),
+  ]
+  const all = ['h1', 'h2', 'sub', 'btn']
+  const { snap } = page()
+
+  it('picks the strokes right where the note was typed, keeping a heading\'s lines together', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'huge serif headline', at: { x: 220, y: 352 }, anchor: { kind: 'strokes', strokeIds: all } },
+      { id: 'n1', text: 'white pill button', at: { x: 215, y: 621 }, anchor: { kind: 'strokes', strokeIds: all } },
+    ]
+    const r = resolveNotes(notes, snap, new Set(all), strokes)
+    expect(r[0]!.focus).toEqual(['h1', 'h2'])
+    expect(r[1]!.focus).toEqual(['btn'])
+  })
+
+  it('a note typed inside a drawn panel but on none of its contents is about the panel (round 1 c3)', () => {
+    // a drawn box: points all along its four edges, closed
+    const box = (id: string, x0: number, y0: number, x1: number, y1: number) => {
+      const corners = [[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]] as const
+      const points: Array<{ x: number; y: number; t: number }> = []
+      for (let k = 0; k < 4; k++) {
+        const [ax, ay] = corners[k]!, [bx, by] = corners[k + 1]!
+        for (let i = 0; i < 10; i++) points.push({ x: ax + ((bx - ax) * i) / 10, y: ay + ((by - ay) * i) / 10, t: points.length })
+      }
+      points.push({ x: x0, y: y0, t: points.length })
+      return { id, tool: 'pen' as const, startedAt: 0, points }
+    }
+    const line = (id: string, x0: number, y: number, x1: number) => box(id, x0, y, x1, y + 12)
+    const panel = [box('panel', 3, 3, 637, 896), line('h1', 72, 305, 533), line('h2', 72, 382, 358),
+      line('b1', 68, 471, 500), line('b2', 68, 495, 336)]
+    const ids = panel.map((s) => s.id)
+    const notes: TypedNote[] = [
+      // centre of the panel: 21px above the body's first line
+      { id: 'n0', text: 'deep green panel, cream serif "Plants that grow with you"', at: { x: 320, y: 450 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      // between the heading's two lines: still the heading
+      { id: 'n1', text: 'giant serif headline', at: { x: 300, y: 350 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      // right on a body line
+      { id: 'n2', text: 'muted body', at: { x: 200, y: 477 }, anchor: { kind: 'strokes', strokeIds: ids } },
+    ]
+    const r = resolveNotes(notes, snap, new Set(ids), panel)
+    expect(r[0]!.focus).toEqual(['panel'])
+    expect(r[1]!.focus).toEqual(['panel', 'h1', 'h2'])
+    expect(r[2]!.focus).toEqual(['panel', 'b1', 'b2'])
+  })
+
+  it('a ring drawn round a headline is not a container: a note on the headline keeps the ring too (layered pages)', () => {
+    const ring = { id: 'ring', tool: 'pen' as const, startedAt: 0, points: Array.from({ length: 64 }, (_, i) => ({
+      x: 640 + 300 * Math.cos((i / 63) * 2 * Math.PI), y: 450 + 300 * Math.sin((i / 63) * 2 * Math.PI), t: i })) }
+    const line = (id: string, x0: number, y: number, x1: number) => ({ id, tool: 'pen' as const, startedAt: 0,
+      points: Array.from({ length: 10 }, (_, i) => ({ x: x0 + ((x1 - x0) * i) / 9, y: y + (i % 2) * 12, t: i })) })
+    const all = [ring, line('h1', 400, 430, 880), line('b1', 450, 520, 830)]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([{ id: 'n0', text: 'gradient headline', at: { x: 640, y: 445 }, anchor: { kind: 'strokes', strokeIds: ids } }],
+      snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['ring', 'h1'])
+  })
+
+  it('two jagged outlines, one over the other: each note goes to the ridge it was typed on (round 3 c1)', () => {
+    const poly = (id: string, pts: [number, number][]) => {
+      const closed = [...pts, pts[0]!]
+      const points: { x: number; y: number; t: number }[] = []
+      for (let i = 0; i + 1 < closed.length; i++) {
+        const [ax, ay] = closed[i]!, [bx, by] = closed[i + 1]!
+        for (let k = 0; k < 8; k++) points.push({ x: ax + ((bx - ax) * k) / 8, y: ay + ((by - ay) * k) / 8, t: points.length })
+      }
+      points.push({ ...points[0]!, t: points.length })
+      return { id, tool: 'pen' as const, startedAt: 0, points }
+    }
+    // far ridge: box runs to the page bottom and holds the near ridge's box
+    const far = poly('far', [[0, 610], [230, 470], [435, 600], [665, 420], [895, 585], [1100, 480], [1280, 565], [1280, 900], [0, 900]])
+    const near = poly('near', [[0, 660], [280, 560], [510, 700], [790, 590], [1020, 715], [1280, 610], [1280, 900], [0, 900]])
+    const all = [far, near]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([
+      { id: 'n0', text: 'deep raspberry jagged cut-out shape', at: { x: 620, y: 520 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      { id: 'n1', text: 'deep purple jagged cut-out shape', at: { x: 640, y: 780 }, anchor: { kind: 'strokes', strokeIds: ids } },
+    ], snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['far'])
+    expect(r[1]!.focus).toEqual(['near'])
+  })
+
+  it('two drawn boxes that cross: a note typed in their overlap is about the smaller one (round 4 c2)', () => {
+    const box = (id: string, x0: number, y0: number, x1: number, y1: number) => {
+      const corners = [[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]] as const
+      const points: Array<{ x: number; y: number; t: number }> = []
+      for (let k = 0; k < 4; k++) {
+        const [ax, ay] = corners[k]!, [bx, by] = corners[k + 1]!
+        for (let i = 0; i < 10; i++) points.push({ x: ax + ((bx - ax) * i) / 10, y: ay + ((by - ay) * i) / 10, t: points.length })
+      }
+      points.push({ x: x0, y: y0, t: points.length })
+      return { id, tool: 'pen' as const, startedAt: 0, points }
+    }
+    const all = [box('dark', 640, 3, 1277, 896), box('arch', 480, 240, 820, 700), box('cta', 1100, 800, 1240, 840)]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([
+      { id: 'n0', text: 'black block', at: { x: 1000, y: 300 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      { id: 'n1', text: 'lavender to dark pink gradient', at: { x: 650, y: 470 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      { id: 'n2', text: 'button "Shop"', at: { x: 1170, y: 820 }, anchor: { kind: 'strokes', strokeIds: ids } },
+      // the arch's centre, 3px left of the dark half's edge (as the bench types it)
+      { id: 'n3', text: 'lavender to dark pink gradient', at: { x: 637, y: 470 }, anchor: { kind: 'strokes', strokeIds: ids } },
+    ], snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['dark'])
+    expect(r[1]!.focus).toEqual(['arch'])
+    // n11: typed inside the small button box that sits in the dark half: the button alone
+    // (it used to reach the dark half too, and its words leaked onto the big block)
+    expect(r[2]!.focus).toEqual(['cta'])
+    expect(r[3]!.focus).toEqual(['arch'])
+  })
+
+  it('a note typed on line 1 of a giant two-line heading reaches line 2 too (round 3 c5)', () => {
+    const zig = (id: string, y: number) => ({ id, tool: 'pen' as const, startedAt: 0,
+      points: Array.from({ length: 60 }, (_, i) => ({ x: 90 + i * 15, y: y + 50 * Math.sin((2 * Math.PI * i * 15) / 150), t: i })) })
+    const all = [zig('l1', 400), zig('l2', 545), { id: 'dek', tool: 'pen' as const, startedAt: 0,
+      points: Array.from({ length: 30 }, (_, i) => ({ x: 90 + i * 10, y: 720 + (i % 2) * 6, t: i })) }]
+    const ids = all.map((s) => s.id)
+    const r = resolveNotes([{ id: 'n0', text: 'giant italic serif', at: { x: 300, y: 400 }, anchor: { kind: 'strokes', strokeIds: ids } }],
+      snap, new Set(ids), all)
+    expect(r[0]!.focus).toEqual(['l1', 'l2'])
+  })
+
+  it('takes the overlay\'s own pick over the point, and omits focus when it is everything', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'a', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: all, focus: ['sub'] } },
+      { id: 'n1', text: 'b', at: { x: 0, y: 0 }, anchor: { kind: 'strokes', strokeIds: ['h1'] } },
+    ]
+    const r = resolveNotes(notes, snap, new Set(all), strokes)
+    expect(r[0]!.focus).toEqual(['sub'])
+    expect(r[1]!.focus).toBeUndefined()
+  })
+
+  it('attaches each note only to the action citing its focus', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'huge serif headline', at: { x: 220, y: 352 }, anchor: { kind: 'strokes', strokeIds: all } },
+      { id: 'n1', text: 'white pill button', at: { x: 215, y: 621 }, anchor: { kind: 'strokes', strokeIds: all } },
+    ]
+    const ev = buildEvidence(strokes, snap, notes)
+    const add = (instruction: string, ids: string[]) => ({
+      kind: 'add' as const, elements: null, destElement: null, position: null, instruction, strokes: ids, layer: null, depicts: null, fidelity: null,
+    })
+    const g = groundInterpretation(
+      { reading: 'hero', actions: [add('headline', ['h1', 'h2']), add('subtitle', ['sub']), add('button', ['btn'])] },
+      ev, snap, 'design',
+    )
+    expect(g.actions.map((a) => a.notes)).toEqual([['huge serif headline'], undefined, ['white pill button']])
+  })
+
+  it('falls back to the whole cluster when no action cites the focus', () => {
+    const notes: TypedNote[] = [
+      { id: 'n0', text: 'huge serif headline', at: { x: 220, y: 352 }, anchor: { kind: 'strokes', strokeIds: all } },
+    ]
+    const ev = buildEvidence(strokes, snap, notes)
+    const g = groundInterpretation(
+      { reading: 'hero', actions: [{ kind: 'add', elements: null, destElement: null, position: null, instruction: 'button', strokes: ['btn'], layer: null, depicts: null, fidelity: null }] },
+      ev, snap, 'design',
+    )
+    expect(g.actions[0]!.notes).toEqual(['huge serif headline'])
+  })
+})
+
+describe('page-look notes reach the whole page (round 1: c2, c4)', () => {
+  it('tells page-look words from block words', () => {
+    expect(isPageLookNote('brutalist: bright yellow page, black heavy type')).toBe(true)
+    expect(isPageLookNote('near-black page with faint purple grid lines')).toBe(true)
+    expect(isPageLookNote('magazine on warm paper, serif masthead')).toBe(true)
+    expect(isPageLookNote('whole page: warm sunset gradient')).toBe(true)
+    expect(isPageLookNote('dark sidebar nav')).toBe(false)
+    expect(isPageLookNote('deep green panel, cream serif text')).toBe(false)
+    expect(isPageLookNote('black block button, yellow text')).toBe(false)
+  })
+
+  it('a page word that says WHERE a block sits is not page look (round 2: c2, c5)', () => {
+    expect(isPageLookNote('bleeding off the page edge giant heavy hollow outlined white "NOISE"')).toBe(false)
+    expect(isPageLookNote('tilted bleeding off the page edge big orange, yellow, teal stripes block')).toBe(false)
+    expect(isPageLookNote('band across the page, tilted')).toBe(false)
+    expect(isPageLookNote('sticker at the top of the page')).toBe(false)
+    expect(isPageLookNote('soft pink blob in the background')).toBe(false)
+    expect(isPageLookNote('whole page: black page, white text')).toBe(true)
+    expect(isPageLookNote('dark navy background, white text')).toBe(true)
+  })
+
+  it('keeps a page-look note on its action AND lists it as page look', () => {
+    const { snap } = page()
+    const strokes = [stroke('s0', 120, 120), stroke('s1', 600, 600)]
+    const text = 'near-black page with faint purple grid lines'
+    const ev = buildEvidence(strokes, snap, [{ id: 'n0', text, at: { x: 130, y: 130 }, anchor: { kind: 'strokes', strokeIds: ['s0'] } }])
+    const g = groundInterpretation(
+      {
+        reading: 'nav and a block',
+        actions: [
+          { kind: 'design', elements: null, destElement: 'e1', position: 'into', instruction: 'nav', strokes: ['s0'], layer: null, depicts: null, fidelity: 'recognized' },
+          { kind: 'design', elements: null, destElement: 'e3', position: 'into', instruction: 'block', strokes: ['s1'], layer: null, depicts: null, fidelity: 'recognized' },
+        ],
+      },
+      ev, snap, 'design',
+    )
+    expect(g.actions[0]!.notes).toEqual([text])
+    expect(g.pageNotes).toEqual([text])
+    expect(g.runNotes).toBeUndefined()
+  })
+})
+
+describe('dense notes — a list of quoted parts stays one block, word for word', () => {
+  it('carries a long table/chat note verbatim to the one action, not page-wide', () => {
+    const { snap } = page()
+    const strokes = [stroke('s0', 120, 120), stroke('s1', 600, 600)]
+    const table = 'table, columns "NAME", "EMAIL", "ROLE", "STATUS", "LAST SEEN", 7 rows; status pills green "Active", brown "Invited", red "Suspended"'
+    const chat = 'chat bubbles: left white "Morning! New icon set is in Figma, 48"…, right teal "Looks great.", 1 more'
+    const ev = buildEvidence(strokes, snap, [
+      { id: 'n0', text: table, at: { x: 130, y: 130 }, anchor: { kind: 'strokes', strokeIds: ['s0', 's1'] } },
+      { id: 'n1', text: chat, at: { x: 610, y: 610 }, anchor: { kind: 'strokes', strokeIds: ['s0', 's1'] } },
+    ])
+    expect(ev.notes.map((n) => n.text)).toEqual([table, chat])
+    expect(ev.notes.map((n) => n.focus)).toEqual([['s0'], ['s1']])
+    const g = groundInterpretation(
+      {
+        reading: 'a table and a chat',
+        actions: [
+          { kind: 'design', elements: null, destElement: 'e1', position: 'into', instruction: 'table', strokes: ['s0'], layer: null, depicts: null, fidelity: 'recognized' },
+          { kind: 'design', elements: null, destElement: 'e3', position: 'into', instruction: 'chat', strokes: ['s1'], layer: null, depicts: null, fidelity: 'recognized' },
+        ],
+      },
+      ev, snap, 'design',
+    )
+    expect(g.actions[0]!.notes).toEqual([table])
+    expect(g.actions[1]!.notes).toEqual([chat])
+    expect(g.pageNotes).toBeUndefined()
+    expect(isPageLookNote(table) || isPageLookNote(chat)).toBe(false)
+  })
+})
+
+describe("a stroke one action owns is not borrowed by the others (round 6 c3: the sun built in the hills' green)", () => {
+  // s0 sun, s1 page-wide hills box, s2 button; every action cited s1 as a frame
+  const strokes = [stroke('s0', 900, 120), stroke('s1', 0, 600), stroke('s2', 60, 500)]
+  const notes: TypedNote[] = [
+    { id: 'n0', text: 'flat vivid orange disc', at: { x: 900, y: 120 }, anchor: { kind: 'strokes', strokeIds: ['s0'] } },
+    { id: 'n1', text: 'three deep green hills', at: { x: 0, y: 600 }, anchor: { kind: 'strokes', strokeIds: ['s1'] } },
+  ]
+  const ground = (sets: string[][]) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1200, h: 800 })])
+    const ev = buildEvidence(strokes, snap, notes)
+    return groundInterpretation(
+      {
+        reading: 'hero',
+        actions: sets.map((ids, i) => ({ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: `a${i}`, strokes: ids, layer: null, depicts: null, fidelity: null })),
+      } as never,
+      ev, snap, 'design',
+    ).actions
+  }
+  it("the sun's action drops the hills box and with it the hills' note", () => {
+    const [sun, hills, button] = ground([['s0', 's1'], ['s1'], ['s1', 's2']])
+    expect(sun!.notes ?? []).toEqual(['flat vivid orange disc'])
+    expect((hills!.notes ?? []).join(' ')).toContain('deep green')
+    expect((button!.notes ?? []).join(' ')).not.toContain('deep green')
+    expect(sun!.region!.w).toBeLessThan(200)
+  })
+  it('keeps a shared stroke when no action cites it alone', () => {
+    const [a] = ground([['s0', 's1'], ['s1', 's2']])
+    expect((a!.notes ?? []).join(' ')).toContain('deep green')
+  })
+})
+
+describe('a big rectangle cited with small marks belongs to the action citing most with it (round 30 e3: launch bar built as a slab over the month)', () => {
+  const rect = (id: string, x: number, y: number, w: number, h: number): Stroke => ({
+    id,
+    points: [
+      { x, y, t: 0 }, { x: x + w, y, t: 10 }, { x: x + w, y: y + h, t: 20 }, { x, y: y + h, t: 30 }, { x, y, t: 40 },
+    ],
+  })
+  // s7 month grid, s8 / s9 event bars inside it, s14 a header squiggle
+  const strokes = [rect('s7', 243, 67, 1000, 700), rect('s8', 300, 300, 160, 20), rect('s9', 500, 420, 240, 20), stroke('s14', 260, 80)]
+  const ground = (sets: string[][]) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1280, h: 900 })])
+    const ev = buildEvidence(strokes, snap, [])
+    return groundInterpretation(
+      {
+        reading: 'calendar',
+        actions: sets.map((ids, i) => ({ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: `a${i}`, strokes: ids, layer: null, depicts: null, fidelity: null })),
+      } as never,
+      ev, snap, 'design',
+    ).actions
+  }
+  it('the event bars drop the borrowed grid rectangle; the grid keeps it', () => {
+    const [grid, lisbon, launch] = ground([['s7', 's9', 's14'], ['s7', 's8'], ['s7', 's9']])
+    expect(grid!.region!.w).toBeGreaterThan(900)
+    expect(lisbon!.region!.w).toBeLessThan(200)
+    expect(launch!.region!.w).toBeLessThan(260)
+    // a drawn box marks where the bar goes: a shape mark, never a path (n7)
+    expect(launch!.shapeMarks?.map((m) => m.strokeId)).toEqual(['s9'])
+    expect(launch!.svgPaths).toBeUndefined()
+  })
+  it('keeps the rectangle when no action clearly owns it', () => {
+    const [a, b] = ground([['s7', 's8'], ['s7', 's9']])
+    expect(a!.region!.w).toBeGreaterThan(900)
+    expect(b!.region!.w).toBeGreaterThan(900)
+  })
+})
+
+describe('a box round a big number is its area, even when the reading calls the number a depiction (n14, round 12 c4)', () => {
+  const box: Stroke = { id: 's9', points: [{ x: 400, y: 140, t: 0 }, { x: 910, y: 140, t: 10 }, { x: 910, y: 515, t: 20 }, { x: 400, y: 515, t: 30 }, { x: 400, y: 140, t: 40 }] }
+  const ground = (text: string) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1280, h: 900 })])
+    const ev = buildEvidence([box], snap, [{ id: 'n0', text, at: { x: 560, y: 440 }, anchor: { kind: 'strokes', strokeIds: ['s9'] } }])
+    return groundInterpretation(
+      { reading: 'hero', actions: [{ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: 'a huge 09', strokes: ['s9'], layer: null, depicts: 'the number 09', fidelity: null }] } as never,
+      ev, snap, 'design',
+    ).actions[0]!
+  }
+  it('no path to fill: a shape mark flagged area', () => {
+    const a = ground('huge outlined 09, white')
+    expect(a.svgPaths).toBeUndefined()
+    expect(a.shapeMarks?.[0]?.area).toBe(true)
+  })
+  it('a picture of a thing keeps its drawn outline', () => {
+    const a = ground('a framed photo of the team')
+    expect(a.svgPaths?.length).toBe(1)
+  })
+})
+
+describe('a ring typed "lime badge" is a solid lime badge, even when the reading calls it a depiction (n15, round 12 c4)', () => {
+  const pts = Array.from({ length: 41 }, (_, i) => {
+    const t = (i / 40) * Math.PI * 2
+    return { x: 180 + 90 * Math.cos(t), y: 650 + 90 * Math.sin(t), t: i * 10 }
+  })
+  const ring: Stroke = { id: 's5', points: pts }
+  const ground = (text: string) => {
+    const snap = snapshot([node('e1', null, { x: 0, y: 0, w: 1280, h: 900 })])
+    const ev = buildEvidence([ring], snap, [{ id: 'n0', text, at: { x: 180, y: 650 }, anchor: { kind: 'strokes', strokeIds: ['s5'] } }])
+    return groundInterpretation(
+      { reading: 'badge', actions: [{ kind: 'add' as const, elements: null, destElement: null, position: null, instruction: 'a badge', strokes: ['s5'], layer: null, depicts: 'a round badge', fidelity: null }] } as never,
+      ev, snap, 'design',
+    ).actions[0]!
+  }
+  it('no path: a ring shape mark flagged solid lime', () => {
+    const a = ground('lime badge FREE COFFEE AFTER')
+    expect(a.svgPaths).toBeUndefined()
+    expect(a.shapeMarks?.[0]?.solid?.word).toBe('lime')
+  })
+  it('a drawn sun keeps its outline', () => {
+    expect(ground('the sun, glowing').svgPaths?.length).toBe(1)
   })
 })

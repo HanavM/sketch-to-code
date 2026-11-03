@@ -1,0 +1,650 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "344183860ac34af813535d97e2c67741125c3169",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/DoorLock.tsx",
+   "src/components/FanIcon.tsx",
+   "src/components/KettleIcon.tsx",
+   "src/components/LampIcon.tsx",
+   "src/components/LightBulb.tsx",
+   "src/components/SpeakerIcon.tsx",
+   "src/components/ThermostatDial.tsx"
+  ],
+  "reading": "A dark-themed smart-home dashboard: a header with 'Good evening' and a status line, a large Living Room thermostat card with a dial and +/- buttons, and a 2x3 grid of six device cards (Ceiling light, Speaker, Lamp, Fan, Front door, Kettle) each with status text, icon and toggle as noted.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Good evening\" at (60,62) 241x44 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:70:9",
+      "rect": {
+       "x": 60,
+       "y": 64,
+       "w": 1160,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": false,
+    "reason": "nothing rendered near the drawing to carry #ffffff"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Good evening\" at (60,62) 241x44 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:70:9",
+      "rect": {
+       "x": 60,
+       "y": 64,
+       "w": 1160,
+       "h": 40
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#9ca3af is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "design",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:68:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": false,
+    "nearest": 27.3,
+    "reason": "nothing near the drawing is the colour that was drawn (#3f3f46); closest is ΔE 27.3 away"
+   },
+   {
+    "kind": "composition",
+    "index": 2,
+    "score": 0.7081994252514969,
+    "massSimilarity": 0.5831420360735672,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (60,64) 1160x72 matches the sketch region",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:69:7",
+      "rect": {
+       "x": 60,
+       "y": 64,
+       "w": 1160,
+       "h": 72
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#fafafa is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 3,
+    "score": 0.9076582669823243,
+    "massSimilarity": 0.8680832385461776,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <circle> at (118,245) 326x326 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "circle",
+      "srcLoc": "src/components/ThermostatDial.tsx:37:7",
+      "rect": {
+       "x": 117.5,
+       "y": 245,
+       "w": 326,
+       "h": 326
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#fafafa is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 4,
+    "score": 0.9076708752256071,
+    "massSimilarity": 0.8681012503222958,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (540,628) 331x201 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:46:5",
+      "rect": {
+       "x": 540,
+       "y": 628,
+       "w": 331,
+       "h": 201
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#fafafa is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 5,
+    "score": 0.9076736970498704,
+    "massSimilarity": 0.8681052814998151,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <header> at (60,64) 1160x72 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "header",
+      "srcLoc": "src/App.tsx:69:7",
+      "rect": {
+       "x": 60,
+       "y": 64,
+       "w": 1160,
+       "h": 72
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 7.4,
+    "reason": "#27272a is on the page (ΔE 7.4)"
+   },
+   {
+    "kind": "composition",
+    "index": 6,
+    "score": 0.9076631905866042,
+    "massSimilarity": 0.8680902722665775,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <circle> at (118,245) 326x326 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "circle",
+      "srcLoc": "src/components/ThermostatDial.tsx:37:7",
+      "rect": {
+       "x": 117.5,
+       "y": 245,
+       "w": 326,
+       "h": 326
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 7.4,
+    "reason": "#27272a is on the page (ΔE 7.4)"
+   },
+   {
+    "kind": "composition",
+    "index": 7,
+    "score": 0.9076559966862794,
+    "massSimilarity": 0.8680799952661133,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 8,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (540,628) 331x201 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:48:7",
+      "rect": {
+       "x": 540,
+       "y": 628,
+       "w": 331,
+       "h": 201
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 8,
+    "satisfied": true,
+    "nearest": 7.4,
+    "reason": "#27272a is on the page (ΔE 7.4)"
+   },
+   {
+    "kind": "composition",
+    "index": 8,
+    "score": 0.9076635396557553,
+    "massSimilarity": 0.8680907709367932,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 of 7 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 2,
+       "drawn": 169,
+       "built": 168,
+       "dy": -1
+      },
+      {
+       "index": 3,
+       "drawn": 169,
+       "built": 168,
+       "dy": -1
+      },
+      {
+       "index": 4,
+       "drawn": 399,
+       "built": 398,
+       "dy": -1
+      },
+      {
+       "index": 5,
+       "drawn": 629,
+       "built": 628,
+       "dy": -1
+      },
+      {
+       "index": 6,
+       "drawn": 169,
+       "built": 168,
+       "dy": -1
+      },
+      {
+       "index": 7,
+       "drawn": 399,
+       "built": 398,
+       "dy": -1
+      },
+      {
+       "index": 8,
+       "drawn": 629,
+       "built": 628,
+       "dy": -1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 placed word where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "table-rows",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 table row at body size"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the rows of \"Speaker / Living room · playing\" are not in the typed order top to bottom: put them in the order typed; the rows of \"Kettle / Kitchen · off\" are not in the typed order top to bottom: put them in the order typed; change nothing else"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the outline drawn at (96,211) 114x1 was coloured #ffffff (fill); nothing that size was built there carrying a colour: paint the block itself exactly #ffffff; action 2: the outline drawn at (131,260) 298x300 was coloured #f97316 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #f97316; action 2: the outline drawn at (170,640) 79x80 was coloured #3f3f46 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #3f3f46; action 2: the outline drawn at (311,640) 80x80 was coloured #3f3f46 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #3f3f46; action 3: the outline drawn at (539,169) 331x201 was coloured #fafafa (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fafafa; action 4: the outline drawn at (539,399) 331x202 was coloured #fafafa (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fafafa; action 5: the outline drawn at (539,629) 331x201 was coloured #fafafa (fill); nothing that size was built there carrying a colour: paint the block itself exactly #fafafa",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#1b1b1d",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,70) 227x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (60,108) 185x0",
+       "want": "#9ca3af",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (96,211) 114x1",
+       "want": "#ffffff",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (131,260) 298x300",
+       "want": "#f97316",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (170,640) 79x80",
+       "want": "#3f3f46",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (311,640) 80x80",
+       "want": "#3f3f46",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (539,169) 331x201",
+       "want": "#fafafa",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (539,399) 331x202",
+       "want": "#fafafa",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the outline drawn at (539,629) 331x201",
+       "want": "#fafafa",
+       "best": null,
+       "ok": false
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 71528,
+   "cacheRead": 1038945,
+   "output": 50432
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 121960,
+    "output": 50432,
+    "cacheRead": 1038945,
+    "toolCalls": 24,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read components/ThermostatDial.tsx",
+     "Read components/LightBulb.tsx",
+     "Read components/SpeakerIcon.tsx",
+     "Read components/LampIcon.tsx",
+     "Read components/FanIcon.tsx",
+     "Read components/DoorLock.tsx",
+     "Read components/KettleIcon.tsx",
+     "Read src/main.tsx",
+     "Read s2c-hand-app/package.json",
+     "Edit components/LightBulb.tsx",
+     "Edit components/SpeakerIcon.tsx",
+     "Edit components/LampIcon.tsx",
+     "Edit components/FanIcon.tsx",
+     "Edit components/DoorLock.tsx",
+     "Edit components/KettleIcon.tsx",
+     "Edit components/ThermostatDial.tsx",
+     "Write src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 548167
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "30cc61d7aa8634f1680dfab86f8ca2e040bd8cb2",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/DoorLock.tsx",
+   "src/components/FanIcon.tsx",
+   "src/components/KettleIcon.tsx",
+   "src/components/LampIcon.tsx",
+   "src/components/LightBulb.tsx",
+   "src/components/SpeakerIcon.tsx",
+   "src/components/ThermostatDial.tsx"
+  ],
+  "reading": "Two typed notes with no associated ink: one says to make the right-side bedroom card dark, the other says the thermostat dial should be a hollow ring.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     }
+    ],
+    "satisfied": 0,
+    "total": 2,
+    "score": 0
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 pieces of text read on what is behind them"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 44944,
+   "cacheRead": 432686,
+   "output": 9005
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 29546,
+    "output": 8662,
+    "cacheRead": 373741,
+    "toolCalls": 15,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/FanIcon.tsx",
+     "Read components/LightBulb.tsx",
+     "Read components/DoorLock.tsx",
+     "Read components/ThermostatDial.tsx",
+     "Read components/SpeakerIcon.tsx",
+     "Read components/LampIcon.tsx",
+     "Read components/KettleIcon.tsx",
+     "Edit components/FanIcon.tsx",
+     "Edit components/FanIcon.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit components/ThermostatDial.tsx",
+     "Edit components/ThermostatDial.tsx",
+     "Read components/ThermostatDial.tsx"
+    ],
+    "ms": 82651
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 24403,
+    "output": 343,
+    "cacheRead": 58945,
+    "toolCalls": 1,
+    "tools": [
+     "Read src/App.tsx"
+    ],
+    "ms": 4864
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

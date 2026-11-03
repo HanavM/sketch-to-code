@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mixer</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#17181c;font-family:Helvetica,Arial,sans-serif;color:#e5e7eb;overflow:hidden;position:relative}
+.top{position:absolute;left:0;top:0;width:1280px;height:64px;background:#222329;display:flex;align-items:center;padding:0 30px;font-size:15px}.top b{font-size:18px}
+.play{position:absolute;left:560px;top:12px;width:40px;height:40px;border-radius:50%;background:#22c55e}.rec{position:absolute;left:620px;top:12px;width:40px;height:40px;border-radius:50%;background:#ef4444}
+.time{position:absolute;left:690px;top:20px;font-size:20px;font-family:monospace;color:#22c55e}
+.wave{position:absolute;left:30px;top:90px;width:1220px;height:150px;background:#222329;border-radius:10px}
+.wave i{position:absolute;bottom:20px;width:6px;background:#3b82f6;border-radius:3px}
+.ch{position:absolute;top:270px;width:130px;height:600px;background:#222329;border-radius:10px}
+.ch .knob{position:absolute;left:35px;top:20px;width:60px;height:60px;border-radius:50%;border:4px solid #4b5563}
+.ch .slot{position:absolute;left:61px;top:110px;width:8px;height:380px;background:#0d0e11;border-radius:4px}
+.ch .fad{position:absolute;left:35px;width:60px;height:30px;border-radius:5px;background:#d1d5db}
+.ch span{position:absolute;left:0;top:550px;width:130px;text-align:center;font-size:14px}
+.master{position:absolute;left:1080px;top:270px;width:170px;height:600px;background:#2b2440;border-radius:10px}
+.master .slot{position:absolute;left:81px;top:110px;width:8px;height:380px;background:#0d0e11}.master .fad{position:absolute;left:50px;top:200px;width:70px;height:34px;border-radius:5px;background:#a78bfa}.master span{position:absolute;left:0;top:550px;width:170px;text-align:center;font-weight:700}
+</style></head><body>
+<div class="top" data-r="toolbar"><b>Session 07</b><i class="play" data-r="play"></i><i class="rec" data-r="record"></i><span class="time">01:42.08</span></div>
+<div class="wave" data-r="waveform" data-must>
+<i style="left:40px;height:40px"></i><i style="left:80px;height:80px"></i><i style="left:120px;height:60px"></i><i style="left:160px;height:100px"></i><i style="left:200px;height:50px"></i><i style="left:240px;height:90px"></i><i style="left:280px;height:110px"></i><i style="left:320px;height:70px"></i><i style="left:360px;height:40px"></i><i style="left:400px;height:85px"></i><i style="left:440px;height:105px"></i><i style="left:480px;height:60px"></i><i style="left:520px;height:30px"></i><i style="left:560px;height:75px"></i><i style="left:600px;height:95px"></i><i style="left:640px;height:55px"></i><i style="left:680px;height:100px"></i><i style="left:720px;height:65px"></i><i style="left:760px;height:45px"></i><i style="left:800px;height:85px"></i><i style="left:840px;height:110px"></i><i style="left:880px;height:70px"></i><i style="left:920px;height:50px"></i><i style="left:960px;height:90px"></i><i style="left:1000px;height:60px"></i><i style="left:1040px;height:35px"></i><i style="left:1080px;height:80px"></i><i style="left:1120px;height:55px"></i><i style="left:1160px;height:40px"></i></div>
+<div class="ch" data-r="ch-drums" data-must style="left:30px"><i class="knob"></i><i class="slot"></i><i class="fad" style="top:180px"></i><span>Drums</span></div>
+<div class="ch" data-r="ch-bass" style="left:180px"><i class="knob"></i><i class="slot"></i><i class="fad" style="top:260px"></i><span>Bass</span></div>
+<div class="ch" data-r="ch-keys" style="left:330px"><i class="knob"></i><i class="slot"></i><i class="fad" style="top:320px"></i><span>Keys</span></div>
+<div class="ch" data-r="ch-guitar" style="left:480px"><i class="knob"></i><i class="slot"></i><i class="fad" style="top:220px"></i><span>Guitar</span></div>
+<div class="ch" data-r="ch-vocals" style="left:630px"><i class="knob"></i><i class="slot"></i><i class="fad" style="top:150px"></i><span>Vocals</span></div>
+<div class="ch" data-r="ch-fx" style="left:780px"><i class="knob"></i><i class="slot"></i><i class="fad" style="top:380px"></i><span>FX</span></div>
+<div class="master" data-r="master" data-must><i class="slot"></i><i class="fad"></i><span>Master</span></div>
+</body></html>

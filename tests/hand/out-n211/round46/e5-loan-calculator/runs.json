@@ -1,0 +1,563 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "f01ce2f375248b6a1a48bc57fab0cccc1bc65259",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The sketch designs a car loan calculator page: a header bar with 'Harbor Bank' title and nav links, a big 'Car loan calculator' heading, a stack of four labeled slider inputs (loan amount, term, interest rate, down payment) with bold values and fill levels, and a green-tinted results panel showing the monthly payment, a segmented principal/interest bar with a cost breakdown, and a green 'Apply for this loan' button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (50,21) 110x28 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:15:9",
+      "rect": {
+       "x": 50,
+       "y": 20.5,
+       "w": 109.5,
+       "h": 28
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": false,
+    "nearest": 73.8,
+    "reason": "nothing near the drawing is the colour that was drawn (#e5e7eb); closest is ΔE 73.8 away"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (50,246) 620x373 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:31:9",
+      "rect": {
+       "x": 50,
+       "y": 246,
+       "w": 620,
+       "h": 373
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 343,
+        "y": 256,
+        "w": 23,
+        "h": 23
+       },
+       "built": {
+        "x": 342,
+        "y": 256,
+        "w": 24,
+        "h": 24
+       },
+       "dx": 0,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#e5e7eb is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:10:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 739,
+        "y": 109,
+        "w": 492,
+        "h": 621
+       },
+       "built": {
+        "x": 739,
+        "y": 109,
+        "w": 492,
+        "h": 621
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 780,
+        "y": 313,
+        "w": 344,
+        "h": 29
+       },
+       "built": {
+        "x": 780,
+        "y": 313,
+        "w": 344,
+        "h": 29
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s12",
+       "drawn": {
+        "x": 1123,
+        "y": 313,
+        "w": 68,
+        "h": 30
+       },
+       "built": {
+        "x": 1123,
+        "y": 313,
+        "w": 68,
+        "h": 30
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ecfdf5 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (739,109) 492x621 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:51:9",
+      "rect": {
+       "x": 739,
+       "y": 109,
+       "w": 492,
+       "h": 621
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s14",
+       "drawn": {
+        "x": 780,
+        "y": 639,
+        "w": 411,
+        "h": 62
+       },
+       "built": {
+        "x": 780,
+        "y": 639,
+        "w": 411,
+        "h": 62
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#059669 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "cards",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 card built as panels at the drawn edges"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "panel-feet",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 panel foot at the drawn place, contents above at natural size"
+    }
+   },
+   {
+    "kind": "line-ends",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 group of words kept at their end of a long line"
+    }
+   },
+   {
+    "kind": "row-template",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn row template kept: columns where drawn, rows at the drawn pitch"
+    }
+   },
+   {
+    "kind": "bar-labels",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 labels beside 5 drawn bars kept dark"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 1: the line drawn at (50,268) 620x0 was drawn in #e5e7eb with no words on it: a bar; the nearest thin block on it is ΔE 60 away: build a thin strip (6-10px tall) there with background #e5e7eb; its label and amount stay dark text; action 1: the line drawn at (50,388) 620x0 was drawn in #e5e7eb with no words on it: a bar; the nearest thin block on it is ΔE 60 away: build a thin strip (6-10px tall) there with background #e5e7eb; its label and amount stay dark text; action 1: the line drawn at (50,508) 620x0 was drawn in #e5e7eb with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #e5e7eb; its label and amount stay dark text; action 1: the line drawn at (50,628) 620x0 was drawn in #e5e7eb with no words on it: a bar; no thin block was built on that line: build a thin strip (6-10px tall) there with background #e5e7eb; its label and amount stay dark text",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (2,70) 1276x0 (pale divider)",
+       "want": "words not #e5e7eb",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (50,268) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": 60.240881991106825,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (50,388) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": 60.240881991106825,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (50,508) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (50,628) 620x0 (bar)",
+       "want": "#e5e7eb",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the line drawn at (50,268) 304x0 (bar)",
+       "want": "#059669",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (343,256) 23x23",
+       "want": "#059669",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (739,109) 492x621 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (739,109) 492x621",
+       "want": "#ecfdf5",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (780,313) 344x29",
+       "want": "#059669",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1123,313) 68x30",
+       "want": "#fbbf24",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (780,639) 411x62",
+       "want": "#059669",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 87982,
+   "cacheRead": 992832,
+   "output": 33983
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 54750,
+    "output": 21029,
+    "cacheRead": 195530,
+    "toolCalls": 6,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Write src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 252634
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 46764,
+    "output": 4096,
+    "cacheRead": 315496,
+    "toolCalls": 5,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 43075
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 20451,
+    "output": 8858,
+    "cacheRead": 481806,
+    "toolCalls": 6,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 100613
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "ccec3ab014acea77c61ffc90150fedba2e3d134a",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "The user wants the 4 existing input rows in the loan form turned into sliders, each with a green fill up to the handle ring and the current value displayed to the right, using only the 4 rows that already exist.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     }
+    ],
+    "satisfied": 1,
+    "total": 1,
+    "score": 1
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "17 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 14895,
+   "cacheRead": 64687,
+   "output": 10183
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 25078,
+    "output": 10183,
+    "cacheRead": 64687,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 119453
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Design editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#e5e5e5;font-family:Helvetica,Arial,sans-serif;color:#1f1f1f;font-size:12px}
+.top{position:absolute;left:0;top:0;width:1280px;height:48px;background:#2c2c2c;color:#fff;display:flex;align-items:center;gap:6px;padding:0 12px}.top span{width:32px;height:32px;border-radius:6px;text-align:center;line-height:32px}.top span.on{background:#0d99ff}
+.top .name{margin-left:420px;width:auto;color:#ccc}.top .share{margin-left:auto;width:auto;padding:0 14px;background:#0d99ff;border-radius:6px;font-weight:700}
+.layers{position:absolute;left:0;top:48px;width:240px;height:852px;background:#fff;border-right:1px solid #e5e5e5;padding:12px 0;line-height:28px}
+.layers h5{padding:0 14px;font-size:11px;color:#888}.layers div{padding:0 14px}.layers div.sel{background:#e5f4ff;color:#0d99ff;font-weight:700}
+.props{position:absolute;left:1000px;top:48px;width:280px;height:852px;background:#fff;border-left:1px solid #e5e5e5;padding:14px}
+.props h5{font-size:11px;margin:14px 0 8px}.f2{display:flex;gap:8px}.f2 span{flex:1;padding:6px 8px;background:#f5f5f5;border-radius:4px}
+.sw{display:flex;align-items:center;gap:8px;padding:6px 8px;background:#f5f5f5;border-radius:4px}.sw i{width:16px;height:16px;border-radius:3px}
+.frame{position:absolute;left:330px;top:160px;width:580px;height:620px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.flab{position:absolute;left:330px;top:138px;color:#666}
+.hero{position:absolute;left:370px;top:220px;width:500px;height:240px;background:linear-gradient(135deg,#fde68a,#f472b6);border-radius:16px}
+.btn{position:absolute;left:370px;top:500px;width:180px;height:48px;background:#111;border-radius:999px;outline:2px solid #0d99ff;outline-offset:0}
+.h{position:absolute;width:8px;height:8px;background:#fff;border:1.5px solid #0d99ff}
+.dim{position:absolute;left:410px;top:556px;padding:2px 6px;background:#0d99ff;color:#fff;border-radius:3px;font-size:11px}
+.txt{position:absolute;left:370px;top:600px;width:420px;height:12px;background:#e5e5e5;border-radius:6px}
+.cur{position:absolute;left:700px;top:430px;padding:3px 8px;background:#9747ff;color:#fff;border-radius:0 8px 8px 8px;font-size:11px;font-weight:700}
+</style></head><body>
+<div class="top" data-r="toolbar" data-must><span class="on">▲</span><span>#</span><span>□</span><span>✎</span><span>T</span><span>💬</span><span class="name">Landing v3 / Desktop</span><span class="share">Share</span></div>
+<div class="layers" data-r="layers-panel" data-must><h5>LAYERS</h5><div># Desktop</div><div>&nbsp;&nbsp;&nbsp;□ Hero</div><div class="sel">&nbsp;&nbsp;&nbsp;▭ Button / Primary</div><div>&nbsp;&nbsp;&nbsp;T Body copy</div><div>&nbsp;&nbsp;&nbsp;T Headline</div><div># Mobile</div><div># Tablet</div></div>
+<div class="flab" data-r="frame-label">Desktop</div>
+<div class="frame" data-r="canvas-frame" data-must></div>
+<div class="hero" data-r="hero-block"></div>
+<div class="btn" data-r="selected-button" data-must></div>
+<i class="h" style="left:366px;top:496px"></i><i class="h" style="left:546px;top:496px"></i><i class="h" style="left:366px;top:544px"></i><i class="h" style="left:546px;top:544px"></i>
+<div class="dim" data-r="size-badge">180 × 48</div>
+<div class="txt" data-r="text-line"></div>
+<div class="cur" data-r="cursor-tag">Noor</div>
+<div class="props" data-r="properties-panel" data-must><h5>FRAME</h5><div class="f2"><span>X 40</span><span>Y 340</span></div><div class="f2" style="margin-top:6px"><span>W 180</span><span>H 48</span></div>
+<h5>CORNER RADIUS</h5><div class="f2"><span>999</span></div><h5>FILL</h5><div class="sw"><i style="background:#111"></i>111111 &nbsp; 100%</div>
+<h5>STROKE</h5><div class="sw"><i style="background:#fff;border:1px solid #ccc"></i>None</div><h5>EFFECTS</h5><div class="sw">Drop shadow</div></div>
+</body></html>

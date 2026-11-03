@@ -1,0 +1,271 @@
+[
+  {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (429,149) 422x436 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:4:7",
+        "rect": {
+          "x": 429,
+          "y": 149,
+          "w": 422,
+          "h": 436
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+      "satisfied": true,
+      "reason": "1 drawn box built where drawn",
+      "marks": [
+        {
+          "strokeId": "s0",
+          "drawn": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 422
+          },
+          "built": {
+            "x": 429,
+            "y": 149,
+            "w": 422,
+            "h": 436
+          },
+          "dx": 0,
+          "dy": 7
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+      "satisfied": false,
+      "reason": "new element(s) exist but none matches the sketch region (sketch (470,205) 86x1; closest new <h1> at (469,189) 342x32)",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 469,
+          "y": 189,
+          "w": 342,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+      "satisfied": false,
+      "reason": "new element(s) exist but none matches the sketch region (sketch (470,235) 227x1; closest new <p> at (469,229) 342x20)",
+      "bestCandidate": {
+        "tag": "p",
+        "srcLoc": "src/App.tsx:6:9",
+        "rect": {
+          "x": 469,
+          "y": 229,
+          "w": 342,
+          "h": 20
+        }
+      }
+    }
+  },
+  {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <h1> at (469,189) 342x32 matches the sketch region",
+      "bestCandidate": {
+        "tag": "h1",
+        "srcLoc": "src/App.tsx:5:9",
+        "rect": {
+          "x": 469,
+          "y": 189,
+          "w": 342,
+          "h": 32
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (470,287) 340x45: the <input> built for it sits 19px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+      "marks": [
+        {
+          "strokeId": "s3",
+          "drawn": {
+            "x": 470,
+            "y": 287,
+            "w": 340,
+            "h": 45
+          },
+          "built": {
+            "x": 469,
+            "y": 307,
+            "w": 342,
+            "h": 42
+          },
+          "dx": 0,
+          "dy": 19
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <div> at (469,281) 342x68 matches the sketch region",
+      "bestCandidate": {
+        "tag": "div",
+        "srcLoc": "src/App.tsx:8:9",
+        "rect": {
+          "x": 469,
+          "y": 281,
+          "w": 342,
+          "h": 68
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (469,375) 341x46: the <input> built for it sits 18px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+      "marks": [
+        {
+          "strokeId": "s4",
+          "drawn": {
+            "x": 469,
+            "y": 375,
+            "w": 341,
+            "h": 46
+          },
+          "built": {
+            "x": 469,
+            "y": 395,
+            "w": 342,
+            "h": 42
+          },
+          "dx": 1,
+          "dy": 18
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+      "satisfied": true,
+      "reason": "new <input> at (469,307) 342x42 matches the sketch region",
+      "bestCandidate": {
+        "tag": "input",
+        "srcLoc": "src/App.tsx:12:11",
+        "rect": {
+          "x": 469,
+          "y": 307,
+          "w": 342,
+          "h": 42
+        }
+      }
+    }
+  },
+  {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+      "satisfied": false,
+      "reason": "the box drawn at (470,447) 341x48: the <button> built for it sits 16px too low; move it, and what is laid out around it, so it sits where it was drawn (fix the spacing or padding that pushed it, keep its size).",
+      "marks": [
+        {
+          "strokeId": "s5",
+          "drawn": {
+            "x": 470,
+            "y": 447,
+            "w": 341,
+            "h": 48
+          },
+          "built": {
+            "x": 469,
+            "y": 465,
+            "w": 342,
+            "h": 44
+          },
+          "dx": 0,
+          "dy": 16
+        }
+      ]
+    }
+  },
+  {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+      "satisfied": false,
+      "reason": "new element(s) exist but none matches the sketch region (sketch (569,521) 142x2; closest new <main> at (0,0) 1280x900)",
+      "bestCandidate": {
+        "tag": "main",
+        "srcLoc": "src/App.tsx:3:5",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 900
+        }
+      }
+    }
+  },
+  {
+    "kind": "readable",
+    "verdict": {
+      "satisfied": true,
+      "reason": "4 pieces of text read on what is behind them"
+    }
+  },
+  {
+    "kind": "clear",
+    "verdict": {
+      "satisfied": true,
+      "reason": "no words sit on a form field"
+    }
+  },
+  {
+    "kind": "ink-colours",
+    "verdict": {
+      "satisfied": false,
+      "reason": "the whole page should paint #f3f4f6 behind everything, full viewport height; the nearest page-sized colour is ΔE 4 away",
+      "checks": [
+        {
+          "what": "page",
+          "want": "#f3f4f6",
+          "best": 3.981872707592631,
+          "ok": false
+        },
+        {
+          "what": "the box drawn at (470,447) 341x48",
+          "want": "#2563eb",
+          "best": 0,
+          "ok": true
+        }
+      ]
+    }
+  }
+]

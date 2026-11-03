@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
-  chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync,
+  existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync,
 } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
@@ -67,13 +67,6 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  // a read-only home is one of the cases under test; put it back so the OS can
-  // clean the directory up afterwards
-  try {
-    chmodSync(home, 0o700)
-  } catch {
-    // already gone, or never made unwritable
-  }
   if (realXdg === undefined) delete process.env.XDG_DATA_HOME
   else process.env.XDG_DATA_HOME = realXdg
 })
@@ -383,7 +376,11 @@ describe('the library that follows the user', () => {
 
   it('degrades to project-only with a note when the home directory cannot be written', () => {
     const root = project({ 'src/Badge.tsx': PORTABLE })
-    chmodSync(home, 0o500)
+    // A file where the directory should be: refuses every user, root included,
+    // which chmod does not.
+    const blocked = join(home, 'not-a-directory')
+    writeFileSync(blocked, '')
+    process.env.XDG_DATA_HOME = blocked
     const r = captureEntry(root, { file: 'src/Badge.tsx', exportName: 'Badge', kind: 'drawn' })
 
     expect(r.ok).toBe(true)

@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Team chat</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1d1c1d;font-size:14px}
+.ws{position:absolute;left:0;top:0;width:68px;height:900px;background:#3f0e40;padding-top:14px}.ws i{display:block;margin:0 auto 12px;width:38px;height:38px;border-radius:9px;background:#fff;color:#3f0e40;font-style:normal;font-weight:900;text-align:center;line-height:38px}.ws i.o{background:#5d2c5e;color:#fff}
+.sb{position:absolute;left:68px;top:0;width:250px;height:900px;background:#4a154b;color:#cfc3cf;padding:16px 0}
+.sb h2{color:#fff;font-size:17px;padding:0 16px 14px;border-bottom:1px solid #5d2c5e}.sb h6{font-size:13px;font-weight:400;padding:14px 16px 6px}
+.sb div{padding:5px 16px}.sb .on{background:#1164a3;color:#fff}.sb .u{color:#fff;font-weight:700}.sb .u b{float:right;background:#e01e5a;border-radius:9px;padding:0 7px;font-size:12px}
+.ch{position:absolute;left:318px;top:0;width:582px;height:900px}
+.ch .h{height:56px;border-bottom:1px solid #e2e2e2;padding:0 20px;display:flex;align-items:center;gap:10px}.ch .h b{font-size:17px}.ch .h span{color:#616061;font-size:13px}
+.m{display:flex;gap:10px;padding:10px 20px}.m .a{flex:0 0 36px;height:36px;border-radius:6px;background:#2bac76}.m b{margin-right:6px}.m small{color:#616061}.m p{margin-top:3px;line-height:1.45}
+.mn{background:#e8f5fa;color:#1264a3;padding:0 3px;border-radius:3px}
+.code{margin-top:6px;padding:10px;background:#f8f8f8;border:1px solid #e2e2e2;border-radius:4px;font-family:"Courier New",monospace;font-size:12px;white-space:pre;color:#e01e5a}
+.rx{display:flex;gap:6px;margin-top:6px}.rx span{padding:2px 8px;border:1px solid #e2e2e2;border-radius:12px;font-size:12px;background:#f8f8f8}.rx .me{border-color:#1264a3;background:#e8f5fa}
+.th{margin-top:6px;color:#1264a3;font-size:13px;font-weight:700}
+.cp{position:absolute;left:20px;top:790px;width:542px;height:92px;border:1px solid #bbbabb;border-radius:8px}.cp .t{height:34px;background:#f8f8f8;border-radius:8px 8px 0 0;display:flex;gap:14px;align-items:center;padding:0 12px;color:#616061;font-weight:700}.cp p{padding:12px;color:#8a898a}.cp .s{position:absolute;right:10px;bottom:8px;width:30px;height:28px;border-radius:4px;background:#007a5a}
+.tp{position:absolute;left:900px;top:0;width:380px;height:900px;border-left:1px solid #e2e2e2}
+.tp .h{height:56px;border-bottom:1px solid #e2e2e2;padding:0 20px;display:flex;align-items:center;font-size:17px;font-weight:700}.tp .h small{font-weight:400;color:#616061;margin-left:8px;font-size:13px}
+.tp .sep{margin:6px 20px;border-top:1px solid #e2e2e2;padding-top:6px;color:#616061;font-size:12px}
+</style></head><body>
+<div class="ws" data-r="workspace-rail"><i>A</i><i class="o">B</i><i class="o">+</i></div>
+<div class="sb" data-r="sidebar" data-must><h2>Acme Studio ▾</h2><h6>▾ Channels</h6><div># announcements</div><div class="on"># design-crit</div><div class="u"># launch-war-room<b>3</b></div><div># random</div><h6>▾ Direct messages</h6><div>● Priya Shah</div><div class="u">● Leo Martin<b>1</b></div><div>○ Sam Okafor</div></div>
+<div class="ch" data-r="channel" data-must><div class="h"><b># design-crit</b><span>👥 24 · Feedback on anything visual</span></div>
+<div class="m"><div class="a"></div><div><b>Priya Shah</b><small>10:02</small><p>New hero for the pricing page is up, <span class="mn">@Leo Martin</span> can you check spacing on mobile?</p><div class="rx"><span class="me">👀 3</span><span>🔥 5</span></div><div class="th">4 replies · last reply 2m ago</div></div></div>
+<div class="m"><div class="a" style="background:#e8912d"></div><div><b>Leo Martin</b><small>10:14</small><p>Looks good. The gap token is off on small screens:</p><div class="code">.hero { gap: var(--space-6); }
+@media (max-width: 480px) {
+  .hero { gap: var(--space-3); }
+}</div></div></div>
+<div class="m"><div class="a" style="background:#36c5f0"></div><div><b>Sam Okafor</b><small>10:21</small><p>Shipping it after lunch ✅</p><div class="rx"><span>🚀 2</span></div></div></div>
+<div class="cp"><div class="t"><span>B</span><span>I</span><span>S</span><span>🔗</span><span>≡</span><span>&lt;/&gt;</span></div><p>Message #design-crit</p><div class="s"></div></div></div>
+<div class="tp" data-r="thread-pane" data-must><div class="h">Thread<small># design-crit</small></div>
+<div class="m"><div class="a"></div><div><b>Priya Shah</b><small>10:02</small><p>New hero for the pricing page is up, <span class="mn">@Leo Martin</span> can you check spacing on mobile?</p></div></div>
+<div class="sep">4 replies</div>
+<div class="m"><div class="a" style="background:#e8912d"></div><div><b>Leo Martin</b><small>10:09</small><p>On it, give me 10.</p></div></div>
+<div class="m"><div class="a" style="background:#36c5f0"></div><div><b>Sam Okafor</b><small>10:11</small><p>The CTA wraps at 375px.</p></div></div>
+<div class="m"><div class="a"></div><div><b>Priya Shah</b><small>10:30</small><p>Fixed, thanks both 🙏</p></div></div></div>
+</body></html>

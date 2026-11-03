@@ -1,0 +1,106 @@
+{
+ "c1-circus-tent": {
+  "found": {
+   "clip-shape": 2,
+   "stripes-or-layers": 1,
+   "overlap": 8
+  },
+  "names": [
+   "clip-shape",
+   "overlap",
+   "stripes-or-layers"
+  ]
+ },
+ "c2-aquarium": {
+  "found": {
+   "serif": 1,
+   "clip-shape": 2,
+   "overlap": 5
+  },
+  "names": [
+   "clip-shape",
+   "overlap",
+   "serif"
+  ]
+ },
+ "c3-barber-shop": {
+  "found": {
+   "stripes-or-layers": 1,
+   "huge-type": 1,
+   "uppercase-display": 1,
+   "overlap": 1
+  },
+  "names": [
+   "huge-type",
+   "overlap",
+   "stripes-or-layers",
+   "uppercase-display"
+  ]
+ },
+ "c4-origami-studio": {
+  "found": {
+   "clip-shape": 4,
+   "overlap": 1
+  },
+  "names": [
+   "clip-shape",
+   "overlap"
+  ]
+ },
+ "c5-tattoo-parlor": {
+  "found": {
+   "huge-type": 1,
+   "serif": 1,
+   "italic": 1,
+   "tilt": 1,
+   "overlap": 6
+  },
+  "names": [
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "tilt"
+  ]
+ },
+ "e1-parking-finder": {
+  "found": {
+   "overlap": 7
+  },
+  "names": [
+   "overlap"
+  ]
+ },
+ "e2-timesheet": {
+  "found": {},
+  "names": []
+ },
+ "e3-poll-results": {
+  "found": {
+   "soft-shadow": 1,
+   "overlap": 4
+  },
+  "names": [
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e4-video-call": {
+  "found": {
+   "overlap": 8
+  },
+  "names": [
+   "overlap"
+  ]
+ },
+ "e5-budget-donut": {
+  "found": {
+   "stripes-or-layers": 1,
+   "overlap": 2
+  },
+  "names": [
+   "overlap",
+   "stripes-or-layers"
+  ]
+ }
+}

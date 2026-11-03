@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Project timeline</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#18181b;padding:28px 36px}
+.top{display:flex;justify-content:space-between;align-items:center}h1{font-size:24px}.seg{display:flex;border:1px solid #d4d4d8;border-radius:8px;font-size:13px}.seg span{padding:8px 14px}.seg .on{background:#18181b;color:#fff;border-radius:7px}
+.g{position:relative;margin-top:24px;border:1px solid #e4e4e7;border-radius:12px;height:760px;overflow:hidden}
+.weeks{position:absolute;left:260px;right:0;top:0;height:44px;display:flex;border-bottom:1px solid #e4e4e7;font-size:12px;color:#71717a}.weeks span{flex:1;padding:14px 10px;border-left:1px solid #f4f4f5}
+.names{position:absolute;left:0;top:44px;width:260px;border-right:1px solid #e4e4e7}.names div{height:64px;padding:0 18px;display:flex;align-items:center;gap:10px;font-size:14px;border-bottom:1px solid #f4f4f5}.names i{width:26px;height:26px;border-radius:50%}
+.bar{position:absolute;height:30px;border-radius:8px;color:#fff;font-size:12px;padding:8px 10px;white-space:nowrap}
+.today{position:absolute;left:640px;top:0;bottom:0;width:2px;background:#ef4444}.today b{position:absolute;top:44px;left:-24px;background:#ef4444;color:#fff;font-size:11px;padding:2px 6px;border-radius:4px}
+</style></head><body>
+<div class="top"><h1 data-r="title" data-must>Website relaunch</h1><div class="seg" data-r="zoom"><span>Day</span><span class="on">Week</span><span>Month</span></div></div>
+<div class="g" data-r="timeline" data-must>
+<div class="weeks"><span>Oct 5</span><span>Oct 12</span><span>Oct 19</span><span>Oct 26</span><span>Nov 2</span><span>Nov 9</span><span>Nov 16</span><span>Nov 23</span></div>
+<div class="names" data-r="task-names"><div><i style="background:#a78bfa"></i>Research</div><div><i style="background:#f472b6"></i>Wireframes</div><div><i style="background:#60a5fa"></i>Visual design</div><div><i style="background:#34d399"></i>Content</div><div><i style="background:#fbbf24"></i>Build</div><div><i style="background:#f87171"></i>QA</div><div><i style="background:#a3a3a3"></i>Launch</div></div>
+<div class="bar" style="left:270px;top:61px;width:220px;background:#8b5cf6">Research</div>
+<div class="bar" style="left:400px;top:125px;width:200px;background:#ec4899">Wireframes</div>
+<div class="bar" style="left:520px;top:189px;width:300px;background:#3b82f6">Visual design</div>
+<div class="bar" style="left:560px;top:253px;width:340px;background:#10b981">Content</div>
+<div class="bar" style="left:740px;top:317px;width:320px;background:#f59e0b">Build</div>
+<div class="bar" style="left:990px;top:381px;width:160px;background:#ef4444">QA</div>
+<div class="bar" style="left:1130px;top:445px;width:60px;background:#52525b">Launch</div>
+<div class="today" data-r="today"><b>Today</b></div></div>
+</body></html>

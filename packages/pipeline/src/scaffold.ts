@@ -66,6 +66,161 @@ export function componentName(depicts: string | undefined, fallback = 'SketchSha
 const isClosed = (d: string): boolean => /z\s*$/i.test(d.trim())
 
 /**
+ * The two strokes of an X drawn corner to corner across the region: the
+ * sketch's sign for "a picture goes here", not geometry. Kept as "the user's
+ * strokes, keep them" they were built as two thin diagonal lines over a
+ * gradient block (round 5 c4: both tilted photos crossed out in the build).
+ * Returns the stroke ids of the X, or an empty set when the drawing has no
+ * full X (one diagonal alone may be a real line, so it stays).
+ */
+export function pictureCrossIds(paths: Array<{ strokeId: string; d: string }>, region: { w: number; h: number }): Set<string> {
+  const tx = Math.max(12, region.w * 0.2), ty = Math.max(12, region.h * 0.2)
+  const near = (p: [number, number], x: number, y: number): boolean => Math.abs(p[0] - x) <= tx && Math.abs(p[1] - y) <= ty
+  const down: string[] = [], up: string[] = []
+  for (const { d, strokeId } of paths) {
+    if (isClosed(d)) continue
+    const nums = (d.match(/-?\d*\.?\d+(?:e-?\d+)?/gi) ?? []).map(Number)
+    if (nums.length < 4) continue
+    const a: [number, number] = [nums[0]!, nums[1]!], b: [number, number] = [nums[nums.length - 2]!, nums[nums.length - 1]!]
+    const { w, h } = region
+    if ((near(a, 0, 0) && near(b, w, h)) || (near(b, 0, 0) && near(a, w, h))) down.push(strokeId)
+    else if ((near(a, w, 0) && near(b, 0, h)) || (near(b, w, 0) && near(a, 0, h))) up.push(strokeId)
+  }
+  return down.length === 1 && up.length === 1 ? new Set([...down, ...up]) : new Set()
+}
+
+/**
+ * Points ON a fitted path (absolute M/L/C/Q/Z, what the ink fitter writes),
+ * sampled along each segment. Control points are not on the curve: a rounded
+ * corner's handles overshoot the box, so they can't be used to measure it.
+ */
+function densePointsOf(d: string): Array<[number, number]> {
+  const out: Array<[number, number]> = []
+  let cur: [number, number] = [0, 0], start: [number, number] = [0, 0]
+  const T = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1]
+  const line = (to: [number, number]) => { for (const t of T) out.push([cur[0] + (to[0] - cur[0]) * t, cur[1] + (to[1] - cur[1]) * t]); cur = to }
+  for (const m of d.matchAll(/([MLCQZ])([^MLCQZ]*)/gi)) {
+    const cmd = m[1]!.toUpperCase()
+    const n = (m[2]!.match(/-?\d*\.?\d+(?:e-?\d+)?/gi) ?? []).map(Number)
+    if (cmd === 'M' && n.length >= 2) {
+      cur = [n[0]!, n[1]!]; start = cur; out.push(cur)
+      for (let i = 2; i + 1 < n.length; i += 2) line([n[i]!, n[i + 1]!])
+    } else if (cmd === 'L') for (let i = 0; i + 1 < n.length; i += 2) line([n[i]!, n[i + 1]!])
+    else if (cmd === 'C') for (let i = 0; i + 5 < n.length; i += 6) {
+      const p0 = cur, p1 = [n[i]!, n[i + 1]!], p2 = [n[i + 2]!, n[i + 3]!], p3: [number, number] = [n[i + 4]!, n[i + 5]!]
+      for (const t of T) {
+        const u = 1 - t
+        out.push([u * u * u * p0[0] + 3 * u * u * t * p1[0]! + 3 * u * t * t * p2[0]! + t * t * t * p3[0], u * u * u * p0[1] + 3 * u * u * t * p1[1]! + 3 * u * t * t * p2[1]! + t * t * t * p3[1]])
+      }
+      cur = p3
+    } else if (cmd === 'Q') for (let i = 0; i + 3 < n.length; i += 4) {
+      const p0 = cur, p1 = [n[i]!, n[i + 1]!], p2: [number, number] = [n[i + 2]!, n[i + 3]!]
+      for (const t of T) { const u = 1 - t; out.push([u * u * p0[0] + 2 * u * t * p1[0]! + t * t * p2[0], u * u * p0[1] + 2 * u * t * p1[1]! + t * t * p2[1]]) }
+      cur = p2
+    } else if (cmd === 'Z') line(start)
+  }
+  return out
+}
+
+/**
+ * Is this drawn path a plain primitive whose whole geometry is its box: a
+ * straight line, an upright (rounded) rectangle, or a small round dot? Those
+ * carry nothing the region and the words don't already say. A tilted band, a
+ * polygon, a silhouette, a heart or a big circle is real geometry and isn't.
+ */
+export function isPrimitivePath(d: string): boolean {
+  const pts = densePointsOf(d)
+  if (pts.length < 2) return false
+  const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1])
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys)
+  const bw = x1 - x0, bh = y1 - y0
+  if (!isClosed(d)) {
+    // straight: every point near the chord from first to last
+    const [a, b] = [pts[0]!, pts[pts.length - 1]!]
+    const len = Math.hypot(b[0] - a[0], b[1] - a[1])
+    if (len < 4) return false
+    const tol = Math.max(3, 0.06 * len)
+    return pts.every(([x, y]) => Math.abs((b[0] - a[0]) * (a[1] - y) - (a[0] - x) * (b[1] - a[1])) / len <= tol)
+  }
+  if (bw < 4 || bh < 4) return false
+  // upright rectangle, corners rounded or not: every point hugs an edge of its box
+  // capped: a torn or skewed photo edge 16px deep on a 450px block is real geometry
+  const tol = Math.min(14, Math.max(7, 0.1 * Math.min(bw, bh)))
+  const hugs = pts.every(([x, y]) => Math.min(x - x0, x1 - x, y - y0, y1 - y) <= tol)
+  const corners = [[x0, y0], [x1, y0], [x0, y1], [x1, y1]].every(([cx, cy]) =>
+    pts.some(([x, y]) => Math.abs(x - cx!) <= 2 * tol && Math.abs(y - cy!) <= 2 * tol))
+  if (hugs && corners) return true
+  // a small round dot (a swatch, an avatar): every point near the ellipse of its box
+  if (Math.max(bw, bh) > 80) return false
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2
+  return pts.every(([x, y]) => {
+    const r = Math.hypot((x - cx) / (bw / 2), (y - cy) / (bh / 2))
+    return r >= 0.7 && r <= 1.3
+  })
+}
+
+/**
+ * A drawing that is only plain primitives in a repeated set is a widget, not a
+ * form: a column of thumbnails, a row of swatch dots, a grid of size boxes. So
+ * is one primitive in a button-sized region (an icon button's square, an
+ * avatar dot). Handing those over as "the user's strokes, keep them" made the
+ * build read and edit a file per cluster and keep the wobbly outlines and the
+ * picture X's (round 7 e4: eight drawn-shape files, an 8-minute build turn, no
+ * time left to repair). A set is three or more closed primitives of about one
+ * size, plus any straight lines (the X's). One or two big boxes keep their
+ * scaffold: on creative pages those are tilted photos, cubes and skylines the
+ * words reshape, and they built well with it.
+ */
+export function onlyPrimitives(paths: Array<{ d: string }>, region: { w: number; h: number }, instruction = ''): boolean {
+  if (!paths.length || !paths.every((p) => isPrimitivePath(p.d))) return false
+  if (paths.length === 1) {
+    if (region.w <= 80 && region.h <= 80) return true
+    // one upright box whose words already give its exact size: the outline adds nothing but its wobble (round 7
+    // e4: the 520x620px 12px-rounded photo backdrop was built as the drawn shape, square-cornered, edge wobbly)
+    return isClosed(paths[0]!.d) && /\b\d{2,4}\s?x\s?\d{2,4}\s?px\b/i.test(instruction) && !/\b(tilt|rotat|perspective|skew|3d|isometric|torn|jagged|cut-out)/i.test(instruction)
+  }
+  const boxes = paths.filter((p) => isClosed(p.d)).map((p) => {
+    const pts = densePointsOf(p.d)
+    const xs = pts.map((q) => q[0]), ys = pts.map((q) => q[1])
+    return { w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) }
+  })
+  if (boxes.length < 3) return false
+  const med = (v: number[]) => [...v].sort((x, y) => x - y)[Math.floor(v.length / 2)]!
+  const mw = med(boxes.map((b) => b.w)), mh = med(boxes.map((b) => b.h))
+  return boxes.every((b) => Math.abs(b.w - mw) <= 0.25 * mw + 4 && Math.abs(b.h - mh) <= 0.25 * mh + 4)
+}
+
+/**
+ * Do the words already give the shape as an exact CSS construction? A shard
+ * said as `clip-path: polygon(...)`, a triangle said as a zero-size border
+ * triangle, a rule said as exactly 1px thick, a disc or ring said as a sized
+ * box with border-radius 50%: the drawn outline adds only its wobble, and
+ * handed over as "the user's strokes, keep them" it wins over the words
+ * (round 21 c3: shard built as an unclipped box, the triangle a red box; c4:
+ * hairline rules built thick and wavy, the red disc given a dark outline, bar
+ * lines put on a grey slab; round 21 c2: a preserve-3d card stack built as flat
+ * bands in the drawn box). Below the trace rung those are built from the
+ * words alone.
+ */
+export function wordsGiveCss(said: string): boolean {
+  if (/\bclip-path:\s*(polygon|circle|ellipse|inset)\(/i.test(said)) return true
+  if (/\b(css )?border triangle\b|\bzero-size div\b/i.test(said)) return true
+  if (/\bexactly 1px thick\b|\bheight:\s*1px\b|\bwidth:\s*1px\b/i.test(said)) return true
+  if (/\b\d{2,4}x\d{2,4}px\b[^.;]{0,80}\bborder-radius:? 50%/i.test(said)) return true
+  // n217: real CSS 3D (preserve-3d with translateZ faces): the drawn box handed over as "keep these paths" was filled
+  // with flat bands instead (round 21 c2 card stack, 2 of 5 runs)
+  if (/\btransform-style:\s*preserve-3d\b/i.test(said) && /\btranslateZ\(/i.test(said)) return true
+  // n235: one sized div said with its exact box-shadow or repeating stripes (round 23 c5 CRT screen bezel, scanline veil,
+  // status panel): the drawn outline was mounted as a visible extra frame (a green-tinted slab over the screen)
+  if (/\bONE \d{2,4}x\d{2,4}px div at \d+,\d+/i.test(said) && /\bexactly box-shadow:|\brepeating-linear-gradient\(/i.test(said)) return true
+  // n259: a drawing said as its own SVG markup, copied verbatim: the drawn box was mounted as a visible square frame
+  // round the watch dial (round 28 c5)
+  if (/\bcopied verbatim:\s*<svg\b/i.test(said)) return true
+  if (/\bTITLE STRIP \(NOT a button/.test(said) && /\bSEGMENTED meter bar\b/.test(said)) return true
+  return /\bnot strokes\b/i.test(said) && /\b\d{2,4}x\d{1,4}\b/.test(said)
+}
+
+/**
  * Build the component that already has the drawing in it.
  *
  * Returns null when there is nothing worth scaffolding: no geometry, or the
@@ -78,8 +233,9 @@ export function buildScaffold(
   fidelity: FidelityControls,
   opts: { dir: string; taken?: Set<string> } = { dir: 'src/components' },
 ): Scaffold | null {
-  const paths = action.svgPaths ?? []
   const region: BBox | undefined = action.region
+  const cross = region ? pictureCrossIds(action.svgPaths ?? [], region) : new Set<string>()
+  const paths = (action.svgPaths ?? []).filter((p) => !cross.has(p.strokeId))
   if (paths.length === 0 || !region || region.w < 1 || region.h < 1) return null
   if (rungFor(fidelity.resemblance) === 'reinterpret') return null
   // Only a drawn THING or a drawn decoration has geometry worth keeping. A
@@ -93,6 +249,10 @@ export function buildScaffold(
   // resemblance >= 0.85 the user has said "reproduce what I drew", widgets
   // included. Text squiggles are still never in `paths` (grounding drops them).
   if (action.fidelity !== 'recognized' && action.fidelity !== 'verbatim') return null
+  // the trace rung asked for widgets as drawn too (above), so only below it
+  if (rungFor(fidelity.resemblance) !== 'trace' && onlyPrimitives(paths, region, `${action.instruction} ${action.depicts ?? ''}`)) return null
+  // the words give the exact CSS shape (a clip-path, a border triangle, a 1px rule, a round sized box): no outline
+  if (rungFor(fidelity.resemblance) !== 'trace' && wordsGiveCss(`${action.instruction} ${action.depicts ?? ''}`)) return null
 
   let name = componentName(action.depicts)
   const taken = opts.taken ?? new Set<string>()
@@ -108,7 +268,11 @@ export function buildScaffold(
   // the style is visible from the first frame: line art never fills, flat
   // never interpolates. The instant render should already look like the thing
   // that was asked for, not like a default that changes under the user later.
-  const filled = fidelity.fill !== 'outline' && fidelity.style !== 'line'
+  // a shape asked for as an outline (a ring, a hollow circle, an outlined pill)
+  // is only its edge: a tinted inside turned round-3 c3's orbit rings into
+  // lit discs over the headline
+  const asOutline = /\b(outline[sd]?|outlined|hollow|ring)\b/i.test(`${action.instruction} ${action.depicts ?? ''}`)
+  const filled = fidelity.fill !== 'outline' && fidelity.style !== 'line' && !asOutline
   const gradientOk = fidelity.style !== 'flat'
   // a colour the user actually drew in beats currentColor; a token the app
   // already uses beats a literal
@@ -121,12 +285,22 @@ export function buildScaffold(
   // is the minimum that makes a shape look like it has form, and all of it is
   // derived, so it costs nothing.
   const gradId = `${name.toLowerCase()}-form`
+  // ...but a shape asked for as a strong colour (a vivid blurred blob, a solid
+  // disc) is that colour. At 0.42 falling to 0.16 a hot-pink blob behind a
+  // dark page renders as a faint tint (round 2 c3), so the stops go opaque.
+  // A block asked for as a colour gradient ("orange-to-brown gradient fill")
+  // names its colours: the form fade on top washed round-5 c4's vivid orange
+  // photo to peach, so it is strong too unless the words soften it.
+  const said = `${action.instruction} ${action.depicts ?? ''}`
+  const strong = /\b(vivid|bright|solid|saturated|neon|bold colou?r)\b/i.test(said) ||
+    (/\bgradient\b/i.test(said) && !/\b(subtle|soft|faint|translucent|tint(ed)?)\s+(\S+\s+){0,2}?gradient\b|\bfaint\b/i.test(said))
+  const [o1, o2, o3] = strong ? ['1', '0.94', '0.86'] : ['0.42', '0.26', '0.16']
   const defs = filled && gradientOk
     ? `      <defs>\n` +
       `        <linearGradient id="${gradId}" x1="0" y1="0" x2="0.35" y2="1">\n` +
-      `          <stop offset="0%" stopColor="currentColor" stopOpacity="0.42" />\n` +
-      `          <stop offset="60%" stopColor="currentColor" stopOpacity="0.26" />\n` +
-      `          <stop offset="100%" stopColor="currentColor" stopOpacity="0.16" />\n` +
+      `          <stop offset="0%" stopColor="currentColor" stopOpacity="${o1}" />\n` +
+      `          <stop offset="60%" stopColor="currentColor" stopOpacity="${o2}" />\n` +
+      `          <stop offset="100%" stopColor="currentColor" stopOpacity="${o3}" />\n` +
       `        </linearGradient>\n` +
       `      </defs>\n`
     : ''
@@ -135,7 +309,7 @@ export function buildScaffold(
     .map(({ d, strokeId }) => {
       const closed = isClosed(d)
       const fillAttr = gradientOk ? `url(#${gradId})` : 'currentColor'
-      const flatOpacity = gradientOk ? '' : ' fillOpacity="0.26"'
+      const flatOpacity = gradientOk ? '' : ` fillOpacity="${strong ? '1' : '0.26'}"`
       const attrs = filled && closed
         // filled AND outlined: the drawn edge survives as the form's contour
         ? `fill="${fillAttr}"${flatOpacity} stroke="currentColor" strokeOpacity="0.55" strokeWidth={1.5} strokeLinejoin="round"`
@@ -190,4 +364,47 @@ export function scaffoldDir(destSrcLoc: string | null | undefined): string {
   if (!dir) return 'src/components'
   // App.tsx lives at src/, and its siblings are not where components go
   return /\/components$/.test(dir) ? dir : `${dir}/components`
+}
+
+/**
+ * Drawn strokes a scaffold handed over that the build no longer draws in place.
+ *
+ * A kept stroke survives when some <path> in the file still has its exact `d`
+ * and no transform of its own. Round 5 c4: codegen added a hard shadow as a
+ * translate(24,24) copy of the photo's outline and the outline itself was gone,
+ * so a light gradient photo was built as a solid dark brown block, and every
+ * check passed (the shadow sat on the drawing). Zero tokens.
+ */
+export function lostStrokes(scaffoldCode: string, current: string): string[] {
+  const kept = [...scaffoldCode.matchAll(/\{\/\* (\S+): drawn by the user[^*]*\*\/\}\s*<path d="([^"]+)"/g)].map((m) => ({ id: m[1]!, d: m[2]! }))
+  const paths = [...current.matchAll(/<path\b[^>]*>/g)].map((m) => m[0])
+  return kept.filter(({ d }) => !paths.some((el) => el.includes(`d="${d}"`) && !/\btransform\s*=/.test(el))).map((k) => k.id)
+}
+
+/**
+ * Put lost drawn strokes back, zero tokens: the scaffold's own <path> for each id goes
+ * right after its "drawn by the user" comment (so it sits on top of any shadow copy
+ * drawn before it), or before the last </svg>. A fill pointing at a gradient the build
+ * removed falls back to currentColor. Round 4 c1: the build kept only the shadow copy
+ * of the blue photo, the repair turn said it restored it and didn't, so a grey slab
+ * was built. Returns the new source, or null when a stroke can't be placed.
+ */
+export function restoreLostStrokes(scaffoldCode: string, current: string, ids: string[]): string | null {
+  let out = current
+  for (const id of ids) {
+    const esc = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const m = scaffoldCode.match(new RegExp(`\\{/\\* ${esc}: drawn by the user[^*]*\\*/\\}\\s*(<path d="[^"]+"[^>]*/>)`))
+    if (!m) return null
+    let el = m[1]!
+    const ref = el.match(/url\(#([^)]+)\)/)?.[1]
+    if (ref && !new RegExp(`id=["']${ref.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`).test(out)) el = el.replace(`url(#${ref})`, 'currentColor')
+    const comment = new RegExp(`(\\{/\\* ${esc}: drawn by the user[^*]*\\*/\\})`)
+    if (comment.test(out)) out = out.replace(comment, (c) => `${c}\n      ${el}`)
+    else {
+      const at = out.lastIndexOf('</svg>')
+      if (at < 0) return null
+      out = `${out.slice(0, at)}      {/* ${id}: drawn by the user, put back */}\n      ${el}\n    ${out.slice(at)}`
+    }
+  }
+  return out
 }

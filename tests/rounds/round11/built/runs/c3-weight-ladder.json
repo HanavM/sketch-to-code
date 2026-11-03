@@ -1,0 +1,149 @@
+{
+  "id": "c3-weight-ladder",
+  "at": "2026-10-23T16:04:34.852Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7869272498782289,
+    "overallV2": 0.7869272498782289,
+    "overallV1": 0.700787806617772,
+    "colour": 0.9221759303188297,
+    "structure": 0.7675154768109392,
+    "structureStrict": 0.5352537262326631,
+    "colourAligned": 0.9221759303188297,
+    "structureAligned": 0.7675154768109392,
+    "align": {
+      "scale": 1.16,
+      "dx": -128,
+      "dy": -80,
+      "r": 0.7146780730891273
+    },
+    "layout": 0.6877395896517774
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "tilt"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 36469,
+    "output": 20262,
+    "cacheRead": 422824
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 51391,
+      "output": 18548,
+      "cacheRead": 419740,
+      "toolCalls": 17,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read components/SketchShape3.tsx",
+        "Read components/SketchShape4.tsx",
+        "Read components/SketchShape5.tsx",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Edit src/index.css",
+        "Write src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Edit src/App.tsx",
+        "Read s2c-bench-app/vite.config.ts"
+      ],
+      "ms": 199291
+    }
+  ],
+  "reading": "The sketch lays out a type-specimen landing page: a borderless nav bar, a large column of six weight-specimen blocks, a right-side info panel with metadata list and download button, and two tilted scrolling marquee bars at the bottom — all specified precisely by the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        52,
+        33,
+        1176,
+        9
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Navigation bar with no box/border: wide-letter-spaced \"GRADIENT SANS\" on the left, \"SPECIMEN · BUY · TRIAL\" on the right."
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        87,
+        754,
+        558
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Large panel containing six separate type-specimen elements, each its own real element with live text, stacked in a column, part by part (page px, size then top-"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        883,
+        103,
+        346,
+        316
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Right-side info panel with a heading, description, a tight metadata list (rows exactly 26px apart, 13px type, first row 138px below the panel's top), and a down"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        670,
+        1275,
+        145
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Full-width decorative scrolling marquee bar, tilted 3° anticlockwise, vivid red-orange background, with bold black 56px text \"VARIABLE ✶\" repeated along its len"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        751,
+        1274,
+        123
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Full-width decorative scrolling marquee bar, tilted 2° clockwise, off-white background, with black 56px text \"whisper · shout ·\" repeated along its length."
+    }
+  ],
+  "rejected": []
+}

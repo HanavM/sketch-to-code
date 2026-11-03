@@ -1,0 +1,567 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "8e0c2eb8d65bc643c3495c13f667d8a9adb91543",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/RetroSynthwave.tsx"
+  ],
+  "reading": "A retro synthwave arcade-night poster: dark page background, HUD labels top corners, a glowing neon 'ARCADE NIGHT' heading, a gradient yellow-to-pink sun sliced by dark stripes, a pink perspective grid floor below it, a date/time line, and an outlined 'INSERT COIN' button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"PLAYER 1\" at (40,32) 70x16 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:7:9",
+      "rect": {
+       "x": 40,
+       "y": 30,
+       "w": 70.015625,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#b8a8e0 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"ARCADE NIGHT\" at (251,50) 778x122 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:21:7",
+      "rect": {
+       "x": 251.1328125,
+       "y": 57,
+       "w": 777.734375,
+       "h": 108
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#22d3ee is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x122 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:6:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 122
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<svg> src/components/RetroSynthwave.tsx:16:5 at (440,170) 400x399 sits on the drawn shape",
+     "claimed": "e7"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#10061f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 2,
+    "score": 0.3594437894138768,
+    "massSimilarity": 0.22777684201982396,
+    "flaws": [
+     "displaced"
+    ],
+    "notes": [
+     "proportions changed: the sketch is 1.00:1 (w:h), the output 2.94:1",
+     "only 23% of the drawn layout is reproduced — the parts are not where they were drawn"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 1,
+        "y": 561,
+        "w": 1277,
+        "h": 337
+       },
+       "built": {
+        "x": 0,
+        "y": 561,
+        "w": 1280,
+        "h": 337
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#be3a8a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"FRI 13 NOV\" at (532,603) 156x30 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:51:11",
+      "rect": {
+       "x": 531.578125,
+       "y": 599,
+       "w": 156.03125,
+       "h": 39
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,561) 1280x337 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:35:7",
+      "rect": {
+       "x": 0,
+       "y": 561,
+       "w": 1280,
+       "h": 337
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s11",
+       "drawn": {
+        "x": 520,
+        "y": 689,
+        "w": 241,
+        "h": 64
+       },
+       "built": {
+        "x": 519.5,
+        "y": 689,
+        "w": 241,
+        "h": 64
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#facc15 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "top-bands",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 top band at their drawn tops and heights"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": false,
+     "reason": "action 2: the outline drawn at (440,170) 400x399 has a divider drawn across it with #facc15 tapped on one side and #ec4899 on the other: two solid fills meeting at the divider, not a fade; the side tapped #facc15 is not painted that solid colour: paint the block itself background linear-gradient(180deg, #facc15 0%, #facc15 69%, #ec4899 69%, #ec4899 100%)",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#10061f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (40,38) 72x0",
+       "want": "#b8a8e0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1130,38) 72x0",
+       "want": "#b8a8e0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (248,122) 782x0",
+       "want": "#22d3ee",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (440,170) 400x399 (two fills at a divider)",
+       "want": "linear-gradient(180deg, #facc15 0%, #facc15 69%, #ec4899 69%, #ec4899 100%)",
+       "best": null,
+       "ok": false
+      },
+      {
+       "what": "the box drawn at (1,561) 1277x337 (flat panel)",
+       "want": "square corners, no shadow, no gradient",
+       "best": null,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (1,561) 1277x337",
+       "want": "#be3a8a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (506,615) 268x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (520,689) 241x64",
+       "want": "#facc15",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 67328,
+   "cacheRead": 571018,
+   "output": 22113
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 48502,
+    "output": 19106,
+    "cacheRead": 182741,
+    "toolCalls": 8,
+    "tools": [
+     "Glob",
+     "Read components/RetroSynthwave.tsx",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Read src/main.tsx",
+     "Edit components/RetroSynthwave.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 213948
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 37354,
+    "output": 2336,
+    "cacheRead": 223125,
+    "toolCalls": 4,
+    "tools": [
+     "Read components/RetroSynthwave.tsx",
+     "Edit components/RetroSynthwave.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 23934
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 3585,
+    "output": 671,
+    "cacheRead": 165152,
+    "toolCalls": 2,
+    "tools": [
+     "Read components/RetroSynthwave.tsx",
+     "Edit components/RetroSynthwave.tsx"
+    ],
+    "ms": 6895
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/RetroSynthwave.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 199 A 200 200 0 1 0 …\""
+     }
+    ]
+   },
+   {
+    "file": "src/components/RetroSynthwave.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 199 A 200 200 0 1 0 …\""
+     }
+    ]
+   },
+   {
+    "file": "src/components/RetroSynthwave.tsx",
+    "edits": [
+     {
+      "kind": "duplicate-path-dropped",
+      "detail": "d=\"M 0 199 A 200 200 0 1 0 …\""
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "a5e44a961e70a80b46ce665399a9a237da8a7735",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/RetroSynthwave.tsx"
+  ],
+  "reading": "The synthwave scene is missing its sun, so add a yellow-to-pink gradient disc into the scene; the ground band should stay dark with thin flat pink lines; and the INSERT COIN button should have a dark interior with yellow text.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "change observed on same-file elements"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": true,
+      "reason": "target observably changed"
+     }
+    ],
+    "satisfied": 2,
+    "total": 2,
+    "score": 1
+   },
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <circle> at (440,169) 400x400 matches the sketch region",
+     "bestCandidate": {
+      "tag": "circle",
+      "srcLoc": "src/components/RetroSynthwave.tsx:37:9",
+      "rect": {
+       "x": 440,
+       "y": 169,
+       "w": 400,
+       "h": 400
+      }
+     }
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 directions and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 9411,
+   "cacheRead": 119458,
+   "output": 3193
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 12604,
+    "output": 3193,
+    "cacheRead": 119458,
+    "toolCalls": 7,
+    "tools": [
+     "Read components/RetroSynthwave.tsx",
+     "Read src/App.tsx",
+     "Edit components/RetroSynthwave.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 31771
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

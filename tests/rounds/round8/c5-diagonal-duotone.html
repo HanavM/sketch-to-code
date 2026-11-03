@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Diagonal duotone</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#1d4ed8;font-family:Helvetica,Arial,sans-serif}
+.half{position:absolute;left:0;top:0;width:1280px;height:900px;background:#fef08a;clip-path:polygon(0 0,62% 0,38% 100%,0 100%)}
+.grain{position:absolute;left:0;top:0;width:1280px;height:900px;background:repeating-linear-gradient(45deg,rgba(0,0,0,.05) 0 2px,transparent 2px 6px)}
+.num{position:absolute;left:330px;top:90px;font-size:640px;font-weight:900;line-height:.8;letter-spacing:-40px;color:#fff;mix-blend-mode:difference}
+.l{position:absolute;left:60px;top:60px;width:360px;color:#1d4ed8}.l h2{font-size:44px;letter-spacing:-1px;line-height:1}.l p{margin-top:16px;font-size:17px;line-height:1.5;color:#1e3a8a}
+.r{position:absolute;left:880px;top:640px;width:340px;color:#fef08a}.r b{display:block;font-size:22px}.r span{display:inline-block;margin-top:18px;padding:12px 22px;border:2px solid #fef08a;font-weight:700}
+.strip{position:absolute;left:1236px;top:0;width:44px;height:900px;background:#111;color:#fef08a;writing-mode:vertical-rl;font-size:14px;font-weight:700;letter-spacing:6px;line-height:44px;text-align:center}
+</style></head><body>
+<div class="half" data-r="yellow-half" data-must></div><div class="grain" data-r="grain"></div>
+<div class="num" data-r="giant-number" data-must>8</div>
+<div class="l" data-r="left-copy"><h2>Season eight.</h2><p>Eight films, eight cities, one long night of premieres. Doors at seven.</p></div>
+<div class="r" data-r="right-copy"><b>Tickets on sale Friday</b><span>Get notified</span></div>
+<div class="strip" data-r="side-strip">PREMIERE NIGHT ★ 2027</div>
+</body></html>

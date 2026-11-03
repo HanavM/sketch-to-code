@@ -1,0 +1,136 @@
+{
+  "id": "e3-mail-client",
+  "at": "2026-10-23T15:51:58.358Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7096927245498618,
+    "overallV2": 0.7096927245498618,
+    "overallV1": 0.6667818472266684,
+    "colour": 0.9907730022667975,
+    "structure": 0.8808836555045291,
+    "structureStrict": 0.8376736320979353,
+    "colourAligned": 0.9907730022667975,
+    "structureAligned": 0.8808836555045291,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8568569614868005
+    },
+    "layout": 0.75021593183012
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 42615,
+    "output": 18980,
+    "cacheRead": 128981
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 45825,
+      "output": 12212,
+      "cacheRead": 118520,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 112891
+    }
+  ],
+  "reading": "A three-column Gmail-style layout: a flat left sidebar with a Compose button and folder/label list, a middle mail-list panel with a search box, tabs and seven message rows, and a right-hand email detail pane with a header toolbar/subject/sender block, two attachment cards, and Reply/Forward buttons.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Off-white sidebar panel, flat #f6f8fc fill from the very top to the very bottom of the page at the left edge, 220px wide, square corners, no shadow, no margin ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        223,
+        3,
+        424,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Mail list panel: a \"⌕ Search mail\" search box at top, then a 41px row of tabs side by side — \"Primary\" (selected, #0b57d0 text, 3px #0b57d0 underline), \"Promoti"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        653,
+        3,
+        624,
+        894
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Email detail pane, an invisible frame 630x900px at page position 650,0 (no fill, no border, no shadow) made of its own real elements with live text: a 566x36 to"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        685,
+        394,
+        559,
+        116
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Two attachment cards side by side within the email detail pane: a 180x122 card at 682,391 with 1px #dadce0 border and 8px rounded corners, and a matching 180x12"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        686,
+        803,
+        220,
+        31
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Two action buttons at the bottom of the email detail pane: \"↩ Reply\" and \"↪ Forward\", side by side."
+    }
+  ],
+  "rejected": []
+}

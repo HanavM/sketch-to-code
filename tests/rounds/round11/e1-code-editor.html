@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Code editor</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#1e1e1e;font-family:Helvetica,Arial,sans-serif;color:#ccc;font-size:13px}
+.act{position:absolute;left:0;top:0;width:48px;height:878px;background:#333;display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:16px;font-size:20px;color:#888}.act .on{color:#fff;border-left:2px solid #fff;width:48px;text-align:center}
+.ex{position:absolute;left:48px;top:0;width:240px;height:878px;background:#252526;padding:10px 0;line-height:24px}.ex h4{font-size:11px;letter-spacing:1px;padding:0 16px;color:#bbb}.ex div{padding-left:24px}.ex .f{padding-left:40px}.ex .on{background:#37373d;color:#fff}
+.tabs{position:absolute;left:288px;top:0;width:992px;height:36px;background:#252526;display:flex}.tabs span{padding:0 18px;line-height:36px;border-right:1px solid #1e1e1e;color:#888}.tabs .on{background:#1e1e1e;color:#fff;border-top:2px solid #0078d4}
+.ed{position:absolute;left:288px;top:36px;width:880px;height:530px;font-family:"Courier New",monospace;font-size:14px;line-height:22px;padding-top:8px}
+.ed div{white-space:pre}.ed span.n{display:inline-block;width:52px;text-align:right;padding-right:18px;color:#6e7681}
+.k{color:#569cd6}.s{color:#ce9178}.fn{color:#dcdcaa}.c{color:#6a9955}.t{color:#4ec9b0}.hl{background:#2a2d2e}
+.mini{position:absolute;left:1180px;top:44px;width:88px;height:520px;background:repeating-linear-gradient(180deg,#3c3c3c 0 3px,transparent 3px 7px);opacity:.6}
+.pn{position:absolute;left:288px;top:566px;width:992px;height:312px;border-top:1px solid #444;background:#1e1e1e}
+.pn .pt{display:flex;gap:24px;padding:8px 18px;font-size:11px;letter-spacing:1px;color:#888}.pn .pt .on{color:#fff;border-bottom:1px solid #fff}
+.pn pre{padding:6px 18px;font-family:"Courier New",monospace;font-size:13px;line-height:21px;color:#ccc}.ok{color:#89d185}.er{color:#f48771}
+.sb{position:absolute;left:0;top:878px;width:1280px;height:22px;background:#0078d4;color:#fff;display:flex;gap:22px;padding:0 12px;line-height:22px;font-size:12px}.sb span:last-child{margin-left:auto}
+</style></head><body>
+<div class="act" data-r="activity-bar"><span class="on">▤</span><span>⌕</span><span>⑂</span><span>▷</span><span>⧉</span></div>
+<div class="ex" data-r="explorer" data-must><h4>EXPLORER · WEBHOOKS</h4><div>▾ src</div><div class="f on">retry.ts</div><div class="f">send.ts</div><div class="f">types.ts</div><div>▾ test</div><div class="f">retry.test.ts</div><div>package.json</div><div>tsconfig.json</div><div>README.md</div></div>
+<div class="tabs" data-r="editor-tabs"><span class="on">retry.ts ×</span><span>send.ts</span><span>retry.test.ts</span></div>
+<div class="ed" data-r="code" data-must>
+<div><span class="n">1</span><span class="k">import</span> { sleep } <span class="k">from</span> <span class="s">'./time'</span></div>
+<div><span class="n">2</span></div>
+<div><span class="n">3</span><span class="c">// Retry fn with exponential backoff and jitter.</span></div>
+<div><span class="n">4</span><span class="k">export async function</span> <span class="fn">withRetry</span>&lt;<span class="t">T</span>&gt;(fn: () =&gt; <span class="t">Promise</span>&lt;<span class="t">T</span>&gt;, opts = {}) {</div>
+<div><span class="n">5</span>  <span class="k">const</span> { attempts = <span class="s">5</span>, baseMs = <span class="s">250</span> } = opts</div>
+<div class="hl"><span class="n">6</span>  <span class="k">for</span> (<span class="k">let</span> i = <span class="s">0</span>; i &lt; attempts; i++) {</div>
+<div><span class="n">7</span>    <span class="k">try</span> { <span class="k">return await</span> <span class="fn">fn</span>() }</div>
+<div><span class="n">8</span>    <span class="k">catch</span> (err) {</div>
+<div><span class="n">9</span>      <span class="k">if</span> (i === attempts - <span class="s">1</span>) <span class="k">throw</span> err</div>
+<div><span class="n">10</span>      <span class="k">const</span> wait = baseMs * <span class="s">2</span> ** i * (<span class="s">0.5</span> + Math.<span class="fn">random</span>())</div>
+<div><span class="n">11</span>      <span class="k">await</span> <span class="fn">sleep</span>(wait)</div>
+<div><span class="n">12</span>    }</div>
+<div><span class="n">13</span>  }</div>
+<div><span class="n">14</span>}</div></div>
+<div class="mini" data-r="minimap"></div>
+<div class="pn" data-r="terminal-panel" data-must><div class="pt"><span>PROBLEMS 1</span><span>OUTPUT</span><span class="on">TERMINAL</span><span>DEBUG CONSOLE</span></div>
+<pre>$ npm test -- retry
+ <span class="ok">✓</span> returns on first success (3 ms)
+ <span class="ok">✓</span> retries until success (12 ms)
+ <span class="er">✗</span> gives up after 5 attempts (8 ms)
+   Expected: 5   Received: 6
+Tests: <span class="er">1 failed</span>, <span class="ok">2 passed</span>, 3 total</pre></div>
+<div class="sb" data-r="status-bar"><span>⑂ retry-backoff*</span><span>⊗ 1  ⚠ 0</span><span>Ln 6, Col 31 · Spaces: 2 · UTF-8 · TypeScript</span></div>
+</body></html>

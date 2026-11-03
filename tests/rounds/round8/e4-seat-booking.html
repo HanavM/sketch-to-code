@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Seat booking</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4f4f5;font-family:Helvetica,Arial,sans-serif;color:#18181b;font-size:14px}
+.steps{position:absolute;left:40px;top:30px;display:flex;gap:10px;align-items:center}.steps span{padding:6px 14px;border-radius:999px;background:#e4e4e7;color:#71717a}.steps span.d{background:#dcfce7;color:#15803d}.steps span.on{background:#18181b;color:#fff;font-weight:700}
+.hall{position:absolute;left:40px;top:90px;width:820px;height:770px;background:#fff;border-radius:16px;border:1px solid #e4e4e7}
+.screen{position:absolute;left:180px;top:130px;width:540px;height:10px;border-radius:50%/100% 100% 0 0;background:#a1a1aa}
+.sl{position:absolute;left:400px;top:150px;color:#a1a1aa;font-size:12px;letter-spacing:4px;width:120px;text-align:center}
+.seats{position:absolute;left:150px;top:200px;display:grid;grid-template-columns:repeat(12,40px);gap:10px}
+.seats i{height:36px;border-radius:8px 8px 4px 4px;background:#fff;border:1.5px solid #a1a1aa}.seats i.t{background:#d4d4d8;border-color:#d4d4d8}.seats i.s{background:#16a34a;border-color:#16a34a}.seats i.v{border-color:#a855f7;background:#f3e8ff}.seats i.x{visibility:hidden}
+.rows{position:absolute;left:110px;top:206px;line-height:46px;color:#a1a1aa;font-weight:700}
+.leg{position:absolute;left:190px;top:800px;display:flex;gap:26px;color:#52525b}.leg span::before{content:"";display:inline-block;width:16px;height:16px;border-radius:4px;margin-right:6px;vertical-align:-3px;border:1.5px solid #a1a1aa}
+.sum{position:absolute;left:880px;top:90px;width:360px;height:770px;background:#fff;border-radius:16px;border:1px solid #e4e4e7;padding:24px}
+.poster{width:90px;height:130px;border-radius:8px;background:linear-gradient(180deg,#1e3a8a,#f97316);float:left;margin-right:16px}
+.ln{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f4f4f5}
+.chip{display:inline-block;padding:4px 10px;border-radius:6px;background:#dcfce7;color:#15803d;font-weight:700;margin-right:6px}
+.pay{position:absolute;left:24px;bottom:24px;width:312px;padding:16px;border-radius:12px;background:#16a34a;color:#fff;font-weight:700;text-align:center;font-size:16px}
+.timer{position:absolute;left:24px;bottom:84px;width:312px;text-align:center;color:#b45309;font-weight:700}
+.leg .lt::before{background:#d4d4d8;border-color:#d4d4d8}.leg .ls::before{background:#16a34a;border-color:#16a34a}.leg .lv::before{background:#f3e8ff;border-color:#a855f7}
+</style></head><body>
+<div class="steps" data-r="stepper"><span class="d">✓ Showtime</span>›<span class="on">2 Seats</span>›<span>3 Snacks</span>›<span>4 Pay</span></div>
+<div class="hall" data-r="hall" data-must></div>
+<div class="screen" data-r="screen"></div><div class="sl" data-r="screen-label">SCREEN</div>
+<div class="rows" data-r="row-letters">A<br>B<br>C<br>D<br>E<br>F<br>G<br>H<br>J<br>K<br>L</div>
+<div class="seats" data-r="seat-grid" data-must>
+<i></i><i></i><i class="t"></i><i class="t"></i><i></i><i class="x"></i><i class="x"></i><i></i><i></i><i></i><i class="t"></i><i></i>
+<i></i><i class="t"></i><i class="t"></i><i></i><i></i><i class="x"></i><i class="x"></i><i></i><i class="t"></i><i class="t"></i><i></i><i></i>
+<i></i><i></i><i></i><i></i><i class="t"></i><i class="x"></i><i class="x"></i><i class="t"></i><i></i><i></i><i></i><i></i>
+<i class="t"></i><i class="t"></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i></i><i></i><i class="t"></i><i class="t"></i><i class="t"></i>
+<i></i><i></i><i></i><i class="s"></i><i class="s"></i><i class="x"></i><i class="x"></i><i></i><i></i><i></i><i></i><i></i>
+<i class="v"></i><i class="v"></i><i class="v"></i><i class="v"></i><i class="t"></i><i class="x"></i><i class="x"></i><i class="t"></i><i class="v"></i><i class="v"></i><i class="v"></i><i class="v"></i>
+<i></i><i class="t"></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i></i><i></i><i></i><i class="t"></i><i></i>
+<i></i><i></i><i></i><i class="t"></i><i class="t"></i><i class="x"></i><i class="x"></i><i class="t"></i><i class="t"></i><i></i><i></i><i></i>
+<i class="t"></i><i></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i></i><i></i><i></i><i></i><i class="t"></i>
+<i></i><i></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="x"></i><i class="x"></i><i class="t"></i><i class="t"></i><i></i><i></i><i></i>
+<i></i><i></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="leg" data-r="legend"><span>Free</span><span class="lt">Taken</span><span class="ls">Selected</span><span class="lv">Recliner +$4</span></div>
+<div class="sum" data-r="summary" data-must><div class="poster"></div><b style="font-size:20px">Low Tide</b><p style="color:#71717a;margin-top:6px;line-height:1.5">Sat, Oct 24 · 7:30 PM<br>Hall 3 · 2h 08m · PG-13</p>
+<div style="clear:both;height:20px"></div><div style="margin-bottom:10px"><span class="chip">E4</span><span class="chip">E5</span></div>
+<div class="ln"><span>2 × Adult</span><span>$28.00</span></div><div class="ln"><span>Booking fee</span><span>$2.50</span></div><div class="ln" style="font-weight:700;font-size:16px;border:0"><span>Total</span><span>$30.50</span></div>
+<div class="timer">Seats held for 07:42</div><div class="pay">Continue · $30.50</div></div>
+</body></html>

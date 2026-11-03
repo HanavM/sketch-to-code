@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Support inbox</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1a1d23;font-size:13px}
+.rail{position:absolute;left:0;top:0;width:64px;height:900px;background:#1f2430;display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:16px}.rail i{width:36px;height:36px;border-radius:10px;background:#323949;display:block}.rail i.on{background:#3b82f6}.rail i.lo{border-radius:50%;background:#f97316;margin-bottom:12px}
+.list{position:absolute;left:64px;top:0;width:330px;height:900px;border-right:1px solid #e5e7eb;background:#fafafa}
+.list .hd{height:64px;display:flex;align-items:center;padding:0 18px;font-size:17px;font-weight:700;border-bottom:1px solid #e5e7eb}.list .hd span{margin-left:auto;font-size:12px;font-weight:600;background:#e5e7eb;border-radius:10px;padding:3px 9px}
+.flt{display:flex;gap:6px;padding:12px 18px;border-bottom:1px solid #e5e7eb}.flt span{padding:5px 10px;border-radius:14px;border:1px solid #d1d5db;font-size:12px}.flt .on{background:#1a1d23;color:#fff;border-color:#1a1d23}
+.t{padding:14px 18px;border-bottom:1px solid #eceef1;position:relative}.t b{font-size:14px}.t em{float:right;font-style:normal;color:#8a919c;font-size:12px}.t p{color:#5b6270;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.t.on{background:#eff5ff;box-shadow:inset 3px 0 0 #3b82f6}.t .tg{display:inline-block;margin-top:8px;font-size:11px;padding:2px 8px;border-radius:4px}
+.t.u::after{content:"";position:absolute;right:18px;top:40px;width:8px;height:8px;border-radius:50%;background:#3b82f6}
+.conv{position:absolute;left:394px;top:0;width:566px;height:900px}
+.conv .hd{height:64px;display:flex;align-items:center;gap:10px;padding:0 22px;border-bottom:1px solid #e5e7eb}.conv .hd b{font-size:16px}.conv .hd span{margin-left:auto;padding:7px 12px;border:1px solid #d1d5db;border-radius:6px}.conv .hd .rs{margin-left:0;background:#16a34a;color:#fff;border-color:#16a34a}
+.msgs{padding:20px 22px}.m{max-width:380px;padding:12px 14px;border-radius:14px;line-height:1.45;margin-bottom:14px}.m.in{background:#f1f3f6;border-bottom-left-radius:4px}.m.out{background:#3b82f6;color:#fff;margin-left:auto;border-bottom-right-radius:4px}.m.nt{background:#fff7d6;border:1px dashed #e0b400;max-width:none;font-size:12px;color:#6b5400}
+.who{font-size:11px;color:#8a919c;margin:-8px 0 12px}.who.r{text-align:right}
+.att{display:flex;align-items:center;gap:10px;width:260px;padding:10px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:14px}.att i{width:36px;height:44px;border-radius:4px;background:#ef4444;display:block}.att small{display:block;color:#8a919c}
+.typing{display:inline-flex;gap:4px;padding:12px 14px;background:#f1f3f6;border-radius:14px}.typing i{width:7px;height:7px;border-radius:50%;background:#9aa1ad;display:block}
+.cmp{position:absolute;left:22px;bottom:18px;width:522px;height:120px;border:1px solid #d1d5db;border-radius:12px;padding:12px}.cmp .tabs{display:flex;gap:16px;font-weight:600;color:#8a919c;margin-bottom:10px}.cmp .tabs .on{color:#1a1d23;border-bottom:2px solid #1a1d23;padding-bottom:4px}.cmp p{color:#9aa1ad}.cmp b{position:absolute;right:12px;bottom:12px;padding:8px 16px;background:#3b82f6;color:#fff;border-radius:8px}
+.cust{position:absolute;left:960px;top:0;width:320px;height:900px;border-left:1px solid #e5e7eb;padding:22px}
+.av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f472b6,#8b5cf6);color:#fff;font:700 24px/64px Helvetica;text-align:center}
+.cust h3{font-size:18px;margin-top:12px}.cust .sub{color:#8a919c;margin-top:2px}
+.kv{margin-top:20px;border-top:1px solid #e5e7eb}.kv div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f1f3}.kv span{color:#8a919c}
+.ord{margin-top:20px}.ord h4{font-size:12px;color:#8a919c;letter-spacing:1px;margin-bottom:10px}.ord div{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:8px}.ord i{width:40px;height:40px;border-radius:6px;background:#e9d5ff;display:block}.ord em{margin-left:auto;font-style:normal;font-size:11px;padding:2px 8px;border-radius:10px}
+.csat{margin-top:20px;display:flex;gap:6px}.csat i{flex:1;height:28px;border-radius:4px;background:#e5e7eb;display:block}.csat i.f{background:#22c55e}
+</style></head><body>
+<div class="rail" data-r="app-rail"><i class="lo"></i><i class="on"></i><i></i><i></i><i></i></div>
+<div class="list" data-r="ticket-list" data-must><div class="hd">Inbox<span>24 open</span></div><div class="flt"><span class="on">Mine</span><span>Unassigned</span><span>Urgent</span><span>Closed</span></div>
+<div class="t on"><em>2m</em><b>Order arrived damaged</b><p>Hi, the lamp base was cracked when I opened the box and…</p><span class="tg" style="background:#fee2e2;color:#b91c1c">Urgent</span></div>
+<div class="t u"><em>14m</em><b>Change delivery address</b><p>Can I still send order #8812 to my office instead?</p><span class="tg" style="background:#e0e7ff;color:#4338ca">Shipping</span></div>
+<div class="t u"><em>1h</em><b>Refund not received</b><p>It has been 10 days since you confirmed the return.</p><span class="tg" style="background:#fef3c7;color:#92400e">Billing</span></div>
+<div class="t"><em>3h</em><b>Bulk order for café</b><p>We'd like 40 mugs in sage, is there a trade price?</p><span class="tg" style="background:#dcfce7;color:#166534">Sales</span></div>
+<div class="t"><em>Yesterday</em><b>Discount code invalid</b><p>AUTUMN15 says expired but the email says Friday.</p><span class="tg" style="background:#fef3c7;color:#92400e">Billing</span></div></div>
+<div class="conv" data-r="conversation" data-must><div class="hd"><b>Order arrived damaged</b><small style="color:#8a919c">#4412</small><span>Snooze</span><span class="rs">Resolve</span></div>
+<div class="msgs"><div class="m in">Hi, the lamp base was cracked when I opened the box this morning. The packaging looked fine though. Can you help?</div><div class="who">Priya Shah · 9:12</div>
+<div class="att"><i></i><div><b>IMG_2041.jpg</b><small>2.4 MB</small></div></div>
+<div class="m out">So sorry about that, Priya! I've booked a replacement to ship today, and there's no need to send the broken one back.</div><div class="who r">You · 9:15</div>
+<div class="m nt">Internal note · Carrier damage on 3 lamps this week. Flagged to ops.</div>
+<div class="typing"><i></i><i></i><i></i></div></div>
+<div class="cmp"><div class="tabs"><span class="on">Reply</span><span>Note</span><span>Macros</span></div><p>Write a reply…</p><b>Send</b></div></div>
+<div class="cust" data-r="customer-panel" data-must><div class="av">PS</div><h3>Priya Shah</h3><div class="sub">priya@hey.com · London</div>
+<div class="kv"><div><span>Customer since</span>Mar 2023</div><div><span>Orders</span>11</div><div><span>Lifetime value</span>£842</div><div><span>Plan</span>Member</div></div>
+<div class="ord"><h4>RECENT ORDERS</h4><div><i></i><span>Arc lamp, sand</span><em style="background:#fee2e2;color:#b91c1c">Issue</em></div><div><i style="background:#ccfbf1"></i><span>Linen throw</span><em style="background:#dcfce7;color:#166534">Delivered</em></div></div>
+<div class="ord"><h4>SATISFACTION</h4></div><div class="csat"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div></div>
+</body></html>

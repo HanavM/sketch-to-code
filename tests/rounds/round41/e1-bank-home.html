@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Bank home</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;background:#f4f6fb;font-family:Helvetica,Arial,sans-serif;color:#141a2e;overflow:hidden;display:flex}
+.side{width:230px;background:#141a2e;color:#c9d0e6;padding:36px 28px;font-size:15px}.side .logo{color:#fff;font-weight:800;font-size:22px;margin-bottom:44px}.side div.i{padding:12px 14px;border-radius:8px;margin-bottom:6px}.side .on{background:#2a3355;color:#fff}
+.main{flex:1;padding:40px 48px}h1{font-size:26px}.top{display:flex;gap:24px;margin-top:28px}
+.bal{width:440px;height:200px;border-radius:16px;background:linear-gradient(135deg,#3b5bdb,#7048e8);color:#fff;padding:28px}.bal small{font-size:14px;opacity:.8}.bal b{display:block;font-size:44px;margin-top:12px}.bal span{display:block;margin-top:34px;font-size:14px;opacity:.8}
+.chart{flex:1;height:200px;border-radius:16px;background:#fff;padding:24px;display:flex;align-items:flex-end;gap:22px}.chart i{flex:1;background:#c5d0fa;border-radius:6px 6px 0 0}.chart i.hi{background:#3b5bdb}
+.tx{margin-top:28px;background:#fff;border-radius:16px;padding:12px 28px}.tx h2{font-size:18px;margin:14px 0}
+.r{display:flex;align-items:center;gap:16px;padding:14px 0;border-top:1px solid #eceff6;font-size:15px}.r .d{width:40px;height:40px;border-radius:50%;background:#e7ebfa}.r .n{flex:1}.r .n small{display:block;color:#7a819a;margin-top:3px;font-size:13px}.r b.neg{color:#141a2e}.r b.pos{color:#2b9348}
+</style></head><body>
+<div class="side" data-r="sidebar" data-must><div class="logo">penny</div><div class="i on">Home</div><div class="i">Cards</div><div class="i">Payments</div><div class="i">Savings</div><div class="i">Settings</div></div>
+<div class="main"><h1 data-r="title">Good morning, Sam</h1>
+<div class="top"><div class="bal" data-r="balance-card" data-must><small>Total balance</small><b>$4,286.50</b><span>Main account ·· 4417</span></div>
+<div class="chart" data-r="spending-chart" data-must><i style="height:40%"></i><i style="height:65%"></i><i style="height:30%"></i><i class="hi" style="height:90%"></i><i style="height:55%"></i><i style="height:45%"></i><i style="height:70%"></i></div></div>
+<div class="tx" data-r="transactions" data-must><h2>Recent</h2>
+<div class="r"><div class="d"></div><div class="n">Corner Grocer<small>Today · Food</small></div><b class="neg">−$42.18</b></div>
+<div class="r"><div class="d"></div><div class="n">Salary<small>Yesterday · Income</small></div><b class="pos">+$2,400.00</b></div>
+<div class="r"><div class="d"></div><div class="n">City Transit<small>Mon · Travel</small></div><b class="neg">−$12.50</b></div>
+<div class="r"><div class="d"></div><div class="n">Streamly<small>Sun · Bills</small></div><b class="neg">−$9.99</b></div>
+</div></div></body></html>

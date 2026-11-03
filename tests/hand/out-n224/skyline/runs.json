@@ -1,0 +1,500 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "8cd46d2a17bbfdeb4b60d80a6839785c39bc4139",
+  "changedFiles": [
+   "src/App.tsx"
+  ],
+  "reading": "A dark hero/banner design for a nightlife app: a navy gradient background, a flat dark-silhouette city skyline with tiny yellow windows along the bottom, a flat cream moon top-right, bold white brand text top-left, a small white label top-right, a huge bold white headline, a light body line, and a yellow pill button.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:13:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s2",
+       "drawn": {
+        "x": 2,
+        "y": 419,
+        "w": 1276,
+        "h": 479
+       },
+       "built": {
+        "x": 2,
+        "y": 419,
+        "w": 1276,
+        "h": 479
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#081020 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Rooftop\" at (64,25) 92x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:17:7",
+      "rect": {
+       "x": 64,
+       "y": 24,
+       "w": 91.921875,
+       "h": 32
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": false,
+     "reason": "new <span> \"Bars Map Tonight\" at (1099,31) 117x17 is on its drawn line but not along it: its letters run from x 1099 to 1216, the drawn line from x 1040 to 1216: one line of words alone on a drawn line spans it, so start it at x 1040 (left-aligned there, not centred in a wider box) and make the letters bigger so it ends near x 1216; keep its height on the line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:24:7",
+      "rect": {
+       "x": 1040,
+       "y": 30,
+       "w": 176,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> at (1040,30) 176x20 matches the sketch region",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:24:7",
+      "rect": {
+       "x": 1040,
+       "y": 30,
+       "w": 176,
+       "h": 20
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 1040,
+        "y": 110,
+        "w": 110,
+        "h": 109
+       },
+       "built": {
+        "x": 1040,
+        "y": 110,
+        "w": 110,
+        "h": 109
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 15.5,
+    "reason": "#f6f0d4 is on the page (ΔE 15.5)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"The city after ten\" at (313,147) 690x100 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:36:7",
+      "rect": {
+       "x": 313,
+       "y": 148.203125,
+       "w": 654,
+       "h": 99.59375
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffffff is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Thirty rooftops, one pass, ope\" at (492,263) 295x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:43:7",
+      "rect": {
+       "x": 468,
+       "y": 261,
+       "w": 344,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 24.2,
+    "reason": "#b8c8e0 is on the page (ΔE 24.2)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (468,261) 344x24 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:43:7",
+      "rect": {
+       "x": 468,
+       "y": 261,
+       "w": 344,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s8",
+       "drawn": {
+        "x": 530,
+        "y": 319,
+        "w": 221,
+        "h": 55
+       },
+       "built": {
+        "x": 530,
+        "y": 319,
+        "w": 221,
+        "h": 55
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffcd55 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 of 5 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 419,
+       "built": 419,
+       "dy": 0
+      },
+      {
+       "index": 2,
+       "drawn": 40,
+       "built": 40,
+       "dy": 0
+      },
+      {
+       "index": 3,
+       "drawn": 110,
+       "built": 110,
+       "dy": 0
+      },
+      {
+       "index": 5,
+       "drawn": 273,
+       "built": 273,
+       "dy": 0
+      },
+      {
+       "index": 6,
+       "drawn": 319,
+       "built": 319,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 shape built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "placed",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 placed words where drawn"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 one-line heading spans its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "body-lines",
+    "verdict": {
+     "satisfied": false,
+     "reason": "the sentence \"Thirty rooftops\" was drawn as one line 344px long (x 468 to 812, y 273); its letters run 295px (86% of the line): take its font-size from 16px to about 19px so it runs the drawn length on one line; keep its colour, weight and left edge; change nothing else"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#0e1e3e",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#1e3760",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (2,419) 1276x479",
+       "want": "#081020",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (64,40) 84x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1040,40) 176x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the ring drawn at (1039,110) 111x110",
+       "want": "#f6f0d4",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the line drawn at (313,198) 654x0",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (468,273) 344x0",
+       "want": "#b8c8e0",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (530,319) 221x55",
+       "want": "#ffcd55",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 42598,
+   "cacheRead": 236665,
+   "output": 10199
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 30046,
+    "output": 9544,
+    "cacheRead": 137150,
+    "toolCalls": 5,
+    "tools": [
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Edit src/App.tsx"
+    ],
+    "ms": 101876
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 22751,
+    "output": 655,
+    "cacheRead": 99515,
+    "toolCalls": 2,
+    "tools": [
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 6010
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

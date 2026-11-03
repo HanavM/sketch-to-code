@@ -1,0 +1,205 @@
+{
+  "id": "c1-text-rings",
+  "at": "2026-10-24T02:50:12.238Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.95466272546056,
+    "overallV2": 0.95466272546056,
+    "overallV1": 0.9251248139314852,
+    "colour": 0.9947313419013626,
+    "structure": 0.9801493485158108,
+    "structureStrict": 0.9060739488527504,
+    "colourAligned": 0.9947313419013626,
+    "structureAligned": 0.9801493485158108,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9209934120467378
+    },
+    "layout": 0.882552220702481
+  },
+  "effects": {
+    "recall": 0.8888888888888888,
+    "kept": [
+      "gradient",
+      "huge-type",
+      "italic",
+      "mono",
+      "motion",
+      "overlap",
+      "serif",
+      "tilt"
+    ],
+    "missing": [
+      "blur"
+    ],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 49279,
+    "output": 26088,
+    "cacheRead": 195449
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52591,
+      "output": 16095,
+      "cacheRead": 156104,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/main.tsx",
+        "Read src/index.css",
+        "Glob",
+        "Glob",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 178613
+    }
+  ],
+  "reading": "This is a festival landing-page hero: a top nav line, a 3-line giant headline 'Sound / in / circles', a big circular gradient ring with two rings of spinning rotated text around it, a tilted yellow 'GET A PASS' button, a 3-row schedule list on the right, and a small mono date/location line at the bottom — all on a dark navy page per the run-wide note.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top nav bar, no surrounding box: bold wide-letter-spaced 'ORBIT FEST' on the left, and 'Lineup · Map · Tickets · FAQ' on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "lines": 3,
+          "fontPx": 79
+        }
+      ],
+      "region": [
+        68,
+        120,
+        297,
+        260
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica-heavy headline set tight (line-height 0.9), broken into exactly 3 lines that never rewrap (white-space: nowrap, min width ~304px): 'Sound' / 'in"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        383,
+        153,
+        594,
+        594
+      ],
+      "paths": [
+        "s4",
+        "s5"
+      ],
+      "instruction": "A 300px decorative ring painted with one smooth conic gradient (conic-gradient(from 200deg, #ff6b3d, #ffd23f, #3dd6c4, #5b5bff, #ff6b3d), border-radius 50%), 90"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        383,
+        153,
+        594,
+        594
+      ],
+      "paths": [
+        "s4",
+        "s5"
+      ],
+      "instruction": "Two rings of text curving round in circles on top of the gradient ring, inside a transparent 600x600px SVG positioned at 380,150 that slowly spins (0→360deg, 30"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        991,
+        111,
+        137,
+        137
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A vivid yellow circular button tilted 14° anticlockwise reading 'GET A PASS →', with dark-navy (#0d1b2a) text (not the page's cream text)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 20
+        }
+      ],
+      "region": [
+        1004,
+        560,
+        212,
+        88
+      ],
+      "paths": [],
+      "instruction": "A 3-row schedule list, each row a label plus a bold monospace orange (#ff6b3d) number: 'Friday, Shore stage' / '01'; 'Saturday, Forest' / '02'; 'Sunday, Dawn se"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s10"
+      ],
+      "textSize": [],
+      "region": [
+        64,
+        785,
+        227,
+        9
+      ],
+      "paths": [],
+      "instruction": "Small 15px monospace line of text: '14–16 AUG 2027 · LAKE BLED'."
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

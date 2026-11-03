@@ -1,0 +1,218 @@
+{
+  "id": "c2-chrome-liquid",
+  "at": "2026-10-23T20:26:31.241Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8029390271679671,
+    "overallV2": 0.8029390271679671,
+    "overallV1": 0.7633705096967744,
+    "colour": 0.9134266252878257,
+    "structure": 0.72614957810823,
+    "structureStrict": 0.623793806973142,
+    "colourAligned": 0.9134266252878257,
+    "structureAligned": 0.72614957810823,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.8511321423282234
+    },
+    "layout": 0.8206397964807468
+  },
+  "effects": {
+    "recall": 0.3333333333333333,
+    "kept": [
+      "gradient-text",
+      "hollow-type",
+      "huge-type"
+    ],
+    "missing": [
+      "glass",
+      "gradient",
+      "motion",
+      "overlap",
+      "soft-shadow",
+      "stripes-or-layers"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 27494,
+    "output": 18144,
+    "cacheRead": 182384
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 37595,
+      "output": 14601,
+      "cacheRead": 179300,
+      "toolCalls": 9,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read components/PolishedChrome.tsx",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/index.html",
+        "Glob",
+        "Edit components/PolishedChrome.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 158374
+    }
+  ],
+  "reading": "The sketch lays out a hero section: a borderless nav bar, a giant 'Liquid metal' chrome-gradient headline beside a glowing chrome sphere with a '38 Hz – 24 kHz' pill, then a hollow 'SOUND' headline, a lavender body line, and two buttons ('Pre-order' filled, 'Listen ▶' outlined). All wavy-line strokes are text placeholders replaced by the typed copy, and the circle is a decorative chrome orb, not a literal traced shape.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        74,
+        43,
+        1133,
+        10
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Top navigation bar, no box/border around it: bold 'MERCURY®' on the left, 'Sound · Objects · Lab · Cart (0)' on the right, nav text colored #a7a8bd (lavender, n"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        693,
+        174,
+        463,
+        461
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Large glowing polished liquid-chrome sphere/orb, drawn as a smooth circle with no hard edges, filled with the gradient linear-gradient(140deg, #fdfdff 0%, #8d8f"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 149
+        }
+      ],
+      "region": [
+        78,
+        150,
+        810,
+        327
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica Heavy headline reading 'Liquid metal', set in exactly 2 lines with these exact breaks: 'Liquid' / 'metal' (keep whole on each line, white-space:"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1002,
+        691,
+        127,
+        34
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "White pill button reading '● 38 Hz – 24 kHz', placed near the chrome sphere."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4"
+          ],
+          "lines": 1,
+          "fontPx": 137
+        }
+      ],
+      "region": [
+        82,
+        487,
+        367,
+        164
+      ],
+      "paths": [],
+      "instruction": "Giant Helvetica Heavy, tight-set headline 'SOUND', hollow/outlined in light grey, 120px type, about 408px wide (no larger)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        80,
+        680,
+        412,
+        53
+      ],
+      "paths": [],
+      "instruction": "Body paragraph text reading 'Speakers poured from a single piece of aluminium, polished until the room reflects in them.', colored #a7a8bd (lavender, not the pa"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        79,
+        791,
+        119,
+        43
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Light grey pill button labeled 'Pre-order' with black text (exactly: #e9e9f2 fill, #07070b text, 124x46px, pill-shaped rounded ends)."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        252,
+        792,
+        107,
+        45
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Outline pill button labeled 'Listen ▶', placed beside the Pre-order button."
+    }
+  ],
+  "rejected": []
+}

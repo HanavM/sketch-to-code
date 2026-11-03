@@ -1,0 +1,226 @@
+{
+  "id": "c1-split-halftone",
+  "at": "2026-10-24T06:14:18.629Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.936984963151879,
+    "overallV2": 0.936984963151879,
+    "overallV1": 0.9268678743983467,
+    "colour": 0.9966816818300249,
+    "structure": 0.9541690565556774,
+    "structureStrict": 0.936234823146423,
+    "colourAligned": 0.9966816818300249,
+    "structureAligned": 0.9541690565556774,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9990970964207627
+    },
+    "layout": 0.8837660358950771
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "gradient",
+      "huge-type",
+      "italic",
+      "mask",
+      "mono",
+      "overlap",
+      "serif",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": [
+      "stripes-or-layers"
+    ]
+  },
+  "tokens": {
+    "input": 47445,
+    "output": 27363,
+    "cacheRead": 385529
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 62537,
+      "output": 19928,
+      "cacheRead": 382445,
+      "toolCalls": 14,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read components/SketchShape2.tsx",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Edit src/App.tsx",
+        "Edit components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Edit components/SketchShape.tsx",
+        "Read components/SketchShape.tsx",
+        "Edit components/SketchShape2.tsx",
+        "Read src/App.tsx"
+      ],
+      "ms": 231243
+    }
+  ],
+  "reading": "A full landing-page hero design: a hard black/cream split background, a top nav with brand left and links right, a halftone-dotted circle behind a giant color-inverting \"INVERT\" heading, two blocks of supporting copy (a body paragraph and an italic quote), two CTA buttons, and a small vertical edition caption top-right — all specified precisely via the typed notes rather than the rough sketch shapes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        393,
+        153,
+        494,
+        494
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Place a 500x500px block at (390,150) with border-radius 50% (a circle), filled with a repeating fine halftone dot grid (background: radial-gradient(circle, #ff3"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        64,
+        43,
+        1152,
+        10
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a nav bar spanning the top of the page with no surrounding box: bold \"NEGATIVE/POSITIVE\" as the brand/logo on the left, and \"Prints · Process · Shop · Bag ("
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2"
+          ],
+          "lines": 1,
+          "fontPx": 228
+        }
+      ],
+      "region": [
+        8,
+        268,
+        1152,
+        274
+      ],
+      "paths": [],
+      "instruction": "Add a giant heading reading \"INVERT\" as live text (a real text element, never an SVG path or drawn shape), set in heavy tight-set Helvetica (font-family Helveti"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 18
+        }
+      ],
+      "region": [
+        64,
+        640,
+        412,
+        54
+      ],
+      "paths": [],
+      "instruction": "Add body paragraph text: \"Every print is pulled twice: once in light, once in dark. The halftone sits where they meet.\" positioned at lower-left, below the half"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 25
+        }
+      ],
+      "region": [
+        808,
+        640,
+        378,
+        75
+      ],
+      "paths": [],
+      "instruction": "Add an italic serif, near-black quote: \"“Half the picture is what you leave out.”\" positioned at lower-right, below the halftone circle."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        62,
+        791,
+        177,
+        43
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a text button \"Shop the edition\", 181x46px, square corners (border-radius 0, NOT a pill), filled #ff3b1f with near-black (#111111) text — NOT the page's cre"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        802,
+        791,
+        175,
+        43
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Add an outline button \"See the process\", 179x46px, square corners (border-radius 0, NOT a pill), near-black (#111111) outline and text — NOT the page's cream te"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1140,
+        124,
+        14,
+        180
+      ],
+      "paths": [
+        "s9"
+      ],
+      "instruction": "Add a small vertical monospace caption, writing-mode: vertical-rl, 12px, about 188px long, reading \"ED. 04 / 120 COPIES / 2027\", in near-black (#111111) text — "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

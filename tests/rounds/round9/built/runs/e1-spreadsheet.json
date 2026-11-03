@@ -1,0 +1,190 @@
+{
+  "id": "e1-spreadsheet",
+  "at": "2026-10-23T10:13:14.312Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7756989783392143,
+    "overallV2": 0.7756989783392143,
+    "overallV1": 0.749968640023962,
+    "colour": 0.9932765734883278,
+    "structure": 0.8796762089225508,
+    "structureStrict": 0.8531254349959082,
+    "colourAligned": 0.9932765734883278,
+    "structureAligned": 0.8796762089225508,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.6922761741375917
+    },
+    "layout": 0.9646348015773636
+  },
+  "effects": {
+    "recall": 0.5,
+    "kept": [
+      "italic"
+    ],
+    "missing": [
+      "mono"
+    ],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 35292,
+    "output": 20504,
+    "cacheRead": 111840
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 41190,
+      "output": 14572,
+      "cacheRead": 100696,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 156914
+    }
+  ],
+  "reading": "The sketch lays out a Google-Sheets-style page: a top app bar with a logo, title and menu, a toolbar pill of formatting icons, a formula/name bar, a column-header row, a left page-number rail, a large data grid of sales figures, and a bottom sheet-tabs bar pinned to the page bottom.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a 56px-tall top bar spanning the full page width, no fill (page colour) with a 1px #dadce0 line underneath. Left to right, vertically centred: a 32x32px 6px"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        16,
+        67,
+        1249,
+        34
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Add a fully rounded #edf2fa pill toolbar, 1256x40px, inset at x 12 / top 64 (not a full-width square strip). Left to right, all grouped together at the LEFT end"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s2",
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 11
+        }
+      ],
+      "region": [
+        4,
+        116,
+        1272,
+        49
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a name-box/formula bar row below the toolbar: 'F4' on the left, and 'fx =SUM(B4:E4)' on the right."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s2",
+            "s3"
+          ],
+          "lines": 2,
+          "fontPx": 11
+        }
+      ],
+      "region": [
+        4,
+        132,
+        1222,
+        33
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Add a pale grey column-header bar, 24px tall, spanning the page width, with column links A, B, C, D, E, F, G, H; 'F' is the selected column: bold, blue text, li"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        172,
+        40,
+        640
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Add a narrow left-side rail listing pale grey row/page numbers 1 through 18 top to bottom, matching the grid's row heights."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        49,
+        171,
+        1178,
+        642
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Add a spreadsheet data grid, 18 rows x 8 columns, each cell 148x36px with a 1px #e3e3e3 right/bottom border, 10px side padding, 13px text (a real cell grid, not"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        863,
+        1272,
+        34
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Add a pale grey sheet-tabs bar, 40px tall, spanning the page width, pinned to the very bottom of the page (position fixed/absolute, bottom 0, not placed directl"
+    }
+  ],
+  "rejected": []
+}

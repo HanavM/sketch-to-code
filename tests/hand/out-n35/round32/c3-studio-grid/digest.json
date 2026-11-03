@@ -1,0 +1,505 @@
+{
+  "round": 32,
+  "id": "c3-studio-grid",
+  "version": 3,
+  "stopped": null,
+  "likeness": 77.5,
+  "colour": 0.9644409668272154,
+  "structure": 0.8569444792067876,
+  "layout": 0.7565621103820972,
+  "strokes": {
+    "count": 17,
+    "pointsPerStroke": 2.5,
+    "simpleShare": 1,
+    "shapes": {
+      "line": 9,
+      "box": 4,
+      "dot": 4
+    },
+    "inkPx": 8909
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 38,
+  "notes": 7,
+  "longestNote": 14,
+  "noteTexts": [
+    "FORMA spaced",
+    "WORK · STUDIO · CONTACT",
+    "Selected work white bold",
+    "Buildings that breathe. huge black",
+    "An architecture studio in Lisbon designing homes, schools and quiet public spaces since 2009.",
+    "View projects →",
+    "small dark link, red underline"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 521,
+    "firstReadingS": 72,
+    "readS": [
+      29,
+      5
+    ],
+    "buildS": [
+      420,
+      10
+    ],
+    "sketchingS": 58
+  },
+  "corrections": 1,
+  "runs": 2,
+  "tokens": {
+    "input": 95898,
+    "cacheRead": 416196,
+    "output": 37408,
+    "billed": 133306
+  },
+  "events": [
+    {
+      "op": "stroke",
+      "at": 692
+    },
+    {
+      "op": "stroke",
+      "at": 1740
+    },
+    {
+      "op": "stroke",
+      "at": 5756
+    },
+    {
+      "op": "stroke",
+      "at": 11660
+    },
+    {
+      "op": "stroke",
+      "at": 16407
+    },
+    {
+      "op": "stroke",
+      "at": 19506
+    },
+    {
+      "op": "stroke",
+      "at": 22605
+    },
+    {
+      "op": "stroke",
+      "at": 23890
+    },
+    {
+      "op": "stroke",
+      "at": 25356
+    },
+    {
+      "op": "stroke",
+      "at": 27105
+    },
+    {
+      "op": "stroke",
+      "at": 28789
+    },
+    {
+      "op": "stroke",
+      "at": 30006
+    },
+    {
+      "op": "pen",
+      "color": "#dd2626",
+      "at": 30380
+    },
+    {
+      "op": "stroke",
+      "at": 31207
+    },
+    {
+      "op": "stroke",
+      "at": 31689
+    },
+    {
+      "op": "pen",
+      "color": "#a7a29d",
+      "at": 32072
+    },
+    {
+      "op": "stroke",
+      "at": 32539
+    },
+    {
+      "op": "pen",
+      "color": "#1f1a17",
+      "at": 32911
+    },
+    {
+      "op": "stroke",
+      "at": 33389
+    },
+    {
+      "op": "pen",
+      "color": "#d6d2ce",
+      "at": 33760
+    },
+    {
+      "op": "stroke",
+      "at": 34238
+    },
+    {
+      "op": "note",
+      "at": 34899
+    },
+    {
+      "op": "note",
+      "at": 35547
+    },
+    {
+      "op": "note",
+      "at": 36199
+    },
+    {
+      "op": "note",
+      "at": 36874
+    },
+    {
+      "op": "note",
+      "at": 37709
+    },
+    {
+      "op": "note",
+      "at": 38364
+    },
+    {
+      "op": "run",
+      "at": 43718
+    },
+    {
+      "op": "note",
+      "at": 500030
+    },
+    {
+      "op": "run",
+      "at": 500101
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          56,
+          42
+        ],
+        [
+          140,
+          42
+        ]
+      ],
+      "n": 15,
+      "at": 692
+    },
+    {
+      "way": [
+        [
+          1013,
+          42
+        ],
+        [
+          1224,
+          42
+        ]
+      ],
+      "n": 36,
+      "at": 1740
+    },
+    {
+      "way": [
+        [
+          2,
+          79
+        ],
+        [
+          1278,
+          79
+        ]
+      ],
+      "n": 214,
+      "at": 5756
+    },
+    {
+      "way": [
+        [
+          56,
+          120
+        ],
+        [
+          616,
+          120
+        ],
+        [
+          616,
+          540
+        ],
+        [
+          56,
+          540
+        ],
+        [
+          56,
+          120
+        ]
+      ],
+      "n": 327,
+      "at": 11660
+    },
+    {
+      "way": [
+        [
+          656,
+          120
+        ],
+        [
+          1224,
+          120
+        ],
+        [
+          1224,
+          320
+        ],
+        [
+          656,
+          320
+        ],
+        [
+          656,
+          120
+        ]
+      ],
+      "n": 257,
+      "at": 16407
+    },
+    {
+      "way": [
+        [
+          656,
+          340
+        ],
+        [
+          930,
+          340
+        ],
+        [
+          930,
+          540
+        ],
+        [
+          656,
+          540
+        ],
+        [
+          656,
+          340
+        ]
+      ],
+      "n": 159,
+      "at": 19506
+    },
+    {
+      "way": [
+        [
+          950,
+          340
+        ],
+        [
+          1224,
+          340
+        ],
+        [
+          1224,
+          540
+        ],
+        [
+          950,
+          540
+        ],
+        [
+          950,
+          340
+        ]
+      ],
+      "n": 159,
+      "at": 22605
+    },
+    {
+      "way": [
+        [
+          688,
+          285
+        ],
+        [
+          984,
+          285
+        ]
+      ],
+      "n": 50,
+      "at": 23890
+    },
+    {
+      "way": [
+        [
+          56,
+          662
+        ],
+        [
+          412,
+          662
+        ]
+      ],
+      "n": 60,
+      "at": 25356
+    },
+    {
+      "way": [
+        [
+          56,
+          742
+        ],
+        [
+          520,
+          742
+        ]
+      ],
+      "n": 78,
+      "at": 27105
+    },
+    {
+      "way": [
+        [
+          760,
+          622
+        ],
+        [
+          1197,
+          622
+        ]
+      ],
+      "n": 74,
+      "at": 28789
+    },
+    {
+      "way": [
+        [
+          760,
+          648
+        ],
+        [
+          1030,
+          648
+        ]
+      ],
+      "n": 46,
+      "at": 30006
+    },
+    {
+      "way": [
+        [
+          760,
+          763
+        ],
+        [
+          883,
+          763
+        ]
+      ],
+      "n": 22,
+      "at": 31207
+    },
+    {
+      "way": [
+        [
+          790,
+          440
+        ]
+      ],
+      "n": 1,
+      "at": 31689
+    },
+    {
+      "way": [
+        [
+          330,
+          330
+        ]
+      ],
+      "n": 1,
+      "at": 32539
+    },
+    {
+      "way": [
+        [
+          1100,
+          170
+        ]
+      ],
+      "n": 1,
+      "at": 33389
+    },
+    {
+      "way": [
+        [
+          1090,
+          440
+        ]
+      ],
+      "n": 1,
+      "at": 34238
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "FORMA spaced",
+      "whole": false,
+      "x": 98,
+      "y": 28,
+      "at": 34899
+    },
+    {
+      "text": "WORK · STUDIO · CONTACT",
+      "whole": false,
+      "x": 1110,
+      "y": 28,
+      "at": 35547
+    },
+    {
+      "text": "Selected work white bold",
+      "whole": false,
+      "x": 800,
+      "y": 275,
+      "at": 36199
+    },
+    {
+      "text": "Buildings that breathe. huge black",
+      "whole": false,
+      "x": 250,
+      "y": 650,
+      "at": 36874
+    },
+    {
+      "text": "An architecture studio in Lisbon designing homes, schools and quiet public spaces since 2009.",
+      "whole": false,
+      "x": 950,
+      "y": 612,
+      "at": 37709
+    },
+    {
+      "text": "View projects →",
+      "whole": false,
+      "x": 800,
+      "y": 752,
+      "at": 38364
+    },
+    {
+      "text": "small dark link, red underline",
+      "whole": false,
+      "x": 890,
+      "y": 740,
+      "at": 500030
+    }
+  ]
+}

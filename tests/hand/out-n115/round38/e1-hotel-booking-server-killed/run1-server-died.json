@@ -1,0 +1,10 @@
+{
+  "exit": {
+    "code": 137,
+    "signal": null,
+    "at": "2026-10-30T15:12:19.175Z"
+  },
+  "atMs": 224403,
+  "bar": "the dev server stopped while making your change — the page on disk is kept as it was left; start the dev server again to carry on",
+  "logTail": "[s2c] pipeline attached\n\n  VITE v7.3.7  ready in 810 ms\n\n  ➜  Local:   http://localhost:5302/\n  ➜  Network: use --host to expose\n3:12:13 PM [vite] (client) hmr update /src/App.tsx, /src/index.css\nKilled\n"
+}

@@ -1,0 +1,479 @@
+{
+  "id": "c1-blend-mesh",
+  "at": "2026-10-26T19:35:20.382Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9247999796954243,
+    "overallV2": 0.9137879280225714,
+    "overallV1": 0.8343680366895183,
+    "colour": 0.9692333681226034,
+    "structure": 0.9328494912742006,
+    "structureStrict": 0.7954038220877769,
+    "colourAligned": 0.9692333681226034,
+    "structureAligned": 0.9519071704762979,
+    "align": {
+      "scale": 1,
+      "dx": -16,
+      "dy": 0,
+      "r": 0.9556304682209389
+    },
+    "layout": 0.9361618439395727,
+    "layoutV1": 0.8528389724623121,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      1,
+      0,
+      0,
+      1281,
+      899
+    ],
+    [
+      1,
+      645,
+      122,
+      414,
+      415
+    ],
+    [
+      0,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      640,
+      120,
+      420,
+      420
+    ],
+    [
+      0,
+      820,
+      260,
+      360,
+      360
+    ],
+    [
+      0,
+      700,
+      380,
+      300,
+      300
+    ],
+    [
+      0,
+      56,
+      40,
+      105,
+      21
+    ],
+    [
+      0,
+      929,
+      40,
+      247,
+      21
+    ],
+    [
+      9,
+      929,
+      40,
+      80,
+      21
+    ],
+    [
+      9,
+      1039,
+      40,
+      67,
+      21
+    ],
+    [
+      9,
+      1136,
+      40,
+      40,
+      21
+    ],
+    [
+      0,
+      64,
+      124,
+      900,
+      221
+    ],
+    [
+      0,
+      78,
+      466,
+      790,
+      170
+    ],
+    [
+      0,
+      618,
+      81,
+      132,
+      52
+    ],
+    [
+      15,
+      640,
+      91,
+      88,
+      31
+    ],
+    [
+      0,
+      1206,
+      90,
+      20,
+      313
+    ],
+    [
+      0,
+      644,
+      720,
+      292,
+      46
+    ],
+    [
+      0,
+      975,
+      738,
+      208,
+      56
+    ],
+    [
+      0,
+      60,
+      800,
+      140,
+      34
+    ],
+    [
+      20,
+      60,
+      800,
+      140,
+      17
+    ],
+    [
+      20,
+      60,
+      817,
+      140,
+      17
+    ]
+  ],
+  "groupMatched": [
+    {
+      "role": "nav",
+      "iou": 0.9998744577271269,
+      "parts": 2,
+      "rect": {
+        "x": 56,
+        "y": 40,
+        "w": 1120.140625,
+        "h": 21
+      }
+    }
+  ],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "blend",
+      "hollow-type",
+      "huge-type",
+      "mono",
+      "overlap",
+      "serif",
+      "stripes-or-layers",
+      "tilt",
+      "vertical-type"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "tokens": {
+    "input": 75882,
+    "output": 31635,
+    "cacheRead": 381020
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 73760,
+      "output": 15962,
+      "cacheRead": 329016,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read components/SketchShape.tsx",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Edit src/App.tsx"
+      ],
+      "ms": 182900
+    }
+  ],
+  "reading": "This is a full hero/landing-page design: a cream page background with four soft colour glows behind three overlapping ink-like colour discs (cyan, pink, yellow), giant display text 'COLOR'/'THEORY' overlapping the discs, a nav bar ('CHROMA' logo + PROGRAM/ARTISTS/VISIT links), a tilted 'OPENS 14.11' date pill, vertical exhibition info text down the right edge, a serif description paragraph, a 'Book a slot' CTA button, and a small mono footer line — all wording and exact styling taken from the typed notes.",
+  "actions": [
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Whole page: cream #f2efe8 background (plainly not white), Helvetica type, near-black text throughout. Over this, add four soft radial colour glows exactly as sp"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1"
+      ],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a header/nav row: 'CHROMA' wordmark at far left (18px, font-weight 900, #111111, letter-spacing 4px, sized/positioned ~105x21 at 56,40), and nav links PROGR"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s2"
+      ],
+      "instruction": "Add one plain ink-like (multiply blend, darkens what's beneath, never covers) perfectly round solid disc, 420px diameter, top-left at page coords 640,120, flat "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3"
+      ],
+      "instruction": "Add one plain ink-like (multiply blend) perfectly round solid disc, 360px diameter, top-left at page coords 820,260, flat fully opaque vivid pink #ff2d95 fill, "
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s3",
+        "s4"
+      ],
+      "instruction": "Add one plain ink-like (multiply blend) perfectly round solid disc, 300px diameter, top-left at page coords 700,380, flat fully opaque vivid yellow #ffe600 fill"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5"
+          ],
+          "lines": 1,
+          "fontPx": 307
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add giant Helvetica heavy (font-weight 900, round-bowled, not condensed/display) tight-set live text 'COLOR', 260px size, about 869px wide (no larger), white fi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s6"
+          ],
+          "lines": 1,
+          "fontPx": 214
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add giant Helvetica heavy (font-weight 900, round-bowled, not condensed/display) tight-set live text 'THEORY', 200px size, about 766px wide (no larger), hollow/"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s2",
+        "s7"
+      ],
+      "instruction": "Add a near-black outline pill button reading 'OPENS 14.11' (#f2efe8 fill, #111111 text), 129x34px before rotation, top-left at page coords 620,90, tilted 8° ant"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s8"
+      ],
+      "instruction": "Add vertical (writing-mode: vertical-rl) uppercase bold (font-weight 700) wide-spaced (letter-spacing 6px) 13px text reading 'KUNSTHAL · HALL 3 · 2026', running"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s9",
+        "s10"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s9",
+            "s10"
+          ],
+          "lines": 2,
+          "fontPx": 15
+        }
+      ],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add serif body copy: 'An exhibition on overlap: what happens where pigments meet, light adds up and inks subtract.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        1274,
+        894
+      ],
+      "paths": [
+        "s0",
+        "s11"
+      ],
+      "instruction": "Add a near-black (#111111) pill button with white (#ffffff) text reading 'Book a slot'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12",
+        "s13"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s12",
+            "s13"
+          ],
+          "lines": 2,
+          "fontPx": 11
+        }
+      ],
+      "region": [
+        60,
+        800,
+        140,
+        34
+      ],
+      "paths": [],
+      "instruction": "Add small monospace footer text reading 'N 52.37 / E 4.89 FREE ENTRY FRIDAYS'."
+    }
+  ],
+  "rejected": []
+}

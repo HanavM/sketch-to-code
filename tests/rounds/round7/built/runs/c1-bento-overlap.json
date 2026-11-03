@@ -1,0 +1,201 @@
+{
+  "id": "c1-bento-overlap",
+  "at": "2026-10-22T14:14:39.900Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.8473056893700757,
+    "overallV2": 0.8473056893700757,
+    "overallV1": 0.8004695317293711,
+    "colour": 0.9389435864926119,
+    "structure": 0.7747797810868589,
+    "structureStrict": 0.6686551005688968,
+    "colourAligned": 0.9389435864926119,
+    "structureAligned": 0.7747797810868589,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9477864523649686
+    },
+    "layout": 0.9269647638134685
+  },
+  "effects": {
+    "recall": 0.5714285714285714,
+    "kept": [
+      "gradient",
+      "hollow-type",
+      "huge-type",
+      "overlap"
+    ],
+    "missing": [
+      "italic",
+      "serif",
+      "soft-shadow"
+    ],
+    "extra": []
+  },
+  "tokens": {
+    "input": 44860,
+    "output": 30870,
+    "cacheRead": 329678
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 52137,
+      "output": 19913,
+      "cacheRead": 291840,
+      "toolCalls": 12,
+      "tools": [
+        "Read components/Sphere.tsx",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/main.tsx",
+        "Glob",
+        "Glob",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Read s2c-bench-app/vite.config.ts",
+        "Edit components/Sphere.tsx",
+        "Edit components/Sphere.tsx",
+        "Write src/App.tsx"
+      ],
+      "ms": 218374
+    }
+  ],
+  "reading": "The sketch is a tiled bento-style dashboard: a gradient hero tile, a yellow uptime stat tile, a near-black sync tile with a label and progress bars, a light-grey quote tile, a cyan 'new features' tile, a large bar-chart tile with a giant hollow '07' numeral in the corner, and a glossy 3D sphere overlapping several of the tiles — all set on a black page with Helvetica type and white text as noted.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        43,
+        553,
+        414
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Large hero tile with a gradient background from vivid purple (top-left) to vivid dark pink (bottom-right). Headline text 'ORBIT OS · 2027' and subtext 'Everythi"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        43,
+        294,
+        194
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Vivid yellow stat tile with near-black label text 'UPTIME' and large value text '99.9'."
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        43,
+        293,
+        414
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Near-black (#18181b) tile, 300x420px, 28px rounded corners, 1px dark grey (#3f3f46) border. Small wide-spaced label 'SYNC' top-left. Below it a vertical stack o"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        623,
+        263,
+        294,
+        193
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Light grey quote tile with near-black text: \"The calmest dashboard I've ever used.\""
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        43,
+        483,
+        373,
+        374
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "Vivid cyan tile with black label text 'NEW' and text 'Widgets that rearrange themselves.'"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        443,
+        483,
+        793,
+        374
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "Near-black bar chart tile titled 'WEEKLY FOCUS' with 10 vertical bars, all dark grey (#3f3f46) except bar 4 which is vivid yellow (#facc15); bar heights as perc"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7"
+          ],
+          "lines": 1,
+          "fontPx": 262
+        }
+      ],
+      "region": [
+        1008,
+        573,
+        239,
+        314
+      ],
+      "paths": [],
+      "instruction": "Inside the weekly-focus bar chart tile, place a giant Helvetica heavy, tight-set, hollow-outlined yellow numeral '07', 260px type size, about 265px wide (no lar"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        473,
+        334,
+        292,
+        292
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "A 300px solid sphere (border-radius 50%), fully opaque, painted with a radial-gradient (circle at 35% 30%, #ffffff 0% to #f472b6 30% to #7c3aed 75%) so it looks"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,543 @@
+{
+  "round": 45,
+  "id": "c4-bike-repair",
+  "version": 3,
+  "stopped": null,
+  "likeness": 85.9,
+  "colour": 0.9732038175813906,
+  "structure": 0.8929970220264849,
+  "layout": 0.8620595472859103,
+  "strokes": {
+    "count": 15,
+    "pointsPerStroke": 3.8,
+    "simpleShare": 1,
+    "shapes": {
+      "box": 5,
+      "dot": 2,
+      "line": 6,
+      "circle": 2
+    },
+    "inkPx": 10962
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 58,
+  "notes": 8,
+  "longestNote": 11,
+  "noteTexts": [
+    "Spoke & Chain bold",
+    "Services Prices Book",
+    "Your bike, fixed / by Friday, huge bold",
+    "Drop it off Monday. Ride it home this week.",
+    "Book a repair, yellow",
+    "Tune-up / Gears, brakes and a full check / $65",
+    "Flat fix / New tube, done while you wait / $20",
+    "Full service / Strip, clean and rebuild / $180"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 432,
+    "firstReadingS": 107,
+    "readS": [
+      63
+    ],
+    "buildS": [
+      322
+    ],
+    "sketchingS": 47
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 110088,
+    "cacheRead": 908229,
+    "output": 33456,
+    "billed": 143544
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#ffd440",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 10244
+    },
+    {
+      "op": "stroke",
+      "at": 10722
+    },
+    {
+      "op": "pen",
+      "color": "#111111",
+      "at": 11084
+    },
+    {
+      "op": "stroke",
+      "at": 12020
+    },
+    {
+      "op": "stroke",
+      "at": 13089
+    },
+    {
+      "op": "stroke",
+      "at": 14988
+    },
+    {
+      "op": "stroke",
+      "at": 16319
+    },
+    {
+      "op": "stroke",
+      "at": 17821
+    },
+    {
+      "op": "stroke",
+      "at": 19854
+    },
+    {
+      "op": "stroke",
+      "at": 20317
+    },
+    {
+      "op": "stroke",
+      "at": 23069
+    },
+    {
+      "op": "stroke",
+      "at": 25808
+    },
+    {
+      "op": "stroke",
+      "at": 26957
+    },
+    {
+      "op": "stroke",
+      "at": 30672
+    },
+    {
+      "op": "stroke",
+      "at": 34372
+    },
+    {
+      "op": "stroke",
+      "at": 38076
+    },
+    {
+      "op": "note",
+      "at": 38786
+    },
+    {
+      "op": "note",
+      "at": 39549
+    },
+    {
+      "op": "note",
+      "at": 40431
+    },
+    {
+      "op": "note",
+      "at": 41412
+    },
+    {
+      "op": "note",
+      "at": 42196
+    },
+    {
+      "op": "note",
+      "at": 43105
+    },
+    {
+      "op": "note",
+      "at": 43911
+    },
+    {
+      "op": "note",
+      "at": 44746
+    },
+    {
+      "op": "run",
+      "at": 44893
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          2,
+          80
+        ],
+        [
+          1278,
+          80
+        ],
+        [
+          1278,
+          560
+        ],
+        [
+          2,
+          560
+        ],
+        [
+          2,
+          80
+        ]
+      ],
+      "n": 587,
+      "at": 10244
+    },
+    {
+      "way": [
+        [
+          640,
+          520
+        ]
+      ],
+      "n": 1,
+      "at": 10722
+    },
+    {
+      "way": [
+        [
+          70,
+          40
+        ],
+        [
+          239,
+          40
+        ]
+      ],
+      "n": 29,
+      "at": 12020
+    },
+    {
+      "way": [
+        [
+          992,
+          40
+        ],
+        [
+          1210,
+          40
+        ]
+      ],
+      "n": 37,
+      "at": 13089
+    },
+    {
+      "way": [
+        [
+          70,
+          185
+        ],
+        [
+          585,
+          185
+        ]
+      ],
+      "n": 87,
+      "at": 14988
+    },
+    {
+      "way": [
+        [
+          70,
+          258
+        ],
+        [
+          381,
+          258
+        ]
+      ],
+      "n": 53,
+      "at": 16319
+    },
+    {
+      "way": [
+        [
+          70,
+          334
+        ],
+        [
+          430,
+          334
+        ]
+      ],
+      "n": 61,
+      "at": 17821
+    },
+    {
+      "way": [
+        [
+          70,
+          420
+        ],
+        [
+          290,
+          420
+        ],
+        [
+          290,
+          478
+        ],
+        [
+          70,
+          478
+        ],
+        [
+          70,
+          420
+        ]
+      ],
+      "n": 95,
+      "at": 19854
+    },
+    {
+      "way": [
+        [
+          100,
+          470
+        ]
+      ],
+      "n": 1,
+      "at": 20317
+    },
+    {
+      "way": [
+        [
+          820,
+          200
+        ],
+        [
+          912,
+          238
+        ],
+        [
+          950,
+          330
+        ],
+        [
+          912,
+          422
+        ],
+        [
+          820,
+          460
+        ],
+        [
+          728,
+          422
+        ],
+        [
+          690,
+          330
+        ],
+        [
+          728,
+          238
+        ],
+        [
+          820,
+          200
+        ]
+      ],
+      "n": 137,
+      "at": 23069
+    },
+    {
+      "way": [
+        [
+          1090,
+          200
+        ],
+        [
+          1182,
+          238
+        ],
+        [
+          1220,
+          330
+        ],
+        [
+          1182,
+          422
+        ],
+        [
+          1090,
+          460
+        ],
+        [
+          998,
+          422
+        ],
+        [
+          960,
+          330
+        ],
+        [
+          998,
+          238
+        ],
+        [
+          1090,
+          200
+        ]
+      ],
+      "n": 137,
+      "at": 25808
+    },
+    {
+      "way": [
+        [
+          852,
+          345
+        ],
+        [
+          1088,
+          267
+        ]
+      ],
+      "n": 42,
+      "at": 26957
+    },
+    {
+      "way": [
+        [
+          70,
+          620
+        ],
+        [
+          430,
+          620
+        ],
+        [
+          430,
+          840
+        ],
+        [
+          70,
+          840
+        ],
+        [
+          70,
+          620
+        ]
+      ],
+      "n": 195,
+      "at": 30672
+    },
+    {
+      "way": [
+        [
+          460,
+          620
+        ],
+        [
+          820,
+          620
+        ],
+        [
+          820,
+          840
+        ],
+        [
+          460,
+          840
+        ],
+        [
+          460,
+          620
+        ]
+      ],
+      "n": 195,
+      "at": 34372
+    },
+    {
+      "way": [
+        [
+          850,
+          620
+        ],
+        [
+          1210,
+          620
+        ],
+        [
+          1210,
+          840
+        ],
+        [
+          850,
+          840
+        ],
+        [
+          850,
+          620
+        ]
+      ],
+      "n": 195,
+      "at": 38076
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Spoke & Chain bold",
+      "whole": false,
+      "x": 80,
+      "y": 58,
+      "at": 38786
+    },
+    {
+      "text": "Services Prices Book",
+      "whole": false,
+      "x": 1000,
+      "y": 58,
+      "at": 39549
+    },
+    {
+      "text": "Your bike, fixed / by Friday, huge bold",
+      "whole": false,
+      "x": 80,
+      "y": 215,
+      "at": 40431
+    },
+    {
+      "text": "Drop it off Monday. Ride it home this week.",
+      "whole": false,
+      "x": 80,
+      "y": 350,
+      "at": 41412
+    },
+    {
+      "text": "Book a repair, yellow",
+      "whole": false,
+      "x": 95,
+      "y": 440,
+      "at": 42196
+    },
+    {
+      "text": "Tune-up / Gears, brakes and a full check / $65",
+      "whole": false,
+      "x": 90,
+      "y": 660,
+      "at": 43105
+    },
+    {
+      "text": "Flat fix / New tube, done while you wait / $20",
+      "whole": false,
+      "x": 480,
+      "y": 660,
+      "at": 43911
+    },
+    {
+      "text": "Full service / Strip, clean and rebuild / $180",
+      "whole": false,
+      "x": 870,
+      "y": 660,
+      "at": 44746
+    }
+  ]
+}

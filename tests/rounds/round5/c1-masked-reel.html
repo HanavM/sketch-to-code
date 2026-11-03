@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Masked reel</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0b0b10;font-family:Helvetica,Arial,sans-serif;color:#f5f5f4}
+@keyframes drift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.reel{position:absolute;left:0;top:0;width:1280px;height:900px;background:radial-gradient(circle at 30% 40%,#f97316 0,transparent 38%),radial-gradient(circle at 70% 60%,#7c3aed 0,transparent 42%),radial-gradient(circle at 50% 90%,#0ea5e9 0,transparent 35%),#0b0b10;background-size:200% 200%;animation:drift 12s linear infinite alternate;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
+.nav{position:absolute;left:56px;top:40px;right:56px;display:flex;justify-content:space-between;font-size:15px;letter-spacing:1px}
+.nav b{font-size:18px;letter-spacing:4px}
+.title{position:absolute;left:40px;top:250px;font-size:250px;font-weight:900;letter-spacing:-12px;line-height:.85;color:transparent;-webkit-text-stroke:2px #f5f5f4}
+.title2{position:absolute;left:40px;top:470px;font-size:250px;font-weight:900;letter-spacing:-12px;line-height:.85;color:#f5f5f4;mix-blend-mode:overlay}
+.play{position:absolute;left:1030px;top:300px;width:150px;height:150px;border-radius:50%;border:2px solid #f5f5f4;display:flex;align-items:center;justify-content:center;font-size:14px;letter-spacing:3px}
+.meta{position:absolute;left:56px;bottom:56px;width:360px;font-size:16px;line-height:1.5;color:#d6d3d1}
+.time{position:absolute;right:56px;bottom:60px;font-size:14px;letter-spacing:2px;color:#a8a29e}
+.track{position:absolute;left:500px;bottom:66px;width:500px;height:2px;background:#44403c}.track i{display:block;width:180px;height:2px;background:#f97316}
+</style></head><body>
+<div class="reel" data-r="reel" data-must></div>
+<div class="nav" data-r="nav"><b>NOCTURNE</b><span>Films · Studio · Contact</span></div>
+<div class="title" data-r="title-outline" data-must>AFTER</div>
+<div class="title2" data-r="title-solid" data-must>DARK</div>
+<div class="play" data-r="play" data-must>PLAY</div>
+<p class="meta" data-r="meta">A short film about the city between midnight and dawn. Shot on 16mm, scored live.</p>
+<div class="track" data-r="track"><i></i></div>
+<div class="time" data-r="time">02:14 / 11:40</div>
+</body></html>

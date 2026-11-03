@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Split blend</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#f4efe6;font-family:Helvetica,Arial,sans-serif;color:#111}
+@keyframes float{50%{transform:translateY(-14px)}}
+.half{position:absolute;left:640px;top:0;width:640px;height:900px;background:#1a1aff}
+.nav{position:absolute;left:48px;top:34px;width:1184px;display:flex;justify-content:space-between;font:700 13px/1 Helvetica;letter-spacing:3px;text-transform:uppercase;color:#fff;mix-blend-mode:difference}
+.big{position:absolute;left:60px;top:150px;font:900 230px/0.86 Helvetica;letter-spacing:-12px;color:#fff;mix-blend-mode:difference;text-transform:uppercase}
+.big span{display:inline-block}.big .d1{transform:translateY(40px)}.big .d2{transform:translateY(-30px) rotate(-6deg)}.big .d3{font-style:italic;font-weight:300;transform:translateY(20px)}
+.blob{position:absolute;left:560px;top:520px;width:220px;height:220px;border-radius:42% 58% 63% 37%/45% 35% 65% 55%;background:#ff4f2e;animation:float 5s ease-in-out infinite}
+.lede{position:absolute;left:60px;top:640px;width:420px;font:400 19px/1.5 Georgia,serif}
+.side{position:absolute;left:880px;top:640px;width:340px;font:400 15px/1.6 Helvetica;color:#fff}.side b{display:block;font:700 12px Helvetica;letter-spacing:3px;margin-bottom:8px}
+.cta{position:absolute;left:60px;top:790px;padding:16px 30px;border:2px solid #111;border-radius:999px;font:700 15px Helvetica;letter-spacing:1px}
+.idx{position:absolute;left:1180px;top:820px;font:700 48px/1 "Courier New",monospace;color:#fff}
+</style></head><body>
+<div class="half" data-r="blue-half" data-must></div>
+<div class="nav" data-r="nav"><span>Halves®</span><span>Index</span><span>About</span><span>Shop</span></div>
+<h1 class="big" data-r="headline" data-must><span>Two</span> <span class="d1">si</span><span class="d2">d</span><span class="d3">es</span><br><span>Of one</span></h1>
+<div class="blob" data-r="blob"></div>
+<p class="lede" data-r="lede">A design studio split down the middle: one half strategy, one half pure colour. Every project lives on the seam.</p>
+<div class="side" data-r="side-note"><b>NOW SHOWING</b>Spring identities for Kiosk, Nara and the Lyon opera, printed in two inks only.</div>
+<div class="cta" data-r="cta">See the seam →</div>
+<div class="idx" data-r="index">/02</div>
+</body></html>

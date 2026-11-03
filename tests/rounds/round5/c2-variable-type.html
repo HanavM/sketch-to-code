@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Variable type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#e7e5e4;font-family:Helvetica,Arial,sans-serif;color:#1c1917}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes slide{to{transform:translateX(-50%)}}
+.row{position:absolute;left:48px;white-space:nowrap;line-height:.9;letter-spacing:-4px}
+.r1{top:90px;font-size:180px;font-weight:100}.r2{top:260px;font-size:180px;font-weight:900;font-style:italic;color:#dc2626}.r3{top:430px;font-size:180px;font-weight:400;letter-spacing:24px}
+.badge{position:absolute;left:1000px;top:120px;width:200px;height:200px;animation:spin 20s linear infinite}
+.badge text{font-size:15px;letter-spacing:5px;fill:#1c1917}
+.dot{position:absolute;left:1086px;top:206px;width:28px;height:28px;border-radius:50%;background:#dc2626}
+.strip{position:absolute;left:0;top:690px;width:1280px;height:70px;background:#1c1917;color:#e7e5e4;overflow:hidden}
+.strip div{white-space:nowrap;font-size:34px;font-weight:700;line-height:70px;animation:slide 18s linear infinite}
+.foot{position:absolute;left:48px;top:800px;font-size:15px;color:#57534e}
+.cta{position:absolute;right:48px;top:792px;padding:12px 26px;border-radius:999px;background:#dc2626;color:#fff;font-size:15px;font-weight:700}
+</style></head><body>
+<div class="row r1" data-r="line-thin" data-must>Weight</div>
+<div class="row r2" data-r="line-heavy" data-must>Width</div>
+<div class="row r3" data-r="line-wide" data-must>Slant</div>
+<svg class="badge" data-r="badge" viewBox="0 0 200 200"><defs><path id="c" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#c">ONE FAMILY · 3 AXES · 900 STYLES ·</textPath></text></svg>
+<div class="dot" data-r="badge-dot"></div>
+<div class="strip" data-r="marquee" data-must><div>Flex Grotesk — now variable ✦ Flex Grotesk — now variable ✦ Flex Grotesk — now variable ✦ Flex Grotesk — now variable ✦</div></div>
+<p class="foot" data-r="foot">Free for personal use. Studio licence from €90.</p>
+<a class="cta" data-r="cta">Try the axes</a>
+</body></html>

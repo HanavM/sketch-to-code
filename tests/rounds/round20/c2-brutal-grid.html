@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Brutal grid</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:"Courier New",monospace;color:#000}
+@keyframes up{to{transform:translateY(-50%)}}@keyframes blink{50%{opacity:0}}
+.g{position:absolute;border:3px solid #000}
+.nav{left:0;top:0;width:1280px;height:64px;display:flex;align-items:stretch}.nav span{flex:1;border-right:3px solid #000;font:700 16px/58px "Courier New";text-align:center;text-transform:uppercase}.nav span:first-child{flex:2;background:#000;color:#fff;font-size:22px}
+.big{left:0;top:61px;width:780px;height:520px;padding:20px 28px;font:900 260px/0.8 "Arial Black",Impact,sans-serif;letter-spacing:-14px}
+.big i{font-style:normal;color:#ff3b00}
+.inv{left:777px;top:61px;width:503px;height:300px;background:#000;color:#fff;padding:26px;font-size:18px;line-height:1.5}.inv b{display:block;font:900 54px/1 "Arial Black",sans-serif;margin-bottom:14px;color:#c6ff00}
+.tick{left:777px;top:358px;width:120px;height:542px;overflow:hidden;background:#c6ff00}.tick div{animation:up 10s linear infinite;writing-mode:vertical-rl;font:900 40px/116px "Arial Black",sans-serif;white-space:nowrap}
+.list{left:894px;top:358px;width:386px;height:542px;padding:0}.list div{border-bottom:3px solid #000;padding:16px 20px;display:flex;justify-content:space-between;font-size:17px}.list div:hover,.list .on{background:#ff3b00;color:#fff}
+.side{left:0;top:578px;width:140px;height:322px;display:flex;align-items:center;justify-content:center}.side span{transform:rotate(-90deg);white-space:nowrap;font:700 20px "Courier New";letter-spacing:6px}
+.copy{left:137px;top:578px;width:643px;height:322px;padding:26px 30px;font-size:20px;line-height:1.45}.copy em{background:#c6ff00;font-style:normal}
+.cur{display:inline-block;width:14px;height:24px;background:#000;vertical-align:middle;animation:blink 1s steps(1) infinite}
+.btn{position:absolute;left:167px;top:820px;padding:14px 30px;background:#000;color:#fff;font:700 18px "Courier New";box-shadow:8px 8px 0 #ff3b00}
+</style></head><body>
+<div class="g nav" data-r="nav"><span>NO/FRILLS</span><span>Work</span><span>Index</span><span>Info</span><span>Contact</span></div>
+<div class="g big" data-r="giant-number" data-must>2<i>0</i>26</div>
+<div class="g inv" data-r="manifesto" data-must><b>RAW HTML.</b>We build websites with no gradients, no rounded corners and no apologies. Twelve columns, three-pixel rules.</div>
+<div class="g tick" data-r="vertical-ticker"><div>BOOKINGS OPEN ✶ BOOKINGS OPEN ✶ BOOKINGS OPEN ✶ BOOKINGS OPEN ✶</div></div>
+<div class="g list" data-r="project-list"><div><span>01 Kiosk OS</span><span>2026</span></div><div class="on"><span>02 Port Archive</span><span>2025</span></div><div><span>03 Fold Mag</span><span>2025</span></div><div><span>04 Gridlock</span><span>2024</span></div><div><span>05 Sans Club</span><span>2024</span></div><div><span>06 Tin Radio</span><span>2023</span></div><div><span>07 Pavement</span><span>2023</span></div></div>
+<div class="g side" data-r="side-label"><span>EST. 2019</span></div>
+<div class="g copy" data-r="copy">Studio of four. We like <em>fast pages</em>, loud type and clients who read the brief twice. Currently booking for spring<span class="cur"></span></div>
+<div class="btn" data-r="cta">START A PROJECT ↗</div>
+</body></html>

@@ -1,0 +1,518 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "802dd45447f4957d578b2a7bc3675ee025bfadca",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/RocketShip.tsx"
+  ],
+  "reading": "The sketch designs a navy space-camp landing page: a top nav bar with a logo and links, a bold hero headline and subtext beside a colorful rocket illustration (red nose, white body, blue window, orange base), an orange 'Join the crew' pill button, white star dots on the navy background, and a navy bottom bar.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> at (64,372) 448x56 matches the sketch region",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:52:7",
+      "rect": {
+       "x": 64,
+       "y": 372,
+       "w": 448,
+       "h": 56
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 65,
+        "y": 469,
+        "w": 229,
+        "h": 61
+       },
+       "built": {
+        "x": 65,
+        "y": 469,
+        "w": 230,
+        "h": 61
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ff7a1a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (859,110) 122x650 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:63:7",
+      "rect": {
+       "x": 859,
+       "y": 110,
+       "w": 122,
+       "h": 650
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/App.tsx:63:7 at (859,110) 122x650 sits on the drawn shape",
+     "claimed": "e24"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 860,
+        "y": 110,
+        "w": 121,
+        "h": 130
+       },
+       "built": {
+        "x": 860,
+        "y": 110,
+        "w": 121,
+        "h": 130
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 891,
+        "y": 300,
+        "w": 58,
+        "h": 60
+       },
+       "built": {
+        "x": 891,
+        "y": 300,
+        "w": 58,
+        "h": 60
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f24545 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 1,
+    "score": 0.8626855918606754,
+    "massSimilarity": 0.9466937026581077,
+    "flaws": [
+     "unfilled"
+    ],
+    "notes": [
+     "the output uses 1 fill value(s) — that reads as a flat cut-out. Give the form at least 2 values (a body tone, a shadow side, a highlight) so it reads as an object rather than a silhouette"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,801) 1280x99 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:101:7",
+      "rect": {
+       "x": 0,
+       "y": 801,
+       "w": 1280,
+       "h": 99
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 1,
+        "y": 799,
+        "w": 1277,
+        "h": 99
+       },
+       "built": {
+        "x": 0,
+        "y": 801,
+        "w": 1280,
+        "h": 99
+       },
+       "dx": 1,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#13285e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 shape built to the drawn outline"
+    }
+   },
+   {
+    "kind": "typed-spot",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 typed words where typed"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "13 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#0b1f47",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#ffae1f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "page",
+       "want": "#ffffff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (65,469) 230x61",
+       "want": "#ff7a1a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (860,110) 121x130",
+       "want": "#f24545",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (859,230) 122x381",
+       "want": "#f0f3f8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (890,300) 60x60",
+       "want": "#38bdf8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1,799) 1277x99",
+       "want": "#13285e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 49838,
+   "cacheRead": 258175,
+   "output": 16306
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 39228,
+    "output": 15274,
+    "cacheRead": 195901,
+    "toolCalls": 9,
+    "tools": [
+     "Read components/RocketShip.tsx",
+     "Glob",
+     "Read src/App.tsx",
+     "Glob",
+     "Read src/main.tsx",
+     "Read src/index.css",
+     "Edit components/RocketShip.tsx",
+     "Read components/RocketShip.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 167699
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 26916,
+    "output": 1032,
+    "cacheRead": 62274,
+    "toolCalls": 2,
+    "tools": [
+     "Edit components/RocketShip.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 12127,
+    "why": [
+     "page (colours from the ink): action 1: the outline drawn at (859,230) 122x381 was coloured #f0f3f8 (fill); nothing that size was built there carrying a colour: paint the block itself exactly #f0f3f8"
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ },
+ {
+  "engine": "model",
+  "mode": "gesture",
+  "checkpoint": "e30e374d1858fd1d907b32c4a025c04509ac3c09",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/RocketShip.tsx"
+  ],
+  "reading": "The user typed that the whole page background should be a flat navy color with no gradient or orange tint.",
+  "verification": [
+   {
+    "verdicts": [
+     {
+      "index": 0,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     },
+     {
+      "index": 1,
+      "op": "MODIFY",
+      "satisfied": false,
+      "reason": "target not found and old text still absent"
+     }
+    ],
+    "satisfied": 0,
+    "total": 2,
+    "score": 0
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 direction and look tails kept off the page"
+    }
+   }
+  ],
+  "tokens": {
+   "input": 12993,
+   "cacheRead": 133964,
+   "output": 2023
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 5915,
+    "output": 491,
+    "cacheRead": 64866,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 6763
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 9101,
+    "output": 1532,
+    "cacheRead": 69098,
+    "toolCalls": 2,
+    "tools": [
+     "Read src/App.tsx",
+     "Read src/App.tsx"
+    ],
+    "ms": 19467,
+    "why": [
+     "action 0 (MODIFY): target not found and old text still absent",
+     "action 0 (MODIFY): target not found and old text still absent"
+    ]
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

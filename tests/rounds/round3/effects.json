@@ -1,0 +1,110 @@
+{
+ "c1-layered-peaks": {
+  "found": {
+   "gradient": 1,
+   "glow": 1,
+   "huge-type": 1,
+   "clip-shape": 2,
+   "overlap": 7
+  },
+  "names": [
+   "clip-shape",
+   "glow",
+   "gradient",
+   "huge-type",
+   "overlap"
+  ]
+ },
+ "c2-kinetic-marquee": {
+  "found": {
+   "tilt": 2,
+   "bleed": 2,
+   "motion": 3,
+   "huge-type": 1,
+   "uppercase-display": 2,
+   "overlap": 1
+  },
+  "names": [
+   "bleed",
+   "huge-type",
+   "motion",
+   "overlap",
+   "tilt",
+   "uppercase-display"
+  ]
+ },
+ "c3-gradient-orbit": {
+  "found": {
+   "motion": 2,
+   "glow": 2,
+   "gradient-text": 1,
+   "huge-type": 1,
+   "gradient": 1,
+   "overlap": 1
+  },
+  "names": [
+   "glow",
+   "gradient",
+   "gradient-text",
+   "huge-type",
+   "motion",
+   "overlap"
+  ]
+ },
+ "c4-brutal-index": {
+  "found": {
+   "huge-type": 1,
+   "vertical-type": 1,
+   "mono": 6,
+   "hard-shadow": 3,
+   "tilt": 1
+  },
+  "names": [
+   "hard-shadow",
+   "huge-type",
+   "mono",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c5-blend-editorial": {
+  "found": {
+   "serif": 3,
+   "italic": 2,
+   "vertical-type": 1,
+   "gradient": 1,
+   "blend": 1,
+   "huge-type": 1,
+   "overlap": 5
+  },
+  "names": [
+   "blend",
+   "gradient",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "vertical-type"
+  ]
+ },
+ "e1-users-table": {
+  "found": {},
+  "names": []
+ },
+ "e2-kanban": {
+  "found": {},
+  "names": []
+ },
+ "e3-calendar": {
+  "found": {},
+  "names": []
+ },
+ "e4-chat": {
+  "found": {},
+  "names": []
+ },
+ "e5-analytics": {
+  "found": {},
+  "names": []
+ }
+}

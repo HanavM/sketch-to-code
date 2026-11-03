@@ -1,0 +1,154 @@
+{
+  "id": "e5-admin-table",
+  "at": "2026-10-23T19:39:36.112Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9183708380416725,
+    "overallV2": 0.9183708380416725,
+    "overallV1": 0.8855134074698241,
+    "colour": 0.986913722812762,
+    "structure": 0.9607629901079648,
+    "structureStrict": 0.9180498654216053,
+    "colourAligned": 0.986913722812762,
+    "structureAligned": 0.9607629901079648,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9855957636689999
+    },
+    "layout": 0.8980813470041317
+  },
+  "effects": null,
+  "tokens": {
+    "input": 44643,
+    "output": 25402,
+    "cacheRead": 236238
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 54776,
+      "output": 19853,
+      "cacheRead": 223671,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx",
+        "Grep"
+      ],
+      "ms": 209667
+    }
+  ],
+  "reading": "The sketch lays out a Users admin dashboard: a dark sidebar nav, a page header with title and action buttons, a filter toolbar, a bulk-selection action bar, a detailed users table card, and a pagination bar — all specified in precise detail by the typed notes, which take precedence over the rough ink shapes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        3,
+        214,
+        894
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Left sidebar navigation panel, full page height. Dark navy (#0f172a) bar containing grey text \"▲ Northstar\" and a nav list: Overview, Users, Teams, Billing, Aud"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        256,
+        31,
+        989,
+        27
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Page header row for the Users section: heading \"Users\" (#0f172a), and two action items — \"Export\" (#0f172a text) and a primary button \"+ Invite user\" (white #ff"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        256,
+        84,
+        989,
+        30
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Toolbar row of filter controls packed at the left edge, 8px apart, each sized to its own content (shrink-0, nothing stretched or pushed right; the row's right s"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        256,
+        136,
+        989,
+        38
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "Bulk-selection action bar, 44px tall, full page width, dark navy background. Bold \"2 selected\" sits at the left; links \"Change role\", \"Move to team\", \"Deactivat"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        255,
+        192,
+        990,
+        358
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "White card containing a users table. Header row is a 994x40px #f8fafc-filled bar (fill clearly visible, not white) with a 1px #f1f5f9 bottom border, containing "
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s5",
+            "s6"
+          ],
+          "lines": 2,
+          "fontPx": 11
+        }
+      ],
+      "region": [
+        256,
+        567,
+        988,
+        32
+      ],
+      "paths": [],
+      "instruction": "Pagination bar, one line, 996px wide, placed 583px from the page top. At the left, grey text \"Showing 1–5 of 38 admins\" (#64748b, not the page's dark navy). At "
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

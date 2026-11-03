@@ -1,0 +1,110 @@
+{
+ "c1-cutout-collage": {
+  "found": {
+   "tilt": 5,
+   "gradient": 1,
+   "hard-shadow": 1,
+   "clip-shape": 1,
+   "blend": 1,
+   "huge-type": 1,
+   "serif": 2,
+   "italic": 1,
+   "overlap": 5
+  },
+  "names": [
+   "blend",
+   "clip-shape",
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "overlap",
+   "serif",
+   "tilt"
+  ]
+ },
+ "c2-difference-split": {
+  "found": {
+   "gradient": 1,
+   "blend": 2,
+   "huge-type": 2,
+   "overlap": 7
+  },
+  "names": [
+   "blend",
+   "gradient",
+   "huge-type",
+   "overlap"
+  ]
+ },
+ "c3-swiss-grid": {
+  "found": {
+   "huge-type": 1,
+   "vertical-type": 1,
+   "overlap": 1
+  },
+  "names": [
+   "huge-type",
+   "overlap",
+   "vertical-type"
+  ]
+ },
+ "c4-depth-planes": {
+  "found": {
+   "blur": 2,
+   "bleed": 2,
+   "glass": 2,
+   "gradient-text": 1,
+   "overlap": 8
+  },
+  "names": [
+   "bleed",
+   "blur",
+   "glass",
+   "gradient-text",
+   "overlap"
+  ]
+ },
+ "c5-sticky-story": {
+  "found": {
+   "huge-type": 1,
+   "serif": 2,
+   "tilt": 1
+  },
+  "names": [
+   "huge-type",
+   "serif",
+   "tilt"
+  ]
+ },
+ "e1-crm-dashboard": {
+  "found": {
+   "overlap": 4
+  },
+  "names": [
+   "overlap"
+  ]
+ },
+ "e2-mail-client": {
+  "found": {},
+  "names": []
+ },
+ "e3-checkout": {
+  "found": {},
+  "names": []
+ },
+ "e4-file-manager": {
+  "found": {
+   "gradient": 3,
+   "overlap": 2
+  },
+  "names": [
+   "gradient",
+   "overlap"
+  ]
+ },
+ "e5-gantt": {
+  "found": {},
+  "names": []
+ }
+}

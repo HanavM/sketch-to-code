@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Email client</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#fff;font-family:Helvetica,Arial,sans-serif;color:#1f2328;font-size:14px}
+.fold{position:absolute;left:0;top:0;width:220px;height:900px;background:#f1f3f7;padding:16px 12px}
+.comp{display:flex;align-items:center;gap:10px;background:#c2e7ff;border-radius:16px;padding:16px 20px;font-weight:700;width:150px;margin-bottom:16px}
+.fold .f{display:flex;justify-content:space-between;padding:8px 14px;border-radius:0 18px 18px 0;margin-left:-12px;color:#444}.fold .f.on{background:#d3e3fd;font-weight:700;color:#041e49}.fold h6{font:700 12px Helvetica;color:#666;padding:18px 2px 6px}
+.fold .lb{display:flex;align-items:center;gap:10px;padding:6px 2px;color:#444}.fold .lb i{width:10px;height:10px;border-radius:2px}
+.list{position:absolute;left:220px;top:0;width:440px;height:900px;border-right:1px solid #e3e6ea}
+.srch{margin:12px 16px;height:44px;border-radius:22px;background:#eaf1fb;padding:14px 18px;color:#5f6368}
+.lt{display:flex;gap:18px;padding:0 16px;border-bottom:1px solid #e3e6ea;height:40px;align-items:center}.lt span{color:#5f6368;height:40px;display:flex;align-items:center}.lt span.on{color:#0b57d0;font-weight:700;box-shadow:inset 0 -3px 0 #0b57d0}
+.m{display:grid;grid-template-columns:36px 1fr auto;gap:2px 12px;padding:12px 16px;border-bottom:1px solid #f0f2f4;position:relative}.m .av{grid-row:span 3;width:36px;height:36px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.m b{font-weight:400}.m.un b,.m.un .s{font-weight:700}.m time{font-size:12px;color:#5f6368}.m .s{grid-column:2/4}.m .p{grid-column:2/4;color:#5f6368;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m.un::before{content:"";position:absolute;left:5px;top:28px;width:7px;height:7px;border-radius:50%;background:#0b57d0}.m.sel{background:#e8f0fe}
+.chip{display:inline-block;font-size:11px;padding:1px 6px;border-radius:4px;margin-right:6px;font-weight:700}
+.read{position:absolute;left:660px;top:0;width:620px;height:900px;padding:0 28px}
+.tb{height:56px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e3e6ea;margin:0 -28px;padding:0 20px}.tb i{width:32px;height:32px;border-radius:50%;background:#f1f3f4;font-style:normal;display:flex;align-items:center;justify-content:center;color:#444}.tb span{margin-left:auto;color:#5f6368;font-size:12px}
+.read h1{font:400 24px Helvetica;margin:22px 0 14px}
+.from{display:flex;gap:12px;align-items:center}.from .av{width:40px;height:40px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}.from small{display:block;color:#5f6368;font-size:12px}.from time{margin-left:auto;font-size:12px;color:#5f6368}
+.body{margin:20px 0 0 52px;line-height:1.6;color:#3c4043}.body p{margin-bottom:12px}
+.att{display:flex;gap:12px;margin:8px 0 0 52px}.att div{width:180px;border:1px solid #dadce0;border-radius:8px;overflow:hidden}.att div i{display:block;height:80px}.att div b{display:block;padding:8px 10px;font-size:12px}
+.quote{margin:18px 0 0 52px;border-left:3px solid #dadce0;padding-left:14px;color:#5f6368;font-size:13px;line-height:1.5}
+.rep{position:absolute;left:80px;top:810px;display:flex;gap:10px}.rep b{padding:10px 22px;border:1px solid #747775;border-radius:20px;font-weight:600}
+</style></head><body>
+<div class="fold" data-r="folders" data-must><div class="comp">✎ Compose</div><div class="f on"><span>Inbox</span><b>24</b></div><div class="f"><span>Starred</span></div><div class="f"><span>Snoozed</span></div><div class="f"><span>Sent</span></div><div class="f"><span>Drafts</span><span>3</span></div><h6>Labels</h6><div class="lb"><i style="background:#f59e0b"></i>Clients</div><div class="lb"><i style="background:#10b981"></i>Receipts</div><div class="lb"><i style="background:#8b5cf6"></i>Travel</div></div>
+<div class="list" data-r="message-list" data-must><div class="srch">Search mail</div><div class="lt"><span class="on">Primary</span><span>Promotions</span><span>Updates</span></div>
+<div class="m un sel"><i class="av" style="background:#7c3aed">LV</i><b>Lena Voss</b><time>10:42</time><span class="s">Contract draft v3 for review</span><span class="p"><span class="chip" style="background:#fef3c7;color:#92400e">Clients</span>Attached the updated terms with the new payment schedule…</span></div>
+<div class="m un"><i class="av" style="background:#0891b2">KA</i><b>KLM Airlines</b><time>09:15</time><span class="s">Your boarding pass: AMS → LIS</span><span class="p"><span class="chip" style="background:#ede9fe;color:#5b21b6">Travel</span>Flight KL1691 departs 14:05 from gate D7…</span></div>
+<div class="m"><i class="av" style="background:#16a34a">TB</i><b>Tom Becker</b><time>Yesterday</time><span class="s">Re: Q4 offsite venue</span><span class="p">The boathouse can do the 12th, they need a deposit by Friday</span></div>
+<div class="m"><i class="av" style="background:#db2777">MS</i><b>Maya Singh</b><time>Yesterday</time><span class="s">Photos from the launch</span><span class="p">48 photos shared with you on Drive</span></div>
+<div class="m"><i class="av" style="background:#ea580c">ST</i><b>Stripe</b><time>Oct 24</time><span class="s">Receipt #2213-0941</span><span class="p"><span class="chip" style="background:#d1fae5;color:#065f46">Receipts</span>Amount paid €1,240.00 for October</span></div>
+<div class="m"><i class="av" style="background:#475569">GH</i><b>GitHub</b><time>Oct 23</time><span class="s">[sketch-to-code] 3 new issues</span><span class="p">Ring gesture misses nested cards on Safari</span></div></div>
+<div class="read" data-r="reading-pane" data-must><div class="tb"><i>←</i><i>⇩</i><i>⚠</i><i>🗑</i><i>✉</i><span>1 of 24</span></div>
+<h1>Contract draft v3 for review</h1>
+<div class="from"><i class="av">LV</i><div><b>Lena Voss</b><small>to me, Tom</small></div><time>10:42 (12 minutes ago)</time></div>
+<div class="body"><p>Hi both,</p><p>Attached the updated terms with the new payment schedule. The main change is net-30 instead of net-45, and the IP clause now covers the sketches as well as the final code.</p><p>Could you sign off by Thursday?</p><p>Lena</p></div>
+<div class="att" data-r="attachments"><div><i style="background:linear-gradient(135deg,#fee2e2,#fca5a5)"></i><b>Contract_v3.pdf</b></div><div><i style="background:linear-gradient(135deg,#dbeafe,#93c5fd)"></i><b>Payment_schedule.xlsx</b></div></div>
+<div class="quote" data-r="quoted-reply">On Oct 24, Tom Becker wrote:<br>Looks good overall, can we bring the payment terms down to 30 days?</div>
+<div class="rep" data-r="reply-buttons"><b>↩ Reply</b><b>↪ Forward</b></div></div>
+</body></html>

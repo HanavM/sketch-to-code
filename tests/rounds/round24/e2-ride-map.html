@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Ride map</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#eef0e9;font-family:Helvetica,Arial,sans-serif;color:#111;font-size:14px}
+.st{position:absolute;background:#fff;box-shadow:0 0 0 1px #dcdfd6}
+.park{position:absolute;background:#c9e7b8;border-radius:40px}
+.water{position:absolute;left:0;top:0}
+.route{position:absolute;left:0;top:0}
+.pin{position:absolute;width:22px;height:22px;border-radius:50%;border:5px solid #fff;box-shadow:0 2px 6px #0004}
+.car{position:absolute;width:30px;height:16px;border-radius:5px;background:#111;transform:rotate(30deg)}
+.lbl{position:absolute;font:600 12px Helvetica;color:#5b6b52}
+.search{position:absolute;left:24px;top:24px;width:400px;background:#fff;border-radius:14px;box-shadow:0 8px 24px #0002;padding:14px 16px}
+.search .row{display:flex;align-items:center;gap:12px;height:40px}.search .row i{width:10px;height:10px;border-radius:50%;background:#111}.search .row i.sq{border-radius:0}.search .row span{flex:1;background:#f3f3f3;border-radius:8px;padding:10px 12px}.search .ln{margin-left:4px;width:2px;height:12px;background:#ccc}
+.sheet{position:absolute;left:24px;top:400px;width:400px;background:#fff;border-radius:16px;box-shadow:0 8px 24px #0002;padding:18px}
+.sheet h3{font:700 20px Helvetica;margin-bottom:12px}
+.opt{display:flex;align-items:center;gap:14px;padding:12px;border-radius:12px;margin-bottom:6px}.opt.on{outline:2px solid #111}.opt i{width:56px;height:36px;border-radius:8px;background:#e5e7eb}.opt .t{flex:1}.opt .t b{display:block;font-size:16px}.opt .t small{color:#6b7280}.opt .p{font:700 16px Helvetica}.opt .tag{background:#16a34a;color:#fff;border-radius:4px;padding:1px 6px;font-size:11px;margin-left:6px;font-weight:700}
+.pay{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #eee;margin-top:8px;padding-top:12px;color:#374151}
+.go{margin-top:12px;height:52px;border-radius:10px;background:#111;color:#fff;font:700 17px Helvetica;display:flex;align-items:center;justify-content:center}
+.zoom{position:absolute;right:24px;top:24px;width:44px;border-radius:10px;background:#fff;box-shadow:0 4px 12px #0002;font:400 24px Helvetica;text-align:center}.zoom div{height:44px;line-height:44px}.zoom div+div{border-top:1px solid #eee}
+.eta{position:absolute;left:900px;top:190px;background:#111;color:#fff;border-radius:8px;padding:6px 10px;font:700 13px Helvetica}
+</style></head><body>
+<div data-r="map" data-must style="position:absolute;left:0;top:0;width:1280px;height:900px">
+<div class="park" style="left:560px;top:520px;width:300px;height:220px"></div><div class="park" style="left:1020px;top:40px;width:200px;height:160px"></div>
+<svg class="water" width="1280" height="900"><path d="M480 900 C560 760 700 760 780 640 S1000 520 1280 560 V640 C1040 610 900 680 820 740 S620 860 600 900Z" fill="#a9d3f5"/></svg>
+<div class="st" style="left:0;top:330px;width:1280px;height:16px"></div><div class="st" style="left:520px;top:0;width:14px;height:900px"></div><div class="st" style="left:880px;top:0;width:18px;height:900px"></div><div class="st" style="left:0;top:130px;width:1280px;height:10px"></div><div class="st" style="left:640px;top:-100px;width:12px;height:1200px;transform:rotate(35deg)"></div><div class="st" style="left:440px;top:470px;width:900px;height:10px"></div>
+<span class="lbl" style="left:640px;top:610px">Riverside Park</span><span class="lbl" style="left:1060px;top:100px">Elm Green</span><span class="lbl" style="left:960px;top:312px">MARKET ST</span>
+</div>
+<svg class="route" data-r="route" data-must width="1280" height="900"><path d="M540 338 H700 L889 138 H1100" fill="none" stroke="#2563eb" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<div class="pin" data-r="pin-start" style="left:529px;top:327px;background:#111"></div><div class="pin" data-r="pin-end" style="left:1089px;top:127px;background:#2563eb;border-radius:4px"></div>
+<div class="car" data-r="car" style="left:760px;top:250px"></div><div class="eta" data-r="eta">4 min away</div>
+<div class="search" data-r="search-box" data-must><div class="row"><i></i><span>Ferry Terminal, Pier 3</span></div><div class="ln"></div><div class="row"><i class="sq"></i><span>Elm Green Library</span></div></div>
+<div class="sheet" data-r="ride-sheet" data-must><h3>Choose a ride</h3>
+<div class="opt on"><i></i><div class="t"><b>Standard<span class="tag">FASTER</span></b><small>4 min · 12:42 drop-off</small></div><div class="p">$14.20</div></div>
+<div class="opt"><i></i><div class="t"><b>Comfort</b><small>6 min · 12:45 drop-off</small></div><div class="p">$19.80</div></div>
+<div class="opt"><i></i><div class="t"><b>Share</b><small>9 min · 12:51 drop-off</small></div><div class="p">$9.10</div></div>
+<div class="pay"><span>▭ Visa •••• 4242</span><span>Promo ›</span></div><div class="go">Confirm Standard</div></div>
+<div class="zoom" data-r="zoom"><div>+</div><div>−</div></div>
+</body></html>

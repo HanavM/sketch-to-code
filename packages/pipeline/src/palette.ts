@@ -89,6 +89,18 @@ export function parseCssColor(input: string): Rgb | null {
     if (![L, C, hDeg].every(Number.isFinite)) return null
     return oklchToRgb(L, C, hDeg)
   }
+  // n16: Chrome reports a colour with alpha (text-white/70) as oklab(L a b / A)
+  const oklab = /^oklab\(([^)]+)\)$/.exec(s)
+  if (oklab) {
+    const parts = oklab[1]!.split(/[\s,/]+/).filter(Boolean)
+    if (parts.length < 3) return null
+    if (parts.length >= 4 && Number(parts[3]) === 0) return null
+    const L = parts[0]!.endsWith('%') ? Number(parts[0]!.slice(0, -1)) / 100 : Number(parts[0])
+    const a = Number(parts[1]), bb = Number(parts[2])
+    if (![L, a, bb].every(Number.isFinite)) return null
+    const C = Math.hypot(a, bb)
+    return oklchToRgb(L, C, (Math.atan2(bb, a) * 180) / Math.PI)
+  }
   return null
 }
 
@@ -168,6 +180,15 @@ export function appPalette(snap: DomSnapshot): PaletteEntry[] {
   return [...byToken.values()].sort((a, b) => b.count - a.count)
 }
 
+/** The inside of an arbitrary value names a colour: '#ea580c', 'rgb(...)', 'hsl(...)', 'color:var(--x)'. */
+export function isColorValue(v: string): boolean {
+  const x = v.trim().toLowerCase()
+  if (x.startsWith('color:')) return true
+  if (/^#[0-9a-f]{3,8}$/.test(x)) return true
+  if (/^(?:rgba?|hsla?|oklch|oklab|lab|lch)\(/.test(x)) return true
+  return false
+}
+
 /**
  * 'text-red-600' / 'bg-white' / 'text-[#ff0000]' are colours; 'text-sm',
  * 'text-center' and 'bg-cover' are not. Tailwind colour utilities end in a
@@ -175,7 +196,10 @@ export function appPalette(snap: DomSnapshot): PaletteEntry[] {
  */
 function isColorClass(cls: string, prefix: string): boolean {
   const rest = cls.slice(prefix.length)
-  if (rest.startsWith('[')) return true
+  // n190: 'text-[15px]' and 'bg-[url(...)]' are arbitrary values too, but not colours. Counted as colours, a
+  // 15px grey label put 'text-[15px]' in the palette as grey, and the finishing pass then "snapped" a typed
+  // orange (text-[#ea580c]) onto it: the class lost its colour and r44 e5's orange arrival line came out black.
+  if (rest.startsWith('[')) return isColorValue(rest.slice(1, rest.lastIndexOf(']') > 0 ? rest.lastIndexOf(']') : undefined))
   if (/-\d{2,3}$/.test(rest)) return true
   return ['white', 'black', 'transparent', 'current', 'inherit'].includes(rest)
 }

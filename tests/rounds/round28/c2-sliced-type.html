@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Sliced type</title><style>
+*{box-sizing:border-box;margin:0}body{width:1280px;height:900px;position:relative;overflow:hidden;background:#0d0d12;font-family:Helvetica,Arial,sans-serif;color:#f4f1ea}
+.glow{position:absolute;left:300px;top:120px;width:700px;height:520px;border-radius:50%;background:radial-gradient(#5b3cff 0,#5b3cff66 35%,#0000 70%);filter:blur(30px)}
+.nav{position:absolute;left:60px;top:38px;width:1160px;display:flex;gap:32px;font:500 14px Helvetica;color:#b9b6c8}.nav b{margin-right:auto;color:#f4f1ea;font-weight:800;letter-spacing:1px}
+.slice{position:absolute;left:60px;width:1160px;font:900 230px/1 Helvetica,Arial,sans-serif;letter-spacing:-12px;white-space:nowrap}
+.s1{top:150px;clip-path:inset(0 0 66% 0)}.s2{top:150px;clip-path:inset(34% 0 33% 0);transform:translateX(38px);color:#ff4f7b}.s3{top:150px;clip-path:inset(67% 0 0 0);transform:translateX(-22px)}
+.outline{position:absolute;left:60px;top:400px;font:900 230px/1 Helvetica,Arial,sans-serif;letter-spacing:-12px;color:transparent;-webkit-text-stroke:2px #f4f1ea55;white-space:nowrap}
+.scan{position:absolute;left:0;top:0;width:1280px;height:900px;background:repeating-linear-gradient(0deg,#ffffff07 0 1px,#0000 1px 4px)}
+.tag{position:absolute;left:880px;top:118px;padding:8px 14px;border-radius:999px;border:1px solid #ff4f7b;color:#ff4f7b;font:700 12px ui-monospace,Menlo,monospace;letter-spacing:2px;transform:rotate(8deg)}
+.copy{position:absolute;left:64px;top:690px;width:440px;font:400 18px/1.55 Georgia,serif;color:#d9d5e6}
+.cta{position:absolute;left:64px;top:810px;display:flex;gap:14px}.cta span{padding:15px 26px;border-radius:999px;font:700 15px Helvetica}.cta .p{background:linear-gradient(90deg,#ff4f7b,#5b3cff);color:#fff}.cta .g{border:1px solid #f4f1ea55}
+.specs{position:absolute;left:820px;top:680px;width:400px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#f4f1ea33;border:1px solid #f4f1ea33}.specs div{background:#0d0d12;padding:16px 18px}.specs b{display:block;font:800 30px Helvetica}.specs small{font:500 12px ui-monospace,Menlo,monospace;color:#b9b6c8;letter-spacing:1px}
+.ticker{position:absolute;left:0;top:618px;width:1280px;height:40px;background:#ff4f7b;color:#0d0d12;font:800 16px/40px Helvetica;letter-spacing:4px;white-space:nowrap;transform:rotate(-2deg);animation:tk 12s linear infinite}
+@keyframes tk{to{transform:rotate(-2deg) translateX(-400px)}}
+</style></head><body>
+<div class="glow" data-r="violet-glow"></div>
+<div class="nav" data-r="nav"><b>SHIFT/28</b><span>Work</span><span>Studio</span><span>Talks</span><span>Contact</span></div>
+<div class="slice s1" data-r="sliced-title" data-must>DISPLACE</div><div class="slice s2">DISPLACE</div><div class="slice s3">DISPLACE</div>
+<div class="outline" data-r="outline-echo">DISPLACE</div>
+<div class="tag" data-r="tilted-tag">NEW SHOW · LIVE</div>
+<div class="ticker" data-r="tilted-ticker" data-must>MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺ MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺ MOTION ✺ TYPE ✺ GLITCH ✺ PRINT ✺</div>
+<p class="copy" data-r="copy">A design studio cutting letters into motion. Three slices, one word, a different offset every frame.</p>
+<div class="cta" data-r="cta" data-must><span class="p">See the reel</span><span class="g">Studio notes</span></div>
+<div class="specs" data-r="stat-grid" data-must><div><b>142</b><small>FRAMES / SEC</small></div><div><b>3</b><small>SLICES</small></div><div><b>12px</b><small>DRIFT</small></div><div><b>∞</b><small>LOOPS</small></div></div>
+<div class="scan" data-r="scanlines"></div>
+</body></html>

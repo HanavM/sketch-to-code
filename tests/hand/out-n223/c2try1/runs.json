@@ -1,0 +1,682 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "3204ff8e5abbb80d7bcb42c3b03c5281513ede17",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Fish.tsx",
+   "src/components/Fish2.tsx"
+  ],
+  "reading": "The sketch is an aquarium hero section on a deep-blue page: a logo and nav at top, a big centered serif headline with a subheading and a \"Plan a visit\" button, a three-item bold footer bar, and a decorative underwater scene of three coloured fish and two bubbles scattered behind the text.",
+  "verification": [
+   {
+    "kind": "add",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Deep Blue\" at (70,27) 118x29 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:43:9",
+      "rect": {
+       "x": 70,
+       "y": 24,
+       "w": 118.359375,
+       "h": 36
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 0,
+    "satisfied": true,
+    "nearest": 5.7,
+    "reason": "#eef8ff is on the page (ΔE 5.7)"
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <a> \"Exhibits\" at (984,32) 60x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "a",
+      "srcLoc": "src/App.tsx:47:11",
+      "rect": {
+       "x": 984.296875,
+       "y": 30,
+       "w": 60.0625,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 1,
+    "satisfied": true,
+    "nearest": 5.7,
+    "reason": "#eef8ff is on the page (ΔE 5.7)"
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <h1> \"Go under for a while\" at (257,135) 766x102 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "h1",
+      "srcLoc": "src/App.tsx:53:7",
+      "rect": {
+       "x": 257,
+       "y": 145,
+       "w": 1023,
+       "h": 82
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 2,
+    "satisfied": true,
+    "nearest": 5.7,
+    "reason": "#eef8ff is on the page (ΔE 5.7)"
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <p> \"Six hundred species, one giant\" at (408,249) 465x23 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "p",
+      "srcLoc": "src/App.tsx:68:7",
+      "rect": {
+       "x": 0,
+       "y": 250,
+       "w": 1280,
+       "h": 22.796875
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 3,
+    "satisfied": true,
+    "nearest": 24.5,
+    "reason": "#a9d6ea is on the page (ΔE 24.5)"
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:11:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s15",
+       "drawn": {
+        "x": 519,
+        "y": 689,
+        "w": 241,
+        "h": 60
+       },
+       "built": {
+        "x": 519.5,
+        "y": 688.796875,
+        "w": 241,
+        "h": 60
+       },
+       "dx": 1,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 4,
+    "satisfied": true,
+    "nearest": 5.7,
+    "reason": "#eef8ff is on the page (ΔE 5.7)"
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <span> \"Open daily 9 to 6\" at (70,798) 131x20 sits on the drawn line",
+     "bestCandidate": {
+      "tag": "span",
+      "srcLoc": "src/App.tsx:94:9",
+      "rect": {
+       "x": 70,
+       "y": 795.796875,
+       "w": 131.203125,
+       "h": 24
+      }
+     }
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#07324f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:11:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/App.tsx:12:9 at (230,379) 230x97 sits on the drawn shape",
+     "claimed": "e4"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ff8c42 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 6,
+    "score": 0.8421117851875549,
+    "massSimilarity": 0.9173025502679356,
+    "flaws": [
+     "unfilled"
+    ],
+    "notes": [
+     "the output uses 1 fill value(s) — that reads as a flat cut-out. Give the form at least 2 values (a body tone, a shadow side, a highlight) so it reads as an object rather than a silhouette"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:11:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<path> src/components/Fish2.tsx:18:7 at (800,470) 231x96 sits on the drawn shape",
+     "claimed": "e9"
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ffd23f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 7,
+    "score": 0.8525503640400517,
+    "massSimilarity": 0.9322148057715024,
+    "flaws": [
+     "unfilled"
+    ],
+    "notes": [
+     "the output uses 1 fill value(s) — that reads as a flat cut-out. Give the form at least 2 values (a body tone, a shadow side, a highlight) so it reads as an object rather than a silhouette"
+    ]
+   },
+   {
+    "kind": "add",
+    "index": 8,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:11:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 8,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s7",
+       "drawn": {
+        "x": 480,
+        "y": 541,
+        "w": 130,
+        "h": 65
+       },
+       "built": {
+        "x": 480,
+        "y": 541,
+        "w": 130,
+        "h": 65
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 8,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f1466f is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 9,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:11:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 9,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 681,
+        "y": 340,
+        "w": 32,
+        "h": 32
+       },
+       "built": {
+        "x": 681,
+        "y": 340,
+        "w": 32,
+        "h": 32
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s10",
+       "drawn": {
+        "x": 1086,
+        "y": 375,
+        "w": 57,
+        "h": 58
+       },
+       "built": {
+        "x": 1085.255615234375,
+        "y": 375.255615234375,
+        "w": 57.48876953125,
+        "h": 57.48876953125
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 9,
+    "satisfied": true,
+    "nearest": 24.5,
+    "reason": "#a9d6ea is on the page (ΔE 24.5)"
+   },
+   {
+    "kind": "drift",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 of 6 blocks within 16px of their drawn top",
+     "offsets": [
+      {
+       "index": 0,
+       "drawn": 38,
+       "built": 42,
+       "dy": 4
+      },
+      {
+       "index": 1,
+       "drawn": 38,
+       "built": 42,
+       "dy": 4
+      },
+      {
+       "index": 2,
+       "drawn": 178,
+       "built": 186,
+       "dy": 8
+      },
+      {
+       "index": 4,
+       "drawn": 689,
+       "built": 689,
+       "dy": 0
+      },
+      {
+       "index": 5,
+       "drawn": 812,
+       "built": 808,
+       "dy": -4
+      },
+      {
+       "index": 8,
+       "drawn": 540,
+       "built": 541,
+       "dy": 1
+      }
+     ]
+    }
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "tilts",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 box built turned as drawn"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "8 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "line-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 one-line headings span its drawn line"
+    }
+   },
+   {
+    "kind": "row-span",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row of words within its drawn line"
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": false,
+     "reason": "\"Pier 14\" (a direction of the note \"x3 across: Open daily 9 to 6; Pier 14; Adults $24; bold\") is printed on the page; \"Adults $24\" (a direction of the note \"x3 across: Open daily 9 to 6; Pier 14; Adults $24; bold\") is printed on the page: remove that text (it is how the note asked the item to look or behave, not copy), keep the item's own words and apply what it asked; change nothing else"
+    }
+   },
+   {
+    "kind": "text-rules",
+    "verdict": {
+     "satisfied": true,
+     "reason": "4 lines drawn for words built as words, no rules"
+    }
+   },
+   {
+    "kind": "count-row",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 items in one row over the span"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "11 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#07324f",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (70,38) 117x0",
+       "want": "#eef8ff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (1001,38) 209x0",
+       "want": "#eef8ff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (257,178) 766x0",
+       "want": "#eef8ff",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the line drawn at (411,261) 458x0",
+       "want": "#a9d6ea",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the box drawn at (519,689) 241x60",
+       "want": "#eef8ff",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (230,379) 230x97",
+       "want": "#ff8c42",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (800,470) 230x96",
+       "want": "#ffd23f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (480,540) 130x66",
+       "want": "#f1466f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (681,340) 32x32",
+       "want": "#a9d6ea",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1086,375) 57x58",
+       "want": "#a9d6ea",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 94880,
+   "cacheRead": 658221,
+   "output": 35009
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 64465,
+    "output": 25229,
+    "cacheRead": 238982,
+    "toolCalls": 10,
+    "tools": [
+     "Read components/Fish.tsx",
+     "Read components/Fish2.tsx",
+     "Glob",
+     "Glob",
+     "Read src/App.tsx",
+     "Read src/index.css",
+     "Read s2c-hand-app/package.json",
+     "Edit components/Fish.tsx",
+     "Edit components/Fish2.tsx",
+     "Write src/App.tsx"
+    ],
+    "ms": 285382
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 55751,
+    "output": 6281,
+    "cacheRead": 208347,
+    "toolCalls": 7,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit components/Fish.tsx",
+     "Edit components/Fish2.tsx"
+    ],
+    "ms": 56613
+   },
+   {
+    "attempt": "1",
+    "kind": "repair",
+    "billed": 9673,
+    "output": 3499,
+    "cacheRead": 210892,
+    "toolCalls": 4,
+    "tools": [
+     "Read src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx",
+     "Edit src/App.tsx"
+    ],
+    "ms": 41136
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]

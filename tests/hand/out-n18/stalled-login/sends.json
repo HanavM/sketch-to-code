@@ -1,0 +1,19 @@
+[
+  {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 9856,
+    "output": 2151,
+    "cacheRead": 110094,
+    "toolCalls": 6,
+    "tools": [
+      "Glob",
+      "Glob",
+      "Read src/App.tsx",
+      "Read src/index.css",
+      "Read src/main.tsx",
+      "Write src/App.tsx"
+    ],
+    "ms": 22931
+  }
+]

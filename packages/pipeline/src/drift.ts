@@ -1,0 +1,258 @@
+import type { DomNode, DomSnapshot } from '@s2c/dom'
+
+/**
+ * A page built from a drawing keeps its blocks at their drawn heights.
+ *
+ * The placement check passes a block anywhere within ~120px of where it was
+ * drawn, so a build that adds its own padding, a taller header and wider row
+ * gaps passes every action while each block lands 10-40px lower than the one
+ * before it (round 7 e1 kanban: column heads +13px, lane rule +17px, first
+ * cards +41px, the second lane +42px; likeness 36% with everything present).
+ * The codegen contract already asks for tops within ~16px of region.y; this
+ * check measures it and, when blocks drift, names each one with its built
+ * and drawn top so a repair turn can take the extra space out.
+ *
+ * Only for whole-page builds (6+ placed add/design actions). Each drawn block
+ * is matched to the new element of about its x and width (and a plausible
+ * height) whose top is nearest its drawn top: a conservative match, it can
+ * only under-report. Thin text-line regions compare centres, since a line box
+ * is taller than the squiggle drawn for it. Zero tokens.
+ */
+type Box = { x: number; y: number; w: number; h: number }
+
+export interface DriftVerdict {
+  satisfied: boolean
+  unverifiable?: boolean
+  reason: string
+  offsets: Array<{ index: number; drawn: number; built: number; dy: number }>
+}
+
+export const DRIFT_TOLERANCE_PX = 16
+
+const styleKey = (n: DomNode): string => JSON.stringify([n.tag, n.text, n.classes, n.style])
+
+function freshNodes(before: DomSnapshot, after: DomSnapshot): DomNode[] {
+  const count = new Map<string, number>()
+  for (const n of before.nodes) count.set(styleKey(n), (count.get(styleKey(n)) ?? 0) + 1)
+  const out: DomNode[] = []
+  for (const n of after.nodes) {
+    const k = styleKey(n)
+    const c = count.get(k) ?? 0
+    if (c > 0) count.set(k, c - 1)
+    else out.push(n)
+  }
+  return out
+}
+
+/** Built top (or, for a thin text line, centre) of the element standing for a drawn block, or null. */
+export function matchTop(fresh: DomNode[], r: Box, quote?: string | null): { y: number; drawn: number } | null {
+  const thin = r.h < 24
+  const drawn = thin ? r.y + r.h / 2 : r.y
+  let best: DomNode | null = null
+  let bestD = Infinity
+  // a block whose words quote its copy is matched by that copy first: matching by size alone picked a neighbour
+  // near the drawn top (round 7 e4: the size row matched a wrapper 7px off while it sat 91px low, and the blocks
+  // then read as off both ways, so the drift went unreported)
+  const q = (quote ?? '').replace(/\s+/g, ' ').trim().toLowerCase()
+  if (q.length >= 2) {
+    for (const n of fresh) {
+      if (n.rect.w <= 0 || n.rect.h <= 0 || !n.text) continue
+      if (!n.text.replace(/\s+/g, ' ').trim().toLowerCase().startsWith(q.slice(0, 24))) continue
+      if (n.rect.x < r.x - Math.max(16, 0.1 * r.w) || n.rect.x > r.x + r.w) continue
+      // a tall card is never stood for by one thin line of its copy: the label's centre was compared with the card's
+      // centre (round 8 e2 n126: KPI cards read 35px high, the table card 100px high, and the repair pushed them down)
+      if (!thin && n.rect.h < 0.5 * r.h - 4) continue
+      const c = thin || n.rect.h < 24
+      const d = Math.abs((c ? n.rect.y + n.rect.h / 2 : n.rect.y) - (c ? r.y + r.h / 2 : r.y))
+      if (d > 160) continue
+      if (d < bestD) { bestD = d; best = n }
+    }
+    if (best) {
+      const c = thin || best.rect.h < 24
+      return { y: c ? best.rect.y + best.rect.h / 2 : best.rect.y, drawn: c ? r.y + r.h / 2 : r.y }
+    }
+  }
+  for (const n of fresh) {
+    if (n.rect.w <= 0 || n.rect.h <= 0) continue
+    if (Math.abs(n.rect.x - r.x) > Math.max(16, 0.1 * r.w)) continue
+    if (Math.abs(n.rect.w - r.w) > Math.max(24, 0.2 * r.w)) continue
+    if (n.rect.h < 0.5 * r.h - 4 || n.rect.h > 2.5 * r.h + 24) continue
+    const y = thin ? n.rect.y + n.rect.h / 2 : n.rect.y
+    const d = Math.abs(y - drawn)
+    if (d > 160) continue
+    if (d < bestD) { bestD = d; best = n }
+  }
+  if (!best) return null
+  return { y: thin ? best.rect.y + best.rect.h / 2 : best.rect.y, drawn }
+}
+
+export const SHIFT_MIN_PX = 6
+export const SHIFT_MEDIAN_PX = 8
+
+/**
+ * A whole block of the page moved the same way by a little under the drift tolerance (round 7 e1 n112 run 1: every
+ * block under the top bar ~12-15px low, each inside 16px, so no repair ran and likeness fell 77 to 48%). Blocks at the
+ * very top (y < 40, a top bar) are anchored and do not count. Fires only when 6+ blocks below it can be matched, two thirds of
+ * them are off the same way by SHIFT_MIN_PX or more (n113 run: heads +6, cards 8-11px low, likeness 72 vs 77), and their median offset is SHIFT_MEDIAN_PX or more: a page built
+ * in place scatters its offsets around zero, a shifted one does not.
+ */
+/**
+ * n208: the space a shifted page carries is very often the top bar itself, built taller than drawn (round 45 c4 bike
+ * repair: header built 93px, the hero drawn to start at 79, so every block below rode 14px low; the generic "find that
+ * one space" told two repair rounds nothing they could act on and neither took it out). When the first block that is
+ * off sits right under a full-width bar at the very top (its bottom within a few px of that block's built top), name
+ * the bar with its built height and the height the drawing gives it. Zero tokens.
+ */
+export const BAR_ABUT_PX = 8
+export function barCause(fresh: DomNode[], first: { built: number; dy: number; drawn: number }, viewportW = 1280): string | null {
+  if (first.dy === 0) return null
+  let best: DomNode | null = null
+  let bestD = Infinity
+  for (const n of fresh) {
+    const r = n.rect
+    if (r.y > 4 || r.w < 0.6 * viewportW || r.h < 24 || r.h > 200) continue
+    const d = Math.abs(r.y + r.h - first.built)
+    if (d > BAR_ABUT_PX) continue
+    if (d < bestD || (d === bestD && best && r.h < best.rect.h)) { bestD = d; best = n }
+  }
+  if (!best) return null
+  const h = Math.round(best.rect.h)
+  const want = Math.round(h - first.dy)
+  if (want < 20) return null
+  const words = (best.text ?? '').replace(/\s+/g, ' ').trim().slice(0, 24)
+  return (
+    ` The space is the top bar: the <${best.tag}>${words ? ` holding "${words}"` : ''} at the very top (${best.srcLoc}) is built ` +
+    `${h}px tall, and the drawing has it ${want}px tall (the block under it is drawn starting at ${first.drawn}px). ` +
+    `Set that bar's height to exactly ${want}px (height: ${want}px; ${first.dy > 0 ? 'lower its vertical padding, line-height or min-height' : 'add vertical padding'}), ` +
+    `keep its words vertically centred in it, and leave every block under it alone: they move up with it.`
+  )
+}
+
+export function uniformShift(offsets: DriftVerdict['offsets'], fresh: DomNode[] = [], viewportW = 1280): string | null {
+  const body = offsets.filter((o) => o.drawn >= 40)
+  if (body.length < 6) return null
+  const low = body.filter((o) => o.dy >= SHIFT_MIN_PX)
+  const high = body.filter((o) => o.dy <= -SHIFT_MIN_PX)
+  const same = low.length >= high.length ? low : high
+  if (same.length * 3 < body.length * 2) return null
+  const dys = body.map((o) => o.dy).sort((a, b) => a - b)
+  const med = dys[Math.floor(dys.length / 2)] ?? 0
+  if (Math.abs(med) < SHIFT_MEDIAN_PX) return null
+  const way = med > 0 ? 'lower' : 'higher'
+  const first = [...same].sort((a, b) => a.drawn - b.drawn)[0]
+  if (!first) return null
+  const list = [...same].sort((a, b) => a.drawn - b.drawn).slice(0, 6)
+    .map((o) => `action ${o.index} top at ${o.built}px, drawn at ${o.drawn}px`)
+  return (
+    `${same.length} of ${body.length} blocks below the top all sit about ${Math.abs(med)}px ${way} than drawn, the same way: ` +
+    `${list.join('; ')}. The whole page from action ${first.index} down is shifted by one extra (or missing) space above it ` +
+    `(a taller bar, page padding, a margin under the header). Find that one space above action ${first.index} and ` +
+    `${med > 0 ? 'take it out' : 'add it back'} so its top lands at ${first.drawn}px; everything under it moves with it. ` +
+    `Change only that one spacing; never use a negative margin, negative top or absolute position. ` +
+    `Do not change widths, colours or copy.` +
+    (barCause(fresh, first, viewportW) ?? '')
+  )
+}
+
+export function verifyPageDrift(
+  before: DomSnapshot,
+  after: DomSnapshot,
+  placed: Array<{ index: number; region: Box; quote?: string | null }>,
+): DriftVerdict {
+  if (before.truncated || after.truncated) {
+    return { satisfied: true, unverifiable: true, reason: 'snapshot truncated', offsets: [] }
+  }
+  const fresh = freshNodes(before, after)
+  // n120: a big drawn panel is checked on any page with 2+ placed blocks: the budget page (5 placed actions, so "not a
+  // whole-page build") had its Categories panel built ~145px below its drawn top and every check passed
+  const big = bigBlockDrift(fresh, placed, after.viewport.h)
+  if (placed.length < 6) {
+    if (big) return big
+    return { satisfied: true, unverifiable: true, reason: 'not a whole-page build', offsets: [] }
+  }
+  const offsets: DriftVerdict['offsets'] = []
+  for (const p of placed) {
+    // full-page backdrops and very tall blocks are anchored at the page top anyway
+    if (p.region.h > 0.8 * after.viewport.h && p.region.y < 40) continue
+    const m = matchTop(fresh, p.region, p.quote)
+    if (m) offsets.push({ index: p.index, drawn: Math.round(m.drawn), built: Math.round(m.y), dy: Math.round(m.y - m.drawn) })
+  }
+  if (offsets.length < 4) {
+    return { satisfied: true, unverifiable: true, reason: `only ${offsets.length} blocks could be matched to their drawing`, offsets }
+  }
+  const off = offsets.filter((o) => Math.abs(o.dy) > DRIFT_TOLERANCE_PX)
+  if (off.length < Math.max(3, Math.ceil(0.25 * offsets.length))) {
+    const shift = uniformShift(offsets, fresh, after.viewport.w)
+    if (shift) return { satisfied: false, reason: shift, offsets }
+    if (big) return big
+    return { satisfied: true, reason: `${offsets.length - off.length} of ${offsets.length} blocks within ${DRIFT_TOLERANCE_PX}px of their drawn top`, offsets }
+  }
+  const low = off.filter((o) => o.dy > 0).length
+  // real drift runs one way and compounds down the page; blocks off in both directions are far more often a wrong
+  // match than a wrong layout, and a repair turn chasing them cost round 7 e4 its 10-minute run (both n99 runs)
+  if (low < off.length * 0.7 && low > off.length * 0.3) {
+    if (big) return big
+    return { satisfied: true, unverifiable: true, reason: `${off.length} blocks off in both directions: likely mismatched, not drift`, offsets }
+  }
+  const way = low >= off.length * 0.7 ? 'lower than drawn' : 'higher than drawn'
+  const list = [...off].sort((a, b) => a.drawn - b.drawn).slice(0, 8)
+    .map((o) => `action ${o.index} top at ${o.built}px, drawn at ${o.drawn}px (${Math.abs(o.dy)}px ${o.dy > 0 ? 'low' : 'high'})`)
+  return {
+    satisfied: false,
+    reason:
+      `${off.length} of ${offsets.length} blocks sit ${way}: ${list.join('; ')}. ` +
+      `Take out the extra vertical space the drawing does not have (page/body padding, a taller bar, bigger margins or ` +
+      `gaps between rows, line-height on thin lines) so each block's top lands within ${DRIFT_TOLERANCE_PX}px of its drawn y; ` +
+      `fix it at the first block that is off, since every block under it moves with it. Remove space; never pull a block up with a ` +
+        `negative margin, negative top or absolute position, which slides it over the heading or label above it. ` +
+        `Do not change widths, colours or copy.` +
+        (() => { const f = [...off].sort((a, b) => a.drawn - b.drawn)[0]; return f && f.drawn >= 40 ? (barCause(fresh, f, after.viewport.w) ?? '') : '' })(),
+    offsets,
+  }
+}
+
+export const BIG_BLOCK_MIN_H = 160
+export const BIG_BLOCK_MIN_W = 200
+export const BIG_BLOCK_TOL_PX = 32
+
+/**
+ * n120: a big drawn block (a panel or card at least ~160px tall and ~200px wide) lands at its drawn top. One such
+ * block far off is never a stray mismatch the way a thin line can be: it is matched by its drawn size and x, and
+ * everything drawn inside it moves with it. Checked on any page with 2+ placed blocks, and when the whole-page drift
+ * check passes only because too few other blocks are off (one panel 145px low among 8 blocks in place).
+ */
+const insideBox = (a: Box, b: Box, slack: number) =>
+  a.x >= b.x - slack && a.y >= b.y - slack && a.x + a.w <= b.x + b.w + slack && a.y + a.h <= b.y + b.h + slack
+
+export function bigBlockDrift(
+  fresh: DomNode[],
+  placed: Array<{ index: number; region: Box; quote?: string | null }>,
+  viewportH: number,
+): DriftVerdict | null {
+  if (placed.length < 2) return null
+  const offsets: DriftVerdict['offsets'] = []
+  for (const p of placed) {
+    const r = p.region
+    if (r.h < BIG_BLOCK_MIN_H || r.w < BIG_BLOCK_MIN_W) continue
+    if (r.h > 0.8 * viewportH && r.y < 40) continue
+    // n122: a region inside a bigger drawn one is that panel's content (budget: the bar rows inside Categories, drawn
+    // at y 231), and matching it by size and x picks the panel round it, a false "120px high" that sent repairs after it
+    if (placed.some((q) => q !== p && q.region.w * q.region.h > r.w * r.h && !(q.region.h > 0.8 * viewportH && q.region.y < 40) && q.region.w < 0.9 * 1280 && insideBox(r, q.region, 8))) continue
+    // by size and x only: a quote picks out a line of copy, not the panel round it
+    const m = matchTop(fresh, r, null)
+    if (m) offsets.push({ index: p.index, drawn: Math.round(m.drawn), built: Math.round(m.y), dy: Math.round(m.y - m.drawn) })
+  }
+  const off = offsets.filter((o) => Math.abs(o.dy) > BIG_BLOCK_TOL_PX)
+  if (!off.length) return null
+  const list = off.map((o) => `action ${o.index} (a big drawn panel) top at ${o.built}px, drawn at ${o.drawn}px (${Math.abs(o.dy)}px ${o.dy > 0 ? 'low' : 'high'})`)
+  return {
+    satisfied: false,
+    reason:
+      `${list.join('; ')}. A big panel starts where it was drawn: its top within ${DRIFT_TOLERANCE_PX}px of the drawn y. ` +
+      `Find the space above it that the drawing does not have (it sits in a column or grid row that starts lower, a wrapper ` +
+      `with padding or a top margin, a heading placed above it that was drawn inside it, or it was stacked under a block ` +
+      `drawn beside it) and take that out, so the panel's top lands at its drawn y; what is inside it moves with it. ` +
+      `Never use a negative margin, negative top or absolute position. Do not change widths, colours or copy.`,
+    offsets: off,
+  }
+}

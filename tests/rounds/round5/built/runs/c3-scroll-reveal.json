@@ -1,0 +1,189 @@
+{
+  "id": "c3-scroll-reveal",
+  "at": "2026-10-21T21:33:50.753Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.7412631152960354,
+    "overallV2": 0.6686189732223731,
+    "overallV1": 0.5639605264357301,
+    "colour": 0.9319035869872155,
+    "structure": 0.7908294595567698,
+    "structureStrict": 0.6558670956109433,
+    "colourAligned": 0.9514749763419511,
+    "structureAligned": 0.8428490566518072,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": -32,
+      "r": 0.9560169840488885
+    },
+    "layout": 0.8107470531455527
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "bleed",
+      "glass",
+      "gradient"
+    ],
+    "missing": [],
+    "extra": [
+      "soft-shadow"
+    ]
+  },
+  "tokens": {
+    "input": 28783,
+    "output": 19441,
+    "cacheRead": 140655
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 35156,
+      "output": 14203,
+      "cacheRead": 130493,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Glob",
+        "Read s2c-bench-app/index.html",
+        "Write src/App.tsx"
+      ],
+      "ms": 151950
+    }
+  ],
+  "reading": "The sketch lays out a page top-to-bottom: a top nav bar, a left-aligned big headline with a right-aligned paragraph beneath it, and a row of four feature cards (one bleeding off the right edge) each carrying a numbered gradient label, a bold title line and a description line, per the typed notes.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        62
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Add a frosted-glass navigation bar 68px tall spanning the full width of the top of the page, with a thin dividing line underneath it. Show bold 18px logo text '"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s1",
+        "s2"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s1",
+            "s2"
+          ],
+          "lines": 2,
+          "fontPx": 60
+        }
+      ],
+      "region": [
+        56,
+        140,
+        558,
+        90
+      ],
+      "paths": [],
+      "instruction": "Add a huge, Helvetica, heavy-weight, tight-set headline reading 'Ship the page. Then watch it unfold.' positioned on the left side under the nav bar."
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s3",
+        "s4"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s3",
+            "s4"
+          ],
+          "lines": 2,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        764,
+        142,
+        452,
+        37
+      ],
+      "paths": [],
+      "instruction": "Add dark grey body text reading 'Sections ease in as you scroll, each one a beat later than the last. No code, no timelines to wire up.' positioned on the right"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        51,
+        383,
+        334,
+        434
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "First feature card: fill with a dark navy to dark grey gradient. Show label '01 — BUILD', then a big 28px bold line 'Draw it', then body text 'Rough boxes becom"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        415,
+        423,
+        333,
+        434
+      ],
+      "paths": [
+        "s6"
+      ],
+      "instruction": "Second feature card: fill with a blue to sky-blue gradient faded to 75% opacity (see-through). Show label '02 — MOVE', then a big 28px bold line 'Stagger it', t"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        779,
+        473,
+        334,
+        425
+      ],
+      "paths": [
+        "s7"
+      ],
+      "instruction": "Third feature card: fill with a dark pink to pale pink gradient faded to 45% opacity (see-through). Show label '03 — TUNE', then a big 28px bold line 'Ease it',"
+    },
+    {
+      "kind": "design",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        1143,
+        523,
+        135,
+        375
+      ],
+      "paths": [
+        "s8"
+      ],
+      "instruction": "Fourth feature card: fill with an orange to peach gradient faded to 20% opacity (see-through), positioned so it bleeds off the right page edge (runs about 200px"
+    }
+  ],
+  "rejected": []
+}

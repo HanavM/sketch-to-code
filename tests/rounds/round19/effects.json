@@ -1,0 +1,210 @@
+{
+ "c1-stained-glass": {
+  "found": {
+   "blur": 1,
+   "motion": 2,
+   "stripes-or-layers": 1,
+   "bleed": 1,
+   "mono": 6,
+   "glow": 2,
+   "clip-shape": 2,
+   "gradient": 5,
+   "blend": 1,
+   "huge-type": 2,
+   "serif": 3,
+   "italic": 1,
+   "hollow-type": 1,
+   "vertical-type": 1,
+   "overlap": 2
+  },
+  "names": [
+   "bleed",
+   "blend",
+   "blur",
+   "clip-shape",
+   "glow",
+   "gradient",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "stripes-or-layers",
+   "vertical-type"
+  ]
+ },
+ "c2-type-sculpture": {
+  "found": {
+   "gradient": 1,
+   "huge-type": 3,
+   "uppercase-display": 2,
+   "hollow-type": 1,
+   "serif": 1,
+   "italic": 1,
+   "gradient-text": 1,
+   "vertical-type": 1,
+   "tilt": 1,
+   "bleed": 1,
+   "motion": 2,
+   "mono": 5,
+   "overlap": 11
+  },
+  "names": [
+   "bleed",
+   "gradient",
+   "gradient-text",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "tilt",
+   "uppercase-display",
+   "vertical-type"
+  ]
+ },
+ "c3-lantern-night": {
+  "found": {
+   "glow": 6,
+   "gradient": 5,
+   "clip-shape": 2,
+   "motion": 1,
+   "huge-type": 1,
+   "glass": 3,
+   "overlap": 8
+  },
+  "names": [
+   "clip-shape",
+   "glass",
+   "glow",
+   "gradient",
+   "huge-type",
+   "motion",
+   "overlap"
+  ]
+ },
+ "c4-vinyl-sleeve": {
+  "found": {
+   "mono": 12,
+   "motion": 13,
+   "stripes-or-layers": 1,
+   "soft-shadow": 1,
+   "tilt": 2,
+   "gradient": 2,
+   "hard-shadow": 1,
+   "vertical-type": 1,
+   "huge-type": 1,
+   "serif": 1,
+   "italic": 1,
+   "overlap": 8
+  },
+  "names": [
+   "gradient",
+   "hard-shadow",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt",
+   "vertical-type"
+  ]
+ },
+ "c5-magazine-cover": {
+  "found": {
+   "mono": 2,
+   "soft-shadow": 1,
+   "stripes-or-layers": 2,
+   "huge-type": 2,
+   "serif": 4,
+   "gradient": 1,
+   "hollow-type": 1,
+   "italic": 2,
+   "tilt": 1,
+   "motion": 1,
+   "overlap": 25
+  },
+  "names": [
+   "gradient",
+   "hollow-type",
+   "huge-type",
+   "italic",
+   "mono",
+   "motion",
+   "overlap",
+   "serif",
+   "soft-shadow",
+   "stripes-or-layers",
+   "tilt"
+  ]
+ },
+ "e1-seat-picker": {
+  "found": {
+   "soft-shadow": 1,
+   "overlap": 2
+  },
+  "names": [
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e2-team-settings": {
+  "found": {
+   "gradient": 1,
+   "soft-shadow": 1,
+   "overlap": 14
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e3-cloud-drive": {
+  "found": {
+   "soft-shadow": 3,
+   "gradient": 2,
+   "overlap": 43
+  },
+  "names": [
+   "gradient",
+   "overlap",
+   "soft-shadow"
+  ]
+ },
+ "e4-order-tracking": {
+  "found": {
+   "tilt": 2,
+   "soft-shadow": 4,
+   "motion": 1,
+   "gradient": 1,
+   "overlap": 9
+  },
+  "names": [
+   "gradient",
+   "motion",
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ },
+ "e5-invoice-editor": {
+  "found": {
+   "soft-shadow": 2,
+   "tilt": 1,
+   "overlap": 29
+  },
+  "names": [
+   "overlap",
+   "soft-shadow",
+   "tilt"
+  ]
+ }
+}

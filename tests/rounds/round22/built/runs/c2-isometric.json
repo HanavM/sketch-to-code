@@ -1,0 +1,455 @@
+{
+  "id": "c2-isometric",
+  "at": "2026-10-26T00:52:55.420Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.9143621501755371,
+    "overallV2": 0.9143621501755371,
+    "overallV1": 0.8426565628273843,
+    "colour": 0.9946099590723768,
+    "structure": 0.9713136823975814,
+    "structureStrict": 0.887033934558244,
+    "colourAligned": 0.9946099590723768,
+    "structureAligned": 0.9713136823975814,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9450387630843718
+    },
+    "layout": 0.8266435031528737,
+    "layoutV1": 0.8266435031528737,
+    "layoutVersion": 2
+  },
+  "boxes": [
+    [
+      -1,
+      0,
+      0,
+      1280,
+      900
+    ],
+    [
+      0,
+      68,
+      41,
+      125,
+      30
+    ],
+    [
+      1,
+      68,
+      41,
+      20,
+      30
+    ],
+    [
+      1,
+      92,
+      41,
+      101,
+      30
+    ],
+    [
+      0,
+      572,
+      90,
+      180,
+      44
+    ],
+    [
+      0,
+      932,
+      150,
+      120,
+      44
+    ],
+    [
+      0,
+      436,
+      237,
+      849,
+      487
+    ],
+    [
+      6,
+      436,
+      237,
+      849,
+      487
+    ],
+    [
+      6,
+      627,
+      354,
+      453,
+      260
+    ],
+    [
+      6,
+      521,
+      415,
+      226,
+      130
+    ],
+    [
+      9,
+      521,
+      268,
+      226,
+      130
+    ],
+    [
+      9,
+      634,
+      333,
+      113,
+      212
+    ],
+    [
+      9,
+      634,
+      268,
+      113,
+      212
+    ],
+    [
+      6,
+      704,
+      310,
+      226,
+      130
+    ],
+    [
+      13,
+      704,
+      236,
+      226,
+      130
+    ],
+    [
+      13,
+      789,
+      285,
+      141,
+      155
+    ],
+    [
+      13,
+      846,
+      236,
+      85,
+      122
+    ],
+    [
+      6,
+      761,
+      521,
+      226,
+      130
+    ],
+    [
+      17,
+      761,
+      308,
+      226,
+      130
+    ],
+    [
+      17,
+      902,
+      389,
+      85,
+      262
+    ],
+    [
+      17,
+      846,
+      308,
+      141,
+      294
+    ],
+    [
+      0,
+      720,
+      300,
+      131,
+      31
+    ],
+    [
+      0,
+      1010,
+      420,
+      144,
+      31
+    ],
+    [
+      0,
+      72,
+      170,
+      454,
+      223
+    ],
+    [
+      23,
+      72,
+      170,
+      454,
+      74
+    ],
+    [
+      23,
+      72,
+      244,
+      454,
+      74
+    ],
+    [
+      25,
+      72,
+      238,
+      227,
+      85
+    ],
+    [
+      23,
+      72,
+      319,
+      454,
+      74
+    ],
+    [
+      0,
+      68,
+      440,
+      392,
+      84
+    ],
+    [
+      0,
+      68,
+      564,
+      151,
+      43
+    ]
+  ],
+  "groupMatched": [],
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "3d",
+      "hard-shadow",
+      "motion",
+      "overlap",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": [
+      "gradient"
+    ]
+  },
+  "tokens": {
+    "input": 57368,
+    "output": 41185,
+    "cacheRead": 371678
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 31891,
+      "output": 10273,
+      "cacheRead": 162312,
+      "toolCalls": 7,
+      "tools": [
+        "Glob",
+        "Read src/App.tsx",
+        "Glob",
+        "Read src/index.css",
+        "Glob",
+        "Edit src/index.css",
+        "Write src/App.tsx"
+      ],
+      "ms": 103104
+    },
+    {
+      "attempt": "1",
+      "kind": "repair",
+      "billed": 43082,
+      "output": 20768,
+      "cacheRead": 183458,
+      "toolCalls": 3,
+      "tools": [
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Edit src/App.tsx"
+      ],
+      "ms": 261515
+    }
+  ],
+  "reading": "A hero section sketch: logo wordmark, two drifting cloud shapes, a large isometric city scene with two floating label chips, a tight three-line headline, a paragraph, and a CTA button with a hard pink shadow, all sitting over a page-wide blue-to-yellow gradient background.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [
+        "s0"
+      ],
+      "textSize": [],
+      "region": [
+        68,
+        47,
+        118,
+        8
+      ],
+      "paths": [],
+      "instruction": "Logo wordmark 'Blocktown' with a triangle mark, set at 20px (a large lead line, NOT small body text), about 126px wide on one line; BOLD (font-weight 800), NOT "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        624,
+        93,
+        173,
+        38
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Plain white (#ffffff) CLOUD: one textless div exactly 180x44px with its top-left at 620,90 (position absolute), fully rounded ends (border-radius 999px), opacit"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        984,
+        153,
+        113,
+        38
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Plain white (#ffffff) CLOUD: one textless div exactly 120x44px with its top-left at 980,150 (position absolute), fully rounded ends (border-radius 999px), opaci"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        439,
+        240,
+        839,
+        481
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "An ISOMETRIC CITY of solid 3D blocks in real CSS 3D (each block shows a lit top and two darker sides), NOT a flat drawing, NOT an SVG, NOT empty; whatever wraps"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s4",
+            "s5",
+            "s6"
+          ],
+          "lines": 3,
+          "fontPx": 68
+        }
+      ],
+      "region": [
+        72,
+        170,
+        423,
+        223
+      ],
+      "paths": [],
+      "instruction": "Huge Helvetica heavy tight-set headline, line-height 0.98, exactly 3 lines: 'Plan a city in' / 'blocks, not' / 'spreadsheets' (keep these breaks; each line stay"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "textSize": [
+        {
+          "strokes": [
+            "s7",
+            "s8",
+            "s9"
+          ],
+          "lines": 3,
+          "fontPx": 19
+        }
+      ],
+      "region": [
+        68,
+        440,
+        392,
+        84
+      ],
+      "paths": [],
+      "instruction": "Dark grey paragraph text: 'Drag towers, roads and parks onto a live isometric map. Zoning rules check themselves as you build.'; text color #4a4e69 (dark grey, "
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        68,
+        564,
+        151,
+        43
+      ],
+      "paths": [
+        "s10"
+      ],
+      "instruction": "Button: dark navy fill, white text 'Start building', with a hard solid opaque pink shadow offset 6px down-right, no blur; text color #ffffff (white, NOT the pag"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s11"
+      ],
+      "textSize": [],
+      "region": [
+        724,
+        311,
+        123,
+        9
+      ],
+      "paths": [],
+      "instruction": "13px 'Library - 4 floors' floating LABEL CHIP (NOT bare words): a solid #ffffff 131x31px box with its top-left at page 720,300 (position absolute, on top of the"
+    },
+    {
+      "kind": "add",
+      "textMarks": [
+        "s12"
+      ],
+      "textSize": [],
+      "region": [
+        1014,
+        432,
+        136,
+        8
+      ],
+      "paths": [],
+      "instruction": "13px 'Tower B - 12 floors' floating LABEL CHIP (NOT bare words): a solid #ffffff 144x31px box with its top-left at page 1010,420 (position absolute, on top of t"
+    }
+  ],
+  "rejected": [
+    "add action with neither container nor strokes"
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "id": "e5-crm-contact",
+  "at": "2026-10-24T13:09:35.247Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.89841766579129,
+    "overallV2": 0.89841766579129,
+    "overallV1": 0.8393941824734672,
+    "colour": 0.9890021042674588,
+    "structure": 0.9441545591672805,
+    "structureStrict": 0.8746723350800323,
+    "colourAligned": 0.9890021042674588,
+    "structureAligned": 0.9441545591672805,
+    "align": {
+      "scale": 1,
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9384354076721227
+    },
+    "layout": 0.990990990990991
+  },
+  "effects": {
+    "recall": 1,
+    "kept": [
+      "gradient",
+      "soft-shadow"
+    ],
+    "missing": [],
+    "extra": [
+      "overlap"
+    ]
+  },
+  "tokens": {
+    "input": 62546,
+    "output": 39778,
+    "cacheRead": 204108
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 84102,
+      "output": 32873,
+      "cacheRead": 190472,
+      "toolCalls": 8,
+      "tools": [
+        "Glob",
+        "Read tmp/s2c-bench-app",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read src/main.tsx",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 326270
+    }
+  ],
+  "reading": "The sketch lays out a CRM contact page: a top navbar, a left contact-info panel, a central activity feed, and a right column stacked with a deal-progress card, an open stage-dropdown menu, and a tasks/filter panel. Every box's exact contents and styling are spelled out in the typed notes attached to each stroke, which fully override the plain rectangle shapes shown.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        4,
+        3,
+        1273,
+        50
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Deep indigo (#1e1b4b) top navigation bar, 56px tall, spanning the full page width, with #ffffff text. Left to right, each item at its own x from the bar's left:"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        23,
+        79,
+        294,
+        798
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "A 300x804px contact-info panel at 20,76: #ffffff fill, 1px #e5e7eb border, 12px rounded corners, every one-line text part kept on a single line (nowrap). Conten"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        343,
+        79,
+        574,
+        798
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "A 580x804px activity panel at 340,76: #ffffff fill, 1px #e5e7eb border, 12px rounded corners, every one-line text part kept on a single line (nowrap). Top: a ta"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        79,
+        313,
+        206
+      ],
+      "paths": [
+        "s3"
+      ],
+      "instruction": "A 320x213px deal card at 940,76: #ffffff fill, 1px #e5e7eb border, 12px rounded corners, every one-line text part kept on a single line (nowrap). Contents: titl"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        963,
+        333,
+        273,
+        173
+      ],
+      "paths": [
+        "s4"
+      ],
+      "instruction": "An open dropdown menu, 280x180px, #ffffff fill, 10px rounded corners, thin light grey border, big soft shadow (12px down, 32px blur, 15% opacity), absolutely po"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        943,
+        563,
+        314,
+        314
+      ],
+      "paths": [
+        "s5"
+      ],
+      "instruction": "A 320x320px tasks panel at 940,560: #ffffff fill, 12px rounded corners, 20px padding (not an inspector, not filled field boxes, not text inputs). Heading \"Tasks"
+    }
+  ],
+  "rejected": [
+    "design action with neither container nor strokes"
+  ]
+}

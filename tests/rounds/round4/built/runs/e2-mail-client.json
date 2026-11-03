@@ -1,0 +1,96 @@
+{
+  "id": "e2-mail-client",
+  "at": "2026-10-21T16:32:40.364Z",
+  "likeness": {
+    "version": 3,
+    "overall": 0.5621610528807448,
+    "overallV2": 0.561774323744372,
+    "overallV1": 0.43557741979230297,
+    "colour": 0.9871942924553108,
+    "structure": 0.8390500352402273,
+    "structureStrict": 0.7012558690436935,
+    "colourAligned": 0.9871942924553108,
+    "structureAligned": 0.8393281548997401,
+    "align": {
+      "scale": 0.88,
+      "dx": 16,
+      "dy": 16,
+      "r": 0.6779781831351838
+    },
+    "layout": 0.9694413280560381
+  },
+  "effects": null,
+  "tokens": {
+    "input": 14457,
+    "output": 5640,
+    "cacheRead": 138462
+  },
+  "sends": [
+    {
+      "attempt": "1",
+      "kind": "build",
+      "billed": 14066,
+      "output": 3409,
+      "cacheRead": 129735,
+      "toolCalls": 6,
+      "tools": [
+        "Glob",
+        "Glob",
+        "Read src/App.tsx",
+        "Read src/index.css",
+        "Read s2c-bench-app/package.json",
+        "Write src/App.tsx"
+      ],
+      "ms": 33661
+    }
+  ],
+  "reading": "The user sketched three vertical panels of an email client: a left navigation/folder sidebar, a middle inbox message list, and a right reading pane with the open email.",
+  "actions": [
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        3,
+        4,
+        194,
+        893
+      ],
+      "paths": [
+        "s0"
+      ],
+      "instruction": "Pale grey sidebar card containing a \"Compose\" button at top, followed by a folder list: \"Inbox\" with count 12, \"Starred\", \"Sent\", \"Drafts\" with count 2, and 2 m"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        203,
+        3,
+        394,
+        894
+      ],
+      "paths": [
+        "s1"
+      ],
+      "instruction": "Inbox message list panel with 7 rows, each showing sender name on the left and timestamp on the right on one line, with a grey divider line under each row. Unre"
+    },
+    {
+      "kind": "add",
+      "textMarks": [],
+      "textSize": [],
+      "region": [
+        603,
+        3,
+        674,
+        894
+      ],
+      "paths": [
+        "s2"
+      ],
+      "instruction": "Email reading pane showing the subject \"Q4 roadmap — final\"…, an action row with \"Reply\", \"Reply all\", \"Forward\" buttons, and the email body as a list of paragr"
+    }
+  ],
+  "rejected": []
+}
