@@ -790,6 +790,7 @@ n8_resketch:   # same strokes and notes as baseline, tool with exact counts + ke
   - {page: r12 c4-diagonal-split, likeness: 49.9, was: 49.7, strokes: 9, words: 52, minutes: 10.2, fixes: 1, tokens: 104676}
   - {page: r8 c2-orbit-type, likeness: 73.9, was: 71.0, strokes: 10, words: 32, minutes: 5.4, fixes: 0, tokens: 54207}
 notes:
+  - "2026-11-03 for the REVIEW and ATTEST: say plainly that the 2026-11-02 18:32 note easing the bar was committed to main by a Claude session, not under Hanav's own name as earlier notes were, and was followed as his; and that the rounds nearest the bar are 45-47 (83.6, 78, 81.6) while the latest two are 75.8 and 77.1 on newer code."
   - "2026-11-03 n258 about 1.11M billed build tokens (2.04M for round 49 with n257). No tool code changed. Needed npm run build before the hand session would start."
   - "2026-11-03 n253 no build tokens: tests/rounds/round49 written and measured. After npm run build, typecheck is clean; npm test fails 2 here with no package code changed: init.test gh-create, library.test unwritable home (likely this sandbox, not confirmed). Run npm run build before npm test."
   - "2026-11-03 n254 ~667k billed (sleep 105k, 86k; puppet 130k, 109k; railway 107k, 131k). Fix notes took 407 of 1,831 words in rounds 46-48; first sketches have a median of 45. A high score can hide printed note words: look at results, not only numbers. tests/hand/n254scan.mjs reads tap changes over kept sketches with no builds. Copy replay output by page id; ls -t on tests/hand/out misleads on a page replayed twice."
