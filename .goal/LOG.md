@@ -1,4 +1,5 @@
 # Log (newest first)
+2026-11-03T05:54Z | n269 scattered page taps are dots; flat page holds | Rocket 90.4 and 92.8, no fix; was orange page; stars where tapped, tokens halved; window ring still lost.
 2026-11-03T05:19Z | n268 a look note is never printed; words stay under their box | Library 64.4 to 86.0 and 80.3, no fix; note unprinted, words under covers; try 2's bar stretched.
 2026-11-03T04:40Z | n266 skeptic re-sketch of 4 pages | Mean 84.6 to 84.8; pages -4.9, +16.5, +5.2, -15.9; 1 within 5; not met.
 2026-11-03T03:05Z | Hanav's note: close is good enough | Skeptic re-sketch next, then demos and wrap-up, ahead of all other leads.
