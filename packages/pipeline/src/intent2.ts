@@ -593,6 +593,13 @@ disagree, the note wins, and every note must be carried into the instruction
 of the action it is anchored to. A note can also be the ONLY intent: ink that
 would otherwise read as decoration becomes whatever the note says it is.
 
+On a page already built, a short note leads with what it is about, whatever
+element it happens to sit on. "hub gold" typed on a clock face is about the
+hub: say so in the instruction ("the hub, the small centre part, gold; the face
+keeps its colour"), and never call the bigger element by the small part's name.
+A plural is every one: "tracks thick black" typed beside one track is about all
+the tracks on the page, so the instruction says all of them, and which.
+
 A note's "refs" are elements the SENTENCE names, as against the one element it
 is about. Each ref gives a token exactly as it appears in the text ("@1"), the
 element id it resolves to, and how it read on screen. The user pointed at each
@@ -710,6 +717,13 @@ names no screen is still a "move". The navigate cites the arrow, the box and
 the name. Anything drawn INSIDE the box (a form, cards, a list) is the screen's
 content: emit it as its own "add" citing only those inner strokes, described as
 usual. It is built on the new screen automatically, never on this page.
+
+On a page already built, a short note leads with what it is about, whatever
+element it happens to sit on. "hub gold" typed on a clock face is about the
+hub: say so in the instruction ("the hub, the small centre part, gold; the face
+keeps its colour"), and never call the bigger element by the small part's name.
+A plural is every one: "tracks thick black" typed beside one track is about all
+the tracks on the page, so the instruction says all of them, and which.
 
 A note's "refs" are elements the SENTENCE names, as against the one element it
 is about. Each ref gives a token exactly as it appears in the text ("@1"), the

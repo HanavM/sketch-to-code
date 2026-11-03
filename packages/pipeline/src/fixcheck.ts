@@ -164,6 +164,11 @@ export function fixBrief(actions: readonly GroundedAction[], before: DomSnapshot
     const nofill = NO_FILL.exec(note)?.[1]
     if (parts) lines.push(`- action ${i}: the note names the ${parts.toLowerCase()} inside ${a.targets[0]?.tag ?? 'it'}. Change the ${parts.toLowerCase()} themselves (their colour, size, place); leave the wrapper's own background, border and size as they are unless the note names the wrapper.`)
     if (note && isSetNote(note)) lines.push(`- action ${i}: "${note.slice(0, 60)}" is about EVERY one of that set on the page, not just the one it sits on. Apply it to each member. Each member keeps exactly its own words: never empty a member, never move or copy one member's words (a name, a time, a title) into another member or into another line of the same member.`)
+    // n270: a note naming one small part, a look word, and every one of a kind
+    const part = smallPartNamed(note)
+    if (part) lines.push(`- action ${i}: "${note.slice(0, 60)}" is about the ${part}, one small part in or near ${a.targets[0]?.tag ?? 'what it sits on'}. Change only the ${part}. The element the note sits on keeps its own fill, border and size, and everything else inside it stays (measured; painting the whole thing is sent back).`)
+    if (note && !part && isPluralNote(note)) lines.push(`- action ${i}: "${note.slice(0, 60)}" says ${pluralNamed(note)}: EVERY one of them on the page, not only the one the note sits on. Each keeps its own words and place.`)
+    if (HOLLOW.test(note)) lines.push(`- action ${i}: hollow or outlined means no fill AND a visible outline all the way round (in the colour the note names, or the text's colour). Never take the fill away without drawing the outline; the words stay.`)
     if (nofill) lines.push(`- action ${i}: "no ${nofill.toLowerCase()}" means the element it sits on stops painting: transparent background, no gradient, no border, no shadow. Do not recolour it.`)
   }
   return (
@@ -297,7 +302,7 @@ const SET_NOTE = /^\s*(?:(?:each|every|all(?: the)?)\s+[a-z]+|[a-z]+\s+(?:bubble
 
 export function isSetNote(note: string): boolean { return SET_NOTE.test(note) }
 
-export interface FixVerdict { overlaps: NewOverlap[]; noFill: NoFillMiss[]; lost?: LostCopy[]; copied?: CopiedCopy[]; recoloured?: Recolour[]; unchanged?: boolean; failures: string[] }
+export interface FixVerdict { overlaps: NewOverlap[]; noFill: NoFillMiss[]; lost?: LostCopy[]; copied?: CopiedCopy[]; recoloured?: Recolour[]; repainted?: PartRepaint[]; unreached?: SetUnreached[]; outlineLost?: OutlineLost[]; unchanged?: boolean; failures: string[] }
 
 /** Both measured rules, as repair-ready failure lines. Empty when the page was not built before the run. */
 export function verifyFix(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot, runNotes: readonly string[] = []): FixVerdict {
@@ -314,14 +319,20 @@ export function verifyFix(actions: readonly GroundedAction[], before: DomSnapsho
   const noFill = noFillMisses(actions, before, after)
   const lost = lostCopy(actions, before, after, runNotes)
   const copied = copiedCopy(actions, before, after, runNotes)
+  const repainted = partRepaints(actions, before, after)
+  const unreached = setsUnreached(actions, before, after)
+  const outlineLost = outlinesLost(actions, after)
   const failures = [
     ...overlaps.map((o) => `page (fix check): "${o.a.slice(0, 40)}" now runs into "${o.b.slice(0, 40)}" (${Math.round(o.share * 100)}% of the smaller one covered); before this fix they were apart. Keep the change the note asked for, and size or place it so they do not touch.`),
     ...noFill.map((m) => `action ${m.action} (fix check): the note says no ${m.what}, but the element behind "${m.target}" still paints a background, border or shadow. Make it transparent with no border or shadow; do not recolour it.`),
     ...lost.map((l) => `page (fix check): "${l.text.slice(0, 50)}" was on the page before this fix and is now gone, with nothing in its place. Put its words back exactly where they were; change only what the note asked.`),
     ...copied.map((c) => `page (fix check): "${c.text.slice(0, 50)}" now shows ${c.now} times (it showed ${c.was} before) and the note never typed it. Take the extra copies out: each piece of text keeps only its own words.`),
+    ...repainted.map((r) => `page (fix check): "${r.note.slice(0, 40)}" is about the ${r.part}, a small part, but it painted ${r.what} ${r.family}. Put that element's own colour back (${r.was}) and colour only the ${r.part}.`),
+    ...unreached.map((u) => `page (fix check): "${u.note.slice(0, 40)}" is about all the ${u.kind}, but only ${u.changed} of ${u.total} changed. Make the same change on every one of them, each keeping its own place and words.`),
+    ...outlineLost.map((o) => `action ${o.action} (fix check): "${o.note.slice(0, 40)}" asks for an outline, but "${o.target}" now paints neither a border nor a fill, so it has vanished. Draw the outline all the way round it.`),
     ...recoloured.map((r) => `page (fix check): the ${r.prop === 'text' ? 'text colour' : r.prop === 'stroke' ? 'line colour' : 'fill'} of ${r.what} changed from ${r.was} to ${r.now}, and no fix note names it. Put its colour back to ${r.was}; change only what the note names.`),
   ]
-  return { overlaps, noFill, lost, copied, recoloured, failures }
+  return { overlaps, noFill, lost, copied, recoloured, repainted, unreached, outlineLost, failures }
 }
 
 
@@ -470,6 +481,115 @@ export function unaskedRecolours(actions: readonly GroundedAction[], before: Dom
     }
   }
   return out.slice(0, 6)
+}
+
+// ---------------------------------------------------------------- n270: a small fix stays small, a plural reaches all
+
+/**
+ * The n266 redraw: "hub gold" on a clock read as "the clock-face container (the hub)" and turned the whole cream
+ * face gold, passing every check since the note names gold and sits on that element. "button hollow, gold outline"
+ * dropped the fill and the outline together, so the button vanished. "tracks thick black", typed by Bass's track,
+ * reached Bass only. All measured from the page before and after; no model is asked.
+ */
+const SMALL_PARTS = 'hub|pin|knob|handle|thumb|dot|pip|tick|needle|nub|tip|badge|icon|cap|stud|bolt|bead|notch|pointer|cursor|caret|arrowhead|checkmark|bullet|pupil'
+const SMALL_PART = new RegExp(`^\\s*(?:the\\s+|that\\s+|this\\s+)?(?:(?:little|small|tiny|center|centre|middle|inner)\\s+)?(${SMALL_PARTS})\\b(?!\\s*:)`, 'i')
+/** Words that say the note is about something the part belongs to ("handle bar", "icon row"), not the part. */
+const NOT_THE_PART = /^\s*(?:the\s+|that\s+|this\s+)?(?:\w+\s+)?\w+\s+(?:bar|row|column|panel|grid|area|section|strip|list|set)\b/i
+
+/** The small part a short note leads with ("hub gold", "the knob red"), or null. */
+export function smallPartNamed(note: string): string | null {
+  if (!note.trim() || note.trim().split(/\s+/).length > 7 || NOT_THE_PART.test(note)) return null
+  return SMALL_PART.exec(note)?.[1]?.toLowerCase() ?? null
+}
+
+const PLURAL_KINDS = 'tracks|handles|knobs|faders|sliders|strips|channels|meters|gauges|toggles|switches|rings|dials|hubs|needles|thumbs|bars|cards|rows|items|links|icons|buttons|tiles|columns|dots|labels|tabs|chips|pills|avatars|images|photos|bubbles|steps|badges|ticks|pins|stars|tags|covers|lines|circles|boxes'
+const PLURAL_LEAD = new RegExp(`^\\s*(?!(?:add|draw|make|put|remove|delete|drop|no|not|without|one|two|three|four|five|six|seven|eight|nine|ten|few|some|more|less|fewer|extra|new|right|left|top|bottom|upper|lower|first|last|middle|side|nav|these|those|this|that)\\b)(?:(?:the|all|all the|every)\\s+)?(?:[a-z]+\\s+)?(${PLURAL_KINDS})\\b(?!\\s*:)`, 'i')
+
+/** The kind a short note leads with in the plural ("tracks thick black"), or null. */
+export function pluralNamed(note: string): string | null {
+  if (!note.trim() || note.trim().split(/\s+/).length > 8) return null
+  return PLURAL_LEAD.exec(note)?.[1]?.toLowerCase() ?? null
+}
+export function isPluralNote(note: string): boolean { return pluralNamed(note) !== null }
+
+const HOLLOW = /\b(?:hollow|outlined?|ghost button)\b/i
+
+export interface PartRepaint { note: string; part: string; what: string; family: string; was: string }
+
+/** A note naming one small part with a colour, and a big element that took that colour in this run. */
+export function partRepaints(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): PartRepaint[] {
+  const area = before.viewport.w * before.viewport.h
+  const pool = after.nodes.filter(visible)
+  const out: PartRepaint[] = []
+  for (const a of actions) {
+    for (const note of a.notes ?? []) {
+      const part = smallPartNamed(note)
+      if (!part) continue
+      const fams = namedFamilies(note)
+      if (!fams.size) continue
+      for (const n of before.nodes) {
+        // a thing a twenty-fifth of the page is not a hub
+        if (!visible(n) || n.rect.w * n.rect.h < area * 0.04 || n.rect.w * n.rect.h >= area * 0.9) continue
+        const m = matchNode(n, pool)
+        if (!m) continue
+        for (const paint of ['backgroundColor', 'svgFill'] as const) {
+          const was = solid(n.style[paint]), now = solid(m.style[paint])
+          if (!now || (was && deltaE(was, now) < 12)) continue
+          const family = colourFamily(now)
+          if (!fams.has(family) || (was && colourFamily(was) === family)) continue
+          out.push({ note, part, what: `the ${n.tag} at ${Math.round(n.rect.x)},${Math.round(n.rect.y)} (${Math.round(n.rect.w)}x${Math.round(n.rect.h)})`, family, was: was ? hexOf(was) : 'none' })
+        }
+      }
+    }
+  }
+  return out.slice(0, 4)
+}
+
+export interface SetUnreached { note: string; kind: string; changed: number; total: number }
+
+/**
+ * A plural note, and of the look-alikes of what changed under it, under half changed. Look-alikes: same tag,
+ * size within a fifth, same fill before. Only what changed inside the note's own target counts as its change.
+ */
+export function setsUnreached(actions: readonly GroundedAction[], before: DomSnapshot, after: DomSnapshot): SetUnreached[] {
+  const pool = after.nodes.filter(visible)
+  const live = before.nodes.filter((n) => visible(n) && !words(n))
+  const changed = (n: DomNode): boolean => { const m = matchNode(n, pool); return !m || signature(m) !== signature(n) }
+  const out: SetUnreached[] = []
+  for (const a of actions) {
+    const note = (a.notes ?? []).find(isPluralNote)
+    if (!note || !a.targets?.length) continue
+    const kind = pluralNamed(note)!
+    const inTarget = live.filter((n) => matchNode(n, pool) && changed(n) && a.targets.some((t) => t.rect && inter(t.rect, n.rect) >= 0.5 * n.rect.w * n.rect.h))
+    let worst: SetUnreached | null = null
+    for (const c of inTarget) {
+      const like = live.filter((n) => n.tag === c.tag && n.style.backgroundColor === c.style.backgroundColor && n.style.svgStroke === c.style.svgStroke &&
+        Math.abs(n.rect.w - c.rect.w) <= Math.max(3, c.rect.w * 0.2) && Math.abs(n.rect.h - c.rect.h) <= Math.max(3, c.rect.h * 0.2))
+      if (like.length < 3) continue
+      const did = like.filter(changed).length
+      if (did * 2 < like.length && (!worst || did / like.length < worst.changed / worst.total)) worst = { note, kind, changed: did, total: like.length }
+    }
+    if (worst) out.push(worst)
+  }
+  return out.slice(0, 3)
+}
+
+export interface OutlineLost { action: number; note: string; target: string }
+
+/** "hollow" or "outline" on a target, and nothing at that spot paints a border or a fill any more. */
+export function outlinesLost(actions: readonly GroundedAction[], after: DomSnapshot): OutlineLost[] {
+  const out: OutlineLost[] = []
+  for (const [i, a] of actions.entries()) {
+    const note = (a.notes ?? []).find((n) => HOLLOW.test(n))
+    if (!note || smallPartNamed(note)) continue
+    for (const t of a.targets ?? []) {
+      if (!t.rect || t.rect.w * t.rect.h > after.viewport.w * after.viewport.h * 0.25) continue
+      const size = t.rect.w * t.rect.h
+      const here = after.nodes.filter((n) => visible(n) && inter(n.rect, t.rect) >= 0.5 * Math.min(size, n.rect.w * n.rect.h) && n.rect.w * n.rect.h <= size * 4 && n.rect.w * n.rect.h >= size * 0.25)
+      if (here.length && !here.some(paints) && !here.some((n) => n.style.svgStroke || n.style.textStroke)) out.push({ action: i, note, target: (t.subtreeText || t.tag).slice(0, 40) })
+    }
+  }
+  return out
 }
 
 /** The page's own strong colours, so a fix brief can say: keep these unless the note names them. */
