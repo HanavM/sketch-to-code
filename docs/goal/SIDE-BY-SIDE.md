@@ -125,3 +125,22 @@ Each picture shows the target screenshot, the sketch as drawn, and what was buil
 **r46 e2-team-roster**: likeness 87.8, 14 strokes, 81 words, 1 fixes
 
 ![e2-team-roster](../../tests/hand/out-n271/round46/e2-team-roster/side-by-side.png)
+
+## Final check: four more redraws from a clean copy
+
+**r46 c4-tennis-club**: likeness 89.8, 15 strokes, 48 words, 1 fixes
+
+![c4-tennis-club](../../tests/hand/out-n272/round46/c4-tennis-club/side-by-side.png)
+
+**r46 c2-greenhouse**: likeness 85.1, 15 strokes, 56 words, 1 fixes
+
+![c2-greenhouse](../../tests/hand/out-n272/round46/c2-greenhouse/side-by-side.png)
+
+**r46 e3-thermostat**: likeness 82.3, 14 strokes, 45 words, 1 fixes
+
+![e3-thermostat](../../tests/hand/out-n272/round46/e3-thermostat/side-by-side.png)
+
+**r46 e5-loan-calculator**: likeness 66.7, 19 strokes, 69 words, 1 fixes
+
+![e5-loan-calculator](../../tests/hand/out-n272/round46/e5-loan-calculator/side-by-side.png)
+

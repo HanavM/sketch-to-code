@@ -1,0 +1,576 @@
+{
+  "round": 46,
+  "id": "c2-greenhouse",
+  "version": 3,
+  "stopped": null,
+  "likeness": 85.1,
+  "colour": 0.9860824078430577,
+  "structure": 0.938117539345534,
+  "layout": 0.7944362493514139,
+  "strokes": {
+    "count": 15,
+    "pointsPerStroke": 3.4,
+    "simpleShare": 1,
+    "shapes": {
+      "dot": 4,
+      "circle": 1,
+      "line": 7,
+      "box": 3
+    },
+    "inkPx": 7636
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 56,
+  "notes": 11,
+  "longestNote": 11,
+  "noteTexts": [
+    "Glasshouse serif bold",
+    "Plants",
+    "Visit",
+    "Shop",
+    "Tropics in the middle of town, big serif",
+    "Walk through two hundred kinds of fern, palm and orchid.",
+    "Plan a visit white bold",
+    "See the plants bold",
+    "thick frame",
+    "arch frame missing: thick green arch, all pale green inside",
+    "exactly: Walk through two hundred kinds of fern, palm and orchid."
+  ],
+  "time": {
+    "firstStrokeToDoneS": 578,
+    "firstReadingS": 92,
+    "readS": [
+      53,
+      24
+    ],
+    "buildS": [
+      385,
+      56
+    ],
+    "sketchingS": 60
+  },
+  "corrections": 1,
+  "runs": 2,
+  "picks": 0,
+  "tokens": {
+    "input": 113737,
+    "cacheRead": 691376,
+    "output": 45691,
+    "billed": 159428
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#f4f1e8",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 463
+    },
+    {
+      "op": "pen",
+      "color": "#2f6b47",
+      "at": 837
+    },
+    {
+      "op": "stroke",
+      "at": 6886
+    },
+    {
+      "op": "pen",
+      "color": "#dde9d8",
+      "at": 7259
+    },
+    {
+      "op": "stroke",
+      "at": 7735
+    },
+    {
+      "op": "pen",
+      "color": "#2f6b47",
+      "at": 8102
+    },
+    {
+      "op": "stroke",
+      "at": 10119
+    },
+    {
+      "op": "stroke",
+      "at": 12233
+    },
+    {
+      "op": "stroke",
+      "at": 14249
+    },
+    {
+      "op": "stroke",
+      "at": 16117
+    },
+    {
+      "op": "stroke",
+      "at": 17985
+    },
+    {
+      "op": "stroke",
+      "at": 19852
+    },
+    {
+      "op": "stroke",
+      "at": 20333
+    },
+    {
+      "op": "stroke",
+      "at": 22184
+    },
+    {
+      "op": "pen",
+      "color": "#1f3a2b",
+      "at": 22554
+    },
+    {
+      "op": "stroke",
+      "at": 26501
+    },
+    {
+      "op": "stroke",
+      "at": 26982
+    },
+    {
+      "op": "stroke",
+      "at": 28436
+    },
+    {
+      "op": "stroke",
+      "at": 29999
+    },
+    {
+      "op": "note",
+      "at": 30640
+    },
+    {
+      "op": "note",
+      "at": 31254
+    },
+    {
+      "op": "note",
+      "at": 31871
+    },
+    {
+      "op": "note",
+      "at": 32484
+    },
+    {
+      "op": "note",
+      "at": 33260
+    },
+    {
+      "op": "note",
+      "at": 33970
+    },
+    {
+      "op": "note",
+      "at": 34702
+    },
+    {
+      "op": "note",
+      "at": 35402
+    },
+    {
+      "op": "note",
+      "at": 36117
+    },
+    {
+      "op": "run",
+      "at": 39471
+    },
+    {
+      "op": "note",
+      "at": 487497
+    },
+    {
+      "op": "note",
+      "at": 488261
+    },
+    {
+      "op": "run",
+      "at": 488335
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          300,
+          800
+        ]
+      ],
+      "n": 1,
+      "at": 463
+    },
+    {
+      "way": [
+        [
+          645,
+          735
+        ],
+        [
+          645,
+          400
+        ],
+        [
+          651,
+          343
+        ],
+        [
+          670,
+          289
+        ],
+        [
+          701,
+          241
+        ],
+        [
+          741,
+          201
+        ],
+        [
+          789,
+          170
+        ],
+        [
+          843,
+          151
+        ],
+        [
+          900,
+          145
+        ],
+        [
+          957,
+          151
+        ],
+        [
+          1011,
+          170
+        ],
+        [
+          1059,
+          201
+        ],
+        [
+          1099,
+          241
+        ],
+        [
+          1130,
+          289
+        ],
+        [
+          1149,
+          343
+        ],
+        [
+          1155,
+          400
+        ],
+        [
+          1155,
+          735
+        ],
+        [
+          645,
+          735
+        ]
+      ],
+      "n": 336,
+      "at": 6886
+    },
+    {
+      "way": [
+        [
+          710,
+          450
+        ]
+      ],
+      "n": 1,
+      "at": 7735
+    },
+    {
+      "way": [
+        [
+          773,
+          183
+        ],
+        [
+          773,
+          733
+        ]
+      ],
+      "n": 93,
+      "at": 10119
+    },
+    {
+      "way": [
+        [
+          903,
+          146
+        ],
+        [
+          903,
+          733
+        ]
+      ],
+      "n": 99,
+      "at": 12233
+    },
+    {
+      "way": [
+        [
+          1033,
+          183
+        ],
+        [
+          1033,
+          733
+        ]
+      ],
+      "n": 93,
+      "at": 14249
+    },
+    {
+      "way": [
+        [
+          650,
+          353
+        ],
+        [
+          1150,
+          353
+        ]
+      ],
+      "n": 84,
+      "at": 16117
+    },
+    {
+      "way": [
+        [
+          650,
+          553
+        ],
+        [
+          1150,
+          553
+        ]
+      ],
+      "n": 84,
+      "at": 17985
+    },
+    {
+      "way": [
+        [
+          70,
+          490
+        ],
+        [
+          260,
+          490
+        ],
+        [
+          260,
+          546
+        ],
+        [
+          70,
+          546
+        ],
+        [
+          70,
+          490
+        ]
+      ],
+      "n": 83,
+      "at": 19852
+    },
+    {
+      "way": [
+        [
+          245,
+          535
+        ]
+      ],
+      "n": 1,
+      "at": 20333
+    },
+    {
+      "way": [
+        [
+          280,
+          490
+        ],
+        [
+          470,
+          490
+        ],
+        [
+          470,
+          546
+        ],
+        [
+          280,
+          546
+        ],
+        [
+          280,
+          490
+        ]
+      ],
+      "n": 83,
+      "at": 22184
+    },
+    {
+      "way": [
+        [
+          610,
+          740
+        ],
+        [
+          1190,
+          740
+        ],
+        [
+          1190,
+          780
+        ],
+        [
+          610,
+          780
+        ],
+        [
+          610,
+          740
+        ]
+      ],
+      "n": 209,
+      "at": 26501
+    },
+    {
+      "way": [
+        [
+          1170,
+          760
+        ]
+      ],
+      "n": 1,
+      "at": 26982
+    },
+    {
+      "way": [
+        [
+          70,
+          247
+        ],
+        [
+          425,
+          247
+        ]
+      ],
+      "n": 60,
+      "at": 28436
+    },
+    {
+      "way": [
+        [
+          70,
+          317
+        ],
+        [
+          460,
+          317
+        ]
+      ],
+      "n": 66,
+      "at": 29999
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Glasshouse serif bold",
+      "whole": false,
+      "x": 70,
+      "y": 40,
+      "at": 30640
+    },
+    {
+      "text": "Plants",
+      "whole": false,
+      "x": 1038,
+      "y": 40,
+      "at": 31254
+    },
+    {
+      "text": "Visit",
+      "whole": false,
+      "x": 1113,
+      "y": 40,
+      "at": 31871
+    },
+    {
+      "text": "Shop",
+      "whole": false,
+      "x": 1173,
+      "y": 40,
+      "at": 32484
+    },
+    {
+      "text": "Tropics in the middle of town, big serif",
+      "whole": false,
+      "x": 70,
+      "y": 247,
+      "at": 33260
+    },
+    {
+      "text": "Walk through two hundred kinds of fern, palm and orchid.",
+      "whole": false,
+      "x": 70,
+      "y": 395,
+      "at": 33970
+    },
+    {
+      "text": "Plan a visit white bold",
+      "whole": false,
+      "x": 120,
+      "y": 518,
+      "at": 34702
+    },
+    {
+      "text": "See the plants bold",
+      "whole": false,
+      "x": 320,
+      "y": 518,
+      "at": 35402
+    },
+    {
+      "text": "thick frame",
+      "whole": false,
+      "x": 655,
+      "y": 300,
+      "at": 36117
+    },
+    {
+      "text": "arch frame missing: thick green arch, all pale green inside",
+      "whole": false,
+      "x": 590,
+      "y": 300,
+      "at": 487497
+    },
+    {
+      "text": "exactly: Walk through two hundred kinds of fern, palm and orchid.",
+      "whole": false,
+      "x": 70,
+      "y": 460,
+      "at": 488261
+    }
+  ]
+}

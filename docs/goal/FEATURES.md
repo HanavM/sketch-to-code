@@ -1,6 +1,6 @@
 # What testing found missing
 
-350 gaps found by sketching. 187 built, 163 not built. 186 of the built ones have a demo; 162 give a measured before/after.
+355 gaps found by sketching. 187 built, 168 not built. 186 of the built ones have a demo; 162 give a measured before/after.
 
 A demo filmed at the time is used where there is one. The others (under `demos/`) are made by `tests/hand/filmpage.py` from that step's recorded session: the real strokes and notes redrawn in order, then the saved screenshots. They show the page the step was tested on, not always the single feature on its own.
 
@@ -8,9 +8,9 @@ A demo filmed at the time is used where there is one. The others (under `demos/`
 
 | gap found | found on | what was built | did it help | demo |
 |---|---|---|---|---|
-| A fix about a small part painted the big thing it sat on (hub gold turned the clock face gold) | r45 c2 (n266) | n270: a short note leads with what it is about; the build is told and a large repaint is sent back | Hub gold only, face stays cream in 1 replay; watchmaker 85.6 to 86.1, 2 fix Runs to 1; demo due in wrap-up | [watch](demos/n270.gif) |
-| A hollow button lost its outline and vanished | r45 c2 (n266) | n270: hollow means no fill and a visible outline; told and checked | Round gold outline in 1 replay; demo due in wrap-up | [watch](demos/n270.gif) |
-| A note about all the tracks reached one | r45 e3 (n266) | n270: a plural note means every one; told and checked | 7 of 7 tracks thick in 1 replay, was 2; mixer 93.3 to 90.8 from other causes (handles, bars); demo due in wrap-up | [watch](demos/n270.gif) |
+| A fix about a small part painted the big thing it sat on (hub gold turned the clock face gold) | r45 c2 (n266) | n270: a short note leads with what it is about; the build is told and a large repaint is sent back | Hub gold only, face stays cream in 1 replay; watchmaker 85.6 to 86.1, 2 fix Runs to 1 | [watch](demos/n270.gif) |
+| A hollow button lost its outline and vanished | r45 c2 (n266) | n270: hollow means no fill and a visible outline; told and checked | Round gold outline in 1 replay | [watch](demos/n270.gif) |
+| A note about all the tracks reached one | r45 e3 (n266) | n270: a plural note means every one; told and checked | 7 of 7 tracks thick in 1 replay, was 2; mixer 93.3 to 90.8 from other causes (handles, bars) | [watch](demos/n270.gif) |
 | Small taps of one colour on an empty page became a page fade instead of dots (star taps turned a navy page white and orange) | r46 c1 (n266) | n269: three or more scattered taps in one colour, beside another page colour, are dots where tapped; shown at once, told and checked | Rocket first build flat navy with six stars in place, 5 builds of 5; 90 to 93 with no fix, was unusable before fixes | [watch](demos/n269.gif) |
 | A tap inside a flame drawn as an open U counted as a page tap | r46 c1 (n269) | n269: a tap between the arms of an open mark, in its pen, is that mark's | Orange gone from the page in all builds | [watch](demos/n269.gif) |
 | A note saying the page is flat was ignored, and a whole-page note failed its Run | r46 c1 (n266) | n269: a flat-page note wins over a fade; a whole-page look goes on the page itself | Covered by tests; replay with the old fix notes ran, but may not have hit the old failure | [watch](demos/n269.gif) |
@@ -200,6 +200,11 @@ A demo filmed at the time is used where there is one. The others (under `demos/`
 
 | gap found | found on | note |
 |---|---|---|
+| The whole drawn arch outline was dropped, only the lines crossing it built, and no check saw it | r46 c2 (n272) | A one-line fix note brought it back, faceted |
+| A typed sentence was rewritten by the build ("two hundred kinds" became "two kinds") | r46 c2 (n272) | "exactly:" in a fix note restored it; nothing flagged it |
+| A fix note was ignored and nothing said so (first slider has no track) | r46 e5 (n272) | Page left wrong; score 66.7 |
+| A tap on a tiny legend dot in a card turned the card into a fade | r46 e5 (n272) | Preview showed it before Run; a fix note made it flat, the dots stayed lost |
+| A thick line was clipped flat by its own drawn box | r46 e3 (n272) | A fix note made the ring whole but lumpy |
 | A fix buried the header behind a band and nothing saw it; a retype got "I couldn't change" | r45 c4 (n271) | A drawn box round the empty strip fixed it first go |
 | Taps of several colours on a bare page made big rings, and the last colour painted the page | r46 c5 (n271) | Preview showed it before Run; fix notes recovered most of it |
 | A page colour note was ignored on a fix and nothing said so (page stayed white, not cream) | r46 c5 (n271) | Page stayed white |
