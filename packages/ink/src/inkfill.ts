@@ -182,7 +182,7 @@ export function inkFills<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(stro
  * band: that is painted rows (n91). In 170 earlier sketches this is the only mark of that kind, and a single
  * off-colour tap (a pale fill in a darker outline, 175 of them) stays a fill.
  */
-export interface TapDot { dotId: string; color: string; at: XY; target: string; box: BBox }
+export interface TapDot { dotId: string; color: string; at: XY; target: string; box: BBox; /** n269: on the bare page, not in a mark (target and box are empty). */ page?: boolean }
 /** How far off a straight column or row a hand's taps may land, px. */
 export const TAP_COLUMN_PX = 14
 
@@ -213,7 +213,58 @@ function dotsOf<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(taps: InkFill
     if (cuts.length && along.every((v, k) => k === 0 || cuts.some((c) => c > along[k - 1]! && c < v))) continue
     for (const f of mine) out.push({ dotId: f.dotId, color: f.color, at: f.at, target, box: hb })
   }
+  out.push(...pageDots(taps))
   return out
+}
+
+/**
+ * n269: several taps of one colour scattered over the bare page, beside a tap of another colour there, are dots.
+ *
+ * Round 46 c1 (rocket, n266): a navy page tap and six white star taps made the page a white fade, in the preview and in
+ * the build, so the headline vanished and "page flat navy" was ignored. A fade is one colour going into another, tapped once
+ * each: nobody says it with the same colour six times. So: three or more taps in one colour, at least PAGE_DOT_SPREAD_PX
+ * across and PAGE_DOT_APART_PX apart, with a page tap of another colour, are small dots where they landed, and the rest
+ * of the page taps colour the page. A ring round one tap stays a spotlight (n33).
+ */
+export const PAGE_DOT_SPREAD_PX = 100
+export const PAGE_DOT_APART_PX = 24
+function pageDots(taps: InkFill[]): TapDot[] {
+  const page = taps.filter((f) => f.target === null)
+  if (page.length < 4 || spotlight(page)) return []
+  const byColour = new Map<string, InkFill[]>()
+  for (const f of page) byColour.set(f.color.toLowerCase(), [...(byColour.get(f.color.toLowerCase()) ?? []), f])
+  if (byColour.size < 2) return []
+  const out: TapDot[] = []
+  for (const mine of byColour.values()) {
+    if (mine.length < 3) continue
+    const xs = mine.map((f) => f.at.x), ys = mine.map((f) => f.at.y)
+    if (Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) < PAGE_DOT_SPREAD_PX) continue
+    if (mine.some((f, k) => mine.some((g, j) => j > k && Math.hypot(f.at.x - g.at.x, f.at.y - g.at.y) < PAGE_DOT_APART_PX))) continue
+    for (const f of mine) out.push({ dotId: f.dotId, color: f.color, at: f.at, target: '', box: { x: 0, y: 0, w: 0, h: 0 }, page: true })
+  }
+  return out
+}
+
+/**
+ * n269: a flat page said in words wins over the taps. "page flat navy" with two page colours tapped: the first tap's colour,
+ * no fade. Only a note about the page itself, so "flat icons" or "flat card" say nothing here.
+ */
+const FLAT_PAGE = /\b(?:(?:page|background|backdrop|bg)\b[^,.;]{0,24}\b(?:flat|solid|plain)\b|(?:flat|solid|plain)\b[^,.;]{0,24}\b(?:page|background|backdrop|bg)\b|(?:page|background|backdrop|bg)\b[^,.;]{0,24}\bno (?:fade|gradient)\b|no (?:fade|gradient)\b[^,.;]{0,12}\b(?:page|background|backdrop|bg)\b)/i
+export function saysFlatPage(notes: readonly string[]): boolean { return notes.some((n) => FLAT_PAGE.test(n)) }
+export function flatPage(page: PageFill | null, notes: readonly string[]): PageFill | null {
+  if (!page || page.colors.length < 2 || page.split || page.slices || !saysFlatPage(notes)) return page
+  return { colors: [page.colors[0]!], css: page.colors[0]! }
+}
+
+/** n269: goes most of the way round something: ends apart by under half its ink, both ways at least 40 px across. */
+function openHolder(pts: ReadonlyArray<{ x: number; y: number }>): boolean {
+  if (pts.length < 4) return false
+  const b = bboxOf(pts as Point[])
+  if (b.w < 40 || b.h < 40) return false
+  let len = 0
+  for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i]!.x - pts[i - 1]!.x, pts[i]!.y - pts[i - 1]!.y)
+  const a = pts[0]!, z = pts[pts.length - 1]!
+  return Math.hypot(z.x - a.x, z.y - a.y) <= len * 0.5
 }
 
 /** n245: how far off a mark's line a tap in the same pen still counts as on its ink, px (a hand's slip, a ring's body). */
@@ -264,6 +315,17 @@ function allTaps<S extends Pick<Stroke, 'id' | 'points' | 'color'>>(strokes: S[]
         if (!mark?.color || mark.color.toLowerCase() !== d.color?.toLowerCase()) continue
         const dist = inkDistance(at, o.pts)
         if (dist < nearest) { best = o; nearest = dist }
+      }
+    }
+    // n269: a tap between the arms of an open mark, in its own pen, is that mark's (a flame drawn as a U under a rocket: its
+    // amber tap went to the page and the page turned into a fade). Open by a gap well short of the ink, and not a line.
+    if (!best) {
+      let bestArea = Infinity
+      for (const o of strokes) {
+        if (isFillDot(o) || !o.color || o.color.toLowerCase() !== d.color?.toLowerCase() || shapes.some((x) => x.id === o.id)) continue
+        if ((drawnAt.get(o.id) ?? 0) > tapAt || !openHolder(o.points)) continue
+        const ob = bboxOf(o.points)
+        if (ob.w * ob.h < bestArea && pointInPolygon({ ...at, t: 0 }, o.points as Point[])) { best = { id: o.id, pts: o.points as XY[], box: ob }; bestArea = ob.w * ob.h }
       }
     }
     const fill: InkFill = { dotId: d.id, color: d.color!, at, target: best?.id ?? null }

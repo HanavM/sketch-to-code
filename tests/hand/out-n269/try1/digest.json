@@ -1,0 +1,622 @@
+{
+  "round": 46,
+  "id": "c1-rocket-launch",
+  "version": 3,
+  "stopped": null,
+  "likeness": 92.6,
+  "colour": 0.9709233258482008,
+  "structure": 0.931152586433092,
+  "layout": 0.8925581311674933,
+  "strokes": {
+    "count": 19,
+    "pointsPerStroke": 3.1,
+    "simpleShare": 0.89,
+    "shapes": {
+      "dot": 13,
+      "box": 1,
+      "freehand": 2,
+      "circle": 3
+    },
+    "inkPx": 5177
+  },
+  "erased": 0,
+  "notesMoved": 0,
+  "words": 38,
+  "notes": 8,
+  "longestNote": 10,
+  "noteTexts": [
+    "Liftoff Camp bold white",
+    "Missions",
+    "Crew",
+    "Apply",
+    "Build a rocket / this summer huge bold white",
+    "Two weeks of science, engines and one big launch day.",
+    "Join the crew white bold",
+    "white dots are stars, page flat navy"
+  ],
+  "time": {
+    "firstStrokeToDoneS": 288,
+    "firstReadingS": 78,
+    "readS": [
+      47
+    ],
+    "buildS": [
+      207
+    ],
+    "sketchingS": 34
+  },
+  "corrections": 0,
+  "runs": 1,
+  "picks": 0,
+  "tokens": {
+    "input": 83021,
+    "cacheRead": 295350,
+    "output": 22315,
+    "billed": 105336
+  },
+  "events": [
+    {
+      "op": "pen",
+      "color": "#0b1f47",
+      "at": 0
+    },
+    {
+      "op": "stroke",
+      "at": 467
+    },
+    {
+      "op": "pen",
+      "color": "#13285e",
+      "at": 843
+    },
+    {
+      "op": "stroke",
+      "at": 8940
+    },
+    {
+      "op": "stroke",
+      "at": 9407
+    },
+    {
+      "op": "pen",
+      "color": "#ffae1f",
+      "at": 9772
+    },
+    {
+      "op": "stroke",
+      "at": 11175
+    },
+    {
+      "op": "stroke",
+      "at": 11638
+    },
+    {
+      "op": "pen",
+      "color": "#f24545",
+      "at": 12003
+    },
+    {
+      "op": "stroke",
+      "at": 13608
+    },
+    {
+      "op": "stroke",
+      "at": 14070
+    },
+    {
+      "op": "pen",
+      "color": "#f0f3f8",
+      "at": 14439
+    },
+    {
+      "op": "stroke",
+      "at": 17623
+    },
+    {
+      "op": "stroke",
+      "at": 18088
+    },
+    {
+      "op": "pen",
+      "color": "#0b1f47",
+      "at": 18454
+    },
+    {
+      "op": "stroke",
+      "at": 19456
+    },
+    {
+      "op": "pen",
+      "color": "#38bdf8",
+      "at": 19825
+    },
+    {
+      "op": "stroke",
+      "at": 20292
+    },
+    {
+      "op": "pen",
+      "color": "#ffffff",
+      "at": 20660
+    },
+    {
+      "op": "stroke",
+      "at": 21124
+    },
+    {
+      "op": "stroke",
+      "at": 21590
+    },
+    {
+      "op": "stroke",
+      "at": 22058
+    },
+    {
+      "op": "stroke",
+      "at": 22521
+    },
+    {
+      "op": "stroke",
+      "at": 22988
+    },
+    {
+      "op": "stroke",
+      "at": 23457
+    },
+    {
+      "op": "pen",
+      "color": "#ff7a1a",
+      "at": 23821
+    },
+    {
+      "op": "stroke",
+      "at": 25754
+    },
+    {
+      "op": "stroke",
+      "at": 26222
+    },
+    {
+      "op": "note",
+      "at": 26893
+    },
+    {
+      "op": "note",
+      "at": 27519
+    },
+    {
+      "op": "note",
+      "at": 28122
+    },
+    {
+      "op": "note",
+      "at": 28727
+    },
+    {
+      "op": "note",
+      "at": 29425
+    },
+    {
+      "op": "note",
+      "at": 30125
+    },
+    {
+      "op": "note",
+      "at": 30789
+    },
+    {
+      "op": "note",
+      "at": 31489
+    },
+    {
+      "op": "run",
+      "at": 31602
+    }
+  ],
+  "strokesDrawn": [
+    {
+      "way": [
+        [
+          500,
+          650
+        ]
+      ],
+      "n": 1,
+      "at": 467
+    },
+    {
+      "way": [
+        [
+          1,
+          800
+        ],
+        [
+          1278,
+          800
+        ],
+        [
+          1278,
+          898
+        ],
+        [
+          1,
+          898
+        ],
+        [
+          1,
+          800
+        ]
+      ],
+      "n": 459,
+      "at": 8940
+    },
+    {
+      "way": [
+        [
+          640,
+          850
+        ]
+      ],
+      "n": 1,
+      "at": 9407
+    },
+    {
+      "way": [
+        [
+          880,
+          610
+        ],
+        [
+          880,
+          720
+        ],
+        [
+          892,
+          748
+        ],
+        [
+          920,
+          760
+        ],
+        [
+          948,
+          748
+        ],
+        [
+          960,
+          720
+        ],
+        [
+          960,
+          610
+        ]
+      ],
+      "n": 57,
+      "at": 11175
+    },
+    {
+      "way": [
+        [
+          920,
+          690
+        ]
+      ],
+      "n": 1,
+      "at": 11638
+    },
+    {
+      "way": [
+        [
+          920,
+          110
+        ],
+        [
+          980,
+          240
+        ],
+        [
+          860,
+          240
+        ],
+        [
+          920,
+          110
+        ]
+      ],
+      "n": 69,
+      "at": 13608
+    },
+    {
+      "way": [
+        [
+          920,
+          190
+        ]
+      ],
+      "n": 1,
+      "at": 14070
+    },
+    {
+      "way": [
+        [
+          860,
+          240
+        ],
+        [
+          870,
+          230
+        ],
+        [
+          970,
+          230
+        ],
+        [
+          980,
+          240
+        ],
+        [
+          980,
+          600
+        ],
+        [
+          970,
+          610
+        ],
+        [
+          870,
+          610
+        ],
+        [
+          860,
+          600
+        ],
+        [
+          860,
+          240
+        ]
+      ],
+      "n": 163,
+      "at": 17623
+    },
+    {
+      "way": [
+        [
+          920,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 18088
+    },
+    {
+      "way": [
+        [
+          920,
+          300
+        ],
+        [
+          941,
+          309
+        ],
+        [
+          950,
+          330
+        ],
+        [
+          941,
+          351
+        ],
+        [
+          920,
+          360
+        ],
+        [
+          899,
+          351
+        ],
+        [
+          890,
+          330
+        ],
+        [
+          899,
+          309
+        ],
+        [
+          920,
+          300
+        ]
+      ],
+      "n": 33,
+      "at": 19456
+    },
+    {
+      "way": [
+        [
+          920,
+          330
+        ]
+      ],
+      "n": 1,
+      "at": 20292
+    },
+    {
+      "way": [
+        [
+          703,
+          143
+        ]
+      ],
+      "n": 1,
+      "at": 21124
+    },
+    {
+      "way": [
+        [
+          763,
+          423
+        ]
+      ],
+      "n": 1,
+      "at": 21590
+    },
+    {
+      "way": [
+        [
+          693,
+          643
+        ]
+      ],
+      "n": 1,
+      "at": 22058
+    },
+    {
+      "way": [
+        [
+          1063,
+          123
+        ]
+      ],
+      "n": 1,
+      "at": 22521
+    },
+    {
+      "way": [
+        [
+          1123,
+          183
+        ]
+      ],
+      "n": 1,
+      "at": 22988
+    },
+    {
+      "way": [
+        [
+          1153,
+          473
+        ]
+      ],
+      "n": 1,
+      "at": 23457
+    },
+    {
+      "way": [
+        [
+          94,
+          470
+        ],
+        [
+          264,
+          470
+        ],
+        [
+          284,
+          480
+        ],
+        [
+          294,
+          500
+        ],
+        [
+          284,
+          520
+        ],
+        [
+          264,
+          530
+        ],
+        [
+          94,
+          530
+        ],
+        [
+          74,
+          520
+        ],
+        [
+          64,
+          500
+        ],
+        [
+          74,
+          480
+        ],
+        [
+          94,
+          470
+        ]
+      ],
+      "n": 89,
+      "at": 25754
+    },
+    {
+      "way": [
+        [
+          90,
+          500
+        ]
+      ],
+      "n": 1,
+      "at": 26222
+    }
+  ],
+  "notesTyped": [
+    {
+      "text": "Liftoff Camp bold white",
+      "whole": false,
+      "x": 64,
+      "y": 26,
+      "at": 26893
+    },
+    {
+      "text": "Missions",
+      "whole": false,
+      "x": 1016,
+      "y": 28,
+      "at": 27519
+    },
+    {
+      "text": "Crew",
+      "whole": false,
+      "x": 1108,
+      "y": 28,
+      "at": 28122
+    },
+    {
+      "text": "Apply",
+      "whole": false,
+      "x": 1176,
+      "y": 28,
+      "at": 28727
+    },
+    {
+      "text": "Build a rocket / this summer huge bold white",
+      "whole": false,
+      "x": 64,
+      "y": 220,
+      "at": 29425
+    },
+    {
+      "text": "Two weeks of science, engines and one big launch day.",
+      "whole": false,
+      "x": 64,
+      "y": 376,
+      "at": 30125
+    },
+    {
+      "text": "Join the crew white bold",
+      "whole": false,
+      "x": 122,
+      "y": 490,
+      "at": 30789
+    },
+    {
+      "text": "white dots are stars, page flat navy",
+      "whole": false,
+      "x": 560,
+      "y": 300,
+      "at": 31489
+    }
+  ]
+}

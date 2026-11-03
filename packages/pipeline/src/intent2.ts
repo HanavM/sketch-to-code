@@ -12,7 +12,7 @@ import { narrowDelete } from './narrowdelete.js'
 import {
   analyzeStrokes, bboxOf, bboxUnion, encodePng, pathLength,
   renderScene, resampleBySpacing, toSvgPath,
-  isFillDot, inkFills, pageFill, markFill, splitRegions, splitCss, tapBands,
+  isFillDot, inkFills, pageFill, flatPage, markFill, splitRegions, splitCss, tapBands,
   type BBox, type InkFill, type SliceChart, type SplitRegion, type Stroke,
 } from '@s2c/ink'
 import { asksFade, typedSlices } from './slicechart.js'
@@ -1090,7 +1090,7 @@ export function groundInterpretation(
       })
       targets = targets.filter((t, i) => targets.findIndex((u) => u.domId === t.domId) === i)
     }
-    const dest = a.destElement ? (toTarget(a.destElement) ?? undefined) : undefined
+    let dest = a.destElement ? (toTarget(a.destElement) ?? undefined) : undefined
 
     // region + paths from cited strokes — geometry computed here, never taken
     // from the model
@@ -1228,6 +1228,14 @@ export function groundInterpretation(
     if (a.kind === 'swap' && targets.length !== 2) {
       rejected.push(`swap action needs exactly 2 targets, got ${targets.length}`)
       continue
+    }
+    // n269: a look for the whole page names no block and no ink: it goes on the page itself. Round 46 c1: "whole page
+    // background flat navy, no fade" failed its Run after 243 s with this refusal; "page all navy" got through.
+    if ((a.kind === 'add' || a.kind === 'design') && !dest && !region && (isPageLookNote(a.instruction) || ev.notes.some((n) => isPageLookNote(n.text)))) {
+      // the biggest thing on the page, the one with a place in the source first (the menu of nearby elements may not hold it)
+      const root = snap.nodes.filter((n) => n.tag !== 'html' && n.tag !== 'head' && n.rect.w * n.rect.h > 0)
+        .sort((p, q) => q.rect.w * q.rect.h - p.rect.w * p.rect.h || Number(!!q.srcLoc) - Number(!!p.srcLoc))[0]
+      if (root) { if (!ev.elements.has(root.id)) ev.elements.set(root.id, root); dest = toTarget(root.id) ?? undefined }
     }
     if ((a.kind === 'add' || a.kind === 'design') && !dest && !region) {
       rejected.push(`${a.kind} action with neither container nor strokes`)
@@ -1556,7 +1564,8 @@ export function groundInterpretation(
   // claimed it — an unattached one still describes this run.
   const runNotes = ev.notes.filter((n) => !attached.has(n.id)).map((n) => n.text)
   const pageNotes = ev.notes.filter((n) => isPageLookNote(n.text)).map((n) => n.text)
-  const page = pageFill(ev.fills ?? [])
+  // n269: "page flat navy" wins over a fade the taps would make
+  const page = flatPage(pageFill(ev.fills ?? []), pageNotes)
   if (page) dropPageInk(actions, page.colors)
   // n168: a short heading typed just above an open list starts at the list's left edge
   const placedNotes0 = alignListHeadings(markOpenRows(listUnderHeading(ev.notes

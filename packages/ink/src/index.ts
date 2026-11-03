@@ -35,5 +35,5 @@ export {
   besideSentence,
 } from './notefocus.js'
 export type { SliceChart, SlicePart } from './inkfill.js'
-export { isFillDot, inkFills, tapDots, TAP_COLUMN_PX, pageFill, spotlight, markFill, sliceChart, sliceShares, sliceCss, sliceWedges, splitRegions, dividerSplit, splitCss, clipHalf, tapBands, FILL_DOT_PX, RECOLOUR_PX } from './inkfill.js'
+export { isFillDot, inkFills, tapDots, TAP_COLUMN_PX, pageFill, flatPage, saysFlatPage, spotlight, markFill, sliceChart, sliceShares, sliceCss, sliceWedges, splitRegions, dividerSplit, splitCss, clipHalf, tapBands, FILL_DOT_PX, RECOLOUR_PX } from './inkfill.js'
 export type { TapDot, InkFill, PageFill, SplitRegion, FillSplit, TapBands } from './inkfill.js'

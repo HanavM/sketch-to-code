@@ -224,6 +224,8 @@ const crosses = (a: { x: number; y: number; w: number; h: number }, b: { x: numb
 function painted(n: DomNode, what: 'background' | 'text'): string[] {
   if (what === 'text') return [n.style.color]
   const out = [n.style.backgroundColor]
+  // n269: a shape painted as an svg path is painted. Rocket: a filled flame and body failed this check, and the repair it asked for broke the body.
+  if (n.style.svgFill) out.push(n.style.svgFill)
   const img = n.style.backgroundImage
   if (img) for (const m of img.matchAll(/(?:rgba?|oklch|oklab|hsla?)\([^)]*\)|#[0-9a-f]{3,8}\b/gi)) out.push(m[0])
   return out

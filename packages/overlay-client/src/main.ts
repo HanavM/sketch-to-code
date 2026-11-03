@@ -4427,7 +4427,7 @@ class Overlay {
       this.renderInk()
       this.sync()
       const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
-      if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (taps in a line are dots, never a fill)`)
+      if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (several taps in one colour are dots, never a fill)`)
       else this.status(f?.target ? `filled this mark ${this.pen} (tapped through the toolbar)` : `page colour ${this.pen} (tapped through the toolbar)${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' — spotlight: the centre tap glows out to the taps round it' : ' — gradient from the first tap to this one') : ''}`)
       this.scheduleAuto()
       return
@@ -8508,7 +8508,7 @@ class Overlay {
         this.renderInk()
         this.sync()
         const f = inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }).pop()
-        if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (taps in a line are dots, never a fill)`)
+        if (this.lastTapIsDot()) this.status(`small ${this.pen} dot here (several taps in one colour are dots, never a fill)`)
         else this.status(f?.target ? `filled ${f.region ? 'the part this curve cuts off' : 'this mark'} ${this.pen}${((look) => look?.split ? ' (this side of the line drawn across it)' : look?.slices ? ` (a slice of the chart, ${String(look.slices.parts.length)} slices now)` : (look?.colors.length ?? 0) > 1 ? ' (fade from the first tap on it to this one)' : '')(markFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }), f.target, this.strokes))}` : `page colour ${this.pen}${(pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.colors.length ?? 0) > 1 ? (pageFill(inkFills(this.strokes, { w: window.innerWidth, h: window.innerHeight }))?.radial ? ' (spotlight: the centre tap glows out to the taps round it)' : ' (gradient from the first tap to this one)') : ''}`)
         this.scheduleAuto()
         return

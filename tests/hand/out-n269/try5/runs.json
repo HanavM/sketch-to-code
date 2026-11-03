@@ -1,0 +1,477 @@
+[
+ {
+  "engine": "model",
+  "mode": "design",
+  "checkpoint": "4d57fa0bd86748c2b48da418c72b1ae46dbe0ea4",
+  "changedFiles": [
+   "src/App.tsx",
+   "src/components/Rocket.tsx"
+  ],
+  "reading": "The sketch lays out a space-camp landing page: a navy page background sprinkled with white star dots, a header with a bold 'Liftoff Camp' logo and 'Missions / Crew / Apply' nav links, a huge hero headline 'Build a rocket this summer' with a supporting sentence, a colourful rocket icon (red nose, white body with a blue window, orange flame) next to the copy, an orange 'Join the crew' pill button, and a full-width navy bar along the very bottom of the page.",
+  "verification": [
+   {
+    "kind": "design",
+    "index": 0,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "add",
+    "index": 1,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "add",
+    "index": 2,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "add",
+    "index": 3,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "add",
+    "index": 4,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <main> at (0,0) 1280x900 matches the sketch region",
+     "bestCandidate": {
+      "tag": "main",
+      "srcLoc": "src/App.tsx:5:5",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "add",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:7:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "anchor",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "<div> src/components/Rocket.tsx:18:5 at (859,110) 122x650 sits on the drawn shape",
+     "claimed": "e20"
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 5,
+    "verdict": {
+     "satisfied": true,
+     "reason": "2 drawn boxes built where drawn",
+     "marks": [
+      {
+       "strokeId": "s5",
+       "drawn": {
+        "x": 860,
+        "y": 110,
+        "w": 121,
+        "h": 130
+       },
+       "built": {
+        "x": 860,
+        "y": 110,
+        "w": 121,
+        "h": 130
+       },
+       "dx": 0,
+       "dy": 0
+      },
+      {
+       "strokeId": "s9",
+       "drawn": {
+        "x": 891,
+        "y": 300,
+        "w": 58,
+        "h": 60
+       },
+       "built": {
+        "x": 891,
+        "y": 300,
+        "w": 58,
+        "h": 60
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 5,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#f24545 is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "composition",
+    "index": 5,
+    "score": 0.9626855918606754,
+    "massSimilarity": 0.9466937026581077,
+    "flaws": [],
+    "notes": []
+   },
+   {
+    "kind": "add",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:7:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 6,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s17",
+       "drawn": {
+        "x": 65,
+        "y": 469,
+        "w": 229,
+        "h": 61
+       },
+       "built": {
+        "x": 65,
+        "y": 469,
+        "w": 229,
+        "h": 61
+       },
+       "dx": 0,
+       "dy": 0
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 6,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#ff7a1a is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "add",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "new <div> at (0,0) 1280x900 matches the sketch region (placed by the page layout)",
+     "bestCandidate": {
+      "tag": "div",
+      "srcLoc": "src/App.tsx:7:7",
+      "rect": {
+       "x": 0,
+       "y": 0,
+       "w": 1280,
+       "h": 900
+      }
+     }
+    }
+   },
+   {
+    "kind": "marks",
+    "index": 7,
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 drawn box built where drawn",
+     "marks": [
+      {
+       "strokeId": "s1",
+       "drawn": {
+        "x": 1,
+        "y": 799,
+        "w": 1277,
+        "h": 99
+       },
+       "built": {
+        "x": 0,
+        "y": 801,
+        "w": 1280,
+        "h": 99
+       },
+       "dx": 1,
+       "dy": 2
+      }
+     ]
+    }
+   },
+   {
+    "kind": "colour",
+    "index": 7,
+    "satisfied": true,
+    "nearest": 0,
+    "reason": "#13285e is on the page (ΔE 0.0)"
+   },
+   {
+    "kind": "solids",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 coloured plain shape built solid in their colour"
+    }
+   },
+   {
+    "kind": "outlines",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 shape built to the drawn outline"
+    }
+   },
+   {
+    "kind": "readable",
+    "verdict": {
+     "satisfied": true,
+     "reason": "3 pieces of text read on what is behind them"
+    }
+   },
+   {
+    "kind": "typed-spot",
+    "verdict": {
+     "satisfied": true,
+     "reason": "5 typed words where typed"
+    }
+   },
+   {
+    "kind": "own-words",
+    "verdict": {
+     "satisfied": true,
+     "reason": "only typed words, none on top of each other",
+     "invented": [],
+     "overlaps": [],
+     "echoes": []
+    }
+   },
+   {
+    "kind": "directions",
+    "verdict": {
+     "satisfied": true,
+     "reason": "9 directions and look tails kept off the page"
+    }
+   },
+   {
+    "kind": "row-data",
+    "verdict": {
+     "satisfied": true,
+     "reason": "1 row note filled as data: cells apart, rows in order, counts kept"
+    }
+   },
+   {
+    "kind": "tap-dots",
+    "verdict": {
+     "satisfied": true,
+     "reason": "6 taps are small dots, nothing painted round them"
+    }
+   },
+   {
+    "kind": "ink-colours",
+    "verdict": {
+     "satisfied": true,
+     "reason": "7 colours from the ink on the page",
+     "checks": [
+      {
+       "what": "page",
+       "want": "#0b1f47",
+       "best": 0,
+       "ok": true
+      },
+      {
+       "what": "the outline drawn at (860,110) 121x130",
+       "want": "#f24545",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (859,230) 122x381",
+       "want": "#f0f3f8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the ring drawn at (890,300) 60x60",
+       "want": "#38bdf8",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the outline drawn at (880,610) 81x150",
+       "want": "#ffae1f",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (65,469) 230x61",
+       "want": "#ff7a1a",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      },
+      {
+       "what": "the box drawn at (1,799) 1277x99",
+       "want": "#13285e",
+       "best": 0,
+       "ok": true,
+       "strength": 1
+      }
+     ]
+    }
+   }
+  ],
+  "tokens": {
+   "input": 30831,
+   "cacheRead": 512259,
+   "output": 16624
+  },
+  "sends": [
+   {
+    "attempt": "1",
+    "kind": "build",
+    "billed": 47455,
+    "output": 16624,
+    "cacheRead": 512259,
+    "toolCalls": 15,
+    "tools": [
+     "Read src/App.tsx",
+     "Read components/Rocket.tsx",
+     "Glob",
+     "Read src/index.css",
+     "Edit components/Rocket.tsx",
+     "Write src/App.tsx",
+     "Edit components/Rocket.tsx",
+     "Read src/main.tsx",
+     "Glob",
+     "Glob",
+     "Edit components/Rocket.tsx",
+     "Read components/Rocket.tsx",
+     "Edit components/Rocket.tsx",
+     "Read s2c-hand-app/package.json",
+     "Read src/App.tsx"
+    ],
+    "ms": 183514
+   }
+  ],
+  "codemod": {
+   "handled": [],
+   "refused": []
+  },
+  "backend": {
+   "applied": [],
+   "refused": []
+  },
+  "fidelity": {
+   "resemblance": 0.5,
+   "keep": {
+    "asymmetry": true,
+    "rhythm": true,
+    "proportions": true,
+    "placement": true
+   },
+   "fill": "filled",
+   "style": "auto",
+   "palette": "app"
+  },
+  "candidates": null,
+  "finishing": [
+   {
+    "file": "src/components/Rocket.tsx",
+    "edits": [
+     {
+      "kind": "position-yields",
+      "detail": "a hard-coded relative now yields to an absolute/fixed className"
+     }
+    ]
+   }
+  ],
+  "repairStalled": null,
+  "buildStalled": null
+ }
+]
